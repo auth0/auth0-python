@@ -4,10 +4,11 @@ import urllib
 import json
 
 ## CHANGE THIS
+PORT = 3000
 CLIENT_ID = "YOUR_CLIENT_ID"
 CLIENT_SECRET = "YOUR_CLIENT_SECRET"
-DOMAIN = "YOURS.auth0.com"
-CALLBACK_URL = "http://localhost:8080/callback"
+DOMAIN = "your-domain.auth0.com"
+CALLBACK_URL = "http://localhost:%d/callback" % PORT
 
 MAIN_PAGE_HTML = """\
 <html>
@@ -58,3 +59,11 @@ application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/callback', LoginCallback)
 ], debug=True)
+
+def main():
+    from paste import httpserver
+    httpserver.serve(application, host='127.0.0.1', port=PORT)
+
+if __name__ == '__main__':
+    main()
+
