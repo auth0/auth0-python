@@ -1,6 +1,6 @@
 ##auth0-py
 
-Example of integrating a Python Web App with Auth0.
+Example of integrating Auth0 with a Python Web App.
 
 ## Install
 
