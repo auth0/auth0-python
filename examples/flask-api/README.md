@@ -16,6 +16,6 @@ AUTH0_CLIENT_SECRET=myCoolSecret
 AUTH0_CLIENT_ID=myCoolClientId
 ````
 
-Once you've set those 2 enviroment variables, just run `python server.py` and try calling [http://localhost:5000/ping](http://localhost:5000/ping)
+Once you've set those 2 enviroment variables, just run `python server.py` and try calling [http://localhost:3001/ping](http://localhost:3001/ping)
 
-You can then try to do a GET to [http://localhost:5000/secured/ping](http://localhost:5000/secured/ping) which will throw an error if you don't send the JWT in the header.
+You can then try to do a GET to [http://localhost:3001/secured/ping](http://localhost:3001/secured/ping) which will throw an error if you don't send the JWT in the header.
