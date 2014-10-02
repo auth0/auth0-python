@@ -1,5 +1,5 @@
 # Auth0 + Python + Flask API Seed
-This is the seed project you need to use if you're going to create a Python + Flask API. You'll mostly use this API either for a SPA or a Mobile app. If you just want to create a Regular Python WebApp, please check [this other seed project]()
+This is the seed project you need to use if you're going to create a Python + Flask API. You'll mostly use this API either for a SPA or a Mobile app. If you just want to create a Regular Python WebApp, please check [this other seed project](https://github.com/auth0/auth0-python/tree/master/examples/flask-webapp)
 
 This example is deployed at Heroku at http://auth0-python-flaskapi-sample.herokuapp.com/ping
 
