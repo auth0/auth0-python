@@ -15,7 +15,7 @@
         <script>
         var AUTH0_CLIENT_ID = '{{env.AUTH0_CLIENT_ID}}';
         var AUTH0_DOMAIN = '{{env.AUTH0_DOMAIN}}';
-        var AUTH0_CALLBACK_URL = '{{env.AUTH0_CALLBACK_URL}}';
+        var AUTH0_CALLBACK_URL = '{{env.AUTH0_CALLBACK_URL if env.AUTH0_CALLBACK_URL else "http://localhost:3000/callback" }}';
         </script>
         <script src="/public/app.js"> </script>
         <link href="/public/app.css" rel="stylesheet">
