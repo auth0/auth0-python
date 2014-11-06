@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     $('.btn-login').click(function(e) {
       e.preventDefault();
-      lock.showSignin({
+      lock.show({
         callbackURL: AUTH0_CALLBACK_URL
       });
     });
