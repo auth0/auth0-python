@@ -1,7 +1,18 @@
-import webapp2
-import urllib2
-import urllib
 import json
+import os
+import urllib
+import urllib2
+import webapp2
+
+from dotenv import Dotenv
+
+# Load Env variables
+env = None
+
+try:
+  env = Dotenv('./.env')
+except IOError:
+  env = os.environ
 
 ## CHANGE THIS
 PORT = 3000
@@ -16,7 +27,7 @@ MAIN_PAGE_HTML = """\
     <script src="http://cdn.auth0.com/js/lock-6.6.1.min.js"></script>
     <script type="text/javascript">
 
-      var lock = new Auth0Lock({'%s', '%s'});
+      var lock = new Auth0Lock('%s', '%s');
 
     </script>
     <button onclick="lock.show()">Login</button>
