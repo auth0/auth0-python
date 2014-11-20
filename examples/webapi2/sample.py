@@ -13,20 +13,16 @@ CALLBACK_URL = "http://localhost:%d/callback" % PORT
 MAIN_PAGE_HTML = """\
 <html>
   <body>
-    <script src="https://cdn.auth0.com/w2/auth0-widget-3.0.min.js"></script>
+    <script src="http://cdn.auth0.com/js/lock-6.6.1.min.js"></script>
     <script type="text/javascript">
-      
-      var widget = new Auth0Widget({
-        domain:         '%s',
-        clientID:       '%s',
-        callbackURL:    '%s'
-      });
-      
+
+      var lock = new Auth0Lock({'%s', '%s'});
+
     </script>
-    <button onclick="widget.signin()">Login</button>
+    <button onclick="lock.show()">Login</button>
   </body>
 </html>
-""" % (DOMAIN, CLIENT_ID, CALLBACK_URL)
+""" % (CLIENT_ID, DOMAIN)
 
 class MainPage(webapp2.RequestHandler):
 
@@ -38,16 +34,16 @@ class LoginCallback(webapp2.RequestHandler):
     def get(self):
       code = self.request.get("code")
       base_url = "https://{domain}".format(domain=DOMAIN)
-      data = urllib.urlencode([('client_id', CLIENT_ID), 
-                               ('redirect_uri', CALLBACK_URL), 
+      data = urllib.urlencode([('client_id', CLIENT_ID),
+                               ('redirect_uri', CALLBACK_URL),
                                ('client_secret', CLIENT_SECRET),
-                               ('code', code), 
+                               ('code', code),
                                ('grant_type', 'authorization_code')])
       req = urllib2.Request(base_url + "/oauth/token", data)
       response = urllib2.urlopen(req)
       oauth = json.loads(response.read())
       userinfo = base_url + "/userinfo?access_token=" + oauth['access_token']
-      
+
       response = urllib2.urlopen(userinfo)
       data = response.read()
 
