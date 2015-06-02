@@ -12,6 +12,8 @@ env = None
 
 try:
     env = Dotenv('./.env')
+    client_id = env["AUTH0_CLIENT_ID"]
+    client_secret = env["AUTH0_CLIENT_SECRET"]
 except IOError:
   env = os.environ
 
@@ -23,9 +25,7 @@ current_user = LocalProxy(lambda: _request_ctx_stack.top.current_user)
 # Authentication attribute/annotation
 def authenticate(error):
   resp = jsonify(error)
-
   resp.status_code = 401
-
   return resp
 
 def requires_auth(f):
@@ -48,21 +48,20 @@ def requires_auth(f):
     try:
         payload = jwt.decode(
             token,
-            base64.b64decode(env["AUTH0_CLIENT_SECRET"].replace("_","/").replace("-","+"))
+            base64.b64decode(client_secret.replace("_","/").replace("-","+")),
+            audience=client_id
         )
     except jwt.ExpiredSignature:
         return authenticate({'code': 'token_expired', 'description': 'token is expired'})
+    except jwt.InvalidAudienceError:
+        return authenticate({'code': 'invalid_audience', 'description': 'incorrect audience, expected: ' + client_id})
     except jwt.DecodeError:
         return authenticate({'code': 'token_invalid_signature', 'description': 'token signature is invalid'})
-
-    if payload['aud'] != env["AUTH0_CLIENT_ID"]:
-      return authenticate({'code': 'invalid_audience', 'description': 'the audience does not match. expected: ' + CLIENT_ID})
 
     _request_ctx_stack.top.current_user = user = payload
     return f(*args, **kwargs)
 
   return decorated
-
 
 # Controllers API
 @app.route("/ping")
@@ -75,10 +74,6 @@ def ping():
 @requires_auth
 def securedPing():
     return "All good. You only get this message if you're authenticated"
-
-
-
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port = int(os.environ.get('PORT', 3001)))
