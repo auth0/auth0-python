@@ -15,4 +15,7 @@ AUTH0_CLIENT_ID=myCoolClientId
 AUTH0_DOMAIN=samples.auth0.com
 AUTH0_CALLBACK_URL=http://localhost:3000/auth/auth0/callback
 ````
+
+If you're using Windows, you should add a newline to the .env file if you receive an issue regarding the callback URL being truncated, for example, you see callbac instead of callback. 
+
 Once you've set those 4 enviroment variables, just run `python server.py` and try calling [http://localhost:3000/](http://localhost:3000/)
