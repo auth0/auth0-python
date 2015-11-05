@@ -75,7 +75,9 @@ class RestClient(object):
             'Authorization': 'Bearer %s' % self.jwt,
         }
 
-        url = self.endpoint + '/%s' % id
+        url = self.endpoint
+        if id is not None:
+            url += '/%s' % id
 
         response = requests.delete(url, headers=headers)
 
