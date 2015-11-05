@@ -2,7 +2,14 @@ from .rest import RestClient
 
 
 class Connection(object):
-    """Auth0 connection endpoints"""
+    """Auth0 connection endpoints
+
+    Args:
+        domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
+        jwt_token (str): An API token created with your account's global
+            keys. You can create one by using the token generator in the
+            API Explorer: https://auth0.com/docs/api/v2
+    """
 
     def __init__(self, domain, jwt_token):
         url = 'https://%s/api/v2/connections' % domain
@@ -83,6 +90,11 @@ class Connection(object):
         return self.client.patch(id=id, data=body)
 
     def create(self, body):
-        """Creates a new connection. """
+        """Creates a new connection.
+
+        Args:
+            body (dict): Attributes used to create the connection. Mandatory
+                attributes are: 'name' and 'strategy'.
+        """
 
         return self.client.post(data=body)
