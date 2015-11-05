@@ -92,3 +92,40 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'message')
+
+    @mock.patch('requests.patch')
+    def test_patch(self, mock_patch):
+        rc = RestClient(endpoint='the-url', jwt='a-token')
+        headers = {'Authorization': 'Bearer a-token',
+                   'Content-Type': 'application/json'}
+
+        mock_patch.return_value.text = '["a", "b"]'
+
+        data = {'some': 'data'}
+
+        response = rc.patch(data=data)
+        mock_patch.assert_called_with('the-url', data=json.dumps(data),
+                                      headers=headers)
+
+        self.assertEqual(response, ['a', 'b'])
+
+        response = rc.patch(data=data, id='ID')
+        mock_patch.assert_called_with('the-url/ID', data=json.dumps(data),
+                                      headers=headers)
+
+        self.assertEqual(response, ['a', 'b'])
+
+    @mock.patch('requests.patch')
+    def test_patch_errors(self, mock_patch):
+        rc = RestClient(endpoint='the-url', jwt='a-token')
+
+        mock_patch.return_value.text = '{"statusCode": 999,' \
+                                       ' "errorCode": "code",' \
+                                       ' "message": "message"}'
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.patch()
+
+        self.assertEqual(context.exception.status_code, 999)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
