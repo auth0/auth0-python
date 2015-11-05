@@ -11,6 +11,20 @@ class Client(object):
         self.client = RestClient(endpoint=url, jwt=jwt_token)
 
     def all(self, fields=[], include_fields=True):
+        """Retrieves a list of all client applications.
+
+        Important: The client_secret and encryption_key attributes can only be
+        retrieved with the read:client_keys scope.
+
+        Args:
+           fields (list of str, optional): A list of fields to include or
+              exclude from the result (depending on include_fields). Empty to
+              retrieve all fields.
+
+           include_fields (bool, optional): True if the fields specified are
+              to be include in the result, False otherwise.
+        """
+
         params = {'fields': ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
