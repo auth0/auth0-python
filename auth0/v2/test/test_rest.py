@@ -129,3 +129,30 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'message')
+
+    @mock.patch('requests.delete')
+    def test_delete(self, mock_delete):
+        rc = RestClient(endpoint='the-url', jwt='a-token')
+        headers = {'Authorization': 'Bearer a-token'}
+
+        mock_delete.return_value.text = '["a", "b"]'
+
+        response = rc.delete(id='ID')
+        mock_delete.assert_called_with('the-url/ID', headers=headers)
+
+        self.assertEqual(response, ['a', 'b'])
+
+    @mock.patch('requests.delete')
+    def test_delete_errors(self, mock_delete):
+        rc = RestClient(endpoint='the-url', jwt='a-token')
+
+        mock_delete.return_value.text = '{"statusCode": 999,' \
+                                        ' "errorCode": "code",' \
+                                        ' "message": "message"}'
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.delete(id='ID')
+
+        self.assertEqual(context.exception.status_code, 999)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
