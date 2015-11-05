@@ -11,23 +11,33 @@ class TestRest(unittest.TestCase):
         rc = RestClient(endpoint='the-url', jwt='a-token')
         headers = {'Authorization': 'Bearer a-token'}
 
-        mock_get.return_value.text = '{}'
+        mock_get.return_value.text = '["a", "b"]'
 
-        rc.get()
+        response = rc.get()
         mock_get.assert_called_with('the-url', params={}, headers=headers)
 
-        rc.get(id='ID')
+        self.assertEqual(response, ['a', 'b'])
+
+        response = rc.get(id='ID')
         mock_get.assert_called_with('the-url/ID', params={}, headers=headers)
 
-        rc.get(params={'A': 'param', 'B': 'param'})
+        self.assertEqual(response, ['a', 'b'])
+
+        response = rc.get(params={'A': 'param', 'B': 'param'})
         mock_get.assert_called_with('the-url', params={'A': 'param',
                                                        'B': 'param'},
                                                headers=headers)
+        self.assertEqual(response, ['a', 'b'])
 
-        rc.get(id='ID', params={'A': 'param', 'B': 'param'})
+        response = rc.get(id='ID', params={'A': 'param', 'B': 'param'})
         mock_get.assert_called_with('the-url/ID', params={'A': 'param',
                                                           'B': 'param'},
                                                   headers=headers)
+        self.assertEqual(response, ['a', 'b'])
+
+        mock_get.return_value.text = ''
+        response = rc.get()
+        self.assertEqual(response, {})
 
     @mock.patch('requests.get')
     def test_get_errors(self, mock_get):
