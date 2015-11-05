@@ -18,3 +18,9 @@ class DeviceCredentials(object):
             'type': type,
         }
         return self.client.get(params=params)
+
+    def create(self, body):
+        return self.client.post(data=body)
+
+    def delete(self, id):
+        return self.client.delete(id=id)
