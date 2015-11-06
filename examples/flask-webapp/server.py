@@ -23,7 +23,7 @@ app.debug = True
 def requires_auth(f):
   @wraps(f)
   def decorated(*args, **kwargs):
-    if not session.has_key('profile'):
+    if 'profile' not in session:
       return redirect('/')
     return f(*args, **kwargs)
 
