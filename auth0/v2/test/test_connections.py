@@ -64,3 +64,15 @@ class TestConnection(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/connections/an-id', args[0])
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false'})
+
+    @mock.patch('auth0.v2.connection.RestClient')
+    def test_delete(self, mock_rc):
+        mock_instance = mock_rc.return_value
+        mock_instance.delete.return_value = {}
+
+        c = Connection(domain='domain', jwt_token='jwttoken')
+        c.delete('this-id')
+
+        mock_instance.delete.assert_called_with(
+            'https://domain/api/v2/connections/this-id'
+        )
