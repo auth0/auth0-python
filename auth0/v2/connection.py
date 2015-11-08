@@ -12,9 +12,14 @@ class Connection(object):
     """
 
     def __init__(self, domain, jwt_token):
-        url = 'https://%s/api/v2/connections' % domain
+        self.domain = domain
+        self.client = RestClient(jwt=jwt_token)
 
-        self.client = RestClient(endpoint=url, jwt=jwt_token)
+    def _url(self, id=None):
+        url = 'https://%s/api/v2/connections' % self.domain
+        if id is not None:
+            return url + '/' + id
+        return url
 
     def all(self, strategy=None, fields=[], include_fields=True):
         """Retrieves all connections.
@@ -38,7 +43,7 @@ class Connection(object):
                   'fields': ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
-        return self.client.get(params=params)
+        return self.client.get(self._url(), params=params)
 
     def get(self, id, fields=[], include_fields=True):
         """Retrieve connection by id.
@@ -60,7 +65,7 @@ class Connection(object):
         params = {'fields': ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
-        return self.client.get(params=params, id=id)
+        return self.client.get(self._url(id), params=params)
 
     def delete(self, id):
         """Deletes a connection and all its users.
@@ -72,7 +77,7 @@ class Connection(object):
            An empty dict.
         """
 
-        return self.client.delete(id=id)
+        return self.client.delete(self._url(id))
 
     def update(self, id, body):
         """Modifies a connection.
@@ -87,7 +92,7 @@ class Connection(object):
            The modified connection object.
         """
 
-        return self.client.patch(id=id, data=body)
+        return self.client.patch(self._url(id), data=body)
 
     def create(self, body):
         """Creates a new connection.
@@ -97,4 +102,4 @@ class Connection(object):
                 attributes are: 'name' and 'strategy'.
         """
 
-        return self.client.post(data=body)
+        return self.client.post(self._url(), data=body)
