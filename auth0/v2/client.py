@@ -3,7 +3,15 @@ from .rest import RestClient
 
 class Client(object):
 
-    """Docstring for Client. """
+    """Auth0 client endpoints
+
+    Args:
+        domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
+
+        jwt_token (str): An API token created with your account's global
+            keys. You can create one by using the token generator in the
+            API Explorer: https://auth0.com/docs/api/v2
+    """
 
     def __init__(self, domain, jwt_token):
         self.domain = domain
