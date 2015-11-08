@@ -7,80 +7,44 @@ class RestClient(object):
 
     """Provides simple methods for handling all RESTful api endpoints. """
 
-    def __init__(self, endpoint, jwt):
-        self.endpoint = endpoint
+    def __init__(self, jwt):
         self.jwt = jwt
 
-    def get(self, params={}, id=None):
+    def get(self, url, params={}):
         headers = {
             'Authorization': 'Bearer %s' % self.jwt,
         }
-
-        url = self.endpoint
-        if id is not None:
-            url += '/%s' % id
 
         response = requests.get(url, params=params, headers=headers)
+        return self._process_response(response)
 
-        text = json.loads(response.text) if response.text else {}
-
-        if 'errorCode' in text:
-            raise Auth0Error(status_code=text['statusCode'],
-                             error_code=text['errorCode'],
-                             message=text['message'])
-        return text
-
-    def post(self, data={}, id=None):
+    def post(self, url, data={}):
         headers = {
             'Authorization': 'Bearer %s' % self.jwt,
             'Content-Type': 'application/json'
         }
-
-        url = self.endpoint
-        if id is not None:
-            url += '/%s' % id
 
         response = requests.post(url, data=json.dumps(data), headers=headers)
+        return self._process_response(response)
 
-        text = json.loads(response.text) if response.text else {}
-
-        if 'errorCode' in text:
-            raise Auth0Error(status_code=text['statusCode'],
-                             error_code=text['errorCode'],
-                             message=text['message'])
-        return text
-
-    def patch(self, data={}, id=None):
+    def patch(self, url, data={}):
         headers = {
             'Authorization': 'Bearer %s' % self.jwt,
             'Content-Type': 'application/json'
         }
 
-        url = self.endpoint
-        if id is not None:
-            url += '/%s' % id
-
         response = requests.patch(url, data=json.dumps(data), headers=headers)
+        return self._process_response(response)
 
-        text = json.loads(response.text) if response.text else {}
-
-        if 'errorCode' in text:
-            raise Auth0Error(status_code=text['statusCode'],
-                             error_code=text['errorCode'],
-                             message=text['message'])
-        return text
-
-    def delete(self, id):
+    def delete(self, url):
         headers = {
             'Authorization': 'Bearer %s' % self.jwt,
         }
 
-        url = self.endpoint
-        if id is not None:
-            url += '/%s' % id
-
         response = requests.delete(url, headers=headers)
+        return self._process_response(response)
 
+    def _process_response(self, response):
         text = json.loads(response.text) if response.text else {}
 
         if 'errorCode' in text:
