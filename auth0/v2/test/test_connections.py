@@ -76,3 +76,29 @@ class TestConnection(unittest.TestCase):
         mock_instance.delete.assert_called_with(
             'https://domain/api/v2/connections/this-id'
         )
+
+    @mock.patch('auth0.v2.connection.RestClient')
+    def test_update(self, mock_rc):
+        mock_instance = mock_rc.return_value
+        mock_instance.patch.return_value = {}
+
+        c = Connection(domain='domain', jwt_token='jwttoken')
+        c.update('that-id', {'a': 'b', 'c': 'd'})
+
+        mock_instance.patch.assert_called_with(
+            'https://domain/api/v2/connections/that-id',
+            data={'a': 'b', 'c': 'd'}
+        )
+
+    @mock.patch('auth0.v2.connection.RestClient')
+    def test_create(self, mock_rc):
+        mock_instance = mock_rc.return_value
+        mock_instance.post.return_value = {}
+
+        c = Connection(domain='domain', jwt_token='jwttoken')
+        c.create({'a': 'b', 'c': 'd'})
+
+        mock_instance.post.assert_called_with(
+            'https://domain/api/v2/connections',
+            data={'a': 'b', 'c': 'd'}
+        )
