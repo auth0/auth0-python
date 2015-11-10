@@ -4,9 +4,14 @@ from .rest import RestClient
 class DeviceCredentials(object):
 
     def __init__(self, domain, jwt_token):
-        url = 'https://%s/api/v2/device-credentials' % domain
+        self.domain = domain
+        self.client = RestClient(jwt=jwt_token)
 
-        self.client = RestClient(endpoint=url, jwt=jwt_token)
+    def _url(self, id=None):
+        url = 'https://%s/api/v2/device-credentials' % self.domain
+        if id is not None:
+            return url + '/' + id
+        return url
 
     def get(self, user_id=None, client_id=None, type=None,
             fields=[], include_fields=True):
@@ -17,10 +22,10 @@ class DeviceCredentials(object):
             'client_id': client_id,
             'type': type,
         }
-        return self.client.get(params=params)
+        return self.client.get(self._url(), params=params)
 
     def create(self, body):
-        return self.client.post(data=body)
+        return self.client.post(self._url(), data=body)
 
     def delete(self, id):
-        return self.client.delete(id=id)
+        return self.client.delete(self._url(id))
