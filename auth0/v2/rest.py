@@ -27,6 +27,14 @@ class RestClient(object):
         response = requests.post(url, data=json.dumps(data), headers=headers)
         return self._process_response(response)
 
+    def file_post(self, url, data={}, files={}):
+        headers = {
+            'Authorization': 'Bearer %s' % self.jwt,
+        }
+
+        response = requests.post(url, data=data, files=files, headers=headers)
+        return self._process_response(response)
+
     def patch(self, url, data={}):
         headers = {
             'Authorization': 'Bearer %s' % self.jwt,
