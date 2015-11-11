@@ -23,7 +23,7 @@ class Users(object):
             return url + '/' + id
         return url
 
-    def list(self, page, per_page, sort=None, connection=None, q=None,
+    def list(self, page=0, per_page=25, sort=None, connection=None, q=None,
              search_engine='v1', include_totals=True, fields=[],
              include_fields=True):
         params = {
