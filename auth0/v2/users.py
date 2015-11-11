@@ -23,12 +23,13 @@ class Users(object):
             return url + '/' + id
         return url
 
-    def list(self, per_page, page, include_totals, sort, connection,
-             q, search_engine, fields=[], include_fields=True):
+    def list(self, page, per_page, sort=None, connection=None, q=None,
+             search_engine='v1', include_totals=True, fields=[],
+             include_fields=True):
         params = {
             'per_page': per_page,
             'page': page,
-            'include_totals': include_totals,
+            'include_totals': str(include_totals).lower(),
             'sort': sort,
             'connection': connection,
             'fields': ','.join(fields) or None,
