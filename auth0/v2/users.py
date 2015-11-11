@@ -66,3 +66,7 @@ class Users(object):
     def unlink_user_account(self, id, provider, user_id):
         url = self._url('%s/identities/%s/%s' % (id, provider, user_id))
         return self.client.delete(url)
+
+    def link_user_account(self, user_id, body):
+        url = self._url('%s/identities' % user_id)
+        return self.client.post(url, data=body)
