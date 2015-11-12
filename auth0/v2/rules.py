@@ -39,7 +39,7 @@ class Rules(object):
         return self.client.post(self._url(), data=body)
 
     def get(self, id, fields=[], include_fields=True):
-        params = {'fields': ','.join(fields),
+        params = {'fields': ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
         return self.client.get(self._url(id), params=params)
 
