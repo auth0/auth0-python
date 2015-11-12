@@ -23,7 +23,7 @@ class Rules(object):
             return url + '/' + id
         return url
 
-    def all(self, stage='login_success', enabled=False, fields=[],
+    def all(self, stage='login_success', enabled=True, fields=[],
             include_fields=True):
         """Retrieves a list of all rules.
         """
