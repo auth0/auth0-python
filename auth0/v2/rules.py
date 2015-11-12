@@ -15,7 +15,7 @@ class Rules(object):
 
     def __init__(self, domain, jwt_token):
         self.domain = domain
-        self.client = RestClient(endpoint=url, jwt=jwt_token)
+        self.client = RestClient(jwt=jwt_token)
 
     def _url(self, id=None):
         url = 'https://%s/api/v2/rules' % self.domain
