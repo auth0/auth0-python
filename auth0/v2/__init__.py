@@ -1,3 +1,4 @@
+from .auth0 import Auth0
 from .exceptions import Auth0Error
 from .connection import Connection
 from .client import Client
