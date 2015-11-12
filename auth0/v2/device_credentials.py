@@ -23,8 +23,7 @@ class DeviceCredentials(object):
             return url + '/' + id
         return url
 
-    def get(self, user_id=None, client_id=None, type=None,
-            fields=[], include_fields=True):
+    def get(self, user_id, client_id, type, fields=[], include_fields=True):
         params = {
             'fields': ','.join(fields) or None,
             'include_fields': str(include_fields).lower(),
