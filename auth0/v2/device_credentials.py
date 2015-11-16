@@ -24,6 +24,23 @@ class DeviceCredentials(object):
         return url
 
     def get(self, user_id, client_id, type, fields=[], include_fields=True):
+        """
+        Args:
+            user_id (str): The user_id of the devices to retrieve.
+
+            client_id (str): The client_id of the devices to retrieve.
+
+            type (str): The type of credentials (public_key, refresh_token).
+
+            fields (list, optional): A list of fields to include or exclude
+                (depending on include_fields) from the result, empty to
+                retrieve all fields
+
+            include_fields (bool, optional): True if the fields specified are
+                to be excluded from the result, false otherwise
+                (defaults to true)
+        """
+
         params = {
             'fields': ','.join(fields) or None,
             'include_fields': str(include_fields).lower(),
