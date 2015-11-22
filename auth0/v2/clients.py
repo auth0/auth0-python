@@ -1,7 +1,7 @@
 from .rest import RestClient
 
 
-class Client(object):
+class Clients(object):
 
     """Auth0 client endpoints
 
