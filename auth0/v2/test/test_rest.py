@@ -9,7 +9,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get(self, mock_get):
-        rc = RestClient(jwt='a-token')
+        rc = RestClient(jwt='a-token', telemetry=False)
         headers = {'Authorization': 'Bearer a-token'}
 
         mock_get.return_value.text = '["a", "b"]'
@@ -31,7 +31,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_errors(self, mock_get):
-        rc = RestClient(jwt='a-token')
+        rc = RestClient(jwt='a-token', telemetry=False)
         headers = {'Authorization': 'Bearer a-token'}
 
         mock_get.return_value.text = '{"statusCode": 999,' \
@@ -47,7 +47,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post(self, mock_post):
-        rc = RestClient(jwt='a-token')
+        rc = RestClient(jwt='a-token', telemetry=False)
         headers = {'Authorization': 'Bearer a-token',
                    'Content-Type': 'application/json'}
 
@@ -63,7 +63,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post_errors(self, mock_post):
-        rc = RestClient(jwt='a-token')
+        rc = RestClient(jwt='a-token', telemetry=False)
 
         mock_post.return_value.text = '{"statusCode": 999,' \
                                       ' "errorCode": "code",' \
@@ -78,7 +78,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.patch')
     def test_patch(self, mock_patch):
-        rc = RestClient(jwt='a-token')
+        rc = RestClient(jwt='a-token', telemetry=False)
         headers = {'Authorization': 'Bearer a-token',
                    'Content-Type': 'application/json'}
 
@@ -94,7 +94,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.patch')
     def test_patch_errors(self, mock_patch):
-        rc = RestClient(jwt='a-token')
+        rc = RestClient(jwt='a-token', telemetry=False)
 
         mock_patch.return_value.text = '{"statusCode": 999,' \
                                        ' "errorCode": "code",' \
@@ -109,7 +109,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.delete')
     def test_delete(self, mock_delete):
-        rc = RestClient(jwt='a-token')
+        rc = RestClient(jwt='a-token', telemetry=False)
         headers = {'Authorization': 'Bearer a-token'}
 
         mock_delete.return_value.text = '["a", "b"]'
@@ -121,7 +121,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.delete')
     def test_delete_errors(self, mock_delete):
-        rc = RestClient(jwt='a-token')
+        rc = RestClient(jwt='a-token', telemetry=False)
 
         mock_delete.return_value.text = '{"statusCode": 999,' \
                                         ' "errorCode": "code",' \
