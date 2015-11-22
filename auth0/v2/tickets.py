@@ -21,7 +21,17 @@ class Tickets(object):
         return 'https://%s/api/v2/tickets/%s' % (self.domain, action)
 
     def create_email_verification(self, body):
+        """Create an email verification ticket.
+
+        Args:
+            body (dict): Please see: https://auth0.com/docs/api/v2#!/Tickets/post_email_verification
+        """
         return self.client.post(self._url('email-verification'), data=body)
 
     def create_pswd_change(self, body):
+        """Create password change ticket.
+
+        Args:
+            body (dict): Please see: https://auth0.com/docs/api/v2#!/Tickets/post_password_change
+        """
         return self.client.post(self._url('password-change'), data=body)
