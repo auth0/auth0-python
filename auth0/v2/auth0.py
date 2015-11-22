@@ -11,7 +11,15 @@ from .users import Users
 
 
 class Auth0(object):
-    """Docstring for Auth0. """
+    """Provides easy access to all endpoint classes
+
+    Args:
+        domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
+
+        jwt_token (str): An API token created with your account's global
+            keys. You can create one by using the token generator in the
+            API Explorer: https://auth0.com/docs/api/v2
+    """
 
     def __init__(self, domain, jwt_token):
         self.clients = Clients(domain, jwt_token)
