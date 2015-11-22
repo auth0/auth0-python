@@ -8,6 +8,7 @@ from .rules import Rules
 from .stats import Stats
 from .tickets import Tickets
 from .users import Users
+from .tenants import Tenants
 
 
 class Auth0(object):
@@ -32,3 +33,4 @@ class Auth0(object):
         self.stats = Stats(domain, jwt_token)
         self.tickets = Tickets(domain, jwt_token)
         self.users = Users(domain, jwt_token)
+        self.tenants = Tenants(domain, jwt_token)

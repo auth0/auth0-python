@@ -10,3 +10,4 @@ from .rules import Rules
 from .stats import Stats
 from .tickets import Tickets
 from .users import Users
+from .tenants import Tenants
