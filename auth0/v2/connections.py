@@ -1,7 +1,7 @@
 from .rest import RestClient
 
 
-class Connection(object):
+class Connections(object):
     """Auth0 connection endpoints
 
     Args:
