@@ -1,5 +1,5 @@
-from .connection import Connection
-from .client import Client
+from .connections import Connections
+from .clients import Clients
 from .device_credentials import DeviceCredentials
 from .blacklists import Blacklists
 from .emails import Emails
@@ -14,8 +14,8 @@ class Auth0(object):
     """Docstring for Auth0. """
 
     def __init__(self, domain, jwt_token):
-        self.client = Client(domain, jwt_token)
-        self.connection = Connection(domain, jwt_token)
+        self.clients = Clients(domain, jwt_token)
+        self.connections = Connections(domain, jwt_token)
         self.device_credentials = DeviceCredentials(domain, jwt_token)
         self.blacklists = Blacklists(domain, jwt_token)
         self.emails = Emails(domain, jwt_token)
