@@ -66,6 +66,11 @@ class Users(object):
         return self.client.get(self._url(), params=params)
 
     def create(self, body):
+        """Creates a new user.
+
+        Args:
+            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post_users
+        """
         return self.client.post(self._url(), data=body)
 
     def delete_all_users(self):
@@ -124,13 +129,29 @@ class Users(object):
         return self.client.delete(url)
 
     def unlink_user_account(self, id, provider, user_id):
-        """
+        """Unlink a user account
+
+        Args:
+            id (str): The user_id of the user identity.
+
+            provider (str): The type of identity provider (e.g: facebook).
+
+            user_id (str): The unique identifier for the user for the identity.
         """
         url = self._url('%s/identities/%s/%s' % (id, provider, user_id))
         return self.client.delete(url)
 
     def link_user_account(self, user_id, body):
-        """
+        """Link user accounts.
+
+        Links the account specified in the body (secondary account) to the
+        account specified by the id param of the URL (primary account).
+
+        Args:
+            id (str): The user_id of the primary identity where you are linking
+                the secondary account to.
+
+            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post_identities
         """
         url = self._url('%s/identities' % user_id)
         return self.client.post(url, data=body)
