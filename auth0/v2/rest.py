@@ -13,6 +13,10 @@ class RestClient(object):
         self.jwt = jwt
 
         if telemetry:
+            py_version = '%i.%i.%i' % (sys.version_info.major,
+                                       sys.version_info.minor,
+                                       sys.version_info.micro)
+
             auth0_client = json.dumps({
                 'name': 'auth0-python', 'version': '2.0.0',
                 'dependencies': [
@@ -21,11 +25,16 @@ class RestClient(object):
                         'version': requests.__version__,
                     }
                 ],
+                'environment': [
+                    {
+                        'name': 'python',
+                        'version': py_version,
+                    }
+                ]
             }).encode('utf-8')
 
-            v = sys.version_info
             self.base_headers = {
-                'User-Agent': 'Python/%i.%i.%i' % (v.major, v.minor, v.micro),
+                'User-Agent': 'Python/%s' % py_version,
                 'Auth0-Client': base64.b64encode(auth0_client),
                 'Content-Type': 'application/json'
             }
