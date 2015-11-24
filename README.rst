@@ -79,6 +79,6 @@ file for more info.
     :target: https://coveralls.io/github/sophilabs/auth0-python?branch=v2
     :alt: Test coverage
 
-.. |build| image:: https://img.shields.io/travis/sophilabs/auth0-python/v2.svg?style=flat-square&label=build
-    :target: http://travis-ci.org/sophilabs/auth0-python
+.. |build| image:: https://travis-ci.org/sophilabs/auth0-python.svg?branch=v2
+    :target: https://travis-ci.org/sophilabs/auth0-python
     :alt: Build status of the v2 branch
