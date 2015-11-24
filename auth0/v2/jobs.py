@@ -11,11 +11,14 @@ class Jobs(object):
         jwt_token (str): An API token created with your account's global
             keys. You can create one by using the token generator in the
             API Explorer: https://auth0.com/docs/api/v2
+
+        telemetry (bool, optional): Enable or disable Telemetry
+            (defaults to True)
     """
 
-    def __init__(self, domain, jwt_token):
+    def __init__(self, domain, jwt_token, telemetry=True):
         self.domain = domain
-        self.client = RestClient(jwt=jwt_token)
+        self.client = RestClient(jwt=jwt_token, telemetry=telemetry)
 
     def _url(self, path=None):
         url = 'https://%s/api/v2/jobs' % self.domain
