@@ -75,8 +75,8 @@ file for more info.
     :target: https://pypi.python.org/pypi/auth0
     :alt: Latest version released on PyPi
 
-.. |coverage| image:: https://img.shields.io/coveralls/sophilabs/auth0-python/v2.svg?style=flat-square
-    :target: https://coveralls.io/r/sophilabs/auth0-python?branch=v2
+.. |coverage| image:: https://coveralls.io/repos/sophilabs/auth0-python/badge.svg?branch=v2&service=github
+    :target: https://coveralls.io/github/sophilabs/auth0-python?branch=v2
     :alt: Test coverage
 
 .. |build| image:: https://img.shields.io/travis/sophilabs/auth0-python/v2.svg?style=flat-square&label=build
