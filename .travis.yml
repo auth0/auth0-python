@@ -6,6 +6,12 @@ python:
     - "3.4"
     - "3.5"
 
-install: "pip install -r requirements.txt"
+install:
+    - pip install -r requirements.txt
+    - pip install coveralls
 
-script: python -m unittest discover
+script:
+    coverage run --include=auth0/v2/*.py --omit=auth0/v2/test/*.py -m unittest discover
+
+after_success:
+    coveralls
