@@ -2,7 +2,7 @@
 Auth0 - Python
 **************
 
-|pypi| |unix_build| |windows_build| |coverage|
+|pypi| |build| |coverage|
 
 In this repository, you'll find all the information about integrating Auth0 with Python.
 
