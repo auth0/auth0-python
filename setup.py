@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='auth0-python',
-    version='2.0.0b1',
+    version='2.0.0b2',
     description='Auth0 Python SDK',
     author='Auth0',
     author_email='support@auth0.com',
