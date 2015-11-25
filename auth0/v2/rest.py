@@ -62,6 +62,7 @@ class RestClient(object):
 
     def file_post(self, url, data={}, files={}):
         headers = self.base_headers.copy()
+        headers.pop('Content-Type', None)
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
         })
