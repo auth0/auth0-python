@@ -2,7 +2,7 @@
 Auth0 - Python
 **************
 
-|pypi| |unix_build| |windows_build| |coverage|
+|pypi| |build| |coverage|
 
 In this repository, you'll find all the information about integrating Auth0 with Python.
 
@@ -72,13 +72,13 @@ file for more info.
 .. _Auth0: https://auth0.com
 
 .. |pypi| image:: https://img.shields.io/pypi/v/auth0.svg?style=flat-square&label=latest%20version
-    :target: https://pypi.python.org/pypi/auth0
+    :target: https://pypi.python.org/pypi/auth0-python
     :alt: Latest version released on PyPi
 
-.. |coverage| image:: https://img.shields.io/coveralls/sophilabs/auth0-python/v2.svg?style=flat-square
-    :target: https://coveralls.io/r/sophilabs/auth0-python?branch=v2
+.. |coverage| image:: https://coveralls.io/repos/sophilabs/auth0-python/badge.svg?branch=v2&service=github
+    :target: https://coveralls.io/github/sophilabs/auth0-python?branch=v2
     :alt: Test coverage
 
-.. |build| image:: https://img.shields.io/travis/sophilabs/auth0-python/v2.svg?style=flat-square&label=build
-    :target: http://travis-ci.org/sophilabs/auth0-python
+.. |build| image:: https://travis-ci.org/sophilabs/auth0-python.svg?branch=v2
+    :target: https://travis-ci.org/sophilabs/auth0-python
     :alt: Build status of the v2 branch

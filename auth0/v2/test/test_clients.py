@@ -1,15 +1,15 @@
 import unittest
 import mock
-from ..client import Client
+from ..clients import Clients
 
 
-class TestClient(unittest.TestCase):
+class TestClients(unittest.TestCase):
 
-    @mock.patch('auth0.v2.client.RestClient')
+    @mock.patch('auth0.v2.clients.RestClient')
     def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Client(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', jwt_token='jwttoken')
         c.all()
 
         args, kwargs = mock_instance.get.call_args
@@ -26,11 +26,11 @@ class TestClient(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false'})
 
-    @mock.patch('auth0.v2.client.RestClient')
+    @mock.patch('auth0.v2.clients.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Client(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', jwt_token='jwttoken')
         c.create({'a': 'b', 'c': 'd'})
 
         mock_instance.post.assert_called_with(
@@ -38,11 +38,11 @@ class TestClient(unittest.TestCase):
             data={'a': 'b', 'c': 'd'}
         )
 
-    @mock.patch('auth0.v2.client.RestClient')
+    @mock.patch('auth0.v2.clients.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Client(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', jwt_token='jwttoken')
         c.get('this-id')
 
         args, kwargs = mock_instance.get.call_args
@@ -59,22 +59,22 @@ class TestClient(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false'})
 
-    @mock.patch('auth0.v2.client.RestClient')
+    @mock.patch('auth0.v2.clients.RestClient')
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Client(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', jwt_token='jwttoken')
         c.delete('this-id')
 
         mock_instance.delete.assert_called_with(
             'https://domain/api/v2/clients/this-id'
         )
 
-    @mock.patch('auth0.v2.client.RestClient')
+    @mock.patch('auth0.v2.clients.RestClient')
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Client(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', jwt_token='jwttoken')
         c.update('this-id', {'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.patch.call_args

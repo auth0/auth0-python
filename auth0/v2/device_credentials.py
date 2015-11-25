@@ -11,11 +11,14 @@ class DeviceCredentials(object):
         jwt_token (str): An API token created with your account's global
             keys. You can create one by using the token generator in the
             API Explorer: https://auth0.com/docs/api/v2
+
+        telemetry (bool, optional): Enable or disable Telemetry
+            (defaults to True)
     """
 
-    def __init__(self, domain, jwt_token):
+    def __init__(self, domain, jwt_token, telemetry=True):
         self.domain = domain
-        self.client = RestClient(jwt=jwt_token)
+        self.client = RestClient(jwt=jwt_token, telemetry=telemetry)
 
     def _url(self, id=None):
         url = 'https://%s/api/v2/device-credentials' % self.domain
@@ -24,7 +27,8 @@ class DeviceCredentials(object):
         return url
 
     def get(self, user_id, client_id, type, fields=[], include_fields=True):
-        """
+        """List device credentials.
+
         Args:
             user_id (str): The user_id of the devices to retrieve.
 
@@ -51,7 +55,19 @@ class DeviceCredentials(object):
         return self.client.get(self._url(), params=params)
 
     def create(self, body):
+        """Create a device public key.
+
+        Args:
+            body (dict): parameters for creating the public key (e.g: type,
+                device_name, client_id, etc).
+                Please see: https://auth0.com/docs/api/v2#!/Device_Credentials/post_device_credentials
+        """
         return self.client.post(self._url(), data=body)
 
     def delete(self, id):
+        """Delete credential.
+
+        Args:
+            id (str):  The id of the credential to delete
+        """
         return self.client.delete(self._url(id))
