@@ -1,9 +1,8 @@
 from .rest import RestClient
 
 
-class Client(object):
-
-    """Auth0 client endpoints
+class Connections(object):
+    """Auth0 connection endpoints
 
     Args:
         domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
@@ -11,56 +10,50 @@ class Client(object):
         jwt_token (str): An API token created with your account's global
             keys. You can create one by using the token generator in the
             API Explorer: https://auth0.com/docs/api/v2
+
+        telemetry (bool, optional): Enable or disable Telemetry
+            (defaults to True)
     """
 
-    def __init__(self, domain, jwt_token):
+    def __init__(self, domain, jwt_token, telemetry=True):
         self.domain = domain
-        self.client = RestClient(jwt=jwt_token)
+        self.client = RestClient(jwt=jwt_token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/clients' % self.domain
+        url = 'https://%s/api/v2/connections' % self.domain
         if id is not None:
             return url + '/' + id
         return url
 
-    def all(self, fields=[], include_fields=True):
-        """Retrieves a list of all client applications.
-
-        Important: The client_secret and encryption_key attributes can only be
-        retrieved with the read:client_keys scope.
+    def all(self, strategy=None, fields=[], include_fields=True):
+        """Retrieves all connections.
 
         Args:
+           strategy (str, optional): Only retrieve connections of
+              this strategy type. (e.g: strategy='amazon')
+
            fields (list of str, optional): A list of fields to include or
               exclude from the result (depending on include_fields). Empty to
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
               to be include in the result, False otherwise.
+
+        Returns:
+           A list of connection objects.
         """
 
-        params = {'fields': ','.join(fields) or None,
+        params = {'strategy': strategy or None,
+                  'fields': ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
         return self.client.get(self._url(), params=params)
 
-    def create(self, body):
-        """Create a new client application.
-
-        Args:
-           body (dict): Attributes for the new client application.
-              See: https://auth0.com/docs/api/v2#!/Clients/post_clients
-        """
-
-        return self.client.post(self._url(), data=body)
-
     def get(self, id, fields=[], include_fields=True):
-        """Retrieves a client by its id.
-
-        Important: The client_secret, encryption_key and signing_keys
-        attributes can only be retrieved with the read:client_keys scope.
+        """Retrieve connection by id.
 
         Args:
-           id (str): Id of the client to get.
+           id (str): Id of the connection to get.
 
            fields (list of str, optional): A list of fields to include or
               exclude from the result (depending on include_fields). Empty to
@@ -68,6 +61,9 @@ class Client(object):
 
            include_fields (bool, optional): True if the fields specified are
               to be include in the result, False otherwise.
+
+        Returns:
+            A connection object.
         """
 
         params = {'fields': ','.join(fields) or None,
@@ -76,24 +72,38 @@ class Client(object):
         return self.client.get(self._url(id), params=params)
 
     def delete(self, id):
-        """Deletes a client and all its related assets.
+        """Deletes a connection and all its users.
 
         Args:
-           id (str): Id of client to delete.
+           id: Id of the connection to delete.
+
+        Returns:
+           An empty dict.
         """
 
         return self.client.delete(self._url(id))
 
     def update(self, id, body):
-        """Modifies a client.
-
-        Important: The client_secret, encryption_key and signing_keys
-        attributes can only be updated with the update:client_keys scope.
+        """Modifies a connection.
 
         Args:
-           id (str): Client id.
+           id: Id of the connection.
 
-           body (dict): Attributes to modify.
+           body (dict): Specifies which fields are to be modified, and to what
+              values.
+
+        Returns:
+           The modified connection object.
         """
 
         return self.client.patch(self._url(id), data=body)
+
+    def create(self, body):
+        """Creates a new connection.
+
+        Args:
+            body (dict): Attributes used to create the connection. Mandatory
+                attributes are: 'name' and 'strategy'.
+        """
+
+        return self.client.post(self._url(), data=body)
