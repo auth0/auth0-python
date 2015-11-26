@@ -155,7 +155,7 @@ file for more info.
 
 .. _Auth0: https://auth0.com
 
-.. |pypi| image:: https://img.shields.io/pypi/v/auth0.svg?style=flat-square&label=latest%20version
+.. |pypi| image:: https://img.shields.io/pypi/v/auth0-python.svg?style=flat-square&label=latest%20version
     :target: https://pypi.python.org/pypi/auth0-python
     :alt: Latest version released on PyPi
 
