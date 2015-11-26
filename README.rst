@@ -9,6 +9,45 @@ In this repository, you'll find all the information about integrating Auth0 with
 Check out the examples that we have in here in our examples folder. Each of them has a README on how to run them and on how to use them.
 
 
+==============
+What is Auth0?
+==============
+
+Auth0 helps you to:
+
+* Add authentication with `multiple authentication sources <https://docs.auth0.com/identityproviders>`_,
+  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**,
+  or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
+* Add support for **`linking different user accounts <https://docs.auth0.com/link-accounts>`_** with the same user.
+* Support for generating signed `Json Web Tokens <https://docs.auth0.com/jwt>`_ to call your APIs and **flow the user identity** securely.
+* Analytics of how, when and where users are logging in.
+* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://docs.auth0.com/rules>`_.
+
+
+===========================
+Create a free Auth0 Account
+===========================
+
+1. Go to `Auth0`_ and click Sign Up.
+2. Use Google, GitHub or Microsoft Account to login.
+
+
+===============
+Issue Reporting
+===============
+
+If you have found a bug or if you have a feature request, please report them at this repository issues section.
+Please do not report security vulnerabilities on the public GitHub issue tracker.
+The `Responsible Disclosure Program <https://auth0.com/whitehat>`_ details the procedure for disclosing security issues.
+
+
+======
+Author
+======
+
+`Auth0`_
+
 ============
 Installation
 ============
@@ -66,45 +105,32 @@ Which will yield a list of connections similar to this:
         }
     ]
 
+Modifying an existing connection is equally as easy. Let's change the name
+of connection 'con_ErZf9LpXQDE0cNBr'. 
+(The token will need scope: ``update:connections`` to make this one work)
 
-==============
-What is Auth0?
-==============
+.. code-block:: python
 
-Auth0 helps you to:
+    auth0.connections.update('con_ErZf9LpXQDE0cNBr', {'name': 'MyNewName'})
 
-* Add authentication with `multiple authentication sources <https://docs.auth0.com/identityproviders>`_,
-  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**,
-  or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
-* Add support for **`linking different user accounts <https://docs.auth0.com/link-accounts>`_** with the same user.
-* Support for generating signed `Json Web Tokens <https://docs.auth0.com/jwt>`_ to call your APIs and **flow the user identity** securely.
-* Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://docs.auth0.com/rules>`_.
+That's it! using the ``get`` method of the connections endpoint we can verify
+that the rename actually happened.
 
+.. code-block:: python
 
-===========================
-Create a free Auth0 Account
-===========================
+    modified_connection = auth0.connections.get('con_ErZf9LpXQDE0cNBr')
 
-1. Go to `Auth0`_ and click Sign Up.
-2. Use Google, GitHub or Microsoft Account to login.
+Which returns something like this
 
+.. code-block:: python
 
-===============
-Issue Reporting
-===============
-
-If you have found a bug or if you have a feature request, please report them at this repository issues section.
-Please do not report security vulnerabilities on the public GitHub issue tracker.
-The `Responsible Disclosure Program <https://auth0.com/whitehat>`_ details the procedure for disclosing security issues.
-
-
-======
-Author
-======
-
-`Auth0`_
+    {
+        'enabled_clients': [u'rOsnWgtw23nje2QCDuDJNVpxlsCylSLE'],
+        'id': u'con_ErZf9LpXQDE0cNBr',
+        'name': u'MyNewName',
+        'options': {u'profile': True, u'scope': [u'profile']},
+        'strategy': u'amazon'
+    }
 
 ==========
 Contribute
