@@ -9,6 +9,64 @@ In this repository, you'll find all the information about integrating Auth0 with
 Check out the examples that we have in here in our examples folder. Each of them has a README on how to run them and on how to use them.
 
 
+============
+Installation
+============
+
+You can install the auth0 python SDK issuing the following command.
+
+.. code-block::
+
+    pip install auth0-python
+
+
+=====
+Usage
+=====
+
+To use the library you will need to instantiate an Auth0 object with a domain and a token.
+
+
+.. code-block:: python
+
+    from auth0.v2 import Auth0
+
+    domain = 'myaccount.auth0.com'
+    token = '{A_JWT_TOKEN}' # You can generate one of these by using the
+                            # token generator at: https://auth0.com/docs/api/v2
+
+    auth0 = Auth0('myuser.auth0.com', token)
+
+The ``Auth0()`` object is now ready to take orders!
+Lets see how we can use this to get all available connections.
+(this action requires the token to have the following scope: ``read:connections``)
+
+.. code-block:: python
+
+    auth0.connections.all()
+
+Which will yield a list of connections similar to this:
+
+.. code-block:: python
+
+    [
+        {
+            'enabled_clients': [u'rOsnWgtw23nje2QCDuDJNVpxlsCylSLE'],
+            'id': u'con_ErZf9LpXQDE0cNBr',
+            'name': u'Amazon-Connection',
+            'options': {u'profile': True, u'scope': [u'profile']},
+            'strategy': u'amazon'
+        },
+        {
+            'enabled_clients': [u'rOsnWgtw23nje2QCDuDJNVpxlsCylSLE'],
+            'id': u'con_i8qF5DPiZ3FdadwJ',
+            'name': u'Username-Password-Authentication',
+            'options': {u'brute_force_protection': True},
+            'strategy': u'auth0'
+        }
+    ]
+
+
 ==============
 What is Auth0?
 ==============
