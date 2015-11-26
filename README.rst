@@ -77,7 +77,7 @@ To use the library you will need to instantiate an Auth0 object with a domain an
     auth0 = Auth0('myuser.auth0.com', token)
 
 The ``Auth0()`` object is now ready to take orders!
-Lets see how we can use this to get all available connections.
+Let's see how we can use this to get all available connections.
 (this action requires the token to have the following scope: ``read:connections``)
 
 .. code-block:: python
@@ -106,7 +106,7 @@ Which will yield a list of connections similar to this:
     ]
 
 Modifying an existing connection is equally as easy. Let's change the name
-of connection 'con_ErZf9LpXQDE0cNBr'. 
+of connection ``'con_ErZf9LpXQDE0cNBr'``.
 (The token will need scope: ``update:connections`` to make this one work)
 
 .. code-block:: python
@@ -131,6 +131,27 @@ Which returns something like this
         'options': {u'profile': True, u'scope': [u'profile']},
         'strategy': u'amazon'
     }
+
+Success!
+
+
+All endpoints follow a similar structure to the ``connections`` one, and try to follow as
+closely as possible the `API documentation <https://auth0.com/docs/api/v2>`_.
+
+Available endpoints
+-------------------
+
+    - Clients() ( ``Auth0().clients`` )
+    - Connections() ( ``Auth0().connections`` )
+    - DeviceCredentials() ( ``Auth0().device_credentials`` )
+    - Rules() ( ``Auth0().rules`` )
+    - Users() ( ``Auth0().users`` )
+    - Blacklists() ( ``Auth0().blacklists`` )
+    - Emails() ( ``Auth0().emails`` )
+    - Jobs() ( ``Auth0().jobs`` )
+    - Stats() ( ``Auth0().stats`` )
+    - Tenants() ( ``Auth0().tenants`` )
+    - Tickets() ( ``Auth0().tickets`` )
 
 ==========
 Contribute
