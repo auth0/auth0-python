@@ -17,20 +17,20 @@ class Auth0(object):
     Args:
         domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
 
-        jwt_token (str): An API token created with your account's global
+        token (str): An API token created with your account's global
             keys. You can create one by using the token generator in the
             API Explorer: https://auth0.com/docs/api/v2
     """
 
-    def __init__(self, domain, jwt_token):
-        self.clients = Clients(domain, jwt_token)
-        self.connections = Connections(domain, jwt_token)
-        self.device_credentials = DeviceCredentials(domain, jwt_token)
-        self.blacklists = Blacklists(domain, jwt_token)
-        self.emails = Emails(domain, jwt_token)
-        self.jobs = Jobs(domain, jwt_token)
-        self.rules = Rules(domain, jwt_token)
-        self.stats = Stats(domain, jwt_token)
-        self.tickets = Tickets(domain, jwt_token)
-        self.users = Users(domain, jwt_token)
-        self.tenants = Tenants(domain, jwt_token)
+    def __init__(self, domain, token):
+        self.clients = Clients(domain, token)
+        self.connections = Connections(domain, token)
+        self.device_credentials = DeviceCredentials(domain, token)
+        self.blacklists = Blacklists(domain, token)
+        self.emails = Emails(domain, token)
+        self.jobs = Jobs(domain, token)
+        self.rules = Rules(domain, token)
+        self.stats = Stats(domain, token)
+        self.tickets = Tickets(domain, token)
+        self.users = Users(domain, token)
+        self.tenants = Tenants(domain, token)

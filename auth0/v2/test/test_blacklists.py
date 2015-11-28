@@ -9,7 +9,7 @@ class TestBlacklists(unittest.TestCase):
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        t = Blacklists(domain='domain', jwt_token='jwttoken')
+        t = Blacklists(domain='domain', token='jwttoken')
         t.get(aud='an-id')
 
         mock_instance.get.assert_called_with(
@@ -21,7 +21,7 @@ class TestBlacklists(unittest.TestCase):
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        t = Blacklists(domain='domain', jwt_token='jwttoken')
+        t = Blacklists(domain='domain', token='jwttoken')
         t.create(jti='the-jti', aud='the-aud')
 
         args, kwargs = mock_instance.post.call_args

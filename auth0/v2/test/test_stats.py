@@ -9,7 +9,7 @@ class TestTickets(unittest.TestCase):
     def test_active_users(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        s = Stats(domain='domain', jwt_token='jwttoken')
+        s = Stats(domain='domain', token='jwttoken')
         s.active_users()
 
         mock_instance.get.assert_called_with(
@@ -20,7 +20,7 @@ class TestTickets(unittest.TestCase):
     def test_daily_stats(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        s = Stats(domain='domain', jwt_token='jwttoken')
+        s = Stats(domain='domain', token='jwttoken')
         s.daily_stats()
 
         mock_instance.get.assert_called_with(

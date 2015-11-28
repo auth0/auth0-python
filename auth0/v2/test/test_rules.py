@@ -9,7 +9,7 @@ class TestRules(unittest.TestCase):
     def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Rules(domain='domain', jwt_token='jwttoken')
+        c = Rules(domain='domain', token='jwttoken')
         c.all()
 
         args, kwargs = mock_instance.get.call_args
@@ -35,7 +35,7 @@ class TestRules(unittest.TestCase):
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Rules(domain='domain', jwt_token='jwttoken')
+        c = Rules(domain='domain', token='jwttoken')
         c.create({'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.post.call_args
@@ -47,7 +47,7 @@ class TestRules(unittest.TestCase):
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Rules(domain='domain', jwt_token='jwttoken')
+        c = Rules(domain='domain', token='jwttoken')
         c.get('an-id')
 
         args, kwargs = mock_instance.get.call_args
@@ -68,7 +68,7 @@ class TestRules(unittest.TestCase):
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Rules(domain='domain', jwt_token='jwttoken')
+        c = Rules(domain='domain', token='jwttoken')
         c.delete('an-id')
 
         mock_instance.delete.assert_called_with(
@@ -79,7 +79,7 @@ class TestRules(unittest.TestCase):
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Rules(domain='domain', jwt_token='jwttoken')
+        c = Rules(domain='domain', token='jwttoken')
         c.update('an-id', {'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.patch.call_args

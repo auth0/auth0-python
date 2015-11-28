@@ -9,7 +9,7 @@ class TestDeviceCredentials(unittest.TestCase):
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = DeviceCredentials(domain='domain', jwt_token='jwttoken')
+        c = DeviceCredentials(domain='domain', token='jwttoken')
         c.get(user_id='uid', client_id='cid', type='type')
 
         args, kwargs = mock_instance.get.call_args
@@ -25,7 +25,7 @@ class TestDeviceCredentials(unittest.TestCase):
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = DeviceCredentials(domain='domain', jwt_token='jwttoken')
+        c = DeviceCredentials(domain='domain', token='jwttoken')
         c.create({'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.post.call_args
@@ -37,7 +37,7 @@ class TestDeviceCredentials(unittest.TestCase):
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = DeviceCredentials(domain='domain', jwt_token='jwttoken')
+        c = DeviceCredentials(domain='domain', token='jwttoken')
         c.delete('an-id')
 
         mock_instance.delete.assert_called_with(

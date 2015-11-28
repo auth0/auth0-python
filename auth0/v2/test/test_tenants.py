@@ -10,7 +10,7 @@ class TestTenants(unittest.TestCase):
         mock_instance = mock_rc.return_value
         mock_instance.get.return_value = {}
 
-        t = Tenants(domain='domain', jwt_token='jwttoken')
+        t = Tenants(domain='domain', token='jwttoken')
         t.get()
 
         args, kwargs = mock_instance.get.call_args
@@ -40,7 +40,7 @@ class TestTenants(unittest.TestCase):
         mock_instance = mock_rc.return_value
         mock_instance.patch.return_value = {}
 
-        t = Tenants(domain='domain', jwt_token='jwttoken')
+        t = Tenants(domain='domain', token='jwttoken')
         t.update({'a': 'b', 'c': 'd'})
 
         mock_instance.patch.assert_called_with(

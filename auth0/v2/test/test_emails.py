@@ -9,7 +9,7 @@ class TestEmails(unittest.TestCase):
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        e = Emails(domain='domain', jwt_token='jwttoken')
+        e = Emails(domain='domain', token='jwttoken')
         e.get()
 
         args, kwargs = mock_instance.get.call_args
@@ -30,7 +30,7 @@ class TestEmails(unittest.TestCase):
     def test_config(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        e = Emails(domain='domain', jwt_token='jwttoken')
+        e = Emails(domain='domain', token='jwttoken')
         e.config({'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.post.call_args
@@ -42,7 +42,7 @@ class TestEmails(unittest.TestCase):
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        e = Emails(domain='domain', jwt_token='jwttoken')
+        e = Emails(domain='domain', token='jwttoken')
         e.update({'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.patch.call_args
@@ -54,7 +54,7 @@ class TestEmails(unittest.TestCase):
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        e = Emails(domain='domain', jwt_token='jwttoken')
+        e = Emails(domain='domain', token='jwttoken')
         e.delete()
 
         mock_instance.delete.assert_called_with(

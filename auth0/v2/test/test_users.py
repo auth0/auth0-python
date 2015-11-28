@@ -9,7 +9,7 @@ class TestUsers(unittest.TestCase):
     def test_list(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.list()
 
         args, kwargs = mock_instance.get.call_args
@@ -50,7 +50,7 @@ class TestUsers(unittest.TestCase):
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.create({'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.post.call_args
@@ -62,7 +62,7 @@ class TestUsers(unittest.TestCase):
     def test_delete_all_users(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.delete_all_users()
 
         mock_instance.delete.assert_called_with(
@@ -73,7 +73,7 @@ class TestUsers(unittest.TestCase):
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.get('an-id')
 
         args, kwargs = mock_instance.get.call_args
@@ -94,7 +94,7 @@ class TestUsers(unittest.TestCase):
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.delete('an-id')
 
         mock_instance.delete.assert_called_with(
@@ -105,7 +105,7 @@ class TestUsers(unittest.TestCase):
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.update('an-id', {'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.patch.call_args
@@ -117,7 +117,7 @@ class TestUsers(unittest.TestCase):
     def test_delete_multifactor(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.delete_multifactor('an-id', 'provider')
 
         mock_instance.delete.assert_called_with(
@@ -128,7 +128,7 @@ class TestUsers(unittest.TestCase):
     def test_unlink_user_account(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.unlink_user_account('an-id', 'provider', 'user-id')
 
         mock_instance.delete.assert_called_with(
@@ -139,7 +139,7 @@ class TestUsers(unittest.TestCase):
     def test_link_user_account(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        u = Users(domain='domain', jwt_token='jwttoken')
+        u = Users(domain='domain', token='jwttoken')
         u.link_user_account('user-id', {'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.post.call_args

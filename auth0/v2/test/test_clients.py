@@ -9,7 +9,7 @@ class TestClients(unittest.TestCase):
     def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Clients(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', token='jwttoken')
         c.all()
 
         args, kwargs = mock_instance.get.call_args
@@ -30,7 +30,7 @@ class TestClients(unittest.TestCase):
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Clients(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', token='jwttoken')
         c.create({'a': 'b', 'c': 'd'})
 
         mock_instance.post.assert_called_with(
@@ -42,7 +42,7 @@ class TestClients(unittest.TestCase):
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Clients(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', token='jwttoken')
         c.get('this-id')
 
         args, kwargs = mock_instance.get.call_args
@@ -63,7 +63,7 @@ class TestClients(unittest.TestCase):
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Clients(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', token='jwttoken')
         c.delete('this-id')
 
         mock_instance.delete.assert_called_with(
@@ -74,7 +74,7 @@ class TestClients(unittest.TestCase):
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        c = Clients(domain='domain', jwt_token='jwttoken')
+        c = Clients(domain='domain', token='jwttoken')
         c.update('this-id', {'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.patch.call_args

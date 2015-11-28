@@ -9,7 +9,7 @@ class TestTickets(unittest.TestCase):
     def test_email(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        t = Tickets(domain='domain', jwt_token='jwttoken')
+        t = Tickets(domain='domain', token='jwttoken')
         t.create_email_verification({'a': 'b', 'c': 'd'})
 
         mock_instance.post.assert_called_with(
@@ -21,7 +21,7 @@ class TestTickets(unittest.TestCase):
     def test_pswd(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        t = Tickets(domain='domain', jwt_token='jwttoken')
+        t = Tickets(domain='domain', token='jwttoken')
         t.create_pswd_change({'a': 'b', 'c': 'd'})
 
         mock_instance.post.assert_called_with(

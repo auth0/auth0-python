@@ -9,7 +9,7 @@ class TestJobs(unittest.TestCase):
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        j = Jobs(domain='domain', jwt_token='jwttoken')
+        j = Jobs(domain='domain', token='jwttoken')
         j.get('an-id')
 
         mock_instance.get.assert_called_with(
@@ -20,7 +20,7 @@ class TestJobs(unittest.TestCase):
     def test_import_users(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        j = Jobs(domain='domain', jwt_token='jwttoken')
+        j = Jobs(domain='domain', token='jwttoken')
         j.import_users(connection_id='1234', file_obj={})
 
         mock_instance.file_post.assert_called_with(
@@ -33,7 +33,7 @@ class TestJobs(unittest.TestCase):
     def test_verification_email(self, mock_rc):
         mock_instance = mock_rc.return_value
 
-        j = Jobs(domain='domain', jwt_token='jwttoken')
+        j = Jobs(domain='domain', token='jwttoken')
         j.send_verification_email({'a': 'b', 'c': 'd'})
 
         mock_instance.post.assert_called_with(

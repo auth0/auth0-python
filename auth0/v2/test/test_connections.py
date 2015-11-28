@@ -10,7 +10,7 @@ class TestConnection(unittest.TestCase):
         mock_instance = mock_rc.return_value
         mock_instance.get.return_value = {}
 
-        c = Connections(domain='domain', jwt_token='jwttoken')
+        c = Connections(domain='domain', token='jwttoken')
         c.all()
 
         args, kwargs = mock_instance.get.call_args
@@ -43,7 +43,7 @@ class TestConnection(unittest.TestCase):
         mock_instance = mock_rc.return_value
         mock_instance.get.return_value = {}
 
-        c = Connections(domain='domain', jwt_token='jwttoken')
+        c = Connections(domain='domain', token='jwttoken')
         c.get('an-id')
 
         args, kwargs = mock_instance.get.call_args
@@ -70,7 +70,7 @@ class TestConnection(unittest.TestCase):
         mock_instance = mock_rc.return_value
         mock_instance.delete.return_value = {}
 
-        c = Connections(domain='domain', jwt_token='jwttoken')
+        c = Connections(domain='domain', token='jwttoken')
         c.delete('this-id')
 
         mock_instance.delete.assert_called_with(
@@ -82,7 +82,7 @@ class TestConnection(unittest.TestCase):
         mock_instance = mock_rc.return_value
         mock_instance.patch.return_value = {}
 
-        c = Connections(domain='domain', jwt_token='jwttoken')
+        c = Connections(domain='domain', token='jwttoken')
         c.update('that-id', {'a': 'b', 'c': 'd'})
 
         mock_instance.patch.assert_called_with(
@@ -95,7 +95,7 @@ class TestConnection(unittest.TestCase):
         mock_instance = mock_rc.return_value
         mock_instance.post.return_value = {}
 
-        c = Connections(domain='domain', jwt_token='jwttoken')
+        c = Connections(domain='domain', token='jwttoken')
         c.create({'a': 'b', 'c': 'd'})
 
         mock_instance.post.assert_called_with(
