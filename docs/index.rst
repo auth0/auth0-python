@@ -11,6 +11,18 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   blacklists
+   clients
+   connections
+   device_credentials
+   emails
+   jobs
+   rules
+   stats
+   tenants
+   tickets
+   users
+
 Indices and tables
 ==================
 
