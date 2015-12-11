@@ -1,11 +1,11 @@
 import unittest
 import mock
-from ..stats import Stats
+from ...management.stats import Stats
 
 
 class TestTickets(unittest.TestCase):
 
-    @mock.patch('auth0.v2.stats.RestClient')
+    @mock.patch('auth0.v2.management.stats.RestClient')
     def test_active_users(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -16,7 +16,7 @@ class TestTickets(unittest.TestCase):
             'https://domain/api/v2/stats/active-users',
         )
 
-    @mock.patch('auth0.v2.stats.RestClient')
+    @mock.patch('auth0.v2.management.stats.RestClient')
     def test_daily_stats(self, mock_rc):
         mock_instance = mock_rc.return_value
 

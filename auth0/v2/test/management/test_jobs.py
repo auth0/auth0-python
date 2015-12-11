@@ -1,11 +1,11 @@
 import unittest
 import mock
-from ..jobs import Jobs
+from ...management.jobs import Jobs
 
 
 class TestJobs(unittest.TestCase):
 
-    @mock.patch('auth0.v2.jobs.RestClient')
+    @mock.patch('auth0.v2.management.jobs.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -16,7 +16,7 @@ class TestJobs(unittest.TestCase):
             'https://domain/api/v2/jobs/an-id',
         )
 
-    @mock.patch('auth0.v2.jobs.RestClient')
+    @mock.patch('auth0.v2.management.jobs.RestClient')
     def test_import_users(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -29,7 +29,7 @@ class TestJobs(unittest.TestCase):
             files={'users': {}}
         )
 
-    @mock.patch('auth0.v2.jobs.RestClient')
+    @mock.patch('auth0.v2.management.jobs.RestClient')
     def test_verification_email(self, mock_rc):
         mock_instance = mock_rc.return_value
 

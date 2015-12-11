@@ -1,11 +1,11 @@
 import unittest
 import mock
-from ..users import Users
+from ...management.users import Users
 
 
 class TestUsers(unittest.TestCase):
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_list(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -46,7 +46,7 @@ class TestUsers(unittest.TestCase):
             'search_engine': 'se'
         })
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -58,7 +58,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/users', args[0])
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_delete_all_users(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -69,7 +69,7 @@ class TestUsers(unittest.TestCase):
             'https://domain/api/v2/users'
         )
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -90,7 +90,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false'})
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -101,7 +101,7 @@ class TestUsers(unittest.TestCase):
             'https://domain/api/v2/users/an-id'
         )
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -113,7 +113,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/users/an-id', args[0])
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_delete_multifactor(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -124,7 +124,7 @@ class TestUsers(unittest.TestCase):
             'https://domain/api/v2/users/an-id/multifactor/provider'
         )
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_unlink_user_account(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -135,7 +135,7 @@ class TestUsers(unittest.TestCase):
             'https://domain/api/v2/users/an-id/identities/provider/user-id'
         )
 
-    @mock.patch('auth0.v2.users.RestClient')
+    @mock.patch('auth0.v2.management.users.RestClient')
     def test_link_user_account(self, mock_rc):
         mock_instance = mock_rc.return_value
 

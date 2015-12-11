@@ -1,11 +1,11 @@
 import unittest
 import mock
-from ..blacklists import Blacklists
+from ...management.blacklists import Blacklists
 
 
 class TestBlacklists(unittest.TestCase):
 
-    @mock.patch('auth0.v2.blacklists.RestClient')
+    @mock.patch('auth0.v2.management.blacklists.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -17,7 +17,7 @@ class TestBlacklists(unittest.TestCase):
             params={'aud': 'an-id'}
         )
 
-    @mock.patch('auth0.v2.blacklists.RestClient')
+    @mock.patch('auth0.v2.management.blacklists.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 

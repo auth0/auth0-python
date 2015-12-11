@@ -1,11 +1,11 @@
 import unittest
 import mock
-from ..clients import Clients
+from ...management.clients import Clients
 
 
 class TestClients(unittest.TestCase):
 
-    @mock.patch('auth0.v2.clients.RestClient')
+    @mock.patch('auth0.v2.management.clients.RestClient')
     def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -26,7 +26,7 @@ class TestClients(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false'})
 
-    @mock.patch('auth0.v2.clients.RestClient')
+    @mock.patch('auth0.v2.management.clients.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -38,7 +38,7 @@ class TestClients(unittest.TestCase):
             data={'a': 'b', 'c': 'd'}
         )
 
-    @mock.patch('auth0.v2.clients.RestClient')
+    @mock.patch('auth0.v2.management.clients.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -59,7 +59,7 @@ class TestClients(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false'})
 
-    @mock.patch('auth0.v2.clients.RestClient')
+    @mock.patch('auth0.v2.management.clients.RestClient')
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -70,7 +70,7 @@ class TestClients(unittest.TestCase):
             'https://domain/api/v2/clients/this-id'
         )
 
-    @mock.patch('auth0.v2.clients.RestClient')
+    @mock.patch('auth0.v2.management.clients.RestClient')
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 

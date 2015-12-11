@@ -1,8 +1,8 @@
 import unittest
 import json
 import mock
-from ..rest import RestClient
-from ..exceptions import Auth0Error
+from ...management.rest import RestClient
+from ...exceptions import Auth0Error
 
 
 class TestRest(unittest.TestCase):
