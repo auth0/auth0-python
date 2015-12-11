@@ -2,7 +2,7 @@ import sys
 import json
 import base64
 import requests
-from .exceptions import Auth0Error
+from ..exceptions import Auth0Error
 
 
 class RestClient(object):
