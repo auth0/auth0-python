@@ -1,7 +1,7 @@
-import requests
+from .base import AuthenticationBase
 
 
-class Database(object):
+class Database(AuthenticationBase):
 
     def __init__(self, domain):
         self.domain = domain
@@ -17,7 +17,7 @@ class Database(object):
         Windows Azure AD and ADFS.
         """
 
-        return requests.post(
+        return self.post(
             'https://%s/oauth/ro' % self.domain,
             data={
                 'client_id': client_id,
@@ -36,7 +36,7 @@ class Database(object):
         """Signup using username and password.
         """
 
-        return requests.post(
+        return self.post(
             'https://%s/dbconnections/signup' % self.domain,
             data={
                 'client_id': client_id,
@@ -51,7 +51,7 @@ class Database(object):
         """Asks to change a password for a given user.
         """
 
-        return requests.post(
+        return self.post(
             'https://%s/dbconnections/change_password' % self.domain,
             data={
                 'client_id': client_id,

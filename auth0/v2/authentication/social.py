@@ -1,7 +1,7 @@
-import requests
+from .base import AuthenticationBase
 
 
-class Social(object):
+class Social(AuthenticationBase):
 
     def __init__(self, domain):
         self.domain = domain
@@ -25,7 +25,7 @@ class Social(object):
             A dict with 'access_token' and 'id_token' keys.
         """
 
-        return requests.post(
+        return self.post(
             'https://%s/oauth/access_token' % self.domain,
             data={
                 'client_id': client_id,
