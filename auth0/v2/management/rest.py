@@ -17,8 +17,11 @@ class RestClient(object):
                                        sys.version_info.minor,
                                        sys.version_info.micro)
 
+            # FIXME: is there a nicer way to do this?
+            from ... import __version__ as version
+
             auth0_client = json.dumps({
-                'name': 'auth0-python', 'version': '2.0.0',
+                'name': 'auth0-python', 'version': version,
                 'dependencies': [
                     {
                         'name': 'requests',
