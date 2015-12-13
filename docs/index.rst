@@ -55,7 +55,7 @@ To use the library you will need to instantiate an Auth0 object with a domain an
 
 .. code-block:: python
 
-    from auth0.v2 import Auth0
+    from auth0.v2.management import Auth0
 
     domain = 'myaccount.auth0.com'
     token = '{A_JWT_TOKEN}' # You can generate one of these by using the

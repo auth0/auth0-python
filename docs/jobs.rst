@@ -2,6 +2,6 @@
 Jobs
 ====
 
-.. automodule:: auth0.v2.jobs
+.. automodule:: auth0.v2.management.jobs
     :members:
 

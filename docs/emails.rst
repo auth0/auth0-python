@@ -2,6 +2,6 @@
 Emails
 ======
 
-.. automodule:: auth0.v2.emails
+.. automodule:: auth0.v2.management.emails
     :members:
 

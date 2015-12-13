@@ -2,6 +2,6 @@
 Stats
 =====
 
-.. automodule:: auth0.v2.stats
+.. automodule:: auth0.v2.management.stats
     :members:
 

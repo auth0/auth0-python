@@ -2,6 +2,6 @@
 Tickets
 =======
 
-.. automodule:: auth0.v2.tickets
+.. automodule:: auth0.v2.management.tickets
     :members:
 

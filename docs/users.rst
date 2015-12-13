@@ -2,6 +2,6 @@
 Users
 =====
 
-.. automodule:: auth0.v2.users
+.. automodule:: auth0.v2.management.users
     :members:
 

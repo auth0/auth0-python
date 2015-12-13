@@ -2,6 +2,6 @@
 Rules
 =====
 
-.. automodule:: auth0.v2.rules
+.. automodule:: auth0.v2.management.rules
     :members:
 
