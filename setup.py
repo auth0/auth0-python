@@ -1,9 +1,22 @@
+import io
+import os
+import re
 from setuptools import setup, find_packages
+
+
+def find_version():
+    file_dir = os.path.dirname(__file__)
+    with io.open(os.path.join(file_dir, 'auth0', '__init__.py')) as f:
+        version = re.search(r'^__version__ = [\'"]([^\'"]*)[\'"]', f.read())
+        if version:
+            return version.group(1)
+        else:
+            raise RuntimeError("Unable to find version string.")
 
 
 setup(
     name='auth0-python',
-    version='2.0.0b3',
+    version=find_version(),
     description='Auth0 Python SDK',
     author='Auth0',
     author_email='support@auth0.com',
