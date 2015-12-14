@@ -1,18 +1,17 @@
-import requests
+from .base import AuthenticationBase
 
 
-class Enterprise(object):
+class Enterprise(AuthenticationBase):
 
     def __init__(self, domain):
         self.domain = domain
 
-    def saml_login(self, client_id, connection):
-        """
-        """
+    def saml_metadata(self, client_id):
+        return self.get(url='https://%s/samlp/metadata/%s' % (self.domain,
+                                                              client_id))
 
-        return requests.get(
-            'https://%s/samlp/%s' % (self.domain, client_id),
-            params={'connection': connection}
-        )
+    def wsfed_metadata(self):
+        url = 'https://%s/wsfed/FederationMetadata' \
+              '/2007-06/FederationMetadata.xml'
 
-    def saml_metadata(self,
+        return self.get(url=url % self.domain)
