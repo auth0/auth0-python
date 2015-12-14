@@ -37,7 +37,7 @@ class Passwordless(object):
             headers={'Content-Type': 'application/json'}
         )
 
-    def login(self, client_id, phone_number, code):
+    def sms_login(self, client_id, phone_number, code):
         """Login using phone number/verification code.
         """
 
