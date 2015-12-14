@@ -3,6 +3,12 @@ from .base import AuthenticationBase
 
 class Social(AuthenticationBase):
 
+    """Social provider's endpoints.
+
+    Args:
+        domain (str): Your auth0 domain (e.g: username.auth0.com)
+    """
+
     def __init__(self, domain):
         self.domain = domain
 
