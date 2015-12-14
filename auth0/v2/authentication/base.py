@@ -10,6 +10,9 @@ class AuthenticationBase(object):
                                  headers=headers)
         return self._process_response(response)
 
+    def get(self, url, params={}, headers={}):
+        return requests.get(url=url, params=params, headers=headers).text
+
     def _process_response(self, response):
         text = json.loads(response.text) if response.text else {}
 
