@@ -3,11 +3,37 @@ import requests
 
 class Passwordless(object):
 
+    """Passwordless connections endpoints.
+
+    Args:
+        domain (str): Your auth0 domain (e.g: username.auth0.com)
+    """
+
     def __init__(self, domain):
         self.domain = domain
 
     def email(self, client_id, email, send, auth_params):
         """Start flow sending an email.
+
+        Given the user email address, it will send an email with:
+
+          - A link (default, send:"link"). You can then authenticate with
+            this user opening the link and he will be automatically logged in
+            to the application. Optionally, you can append/override
+            parameters to the link (like scope, redirect_uri, protocol,
+            response_type, etc.) using auth_params dict.
+
+          - A verification code (send:"code"). You can then authenticate with
+            this user using email as username and code as password.
+
+        Args:
+            client_id (str): Id of the client.
+
+            email (str): Email address.
+
+            send (str): Can be: 'link' or 'code'
+
+            auth_params (dict): Parameters to append or override.
         """
 
         return requests.post(
@@ -31,7 +57,6 @@ class Passwordless(object):
             data={
                 'client_id': client_id,
                 'connection': 'sms',
-                'email': email,
                 'phone_number': phone_number,
             },
             headers={'Content-Type': 'application/json'}
@@ -42,7 +67,7 @@ class Passwordless(object):
         """
 
         return requests.post(
-            'https://%s/passwordless/start' % self.domain,
+            'https://%s/oauth/ro' % self.domain,
             data={
                 'client_id': client_id,
                 'connection': 'sms',
