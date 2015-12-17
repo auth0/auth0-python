@@ -22,15 +22,15 @@ class Delegated(AuthenticationBase):
         }
 
         if id_token:
-            data.extend({'id_token': id_token})
+            data.update({'id_token': id_token})
         elif refresh_token:
-            data.extend({'refresh_token': refresh_token})
+            data.update({'refresh_token': refresh_token})
         else:
             raise ValueError('Either id_token or refresh_token must '
                              'have a value')
 
         return self.post(
-            url='https://%s/delegation' % self.domain,
+            'https://%s/delegation' % self.domain,
             headers={'Content-Type': 'application/json'},
             data=data
         )
