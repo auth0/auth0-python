@@ -1,7 +1,7 @@
-import requests
+from .base import AuthenticationBase
 
 
-class Passwordless(object):
+class Passwordless(AuthenticationBase):
 
     """Passwordless connections endpoints.
 
@@ -36,7 +36,7 @@ class Passwordless(object):
             auth_params (dict): Parameters to append or override.
         """
 
-        return requests.post(
+        return self.post(
             'https://%s/passwordless/start' % self.domain,
             data={
                 'client_id': client_id,
@@ -52,7 +52,7 @@ class Passwordless(object):
         """Start flow sending a SMS message.
         """
 
-        return requests.post(
+        return self.post(
             'https://%s/passwordless/start' % self.domain,
             data={
                 'client_id': client_id,
@@ -66,7 +66,7 @@ class Passwordless(object):
         """Login using phone number/verification code.
         """
 
-        return requests.post(
+        return self.post(
             'https://%s/oauth/ro' % self.domain,
             data={
                 'client_id': client_id,
