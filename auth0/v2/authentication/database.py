@@ -3,6 +3,12 @@ from .base import AuthenticationBase
 
 class Database(AuthenticationBase):
 
+    """Database & Active Directory / LDAP Authentication.
+
+    Args:
+        domain (str): Your auth0 domain (e.g: username.auth0.com)
+    """
+
     def __init__(self, domain):
         self.domain = domain
 
