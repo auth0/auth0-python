@@ -46,11 +46,11 @@ You can install the auth0 python SDK issuing the following command.
 
     pip install auth0-python
 
-=====
-Usage
-=====
+====================
+Management SDK Usage
+====================
 
-To use the library you will need to instantiate an Auth0 object with a domain and a token.
+To use the management library you will need to instantiate an Auth0 object with a domain and a token.
 
 
 .. code-block:: python
@@ -124,8 +124,27 @@ Success!
 All endpoints follow a similar structure to the ``connections`` one, and try to follow as
 closely as possible the `API documentation <https://auth0.com/docs/api/v2>`_.
 
+========================
+Authentication SDK Usage
+========================
+
+The Authentication SDK is divided into components mimicking the structure of the
+`API's documentation <https://auth0.com/docs/auth-api>`_.
+For example:
+
+.. code-block:: python
+
+    from auth0.v2.authentication import Social
+
+    social = Social('myaccount.auth0.com')
+
+    s.login(client_id='...', acces_token='...', connection='facebook')
+
+
 Contents:
 _________
+
+Management API.
 
 .. toctree::
    :maxdepth: 2
@@ -141,6 +160,19 @@ _________
    tenants
    tickets
    users
+
+Authentication API.
+
+.. toctree::
+   :maxdepth: 2
+
+   auth_users
+   database
+   delegated
+   enterprise
+   link
+   passwordless
+   social
 
 Indices and tables
 ==================
