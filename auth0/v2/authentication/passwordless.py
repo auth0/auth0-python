@@ -12,7 +12,7 @@ class Passwordless(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    def email(self, client_id, email, send, auth_params):
+    def email(self, client_id, email, send='link', auth_params={}):
         """Start flow sending an email.
 
         Given the user email address, it will send an email with:
@@ -31,9 +31,9 @@ class Passwordless(AuthenticationBase):
 
             email (str): Email address.
 
-            send (str): Can be: 'link' or 'code'
+            send (str, optional): Can be: 'link' or 'code'. Defaults to 'link'.
 
-            auth_params (dict): Parameters to append or override.
+            auth_params (dict, optional): Parameters to append or override.
         """
 
         return self.post(
