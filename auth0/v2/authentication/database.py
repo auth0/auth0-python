@@ -6,8 +6,8 @@ class Database(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    def login(self, client_id, username, password, id_token, connection,
-              device, grant_type):
+    def login(self, client_id, username, password, connection, id_token=None,
+              grant_type='password', device=None):
         """Login using username and password
 
         Given the user credentials and the connection specified, it will do
@@ -47,7 +47,7 @@ class Database(AuthenticationBase):
             headers={'Content-Type': 'application/json'}
         )
 
-    def change_password(self, client_id, email, password, connection):
+    def change_password(self, client_id, email, connection, password=None):
         """Asks to change a password for a given user.
         """
 
