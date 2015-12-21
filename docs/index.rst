@@ -1,13 +1,10 @@
-**************
-Auth0 - Python
-**************
+.. Auth0 - Python documentation master file, created by
+   sphinx-quickstart on Sat Nov 28 10:38:36 2015.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-|pypi| |build| |coverage|
-
-In this repository, you'll find all the information about integrating Auth0 with Python.
-
-Check out the examples that we have in here in our examples folder. Each of them has a README on how to run them and on how to use them.
-
+Welcome to Auth0 - Python's documentation!
+==========================================
 
 ==============
 What is Auth0?
@@ -24,14 +21,12 @@ Auth0 helps you to:
 * Analytics of how, when and where users are logging in.
 * Pull data from other sources and add it to the user profile, through `JavaScript rules <https://docs.auth0.com/rules>`_.
 
-
 ===========================
 Create a free Auth0 Account
 ===========================
 
 1. Go to `Auth0`_ and click Sign Up.
 2. Use Google, GitHub or Microsoft Account to login.
-
 
 ===============
 Issue Reporting
@@ -41,20 +36,13 @@ If you have found a bug or if you have a feature request, please report them at 
 Please do not report security vulnerabilities on the public GitHub issue tracker.
 The `Responsible Disclosure Program <https://auth0.com/whitehat>`_ details the procedure for disclosing security issues.
 
-
-======
-Author
-======
-
-`Auth0`_
-
 ============
 Installation
 ============
 
 You can install the auth0 python SDK issuing the following command.
 
-.. code-block::
+.. code-block:: shell
 
     pip install auth0-python
 
@@ -152,62 +140,45 @@ For example:
 
     s.login(client_id='...', acces_token='...', connection='facebook')
 
-Available Management Endpoints
-==============================
 
-    - Clients() ( ``Auth0().clients`` )
-    - Connections() ( ``Auth0().connections`` )
-    - DeviceCredentials() ( ``Auth0().device_credentials`` )
-    - Rules() ( ``Auth0().rules`` )
-    - Users() ( ``Auth0().users`` )
-    - Blacklists() ( ``Auth0().blacklists`` )
-    - Emails() ( ``Auth0().emails`` )
-    - Jobs() ( ``Auth0().jobs`` )
-    - Stats() ( ``Auth0().stats`` )
-    - Tenants() ( ``Auth0().tenants`` )
+Contents:
+_________
 
-Available Authentication Endpoints
-==================================
+Management API.
 
-    - Users ( ``authentication.Users`` )
-    - Database ( ``authentication.Database`` )
-    - Delegated ( ``authentication.Delegated`` )
-    - Enterprise ( ``authentication.Enterprise`` )
-    - Link ( ``authentication.Link`` )
-    - Passwordless ( ``authentication.Passwordless`` )
-    - Social ( ``authentication.Social`` )
+.. toctree::
+   :maxdepth: 2
 
-==========
-Contribute
-==========
+   blacklists
+   clients
+   connections
+   device_credentials
+   emails
+   jobs
+   rules
+   stats
+   tenants
+   tickets
+   users
 
-Please see `CONTRIBUTING.rst <https://github.com/sophilabs/auth0-python/blob/v2/CONTRIBUTING.rst>`_.
+Authentication API.
 
+.. toctree::
+   :maxdepth: 2
 
-==========
-Change Log
-==========
+   auth_users
+   database
+   delegated
+   enterprise
+   link
+   passwordless
+   social
 
-Please see `CHANGELOG.rst <https://github.com/sophilabs/auth0-python/blob/v2/CHANGELOG.rst>`_.
+Indices and tables
+==================
 
-
-=======
-License
-=======
-
-This project is licensed under the MIT license. See the `LICENSE.rst <https://github.com/sophilabs/auth0-python/blob/v2/LICENSE.rst>`_
-file for more info.
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 
 .. _Auth0: https://auth0.com
-
-.. |pypi| image:: https://img.shields.io/pypi/v/auth0-python.svg?style=flat-square&label=latest%20version
-    :target: https://pypi.python.org/pypi/auth0-python
-    :alt: Latest version released on PyPi
-
-.. |coverage| image:: https://coveralls.io/repos/sophilabs/auth0-python/badge.svg?branch=v2&service=github
-    :target: https://coveralls.io/github/sophilabs/auth0-python?branch=v2
-    :alt: Test coverage
-
-.. |build| image:: https://travis-ci.org/sophilabs/auth0-python.svg?branch=v2
-    :target: https://travis-ci.org/sophilabs/auth0-python
-    :alt: Build status of the v2 branch
