@@ -58,12 +58,11 @@ You can install the auth0 python SDK issuing the following command.
 
     pip install auth0-python
 
+====================
+Management SDK Usage
+====================
 
-=====
-Usage
-=====
-
-To use the library you will need to instantiate an Auth0 object with a domain and a token.
+To use the management library you will need to instantiate an Auth0 object with a domain and a token.
 
 
 .. code-block:: python
@@ -134,12 +133,27 @@ Which returns something like this
 
 Success!
 
-
 All endpoints follow a similar structure to the ``connections`` one, and try to follow as
 closely as possible the `API documentation <https://auth0.com/docs/api/v2>`_.
 
-Available endpoints
--------------------
+========================
+Authentication SDK Usage
+========================
+
+The Authentication SDK is divided into components mimicking the structure of the
+`API's documentation <https://auth0.com/docs/auth-api>`_.
+For example:
+
+.. code-block:: python
+
+    from auth0.v2.authentication import Social
+
+    social = Social('myaccount.auth0.com')
+
+    s.login(client_id='...', acces_token='...', connection='facebook')
+
+Available Management Endpoints
+==============================
 
     - Clients() ( ``Auth0().clients`` )
     - Connections() ( ``Auth0().connections`` )
@@ -151,7 +165,17 @@ Available endpoints
     - Jobs() ( ``Auth0().jobs`` )
     - Stats() ( ``Auth0().stats`` )
     - Tenants() ( ``Auth0().tenants`` )
-    - Tickets() ( ``Auth0().tickets`` )
+
+Available Authentication Endpoints
+==================================
+
+    - Users ( ``authentication.Users`` )
+    - Database ( ``authentication.Database`` )
+    - Delegated ( ``authentication.Delegated`` )
+    - Enterprise ( ``authentication.Enterprise`` )
+    - Link ( ``authentication.Link`` )
+    - Passwordless ( ``authentication.Passwordless`` )
+    - Social ( ``authentication.Social`` )
 
 ==========
 Contribute
