@@ -12,7 +12,7 @@ class Social(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    def login(self, client_id, access_token, connection):
+    def login(self, client_id, access_token, connection, scope='openid'):
         """Login using a social provider's access token
 
         Given the social provider's access_token and the connection specified,
@@ -37,7 +37,7 @@ class Social(AuthenticationBase):
                 'client_id': client_id,
                 'access_token': access_token,
                 'connection': connection,
-                'scope': 'openid',
+                'scope': scope,
             },
             headers={'Content-Type': 'application/json'}
         )

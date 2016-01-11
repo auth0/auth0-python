@@ -14,7 +14,8 @@ class TestDelegated(unittest.TestCase):
                     target='tgt',
                     api_type='apt',
                     grant_type='gt',
-                    id_token='idt')
+                    id_token='idt',
+                    scope='openid profile')
 
         args, kwargs = mock_post.call_args
 
@@ -24,7 +25,7 @@ class TestDelegated(unittest.TestCase):
             'grant_type': 'gt',
             'id_token': 'idt',
             'target': 'tgt',
-            'scope': 'openid',
+            'scope': 'openid profile',
             'api_type': 'apt',
         })
         self.assertEqual(kwargs['headers'], {

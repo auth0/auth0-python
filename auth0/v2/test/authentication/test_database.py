@@ -16,7 +16,8 @@ class TestDatabase(unittest.TestCase):
                 id_token='idt',
                 connection='conn',
                 device='dev',
-                grant_type='gt')
+                grant_type='gt',
+                scope='openid profile')
 
         args, kwargs = mock_post.call_args
 
@@ -29,7 +30,7 @@ class TestDatabase(unittest.TestCase):
             'connection': 'conn',
             'device': 'dev',
             'grant_type': 'gt',
-            'scope': 'openid',
+            'scope': 'openid profile',
         })
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'

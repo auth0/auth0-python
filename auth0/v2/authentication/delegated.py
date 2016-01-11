@@ -13,7 +13,7 @@ class Delegated(AuthenticationBase):
         self.domain = domain
 
     def get_token(self, client_id, target, api_type, grant_type,
-                  id_token=None, refresh_token=None):
+                  id_token=None, refresh_token=None, scope='openid'):
 
         """Obtain a delegation token.
         """
@@ -26,7 +26,7 @@ class Delegated(AuthenticationBase):
             'client_id': client_id,
             'grant_type': grant_type,
             'target': target,
-            'scope': 'openid',
+            'scope': scope,
             'api_type': api_type,
         }
 
