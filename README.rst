@@ -32,22 +32,6 @@ Create a free Auth0 Account
 1. Go to `Auth0`_ and click Sign Up.
 2. Use Google, GitHub or Microsoft Account to login.
 
-
-===============
-Issue Reporting
-===============
-
-If you have found a bug or if you have a feature request, please report them at this repository issues section.
-Please do not report security vulnerabilities on the public GitHub issue tracker.
-The `Responsible Disclosure Program <https://auth0.com/whitehat>`_ details the procedure for disclosing security issues.
-
-
-======
-Author
-======
-
-`Auth0`_
-
 ============
 Installation
 ============
@@ -190,12 +174,25 @@ Change Log
 
 Please see `CHANGELOG.rst <https://github.com/sophilabs/auth0-python/blob/v2/CHANGELOG.rst>`_.
 
+===============
+Issue Reporting
+===============
+
+If you have found a bug or if you have a feature request, please report them at this repository issues section.
+Please do not report security vulnerabilities on the public GitHub issue tracker.
+The `Responsible Disclosure Program <https://auth0.com/whitehat>`_ details the procedure for disclosing security issues.
+
+======
+Author
+======
+
+`Auth0`_
 
 =======
 License
 =======
 
-This project is licensed under the MIT license. See the `LICENSE.rst <https://github.com/sophilabs/auth0-python/blob/v2/LICENSE.rst>`_
+This project is licensed under the MIT license. See the `LICENSE <https://github.com/sophilabs/auth0-python/blob/v2/LICENSE>`_
 file for more info.
 
 .. _Auth0: https://auth0.com
