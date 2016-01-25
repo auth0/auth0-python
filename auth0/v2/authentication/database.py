@@ -13,7 +13,7 @@ class Database(AuthenticationBase):
         self.domain = domain
 
     def login(self, client_id, username, password, connection, id_token=None,
-              grant_type='password', device=None):
+              grant_type='password', device=None, scope='openid'):
         """Login using username and password
 
         Given the user credentials and the connection specified, it will do
@@ -33,7 +33,7 @@ class Database(AuthenticationBase):
                 'connection': connection,
                 'device': device,
                 'grant_type': grant_type,
-                'scope': 'openid',
+                'scope': scope,
             },
             headers={'Content-Type': 'application/json'}
         )

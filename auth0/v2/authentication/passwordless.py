@@ -62,7 +62,7 @@ class Passwordless(AuthenticationBase):
             headers={'Content-Type': 'application/json'}
         )
 
-    def sms_login(self, client_id, phone_number, code):
+    def sms_login(self, client_id, phone_number, code, scope='openid'):
         """Login using phone number/verification code.
         """
 
@@ -74,7 +74,7 @@ class Passwordless(AuthenticationBase):
                 'grant_type': 'password',
                 'username': phone_number,
                 'password': code,
-                'scope': 'openid',
+                'scope': scope,
             },
             headers={'Content-Type': 'application/json'}
         )
