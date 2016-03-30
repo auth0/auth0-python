@@ -71,6 +71,7 @@ def ping():
 
 @app.route("/secured/ping")
 @cross_origin(headers=['Content-Type', 'Authorization'])
+@cross_origin(headers=['Access-Control-Allow-Origin', '*'])
 @requires_auth
 def securedPing():
     return "All good. You only get this message if you're authenticated"
