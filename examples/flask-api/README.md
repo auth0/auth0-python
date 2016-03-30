@@ -6,7 +6,7 @@ This example is deployed at Heroku at http://auth0-python-flaskapi-sample.heroku
 # Running the example
 In order to run the example you need to have `python` and `pip` installed.
 
-You also need to set the client secret and ID of your Auth0 app as enviroment variables with the following names respectively: `AUTH0_CLIENT_SECRET` and `AUTH0_CLIENT_ID`.
+You also need to set the client secret and ID of your Auth0 app as environment variables with the following names respectively: `AUTH0_CLIENT_SECRET` and `AUTH0_CLIENT_ID`.
 
 For that, if you just create a file named `.env` in the directory and set the values like the following, the app will just work:
 
