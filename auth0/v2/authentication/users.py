@@ -46,5 +46,5 @@ class Users(AuthenticationBase):
         return self.post(
             url='https://%s/tokeninfo' % self.domain,
             data={'id_token': jwt},
-            headers={'Content-Type: application/json'}
+            headers={'Content-Type': 'application/json'}
         )
