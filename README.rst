@@ -54,10 +54,10 @@ To use the management library you will need to instantiate an Auth0 object with 
     from auth0.v2.management import Auth0
 
     domain = 'myaccount.auth0.com'
-    token = '{A_JWT_TOKEN}' # You can generate one of these by using the
+    token = 'A_JWT_TOKEN' # You can generate one of these by using the
                             # token generator at: https://auth0.com/docs/api/v2
 
-    auth0 = Auth0('myuser.auth0.com', token)
+    auth0 = Auth0('myaccount.auth0.com', token)
 
 The ``Auth0()`` object is now ready to take orders!
 Let's see how we can use this to get all available connections.
