@@ -160,6 +160,7 @@ Available Authentication Endpoints
     - Link ( ``authentication.Link`` )
     - Passwordless ( ``authentication.Passwordless`` )
     - Social ( ``authentication.Social`` )
+    - Oauth ( ``authentication.Oauth`` )
 
 ==========
 Contribute
