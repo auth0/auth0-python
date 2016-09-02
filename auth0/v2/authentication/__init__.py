@@ -5,3 +5,4 @@ from .link import Link
 from .passwordless import Passwordless
 from .social import Social
 from .users import Users
+from .oauth import Oauth
