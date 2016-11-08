@@ -6,7 +6,7 @@ from functools import wraps
 from flask import Flask, request, jsonify, _request_ctx_stack
 from werkzeug.local import LocalProxy
 from dotenv import Dotenv
-from flask.ext.cors import cross_origin
+from flask_cors import cross_origin
 
 env = None
 
