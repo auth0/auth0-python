@@ -34,6 +34,15 @@ class Jobs(object):
         """
         return self.client.get(self._url(id))
 
+    def get_failed_job(self, id):
+        """Get failed job error details
+
+        Args:
+            id (str): The id of the job.
+        """
+        url = self._url('%s/errors' % (id))
+        return self.client.get(url)
+
     def import_users(self, connection_id, file_obj):
         """Imports users to a connection from a file.
 
