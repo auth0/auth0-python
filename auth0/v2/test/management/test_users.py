@@ -147,3 +147,39 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/users/user-id/identities',
                          args[0])
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
+
+    @mock.patch('auth0.v2.management.users.RestClient')
+    def test_regenerate_recovery_code(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.regenerate_recovery_code('user-id')
+
+        mock_instance.post.assert_called_with(
+            'https://domain/api/v2/users/user-id/recovery-code-regeneration'
+        )
+
+    @mock.patch('auth0.v2.management.users.RestClient')
+    def test_get_guardian_enrollments(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.get_guardian_enrollments('user-id')
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/users/user-id/enrollments'
+        )
+
+    @mock.patch('auth0.v2.management.users.RestClient')
+    def test_get_log_events(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.get_log_events('used_id')
+
+        args, kwargs = mock_instance.get.call_args
+        self.assertEqual('https://domain/api/v2/users/used_id/logs', args[0])
+        self.assertEqual(kwargs['params']['page'], 0)
+        self.assertEqual(kwargs['params']['per_page'], 50)
+        self.assertEqual(kwargs['params']['sort'], None)
+        self.assertEqual(kwargs['params']['include_totals'], 'false')

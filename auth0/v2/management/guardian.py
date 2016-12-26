@@ -43,7 +43,7 @@ class Guardian(object):
             See: https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name
         """
         url = self._url('factors/%s' % (name))
-        return self.client.patch(url, data=body)
+        return self.client.put(url, data=body)
 
     def update_templates(self, body):
         """Update enrollment and verification SMS templates.
@@ -55,7 +55,7 @@ class Guardian(object):
             See: https://auth0.com/docs/api/management/v2#!/Guardian/put_templates
         """
 
-        return self.client.patch(self._url('factors/sms/templates'), data=body)
+        return self.client.put(self._url('factors/sms/templates'), data=body)
 
     def get_templates(self):
         """Get enrollment and verification templates
@@ -87,7 +87,7 @@ class Guardian(object):
         url = self._url('enrollments/%s' % (id))
         return self.client.delete(url)
 
-    def create_enrollment_ticket(self):
+    def create_enrollment_ticket(self, body):
         """Creates an enrollment ticket for user_id
 
         A useful way to send an email to a user, with a link that lead to
@@ -97,7 +97,7 @@ class Guardian(object):
             body (dict): Details of the user to send the ticket to.
             See: https://auth0.com/docs/api/management/v2#!/Guardian/post_ticket
         """
-        return self.client.post(self._url('enrollments/ticket'))
+        return self.client.post(self._url('enrollments/ticket'), data=body)
 
     def get_factor_providers(self, factor_name, name):
         """Get Guardian factor providers.
@@ -110,7 +110,7 @@ class Guardian(object):
         url = self._url('factors/%s/providers/%s' % (factor_name, name))
         return self.client.get(url)
 
-    def update_factor_providers(self, factor_name, name):
+    def update_factor_providers(self, factor_name, name, body):
         """Get Guardian factor providers.
 
         Returns provider configuration
@@ -119,4 +119,4 @@ class Guardian(object):
            name (str): Name of the provider
         """
         url = self._url('factors/%s/providers/%s' % (factor_name, name))
-        return self.client.patch(url)
+        return self.client.put(url, data=body)

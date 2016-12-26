@@ -9,7 +9,11 @@ from .stats import Stats
 from .tickets import Tickets
 from .users import Users
 from .tenants import Tenants
-
+from .client_grants import ClientGrants
+from .guardian import Guardian
+from .logs import Logs
+from .resource_servers import ResourceServers
+from .user_blocks import UserBlocks
 
 class Auth0(object):
     """Provides easy access to all endpoint classes
@@ -34,3 +38,8 @@ class Auth0(object):
         self.tickets = Tickets(domain, token)
         self.users = Users(domain, token)
         self.tenants = Tenants(domain, token)
+        self.client_grants = ClientGrants(domain, token)
+        self.guardian = Guardian(domain, token)
+        self.logs = Logs(domain, token)
+        self.resource_servers = ResourceServers(domain, token)
+        self.user_blocks = UserBlocks

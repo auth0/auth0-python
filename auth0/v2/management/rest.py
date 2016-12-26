@@ -83,13 +83,23 @@ class RestClient(object):
         response = requests.patch(url, data=json.dumps(data), headers=headers)
         return self._process_response(response)
 
-    def delete(self, url):
+    def put(self, url, data={}):
+        headers = self.base_headers.copy()
+        headers.update({
+            'Authorization': 'Bearer %s' % self.jwt,
+            'Content-Type': 'application/json'
+        })
+
+        response = requests.put(url, data=json.dumps(data), headers=headers)
+        return self._process_response(response)
+
+    def delete(self, url, params={}):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
         })
 
-        response = requests.delete(url, headers=headers)
+        response = requests.delete(url, headers=headers, params=params)
         return self._process_response(response)
 
     def _process_response(self, response):

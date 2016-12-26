@@ -115,7 +115,7 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.text = '["a", "b"]'
 
         response = rc.delete(url='the-url/ID')
-        mock_delete.assert_called_with('the-url/ID', headers=headers)
+        mock_delete.assert_called_with('the-url/ID', headers=headers, params={})
 
         self.assertEqual(response, ['a', 'b'])
 
