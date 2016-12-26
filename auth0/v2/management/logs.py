@@ -26,9 +26,9 @@ class Logs(object):
             return url + '/' + id
         return url
 
-    def search(self, page=0, per_page=25, sort=None, q=None,
-             include_totals=True, fields=[], from_param=None, take=None,
-             include_fields=True):
+    def search(self, page=0, per_page=50, sort=None, q=None,
+               include_totals=True, fields=None, from_param=None, take=None,
+               include_fields=True):
         """Search log events.
 
         Args:
@@ -62,7 +62,7 @@ class Logs(object):
             'page': page,
             'include_totals': str(include_totals).lower(),
             'sort': sort,
-            'fields': ','.join(fields) or None,
+            'fields': fields and ','.join(fields) or None,
             'include_fields': str(include_fields).lower(),
             'q': q,
             'from': from_param,

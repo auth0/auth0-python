@@ -36,6 +36,12 @@ class ResourceServers(object):
 
         return self.client.post(self._url(), data=body)
 
+    def get_all(self):
+        """Retrieves all resource servers
+        """
+
+        return self.client.get(self._url())
+
     def get(self, id):
         """Retrieves a resource server by its id.
 

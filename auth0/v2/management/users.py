@@ -159,30 +159,30 @@ class Users(object):
         url = self._url('%s/identities' % user_id)
         return self.client.post(url, data=body)
 
-    def regenerate_recovery_code(self, id):
+    def regenerate_recovery_code(self, user_id):
         """Removes the current recovery token, generates and returns a new one
 
         Args:
-            id (str):  The user_id of the user identity.
+            user_id (str):  The user_id of the user identity.
         """
-        url = self._url('%s/recovery-code-regeneration' % id)
+        url = self._url('%s/recovery-code-regeneration' % user_id)
         return self.client.post(url)
 
-    def get_guardian_enrollments(self, id):
+    def get_guardian_enrollments(self, user_id):
         """Retrieves all Guardian enrollments.
 
         Args:
-            id (str):  The user_id of the user to retrieve
+            user_id (str):  The user_id of the user to retrieve
         """
-        url = self._url('%s/enrollments' % id)
+        url = self._url('%s/enrollments' % user_id)
         return self.client.get(url)
 
-    def get_log_events(self, id, page=0, per_page=50, sort=None,
-          include_totals=False):
+    def get_log_events(self, user_id, page=0, per_page=50, sort=None,
+                       include_totals=False):
         """Retrieve every log event for a specific user id
 
         Args:
-            id (str):  The user_id of the logs to retrieve
+            user_id (str):  The user_id of the logs to retrieve
 
             page (int, optional): The result's page number (zero based).
 
@@ -206,5 +206,5 @@ class Users(object):
             'sort': sort
         }
 
-        url = self._url('%s/logs' % id)
+        url = self._url('%s/logs' % user_id)
         return self.client.get(url, params=params)

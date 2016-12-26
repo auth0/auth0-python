@@ -149,6 +149,11 @@ Available Management Endpoints
     - Jobs() ( ``Auth0().jobs`` )
     - Stats() ( ``Auth0().stats`` )
     - Tenants() ( ``Auth0().tenants`` )
+    - ClientGrants() ( ``Auth0().client_grants`` )
+    - Guardian() ( ``Auth0().guardian`` )
+    - Logs() ( ``Auth0().logs`` )
+    - ResourceServers() (``Auth0().resource_servers`` )
+    - UserBlocks() (``Auth0().user_blocks`` )
 
 Available Authentication Endpoints
 ==================================

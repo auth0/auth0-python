@@ -10,3 +10,8 @@ from .stats import Stats
 from .tickets import Tickets
 from .users import Users
 from .tenants import Tenants
+from .client_grants import ClientGrants
+from .guardian import Guardian
+from .logs import Logs
+from .resource_servers import ResourceServers
+from .user_blocks import UserBlocks
