@@ -1,0 +1,34 @@
+from .base import AuthenticationBase
+
+
+class AuthorizeClient(AuthenticationBase):
+
+    """Database & Active Directory / LDAP Authentication.
+
+    Args:
+        domain (str): Your auth0 domain (e.g: username.auth0.com)
+    """
+
+    def __init__(self, domain):
+        self.domain = domain
+
+    def authorize(self, client_id, audience=None, state=None, redirect_uri=None,
+              response_type='code', scope='openid'): 
+        """Authorization code grant
+
+        This is the OAuth 2.0 grant that regular web apps utilize in order to access an API.
+        """
+
+        return self.get(
+            'https://%s/authorize' % self.domain,
+            data={
+                'client_id': client_id,
+                'audience': audience,
+                'response_type': response_type,
+                'scope': scope,
+                'state': state,
+                'redirect_uri': redirect_uri,                
+            },
+            headers={'Content-Type': 'application/json'}
+        )
+
