@@ -3,7 +3,7 @@ from .base import AuthenticationBase
 
 class GetToken(AuthenticationBase):
 
-    """Database & Active Directory / LDAP Authentication.
+    """oauth/token related endpoints
 
     Args:
         domain (str): Your auth0 domain (e.g: username.auth0.com)
@@ -12,7 +12,7 @@ class GetToken(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    def authorization_code(self, client_id, client_secret, code, #Check the name
+    def authorization_code(self, client_id, client_secret, code,
               grant_type='authorization_code', redirect_uri):
         """Authorization code grant
         
@@ -32,6 +32,27 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+
+    def client_credentials(self, client_id, client_secret, audience,
+              grant_type='client_credentials'):
+        """Client credentials grant
+        
+        This is the OAuth 2.0 grant that server processes utilize in 
+        order to access an API. Use this endpoint to directly request 
+        an access_token by using the Client Credentials (a Client Id and 
+        a Client Secret).
+        """
+
+        return self.post(
+            'https://%s/oauth/token' % self.domain,
+            data={
+                'client_id': client_id,
+                'client_secret': client_secret,
+                'audience': audience,
+                'grant_type': grant_type,
+            },
+            headers={'Content-Type': 'application/json'}
+        )        
 
     def login(self, client_id, client_secret, username, password, scope, realm
         audience, grant_type='http://auth0.com/oauth/grant-type/password-realm'):

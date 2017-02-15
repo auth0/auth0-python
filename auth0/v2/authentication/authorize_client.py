@@ -3,7 +3,7 @@ from .base import AuthenticationBase
 
 class AuthorizeClient(AuthenticationBase):
 
-    """Database & Active Directory / LDAP Authentication.
+    """Authorize Client
 
     Args:
         domain (str): Your auth0 domain (e.g: username.auth0.com)

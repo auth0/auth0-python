@@ -1,5 +1,5 @@
 from .base import AuthenticationBase
-
+import warnings
 
 class Users(AuthenticationBase):
 
@@ -42,7 +42,7 @@ class Users(AuthenticationBase):
         Returns:
             The user profile.
         """
-
+        warnings.warn("/tokeninfo will be deprecated in future releases", DeprecationWarning)
         return self.post(
             url='https://%s/tokeninfo' % self.domain,
             data={'id_token': jwt},
