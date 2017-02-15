@@ -3,7 +3,7 @@ from .base import AuthenticationBase
 
 class GetToken(AuthenticationBase):
 
-    """oauth/token related endpoints
+    """Oauth/token related endpoints
 
     Args:
         domain (str): Your auth0 domain (e.g: username.auth0.com)
@@ -19,6 +19,22 @@ class GetToken(AuthenticationBase):
         This is the OAuth 2.0 grant that regular web apps utilize in order 
         to access an API. Use this endpoint to exchange an Authorization Code 
         for a Token.
+
+        Args:
+            grant_type (str): Denotes the flow you're using. For authorization code
+            use authorization_code
+
+            client_id (str): your application's client Id
+
+            client_secret (str): you application's client Secret
+            
+            code (str): The Authorization Code received from the /authorize Calls
+
+            redirect_uri (srt, optional): This is required only if it was set at 
+            the GET /authorize endpoint. The values must match
+
+        Returns:
+            access_token, id_token
         """
 
         return self.post(
@@ -41,6 +57,19 @@ class GetToken(AuthenticationBase):
         order to access an API. Use this endpoint to directly request 
         an access_token by using the Client Credentials (a Client Id and 
         a Client Secret).
+
+        Args:
+            grant_type (str): Denotes the flow you're using. For client credentials
+            use client_credentials
+
+            client_id (str): your application's client Id
+
+            client_secret (str): you application's client Secret
+            
+            audience (str): The unique identifier of the target API you want to access.
+
+        Returns:
+            access_token
         """
 
         return self.post(
@@ -65,6 +94,30 @@ class GetToken(AuthenticationBase):
         (browser). This information is later on sent to the client and Auth0. 
         It is therefore imperative that the client is absolutely trusted with 
         this information.
+
+        Args:
+            grant_type (str): Denotes the flow you're using. For password realm
+            use http://auth0.com/oauth/grant-type/password-realm
+
+            client_id (str): your application's client Id
+
+            client_secret (str): you application's client Secret
+            
+            audience (str): The unique identifier of the target API you want to access.
+
+            username (str): Resource owner's identifier
+
+            password (str): resource owner's Secret
+            
+            scope(srt): String value of the different scopes the client is asking for. 
+            Multiple scopes are separated with whitespace.
+
+            realm (str): String value of the realm the user belongs. 
+            Set this if you want to add realm support at this grant.
+
+
+        Returns:
+            access_token, id_token
         """
 
         return self.post(
