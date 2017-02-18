@@ -162,10 +162,11 @@ Available Authentication Endpoints
     - Database ( ``authentication.Database`` )
     - Delegated ( ``authentication.Delegated`` )
     - Enterprise ( ``authentication.Enterprise`` )
-    - Link ( ``authentication.Link`` )
     - Passwordless ( ``authentication.Passwordless`` )
-    - Social ( ``authentication.Social`` )
-
+    - Social ( ``authentication.Social`` )
+    - API Authorization - Get Token ( ``authentication.GetToken``)
+    - API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
+    
 ==========
 Contribute
 ==========
