@@ -31,6 +31,31 @@ class TestGetToken(unittest.TestCase):
         })
 
     @mock.patch('auth0.v2.authentication.get_token.GetToken.post')
+    def test_authorization_code_pkce(self, mock_post):
+
+        g = GetToken('my.domain.com')
+
+        g.authorization_code_pkce(client_id='cid',
+                                  code_verifier='cdver',
+                                  code='cd',
+                                  grant_type='gt',
+                                  redirect_uri='idt')
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], 'https://my.domain.com/oauth/token')
+        self.assertEqual(kwargs['data'], {
+            'client_id': 'cid',
+            'code_verifier': 'cdver',
+            'code': 'cd',
+            'grant_type': 'gt',
+            'redirect_uri': 'idt'
+        })
+        self.assertEqual(kwargs['headers'], {
+            'Content-Type': 'application/json'
+        })
+
+    @mock.patch('auth0.v2.authentication.get_token.GetToken.post')
     def test_client_credentials(self, mock_post):
 
         g = GetToken('my.domain.com')

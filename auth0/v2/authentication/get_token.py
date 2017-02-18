@@ -49,6 +49,43 @@ class GetToken(AuthenticationBase):
             headers={'Content-Type': 'application/json'}
         )
 
+    def authorization_code_pkce(self, client_id, code_verifier, code,
+                                redirect_uri, grant_type='authorization_code'):
+        """Authorization code pkce grant
+
+        This is the OAuth 2.0 grant that mobile apps utilize in order to access an API.
+        Use this endpoint to exchange an Authorization Code for a Token.
+
+        Args:
+            grant_type (str): Denotes the flow you're using. For authorization code pkce
+            use authorization_code
+
+            client_id (str): your application's client Id
+
+            code_verifier (str): Cryptographically random key that was used to generate
+            the code_challenge passed to /authorize.
+
+            code (str): The Authorization Code received from the /authorize Calls
+
+            redirect_uri (srt, optional): This is required only if it was set at
+            the GET /authorize endpoint. The values must match
+
+        Returns:
+            access_token, id_token
+        """
+
+        return self.post(
+            'https://%s/oauth/token' % self.domain,
+            data={
+                'client_id': client_id,
+                'code_verifier': code_verifier,
+                'code': code,
+                'grant_type': grant_type,
+                'redirect_uri': redirect_uri,
+            },
+            headers={'Content-Type': 'application/json'}
+        )
+
     def client_credentials(self, client_id, client_secret, audience,
                            grant_type='client_credentials'):
         """Client credentials grant
