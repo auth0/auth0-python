@@ -9,6 +9,7 @@ from .stats import Stats
 from .tickets import Tickets
 from .users import Users
 from .tenants import Tenants
+from .resource_servers import ResourceServers
 
 
 class Auth0(object):
@@ -34,3 +35,4 @@ class Auth0(object):
         self.tickets = Tickets(domain, token)
         self.users = Users(domain, token)
         self.tenants = Tenants(domain, token)
+        self.resource_servers = ResourceServers(domain, token)
