@@ -26,7 +26,7 @@ class ResourceServers(object):
 	else:
 	    return ('https://%s/api/v2/resource-servers' % (self.domain))
 
-    def all(self, fields=[], include_fields=True):
+    def all(self):
         """Retrieves a list of all resource servers.
 
         Requires the read:resource_servers Auth0 Management API scope.
@@ -87,7 +87,7 @@ class ResourceServers(object):
 	See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/delete_resource_servers_by_id
 
         Args:
-            id (str): Identifier of client to delete.
+            id (str): Id of the client grant to delete.
         """
         return self.client.delete(self._url(id))
 
@@ -103,7 +103,7 @@ class ResourceServers(object):
 	See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/patch_resource_servers_by_id
         
         Args:
-            id (str): Resource server idenitifier.
+            id (str): Resource server id.
             body: {
 		# (optional) The name of the resource server. Must contain at least one character. Does not allow '<' or '>'
 	        "name": "",
