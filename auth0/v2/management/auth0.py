@@ -21,9 +21,7 @@ class Auth0(object):
     Args:
         domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
 
-        token (str): An API token created with your account's global
-            keys. You can create one by using the token generator in the
-            API Explorer: https://auth0.com/docs/api/v2
+        token (str): A Management API Token https://auth0.com/docs/api/management/v2/tokens
     """
 
     def __init__(self, domain, token):
