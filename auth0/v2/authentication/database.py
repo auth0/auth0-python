@@ -1,5 +1,5 @@
 from .base import AuthenticationBase
-
+import warnings
 
 class Database(AuthenticationBase):
 
@@ -22,7 +22,7 @@ class Database(AuthenticationBase):
         connections, passwordless connections, Active Directory/LDAP,
         Windows Azure AD and ADFS.
         """
-
+        warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
         return self.post(
             'https://%s/oauth/ro' % self.domain,
             data={

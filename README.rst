@@ -149,6 +149,11 @@ Available Management Endpoints
     - Jobs() ( ``Auth0().jobs`` )
     - Stats() ( ``Auth0().stats`` )
     - Tenants() ( ``Auth0().tenants`` )
+    - ClientGrants() ( ``Auth0().client_grants`` )
+    - Guardian() ( ``Auth0().guardian`` )
+    - Logs() ( ``Auth0().logs`` )
+    - ResourceServers() (``Auth0().resource_servers`` )
+    - UserBlocks() (``Auth0().user_blocks`` )
 
 Available Authentication Endpoints
 ==================================
@@ -157,10 +162,11 @@ Available Authentication Endpoints
     - Database ( ``authentication.Database`` )
     - Delegated ( ``authentication.Delegated`` )
     - Enterprise ( ``authentication.Enterprise`` )
-    - Link ( ``authentication.Link`` )
     - Passwordless ( ``authentication.Passwordless`` )
-    - Social ( ``authentication.Social`` )
-
+    - Social ( ``authentication.Social`` )
+    - API Authorization - Get Token ( ``authentication.GetToken``)
+    - API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
+    
 ==========
 Contribute
 ==========

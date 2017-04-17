@@ -1,5 +1,5 @@
 from .base import AuthenticationBase
-
+import warnings
 
 class Users(AuthenticationBase):
 
@@ -15,6 +15,7 @@ class Users(AuthenticationBase):
     def userinfo(self, access_token):
 
         """Returns the user information based on the Auth0 access token.
+        This endpoint will work only if openid was granted as a scope for the access_token.
 
         Args:
             access_token (str): Auth0 access token (obtained during login).
@@ -42,7 +43,7 @@ class Users(AuthenticationBase):
         Returns:
             The user profile.
         """
-
+        warnings.warn("/tokeninfo will be deprecated in future releases", DeprecationWarning)
         return self.post(
             url='https://%s/tokeninfo' % self.domain,
             data={'id_token': jwt},
