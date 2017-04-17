@@ -21,7 +21,7 @@ class Auth0(object):
     Args:
         domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
 
-        token (str): A Management API Token https://auth0.com/docs/api/management/v2/tokens
+        token (str): Management API v2 Token
     """
 
     def __init__(self, domain, token):
