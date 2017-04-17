@@ -46,18 +46,32 @@ You can install the auth0 python SDK issuing the following command.
 Management SDK Usage
 ====================
 
-To use the management library you will need to instantiate an Auth0 object with a domain and a token.
+To use the management library you will need to instantiate an Auth0 object with a domain and a `Management API v2 token <https://auth0.com/docs/api/management/v2/tokens>`_. Please note that these token last 24 hours, so if you need it constantly you should ask for it programatically using the client credentials grant with a `non interactive client <https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client>`_ authorized to access the API. For example:
 
+.. code-block:: python
+
+    from auth0.v2.authentication import GetToken
+    
+    domain = 'myaccount.auth0.com'
+    non_interactive_client_id = 'exampleid'
+    non_interactive_client_secret = 'examplesecret'
+    
+    get_token = GetToken(domain)    
+    token = get_token.client_credentials(non_interactive_client_id, 
+        non_interactive_client_secret, 'https://myaccount.auth0.com/api/v2/')
+    mgmt_api_token = token['access_token']    
+
+
+Then use the token you've obtained as follows: 
 
 .. code-block:: python
 
     from auth0.v2.management import Auth0
 
     domain = 'myaccount.auth0.com'
-    token = 'A_JWT_TOKEN' # You can generate one of these by using the
-                            # token generator at: https://auth0.com/docs/api/v2
+    mgmt_api_token = 'MGMT_API_TOKEN'
 
-    auth0 = Auth0(domain, token)
+    auth0 = Auth0(domain, mgmt_api_token)
 
 The ``Auth0()`` object is now ready to take orders!
 Let's see how we can use this to get all available connections.
