@@ -6,8 +6,6 @@ Auth0 - Python
 
 In this repository, you'll find all the information about integrating Auth0 with Python.
 
-Check out the examples that we have in here in our examples folder. Each of them has a README on how to run them and on how to use them.
-
 
 ==============
 What is Auth0?
@@ -15,14 +13,14 @@ What is Auth0?
 
 Auth0 helps you to:
 
-* Add authentication with `multiple authentication sources <https://docs.auth0.com/identityproviders>`_,
+* Add authentication with `multiple authentication sources <https://auth0.com/docs/identityproviders>`_,
   either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**,
   or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional `username/password databases <https://docs.auth0.com/mysql-connection-tutorial>`_.
-* Add support for `linking different user accounts <https://docs.auth0.com/link-accounts>`_ with the same user.
-* Support for generating signed `Json Web Tokens <https://docs.auth0.com/jwt>`_ to call your APIs and **flow the user identity** securely.
+* Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`_.
+* Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`_ with the same user.
+* Support for generating signed `Json Web Tokens <https://auth0.com/docs/jwt>`_ to call your APIs and **flow the user identity** securely.
 * Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://docs.auth0.com/rules>`_.
+* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://auth0.com/docs/rules>`_.
 
 
 ===========================
@@ -50,23 +48,23 @@ To use the management library you will need to instantiate an Auth0 object with 
 
 .. code-block:: python
 
-    from auth0.v2.authentication import GetToken
-    
+    from auth0.v3.authentication import GetToken
+
     domain = 'myaccount.auth0.com'
     non_interactive_client_id = 'exampleid'
     non_interactive_client_secret = 'examplesecret'
-    
-    get_token = GetToken(domain)    
-    token = get_token.client_credentials(non_interactive_client_id, 
+
+    get_token = GetToken(domain)
+    token = get_token.client_credentials(non_interactive_client_id,
         non_interactive_client_secret, 'https://myaccount.auth0.com/api/v2/')
-    mgmt_api_token = token['access_token']    
+    mgmt_api_token = token['access_token']
 
 
-Then use the token you've obtained as follows: 
+Then use the token you've obtained as follows:
 
 .. code-block:: python
 
-    from auth0.v2.management import Auth0
+    from auth0.v3.management import Auth0
 
     domain = 'myaccount.auth0.com'
     mgmt_api_token = 'MGMT_API_TOKEN'
@@ -144,7 +142,7 @@ For example:
 
 .. code-block:: python
 
-    from auth0.v2.authentication import Social
+    from auth0.v3.authentication import Social
 
     social = Social('myaccount.auth0.com')
 
@@ -181,18 +179,12 @@ Available Authentication Endpoints
     - API Authorization - Get Token ( ``authentication.GetToken``)
     - API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
     
-==========
-Contribute
-==========
-
-Please see `CONTRIBUTING.rst <https://github.com/sophilabs/auth0-python/blob/v2/CONTRIBUTING.rst>`_.
-
 
 ==========
 Change Log
 ==========
 
-Please see `CHANGELOG.rst <https://github.com/sophilabs/auth0-python/blob/v2/CHANGELOG.rst>`_.
+Please see `CHANGELOG.rst <https://github.com/auth0/auth0-python/blob/master/CHANGELOG.rst>`_.
 
 ===============
 Issue Reporting
@@ -212,7 +204,7 @@ Author
 License
 =======
 
-This project is licensed under the MIT license. See the `LICENSE <https://github.com/sophilabs/auth0-python/blob/v2/LICENSE>`_
+This project is licensed under the MIT license. See the `LICENSE <https://github.com/auth0/auth0-python/blob/master/LICENSE>`_
 file for more info.
 
 .. _Auth0: https://auth0.com
