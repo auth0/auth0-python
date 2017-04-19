@@ -4,7 +4,7 @@ from ...management.logs import Logs
 
 class TestLogs(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.logs.RestClient')
+    @mock.patch('auth0.v3.management.logs.RestClient')
     def test_search(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -35,7 +35,7 @@ class TestLogs(unittest.TestCase):
         self.assertEqual(kwargs['params']['page'], 0)
 
 
-    @mock.patch('auth0.v2.management.logs.RestClient')
+    @mock.patch('auth0.v3.management.logs.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 

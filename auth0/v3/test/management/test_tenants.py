@@ -5,7 +5,7 @@ from ...management.tenants import Tenants
 
 class TestTenants(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.tenants.RestClient')
+    @mock.patch('auth0.v3.management.tenants.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
         mock_instance.get.return_value = {}
@@ -35,7 +35,7 @@ class TestTenants(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'true'})
 
-    @mock.patch('auth0.v2.management.tenants.RestClient')
+    @mock.patch('auth0.v3.management.tenants.RestClient')
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
         mock_instance.patch.return_value = {}

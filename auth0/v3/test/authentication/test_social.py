@@ -5,7 +5,7 @@ from ...authentication.social import Social
 
 class TestSocial(unittest.TestCase):
 
-    @mock.patch('auth0.v2.authentication.social.Social.post')
+    @mock.patch('auth0.v3.authentication.social.Social.post')
     def test_login(self, mock_post):
         s = Social('a.b.c')
         s.login(client_id='cid', access_token='atk', connection='conn')
@@ -23,7 +23,7 @@ class TestSocial(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.social.Social.post')
+    @mock.patch('auth0.v3.authentication.social.Social.post')
     def test_login_with_scope(self, mock_post):
         s = Social('a.b.c')
         s.login(client_id='cid', access_token='atk',

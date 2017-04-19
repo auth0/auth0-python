@@ -4,7 +4,7 @@ from ...management.user_blocks import UserBlocks
 
 class TestUserBlocks(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.user_blocks.RestClient')
+    @mock.patch('auth0.v3.management.user_blocks.RestClient')
     def test_get_by_identifier(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -17,7 +17,7 @@ class TestUserBlocks(unittest.TestCase):
             params={'identifier': 'some_identifier'}
         )
 
-    @mock.patch('auth0.v2.management.user_blocks.RestClient')
+    @mock.patch('auth0.v3.management.user_blocks.RestClient')
     def test_unblock_by_identifier(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -30,7 +30,7 @@ class TestUserBlocks(unittest.TestCase):
             params={'identifier': 'test@test.com'}
         )
 
-    @mock.patch('auth0.v2.management.user_blocks.RestClient')
+    @mock.patch('auth0.v3.management.user_blocks.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -42,7 +42,7 @@ class TestUserBlocks(unittest.TestCase):
             'https://domain/api/v2/user-blocks/auth0|584ad3c228be27504a2c80d5'
         )
 
-    @mock.patch('auth0.v2.management.user_blocks.RestClient')
+    @mock.patch('auth0.v3.management.user_blocks.RestClient')
     def test_unblock(self, mock_rc):
         mock_instance = mock_rc.return_value
 

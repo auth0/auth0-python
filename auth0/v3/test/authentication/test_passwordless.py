@@ -5,7 +5,7 @@ from ...authentication.passwordless import Passwordless
 
 class TestPasswordless(unittest.TestCase):
 
-    @mock.patch('auth0.v2.authentication.passwordless.Passwordless.post')
+    @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
     def test_email(self, mock_post):
 
         p = Passwordless('my.domain.com')
@@ -29,7 +29,7 @@ class TestPasswordless(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.passwordless.Passwordless.post')
+    @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
     def test_sms(self, mock_post):
         p = Passwordless('my.domain.com')
 
@@ -47,7 +47,7 @@ class TestPasswordless(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.passwordless.Passwordless.post')
+    @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
     def test_sms_login(self, mock_post):
 
         p = Passwordless('my.domain.com')
@@ -69,7 +69,7 @@ class TestPasswordless(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.passwordless.Passwordless.post')
+    @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
     def test_sms_login_with_scope(self, mock_post):
 
         p = Passwordless('my.domain.com')

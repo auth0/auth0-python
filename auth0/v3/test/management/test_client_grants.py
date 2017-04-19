@@ -5,7 +5,7 @@ from ...management.client_grants import ClientGrants
 
 class TestClientGrants(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.client_grants.RestClient')
+    @mock.patch('auth0.v3.management.client_grants.RestClient')
     def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -24,7 +24,7 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/client-grants', args[0])
         self.assertEqual(kwargs['params'], {'audience': 'http://domain.auth0.com/api/v2/'})
 
-    @mock.patch('auth0.v2.management.client_grants.RestClient')
+    @mock.patch('auth0.v3.management.client_grants.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -36,7 +36,7 @@ class TestClientGrants(unittest.TestCase):
             data={'a': 'b', 'c': 'd'}
         )
 
-    @mock.patch('auth0.v2.management.client_grants.RestClient')
+    @mock.patch('auth0.v3.management.client_grants.RestClient')
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -47,7 +47,7 @@ class TestClientGrants(unittest.TestCase):
             'https://domain/api/v2/client-grants/this-id'
         )
 
-    @mock.patch('auth0.v2.management.client_grants.RestClient')
+    @mock.patch('auth0.v3.management.client_grants.RestClient')
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 

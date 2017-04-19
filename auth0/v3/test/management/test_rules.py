@@ -5,7 +5,7 @@ from ...management.rules import Rules
 
 class TestRules(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.rules.RestClient')
+    @mock.patch('auth0.v3.management.rules.RestClient')
     def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -31,7 +31,7 @@ class TestRules(unittest.TestCase):
                                             'enabled': 'false',
                                             'stage': 'stage'})
 
-    @mock.patch('auth0.v2.management.rules.RestClient')
+    @mock.patch('auth0.v3.management.rules.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -43,7 +43,7 @@ class TestRules(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/rules', args[0])
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
 
-    @mock.patch('auth0.v2.management.rules.RestClient')
+    @mock.patch('auth0.v3.management.rules.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -64,7 +64,7 @@ class TestRules(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false'})
 
-    @mock.patch('auth0.v2.management.rules.RestClient')
+    @mock.patch('auth0.v3.management.rules.RestClient')
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -75,7 +75,7 @@ class TestRules(unittest.TestCase):
             'https://domain/api/v2/rules/an-id'
         )
 
-    @mock.patch('auth0.v2.management.rules.RestClient')
+    @mock.patch('auth0.v3.management.rules.RestClient')
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 
