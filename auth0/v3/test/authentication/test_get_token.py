@@ -5,7 +5,7 @@ from ...authentication.get_token import GetToken
 
 class TestGetToken(unittest.TestCase):
 
-    @mock.patch('auth0.v2.authentication.get_token.GetToken.post')
+    @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
     def test_authorization_code(self, mock_post):
 
         g = GetToken('my.domain.com')
@@ -30,7 +30,7 @@ class TestGetToken(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.get_token.GetToken.post')
+    @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
     def test_authorization_code_pkce(self, mock_post):
 
         g = GetToken('my.domain.com')
@@ -55,7 +55,7 @@ class TestGetToken(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.get_token.GetToken.post')
+    @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
     def test_client_credentials(self, mock_post):
 
         g = GetToken('my.domain.com')
@@ -78,7 +78,7 @@ class TestGetToken(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.get_token.GetToken.post')
+    @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
     def test_login(self, mock_post):
 
         g = GetToken('my.domain.com')

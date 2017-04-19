@@ -4,7 +4,7 @@ from ...management.guardian import Guardian
 
 class TestGuardian(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_all_factors(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -15,7 +15,7 @@ class TestGuardian(unittest.TestCase):
             'https://domain/api/v2/guardian/factors'
         )
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_update_factor(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -32,7 +32,7 @@ class TestGuardian(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/guardian/factors/sms', args[0])
         self.assertEqual(kwargs['data'], {'enabled': False})
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_update_templates(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -45,7 +45,7 @@ class TestGuardian(unittest.TestCase):
         self.assertEqual(kwargs['data'], {'enrollment_message': 'hello',
                                           'verification_message': 'verified'})
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_get_templates(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -56,7 +56,7 @@ class TestGuardian(unittest.TestCase):
             'https://domain/api/v2/guardian/factors/sms/templates'
         )
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_get_enrollment(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -67,7 +67,7 @@ class TestGuardian(unittest.TestCase):
             'https://domain/api/v2/guardian/enrollments/some_id'
         )
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_delete_enrollment(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -78,7 +78,7 @@ class TestGuardian(unittest.TestCase):
             'https://domain/api/v2/guardian/enrollments/some_id'
         )
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_create_enrollment_ticket(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -93,7 +93,7 @@ class TestGuardian(unittest.TestCase):
                                           'email': 'test@test.com',
                                           'send_mail': 'false'})
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_get_factor_providers(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -104,7 +104,7 @@ class TestGuardian(unittest.TestCase):
             'https://domain/api/v2/guardian/factors/sms/providers/twilio'
         )
 
-    @mock.patch('auth0.v2.management.guardian.RestClient')
+    @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_update_factor_providers(self, mock_rc):
         mock_instance = mock_rc.return_value
 

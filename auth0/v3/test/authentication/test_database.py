@@ -5,7 +5,7 @@ from ...authentication.database import Database
 
 class TestDatabase(unittest.TestCase):
 
-    @mock.patch('auth0.v2.authentication.database.Database.post')
+    @mock.patch('auth0.v3.authentication.database.Database.post')
     def test_login(self, mock_post):
 
         d = Database('my.domain.com')
@@ -36,7 +36,7 @@ class TestDatabase(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.database.Database.post')
+    @mock.patch('auth0.v3.authentication.database.Database.post')
     def test_signup(self, mock_post):
 
         d = Database('my.domain.com')
@@ -59,7 +59,7 @@ class TestDatabase(unittest.TestCase):
             'Content-Type': 'application/json'
         })
 
-    @mock.patch('auth0.v2.authentication.database.Database.post')
+    @mock.patch('auth0.v3.authentication.database.Database.post')
     def test_change_password(self, mock_post):
 
         d = Database('my.domain.com')

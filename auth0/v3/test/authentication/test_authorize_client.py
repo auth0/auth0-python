@@ -5,7 +5,7 @@ from ...authentication.authorize_client import AuthorizeClient
 
 class TestAuthorizeClient(unittest.TestCase):
 
-    @mock.patch('auth0.v2.authentication.authorize_client.AuthorizeClient.get')
+    @mock.patch('auth0.v3.authentication.authorize_client.AuthorizeClient.get')
     def test_login(self, mock_get):
 
         a = AuthorizeClient('my.domain.com')

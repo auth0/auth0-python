@@ -5,7 +5,7 @@ from ...management.connections import Connections
 
 class TestConnection(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.connections.RestClient')
+    @mock.patch('auth0.v3.management.connections.RestClient')
     def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value
         mock_instance.get.return_value = {}
@@ -38,7 +38,7 @@ class TestConnection(unittest.TestCase):
                                             'strategy': 'strategy',
                                             'include_fields': 'true'})
 
-    @mock.patch('auth0.v2.management.connections.RestClient')
+    @mock.patch('auth0.v3.management.connections.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
         mock_instance.get.return_value = {}
@@ -65,7 +65,7 @@ class TestConnection(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false'})
 
-    @mock.patch('auth0.v2.management.connections.RestClient')
+    @mock.patch('auth0.v3.management.connections.RestClient')
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
         mock_instance.delete.return_value = {}
@@ -77,7 +77,7 @@ class TestConnection(unittest.TestCase):
             'https://domain/api/v2/connections/this-id'
         )
 
-    @mock.patch('auth0.v2.management.connections.RestClient')
+    @mock.patch('auth0.v3.management.connections.RestClient')
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
         mock_instance.patch.return_value = {}
@@ -90,7 +90,7 @@ class TestConnection(unittest.TestCase):
             data={'a': 'b', 'c': 'd'}
         )
 
-    @mock.patch('auth0.v2.management.connections.RestClient')
+    @mock.patch('auth0.v3.management.connections.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
         mock_instance.post.return_value = {}

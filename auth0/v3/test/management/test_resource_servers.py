@@ -4,7 +4,7 @@ from ...management.resource_servers import ResourceServers
 
 class TestResourceServers(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.resource_servers.RestClient')
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -17,7 +17,7 @@ class TestResourceServers(unittest.TestCase):
             data={'name': 'TestApi', 'identifier': 'https://test.com/api'}
         )
 
-    @mock.patch('auth0.v2.management.resource_servers.RestClient')
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
     def test_get_all(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -29,7 +29,7 @@ class TestResourceServers(unittest.TestCase):
             'https://domain/api/v2/resource-servers'
         )
 
-    @mock.patch('auth0.v2.management.resource_servers.RestClient')
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -41,7 +41,7 @@ class TestResourceServers(unittest.TestCase):
             'https://domain/api/v2/resource-servers/some_id'
         )
 
-    @mock.patch('auth0.v2.management.resource_servers.RestClient')
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
     def test_delete(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -53,7 +53,7 @@ class TestResourceServers(unittest.TestCase):
             'https://domain/api/v2/resource-servers/some_id'
         )
 
-    @mock.patch('auth0.v2.management.resource_servers.RestClient')
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
     def test_update(self, mock_rc):
         mock_instance = mock_rc.return_value
 

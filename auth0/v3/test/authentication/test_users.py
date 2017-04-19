@@ -5,7 +5,7 @@ from ...authentication.users import Users
 
 class TestUsers(unittest.TestCase):
 
-    @mock.patch('auth0.v2.authentication.users.Users.get')
+    @mock.patch('auth0.v3.authentication.users.Users.get')
     def test_userinfo(self, mock_get):
 
         u = Users('my.domain.com')
@@ -17,7 +17,7 @@ class TestUsers(unittest.TestCase):
             headers={'Authorization': 'Bearer atk'}
         )
 
-    @mock.patch('auth0.v2.authentication.users.Users.post')
+    @mock.patch('auth0.v3.authentication.users.Users.post')
     def test_tokeninfo(self, mock_post):
 
         u = Users('my.domain.com')

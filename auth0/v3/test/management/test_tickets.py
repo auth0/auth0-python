@@ -5,7 +5,7 @@ from ...management.tickets import Tickets
 
 class TestTickets(unittest.TestCase):
 
-    @mock.patch('auth0.v2.management.tickets.RestClient')
+    @mock.patch('auth0.v3.management.tickets.RestClient')
     def test_email(self, mock_rc):
         mock_instance = mock_rc.return_value
 
@@ -17,7 +17,7 @@ class TestTickets(unittest.TestCase):
             data={'a': 'b', 'c': 'd'}
         )
 
-    @mock.patch('auth0.v2.management.tickets.RestClient')
+    @mock.patch('auth0.v3.management.tickets.RestClient')
     def test_pswd(self, mock_rc):
         mock_instance = mock_rc.return_value
 
