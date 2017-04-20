@@ -7,10 +7,10 @@ python:
 
 install:
     - pip install -r requirements.txt
-    - pip install coveralls
+    - pip install codecov
 
 script:
-    coverage run --include=auth0/v2/*.py --omit=auth0/v2/test/*.py -m unittest discover
+    coverage run --include=auth0/v3/*.py --omit=auth0/v3/test/*.py -m unittest discover
 
 after_success:
-    coveralls
+    codecov
