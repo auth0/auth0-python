@@ -213,10 +213,10 @@ file for more info.
     :target: https://pypi.python.org/pypi/auth0-python
     :alt: Latest version released on PyPi
 
-.. |coverage| image:: https://coveralls.io/repos/sophilabs/auth0-python/badge.svg?branch=v2&service=github
-    :target: https://coveralls.io/github/sophilabs/auth0-python?branch=v2
+.. |coverage| image:: https://codecov.io/gh/auth0/auth0-python/badge.svg
+    :target: https://codecov.io/gh/auth0/auth0-python
     :alt: Test coverage
 
-.. |build| image:: https://travis-ci.org/sophilabs/auth0-python.svg?branch=v2
-    :target: https://travis-ci.org/sophilabs/auth0-python
-    :alt: Build status of the v2 branch
+.. |build| image:: https://circleci.com/gh/auth0/auth0-python.svg?style=shield&circle-token=:circle-token
+    :target: https://circleci.com/gh/auth0/auth0-python
+    :alt: Build status
