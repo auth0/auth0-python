@@ -10,6 +10,7 @@ class TestBase(unittest.TestCase):
     def test_post(self, mock_post):
         ab = AuthenticationBase()
 
+        mock_post.return_value.status_code = 200
         mock_post.return_value.text = '{"x": "y"}'
 
         data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
@@ -23,6 +24,7 @@ class TestBase(unittest.TestCase):
     def test_post_error(self, mock_post):
         ab = AuthenticationBase()
 
+        mock_post.return_value.status_code = 400
         mock_post.return_value.text = '{"error": "e0",' \
                                       '"error_description": "desc"}'
 
