@@ -6,8 +6,6 @@ Auth0 - Python
 
 In this repository, you'll find all the information about integrating Auth0 with Python.
 
-Check out the examples that we have in here in our examples folder. Each of them has a README on how to run them and on how to use them.
-
 
 ==============
 What is Auth0?
@@ -15,14 +13,14 @@ What is Auth0?
 
 Auth0 helps you to:
 
-* Add authentication with `multiple authentication sources <https://docs.auth0.com/identityproviders>`_,
+* Add authentication with `multiple authentication sources <https://auth0.com/docs/identityproviders>`_,
   either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**,
   or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional `username/password databases <https://docs.auth0.com/mysql-connection-tutorial>`_.
-* Add support for `linking different user accounts <https://docs.auth0.com/link-accounts>`_ with the same user.
-* Support for generating signed `Json Web Tokens <https://docs.auth0.com/jwt>`_ to call your APIs and **flow the user identity** securely.
+* Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`_.
+* Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`_ with the same user.
+* Support for generating signed `Json Web Tokens <https://auth0.com/docs/jwt>`_ to call your APIs and **flow the user identity** securely.
 * Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://docs.auth0.com/rules>`_.
+* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://auth0.com/docs/rules>`_.
 
 
 ===========================
@@ -46,18 +44,32 @@ You can install the auth0 python SDK issuing the following command.
 Management SDK Usage
 ====================
 
-To use the management library you will need to instantiate an Auth0 object with a domain and a token.
-
+To use the management library you will need to instantiate an Auth0 object with a domain and a `Management API v2 token <https://auth0.com/docs/api/management/v2/tokens>`_. Please note that these token last 24 hours, so if you need it constantly you should ask for it programatically using the client credentials grant with a `non interactive client <https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client>`_ authorized to access the API. For example:
 
 .. code-block:: python
 
-    from auth0.v2.management import Auth0
+    from auth0.v3.authentication import GetToken
 
     domain = 'myaccount.auth0.com'
-    token = '{A_JWT_TOKEN}' # You can generate one of these by using the
-                            # token generator at: https://auth0.com/docs/api/v2
+    non_interactive_client_id = 'exampleid'
+    non_interactive_client_secret = 'examplesecret'
 
-    auth0 = Auth0('myuser.auth0.com', token)
+    get_token = GetToken(domain)
+    token = get_token.client_credentials(non_interactive_client_id,
+        non_interactive_client_secret, 'https://myaccount.auth0.com/api/v2/')
+    mgmt_api_token = token['access_token']
+
+
+Then use the token you've obtained as follows:
+
+.. code-block:: python
+
+    from auth0.v3.management import Auth0
+
+    domain = 'myaccount.auth0.com'
+    mgmt_api_token = 'MGMT_API_TOKEN'
+
+    auth0 = Auth0(domain, mgmt_api_token)
 
 The ``Auth0()`` object is now ready to take orders!
 Let's see how we can use this to get all available connections.
@@ -130,7 +142,7 @@ For example:
 
 .. code-block:: python
 
-    from auth0.v2.authentication import Social
+    from auth0.v3.authentication import Social
 
     social = Social('myaccount.auth0.com')
 
@@ -149,6 +161,11 @@ Available Management Endpoints
     - Jobs() ( ``Auth0().jobs`` )
     - Stats() ( ``Auth0().stats`` )
     - Tenants() ( ``Auth0().tenants`` )
+    - ClientGrants() ( ``Auth0().client_grants`` )
+    - Guardian() ( ``Auth0().guardian`` )
+    - Logs() ( ``Auth0().logs`` )
+    - ResourceServers() (``Auth0().resource_servers`` )
+    - UserBlocks() (``Auth0().user_blocks`` )
 
 Available Authentication Endpoints
 ==================================
@@ -157,22 +174,17 @@ Available Authentication Endpoints
     - Database ( ``authentication.Database`` )
     - Delegated ( ``authentication.Delegated`` )
     - Enterprise ( ``authentication.Enterprise`` )
-    - Link ( ``authentication.Link`` )
     - Passwordless ( ``authentication.Passwordless`` )
-    - Social ( ``authentication.Social`` )
-
-==========
-Contribute
-==========
-
-Please see `CONTRIBUTING.rst <https://github.com/sophilabs/auth0-python/blob/v2/CONTRIBUTING.rst>`_.
-
+    - Social ( ``authentication.Social`` )
+    - API Authorization - Get Token ( ``authentication.GetToken``)
+    - API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
+    
 
 ==========
 Change Log
 ==========
 
-Please see `CHANGELOG.rst <https://github.com/sophilabs/auth0-python/blob/v2/CHANGELOG.rst>`_.
+Please see `CHANGELOG.md <https://github.com/auth0/auth0-python/blob/master/CHANGELOG.md>`_.
 
 ===============
 Issue Reporting
@@ -192,7 +204,7 @@ Author
 License
 =======
 
-This project is licensed under the MIT license. See the `LICENSE <https://github.com/sophilabs/auth0-python/blob/v2/LICENSE>`_
+This project is licensed under the MIT license. See the `LICENSE <https://github.com/auth0/auth0-python/blob/master/LICENSE>`_
 file for more info.
 
 .. _Auth0: https://auth0.com
@@ -201,10 +213,10 @@ file for more info.
     :target: https://pypi.python.org/pypi/auth0-python
     :alt: Latest version released on PyPi
 
-.. |coverage| image:: https://coveralls.io/repos/sophilabs/auth0-python/badge.svg?branch=v2&service=github
-    :target: https://coveralls.io/github/sophilabs/auth0-python?branch=v2
+.. |coverage| image:: https://codecov.io/gh/auth0/auth0-python/badge.svg
+    :target: https://codecov.io/gh/auth0/auth0-python
     :alt: Test coverage
 
-.. |build| image:: https://travis-ci.org/sophilabs/auth0-python.svg?branch=v2
-    :target: https://travis-ci.org/sophilabs/auth0-python
-    :alt: Build status of the v2 branch
+.. |build| image:: https://circleci.com/gh/auth0/auth0-python.svg?style=shield&circle-token=:circle-token
+    :target: https://circleci.com/gh/auth0/auth0-python
+    :alt: Build status

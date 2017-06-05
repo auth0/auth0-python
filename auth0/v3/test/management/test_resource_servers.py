@@ -1,0 +1,69 @@
+import unittest
+import mock
+from ...management.resource_servers import ResourceServers
+
+class TestResourceServers(unittest.TestCase):
+
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
+    def test_create(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        r = ResourceServers(domain='domain', token='jwttoken')
+
+        r.create({'name': 'TestApi', 'identifier': 'https://test.com/api'})
+
+        mock_instance.post.assert_called_with(
+            'https://domain/api/v2/resource-servers',
+            data={'name': 'TestApi', 'identifier': 'https://test.com/api'}
+        )
+
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
+    def test_get_all(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        r = ResourceServers(domain='domain', token='jwttoken')
+
+        r.get_all()
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/resource-servers'
+        )
+
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
+    def test_get(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        r = ResourceServers(domain='domain', token='jwttoken')
+
+        r.get('some_id')
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/resource-servers/some_id'
+        )
+
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
+    def test_delete(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        r = ResourceServers(domain='domain', token='jwttoken')
+
+        r.delete('some_id')
+
+        mock_instance.delete.assert_called_with(
+            'https://domain/api/v2/resource-servers/some_id'
+        )
+
+    @mock.patch('auth0.v3.management.resource_servers.RestClient')
+    def test_update(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        r = ResourceServers(domain='domain', token='jwttoken')
+
+        r.update('some_id', {'name': 'TestApi2',
+                             'identifier': 'https://test.com/api2'})
+
+        mock_instance.patch.assert_called_with(
+            'https://domain/api/v2/resource-servers/some_id',
+            data={'name': 'TestApi2',
+                  'identifier': 'https://test.com/api2'}
+        )
