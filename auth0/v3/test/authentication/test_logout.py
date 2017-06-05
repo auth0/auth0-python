@@ -21,7 +21,7 @@ class TestLogout(unittest.TestCase):
         })
 
     @mock.patch('auth0.v3.authentication.logout.Logout.get')
-    def test_logout_federated(self, mock_get):
+    def test_federated_logout(self, mock_get):
 
         g = Logout('my.domain.com')
 
