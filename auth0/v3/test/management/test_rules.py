@@ -31,6 +31,16 @@ class TestRules(unittest.TestCase):
                                             'enabled': 'false',
                                             'stage': 'stage'})
 
+        c.all(stage='stage', enabled=None, fields=['a', 'b'],
+              include_fields=False)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/rules', args[0])
+        self.assertEqual(kwargs['params'], {'fields': 'a,b',
+                                            'include_fields': 'false',
+                                            'stage': 'stage'})
+
     @mock.patch('auth0.v3.management.rules.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
