@@ -8,6 +8,8 @@ class AuthenticationBase(object):
     def post(self, url, data={}, headers={}):
         response = requests.post(url=url, data=json.dumps(data),
                                  headers=headers)
+        if url.split('/')[-1] == "change_password" and response.status_code == requests.codes.ok:
+            return response.text
         return self._process_response(response)
 
     def get(self, url, params={}, headers={}):
