@@ -1,4 +1,5 @@
 from .base import AuthenticationBase
+from urllib.parse import quote_plus
 
 
 class Logout(AuthenticationBase):
@@ -26,12 +27,14 @@ class Logout(AuthenticationBase):
 
             federated (bool): Querystring parameter to log the user out of the IdP
         """
+        return_to = quote_plus(return_to)
+
         if federated is True:
             return self.get(
-                'https://%s/v2/logout?federated&%s&%s' % (self.domain, client_id, return_to),
+                'https://%s/v2/logout?federated&client_id=%s&returnTo=%s' % (self.domain, client_id, return_to),
                 headers={'Content-Type': 'application/json'}
             )
         return self.get(
-            'https://%s/v2/logout?%s&%s' % (self.domain, client_id, return_to),
+            'https://%s/v2/logout?client_id=%s&returnTo=%s' % (self.domain, client_id, return_to),
             headers={'Content-Type': 'application/json'}
         )
