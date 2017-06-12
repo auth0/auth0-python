@@ -1,6 +1,11 @@
 Changes
 =======
 
+3.1.0
+------------------
+Authentication API
+- Added Logout Functionality
+
 3.0.0 
 ------------------
 
