@@ -46,8 +46,10 @@ class Rules(object):
 
         params = {'fields': ','.join(fields) or None,
                   'include_fields': str(include_fields).lower(),
-                  'enabled': str(enabled).lower(),
                   'stage': stage}
+
+        if enabled != None:
+            params['enabled'] = str(enabled).lower()
 
         return self.client.get(self._url(), params=params)
 
