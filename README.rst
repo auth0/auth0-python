@@ -146,7 +146,7 @@ For example:
 
     social = Social('myaccount.auth0.com')
 
-    s.login(client_id='...', acces_token='...', connection='facebook')
+    s.login(client_id='...', access_token='...', connection='facebook')
 
 Available Management Endpoints
 ==============================
