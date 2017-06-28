@@ -1,5 +1,8 @@
 from .base import AuthenticationBase
-from urllib.parse import quote_plus
+try:
+    from urllib.parse import quote_plus
+except ImportError:
+    from urllib import quote_plus
 
 
 class Logout(AuthenticationBase):
@@ -31,7 +34,8 @@ class Logout(AuthenticationBase):
 
         if federated is True:
             return self.get(
-                'https://%s/v2/logout?federated&client_id=%s&returnTo=%s' % (self.domain, client_id, return_to),
+                'https://%s/v2/logout?federated&client_id=%s&returnTo=%s' % (self.domain, client_id,
+                                                                             return_to),
                 headers={'Content-Type': 'application/json'}
             )
         return self.get(
