@@ -108,3 +108,25 @@ class TestGetToken(unittest.TestCase):
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
+
+    @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
+    def test_refresh_token(self, mock_post):
+        g = GetToken('my.domain.com')
+
+        g.refresh_token(client_id='cid',
+                        client_secret='clsec',
+                        refresh_token='rt',
+                        grant_type='gt')
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], 'https://my.domain.com/oauth/token')
+        self.assertEqual(kwargs['data'], {
+            'client_id': 'cid',
+            'client_secret': 'clsec',
+            'refresh_token': 'rt',
+            'grant_type': 'gt'
+        })
+        self.assertEqual(kwargs['headers'], {
+            'Content-Type': 'application/json'
+        })

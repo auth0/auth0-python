@@ -170,3 +170,33 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+
+    def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token'):
+        """Calls oauth/token endpoint with refresh token grant type
+
+        Use this endpoint to refresh an access token, using the refresh token you got during authorization.
+
+        Args:
+            grant_type (str): Denotes the flow you're using. For refresh token
+            use refresh_token
+
+            client_id (str): your application's client Id
+
+            client_secret (str): you application's client Secret
+
+            refresh_token (str): The refresh token returned from the initial token request.
+
+        Returns:
+            access_token, id_token
+        """
+
+        return self.post(
+            'https://%s/oauth/token' % self.domain,
+            data={
+                'client_id': client_id,
+                'client_secret': client_secret,
+                'refresh_token': refresh_token,
+                'grant_type': grant_type
+            },
+            headers={'Content-Type': 'application/json'}
+        )
