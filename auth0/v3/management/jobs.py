@@ -41,7 +41,7 @@ class Jobs(object):
         url = self._url('%s/errors' % (id))
         return self.client.get(url)
 
-    def import_users(self, connection_id, file_obj):
+    def import_users(self, connection_id, file_obj, upsert=False):
         """Imports users to a connection from a file.
 
         Args:
@@ -51,8 +51,13 @@ class Jobs(object):
             file_obj (file): A file-like object to upload. The format for
                 this file is explained in: https://auth0.com/docs/bulk-import
         """
+
+        # This conversion is necessary because the requests library will convert True to 'True'.
+        # The Management API only respects 'true'
+        upsert = 'true' if upsert else 'false'
+
         return self.client.file_post(self._url('users-imports'),
-                                     data={'connection_id': connection_id},
+                                     data={'connection_id': connection_id, 'upsert': upsert},
                                      files={'users': file_obj})
 
     def send_verification_email(self, body):
