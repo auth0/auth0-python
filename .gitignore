@@ -50,3 +50,5 @@ docs/_build/
 # IDEA
 .idea/
 *.iml 
+
+.DS_Store
