@@ -54,7 +54,7 @@ class Jobs(object):
 
         # This conversion is necessary because the requests library will convert True to 'True'.
         # The Management API only respects 'true'
-        upsert = 'true' if upsert else 'false'
+        upsert = str(upsert).lower()
 
         return self.client.file_post(self._url('users-imports'),
                                      data={'connection_id': connection_id, 'upsert': upsert},
