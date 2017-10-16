@@ -25,10 +25,11 @@ class TestBase(unittest.TestCase):
 
         mock_post.return_value.text = '{"error": "e0",' \
                                       '"error_description": "desc"}'
+        mock_post.return_value.status_code = 500
 
         with self.assertRaises(Auth0Error) as context:
             data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
-        self.assertEqual(context.exception.status_code, 'e0')
+        self.assertEqual(context.exception.status_code, 500)
         self.assertEqual(context.exception.error_code, 'e0')
         self.assertEqual(context.exception.message, 'desc')

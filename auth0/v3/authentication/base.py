@@ -20,7 +20,7 @@ class AuthenticationBase(object):
             return response.text
         else:
             if 'error' in text:
-                raise Auth0Error(status_code=text['error'],
+                raise Auth0Error(status_code=response.status_code,
                                  error_code=text['error'],
                                  message=text['error_description'])
         return text
