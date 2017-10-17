@@ -36,7 +36,21 @@ class TestJobs(unittest.TestCase):
 
         mock_instance.file_post.assert_called_with(
             'https://domain/api/v2/jobs/users-imports',
-            data={'connection_id': '1234'},
+            data={'connection_id': '1234', 'upsert': 'false'},
+            files={'users': {}}
+        )
+
+        j.import_users(connection_id='1234', file_obj={}, upsert=True)
+        mock_instance.file_post.assert_called_with(
+            'https://domain/api/v2/jobs/users-imports',
+            data={'connection_id': '1234', 'upsert': 'true'},
+            files={'users': {}}
+        )
+
+        j.import_users(connection_id='1234', file_obj={}, upsert=False)
+        mock_instance.file_post.assert_called_with(
+            'https://domain/api/v2/jobs/users-imports',
+            data={'connection_id': '1234', 'upsert': 'false'},
             files={'users': {}}
         )
 

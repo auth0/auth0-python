@@ -41,7 +41,7 @@ class Jobs(object):
         url = self._url('%s/errors' % (id))
         return self.client.get(url)
 
-    def import_users(self, connection_id, file_obj):
+    def import_users(self, connection_id, file_obj, upsert=False):
         """Imports users to a connection from a file.
 
         Args:
@@ -52,7 +52,7 @@ class Jobs(object):
                 this file is explained in: https://auth0.com/docs/bulk-import
         """
         return self.client.file_post(self._url('users-imports'),
-                                     data={'connection_id': connection_id},
+                                     data={'connection_id': connection_id, 'upsert': str(upsert).lower()},
                                      files={'users': file_obj})
 
     def send_verification_email(self, body):
