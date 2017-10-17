@@ -20,7 +20,7 @@ class AuthenticationBase(object):
             return response.text
         else:
             if response.status_code >= 400:
-                raise Auth0Error(status_code=text.get('error', ''),
+                raise Auth0Error(status_code=response.status_code,
                                  error_code=text.get('error', ''),
                                  message=text.get('error_description', ''))
         return text

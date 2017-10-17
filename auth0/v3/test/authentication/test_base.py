@@ -31,6 +31,6 @@ class TestBase(unittest.TestCase):
         with self.assertRaises(Auth0Error) as context:
             data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
-        self.assertEqual(context.exception.status_code, 'e0')
+        self.assertEqual(context.exception.status_code, 400)
         self.assertEqual(context.exception.error_code, 'e0')
         self.assertEqual(context.exception.message, 'desc')
