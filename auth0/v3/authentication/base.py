@@ -19,7 +19,7 @@ class AuthenticationBase(object):
         except ValueError:
             return response.text
         else:
-            if response.status_code >= 400:
+            if response.status_code is None or response.status_code >= 400:
                 raise Auth0Error(status_code=response.status_code,
                                  error_code=text.get('error', ''),
                                  message=text.get('error_description', ''))
