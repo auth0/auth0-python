@@ -1,6 +1,18 @@
 Changes
 =======
 
+3.1.3
+------------------
+Management API
+
+- Added `upsert` parameter to `import_users` job.
+
+3.1.2
+------------------
+Authentication API
+
+- Added `refresh_token` method to get_token
+
 3.1.0
 ------------------
 Authentication API
