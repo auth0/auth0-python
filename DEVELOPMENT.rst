@@ -17,8 +17,15 @@ Instructions to upload auth0-python to PyPI.
 
 2) Bump the version number in auth0/__init__.py
 
-3) Run the following command:
+3) Make sure you add changes to the changelog.
+
+4) Run the following command:
 
 .. code-block:: bash
 
     python setup.py sdist bdist upload
+
+or do it using docker:
+
+    sh publish.sh
+
