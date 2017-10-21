@@ -27,5 +27,7 @@ Instructions to upload auth0-python to PyPI.
 
 or do it using docker:
 
+.. code-block:: bash
+
     sh publish.sh
 
