@@ -1,20 +1,27 @@
 Changes
 =======
 
+3.1.4
+------------------
+
+Authentication API
+- Improve handling of inconsistent API error responses.
+
 3.1.3
 ------------------
-Management API
 
+Management API
 - Added `upsert` parameter to `import_users` job.
 
 3.1.2
 ------------------
-Authentication API
 
+Authentication API
 - Added `refresh_token` method to get_token
 
 3.1.0
 ------------------
+
 Authentication API
 - Added Logout Functionality
 
