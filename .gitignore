@@ -51,4 +51,5 @@ docs/_build/
 .idea/
 *.iml 
 
+# OS-specific files
 .DS_Store
