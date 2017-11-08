@@ -1,12 +1,45 @@
-import unittest
 import json
+import unittest
+
 import mock
-from ...management.rest import RestClient
+
 from ...exceptions import Auth0Error
+from ...management.rest import RestClient, RateLimiter
+
+
+class TestRatelimiter(unittest.TestCase):
+    def test_update(self):
+        rl = RateLimiter()
+
+        rl.update({'x-ratelimit-remaining': '5', 'x-ratelimit-reset': '2'})
+
+        self.assertEqual(rl.ratelimit_remaining, 5)
+        self.assertEqual(rl.ratelimit_reset, 2)
+
+    @mock.patch('time.sleep')
+    def test_ensure_limit_without_sleep(self, mock_sleep):
+        rl = RateLimiter()
+        rl.update({'x-ratelimit-remaining': '1', 'x-ratelimit-reset': '2'})
+
+        rl.ensure_limit()
+
+        mock_sleep.assert_not_called()
+
+    @mock.patch('time.time')
+    @mock.patch('time.sleep')
+    def test_ensure_limit_without_sleep(self, mock_sleep, mock_time):
+        current_time = 1342342
+        mock_time.return_value = current_time
+        rl = RateLimiter()
+
+        rl.update({'x-ratelimit-remaining': '0', 'x-ratelimit-reset': str(current_time + 2)})
+
+        rl.ensure_limit()
+
+        mock_sleep.assert_called_with(2)
 
 
 class TestRest(unittest.TestCase):
-
     @mock.patch('requests.get')
     def test_get(self, mock_get):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -23,7 +56,7 @@ class TestRest(unittest.TestCase):
         response = rc.get(url='the/url', params={'A': 'param', 'B': 'param'})
         mock_get.assert_called_with('the/url', params={'A': 'param',
                                                        'B': 'param'},
-                                               headers=headers)
+                                    headers=headers)
         self.assertEqual(response, ['a', 'b'])
 
         mock_get.return_value.text = ''

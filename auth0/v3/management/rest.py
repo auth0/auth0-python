@@ -1,19 +1,43 @@
-import sys
-import json
 import base64
+import json
+import sys
+import time
+
 import requests
+
 from ..exceptions import Auth0Error
 
 
 UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
 
 
-class RestClient(object):
+class RateLimiter(object):
+    def __init__(self):
+        self.ratelimit_reset = int(time.time()) - 1
+        self.ratelimit_remaining = 1
 
+    def update(self, headers):
+        if 'x-ratelimit-remaining' in headers:
+            self.ratelimit_remaining = int(headers['x-ratelimit-remaining'])
+
+        if 'x-ratelimit-reset' in headers:
+            self.ratelimit_reset = int(headers['x-ratelimit-reset'])
+
+    def ensure_limit(self):
+        self.ratelimit_remaining -= 1
+
+        if self.ratelimit_remaining < 0:
+            sleep_time = self.ratelimit_reset - int(time.time())
+            if sleep_time > 0:
+                time.sleep(sleep_time)
+
+
+class RestClient(object):
     """Provides simple methods for handling all RESTful api endpoints. """
 
-    def __init__(self, jwt, telemetry=True):
+    def __init__(self, jwt, telemetry=True, rate_limiter=RateLimiter()):
         self.jwt = jwt
+        self.rate_limiter = rate_limiter
 
         if telemetry:
             py_version = '%i.%i.%i' % (sys.version_info.major,
@@ -48,6 +72,8 @@ class RestClient(object):
             self.base_headers = {}
 
     def get(self, url, params={}):
+        self.rate_limiter.ensure_limit()
+
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
@@ -57,6 +83,8 @@ class RestClient(object):
         return self._process_response(response)
 
     def post(self, url, data={}):
+        self.rate_limiter.ensure_limit()
+
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
@@ -67,6 +95,8 @@ class RestClient(object):
         return self._process_response(response)
 
     def file_post(self, url, data={}, files={}):
+        self.rate_limiter.ensure_limit()
+
         headers = self.base_headers.copy()
         headers.pop('Content-Type', None)
         headers.update({
@@ -77,6 +107,8 @@ class RestClient(object):
         return self._process_response(response)
 
     def patch(self, url, data={}):
+        self.rate_limiter.ensure_limit()
+
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
@@ -87,6 +119,8 @@ class RestClient(object):
         return self._process_response(response)
 
     def put(self, url, data={}):
+        self.rate_limiter.ensure_limit()
+
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
@@ -97,6 +131,8 @@ class RestClient(object):
         return self._process_response(response)
 
     def delete(self, url, params={}):
+        self.rate_limiter.ensure_limit()
+
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
@@ -106,6 +142,8 @@ class RestClient(object):
         return self._process_response(response)
 
     def _process_response(self, response):
+        self.rate_limiter.update(response.headers)
+
         return self._parse(response).content()
 
     def _parse(self, response):
