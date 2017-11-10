@@ -50,3 +50,6 @@ docs/_build/
 # IDEA
 .idea/
 *.iml 
+
+# OS-specific files
+.DS_Store
