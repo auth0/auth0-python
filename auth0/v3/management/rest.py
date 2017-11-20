@@ -11,6 +11,14 @@ from ..exceptions import Auth0Error
 UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
 
 
+class NopRateLimiter(object):
+    def update(self, headers):
+        pass
+
+    def ensure_limit(self):
+        pass
+
+
 class RateLimiter(object):
     def __init__(self):
         self.ratelimit_reset = int(time.time()) - 1
@@ -32,10 +40,49 @@ class RateLimiter(object):
                 time.sleep(sleep_time)
 
 
+def extract_content(func):
+    def _decorator(self, *args, **kwargs):
+        response = func(self, *args, **kwargs)
+
+        text = json.loads(response.text) if response.text else {}
+
+        if isinstance(text, dict) and 'errorCode' in text:
+            raise Auth0Error(status_code=text['statusCode'],
+                             error_code=text['errorCode'],
+                             message=text['message'])
+        return text
+
+    return _decorator
+
+
+rate_limit_max_retries = 5
+
+
+def rate_limited(func):
+    def _decorator(self, *args, **kwargs):
+        self.rate_limiter.ensure_limit()
+
+        for _ in range(0, rate_limit_max_retries):
+            response = func(self, *args, **kwargs)
+
+            self.rate_limiter.update(response.headers)
+
+            if response.status_code != 429:
+                return response
+
+        return response
+
+    return _decorator
+
+
+def client_method(func):
+    return extract_content(rate_limited(func))
+
+
 class RestClient(object):
     """Provides simple methods for handling all RESTful api endpoints. """
 
-    def __init__(self, jwt, telemetry=True, rate_limiter=RateLimiter()):
+    def __init__(self, jwt, telemetry=True, rate_limiter=NopRateLimiter()):
         self.jwt = jwt
         self.rate_limiter = rate_limiter
 
@@ -71,68 +118,57 @@ class RestClient(object):
         else:
             self.base_headers = {}
 
+    @client_method
     def get(self, url, params={}):
-        self.rate_limiter.ensure_limit()
-
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
         })
 
-        response = requests.get(url, params=params, headers=headers)
-        return self._process_response(response)
+        return requests.get(url, params=params, headers=headers)
 
+    @client_method
     def post(self, url, data={}):
-        self.rate_limiter.ensure_limit()
-
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
             'Content-Type': 'application/json'
         })
 
-        response = requests.post(url, data=json.dumps(data), headers=headers)
-        return self._process_response(response)
+        return requests.post(url, data=json.dumps(data), headers=headers)
 
+    @client_method
     def file_post(self, url, data={}, files={}):
-        self.rate_limiter.ensure_limit()
-
         headers = self.base_headers.copy()
         headers.pop('Content-Type', None)
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
         })
 
-        response = requests.post(url, data=data, files=files, headers=headers)
-        return self._process_response(response)
+        return requests.post(url, data=data, files=files, headers=headers)
 
+    @client_method
     def patch(self, url, data={}):
-        self.rate_limiter.ensure_limit()
-
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
             'Content-Type': 'application/json'
         })
 
-        response = requests.patch(url, data=json.dumps(data), headers=headers)
-        return self._process_response(response)
+        return requests.patch(url, data=json.dumps(data), headers=headers)
 
+    @client_method
     def put(self, url, data={}):
-        self.rate_limiter.ensure_limit()
-
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
             'Content-Type': 'application/json'
         })
 
-        response = requests.put(url, data=json.dumps(data), headers=headers)
-        return self._process_response(response)
+        return requests.put(url, data=json.dumps(data), headers=headers)
 
+    @client_method
     def delete(self, url, params={}):
-        self.rate_limiter.ensure_limit()
-
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
@@ -212,3 +248,4 @@ class EmptyResponse(Response):
 
     def _error_message(self):
         return ''
+        return requests.delete(url, headers=headers, params=params)
