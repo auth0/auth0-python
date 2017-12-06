@@ -56,7 +56,7 @@ To use the management library you will need to instantiate an Auth0 object with 
 
     get_token = GetToken(domain)
     token = get_token.client_credentials(non_interactive_client_id,
-        non_interactive_client_secret, 'https://myaccount.auth0.com/api/v2/')
+        non_interactive_client_secret, 'https://{}/api/v2/'.format(domain))
     mgmt_api_token = token['access_token']
 
 
