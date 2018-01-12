@@ -40,4 +40,4 @@ class Auth0(object):
         self.guardian = Guardian(domain, token)
         self.logs = Logs(domain, token)
         self.resource_servers = ResourceServers(domain, token)
-        self.user_blocks = UserBlocks
+        self.user_blocks = UserBlocks(domain, token)
