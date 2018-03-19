@@ -79,7 +79,7 @@ class Users(object):
         """
         return self.client.delete(self._url())
 
-    def get(self, id, fields=[], include_fields=True):
+    def get(self, id, fields=None, include_fields=True):
         """Get a user.
 
         Args:
@@ -92,6 +92,9 @@ class Users(object):
             include_fields (bool, optional): True if the fields specified are
                 to be include in the result, False otherwise.
         """
+        if fields is None:
+            fields = []
+
         params = {
             'fields': ','.join(fields) or None,
             'include_fields': str(include_fields).lower()
