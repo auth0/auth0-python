@@ -23,7 +23,7 @@ class Blacklists(object):
 
         Args:
             aud (str, optional): The JWT's aud claim. The client_id of the
-                client for which it was issued.
+                application for which it was issued.
         """
 
         params = {
@@ -38,7 +38,7 @@ class Blacklists(object):
         Args:
             jti (str): the jti of the JWT to blacklist.
             aud (str, optional): The JWT's aud claim. The client_id of the
-                client for which it was issued.
+                application for which it was issued.
         """
 
         return self.client.post(self.url, data={'jti': jti, 'aud': aud})
