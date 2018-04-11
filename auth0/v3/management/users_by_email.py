@@ -37,7 +37,7 @@ class UsersByEmail(object):
                 to be include in the result, False otherwise.
         """
         params = {
-            'email': email,
+            'email': email.lower(),
             'fields': ','.join(fields) or None,
             'include_fields': str(include_fields).lower()
         }

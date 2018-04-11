@@ -10,7 +10,7 @@ class TestUsersByEmail(unittest.TestCase):
         mock_instance = mock_rc.return_value
    
         u = UsersByEmail(domain='domain', token='jwttoken')
-        u.search_users_by_email('a@b.com')
+        u.search_users_by_email('A@B.com')
 
         args, kwargs = mock_instance.get.call_args
 
