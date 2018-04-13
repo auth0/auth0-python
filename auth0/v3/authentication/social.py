@@ -21,7 +21,7 @@ class Social(AuthenticationBase):
         Facebook, Google, Twitter and Weibo.
 
         Args:
-            client_id (str): client name.
+            client_id (str): application's client id.
 
             access_token (str): social provider's access_token.
 

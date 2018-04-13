@@ -50,7 +50,7 @@ class ClientGrants(object):
         """Deletes a client grant.
 
         Args:
-           id (str): Id of client to delete.
+           id (str): Id of client grant to delete.
         """
 
         return self.client.delete(self._url(id))

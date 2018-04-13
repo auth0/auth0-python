@@ -24,7 +24,7 @@ class Logout(AuthenticationBase):
         The URL should be included in any the appropriate Allowed Logout URLs list:
 
         Args:
-            client_id (str): The client_id of your client.
+            client_id (str): The client_id of your application.
 
             returnTo (str): URL to redirect the user after the logout.
 
