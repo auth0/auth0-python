@@ -27,7 +27,7 @@ class Passwordless(AuthenticationBase):
             this user using email as username and code as password.
 
         Args:
-            client_id (str): Id of the client.
+            client_id (str): Client Id of the application.
 
             email (str): Email address.
 

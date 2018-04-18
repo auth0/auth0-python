@@ -10,6 +10,7 @@ class TestBase(unittest.TestCase):
     def test_post(self, mock_post):
         ab = AuthenticationBase()
 
+        mock_post.return_value.status_code = 200
         mock_post.return_value.text = '{"x": "y"}'
 
         data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
@@ -23,13 +24,14 @@ class TestBase(unittest.TestCase):
     def test_post_error(self, mock_post):
         ab = AuthenticationBase()
 
-        mock_post.return_value.text = '{"error": "e0",' \
-                                      '"error_description": "desc"}'
-        mock_post.return_value.status_code = 500
+        for error_status in [400, 500, None]:
+            mock_post.return_value.status_code = error_status
+            mock_post.return_value.text = '{"error": "e0",' \
+                                          '"error_description": "desc"}'
 
-        with self.assertRaises(Auth0Error) as context:
-            data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
+            with self.assertRaises(Auth0Error) as context:
+                data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
-        self.assertEqual(context.exception.status_code, 500)
-        self.assertEqual(context.exception.error_code, 'e0')
-        self.assertEqual(context.exception.message, 'desc')
+            self.assertEqual(context.exception.status_code, error_status)
+            self.assertEqual(context.exception.error_code, 'e0')
+            self.assertEqual(context.exception.message, 'desc')

@@ -18,7 +18,7 @@ Auth0 helps you to:
   or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
 * Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`_.
 * Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`_ with the same user.
-* Support for generating signed `Json Web Tokens <https://auth0.com/docs/jwt>`_ to call your APIs and **flow the user identity** securely.
+* Support for generating signed `JSON Web Tokens <https://auth0.com/docs/jwt>`_ to call your APIs and **flow the user identity** securely.
 * Analytics of how, when and where users are logging in.
 * Pull data from other sources and add it to the user profile, through `JavaScript rules <https://auth0.com/docs/rules>`_.
 
@@ -56,7 +56,7 @@ To use the management library you will need to instantiate an Auth0 object with 
 
     get_token = GetToken(domain)
     token = get_token.client_credentials(non_interactive_client_id,
-        non_interactive_client_secret, 'https://myaccount.auth0.com/api/v2/')
+        non_interactive_client_secret, 'https://{}/api/v2/'.format(domain))
     mgmt_api_token = token['access_token']
 
 
