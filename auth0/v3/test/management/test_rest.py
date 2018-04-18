@@ -26,6 +26,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(response, ['a', 'b'])
 
         mock_get.return_value.text = ''
+        mock_get.return_value.status_code = 200
         response = rc.get('the/url')
         self.assertEqual(response, {})
 
@@ -55,6 +56,7 @@ class TestRest(unittest.TestCase):
 
         data = {'some': 'data'}
 
+        mock_post.return_value.status_code = 200
         response = rc.post('the/url', data=data)
         mock_post.assert_called_with('the/url', data=json.dumps(data),
                                      headers=headers)
