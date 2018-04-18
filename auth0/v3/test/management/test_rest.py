@@ -38,6 +38,7 @@ class TestRest(unittest.TestCase):
         mock_get.return_value.text = '{"statusCode": 999,' \
                                      ' "errorCode": "code",' \
                                      ' "message": "message"}'
+        mock_get.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
             rc.get('the/url')
@@ -70,6 +71,7 @@ class TestRest(unittest.TestCase):
         mock_post.return_value.text = '{"statusCode": 999,' \
                                       ' "errorCode": "code",' \
                                       ' "message": "message"}'
+        mock_post.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
             rc.post('the-url')
@@ -101,6 +103,7 @@ class TestRest(unittest.TestCase):
         mock_patch.return_value.text = '{"statusCode": 999,' \
                                        ' "errorCode": "code",' \
                                        ' "message": "message"}'
+        mock_patch.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
             rc.patch(url='the/url')
@@ -128,6 +131,7 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.text = '{"statusCode": 999,' \
                                         ' "errorCode": "code",' \
                                         ' "message": "message"}'
+        mock_delete.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
             rc.delete(url='the-url')
