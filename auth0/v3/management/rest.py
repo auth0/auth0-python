@@ -105,8 +105,8 @@ class RestClient(object):
     def _process_response(self, response):
         text = json.loads(response.text) if response.text else {}
 
-        if isinstance(text, dict) and 'errorCode' in text:
+        if isinstance(text, dict) and (response.status_code is None or response.status_code >= 400):
             raise Auth0Error(status_code=text['statusCode'],
-                             error_code=text['errorCode'],
+                             error_code=text.get('errorCode', ''),
                              message=text['message'])
         return text
