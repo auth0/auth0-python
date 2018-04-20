@@ -13,6 +13,7 @@ class TestRest(unittest.TestCase):
         headers = {'Authorization': 'Bearer a-token'}
 
         mock_get.return_value.text = '["a", "b"]'
+        mock_get.return_value.status_code = 200
 
         response = rc.get('the-url')
         mock_get.assert_called_with('the-url', params={}, headers=headers)
@@ -26,9 +27,8 @@ class TestRest(unittest.TestCase):
         self.assertEqual(response, ['a', 'b'])
 
         mock_get.return_value.text = ''
-        mock_get.return_value.status_code = 200
         response = rc.get('the/url')
-        self.assertEqual(response, {})
+        self.assertEqual(response, '')
 
     @mock.patch('requests.get')
     def test_get_errors(self, mock_get):
@@ -87,6 +87,7 @@ class TestRest(unittest.TestCase):
                    'Content-Type': 'application/json'}
 
         mock_patch.return_value.text = '["a", "b"]'
+        mock_patch.return_value.status_code = 200
 
         data = {'some': 'data'}
 
@@ -118,6 +119,7 @@ class TestRest(unittest.TestCase):
         headers = {'Authorization': 'Bearer a-token'}
 
         mock_delete.return_value.text = '["a", "b"]'
+        mock_delete.return_value.status_code = 200
 
         response = rc.delete(url='the-url/ID')
         mock_delete.assert_called_with('the-url/ID', headers=headers, params={})

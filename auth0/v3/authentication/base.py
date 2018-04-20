@@ -55,7 +55,7 @@ class Response(object):
 class JsonResponse(Response):
     def __init__(self, response):
         content = json.loads(response.text)
-        super(Response, self).__init__(response.status_code, content)
+        super(JsonResponse, self).__init__(response.status_code, content)
 
     def _error_code(self):
         if 'error' in self._content:
@@ -71,7 +71,7 @@ class JsonResponse(Response):
 
 class PlainResponse(Response):
     def __init__(self, response):
-        super(Response, self).__init__(response.status_code, response.text)
+        super(PlainResponse, self).__init__(response.status_code, response.text)
 
     def _error_code(self):
         return UNKNOWN_ERROR
@@ -82,7 +82,7 @@ class PlainResponse(Response):
 
 class EmptyResponse(Response):
     def __init__(self, status_code):
-        super(Response, self).__init__(status_code, '')
+        super(EmptyResponse, self).__init__(status_code, '')
 
     def _error_code(self):
         return UNKNOWN_ERROR
