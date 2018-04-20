@@ -2,7 +2,9 @@ import json
 import requests
 from ..exceptions import Auth0Error
 
+
 UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
+
 
 class AuthenticationBase(object):
 
@@ -25,6 +27,7 @@ class AuthenticationBase(object):
         except ValueError:
             return PlainResponse(response)
 
+
 class Response(object):
     def __init__(self, status_code, content):
         self._status_code = status_code
@@ -41,10 +44,18 @@ class Response(object):
     def _is_error(self):
         return self._status_code is None or self._status_code >= 400
 
+    # Adding these methods to force implementation in subclasses because they are references in this parent class
+    def _error_code(self):
+        raise NotImplementedError
+
+    def _error_message(self):
+        raise NotImplementedError
+
+
 class JsonResponse(Response):
     def __init__(self, response):
         content = json.loads(response.text)
-        super().__init__(response.status_code, content)
+        super(Response, self).__init__(response.status_code, content)
 
     def _error_code(self):
         if 'error' in self._content:
@@ -57,9 +68,10 @@ class JsonResponse(Response):
     def _error_message(self):
         return self._content.get('error_description', '')
 
+
 class PlainResponse(Response):
     def __init__(self, response):
-        super().__init__(response.status_code, response.text)
+        super(Response, self).__init__(response.status_code, response.text)
 
     def _error_code(self):
         return UNKNOWN_ERROR
@@ -67,9 +79,10 @@ class PlainResponse(Response):
     def _error_message(self):
         return self._content
 
+
 class EmptyResponse(Response):
     def __init__(self, status_code):
-        super().__init__(status_code, '')
+        super(Response, self).__init__(status_code, '')
 
     def _error_code(self):
         return UNKNOWN_ERROR
