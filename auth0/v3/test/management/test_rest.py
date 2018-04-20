@@ -35,7 +35,7 @@ class TestRest(unittest.TestCase):
         headers = {'Authorization': 'Bearer a-token'}
 
         mock_get.return_value.text = '{"statusCode": 999,' \
-                                     ' "errorCode": "code",' \
+                                     ' "error": "code",' \
                                      ' "message": "message"}'
 
         with self.assertRaises(Auth0Error) as context:
@@ -66,7 +66,7 @@ class TestRest(unittest.TestCase):
         rc = RestClient(jwt='a-token', telemetry=False)
 
         mock_post.return_value.text = '{"statusCode": 999,' \
-                                      ' "errorCode": "code",' \
+                                      ' "error": "code",' \
                                       ' "message": "message"}'
 
         with self.assertRaises(Auth0Error) as context:
@@ -97,7 +97,7 @@ class TestRest(unittest.TestCase):
         rc = RestClient(jwt='a-token', telemetry=False)
 
         mock_patch.return_value.text = '{"statusCode": 999,' \
-                                       ' "errorCode": "code",' \
+                                       ' "error": "code",' \
                                        ' "message": "message"}'
 
         with self.assertRaises(Auth0Error) as context:
@@ -124,7 +124,7 @@ class TestRest(unittest.TestCase):
         rc = RestClient(jwt='a-token', telemetry=False)
 
         mock_delete.return_value.text = '{"statusCode": 999,' \
-                                        ' "errorCode": "code",' \
+                                        ' "error": "code",' \
                                         ' "message": "message"}'
 
         with self.assertRaises(Auth0Error) as context:
