@@ -1,6 +1,7 @@
 import json
 import requests
 from ..exceptions import Auth0Error
+from abc import ABCMeta, abstractmethod
 
 
 UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
@@ -29,6 +30,9 @@ class AuthenticationBase(object):
 
 
 class Response(object):
+    __metaclass__ = ABCMeta
+
+
     def __init__(self, status_code, content):
         self._status_code = status_code
         self._content = content
@@ -45,9 +49,11 @@ class Response(object):
         return self._status_code is None or self._status_code >= 400
 
     # Adding these methods to force implementation in subclasses because they are references in this parent class
+    @abstractmethod
     def _error_code(self):
         raise NotImplementedError
 
+    @abstractmethod
     def _error_message(self):
         raise NotImplementedError
 
