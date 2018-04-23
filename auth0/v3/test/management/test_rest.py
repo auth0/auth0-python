@@ -80,6 +80,68 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'message')
 
+    @mock.patch('requests.post')
+    def test_post_error_with_code_property(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        for error_status in [400, 500, None]:
+            mock_post.return_value.status_code = error_status
+            mock_post.return_value.text = '{"errorCode": "e0",' \
+                                          '"message": "desc"}'
+
+            with self.assertRaises(Auth0Error) as context:
+                rc.post('the-url')
+
+            self.assertEqual(context.exception.status_code, error_status)
+            self.assertEqual(context.exception.error_code, 'e0')
+            self.assertEqual(context.exception.message, 'desc')
+
+    @mock.patch('requests.post')
+    def test_post_error_with_no_error_code(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        for error_status in [400, 500, None]:
+            mock_post.return_value.status_code = error_status
+            mock_post.return_value.text = '{"message": "desc"}'
+
+            with self.assertRaises(Auth0Error) as context:
+                rc.post('the-url')
+
+            self.assertEqual(context.exception.status_code, error_status)
+            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.message, 'desc')
+
+    @mock.patch('requests.post')
+    def test_post_error_with_text_response(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        for error_status in [400, 500, None]:
+            mock_post.return_value.status_code = error_status
+            mock_post.return_value.text = 'there has been a terrible error'
+
+            with self.assertRaises(Auth0Error) as context:
+                rc.post('the-url')
+
+            self.assertEqual(context.exception.status_code, error_status)
+            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.message,
+                             'there has been a terrible error')
+
+    @mock.patch('requests.post')
+    def test_post_error_with_no_response_text(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        for error_status in [400, 500, None]:
+            mock_post.return_value.status_code = error_status
+            mock_post.return_value.text = None
+
+            with self.assertRaises(Auth0Error) as context:
+                rc.post('the-url')
+
+            self.assertEqual(context.exception.status_code, error_status)
+            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.message, '')
+
     @mock.patch('requests.patch')
     def test_patch(self, mock_patch):
         rc = RestClient(jwt='a-token', telemetry=False)
