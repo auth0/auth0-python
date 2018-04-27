@@ -1,6 +1,16 @@
 Changes
 =======
 
+3.2.0
+------------------
+
+Authentication API
+- Better error handling.
+
+Management API
+- Better error handling.
+- Fix inconsistence where UserBlocks required to be instantiated by the user.
+
 3.1.4
 ------------------
 
