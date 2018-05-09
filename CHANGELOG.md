@@ -1,15 +1,22 @@
 Changes
 =======
 
+3.2.2
+------------------
+
+**Fixed**
+- Upload the correct package contents to Pypi.
+
+
 3.2.0
 ------------------
 
-Authentication API
-- Better error handling.
+**Added**
+- Raise Auth0Error for bad status code [\#98](https://github.com/auth0/auth0-python/pull/98) ([beck3905](https://github.com/beck3905))
 
-Management API
-- Better error handling.
-- Fix inconsistence where UserBlocks required to be instantiated by the user.
+**Fixed**
+- Correctly throw an exception when handing a text response [\#92](https://github.com/auth0/auth0-python/pull/92) ([benbc](https://github.com/benbc))
+- Instantiate UserBlocks for consistency [\#90](https://github.com/auth0/auth0-python/pull/90) ([mattdodge](https://github.com/mattdodge))
 
 3.1.4
 ------------------
