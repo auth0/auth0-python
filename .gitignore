@@ -51,5 +51,8 @@ docs/_build/
 .idea/
 *.iml 
 
+# VSCode
+.vscode/
+
 # OS-specific files
 .DS_Store
