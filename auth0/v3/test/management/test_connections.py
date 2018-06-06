@@ -10,6 +10,7 @@ class TestConnection(unittest.TestCase):
         mock_instance = mock_rc.return_value
         mock_instance.get.return_value = {}
 
+        # Default parameters are requested
         c = Connections(domain='domain', token='jwttoken')
         c.all()
 
@@ -18,8 +19,11 @@ class TestConnection(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/connections', args[0])
         self.assertEqual(kwargs['params'], {'fields': None,
                                             'strategy': None,
+                                            'page': None,
+                                            'per_page': None,
                                             'include_fields': 'true'})
 
+        # Fields filter
         c.all(fields=['a', 'b'], include_fields=False)
 
         args, kwargs = mock_instance.get.call_args
@@ -27,16 +31,48 @@ class TestConnection(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/connections', args[0])
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'strategy': None,
+                                            'page': None,
+                                            'per_page': None,
                                             'include_fields': 'false'})
 
-        c.all(fields=['a', 'b'], strategy='strategy', include_fields=True)
+        # Fields + strategy filter 
+        c.all(fields=['a', 'b'], strategy='auth0', include_fields=True)
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/connections', args[0])
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
-                                            'strategy': 'strategy',
+                                            'strategy': 'auth0',
+                                            'page': None,
+                                            'per_page': None,
                                             'include_fields': 'true'})
+
+        # Specific pagination
+        c.all(page=7, per_page=25)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/connections', args[0])
+        self.assertEqual(kwargs['params'], {'fields': None,
+                                            'strategy': None,
+                                            'page': 7,
+                                            'per_page': 25,
+                                            'include_fields': 'true'})
+
+        # Extra parameters                                    
+        c.all(extra_params={'some_key':'some_value'})
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/connections', args[0])
+        self.assertEqual(kwargs['params'], {'fields': None,
+                                            'strategy': None,
+                                            'page': None,
+                                            'per_page': None,
+                                            'include_fields': 'true',
+                                            'some_key': 'some_value'})
+
+
 
     @mock.patch('auth0.v3.management.connections.RestClient')
     def test_get(self, mock_rc):
