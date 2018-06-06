@@ -19,7 +19,7 @@ class TestClients(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/clients', args[0])
         self.assertEqual(kwargs['params'], {'fields': None,
                                             'include_fields': 'true',
-                                            'page': 0,
+                                            'page': None,
                                             'per_page': None})
 
         # Fields filter
@@ -30,7 +30,7 @@ class TestClients(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/clients', args[0])
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false',
-                                            'page': 0,
+                                            'page': None,
                                             'per_page': None})
 
         # Specific pagination
@@ -52,7 +52,7 @@ class TestClients(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/clients', args[0])
         self.assertEqual(kwargs['params'], {'fields': None,
                                             'include_fields': 'true',
-                                            'page': 0,
+                                            'page': None,
                                             'per_page': None,
                                             'some_key': 'some_value'})
 

@@ -24,7 +24,7 @@ class Clients(object):
             return url + '/' + id
         return url
 
-    def all(self, fields=[], include_fields=True, page=0, per_page=None, extra_params={}):
+    def all(self, fields=[], include_fields=True, page=None, per_page=None, extra_params={}):
         """Retrieves a list of all the applications.
 
         Important: The client_secret and encryption_key attributes can only be
@@ -38,7 +38,7 @@ class Clients(object):
            include_fields (bool, optional): True if the fields specified are
               to be include in the result, False otherwise.
 
-           page (int, optional): The number of the page to retrieve, zero-based.
+           page (int): The number of the page to retrieve, zero-based.
 
            per_page (int, optional): The number of items to obtain per page.
 
