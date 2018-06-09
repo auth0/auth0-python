@@ -40,7 +40,7 @@ class RateLimiter(object):
                 time.sleep(sleep_time)
 
 
-def extract_content(func):
+def process_response(func):
     def _decorator(self, *args, **kwargs):
         response = func(self, *args, **kwargs)
 
@@ -60,9 +60,10 @@ rate_limit_max_retries = 5
 
 def rate_limited(func):
     def _decorator(self, *args, **kwargs):
-        self.rate_limiter.ensure_limit()
 
         for _ in range(0, rate_limit_max_retries):
+            self.rate_limiter.ensure_limit()
+
             response = func(self, *args, **kwargs)
 
             self.rate_limiter.update(response.headers)
@@ -76,7 +77,7 @@ def rate_limited(func):
 
 
 def client_method(func):
-    return extract_content(rate_limited(func))
+    return process_response(rate_limited(func))
 
 
 class RestClient(object):
