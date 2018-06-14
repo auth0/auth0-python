@@ -30,7 +30,7 @@ class GetToken(AuthenticationBase):
 
             code (str): The Authorization Code received from the /authorize Calls
 
-            redirect_uri (srt, optional): This is required only if it was set at
+            redirect_uri (str, optional): This is required only if it was set at
             the GET /authorize endpoint. The values must match
 
         Returns:
@@ -67,7 +67,7 @@ class GetToken(AuthenticationBase):
 
             code (str): The Authorization Code received from the /authorize Calls
 
-            redirect_uri (srt, optional): This is required only if it was set at
+            redirect_uri (str, optional): This is required only if it was set at
             the GET /authorize endpoint. The values must match
 
         Returns:
@@ -146,7 +146,7 @@ class GetToken(AuthenticationBase):
 
             password (str): resource owner's Secret
 
-            scope(srt): String value of the different scopes the client is asking for.
+            scope(str): String value of the different scopes the client is asking for.
             Multiple scopes are separated with whitespace.
 
             realm (str): String value of the realm the user belongs.
