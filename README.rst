@@ -154,6 +154,7 @@ Available Management Endpoints
     - Clients() ( ``Auth0().clients`` )
     - Connections() ( ``Auth0().connections`` )
     - DeviceCredentials() ( ``Auth0().device_credentials`` )
+    - EmailTemplates() ( ``Auth0().email_templates`` )
     - Rules() ( ``Auth0().rules`` )
     - Users() ( ``Auth0().users`` )
     - Blacklists() ( ``Auth0().blacklists`` )

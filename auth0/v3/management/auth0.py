@@ -1,6 +1,7 @@
 from .connections import Connections
 from .clients import Clients
 from .device_credentials import DeviceCredentials
+from .email_templates import EmailTemplates
 from .blacklists import Blacklists
 from .emails import Emails
 from .jobs import Jobs
@@ -28,6 +29,7 @@ class Auth0(object):
         self.clients = Clients(domain, token)
         self.connections = Connections(domain, token)
         self.device_credentials = DeviceCredentials(domain, token)
+        self.email_templates = EmailTemplates(domain, token)
         self.blacklists = Blacklists(domain, token)
         self.emails = Emails(domain, token)
         self.jobs = Jobs(domain, token)

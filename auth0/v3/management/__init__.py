@@ -4,6 +4,7 @@ from .client_grants import ClientGrants
 from .clients import Clients
 from .connections import Connections
 from .device_credentials import DeviceCredentials
+from .email_templates import EmailTemplates
 from .emails import Emails
 from .guardian import Guardian
 from .jobs import Jobs
@@ -15,4 +16,3 @@ from .tenants import Tenants
 from .tickets import Tickets
 from .user_blocks import UserBlocks
 from .users import Users
-
