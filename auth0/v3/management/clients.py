@@ -24,7 +24,7 @@ class Clients(object):
             return url + '/' + id
         return url
 
-    def all(self, fields=[], include_fields=True):
+    def all(self, fields=[], include_fields=True, page=None, per_page=None, extra_params={}):
         """Retrieves a list of all the applications.
 
         Important: The client_secret and encryption_key attributes can only be
@@ -37,11 +37,21 @@ class Clients(object):
 
            include_fields (bool, optional): True if the fields specified are
               to be include in the result, False otherwise.
+
+           page (int): The result's page number (zero based).
+
+           per_page (int, optional): The amount of entries per page.
+
+           extra_params (dictionary, optional): The extra parameters to add to
+             the request. The fields, include_fields, page and per_page values
+             specified as parameters take precedence over the ones defined here.
         """
-
-        params = {'fields': ','.join(fields) or None,
-                  'include_fields': str(include_fields).lower()}
-
+        params = extra_params
+        params['fields'] = ','.join(fields) or None
+        params['include_fields'] = str(include_fields).lower()
+        params['page'] = page
+        params['per_page'] = per_page
+        
         return self.client.get(self._url(), params=params)
 
     def create(self, body):
