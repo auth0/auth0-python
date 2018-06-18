@@ -34,11 +34,26 @@ class ResourceServers(object):
 
         return self.client.post(self._url(), data=body)
 
-    def get_all(self):
+    def get_all(self, page=0, per_page=50, include_totals=False):
         """Retrieves all resource servers
+
+        Args:
+            page (int, optional): The result's page number (zero based).
+
+            per_page (int, optional): The amount of entries per page.
+                Default: 50. Max value: 100
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise.
         """
 
-        return self.client.get(self._url())
+        params = {
+            'page': page,
+            'per_page': per_page,
+            'include_totals': str(include_totals).lower()
+        }
+
+        return self.client.get(self._url(), params=params)
 
     def get(self, id):
         """Retrieves a resource server by its id.
