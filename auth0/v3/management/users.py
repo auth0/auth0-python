@@ -90,7 +90,7 @@ class Users(object):
                 retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be include in the result, False otherwise.
+                to be included in the result, False otherwise.
         """
         params = {
             'fields': fields and ','.join(fields) or None,
@@ -191,8 +191,8 @@ class Users(object):
                 where order is 1 for ascending and -1 for descending.
                 For example date:-1
 
-            include_totals (bool, optional): True if a query summary are
-                to be include in the result, False otherwise.
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise.
 
             See: https://auth0.com/docs/api/management/v2#!/Users/get_logs_by_user
         """

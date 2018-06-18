@@ -36,7 +36,7 @@ class Clients(object):
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be include in the result, False otherwise.
+              to be included in the result, False otherwise.
 
            page (int): The result's page number (zero based).
 
@@ -78,7 +78,7 @@ class Clients(object):
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be include in the result, False otherwise.
+              to be included in the result, False otherwise.
         """
 
         params = {'fields': fields and ','.join(fields) or None,

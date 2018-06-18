@@ -33,7 +33,7 @@ class Emails(object):
                 to retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be include in the result, False otherwise.
+                to be included in the result, False otherwise.
         """
         params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}

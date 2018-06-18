@@ -39,7 +39,7 @@ class DeviceCredentials(object):
                 retrieve all fields
 
             include_fields (bool, optional): True if the fields specified are
-                to be excluded from the result, false otherwise
+                to be included in the result, False otherwise
                 (defaults to true)
         """
 

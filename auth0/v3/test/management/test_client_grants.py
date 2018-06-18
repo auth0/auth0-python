@@ -10,19 +10,45 @@ class TestClientGrants(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         c = ClientGrants(domain='domain', token='jwttoken')
+
+        # With default params
         c.all()
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/client-grants', args[0])
-        self.assertEqual(kwargs['params'], {'audience': None})
+        self.assertEqual(kwargs['params'], {
+            'audience': None,
+            'per_page': 50,
+            'page': 0,
+            'include_totals': 'true'
+        })
 
-        c.all(audience="http://domain.auth0.com/api/v2/")
+        # With audience
+        c.all(audience='http://domain.auth0.com/api/v2/')
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/client-grants', args[0])
-        self.assertEqual(kwargs['params'], {'audience': 'http://domain.auth0.com/api/v2/'})
+        self.assertEqual(kwargs['params'], {
+            'audience': 'http://domain.auth0.com/api/v2/',
+            'per_page': 50,
+            'page': 0,
+            'include_totals': 'true'
+        })
+
+        # With pagination params
+        c.all(per_page=23, page=7, include_totals=False)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/client-grants', args[0])
+        self.assertEqual(kwargs['params'], {
+            'audience': None,
+            'per_page': 23,
+            'page': 7,
+            'include_totals': 'false'
+        })
 
     @mock.patch('auth0.v3.management.client_grants.RestClient')
     def test_create(self, mock_rc):

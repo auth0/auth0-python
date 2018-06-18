@@ -24,15 +24,28 @@ class ClientGrants(object):
             return url + '/' + id
         return url
 
-    def all(self, audience=None):
+    def all(self, audience=None, page=0, per_page=50, include_totals=True):
         """Retrieves all client grants.
 
         Args:
-           audience (str, optional): URL Encoded audience of a Resource Server
-               to filter
+            audience (str, optional): URL Encoded audience of a Resource Server
+                to filter
+
+            page (int, optional): The result's page number (zero based).
+
+            per_page (int, optional): The amount of entries per page.
+                Default: 50. Max value: 100
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise.
         """
 
-        params = {'audience': audience or None}
+        params = {
+            'audience': audience or None,
+            'per_page': per_page,
+            'page': page,
+            'include_totals': str(include_totals).lower()
+        }
 
         return self.client.get(self._url(), params=params)
 
