@@ -66,6 +66,27 @@ class Users(object):
         }
         return self.client.get(self._url(), params=params)
 
+    def list_by_email(self, email, fields=[], include_fields=True):
+        """Get a List of Users by E-Mail.
+
+        Args:
+            email (str): The email of the users to retrieve.
+
+            fields (list of str, optional): A list of fields to include or
+                exclude from the result (depending on include_fields). Empty to
+                retrieve all fields.
+
+            include_fields (bool, optional): True if the fields specified are
+                to be include in the result, False otherwise.
+        """
+        params = {
+            'email': email,
+            'fields': ','.join(fields) or None,
+            'include_fields': str(include_fields).lower()
+        }
+
+        return self.client.get(self._url() + '-by-email', params=params)
+
     def create(self, body):
         """Creates a new user.
 
