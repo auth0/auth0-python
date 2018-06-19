@@ -24,7 +24,7 @@ class Rules(object):
             return url + '/' + id
         return url
 
-    def all(self, stage='login_success', enabled=True, fields=[],
+    def all(self, stage='login_success', enabled=True, fields=None,
             include_fields=True):
         """Retrieves a list of all rules.
 
@@ -44,7 +44,7 @@ class Rules(object):
                 stage (defaults to login_success).
         """
 
-        params = {'fields': ','.join(fields) or None,
+        params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower(),
                   'stage': stage}
 
@@ -62,7 +62,7 @@ class Rules(object):
         """
         return self.client.post(self._url(), data=body)
 
-    def get(self, id, fields=[], include_fields=True):
+    def get(self, id, fields=None, include_fields=True):
         """Retrieves a rule by its ID.
 
         Args:
@@ -76,7 +76,7 @@ class Rules(object):
                 to be included in the result, False otherwise
                 (defaults to true).
         """
-        params = {'fields': ','.join(fields) or None,
+        params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
         return self.client.get(self._url(id), params=params)
 

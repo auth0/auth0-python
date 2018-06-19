@@ -23,7 +23,7 @@ class Connections(object):
             return url + '/' + id
         return url
 
-    def all(self, strategy=None, fields=[], include_fields=True, page=None, per_page=None, extra_params={}):
+    def all(self, strategy=None, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
         """Retrieves all connections.
 
         Args:
@@ -49,16 +49,16 @@ class Connections(object):
            A list of connection objects.
         """
         
-        params = extra_params
+        params = extra_params or {}
         params['strategy'] = strategy or None
-        params['fields'] = ','.join(fields) or None
+        params['fields'] = fields and ','.join(fields) or None
         params['include_fields'] = str(include_fields).lower()
         params['page'] = page
         params['per_page'] = per_page
 
         return self.client.get(self._url(), params=params)
 
-    def get(self, id, fields=[], include_fields=True):
+    def get(self, id, fields=None, include_fields=True):
         """Retrieve connection by id.
 
         Args:
@@ -75,7 +75,7 @@ class Connections(object):
             A connection object.
         """
 
-        params = {'fields': ','.join(fields) or None,
+        params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
         return self.client.get(self._url(id), params=params)
