@@ -29,8 +29,8 @@ class TestResourceServers(unittest.TestCase):
         mock_instance.get.assert_called_with(
             'https://domain/api/v2/resource-servers',
             params={
-                'page': 0,
-                'per_page': 50,
+                'page': None,
+                'per_page': None,
                 'include_totals': 'false'
             }
         )

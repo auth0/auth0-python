@@ -24,7 +24,7 @@ class ClientGrants(object):
             return url + '/' + id
         return url
 
-    def all(self, audience=None, page=0, per_page=50, include_totals=True):
+    def all(self, audience=None, page=None, per_page=None, include_totals=False):
         """Retrieves all client grants.
 
         Args:

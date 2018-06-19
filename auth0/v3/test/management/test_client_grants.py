@@ -19,9 +19,9 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/client-grants', args[0])
         self.assertEqual(kwargs['params'], {
             'audience': None,
-            'per_page': 50,
-            'page': 0,
-            'include_totals': 'true'
+            'per_page': None,
+            'page': None,
+            'include_totals': 'false'
         })
 
         # With audience
@@ -32,13 +32,13 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/client-grants', args[0])
         self.assertEqual(kwargs['params'], {
             'audience': 'http://domain.auth0.com/api/v2/',
-            'per_page': 50,
-            'page': 0,
-            'include_totals': 'true'
+            'per_page': None,
+            'page': None,
+            'include_totals': 'false'
         })
 
         # With pagination params
-        c.all(per_page=23, page=7, include_totals=False)
+        c.all(per_page=23, page=7, include_totals=True)
 
         args, kwargs = mock_instance.get.call_args
 
@@ -47,7 +47,7 @@ class TestClientGrants(unittest.TestCase):
             'audience': None,
             'per_page': 23,
             'page': 7,
-            'include_totals': 'false'
+            'include_totals': 'true'
         })
 
     @mock.patch('auth0.v3.management.client_grants.RestClient')

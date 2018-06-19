@@ -34,7 +34,7 @@ class ResourceServers(object):
 
         return self.client.post(self._url(), data=body)
 
-    def get_all(self, page=0, per_page=50, include_totals=False):
+    def get_all(self, page=None, per_page=None, include_totals=False):
         """Retrieves all resource servers
 
         Args:
