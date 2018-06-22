@@ -24,7 +24,7 @@ class Clients(object):
             return url + '/' + id
         return url
 
-    def all(self, fields=[], include_fields=True, page=None, per_page=None, extra_params={}):
+    def all(self, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
         """Retrieves a list of all the applications.
 
         Important: The client_secret and encryption_key attributes can only be
@@ -46,8 +46,8 @@ class Clients(object):
              the request. The fields, include_fields, page and per_page values
              specified as parameters take precedence over the ones defined here.
         """
-        params = extra_params
-        params['fields'] = ','.join(fields) or None
+        params = extra_params or {}
+        params['fields'] = fields and ','.join(fields) or None
         params['include_fields'] = str(include_fields).lower()
         params['page'] = page
         params['per_page'] = per_page
@@ -64,7 +64,7 @@ class Clients(object):
 
         return self.client.post(self._url(), data=body)
 
-    def get(self, id, fields=[], include_fields=True):
+    def get(self, id, fields=None, include_fields=True):
         """Retrieves an application by its id.
 
         Important: The client_secret, encryption_key and signing_keys
@@ -81,7 +81,7 @@ class Clients(object):
               to be include in the result, False otherwise.
         """
 
-        params = {'fields': ','.join(fields) or None,
+        params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
         return self.client.get(self._url(id), params=params)

@@ -24,7 +24,7 @@ class Emails(object):
             return url + '/' + id
         return url
 
-    def get(self, fields=[], include_fields=True):
+    def get(self, fields=None, include_fields=True):
         """Get the email provider.
 
         Args:
@@ -35,7 +35,7 @@ class Emails(object):
             include_fields (bool, optional): True if the fields specified are
                 to be include in the result, False otherwise.
         """
-        params = {'fields': ','.join(fields) or None,
+        params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
         return self.client.get(self._url(), params=params)

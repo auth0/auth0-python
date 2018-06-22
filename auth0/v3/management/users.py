@@ -25,7 +25,7 @@ class Users(object):
         return url
 
     def list(self, page=0, per_page=25, sort=None, connection=None, q=None,
-             search_engine='v1', include_totals=True, fields=[],
+             search_engine='v1', include_totals=True, fields=None,
              include_fields=True):
         """List or search users.
 
@@ -59,7 +59,7 @@ class Users(object):
             'include_totals': str(include_totals).lower(),
             'sort': sort,
             'connection': connection,
-            'fields': ','.join(fields) or None,
+            'fields': fields and ','.join(fields) or None,
             'include_fields': str(include_fields).lower(),
             'q': q,
             'search_engine': search_engine
@@ -79,7 +79,7 @@ class Users(object):
         """
         return self.client.delete(self._url())
 
-    def get(self, id, fields=[], include_fields=True):
+    def get(self, id, fields=None, include_fields=True):
         """Get a user.
 
         Args:
@@ -93,7 +93,7 @@ class Users(object):
                 to be include in the result, False otherwise.
         """
         params = {
-            'fields': ','.join(fields) or None,
+            'fields': fields and ','.join(fields) or None,
             'include_fields': str(include_fields).lower()
         }
 

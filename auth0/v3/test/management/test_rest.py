@@ -16,7 +16,7 @@ class TestRest(unittest.TestCase):
         mock_get.return_value.status_code = 200
 
         response = rc.get('the-url')
-        mock_get.assert_called_with('the-url', params={}, headers=headers)
+        mock_get.assert_called_with('the-url', params=None, headers=headers)
 
         self.assertEqual(response, ['a', 'b'])
 

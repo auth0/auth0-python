@@ -47,7 +47,7 @@ class RestClient(object):
         else:
             self.base_headers = {}
 
-    def get(self, url, params={}):
+    def get(self, url, params=None):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
@@ -56,17 +56,17 @@ class RestClient(object):
         response = requests.get(url, params=params, headers=headers)
         return self._process_response(response)
 
-    def post(self, url, data={}):
+    def post(self, url, data=None):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
             'Content-Type': 'application/json'
         })
 
-        response = requests.post(url, data=json.dumps(data), headers=headers)
+        response = requests.post(url, data=json.dumps(data or {}), headers=headers)
         return self._process_response(response)
 
-    def file_post(self, url, data={}, files={}):
+    def file_post(self, url, data=None, files=None):
         headers = self.base_headers.copy()
         headers.pop('Content-Type', None)
         headers.update({
@@ -76,33 +76,33 @@ class RestClient(object):
         response = requests.post(url, data=data, files=files, headers=headers)
         return self._process_response(response)
 
-    def patch(self, url, data={}):
+    def patch(self, url, data=None):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
             'Content-Type': 'application/json'
         })
 
-        response = requests.patch(url, data=json.dumps(data), headers=headers)
+        response = requests.patch(url, data=json.dumps(data or {}), headers=headers)
         return self._process_response(response)
 
-    def put(self, url, data={}):
+    def put(self, url, data=None):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
             'Content-Type': 'application/json'
         })
 
-        response = requests.put(url, data=json.dumps(data), headers=headers)
+        response = requests.put(url, data=json.dumps(data or {}), headers=headers)
         return self._process_response(response)
 
-    def delete(self, url, params={}):
+    def delete(self, url, params=None):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer %s' % self.jwt,
         })
 
-        response = requests.delete(url, headers=headers, params=params)
+        response = requests.delete(url, headers=headers, params=params or {})
         return self._process_response(response)
 
     def _process_response(self, response):
