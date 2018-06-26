@@ -22,7 +22,7 @@ class UsersByEmail(object):
         url = 'https://%s/api/v2/users-by-email' % self.domain
         return url
 
-    def search_users_by_email(self, email, fields=[], include_fields=True):
+    def search_users_by_email(self, email, fields=None, include_fields=True):
         """List or search users.
 
         Args:
@@ -38,7 +38,7 @@ class UsersByEmail(object):
         """
         params = {
             'email': email.lower(),
-            'fields': ','.join(fields) or None,
+            'fields': fields and ','.join(fields) or None,
             'include_fields': str(include_fields).lower()
         }
         return self.client.get(self._url(), params=params)
