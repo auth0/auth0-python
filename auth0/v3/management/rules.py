@@ -71,7 +71,7 @@ class Rules(object):
 
         Args:
             body (dict): Attributes for the newly created rule,
-                please see: https://auth0.com/docs/api/v2#!/Rules/post_rules
+                See: https://auth0.com/docs/api/v2#!/Rules/post_rules
         """
         return self.client.post(self._url(), data=body)
 
@@ -107,6 +107,7 @@ class Rules(object):
         Args:
             id (str): The id of the rule to modify.
 
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Rules/patch_rules_by_id
+            body (dict): Attributes to modify.
+                See: https://auth0.com/docs/api/v2#!/Rules/patch_rules_by_id
         """
         return self.client.patch(self._url(id), data=body)

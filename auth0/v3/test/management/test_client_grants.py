@@ -19,8 +19,8 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/client-grants', args[0])
         self.assertEqual(kwargs['params'], {
             'audience': None,
-            'per_page': None,
             'page': None,
+            'per_page': None,
             'include_totals': 'false'
         })
 
@@ -32,8 +32,8 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/client-grants', args[0])
         self.assertEqual(kwargs['params'], {
             'audience': 'http://domain.auth0.com/api/v2/',
-            'per_page': None,
             'page': None,
+            'per_page': None,
             'include_totals': 'false'
         })
 
@@ -45,8 +45,8 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/client-grants', args[0])
         self.assertEqual(kwargs['params'], {
             'audience': None,
-            'per_page': 23,
             'page': 7,
+            'per_page': 23,
             'include_totals': 'true'
         })
 

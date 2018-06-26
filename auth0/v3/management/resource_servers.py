@@ -41,7 +41,6 @@ class ResourceServers(object):
             page (int, optional): The result's page number (zero based).
 
             per_page (int, optional): The amount of entries per page.
-                Default: 50. Max value: 100
 
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise.
@@ -80,6 +79,7 @@ class ResourceServers(object):
            id (str): The id of the resource server to update.
 
            body (dict): Attributes to modify.
+              See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/patch_resource_servers_by_id
         """
 
         return self.client.patch(self._url(id), data=body)
