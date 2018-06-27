@@ -35,7 +35,7 @@ class Connections(object):
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be include in the result, False otherwise.
+              to be included in the result, False otherwise.
 
            page (int): The result's page number (zero based).
 
@@ -69,7 +69,7 @@ class Connections(object):
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be include in the result, False otherwise.
+              to be included in the result, False otherwise.
 
         Returns:
             A connection object.

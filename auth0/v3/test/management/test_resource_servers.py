@@ -23,10 +23,28 @@ class TestResourceServers(unittest.TestCase):
 
         r = ResourceServers(domain='domain', token='jwttoken')
 
+        # with default params
         r.get_all()
 
         mock_instance.get.assert_called_with(
-            'https://domain/api/v2/resource-servers'
+            'https://domain/api/v2/resource-servers',
+            params={
+                'page': None,
+                'per_page': None,
+                'include_totals': 'false'
+            }
+        )
+
+        # with pagination params
+        r.get_all(page=3, per_page=27, include_totals=True)
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/resource-servers',
+            params={
+                'page': 3,
+                'per_page': 27,
+                'include_totals': 'true'
+            }
         )
 
     @mock.patch('auth0.v3.management.resource_servers.RestClient')
