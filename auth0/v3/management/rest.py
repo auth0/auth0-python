@@ -153,7 +153,7 @@ class JsonResponse(Response):
             return UNKNOWN_ERROR
 
     def _error_message(self):
-        return self._content.get('error', self._content.get('message', ''))
+        return self._content.get('message', '')
 
 class PlainResponse(Response):
     def __init__(self, response):
