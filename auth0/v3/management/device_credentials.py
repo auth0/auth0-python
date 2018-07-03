@@ -24,7 +24,7 @@ class DeviceCredentials(object):
             return url + '/' + id
         return url
 
-    def get(self, user_id, client_id, type, fields=[], include_fields=True):
+    def get(self, user_id, client_id, type, fields=None, include_fields=True):
         """List device credentials.
 
         Args:
@@ -39,12 +39,12 @@ class DeviceCredentials(object):
                 retrieve all fields
 
             include_fields (bool, optional): True if the fields specified are
-                to be excluded from the result, false otherwise
+                to be included in the result, False otherwise
                 (defaults to true)
         """
 
         params = {
-            'fields': ','.join(fields) or None,
+            'fields': fields and ','.join(fields) or None,
             'include_fields': str(include_fields).lower(),
             'user_id': user_id,
             'client_id': client_id,

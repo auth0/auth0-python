@@ -23,7 +23,7 @@ class Connections(object):
             return url + '/' + id
         return url
 
-    def all(self, strategy=None, fields=[], include_fields=True):
+    def all(self, strategy=None, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
         """Retrieves all connections.
 
         Args:
@@ -35,19 +35,30 @@ class Connections(object):
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be include in the result, False otherwise.
+              to be included in the result, False otherwise.
+
+           page (int): The result's page number (zero based).
+
+           per_page (int, optional): The amount of entries per page.
+
+           extra_params (dictionary, optional): The extra parameters to add to
+             the request. The fields, include_fields, page and per_page values
+             specified as parameters take precedence over the ones defined here.
 
         Returns:
            A list of connection objects.
         """
-
-        params = {'strategy': strategy or None,
-                  'fields': ','.join(fields) or None,
-                  'include_fields': str(include_fields).lower()}
+        
+        params = extra_params or {}
+        params['strategy'] = strategy or None
+        params['fields'] = fields and ','.join(fields) or None
+        params['include_fields'] = str(include_fields).lower()
+        params['page'] = page
+        params['per_page'] = per_page
 
         return self.client.get(self._url(), params=params)
 
-    def get(self, id, fields=[], include_fields=True):
+    def get(self, id, fields=None, include_fields=True):
         """Retrieve connection by id.
 
         Args:
@@ -58,13 +69,13 @@ class Connections(object):
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be include in the result, False otherwise.
+              to be included in the result, False otherwise.
 
         Returns:
             A connection object.
         """
 
-        params = {'fields': ','.join(fields) or None,
+        params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
         return self.client.get(self._url(id), params=params)

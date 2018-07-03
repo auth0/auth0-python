@@ -10,6 +10,8 @@ class TestRules(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         c = Rules(domain='domain', token='jwttoken')
+
+        # with default params
         c.all()
 
         args, kwargs = mock_instance.get.call_args
@@ -18,8 +20,12 @@ class TestRules(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': None,
                                             'include_fields': 'true',
                                             'enabled': 'true',
-                                            'stage': 'login_success'})
+                                            'stage': 'login_success',
+                                            'page': None,
+                                            'per_page': None,
+                                            'include_totals': 'false'})
 
+        # with stage and fields params
         c.all(stage='stage', enabled=False, fields=['a', 'b'],
               include_fields=False)
 
@@ -29,17 +35,24 @@ class TestRules(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'fields': 'a,b',
                                             'include_fields': 'false',
                                             'enabled': 'false',
-                                            'stage': 'stage'})
+                                            'stage': 'stage',
+                                            'page': None,
+                                            'per_page': None,
+                                            'include_totals': 'false'})
 
-        c.all(stage='stage', enabled=None, fields=['a', 'b'],
-              include_fields=False)
+        # with pagination params
+        c.all(page=3, per_page=27, include_totals=True)
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/rules', args[0])
-        self.assertEqual(kwargs['params'], {'fields': 'a,b',
-                                            'include_fields': 'false',
-                                            'stage': 'stage'})
+        self.assertEqual(kwargs['params'], {'fields': None,
+                                            'include_fields': 'true',
+                                            'enabled': 'true',
+                                            'stage': 'login_success',
+                                            'page': 3,
+                                            'per_page': 27,
+                                            'include_totals': 'true'})
 
     @mock.patch('auth0.v3.management.rules.RestClient')
     def test_create(self, mock_rc):

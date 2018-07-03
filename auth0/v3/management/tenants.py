@@ -21,7 +21,7 @@ class Tenants(object):
     def _url(self):
         return 'https://%s/api/v2/tenants/settings' % self.domain
 
-    def get(self, fields=[], include_fields=True):
+    def get(self, fields=None, include_fields=True):
         """Get tenant settings.
 
         Args:
@@ -30,10 +30,10 @@ class Tenants(object):
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be include in the result, False otherwise.
+              to be included in the result, False otherwise.
         """
 
-        params = {'fields': ','.join(fields) or None,
+        params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
 
         return self.client.get(self._url(), params=params)

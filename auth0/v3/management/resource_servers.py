@@ -34,11 +34,25 @@ class ResourceServers(object):
 
         return self.client.post(self._url(), data=body)
 
-    def get_all(self):
+    def get_all(self, page=None, per_page=None, include_totals=False):
         """Retrieves all resource servers
+
+        Args:
+            page (int, optional): The result's page number (zero based).
+
+            per_page (int, optional): The amount of entries per page.
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise.
         """
 
-        return self.client.get(self._url())
+        params = {
+            'page': page,
+            'per_page': per_page,
+            'include_totals': str(include_totals).lower()
+        }
+
+        return self.client.get(self._url(), params=params)
 
     def get(self, id):
         """Retrieves a resource server by its id.
@@ -65,6 +79,7 @@ class ResourceServers(object):
            id (str): The id of the resource server to update.
 
            body (dict): Attributes to modify.
+              See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/patch_resource_servers_by_id
         """
 
         return self.client.patch(self._url(id), data=body)
