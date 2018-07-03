@@ -8,6 +8,7 @@ from .rules import Rules
 from .stats import Stats
 from .tickets import Tickets
 from .users import Users
+from .users_by_email import UsersByEmail
 from .tenants import Tenants
 from .client_grants import ClientGrants
 from .guardian import Guardian
@@ -35,6 +36,7 @@ class Auth0(object):
         self.stats = Stats(domain, token)
         self.tickets = Tickets(domain, token)
         self.users = Users(domain, token)
+        self.users_by_email = UsersByEmail(domain, token)
         self.tenants = Tenants(domain, token)
         self.client_grants = ClientGrants(domain, token)
         self.guardian = Guardian(domain, token)

@@ -156,6 +156,7 @@ Available Management Endpoints
     - DeviceCredentials() ( ``Auth0().device_credentials`` )
     - Rules() ( ``Auth0().rules`` )
     - Users() ( ``Auth0().users`` )
+    - UsersByEmail() ( ``Auth0().users_by_email`` )
     - Blacklists() ( ``Auth0().blacklists`` )
     - Emails() ( ``Auth0().emails`` )
     - Jobs() ( ``Auth0().jobs`` )
