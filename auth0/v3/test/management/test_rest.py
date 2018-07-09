@@ -80,6 +80,63 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'message')
 
+
+    @mock.patch('requests.post')
+    def test_post_errors_with_no_message_property(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        mock_post.return_value.text = json.dumps({
+            "statusCode": 999,
+            "errorCode": "code",
+            "error": "error"
+        })
+        mock_post.return_value.status_code = 999
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.post('the-url')
+
+        self.assertEqual(context.exception.status_code, 999)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'error')
+
+
+    @mock.patch('requests.post')
+    def test_post_errors_with_no_message_or_error_property(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        mock_post.return_value.text = json.dumps({
+            "statusCode": 999,
+            "errorCode": "code"
+        })
+        mock_post.return_value.status_code = 999
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.post('the-url')
+
+        self.assertEqual(context.exception.status_code, 999)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, '')
+
+
+    @mock.patch('requests.post')
+    def test_post_errors_with_message_and_error_property(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        mock_post.return_value.text = json.dumps({
+            "statusCode": 999,
+            "errorCode": "code",
+            "error": "error",
+            "message": "message"
+        })
+        mock_post.return_value.status_code = 999
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.post('the-url')
+
+        self.assertEqual(context.exception.status_code, 999)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+
     @mock.patch('requests.post')
     def test_post_error_with_code_property(self, mock_post):
         rc = RestClient(jwt='a-token', telemetry=False)
