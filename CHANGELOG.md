@@ -1,6 +1,19 @@
 Changes
 =======
 
+3.3.0
+------------------
+
+**Added**
+- Add pagination to Clients and Connections
+- Add pagination to Client Grants, Resource Servers and Rules
+- Add Email-Templates Management API endpoints
+
+**Fixed**
+- Replace default mutable arguments with None
+- Fix JSON error message handling for Management API
+
+
 3.2.2
 ------------------
 
