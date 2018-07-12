@@ -151,22 +151,24 @@ For example:
 Available Management Endpoints
 ==============================
 
+    - Blacklists() ( ``Auth0().blacklists`` )
     - Clients() ( ``Auth0().clients`` )
+    - ClientGrants() ( ``Auth0().client_grants`` )
     - Connections() ( ``Auth0().connections`` )
     - DeviceCredentials() ( ``Auth0().device_credentials`` )
-    - Rules() ( ``Auth0().rules`` )
-    - Users() ( ``Auth0().users`` )
-    - UsersByEmail() ( ``Auth0().users_by_email`` )
-    - Blacklists() ( ``Auth0().blacklists`` )
     - Emails() ( ``Auth0().emails`` )
-    - Jobs() ( ``Auth0().jobs`` )
-    - Stats() ( ``Auth0().stats`` )
-    - Tenants() ( ``Auth0().tenants`` )
-    - ClientGrants() ( ``Auth0().client_grants`` )
+    - EmailTemplates() ( ``Auth0().email_templates`` )
     - Guardian() ( ``Auth0().guardian`` )
+    - Jobs() ( ``Auth0().jobs`` )
     - Logs() ( ``Auth0().logs`` )
     - ResourceServers() (``Auth0().resource_servers`` )
+    - Rules() ( ``Auth0().rules`` )
+    - Stats() ( ``Auth0().stats`` )
+    - Tenants() ( ``Auth0().tenants`` )
+    - Tickets() ( ``Auth0().tickets`` )
     - UserBlocks() (``Auth0().user_blocks`` )
+    - Users() ( ``Auth0().users`` )
+    - UsersByEmail() ( ``Auth0().users_by_email`` )
 
 Available Authentication Endpoints
 ==================================

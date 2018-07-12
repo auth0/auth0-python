@@ -1,10 +1,11 @@
 from .auth0 import Auth0
 from .blacklists import Blacklists
-from .client_grants import ClientGrants
 from .clients import Clients
+from .client_grants import ClientGrants
 from .connections import Connections
 from .device_credentials import DeviceCredentials
 from .emails import Emails
+from .email_templates import EmailTemplates
 from .guardian import Guardian
 from .jobs import Jobs
 from .logs import Logs
@@ -16,4 +17,3 @@ from .tickets import Tickets
 from .user_blocks import UserBlocks
 from .users import Users
 from .users_by_email import UsersByEmail
-
