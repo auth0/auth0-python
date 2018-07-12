@@ -14,5 +14,6 @@ from .rules import Rules
 from .stats import Stats
 from .tenants import Tenants
 from .tickets import Tickets
-from .users import Users
 from .user_blocks import UserBlocks
+from .users import Users
+from .users_by_email import UsersByEmail

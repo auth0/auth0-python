@@ -166,8 +166,9 @@ Available Management Endpoints
     - Stats() ( ``Auth0().stats`` )
     - Tenants() ( ``Auth0().tenants`` )
     - Tickets() ( ``Auth0().tickets`` )
-    - Users() ( ``Auth0().users`` )
     - UserBlocks() (``Auth0().user_blocks`` )
+    - Users() ( ``Auth0().users`` )
+    - UsersByEmail() ( ``Auth0().users_by_email`` )
 
 Available Authentication Endpoints
 ==================================
