@@ -32,7 +32,7 @@ class TestJobs(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         j = Jobs(domain='domain', token='jwttoken')
-        j.export_users('connection_id': 'cxn_id', 'format': 'json'})
+        j.export_users({'connection_id': 'cxn_id', 'format': 'json'})
 
         mock_instance.post.assert_called_with(
             'https://domain/api/v2/jobs/users-exports',
