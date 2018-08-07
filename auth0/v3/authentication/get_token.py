@@ -37,7 +37,7 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/token' % self.domain,
             data={
                 'client_id': client_id,
@@ -48,6 +48,10 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        if (result.content['id_token']){
+            self.verify_id_token(result.content['id_token'], self.domain, client_id)
+        }
+        return result
 
     def authorization_code_pkce(self, client_id, code_verifier, code,
                                 redirect_uri, grant_type='authorization_code'):
@@ -74,7 +78,7 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/token' % self.domain,
             data={
                 'client_id': client_id,
@@ -85,6 +89,10 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        if (result.content['id_token']){
+            self.verify_id_token(result.content['id_token'], self.domain, client_id)
+        }
+        return result
 
     def client_credentials(self, client_id, client_secret, audience,
                            grant_type='client_credentials'):
@@ -156,7 +164,7 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/token' % self.domain,
             data={
                 'client_id': client_id,
@@ -170,6 +178,10 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        if (result.content['id_token']){
+            self.verify_id_token(result.content['id_token'], self.domain, client_id)
+        }
+        return result
 
     def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token'):
         """Calls oauth/token endpoint with refresh token grant type
@@ -190,7 +202,7 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/token' % self.domain,
             data={
                 'client_id': client_id,
@@ -200,3 +212,7 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        if (result.content['id_token']){
+            self.verify_id_token(result.content['id_token'], self.domain, client_id)
+        }
+        return result

@@ -31,7 +31,7 @@ class Social(AuthenticationBase):
             A dict with 'access_token' and 'id_token' keys.
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/access_token' % self.domain,
             data={
                 'client_id': client_id,
@@ -41,3 +41,7 @@ class Social(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        if (result.content['id_token']){
+            self.verify_id_token(result.content['id_token'], self.domain, client_id)
+        }
+        return result

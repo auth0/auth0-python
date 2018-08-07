@@ -38,8 +38,12 @@ class Delegated(AuthenticationBase):
             raise ValueError('Either id_token or refresh_token must '
                              'have a value')
 
-        return self.post(
+        result = self.post(
             'https://%s/delegation' % self.domain,
             headers={'Content-Type': 'application/json'},
             data=data
         )
+        if (result.content['id_token']){
+            self.verify_id_token(result.content['id_token'], self.domain, client_id)
+        }
+        return result

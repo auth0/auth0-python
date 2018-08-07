@@ -23,7 +23,7 @@ class Database(AuthenticationBase):
         Windows Azure AD and ADFS.
         """
         warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
-        return self.post(
+        result = self.post(
             'https://%s/oauth/ro' % self.domain,
             data={
                 'client_id': client_id,
@@ -37,6 +37,10 @@ class Database(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        if (result.content['id_token']){
+            self.verify_id_token(result.content['id_token'], self.domain, client_id)
+        }
+        return result
 
     def signup(self, client_id, email, password, connection):
         """Signup using username and password.
