@@ -1,6 +1,6 @@
 from .base import AuthenticationBase
 import warnings
-from .token_verification import token_verification
+from .utils.token_verifier import TokenVerifier
 
 class Database(AuthenticationBase):
 
@@ -10,10 +10,10 @@ class Database(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
+    def __init__(self, domain, token_verifier=None):
         self.domain = domain
+        self.token_verifier = token_verifier or TokenVerifier(domain)
 
-    @token_verification
     def login(self, client_id, username, password, connection, id_token=None,
               grant_type='password', device=None, scope='openid'):
         """Login using username and password
@@ -25,7 +25,7 @@ class Database(AuthenticationBase):
         Windows Azure AD and ADFS.
         """
         warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
-        return self.post(
+        result = self.post(
             'https://%s/oauth/ro' % self.domain,
             data={
                 'client_id': client_id,
@@ -39,6 +39,10 @@ class Database(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        id_token = result['id_token']
+        if id_token: 
+            self.token_verifier.verify(id_token, client_id)
+        return result
 
     def signup(self, client_id, email, password, connection):
         """Signup using username and password.

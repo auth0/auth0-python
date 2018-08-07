@@ -1,5 +1,4 @@
 from .base import AuthenticationBase
-from .token_verification import token_verification
 
 class Social(AuthenticationBase):
 
@@ -12,7 +11,6 @@ class Social(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    @token_verification
     def login(self, client_id, access_token, connection, scope='openid'):
         """Login using a social provider's access token
 

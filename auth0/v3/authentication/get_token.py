@@ -1,5 +1,4 @@
 from .base import AuthenticationBase
-from .token_verification import token_verification
 
 class GetToken(AuthenticationBase):
 
@@ -12,7 +11,6 @@ class GetToken(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    @token_verification
     def authorization_code(self, client_id, client_secret, code,
                            redirect_uri, grant_type='authorization_code'):
         """Authorization code grant
@@ -50,7 +48,6 @@ class GetToken(AuthenticationBase):
             headers={'Content-Type': 'application/json'}
         )
 
-    @token_verification
     def authorization_code_pkce(self, client_id, code_verifier, code,
                                 redirect_uri, grant_type='authorization_code'):
         """Authorization code pkce grant
@@ -122,7 +119,6 @@ class GetToken(AuthenticationBase):
             headers={'Content-Type': 'application/json'}
         )
 
-    @token_verification
     def login(self, client_id, client_secret, username, password, scope, realm,
               audience, grant_type='http://auth0.com/oauth/grant-type/password-realm'):
         """Calls oauth/token endpoint with password-realm grant type
@@ -174,7 +170,6 @@ class GetToken(AuthenticationBase):
             headers={'Content-Type': 'application/json'}
         )
 
-    @token_verification
     def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token'):
         """Calls oauth/token endpoint with refresh token grant type
 

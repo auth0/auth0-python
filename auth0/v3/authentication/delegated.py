@@ -1,5 +1,4 @@
 from .base import AuthenticationBase
-from .token_verification import token_verification
 
 class Delegated(AuthenticationBase):
 
@@ -12,7 +11,6 @@ class Delegated(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    @token_verification
     def get_token(self, client_id, target, api_type, grant_type,
                   id_token=None, refresh_token=None, scope='openid'):
 
