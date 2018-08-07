@@ -1,9 +1,6 @@
 import json
 import requests
-from ..exceptions import Auth0Error, TokenVerificationError
-from jose import jwk
-from jose import jwt
-from jose.utils import base64url_decode
+from ..exceptions import Auth0Error
 
 UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
 
@@ -28,36 +25,6 @@ class AuthenticationBase(object):
             return JsonResponse(response)
         except ValueError:
             return PlainResponse(response)
-
-    def _fetch_jwk(domain, kid):
-        print('Fetching jwks. Looking for kid: ' + kid)
-        if not domain.startsWith("http"):
-            domain = "https://{}".format(domain)
-        if not domain.endswith("/"):
-            domain = "{}/".format(domain)
-        jwks_url = "{}.well-known/jwks.json".format(domain)
-        keysRequest = requests.get(jwks_url)
-        jwks = keys.json()['keys']
-        #TODO: See how to cache/save this result
-        for key in jwks:
-            if key['kid']==kid
-                return key
-        raise TokenVerificationError('Could not obtain the Json Web Key from {}'.format(jwks_url))
-        
-    def verify_id_token(self, id_token, domain, client_id):
-        header = jwt.get_unverified_header(id_token)
-        if header['alg'].lower!='rs256': return #Compatibility with HS256 (legacy tokens)
-        jwk = self._fetch_jwk(domain, header['kid'])
-        try:
-            key = jwk.construct(jwk)
-            content, encoded_signature = token.rsplit('.', 1)
-            decoded_signature = base64url_decode(encoded_signature)
-            payload = key.verify(message, decoded_sig)
-        except: 
-            raise TokenVerificationError('Signature is invalid')
-        if payload['iss']!=domain or not client_id in payload['aud']:
-            raise TokenVerificationError("The 'aud' or 'iss' claims don't match the expected values")
-
 
 class Response(object):
     def __init__(self, status_code, content):

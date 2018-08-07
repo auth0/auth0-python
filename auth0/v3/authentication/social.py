@@ -1,5 +1,5 @@
 from .base import AuthenticationBase
-
+from .token_verification import token_verification
 
 class Social(AuthenticationBase):
 
@@ -12,6 +12,7 @@ class Social(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
+    @token_verification
     def login(self, client_id, access_token, connection, scope='openid'):
         """Login using a social provider's access token
 
@@ -31,7 +32,7 @@ class Social(AuthenticationBase):
             A dict with 'access_token' and 'id_token' keys.
         """
 
-        result = self.post(
+        return self.post(
             'https://%s/oauth/access_token' % self.domain,
             data={
                 'client_id': client_id,
@@ -41,7 +42,3 @@ class Social(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
-        if (result.content['id_token']){
-            self.verify_id_token(result.content['id_token'], self.domain, client_id)
-        }
-        return result

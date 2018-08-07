@@ -1,5 +1,5 @@
 from .base import AuthenticationBase
-
+from .token_verification import token_verification
 
 class Delegated(AuthenticationBase):
 
@@ -12,6 +12,7 @@ class Delegated(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
+    @token_verification
     def get_token(self, client_id, target, api_type, grant_type,
                   id_token=None, refresh_token=None, scope='openid'):
 
@@ -38,12 +39,8 @@ class Delegated(AuthenticationBase):
             raise ValueError('Either id_token or refresh_token must '
                              'have a value')
 
-        result = self.post(
+        return self.post(
             'https://%s/delegation' % self.domain,
             headers={'Content-Type': 'application/json'},
             data=data
         )
-        if (result.content['id_token']){
-            self.verify_id_token(result.content['id_token'], self.domain, client_id)
-        }
-        return result
