@@ -5,10 +5,14 @@ from ...authentication.database import Database
 
 class TestDatabase(unittest.TestCase):
 
+    @mock.patch('auth0.v3.authentication.utils.token_verifier.TokenVerifier')
     @mock.patch('auth0.v3.authentication.database.Database.post')
-    def test_login(self, mock_post):
+    def test_login(self, mock_post, mock_token_verifier):
 
-        d = Database('my.domain.com')
+        d = Database('my.domain.com', mock_token_verifier)
+        
+        # CALL 1: Will return id_token, which will get verified
+        mock_post.return_value = {'access_token': 'accessToken', 'id_token': 'idToken'}
 
         d.login(client_id='cid',
                 username='usrnm',
@@ -35,6 +39,24 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
+        
+        mock_token_verifier.verify.assert_called_with('idToken', 'cid')
+        mock_token_verifier.reset_mock()
+
+        # CALL 2: Will not return id_token
+        mock_post.return_value = {'access_token': 'accessToken'}
+
+        d.login(client_id='cid',
+                username='usrnm',
+                password='pswd',
+                id_token='idt',
+                connection='conn',
+                device='dev',
+                grant_type='gt',
+                scope='openid profile')
+
+        mock_token_verifier.verify.assert_not_called()
+        #mock_token_verifier.verify.side_effect = Exception('Boom!')
 
     @mock.patch('auth0.v3.authentication.database.Database.post')
     def test_signup(self, mock_post):

@@ -5,10 +5,14 @@ from ...authentication.delegated import Delegated
 
 class TestDelegated(unittest.TestCase):
 
+    @mock.patch('auth0.v3.authentication.utils.token_verifier.TokenVerifier')
     @mock.patch('auth0.v3.authentication.delegated.Delegated.post')
-    def test_get_token_id_token(self, mock_post):
+    def test_get_token_id_token(self, mock_post, mock_token_verifier):
 
-        d = Delegated('my.domain.com')
+        d = Delegated('my.domain.com', mock_token_verifier)
+
+        # Will always return id_token, which will get verified
+        mock_post.return_value = {'id_token': 'idToken'}
 
         d.get_token(client_id='cid',
                     target='tgt',
@@ -31,11 +35,16 @@ class TestDelegated(unittest.TestCase):
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
+        mock_token_verifier.verify.assert_called_with('idToken', 'cid')
 
+    @mock.patch('auth0.v3.authentication.utils.token_verifier.TokenVerifier')
     @mock.patch('auth0.v3.authentication.delegated.Delegated.post')
-    def test_get_token_refresh_token(self, mock_post):
+    def test_get_token_refresh_token(self, mock_post, mock_token_verifier):
 
-        d = Delegated('my.domain.com')
+        d = Delegated('my.domain.com', mock_token_verifier)
+
+        # Will always return refresh_token
+        mock_post.return_value = {'refresh_token': 'refreshToken'}
 
         d.get_token(client_id='cid',
                     target='tgt',
@@ -57,6 +66,7 @@ class TestDelegated(unittest.TestCase):
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
+        mock_token_verifier.verify.assert_not_called()
 
     @mock.patch('auth0.v3.authentication.delegated.Delegated.post')
     def test_get_token_value_error(self, mock_post):

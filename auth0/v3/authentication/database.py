@@ -39,7 +39,7 @@ class Database(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
-        id_token = result['id_token']
+        id_token = 'id_token' in result and result['id_token']
         if id_token: 
             self.token_verifier.verify(id_token, client_id)
         return result

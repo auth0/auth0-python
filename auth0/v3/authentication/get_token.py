@@ -1,4 +1,5 @@
 from .base import AuthenticationBase
+from .utils.token_verifier import TokenVerifier
 
 class GetToken(AuthenticationBase):
 
@@ -8,8 +9,9 @@ class GetToken(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
+    def __init__(self, domain, token_verifier=None):
         self.domain = domain
+        self.token_verifier = token_verifier or TokenVerifier(domain)
 
     def authorization_code(self, client_id, client_secret, code,
                            redirect_uri, grant_type='authorization_code'):
@@ -36,7 +38,7 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/token' % self.domain,
             data={
                 'client_id': client_id,
@@ -47,6 +49,10 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        id_token = 'id_token' in result and result['id_token']
+        if id_token: 
+            self.token_verifier.verify(id_token, client_id)
+        return result
 
     def authorization_code_pkce(self, client_id, code_verifier, code,
                                 redirect_uri, grant_type='authorization_code'):
@@ -73,7 +79,7 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/token' % self.domain,
             data={
                 'client_id': client_id,
@@ -84,6 +90,10 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        id_token = 'id_token' in result and result['id_token']
+        if id_token: 
+            self.token_verifier.verify(id_token, client_id)
+        return result
 
     def client_credentials(self, client_id, client_secret, audience,
                            grant_type='client_credentials'):
@@ -155,7 +165,7 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/token' % self.domain,
             data={
                 'client_id': client_id,
@@ -169,6 +179,10 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        id_token = 'id_token' in result and result['id_token']
+        if id_token: 
+            self.token_verifier.verify(id_token, client_id)
+        return result
 
     def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token'):
         """Calls oauth/token endpoint with refresh token grant type
@@ -189,7 +203,7 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        result = self.post(
             'https://%s/oauth/token' % self.domain,
             data={
                 'client_id': client_id,
@@ -199,3 +213,7 @@ class GetToken(AuthenticationBase):
             },
             headers={'Content-Type': 'application/json'}
         )
+        id_token = 'id_token' in result and result['id_token']
+        if id_token: 
+            self.token_verifier.verify(id_token, client_id)
+        return result
