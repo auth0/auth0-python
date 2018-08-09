@@ -56,7 +56,6 @@ class TestDatabase(unittest.TestCase):
                 scope='openid profile')
 
         mock_token_verifier.verify.assert_not_called()
-        #mock_token_verifier.verify.side_effect = Exception('Boom!')
 
     @mock.patch('auth0.v3.authentication.database.Database.post')
     def test_signup(self, mock_post):

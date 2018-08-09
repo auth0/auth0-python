@@ -1,5 +1,6 @@
 from .base import AuthenticationBase
 from .utils.token_verifier import TokenVerifier
+from .utils.jwk_provider import UrlJwkProvider
 
 class Social(AuthenticationBase):
 
@@ -11,7 +12,7 @@ class Social(AuthenticationBase):
 
     def __init__(self, domain, token_verifier=None):
         self.domain = domain
-        self.token_verifier = token_verifier or TokenVerifier(domain)
+        self.token_verifier = token_verifier or TokenVerifier(UrlJwkProvider(domain))
 
     def login(self, client_id, access_token, connection, scope='openid'):
         """Login using a social provider's access token

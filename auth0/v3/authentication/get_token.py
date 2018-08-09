@@ -1,5 +1,6 @@
 from .base import AuthenticationBase
 from .utils.token_verifier import TokenVerifier
+from .utils.jwk_provider import UrlJwkProvider
 
 class GetToken(AuthenticationBase):
 
@@ -11,7 +12,7 @@ class GetToken(AuthenticationBase):
 
     def __init__(self, domain, token_verifier=None):
         self.domain = domain
-        self.token_verifier = token_verifier or TokenVerifier(domain)
+        self.token_verifier = token_verifier or TokenVerifier(UrlJwkProvider(domain))
 
     def authorization_code(self, client_id, client_secret, code,
                            redirect_uri, grant_type='authorization_code'):

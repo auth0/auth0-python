@@ -13,3 +13,10 @@ class TokenVerificationError(Auth0Error):
 
     def __str__(self):
         return 'Failed to verify the token: %s' % (self.message)
+
+class JwkProviderError(Auth0Error):
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return 'Failed to obtain the public key: %s' % (self.message)

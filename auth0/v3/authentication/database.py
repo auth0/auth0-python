@@ -1,6 +1,7 @@
 from .base import AuthenticationBase
 import warnings
 from .utils.token_verifier import TokenVerifier
+from .utils.jwk_provider import UrlJwkProvider
 
 class Database(AuthenticationBase):
 
@@ -12,7 +13,7 @@ class Database(AuthenticationBase):
 
     def __init__(self, domain, token_verifier=None):
         self.domain = domain
-        self.token_verifier = token_verifier or TokenVerifier(domain)
+        self.token_verifier = token_verifier or TokenVerifier(UrlJwkProvider(domain))
 
     def login(self, client_id, username, password, connection, id_token=None,
               grant_type='password', device=None, scope='openid'):
