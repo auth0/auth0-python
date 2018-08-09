@@ -24,7 +24,7 @@ class TokenVerifier(object):
             payload = jwt.decode(token=token, key=jwk, algorithms='RS256', issuer=issuer, audience=audience)
         except (ExpiredSignatureError):
             raise TokenVerificationError('The token has expired')
-        except (JWTClaimsError) as e:
-            raise TokenVerificationError('Some of the claims in the token are not valid') from e
+        except (JWTClaimsError):
+            raise TokenVerificationError('Some of the claims in the token are not valid')
         except:
             raise TokenVerificationError('The token signature could not be verified')
