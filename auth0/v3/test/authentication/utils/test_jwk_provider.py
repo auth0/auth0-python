@@ -4,13 +4,13 @@ from ....authentication.utils.jwk_provider import UrlJwkProvider
 from ....exceptions import JwkProviderError
 
 MY_JWK = {
-        "kty": "RSA",
-        "e": "AQAB",
-        "use": "sig",
-        "kid": "my_key-id",
-        "alg": "RS256",
-        "n": "nnlbiOVZs6zsLQ9pjP5jfkoEfh3RYGpGifV3LaijDc-Q5VhT4EUt30HpBX4A7SgyW7tkyHi4HMdEaAjAsqHe3XK4cRE3hOTQi89B03WCZPrC8eILYdK81F4qfe_346E7v1_83K3lz_o6s_c16iJRxLhLtFZjUTwWSCFR7QKxB4IeiwzP1UcktzjMDLumlU5CKgbXOjo4ECUScWl_ObMAMNDgi03FHwXWnTqwxfAFFDfq_c6P-RcuXXv5FGVUwNtTKb4cHZMZFXMstzRmqfGCjuY7RRs38UrLF_BEzuc2ygOi2aV-IAYxgesnzfFQAR9Q2vVzZKRr0gs2778Epq78mQ"
-        }
+    "kty": "RSA",
+    "e": "AQAB",
+    "use": "sig",
+    "kid": "my_key-id",
+    "alg": "RS256",
+    "n": "nnlbiOVZs6zsLQ9pjP5jfkoEfh3RYGpGifV3LaijDc-Q5VhT4EUt30HpBX4A7SgyW7tkyHi4HMdEaAjAsqHe3XK4cRE3hOTQi89B03WCZPrC8eILYdK81F4qfe_346E7v1_83K3lz_o6s_c16iJRxLhLtFZjUTwWSCFR7QKxB4IeiwzP1UcktzjMDLumlU5CKgbXOjo4ECUScWl_ObMAMNDgi03FHwXWnTqwxfAFFDfq_c6P-RcuXXv5FGVUwNtTKb4cHZMZFXMstzRmqfGCjuY7RRs38UrLF_BEzuc2ygOi2aV-IAYxgesnzfFQAR9Q2vVzZKRr0gs2778Epq78mQ"
+    }
 OTHER_JWK = {
     "kty": "RSA",
     "e": "AQAB",
@@ -22,12 +22,22 @@ OTHER_JWK = {
 
 class TestJwkProvider(unittest.TestCase):
 
+    @mock.patch('auth0.v3.authentication.utils.leaky_bucket.Bucket')
     @mock.patch('requests.get')
-    def test_call_once_the_right_url(self, mock_get):
+    def test_call_fails_when_not_cached_and_rate_limited(self, mock_get, mock_bucket):
+        mock_bucket.consume.return_value = False
+        provider = UrlJwkProvider('lucho.auth0.com', mock_bucket)
+        self.assertRaises(JwkProviderError, provider.get_jwk, 'my_key-id')
+        mock_get.assert_not_called()
+
+    @mock.patch('auth0.v3.authentication.utils.leaky_bucket.Bucket')
+    @mock.patch('requests.get')
+    def test_calls_once_the_right_url_and_keeps_cache(self, mock_get, mock_bucket):
         mock_response = mock.Mock()
         mock_response.json.return_value = {"keys": [MY_JWK, OTHER_JWK]}
         mock_get.return_value = mock_response
-        provider = UrlJwkProvider('lucho.auth0.com')
+        mock_bucket.consume.return_value = True
+        provider = UrlJwkProvider('lucho.auth0.com', mock_bucket)
 
         provider.get_jwk('my_key-id')
         provider.get_jwk('my_key-id')
@@ -35,43 +45,69 @@ class TestJwkProvider(unittest.TestCase):
 
         jwks_url = 'https://lucho.auth0.com/.well-known/jwks.json'
         mock_get.assert_called_once_with(jwks_url)
-
+    
+    @mock.patch('auth0.v3.authentication.utils.leaky_bucket.Bucket')
     @mock.patch('requests.get')
-    def test_gets_many_jwk(self, mock_get):
+    def test_keeps_calling_the_right_url_when_not_in_cache(self, mock_get, mock_bucket):
         mock_response = mock.Mock()
         mock_response.json.return_value = {"keys": [MY_JWK, OTHER_JWK]}
         mock_get.return_value = mock_response
-        provider = UrlJwkProvider('lucho.auth0.com')
+        mock_bucket.consume.return_value = True
+        provider = UrlJwkProvider('lucho.auth0.com', mock_bucket)
+
+        # cache missing. Fetches from URL
+        provider.get_jwk('my_key-id')
+        # second time is obtained from cache
+        provider.get_jwk('my_key-id')
+        # cache ready but doesn't contain key. Will try to fetch again from url
+        self.assertRaises(JwkProviderError, provider.get_jwk, 'non_existing_key-id')
+
+        jwks_url = 'https://lucho.auth0.com/.well-known/jwks.json'
+        mock_get.assert_called_with(jwks_url)
+        self.assertEqual(mock_get.call_count, 2)
+
+    @mock.patch('auth0.v3.authentication.utils.leaky_bucket.Bucket')
+    @mock.patch('requests.get')
+    def test_gets_many_jwk(self, mock_get, mock_bucket):
+        mock_response = mock.Mock()
+        mock_response.json.return_value = {"keys": [MY_JWK, OTHER_JWK]}
+        mock_get.return_value = mock_response
+        mock_bucket.consume.return_value = True
+        provider = UrlJwkProvider('lucho.auth0.com', mock_bucket)
 
         myJwk = provider.get_jwk('my_key-id')
         self.assertEqual(myJwk, MY_JWK)
         otherJwk = provider.get_jwk('other_key-id')
         self.assertEqual(otherJwk, OTHER_JWK)
 
+    @mock.patch('auth0.v3.authentication.utils.leaky_bucket.Bucket')
     @mock.patch('requests.get')
-    def test_get_jwk_without_key_id(self, mock_get):
+    def test_get_jwk_without_key_id(self, mock_get, mock_bucket):
         mock_response = mock.Mock()
         mock_response.json.return_value = {"keys": [OTHER_JWK]}
         mock_get.return_value = mock_response
-        provider = UrlJwkProvider('lucho.auth0.com')
+        mock_bucket.consume.return_value = True
+        provider = UrlJwkProvider('lucho.auth0.com', mock_bucket)
 
         otherJwk = provider.get_jwk()
         self.assertEqual(otherJwk, OTHER_JWK)
 
+    @mock.patch('auth0.v3.authentication.utils.leaky_bucket.Bucket')
     @mock.patch('requests.get')
-    def test_fails_to_get_jwk_when_key_id_does_not_match(self, mock_get):
+    def test_fails_to_get_jwk_when_key_id_does_not_match(self, mock_get, mock_bucket):
         mock_response = mock.Mock()
         mock_response.json.return_value = {"keys": [MY_JWK, OTHER_JWK]}
         mock_get.return_value = mock_response
-        provider = UrlJwkProvider('lucho.auth0.com')
-        self.assertRaises(JwkProviderError, provider.get_jwk, 'inexisting_key-id')
+        mock_bucket.consume.return_value = True
+        provider = UrlJwkProvider('lucho.auth0.com', mock_bucket)
+        self.assertRaises(JwkProviderError, provider.get_jwk, 'non_existing_key-id')
 
+    @mock.patch('auth0.v3.authentication.utils.leaky_bucket.Bucket')
     @mock.patch('requests.get')
-    def test_fails_to_get_jwk_when_jwks_is_empty(self, mock_get):
+    def test_fails_to_get_jwk_when_jwks_is_empty(self, mock_get, mock_bucket):
         mock_response = mock.Mock()
         mock_response.json.return_value = {"keys": []}
         mock_get.return_value = mock_response
-        provider = UrlJwkProvider('lucho.auth0.com')
-        self.assertRaises(JwkProviderError, provider.get_jwk, 'inexisting_key-id')
-
-
+        mock_bucket.consume.return_value = True
+        provider = UrlJwkProvider('lucho.auth0.com', mock_bucket)
+        self.assertRaises(JwkProviderError, provider.get_jwk, 'non_existing_key-id')
