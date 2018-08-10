@@ -9,6 +9,8 @@ class Database(AuthenticationBase):
 
     Args:
         domain (str): Your auth0 domain (e.g: username.auth0.com)
+        token_verifier (TokenVerifier, optional): The verifier to use for ID tokens when present. 
+            Defaults to a rate-limited verifier that uses the auth0 domain to fetch the public keys.
     """
 
     def __init__(self, domain, token_verifier=None):

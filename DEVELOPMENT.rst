@@ -31,3 +31,10 @@ or do it using docker:
 
     sh publish.sh
 
+
+Instructions to run the tests
+===============================
+
+.. code-block:: bash
+
+    coverage run --include=auth0/v3/*.py --omit=auth0/v3/test/*.py -m unittest discover

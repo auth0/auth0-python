@@ -146,7 +146,20 @@ For example:
 
     social = Social('myaccount.auth0.com')
 
-    s.login(client_id='...', access_token='...', connection='facebook')
+    social.login(client_id='...', access_token='...', connection='facebook')
+
+For endpoints that return an ID Token, their verification will occur automatically following the guidelines described in `this article <https://auth0.com/docs/tokens/id-token#validate-an-id-token>`_. This only applies to RS256 signed ID Tokens. 
+
+The Public Key used in the verification stage is obtained from the JSON Web Key (JWK) set file hosted by Auth0 under your tenant's name. A custom strategy can be defined to obtain the JWK by extending ``JwkProvider`` and using it to create a new ``TokenVerifier`` instance. The verifier can later be set when creating new components, such as:
+
+.. code-block:: python
+
+    from auth0.v3.authentication import GetToken
+    from auth0.v3.authentication.utils import TokenVerifier
+
+    jwk_provider = MyJwkProvider() # You need to code this class
+    token_verifier = TokenVerifier(jwk_provider=jwk_provider)
+    get_token = GetToken(domain='myaccount.auth0.com', token_verifier=token_verifier)
 
 Available Management Endpoints
 ==============================

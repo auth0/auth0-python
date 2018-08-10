@@ -3,16 +3,28 @@ from ...exceptions import JwkProviderError
 from .leaky_bucket import Bucket
 
 class JwkProvider(object):
+    """JwkProvider. A JSON Web Key fetcher interface
+
+    """
 
     def get_jwk(key_id=None):
-        """Obtains a JSON Web Key
+        """Attempts to fetch a JSON Web Key with the given key id
         
         Args:
             key_id (str): The id of the key to obtain
+        
+        Raises:
+            NotImplementedError: When attempted to use directly without subclassing it first
         """
         raise NotImplementedError
 
 class UrlJwkProvider(JwkProvider):
+    """URLJwkProvider. A JSON Web Key fetcher that uses the JWK set hosted under the domain's well known URL.
+        
+    Args:
+        domain (str): The domain to use to construct the JWKs URL (e.g. 'username.auth0.com')
+        bucket (Bucket, optional): The Bucket to use when rate limiting this provider
+    """
 
     def __init__(self, domain, bucket=Bucket()):
         self.url = "https://%s/.well-known/jwks.json" % (domain)
@@ -23,10 +35,13 @@ class UrlJwkProvider(JwkProvider):
         """Obtains a JSON Web Key
         
         Args:
-            key_id (str): The id of the key to obtain. If omitted and the JWK set has only one element, that one is returned.
+            key_id (str, optional): The id of the key to obtain. If omitted and the JWK set has only one element, that one is returned.
          
         Returns:
             A dict representing the JWK
+        
+        Raises:
+            JwkProviderError: When the key is not found on the set or the request fails because of a rate limit
         """
         key = None
         if self._jwks:

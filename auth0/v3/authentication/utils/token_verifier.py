@@ -5,7 +5,7 @@ from jose.utils import base64url_decode
 from jose.exceptions import ExpiredSignatureError, JWTClaimsError
 
 class TokenVerifier(object):
-    """Token Verifier
+    """TokenVerifier. A JWT signature and claims verifier, designed for Auth0 service. Follows https://auth0.com/docs/tokens/id-token#validate-an-id-token
 
     Args:
         jwk_provider (JwkProvider): An instance of the JWK provider to use to obtain the public keys
@@ -15,6 +15,21 @@ class TokenVerifier(object):
         self._jwk_provider = jwk_provider
 
     def verify(self, token, issuer, audience):
+        """Verifies a given token's signature and claims.
+
+        Args:
+            token (str): The token to verify. Must be signed using the RS256 algorithm. Will deem tokens signed with HS256 as valid.
+            issuer (str): The issuer to expect
+            audience (str): The audience expected to be contained in this token
+
+        Returns:
+            None
+        
+        Raises:
+            TokenVerificationError: when the token has expired, or the claims don't match or the signature could not be verified.
+            JwkProviderError: if the public key is not found
+        """
+
         header = jwt.get_unverified_header(token)
         if header['alg'].lower()=='hs256':
             #Compatibility with HS256 (legacy tokens)
