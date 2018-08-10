@@ -35,7 +35,7 @@ class TestDelegated(unittest.TestCase):
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
-        mock_token_verifier.verify.assert_called_with('idToken', 'cid')
+        mock_token_verifier.verify.assert_called_with('idToken', 'my.domain.com', 'cid')
 
     @mock.patch('auth0.v3.authentication.utils.token_verifier.TokenVerifier')
     @mock.patch('auth0.v3.authentication.delegated.Delegated.post')

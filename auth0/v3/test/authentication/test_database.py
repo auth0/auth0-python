@@ -40,7 +40,7 @@ class TestDatabase(unittest.TestCase):
             'Content-Type': 'application/json'
         })
         
-        mock_token_verifier.verify.assert_called_with('idToken', 'cid')
+        mock_token_verifier.verify.assert_called_with('idToken', 'my.domain.com', 'cid')
         mock_token_verifier.reset_mock()
 
         # CALL 2: Will not return id_token

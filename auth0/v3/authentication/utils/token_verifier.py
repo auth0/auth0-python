@@ -19,8 +19,8 @@ class TokenVerifier(object):
 
         Args:
             token (str): The token to verify. Must be signed using the RS256 algorithm. Will deem tokens signed with HS256 as valid.
-            issuer (str): The issuer to expect
-            audience (str): The audience expected to be contained in this token
+            issuer (str): The issuer to expect. Matches the auth0 domain in this form 'https://username.auth0.com/'.
+            audience (str): The audience expected to be contained in this token. Matches the auth0 client id.
 
         Returns:
             None

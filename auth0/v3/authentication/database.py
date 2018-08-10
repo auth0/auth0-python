@@ -44,7 +44,7 @@ class Database(AuthenticationBase):
         )
         id_token = 'id_token' in result and result['id_token']
         if id_token: 
-            self.token_verifier.verify(id_token, client_id)
+            self.token_verifier.verify(id_token, self.domain, client_id)
         return result
 
     def signup(self, client_id, email, password, connection):

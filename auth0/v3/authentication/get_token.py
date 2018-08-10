@@ -54,7 +54,7 @@ class GetToken(AuthenticationBase):
         )
         id_token = 'id_token' in result and result['id_token']
         if id_token: 
-            self.token_verifier.verify(id_token, client_id)
+            self.token_verifier.verify(id_token, self.domain, client_id)
         return result
 
     def authorization_code_pkce(self, client_id, code_verifier, code,
@@ -95,7 +95,7 @@ class GetToken(AuthenticationBase):
         )
         id_token = 'id_token' in result and result['id_token']
         if id_token: 
-            self.token_verifier.verify(id_token, client_id)
+            self.token_verifier.verify(id_token, self.domain, client_id)
         return result
 
     def client_credentials(self, client_id, client_secret, audience,
@@ -184,7 +184,7 @@ class GetToken(AuthenticationBase):
         )
         id_token = 'id_token' in result and result['id_token']
         if id_token: 
-            self.token_verifier.verify(id_token, client_id)
+            self.token_verifier.verify(id_token, self.domain, client_id)
         return result
 
     def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token'):
@@ -218,5 +218,5 @@ class GetToken(AuthenticationBase):
         )
         id_token = 'id_token' in result and result['id_token']
         if id_token: 
-            self.token_verifier.verify(id_token, client_id)
+            self.token_verifier.verify(id_token, self.domain, client_id)
         return result
