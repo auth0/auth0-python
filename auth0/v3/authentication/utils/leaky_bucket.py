@@ -1,5 +1,5 @@
+import threading
 import time
-
 
 class Bucket(object):
 
@@ -7,35 +7,38 @@ class Bucket(object):
         if size < 1:
             raise ValueError("size must be a positive int")
         if leak_rate < 5:
-            raise ValueError("leak_rate must be a positive int bigger than 5")
+            raise ValueError("leak_rate must be a positive int of at least 5")
         self._size = size
         self._available = size
         self._leak_rate = leak_rate
         self._last_addition = time.time()
         self._remainder_delta = 0
+        self._lock = threading.Lock()
         
     def leaks_in(self, amount=1):
         if amount < 1:
             raise ValueError("amount must be a positive int")
-        self._calculate_available_tokens()
-        if self._available >= amount:
-            return 0
-        ellapsed_time = self._get_ellapsed_time()
-        if ellapsed_time < self._leak_rate:
-            ellapsed_time = self._leak_rate - ellapsed_time
-        remaining = amount - self._available - 1
-        if remaining > 0:
-            ellapsed_time = ellapsed_time + self._leak_rate * remaining
-        return ellapsed_time
+        with self._lock:
+            self._calculate_available_tokens()
+            if self._available >= amount:
+                return 0
+            ellapsed_time = self._get_ellapsed_time()
+            if ellapsed_time < self._leak_rate:
+                ellapsed_time = self._leak_rate - ellapsed_time
+            remaining = amount - self._available - 1
+            if remaining > 0:
+                ellapsed_time = ellapsed_time + self._leak_rate * remaining
+            return ellapsed_time
 
     def consume(self, amount=1):
         if amount < 1:
             raise ValueError("amount must be a positive int")
-        self._calculate_available_tokens()
-        if self._available >= amount:
-            self._available = self._available - amount
-            return True
-        return False
+        with self._lock:
+            self._calculate_available_tokens()
+            if self._available >= amount:
+                self._available = self._available - amount
+                return True
+            return False
 
     def _calculate_available_tokens(self):
         ellapsed_time = self._get_ellapsed_time()
