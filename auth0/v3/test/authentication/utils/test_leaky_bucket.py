@@ -7,7 +7,7 @@ class TestBucket(unittest.TestCase):
 
     def test_creates_with_default_size(self):
         bucket = Bucket()
-        self.assertEqual(bucket._size, 5)
+        self.assertEqual(bucket._size, 10)
     
     def test_creates_with_custom_size(self):
         bucket = Bucket(size=123)
@@ -15,7 +15,7 @@ class TestBucket(unittest.TestCase):
 
     def test_creates_with_default_leak_rate(self):
         bucket = Bucket()
-        self.assertEqual(bucket._leak_rate, 60*10)
+        self.assertEqual(bucket._leak_rate, 60*1)
     
     def test_creates_with_custom_leak_rate(self):
         bucket = Bucket(leak_rate=98765)

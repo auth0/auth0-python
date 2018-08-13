@@ -150,7 +150,7 @@ For example:
 
 For endpoints that return an ID Token, their verification will occur automatically following the guidelines described in `this article <https://auth0.com/docs/tokens/id-token#validate-an-id-token>`_. This only applies to RS256 signed ID Tokens. 
 
-The Public Key used in the verification stage is obtained from the JSON Web Key (JWK) set file hosted by Auth0 under your tenant's name. A custom strategy can be defined to obtain the JWK by extending ``JwkProvider`` and using it to create a new ``TokenVerifier`` instance. The verifier can later be set when creating new components, such as:
+The Public Key used in the verification stage is obtained from the JSON Web Key (JWK) set file hosted by Auth0 under your tenant's name. By default up to 10 requests to the Auth0 API are allowed, with 1 new request adding to the pool every minute. A custom strategy can be defined to obtain the JWK by extending ``JwkProvider`` and using it to create a new ``TokenVerifier`` instance. The verifier can later be set when creating new components, such as:
 
 .. code-block:: python
 

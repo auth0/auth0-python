@@ -5,14 +5,14 @@ class Bucket(object):
     """Bucket. A 'leaky bucket' implementation to rate limit an operation
 
     Args:
-        size (int, optional): The number of tokens this bucket will hold. Defaults to 5
-        leak_rate (int, optional): The number of seconds to wait for a new token to be added to the bucket. Defaults to 600 seconds (10 minutes)
+        size (int, optional): The number of tokens this bucket will hold. Defaults to 10
+        leak_rate (int, optional): The number of seconds to wait for a new token to be added to the bucket. Defaults to 60 seconds (1 minute)
     
     Raises:
         ValueError: If the size is less than 1 or the leak_rate is less than 5
     """
 
-    def __init__(self, size=5, leak_rate=10*60):
+    def __init__(self, size=10, leak_rate=1*60):
         if size < 1:
             raise ValueError("size must be a positive int")
         if leak_rate < 5:
