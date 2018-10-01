@@ -140,7 +140,7 @@ class TestConnection(unittest.TestCase):
         )
 
     @mock.patch('auth0.v3.management.connections.RestClient')
-    def test_delete(self, mock_rc):
+    def test_delete_user_by_email(self, mock_rc):
         mock_instance = mock_rc.return_value
         mock_instance.delete_user_by_email.return_value = {}
 
