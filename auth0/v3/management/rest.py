@@ -18,9 +18,7 @@ class RestClient(object):
 
         if telemetry:
             py_version = platform.python_version()
-
-            # FIXME: is there a nicer way to do this?
-            from ... import __version__ as version
+            version = sys.modules['auth0'].__version__
 
             auth0_client = json.dumps({
                 'name': 'auth0-python', 'version': version,
