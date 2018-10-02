@@ -24,6 +24,7 @@ setup(
     packages=find_packages(),
     install_requires=['requests'],
     extras_require={'test': ['mock']},
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
