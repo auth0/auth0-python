@@ -98,10 +98,10 @@ class TestGetToken(unittest.TestCase):
         self.assertEqual(kwargs['data'], {
             'client_id': 'cid',
             'client_secret': 'clsec',
-            'username':'usrnm',
-            'password':'pswd',
-            'scope':'http://test.com/api',
-            'realm':'rlm',
+            'username': 'usrnm',
+            'password': 'pswd',
+            'scope': 'http://test.com/api',
+            'realm': 'rlm',
             'audience': 'aud',
             'grant_type': 'gt'
         })

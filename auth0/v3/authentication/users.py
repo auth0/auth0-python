@@ -1,6 +1,7 @@
 from .base import AuthenticationBase
 import warnings
 
+
 class Users(AuthenticationBase):
 
     """Userinfo related endpoints.

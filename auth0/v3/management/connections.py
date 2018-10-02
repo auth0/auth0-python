@@ -48,7 +48,7 @@ class Connections(object):
         Returns:
            A list of connection objects.
         """
-        
+
         params = extra_params or {}
         params['strategy'] = strategy or None
         params['fields'] = fields and ','.join(fields) or None

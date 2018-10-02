@@ -1,6 +1,7 @@
 from .base import AuthenticationBase
 import warnings
 
+
 class Database(AuthenticationBase):
 
     """Database & Active Directory / LDAP Authentication.

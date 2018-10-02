@@ -23,7 +23,7 @@ class TestRest(unittest.TestCase):
         response = rc.get(url='the/url', params={'A': 'param', 'B': 'param'})
         mock_get.assert_called_with('the/url', params={'A': 'param',
                                                        'B': 'param'},
-                                               headers=headers)
+                                    headers=headers)
         self.assertEqual(response, ['a', 'b'])
 
         mock_get.return_value.text = ''
@@ -33,7 +33,6 @@ class TestRest(unittest.TestCase):
     @mock.patch('requests.get')
     def test_get_errors(self, mock_get):
         rc = RestClient(jwt='a-token', telemetry=False)
-        headers = {'Authorization': 'Bearer a-token'}
 
         mock_get.return_value.text = '{"statusCode": 999,' \
                                      ' "errorCode": "code",' \
@@ -80,7 +79,6 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'message')
 
-
     @mock.patch('requests.post')
     def test_post_errors_with_no_message_property(self, mock_post):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -99,7 +97,6 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'error')
 
-
     @mock.patch('requests.post')
     def test_post_errors_with_no_message_or_error_property(self, mock_post):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -116,7 +113,6 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, '')
-
 
     @mock.patch('requests.post')
     def test_post_errors_with_message_and_error_property(self, mock_post):

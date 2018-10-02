@@ -30,4 +30,3 @@ class AuthorizeClient(AuthenticationBase):
         return self.get(
             'https://%s/authorize' % self.domain,
             params=params)
-

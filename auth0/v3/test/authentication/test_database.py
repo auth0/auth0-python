@@ -50,11 +50,11 @@ class TestDatabase(unittest.TestCase):
 
         self.assertEqual(args[0], 'https://my.domain.com/dbconnections/signup')
         self.assertEqual(kwargs['data'], {
-             'client_id': 'cid',
-             'email': 'a@b.com',
-             'password': 'pswd',
-             'connection': 'conn',
-        })
+                         'client_id': 'cid',
+                         'email': 'a@b.com',
+                         'password': 'pswd',
+                         'connection': 'conn',
+                         })
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
@@ -72,7 +72,7 @@ class TestDatabase(unittest.TestCase):
         args, kwargs = mock_post.call_args
 
         self.assertEqual(args[0],
-            'https://my.domain.com/dbconnections/change_password')
+                         'https://my.domain.com/dbconnections/change_password')
         self.assertEqual(kwargs['data'], {
             'client_id': 'cid',
             'email': 'a@b.com',

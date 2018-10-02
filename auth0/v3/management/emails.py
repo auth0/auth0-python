@@ -60,4 +60,3 @@ class Emails(object):
             body (dict): Please see: https://auth0.com/docs/api/v2#!/Emails/patch_provider
         """
         return self.client.patch(self._url(), data=body)
-

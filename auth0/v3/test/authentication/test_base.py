@@ -30,7 +30,7 @@ class TestBase(unittest.TestCase):
                                           '"error_description": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
-                data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
+                ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, 'e0')
@@ -46,7 +46,7 @@ class TestBase(unittest.TestCase):
                                           '"error_description": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
-                data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
+                ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, 'e0')
@@ -61,10 +61,11 @@ class TestBase(unittest.TestCase):
             mock_post.return_value.text = '{"error_description": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
-                data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
+                ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
             self.assertEqual(context.exception.status_code, error_status)
-            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.error_code,
+                             'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message, 'desc')
 
     @mock.patch('requests.post')
@@ -76,10 +77,11 @@ class TestBase(unittest.TestCase):
             mock_post.return_value.text = 'there has been a terrible error'
 
             with self.assertRaises(Auth0Error) as context:
-                data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
+                ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
             self.assertEqual(context.exception.status_code, error_status)
-            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.error_code,
+                             'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message,
                              'there has been a terrible error')
 
@@ -92,8 +94,9 @@ class TestBase(unittest.TestCase):
             mock_post.return_value.text = None
 
             with self.assertRaises(Auth0Error) as context:
-                data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
+                ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
             self.assertEqual(context.exception.status_code, error_status)
-            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.error_code,
+                             'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message, '')

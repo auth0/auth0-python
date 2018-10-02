@@ -17,6 +17,7 @@ from .user_blocks import UserBlocks
 from .users import Users
 from .users_by_email import UsersByEmail
 
+
 class Auth0(object):
     """Provides easy access to all endpoint classes
 

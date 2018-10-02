@@ -181,5 +181,5 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/users/used_id/logs', args[0])
         self.assertEqual(kwargs['params']['page'], 0)
         self.assertEqual(kwargs['params']['per_page'], 50)
-        self.assertEqual(kwargs['params']['sort'], None)
+        self.assertIsNone(kwargs['params']['sort'])
         self.assertEqual(kwargs['params']['include_totals'], 'false')

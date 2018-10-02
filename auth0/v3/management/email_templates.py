@@ -27,36 +27,34 @@ class EmailTemplates(object):
     def create(self, body):
         """Create a new email template.
 
-        Args: 
+        Args:
            body (dict): Attributes for the new email template.
               See: https://auth0.com/docs/api/management/v2#!/Email_Templates/post_email_templates
         """
 
         return self.client.post(self._url(), data=body)
 
-
     def get(self, template_name):
         """Retrieves an email template by its name.
 
         Args:
-           template_name (str): Name of the email template to get. 
-              Must be one of: 'verify_email', 'reset_email', 'welcome_email', 
-              'blocked_account', 'stolen_credentials', 'enrollment_email', 
+           template_name (str): Name of the email template to get.
+              Must be one of: 'verify_email', 'reset_email', 'welcome_email',
+              'blocked_account', 'stolen_credentials', 'enrollment_email',
               'change_password', 'password_reset', 'mfa_oob_code'.
               See: https://auth0.com/docs/api/management/v2#!/Email_Templates/get_email_templates_by_templateName
         """
 
         return self.client.get(self._url(template_name))
 
-
     def update(self, template_name, body):
         """Update an existing email template.
 
         Args:
-           template_name (str): Name of the email template to update. 
-              Must be one of: 'verify_email', 'reset_email', 'welcome_email', 
-              'blocked_account', 'stolen_credentials', 'enrollment_email', 
-              'change_password', 'password_reset', 'mfa_oob_code'. 
+           template_name (str): Name of the email template to update.
+              Must be one of: 'verify_email', 'reset_email', 'welcome_email',
+              'blocked_account', 'stolen_credentials', 'enrollment_email',
+              'change_password', 'password_reset', 'mfa_oob_code'.
 
            body (dict): Attributes to update on the email template.
               See: https://auth0.com/docs/api/management/v2#!/Email_Templates/patch_email_templates_by_templateName
