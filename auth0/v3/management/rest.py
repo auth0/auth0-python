@@ -1,4 +1,5 @@
 import sys
+import platform
 import json
 import base64
 import requests
@@ -16,9 +17,7 @@ class RestClient(object):
         self.jwt = jwt
 
         if telemetry:
-            py_version = '%i.%i.%i' % (sys.version_info.major,
-                                       sys.version_info.minor,
-                                       sys.version_info.micro)
+            py_version = platform.python_version()
 
             # FIXME: is there a nicer way to do this?
             from ... import __version__ as version
