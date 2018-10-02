@@ -105,7 +105,7 @@ class Guardian(object):
            factor_name (str): Either push-notification or sms
            name (str): Name of the provider
         """
-        url = self._url('factors/%s/providers/%s' % (factor_name, name))
+        url = self._url('factors/{}/providers/{}'.format(factor_name, name))
         return self.client.get(url)
 
     def update_factor_providers(self, factor_name, name, body):
@@ -116,5 +116,5 @@ class Guardian(object):
            factor_name (str): Either push-notification or sms
            name (str): Name of the provider
         """
-        url = self._url('factors/%s/providers/%s' % (factor_name, name))
+        url = self._url('factors/{}/providers/{}'.format(factor_name, name))
         return self.client.put(url, data=body)

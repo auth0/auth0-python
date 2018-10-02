@@ -5,4 +5,4 @@ class Auth0Error(Exception):
         self.message = message
 
     def __str__(self):
-        return '%s: %s' % (self.status_code, self.message)
+        return '{}: {}'.format(self.status_code, self.message)
