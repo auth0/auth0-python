@@ -72,4 +72,4 @@ Management API v2
 - Added Support to retrieve Logs
 - Added Support to manage Resource Servers
 - Added Support to manage Client Grants
-- Added Suport to manage User blocks 
+- Added Support to manage User blocks 
