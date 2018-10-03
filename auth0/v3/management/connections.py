@@ -118,12 +118,12 @@ class Connections(object):
         return self.client.post(self._url(), data=body)
 
     def delete_user_by_email(self, id, email):
-        """Deletes a specified connection user by its email
+        """Deletes a specified connection user by its email.
 
         Args:
-           id (str): Id of the connection.
+           id (str): The id of the connection (must be a database connection).
 
-           email (str): The email of the user to delete
+           email (str): The email of the user to delete.
 
         Returns:
             An empty dict.
