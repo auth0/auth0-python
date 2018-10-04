@@ -1,5 +1,8 @@
+import sys
 from requests.compat import urlencode, urlunparse, quote_plus
 from .base import AuthenticationBase
+
+_ver = '{}{}{}'.format(*sys.version_info)
 
 
 class AuthorizeClient(AuthenticationBase):
@@ -28,7 +31,11 @@ class AuthorizeClient(AuthenticationBase):
         :param scope: str
         :return: str
         """
-        params = urlencode(self._defaults(kwargs), doseq=True, quote_via=quote_via)
+
+        params = urlencode(self._defaults(kwargs), doseq=True, quote_via=quote_via) \
+            if _ver > '34' \
+            else '&'.join(['{}={}'.format(quote_via(k, safe=''), quote_via(v, safe=''))
+                           for k, v in self._defaults(kwargs).items()])
         return urlunparse(['https', self.domain, '/authorize', None, params, None])
 
     def authorize(self, **kwargs):
