@@ -1,8 +1,9 @@
+from urllib.parse import urlencode, urlunparse, quote_plus
+
 from .base import AuthenticationBase
 
 
 class AuthorizeClient(AuthenticationBase):
-
     """Authorize Client
 
     Args:
@@ -12,22 +13,38 @@ class AuthorizeClient(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    def authorize(self, client_id, audience=None, state=None, redirect_uri=None,
-                  response_type='code', scope='openid'):
+    def _defaults(self, params):
+        params.setdefault('response_type', 'code')
+        params.setdefault('scope', 'openid')
+        return params
+
+    def get_authorize_url(self, quote_via=quote_plus, **kwargs):
+        """
+        :param quote_via: callable
+        :param client_id: str
+        :param audience: str
+        :param state: str
+        :param redirect_uri: str
+        :param response_type: str
+        :param scope: str
+        :return: str
+        """
+        params = urlencode(self._defaults(kwargs), doseq=True, quote_via=quote_via)
+        return urlunparse(['https', self.domain, '/authorize', None, params, None])
+
+    def authorize(self, **kwargs):
         """Authorization code grant
 
         This is the OAuth 2.0 grant that regular web apps utilize in order to access an API.
-        """
-        params = {
-            'client_id': client_id,
-            'audience': audience,
-            'response_type': response_type,
-            'scope': scope,
-            'state': state,
-            'redirect_uri': redirect_uri
-        }
 
+        :param client_id: str
+        :param audience: str
+        :param state: str
+        :param redirect_uri: str
+        :param response_type: str
+        :param scope: str
+        :return: Response
+        """
         return self.get(
             'https://%s/authorize' % self.domain,
-            params=params)
-
+            params=self._defaults(kwargs))
