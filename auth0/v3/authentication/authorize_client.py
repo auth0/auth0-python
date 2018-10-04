@@ -1,5 +1,4 @@
-from urllib.parse import urlencode, urlunparse, quote_plus
-
+from requests.compat import urlencode, urlunparse, quote_plus
 from .base import AuthenticationBase
 
 
