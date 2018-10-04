@@ -1,5 +1,5 @@
 import unittest
-from urllib.parse import quote
+from requests.compat import quote
 
 import mock
 from ...authentication.authorize_client import AuthorizeClient
