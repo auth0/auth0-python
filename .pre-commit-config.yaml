@@ -1,0 +1,4 @@
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v1.6.1
+    hooks:
+    -   id: pyupgrade
