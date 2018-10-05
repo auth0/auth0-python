@@ -14,7 +14,7 @@ What is Auth0?
 Auth0 helps you to:
 
 * Add authentication with `multiple authentication sources <https://auth0.com/docs/identityproviders>`_,
-  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**,
+  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**,
   or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
 * Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`_.
 * Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`_ with the same user.
@@ -108,7 +108,7 @@ of connection ``'con_ErZf9LpXQDE0cNBr'``.
 
     auth0.connections.update('con_ErZf9LpXQDE0cNBr', {'name': 'MyNewName'})
 
-That's it! using the ``get`` method of the connections endpoint we can verify
+That's it! Using the ``get`` method of the connections endpoint we can verify
 that the rename actually happened.
 
 .. code-block:: python
@@ -129,7 +129,7 @@ Which returns something like this
 
 Success!
 
-All endpoints follow a similar structure to the ``connections`` one, and try to follow as
+All endpoints follow a similar structure to ``connections``, and try to follow as
 closely as possible the `API documentation <https://auth0.com/docs/api/v2>`_.
 
 ========================
