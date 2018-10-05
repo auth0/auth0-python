@@ -41,6 +41,17 @@ class Jobs(object):
         url = self._url('%s/errors' % (id))
         return self.client.get(url)
 
+    def export_users(self, body):
+        """Export all users to a file using a long running job.
+
+        Check job status with get(). URL pointing to the export file will be
+        included in the status once the job is complete.
+
+        Args:
+            body (dict): Please see: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports
+        """
+        return self.client.post(self._url('users-exports'), data=body)
+
     def import_users(self, connection_id, file_obj, upsert=False):
         """Imports users to a connection from a file.
 
