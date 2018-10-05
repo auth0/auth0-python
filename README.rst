@@ -14,7 +14,7 @@ What is Auth0?
 Auth0 helps you to:
 
 * Add authentication with `multiple authentication sources <https://auth0.com/docs/identityproviders>`_,
-  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**,
+  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**,
   or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
 * Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`_.
 * Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`_ with the same user.
@@ -28,7 +28,7 @@ Create a free Auth0 Account
 ===========================
 
 1. Go to `Auth0`_ and click Sign Up.
-2. Use Google, GitHub or Microsoft Account to login.
+2. Use Google, GitHub or Microsoft Account to log in.
 
 ============
 Installation
@@ -44,7 +44,7 @@ You can install the auth0 python SDK issuing the following command.
 Management SDK Usage
 ====================
 
-To use the management library you will need to instantiate an Auth0 object with a domain and a `Management API v2 token <https://auth0.com/docs/api/management/v2/tokens>`_. Please note that these token last 24 hours, so if you need it constantly you should ask for it programatically using the client credentials grant with a `non interactive client <https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client>`_ authorized to access the API. For example:
+To use the management library you will need to instantiate an Auth0 object with a domain and a `Management API v2 token <https://auth0.com/docs/api/management/v2/tokens>`_. Please note that these token last 24 hours, so if you need it constantly you should ask for it programmatically using the client credentials grant with a `non interactive client <https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client>`_ authorized to access the API. For example:
 
 .. code-block:: python
 
