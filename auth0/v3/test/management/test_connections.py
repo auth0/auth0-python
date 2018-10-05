@@ -138,3 +138,15 @@ class TestConnection(unittest.TestCase):
             'https://domain/api/v2/connections',
             data={'a': 'b', 'c': 'd'}
         )
+
+    @mock.patch('auth0.v3.management.connections.RestClient')
+    def test_delete_user_by_email(self, mock_rc):
+        mock_instance = mock_rc.return_value
+        mock_instance.delete_user_by_email.return_value = {}
+
+        c = Connections(domain='domain', token='jwttoken')
+        c.delete_user_by_email('123', 'test@example.com')
+
+        mock_instance.delete.assert_called_with(
+            'https://domain/api/v2/connections/123/users',
+            params={'email': 'test@example.com'})
