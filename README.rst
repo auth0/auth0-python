@@ -34,11 +34,14 @@ Create a free Auth0 Account
 Installation
 ============
 
-You can install the auth0 python SDK issuing the following command.
+You can install the auth0 Python SDK issuing the following command.
 
 .. code-block::
 
     pip install auth0-python
+
+Python 3.2 and 3.3 have reached [end-of-life](https://en.wikipedia.org/wiki/CPython#Version_history)
+and support will be removed in the near future.
 
 ====================
 Management SDK Usage
