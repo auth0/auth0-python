@@ -79,6 +79,9 @@ class Clients(object):
 
            include_fields (bool, optional): True if the fields specified are
               to be included in the result, False otherwise.
+           
+           body (dict): 
+              See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
         """
 
         params = {'fields': fields and ','.join(fields) or None,
@@ -91,6 +94,9 @@ class Clients(object):
 
         Args:
            id (str): Id of application to delete.
+           
+           body (dict):
+              See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
         """
 
         return self.client.delete(self._url(id))
@@ -105,6 +111,7 @@ class Clients(object):
            id (str): Client id of the application.
 
            body (dict): Attributes to modify.
+              See: https://auth0.com/docs/api/management/v2#!/Clients/patch_clients_by_id
         """
 
         return self.client.patch(self._url(id), data=body)
