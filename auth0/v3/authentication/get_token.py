@@ -26,7 +26,7 @@ class GetToken(AuthenticationBase):
 
             client_id (str): your application's client Id
 
-            client_secret (str): you application's client Secret
+            client_secret (str): your application's client Secret
 
             code (str): The Authorization Code received from the /authorize Calls
 
@@ -101,7 +101,7 @@ class GetToken(AuthenticationBase):
 
             client_id (str): your application's client Id
 
-            client_secret (str): you application's client Secret
+            client_secret (str): your application's client Secret
 
             audience (str): The unique identifier of the target API you want to access.
 
@@ -138,7 +138,7 @@ class GetToken(AuthenticationBase):
 
             client_id (str): your application's client Id
 
-            client_secret (str): you application's client Secret
+            client_secret (str): your application's client Secret
 
             audience (str): The unique identifier of the target API you want to access.
 
@@ -182,7 +182,7 @@ class GetToken(AuthenticationBase):
 
             client_id (str): your application's client Id
 
-            client_secret (str): you application's client Secret
+            client_secret (str): your application's client Secret
 
             refresh_token (str): The refresh token returned from the initial token request.
 
