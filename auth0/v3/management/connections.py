@@ -45,6 +45,9 @@ class Connections(object):
              the request. The fields, include_fields, page and per_page values
              specified as parameters take precedence over the ones defined here.
 
+           body (dict):
+              See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections
+
         Returns:
            A list of connection objects.
         """
@@ -71,6 +74,9 @@ class Connections(object):
            include_fields (bool, optional): True if the fields specified are
               to be included in the result, False otherwise.
 
+           body (dict):
+              See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections_by_id
+
         Returns:
             A connection object.
         """
@@ -86,6 +92,9 @@ class Connections(object):
         Args:
            id: Id of the connection to delete.
 
+           body (dict):
+              See: https://auth0.com/docs/api/management/v2#!/Connections/delete_connections_by_id
+
         Returns:
            An empty dict.
         """
@@ -100,6 +109,7 @@ class Connections(object):
 
            body (dict): Specifies which fields are to be modified, and to what
               values.
+              See: https://auth0.com/docs/api/management/v2#!/Connections/patch_connections_by_id
 
         Returns:
            The modified connection object.
@@ -113,6 +123,7 @@ class Connections(object):
         Args:
             body (dict): Attributes used to create the connection. Mandatory
                 attributes are: 'name' and 'strategy'.
+                See: https://auth0.com/docs/api/management/v2#!/Connections/post_connections
         """
 
         return self.client.post(self._url(), data=body)
@@ -124,6 +135,9 @@ class Connections(object):
            id (str): The id of the connection (must be a database connection).
 
            email (str): The email of the user to delete.
+
+           body (dict):
+              See: https://auth0.com/docs/api/management/v2#!/Connections/delete_users_by_email
 
         Returns:
             An empty dict.
