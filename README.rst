@@ -216,8 +216,8 @@ file for more info.
 .. _Auth0: https://auth0.com
 
 .. |pypi| image:: https://img.shields.io/pypi/v/auth0-python.svg?style=flat-square&label=latest%20version
-    :target: https://pypi.python.org/pypi/auth0-python
-    :alt: Latest version released on PyPi
+    :target: https://pypi.org/project/auth0-python/
+    :alt: Latest version released on PyPI
 
 .. |coverage| image:: https://codecov.io/gh/auth0/auth0-python/badge.svg
     :target: https://codecov.io/gh/auth0/auth0-python
