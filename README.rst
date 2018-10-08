@@ -111,7 +111,7 @@ of connection ``'con_ErZf9LpXQDE0cNBr'``.
 
     auth0.connections.update('con_ErZf9LpXQDE0cNBr', {'name': 'MyNewName'})
 
-That's it! using the ``get`` method of the connections endpoint we can verify
+That's it! Using the ``get`` method of the connections endpoint we can verify
 that the rename actually happened.
 
 .. code-block:: python
@@ -132,7 +132,7 @@ Which returns something like this
 
 Success!
 
-All endpoints follow a similar structure to the ``connections`` one, and try to follow as
+All endpoints follow a similar structure to ``connections``, and try to follow as
 closely as possible the `API documentation <https://auth0.com/docs/api/v2>`_.
 
 ========================
