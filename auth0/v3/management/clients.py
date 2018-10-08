@@ -51,7 +51,7 @@ class Clients(object):
         params['include_fields'] = str(include_fields).lower()
         params['page'] = page
         params['per_page'] = per_page
-        
+
         return self.client.get(self._url(), params=params)
 
     def create(self, body):

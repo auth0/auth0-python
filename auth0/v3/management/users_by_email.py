@@ -26,9 +26,9 @@ class UsersByEmail(object):
         """List or search users.
 
         Args:
- 
+
             email: Email to search
- 
+
             fields (list of str, optional): A list of fields to include or
                 exclude from the result (depending on include_fields). Empty to
                 retrieve all fields.

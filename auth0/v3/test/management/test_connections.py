@@ -35,7 +35,7 @@ class TestConnection(unittest.TestCase):
                                             'per_page': None,
                                             'include_fields': 'false'})
 
-        # Fields + strategy filter 
+        # Fields + strategy filter
         c.all(fields=['a', 'b'], strategy='auth0', include_fields=True)
 
         args, kwargs = mock_instance.get.call_args
@@ -59,8 +59,8 @@ class TestConnection(unittest.TestCase):
                                             'per_page': 25,
                                             'include_fields': 'true'})
 
-        # Extra parameters                                    
-        c.all(extra_params={'some_key':'some_value'})
+        # Extra parameters
+        c.all(extra_params={'some_key': 'some_value'})
 
         args, kwargs = mock_instance.get.call_args
 
@@ -71,8 +71,6 @@ class TestConnection(unittest.TestCase):
                                             'per_page': None,
                                             'include_fields': 'true',
                                             'some_key': 'some_value'})
-
-
 
     @mock.patch('auth0.v3.management.connections.RestClient')
     def test_get(self, mock_rc):

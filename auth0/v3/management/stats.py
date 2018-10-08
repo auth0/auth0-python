@@ -18,7 +18,7 @@ class Stats(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, action):
-        return 'https://%s/api/v2/stats/%s' % (self.domain, action)
+        return 'https://{}/api/v2/stats/{}'.format(self.domain, action)
 
     def active_users(self):
         """Gets the active users count (logged in during the last 30 days).

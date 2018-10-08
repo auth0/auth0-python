@@ -19,7 +19,7 @@ class Tickets(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, action):
-        return 'https://%s/api/v2/tickets/%s' % (self.domain, action)
+        return 'https://{}/api/v2/tickets/{}'.format(self.domain, action)
 
     def create_email_verification(self, body):
         """Create an email verification ticket.

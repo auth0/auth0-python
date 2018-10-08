@@ -24,6 +24,6 @@ class TestEnterprise(unittest.TestCase):
         e.wsfed_metadata()
 
         mock_get.assert_called_with(
-            url='https://my.domain.com/wsfed/FederationMetadata' \
+            url='https://my.domain.com/wsfed/FederationMetadata'
                 '/2007-06/FederationMetadata.xml'
         )
