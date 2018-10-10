@@ -21,7 +21,7 @@ class Guardian(object):
     def _url(self, id=None):
         url = 'https://%s/api/v2/guardian' % self.domain
         if id is not None:
-            return url + '/' + id
+            return '%s/%s' % (url, id)
         return url
 
     def all_factors(self):

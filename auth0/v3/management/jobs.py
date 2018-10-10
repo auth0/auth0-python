@@ -21,7 +21,7 @@ class Jobs(object):
     def _url(self, path=None):
         url = 'https://%s/api/v2/jobs' % self.domain
         if path is not None:
-            return url + '/' + path
+            return '%s/%s' % (url, path)
         return url
 
     def get(self, id):
