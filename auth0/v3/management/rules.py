@@ -21,7 +21,7 @@ class Rules(object):
     def _url(self, id=None):
         url = 'https://%s/api/v2/rules' % self.domain
         if id is not None:
-            return url + '/' + id
+            return '%s/%s' % (url, id)
         return url
 
     def all(self, stage='login_success', enabled=True, fields=None,

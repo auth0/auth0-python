@@ -21,7 +21,7 @@ class ClientGrants(object):
     def _url(self, id=None):
         url = 'https://%s/api/v2/client-grants' % self.domain
         if id is not None:
-            return url + '/' + id
+            return '%s/%s' % (url, id)
         return url
 
     def all(self, audience=None, page=None, per_page=None, include_totals=False):

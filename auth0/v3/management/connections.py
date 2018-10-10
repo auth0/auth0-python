@@ -20,7 +20,7 @@ class Connections(object):
     def _url(self, id=None):
         url = 'https://%s/api/v2/connections' % self.domain
         if id is not None:
-            return url + '/' + id
+            return '%s/%s' % (url, id)
         return url
 
     def all(self, strategy=None, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
@@ -128,5 +128,4 @@ class Connections(object):
         Returns:
             An empty dict.
         """
-        return self.client.delete(self._url(id) + '/users', params={'email': email})
-
+        return self.client.delete('%S/users' % self._url(id), params={'email': email})
