@@ -2,7 +2,7 @@
 Auth0 - Python
 **************
 
-|pypi| |build| |coverage|
+|pypi| |build| |coverage| |license|
 
 In this repository, you'll find all the information about integrating Auth0 with Python.
 
@@ -226,3 +226,7 @@ file for more info.
 .. |build| image:: https://circleci.com/gh/auth0/auth0-python.svg?style=shield&circle-token=:circle-token
     :target: https://circleci.com/gh/auth0/auth0-python
     :alt: Build status
+
+.. |license| image:: http://img.shields.io/:license-mit-blue.svg?style=flat
+    :target: http://doge.mit-license.org
+    :alt: License
