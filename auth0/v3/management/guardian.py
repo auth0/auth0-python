@@ -27,6 +27,10 @@ class Guardian(object):
     def all_factors(self):
         """Retrieves all factors. Useful to check factor enablement and
              trial status.
+
+        Args:
+            body (dict): https://auth0.com/docs/api/management/v2#!/Guardian/get_factors
+                See: 
         """
 
         return self.client.get(self._url('factors'))
@@ -60,6 +64,11 @@ class Guardian(object):
 
         Retrieve both templates. Useful to check if a different template than
             default was set.
+
+        Args: 
+
+            body (dict):
+                See: https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
         """
 
         return self.client.get(self._url('factors/sms/templates'))
@@ -70,6 +79,9 @@ class Guardian(object):
 
         Args:
            id (str): The id of the device account to update
+
+           body (dict):
+               See: https://auth0.com/docs/api/management/v2#!/Guardian/get_enrollments_by_id
         """
         url = self._url('enrollments/%s' % (id))
         return self.client.get(url)
@@ -81,6 +93,9 @@ class Guardian(object):
 
         Args:
            id (str): The id of the device account to update
+
+           body (dict):
+               See: https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id
         """
         url = self._url('enrollments/%s' % (id))
         return self.client.delete(url)
@@ -98,12 +113,16 @@ class Guardian(object):
         return self.client.post(self._url('enrollments/ticket'), data=body)
 
     def get_factor_providers(self, factor_name, name):
-        """Get Guardian factor providers.
+        """Get Guardian SNS factor providers.
 
         Returns provider configuration
         Args:
            factor_name (str): Either push-notification or sms
            name (str): Name of the provider
+
+           body (dict):
+               See: https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
+                    https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
         """
         url = self._url('factors/{}/providers/{}'.format(factor_name, name))
         return self.client.get(url)
@@ -115,6 +134,11 @@ class Guardian(object):
         Args:
            factor_name (str): Either push-notification or sms
            name (str): Name of the provider
+
+           body (dict):
+               See: https://auth0.com/docs/api/management/v2#!/Guardian/put_twilio
         """
         url = self._url('factors/{}/providers/{}'.format(factor_name, name))
         return self.client.put(url, data=body)
+
+

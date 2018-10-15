@@ -57,7 +57,19 @@ class EmailTemplates(object):
               'change_password', 'password_reset', 'mfa_oob_code'.
 
            body (dict): Attributes to update on the email template.
+              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/put_email_templates_by_templateName
+
+        """
+
+        return self.client.put(self._url(template_name), data=body)
+
+    def patch(self, template_name, body):
+        """Patch an email template
+
+        Args:
+           body (dict):
               See: https://auth0.com/docs/api/management/v2#!/Email_Templates/patch_email_templates_by_templateName
+
         """
 
         return self.client.patch(self._url(template_name), data=body)

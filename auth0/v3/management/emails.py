@@ -34,6 +34,9 @@ class Emails(object):
 
             include_fields (bool, optional): True if the fields specified are
                 to be included in the result, False otherwise.
+
+            body (dict):
+                See: https://auth0.com/docs/api/management/v2#!/Emails/get_provider
         """
         params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
@@ -50,6 +53,10 @@ class Emails(object):
 
     def delete(self):
         """Delete the email provider. (USE WITH CAUTION)
+
+        Args:
+            body (dict):
+                See: https://auth0.com/docs/api/management/v2#!/Emails/delete_provider
         """
         return self.client.delete(self._url())
 
