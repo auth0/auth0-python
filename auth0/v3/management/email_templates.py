@@ -61,4 +61,4 @@ class EmailTemplates(object):
 
         """
 
-        return self.client.put(self._url(template_name), data=body)
+        return self.client.patch(self._url(template_name), data=body)
