@@ -61,7 +61,7 @@ class Rules(object):
         }
 
         # since the default is True, this is here to disable the filter
-        if enabled != None:
+        if enabled is not None:
             params['enabled'] = str(enabled).lower()
 
         return self.client.get(self._url(), params=params)

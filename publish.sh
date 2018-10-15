@@ -1,4 +1,4 @@
-# Deploy to https://pypi.python.org/pypi/auth0-python
+# Deploy to https://pypi.org/project/auth0-python/
 # Requires a ~/.pypirc file in the developer machine with proper credentials
 
 #!/usr/bin/env bash

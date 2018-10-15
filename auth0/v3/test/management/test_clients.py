@@ -10,7 +10,7 @@ class TestClients(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         c = Clients(domain='domain', token='jwttoken')
-        
+
         # Default parameters are requested
         c.all()
 
@@ -44,8 +44,8 @@ class TestClients(unittest.TestCase):
                                             'page': 7,
                                             'per_page': 25})
 
-        # Extra parameters                                    
-        c.all(extra_params={'some_key':'some_value'})
+        # Extra parameters
+        c.all(extra_params={'some_key': 'some_value'})
 
         args, kwargs = mock_instance.get.call_args
 
@@ -55,7 +55,6 @@ class TestClients(unittest.TestCase):
                                             'page': None,
                                             'per_page': None,
                                             'some_key': 'some_value'})
-
 
     @mock.patch('auth0.v3.management.clients.RestClient')
     def test_create(self, mock_rc):

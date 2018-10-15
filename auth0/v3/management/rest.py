@@ -1,4 +1,5 @@
 import sys
+import platform
 import json
 import base64
 import requests
@@ -16,12 +17,8 @@ class RestClient(object):
         self.jwt = jwt
 
         if telemetry:
-            py_version = '%i.%i.%i' % (sys.version_info.major,
-                                       sys.version_info.minor,
-                                       sys.version_info.micro)
-
-            # FIXME: is there a nicer way to do this?
-            from ... import __version__ as version
+            py_version = platform.python_version()
+            version = sys.modules['auth0'].__version__
 
             auth0_client = json.dumps({
                 'name': 'auth0-python', 'version': version,
@@ -116,6 +113,7 @@ class RestClient(object):
         except ValueError:
             return PlainResponse(response)
 
+
 class Response(object):
     def __init__(self, status_code, content):
         self._status_code = status_code
@@ -139,6 +137,7 @@ class Response(object):
     def _error_message(self):
         raise NotImplementedError
 
+
 class JsonResponse(Response):
     def __init__(self, response):
         content = json.loads(response.text)
@@ -158,6 +157,7 @@ class JsonResponse(Response):
             return message
         return self._content.get('error', '')
 
+
 class PlainResponse(Response):
     def __init__(self, response):
         super(PlainResponse, self).__init__(response.status_code, response.text)
@@ -167,6 +167,7 @@ class PlainResponse(Response):
 
     def _error_message(self):
         return self._content
+
 
 class EmptyResponse(Response):
     def __init__(self, status_code):

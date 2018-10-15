@@ -2,6 +2,7 @@ import unittest
 import mock
 from ...management.guardian import Guardian
 
+
 class TestGuardian(unittest.TestCase):
 
     @mock.patch('auth0.v3.management.guardian.RestClient')
@@ -20,7 +21,7 @@ class TestGuardian(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         g = Guardian(domain='domain', token='jwttoken')
-        g.update_factor('push-notification', { 'enabled': True})
+        g.update_factor('push-notification', {'enabled': True})
 
         args, kwargs = mock_instance.put.call_args
         self.assertEqual('https://domain/api/v2/guardian/factors/push-notification', args[0])

@@ -91,4 +91,3 @@ class TestPasswordless(unittest.TestCase):
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
-

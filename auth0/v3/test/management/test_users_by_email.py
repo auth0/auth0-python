@@ -8,7 +8,7 @@ class TestUsersByEmail(unittest.TestCase):
     @mock.patch('auth0.v3.management.users_by_email.RestClient')
     def test_search_users_by_email(self, mock_rc):
         mock_instance = mock_rc.return_value
-   
+
         u = UsersByEmail(domain='domain', token='jwttoken')
         u.search_users_by_email('A@B.com')
 
@@ -22,8 +22,8 @@ class TestUsersByEmail(unittest.TestCase):
         })
 
         u.search_users_by_email(email='a@b.com',
-               fields=['a', 'b'],
-               include_fields=False)
+                                fields=['a', 'b'],
+                                include_fields=False)
 
         args, kwargs = mock_instance.get.call_args
 
@@ -33,5 +33,3 @@ class TestUsersByEmail(unittest.TestCase):
             'fields': 'a,b',
             'include_fields': 'false'
         })
-        
- 

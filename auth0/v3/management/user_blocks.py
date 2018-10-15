@@ -57,7 +57,7 @@ class UserBlocks(object):
 
     def unblock(self, id):
         """Unblock a user
-        
+
         Args:
            id (str): The user_id of the user to update.
         """

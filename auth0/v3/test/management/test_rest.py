@@ -1,5 +1,8 @@
 import unittest
+import sys
 import json
+import base64
+import requests
 import mock
 from ...management.rest import RestClient
 from ...exceptions import Auth0Error
@@ -23,7 +26,7 @@ class TestRest(unittest.TestCase):
         response = rc.get(url='the/url', params={'A': 'param', 'B': 'param'})
         mock_get.assert_called_with('the/url', params={'A': 'param',
                                                        'B': 'param'},
-                                               headers=headers)
+                                    headers=headers)
         self.assertEqual(response, ['a', 'b'])
 
         mock_get.return_value.text = ''
@@ -33,7 +36,6 @@ class TestRest(unittest.TestCase):
     @mock.patch('requests.get')
     def test_get_errors(self, mock_get):
         rc = RestClient(jwt='a-token', telemetry=False)
-        headers = {'Authorization': 'Bearer a-token'}
 
         mock_get.return_value.text = '{"statusCode": 999,' \
                                      ' "errorCode": "code",' \
@@ -80,7 +82,6 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'message')
 
-
     @mock.patch('requests.post')
     def test_post_errors_with_no_message_property(self, mock_post):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -99,7 +100,6 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'error')
 
-
     @mock.patch('requests.post')
     def test_post_errors_with_no_message_or_error_property(self, mock_post):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -116,7 +116,6 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, '')
-
 
     @mock.patch('requests.post')
     def test_post_errors_with_message_and_error_property(self, mock_post):
@@ -260,3 +259,42 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'message')
+
+    def test_disabled_telemetry(self):
+        rc = RestClient(jwt='a-token', telemetry=False)
+        
+        self.assertEqual(rc.base_headers, {})
+
+    def test_enabled_telemetry(self):
+        rc = RestClient(jwt='a-token', telemetry=True)
+
+        user_agent = rc.base_headers['User-Agent']
+        auth0_client_bytes = base64.b64decode(rc.base_headers['Auth0-Client'])
+        auth0_client_json = auth0_client_bytes.decode('utf-8')
+        auth0_client = json.loads(auth0_client_json)
+        content_type = rc.base_headers['Content-Type']
+
+        from auth0 import __version__ as auth0_version
+        python_version = '{}.{}.{}'.format(sys.version_info.major,
+                                           sys.version_info.minor,
+                                           sys.version_info.micro)
+
+        client_info = {
+            'name': 'auth0-python', 'version': auth0_version,
+            'dependencies': [
+                {
+                    'name': 'requests',
+                    'version': requests.__version__
+                }
+            ],
+            'environment': [
+                {
+                    'name': 'python',
+                    'version': python_version
+                }
+            ]
+        }
+
+        self.assertEqual(user_agent, 'Python/{}'.format(python_version))
+        self.assertEqual(auth0_client, client_info)
+        self.assertEqual(content_type, 'application/json')

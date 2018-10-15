@@ -2,6 +2,7 @@ import unittest
 import mock
 from ...management.user_blocks import UserBlocks
 
+
 class TestUserBlocks(unittest.TestCase):
 
     @mock.patch('auth0.v3.management.user_blocks.RestClient')

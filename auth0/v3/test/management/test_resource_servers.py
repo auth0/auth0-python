@@ -2,6 +2,7 @@ import unittest
 import mock
 from ...management.resource_servers import ResourceServers
 
+
 class TestResourceServers(unittest.TestCase):
 
     @mock.patch('auth0.v3.management.resource_servers.RestClient')

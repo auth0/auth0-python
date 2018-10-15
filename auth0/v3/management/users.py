@@ -126,7 +126,7 @@ class Users(object):
             provider (str): The multifactor provider. Supported values 'duo'
                 or 'google-authenticator'
         """
-        url = self._url('%s/multifactor/%s' % (id, provider))
+        url = self._url('{}/multifactor/{}'.format(id, provider))
         return self.client.delete(url)
 
     def unlink_user_account(self, id, provider, user_id):
@@ -139,7 +139,7 @@ class Users(object):
 
             user_id (str): The unique identifier for the user for the identity.
         """
-        url = self._url('%s/identities/%s/%s' % (id, provider, user_id))
+        url = self._url('{}/identities/{}/{}'.format(id, provider, user_id))
         return self.client.delete(url)
 
     def link_user_account(self, user_id, body):

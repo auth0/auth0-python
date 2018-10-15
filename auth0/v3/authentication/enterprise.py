@@ -19,8 +19,8 @@ class Enterprise(AuthenticationBase):
             client_id (str): Client Id of the application to get the SAML metadata for.
         """
 
-        return self.get(url='https://%s/samlp/metadata/%s' % (self.domain,
-                                                              client_id))
+        return self.get(url='https://{}/samlp/metadata/{}'.format(self.domain,
+                                                                  client_id))
 
     def wsfed_metadata(self):
         """Returns the WS-Federation Metadata.

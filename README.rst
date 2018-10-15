@@ -2,7 +2,7 @@
 Auth0 - Python
 **************
 
-|pypi| |build| |coverage|
+|pypi| |build| |coverage| |license|
 
 In this repository, you'll find all the information about integrating Auth0 with Python.
 
@@ -34,11 +34,14 @@ Create a free Auth0 Account
 Installation
 ============
 
-You can install the auth0 python SDK issuing the following command.
+You can install the auth0 Python SDK issuing the following command.
 
 .. code-block::
 
     pip install auth0-python
+
+Python 3.2 and 3.3 have reached [end-of-life](https://en.wikipedia.org/wiki/CPython#Version_history)
+and support will be removed in the near future.
 
 ====================
 Management SDK Usage
@@ -108,7 +111,7 @@ of connection ``'con_ErZf9LpXQDE0cNBr'``.
 
     auth0.connections.update('con_ErZf9LpXQDE0cNBr', {'name': 'MyNewName'})
 
-That's it! using the ``get`` method of the connections endpoint we can verify
+That's it! Using the ``get`` method of the connections endpoint we can verify
 that the rename actually happened.
 
 .. code-block:: python
@@ -129,7 +132,7 @@ Which returns something like this
 
 Success!
 
-All endpoints follow a similar structure to the ``connections`` one, and try to follow as
+All endpoints follow a similar structure to ``connections``, and try to follow as
 closely as possible the `API documentation <https://auth0.com/docs/api/v2>`_.
 
 ========================
@@ -151,36 +154,36 @@ For example:
 Available Management Endpoints
 ==============================
 
-    - Blacklists() ( ``Auth0().blacklists`` )
-    - Clients() ( ``Auth0().clients`` )
-    - ClientGrants() ( ``Auth0().client_grants`` )
-    - Connections() ( ``Auth0().connections`` )
-    - DeviceCredentials() ( ``Auth0().device_credentials`` )
-    - Emails() ( ``Auth0().emails`` )
-    - EmailTemplates() ( ``Auth0().email_templates`` )
-    - Guardian() ( ``Auth0().guardian`` )
-    - Jobs() ( ``Auth0().jobs`` )
-    - Logs() ( ``Auth0().logs`` )
-    - ResourceServers() (``Auth0().resource_servers`` )
-    - Rules() ( ``Auth0().rules`` )
-    - Stats() ( ``Auth0().stats`` )
-    - Tenants() ( ``Auth0().tenants`` )
-    - Tickets() ( ``Auth0().tickets`` )
-    - UserBlocks() (``Auth0().user_blocks`` )
-    - Users() ( ``Auth0().users`` )
-    - UsersByEmail() ( ``Auth0().users_by_email`` )
+- Blacklists() ( ``Auth0().blacklists`` )
+- Clients() ( ``Auth0().clients`` )
+- ClientGrants() ( ``Auth0().client_grants`` )
+- Connections() ( ``Auth0().connections`` )
+- DeviceCredentials() ( ``Auth0().device_credentials`` )
+- Emails() ( ``Auth0().emails`` )
+- EmailTemplates() ( ``Auth0().email_templates`` )
+- Guardian() ( ``Auth0().guardian`` )
+- Jobs() ( ``Auth0().jobs`` )
+- Logs() ( ``Auth0().logs`` )
+- ResourceServers() (``Auth0().resource_servers`` )
+- Rules() ( ``Auth0().rules`` )
+- Stats() ( ``Auth0().stats`` )
+- Tenants() ( ``Auth0().tenants`` )
+- Tickets() ( ``Auth0().tickets`` )
+- UserBlocks() (``Auth0().user_blocks`` )
+- Users() ( ``Auth0().users`` )
+- UsersByEmail() ( ``Auth0().users_by_email`` )
 
 Available Authentication Endpoints
 ==================================
 
-    - Users ( ``authentication.Users`` )
-    - Database ( ``authentication.Database`` )
-    - Delegated ( ``authentication.Delegated`` )
-    - Enterprise ( ``authentication.Enterprise`` )
-    - Passwordless ( ``authentication.Passwordless`` )
-    - Social ( ``authentication.Social`` )
-    - API Authorization - Get Token ( ``authentication.GetToken``)
-    - API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
+- Users ( ``authentication.Users`` )
+- Database ( ``authentication.Database`` )
+- Delegated ( ``authentication.Delegated`` )
+- Enterprise ( ``authentication.Enterprise`` )
+- Passwordless ( ``authentication.Passwordless`` )
+- Social ( ``authentication.Social`` )
+- API Authorization - Get Token ( ``authentication.GetToken``)
+- API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
     
 
 ==========
@@ -213,8 +216,8 @@ file for more info.
 .. _Auth0: https://auth0.com
 
 .. |pypi| image:: https://img.shields.io/pypi/v/auth0-python.svg?style=flat-square&label=latest%20version
-    :target: https://pypi.python.org/pypi/auth0-python
-    :alt: Latest version released on PyPi
+    :target: https://pypi.org/project/auth0-python/
+    :alt: Latest version released on PyPI
 
 .. |coverage| image:: https://codecov.io/gh/auth0/auth0-python/badge.svg
     :target: https://codecov.io/gh/auth0/auth0-python
@@ -223,3 +226,7 @@ file for more info.
 .. |build| image:: https://circleci.com/gh/auth0/auth0-python.svg?style=shield&circle-token=:circle-token
     :target: https://circleci.com/gh/auth0/auth0-python
     :alt: Build status
+
+.. |license| image:: http://img.shields.io/:license-mit-blue.svg?style=flat
+    :target: http://doge.mit-license.org
+    :alt: License
