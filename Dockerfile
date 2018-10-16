@@ -6,4 +6,4 @@ ADD . /home/app
 ADD ./.pypirc ~/
 RUN cp /home/app/.pypirc ~
 
-CMD  python setup.py sdist bdist upload
+CMD  python3 setup.py sdist bdist upload
