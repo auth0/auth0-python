@@ -10,11 +10,12 @@ class AuthenticationBase(object):
 
     def post(self, url, data=None, headers=None):
         response = requests.post(url=url, data=json.dumps(data),
-                                 headers=headers)
+                                 headers=headers, timeout=30)
         return self._process_response(response)
 
     def get(self, url, params=None, headers=None):
-        return requests.get(url=url, params=params, headers=headers).text
+        return requests.get(url=url, params=params, 
+                            headers=headers, timeout=30).text
 
     def _process_response(self, response):
         return self._parse(response).content()
