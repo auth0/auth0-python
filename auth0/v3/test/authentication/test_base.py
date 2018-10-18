@@ -16,7 +16,7 @@ class TestBase(unittest.TestCase):
         data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
         mock_post.assert_called_with(url='the-url', data='{"a": "b"}',
-                                     headers={'c': 'd'})
+                                     headers={'c': 'd'}, timeout=30)
 
         self.assertEqual(data, {'x': 'y'})
 
