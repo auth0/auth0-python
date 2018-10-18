@@ -45,8 +45,7 @@ class Connections(object):
              the request. The fields, include_fields, page and per_page values
              specified as parameters take precedence over the ones defined here.
 
-           body (dict):
-              See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections
+        See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections
 
         Returns:
            A list of connection objects.
@@ -74,8 +73,7 @@ class Connections(object):
            include_fields (bool, optional): True if the fields specified are
               to be included in the result, False otherwise.
 
-           body (dict):
-              See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections_by_id
 
         Returns:
             A connection object.
@@ -92,8 +90,7 @@ class Connections(object):
         Args:
            id: Id of the connection to delete.
 
-           body (dict):
-              See: https://auth0.com/docs/api/management/v2#!/Connections/delete_connections_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Connections/delete_connections_by_id
 
         Returns:
            An empty dict.
@@ -136,8 +133,7 @@ class Connections(object):
 
            email (str): The email of the user to delete.
 
-           body (dict):
-              See: https://auth0.com/docs/api/management/v2#!/Connections/delete_users_by_email
+        See: https://auth0.com/docs/api/management/v2#!/Connections/delete_users_by_email
 
         Returns:
             An empty dict.

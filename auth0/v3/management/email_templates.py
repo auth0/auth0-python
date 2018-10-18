@@ -42,7 +42,8 @@ class EmailTemplates(object):
               Must be one of: 'verify_email', 'reset_email', 'welcome_email',
               'blocked_account', 'stolen_credentials', 'enrollment_email',
               'change_password', 'password_reset', 'mfa_oob_code'.
-              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/get_email_templates_by_templateName
+
+        See: https://auth0.com/docs/api/management/v2#!/Email_Templates/get_email_templates_by_templateName
         """
 
         return self.client.get(self._url(template_name))

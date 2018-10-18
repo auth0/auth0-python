@@ -42,8 +42,8 @@ class DeviceCredentials(object):
                 to be included in the result, False otherwise
                 (defaults to true)
 
-            body (dict):
-                See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials
+
+        See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials
         """
 
         params = {
@@ -71,7 +71,7 @@ class DeviceCredentials(object):
         Args:
             id (str):  The id of the credential to delete
 
-            body (dict):
-                See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/delete_device_credentials_by_id
+
+        See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/delete_device_credentials_by_id
         """
         return self.client.delete(self._url(id))

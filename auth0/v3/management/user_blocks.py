@@ -30,8 +30,7 @@ class UserBlocks(object):
         Args:
            identifier (str): Should be any of: username, phone_number, email.
 
-           body (dict):
-           	   See: https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks
+        See: https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks
         """
 
         params = {'identifier': identifier}
@@ -44,8 +43,7 @@ class UserBlocks(object):
         Args:
            identifier (str): Should be any of: username, phone_number, email.
 
-           body (dict):
-               See: https://auth0.com/docs/api/management/v2#!/User_Blocks/delete_user_blocks
+        See: https://auth0.com/docs/api/management/v2#!/User_Blocks/delete_user_blocks
         """
 
         params = {'identifier': identifier}
@@ -58,8 +56,7 @@ class UserBlocks(object):
         Args:
            id (str): The user_id of the user to retrieve.
 
-           body (dict):
-               See: https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks_by_id
+        See: https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks_by_id
         """
 
         return self.client.get(self._url(id))
@@ -70,8 +67,7 @@ class UserBlocks(object):
         Args:
            id (str): The user_id of the user to update.
 
-           body (dict):
-           	   See: https://auth0.com/docs/api/management/v2#!/User_Blocks/delete_user_blocks_by_id
+        See: https://auth0.com/docs/api/management/v2#!/User_Blocks/delete_user_blocks_by_id
         """
 
         return self.client.delete(self._url(id))

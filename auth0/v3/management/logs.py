@@ -55,8 +55,7 @@ class Logs(object):
             take (int, optional): The total amount of entries to retrieve when
                 using the from parameter.
 
-            body (dict):
-                https://auth0.com/docs/api/management/v2#!/Logs/get_logs
+        https://auth0.com/docs/api/management/v2#!/Logs/get_logs
         """
         params = {
             'per_page': per_page,
@@ -77,8 +76,8 @@ class Logs(object):
         Args:
             id (str): The log_id of the log to retrieve
 
-            body (dict):
-                See: https://auth0.com/docs/api/management/v2#!/Logs/get_logs_by_id
+
+        See: https://auth0.com/docs/api/management/v2#!/Logs/get_logs_by_id
         """
 
         return self.client.get(self._url(id))

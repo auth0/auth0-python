@@ -25,8 +25,8 @@ class Blacklists(object):
             aud (str, optional): The JWT's aud claim. The client_id of the
                 application for which it was issued.
 
-            body (dict):
-            	See: https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens
+
+        See: https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens
         """
 
         params = {

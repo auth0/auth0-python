@@ -28,9 +28,7 @@ class Guardian(object):
         """Retrieves all factors. Useful to check factor enablement and
              trial status.
 
-        Args:
-            body (dict): https://auth0.com/docs/api/management/v2#!/Guardian/get_factors
-                See: 
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_factors                 
         """
 
         return self.client.get(self._url('factors'))
@@ -65,10 +63,8 @@ class Guardian(object):
         Retrieve both templates. Useful to check if a different template than
             default was set.
 
-        Args: 
 
-            body (dict):
-                See: https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
         """
 
         return self.client.get(self._url('factors/sms/templates'))
@@ -80,8 +76,8 @@ class Guardian(object):
         Args:
            id (str): The id of the device account to update
 
-           body (dict):
-               See: https://auth0.com/docs/api/management/v2#!/Guardian/get_enrollments_by_id
+
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_enrollments_by_id
         """
         url = self._url('enrollments/%s' % (id))
         return self.client.get(url)
@@ -94,8 +90,8 @@ class Guardian(object):
         Args:
            id (str): The id of the device account to update
 
-           body (dict):
-               See: https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id
+
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id
         """
         url = self._url('enrollments/%s' % (id))
         return self.client.delete(url)
@@ -120,10 +116,10 @@ class Guardian(object):
            factor_name (str): Either push-notification or sms
            name (str): Name of the provider
 
-           body (dict):
-               See: https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
-                    https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
-        """
+
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
+             https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
+"""
         url = self._url('factors/{}/providers/{}'.format(factor_name, name))
         return self.client.get(url)
 
