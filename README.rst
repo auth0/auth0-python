@@ -190,7 +190,7 @@ Available Authentication Endpoints
 Change Log
 ==========
 
-Please see `CHANGELOG.md <https://github.com/auth0/auth0-python/blob/master/CHANGELOG.md>`_.
+Please head over to `CHANGELOG.md <https://github.com/auth0/auth0-python/blob/master/CHANGELOG.md>`_.
 
 ===============
 Issue Reporting
