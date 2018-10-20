@@ -9,9 +9,6 @@ class GetToken(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def authorization_code(self, client_id, client_secret, code,
                            redirect_uri, grant_type='authorization_code'):
         """Authorization code grant

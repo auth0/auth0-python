@@ -10,9 +10,6 @@ class Users(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def userinfo(self, access_token):
 
         """Returns the user information based on the Auth0 access token.

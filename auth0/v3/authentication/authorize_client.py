@@ -9,9 +9,6 @@ class AuthorizeClient(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def authorize(self, client_id, audience=None, state=None, redirect_uri=None,
                   response_type='code', scope='openid'):
         """Authorization code grant

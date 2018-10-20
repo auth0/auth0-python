@@ -18,7 +18,9 @@ class AuthenticationBase(object):
             (defaults to True)
     """
 
-    def __init__(self, telemetry=True):
+    def __init__(self, domain, telemetry=True):
+        self.domain = domain
+
         self.base_headers = {'Content-Type': 'application/json'}
 
         if telemetry:

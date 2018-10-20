@@ -11,7 +11,7 @@ from ...exceptions import Auth0Error
 class TestBase(unittest.TestCase):
 
     def test_telemetry_enabled_by_default(self):
-        ab = AuthenticationBase()
+        ab = AuthenticationBase('auth0.com')
 
         user_agent = ab.base_headers['User-Agent']
         auth0_client_bytes = base64.b64decode(ab.base_headers['Auth0-Client'])
@@ -45,13 +45,13 @@ class TestBase(unittest.TestCase):
         self.assertEqual(content_type, 'application/json')
 
     def test_telemetry_disabled(self):
-        ab = AuthenticationBase(telemetry=False)
+        ab = AuthenticationBase('auth0.com', telemetry=False)
 
         self.assertEqual(ab.base_headers, {'Content-Type': 'application/json'})
 
     @mock.patch('requests.post')
     def test_post(self, mock_post):
-        ab = AuthenticationBase(telemetry=False)
+        ab = AuthenticationBase('auth0.com', telemetry=False)
 
         mock_post.return_value.status_code = 200
         mock_post.return_value.text = '{"x": "y"}'
@@ -65,7 +65,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post_includes_telemetry(self, mock_post):
-        ab = AuthenticationBase()
+        ab = AuthenticationBase('auth0.com')
 
         mock_post.return_value.status_code = 200
         mock_post.return_value.text = '{"x": "y"}'
@@ -86,7 +86,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post_error(self, mock_post):
-        ab = AuthenticationBase(telemetry=False)
+        ab = AuthenticationBase('auth0.com', telemetry=False)
 
         for error_status in [400, 500, None]:
             mock_post.return_value.status_code = error_status
@@ -102,7 +102,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post_error_with_code_property(self, mock_post):
-        ab = AuthenticationBase()
+        ab = AuthenticationBase('auth0.com', telemetry=False)
 
         for error_status in [400, 500, None]:
             mock_post.return_value.status_code = error_status
@@ -118,7 +118,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post_error_with_no_error_code(self, mock_post):
-        ab = AuthenticationBase()
+        ab = AuthenticationBase('auth0.com', telemetry=False)
 
         for error_status in [400, 500, None]:
             mock_post.return_value.status_code = error_status
@@ -134,7 +134,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post_error_with_text_response(self, mock_post):
-        ab = AuthenticationBase()
+        ab = AuthenticationBase('auth0.com', telemetry=False)
 
         for error_status in [400, 500, None]:
             mock_post.return_value.status_code = error_status
@@ -151,7 +151,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post_error_with_no_response_text(self, mock_post):
-        ab = AuthenticationBase()
+        ab = AuthenticationBase('auth0.com', telemetry=False)
 
         for error_status in [400, 500, None]:
             mock_post.return_value.status_code = error_status
@@ -167,7 +167,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_includes_telemetry(self, mock_get):
-        ab = AuthenticationBase()
+        ab = AuthenticationBase('auth0.com')
 
         mock_get.return_value.status_code = 200
         mock_get.return_value.text = '{"x": "y"}'

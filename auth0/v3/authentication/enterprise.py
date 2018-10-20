@@ -9,9 +9,6 @@ class Enterprise(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def saml_metadata(self, client_id):
         """Get SAML2.0 Metadata.
 

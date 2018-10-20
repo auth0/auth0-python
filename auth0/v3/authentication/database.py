@@ -10,9 +10,6 @@ class Database(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def login(self, client_id, username, password, connection, id_token=None,
               grant_type='password', device=None, scope='openid'):
         """Login using username and password

@@ -9,9 +9,6 @@ class Social(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def login(self, client_id, access_token, connection, scope='openid'):
         """Login using a social provider's access token
 
