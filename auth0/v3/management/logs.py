@@ -49,8 +49,8 @@ class Logs(object):
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise.
 
-            from_param (str, optional): Log Event Id to start retrieving logs. You can
-                limit the amount of logs using the take parameter
+            from_param (str, optional): Log Event Id to start retrieving logs.
+                You can limit the amount of logs using the take parameter
 
             take (int, optional): The total amount of entries to retrieve when
                 using the from parameter.

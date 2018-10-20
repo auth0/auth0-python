@@ -29,7 +29,8 @@ class ResourceServers(object):
 
         Args:
            body (dict): Attributes for the new resource Server
-              See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/post_resource_servers
+              See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/
+                   post_resource_servers
         """
 
         return self.client.post(self._url(), data=body)
@@ -79,7 +80,8 @@ class ResourceServers(object):
            id (str): The id of the resource server to update.
 
            body (dict): Attributes to modify.
-              See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/patch_resource_servers_by_id
+              See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/
+                   patch_resource_servers_by_id
         """
 
         return self.client.patch(self._url(id), data=body)

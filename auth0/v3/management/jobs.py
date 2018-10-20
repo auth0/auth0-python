@@ -48,7 +48,8 @@ class Jobs(object):
         included in the status once the job is complete.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports
+            body (dict): Please see:
+            https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports
         """
         return self.client.post(self._url('users-exports'), data=body)
 
@@ -63,7 +64,8 @@ class Jobs(object):
                 this file is explained in: https://auth0.com/docs/bulk-import
         """
         return self.client.file_post(self._url('users-imports'),
-                                     data={'connection_id': connection_id, 'upsert': str(upsert).lower()},
+                                     data={'connection_id': connection_id,
+                                           'upsert': str(upsert).lower()},
                                      files={'users': file_obj})
 
     def send_verification_email(self, body):
@@ -73,6 +75,7 @@ class Jobs(object):
         verify their email address.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Jobs/post_verification_email
+            body (dict): Please see: https://auth0.com/docs/api/v2#!/Jobs/post
+            verification_email
         """
         return self.client.post(self._url('verification-email'), data=body)

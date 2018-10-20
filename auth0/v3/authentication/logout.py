@@ -19,23 +19,25 @@ class Logout(AuthenticationBase):
     def logout(self, client_id, return_to, federated=False):
         """Logout
 
-        Use this endpoint to logout a user. If you want to navigate the user to a
-        specific URL after the logout, set that URL at the returnTo parameter.
-        The URL should be included in any the appropriate Allowed Logout URLs list:
+        Use this endpoint to logout a user. If you want to navigate the user to
+        a specific URL after the logout, set that URL at the returnTo
+        parameter. The URL should be included in any the appropriate Allowed
+        Logout URLs list:
 
         Args:
             client_id (str): The client_id of your application.
 
             returnTo (str): URL to redirect the user after the logout.
 
-            federated (bool): Querystring parameter to log the user out of the IdP
+            federated (bool): Querystring parameter to log the user out of the
+            IdP
         """
         return_to = quote_plus(return_to)
 
         if federated is True:
             return self.get(
-                'https://{}/v2/logout?federated&client_id={}&returnTo={}'.format(
-                    self.domain, client_id, return_to),
+                'https://{}/v2/logout?federated&client_id={}&returnTo={}'
+                .format(self.domain, client_id, return_to),
                 headers={'Content-Type': 'application/json'}
             )
         return self.get(

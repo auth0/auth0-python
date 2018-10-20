@@ -15,7 +15,9 @@ class TestLogout(unittest.TestCase):
 
         args, kwargs = mock_get.call_args
 
-        self.assertEqual(args[0], 'https://my.domain.com/v2/logout?client_id=cid&returnTo=rto')
+        self.assertEqual(args[0],
+                         'https://my.domain.com/v2/logout?'
+                         'client_id=cid&returnTo=rto')
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
@@ -31,7 +33,9 @@ class TestLogout(unittest.TestCase):
 
         args, kwargs = mock_get.call_args
 
-        self.assertEqual(args[0], 'https://my.domain.com/v2/logout?federated&client_id=cid&returnTo=rto')
+        self.assertEqual(args[0],
+                         'https://my.domain.com/v2/logout?federated&'
+                         'client_id=cid&returnTo=rto')
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })

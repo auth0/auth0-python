@@ -70,7 +70,8 @@ class Users(object):
         """Creates a new user.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post_users
+            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post
+            users
         """
         return self.client.post(self._url(), data=body)
 
@@ -113,7 +114,8 @@ class Users(object):
         Args:
             id (str): The user_id of the user to update.
 
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/patch_users_by_id
+            body (dict): Please see:
+            https://auth0.com/docs/api/v2#!/Users/patch_users_by_id
         """
         return self.client.patch(self._url(id), data=body)
 
@@ -152,7 +154,8 @@ class Users(object):
             id (str): The user_id of the primary identity where you are linking
                 the secondary account to.
 
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post_identities
+            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post
+            identities
         """
         url = self._url('%s/identities' % user_id)
         return self.client.post(url, data=body)
@@ -187,14 +190,15 @@ class Users(object):
             per_page (int, optional): The amount of entries per page.
                 Default: 50. Max value: 100
 
-            sort (str, optional):  The field to use for sorting. Use field:order
-                where order is 1 for ascending and -1 for descending.
-                For example date:-1
+            sort (str, optional):  The field to use for sorting. Use
+                field:order where order is 1 for ascending and -1 for
+                descending. For example date:-1
 
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise.
 
-            See: https://auth0.com/docs/api/management/v2#!/Users/get_logs_by_user
+            See: https://auth0.com/docs/api/management/v2#!/Users/get_logs_by
+            user
         """
 
         params = {

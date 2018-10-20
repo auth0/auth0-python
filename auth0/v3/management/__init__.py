@@ -17,3 +17,8 @@ from .tickets import Tickets
 from .user_blocks import UserBlocks
 from .users import Users
 from .users_by_email import UsersByEmail
+
+__all__ = ['Auth0', 'Blacklists', 'Clients', 'ClientGrants', 'Connections',
+           'DeviceCredentials', 'Emails', 'EmailTemplates', 'Guardian', 'Jobs',
+           'Logs', 'ResourceServers', 'Rules', 'Stats', 'Tenants', 'Tickets',
+           'UserBlocks', 'Users', 'UsersByEmail']

@@ -29,7 +29,8 @@ class EmailTemplates(object):
 
         Args:
            body (dict): Attributes for the new email template.
-              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/post_email_templates
+           See: https://auth0.com/docs/api/management/v2#!/Email_Templates/
+                post_email_templates
         """
 
         return self.client.post(self._url(), data=body)
@@ -42,7 +43,8 @@ class EmailTemplates(object):
               Must be one of: 'verify_email', 'reset_email', 'welcome_email',
               'blocked_account', 'stolen_credentials', 'enrollment_email',
               'change_password', 'password_reset', 'mfa_oob_code'.
-              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/get_email_templates_by_templateName
+              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/
+                   get_email_templates_by_templateName
         """
 
         return self.client.get(self._url(template_name))
@@ -57,7 +59,8 @@ class EmailTemplates(object):
               'change_password', 'password_reset', 'mfa_oob_code'.
 
            body (dict): Attributes to update on the email template.
-              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/patch_email_templates_by_templateName
+              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/
+                   patch_email_templates_by_templateName
         """
 
         return self.client.patch(self._url(template_name), data=body)

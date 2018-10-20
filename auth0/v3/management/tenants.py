@@ -42,6 +42,7 @@ class Tenants(object):
         """Update tenant settings.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Tenants/patch_settings
+            body (dict): Please see: https://auth0.com/docs/api/v2#!/Tenants/
+                                     patch_settings
         """
         return self.client.patch(self._url(), data=body)

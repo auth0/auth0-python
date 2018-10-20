@@ -12,11 +12,12 @@ class AuthorizeClient(AuthenticationBase):
     def __init__(self, domain):
         self.domain = domain
 
-    def authorize(self, client_id, audience=None, state=None, redirect_uri=None,
-                  response_type='code', scope='openid'):
+    def authorize(self, client_id, audience=None, state=None,
+                  redirect_uri=None, response_type='code', scope='openid'):
         """Authorization code grant
 
-        This is the OAuth 2.0 grant that regular web apps utilize in order to access an API.
+        This is the OAuth 2.0 grant that regular web apps utilize in order to
+        access an API.
         """
         params = {
             'client_id': client_id,

@@ -82,5 +82,6 @@ class TestClientGrants(unittest.TestCase):
 
         args, kwargs = mock_instance.patch.call_args
 
-        self.assertEqual('https://domain/api/v2/client-grants/this-id', args[0])
+        self.assertEqual('https://domain/api/v2/client-grants/this-id',
+                         args[0])
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})

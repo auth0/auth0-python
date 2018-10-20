@@ -24,7 +24,9 @@ class TestGuardian(unittest.TestCase):
         g.update_factor('push-notification', {'enabled': True})
 
         args, kwargs = mock_instance.put.call_args
-        self.assertEqual('https://domain/api/v2/guardian/factors/push-notification', args[0])
+        self.assertEqual(
+            'https://domain/api/v2/guardian/factors/push-notification',
+            args[0])
         self.assertEqual(kwargs['data'], {'enabled': True})
 
         g.update_factor('sms', {'enabled': False})
@@ -42,7 +44,9 @@ class TestGuardian(unittest.TestCase):
                             'verification_message': 'verified'})
 
         args, kwargs = mock_instance.put.call_args
-        self.assertEqual('https://domain/api/v2/guardian/factors/sms/templates', args[0])
+        self.assertEqual(
+            'https://domain/api/v2/guardian/factors/sms/templates',
+            args[0])
         self.assertEqual(kwargs['data'], {'enrollment_message': 'hello',
                                           'verification_message': 'verified'})
 
@@ -89,7 +93,8 @@ class TestGuardian(unittest.TestCase):
                                     'send_mail': 'false'})
 
         args, kwargs = mock_instance.post.call_args
-        self.assertEqual('https://domain/api/v2/guardian/enrollments/ticket', args[0])
+        self.assertEqual('https://domain/api/v2/guardian/enrollments/ticket',
+                         args[0])
         self.assertEqual(kwargs['data'], {'user_id': 'some_id',
                                           'email': 'test@test.com',
                                           'send_mail': 'false'})
@@ -118,7 +123,9 @@ class TestGuardian(unittest.TestCase):
                                    'sid': 'abc.xyz'})
 
         args, kwargs = mock_instance.put.call_args
-        self.assertEqual('https://domain/api/v2/guardian/factors/sms/providers/twilio', args[0])
+        self.assertEqual(
+            'https://domain/api/v2/guardian/factors/sms/providers/twilio',
+            args[0])
         self.assertEqual(kwargs['data'], {'from': 'test@test.com',
                                           'messaging_service_sid': 'qwerty',
                                           'auth_token': 'abc.xyz.123',

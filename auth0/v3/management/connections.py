@@ -23,7 +23,8 @@ class Connections(object):
             return url + '/' + id
         return url
 
-    def all(self, strategy=None, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
+    def all(self, strategy=None, fields=None, include_fields=True, page=None,
+            per_page=None, extra_params=None):
         """Retrieves all connections.
 
         Args:
@@ -43,7 +44,8 @@ class Connections(object):
 
            extra_params (dictionary, optional): The extra parameters to add to
              the request. The fields, include_fields, page and per_page values
-             specified as parameters take precedence over the ones defined here.
+             specified as parameters take precedence over the ones defined
+             here.
 
         Returns:
            A list of connection objects.
@@ -128,5 +130,5 @@ class Connections(object):
         Returns:
             An empty dict.
         """
-        return self.client.delete(self._url(id) + '/users', params={'email': email})
-
+        return self.client.delete(self._url(id) + '/users',
+                                  params={'email': email})

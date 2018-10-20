@@ -164,7 +164,8 @@ class TestRest(unittest.TestCase):
                 rc.post('the-url')
 
             self.assertEqual(context.exception.status_code, error_status)
-            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.error_code,
+                             'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message, 'desc')
 
     @mock.patch('requests.post')
@@ -179,7 +180,8 @@ class TestRest(unittest.TestCase):
                 rc.post('the-url')
 
             self.assertEqual(context.exception.status_code, error_status)
-            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.error_code,
+                             'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message,
                              'there has been a terrible error')
 
@@ -195,7 +197,8 @@ class TestRest(unittest.TestCase):
                 rc.post('the-url')
 
             self.assertEqual(context.exception.status_code, error_status)
-            self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
+            self.assertEqual(context.exception.error_code,
+                             'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message, '')
 
     @mock.patch('requests.patch')
@@ -240,7 +243,8 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.status_code = 200
 
         response = rc.delete(url='the-url/ID')
-        mock_delete.assert_called_with('the-url/ID', headers=headers, params={})
+        mock_delete.assert_called_with('the-url/ID', headers=headers,
+                                       params={})
 
         self.assertEqual(response, ['a', 'b'])
 
@@ -262,7 +266,7 @@ class TestRest(unittest.TestCase):
 
     def test_disabled_telemetry(self):
         rc = RestClient(jwt='a-token', telemetry=False)
-        
+
         self.assertEqual(rc.base_headers, {})
 
     def test_enabled_telemetry(self):

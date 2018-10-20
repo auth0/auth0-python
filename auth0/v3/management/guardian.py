@@ -38,7 +38,8 @@ class Guardian(object):
         Args:
             name (str): Either push-notification or sms
             body (dict): Attributes to modify.
-            See: https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name
+            See: https://auth0.com/docs/api/management/v2#!/Guardian/put
+            factors_by_name
         """
         url = self._url('factors/%s' % (name))
         return self.client.put(url, data=body)
@@ -50,7 +51,8 @@ class Guardian(object):
 
         Args:
             body (dict): Attributes to modify.
-            See: https://auth0.com/docs/api/management/v2#!/Guardian/put_templates
+            See: https://auth0.com/docs/api/management/v2#!/Guardian/put
+            templates
         """
 
         return self.client.put(self._url('factors/sms/templates'), data=body)
@@ -93,7 +95,8 @@ class Guardian(object):
 
         Args:
             body (dict): Details of the user to send the ticket to.
-            See: https://auth0.com/docs/api/management/v2#!/Guardian/post_ticket
+            See: https://auth0.com/docs/api/management/v2#!/Guardian/post
+            ticket
         """
         return self.client.post(self._url('enrollments/ticket'), data=body)
 

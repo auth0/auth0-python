@@ -44,7 +44,8 @@ class Response(object):
     def _is_error(self):
         return self._status_code is None or self._status_code >= 400
 
-    # Adding these methods to force implementation in subclasses because they are references in this parent class
+    # Adding these methods to force implementation in subclasses because they
+    # are references in this parent class
     def _error_code(self):
         raise NotImplementedError
 
@@ -71,7 +72,8 @@ class JsonResponse(Response):
 
 class PlainResponse(Response):
     def __init__(self, response):
-        super(PlainResponse, self).__init__(response.status_code, response.text)
+        super(PlainResponse, self).__init__(response.status_code,
+                                            response.text)
 
     def _error_code(self):
         return UNKNOWN_ERROR

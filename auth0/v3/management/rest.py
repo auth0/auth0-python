@@ -60,7 +60,8 @@ class RestClient(object):
             'Content-Type': 'application/json'
         })
 
-        response = requests.post(url, data=json.dumps(data or {}), headers=headers)
+        response = requests.post(url, data=json.dumps(data or {}),
+                                 headers=headers)
         return self._process_response(response)
 
     def file_post(self, url, data=None, files=None):
@@ -80,7 +81,8 @@ class RestClient(object):
             'Content-Type': 'application/json'
         })
 
-        response = requests.patch(url, data=json.dumps(data or {}), headers=headers)
+        response = requests.patch(url, data=json.dumps(data or {}),
+                                  headers=headers)
         return self._process_response(response)
 
     def put(self, url, data=None):
@@ -90,7 +92,8 @@ class RestClient(object):
             'Content-Type': 'application/json'
         })
 
-        response = requests.put(url, data=json.dumps(data or {}), headers=headers)
+        response = requests.put(url, data=json.dumps(data or {}),
+                                headers=headers)
         return self._process_response(response)
 
     def delete(self, url, params=None):
@@ -130,7 +133,8 @@ class Response(object):
     def _is_error(self):
         return self._status_code is None or self._status_code >= 400
 
-    # Adding these methods to force implementation in subclasses because they are references in this parent class
+    # Adding these methods to force implementation in subclasses because they
+    # are references in this parent class
     def _error_code(self):
         raise NotImplementedError
 
@@ -160,7 +164,8 @@ class JsonResponse(Response):
 
 class PlainResponse(Response):
     def __init__(self, response):
-        super(PlainResponse, self).__init__(response.status_code, response.text)
+        super(PlainResponse, self).__init__(response.status_code,
+                                            response.text)
 
     def _error_code(self):
         return UNKNOWN_ERROR

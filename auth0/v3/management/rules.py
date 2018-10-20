@@ -25,7 +25,8 @@ class Rules(object):
         return url
 
     def all(self, stage='login_success', enabled=True, fields=None,
-            include_fields=True, page=None, per_page=None, include_totals=False):
+            include_fields=True, page=None, per_page=None,
+            include_totals=False):
         """Retrieves a list of all rules.
 
         Args:

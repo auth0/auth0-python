@@ -24,7 +24,8 @@ class ClientGrants(object):
             return url + '/' + id
         return url
 
-    def all(self, audience=None, page=None, per_page=None, include_totals=False):
+    def all(self, audience=None, page=None, per_page=None,
+            include_totals=False):
         """Retrieves all client grants.
 
         Args:
@@ -53,7 +54,8 @@ class ClientGrants(object):
 
         Args:
            body (dict): Attributes for the new client grant.
-              See: https://auth0.com/docs/api/management/v2#!/Client_Grants/post_client_grants
+           See: https://auth0.com/docs/api/management/v2#!/Client_Grants/
+                post_client_grants
         """
 
         return self.client.post(self._url(), data=body)
@@ -74,7 +76,8 @@ class ClientGrants(object):
            id (str): The id of the client grant to modify.
 
            body (dict): Attributes to modify.
-              See: https://auth0.com/docs/api/management/v2#!/Client_Grants/patch_client_grants_by_id
+           See: https://auth0.com/docs/api/management/v2#!/Client_Grants/
+                patch_client_grants_by_id
         """
 
         return self.client.patch(self._url(id), data=body)

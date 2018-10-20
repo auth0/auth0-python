@@ -24,7 +24,8 @@ class Clients(object):
             return url + '/' + id
         return url
 
-    def all(self, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
+    def all(self, fields=None, include_fields=True, page=None, per_page=None,
+            extra_params=None):
         """Retrieves a list of all the applications.
 
         Important: The client_secret and encryption_key attributes can only be
@@ -44,7 +45,8 @@ class Clients(object):
 
            extra_params (dictionary, optional): The extra parameters to add to
              the request. The fields, include_fields, page and per_page values
-             specified as parameters take precedence over the ones defined here.
+             specified as parameters take precedence over the ones defined
+             here.
         """
         params = extra_params or {}
         params['fields'] = fields and ','.join(fields) or None

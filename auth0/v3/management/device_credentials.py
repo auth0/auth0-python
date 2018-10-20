@@ -58,7 +58,8 @@ class DeviceCredentials(object):
         Args:
             body (dict): parameters for creating the public key (e.g: type,
                 device_name, client_id, etc).
-                Please see: https://auth0.com/docs/api/v2#!/Device_Credentials/post_device_credentials
+                Please see: https://auth0.com/docs/api/v2#!/Device_Credentials/
+                            post_device_credentials
         """
         return self.client.post(self._url(), data=body)
 

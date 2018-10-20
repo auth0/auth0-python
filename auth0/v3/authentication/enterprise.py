@@ -16,7 +16,8 @@ class Enterprise(AuthenticationBase):
         """Get SAML2.0 Metadata.
 
         Args:
-            client_id (str): Client Id of the application to get the SAML metadata for.
+            client_id (str): Client Id of the application to get the SAML
+            metadata for.
         """
 
         return self.get(url='https://{}/samlp/metadata/{}'.format(self.domain,
