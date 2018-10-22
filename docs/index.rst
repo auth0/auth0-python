@@ -13,7 +13,7 @@ What is Auth0?
 Auth0 helps you to:
 
 * Add authentication with `multiple authentication sources <https://docs.auth0.com/identityproviders>`_,
-  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**,
+  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**,
   or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
 * Add authentication through more traditional `username/password databases <https://docs.auth0.com/mysql-connection-tutorial>`_.
 * Add support for `linking different user accounts <https://docs.auth0.com/link-accounts>`_ with the same user.

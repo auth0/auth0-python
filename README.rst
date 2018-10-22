@@ -34,14 +34,19 @@ Create a free Auth0 Account
 Installation
 ============
 
-You can install the auth0 Python SDK issuing the following command.
+You can install the auth0 Python SDK using the following command.
 
 .. code-block::
 
     pip install auth0-python
 
-Python 3.2 and 3.3 have reached `end-of-life<https://en.wikipedia.org/wiki/CPython#Version_history>`_
-and support will be removed in the near future.
+For python3, use the following command
+
+.. code-block::
+    
+    pip3 install auth0-python
+
+Python 3.2 and 3.3 have reached `end-of-life<https://en.wikipedia.org/wiki/CPython#Version_history>`_ and support will be removed in the near future.
 
 ====================
 Management SDK Usage
@@ -219,14 +224,14 @@ file for more info.
     :target: https://pypi.org/project/auth0-python/
     :alt: Latest version released on PyPI
 
-.. |coverage| image:: https://codecov.io/gh/auth0/auth0-python/badge.svg
-    :target: https://codecov.io/gh/auth0/auth0-python
-    :alt: Test coverage
-
-.. |build| image:: https://circleci.com/gh/auth0/auth0-python.svg?style=shield&circle-token=:circle-token
+.. |build| image:: https://img.shields.io/circleci/project/github/auth0/auth0-python.svg?style=flat-square&label=circleci
     :target: https://circleci.com/gh/auth0/auth0-python
     :alt: Build status
 
-.. |license| image:: http://img.shields.io/:license-mit-blue.svg?style=flat
-    :target: http://doge.mit-license.org
+.. |coverage| image:: https://img.shields.io/codecov/c/github/auth0/auth0-python.svg?style=flat-square&label=codecov
+    :target: https://codecov.io/gh/auth0/auth0-python
+    :alt: Test coverage
+
+.. |license| image:: https://img.shields.io/:license-mit-blue.svg?style=flat-square
+    :target: https://opensource.org/licenses/MIT
     :alt: License
