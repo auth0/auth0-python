@@ -228,5 +228,5 @@ file for more info.
     :alt: Test coverage
 
 .. |license| image:: https://img.shields.io/:license-mit-blue.svg?style=flat-square
-    :target: http://doge.mit-license.org
+    :target: https://opensource.org/licenses/MIT
     :alt: License
