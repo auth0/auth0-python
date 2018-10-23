@@ -16,6 +16,7 @@ class RestClient(object):
     def __init__(self, jwt, telemetry=True):
         self.jwt = jwt
 
+        self.base_headers = {'Content-Type': 'application/json'}
         if telemetry:
             py_version = platform.python_version()
             version = sys.modules['auth0'].__version__
@@ -36,13 +37,10 @@ class RestClient(object):
                 ]
             }).encode('utf-8')
 
-            self.base_headers = {
+            self.base_headers.update({
                 'User-Agent': 'Python/{}'.format(py_version),
                 'Auth0-Client': base64.b64encode(auth0_client),
-                'Content-Type': 'application/json'
-            }
-        else:
-            self.base_headers = {}
+            })
 
     def get(self, url, params=None):
         headers = self.base_headers.copy()
@@ -57,7 +55,6 @@ class RestClient(object):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer {}'.format(self.jwt),
-            'Content-Type': 'application/json'
         })
 
         response = requests.post(url, data=json.dumps(data or {}), headers=headers)
@@ -77,7 +74,6 @@ class RestClient(object):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer {}'.format(self.jwt),
-            'Content-Type': 'application/json'
         })
 
         response = requests.patch(url, data=json.dumps(data or {}), headers=headers)
@@ -87,7 +83,6 @@ class RestClient(object):
         headers = self.base_headers.copy()
         headers.update({
             'Authorization': 'Bearer {}'.format(self.jwt),
-            'Content-Type': 'application/json'
         })
 
         response = requests.put(url, data=json.dumps(data or {}), headers=headers)
