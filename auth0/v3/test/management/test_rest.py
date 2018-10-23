@@ -282,8 +282,12 @@ class TestRest(unittest.TestCase):
 
     def test_disabled_telemetry(self):
         rc = RestClient(jwt='a-token', telemetry=False)
+        expected_headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer a-token',
+        }
         
-        self.assertEqual(rc.base_headers, {'Content-Type': 'application/json'})
+        self.assertEqual(rc.base_headers, expected_headers)
 
     def test_enabled_telemetry(self):
         rc = RestClient(jwt='a-token', telemetry=True)
