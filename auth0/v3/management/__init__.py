@@ -3,6 +3,7 @@ from .blacklists import Blacklists
 from .clients import Clients
 from .client_grants import ClientGrants
 from .connections import Connections
+from .custom_domains import CustomDomains
 from .device_credentials import DeviceCredentials
 from .emails import Emails
 from .email_templates import EmailTemplates
