@@ -24,7 +24,7 @@ class ClientGrants(object):
             return url + '/' + id
         return url
 
-    def all(self, audience=None, page=None, per_page=None, include_totals=False):
+    def all(self, audience=None, page=None, per_page=None, include_totals=False, client_id=None):
         """Retrieves all client grants.
 
         Args:
@@ -37,7 +37,9 @@ class ClientGrants(object):
 
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise.
-            
+
+            client_id (string, optional): The id of a client to filter
+
         See: https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants
         """
 
@@ -45,7 +47,8 @@ class ClientGrants(object):
             'audience': audience,
             'page': page,
             'per_page': per_page,
-            'include_totals': str(include_totals).lower()
+            'include_totals': str(include_totals).lower(),
+            'client_id': client_id,
         }
 
         return self.client.get(self._url(), params=params)
