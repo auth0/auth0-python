@@ -109,7 +109,7 @@ class Guardian(object):
         return self.client.post(self._url('enrollments/ticket'), data=body)
 
     def get_factor_providers(self, factor_name, name):
-        """Get Guardian SNS factor providers.
+        """Get Guardian SNS or SMS factor providers.
 
         Returns provider configuration
         Args:
