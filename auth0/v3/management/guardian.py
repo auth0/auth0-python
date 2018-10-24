@@ -69,7 +69,6 @@ class Guardian(object):
 
         return self.client.get(self._url('factors/sms/templates'))
 
-
     def get_enrollment(self, id):
         """Retrieves an enrollment.
         Useful to check its type and related metadata.
