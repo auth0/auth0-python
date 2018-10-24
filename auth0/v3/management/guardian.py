@@ -69,27 +69,6 @@ class Guardian(object):
 
         return self.client.get(self._url('factors/sms/templates'))
 
-    def get_sns_factor_provider_configuration(self):
-        """Get Guardian SNS factor provider configuration
-
-        Returns provider configuration for AWS SNS..
-
-
-        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
-        """
-
-        return self.client.get(self._url('factors/push-notification/providers/sns'))
-
-    def get_twilio_factor_provider_configuration(self):
-        """Get Guardian Twilio factor provider configuration
-
-        Returns provider configuration for Twilio..
-
-
-        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
-        """
-
-        return self.client.get(self._url('factors/sms/providers/twilio'))
 
     def get_enrollment(self, id):
         """Retrieves an enrollment.
