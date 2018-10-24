@@ -44,7 +44,7 @@ class CustomDomains(object):
         """Deletes a grant.
 
         Args:
-           id (str): The id of the grant to delete
+           id (str): The id of the custom domain to delete
 
 
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/delete_custom_domains_by_id
@@ -63,3 +63,14 @@ class CustomDomains(object):
         """
         return self.client.post(self._url(), data=body)
 
+    def verify(self, id):
+        """Verify a custom domain
+
+        Args:
+           id (str): The id of the custom domain to delete
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/post_verify
+        """
+        url = self._url('%s/verify' % (id))
+        return self.client.post(url)

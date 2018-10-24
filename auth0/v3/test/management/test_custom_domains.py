@@ -37,3 +37,16 @@ class TestCustomDomains(unittest.TestCase):
 
         mock_instance.get.assert_called_with('https://domain/api/v2/custom-domains/an-id')
 
+
+    @mock.patch('auth0.v3.management.custom_domains.RestClient')
+    def test_verify(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        g = CustomDomains(domain='domain', token='jwttoken')
+        g.verify('an-id')
+
+        args, kwargs = mock_instance.post.call_args
+
+        self.assertEqual('https://domain/api/v2/custom-domains/an-id/verify', args[0])
+
+
