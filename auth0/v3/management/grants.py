@@ -52,3 +52,14 @@ class Grants(object):
 
         return self.client.get(self._url(), params=params)
 
+    def delete(self, id):
+        """Deletes a grant.
+
+        Args:
+           id (str): The id of the grant to delete
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Grants/delete_grants_by_id
+        """
+        url = self._url('%s' % (id))
+        return self.client.delete(url)
