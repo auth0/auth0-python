@@ -80,6 +80,17 @@ class Guardian(object):
 
         return self.client.get(self._url('factors/push-notification/providers/sns'))
 
+    def get_twilio_factor_provider_configuration(self):
+        """Get Guardian Twilio factor provider configuration
+
+        Returns provider configuration for Twilio..
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
+        """
+
+        return self.client.get(self._url('factors/sms/providers/twilio'))
+
     def get_enrollment(self, id):
         """Retrieves an enrollment.
         Useful to check its type and related metadata.
