@@ -116,6 +116,18 @@ class TestGuardian(unittest.TestCase):
             'https://domain/api/v2/guardian/factors/push-notification/providers/sns'
         )
 
+
+    @mock.patch('auth0.v3.management.guardian.RestClient')
+    def test_get_sns_factor_provider_configuration(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        g = Guardian(domain='domain', token='jwttoken')
+        g.get_twilio_factor_provider_configuration()
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/guardian/factors/sms/providers/twilio'
+        )
+
     @mock.patch('auth0.v3.management.guardian.RestClient')
     def test_update_factor_providers(self, mock_rc):
         mock_instance = mock_rc.return_value
