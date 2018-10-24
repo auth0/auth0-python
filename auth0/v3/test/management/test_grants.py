@@ -20,3 +20,13 @@ class TestGrants(unittest.TestCase):
         )
 
 
+    @mock.patch('auth0.v3.management.grants.RestClient')
+    def test_delete(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Grants(domain='domain', token='jwttoken')
+        c.delete('an-id')
+
+        mock_instance.delete.assert_called_with(
+            'https://domain/api/v2/grants/an-id'
+        )
