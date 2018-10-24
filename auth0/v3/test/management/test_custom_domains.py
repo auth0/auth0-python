@@ -17,3 +17,16 @@ class TestCustomDomains(unittest.TestCase):
         )
 
 
+    @mock.patch('auth0.v3.management.custom_domains.RestClient')
+    def test_create_new(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        g = CustomDomains(domain='domain', token='jwttoken')
+        g.create_new(body={'a': 'b', 'c': 'd','e': 'f'})
+
+        args, kwargs = mock_instance.post.call_args
+
+        self.assertEqual('https://domain/api/v2/custom-domains',args[0])
+        self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd','e': 'f'})
+
+       
