@@ -58,7 +58,7 @@ class EmailTemplates(object):
               'change_password', 'password_reset', 'mfa_oob_code'.
 
            body (dict): Attributes to update on the email template.
-              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/put_email_templates_by_templateName
+              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/patch_email_templates_by_templateName
 
         """
 
