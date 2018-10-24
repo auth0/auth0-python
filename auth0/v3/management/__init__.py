@@ -6,6 +6,7 @@ from .connections import Connections
 from .device_credentials import DeviceCredentials
 from .emails import Emails
 from .email_templates import EmailTemplates
+from .grants import Grants
 from .guardian import Guardian
 from .jobs import Jobs
 from .logs import Logs
