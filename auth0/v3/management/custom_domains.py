@@ -32,6 +32,14 @@ class CustomDomains(object):
 
         return self.client.get(self._url())
 
+    def get_domain_by_id(self, id):
+        """Retrieves custom domain.
+
+        See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/get_custom_domains_by_id
+        """
+        url = self._url('%s' % (id))
+        return self.client.get(url)
+
     def delete(self, id):
         """Deletes a grant.
 
