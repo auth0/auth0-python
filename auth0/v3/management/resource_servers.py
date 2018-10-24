@@ -44,6 +44,8 @@ class ResourceServers(object):
 
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers
         """
 
         params = {
@@ -59,6 +61,8 @@ class ResourceServers(object):
 
         Args:
            id (str): Id of the resource server to get.
+
+        See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers_by_id
         """
 
         return self.client.get(self._url(id))
@@ -68,6 +72,8 @@ class ResourceServers(object):
 
         Args:
            id (str): Id of resource server to delete.
+
+        See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/delete_resource_servers_by_id
         """
 
         return self.client.delete(self._url(id))

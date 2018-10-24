@@ -29,6 +29,8 @@ class Jobs(object):
 
         Args:
             id (str): The id of the job.
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
         """
         return self.client.get(self._url(id))
 
@@ -37,6 +39,8 @@ class Jobs(object):
 
         Args:
             id (str): The id of the job.
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_errors
         """
         url = self._url('%s/errors' % (id))
         return self.client.get(url)
@@ -61,6 +65,8 @@ class Jobs(object):
 
             file_obj (file): A file-like object to upload. The format for
                 this file is explained in: https://auth0.com/docs/bulk-import
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports
         """
         return self.client.file_post(self._url('users-imports'),
                                      data={'connection_id': connection_id, 'upsert': str(upsert).lower()},

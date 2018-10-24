@@ -35,6 +35,8 @@ class UsersByEmail(object):
 
             include_fields (bool, optional): True if the fields specified are
                 to be include in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users_By_Email/get_users_by_email
         """
         params = {
             'email': email.lower(),

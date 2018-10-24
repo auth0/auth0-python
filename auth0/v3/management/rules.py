@@ -49,6 +49,8 @@ class Rules(object):
 
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Rules/get_rules
         """
 
         params = {
@@ -88,6 +90,8 @@ class Rules(object):
             include_fields (bool, optional): True if the fields specified are
                 to be included in the result, False otherwise
                 (defaults to true).
+
+        See: https://auth0.com/docs/api/management/v2#!/Rules/get_rules_by_id
         """
         params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
@@ -98,6 +102,8 @@ class Rules(object):
 
         Args:
             id (str): The id of the rule to delete.
+
+        See: https://auth0.com/docs/api/management/v2#!/Rules/delete_rules_by_id
         """
         return self.client.delete(self._url(id))
 

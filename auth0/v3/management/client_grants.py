@@ -37,6 +37,8 @@ class ClientGrants(object):
 
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise.
+            
+        See: https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants
         """
 
         params = {
@@ -63,6 +65,9 @@ class ClientGrants(object):
 
         Args:
            id (str): Id of client grant to delete.
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Client_Grants/delete_client_grants_by_id
         """
 
         return self.client.delete(self._url(id))

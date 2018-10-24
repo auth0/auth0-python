@@ -31,6 +31,8 @@ class Tenants(object):
 
            include_fields (bool, optional): True if the fields specified are
               to be included in the result, False otherwise.
+              
+           See: https://auth0.com/docs/api/management/v2#!/Tenants/get_settings
         """
 
         params = {'fields': fields and ','.join(fields) or None,

@@ -52,6 +52,8 @@ class Users(object):
 
             include_fields (bool, optional): True if the fields specified are
                 to be include in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_users
         """
         params = {
             'per_page': per_page,
@@ -76,6 +78,8 @@ class Users(object):
 
     def delete_all_users(self):
         """Deletes all users (USE WITH CAUTION).
+
+        Args:
         """
         return self.client.delete(self._url())
 
@@ -91,6 +95,8 @@ class Users(object):
 
             include_fields (bool, optional): True if the fields specified are
                 to be included in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
         """
         params = {
             'fields': fields and ','.join(fields) or None,
@@ -104,6 +110,8 @@ class Users(object):
 
         Args:
             id (str): The user_id of the user to delete.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id
         """
         return self.client.delete(self._url(id))
 
@@ -125,6 +133,8 @@ class Users(object):
 
             provider (str): The multifactor provider. Supported values 'duo'
                 or 'google-authenticator'
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
         """
         url = self._url('{}/multifactor/{}'.format(id, provider))
         return self.client.delete(url)
@@ -138,6 +148,8 @@ class Users(object):
             provider (str): The type of identity provider (e.g: facebook).
 
             user_id (str): The unique identifier for the user for the identity.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_user_identity_by_user_id
         """
         url = self._url('{}/identities/{}/{}'.format(id, provider, user_id))
         return self.client.delete(url)
@@ -162,6 +174,8 @@ class Users(object):
 
         Args:
             user_id (str):  The user_id of the user identity.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration
         """
         url = self._url('%s/recovery-code-regeneration' % user_id)
         return self.client.post(url)
@@ -171,6 +185,8 @@ class Users(object):
 
         Args:
             user_id (str):  The user_id of the user to retrieve
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
         """
         url = self._url('%s/enrollments' % user_id)
         return self.client.get(url)
