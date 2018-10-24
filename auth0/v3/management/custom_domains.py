@@ -39,7 +39,19 @@ class CustomDomains(object):
            id (str): The id of the grant to delete
 
 
-        See: https://auth0.com/docs/api/management/v2#!/Grants/delete_grants_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/delete_custom_domains_by_id
         """
         url = self._url('%s' % (id))
         return self.client.delete(url)
+
+    def create_new(self, body):
+        """Configure a new custom domain
+
+        Args:
+           body (str): The domain, tye and verification method in json
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/post_custom_domains
+        """
+        return self.client.post(self._url(), data=body)
+
