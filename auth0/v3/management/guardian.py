@@ -75,7 +75,7 @@ class Guardian(object):
         Returns provider configuration for AWS SNS..
 
 
-        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
         """
 
         return self.client.get(self._url('factors/push-notification/providers/sns'))
@@ -86,7 +86,7 @@ class Guardian(object):
         Returns provider configuration for Twilio..
 
 
-        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
         """
 
         return self.client.get(self._url('factors/sms/providers/twilio'))
