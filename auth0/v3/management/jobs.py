@@ -45,6 +45,17 @@ class Jobs(object):
         url = self._url('{}/errors'.format(id))
         return self.client.get(url)
 
+    def get_job_results(self, id):
+        """Get results of a job
+
+        Args:
+            id (str): The id of the job.
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_results
+        """
+        url = self._url('%s/results' % (id))
+        return self.client.get(url)
+
     def export_users(self, body):
         """Export all users to a file using a long running job.
 
