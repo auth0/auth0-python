@@ -118,4 +118,3 @@ class Clients(object):
         """
 
         return self.client.patch(self._url(id), data=body)
-

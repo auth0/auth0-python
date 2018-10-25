@@ -139,4 +139,3 @@ class Connections(object):
             An empty dict.
         """
         return self.client.delete(self._url(id) + '/users', params={'email': email})
-

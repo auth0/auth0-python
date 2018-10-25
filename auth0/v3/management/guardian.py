@@ -136,5 +136,3 @@ class Guardian(object):
         """
         url = self._url('factors/{}/providers/{}'.format(factor_name, name))
         return self.client.put(url, data=body)
-
-

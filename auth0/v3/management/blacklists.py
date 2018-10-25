@@ -44,7 +44,7 @@ class Blacklists(object):
                 application for which it was issued.
 
             body (dict):
-            	See: https://auth0.com/docs/api/management/v2#!/Blacklists/post_tokens
+                See: https://auth0.com/docs/api/management/v2#!/Blacklists/post_tokens
         """
 
         return self.client.post(self.url, data={'jti': jti, 'aud': aud})
