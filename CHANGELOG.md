@@ -18,7 +18,7 @@ Changes
 ------------------
 
 **Fixed**
-- Upload the correct package contents to Pypi.
+- Upload the correct package contents to PyPi.
 
 
 3.2.0
