@@ -198,6 +198,56 @@ class TestRest(unittest.TestCase):
             self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message, '')
 
+    @mock.patch('requests.post')
+    def test_post_error_with_error_but_no_error_code(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        for error_status in [400, 500, None]:
+            mock_post.return_value.status_code = error_status
+            mock_post.return_value.text = '{"error": "SomeError"}'
+
+            with self.assertRaises(Auth0Error) as context:
+                rc.post('the-url')
+
+            self.assertEqual(context.exception.status_code, error_status)
+            self.assertEqual(context.exception.error_code, 'SomeError')
+
+    @mock.patch('requests.post')
+    def test_file_post(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+        headers = {'Authorization': 'Bearer a-token'}
+
+        mock_post.return_value.text = '{"a": "b"}'
+
+        data = {'some': 'data'}
+        files = {'file': ('some.file', 'Has some text in it\n')}
+        mock_post.return_value.status_code = 200
+        response = rc.file_post('the/url', data=data, files=files)
+        mock_post.assert_called_with('the/url', data=data,
+                                     files=files, headers=headers)
+
+        self.assertEqual(response, {'a': 'b'})
+
+    @mock.patch('requests.post')
+    def test_file_post_errors(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        mock_post.return_value.text = json.dumps({
+            'statusCode': 999,
+            'errorCode': 'some_code',
+            'error': 'some_error'
+        })
+        mock_post.return_value.status_code = 999
+
+        data = {'some': 'data'}
+        files = {'file': ('some.file', 'Has some text in it\n')}
+        with self.assertRaises(Auth0Error) as context:
+            rc.file_post('the-url', data=data, files=files)
+
+        self.assertEqual(context.exception.status_code, 999)
+        self.assertEqual(context.exception.error_code, 'some_code')
+        self.assertEqual(context.exception.message, 'some_error')
+
     @mock.patch('requests.patch')
     def test_patch(self, mock_patch):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -226,6 +276,39 @@ class TestRest(unittest.TestCase):
 
         with self.assertRaises(Auth0Error) as context:
             rc.patch(url='the/url')
+
+        self.assertEqual(context.exception.status_code, 999)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+
+    @mock.patch('requests.put')
+    def test_put(self, mock_put):
+        rc = RestClient(jwt='a-token', telemetry=False)
+        headers = {'Authorization': 'Bearer a-token',
+                   'Content-Type': 'application/json'}
+
+        mock_put.return_value.text = '["a", "b"]'
+        mock_put.return_value.status_code = 200
+
+        data = {'some': 'data'}
+
+        response = rc.put(url='the-url', data=data)
+        mock_put.assert_called_with('the-url', data=json.dumps(data),
+                                      headers=headers)
+
+        self.assertEqual(response, ['a', 'b'])
+
+    @mock.patch('requests.put')
+    def test_put_errors(self, mock_put):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        mock_put.return_value.text = '{"statusCode": 999,' \
+                                       ' "errorCode": "code",' \
+                                       ' "message": "message"}'
+        mock_put.return_value.status_code = 999
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.put(url='the/url')
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, 'code')

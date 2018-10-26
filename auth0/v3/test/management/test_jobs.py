@@ -17,11 +17,11 @@ class TestJobs(unittest.TestCase):
         )
 
     @mock.patch('auth0.v3.management.jobs.RestClient')
-    def get_failed_job(self, mock_rc):
+    def test_get_failed_job(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         j = Jobs(domain='domain', token='jwttoken')
-        j.get('an-id')
+        j.get_failed_job('an-id')
 
         mock_instance.get.assert_called_with(
             'https://domain/api/v2/jobs/an-id/errors',

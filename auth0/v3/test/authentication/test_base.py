@@ -100,3 +100,17 @@ class TestBase(unittest.TestCase):
             self.assertEqual(context.exception.error_code,
                              'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message, '')
+
+    @mock.patch('requests.get')
+    def test_get(self, mock_get):
+        ab = AuthenticationBase()
+
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.text = '{"x": "y"}'
+
+        result = ab.get('the-url', params={'a': 'b'}, headers={'c': 'd'})
+
+        mock_get.assert_called_with(url='the-url', params={'a': 'b'},
+                                    headers={'c': 'd'})
+
+        self.assertEqual(result, '{"x": "y"}')
