@@ -10,6 +10,7 @@ from .jobs import Jobs
 from .logs import Logs
 from .resource_servers import ResourceServers
 from .rules import Rules
+from .rules_configs import RulesConfigs
 from .stats import Stats
 from .tenants import Tenants
 from .tickets import Tickets
@@ -40,6 +41,7 @@ class Auth0(object):
         self.logs = Logs(domain, token)
         self.resource_servers = ResourceServers(domain, token)
         self.rules = Rules(domain, token)
+        self.rules_configs = RulesConfigs(domain, token)
         self.stats = Stats(domain, token)
         self.tenants = Tenants(domain, token)
         self.tickets = Tickets(domain, token)
