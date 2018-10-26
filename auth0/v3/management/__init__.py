@@ -13,6 +13,7 @@ from .jobs import Jobs
 from .logs import Logs
 from .resource_servers import ResourceServers
 from .rules import Rules
+from .rules_configs import RulesConfigs
 from .stats import Stats
 from .tenants import Tenants
 from .tickets import Tickets
