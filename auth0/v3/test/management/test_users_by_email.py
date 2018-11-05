@@ -16,7 +16,7 @@ class TestUsersByEmail(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/users-by-email', args[0])
         self.assertEqual(kwargs['params'], {
-            'email': 'a@b.com',
+            'email': 'A@B.com',
             'fields': None,
             'include_fields': 'true'
         })
