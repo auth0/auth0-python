@@ -38,7 +38,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/oauth/token' % self.domain,
+            'https://{}/oauth/token'.format(self.domain),
             data={
                 'client_id': client_id,
                 'client_secret': client_secret,
@@ -75,7 +75,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/oauth/token' % self.domain,
+            'https://{}/oauth/token'.format(self.domain),
             data={
                 'client_id': client_id,
                 'code_verifier': code_verifier,
@@ -110,7 +110,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/oauth/token' % self.domain,
+            'https://{}/oauth/token'.format(self.domain),
             data={
                 'client_id': client_id,
                 'client_secret': client_secret,
@@ -157,7 +157,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/oauth/token' % self.domain,
+            'https://{}/oauth/token'.format(self.domain),
             data={
                 'client_id': client_id,
                 'username': username,
@@ -191,7 +191,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/oauth/token' % self.domain,
+            'https://{}/oauth/token'.format(self.domain),
             data={
                 'client_id': client_id,
                 'client_secret': client_secret,

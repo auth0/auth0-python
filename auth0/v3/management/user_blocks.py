@@ -19,9 +19,9 @@ class UserBlocks(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/user-blocks' % self.domain
+        url = 'https://{}/api/v2/user-blocks'.format(self.domain)
         if id is not None:
-            return '%s/%s' % (url, id)
+            return '{}/{}'.format(url, id)
         return url
 
     def get_by_identifier(self, identifier):
@@ -29,6 +29,8 @@ class UserBlocks(object):
 
         Args:
            identifier (str): Should be any of: username, phone_number, email.
+
+        See: https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks
         """
 
         params = {'identifier': identifier}
@@ -40,6 +42,8 @@ class UserBlocks(object):
 
         Args:
            identifier (str): Should be any of: username, phone_number, email.
+
+        See: https://auth0.com/docs/api/management/v2#!/User_Blocks/delete_user_blocks
         """
 
         params = {'identifier': identifier}
@@ -51,6 +55,8 @@ class UserBlocks(object):
 
         Args:
            id (str): The user_id of the user to retrieve.
+
+        See: https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks_by_id
         """
 
         return self.client.get(self._url(id))
@@ -60,6 +66,8 @@ class UserBlocks(object):
 
         Args:
            id (str): The user_id of the user to update.
+
+        See: https://auth0.com/docs/api/management/v2#!/User_Blocks/delete_user_blocks_by_id
         """
 
         return self.client.delete(self._url(id))

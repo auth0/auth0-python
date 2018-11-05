@@ -24,6 +24,9 @@ class Stats(object):
         """Gets the active users count (logged in during the last 30 days).
 
         Returns: An integer.
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Stats/get_active_users
         """
 
         return self.client.get(self._url('active-users'))
@@ -37,6 +40,8 @@ class Stats(object):
 
            to_date (str): The last day of the period (inclusive) in
               YYYYMMDD format.
+
+        See: https://auth0.com/docs/api/management/v2#!/Stats/get_daily
         """
 
         return self.client.get(self._url('daily'), params={'from': from_date,

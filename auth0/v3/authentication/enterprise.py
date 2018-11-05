@@ -26,7 +26,7 @@ class Enterprise(AuthenticationBase):
         """Returns the WS-Federation Metadata.
         """
 
-        url = 'https://%s/wsfed/FederationMetadata' \
+        url = 'https://{}/wsfed/FederationMetadata' \
               '/2007-06/FederationMetadata.xml'
 
         return self.get(url=url % self.domain)

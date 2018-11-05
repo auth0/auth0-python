@@ -19,9 +19,9 @@ class DeviceCredentials(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/device-credentials' % self.domain
+        url = 'https://{}/api/v2/device-credentials'.format(self.domain)
         if id is not None:
-            return '%s/%s' % (url, id)
+            return '{}/{}'.format(url, id)
         return url
 
     def get(self, user_id, client_id, type, fields=None, include_fields=True):
@@ -41,6 +41,9 @@ class DeviceCredentials(object):
             include_fields (bool, optional): True if the fields specified are
                 to be included in the result, False otherwise
                 (defaults to true)
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials
         """
 
         params = {
@@ -67,5 +70,8 @@ class DeviceCredentials(object):
 
         Args:
             id (str):  The id of the credential to delete
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/delete_device_credentials_by_id
         """
         return self.client.delete(self._url(id))

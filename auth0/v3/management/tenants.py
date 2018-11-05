@@ -19,7 +19,7 @@ class Tenants(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self):
-        return 'https://%s/api/v2/tenants/settings' % self.domain
+        return 'https://{}/api/v2/tenants/settings'.format(self.domain)
 
     def get(self, fields=None, include_fields=True):
         """Get tenant settings.
@@ -31,6 +31,8 @@ class Tenants(object):
 
            include_fields (bool, optional): True if the fields specified are
               to be included in the result, False otherwise.
+              
+           See: https://auth0.com/docs/api/management/v2#!/Tenants/get_settings
         """
 
         params = {'fields': fields and ','.join(fields) or None,

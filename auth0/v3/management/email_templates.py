@@ -19,9 +19,9 @@ class EmailTemplates(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/email-templates' % self.domain
+        url = 'https://{}/api/v2/email-templates'.format(self.domain)
         if id is not None:
-            return '%s/%s' % (url, id)
+            return '{}/{}'.format(url, id)
         return url
 
     def create(self, body):
@@ -42,7 +42,8 @@ class EmailTemplates(object):
               Must be one of: 'verify_email', 'reset_email', 'welcome_email',
               'blocked_account', 'stolen_credentials', 'enrollment_email',
               'change_password', 'password_reset', 'mfa_oob_code'.
-              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/get_email_templates_by_templateName
+
+        See: https://auth0.com/docs/api/management/v2#!/Email_Templates/get_email_templates_by_templateName
         """
 
         return self.client.get(self._url(template_name))
@@ -58,6 +59,7 @@ class EmailTemplates(object):
 
            body (dict): Attributes to update on the email template.
               See: https://auth0.com/docs/api/management/v2#!/Email_Templates/patch_email_templates_by_templateName
+
         """
 
         return self.client.patch(self._url(template_name), data=body)

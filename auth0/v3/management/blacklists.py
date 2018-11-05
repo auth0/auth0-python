@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Blacklists(object):
-
     """Auth0 blacklists endpoints
 
     Args:
@@ -15,7 +14,7 @@ class Blacklists(object):
     """
 
     def __init__(self, domain, token, telemetry=True):
-        self.url = 'https://%s/api/v2/blacklists/tokens' % domain
+        self.url = 'https://{}/api/v2/blacklists/tokens'.format(domain)
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def get(self, aud=None):
@@ -24,11 +23,13 @@ class Blacklists(object):
         Args:
             aud (str, optional): The JWT's aud claim. The client_id of the
                 application for which it was issued.
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens
         """
 
-        params = {
-            'aud': aud
-        }
+        self.aud_ = {'aud': aud}
+        params = self.aud_
 
         return self.client.get(self.url, params=params)
 
@@ -39,6 +40,9 @@ class Blacklists(object):
             jti (str): the jti of the JWT to blacklist.
             aud (str, optional): The JWT's aud claim. The client_id of the
                 application for which it was issued.
+
+            body (dict):
+            	See: https://auth0.com/docs/api/management/v2#!/Blacklists/post_tokens
         """
 
         return self.client.post(self.url, data={'jti': jti, 'aud': aud})

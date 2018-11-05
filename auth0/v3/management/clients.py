@@ -19,9 +19,9 @@ class Clients(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/clients' % self.domain
+        url = 'https://{}/api/v2/clients'.format(self.domain)
         if id is not None:
-            return '%s/%s' % (url, id)
+            return '{}/{}'.format(url, id)
         return url
 
     def all(self, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
@@ -45,6 +45,9 @@ class Clients(object):
            extra_params (dictionary, optional): The extra parameters to add to
              the request. The fields, include_fields, page and per_page values
              specified as parameters take precedence over the ones defined here.
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
         """
         params = extra_params or {}
         params['fields'] = fields and ','.join(fields) or None
@@ -79,6 +82,9 @@ class Clients(object):
 
            include_fields (bool, optional): True if the fields specified are
               to be included in the result, False otherwise.
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients_by_id
         """
 
         params = {'fields': fields and ','.join(fields) or None,
@@ -91,6 +97,9 @@ class Clients(object):
 
         Args:
            id (str): Id of application to delete.
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
         """
 
         return self.client.delete(self._url(id))
@@ -105,6 +114,8 @@ class Clients(object):
            id (str): Client id of the application.
 
            body (dict): Attributes to modify.
+              See: https://auth0.com/docs/api/management/v2#!/Clients/patch_clients_by_id
         """
 
         return self.client.patch(self._url(id), data=body)
+

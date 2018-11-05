@@ -37,7 +37,7 @@ class RestClient(object):
             }).encode('utf-8')
 
             self.base_headers = {
-                'User-Agent': 'Python/%s' % py_version,
+                'User-Agent': 'Python/{}'.format(py_version),
                 'Auth0-Client': base64.b64encode(auth0_client),
                 'Content-Type': 'application/json'
             }
@@ -47,7 +47,7 @@ class RestClient(object):
     def get(self, url, params=None):
         headers = self.base_headers.copy()
         headers.update({
-            'Authorization': 'Bearer %s' % self.jwt,
+            'Authorization': 'Bearer {}'.format(self.jwt),
         })
 
         response = requests.get(url, params=params, headers=headers)
@@ -56,7 +56,7 @@ class RestClient(object):
     def post(self, url, data=None):
         headers = self.base_headers.copy()
         headers.update({
-            'Authorization': 'Bearer %s' % self.jwt,
+            'Authorization': 'Bearer {}'.format(self.jwt),
             'Content-Type': 'application/json'
         })
 
@@ -67,7 +67,7 @@ class RestClient(object):
         headers = self.base_headers.copy()
         headers.pop('Content-Type', None)
         headers.update({
-            'Authorization': 'Bearer %s' % self.jwt,
+            'Authorization': 'Bearer {}'.format(self.jwt),
         })
 
         response = requests.post(url, data=data, files=files, headers=headers)
@@ -76,7 +76,7 @@ class RestClient(object):
     def patch(self, url, data=None):
         headers = self.base_headers.copy()
         headers.update({
-            'Authorization': 'Bearer %s' % self.jwt,
+            'Authorization': 'Bearer {}'.format(self.jwt),
             'Content-Type': 'application/json'
         })
 
@@ -86,7 +86,7 @@ class RestClient(object):
     def put(self, url, data=None):
         headers = self.base_headers.copy()
         headers.update({
-            'Authorization': 'Bearer %s' % self.jwt,
+            'Authorization': 'Bearer {}'.format(self.jwt),
             'Content-Type': 'application/json'
         })
 
@@ -96,7 +96,7 @@ class RestClient(object):
     def delete(self, url, params=None):
         headers = self.base_headers.copy()
         headers.update({
-            'Authorization': 'Bearer %s' % self.jwt,
+            'Authorization': 'Bearer {}'.format(self.jwt),
         })
 
         response = requests.delete(url, headers=headers, params=params or {})

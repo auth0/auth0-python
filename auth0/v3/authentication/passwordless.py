@@ -37,7 +37,7 @@ class Passwordless(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/passwordless/start' % self.domain,
+            'https://{}/passwordless/start'.format(self.domain),
             data={
                 'client_id': client_id,
                 'connection': 'email',
@@ -53,7 +53,7 @@ class Passwordless(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/passwordless/start' % self.domain,
+            'https://{}/passwordless/start'.format(self.domain),
             data={
                 'client_id': client_id,
                 'connection': 'sms',
@@ -67,7 +67,7 @@ class Passwordless(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/oauth/ro' % self.domain,
+            'https://{}/oauth/ro'.format(self.domain),
             data={
                 'client_id': client_id,
                 'connection': 'sms',

@@ -19,9 +19,9 @@ class Users(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/users' % self.domain
+        url = 'https://{}/api/v2/users'.format(self.domain)
         if id is not None:
-            return '%s/%s' % (url, id)
+            return '{}/{}'.format(url, id)
         return url
 
     def list(self, page=0, per_page=25, sort=None, connection=None, q=None,
@@ -52,6 +52,8 @@ class Users(object):
 
             include_fields (bool, optional): True if the fields specified are
                 to be include in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_users
         """
         params = {
             'per_page': per_page,
@@ -76,6 +78,8 @@ class Users(object):
 
     def delete_all_users(self):
         """Deletes all users (USE WITH CAUTION).
+
+        Args:
         """
         return self.client.delete(self._url())
 
@@ -91,6 +95,8 @@ class Users(object):
 
             include_fields (bool, optional): True if the fields specified are
                 to be included in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
         """
         params = {
             'fields': fields and ','.join(fields) or None,
@@ -104,6 +110,8 @@ class Users(object):
 
         Args:
             id (str): The user_id of the user to delete.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id
         """
         return self.client.delete(self._url(id))
 
@@ -125,6 +133,8 @@ class Users(object):
 
             provider (str): The multifactor provider. Supported values 'duo'
                 or 'google-authenticator'
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
         """
         url = self._url('{}/multifactor/{}'.format(id, provider))
         return self.client.delete(url)
@@ -138,6 +148,8 @@ class Users(object):
             provider (str): The type of identity provider (e.g: facebook).
 
             user_id (str): The unique identifier for the user for the identity.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_user_identity_by_user_id
         """
         url = self._url('{}/identities/{}/{}'.format(id, provider, user_id))
         return self.client.delete(url)
@@ -154,7 +166,7 @@ class Users(object):
 
             body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post_identities
         """
-        url = self._url('%s/identities' % user_id)
+        url = self._url('{}/identities'.format(user_id))
         return self.client.post(url, data=body)
 
     def regenerate_recovery_code(self, user_id):
@@ -162,8 +174,10 @@ class Users(object):
 
         Args:
             user_id (str):  The user_id of the user identity.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration
         """
-        url = self._url('%s/recovery-code-regeneration' % user_id)
+        url = self._url('{}/recovery-code-regeneration'.format(user_id))
         return self.client.post(url)
 
     def get_guardian_enrollments(self, user_id):
@@ -171,8 +185,10 @@ class Users(object):
 
         Args:
             user_id (str):  The user_id of the user to retrieve
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
         """
-        url = self._url('%s/enrollments' % user_id)
+        url = self._url('{}/enrollments'.format(user_id))
         return self.client.get(url)
 
     def get_log_events(self, user_id, page=0, per_page=50, sort=None,
@@ -204,5 +220,5 @@ class Users(object):
             'sort': sort
         }
 
-        url = self._url('%s/logs' % user_id)
+        url = self._url('{}/logs'.format(user_id))
         return self.client.get(url, params=params)

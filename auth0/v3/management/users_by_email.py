@@ -19,7 +19,7 @@ class UsersByEmail(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self):
-        url = 'https://%s/api/v2/users-by-email' % self.domain
+        url = 'https://{}/api/v2/users-by-email'.format(self.domain)
         return url
 
     def search_users_by_email(self, email, fields=None, include_fields=True):
@@ -35,6 +35,8 @@ class UsersByEmail(object):
 
             include_fields (bool, optional): True if the fields specified are
                 to be include in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users_By_Email/get_users_by_email
         """
         params = {
             'email': email.lower(),

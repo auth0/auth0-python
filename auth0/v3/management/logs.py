@@ -19,9 +19,9 @@ class Logs(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/logs' % self.domain
+        url = 'https://{}/api/v2/logs'.format(self.domain)
         if id is not None:
-            return '%s/%s' % (url, id)
+            return '{}/{}'.format(url, id)
         return url
 
     def search(self, page=0, per_page=50, sort=None, q=None,
@@ -54,6 +54,8 @@ class Logs(object):
 
             take (int, optional): The total amount of entries to retrieve when
                 using the from parameter.
+
+        https://auth0.com/docs/api/management/v2#!/Logs/get_logs
         """
         params = {
             'per_page': per_page,
@@ -73,6 +75,9 @@ class Logs(object):
 
         Args:
             id (str): The log_id of the log to retrieve
+
+
+        See: https://auth0.com/docs/api/management/v2#!/Logs/get_logs_by_id
         """
 
         return self.client.get(self._url(id))

@@ -39,7 +39,7 @@ class Delegated(AuthenticationBase):
                              'have a value')
 
         return self.post(
-            'https://%s/delegation' % self.domain,
+            'https://{}/delegation'.format(self.domain),
             headers={'Content-Type': 'application/json'},
             data=data
         )

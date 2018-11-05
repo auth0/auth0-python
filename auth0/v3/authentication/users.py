@@ -26,8 +26,8 @@ class Users(AuthenticationBase):
         """
 
         return self.get(
-            url='https://%s/userinfo' % self.domain,
-            headers={'Authorization': 'Bearer %s' % access_token}
+            url='https://{}/userinfo'.format(self.domain),
+            headers={'Authorization': 'Bearer {}'.format(access_token)}
         )
 
     def tokeninfo(self, jwt):
@@ -46,7 +46,7 @@ class Users(AuthenticationBase):
         """
         warnings.warn("/tokeninfo will be deprecated in future releases", DeprecationWarning)
         return self.post(
-            url='https://%s/tokeninfo' % self.domain,
+            url='https://{}/tokeninfo'.format(self.domain),
             data={'id_token': jwt},
             headers={'Content-Type': 'application/json'}
         )

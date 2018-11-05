@@ -19,9 +19,9 @@ class Emails(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/emails/provider' % self.domain
+        url = 'https://{}/api/v2/emails/provider'.format(self.domain)
         if id is not None:
-            return '%s/%s' % (url, id)
+            return '{}/{}'.format(url, id)
         return url
 
     def get(self, fields=None, include_fields=True):
@@ -34,6 +34,8 @@ class Emails(object):
 
             include_fields (bool, optional): True if the fields specified are
                 to be included in the result, False otherwise.
+
+        See: https://auth0.com/docs/api/management/v2#!/Emails/get_provider
         """
         params = {'fields': fields and ','.join(fields) or None,
                   'include_fields': str(include_fields).lower()}
@@ -50,6 +52,8 @@ class Emails(object):
 
     def delete(self):
         """Delete the email provider. (USE WITH CAUTION)
+
+        See: https://auth0.com/docs/api/management/v2#!/Emails/delete_provider
         """
         return self.client.delete(self._url())
 

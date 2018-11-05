@@ -19,9 +19,9 @@ class Jobs(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, path=None):
-        url = 'https://%s/api/v2/jobs' % self.domain
+        url = 'https://{}/api/v2/jobs'.format(self.domain)
         if path is not None:
-            return '%s/%s' % (url, path)
+            return '{}/{}'.format(url, path)
         return url
 
     def get(self, id):
@@ -29,6 +29,8 @@ class Jobs(object):
 
         Args:
             id (str): The id of the job.
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
         """
         return self.client.get(self._url(id))
 
@@ -37,8 +39,10 @@ class Jobs(object):
 
         Args:
             id (str): The id of the job.
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_errors
         """
-        url = self._url('%s/errors' % (id))
+        url = self._url('{}/errors'.format(id))
         return self.client.get(url)
 
     def export_users(self, body):
@@ -61,6 +65,8 @@ class Jobs(object):
 
             file_obj (file): A file-like object to upload. The format for
                 this file is explained in: https://auth0.com/docs/bulk-import
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports
         """
         return self.client.file_post(self._url('users-imports'),
                                      data={'connection_id': connection_id, 'upsert': str(upsert).lower()},
