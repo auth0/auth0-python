@@ -29,4 +29,4 @@ class Enterprise(AuthenticationBase):
         url = 'https://{}/wsfed/FederationMetadata' \
               '/2007-06/FederationMetadata.xml'
 
-        return self.get(url=url % self.domain)
+        return self.get(url=url.format(self.domain))
