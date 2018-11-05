@@ -46,7 +46,7 @@ For python3, use the following command
     
     pip3 install auth0-python
 
-Python 3.2 and 3.3 have reached `end-of-life<https://en.wikipedia.org/wiki/CPython#Version_history>`_ and support will be removed in the near future.
+Python 3.2 and 3.3 have reached `EOL <https://en.wikipedia.org/wiki/CPython#Version_history>`_ and support will be removed in the near future.
 
 ====================
 Management SDK Usage
