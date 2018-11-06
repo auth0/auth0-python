@@ -39,7 +39,7 @@ class UsersByEmail(object):
         See: https://auth0.com/docs/api/management/v2#!/Users_By_Email/get_users_by_email
         """
         params = {
-            'email': email.lower(),
+            'email': email,
             'fields': fields and ','.join(fields) or None,
             'include_fields': str(include_fields).lower()
         }
