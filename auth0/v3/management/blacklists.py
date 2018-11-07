@@ -28,8 +28,9 @@ class Blacklists(object):
         See: https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens
         """
 
-        self.aud_ = {'aud': aud}
-        params = self.aud_
+        params = {
+            'aud': aud
+        }
 
         return self.client.get(self.url, params=params)
 
