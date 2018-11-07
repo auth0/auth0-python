@@ -138,4 +138,4 @@ class Connections(object):
         Returns:
             An empty dict.
         """
-        return self.client.delete('{}/users'.format(self._url(id)), params={'email': email})
+        return self.client.delete(self._url(id) + '/users', params={'email': email})
