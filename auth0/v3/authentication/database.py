@@ -25,7 +25,7 @@ class Database(AuthenticationBase):
         """
         warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
         return self.post(
-            'https://%s/oauth/ro' % self.domain,
+            'https://{}/oauth/ro'.format(self.domain),
             data={
                 'client_id': client_id,
                 'username': username,
@@ -44,7 +44,7 @@ class Database(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/dbconnections/signup' % self.domain,
+            'https://{}/dbconnections/signup'.format(self.domain),
             data={
                 'client_id': client_id,
                 'email': email,
@@ -59,7 +59,7 @@ class Database(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/dbconnections/change_password' % self.domain,
+            'https://{}/dbconnections/change_password'.format(self.domain),
             data={
                 'client_id': client_id,
                 'email': email,

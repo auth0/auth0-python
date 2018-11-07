@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Blacklists(object):
-
     """Auth0 blacklists endpoints
 
     Args:
@@ -15,7 +14,7 @@ class Blacklists(object):
     """
 
     def __init__(self, domain, token, telemetry=True):
-        self.url = 'https://%s/api/v2/blacklists/tokens' % domain
+        self.url = 'https://{}/api/v2/blacklists/tokens'.format(domain)
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def get(self, aud=None):

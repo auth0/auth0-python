@@ -19,7 +19,7 @@ class Tenants(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self):
-        return 'https://%s/api/v2/tenants/settings' % self.domain
+        return 'https://{}/api/v2/tenants/settings'.format(self.domain)
 
     def get(self, fields=None, include_fields=True):
         """Get tenant settings.

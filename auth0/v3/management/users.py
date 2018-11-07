@@ -19,9 +19,9 @@ class Users(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/users' % self.domain
+        url = 'https://{}/api/v2/users'.format(self.domain)
         if id is not None:
-            return url + '/' + id
+            return '{}/{}'.format(url, id)
         return url
 
     def list(self, page=0, per_page=25, sort=None, connection=None, q=None,
@@ -166,7 +166,7 @@ class Users(object):
 
             body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post_identities
         """
-        url = self._url('%s/identities' % user_id)
+        url = self._url('{}/identities'.format(user_id))
         return self.client.post(url, data=body)
 
     def regenerate_recovery_code(self, user_id):
@@ -177,7 +177,7 @@ class Users(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration
         """
-        url = self._url('%s/recovery-code-regeneration' % user_id)
+        url = self._url('{}/recovery-code-regeneration'.format(user_id))
         return self.client.post(url)
 
     def get_guardian_enrollments(self, user_id):
@@ -188,7 +188,7 @@ class Users(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
         """
-        url = self._url('%s/enrollments' % user_id)
+        url = self._url('{}/enrollments'.format(user_id))
         return self.client.get(url)
 
     def get_log_events(self, user_id, page=0, per_page=50, sort=None,
@@ -220,5 +220,5 @@ class Users(object):
             'sort': sort
         }
 
-        url = self._url('%s/logs' % user_id)
+        url = self._url('{}/logs'.format(user_id))
         return self.client.get(url, params=params)

@@ -28,5 +28,5 @@ class AuthorizeClient(AuthenticationBase):
         }
 
         return self.get(
-            'https://%s/authorize' % self.domain,
+            'https://{}/authorize'.format(self.domain),
             params=params)

@@ -19,9 +19,9 @@ class Jobs(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, path=None):
-        url = 'https://%s/api/v2/jobs' % self.domain
+        url = 'https://{}/api/v2/jobs'.format(self.domain)
         if path is not None:
-            return url + '/' + path
+            return '{}/{}'.format(url, path)
         return url
 
     def get(self, id):
@@ -42,7 +42,7 @@ class Jobs(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Jobs/get_errors
         """
-        url = self._url('%s/errors' % (id))
+        url = self._url('{}/errors'.format(id))
         return self.client.get(url)
 
     def export_users(self, body):

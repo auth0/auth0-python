@@ -19,9 +19,9 @@ class Emails(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/emails/provider' % self.domain
+        url = 'https://{}/api/v2/emails/provider'.format(self.domain)
         if id is not None:
-            return url + '/' + id
+            return '{}/{}'.format(url, id)
         return url
 
     def get(self, fields=None, include_fields=True):

@@ -19,9 +19,9 @@ class UserBlocks(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/user-blocks' % self.domain
+        url = 'https://{}/api/v2/user-blocks'.format(self.domain)
         if id is not None:
-            return url + '/' + id
+            return '{}/{}'.format(url, id)
         return url
 
     def get_by_identifier(self, identifier):

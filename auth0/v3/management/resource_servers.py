@@ -19,9 +19,9 @@ class ResourceServers(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/resource-servers' % self.domain
+        url = 'https://{}/api/v2/resource-servers'.format(self.domain)
         if id is not None:
-            return url + '/' + id
+            return '{}/{}'.format(url, id)
         return url
 
     def create(self, body):

@@ -19,9 +19,9 @@ class Guardian(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/guardian' % self.domain
+        url = 'https://{}/api/v2/guardian'.format(self.domain)
         if id is not None:
-            return url + '/' + id
+            return '{}/{}'.format(url, id)
         return url
 
     def all_factors(self):
@@ -42,7 +42,7 @@ class Guardian(object):
             body (dict): Attributes to modify.
             See: https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name
         """
-        url = self._url('factors/%s' % (name))
+        url = self._url('factors/{}'.format(name))
         return self.client.put(url, data=body)
 
     def update_templates(self, body):
@@ -79,7 +79,7 @@ class Guardian(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/get_enrollments_by_id
         """
-        url = self._url('enrollments/%s' % (id))
+        url = self._url('enrollments/{}'.format(id))
         return self.client.get(url)
 
     def delete_enrollment(self, id):
@@ -93,7 +93,7 @@ class Guardian(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id
         """
-        url = self._url('enrollments/%s' % (id))
+        url = self._url('enrollments/{}'.format(id))
         return self.client.delete(url)
 
     def create_enrollment_ticket(self, body):

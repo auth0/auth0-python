@@ -32,7 +32,7 @@ class Social(AuthenticationBase):
         """
 
         return self.post(
-            'https://%s/oauth/access_token' % self.domain,
+            'https://{}/oauth/access_token'.format(self.domain),
             data={
                 'client_id': client_id,
                 'access_token': access_token,

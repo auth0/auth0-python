@@ -19,9 +19,9 @@ class DeviceCredentials(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/device-credentials' % self.domain
+        url = 'https://{}/api/v2/device-credentials'.format(self.domain)
         if id is not None:
-            return url + '/' + id
+            return '{}/{}'.format(url, id)
         return url
 
     def get(self, user_id, client_id, type, fields=None, include_fields=True):

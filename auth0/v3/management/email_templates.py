@@ -19,9 +19,9 @@ class EmailTemplates(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self, id=None):
-        url = 'https://%s/api/v2/email-templates' % self.domain
+        url = 'https://{}/api/v2/email-templates'.format(self.domain)
         if id is not None:
-            return url + '/' + id
+            return '{}/{}'.format(url, id)
         return url
 
     def create(self, body):

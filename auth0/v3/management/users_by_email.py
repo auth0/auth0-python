@@ -19,7 +19,7 @@ class UsersByEmail(object):
         self.client = RestClient(jwt=token, telemetry=telemetry)
 
     def _url(self):
-        url = 'https://%s/api/v2/users-by-email' % self.domain
+        url = 'https://{}/api/v2/users-by-email'.format(self.domain)
         return url
 
     def search_users_by_email(self, email, fields=None, include_fields=True):
