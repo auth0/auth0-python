@@ -9,9 +9,6 @@ class Delegated(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def get_token(self, client_id, target, api_type, grant_type,
                   id_token=None, refresh_token=None, scope='openid'):
 

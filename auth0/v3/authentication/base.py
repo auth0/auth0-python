@@ -1,4 +1,7 @@
+import base64
 import json
+import sys
+import platform
 import requests
 from ..exceptions import Auth0Error
 
@@ -8,13 +11,56 @@ UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
 
 class AuthenticationBase(object):
 
+    """Base authentication object providing simple REST methods.
+
+    Args:
+        telemetry (bool, optional): Enable or disable Telemetry
+            (defaults to True)
+    """
+
+    def __init__(self, domain, telemetry=True):
+        self.domain = domain
+
+        self.base_headers = {'Content-Type': 'application/json'}
+
+        if telemetry:
+            py_version = platform.python_version()
+            version = sys.modules['auth0'].__version__
+
+            auth0_client = json.dumps({
+                'name': 'auth0-python',
+                'version': version,
+                'dependencies': [
+                    {
+                        'name': 'requests',
+                        'version': requests.__version__,
+                    }
+                ],
+                'environment': [
+                    {
+                        'name': 'python',
+                        'version': py_version,
+                    }
+                ]
+            }).encode('utf-8')
+
+            self.base_headers.update({
+                'User-Agent': 'Python/%s' % py_version,
+                'Auth0-Client': base64.b64encode(auth0_client),
+            })
+
     def post(self, url, data=None, headers=None):
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers)
         response = requests.post(url=url, data=json.dumps(data),
-                                 headers=headers)
+                                 headers=request_headers)
         return self._process_response(response)
 
     def get(self, url, params=None, headers=None):
-        return requests.get(url=url, params=params, headers=headers).text
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers)
+        response = requests.get(url=url, params=params, headers=request_headers)
+        return response.text
 
     def _process_response(self, response):
         return self._parse(response).content()

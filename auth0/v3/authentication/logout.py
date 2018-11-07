@@ -13,9 +13,6 @@ class Logout(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def logout(self, client_id, return_to, federated=False):
         """Logout
 

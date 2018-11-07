@@ -9,9 +9,6 @@ class Passwordless(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def __init__(self, domain):
-        self.domain = domain
-
     def email(self, client_id, email, send='link', auth_params=None):
         """Start flow sending an email.
 
