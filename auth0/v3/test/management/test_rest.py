@@ -13,7 +13,10 @@ class TestRest(unittest.TestCase):
     @mock.patch('requests.get')
     def test_get(self, mock_get):
         rc = RestClient(jwt='a-token', telemetry=False)
-        headers = {'Authorization': 'Bearer a-token'}
+        headers = {
+            'Authorization': 'Bearer a-token',
+            'Content-Type': 'application/json',
+        }
 
         mock_get.return_value.text = '["a", "b"]'
         mock_get.return_value.status_code = 200
@@ -198,6 +201,20 @@ class TestRest(unittest.TestCase):
             self.assertEqual(context.exception.error_code, 'a0.sdk.internal.unknown')
             self.assertEqual(context.exception.message, '')
 
+    @mock.patch('requests.post')
+    def test_file_post_content_type_is_none(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False)
+        headers = {'Authorization': 'Bearer a-token'}
+        mock_post.return_value.status_code = 200
+        mock_post.return_value.text = 'Success'
+
+        data = {'some': 'data'}
+        files = [mock.Mock()]
+
+        rc.file_post('the-url', data=data, files=files)
+
+        mock_post.assert_called_once_with('the-url', data=data, files=files, headers=headers)
+
     @mock.patch('requests.patch')
     def test_patch(self, mock_patch):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -234,7 +251,10 @@ class TestRest(unittest.TestCase):
     @mock.patch('requests.delete')
     def test_delete(self, mock_delete):
         rc = RestClient(jwt='a-token', telemetry=False)
-        headers = {'Authorization': 'Bearer a-token'}
+        headers = {
+            'Authorization': 'Bearer a-token',
+            'Content-Type': 'application/json',
+        }
 
         mock_delete.return_value.text = '["a", "b"]'
         mock_delete.return_value.status_code = 200
@@ -262,8 +282,12 @@ class TestRest(unittest.TestCase):
 
     def test_disabled_telemetry(self):
         rc = RestClient(jwt='a-token', telemetry=False)
+        expected_headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer a-token',
+        }
         
-        self.assertEqual(rc.base_headers, {})
+        self.assertEqual(rc.base_headers, expected_headers)
 
     def test_enabled_telemetry(self):
         rc = RestClient(jwt='a-token', telemetry=True)

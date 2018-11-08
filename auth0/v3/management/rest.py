@@ -16,6 +16,10 @@ class RestClient(object):
     def __init__(self, jwt, telemetry=True):
         self.jwt = jwt
 
+        self.base_headers = {
+            'Authorization': 'Bearer {}'.format(self.jwt),
+            'Content-Type': 'application/json',
+        }
         if telemetry:
             py_version = platform.python_version()
             version = sys.modules['auth0'].__version__
@@ -36,29 +40,19 @@ class RestClient(object):
                 ]
             }).encode('utf-8')
 
-            self.base_headers = {
+            self.base_headers.update({
                 'User-Agent': 'Python/{}'.format(py_version),
                 'Auth0-Client': base64.b64encode(auth0_client),
-                'Content-Type': 'application/json'
-            }
-        else:
-            self.base_headers = {}
+            })
 
     def get(self, url, params=None):
         headers = self.base_headers.copy()
-        headers.update({
-            'Authorization': 'Bearer {}'.format(self.jwt),
-        })
 
         response = requests.get(url, params=params, headers=headers)
         return self._process_response(response)
 
     def post(self, url, data=None):
         headers = self.base_headers.copy()
-        headers.update({
-            'Authorization': 'Bearer {}'.format(self.jwt),
-            'Content-Type': 'application/json'
-        })
 
         response = requests.post(url, data=json.dumps(data or {}), headers=headers)
         return self._process_response(response)
@@ -66,38 +60,24 @@ class RestClient(object):
     def file_post(self, url, data=None, files=None):
         headers = self.base_headers.copy()
         headers.pop('Content-Type', None)
-        headers.update({
-            'Authorization': 'Bearer {}'.format(self.jwt),
-        })
 
         response = requests.post(url, data=data, files=files, headers=headers)
         return self._process_response(response)
 
     def patch(self, url, data=None):
         headers = self.base_headers.copy()
-        headers.update({
-            'Authorization': 'Bearer {}'.format(self.jwt),
-            'Content-Type': 'application/json'
-        })
 
         response = requests.patch(url, data=json.dumps(data or {}), headers=headers)
         return self._process_response(response)
 
     def put(self, url, data=None):
         headers = self.base_headers.copy()
-        headers.update({
-            'Authorization': 'Bearer {}'.format(self.jwt),
-            'Content-Type': 'application/json'
-        })
 
         response = requests.put(url, data=json.dumps(data or {}), headers=headers)
         return self._process_response(response)
 
     def delete(self, url, params=None):
         headers = self.base_headers.copy()
-        headers.update({
-            'Authorization': 'Bearer {}'.format(self.jwt),
-        })
 
         response = requests.delete(url, headers=headers, params=params or {})
         return self._process_response(response)
