@@ -36,18 +36,38 @@ class Database(AuthenticationBase):
             headers={'Content-Type': 'application/json'}
         )
 
-    def signup(self, client_id, email, password, connection):
+    def signup(self, client_id, email, password, connection, username=None,
+             user_metadata=None):
         """Signup using username and password.
+        
+        Args:
+           client_id (str): Id of the application to use.
+
+           email (str): The user's email address.
+
+           password (str): The user's desired password.
+
+           connection (str): The name of the database where this user will be created.
+
+           username (str, optional): The user's username, if required by the database connection.
+
+           user_metadata (dict, optional): Additional key-value information to store for the user.
+                    Some limitations apply, see: https://auth0.com/docs/metadata
+
+        See: https://auth0.com/docs/api/authentication#signup
         """
+        body = {
+            'client_id': client_id,
+            'email': email,
+            'password': password,
+            'connection': connection,
+            'username': username,
+            'user_metadata': user_metadata
+        }
 
         return self.post(
             'https://{}/dbconnections/signup'.format(self.domain),
-            data={
-                'client_id': client_id,
-                'email': email,
-                'password': password,
-                'connection': connection,
-            },
+            data=body,
             headers={'Content-Type': 'application/json'}
         )
 
