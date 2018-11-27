@@ -41,6 +41,7 @@ class TestDatabase(unittest.TestCase):
 
         d = Database('my.domain.com')
 
+        # using only email and password
         d.signup(client_id='cid',
                  email='a@b.com',
                  password='pswd',
@@ -54,7 +55,39 @@ class TestDatabase(unittest.TestCase):
                          'email': 'a@b.com',
                          'password': 'pswd',
                          'connection': 'conn',
-                         })
+                         'username': None,
+                         'user_metadata': None
+                        })
+        self.assertEqual(kwargs['headers'], {
+            'Content-Type': 'application/json'
+        })
+
+
+        # Using also username and metadata
+        sample_meta = {
+            'hobby': 'surfing',
+            'preference': {
+                'color': 'pink'
+            }
+        }
+        d.signup(client_id='cid',
+                 email='a@b.com',
+                 password='pswd',
+                 connection='conn',
+                 username='usr',
+                 user_metadata=sample_meta)
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], 'https://my.domain.com/dbconnections/signup')
+        self.assertEqual(kwargs['data'], {
+                         'client_id': 'cid',
+                         'email': 'a@b.com',
+                         'password': 'pswd',
+                         'connection': 'conn',
+                         'username': 'usr',
+                         'user_metadata': sample_meta
+                        })
         self.assertEqual(kwargs['headers'], {
             'Content-Type': 'application/json'
         })
