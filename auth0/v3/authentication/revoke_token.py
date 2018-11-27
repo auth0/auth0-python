@@ -17,12 +17,13 @@ class RevokeToken(AuthenticationBase):
            been issued for the same user, application, and audience will be revoked.
 
            Args:
-                client_id (str): your application's client Id
+                client_id (str): The Client ID for your Application
 
-                token (str): the Refresh Token you want to revoke
+                token (str): The Refresh Token you want to revoke
 
-                client_secret (str, optional): Your application's Client Secret. 
+                client_secret (str, optional): The Client Secret for your Application.
                         Required for confidential applications.
+                        See: https://auth0.com/docs/applications/application-types#confidential-applications
             
             See: https://auth0.com/docs/api/authentication#refresh-token
         """
