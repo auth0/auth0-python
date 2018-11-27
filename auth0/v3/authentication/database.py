@@ -38,21 +38,21 @@ class Database(AuthenticationBase):
 
     def signup(self, client_id, email, password, connection, username=None,
              user_metadata=None):
-        """Signup using username and password.
+        """Signup using email and password.
         
         Args:
-           client_id (str): Id of the application to use.
+           client_id (str): ID of the application to use.
 
            email (str): The user's email address.
 
            password (str): The user's desired password.
 
-           connection (str): The name of the database where this user will be created.
+           connection (str): The name of the database connection where this user should be created.
 
            username (str, optional): The user's username, if required by the database connection.
 
            user_metadata (dict, optional): Additional key-value information to store for the user.
-                    Some limitations apply, see: https://auth0.com/docs/metadata
+                    Some limitations apply, see: https://auth0.com/docs/metadata#metadata-restrictions
 
         See: https://auth0.com/docs/api/authentication#signup
         """
