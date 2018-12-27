@@ -1,6 +1,14 @@
 Changes
 =======
 
+3.5.0
+------------------
+
+**Added**
+- Add Revoke Refresh Token endpoint [\#170](https://github.com/auth0/auth0-python/pull/170) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add /dbconnections/signup with username and metadata [\#169](https://github.com/auth0/auth0-python/pull/169) ([lbalmaceda](https://github.com/lbalmaceda))
+
+
 3.4.0
 ------------------
 
