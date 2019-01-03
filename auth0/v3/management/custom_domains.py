@@ -24,15 +24,19 @@ class CustomDomains(object):
             return url + '/' + id
         return url
 
-    def get_all(self):
+    def all(self, extra_params=None):
         """Retrieves all custom domains.
-            
+
+        Args:
+            extra_params (dictionary, optional): The extra parameters to add to
+             the request.
+                      
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/get_custom_domains
         """
+        params = extra_params or {}
+        return self.client.get(self._url(), params=params)
 
-        return self.client.get(self._url())
-
-    def get_domain_by_id(self, id):
+    def get(self, id):
         """Retrieves custom domain.
 
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/get_custom_domains_by_id

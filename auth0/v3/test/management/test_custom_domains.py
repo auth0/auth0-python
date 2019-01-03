@@ -10,7 +10,7 @@ class TestCustomDomains(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         g = CustomDomains(domain='domain', token='jwttoken')
-        g.get_all()
+        g.all()
 
         mock_instance.get.assert_called_with(
             'https://domain/api/v2/custom-domains'
@@ -33,7 +33,7 @@ class TestCustomDomains(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         g = CustomDomains(domain='domain', token='jwttoken')
-        g.get_domain_by_id('an-id')
+        g.get('an-id')
 
         mock_instance.get.assert_called_with('https://domain/api/v2/custom-domains/an-id')
 
