@@ -33,7 +33,7 @@ class TestRules(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         g = RulesConfigs(domain='domain', token='jwttoken')
-        g.create('key',{'values': 'MY_RULES_CONFIG_VALUES'})
+        g.create('key', 'MY_RULES_CONFIG_VALUES')
 
         args, kwargs = mock_instance.put.call_args
         self.assertEqual('https://domain/api/v2/rules-configs/key', args[0])

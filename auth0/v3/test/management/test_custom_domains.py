@@ -13,7 +13,7 @@ class TestCustomDomains(unittest.TestCase):
         g.all()
 
         mock_instance.get.assert_called_with(
-            'https://domain/api/v2/custom-domains'
+            'https://domain/api/v2/custom-domains', params={}
         )
 
     @mock.patch('auth0.v3.management.custom_domains.RestClient')

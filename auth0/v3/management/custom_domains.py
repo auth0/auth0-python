@@ -30,7 +30,7 @@ class CustomDomains(object):
         Args:
             extra_params (dictionary, optional): The extra parameters to add to
              the request.
-                      
+
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/get_custom_domains
         """
         params = extra_params or {}

@@ -47,12 +47,13 @@ class RulesConfigs(object):
         }
         return self.client.delete(self._url(), params=params)
 
-    def create(self, key, body):
+    def create(self, key, value):
         """Sets the rules config for a given key.
 
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/put_rules_configs_by_key
         """
         url = self._url('{}'.format(key))
+        body = {'value': value}
         return self.client.put(url, data=body)
 
