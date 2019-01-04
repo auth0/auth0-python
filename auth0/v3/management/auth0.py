@@ -39,7 +39,7 @@ class Auth0(object):
         self.device_credentials = DeviceCredentials(domain, token)
         self.emails = Emails(domain, token)
         self.email_templates = EmailTemplates(domain, token)
-        self.grants = Grants(domain.token)
+        self.grants = Grants(domain, token)
         self.guardian = Guardian(domain, token)
         self.jobs = Jobs(domain, token)
         self.logs = Logs(domain, token)
