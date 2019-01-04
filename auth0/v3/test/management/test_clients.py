@@ -111,3 +111,17 @@ class TestClients(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/clients/this-id', args[0])
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
+
+    @mock.patch('auth0.v3.management.clients.RestClient')
+    def test_rotate_secret(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Clients(domain='domain', token='jwttoken')
+        c.rotate_secret('this-id')
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/clients/this-id/rotate-secret', params={'id': 'this-id'}
+        )
+
+
+

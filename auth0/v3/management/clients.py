@@ -111,7 +111,7 @@ class Clients(object):
         attributes can only be updated with the update:client_keys scope.
 
         Args:
-           id (str): Client id of the application.
+           id (str): Client ID of the application.
 
            body (dict): Attributes to modify.
               See: https://auth0.com/docs/api/management/v2#!/Clients/patch_clients_by_id
@@ -119,3 +119,17 @@ class Clients(object):
 
         return self.client.patch(self._url(id), data=body)
 
+    def rotate_secret(self, id):
+        """Rotate a client secret. The generated secret is NOT base64 encoded.
+
+        Args:
+           id (str): Client ID of the application.
+
+           body (dict): Attributes to modify.
+              See: https://auth0.com/docs/api/management/v2#!/Clients/post_rotate_secret
+        """
+
+        params = {'id': id }
+
+        url = self._url('%s/rotate-secret' % id)
+        return self.client.get(url, params=params)
