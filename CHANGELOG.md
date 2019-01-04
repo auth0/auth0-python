@@ -1,6 +1,13 @@
 Changes
 =======
 
+3.6.1
+------------------
+
+**Fixed**
+- Fixed Management API Grants class instantiation [\#179](https://github.com/auth0/auth0-python/pull/179) ([beck3905](https://github.com/beck3905))
+
+
 3.6.0
 ------------------
 
