@@ -1,6 +1,13 @@
 Changes
 =======
 
+3.6.0
+------------------
+
+**Added**
+- Add grants, custom domains, rules_configs to API [\#177](https://github.com/auth0/auth0-python/pull/177) ([sagnew-dg](https://github.com/sagnew-dg))
+
+
 3.5.0
 ------------------
 
