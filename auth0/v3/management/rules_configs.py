@@ -24,21 +24,18 @@ class RulesConfigs(object):
             return url + '/' + id
         return url
 
-    def all(self, extra_params=None):
+    def all(self):
         """Lists the config variable keys for rules.
-
-        Args:
-            extra_params (dictionary, optional): The extra parameters to add to
-             the request.
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/get_rules_configs
         """
-        params = extra_params or {}
-        return self.client.get(self._url(), params=params)
+        return self.client.get(self._url())
 
-    def delete(self, key):
+    def unset(self, key):
         """Removes the rules config for a given key.
 
+        Args:
+            key (str): rules config key to remove
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/delete_rules_configs_by_key
         """
@@ -47,9 +44,13 @@ class RulesConfigs(object):
         }
         return self.client.delete(self._url(), params=params)
 
-    def create(self, key, value):
+    def set(self, key, value):
         """Sets the rules config for a given key.
 
+        Args:
+            key (str): rules config key to set
+
+            value (str): value to set for the rules config key
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/put_rules_configs_by_key
         """

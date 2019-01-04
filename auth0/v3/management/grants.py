@@ -36,7 +36,7 @@ class Grants(object):
                 to be included in the result, False otherwise.
 
            extra_params (dictionary, optional): The extra parameters to add to
-             the request. The fields, include_fields, page and per_page values
+             the request. The page, per_page, and include_totals values
              specified as parameters take precedence over the ones defined here.
             
         See: https://auth0.com/docs/api/management/v2#!/Grants/get_grants

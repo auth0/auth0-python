@@ -18,22 +18,22 @@ class TestRules(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/rules-configs', args[0])
 
     @mock.patch('auth0.v3.management.rules_configs.RestClient')
-    def test_delete(self, mock_rc):
+    def test_unset(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         c = RulesConfigs(domain='domain', token='jwttoken')
-        c.delete('an-id')
+        c.unset('an-id')
 
         mock_instance.delete.assert_called_with(
             'https://domain/api/v2/rules-configs', params={'key': 'an-id'}
         )
 
     @mock.patch('auth0.v3.management.rules_configs.RestClient')
-    def test_update_factor_providers(self, mock_rc):
+    def test_set(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         g = RulesConfigs(domain='domain', token='jwttoken')
-        g.create('key', 'MY_RULES_CONFIG_VALUES')
+        g.set('key', 'MY_RULES_CONFIG_VALUES')
 
         args, kwargs = mock_instance.put.call_args
         self.assertEqual('https://domain/api/v2/rules-configs/key', args[0])
