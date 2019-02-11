@@ -11,12 +11,12 @@ Description of the bug or feature request and why it's a problem. Consider inclu
 
 ### Prerequisites
 
-- [ ] I have checked the [README documentation](https://github.com/auth0/auth0-python/blob/master/README.rst)
+- [ ] I have checked the [README documentation](https://github.com/auth0/auth0-python/blob/master/README.rst).
 - [ ] I have checked the [Auth0 Community](https://community.auth0.com/) for related posts.
 - [ ] I have checked for related or duplicate [Issues](https://github.com/auth0/auth0-python/issues) and [PRs](https://github.com/auth0/auth0-python/pulls).
 - [ ] I have read the [Auth0 general contribution guidelines](https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md).
 - [ ] I have read the [Auth0 Code of Conduct](https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md).
-- [ ] I am reporting this to the correct repository [Add links to other related].
+- [ ] I am reporting this to the correct repository.
 
 ### Environment
 
