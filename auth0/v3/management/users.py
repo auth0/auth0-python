@@ -25,7 +25,7 @@ class Users(object):
         return url
 
     def list(self, page=0, per_page=25, sort=None, connection=None, q=None,
-             search_engine='v1', include_totals=True, fields=None,
+             search_engine=None, include_totals=True, fields=None,
              include_fields=True):
         """List or search users.
 
@@ -43,8 +43,9 @@ class Users(object):
                 in app_metadata, user_metadata or the normalized user profile
                 are searchable.
 
-            search_engine (str, optional): Use 'v2' if you want to try our new
-                search engine.
+            search_engine (str, optional): The version of the search_engine to use
+                when querying for users. Will default to the latest version available.
+                See: https://auth0.com/docs/users/search
 
             fields (list of str, optional): A list of fields to include or
                 exclude from the result (depending on include_fields). Empty to

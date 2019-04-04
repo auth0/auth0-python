@@ -24,7 +24,7 @@ class TestUsers(unittest.TestCase):
             'fields': None,
             'include_fields': 'true',
             'q': None,
-            'search_engine': 'v1'
+            'search_engine': None
         })
 
         u.list(page=1, per_page=50, sort='s', connection='con', q='q',
