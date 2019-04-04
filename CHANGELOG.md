@@ -1,6 +1,13 @@
 Changes
 =======
 
+3.7.0
+------------------
+
+**Changed**
+- Remove default value for search_engine [\#185](https://github.com/auth0/auth0-python/pull/185) ([lbalmaceda](https://github.com/lbalmaceda))
+
+
 3.6.1
 ------------------
 
