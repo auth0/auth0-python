@@ -304,19 +304,11 @@ class TestRest(unittest.TestCase):
                                            sys.version_info.micro)
 
         client_info = {
-            'name': 'auth0-python', 'version': auth0_version,
-            'dependencies': [
-                {
-                    'name': 'requests',
-                    'version': requests.__version__
-                }
-            ],
-            'environment': [
-                {
-                    'name': 'python',
-                    'version': python_version
-                }
-            ]
+            'name': 'auth0-python', 
+            'version': auth0_version,
+            'env': {
+                'python': python_version
+            }
         }
 
         self.assertEqual(user_agent, 'Python/{}'.format(python_version))

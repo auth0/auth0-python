@@ -30,18 +30,9 @@ class AuthenticationBase(object):
             auth0_client = json.dumps({
                 'name': 'auth0-python',
                 'version': version,
-                'dependencies': [
-                    {
-                        'name': 'requests',
-                        'version': requests.__version__,
-                    }
-                ],
-                'environment': [
-                    {
-                        'name': 'python',
-                        'version': py_version,
-                    }
-                ]
+                'env': {
+                    'python': py_version,
+                }
             }).encode('utf-8')
 
             self.base_headers.update({
