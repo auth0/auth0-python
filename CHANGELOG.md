@@ -1,6 +1,13 @@
 Changes
 =======
 
+3.7.1
+------------------
+
+**Fixed**
+- Update telemetry format [\#187](https://github.com/auth0/auth0-python/pull/187) ([lbalmaceda](https://github.com/lbalmaceda))
+
+
 3.7.0
 ------------------
 
