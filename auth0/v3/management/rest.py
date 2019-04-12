@@ -25,19 +25,11 @@ class RestClient(object):
             version = sys.modules['auth0'].__version__
 
             auth0_client = json.dumps({
-                'name': 'auth0-python', 'version': version,
-                'dependencies': [
-                    {
-                        'name': 'requests',
-                        'version': requests.__version__,
-                    }
-                ],
-                'environment': [
-                    {
-                        'name': 'python',
-                        'version': py_version,
-                    }
-                ]
+                'name': 'auth0-python',
+                'version': version,
+                'env': {
+                    'python': py_version,
+                }
             }).encode('utf-8')
 
             self.base_headers.update({
