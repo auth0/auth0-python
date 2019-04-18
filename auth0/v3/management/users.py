@@ -126,6 +126,45 @@ class Users(object):
         """
         return self.client.patch(self._url(id), data=body)
 
+    def get_roles(self, id):
+        """Get a user's roles.
+
+        Args:
+            id (str): The user's id.
+
+        See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
+        """
+        url = self._url('{}/roles'.format(id))
+        return self.client.get(url)
+
+    def delete_roles(self, id, roles):
+        """Removes roles from a user.
+
+        Args:
+            id (str): The user's id.
+
+            roles (list of str): A list of roles ids to unassociate from the user.
+
+        See https://auth0.com/docs/api/management/v2#!/Users/delete_user_roles
+        """
+        url = self._url('{}/roles'.format(id))
+        body = {'roles': roles}
+        return self.client.delete(url, data=body)
+
+    def assign_roles(self, id, roles):
+        """Assign roles to a user
+
+        Args:
+            id (str): The user's id.
+
+            roles (list of str): A list of roles ids to associated with the user.
+
+        See https://auth0.com/docs/api/management/v2#!/Users/post_user_roles
+        """
+        url = self._url('{}/roles'.format(id))
+        body = {'roles': roles}
+        return self.client.post(url, data=body)
+
     def delete_multifactor(self, id, provider):
         """Delete a user's multifactor provider.
 
