@@ -129,7 +129,7 @@ class Clients(object):
               See: https://auth0.com/docs/api/management/v2#!/Clients/post_rotate_secret
         """
 
-        params = {'id': id }
+        data = {'id': id }
 
         url = self._url('%s/rotate-secret' % id)
-        return self.client.get(url, params=params)
+        return self.client.post(url, data=data)
