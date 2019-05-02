@@ -119,8 +119,8 @@ class TestClients(unittest.TestCase):
         c = Clients(domain='domain', token='jwttoken')
         c.rotate_secret('this-id')
 
-        mock_instance.get.assert_called_with(
-            'https://domain/api/v2/clients/this-id/rotate-secret', params={'id': 'this-id'}
+        mock_instance.post.assert_called_with(
+            'https://domain/api/v2/clients/this-id/rotate-secret', data={'id': 'this-id'}
         )
 
 
