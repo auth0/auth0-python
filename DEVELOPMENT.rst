@@ -24,7 +24,8 @@ Instructions to upload auth0-python to PyPI
 
    .. code-block:: bash
 
-       python setup.py sdist bdist upload
+       python3 setup.py sdist bdist_wheel --universal
+       twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
    or do it using docker:
 

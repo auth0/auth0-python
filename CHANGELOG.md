@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.7.2
+------------------
+
+**Fixed**
+- Fix HTTP method used for rotating Client secret [\#191](https://github.com/auth0/auth0-python/pull/191) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.7.1
 ------------------
 
