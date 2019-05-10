@@ -25,7 +25,7 @@ class TestRules(unittest.TestCase):
         c.unset('an-id')
 
         mock_instance.delete.assert_called_with(
-            'https://domain/api/v2/rules-configs', params={'key': 'an-id'}
+            'https://domain/api/v2/rules-configs/an-id'
         )
 
     @mock.patch('auth0.v3.management.rules_configs.RestClient')

@@ -39,10 +39,7 @@ class RulesConfigs(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/delete_rules_configs_by_key
         """
-        params = {
-            'key': key
-        }
-        return self.client.delete(self._url(), params=params)
+        return self.client.delete(self._url(key))
 
     def set(self, key, value):
         """Sets the rules config for a given key.
