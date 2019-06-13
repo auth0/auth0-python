@@ -50,7 +50,7 @@ class AuthenticationBase(object):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
         response = requests.get(url=url, params=params, headers=request_headers)
-        return response.text
+        return self._process_response(response)
 
     def _process_response(self, response):
         return self._parse(response).content()
