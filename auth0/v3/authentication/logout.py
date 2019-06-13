@@ -32,12 +32,10 @@ class Logout(AuthenticationBase):
         if federated is True:
             return self.get(
                 'https://{}/v2/logout?federated&client_id={}&returnTo={}'.format(
-                    self.domain, client_id, return_to),
-                headers={'Content-Type': 'application/json'}
+                    self.domain, client_id, return_to)
             )
         return self.get(
             'https://{}/v2/logout?client_id={}&returnTo={}'.format(self.domain,
                                                                    client_id,
-                                                                   return_to),
-            headers={'Content-Type': 'application/json'}
+                                                                   return_to)
         )

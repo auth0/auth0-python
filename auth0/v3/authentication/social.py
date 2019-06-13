@@ -35,6 +35,5 @@ class Social(AuthenticationBase):
                 'access_token': access_token,
                 'connection': connection,
                 'scope': scope,
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )

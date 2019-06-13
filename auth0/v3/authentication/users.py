@@ -44,6 +44,5 @@ class Users(AuthenticationBase):
         warnings.warn("/tokeninfo will be deprecated in future releases", DeprecationWarning)
         return self.post(
             url='https://{}/tokeninfo'.format(self.domain),
-            data={'id_token': jwt},
-            headers={'Content-Type': 'application/json'}
+            data={'id_token': jwt}
         )
