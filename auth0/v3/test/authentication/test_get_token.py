@@ -26,9 +26,6 @@ class TestGetToken(unittest.TestCase):
             'grant_type': 'gt',
             'redirect_uri': 'idt'
         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
     @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
     def test_authorization_code_pkce(self, mock_post):
@@ -51,9 +48,6 @@ class TestGetToken(unittest.TestCase):
             'grant_type': 'gt',
             'redirect_uri': 'idt'
         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
     @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
     def test_client_credentials(self, mock_post):
@@ -73,9 +67,6 @@ class TestGetToken(unittest.TestCase):
             'client_secret': 'clsec',
             'audience': 'aud',
             'grant_type': 'gt'
-        })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
         })
 
     @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
@@ -105,9 +96,6 @@ class TestGetToken(unittest.TestCase):
             'audience': 'aud',
             'grant_type': 'gt'
         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
     @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
     def test_refresh_token(self, mock_post):
@@ -126,7 +114,4 @@ class TestGetToken(unittest.TestCase):
             'client_secret': 'clsec',
             'refresh_token': 'rt',
             'grant_type': 'gt'
-        })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
         })

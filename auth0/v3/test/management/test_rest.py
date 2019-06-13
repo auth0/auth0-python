@@ -64,7 +64,7 @@ class TestRest(unittest.TestCase):
 
         mock_post.return_value.status_code = 200
         response = rc.post('the/url', data=data)
-        mock_post.assert_called_with('the/url', data=json.dumps(data),
+        mock_post.assert_called_with('the/url', json=data,
                                      headers=headers)
 
         self.assertEqual(response, {'a': 'b'})
@@ -215,6 +215,40 @@ class TestRest(unittest.TestCase):
 
         mock_post.assert_called_once_with('the-url', data=data, files=files, headers=headers)
 
+
+    @mock.patch('requests.put')
+    def test_put(self, mock_put):
+        rc = RestClient(jwt='a-token', telemetry=False)
+        headers = {'Authorization': 'Bearer a-token',
+                   'Content-Type': 'application/json'}
+
+        mock_put.return_value.text = '["a", "b"]'
+        mock_put.return_value.status_code = 200
+
+        data = {'some': 'data'}
+
+        response = rc.put(url='the-url', data=data)
+        mock_put.assert_called_with('the-url', json=data,
+                                      headers=headers)
+
+        self.assertEqual(response, ['a', 'b'])
+
+    @mock.patch('requests.put')
+    def test_put_errors(self, mock_put):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        mock_put.return_value.text = '{"statusCode": 999,' \
+                                       ' "errorCode": "code",' \
+                                       ' "message": "message"}'
+        mock_put.return_value.status_code = 999
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.put(url='the/url')
+
+        self.assertEqual(context.exception.status_code, 999)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+
     @mock.patch('requests.patch')
     def test_patch(self, mock_patch):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -227,7 +261,7 @@ class TestRest(unittest.TestCase):
         data = {'some': 'data'}
 
         response = rc.patch(url='the-url', data=data)
-        mock_patch.assert_called_with('the-url', data=json.dumps(data),
+        mock_patch.assert_called_with('the-url', json=data,
                                       headers=headers)
 
         self.assertEqual(response, ['a', 'b'])
