@@ -42,8 +42,7 @@ class GetToken(AuthenticationBase):
                 'code': code,
                 'grant_type': grant_type,
                 'redirect_uri': redirect_uri,
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )
 
     def authorization_code_pkce(self, client_id, code_verifier, code,
@@ -79,8 +78,7 @@ class GetToken(AuthenticationBase):
                 'code': code,
                 'grant_type': grant_type,
                 'redirect_uri': redirect_uri,
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )
 
     def client_credentials(self, client_id, client_secret, audience,
@@ -113,8 +111,7 @@ class GetToken(AuthenticationBase):
                 'client_secret': client_secret,
                 'audience': audience,
                 'grant_type': grant_type,
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )
 
     def login(self, client_id, client_secret, username, password, scope, realm,
@@ -164,8 +161,7 @@ class GetToken(AuthenticationBase):
                 'scope': scope,
                 'audience': audience,
                 'grant_type': grant_type
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )
 
     def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token'):
@@ -194,6 +190,5 @@ class GetToken(AuthenticationBase):
                 'client_secret': client_secret,
                 'refresh_token': refresh_token,
                 'grant_type': grant_type
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )

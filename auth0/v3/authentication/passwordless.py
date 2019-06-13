@@ -41,8 +41,7 @@ class Passwordless(AuthenticationBase):
                 'email': email,
                 'send': send,
                 'authParams': auth_params
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )
 
     def sms(self, client_id, phone_number):
@@ -55,8 +54,7 @@ class Passwordless(AuthenticationBase):
                 'client_id': client_id,
                 'connection': 'sms',
                 'phone_number': phone_number,
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )
 
     def sms_login(self, client_id, phone_number, code, scope='openid'):
@@ -72,6 +70,5 @@ class Passwordless(AuthenticationBase):
                 'username': phone_number,
                 'password': code,
                 'scope': scope,
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )
