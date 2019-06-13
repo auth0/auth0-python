@@ -50,8 +50,23 @@ class TestBase(unittest.TestCase):
 
         data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
-        mock_post.assert_called_with(url='the-url', data='{"a": "b"}',
+        mock_post.assert_called_with(url='the-url', json={'a': 'b'},
                 headers={'c': 'd', 'Content-Type': 'application/json'})
+
+        self.assertEqual(data, {'x': 'y'})
+        
+    @mock.patch('requests.post')
+    def test_post_with_defaults(self, mock_post):
+        ab = AuthenticationBase('auth0.com', telemetry=False)
+
+        mock_post.return_value.status_code = 200
+        mock_post.return_value.text = '{"x": "y"}'
+
+        # Only required params are passed
+        data = ab.post('the-url')
+
+        mock_post.assert_called_with(url='the-url', json=None,
+                headers={'Content-Type': 'application/json'})
 
         self.assertEqual(data, {'x': 'y'})
 
@@ -67,7 +82,7 @@ class TestBase(unittest.TestCase):
         self.assertEqual(mock_post.call_count, 1)
         call_kwargs = mock_post.call_args[1]
         self.assertEqual(call_kwargs['url'], 'the-url')
-        self.assertEqual(call_kwargs['data'], '{"a": "b"}')
+        self.assertEqual(call_kwargs['json'], {'a': 'b'})
         headers = call_kwargs['headers']
         self.assertEqual(headers['c'], 'd')
         self.assertEqual(headers['Content-Type'], 'application/json')
@@ -158,6 +173,35 @@ class TestBase(unittest.TestCase):
             self.assertEqual(context.exception.message, '')
 
     @mock.patch('requests.get')
+    def test_get(self, mock_get):
+        ab = AuthenticationBase('auth0.com', telemetry=False)
+
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.text = '{"x": "y"}'
+
+        data = ab.get('the-url', params={'a': 'b'}, headers={'c': 'd'})
+
+        mock_get.assert_called_with(url='the-url', params={'a': 'b'},
+                headers={'c': 'd', 'Content-Type': 'application/json'})
+
+        self.assertEqual(data, {'x': 'y'})
+
+    @mock.patch('requests.get')
+    def test_get_with_defaults(self, mock_get):
+        ab = AuthenticationBase('auth0.com', telemetry=False)
+
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.text = '{"x": "y"}'
+
+        # Only required params are passed
+        data = ab.get('the-url')
+
+        mock_get.assert_called_with(url='the-url', params=None,
+                headers={'Content-Type': 'application/json'})
+
+        self.assertEqual(data, {'x': 'y'})
+
+    @mock.patch('requests.get')
     def test_get_includes_telemetry(self, mock_get):
         ab = AuthenticationBase('auth0.com')
 
@@ -176,4 +220,4 @@ class TestBase(unittest.TestCase):
         self.assertIn('User-Agent', headers)
         self.assertIn('Auth0-Client', headers)
 
-        self.assertEqual(data, '{"x": "y"}')
+        self.assertEqual(data, {"x": "y"})

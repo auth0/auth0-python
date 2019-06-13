@@ -19,9 +19,6 @@ class TestSocial(unittest.TestCase):
             'connection': 'conn',
             'scope': 'openid',
         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
     @mock.patch('auth0.v3.authentication.social.Social.post')
     def test_login_with_scope(self, mock_post):
@@ -37,7 +34,4 @@ class TestSocial(unittest.TestCase):
             'access_token': 'atk',
             'connection': 'conn',
             'scope': 'openid profile',
-        })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
         })
