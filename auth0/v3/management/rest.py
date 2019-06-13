@@ -46,7 +46,7 @@ class RestClient(object):
     def post(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.post(url, data=json.dumps(data or {}), headers=headers)
+        response = requests.post(url, json=data, headers=headers)
         return self._process_response(response)
 
     def file_post(self, url, data=None, files=None):
@@ -59,13 +59,13 @@ class RestClient(object):
     def patch(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.patch(url, data=json.dumps(data or {}), headers=headers)
+        response = requests.patch(url, json=data, headers=headers)
         return self._process_response(response)
 
     def put(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.put(url, data=json.dumps(data or {}), headers=headers)
+        response = requests.put(url, json=data, headers=headers)
         return self._process_response(response)
 
     def delete(self, url, params=None):
