@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.8.1
+------------------
+
+**Fixed**
+- Fix request creation when headers are the default [\#198](https://github.com/auth0/auth0-python/pull/198) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.8.0
 ------------------
 
