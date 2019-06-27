@@ -11,6 +11,7 @@ from .guardian import Guardian
 from .jobs import Jobs
 from .logs import Logs
 from .resource_servers import ResourceServers
+from .roles import Roles
 from .rules import Rules
 from .rules_configs import RulesConfigs
 from .stats import Stats
@@ -44,6 +45,7 @@ class Auth0(object):
         self.jobs = Jobs(domain, token)
         self.logs = Logs(domain, token)
         self.resource_servers = ResourceServers(domain, token)
+        self.roles = Roles(domain, token)
         self.rules = Rules(domain, token)
         self.rules_configs = RulesConfigs(domain, token)
         self.stats = Stats(domain, token)

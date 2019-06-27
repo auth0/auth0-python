@@ -120,9 +120,24 @@ class TestUsers(unittest.TestCase):
         u = Users(domain='domain', token='jwttoken')
         u.list_roles('an-id')
 
-        mock_instance.get.assert_called_with(
-            'https://domain/api/v2/users/an-id/roles'
-        )
+        args, kwargs = mock_instance.get.call_args
+        self.assertEqual('https://domain/api/v2/users/an-id/roles', args[0])
+        self.assertEqual(kwargs['params'], {
+            'per_page': 25,
+            'page': 0,
+            'include_totals': 'true'
+        })
+
+        u.list_roles(id='an-id', page=1, per_page=50, include_totals=False)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/users/an-id/roles', args[0])
+        self.assertEqual(kwargs['params'], {
+            'per_page': 50,
+            'page': 1,
+            'include_totals': 'false'
+        })
 
     @mock.patch('auth0.v3.management.users.RestClient')
     def test_remove_roles(self, mock_rc):
@@ -157,9 +172,24 @@ class TestUsers(unittest.TestCase):
         u = Users(domain='domain', token='jwttoken')
         u.list_permissions('an-id')
 
-        mock_instance.get.assert_called_with(
-            'https://domain/api/v2/users/an-id/permissions'
-        )
+        args, kwargs = mock_instance.get.call_args
+        self.assertEqual('https://domain/api/v2/users/an-id/permissions', args[0])
+        self.assertEqual(kwargs['params'], {
+            'per_page': 25,
+            'page': 0,
+            'include_totals': 'true'
+        })
+
+        u.list_permissions(id='an-id', page=1, per_page=50, include_totals=False)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/users/an-id/permissions', args[0])
+        self.assertEqual(kwargs['params'], {
+            'per_page': 50,
+            'page': 1,
+            'include_totals': 'false'
+        })
 
     @mock.patch('auth0.v3.management.users.RestClient')
     def test_remove_permissions(self, mock_rc):
