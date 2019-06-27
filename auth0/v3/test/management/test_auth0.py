@@ -13,6 +13,7 @@ from ...management.guardian import Guardian
 from ...management.jobs import Jobs
 from ...management.logs import Logs
 from ...management.resource_servers import ResourceServers
+from ...management.roles import Roles
 from ...management.rules import Rules
 from ...management.rules_configs import RulesConfigs
 from ...management.stats import Stats
@@ -68,6 +69,9 @@ class TestAuth0(unittest.TestCase):
 
     def test_resource_servers(self):
         self.assertIsInstance(self.a0.resource_servers, ResourceServers)
+
+    def test_roles(self):
+        self.assertIsInstance(self.a0.roles, Roles)
 
     def test_rules(self):
         self.assertIsInstance(self.a0.rules, Rules)

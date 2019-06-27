@@ -144,8 +144,14 @@ class Users(object):
 
         See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
         """
+        params = {
+            'per_page': per_page,
+            'page': page,
+            'include_totals': str(include_totals).lower()
+        }
+
         url = self._url('{}/roles'.format(id))
-        return self.client.get(url)
+        return self.client.get(url, params=params)
 
     def remove_roles(self, id, roles):
         """Removes roles from a user.
@@ -190,8 +196,14 @@ class Users(object):
 
         See https://auth0.com/docs/api/management/v2#!/Users/get_permissions
         """
+
+        params = {
+            'per_page': per_page,
+            'page': page,
+            'include_totals': str(include_totals).lower()
+        }
         url = self._url('{}/permissions'.format(id))
-        return self.client.get(url)
+        return self.client.get(url, params=params)
 
     def remove_permissions(self, id, permissions):
         """Removes permissions from a user.
