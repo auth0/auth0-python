@@ -151,6 +151,43 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(kwargs['data'], {'roles': ['a', 'b']})
 
     @mock.patch('auth0.v3.management.users.RestClient')
+    def test_list_permissions(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.list_permissions('an-id')
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/users/an-id/permissions'
+        )
+
+    @mock.patch('auth0.v3.management.users.RestClient')
+    def test_remove_permissions(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.remove_permissions('an-id', ['a', 'b'])
+
+        args, kwargs = mock_instance.delete.call_args
+
+        self.assertEqual('https://domain/api/v2/users/an-id/permissions',
+                         args[0])
+        self.assertEqual(kwargs['data'], {'permissions': ['a', 'b']})
+
+    @mock.patch('auth0.v3.management.users.RestClient')
+    def test_add_permissions(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.add_permissions('an-id', ['a', 'b'])
+
+        args, kwargs = mock_instance.post.call_args
+
+        self.assertEqual('https://domain/api/v2/users/an-id/permissions',
+                         args[0])
+        self.assertEqual(kwargs['data'], {'permissions': ['a', 'b']})
+
+    @mock.patch('auth0.v3.management.users.RestClient')
     def test_delete_multifactor(self, mock_rc):
         mock_instance = mock_rc.return_value
 

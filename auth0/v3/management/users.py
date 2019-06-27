@@ -175,6 +175,52 @@ class Users(object):
         body = {'roles': roles}
         return self.client.post(url, data=body)
 
+    def list_permissions(self, id, page=0, per_page=25, include_totals=True):
+        """Get a user's permissions.
+
+        Args:
+            id (str): The user's id.
+
+            page (int, optional): The result's page number (zero based). 
+  
+            per_page (int, optional): The amount of entries per page. 
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise.
+
+        See https://auth0.com/docs/api/management/v2#!/Users/get_permissions
+        """
+        url = self._url('{}/permissions'.format(id))
+        return self.client.get(url)
+
+    def remove_permissions(self, id, permissions):
+        """Removes permissions from a user.
+
+        Args:
+            id (str): The user's id.
+
+            permissions (list of str): A list of permissions ids to unassociate from the user.
+
+        See https://auth0.com/docs/api/management/v2#!/Users/delete_permissions
+        """
+        url = self._url('{}/permissions'.format(id))
+        body = {'permissions': permissions}
+        return self.client.delete(url, data=body)
+
+    def add_permissions(self, id, permissions):
+        """Assign permissions to a user
+
+        Args:
+            id (str): The user's id.
+
+            permissions (list of str): A list of permissions ids to associated with the user.
+
+        See https://auth0.com/docs/api/management/v2#!/Users/post_permissions
+        """
+        url = self._url('{}/permissions'.format(id))
+        body = {'permissions': permissions}
+        return self.client.post(url, data=body)
+
     def delete_multifactor(self, id, provider):
         """Delete a user's multifactor provider.
 
