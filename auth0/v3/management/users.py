@@ -47,6 +47,9 @@ class Users(object):
                 when querying for users. Will default to the latest version available.
                 See: https://auth0.com/docs/users/search
 
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise.
+
             fields (list of str, optional): A list of fields to include or
                 exclude from the result (depending on include_fields). Empty to
                 retrieve all fields.
@@ -126,18 +129,25 @@ class Users(object):
         """
         return self.client.patch(self._url(id), data=body)
 
-    def get_roles(self, id):
+    def list_roles(self, id, page=0, per_page=25, include_totals=True):
         """Get a user's roles.
 
         Args:
             id (str): The user's id.
+
+            page (int, optional): The result's page number (zero based). 
+  
+            per_page (int, optional): The amount of entries per page. 
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise.
 
         See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
         """
         url = self._url('{}/roles'.format(id))
         return self.client.get(url)
 
-    def delete_roles(self, id, roles):
+    def remove_roles(self, id, roles):
         """Removes roles from a user.
 
         Args:
@@ -151,7 +161,7 @@ class Users(object):
         body = {'roles': roles}
         return self.client.delete(url, data=body)
 
-    def assign_roles(self, id, roles):
+    def add_roles(self, id, roles):
         """Assign roles to a user
 
         Args:

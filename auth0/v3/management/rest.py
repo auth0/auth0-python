@@ -68,10 +68,10 @@ class RestClient(object):
         response = requests.put(url, json=data, headers=headers)
         return self._process_response(response)
 
-    def delete(self, url, params=None):
+    def delete(self, url, params=None, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.delete(url, headers=headers, params=params or {})
+        response = requests.delete(url, headers=headers, params=params or {}, json=data)
         return self._process_response(response)
 
     def _process_response(self, response):
