@@ -1,6 +1,27 @@
 Changes
 =======
 
+3.8.1
+------------------
+
+**Fixed**
+- Fix request creation when headers are the default [\#198](https://github.com/auth0/auth0-python/pull/198) ([lbalmaceda](https://github.com/lbalmaceda))
+
+3.8.0
+------------------
+
+**Fixed**
+- rules_config.unset fix [\#195](https://github.com/auth0/auth0-python/pull/195) ([jhunken](https://github.com/jhunken))
+
+**Security**
+- Update requests dependency to latest version [\#196](https://github.com/auth0/auth0-python/pull/196) ([lbalmaceda](https://github.com/lbalmaceda))
+
+3.7.2
+------------------
+
+**Fixed**
+- Fix HTTP method used for rotating Client secret [\#191](https://github.com/auth0/auth0-python/pull/191) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.7.1
 ------------------
 

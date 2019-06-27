@@ -25,9 +25,6 @@ class TestPasswordless(unittest.TestCase):
             'authParams': {'a': 'b'},
             'connection': 'email',
         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
     def test_sms(self, mock_post):
@@ -43,10 +40,7 @@ class TestPasswordless(unittest.TestCase):
             'phone_number': '123456',
             'connection': 'sms',
         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
-
+        
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
     def test_sms_login(self, mock_post):
 
@@ -64,9 +58,6 @@ class TestPasswordless(unittest.TestCase):
             'username': '123456',
             'password': 'abcd',
             'scope': 'openid',
-        })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
         })
 
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
@@ -87,7 +78,4 @@ class TestPasswordless(unittest.TestCase):
             'username': '123456',
             'password': 'abcd',
             'scope': 'openid profile',
-        })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
         })

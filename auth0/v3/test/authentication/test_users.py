@@ -26,6 +26,5 @@ class TestUsers(unittest.TestCase):
 
         mock_post.assert_called_with(
             url='https://my.domain.com/tokeninfo',
-            data={'id_token': 'jwtoken'},
-            headers={'Content-Type': 'application/json'}
+            data={'id_token': 'jwtoken'}
         )

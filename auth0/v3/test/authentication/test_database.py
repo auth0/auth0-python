@@ -32,9 +32,6 @@ class TestDatabase(unittest.TestCase):
             'grant_type': 'gt',
             'scope': 'openid profile',
         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
     @mock.patch('auth0.v3.authentication.database.Database.post')
     def test_signup(self, mock_post):
@@ -58,9 +55,6 @@ class TestDatabase(unittest.TestCase):
                          'username': None,
                          'user_metadata': None
                         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
 
         # Using also username and metadata
@@ -88,9 +82,6 @@ class TestDatabase(unittest.TestCase):
                          'username': 'usr',
                          'user_metadata': sample_meta
                         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
     @mock.patch('auth0.v3.authentication.database.Database.post')
     def test_change_password(self, mock_post):
@@ -111,7 +102,4 @@ class TestDatabase(unittest.TestCase):
             'email': 'a@b.com',
             'password': 'pswd',
             'connection': 'conn',
-        })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
         })

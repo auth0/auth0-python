@@ -32,8 +32,7 @@ class Database(AuthenticationBase):
                 'device': device,
                 'grant_type': grant_type,
                 'scope': scope,
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )
 
     def signup(self, client_id, email, password, connection, username=None,
@@ -67,8 +66,7 @@ class Database(AuthenticationBase):
 
         return self.post(
             'https://{}/dbconnections/signup'.format(self.domain),
-            data=body,
-            headers={'Content-Type': 'application/json'}
+            data=body
         )
 
     def change_password(self, client_id, email, connection, password=None):
@@ -82,6 +80,5 @@ class Database(AuthenticationBase):
                 'email': email,
                 'password': password,
                 'connection': connection,
-            },
-            headers={'Content-Type': 'application/json'}
+            }
         )

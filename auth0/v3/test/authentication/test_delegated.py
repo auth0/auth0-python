@@ -28,9 +28,6 @@ class TestDelegated(unittest.TestCase):
             'scope': 'openid profile',
             'api_type': 'apt',
         })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
-        })
 
     @mock.patch('auth0.v3.authentication.delegated.Delegated.post')
     def test_get_token_refresh_token(self, mock_post):
@@ -53,9 +50,6 @@ class TestDelegated(unittest.TestCase):
             'target': 'tgt',
             'scope': 'openid',
             'api_type': 'apt',
-        })
-        self.assertEqual(kwargs['headers'], {
-            'Content-Type': 'application/json'
         })
 
     @mock.patch('auth0.v3.authentication.delegated.Delegated.post')

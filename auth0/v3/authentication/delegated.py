@@ -37,6 +37,5 @@ class Delegated(AuthenticationBase):
 
         return self.post(
             'https://{}/delegation'.format(self.domain),
-            headers={'Content-Type': 'application/json'},
             data=data
         )
