@@ -294,7 +294,26 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.status_code = 200
 
         response = rc.delete(url='the-url/ID')
-        mock_delete.assert_called_with('the-url/ID', headers=headers, params={})
+        mock_delete.assert_called_with('the-url/ID', headers=headers, params={}, json=None)
+
+        self.assertEqual(response, ['a', 'b'])
+
+    @mock.patch('requests.delete')
+    def test_delete_with_body_and_params(self, mock_delete):
+        rc = RestClient(jwt='a-token', telemetry=False)
+        headers = {
+            'Authorization': 'Bearer a-token',
+            'Content-Type': 'application/json',
+        }
+
+        mock_delete.return_value.text = '["a", "b"]'
+        mock_delete.return_value.status_code = 200
+
+        data = {'some': 'data'}
+        params={'A': 'param', 'B': 'param'}
+
+        response = rc.delete(url='the-url/ID', params=params, data=data)
+        mock_delete.assert_called_with('the-url/ID', headers=headers, params=params, json=data)
 
         self.assertEqual(response, ['a', 'b'])
 
