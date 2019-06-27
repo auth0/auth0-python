@@ -114,22 +114,22 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
 
     @mock.patch('auth0.v3.management.users.RestClient')
-    def test_get_roles(self, mock_rc):
+    def test_list_roles(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         u = Users(domain='domain', token='jwttoken')
-        u.get_roles('an-id')
+        u.list_roles('an-id')
 
         mock_instance.get.assert_called_with(
             'https://domain/api/v2/users/an-id/roles'
         )
 
     @mock.patch('auth0.v3.management.users.RestClient')
-    def test_delete_roles(self, mock_rc):
+    def test_remove_roles(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         u = Users(domain='domain', token='jwttoken')
-        u.delete_roles('an-id', ['a', 'b'])
+        u.remove_roles('an-id', ['a', 'b'])
 
         args, kwargs = mock_instance.delete.call_args
 
@@ -138,11 +138,11 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(kwargs['data'], {'roles': ['a', 'b']})
 
     @mock.patch('auth0.v3.management.users.RestClient')
-    def test_assign_roles(self, mock_rc):
+    def test_add_roles(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         u = Users(domain='domain', token='jwttoken')
-        u.assign_roles('an-id', ['a', 'b'])
+        u.add_roles('an-id', ['a', 'b'])
 
         args, kwargs = mock_instance.post.call_args
 
