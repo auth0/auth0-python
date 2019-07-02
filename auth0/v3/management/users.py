@@ -130,7 +130,7 @@ class Users(object):
         return self.client.patch(self._url(id), data=body)
 
     def list_roles(self, id, page=0, per_page=25, include_totals=True):
-        """Get a user's roles.
+        """List the roles associated with a user.
 
         Args:
             id (str): The user's id.
@@ -154,7 +154,7 @@ class Users(object):
         return self.client.get(url, params=params)
 
     def remove_roles(self, id, roles):
-        """Removes roles from a user.
+        """Removes an array of roles from a user.
 
         Args:
             id (str): The user's id.
@@ -168,7 +168,7 @@ class Users(object):
         return self.client.delete(url, data=body)
 
     def add_roles(self, id, roles):
-        """Assign roles to a user
+        """Associate an array of roles with a user.
 
         Args:
             id (str): The user's id.
@@ -182,7 +182,7 @@ class Users(object):
         return self.client.post(url, data=body)
 
     def list_permissions(self, id, page=0, per_page=25, include_totals=True):
-        """Get a user's permissions.
+        """List the permissions associated to the user.
 
         Args:
             id (str): The user's id.
@@ -211,7 +211,7 @@ class Users(object):
         Args:
             id (str): The user's id.
 
-            permissions (list of str): A list of permissions ids to unassociate from the user.
+            permissions (list of str): A list of permission ids to unassociate from the user.
 
         See https://auth0.com/docs/api/management/v2#!/Users/delete_permissions
         """
@@ -220,12 +220,12 @@ class Users(object):
         return self.client.delete(url, data=body)
 
     def add_permissions(self, id, permissions):
-        """Assign permissions to a user
+        """Assign permissions to a user.
 
         Args:
             id (str): The user's id.
 
-            permissions (list of str): A list of permissions ids to associated with the user.
+            permissions (list of str): A list of permission ids to associated with the user.
 
         See https://auth0.com/docs/api/management/v2#!/Users/post_permissions
         """

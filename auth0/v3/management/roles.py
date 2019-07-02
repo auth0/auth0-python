@@ -88,7 +88,7 @@ class Roles(object):
         return self.client.patch(self._url(id), data=body)
 
     def list_users(self, id, page=0, per_page=25, include_totals=True):
-        """Lists the users that have been associated with a given role.
+        """List the users that have been associated with a given role.
 
         Args:
             id (str): The role's id.
@@ -126,7 +126,7 @@ class Roles(object):
         return self.client.post(url, data=body)
 
     def list_permissions(self, id, page=0, per_page=25, include_totals=True):
-        """Gets the permissions for a role.
+        """List the permissions associated to a role.
 
         Args:
             id (str): The role's id.
@@ -149,12 +149,12 @@ class Roles(object):
         return self.client.get(url, params=params)
 
     def remove_permissions(self, id, permissions):
-        """Removes permissions from a role.
+        """Unassociates permissions from a role.
 
         Args:
             id (str): The role's id.
 
-            permissions (list of str): A list of permissions ids to unassociate from the role.
+            permissions (list of str): A list of permission ids to unassociate from the role.
 
         See https://auth0.com/docs/api/management/v2#!/Roles/delete_role_permission_assignment
         """
@@ -164,12 +164,12 @@ class Roles(object):
 
 
     def add_permissions(self, id, permissions):
-        """Adds permissions from a role.
+        """Associates permissions with a role.
 
         Args:
             id (str): The role's id.
 
-            permissions (list of str): A list of permissions ids to associate to the role.
+            permissions (list of str): A list of permission ids to associate to the role.
 
         See https://auth0.com/docs/api/management/v2#!/Roles/post_role_permission_assignment
         """
