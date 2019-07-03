@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.9.0
+------------------
+
+**Added**
+- Add Roles and Permissions endpoints [\#202](https://github.com/auth0/auth0-python/pull/202) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.8.1
 ------------------
 
