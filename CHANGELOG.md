@@ -10,7 +10,7 @@ Changes
 3.8.1
 ------------------
 
-July 18, 2019: This release included a breaking change affecting those users that were manually parsing the response from GET requests. e.g. /userinfo or /authorize. The `AuthenticationBase#get` method was incorrectly parsing the request result into a String. 
+July 18, 2019: This release included an unintentionally breaking change affecting those users that were manually parsing the response from GET requests. e.g. /userinfo or /authorize. The `AuthenticationBase#get` method was incorrectly parsing the request result into a String. 
 
 From this release on, making a GET request returns a Dictionary instead.
 
