@@ -10,8 +10,13 @@ Changes
 3.8.1
 ------------------
 
-**Fixed**
-- Fix request creation when headers are the default [\#198](https://github.com/auth0/auth0-python/pull/198) ([lbalmaceda](https://github.com/lbalmaceda))
+This release includes a breaking change affecting those users that manually parse the response from GET requests. e.g. /userinfo or /authorize. The `AuthenticationBase#get` method was incorrectly parsing the request result into a String. 
+
+From this release on, making a GET request will return a Dictionary instead.
+
+**Breaking Change**
+- Fix request creation when headers are the default [\#198](https://github.com/auth0/auth0-python/pull/198) ([lbalmaceda](https://github.com/lbalmaceda)).
+
 
 3.8.0
 ------------------
