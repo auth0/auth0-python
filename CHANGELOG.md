@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.9.1
+------------------
+
+**Changed**
+- Update minimum "requests" version to 2.14.0 [\#204](https://github.com/auth0/auth0-python/pull/204) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.9.0
 ------------------
 
