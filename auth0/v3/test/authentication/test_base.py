@@ -51,7 +51,7 @@ class TestBase(unittest.TestCase):
         data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
         mock_post.assert_called_with(url='the-url', json={'a': 'b'},
-                headers={'c': 'd', 'Content-Type': 'application/json'})
+                headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=5.0)
 
         self.assertEqual(data, {'x': 'y'})
         
@@ -66,7 +66,7 @@ class TestBase(unittest.TestCase):
         data = ab.post('the-url')
 
         mock_post.assert_called_with(url='the-url', json=None,
-                headers={'Content-Type': 'application/json'})
+                headers={'Content-Type': 'application/json'}, timeout=5.0)
 
         self.assertEqual(data, {'x': 'y'})
 
@@ -182,7 +182,7 @@ class TestBase(unittest.TestCase):
         data = ab.get('the-url', params={'a': 'b'}, headers={'c': 'd'})
 
         mock_get.assert_called_with(url='the-url', params={'a': 'b'},
-                headers={'c': 'd', 'Content-Type': 'application/json'})
+                headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=5.0)
 
         self.assertEqual(data, {'x': 'y'})
 
@@ -197,7 +197,7 @@ class TestBase(unittest.TestCase):
         data = ab.get('the-url')
 
         mock_get.assert_called_with(url='the-url', params=None,
-                headers={'Content-Type': 'application/json'})
+                headers={'Content-Type': 'application/json'}, timeout=5.0)
 
         self.assertEqual(data, {'x': 'y'})
 
@@ -221,3 +221,15 @@ class TestBase(unittest.TestCase):
         self.assertIn('Auth0-Client', headers)
 
         self.assertEqual(data, {"x": "y"})
+
+    def test_get_can_timeout(self):
+        ab = AuthenticationBase('auth0.com', timeout=0.00001)
+
+        with self.assertRaises(requests.exceptions.Timeout):
+            ab.get('https://auth0.com', params={'a': 'b'}, headers={'c': 'd'})
+
+    def test_post_can_timeout(self):
+        ab = AuthenticationBase('auth0.com', timeout=0.00001)
+
+        with self.assertRaises(requests.exceptions.Timeout):
+            ab.post('https://auth0.com', data={'a': 'b'}, headers={'c': 'd'})
