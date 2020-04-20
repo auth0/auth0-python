@@ -20,6 +20,30 @@ class TestPasswordless(unittest.TestCase):
         self.assertEqual(args[0], 'https://my.domain.com/passwordless/start')
         self.assertEqual(kwargs['data'], {
             'client_id': 'cid',
+            'client_secret': None,
+            'email': 'a@b.com',
+            'send': 'snd',
+            'authParams': {'a': 'b'},
+            'connection': 'email',
+        })
+
+    @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
+    def test_email_with_secret(self, mock_post):
+
+        p = Passwordless('my.domain.com')
+
+        p.email(client_id='cid',
+                client_secret='csecret',
+                email='a@b.com',
+                send='snd',
+                auth_params={'a': 'b'})
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], 'https://my.domain.com/passwordless/start')
+        self.assertEqual(kwargs['data'], {
+            'client_id': 'cid',
+            'client_secret': 'csecret',
             'email': 'a@b.com',
             'send': 'snd',
             'authParams': {'a': 'b'},
@@ -37,6 +61,23 @@ class TestPasswordless(unittest.TestCase):
         self.assertEqual(args[0], 'https://my.domain.com/passwordless/start')
         self.assertEqual(kwargs['data'], {
             'client_id': 'cid',
+            'client_secret': None,
+            'phone_number': '123456',
+            'connection': 'sms',
+        })
+
+    @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
+    def test_sms_with_secret(self, mock_post):
+        p = Passwordless('my.domain.com')
+
+        p.sms(client_id='cid', client_secret='csecret', phone_number='123456')
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], 'https://my.domain.com/passwordless/start')
+        self.assertEqual(kwargs['data'], {
+            'client_id': 'cid',
+            'client_secret': 'csecret',
             'phone_number': '123456',
             'connection': 'sms',
         })
