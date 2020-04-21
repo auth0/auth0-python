@@ -35,16 +35,20 @@ class Passwordless(AuthenticationBase):
             client_secret (str): Client Secret of the application.
         """
 
+        data={
+            'client_id': client_id,
+            'connection': 'email',
+            'email': email,
+            'send': send,
+        }
+        if auth_params:
+            data.update({'authParams': auth_params})
+        if client_secret:
+            data.update({'client_secret': client_secret})
+
         return self.post(
             'https://{}/passwordless/start'.format(self.domain),
-            data={
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'connection': 'email',
-                'email': email,
-                'send': send,
-                'authParams': auth_params
-            }
+            data=data
         )
 
     def sms(self, client_id, phone_number, client_secret=None):
@@ -62,14 +66,17 @@ class Passwordless(AuthenticationBase):
             phone_number (str): Phone number.
         """
 
+        data={
+            'client_id': client_id,
+            'connection': 'sms',
+            'phone_number': phone_number,
+        }
+        if client_secret:
+            data.update({'client_secret': client_secret})
+            
         return self.post(
             'https://{}/passwordless/start'.format(self.domain),
-            data={
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'connection': 'sms',
-                'phone_number': phone_number,
-            }
+            data=data
         )
 
     def sms_login(self, client_id, phone_number, code, scope='openid'):
