@@ -1,0 +1,167 @@
+import unittest
+from ...authentication.token_verifier import TokenVerifier, SignatureVerifier
+
+expectations = {
+  "audience": "tokens-test-123",
+  "audience_alt": "external-test-999",
+  "issuer": "https://tokens-test.auth0.com/",
+  "nonce": "a1b2c3d4e5"
+}
+
+HMAC_SHARED_SECRET = "secret"
+RSA_PUBLIC_KEY = b"""-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGbXWiK3dQTyCbX5xdE4\nyCuYp0AF2d15Qq1JSXT/lx8CEcXb9RbDddl8jGDv+spi5qPa8qEHiK7FwV2KpRE9\n83wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVs\nWXI9C+yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT\n69s7of9+I9l5lsJ9cozf1rxrXX4V1u/SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8\nAziMCxS+VrRPDM+zfvpIJg3JljAh3PJHDiLu902v9w+Iplu1WyoB2aPfitxEhRN0\nYwIDAQAB\n-----END PUBLIC KEY-----"""
+TOKEN_ISSUER = "https://tokens-test.auth0.com/"
+TOKEN_AUDIENCE = "tokens-test-123"
+MOCKED_CLOCK = 1587592561 #Apr 22 2020 21:56:01 UTC
+DEFAULT_LEEWAY = 60
+
+
+# Run with: python -m unittest discover -s auth0 -p 'test_token_*'
+class TestBase(unittest.TestCase):
+
+    def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=TOKEN_AUDIENCE, issuer=TOKEN_ISSUER, nonce=None, max_age=None, _clock=MOCKED_CLOCK):
+        sv = signature_verifier or SignatureVerifier(algorithm="RS256", certificate=RSA_PUBLIC_KEY)
+        tv = TokenVerifier(
+            signatureVerifier=sv,
+            issuer=issuer,
+            audience=audience,
+            leeway=DEFAULT_LEEWAY,
+            _clock=_clock
+            )
+        with self.assertRaises(Exception) as err:
+            tv.verify(token, nonce, max_age)
+        self.assertEqual(str(err.exception), error_message)
+
+    def test_err_token_empty(self):
+        token = ""
+        self.assert_fails_with_error(token, "ID token is required but missing.")
+        token = None
+        self.assert_fails_with_error(token, "ID token is required but missing.")
+
+    def test_err_token_format_invalid(self):
+        token = "a.b"
+        self.assert_fails_with_error(token, "ID token could not be decoded.")
+        token = "a.b."
+        self.assert_fails_with_error(token, "ID token could not be decoded.")
+        token = "a.b.c.d"
+        self.assert_fails_with_error(token, "ID token could not be decoded.")
+
+    def test_HS256_token_signature_passes(self):
+        token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Hn38QVtN_mWN0c-jOa-Fqq69kXpbBp0THsvE-CQ47Ps"
+
+        sv = SignatureVerifier(algorithm="HS256", secret=HMAC_SHARED_SECRET)
+        tv = TokenVerifier(
+            signatureVerifier=sv,
+            issuer=TOKEN_ISSUER,
+            audience=TOKEN_AUDIENCE,
+            _clock=MOCKED_CLOCK)
+        tv.verify(token)
+
+    def test_RS256_token_signature_passes(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Eo2jxdlrKmutIeyn9Un6VHorMJaCL5txPDCC3QiAQn0pYYnrRU7VMQwqbTiXLQ9zPYh5Q4pQmT-XRaGL-HwDH8vCUieVJKOm0-gNFAMzx1i8sRH1ubw75sn69y09AQKcitYtjnBmahgfZrswtsxOXM7XovlLftPjv6goAi_U38GYsS_V_zOBvdbX2cM5zdooJAC0e7vlCr3bXNo90qwgCuezvCGt1ZrgWyDNO9oMzK-TlK86q36LuIkux7XZboF5rc3zsThEce_tPufA5qoEa-7I_ybmjwlvOCWmngYLT52_S2CbHeRNarePMjZIlmAuG-DcetwO8jJsX84Ra0SdUw"
+
+        sv = SignatureVerifier(algorithm="RS256", certificate=RSA_PUBLIC_KEY)
+        tv = TokenVerifier(
+            signatureVerifier=sv,
+            issuer=TOKEN_ISSUER,
+            audience=TOKEN_AUDIENCE,
+            _clock=MOCKED_CLOCK)
+        tv.verify(token)
+
+    def test_HS256_token_signature_fails(self):
+        token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.invalidsignature"
+        sv = SignatureVerifier(algorithm="HS256", secret=HMAC_SHARED_SECRET)
+
+        self.assert_fails_with_error(token, "Invalid token signature.", signature_verifier=sv)
+
+    def test_RS256_token_signature_fails(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.invalidsignature"
+        sv = SignatureVerifier(algorithm="RS256", certificate=RSA_PUBLIC_KEY)
+
+        self.assert_fails_with_error(token, "Invalid token signature.", signature_verifier=sv)
+
+    # def test_fails_with_algorithm_not_supported(self):
+    #     FIXME
+    #     token = "eyJhbGciOiJub25lIn0.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0."
+    #     self.assert_fails_with_error(token, 'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "HS256"')
+    #     return
+
+    def test_fails_with_iss_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.XuWmo_XxNET0mOW1AaLwi8koUOd05TZULWCGF_3WbeR5VJB6aK0rzo8AkHXrSv9Yr6he_1N8xFDKBIIyXFa4Y2PN8kdwUQtsJcj-cj8_2Ta2S0vV6O7XqbW58eXhX8Ng0OUrqgkHT1leIUJnBZ10YhM0-0zmdIq_WlNnwTdmvAGtYAUGcjyUmq-QEKBc2YYnf83vtGuFT2xGUGsTKR_Jj7lH_QTYdFaiT4t7gwFyXhP5KVUkG3ebdQUkIAQnoY0TXwrgDDCQhAWiUYZehMlv7Ml4tqLsiIUMgm4w5wSfdTdhVEMa7wHPj7gp4s-bfEqaOuyg0xH24rP19LkJROITDw"
+        self.assert_fails_with_error(token, 'Issuer (iss) claim must be a string present in the ID token')
+
+    def test_fails_with_iss_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzb21ldGhpbmctZWxzZSIsInN1YiI6ImF1dGgwfDEyMzQ1Njc4OSIsImF1ZCI6WyJ0b2tlbnMtdGVzdC0xMjMiLCJleHRlcm5hbC10ZXN0LTk5OSJdLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MSwibm9uY2UiOiJhMWIyYzNkNGU1IiwiYXpwIjoidG9rZW5zLXRlc3QtMTIzIiwiYXV0aF90aW1lIjoxNTg3Njc4OTYxfQ.HNQ1lXWWQOC4D1-D4XfYlF2MBE6F7TW1EoBqt3ayxehNqtc8ZUJ6MR4aE_o7NnY0aBNbp7J9okgRC2PIKPHZkXUdxHvGZNldrEDDKeKPe0kZFxF5sEK8RYCnJk5m28JFpgRYvXA9KjKnLsBsbV--8VnkgRlw0-LClxqp3ynoGgmh2dVvBqXV8DiAbRvvRPZOg7CVFqCxJoMFD0FJ_dej7ChxMDSe_NDW-CjG9rgEsw_el-_vUcKSp7bzZ1jKm0zOcPDRPfgda5oek0xR6_bg2es_TarYKCwlQCVG1NEmgcJ5gNeVIsrwaPrMXqGr9KNs-nLerQO9Jl1EhCU8No5Sfg"
+        self.assert_fails_with_error(token, 'Issuer (iss) claim mismatch in the ID token; expected "{}", found "something-else"'.format(expectations['issuer']))
+
+    def test_fails_with_sub_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.VtPtxkKh7vZKECzFiNXLWBeWcRgaX1lIOhW0fKU5WSgTcjYZRYoxW-wwI8pai7vgJMQQCizBpLpjMPpCBYBGEiYgGpa9D7vAD8XmYjcVZujG1FLFGkOTkgisCtgVT6WpvwxIejNrl_TcgSEBkCcD9f7gGnFVOjJe4YtSMEUdtuDz-pHEGGNbJLdq0L-pPUrO2Fyw3NspX1RrEYVn7uGuAlDQWQ4x6IOtM40NPzAmyLVrsOPmz_5Igyi7ZZar6epcfd5dBeUbgp8yK178XV-r6-UMuj39NJE4Bx8cDQR1qjxMsxgZ3Lem6OLfFvKWXsgJs7dh13kJDqrx2jXfhvpd-w"
+        self.assert_fails_with_error(token, 'Subject (sub) claim must be a string present in the ID token')
+
+    def test_fails_with_aud_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MSwibm9uY2UiOiJhMWIyYzNkNGU1IiwiYXpwIjoidG9rZW5zLXRlc3QtMTIzIiwiYXV0aF90aW1lIjoxNTg3Njc4OTYxfQ.t5SBd_J-k_GwPHfyGfPxOcT8n0Pbwy9R-pj7tK8231m3My1Zg3LyKx3tl7MFtymgRHcs2hd4WrWrKjyFrHMOzUWX8dQ2-b6KVRuFQjc70gnW54igj-cT-oo07Lzen0Ol6_7w_5rabWCOL9lM0UM9jpau_llVh97zyYgcUEBeA5lLld5ZLTB-JKMVehjJelBR-MPEDvMr2zT9nRPPUXqezAWZOPYG83oRRB2ktoafaUM4RVvp34q6uUWJq49m-qY2DfKuyDGK4axo1fHKE3JmrsayEDpuGDYDFNDQzy4g1lJvzBKxV2SJl0LKP6sxbM8sw7qaH4ViRNZpFQBZ7veGPQ"
+        self.assert_fails_with_error(token, 'Audience (aud) claim must be a string or array of strings present in the ID token')
+
+    def test_fails_with_aud_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.d1BFaw_h5VOAw0tXAQ98hrru4gWCNjIxcCQktFVcLIqrX9m74-vWv2SVoFBAQlXihEXoDS-5QSMhVPG1iry9arseN16PnSOmilBhSebiqAVSBojLxq5KFEDuUz90lApt4d5BSCMAIAQ1Dp1pGKwJC0BiLrFNOQ2KrmoEvQMgaD0PLlCLy1lL7MntABE86tX_BoqI4ZkWJ1lX1n2-SZAn-ldoOK8W8RUYiwBUDTktpgAfICFUSPAZXj_vn05vwvQBoozhMQkuJrPziz81Tj8lPh0iPsnMBtsAqvAhdwtp3p-eadXPVcjNu4yE3dkBgFDQwoNtV_elWQtmFBn49FEKyw"
+        self.assert_fails_with_error(token, 'Audience (aud) claim mismatch in the ID token; expected "{}" but was not one of "external-test-999"'.format(expectations['audience']))
+
+    def test_fails_with_exp_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiaWF0IjoxNTg3NTkyNTYxLCJub25jZSI6ImExYjJjM2Q0ZTUiLCJhenAiOiJ0b2tlbnMtdGVzdC0xMjMiLCJhdXRoX3RpbWUiOjE1ODc2Nzg5NjF9.qq4Tyz8VGnAJy2KmKo3zmThnWXviGwJB-Bz18lnJlicjAXk4ObeUVoX0WHB3I8vmDMscC9JXhkDP5KIGSAkeaLzil0FFJwwQB_saFE_y3zjfMQgdsz_qtDR96S1SQtnZ7AhChIAZ7cV4p_wmj_-TQYuZVQ0F6MoBmFsJITIr7gxnNFJWw6KJEU94nq8-q_IAyC5-9epdEtphUi_wkalHzEy6w8tQawKXCLYxo12VNlEy5mi8PlwqGsqVcwFwqec-ERt2hajyuqL1210-cZJMA-NmXz4mv4scHdiE09KZcLScKcezs9KaM5iaButMBL0Fyec0KcwwfELX_zghekALOA"
+        self.assert_fails_with_error(token, 'Expiration Time (exp) claim must be a number present in the ID token')
+
+    def test_fails_with_exp_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NTkyNTYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.KUbd2s3Km-PVpP8KEJo1e0lyQv19TjiKMFX-lVebFoiPNwlVTXS08g5qe_G8pcOrwNfX6cRkRLbp7TNQ7tGDCuEcdia9KOaWeVWla5B3UPCv1qozCyMv4ZYrA0qdT2KgwytRMVWSov9ly29FSo6SRQksAMKZdnAzPaqnJGKBgVIjKN3a5ePIeX5yBIGxlNjS3nyWt8LIQJ9BFaQWk3i0vAKYpDeco3VLNLX-wH7739MzS7ll6t6LyuZi6kBaRG6XZc394glKidTvCp06ViQlPlcuV7JsCJfbkBc0AS5TmzOEdUCype-gzNqbuLcSXihS-qOx7Yjv8y3farV1_7qYqw"
+        mocked_clock = MOCKED_CLOCK + DEFAULT_LEEWAY + 1
+        self.assert_fails_with_error(token, 'Expiration Time (exp) claim error in the ID token; current time ({}) is after expiration time (1587592621)'.format(mocked_clock), _clock=mocked_clock)
+
+    def test_fails_with_iat_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJub25jZSI6ImExYjJjM2Q0ZTUiLCJhenAiOiJ0b2tlbnMtdGVzdC0xMjMiLCJhdXRoX3RpbWUiOjE1ODc2Nzg5NjF9.CWW7mWUhiI-rramQ2dIGi7vBsOMmsouIg32IL9u2g4Dg3PV0C55R7dL6Jvf9hqaZXvx9Psrw0vLnOlhFztAC6LlQuq2eCaLYsDme36NxeYGC7CFXygvlU_eXD5IdNK35GriTfpG_b5hC7tl2glMmNQcZWlsIyKw7eq8o1POpqo0K2bCVjoyJkHL6WUpw6_08HPspmTL_Qd0km08z6zgvbl8Hpzk-tLmXqN7LjmuhEsjnIFphu-dGwcQsoY3RAomYxAFXAPYT8siEIf2w3zlIoUde-mujiMUtMD-Od7t7w36GO6Kubb9M9inVwPEg1yFKlFTXZBKXu91xmOmvMJ5Qfg"
+        self.assert_fails_with_error(token, 'Issued At (iat) claim must be a number present in the ID token')
+
+    def test_fails_with_iat_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc3NjUzNjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.hVFs3ix49ZIrUCr9EM4CrjYvwxemsHOqhZdjzOmy9suQOe8xG0NzEdlRcxuCt8Exdqrrd2lu4iPFqUgwudjMFZT5f-1YE9AdvLqqDyBRVRPu2dV5SP4QbO4OAjMvNq-yfoRQ4kEuIfBnz56l6imB-tNgfbSveOzHzTPapE6vSlVnI03jlDR91qoEpda1XCXreKhar4lsTNBsuAP6mA313DHaErvyhoBlsq3lEh7vXafFlegl5DMuEmNmzgAO3JO-mpn0J2nBfZOvUQIkf9ITs09zYrxE0fZ3M6J7tIhd13UvaJuNDXbfX1zzyhjAHqgmlkd25o2IZIBVC51NQv483g"
+        mocked_clock = MOCKED_CLOCK - DEFAULT_LEEWAY - 1
+        self.assert_fails_with_error(token,
+                                     'Issued At (iat) claim error in the ID token; current time ({}) is before issued at time (1587765301)'.format(
+                                         mocked_clock), _clock=mocked_clock)
+
+    def test_passes_when_nonce_missing_but_not_required(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.L-DveLCDf4Te7x3JZmQ6rCkUQrenl1NFpHqKD8Fs-glhd2iyc-TYffk1M30T0-wBri-3tTgraDAjZAjXuwSk0gV_V5uKCHyIoSRphrC88aX8IeECteQpHa4KR15lbzA5JdVhJu7LuCZ2EFvdjHh5GiViLRWsTSHGUM-uqcMK0q2kWGvCEgfOIXqocnQiyCNITxfgMYJd38zOsVeP7HFf9riuFEQz65oER22o3xyIZ-ILSaU10n6Ob559Rbjc0NVKH4hrggRg8kG7cJCiXbRxXnzO_VM8LmRHhF56jh3ZSrO4bzQa5xv04bMbX6A77muMZD0vghsaslvpWerWbwaSQQ"
+
+        sv = SignatureVerifier(algorithm="RS256", certificate=RSA_PUBLIC_KEY)
+        tv = TokenVerifier(
+            signatureVerifier=sv,
+            issuer=TOKEN_ISSUER,
+            audience=TOKEN_AUDIENCE,
+            _clock=MOCKED_CLOCK)
+        tv.verify(token)
+
+    def test_fails_with_nonce_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.L-DveLCDf4Te7x3JZmQ6rCkUQrenl1NFpHqKD8Fs-glhd2iyc-TYffk1M30T0-wBri-3tTgraDAjZAjXuwSk0gV_V5uKCHyIoSRphrC88aX8IeECteQpHa4KR15lbzA5JdVhJu7LuCZ2EFvdjHh5GiViLRWsTSHGUM-uqcMK0q2kWGvCEgfOIXqocnQiyCNITxfgMYJd38zOsVeP7HFf9riuFEQz65oER22o3xyIZ-ILSaU10n6Ob559Rbjc0NVKH4hrggRg8kG7cJCiXbRxXnzO_VM8LmRHhF56jh3ZSrO4bzQa5xv04bMbX6A77muMZD0vghsaslvpWerWbwaSQQ"
+        self.assert_fails_with_error(token, 'Nonce (nonce) claim must be a string present in the ID token', nonce=expectations['nonce'])
+
+    def test_fails_with_nonce_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiMDAwOTk5IiwiYXpwIjoidG9rZW5zLXRlc3QtMTIzIiwiYXV0aF90aW1lIjoxNTg3Njc4OTYxfQ.Z0n4vKcTCTrKJXUx56TyoQk3-okpjOqCDRN9NqH5zkCi0at7WV-E3TxGbXpIN0UsXwUWxrHiuvL9lN2M4PoIvL4XvzUqgsepAYYBCPGR9Wxb-ALmhhWdS_LNRVAgfUCn94khc_G51XtyeP0bQgWRkV7VbeWxkBTnrhmGwEkVx6XbfpnTRUCDSR_luJfUu84LkFJf1n2ohnEU7Q74BXJjxIIJnhZrg4J65E3cNtZ9N7AOIrbpbZ0oB7NhcZP0xA0A75qt7ZnKOuLsbRppZjcz56QmVIArOSCkkegl3qLx4cNdVa-O840AQWCwkAcHxS9lHBIWyaToC7IVMOLxIcGVlQ"
+        self.assert_fails_with_error(token, 'Nonce (nonce) claim mismatch in the ID token; expected "{}", found "000999"'.format(expectations['nonce']), nonce=expectations['nonce'])
+
+    def test_fails_with_aud_array_and_azp_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Xpxc2tj3sDwAYftYAcoiLO3kq0X54KSngDzQu_foTjlDQFTPApVVrX_BQqMAUFsmiNdt-3Tf9lkUlAagpvXy_VUY5LIjzEihEKDzqQFMQ8wm7RK7qV2XLS1abltxXd8AuOHcPnVHbtERpsCXR5eRt0-ESSPUw_scqHOwmYQOFF0sOQJ72r9EYZFMGhojyzpbzhBF0jgi9wMqj0VSpLEzZ3MnkWBCTlmc5OAPXQGdq6C1dVfcBXy4iiIBEaPCG962Yqrr-bbL92_T_XG-FmtpIViuRjHDWRJ26uoD0cmXwePwojxlyeY7VrAoKX3VtA4lm1Co0BMh9DjMKv-p3zT6XA"
+        self.assert_fails_with_error(token, 'Authorized Party (azp) claim must be a string present in the ID token when Audience (aud) claim has multiple values')
+
+    def test_fails_with_aud_array_and_azp_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6ImV4dGVybmFsLXRlc3QtOTk5IiwiYXV0aF90aW1lIjoxNTg3Njc4OTYxfQ.Bx56kdY8rBwlAZ8Walh6NjONs94Tdv37iP0EPKFxvpELFt_8RENhPp8Lqe52zrrgXqUdA1eeBynegqH7_duJawQ0l86u2dsaPonMOsh_W8ZjaqPOVHLv1z7xQb84UdjMSSJbMGMLPmuX2GMlc5hcjW5YgWU1xp-gpNpKMIzW19gNxpwtIWkLZ5zkjEVBYHSTAw7CO6HkncTZBqdYA3bq3ziQPljqvSvyPehuJ-2Q5TlrdVLRO5HS4-C6NEs-h8fpX25NP537FM9g7T7pRB1wDxsrJTny6uKBKFCwtNSF5laojV2edEDlDUsEEUCGh6zUzITGeZNa0M52ZsxGoAehIw"
+        self.assert_fails_with_error(token,
+                                     'Authorized Party (azp) claim mismatch in the ID token; expected "{}", found "external-test-999"'.format(expectations['audience']))
+
+    def test_fails_when_max_age_sent_with_auth_time_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyJ9.pWr6hjQ9Mi9cYSYIFWG1d-KJ98OeKeKb3F7X_DdUgQ5Xir8wHLLuZDrFAalKlxYiTJTMXqh9YkxKLcEjFQsTECEXA4VMliUv4A2Egk8EDUi5SQtoQ11xGJo-S7qM4cL-x-69ZnJvNWlZZ8NnvtTOSgzpa_fsG7T3PScr0b9ukxOQ-o8suV2fLE7bOliBKZn9PC7sowtF_oeQ03f0e0thtZFl121ROL65ARh9C-ic2azgmIn3YgsvguaoT5ZpAFRe2McaP026bNimOmfEzVIwHCDuR6rkFZvX4QUduX6UQ4bOQp_EC9G0XDk08H0nBXx2JXSHCW4YPZz9bz1f12B4kg"
+        self.assert_fails_with_error(token, "Authentication Time (auth_time) claim must be a number present in the ID token when Max Age (max_age) is specified", max_age=120)
+
+    def test_fails_when_max_age_sent_with_auth_time_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzU5MjU2MX0.VcVv1cGthPtuHZAZa-x7XZjhrcKEV3xUW6rVfhNMM_zCRBxLdyJl6gVv396eyfMX5-3dhr0-9kAYQAjPrmcvUDFLOR4Qjamg83U-TMa4agnYwQ_Iv3u_zhYmSrKzZlQvbOhT5imZShL11hycyukv2D1ODbFpvCdsHWXUFF0LotiXrBRr45AoEie2bASNSMmCZbQh-_Pq7gdhKOZMhBTErrk-aEOZrmsUG0sL2ZcVLdZ0_U-23ysR2GVpNg8jyv1HLZaPw5IJC4XucRw5r-5UiIcIIdxbUNphamPgq1cqL3QP_UsCGotCIUQTDNMbXB7-J_opBM2uGFp-cW95-Wq7qg"
+        max_age = 120
+        expected_auth_time = MOCKED_CLOCK + DEFAULT_LEEWAY + max_age
+        mocked_clock = expected_auth_time + 1
+
+        self.assert_fails_with_error(token, "Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time ({}) is after last auth at ({})".format(mocked_clock, expected_auth_time), max_age=max_age, _clock=mocked_clock)
