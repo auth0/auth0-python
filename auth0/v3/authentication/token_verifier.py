@@ -25,21 +25,21 @@ DISABLE_JWT_CHECKS = {
 class SignatureVerifier():
 
     def __init__(self, algorithm):
-        if (not algorithm or type(algorithm) != str):
+        if not algorithm or type(algorithm) != str:
             raise Exception("The algorithm value is invalid")
         self.algorithm = algorithm
 
     def _fetch_key(self, key_id=None):
         raise NotImplementedError
 
-    def verifySignature(self, token):
+    def verify_signature(self, token):
         try:
             header = jwt.get_unverified_header(token)
         except jwt.exceptions.DecodeError:
             raise Exception("ID token could not be decoded.")
 
         alg = header.get('alg', None)
-        if (alg != self.algorithm):
+        if alg != self.algorithm:
             raise Exception('Signature algorithm of "{}" is not supported. Expected the ID token to be signed with "{}"'.format(alg, self.algorithm))
 
         kid = header.get('kid', None)
@@ -76,18 +76,19 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
 
 class TokenVerifier():
 
-    def __init__(self, signatureVerifier, issuer, audience, leeway=0, _clock=None):
-        if (not signatureVerifier or not isinstance(signatureVerifier, SignatureVerifier)):
+    def __init__(self, signature_verifier, issuer, audience, leeway=0, _clock=None):
+        # TODO: See if these checks are OK
+        if not signature_verifier or not isinstance(signature_verifier, SignatureVerifier):
             raise Exception("Signature verified not specified.")
-        if (not issuer or type(issuer) != str):
+        if not issuer or type(issuer) != str:
             raise Exception("Issuer not specified.")
-        if (not audience or type(audience) != str):
+        if not audience or type(audience) != str:
             raise Exception("Audience not specified.")
-        if (type(leeway) != int):
+        if type(leeway) != int:
             raise Exception("Invalid leeway value.")
 
         self.options = {
-            'signatureVerifier': signatureVerifier,
+            'signature_verifier': signature_verifier,
             'iss': issuer,
             'aud': audience,
             'leeway': leeway,
@@ -96,91 +97,84 @@ class TokenVerifier():
 
     def verify(self, token, nonce=None, max_age=None):
         # Verify token presence
-        if (not token or type(token) != str):
+        if not token or type(token) != str:
             raise Exception("ID token is required but missing.")
-        if (nonce and type(nonce) != str):
+        if nonce and type(nonce) != str:
             raise Exception("Nonce not specified.")
-        if (max_age and type(max_age) != int):
+        if max_age and type(max_age) != int:
             raise Exception("Max Age not specified.")
 
         opt = self.options.copy()
         opt['nonce'] = nonce
-        opt['maxAge'] = max_age
+        opt['max_age'] = max_age
 
         # Verify algorithm and signature
-        payload = opt['signatureVerifier'].verifySignature(token)
+        payload = opt['signature_verifier'].verify_signature(token)
 
-        #Verify claims
-        ##Issuer
+        # Verify claims
+        # Issuer
 
-        if ('iss' not in payload or type(payload['iss']) != str):
+        if 'iss' not in payload or type(payload['iss']) != str:
             raise Exception('Issuer (iss) claim must be a string present in the ID token')
-        if (payload['iss'] != opt['iss']):
+        if payload['iss'] != opt['iss']:
             raise Exception('Issuer (iss) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['iss'], payload['iss']))
 
-        ##Subject
-        if ('sub' not in payload or type(payload['sub']) != str):
+        # Subject
+        if 'sub' not in payload or type(payload['sub']) != str:
             raise Exception('Subject (sub) claim must be a string present in the ID token')
 
-
-        ##Audience
-        if ('aud' not in payload or not (type(payload['aud']) == str or type(payload['aud']) is list)):
+        # Audience
+        if 'aud' not in payload or not (type(payload['aud']) == str or type(payload['aud']) is list):
             raise Exception('Audience (aud) claim must be a string or array of strings present in the ID token')
 
-        if (type(payload['aud']) is list and not opt['aud'] in payload['aud']):
-            payloadAudiences = ", ".join(payload['aud'])
-            raise Exception('Audience (aud) claim mismatch in the ID token; expected "{}" but was not one of "{}"'.format(opt['aud'], payloadAudiences))
-        elif (type(payload['aud']) == str and payload['aud'] != opt['aud']):
+        if type(payload['aud']) is list and not opt['aud'] in payload['aud']:
+            payload_audiences = ", ".join(payload['aud'])
+            raise Exception('Audience (aud) claim mismatch in the ID token; expected "{}" but was not one of "{}"'.format(opt['aud'], payload_audiences))
+        elif type(payload['aud']) == str and payload['aud'] != opt['aud']:
             raise Exception('Audience (aud) claim mismatch in the ID token; expected "{}" but found "{}"'.format(opt['aud'], payload['aud']))
 
-        ##--Time validation (epoch)--
-        realClock = time.time()
+        # --Time validation (epoch)--
         now = opt['_clock'] or time.time()
-        print("Real clock: {}".format(realClock))
-        print("Using now: {}".format(now))
         leeway = opt['leeway']
-        print("Leeway: {}".format(leeway))
 
-        ##Expires at
-        if ('exp' not in payload or type(payload['exp']) != int):
+        # Expires at
+        if 'exp' not in payload or type(payload['exp']) != int:
             raise Exception('Expiration Time (exp) claim must be a number present in the ID token')
 
-        expTime = payload['exp'] + leeway
-        if (now > expTime):
-            raise Exception('Expiration Time (exp) claim error in the ID token; current time ({}) is after expiration time ({})'.format(now, expTime))
+        exp_time = payload['exp'] + leeway
+        if now > exp_time:
+            raise Exception('Expiration Time (exp) claim error in the ID token; current time ({}) is after expiration time ({})'.format(now, exp_time))
 
-        ##Issued at
-        if ('iat' not in payload or type(payload['iat']) != int):
+        # Issued at
+        if 'iat' not in payload or type(payload['iat']) != int:
             raise Exception('Issued At (iat) claim must be a number present in the ID token')
 
-        iatTime = payload['iat'] - leeway
-        print("Found iat+leeway: {}".format(iatTime))
-        print("now - iat claim: {}".format(now - iatTime))
-        if (now < iatTime):
-            raise Exception('Issued At (iat) claim error in the ID token; current time ({}) is before issued at time ({})'.format(now, iatTime))
+        iat_time = payload['iat'] - leeway
+        if now < iat_time:
+            raise Exception('Issued At (iat) claim error in the ID token; current time ({}) is before issued at time ({})'.format(now, iat_time))
 
-        ##Nonce
-        if ( 'nonce' in opt and opt['nonce']):
-            if ('nonce' not in payload or type(payload['nonce']) != str):
+        # Nonce
+        if 'nonce' in opt and opt['nonce']:
+            if 'nonce' not in payload or type(payload['nonce']) != str:
                 raise Exception('Nonce (nonce) claim must be a string present in the ID token')
-            if (payload['nonce'] != opt['nonce']):
+            if payload['nonce'] != opt['nonce']:
                 raise Exception('Nonce (nonce) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['nonce'], payload['nonce']))
 
-        ##Authorized party
-        if (type(payload['aud']) is list and len(payload['aud']) > 1):
-            if ('azp' not in payload or type(payload['azp']) != str):
+        # Authorized party
+        if type(payload['aud']) is list and len(payload['aud']) > 1:
+            if 'azp' not in payload or type(payload['azp']) != str:
                 raise Exception('Authorized Party (azp) claim must be a string present in the ID token when Audience (aud) claim has multiple values')
-            if (payload['azp'] != opt['aud']):
+            if payload['azp'] != opt['aud']:
                 raise Exception('Authorized Party (azp) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['aud'], payload['azp']))
 
-        ##Authentication time
-        if ('maxAge' in opt and opt['maxAge']):
-            if ('auth_time' not in payload or type(payload['auth_time']) != int):
+        # Authentication time
+        if 'max_age' in opt and opt['max_age']:
+            if 'auth_time' not in payload or type(payload['auth_time']) != int:
                 raise Exception('Authentication Time (auth_time) claim must be a number present in the ID token when Max Age (max_age) is specified')
 
-            authValidUntil = payload['auth_time'] + opt['maxAge'] + leeway
-            if (now > authValidUntil):
-                raise Exception('Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time ({}) is after last auth at ({})'.format(now, authValidUntil))
+            auth_valid_until = payload['auth_time'] + opt['max_age'] + leeway
+            if now > auth_valid_until:
+                raise Exception('Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time ({}) is after last auth at ({})'.format(now, auth_valid_until))
 
 
 
