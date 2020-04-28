@@ -24,7 +24,7 @@ class TestBase(unittest.TestCase):
     def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=TOKEN_AUDIENCE, issuer=TOKEN_ISSUER, nonce=None, max_age=None, _clock=MOCKED_CLOCK):
         sv = signature_verifier or AsymmetricSignatureVerifier(jwks_url=None)  # FIXME mock and update
         tv = TokenVerifier(
-            signatureVerifier=sv,
+            signature_verifier=sv,
             issuer=issuer,
             audience=audience,
             leeway=DEFAULT_LEEWAY,
@@ -53,7 +53,7 @@ class TestBase(unittest.TestCase):
 
         sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
         tv = TokenVerifier(
-            signatureVerifier=sv,
+            signature_verifier=sv,
             issuer=TOKEN_ISSUER,
             audience=TOKEN_AUDIENCE,
             _clock=MOCKED_CLOCK)
@@ -64,7 +64,7 @@ class TestBase(unittest.TestCase):
 
         sv = AsymmetricSignatureVerifier(jwks_url=None)  # FIXME
         tv = TokenVerifier(
-            signatureVerifier=sv,
+            signature_verifier=sv,
             issuer=TOKEN_ISSUER,
             audience=TOKEN_AUDIENCE,
             _clock=MOCKED_CLOCK)
@@ -132,7 +132,7 @@ class TestBase(unittest.TestCase):
 
         sv = AsymmetricSignatureVerifier(jwks_url=None)  # FIXME
         tv = TokenVerifier(
-            signatureVerifier=sv,
+            signature_verifier=sv,
             issuer=TOKEN_ISSUER,
             audience=TOKEN_AUDIENCE,
             _clock=MOCKED_CLOCK)
