@@ -1,5 +1,7 @@
 import unittest
-from ...authentication.token_verifier import TokenVerifier, SignatureVerifier
+
+from ...authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier, \
+    SymmetricSignatureVerifier
 
 expectations = {
   "audience": "tokens-test-123",
@@ -20,7 +22,7 @@ DEFAULT_LEEWAY = 60
 class TestBase(unittest.TestCase):
 
     def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=TOKEN_AUDIENCE, issuer=TOKEN_ISSUER, nonce=None, max_age=None, _clock=MOCKED_CLOCK):
-        sv = signature_verifier or SignatureVerifier(algorithm="RS256", certificate=RSA_PUBLIC_KEY)
+        sv = signature_verifier or AsymmetricSignatureVerifier(jwks_url=None)  # FIXME mock and update
         tv = TokenVerifier(
             signatureVerifier=sv,
             issuer=issuer,
@@ -49,7 +51,7 @@ class TestBase(unittest.TestCase):
     def test_HS256_token_signature_passes(self):
         token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Hn38QVtN_mWN0c-jOa-Fqq69kXpbBp0THsvE-CQ47Ps"
 
-        sv = SignatureVerifier(algorithm="HS256", secret=HMAC_SHARED_SECRET)
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
         tv = TokenVerifier(
             signatureVerifier=sv,
             issuer=TOKEN_ISSUER,
@@ -60,7 +62,7 @@ class TestBase(unittest.TestCase):
     def test_RS256_token_signature_passes(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Eo2jxdlrKmutIeyn9Un6VHorMJaCL5txPDCC3QiAQn0pYYnrRU7VMQwqbTiXLQ9zPYh5Q4pQmT-XRaGL-HwDH8vCUieVJKOm0-gNFAMzx1i8sRH1ubw75sn69y09AQKcitYtjnBmahgfZrswtsxOXM7XovlLftPjv6goAi_U38GYsS_V_zOBvdbX2cM5zdooJAC0e7vlCr3bXNo90qwgCuezvCGt1ZrgWyDNO9oMzK-TlK86q36LuIkux7XZboF5rc3zsThEce_tPufA5qoEa-7I_ybmjwlvOCWmngYLT52_S2CbHeRNarePMjZIlmAuG-DcetwO8jJsX84Ra0SdUw"
 
-        sv = SignatureVerifier(algorithm="RS256", certificate=RSA_PUBLIC_KEY)
+        sv = AsymmetricSignatureVerifier(jwks_url=None)  # FIXME
         tv = TokenVerifier(
             signatureVerifier=sv,
             issuer=TOKEN_ISSUER,
@@ -70,21 +72,20 @@ class TestBase(unittest.TestCase):
 
     def test_HS256_token_signature_fails(self):
         token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.invalidsignature"
-        sv = SignatureVerifier(algorithm="HS256", secret=HMAC_SHARED_SECRET)
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
 
         self.assert_fails_with_error(token, "Invalid token signature.", signature_verifier=sv)
 
     def test_RS256_token_signature_fails(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.invalidsignature"
-        sv = SignatureVerifier(algorithm="RS256", certificate=RSA_PUBLIC_KEY)
+        sv = AsymmetricSignatureVerifier(jwks_url=None)  # FIXME
 
         self.assert_fails_with_error(token, "Invalid token signature.", signature_verifier=sv)
 
-    # def test_fails_with_algorithm_not_supported(self):
-    #     FIXME
-    #     token = "eyJhbGciOiJub25lIn0.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0."
-    #     self.assert_fails_with_error(token, 'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "HS256"')
-    #     return
+    def test_fails_with_algorithm_not_supported(self):
+        token = "eyJhbGciOiJub25lIn0.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0."
+        self.assert_fails_with_error(token, 'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "RS256"')
+        return
 
     def test_fails_with_iss_missing(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.XuWmo_XxNET0mOW1AaLwi8koUOd05TZULWCGF_3WbeR5VJB6aK0rzo8AkHXrSv9Yr6he_1N8xFDKBIIyXFa4Y2PN8kdwUQtsJcj-cj8_2Ta2S0vV6O7XqbW58eXhX8Ng0OUrqgkHT1leIUJnBZ10YhM0-0zmdIq_WlNnwTdmvAGtYAUGcjyUmq-QEKBc2YYnf83vtGuFT2xGUGsTKR_Jj7lH_QTYdFaiT4t7gwFyXhP5KVUkG3ebdQUkIAQnoY0TXwrgDDCQhAWiUYZehMlv7Ml4tqLsiIUMgm4w5wSfdTdhVEMa7wHPj7gp4s-bfEqaOuyg0xH24rP19LkJROITDw"
@@ -129,7 +130,7 @@ class TestBase(unittest.TestCase):
     def test_passes_when_nonce_missing_but_not_required(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.L-DveLCDf4Te7x3JZmQ6rCkUQrenl1NFpHqKD8Fs-glhd2iyc-TYffk1M30T0-wBri-3tTgraDAjZAjXuwSk0gV_V5uKCHyIoSRphrC88aX8IeECteQpHa4KR15lbzA5JdVhJu7LuCZ2EFvdjHh5GiViLRWsTSHGUM-uqcMK0q2kWGvCEgfOIXqocnQiyCNITxfgMYJd38zOsVeP7HFf9riuFEQz65oER22o3xyIZ-ILSaU10n6Ob559Rbjc0NVKH4hrggRg8kG7cJCiXbRxXnzO_VM8LmRHhF56jh3ZSrO4bzQa5xv04bMbX6A77muMZD0vghsaslvpWerWbwaSQQ"
 
-        sv = SignatureVerifier(algorithm="RS256", certificate=RSA_PUBLIC_KEY)
+        sv = AsymmetricSignatureVerifier(jwks_url=None)  # FIXME
         tv = TokenVerifier(
             signatureVerifier=sv,
             issuer=TOKEN_ISSUER,

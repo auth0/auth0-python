@@ -1,3 +1,5 @@
+from abc import ABC
+
 from ..exceptions import Auth0Error
 import jwt
 import time
@@ -5,54 +7,77 @@ import time
 # TODO: Have a custom exception class
 TOKEN_VERIFIER_ERROR = 'a0.sdk.internal.token_verification'
 
+RSA_PUBLIC_KEY = b"""-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGbXWiK3dQTyCbX5xdE4\nyCuYp0AF2d15Qq1JSXT/lx8CEcXb9RbDddl8jGDv+spi5qPa8qEHiK7FwV2KpRE9\n83wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVs\nWXI9C+yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT\n69s7of9+I9l5lsJ9cozf1rxrXX4V1u/SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8\nAziMCxS+VrRPDM+zfvpIJg3JljAh3PJHDiLu902v9w+Iplu1WyoB2aPfitxEhRN0\nYwIDAQAB\n-----END PUBLIC KEY-----"""
+
+DISABLE_JWT_CHECKS = {
+    "verify_signature": True,
+    "verify_exp": False,
+    "verify_nbf": False,
+    "verify_iat": False,
+    "verify_aud": False,
+    "verify_iss": False,
+    "require_exp": False,
+    "require_iat": False,
+    "require_nbf": False,
+}
+
+
 class SignatureVerifier():
 
-    def __init__(self, algorithm, secret=None, certificate=None):
-        if (algorithm not in ['HS256', 'RS256'] or type(algorithm) != str):
-            # This checks that it was set up correctly
-            raise 'Signature algorithm of "%{}" is not supported. Expected the ID token to be signed with "%{}"'.format(algorithm, "RS256")
+    def __init__(self, algorithm):
+        if (not algorithm or type(algorithm) != str):
+            raise Exception("The algorithm value is invalid")
         self.algorithm = algorithm
-        self.secret = secret
-        self.certificate = certificate
+
+    def _fetch_key(self, key_id=None):
+        raise NotImplementedError
 
     def verifySignature(self, token):
-        disabledClaimsCheck = {
-            "verify_signature": True,
-            "verify_exp": False,
-            "verify_nbf": False,
-            "verify_iat": False,
-            "verify_aud": False,
-            "verify_iss": False,
-            "require_exp": False,
-            "require_iat": False,
-            "require_nbf": False,
-        }
         try:
-            #TODO: Make this take the algorithm from self and fetch the keys
-            decoded = jwt.decode(jwt=token, key=self.certificate or self.secret, algorithms=[self.algorithm], options=disabledClaimsCheck)
-        except jwt.exceptions.InvalidSignatureError:
-            raise Exception("Invalid token signature.")
+            header = jwt.get_unverified_header(token)
         except jwt.exceptions.DecodeError:
             raise Exception("ID token could not be decoded.")
-        except jwt.exceptions.InvalidAlgorithmError:
-            # This is raised when the token's algorithm is not one of the expected
-            raise Exception('Signature algorithm of "{}" is not supported. Expected the ID token to be signed with "{}"'.format(self.algorithm, "RS256"))
+
+        alg = header.get('alg', None)
+        if (alg != self.algorithm):
+            raise Exception('Signature algorithm of "{}" is not supported. Expected the ID token to be signed with "{}"'.format(alg, self.algorithm))
+
+        kid = header.get('kid', None)
+        secret_or_certificate = self._fetch_key(key_id=kid)
+
+        try:
+            decoded = jwt.decode(jwt=token, key=secret_or_certificate, algorithms=[self.algorithm], options=DISABLE_JWT_CHECKS)
+        except jwt.exceptions.InvalidSignatureError:
+            raise Exception("Invalid token signature.")
         return decoded
 
-    # def _getSecretOrCertificate(self, token):
-    #     if (self.options.client_secret and self.algorithm == 'HS256'):
-    #         return self.options.client_secret
-    #     if (self.algorithm == 'RS256'):
-    #         _fetchPublicKey(self.options.issuer)
 
-    #     key = 'secret'
-    #     header = jwt.get_unverified_header(encoded)
+class SymmetricSignatureVerifier(SignatureVerifier):
+
+    def __init__(self, shared_secret, algorithm="HS256"):
+        SignatureVerifier.__init__(self, algorithm)
+        self.shared_secret = shared_secret
+
+    def _fetch_key(self, key_id=None):
+        return self.shared_secret
+
+
+class AsymmetricSignatureVerifier(SignatureVerifier):
+
+    def __init__(self, jwks_url, algorithm="RS256"):
+        SignatureVerifier.__init__(self, algorithm)
+        self.jwks_url = jwks_url
+
+    def _fetch_key(self, key_id=None):
+        # TODO: Delegate this to some jwks fetching code
+        # e.g. https://pypi.org/project/simple-memory-cache/
+        return RSA_PUBLIC_KEY
 
 
 class TokenVerifier():
 
     def __init__(self, signatureVerifier, issuer, audience, leeway=0, _clock=None):
-        if (not signatureVerifier or type(signatureVerifier) is not SignatureVerifier):
+        if (not signatureVerifier or not isinstance(signatureVerifier, SignatureVerifier)):
             raise Exception("Signature verified not specified.")
         if (not issuer or type(issuer) != str):
             raise Exception("Issuer not specified.")
@@ -69,18 +94,18 @@ class TokenVerifier():
             '_clock': _clock
         }
 
-    def verify(self, token, nonce=None, maxAge=-1):
+    def verify(self, token, nonce=None, max_age=None):
         # Verify token presence
         if (not token or type(token) != str):
             raise Exception("ID token is required but missing.")
         if (nonce and type(nonce) != str):
             raise Exception("Nonce not specified.")
-        if (maxAge and type(maxAge) != int):
+        if (max_age and type(max_age) != int):
             raise Exception("Max Age not specified.")
 
         opt = self.options.copy()
         opt['nonce'] = nonce
-        opt['maxAge'] = maxAge
+        opt['maxAge'] = max_age
 
         # Verify algorithm and signature
         payload = opt['signatureVerifier'].verifySignature(token)
