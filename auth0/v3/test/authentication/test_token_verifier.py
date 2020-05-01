@@ -1,7 +1,24 @@
+import json
+
+import jwt
 import unittest
+import time
+
+from mock import MagicMock, patch
 
 from ...authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier, \
-    SymmetricSignatureVerifier
+    SymmetricSignatureVerifier, JwksFetcher
+
+RSA_PUB_KEY_1_PEM = b"""-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGbXWiK3dQTyCbX5xdE4\nyCuYp0AF2d15Qq1JSXT/lx8CEcXb9RbDddl8jGDv+spi5qPa8qEHiK7FwV2KpRE9\n83wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVs\nWXI9C+yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT\n69s7of9+I9l5lsJ9cozf1rxrXX4V1u/SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8\nAziMCxS+VrRPDM+zfvpIJg3JljAh3PJHDiLu902v9w+Iplu1WyoB2aPfitxEhRN0\nYwIDAQAB\n-----END PUBLIC KEY-----\n"""
+RSA_PUB_KEY_2_PEM = b"""-----BEGIN PUBLIC KEY-----\nMDowDQYJKoZIhvcNAQEBBQADKQAwJgIfAI7TBUCn8e1hj/fNpb5dqMf8Jj6Ja6qN\npqyeOGYEzAIDAQAB\n-----END PUBLIC KEY-----\n"""
+RSA_PUB_KEY_1_JWK = {"kty": "RSA", "use": "sig", "n": "uGbXWiK3dQTyCbX5xdE4yCuYp0AF2d15Qq1JSXT_lx8CEcXb9RbDddl8jGDv-spi5qPa8qEHiK7FwV2KpRE983wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVsWXI9C-yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT69s7of9-I9l5lsJ9cozf1rxrXX4V1u_SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8AziMCxS-VrRPDM-zfvpIJg3JljAh3PJHDiLu902v9w-Iplu1WyoB2aPfitxEhRN0Yw", "e": "AQAB", "kid": "test-key-1"}
+RSA_PUB_KEY_2_JWK = {"kty": "RSA", "use": "sig", "n": "jtMFQKfx7WGP982lvl2ox_wmPolrqo2mrJ44ZgTM", "e": "AQAB", "kid": "test-key-2"}
+JWKS_RESPONSE_SINGLE_KEY = {"keys": [RSA_PUB_KEY_1_JWK]}
+JWKS_RESPONSE_MULTIPLE_KEYS = {"keys": [RSA_PUB_KEY_1_JWK, RSA_PUB_KEY_2_JWK]}
+HMAC_SHARED_SECRET = "secret"
+
+MOCKED_CLOCK = 1587592561  # Apr 22 2020 21:56:01 UTC
+DEFAULT_LEEWAY = 60
 
 expectations = {
   "audience": "tokens-test-123",
@@ -10,19 +27,171 @@ expectations = {
   "nonce": "a1b2c3d4e5"
 }
 
-HMAC_SHARED_SECRET = "secret"
-RSA_PUBLIC_KEY = b"""-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGbXWiK3dQTyCbX5xdE4\nyCuYp0AF2d15Qq1JSXT/lx8CEcXb9RbDddl8jGDv+spi5qPa8qEHiK7FwV2KpRE9\n83wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVs\nWXI9C+yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT\n69s7of9+I9l5lsJ9cozf1rxrXX4V1u/SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8\nAziMCxS+VrRPDM+zfvpIJg3JljAh3PJHDiLu902v9w+Iplu1WyoB2aPfitxEhRN0\nYwIDAQAB\n-----END PUBLIC KEY-----"""
-TOKEN_ISSUER = "https://tokens-test.auth0.com/"
-TOKEN_AUDIENCE = "tokens-test-123"
-MOCKED_CLOCK = 1587592561 #Apr 22 2020 21:56:01 UTC
-DEFAULT_LEEWAY = 60
-
 
 # Run with: python -m unittest discover -s auth0 -p 'test_token_*'
-class TestBase(unittest.TestCase):
+class TestSignatureVerifier(unittest.TestCase):
 
-    def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=TOKEN_AUDIENCE, issuer=TOKEN_ISSUER, nonce=None, max_age=None, _clock=MOCKED_CLOCK):
-        sv = signature_verifier or AsymmetricSignatureVerifier(jwks_url=None)  # FIXME mock and update
+    def test_symmetric_verifier_uses_hs256_alg(self):
+        verifier = SymmetricSignatureVerifier("some secret")
+        self.assertEqual(verifier.algorithm, "HS256")
+
+    def test_asymmetric_verifier_uses_rs256_alg(self):
+        verifier = AsymmetricSignatureVerifier("some URL")
+        self.assertEqual(verifier.algorithm, "RS256")
+
+    def test_symmetric_verifier_fetches_key(self):
+        verifier = SymmetricSignatureVerifier("some secret")
+        key = verifier._fetch_key()
+
+        self.assertEqual(verifier.shared_secret, "some secret")
+        self.assertEqual(key, "some secret")
+
+    def test_asymmetric_verifier_fetches_key(self):
+
+        mock_fetcher = JwksFetcher('some URL')
+        mock_fetcher.get_key = MagicMock('get_key')
+        mock_fetcher.get_key.return_value = RSA_PUB_KEY_1_JWK
+
+        verifier = AsymmetricSignatureVerifier("some URL", _jwks_fetcher=mock_fetcher)
+
+        key = verifier._fetch_key('test-key')
+
+        args, kwargs = mock_fetcher.get_key.call_args
+        self.assertEqual(args[0], 'test-key')
+
+        self.assertEqual(mock_fetcher, verifier.fetcher)
+        self.assertEqual(mock_fetcher.jwks_url, "some URL")
+        self.assertEqual(key, RSA_PUB_KEY_1_JWK)
+
+
+class TestJwksFetcher(unittest.TestCase):
+
+    @staticmethod
+    def _get_pem_bytes(rsa_public_key):
+        # noinspection PyPackageRequirements
+        # requirement already includes cryptography -> pyjwt[crypto]
+        from cryptography.hazmat.primitives import serialization
+        return rsa_public_key.public_bytes(serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo)
+
+    @patch('requests.get')
+    def test_get_jwks_json_twice_on_cache_expired(self, mock_get):
+        JWKS_URL = 'https://app.myhosting.com/.well-known/jwks.json'
+        fetcher = JwksFetcher(JWKS_URL, cache_ttl=1)
+
+        mock_get.return_value.ok = True
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = JWKS_RESPONSE_SINGLE_KEY
+
+        key_1 = fetcher.get_key('test-key-1')
+        expected_key_1_pem = self._get_pem_bytes(key_1)
+        self.assertEqual(expected_key_1_pem, RSA_PUB_KEY_1_PEM)
+
+        mock_get.assert_called_with(JWKS_URL)
+        self.assertEqual(mock_get.call_count, 1)
+
+        time.sleep(2)
+
+        # 2 seconds has passed, cache should be expired
+        key_1 = fetcher.get_key('test-key-1')
+        expected_key_1_pem = self._get_pem_bytes(key_1)
+        self.assertEqual(expected_key_1_pem, RSA_PUB_KEY_1_PEM)
+
+        mock_get.assert_called_with(JWKS_URL)
+        self.assertEqual(mock_get.call_count, 2)
+
+    @patch('requests.get')
+    def test_get_jwks_json_once_on_cache_hit(self, mock_get):
+        JWKS_URL = 'https://app.myhosting.com/.well-known/jwks.json'
+        fetcher = JwksFetcher(JWKS_URL)
+
+        mock_get.return_value.ok = True
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = JWKS_RESPONSE_MULTIPLE_KEYS
+
+        key_1 = fetcher.get_key('test-key-1')
+        key_2 = fetcher.get_key('test-key-2')
+        expected_key_1_pem = self._get_pem_bytes(key_1)
+        expected_key_2_pem = self._get_pem_bytes(key_2)
+        self.assertEqual(expected_key_1_pem, RSA_PUB_KEY_1_PEM)
+        self.assertEqual(expected_key_2_pem, RSA_PUB_KEY_2_PEM)
+
+        mock_get.assert_called_with(JWKS_URL)
+        self.assertEqual(mock_get.call_count, 1)
+
+    @patch('requests.get')
+    def test_fetches_jwks_json_forced_on_cache_miss(self, mock_get):
+        JWKS_URL = 'https://app.myhosting.com/.well-known/jwks.json'
+        fetcher = JwksFetcher(JWKS_URL)
+
+        mock_get.return_value.ok = True
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {'keys':[RSA_PUB_KEY_1_JWK]}
+
+        # Triggers the first call
+        key_1 = fetcher.get_key('test-key-1')
+        expected_key_1_pem = self._get_pem_bytes(key_1)
+        self.assertEqual(expected_key_1_pem, RSA_PUB_KEY_1_PEM)
+
+        mock_get.assert_called_with(JWKS_URL)
+        self.assertEqual(mock_get.call_count, 1)
+
+        mock_get.return_value.json.return_value = JWKS_RESPONSE_MULTIPLE_KEYS
+
+        # Triggers the second call
+        key_2 = fetcher.get_key('test-key-2')
+        expected_key_2_pem = self._get_pem_bytes(key_2)
+        self.assertEqual(expected_key_2_pem, RSA_PUB_KEY_2_PEM)
+
+        mock_get.assert_called_with(JWKS_URL)
+        self.assertEqual(mock_get.call_count, 2)
+
+    @patch('requests.get')
+    def test_fetches_jwks_json_once_on_cache_miss(self, mock_get):
+        JWKS_URL = 'https://app.myhosting.com/.well-known/jwks.json'
+        fetcher = JwksFetcher(JWKS_URL)
+
+        mock_get.return_value.ok = True
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = JWKS_RESPONSE_SINGLE_KEY
+
+        with self.assertRaises(Exception) as err:
+            key_1 = fetcher.get_key('missing-key')
+
+        mock_get.assert_called_with(JWKS_URL)
+        self.assertEqual(str(err.exception), 'RSA Public Key with ID "missing-key" was not found.')
+        self.assertEqual(mock_get.call_count, 1)
+
+    @patch('requests.get')
+    def test_fails_to_fetch_jwks_json_after_retrying_twice(self, mock_get):
+        JWKS_URL = 'https://app.myhosting.com/.well-known/jwks.json'
+        fetcher = JwksFetcher(JWKS_URL)
+
+        mock_get.return_value.ok = False
+        mock_get.return_value.status_code = 500
+        mock_get.return_value.text = "Some error happened"
+
+        with self.assertRaises(Exception) as err:
+            key_1 = fetcher.get_key('id1')
+
+        mock_get.assert_called_with(JWKS_URL)
+        self.assertEqual(str(err.exception), 'RSA Public Key with ID "id1" was not found.')
+        self.assertEqual(mock_get.call_count, 2)
+
+
+class TestTokenVerifier(unittest.TestCase):
+
+    @staticmethod
+    def asymmetric_signature_verifier_mock():
+        verifier = AsymmetricSignatureVerifier('some URL')
+        verifier._fetch_key = MagicMock('_fetch_key')
+
+        # noinspection PyUnresolvedReferences
+        # requirement already includes cryptography -> pyjwt[crypto]
+        verifier._fetch_key.return_value = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(RSA_PUB_KEY_1_JWK))
+        return verifier
+
+    def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=expectations['audience'], issuer=expectations['issuer'], nonce=None, max_age=None, _clock=MOCKED_CLOCK):
+        sv = signature_verifier or self.asymmetric_signature_verifier_mock()
         tv = TokenVerifier(
             signature_verifier=sv,
             issuer=issuer,
@@ -54,19 +223,19 @@ class TestBase(unittest.TestCase):
         sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
         tv = TokenVerifier(
             signature_verifier=sv,
-            issuer=TOKEN_ISSUER,
-            audience=TOKEN_AUDIENCE,
+            issuer=expectations['issuer'],
+            audience=expectations['audience'],
             _clock=MOCKED_CLOCK)
         tv.verify(token)
 
     def test_RS256_token_signature_passes(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Eo2jxdlrKmutIeyn9Un6VHorMJaCL5txPDCC3QiAQn0pYYnrRU7VMQwqbTiXLQ9zPYh5Q4pQmT-XRaGL-HwDH8vCUieVJKOm0-gNFAMzx1i8sRH1ubw75sn69y09AQKcitYtjnBmahgfZrswtsxOXM7XovlLftPjv6goAi_U38GYsS_V_zOBvdbX2cM5zdooJAC0e7vlCr3bXNo90qwgCuezvCGt1ZrgWyDNO9oMzK-TlK86q36LuIkux7XZboF5rc3zsThEce_tPufA5qoEa-7I_ybmjwlvOCWmngYLT52_S2CbHeRNarePMjZIlmAuG-DcetwO8jJsX84Ra0SdUw"
 
-        sv = AsymmetricSignatureVerifier(jwks_url=None)  # FIXME
+        sv = self.asymmetric_signature_verifier_mock()
         tv = TokenVerifier(
             signature_verifier=sv,
-            issuer=TOKEN_ISSUER,
-            audience=TOKEN_AUDIENCE,
+            issuer=expectations['issuer'],
+            audience=expectations['audience'],
             _clock=MOCKED_CLOCK)
         tv.verify(token)
 
@@ -78,7 +247,7 @@ class TestBase(unittest.TestCase):
 
     def test_RS256_token_signature_fails(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.invalidsignature"
-        sv = AsymmetricSignatureVerifier(jwks_url=None)  # FIXME
+        sv = self.asymmetric_signature_verifier_mock()
 
         self.assert_fails_with_error(token, "Invalid token signature.", signature_verifier=sv)
 
@@ -130,11 +299,11 @@ class TestBase(unittest.TestCase):
     def test_passes_when_nonce_missing_but_not_required(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.L-DveLCDf4Te7x3JZmQ6rCkUQrenl1NFpHqKD8Fs-glhd2iyc-TYffk1M30T0-wBri-3tTgraDAjZAjXuwSk0gV_V5uKCHyIoSRphrC88aX8IeECteQpHa4KR15lbzA5JdVhJu7LuCZ2EFvdjHh5GiViLRWsTSHGUM-uqcMK0q2kWGvCEgfOIXqocnQiyCNITxfgMYJd38zOsVeP7HFf9riuFEQz65oER22o3xyIZ-ILSaU10n6Ob559Rbjc0NVKH4hrggRg8kG7cJCiXbRxXnzO_VM8LmRHhF56jh3ZSrO4bzQa5xv04bMbX6A77muMZD0vghsaslvpWerWbwaSQQ"
 
-        sv = AsymmetricSignatureVerifier(jwks_url=None)  # FIXME
+        sv = self.asymmetric_signature_verifier_mock()
         tv = TokenVerifier(
             signature_verifier=sv,
-            issuer=TOKEN_ISSUER,
-            audience=TOKEN_AUDIENCE,
+            issuer=expectations['issuer'],
+            audience=expectations['audience'],
             _clock=MOCKED_CLOCK)
         tv.verify(token)
 

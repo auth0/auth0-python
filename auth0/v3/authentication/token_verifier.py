@@ -1,13 +1,14 @@
-from abc import ABC
+import json
 
 from ..exceptions import Auth0Error
 import jwt
 import time
+import requests
 
 # TODO: Have a custom exception class
 TOKEN_VERIFIER_ERROR = 'a0.sdk.internal.token_verification'
 
-RSA_PUBLIC_KEY = b"""-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGbXWiK3dQTyCbX5xdE4\nyCuYp0AF2d15Qq1JSXT/lx8CEcXb9RbDddl8jGDv+spi5qPa8qEHiK7FwV2KpRE9\n83wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVs\nWXI9C+yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT\n69s7of9+I9l5lsJ9cozf1rxrXX4V1u/SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8\nAziMCxS+VrRPDM+zfvpIJg3JljAh3PJHDiLu902v9w+Iplu1WyoB2aPfitxEhRN0\nYwIDAQAB\n-----END PUBLIC KEY-----"""
+JWKS_CACHE_TTL = 60  # In seconds
 
 DISABLE_JWT_CHECKS = {
     "verify_signature": True,
@@ -64,20 +65,76 @@ class SymmetricSignatureVerifier(SignatureVerifier):
 
 class AsymmetricSignatureVerifier(SignatureVerifier):
 
-    def __init__(self, jwks_url, algorithm="RS256"):
+    def __init__(self, jwks_url, algorithm="RS256", _jwks_fetcher=None):
         SignatureVerifier.__init__(self, algorithm)
-        self.jwks_url = jwks_url
+        self.fetcher = _jwks_fetcher or JwksFetcher(jwks_url)
 
     def _fetch_key(self, key_id=None):
-        # TODO: Delegate this to some jwks fetching code
-        # e.g. https://pypi.org/project/simple-memory-cache/
-        return RSA_PUBLIC_KEY
+        return self.fetcher.get_key(key_id)
+
+
+class JwksFetcher():
+
+    def __init__(self, jwks_url, cache_ttl=JWKS_CACHE_TTL):
+        self.jwks_url = jwks_url
+        self._init_cache(cache_ttl)
+        return
+
+    def _init_cache(self, cache_ttl):
+        # FIXME: Are these and other properties suppose to be private?
+        self.cache_value = {}
+        self.cache_date = 0
+        self.cache_ttl = cache_ttl
+        self.cache_is_fresh = False
+
+    def _fetch_jwks(self, force=False):
+        has_expired = self.cache_date + self.cache_ttl < time.time()
+
+        if not force and not has_expired:
+            # Return from cache
+            self.cache_is_fresh = False
+            return self.cache_value
+
+        # Invalidate cache and fetch fresh data
+        self.cache_value = {}
+        response = requests.get(self.jwks_url)
+
+        if response.ok:
+            # Update cache
+            jwks = response.json()
+            self.cache_value = self._parse_jwks(jwks)
+            self.cache_is_fresh = True
+            self.cache_date = time.time()
+        return self.cache_value
+
+    def _parse_jwks(self, jwks):
+        keys = {}
+
+        for key in jwks['keys']:
+            # noinspection PyUnresolvedReferences
+            # requirement already includes cryptography -> pyjwt[crypto]
+            rsa_key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(key))
+            keys[key["kid"]] = rsa_key
+        return keys
+
+    def get_key(self, key_id):
+        keys = self._fetch_jwks()
+
+        if keys and key_id in keys:
+            return keys[key_id]
+
+        if not self.cache_is_fresh:
+            keys = self._fetch_jwks(force=True)
+            if keys and key_id in keys:
+                return keys[key_id]
+        raise Exception('RSA Public Key with ID "{}" was not found.'.format(key_id))
 
 
 class TokenVerifier():
 
     def __init__(self, signature_verifier, issuer, audience, leeway=0, _clock=None):
         # TODO: See if these checks are OK
+        # TODO: init JWKS / cache
         if not signature_verifier or not isinstance(signature_verifier, SignatureVerifier):
             raise Exception("Signature verified not specified.")
         if not issuer or type(issuer) != str:
