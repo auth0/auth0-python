@@ -6,22 +6,19 @@ import requests
 
 from auth0.v3.exceptions import TokenValidationError
 
-JWKS_CACHE_TTL = 60  # In seconds
-
-DISABLE_JWT_CHECKS = {
-    "verify_signature": True,
-    "verify_exp": False,
-    "verify_nbf": False,
-    "verify_iat": False,
-    "verify_aud": False,
-    "verify_iss": False,
-    "require_exp": False,
-    "require_iat": False,
-    "require_nbf": False,
-}
-
 
 class SignatureVerifier():
+    DISABLE_JWT_CHECKS = {
+        "verify_signature": True,
+        "verify_exp": False,
+        "verify_nbf": False,
+        "verify_iat": False,
+        "verify_aud": False,
+        "verify_iss": False,
+        "require_exp": False,
+        "require_iat": False,
+        "require_nbf": False,
+    }
 
     def __init__(self, algorithm):
         if not algorithm or type(algorithm) != str:
@@ -45,7 +42,7 @@ class SignatureVerifier():
         secret_or_certificate = self._fetch_key(key_id=kid)
 
         try:
-            decoded = jwt.decode(jwt=token, key=secret_or_certificate, algorithms=[self._algorithm], options=DISABLE_JWT_CHECKS)
+            decoded = jwt.decode(jwt=token, key=secret_or_certificate, algorithms=[self._algorithm], options=self.DISABLE_JWT_CHECKS)
         except jwt.exceptions.InvalidSignatureError:
             raise TokenValidationError("Invalid token signature.")
         return decoded
@@ -72,8 +69,9 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
 
 
 class JwksFetcher():
+    CACHE_TTL = 600  # 10 min cache lifetime
 
-    def __init__(self, jwks_url, cache_ttl=JWKS_CACHE_TTL):
+    def __init__(self, jwks_url, cache_ttl=CACHE_TTL):
         self._jwks_url = jwks_url
         self._init_cache(cache_ttl)
         return
