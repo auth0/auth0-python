@@ -1,8 +1,7 @@
 import json
-
-from ..exceptions import Auth0Error
-import jwt
 import time
+
+import jwt
 import requests
 
 # TODO: Have a custom exception class
@@ -28,7 +27,7 @@ class SignatureVerifier():
     def __init__(self, algorithm):
         if not algorithm or type(algorithm) != str:
             raise Exception("The algorithm value is invalid")
-        self.algorithm = algorithm
+        self._algorithm = algorithm
 
     def _fetch_key(self, key_id=None):
         raise NotImplementedError
@@ -40,14 +39,14 @@ class SignatureVerifier():
             raise Exception("ID token could not be decoded.")
 
         alg = header.get('alg', None)
-        if alg != self.algorithm:
-            raise Exception('Signature algorithm of "{}" is not supported. Expected the ID token to be signed with "{}"'.format(alg, self.algorithm))
+        if alg != self._algorithm:
+            raise Exception('Signature algorithm of "{}" is not supported. Expected the ID token to be signed with "{}"'.format(alg, self._algorithm))
 
         kid = header.get('kid', None)
         secret_or_certificate = self._fetch_key(key_id=kid)
 
         try:
-            decoded = jwt.decode(jwt=token, key=secret_or_certificate, algorithms=[self.algorithm], options=DISABLE_JWT_CHECKS)
+            decoded = jwt.decode(jwt=token, key=secret_or_certificate, algorithms=[self._algorithm], options=DISABLE_JWT_CHECKS)
         except jwt.exceptions.InvalidSignatureError:
             raise Exception("Invalid token signature.")
         return decoded
@@ -57,57 +56,57 @@ class SymmetricSignatureVerifier(SignatureVerifier):
 
     def __init__(self, shared_secret, algorithm="HS256"):
         SignatureVerifier.__init__(self, algorithm)
-        self.shared_secret = shared_secret
+        self._shared_secret = shared_secret
 
     def _fetch_key(self, key_id=None):
-        return self.shared_secret
+        return self._shared_secret
 
 
 class AsymmetricSignatureVerifier(SignatureVerifier):
 
     def __init__(self, jwks_url, algorithm="RS256", _jwks_fetcher=None):
         SignatureVerifier.__init__(self, algorithm)
-        self.fetcher = _jwks_fetcher or JwksFetcher(jwks_url)
+        self._fetcher = _jwks_fetcher or JwksFetcher(jwks_url)
 
     def _fetch_key(self, key_id=None):
-        return self.fetcher.get_key(key_id)
+        return self._fetcher.get_key(key_id)
 
 
 class JwksFetcher():
 
     def __init__(self, jwks_url, cache_ttl=JWKS_CACHE_TTL):
-        self.jwks_url = jwks_url
+        self._jwks_url = jwks_url
         self._init_cache(cache_ttl)
         return
 
     def _init_cache(self, cache_ttl):
-        # FIXME: Are these and other properties suppose to be private?
-        self.cache_value = {}
-        self.cache_date = 0
-        self.cache_ttl = cache_ttl
-        self.cache_is_fresh = False
+        self._cache_value = {}
+        self._cache_date = 0
+        self._cache_ttl = cache_ttl
+        self._cache_is_fresh = False
 
     def _fetch_jwks(self, force=False):
-        has_expired = self.cache_date + self.cache_ttl < time.time()
+        has_expired = self._cache_date + self._cache_ttl < time.time()
 
         if not force and not has_expired:
             # Return from cache
-            self.cache_is_fresh = False
-            return self.cache_value
+            self._cache_is_fresh = False
+            return self._cache_value
 
         # Invalidate cache and fetch fresh data
-        self.cache_value = {}
-        response = requests.get(self.jwks_url)
+        self._cache_value = {}
+        response = requests.get(self._jwks_url)
 
         if response.ok:
             # Update cache
             jwks = response.json()
-            self.cache_value = self._parse_jwks(jwks)
-            self.cache_is_fresh = True
-            self.cache_date = time.time()
-        return self.cache_value
+            self._cache_value = self._parse_jwks(jwks)
+            self._cache_is_fresh = True
+            self._cache_date = time.time()
+        return self._cache_value
 
-    def _parse_jwks(self, jwks):
+    @staticmethod
+    def _parse_jwks(jwks):
         keys = {}
 
         for key in jwks['keys']:
@@ -123,7 +122,7 @@ class JwksFetcher():
         if keys and key_id in keys:
             return keys[key_id]
 
-        if not self.cache_is_fresh:
+        if not self._cache_is_fresh:
             keys = self._fetch_jwks(force=True)
             if keys and key_id in keys:
                 return keys[key_id]
@@ -144,7 +143,7 @@ class TokenVerifier():
         if type(leeway) != int:
             raise Exception("Invalid leeway value.")
 
-        self.options = {
+        self._options = {
             'signature_verifier': signature_verifier,
             'iss': issuer,
             'aud': audience,
@@ -161,7 +160,7 @@ class TokenVerifier():
         if max_age and type(max_age) != int:
             raise Exception("Max Age not specified.")
 
-        opt = self.options.copy()
+        opt = self._options.copy()
         opt['nonce'] = nonce
         opt['max_age'] = max_age
 
