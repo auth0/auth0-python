@@ -33,17 +33,17 @@ class TestSignatureVerifier(unittest.TestCase):
 
     def test_symmetric_verifier_uses_hs256_alg(self):
         verifier = SymmetricSignatureVerifier("some secret")
-        self.assertEqual(verifier.algorithm, "HS256")
+        self.assertEqual(verifier._algorithm, "HS256")
 
     def test_asymmetric_verifier_uses_rs256_alg(self):
         verifier = AsymmetricSignatureVerifier("some URL")
-        self.assertEqual(verifier.algorithm, "RS256")
+        self.assertEqual(verifier._algorithm, "RS256")
 
     def test_symmetric_verifier_fetches_key(self):
         verifier = SymmetricSignatureVerifier("some secret")
         key = verifier._fetch_key()
 
-        self.assertEqual(verifier.shared_secret, "some secret")
+        self.assertEqual(verifier._shared_secret, "some secret")
         self.assertEqual(key, "some secret")
 
     def test_asymmetric_verifier_fetches_key(self):
@@ -59,8 +59,8 @@ class TestSignatureVerifier(unittest.TestCase):
         args, kwargs = mock_fetcher.get_key.call_args
         self.assertEqual(args[0], 'test-key')
 
-        self.assertEqual(mock_fetcher, verifier.fetcher)
-        self.assertEqual(mock_fetcher.jwks_url, "some URL")
+        self.assertEqual(mock_fetcher, verifier._fetcher)
+        self.assertEqual(mock_fetcher._jwks_url, "some URL")
         self.assertEqual(key, RSA_PUB_KEY_1_JWK)
 
 
