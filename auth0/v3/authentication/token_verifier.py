@@ -4,8 +4,7 @@ import time
 import jwt
 import requests
 
-# TODO: Have a custom exception class
-TOKEN_VERIFIER_ERROR = 'a0.sdk.internal.token_verification'
+from auth0.v3.exceptions import TokenValidationError
 
 JWKS_CACHE_TTL = 60  # In seconds
 
@@ -26,7 +25,7 @@ class SignatureVerifier():
 
     def __init__(self, algorithm):
         if not algorithm or type(algorithm) != str:
-            raise Exception("The algorithm value is invalid")
+            raise ValueError("algorithm must be specified.")
         self._algorithm = algorithm
 
     def _fetch_key(self, key_id=None):
@@ -36,11 +35,11 @@ class SignatureVerifier():
         try:
             header = jwt.get_unverified_header(token)
         except jwt.exceptions.DecodeError:
-            raise Exception("ID token could not be decoded.")
+            raise TokenValidationError("ID token could not be decoded.")
 
         alg = header.get('alg', None)
         if alg != self._algorithm:
-            raise Exception('Signature algorithm of "{}" is not supported. Expected the ID token to be signed with "{}"'.format(alg, self._algorithm))
+            raise TokenValidationError('Signature algorithm of "{}" is not supported. Expected the ID token to be signed with "{}"'.format(alg, self._algorithm))
 
         kid = header.get('kid', None)
         secret_or_certificate = self._fetch_key(key_id=kid)
@@ -48,7 +47,7 @@ class SignatureVerifier():
         try:
             decoded = jwt.decode(jwt=token, key=secret_or_certificate, algorithms=[self._algorithm], options=DISABLE_JWT_CHECKS)
         except jwt.exceptions.InvalidSignatureError:
-            raise Exception("Invalid token signature.")
+            raise TokenValidationError("Invalid token signature.")
         return decoded
 
 
@@ -126,22 +125,14 @@ class JwksFetcher():
             keys = self._fetch_jwks(force=True)
             if keys and key_id in keys:
                 return keys[key_id]
-        raise Exception('RSA Public Key with ID "{}" was not found.'.format(key_id))
+        raise TokenValidationError('RSA Public Key with ID "{}" was not found.'.format(key_id))
 
 
 class TokenVerifier():
 
     def __init__(self, signature_verifier, issuer, audience, leeway=0, _clock=None):
-        # TODO: See if these checks are OK
-        # TODO: init JWKS / cache
         if not signature_verifier or not isinstance(signature_verifier, SignatureVerifier):
-            raise Exception("Signature verified not specified.")
-        if not issuer or type(issuer) != str:
-            raise Exception("Issuer not specified.")
-        if not audience or type(audience) != str:
-            raise Exception("Audience not specified.")
-        if type(leeway) != int:
-            raise Exception("Invalid leeway value.")
+            raise TypeError("signature_verifier must be an instance of SignatureVerifier.")
 
         self._options = {
             'signature_verifier': signature_verifier,
@@ -154,11 +145,11 @@ class TokenVerifier():
     def verify(self, token, nonce=None, max_age=None):
         # Verify token presence
         if not token or type(token) != str:
-            raise Exception("ID token is required but missing.")
+            raise TokenValidationError("ID token is required but missing.")
         if nonce and type(nonce) != str:
-            raise Exception("Nonce not specified.")
+            raise TokenValidationError("Nonce not specified.")
         if max_age and type(max_age) != int:
-            raise Exception("Max Age not specified.")
+            raise TokenValidationError("Max Age not specified.")
 
         opt = self._options.copy()
         opt['nonce'] = nonce
@@ -171,23 +162,23 @@ class TokenVerifier():
         # Issuer
 
         if 'iss' not in payload or type(payload['iss']) != str:
-            raise Exception('Issuer (iss) claim must be a string present in the ID token')
+            raise TokenValidationError('Issuer (iss) claim must be a string present in the ID token')
         if payload['iss'] != opt['iss']:
-            raise Exception('Issuer (iss) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['iss'], payload['iss']))
+            raise TokenValidationError('Issuer (iss) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['iss'], payload['iss']))
 
         # Subject
         if 'sub' not in payload or type(payload['sub']) != str:
-            raise Exception('Subject (sub) claim must be a string present in the ID token')
+            raise TokenValidationError('Subject (sub) claim must be a string present in the ID token')
 
         # Audience
         if 'aud' not in payload or not (type(payload['aud']) == str or type(payload['aud']) is list):
-            raise Exception('Audience (aud) claim must be a string or array of strings present in the ID token')
+            raise TokenValidationError('Audience (aud) claim must be a string or array of strings present in the ID token')
 
         if type(payload['aud']) is list and not opt['aud'] in payload['aud']:
             payload_audiences = ", ".join(payload['aud'])
-            raise Exception('Audience (aud) claim mismatch in the ID token; expected "{}" but was not one of "{}"'.format(opt['aud'], payload_audiences))
+            raise TokenValidationError('Audience (aud) claim mismatch in the ID token; expected "{}" but was not one of "{}"'.format(opt['aud'], payload_audiences))
         elif type(payload['aud']) == str and payload['aud'] != opt['aud']:
-            raise Exception('Audience (aud) claim mismatch in the ID token; expected "{}" but found "{}"'.format(opt['aud'], payload['aud']))
+            raise TokenValidationError('Audience (aud) claim mismatch in the ID token; expected "{}" but found "{}"'.format(opt['aud'], payload['aud']))
 
         # --Time validation (epoch)--
         now = opt['_clock'] or time.time()
@@ -195,42 +186,42 @@ class TokenVerifier():
 
         # Expires at
         if 'exp' not in payload or type(payload['exp']) != int:
-            raise Exception('Expiration Time (exp) claim must be a number present in the ID token')
+            raise TokenValidationError('Expiration Time (exp) claim must be a number present in the ID token')
 
         exp_time = payload['exp'] + leeway
         if now > exp_time:
-            raise Exception('Expiration Time (exp) claim error in the ID token; current time ({}) is after expiration time ({})'.format(now, exp_time))
+            raise TokenValidationError('Expiration Time (exp) claim error in the ID token; current time ({}) is after expiration time ({})'.format(now, exp_time))
 
         # Issued at
         if 'iat' not in payload or type(payload['iat']) != int:
-            raise Exception('Issued At (iat) claim must be a number present in the ID token')
+            raise TokenValidationError('Issued At (iat) claim must be a number present in the ID token')
 
         iat_time = payload['iat'] - leeway
         if now < iat_time:
-            raise Exception('Issued At (iat) claim error in the ID token; current time ({}) is before issued at time ({})'.format(now, iat_time))
+            raise TokenValidationError('Issued At (iat) claim error in the ID token; current time ({}) is before issued at time ({})'.format(now, iat_time))
 
         # Nonce
         if 'nonce' in opt and opt['nonce']:
             if 'nonce' not in payload or type(payload['nonce']) != str:
-                raise Exception('Nonce (nonce) claim must be a string present in the ID token')
+                raise TokenValidationError('Nonce (nonce) claim must be a string present in the ID token')
             if payload['nonce'] != opt['nonce']:
-                raise Exception('Nonce (nonce) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['nonce'], payload['nonce']))
+                raise TokenValidationError('Nonce (nonce) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['nonce'], payload['nonce']))
 
         # Authorized party
         if type(payload['aud']) is list and len(payload['aud']) > 1:
             if 'azp' not in payload or type(payload['azp']) != str:
-                raise Exception('Authorized Party (azp) claim must be a string present in the ID token when Audience (aud) claim has multiple values')
+                raise TokenValidationError('Authorized Party (azp) claim must be a string present in the ID token when Audience (aud) claim has multiple values')
             if payload['azp'] != opt['aud']:
-                raise Exception('Authorized Party (azp) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['aud'], payload['azp']))
+                raise TokenValidationError('Authorized Party (azp) claim mismatch in the ID token; expected "{}", found "{}"'.format(opt['aud'], payload['azp']))
 
         # Authentication time
         if 'max_age' in opt and opt['max_age']:
             if 'auth_time' not in payload or type(payload['auth_time']) != int:
-                raise Exception('Authentication Time (auth_time) claim must be a number present in the ID token when Max Age (max_age) is specified')
+                raise TokenValidationError('Authentication Time (auth_time) claim must be a number present in the ID token when Max Age (max_age) is specified')
 
             auth_valid_until = payload['auth_time'] + opt['max_age'] + leeway
             if now > auth_valid_until:
-                raise Exception('Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time ({}) is after last auth at ({})'.format(now, auth_valid_until))
+                raise TokenValidationError('Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time ({}) is after last auth at ({})'.format(now, auth_valid_until))
 
 
 
