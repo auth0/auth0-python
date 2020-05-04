@@ -6,3 +6,11 @@ class Auth0Error(Exception):
 
     def __str__(self):
         return '{}: {}'.format(self.status_code, self.message)
+
+
+class TokenValidationError(Exception):
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return self.message

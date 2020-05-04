@@ -7,7 +7,8 @@ import time
 from mock import MagicMock, patch
 
 from ...authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier, \
-    SymmetricSignatureVerifier, JwksFetcher
+    SymmetricSignatureVerifier, JwksFetcher, SignatureVerifier
+from ...exceptions import TokenValidationError
 
 RSA_PUB_KEY_1_PEM = b"""-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGbXWiK3dQTyCbX5xdE4\nyCuYp0AF2d15Qq1JSXT/lx8CEcXb9RbDddl8jGDv+spi5qPa8qEHiK7FwV2KpRE9\n83wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVs\nWXI9C+yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT\n69s7of9+I9l5lsJ9cozf1rxrXX4V1u/SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8\nAziMCxS+VrRPDM+zfvpIJg3JljAh3PJHDiLu902v9w+Iplu1WyoB2aPfitxEhRN0\nYwIDAQAB\n-----END PUBLIC KEY-----\n"""
 RSA_PUB_KEY_2_PEM = b"""-----BEGIN PUBLIC KEY-----\nMDowDQYJKoZIhvcNAQEBBQADKQAwJgIfAI7TBUCn8e1hj/fNpb5dqMf8Jj6Ja6qN\npqyeOGYEzAIDAQAB\n-----END PUBLIC KEY-----\n"""
@@ -30,6 +31,21 @@ expectations = {
 
 # Run with: python -m unittest discover -s auth0 -p 'test_token_*'
 class TestSignatureVerifier(unittest.TestCase):
+
+    def test_fail_at_creation_with_invalid_algorithm(self):
+        alg = 12345
+
+        with self.assertRaises(ValueError) as err:
+            SymmetricSignatureVerifier("some secret", algorithm=alg)
+        self.assertEqual(str(err.exception), "algorithm must be specified.")
+
+        with self.assertRaises(ValueError) as err:
+            AsymmetricSignatureVerifier("some url", algorithm=alg)
+        self.assertEqual(str(err.exception), "algorithm must be specified.")
+
+        with self.assertRaises(ValueError) as err:
+            SignatureVerifier(algorithm=alg)
+        self.assertEqual(str(err.exception), "algorithm must be specified.")
 
     def test_symmetric_verifier_uses_hs256_alg(self):
         verifier = SymmetricSignatureVerifier("some secret")
@@ -62,6 +78,21 @@ class TestSignatureVerifier(unittest.TestCase):
         self.assertEqual(mock_fetcher, verifier._fetcher)
         self.assertEqual(mock_fetcher._jwks_url, "some URL")
         self.assertEqual(key, RSA_PUB_KEY_1_JWK)
+
+    def test_fails_with_none_algorithm(self):
+        # below is a token without signature and "signed" with none
+        jwt = "ewogICJhbGciOiAibm9uZSIsCiAgInR5cCI6ICJKV1QiCn0.eyJ1c2VybmFtZSI6ImFkbWluIn0."
+
+        verifier = SymmetricSignatureVerifier("some secret")
+        with self.assertRaises(Exception) as err:
+            verifier.verify_signature(jwt)
+        self.assertEqual(str(err.exception), 'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "HS256"')
+
+        verifier = AsymmetricSignatureVerifier("some url")
+        with self.assertRaises(Exception) as err:
+            verifier.verify_signature(jwt)
+        self.assertEqual(str(err.exception),
+                         'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "RS256"')
 
 
 class TestJwksFetcher(unittest.TestCase):
@@ -199,9 +230,15 @@ class TestTokenVerifier(unittest.TestCase):
             leeway=DEFAULT_LEEWAY,
             _clock=_clock
             )
-        with self.assertRaises(Exception) as err:
+        with self.assertRaises(TokenValidationError) as err:
             tv.verify(token, nonce, max_age)
         self.assertEqual(str(err.exception), error_message)
+
+    def test_fails_at_creation_with_invalid_signature_verifier(self):
+        sv = "string is not an instance of signature verifier"
+        with self.assertRaises(TypeError) as err:
+            TokenVerifier(signature_verifier=sv, issuer="valid issuer", audience="valid audience")
+        self.assertEqual(str(err.exception), "signature_verifier must be an instance of SignatureVerifier.")
 
     def test_err_token_empty(self):
         token = ""
