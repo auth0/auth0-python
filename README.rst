@@ -156,6 +156,63 @@ For example:
 
     s.login(client_id='...', access_token='...', connection='facebook')
 
+===================
+ID Token validation
+===================
+
+As the result of the authentication and among the credentials received, an ``id_token``
+might be present. This artifact contains information associated to the user that has
+just logged in, provided the scope used contained ``openid``. You can read more
+about ID tokens `here <https://auth0.com/docs/tokens/concepts/id-tokens>`_.
+
+Before you access their contents, you must first verify the ID token to ensure its
+contents has not been tampered with and that is meant for your application to consume.
+
+For that purpose you use the ``TokenVerifier`` class, which requires to be passed
+a few options:
+* A ``SignatureVerifier`` instance, in charge of checking the expected algorithm
+and signature.
+* The expected issuer value, typically matches the Auth0 domain prefixed with
+``https://`` and suffixed with ``/``.
+* The expected audience value, typically matches the Auth0 application client ID.
+
+You choose the signature verifier depending on the signing algorithm used by your Auth0 application.
+You can check its value under ``Advanced settings | OAuth | JsonWebToken Signature Algorithm``.
+* For symmetric algorithms like "HS256", use the `SymmetricSignatureVerifier` class passing
+as secret the client secret value for your Auth0 application.
+* For asymmetric algorithms like "RS256", use the `AsymmetricSignatureVerifier` class passing
+the public URL where the certificates for the public keys can be found.
+
+Auth0 hosts Public Keys inside the ``.well-known`` directory of your tenant's domain.
+That URL looks like this: ``https://myaccount.auth0.com/.well-known/jwks.json``.
+After replacing `myaccount.auth0.com` with your tenant's domain, you should be able
+to access your tenant's public keys.
+
+It is recommended that you make use of asymmetric signing algorithms as their keys are easier
+to rotate in case they need to be revoked.
+
+With all in place, the next snippets shows how to verify an RS256 signed ID token:
+
+.. code-block:: python
+
+    from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
+
+    domain = 'myaccount.auth0.com'
+    client_id = 'exampleid'
+
+    # After authenticating
+    id_token = auth_result['id_token']
+
+    jwks_url = 'https://{}/.well-known/jwks.json'.format(domain)
+    issuer = 'https://{}/'.format(domain)
+
+    sv = AsymmetricSignatureVerifier(jwks_url)  # Reusable instance
+    tv = TokenVerifier(signature_verifier=sv, issuer=issuer, audience=client_id)
+    tv.verify(id_token)
+
+Provided something goes wrong, a ``TokenValidationError`` will be raised. In this
+scenario, the ID token should be deemed invalid and its contents not be trusted.
+
 Available Management Endpoints
 ==============================
 
