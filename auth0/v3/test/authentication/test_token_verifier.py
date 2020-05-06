@@ -29,7 +29,6 @@ expectations = {
 }
 
 
-# Run with: python -m unittest discover -s auth0 -p 'test_token_*'
 class TestSignatureVerifier(unittest.TestCase):
 
     def test_fail_at_creation_with_invalid_algorithm(self):
