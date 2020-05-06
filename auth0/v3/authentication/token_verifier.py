@@ -7,7 +7,7 @@ import requests
 from auth0.v3.exceptions import TokenValidationError
 
 
-class SignatureVerifier():
+class SignatureVerifier(object):
     DISABLE_JWT_CHECKS = {
         "verify_signature": True,
         "verify_exp": False,
@@ -108,7 +108,7 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
         return self._fetcher.get_key(key_id)
 
 
-class JwksFetcher():
+class JwksFetcher(object):
     CACHE_TTL = 600  # 10 min cache lifetime
 
     """Class that fetches and holds a JSON web key set.
@@ -240,9 +240,19 @@ class TokenVerifier():
         payload = self._sv.verify_signature(token)
 
         # Verify claims
-        # Issuer
+        self._verify_payload(payload, nonce, max_age)
 
-        if 'iss' not in payload or not isinstance(payload['iss'], str):
+    def _verify_payload(self, payload, nonce=None, max_age=None):
+        try:
+            # on Python 2.7, 'str' keys as parsed as 'unicode'
+            # But 'unicode' was removed on Python 3.7
+            # noinspection PyUnresolvedReferences
+            ustr = unicode
+        except NameError:
+            ustr = str
+
+        # Issuer
+        if 'iss' not in payload or not isinstance(payload['iss'], (str, ustr)):
             raise TokenValidationError('Issuer (iss) claim must be a string present in the ID token')
         if payload['iss'] != self.iss:
             raise TokenValidationError(
@@ -250,11 +260,11 @@ class TokenVerifier():
                 'found "{}"'.format(self.iss, payload['iss']))
 
         # Subject
-        if 'sub' not in payload or not isinstance(payload['sub'], str):
+        if 'sub' not in payload or not isinstance(payload['sub'], (str, ustr)):
             raise TokenValidationError('Subject (sub) claim must be a string present in the ID token')
 
         # Audience
-        if 'aud' not in payload or not (isinstance(payload['aud'], str) or isinstance(payload['aud'], list)):
+        if 'aud' not in payload or not (isinstance(payload['aud'], (str, ustr)) or isinstance(payload['aud'], list)):
             raise TokenValidationError(
                 'Audience (aud) claim must be a string or array of strings present in the ID token')
 
@@ -263,7 +273,7 @@ class TokenVerifier():
             raise TokenValidationError(
                 'Audience (aud) claim mismatch in the ID token; expected "{}" but was '
                 'not one of "{}"'.format(self.aud, payload_audiences))
-        elif isinstance(payload['aud'], str) and payload['aud'] != self.aud:
+        elif isinstance(payload['aud'], (str, ustr)) and payload['aud'] != self.aud:
             raise TokenValidationError(
                 'Audience (aud) claim mismatch in the ID token; expected "{}" '
                 'but found "{}"'.format(self.aud, payload['aud']))
@@ -294,7 +304,7 @@ class TokenVerifier():
 
         # Nonce
         if nonce:
-            if 'nonce' not in payload or not isinstance(payload['nonce'], str):
+            if 'nonce' not in payload or not isinstance(payload['nonce'], (str, ustr)):
                 raise TokenValidationError('Nonce (nonce) claim must be a string present in the ID token')
             if payload['nonce'] != nonce:
                 raise TokenValidationError(
@@ -303,7 +313,7 @@ class TokenVerifier():
 
         # Authorized party
         if isinstance(payload['aud'], list) and len(payload['aud']) > 1:
-            if 'azp' not in payload or not isinstance(payload['azp'], str):
+            if 'azp' not in payload or not isinstance(payload['azp'], (str, ustr)):
                 raise TokenValidationError(
                     'Authorized Party (azp) claim must be a string present in the ID token when '
                     'Audience (aud) claim has multiple values')
