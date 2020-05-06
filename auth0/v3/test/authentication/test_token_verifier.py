@@ -68,7 +68,8 @@ class TestSignatureVerifier(unittest.TestCase):
         mock_fetcher.get_key = MagicMock('get_key')
         mock_fetcher.get_key.return_value = RSA_PUB_KEY_1_JWK
 
-        verifier = AsymmetricSignatureVerifier("some URL", _jwks_fetcher=mock_fetcher)
+        verifier = AsymmetricSignatureVerifier("some URL")
+        verifier._fetcher = mock_fetcher
 
         key = verifier._fetch_key('test-key')
 
@@ -221,15 +222,15 @@ class TestTokenVerifier(unittest.TestCase):
         verifier._fetch_key.return_value = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(RSA_PUB_KEY_1_JWK))
         return verifier
 
-    def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=expectations['audience'], issuer=expectations['issuer'], nonce=None, max_age=None, _clock=MOCKED_CLOCK):
+    def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=expectations['audience'], issuer=expectations['issuer'], nonce=None, max_age=None, clock=MOCKED_CLOCK):
         sv = signature_verifier or self.asymmetric_signature_verifier_mock()
         tv = TokenVerifier(
             signature_verifier=sv,
             issuer=issuer,
             audience=audience,
-            leeway=DEFAULT_LEEWAY,
-            _clock=_clock
-            )
+            leeway=DEFAULT_LEEWAY
+        )
+        tv._options['_clock'] = clock
         with self.assertRaises(TokenValidationError) as err:
             tv.verify(token, nonce, max_age)
         self.assertEqual(str(err.exception), error_message)
@@ -261,8 +262,9 @@ class TestTokenVerifier(unittest.TestCase):
         tv = TokenVerifier(
             signature_verifier=sv,
             issuer=expectations['issuer'],
-            audience=expectations['audience'],
-            _clock=MOCKED_CLOCK)
+            audience=expectations['audience']
+        )
+        tv._options['_clock'] = MOCKED_CLOCK
         tv.verify(token)
 
     def test_RS256_token_signature_passes(self):
@@ -272,8 +274,9 @@ class TestTokenVerifier(unittest.TestCase):
         tv = TokenVerifier(
             signature_verifier=sv,
             issuer=expectations['issuer'],
-            audience=expectations['audience'],
-            _clock=MOCKED_CLOCK)
+            audience=expectations['audience']
+        )
+        tv._options['_clock'] = MOCKED_CLOCK
         tv.verify(token)
 
     def test_HS256_token_signature_fails(self):
@@ -320,7 +323,7 @@ class TestTokenVerifier(unittest.TestCase):
     def test_fails_with_exp_invalid(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NTkyNTYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.KUbd2s3Km-PVpP8KEJo1e0lyQv19TjiKMFX-lVebFoiPNwlVTXS08g5qe_G8pcOrwNfX6cRkRLbp7TNQ7tGDCuEcdia9KOaWeVWla5B3UPCv1qozCyMv4ZYrA0qdT2KgwytRMVWSov9ly29FSo6SRQksAMKZdnAzPaqnJGKBgVIjKN3a5ePIeX5yBIGxlNjS3nyWt8LIQJ9BFaQWk3i0vAKYpDeco3VLNLX-wH7739MzS7ll6t6LyuZi6kBaRG6XZc394glKidTvCp06ViQlPlcuV7JsCJfbkBc0AS5TmzOEdUCype-gzNqbuLcSXihS-qOx7Yjv8y3farV1_7qYqw"
         mocked_clock = MOCKED_CLOCK + DEFAULT_LEEWAY + 1
-        self.assert_fails_with_error(token, 'Expiration Time (exp) claim error in the ID token; current time ({}) is after expiration time (1587592621)'.format(mocked_clock), _clock=mocked_clock)
+        self.assert_fails_with_error(token, 'Expiration Time (exp) claim error in the ID token; current time ({}) is after expiration time (1587592621)'.format(mocked_clock), clock=mocked_clock)
 
     def test_fails_with_iat_missing(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJub25jZSI6ImExYjJjM2Q0ZTUiLCJhenAiOiJ0b2tlbnMtdGVzdC0xMjMiLCJhdXRoX3RpbWUiOjE1ODc2Nzg5NjF9.CWW7mWUhiI-rramQ2dIGi7vBsOMmsouIg32IL9u2g4Dg3PV0C55R7dL6Jvf9hqaZXvx9Psrw0vLnOlhFztAC6LlQuq2eCaLYsDme36NxeYGC7CFXygvlU_eXD5IdNK35GriTfpG_b5hC7tl2glMmNQcZWlsIyKw7eq8o1POpqo0K2bCVjoyJkHL6WUpw6_08HPspmTL_Qd0km08z6zgvbl8Hpzk-tLmXqN7LjmuhEsjnIFphu-dGwcQsoY3RAomYxAFXAPYT8siEIf2w3zlIoUde-mujiMUtMD-Od7t7w36GO6Kubb9M9inVwPEg1yFKlFTXZBKXu91xmOmvMJ5Qfg"
@@ -331,7 +334,7 @@ class TestTokenVerifier(unittest.TestCase):
         mocked_clock = MOCKED_CLOCK - DEFAULT_LEEWAY - 1
         self.assert_fails_with_error(token,
                                      'Issued At (iat) claim error in the ID token; current time ({}) is before issued at time (1587765301)'.format(
-                                         mocked_clock), _clock=mocked_clock)
+                                         mocked_clock), clock=mocked_clock)
 
     def test_passes_when_nonce_missing_but_not_required(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.L-DveLCDf4Te7x3JZmQ6rCkUQrenl1NFpHqKD8Fs-glhd2iyc-TYffk1M30T0-wBri-3tTgraDAjZAjXuwSk0gV_V5uKCHyIoSRphrC88aX8IeECteQpHa4KR15lbzA5JdVhJu7LuCZ2EFvdjHh5GiViLRWsTSHGUM-uqcMK0q2kWGvCEgfOIXqocnQiyCNITxfgMYJd38zOsVeP7HFf9riuFEQz65oER22o3xyIZ-ILSaU10n6Ob559Rbjc0NVKH4hrggRg8kG7cJCiXbRxXnzO_VM8LmRHhF56jh3ZSrO4bzQa5xv04bMbX6A77muMZD0vghsaslvpWerWbwaSQQ"
@@ -340,8 +343,9 @@ class TestTokenVerifier(unittest.TestCase):
         tv = TokenVerifier(
             signature_verifier=sv,
             issuer=expectations['issuer'],
-            audience=expectations['audience'],
-            _clock=MOCKED_CLOCK)
+            audience=expectations['audience']
+        )
+        tv._options['_clock'] = MOCKED_CLOCK
         tv.verify(token)
 
     def test_fails_with_nonce_missing(self):
@@ -371,4 +375,4 @@ class TestTokenVerifier(unittest.TestCase):
         expected_auth_time = MOCKED_CLOCK + DEFAULT_LEEWAY + max_age
         mocked_clock = expected_auth_time + 1
 
-        self.assert_fails_with_error(token, "Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time ({}) is after last auth at ({})".format(mocked_clock, expected_auth_time), max_age=max_age, _clock=mocked_clock)
+        self.assert_fails_with_error(token, "Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time ({}) is after last auth at ({})".format(mocked_clock, expected_auth_time), max_age=max_age, clock=mocked_clock)

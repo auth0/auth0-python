@@ -100,9 +100,9 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
         algorithm (str, optional): The expected signing algorithm. Defaults to "HS256".
     """
 
-    def __init__(self, jwks_url, algorithm="RS256", _jwks_fetcher=None):
+    def __init__(self, jwks_url, algorithm="RS256"):
         SignatureVerifier.__init__(self, algorithm)
-        self._fetcher = _jwks_fetcher or JwksFetcher(jwks_url)
+        self._fetcher = JwksFetcher(jwks_url)
 
     def _fetch_key(self, key_id=None):
         return self._fetcher.get_key(key_id)
@@ -209,7 +209,7 @@ class TokenVerifier():
             Defaults to 60 seconds.
     """
 
-    def __init__(self, signature_verifier, issuer, audience, leeway=0, _clock=None):
+    def __init__(self, signature_verifier, issuer, audience, leeway=0):
         if not signature_verifier or not isinstance(signature_verifier, SignatureVerifier):
             raise TypeError("signature_verifier must be an instance of SignatureVerifier.")
 
@@ -218,7 +218,7 @@ class TokenVerifier():
             'iss': issuer,
             'aud': audience,
             'leeway': leeway,
-            '_clock': _clock
+            '_clock': None
         }
 
     """Attempts to verify the given ID token, following the steps defined in the OpenID Connect spec.
@@ -275,7 +275,7 @@ class TokenVerifier():
                 'but found "{}"'.format(opt['aud'], payload['aud']))
 
         # --Time validation (epoch)--
-        now = opt['_clock'] or time.time()
+        now = opt.get('_clock', time.time())
         leeway = opt['leeway']
 
         # Expires at
