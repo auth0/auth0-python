@@ -86,7 +86,7 @@ class SymmetricSignatureVerifier(SignatureVerifier):
     """
 
     def __init__(self, shared_secret, algorithm="HS256"):
-        SignatureVerifier.__init__(self, algorithm)
+        super(SymmetricSignatureVerifier, self).__init__(algorithm)
         self._shared_secret = shared_secret
 
     def _fetch_key(self, key_id=None):
@@ -101,7 +101,7 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
     """
 
     def __init__(self, jwks_url, algorithm="RS256"):
-        SignatureVerifier.__init__(self, algorithm)
+        super(AsymmetricSignatureVerifier, self).__init__(algorithm)
         self._fetcher = JwksFetcher(jwks_url)
 
     def _fetch_key(self, key_id=None):
