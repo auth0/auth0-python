@@ -230,7 +230,7 @@ class TestTokenVerifier(unittest.TestCase):
             audience=audience,
             leeway=DEFAULT_LEEWAY
         )
-        tv._options['_clock'] = clock
+        tv._clock = clock
         with self.assertRaises(TokenValidationError) as err:
             tv.verify(token, nonce, max_age)
         self.assertEqual(str(err.exception), error_message)
@@ -238,6 +238,7 @@ class TestTokenVerifier(unittest.TestCase):
     def test_fails_at_creation_with_invalid_signature_verifier(self):
         sv = "string is not an instance of signature verifier"
         with self.assertRaises(TypeError) as err:
+            # noinspection PyTypeChecker
             TokenVerifier(signature_verifier=sv, issuer="valid issuer", audience="valid audience")
         self.assertEqual(str(err.exception), "signature_verifier must be an instance of SignatureVerifier.")
 
@@ -264,7 +265,7 @@ class TestTokenVerifier(unittest.TestCase):
             issuer=expectations['issuer'],
             audience=expectations['audience']
         )
-        tv._options['_clock'] = MOCKED_CLOCK
+        tv._clock = MOCKED_CLOCK
         tv.verify(token)
 
     def test_RS256_token_signature_passes(self):
@@ -276,7 +277,7 @@ class TestTokenVerifier(unittest.TestCase):
             issuer=expectations['issuer'],
             audience=expectations['audience']
         )
-        tv._options['_clock'] = MOCKED_CLOCK
+        tv._clock = MOCKED_CLOCK
         tv.verify(token)
 
     def test_HS256_token_signature_fails(self):
@@ -345,7 +346,7 @@ class TestTokenVerifier(unittest.TestCase):
             issuer=expectations['issuer'],
             audience=expectations['audience']
         )
-        tv._options['_clock'] = MOCKED_CLOCK
+        tv._clock = MOCKED_CLOCK
         tv.verify(token)
 
     def test_fails_with_nonce_missing(self):

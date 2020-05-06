@@ -213,13 +213,11 @@ class TokenVerifier():
         if not signature_verifier or not isinstance(signature_verifier, SignatureVerifier):
             raise TypeError("signature_verifier must be an instance of SignatureVerifier.")
 
-        self._options = {
-            'signature_verifier': signature_verifier,
-            'iss': issuer,
-            'aud': audience,
-            'leeway': leeway,
-            '_clock': None
-        }
+        self.iss = issuer
+        self.aud = audience
+        self.leeway = leeway
+        self._sv = signature_verifier
+        self._clock = None  # visible for testing
 
     """Attempts to verify the given ID token, following the steps defined in the OpenID Connect spec.
 
@@ -235,51 +233,47 @@ class TokenVerifier():
 
     def verify(self, token, nonce=None, max_age=None):
         # Verify token presence
-        if not token or type(token) != str:
+        if not token or not isinstance(token, str):
             raise TokenValidationError("ID token is required but missing.")
 
-        opt = self._options.copy()
-        opt['nonce'] = nonce
-        opt['max_age'] = max_age
-
         # Verify algorithm and signature
-        payload = opt['signature_verifier'].verify_signature(token)
+        payload = self._sv.verify_signature(token)
 
         # Verify claims
         # Issuer
 
-        if 'iss' not in payload or type(payload['iss']) != str:
+        if 'iss' not in payload or not isinstance(payload['iss'], str):
             raise TokenValidationError('Issuer (iss) claim must be a string present in the ID token')
-        if payload['iss'] != opt['iss']:
+        if payload['iss'] != self.iss:
             raise TokenValidationError(
                 'Issuer (iss) claim mismatch in the ID token; expected "{}", '
-                'found "{}"'.format(opt['iss'], payload['iss']))
+                'found "{}"'.format(self.iss, payload['iss']))
 
         # Subject
-        if 'sub' not in payload or type(payload['sub']) != str:
+        if 'sub' not in payload or not isinstance(payload['sub'], str):
             raise TokenValidationError('Subject (sub) claim must be a string present in the ID token')
 
         # Audience
-        if 'aud' not in payload or not (type(payload['aud']) == str or type(payload['aud']) is list):
+        if 'aud' not in payload or not (isinstance(payload['aud'], str) or isinstance(payload['aud'], list)):
             raise TokenValidationError(
                 'Audience (aud) claim must be a string or array of strings present in the ID token')
 
-        if type(payload['aud']) is list and not opt['aud'] in payload['aud']:
+        if isinstance(payload['aud'], list) and not self.aud in payload['aud']:
             payload_audiences = ", ".join(payload['aud'])
             raise TokenValidationError(
                 'Audience (aud) claim mismatch in the ID token; expected "{}" but was '
-                'not one of "{}"'.format(opt['aud'], payload_audiences))
-        elif type(payload['aud']) == str and payload['aud'] != opt['aud']:
+                'not one of "{}"'.format(self.aud, payload_audiences))
+        elif isinstance(payload['aud'], str) and payload['aud'] != self.aud:
             raise TokenValidationError(
                 'Audience (aud) claim mismatch in the ID token; expected "{}" '
-                'but found "{}"'.format(opt['aud'], payload['aud']))
+                'but found "{}"'.format(self.aud, payload['aud']))
 
         # --Time validation (epoch)--
-        now = opt.get('_clock', time.time())
-        leeway = opt['leeway']
+        now = self._clock or time.time()
+        leeway = self.leeway
 
         # Expires at
-        if 'exp' not in payload or type(payload['exp']) != int:
+        if 'exp' not in payload or not isinstance(payload['exp'], int):
             raise TokenValidationError('Expiration Time (exp) claim must be a number present in the ID token')
 
         exp_time = payload['exp'] + leeway
@@ -289,7 +283,7 @@ class TokenVerifier():
                 'after expiration time ({})'.format(now, exp_time))
 
         # Issued at
-        if 'iat' not in payload or type(payload['iat']) != int:
+        if 'iat' not in payload or not isinstance(payload['iat'], int):
             raise TokenValidationError('Issued At (iat) claim must be a number present in the ID token')
 
         iat_time = payload['iat'] - leeway
@@ -299,33 +293,33 @@ class TokenVerifier():
                 'before issued at time ({})'.format(now, iat_time))
 
         # Nonce
-        if 'nonce' in opt and opt['nonce']:
-            if 'nonce' not in payload or type(payload['nonce']) != str:
+        if nonce:
+            if 'nonce' not in payload or not isinstance(payload['nonce'], str):
                 raise TokenValidationError('Nonce (nonce) claim must be a string present in the ID token')
-            if payload['nonce'] != opt['nonce']:
+            if payload['nonce'] != nonce:
                 raise TokenValidationError(
                     'Nonce (nonce) claim mismatch in the ID token; expected "{}", '
-                    'found "{}"'.format(opt['nonce'], payload['nonce']))
+                    'found "{}"'.format(nonce, payload['nonce']))
 
         # Authorized party
-        if type(payload['aud']) is list and len(payload['aud']) > 1:
-            if 'azp' not in payload or type(payload['azp']) != str:
+        if isinstance(payload['aud'], list) and len(payload['aud']) > 1:
+            if 'azp' not in payload or not isinstance(payload['azp'], str):
                 raise TokenValidationError(
                     'Authorized Party (azp) claim must be a string present in the ID token when '
                     'Audience (aud) claim has multiple values')
-            if payload['azp'] != opt['aud']:
+            if payload['azp'] != self.aud:
                 raise TokenValidationError(
                     'Authorized Party (azp) claim mismatch in the ID token; expected "{}", '
-                    'found "{}"'.format(opt['aud'], payload['azp']))
+                    'found "{}"'.format(self.aud, payload['azp']))
 
         # Authentication time
-        if 'max_age' in opt and opt['max_age']:
-            if 'auth_time' not in payload or type(payload['auth_time']) != int:
+        if max_age:
+            if 'auth_time' not in payload or not isinstance(payload['auth_time'], int):
                 raise TokenValidationError(
                     'Authentication Time (auth_time) claim must be a number present in the ID token '
                     'when Max Age (max_age) is specified')
 
-            auth_valid_until = payload['auth_time'] + opt['max_age'] + leeway
+            auth_valid_until = payload['auth_time'] + max_age + leeway
             if now > auth_valid_until:
                 raise TokenValidationError(
                     'Authentication Time (auth_time) claim in the ID token indicates that too much '
