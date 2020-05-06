@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.9.2
+------------------
+
+**Fixed**
+- Accept client_secret as passwordless/start param [\#211](https://github.com/auth0/auth0-python/pull/211) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.9.1
 ------------------
 
