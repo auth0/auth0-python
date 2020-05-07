@@ -18,9 +18,9 @@ class AuthenticationBase(object):
             (defaults to True)
     """
 
-    def __init__(self, domain, telemetry=True):
+    def __init__(self, domain, telemetry=True, timeout=5.0):
         self.domain = domain
-
+        self.timeout = timeout
         self.base_headers = {'Content-Type': 'application/json'}
 
         if telemetry:
@@ -43,13 +43,13 @@ class AuthenticationBase(object):
     def post(self, url, data=None, headers=None):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
-        response = requests.post(url=url, json=data, headers=request_headers)
+        response = requests.post(url=url, json=data, headers=request_headers, timeout=self.timeout)
         return self._process_response(response)
 
     def get(self, url, params=None, headers=None):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
-        response = requests.get(url=url, params=params, headers=request_headers)
+        response = requests.get(url=url, params=params, headers=request_headers, timeout=self.timeout)
         return self._process_response(response)
 
     def _process_response(self, response):

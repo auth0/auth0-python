@@ -13,8 +13,9 @@ class RestClient(object):
 
     """Provides simple methods for handling all RESTful api endpoints. """
 
-    def __init__(self, jwt, telemetry=True):
+    def __init__(self, jwt, telemetry=True, timeout=5.0):
         self.jwt = jwt
+        self.timeout = timeout
 
         self.base_headers = {
             'Authorization': 'Bearer {}'.format(self.jwt),
@@ -40,38 +41,38 @@ class RestClient(object):
     def get(self, url, params=None):
         headers = self.base_headers.copy()
 
-        response = requests.get(url, params=params, headers=headers)
+        response = requests.get(url, params=params, headers=headers, timeout=self.timeout)
         return self._process_response(response)
 
     def post(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.post(url, json=data, headers=headers)
+        response = requests.post(url, json=data, headers=headers, timeout=self.timeout)
         return self._process_response(response)
 
     def file_post(self, url, data=None, files=None):
         headers = self.base_headers.copy()
         headers.pop('Content-Type', None)
 
-        response = requests.post(url, data=data, files=files, headers=headers)
+        response = requests.post(url, data=data, files=files, headers=headers, timeout=self.timeout)
         return self._process_response(response)
 
     def patch(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.patch(url, json=data, headers=headers)
+        response = requests.patch(url, json=data, headers=headers, timeout=self.timeout)
         return self._process_response(response)
 
     def put(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.put(url, json=data, headers=headers)
+        response = requests.put(url, json=data, headers=headers, timeout=self.timeout)
         return self._process_response(response)
 
     def delete(self, url, params=None, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.delete(url, headers=headers, params=params or {}, json=data)
+        response = requests.delete(url, headers=headers, params=params or {}, json=data, timeout=self.timeout)
         return self._process_response(response)
 
     def _process_response(self, response):
