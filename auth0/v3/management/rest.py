@@ -11,8 +11,16 @@ UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
 
 class RestClient(object):
 
-    """Provides simple methods for handling all RESTful api endpoints. """
+    """Provides simple methods for handling all RESTful api endpoints.
 
+    Args:
+        telemetry (bool, optional): Enable or disable Telemetry
+            (defaults to True)
+        timeout (float or tuple, optional): Change the requests
+            connect and read timeout. Pass a tuple to specify
+            both values separately or a float to set both to it.
+            (defaults to 5.0 for both)
+    """
     def __init__(self, jwt, telemetry=True, timeout=5.0):
         self.jwt = jwt
         self.timeout = timeout
