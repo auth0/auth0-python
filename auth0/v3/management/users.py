@@ -12,6 +12,11 @@ class Users(object):
 
         telemetry (bool, optional): Enable or disable Telemetry
             (defaults to True)
+
+        timeout (float or tuple, optional): Change the requests
+            connect and read timeout. Pass a tuple to specify
+            both values separately or a float to set both to it.
+            (defaults to 5.0 for both)
     """
 
     def __init__(self, domain, token, telemetry=True, timeout=5.0):
