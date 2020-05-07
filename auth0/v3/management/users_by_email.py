@@ -14,9 +14,9 @@ class UsersByEmail(object):
             (defaults to True)
     """
 
-    def __init__(self, domain, token, telemetry=True):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0):
         self.domain = domain
-        self.client = RestClient(jwt=token, telemetry=telemetry)
+        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
 
     def _url(self):
         url = 'https://{}/api/v2/users-by-email'.format(self.domain)

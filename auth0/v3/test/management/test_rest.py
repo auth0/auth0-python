@@ -22,14 +22,14 @@ class TestRest(unittest.TestCase):
         mock_get.return_value.status_code = 200
 
         response = rc.get('the-url')
-        mock_get.assert_called_with('the-url', params=None, headers=headers)
+        mock_get.assert_called_with('the-url', params=None, headers=headers, timeout=5.0)
 
         self.assertEqual(response, ['a', 'b'])
 
         response = rc.get(url='the/url', params={'A': 'param', 'B': 'param'})
         mock_get.assert_called_with('the/url', params={'A': 'param',
                                                        'B': 'param'},
-                                    headers=headers)
+                                    headers=headers, timeout=5.0)
         self.assertEqual(response, ['a', 'b'])
 
         mock_get.return_value.text = ''
@@ -65,7 +65,7 @@ class TestRest(unittest.TestCase):
         mock_post.return_value.status_code = 200
         response = rc.post('the/url', data=data)
         mock_post.assert_called_with('the/url', json=data,
-                                     headers=headers)
+                                     headers=headers, timeout=5.0)
 
         self.assertEqual(response, {'a': 'b'})
 
@@ -213,7 +213,7 @@ class TestRest(unittest.TestCase):
 
         rc.file_post('the-url', data=data, files=files)
 
-        mock_post.assert_called_once_with('the-url', data=data, files=files, headers=headers)
+        mock_post.assert_called_once_with('the-url', data=data, files=files, headers=headers, timeout=5.0)
 
 
     @mock.patch('requests.put')
@@ -229,7 +229,7 @@ class TestRest(unittest.TestCase):
 
         response = rc.put(url='the-url', data=data)
         mock_put.assert_called_with('the-url', json=data,
-                                      headers=headers)
+                                      headers=headers, timeout=5.0)
 
         self.assertEqual(response, ['a', 'b'])
 
@@ -262,7 +262,7 @@ class TestRest(unittest.TestCase):
 
         response = rc.patch(url='the-url', data=data)
         mock_patch.assert_called_with('the-url', json=data,
-                                      headers=headers)
+                                      headers=headers, timeout=5.0)
 
         self.assertEqual(response, ['a', 'b'])
 
@@ -294,7 +294,7 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.status_code = 200
 
         response = rc.delete(url='the-url/ID')
-        mock_delete.assert_called_with('the-url/ID', headers=headers, params={}, json=None)
+        mock_delete.assert_called_with('the-url/ID', headers=headers, params={}, json=None, timeout=5.0)
 
         self.assertEqual(response, ['a', 'b'])
 
@@ -313,7 +313,7 @@ class TestRest(unittest.TestCase):
         params={'A': 'param', 'B': 'param'}
 
         response = rc.delete(url='the-url/ID', params=params, data=data)
-        mock_delete.assert_called_with('the-url/ID', headers=headers, params=params, json=data)
+        mock_delete.assert_called_with('the-url/ID', headers=headers, params=params, json=data, timeout=5.0)
 
         self.assertEqual(response, ['a', 'b'])
 
