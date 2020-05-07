@@ -5,6 +5,12 @@ from ...management.email_templates import EmailTemplates
 
 class TestClients(unittest.TestCase):
 
+    def test_init_with_optionals(self):
+        t = EmailTemplates(domain='domain', token='jwttoken', telemetry=False, timeout=(10, 2))
+        self.assertEqual(t.client.timeout, (10, 2))
+        telemetry_header = t.client.base_headers.get('Auth0-Client', None)
+        self.assertEqual(telemetry_header, None)
+
     @mock.patch('auth0.v3.management.email_templates.RestClient')
     def test_create(self, mock_rc):
         mock_instance = mock_rc.return_value
