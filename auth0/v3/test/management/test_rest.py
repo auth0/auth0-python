@@ -2,13 +2,110 @@ import unittest
 import sys
 import json
 import base64
-import requests
+
 import mock
+import requests
+
 from ...management.rest import RestClient
 from ...exceptions import Auth0Error
 
 
 class TestRest(unittest.TestCase):
+
+    def test_get_can_timeout(self):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
+
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.get('http://auth0.com')
+
+    def test_post_can_timeout(self):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
+
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.post('http://auth0.com')
+
+    def test_put_can_timeout(self):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
+
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.put('http://auth0.com')
+
+    def test_patch_can_timeout(self):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
+
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.patch('http://auth0.com')
+
+    def test_delete_can_timeout(self):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
+
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.delete('http://auth0.com')
+
+    @mock.patch('requests.get')
+    def test_get_custom_timeout(self, mock_get):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=(10, 2))
+        headers = {
+            'Authorization': 'Bearer a-token',
+            'Content-Type': 'application/json',
+        }
+        mock_get.return_value.text = '["a", "b"]'
+        mock_get.return_value.status_code = 200
+
+        rc.get('the-url')
+        mock_get.assert_called_with('the-url', params=None, headers=headers, timeout=(10, 2))
+
+    @mock.patch('requests.post')
+    def test_post_custom_timeout(self, mock_post):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=(10, 2))
+        headers = {
+            'Authorization': 'Bearer a-token',
+            'Content-Type': 'application/json',
+        }
+        mock_post.return_value.text = '["a", "b"]'
+        mock_post.return_value.status_code = 200
+
+        rc.post('the-url')
+        mock_post.assert_called_with('the-url', json=None, headers=headers, timeout=(10, 2))
+
+    @mock.patch('requests.put')
+    def test_put_custom_timeout(self, mock_put):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=(10, 2))
+        headers = {
+            'Authorization': 'Bearer a-token',
+            'Content-Type': 'application/json',
+        }
+        mock_put.return_value.text = '["a", "b"]'
+        mock_put.return_value.status_code = 200
+
+        rc.put('the-url')
+        mock_put.assert_called_with('the-url', json=None, headers=headers, timeout=(10, 2))
+
+    @mock.patch('requests.patch')
+    def test_patch_custom_timeout(self, mock_patch):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=(10, 2))
+        headers = {
+            'Authorization': 'Bearer a-token',
+            'Content-Type': 'application/json',
+        }
+        mock_patch.return_value.text = '["a", "b"]'
+        mock_patch.return_value.status_code = 200
+
+        rc.patch('the-url')
+        mock_patch.assert_called_with('the-url', json=None, headers=headers, timeout=(10, 2))
+
+    @mock.patch('requests.delete')
+    def test_delete_custom_timeout(self, mock_delete):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=(10, 2))
+        headers = {
+            'Authorization': 'Bearer a-token',
+            'Content-Type': 'application/json',
+        }
+        mock_delete.return_value.text = '["a", "b"]'
+        mock_delete.return_value.status_code = 200
+
+        rc.delete('the-url')
+        mock_delete.assert_called_with('the-url', params={}, json=None, headers=headers, timeout=(10, 2))
 
     @mock.patch('requests.get')
     def test_get(self, mock_get):

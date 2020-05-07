@@ -5,6 +5,12 @@ from ...management.clients import Clients
 
 class TestClients(unittest.TestCase):
 
+    def test_init_with_optionals(self):
+        t = Clients(domain='domain', token='jwttoken', telemetry=False, timeout=(10, 2))
+        self.assertEqual(t.client.timeout, (10, 2))
+        telemetry_header = t.client.base_headers.get('Auth0-Client', None)
+        self.assertEqual(telemetry_header, None)
+
     @mock.patch('auth0.v3.management.clients.RestClient')
     def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value

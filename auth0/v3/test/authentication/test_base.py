@@ -1,5 +1,7 @@
 import base64
 import json
+from time import sleep
+
 import mock
 import sys
 import requests
@@ -43,7 +45,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.post')
     def test_post(self, mock_post):
-        ab = AuthenticationBase('auth0.com', telemetry=False)
+        ab = AuthenticationBase('auth0.com', telemetry=False, timeout=(10, 2))
 
         mock_post.return_value.status_code = 200
         mock_post.return_value.text = '{"x": "y"}'
@@ -51,7 +53,7 @@ class TestBase(unittest.TestCase):
         data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
         mock_post.assert_called_with(url='the-url', json={'a': 'b'},
-                headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=5.0)
+                headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=(10, 2))
 
         self.assertEqual(data, {'x': 'y'})
         
@@ -174,7 +176,7 @@ class TestBase(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get(self, mock_get):
-        ab = AuthenticationBase('auth0.com', telemetry=False)
+        ab = AuthenticationBase('auth0.com', telemetry=False, timeout=(10, 2))
 
         mock_get.return_value.status_code = 200
         mock_get.return_value.text = '{"x": "y"}'
@@ -182,7 +184,7 @@ class TestBase(unittest.TestCase):
         data = ab.get('the-url', params={'a': 'b'}, headers={'c': 'd'})
 
         mock_get.assert_called_with(url='the-url', params={'a': 'b'},
-                headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=5.0)
+                headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=(10, 2))
 
         self.assertEqual(data, {'x': 'y'})
 

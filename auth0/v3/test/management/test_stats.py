@@ -3,7 +3,13 @@ import mock
 from ...management.stats import Stats
 
 
-class TestTickets(unittest.TestCase):
+class TestStats(unittest.TestCase):
+
+    def test_init_with_optionals(self):
+        t = Stats(domain='domain', token='jwttoken', telemetry=False, timeout=(10, 2))
+        self.assertEqual(t.client.timeout, (10, 2))
+        telemetry_header = t.client.base_headers.get('Auth0-Client', None)
+        self.assertEqual(telemetry_header, None)
 
     @mock.patch('auth0.v3.management.stats.RestClient')
     def test_active_users(self, mock_rc):

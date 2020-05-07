@@ -3,7 +3,13 @@ import mock
 from ...management.rules_configs import RulesConfigs
 
 
-class TestRules(unittest.TestCase):
+class TestRulesConfigs(unittest.TestCase):
+
+    def test_init_with_optionals(self):
+        t = RulesConfigs(domain='domain', token='jwttoken', telemetry=False, timeout=(10, 2))
+        self.assertEqual(t.client.timeout, (10, 2))
+        telemetry_header = t.client.base_headers.get('Auth0-Client', None)
+        self.assertEqual(telemetry_header, None)
 
     @mock.patch('auth0.v3.management.rules_configs.RestClient')
     def test_all(self, mock_rc):
