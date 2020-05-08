@@ -228,10 +228,10 @@ class TestBase(unittest.TestCase):
         ab = AuthenticationBase('auth0.com', timeout=0.00001)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            ab.get('https://auth0.com', params={'a': 'b'}, headers={'c': 'd'})
+            ab.get('https://google.com', params={'a': 'b'}, headers={'c': 'd'})
 
     def test_post_can_timeout(self):
         ab = AuthenticationBase('auth0.com', timeout=0.00001)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            ab.post('https://auth0.com', data={'a': 'b'}, headers={'c': 'd'})
+            ab.post('https://google.com', data={'a': 'b'}, headers={'c': 'd'})

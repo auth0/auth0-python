@@ -16,31 +16,31 @@ class TestRest(unittest.TestCase):
         rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.get('http://auth0.com')
+            rc.get('http://google.com')
 
     def test_post_can_timeout(self):
         rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.post('http://auth0.com')
+            rc.post('http://google.com')
 
     def test_put_can_timeout(self):
         rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.put('http://auth0.com')
+            rc.put('http://google.com')
 
     def test_patch_can_timeout(self):
         rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.patch('http://auth0.com')
+            rc.patch('http://google.com')
 
     def test_delete_can_timeout(self):
         rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.delete('http://auth0.com')
+            rc.delete('http://google.com')
 
     @mock.patch('requests.get')
     def test_get_custom_timeout(self, mock_get):
