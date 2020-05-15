@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.10.0
+------------------
+
+**Security**
+- Improved OIDC compliance [\#213](https://github.com/auth0/auth0-python/pull/213) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.9.2
 ------------------
 
