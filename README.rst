@@ -213,6 +213,16 @@ With all in place, the next snippets shows how to verify an RS256 signed ID toke
 Provided something goes wrong, a ``TokenValidationError`` will be raised. In this
 scenario, the ID token should be deemed invalid and its contents not be trusted.
 
+==============
+Error Handling
+==============
+
+When consuming methods from the API clients, the requests could fail for a number of reasons:
+- Invalid data sent as part of the request: An ``Auth0Error` is raised with the error code and description.
+- Global or Client Rate Limit reached: A ``RateLimitError`` is raised and the time at which the limit
+resets is exposed in the ``reset_at`` property. When the header is unset, this value will be ``-1``.
+- Network timeouts: Adjustable by passing a the ``timeout`` argument to the client. See the `rate limit docs <https://auth0.com/docs/policies/rate-limits>`_ for details.
+
 Available Management Endpoints
 ==============================
 
