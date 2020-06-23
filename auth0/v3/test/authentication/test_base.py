@@ -7,7 +7,7 @@ import sys
 import requests
 import unittest
 from ...authentication.base import AuthenticationBase
-from ...exceptions import Auth0Error
+from ...exceptions import Auth0Error, RateLimitError
 
 
 class TestBase(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestBase(unittest.TestCase):
                                            sys.version_info.micro)
 
         client_info = {
-            'name': 'auth0-python', 
+            'name': 'auth0-python',
             'version': auth0_version,
             'env': {
                 'python': python_version
@@ -53,10 +53,10 @@ class TestBase(unittest.TestCase):
         data = ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
 
         mock_post.assert_called_with(url='the-url', json={'a': 'b'},
-                headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=(10, 2))
+                                     headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=(10, 2))
 
         self.assertEqual(data, {'x': 'y'})
-        
+
     @mock.patch('requests.post')
     def test_post_with_defaults(self, mock_post):
         ab = AuthenticationBase('auth0.com', telemetry=False)
@@ -68,7 +68,7 @@ class TestBase(unittest.TestCase):
         data = ab.post('the-url')
 
         mock_post.assert_called_with(url='the-url', json=None,
-                headers={'Content-Type': 'application/json'}, timeout=5.0)
+                                     headers={'Content-Type': 'application/json'}, timeout=5.0)
 
         self.assertEqual(data, {'x': 'y'})
 
@@ -108,6 +108,29 @@ class TestBase(unittest.TestCase):
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, 'e0')
             self.assertEqual(context.exception.message, 'desc')
+
+    @mock.patch('requests.post')
+    def test_post_rate_limit_error(self, mock_post):
+        ab = AuthenticationBase('auth0.com', telemetry=False)
+
+        mock_post.return_value.text = '{"statusCode": 429,' \
+                                      ' "error": "e0",' \
+                                      ' "error_description": "desc"}'
+        mock_post.return_value.status_code = 429
+        mock_post.return_value.headers = {
+            'x-ratelimit-limit': '3',
+            'x-ratelimit-remaining': '6',
+            'x-ratelimit-reset': '9',
+        }
+
+        with self.assertRaises(Auth0Error) as context:
+            ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
+
+        self.assertEqual(context.exception.status_code, 429)
+        self.assertEqual(context.exception.error_code, 'e0')
+        self.assertEqual(context.exception.message, 'desc')
+        self.assertIsInstance(context.exception, RateLimitError)
+        self.assertEqual(context.exception.reset_at, 9)
 
     @mock.patch('requests.post')
     def test_post_error_with_code_property(self, mock_post):
@@ -184,7 +207,7 @@ class TestBase(unittest.TestCase):
         data = ab.get('the-url', params={'a': 'b'}, headers={'c': 'd'})
 
         mock_get.assert_called_with(url='the-url', params={'a': 'b'},
-                headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=(10, 2))
+                                    headers={'c': 'd', 'Content-Type': 'application/json'}, timeout=(10, 2))
 
         self.assertEqual(data, {'x': 'y'})
 
@@ -199,7 +222,7 @@ class TestBase(unittest.TestCase):
         data = ab.get('the-url')
 
         mock_get.assert_called_with(url='the-url', params=None,
-                headers={'Content-Type': 'application/json'}, timeout=5.0)
+                                    headers={'Content-Type': 'application/json'}, timeout=5.0)
 
         self.assertEqual(data, {'x': 'y'})
 
