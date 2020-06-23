@@ -7,7 +7,7 @@ import mock
 import requests
 
 from ...management.rest import RestClient
-from ...exceptions import Auth0Error
+from ...exceptions import Auth0Error, RateLimitError
 
 
 class TestRest(unittest.TestCase):
@@ -148,6 +148,29 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, 'code')
         self.assertEqual(context.exception.message, 'message')
+
+    @mock.patch('requests.get')
+    def test_get_rate_limit_error(self, mock_get):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        mock_get.return_value.text = '{"statusCode": 429,' \
+                                     ' "errorCode": "code",' \
+                                     ' "message": "message"}'
+        mock_get.return_value.status_code = 429
+        mock_get.return_value.headers = {
+            'x-ratelimit-limit': '3',
+            'x-ratelimit-remaining': '6',
+            'x-ratelimit-reset': '9',
+        }
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.get('the/url')
+
+        self.assertEqual(context.exception.status_code, 429)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+        self.assertIsInstance(context.exception, RateLimitError)
+        self.assertEqual(context.exception.reset_at, 9)
 
     @mock.patch('requests.post')
     def test_post(self, mock_post):
