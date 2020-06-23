@@ -3,14 +3,12 @@ import json
 import sys
 import platform
 import requests
-from ..exceptions import Auth0Error
-
+from ..exceptions import Auth0Error, RateLimitError
 
 UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
 
 
 class AuthenticationBase(object):
-
     """Base authentication object providing simple REST methods.
 
     Args:
@@ -69,12 +67,19 @@ class AuthenticationBase(object):
 
 
 class Response(object):
-    def __init__(self, status_code, content):
+    def __init__(self, status_code, content, headers):
         self._status_code = status_code
         self._content = content
+        self._headers = headers
 
     def content(self):
         if self._is_error():
+            if self._status_code == 429:
+                reset_at = int(self._headers.get('x-ratelimit-reset', '-1'))
+                raise RateLimitError(error_code=self._error_code(),
+                                     message=self._error_message(),
+                                     reset_at=reset_at)
+
             raise Auth0Error(status_code=self._status_code,
                              error_code=self._error_code(),
                              message=self._error_message())
@@ -95,7 +100,7 @@ class Response(object):
 class JsonResponse(Response):
     def __init__(self, response):
         content = json.loads(response.text)
-        super(JsonResponse, self).__init__(response.status_code, content)
+        super(JsonResponse, self).__init__(response.status_code, content, response.headers)
 
     def _error_code(self):
         if 'error' in self._content:
@@ -111,7 +116,7 @@ class JsonResponse(Response):
 
 class PlainResponse(Response):
     def __init__(self, response):
-        super(PlainResponse, self).__init__(response.status_code, response.text)
+        super(PlainResponse, self).__init__(response.status_code, response.text, response.headers)
 
     def _error_code(self):
         return UNKNOWN_ERROR
@@ -122,7 +127,7 @@ class PlainResponse(Response):
 
 class EmptyResponse(Response):
     def __init__(self, status_code):
-        super(EmptyResponse, self).__init__(status_code, '')
+        super(EmptyResponse, self).__init__(status_code, '', {})
 
     def _error_code(self):
         return UNKNOWN_ERROR
