@@ -133,6 +133,25 @@ class TestBase(unittest.TestCase):
         self.assertEqual(context.exception.reset_at, 9)
 
     @mock.patch('requests.post')
+    def test_post_rate_limit_error_without_headers(self, mock_post):
+        ab = AuthenticationBase('auth0.com', telemetry=False)
+
+        mock_post.return_value.text = '{"statusCode": 429,' \
+                                      ' "error": "e0",' \
+                                      ' "error_description": "desc"}'
+        mock_post.return_value.status_code = 429
+        mock_post.return_value.headers = {}
+
+        with self.assertRaises(Auth0Error) as context:
+            ab.post('the-url', data={'a': 'b'}, headers={'c': 'd'})
+
+        self.assertEqual(context.exception.status_code, 429)
+        self.assertEqual(context.exception.error_code, 'e0')
+        self.assertEqual(context.exception.message, 'desc')
+        self.assertIsInstance(context.exception, RateLimitError)
+        self.assertEqual(context.exception.reset_at, -1)
+
+    @mock.patch('requests.post')
     def test_post_error_with_code_property(self, mock_post):
         ab = AuthenticationBase('auth0.com', telemetry=False)
 

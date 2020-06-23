@@ -172,6 +172,25 @@ class TestRest(unittest.TestCase):
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, 9)
 
+    @mock.patch('requests.get')
+    def test_get_rate_limit_error_without_headers(self, mock_get):
+        rc = RestClient(jwt='a-token', telemetry=False)
+
+        mock_get.return_value.text = '{"statusCode": 429,' \
+                                     ' "errorCode": "code",' \
+                                     ' "message": "message"}'
+        mock_get.return_value.status_code = 429
+        
+        mock_get.return_value.headers = {}
+        with self.assertRaises(Auth0Error) as context:
+            rc.get('the/url')
+
+        self.assertEqual(context.exception.status_code, 429)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+        self.assertIsInstance(context.exception, RateLimitError)
+        self.assertEqual(context.exception.reset_at, -1)
+
     @mock.patch('requests.post')
     def test_post(self, mock_post):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -335,7 +354,6 @@ class TestRest(unittest.TestCase):
 
         mock_post.assert_called_once_with('the-url', data=data, files=files, headers=headers, timeout=5.0)
 
-
     @mock.patch('requests.put')
     def test_put(self, mock_put):
         rc = RestClient(jwt='a-token', telemetry=False)
@@ -349,7 +367,7 @@ class TestRest(unittest.TestCase):
 
         response = rc.put(url='the-url', data=data)
         mock_put.assert_called_with('the-url', json=data,
-                                      headers=headers, timeout=5.0)
+                                    headers=headers, timeout=5.0)
 
         self.assertEqual(response, ['a', 'b'])
 
@@ -358,8 +376,8 @@ class TestRest(unittest.TestCase):
         rc = RestClient(jwt='a-token', telemetry=False)
 
         mock_put.return_value.text = '{"statusCode": 999,' \
-                                       ' "errorCode": "code",' \
-                                       ' "message": "message"}'
+                                     ' "errorCode": "code",' \
+                                     ' "message": "message"}'
         mock_put.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
@@ -430,7 +448,7 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.status_code = 200
 
         data = {'some': 'data'}
-        params={'A': 'param', 'B': 'param'}
+        params = {'A': 'param', 'B': 'param'}
 
         response = rc.delete(url='the-url/ID', params=params, data=data)
         mock_delete.assert_called_with('the-url/ID', headers=headers, params=params, json=data, timeout=5.0)
@@ -459,7 +477,7 @@ class TestRest(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': 'Bearer a-token',
         }
-        
+
         self.assertEqual(rc.base_headers, expected_headers)
 
     def test_enabled_telemetry(self):
@@ -477,7 +495,7 @@ class TestRest(unittest.TestCase):
                                            sys.version_info.micro)
 
         client_info = {
-            'name': 'auth0-python', 
+            'name': 'auth0-python',
             'version': auth0_version,
             'env': {
                 'python': python_version
