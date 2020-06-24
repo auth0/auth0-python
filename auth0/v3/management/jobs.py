@@ -72,7 +72,7 @@ class Jobs(object):
         """
         return self.client.post(self._url('users-exports'), data=body)
 
-    def import_users(self, connection_id, file_obj, upsert=False):
+    def import_users(self, connection_id, file_obj, upsert=False, send_completion_email=True):
         """Imports users to a connection from a file.
 
         Args:
@@ -82,10 +82,21 @@ class Jobs(object):
             file_obj (file): A file-like object to upload. The format for
                 this file is explained in: https://auth0.com/docs/bulk-import
 
+            upsert (bool): When set to False, pre-existing users that match on email address, user ID, or username
+                will fail. When set to True, pre-existing users that match on any of these fields will be updated, but
+                only with upsertable attributes. Defaults to False.
+                For a list of user profile fields that can be upserted during import, see the following article
+                https://auth0.com/docs/users/references/user-profile-structure#user-profile-attributes
+
+            send_completion_email (bool): When set to True, an email will be sent to notify the completion of this job.
+                When set to False, no email will be sent. Defaults to True.
+
         See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports
         """
         return self.client.file_post(self._url('users-imports'),
-                                     data={'connection_id': connection_id, 'upsert': str(upsert).lower()},
+                                     data={'connection_id': connection_id,
+                                           'upsert': str(upsert).lower(),
+                                           'send_completion_email': str(send_completion_email).lower()},
                                      files={'users': file_obj})
 
     def send_verification_email(self, body):

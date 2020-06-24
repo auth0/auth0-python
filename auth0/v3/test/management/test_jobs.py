@@ -65,21 +65,21 @@ class TestJobs(unittest.TestCase):
 
         mock_instance.file_post.assert_called_with(
             'https://domain/api/v2/jobs/users-imports',
-            data={'connection_id': '1234', 'upsert': 'false'},
+            data={'connection_id': '1234', 'upsert': 'false', 'send_completion_email': 'true'},
             files={'users': {}}
         )
 
-        j.import_users(connection_id='1234', file_obj={}, upsert=True)
+        j.import_users(connection_id='1234', file_obj={}, upsert=True, send_completion_email=False)
         mock_instance.file_post.assert_called_with(
             'https://domain/api/v2/jobs/users-imports',
-            data={'connection_id': '1234', 'upsert': 'true'},
+            data={'connection_id': '1234', 'upsert': 'true', 'send_completion_email': 'false'},
             files={'users': {}}
         )
 
-        j.import_users(connection_id='1234', file_obj={}, upsert=False)
+        j.import_users(connection_id='1234', file_obj={}, upsert=False, send_completion_email=True)
         mock_instance.file_post.assert_called_with(
             'https://domain/api/v2/jobs/users-imports',
-            data={'connection_id': '1234', 'upsert': 'false'},
+            data={'connection_id': '1234', 'upsert': 'false', 'send_completion_email': 'true'},
             files={'users': {}}
         )
 
