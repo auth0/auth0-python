@@ -221,7 +221,7 @@ When consuming methods from the API clients, the requests could fail for a numbe
 - Invalid data sent as part of the request: An ``Auth0Error` is raised with the error code and description.
 - Global or Client Rate Limit reached: A ``RateLimitError`` is raised and the time at which the limit
 resets is exposed in the ``reset_at`` property. When the header is unset, this value will be ``-1``.
-- Network timeouts: Adjustable by passing a the ``timeout`` argument to the client. See the `rate limit docs <https://auth0.com/docs/policies/rate-limits>`_ for details.
+- Network timeouts: Adjustable by passing a ``timeout`` argument to the client. See the `rate limit docs <https://auth0.com/docs/policies/rate-limits>`_ for details.
 
 Available Management Endpoints
 ==============================
