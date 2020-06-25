@@ -7,6 +7,9 @@ Changes
 **Security**
 - Improved OIDC compliance [\#213](https://github.com/auth0/auth0-python/pull/213) ([lbalmaceda](https://github.com/lbalmaceda))
 
+**Added**
+- Add connect/read timeout option [\#215](https://github.com/auth0/auth0-python/pull/215) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.9.2
 ------------------
 
