@@ -1,6 +1,16 @@
 Changes
 =======
 
+3.11.0
+------------------
+
+**Added**
+- Add send_completion_email to users import job [\#220](https://github.com/auth0/auth0-python/pull/220) ([lbalmaceda](https://github.com/lbalmaceda))
+- Expose the time at which the Rate Limit will reset [\#219](https://github.com/auth0/auth0-python/pull/219) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Removed**
+- Add deprecation note for DELETE /users (all users) [\#217](https://github.com/auth0/auth0-python/pull/217) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.10.0
 ------------------
 
