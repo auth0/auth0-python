@@ -329,13 +329,6 @@ class TestTokenVerifier(unittest.TestCase):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJub25jZSI6ImExYjJjM2Q0ZTUiLCJhenAiOiJ0b2tlbnMtdGVzdC0xMjMiLCJhdXRoX3RpbWUiOjE1ODc2Nzg5NjF9.CWW7mWUhiI-rramQ2dIGi7vBsOMmsouIg32IL9u2g4Dg3PV0C55R7dL6Jvf9hqaZXvx9Psrw0vLnOlhFztAC6LlQuq2eCaLYsDme36NxeYGC7CFXygvlU_eXD5IdNK35GriTfpG_b5hC7tl2glMmNQcZWlsIyKw7eq8o1POpqo0K2bCVjoyJkHL6WUpw6_08HPspmTL_Qd0km08z6zgvbl8Hpzk-tLmXqN7LjmuhEsjnIFphu-dGwcQsoY3RAomYxAFXAPYT8siEIf2w3zlIoUde-mujiMUtMD-Od7t7w36GO6Kubb9M9inVwPEg1yFKlFTXZBKXu91xmOmvMJ5Qfg"
         self.assert_fails_with_error(token, 'Issued At (iat) claim must be a number present in the ID token')
 
-    def test_fails_with_iat_invalid(self):
-        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc3NjUzNjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.hVFs3ix49ZIrUCr9EM4CrjYvwxemsHOqhZdjzOmy9suQOe8xG0NzEdlRcxuCt8Exdqrrd2lu4iPFqUgwudjMFZT5f-1YE9AdvLqqDyBRVRPu2dV5SP4QbO4OAjMvNq-yfoRQ4kEuIfBnz56l6imB-tNgfbSveOzHzTPapE6vSlVnI03jlDR91qoEpda1XCXreKhar4lsTNBsuAP6mA313DHaErvyhoBlsq3lEh7vXafFlegl5DMuEmNmzgAO3JO-mpn0J2nBfZOvUQIkf9ITs09zYrxE0fZ3M6J7tIhd13UvaJuNDXbfX1zzyhjAHqgmlkd25o2IZIBVC51NQv483g"
-        mocked_clock = MOCKED_CLOCK - DEFAULT_LEEWAY - 1
-        self.assert_fails_with_error(token,
-                                     'Issued At (iat) claim error in the ID token; current time ({}) is before issued at time (1587765301)'.format(
-                                         mocked_clock), clock=mocked_clock)
-
     def test_passes_when_nonce_missing_but_not_required(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.L-DveLCDf4Te7x3JZmQ6rCkUQrenl1NFpHqKD8Fs-glhd2iyc-TYffk1M30T0-wBri-3tTgraDAjZAjXuwSk0gV_V5uKCHyIoSRphrC88aX8IeECteQpHa4KR15lbzA5JdVhJu7LuCZ2EFvdjHh5GiViLRWsTSHGUM-uqcMK0q2kWGvCEgfOIXqocnQiyCNITxfgMYJd38zOsVeP7HFf9riuFEQz65oER22o3xyIZ-ILSaU10n6Ob559Rbjc0NVKH4hrggRg8kG7cJCiXbRxXnzO_VM8LmRHhF56jh3ZSrO4bzQa5xv04bMbX6A77muMZD0vghsaslvpWerWbwaSQQ"
 

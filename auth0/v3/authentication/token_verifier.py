@@ -296,12 +296,6 @@ class TokenVerifier():
         if 'iat' not in payload or not isinstance(payload['iat'], int):
             raise TokenValidationError('Issued At (iat) claim must be a number present in the ID token')
 
-        iat_time = payload['iat'] - leeway
-        if now < iat_time:
-            raise TokenValidationError(
-                'Issued At (iat) claim error in the ID token; current time ({}) is '
-                'before issued at time ({})'.format(now, iat_time))
-
         # Nonce
         if nonce:
             if 'nonce' not in payload or not isinstance(payload['nonce'], (str, ustr)):
