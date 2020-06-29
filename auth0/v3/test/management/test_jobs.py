@@ -65,21 +65,21 @@ class TestJobs(unittest.TestCase):
 
         mock_instance.file_post.assert_called_with(
             'https://domain/api/v2/jobs/users-imports',
-            data={'connection_id': '1234', 'upsert': 'false', 'send_completion_email': 'true'},
+            data={'connection_id': '1234', 'upsert': 'false', 'send_completion_email': 'true', 'external_id': None},
             files={'users': {}}
         )
 
-        j.import_users(connection_id='1234', file_obj={}, upsert=True, send_completion_email=False)
+        j.import_users(connection_id='1234', file_obj={}, upsert=True, send_completion_email=False, external_id="ext-id-123")
         mock_instance.file_post.assert_called_with(
             'https://domain/api/v2/jobs/users-imports',
-            data={'connection_id': '1234', 'upsert': 'true', 'send_completion_email': 'false'},
+            data={'connection_id': '1234', 'upsert': 'true', 'send_completion_email': 'false', 'external_id': 'ext-id-123'},
             files={'users': {}}
         )
 
         j.import_users(connection_id='1234', file_obj={}, upsert=False, send_completion_email=True)
         mock_instance.file_post.assert_called_with(
             'https://domain/api/v2/jobs/users-imports',
-            data={'connection_id': '1234', 'upsert': 'false', 'send_completion_email': 'true'},
+            data={'connection_id': '1234', 'upsert': 'false', 'send_completion_email': 'true', 'external_id': None},
             files={'users': {}}
         )
 

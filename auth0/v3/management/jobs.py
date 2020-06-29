@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Jobs(object):
-
     """Auth0 jobs endpoints
 
     Args:
@@ -72,7 +71,7 @@ class Jobs(object):
         """
         return self.client.post(self._url('users-exports'), data=body)
 
-    def import_users(self, connection_id, file_obj, upsert=False, send_completion_email=True):
+    def import_users(self, connection_id, file_obj, upsert=False, send_completion_email=True, external_id=None):
         """Imports users to a connection from a file.
 
         Args:
@@ -91,12 +90,15 @@ class Jobs(object):
             send_completion_email (bool): When set to True, an email will be sent to notify the completion of this job.
                 When set to False, no email will be sent. Defaults to True.
 
+            external_id (str):  Customer-defined ID.
+
         See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports
         """
         return self.client.file_post(self._url('users-imports'),
                                      data={'connection_id': connection_id,
                                            'upsert': str(upsert).lower(),
-                                           'send_completion_email': str(send_completion_email).lower()},
+                                           'send_completion_email': str(send_completion_email).lower(),
+                                           'external_id': external_id},
                                      files={'users': file_obj})
 
     def send_verification_email(self, body):
