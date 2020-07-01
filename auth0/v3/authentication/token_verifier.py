@@ -82,7 +82,8 @@ class SymmetricSignatureVerifier(SignatureVerifier):
     """Verifier for HMAC signatures, which rely on shared secrets.
 
     Args:
-        algorithm (str, optional): The expected signing algorithm. Defaults to "RS256".
+        shared_secret (str): The shared secret used to decode the token.
+        algorithm (str, optional): The expected signing algorithm. Defaults to "HS256".
     """
 
     def __init__(self, shared_secret, algorithm="HS256"):
@@ -97,7 +98,8 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
     """Verifier for RSA signatures, which rely on public key certificates.
 
     Args:
-        algorithm (str, optional): The expected signing algorithm. Defaults to "HS256".
+        jwks_url (str): The url where the JWK set is located.
+        algorithm (str, optional): The expected signing algorithm. Defaults to "RS256".
     """
 
     def __init__(self, jwks_url, algorithm="RS256"):
