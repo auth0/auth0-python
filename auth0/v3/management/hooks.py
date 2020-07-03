@@ -1,4 +1,4 @@
-from auth0.v3.management.rest import RestClient
+from .rest import RestClient
 
 
 class Hooks(object):
