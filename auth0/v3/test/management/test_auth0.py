@@ -10,6 +10,7 @@ from ...management.emails import Emails
 from ...management.email_templates import EmailTemplates
 from ...management.grants import Grants
 from ...management.guardian import Guardian
+from ...management.hooks import Hooks
 from ...management.jobs import Jobs
 from ...management.logs import Logs
 from ...management.resource_servers import ResourceServers
@@ -60,6 +61,9 @@ class TestAuth0(unittest.TestCase):
 
     def test_guardian(self):
         self.assertIsInstance(self.a0.guardian, Guardian)
+
+    def test_hooks(self):
+        self.assertIsInstance(self.a0.hooks, Hooks)
 
     def test_jobs(self):
         self.assertIsInstance(self.a0.jobs, Jobs)
