@@ -138,16 +138,7 @@ class TestRules(unittest.TestCase):
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/hooks/an-id/secrets', args[0])
-        self.assertEqual(kwargs['params'], {'fields': None,
-                                            'include_fields': 'true'})
-
-        c.get_secrets('an-id', fields=['a', 'b'], include_fields=False)
-
-        args, kwargs = mock_instance.get.call_args
-
-        self.assertEqual('https://domain/api/v2/hooks/an-id/secrets', args[0])
-        self.assertEqual(kwargs['params'], {'fields': 'a,b',
-                                            'include_fields': 'false'})
+        self.assertNotIn("params", kwargs)
 
     @mock.patch('auth0.v3.management.hooks.RestClient')
     def test_delete_secrets(self, mock_rc):
