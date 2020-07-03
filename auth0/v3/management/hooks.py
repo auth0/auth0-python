@@ -129,27 +129,16 @@ class Hooks(object):
         """
         return self.client.patch(self._url(id), data=body)
 
-    def get_secrets(self, id, fields=None, include_fields=True):
+    def get_secrets(self, id):
         """Retrieves a hook's secrets.
 
         Args:
             id (str): The id of the hook to retrieve secrets from.
 
-            fields (list, optional): A list of fields to include or exclude
-                (depending on include_fields) from the result, empty to
-                retrieve all fields.
-
-            include_fields (bool, optional): True if the fields specified are
-                to be included in the result, False otherwise
-                (defaults to true).
-
         See: https://auth0.com/docs/api/management/v2#!/Hooks/get_secrets
         """
-        params = {
-            "fields": fields and ",".join(fields) or None,
-            "include_fields": str(include_fields).lower(),
-        }
-        return self.client.get(self._url("%s/secrets" % id), params=params)
+
+        return self.client.get(self._url("%s/secrets" % id))
 
     def add_secrets(self, id, body):
         """Add one or more secrets for an existing hook.
