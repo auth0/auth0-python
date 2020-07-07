@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class CustomDomains(object):
-
     """Auth0 custom domains endpoints
 
     Args:
@@ -48,8 +47,7 @@ class CustomDomains(object):
         """Deletes a grant.
 
         Args:
-           id (str): The id of the custom domain to delete
-
+           id (str): The id of the custom domain to delete.
 
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/delete_custom_domains_by_id
         """
@@ -57,22 +55,20 @@ class CustomDomains(object):
         return self.client.delete(url)
 
     def create_new(self, body):
-        """Configure a new custom domain
+        """Configure a new custom domain.
 
         Args:
-           body (str): The domain, tye and verification method in json
-
+           body (str): The domain, tye and verification method in json.
 
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/post_custom_domains
         """
         return self.client.post(self._url(), data=body)
 
     def verify(self, id):
-        """Verify a custom domain
+        """Verify a custom domain.
 
         Args:
-           id (str): The id of the custom domain to delete
-
+           id (str): The id of the custom domain to delete.
 
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/post_verify
         """

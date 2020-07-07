@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class UsersByEmail(object):
-
     """Auth0 users by email endpoints
 
     Args:
@@ -32,10 +31,10 @@ class UsersByEmail(object):
 
         Args:
 
-            email: Email to search
+            email: Email to search.
 
             fields (list of str, optional): A list of fields to include or
-                exclude from the result (depending on include_fields). Empty to
+                exclude from the result (depending on include_fields). Leave empty to
                 retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are

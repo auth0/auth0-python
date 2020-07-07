@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Tenants(object):
-
     """Auth0 tenants endpoints
 
     Args:
@@ -31,13 +30,13 @@ class Tenants(object):
 
         Args:
            fields (list of str, optional): A list of fields to include or
-              exclude from the result (depending on include_fields). Empty to
+              exclude from the result (depending on include_fields). Leave empty to
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be included in the result, False otherwise.
+              to be included in the result, False otherwise. Defaults to True.
               
-           See: https://auth0.com/docs/api/management/v2#!/Tenants/get_settings
+        See: https://auth0.com/docs/api/management/v2#!/Tenants/get_settings
         """
 
         params = {'fields': fields and ','.join(fields) or None,
@@ -49,6 +48,8 @@ class Tenants(object):
         """Update tenant settings.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Tenants/patch_settings
+            body (dict): the attributes to update in the tenant.
+
+        See: https://auth0.com/docs/api/v2#!/Tenants/patch_settings
         """
         return self.client.patch(self._url(), data=body)

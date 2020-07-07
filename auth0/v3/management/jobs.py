@@ -39,7 +39,7 @@ class Jobs(object):
         return self.client.get(self._url(id))
 
     def get_failed_job(self, id):
-        """Get failed job error details
+        """Get failed job error details.
 
         Args:
             id (str): The id of the job.
@@ -53,7 +53,7 @@ class Jobs(object):
         """Get results of a job
 
         Args:
-            job_id (str): The ID of the job.
+            job_id (str): The id of the job.
 
         See: https://auth0.com/docs/api/management/v2#!/Jobs/get_results
         """
@@ -67,7 +67,9 @@ class Jobs(object):
         included in the status once the job is complete.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports
+            body (dict): The details of the export users request.
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports
         """
         return self.client.post(self._url('users-exports'), data=body)
 
@@ -79,18 +81,18 @@ class Jobs(object):
                 users will be inserted.
 
             file_obj (file): A file-like object to upload. The format for
-                this file is explained in: https://auth0.com/docs/bulk-import
+                this file is explained in: https://auth0.com/docs/bulk-import.
 
-            upsert (bool): When set to False, pre-existing users that match on email address, user ID, or username
+            upsert (bool, optional): When set to False, pre-existing users that match on email address, user ID, or username
                 will fail. When set to True, pre-existing users that match on any of these fields will be updated, but
                 only with upsertable attributes. Defaults to False.
                 For a list of user profile fields that can be upserted during import, see the following article
-                https://auth0.com/docs/users/references/user-profile-structure#user-profile-attributes
+                https://auth0.com/docs/users/references/user-profile-structure#user-profile-attributes.
 
-            send_completion_email (bool): When set to True, an email will be sent to notify the completion of this job.
+            send_completion_email (bool, optional): When set to True, an email will be sent to notify the completion of this job.
                 When set to False, no email will be sent. Defaults to True.
 
-            external_id (str):  Customer-defined ID.
+            external_id (str, optional):  Customer-defined ID.
 
         See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports
         """
@@ -108,6 +110,8 @@ class Jobs(object):
         verify their email address.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Jobs/post_verification_email
+            body (dict): Details of verification email request.
+
+        See: https://auth0.com/docs/api/v2#!/Jobs/post_verification_email
         """
         return self.client.post(self._url('verification-email'), data=body)

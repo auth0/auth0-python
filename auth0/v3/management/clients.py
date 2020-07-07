@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Clients(object):
-
     """Auth0 applications endpoints
 
     Args:
@@ -37,20 +36,21 @@ class Clients(object):
 
         Args:
            fields (list of str, optional): A list of fields to include or
-              exclude from the result (depending on include_fields). Empty to
+              exclude from the result (depending on include_fields). Leave empty to
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be included in the result, False otherwise.
+              to be included in the result, False otherwise. Defaults to True.
 
-           page (int): The result's page number (zero based).
+           page (int): The result's page number (zero based). When not set,
+              the default value is up to the server.
 
-           per_page (int, optional): The amount of entries per page.
+           per_page (int, optional): The amount of entries per page. When not set,
+              the default value is up to the server.
 
            extra_params (dictionary, optional): The extra parameters to add to
              the request. The fields, include_fields, page and per_page values
              specified as parameters take precedence over the ones defined here.
-
 
         See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
         """
@@ -67,7 +67,8 @@ class Clients(object):
 
         Args:
            body (dict): Attributes for the new application.
-              See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+
+        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
         """
 
         return self.client.post(self._url(), data=body)
@@ -82,12 +83,11 @@ class Clients(object):
            id (str): Id of the application to get.
 
            fields (list of str, optional): A list of fields to include or
-              exclude from the result (depending on include_fields). Empty to
+              exclude from the result (depending on include_fields). Leave empty to
               retrieve all fields.
 
            include_fields (bool, optional): True if the fields specified are
-              to be included in the result, False otherwise.
-
+              to be included in the result, False otherwise. Defaults to True.
 
         See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients_by_id
         """
@@ -102,7 +102,6 @@ class Clients(object):
 
         Args:
            id (str): Id of application to delete.
-
 
         See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
         """
@@ -119,7 +118,8 @@ class Clients(object):
            id (str): Client ID of the application.
 
            body (dict): Attributes to modify.
-              See: https://auth0.com/docs/api/management/v2#!/Clients/patch_clients_by_id
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/patch_clients_by_id
         """
 
         return self.client.patch(self._url(id), data=body)
@@ -130,11 +130,10 @@ class Clients(object):
         Args:
            id (str): Client ID of the application.
 
-           body (dict): Attributes to modify.
-              See: https://auth0.com/docs/api/management/v2#!/Clients/post_rotate_secret
+        See: https://auth0.com/docs/api/management/v2#!/Clients/post_rotate_secret
         """
 
-        data = {'id': id }
+        data = {'id': id}
 
         url = self._url('%s/rotate-secret' % id)
         return self.client.post(url, data=data)

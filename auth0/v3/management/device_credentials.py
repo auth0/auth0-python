@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class DeviceCredentials(object):
-
     """Auth0 connection endpoints
 
     Args:
@@ -40,13 +39,11 @@ class DeviceCredentials(object):
             type (str): The type of credentials (public_key, refresh_token).
 
             fields (list, optional): A list of fields to include or exclude
-                (depending on include_fields) from the result, empty to
-                retrieve all fields
+                (depending on include_fields) from the result. Leave empty to
+                retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be included in the result, False otherwise
-                (defaults to true)
-
+                to be included in the result, False otherwise. Defaults to True.
 
         See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials
         """
@@ -66,7 +63,8 @@ class DeviceCredentials(object):
         Args:
             body (dict): parameters for creating the public key (e.g: type,
                 device_name, client_id, etc).
-                Please see: https://auth0.com/docs/api/v2#!/Device_Credentials/post_device_credentials
+
+        See: https://auth0.com/docs/api/v2#!/Device_Credentials/post_device_credentials
         """
         return self.client.post(self._url(), data=body)
 
@@ -74,8 +72,7 @@ class DeviceCredentials(object):
         """Delete credential.
 
         Args:
-            id (str):  The id of the credential to delete
-
+            id (str):  The id of the credential to delete.
 
         See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/delete_device_credentials_by_id
         """

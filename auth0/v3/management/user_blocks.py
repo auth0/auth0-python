@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class UserBlocks(object):
-
     """Auth0 user blocks endpoints
 
     Args:

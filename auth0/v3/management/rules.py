@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Rules(object):
-
     """Rules endpoint implementation.
 
     Args:
@@ -34,26 +33,27 @@ class Rules(object):
         """Retrieves a list of all rules.
 
         Args:
-            stage (str, optional):  Retrieves rules that match the execution
-                stage (defaults to login_success).
+            stage (str, optional):  Retrieves rules that match the execution stage.
+                Defaults to login_success.
 
             enabled (bool, optional): If provided, retrieves rules that match
                 the value, otherwise all rules are retrieved.
 
             fields (list, optional): A list of fields to include or exclude
-                (depending on include_fields) from the result, empty to
+                (depending on include_fields) from the result. Leave empty to
                 retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be included in the result, False otherwise
-                (defaults to true).
+                to be included in the result, False otherwise. Defaults to True.
 
-            page (int, optional): The result's page number (zero based).
+            page (int, optional): The result's page number (zero based). When not set,
+                the default value is up to the server.
 
-            per_page (int, optional): The amount of entries per page.
+            per_page (int, optional): The amount of entries per page. When not set,
+                the default value is up to the server.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to False.
 
         See: https://auth0.com/docs/api/management/v2#!/Rules/get_rules
         """
@@ -77,8 +77,9 @@ class Rules(object):
         """Creates a new rule.
 
         Args:
-            body (dict): Attributes for the newly created rule,
-                See: https://auth0.com/docs/api/v2#!/Rules/post_rules
+            body (dict): Attributes for the newly created rule.
+
+        See: https://auth0.com/docs/api/v2#!/Rules/post_rules
         """
         return self.client.post(self._url(), data=body)
 
@@ -89,12 +90,11 @@ class Rules(object):
             id (str): The id of the rule to retrieve.
 
             fields (list, optional): A list of fields to include or exclude
-                (depending on include_fields) from the result, empty to
+                (depending on include_fields) from the result. Leave empty to
                 retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be included in the result, False otherwise
-                (defaults to true).
+                to be included in the result, False otherwise. Defaults to True.
 
         See: https://auth0.com/docs/api/management/v2#!/Rules/get_rules_by_id
         """
@@ -119,6 +119,7 @@ class Rules(object):
             id (str): The id of the rule to modify.
 
             body (dict): Attributes to modify.
-                See: https://auth0.com/docs/api/v2#!/Rules/patch_rules_by_id
+
+        See: https://auth0.com/docs/api/v2#!/Rules/patch_rules_by_id
         """
         return self.client.patch(self._url(id), data=body)

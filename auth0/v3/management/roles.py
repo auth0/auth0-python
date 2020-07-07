@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Roles(object):
-
     """Auth0 roles endpoints
 
     Args:
@@ -33,15 +32,17 @@ class Roles(object):
         """List or search roles.
 
         Args:
-            page (int, optional): The result's page number (zero based).
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
 
-            per_page (int, optional): The amount of entries per page.
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 25 results per page.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
             name_filter (str, optional): A case-insensitive filter to apply
-                to search for roles by name            
+                to search for roles by name.
 
         See: https://auth0.com/docs/api/management/v2#!/Roles/get_roles
         """
@@ -57,7 +58,9 @@ class Roles(object):
         """Creates a new role.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Roles/post_roles
+            body (dict): the attributes for the role to create.
+
+        See: https://auth0.com/docs/api/v2#!/Roles/post_roles
         """
         return self.client.post(self._url(), data=body)
 
@@ -88,7 +91,9 @@ class Roles(object):
         Args:
             id (str): The id of the role to update.
 
-            body (dict): Please see: https://auth0.com/docs/api/management/v2#!/Roles/patch_roles_by_id
+            body (dict): the attributes to update on the role.
+
+        See: https://auth0.com/docs/api/management/v2#!/Roles/patch_roles_by_id
         """
         return self.client.patch(self._url(id), data=body)
 
@@ -98,12 +103,14 @@ class Roles(object):
         Args:
             id (str): The role's id.
 
-            page (int, optional): The result's page number (zero based). 
-  
-            per_page (int, optional): The amount of entries per page. 
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
+
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 25 results per page.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
         See https://auth0.com/docs/api/management/v2#!/Roles/get_role_user
         """
@@ -122,7 +129,7 @@ class Roles(object):
         Args:
             id (str): The role's id.
 
-            users (list of str): A list of users ids to add to this role
+            users (list of str): A list of users ids to add to this role.
 
         See https://auth0.com/docs/api/management/v2#!/Roles/post_role_users
         """
@@ -136,12 +143,14 @@ class Roles(object):
         Args:
             id (str): The role's id.
 
-            page (int, optional): The result's page number (zero based). 
-  
-            per_page (int, optional): The amount of entries per page. 
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
+
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 25 results per page.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
         See https://auth0.com/docs/api/management/v2#!/Roles/get_role_permission
         """
@@ -166,7 +175,6 @@ class Roles(object):
         url = self._url('{}/permissions'.format(id))
         body = {'permissions': permissions}
         return self.client.delete(url, data=body)
-
 
     def add_permissions(self, id, permissions):
         """Associates permissions with a role.

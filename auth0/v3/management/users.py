@@ -1,9 +1,9 @@
-from .rest import RestClient
 import warnings
+
+from .rest import RestClient
 
 
 class Users(object):
-
     """Auth0 users endpoints
 
     Args:
@@ -36,12 +36,15 @@ class Users(object):
         """List or search users.
 
         Args:
-            page (int, optional): The result's page number (zero based).
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
 
-            per_page (int, optional): The amount of entries per page.
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 25 results per page.
 
             sort (str, optional): The field to use for sorting.
                 1 == ascending and -1 == descending. (e.g: email:1)
+                When not set, the default value is up to the server.
 
             connection (str, optional): Connection filter.
 
@@ -51,17 +54,17 @@ class Users(object):
 
             search_engine (str, optional): The version of the search_engine to use
                 when querying for users. Will default to the latest version available.
-                See: https://auth0.com/docs/users/search
+                See: https://auth0.com/docs/users/search.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
             fields (list of str, optional): A list of fields to include or
-                exclude from the result (depending on include_fields). Empty to
+                exclude from the result (depending on include_fields). Leave empty to
                 retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be include in the result, False otherwise.
+                to be include in the result, False otherwise. Defaults to True.
 
         See: https://auth0.com/docs/api/management/v2#!/Users/get_users
         """
@@ -82,7 +85,9 @@ class Users(object):
         """Creates a new user.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post_users
+            body (dict): the attributes to set on the user to create.
+
+        See: https://auth0.com/docs/api/v2#!/Users/post_users
         """
         return self.client.post(self._url(), data=body)
 
@@ -102,11 +107,11 @@ class Users(object):
             id (str): The user_id of the user to retrieve.
 
             fields (list of str, optional): A list of fields to include or
-                exclude from the result (depending on include_fields). Empty to
+                exclude from the result (depending on include_fields). Leave empty to
                 retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
         See: https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
         """
@@ -133,7 +138,9 @@ class Users(object):
         Args:
             id (str): The user_id of the user to update.
 
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/patch_users_by_id
+            body (dict): The attributes of the user to update.
+
+        See: https://auth0.com/docs/api/v2#!/Users/patch_users_by_id
         """
         return self.client.patch(self._url(id), data=body)
 
@@ -143,12 +150,14 @@ class Users(object):
         Args:
             id (str): The user's id.
 
-            page (int, optional): The result's page number (zero based). 
-  
-            per_page (int, optional): The amount of entries per page. 
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
+
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 25 results per page.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+               to be included in the result, False otherwise. Defaults to True.
 
         See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
         """
@@ -195,12 +204,14 @@ class Users(object):
         Args:
             id (str): The user's id.
 
-            page (int, optional): The result's page number (zero based). 
-  
-            per_page (int, optional): The amount of entries per page. 
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
+
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 25 results per page.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
         See https://auth0.com/docs/api/management/v2#!/Users/get_permissions
         """
@@ -248,7 +259,7 @@ class Users(object):
             id (str): The user's id.
 
             provider (str): The multifactor provider. Supported values 'duo'
-                or 'google-authenticator'
+                or 'google-authenticator'.
 
         See: https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
         """
@@ -280,7 +291,9 @@ class Users(object):
             id (str): The user_id of the primary identity where you are linking
                 the secondary account to.
 
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Users/post_identities
+            body (dict): the attributes to send as part of this request.
+
+        See: https://auth0.com/docs/api/v2#!/Users/post_identities
         """
         url = self._url('{}/identities'.format(user_id))
         return self.client.post(url, data=body)
@@ -300,7 +313,7 @@ class Users(object):
         """Retrieves all Guardian enrollments.
 
         Args:
-            user_id (str):  The user_id of the user to retrieve
+            user_id (str):  The user_id of the user to retrieve.
 
         See: https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
         """
@@ -309,24 +322,26 @@ class Users(object):
 
     def get_log_events(self, user_id, page=0, per_page=50, sort=None,
                        include_totals=False):
-        """Retrieve every log event for a specific user id
+        """Retrieve every log event for a specific user id.
 
         Args:
-            user_id (str):  The user_id of the logs to retrieve
+            user_id (str):  The user_id of the logs to retrieve.
 
-            page (int, optional): The result's page number (zero based).
+            page (int, optional): The result's page number (zero based). By default,
+                retrieves the first page of results.
 
-            per_page (int, optional): The amount of entries per page.
-                Default: 50. Max value: 100
+            per_page (int, optional): The amount of entries per page. By default,
+                retrieves 50 results per page.
 
             sort (str, optional):  The field to use for sorting. Use field:order
                 where order is 1 for ascending and -1 for descending.
                 For example date:-1
+                When not set, the default value is up to the server.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to False.
 
-            See: https://auth0.com/docs/api/management/v2#!/Users/get_logs_by_user
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_logs_by_user
         """
 
         params = {

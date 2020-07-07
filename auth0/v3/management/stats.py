@@ -30,7 +30,6 @@ class Stats(object):
 
         Returns: An integer.
 
-
         See: https://auth0.com/docs/api/management/v2#!/Stats/get_active_users
         """
 
@@ -40,10 +39,10 @@ class Stats(object):
         """Gets the daily stats for a particular period.
 
         Args:
-           from_date (str): The first day of the period (inclusive) in
+           from_date (str, optional): The first day of the period (inclusive) in
               YYYYMMDD format.
 
-           to_date (str): The last day of the period (inclusive) in
+           to_date (str, optional): The last day of the period (inclusive) in
               YYYYMMDD format.
 
         See: https://auth0.com/docs/api/management/v2#!/Stats/get_daily
