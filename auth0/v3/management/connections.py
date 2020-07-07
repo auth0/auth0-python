@@ -36,15 +36,17 @@ class Connections(object):
               this strategy type. (e.g: strategy='amazon')
 
            fields (list of str, optional): A list of fields to include or
-              exclude from the result (depending on include_fields). Empty to
-              retrieve all fields.
+              exclude from the result (depending on include_fields). Leave empty to
+              retrieve all fields. By default, all the fields will be retrieved.
 
            include_fields (bool, optional): True if the fields specified are
-              to be included in the result, False otherwise.
+              to be included in the result, False otherwise. Defaults to True.
 
-           page (int): The result's page number (zero based).
+           page (int): The result's page number (zero based). When not set,
+              the default value is up to the server.
 
-           per_page (int, optional): The amount of entries per page.
+           per_page (int, optional): The amount of entries per page. When not set,
+              the default value is up to the server.
 
            extra_params (dictionary, optional): The extra parameters to add to
              the request. The fields, include_fields, page and per_page values
@@ -72,11 +74,11 @@ class Connections(object):
            id (str): Id of the connection to get.
 
            fields (list of str, optional): A list of fields to include or
-              exclude from the result (depending on include_fields). Empty to
-              retrieve all fields.
+              exclude from the result (depending on include_fields). Leave empty to
+              retrieve all fields. By default, all the fields will be retrieved.
 
            include_fields (bool, optional): True if the fields specified are
-              to be included in the result, False otherwise.
+              to be included in the result, False otherwise. Defaults to True.
 
         See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections_by_id
 
@@ -109,9 +111,9 @@ class Connections(object):
         Args:
            id: Id of the connection.
 
-           body (dict): Specifies which fields are to be modified, and to what
-              values.
-              See: https://auth0.com/docs/api/management/v2#!/Connections/patch_connections_by_id
+           body (dict): Specifies which fields are to be modified, and to what values.
+
+        See: https://auth0.com/docs/api/management/v2#!/Connections/patch_connections_by_id
 
         Returns:
            The modified connection object.
@@ -125,7 +127,8 @@ class Connections(object):
         Args:
             body (dict): Attributes used to create the connection. Mandatory
                 attributes are: 'name' and 'strategy'.
-                See: https://auth0.com/docs/api/management/v2#!/Connections/post_connections
+
+        See: https://auth0.com/docs/api/management/v2#!/Connections/post_connections
         """
 
         return self.client.post(self._url(), data=body)

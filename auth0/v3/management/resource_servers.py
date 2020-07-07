@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class ResourceServers(object):
-
     """Auth0 resource servers endpoints
 
     Args:
@@ -33,8 +32,9 @@ class ResourceServers(object):
         """Create a new resource server.
 
         Args:
-           body (dict): Attributes for the new resource Server
-              See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/post_resource_servers
+           body (dict): Attributes for the new resource Server.
+
+        See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/post_resource_servers
         """
 
         return self.client.post(self._url(), data=body)
@@ -43,12 +43,15 @@ class ResourceServers(object):
         """Retrieves all resource servers
 
         Args:
-            page (int, optional): The result's page number (zero based).
+            page (int, optional): The result's page number (zero based). When not set,
+              the default value is up to the server.
 
-            per_page (int, optional): The amount of entries per page.
+            per_page (int, optional): The amount of entries per page. When not set,
+              the default value is up to the server.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to False.
+
 
         See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers
         """
@@ -65,7 +68,8 @@ class ResourceServers(object):
         """Retrieves a resource server by its id.
 
         Args:
-           id (str): Id of the resource server to get.
+           id (str): id of the resource server to get.
+
 
         See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/get_resource_servers_by_id
         """
@@ -77,6 +81,7 @@ class ResourceServers(object):
 
         Args:
            id (str): Id of resource server to delete.
+
 
         See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/delete_resource_servers_by_id
         """
@@ -90,7 +95,8 @@ class ResourceServers(object):
            id (str): The id of the resource server to update.
 
            body (dict): Attributes to modify.
-              See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/patch_resource_servers_by_id
+
+        See: https://auth0.com/docs/api/management/v2#!/Resource_Servers/patch_resource_servers_by_id
         """
 
         return self.client.patch(self._url(id), data=body)

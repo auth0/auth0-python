@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class EmailTemplates(object):
-
     """Auth0 email templates endpoints
 
     Args:
@@ -34,7 +33,8 @@ class EmailTemplates(object):
 
         Args:
            body (dict): Attributes for the new email template.
-              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/post_email_templates
+
+        See: https://auth0.com/docs/api/management/v2#!/Email_Templates/post_email_templates
         """
 
         return self.client.post(self._url(), data=body)
@@ -63,8 +63,8 @@ class EmailTemplates(object):
               'change_password', 'password_reset', 'mfa_oob_code'.
 
            body (dict): Attributes to update on the email template.
-              See: https://auth0.com/docs/api/management/v2#!/Email_Templates/patch_email_templates_by_templateName
 
+        See: https://auth0.com/docs/api/management/v2#!/Email_Templates/patch_email_templates_by_templateName
         """
 
         return self.client.patch(self._url(template_name), data=body)

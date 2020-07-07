@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class RulesConfigs(object):
-
     """RulesConfig endpoint implementation.
 
     Args:
@@ -40,7 +39,7 @@ class RulesConfigs(object):
         """Removes the rules config for a given key.
 
         Args:
-            key (str): rules config key to remove
+            key (str): rules config key to remove.
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/delete_rules_configs_by_key
         """
@@ -50,13 +49,12 @@ class RulesConfigs(object):
         """Sets the rules config for a given key.
 
         Args:
-            key (str): rules config key to set
+            key (str): rules config key to set.
 
-            value (str): value to set for the rules config key
+            value (str): value to set for the rules config key.
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/put_rules_configs_by_key
         """
         url = self._url('{}'.format(key))
         body = {'value': value}
         return self.client.put(url, data=body)
-

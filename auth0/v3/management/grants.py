@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Grants(object):
-
     """Auth0 grants endpoints
 
     Args:
@@ -33,16 +32,18 @@ class Grants(object):
         """Retrieves all grants.
 
         Args:
-            page (int, optional): The result's page number (zero based).
+            page (int, optional): The result's page number (zero based). When not set,
+               the default value is up to the server.
 
-            per_page (int, optional): The amount of entries per page.
+            per_page (int, optional): The amount of entries per page. When not set,
+               the default value is up to the server.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+               to be included in the result, False otherwise. Defaults to False.
 
            extra_params (dictionary, optional): The extra parameters to add to
-             the request. The page, per_page, and include_totals values
-             specified as parameters take precedence over the ones defined here.
+               the request. The page, per_page, and include_totals values
+               specified as parameters take precedence over the ones defined here.
             
         See: https://auth0.com/docs/api/management/v2#!/Grants/get_grants
         """
@@ -59,8 +60,7 @@ class Grants(object):
         """Deletes a grant.
 
         Args:
-           id (str): The id of the grant to delete
-
+           id (str): The id of the grant to delete.
 
         See: https://auth0.com/docs/api/management/v2#!/Grants/delete_grants_by_id
         """

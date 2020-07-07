@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Tickets(object):
-
     """Auth0 tickets endpoints
 
     Args:
@@ -30,7 +29,9 @@ class Tickets(object):
         """Create an email verification ticket.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Tickets/post_email_verification
+            body (dict): attributes to set on the email verification request.
+
+        See: https://auth0.com/docs/api/v2#!/Tickets/post_email_verification
         """
         return self.client.post(self._url('email-verification'), data=body)
 
@@ -38,6 +39,8 @@ class Tickets(object):
         """Create password change ticket.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Tickets/post_password_change
+            body (dict): attributes to set on the password change request.
+
+        See: https://auth0.com/docs/api/v2#!/Tickets/post_password_change
         """
         return self.client.post(self._url('password-change'), data=body)

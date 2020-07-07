@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Logs(object):
-
     """Auth0 logs endpoints
 
     Args:
@@ -35,32 +34,35 @@ class Logs(object):
         """Search log events.
 
         Args:
-            page (int, optional): The result's page number (zero based).
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
 
-            per_page (int, optional): The amount of entries per page.
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 50 results per page.
 
             sort (str, optional): The field to use for sorting.
                 1 == ascending and -1 == descending. (e.g: date:1)
+                When not set, the default value is up to the server.
 
             q (str, optional): Query in Lucene query string syntax.
 
             fields (list of str, optional): A list of fields to include or
-                exclude from the result (depending on include_fields). Empty to
+                exclude from the result (depending on include_fields). Leave empty to
                 retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
             include_totals (bool, optional): True if the query summary is
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
             from_param (str, optional): Log Event Id to start retrieving logs. You can
-                limit the amount of logs using the take parameter
+                limit the amount of logs using the take parameter.
 
             take (int, optional): The total amount of entries to retrieve when
-                using the from parameter.
+                using the from parameter. When not set, the default value is up to the server.
 
-        https://auth0.com/docs/api/management/v2#!/Logs/get_logs
+        See: https://auth0.com/docs/api/management/v2#!/Logs/get_logs
         """
         params = {
             'per_page': per_page,
@@ -79,8 +81,7 @@ class Logs(object):
         """Retrieves the data related to the log entry identified by id.
 
         Args:
-            id (str): The log_id of the log to retrieve
-
+            id (str): The log_id of the log to retrieve.
 
         See: https://auth0.com/docs/api/management/v2#!/Logs/get_logs_by_id
         """

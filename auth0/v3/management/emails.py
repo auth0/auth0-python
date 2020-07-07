@@ -2,7 +2,6 @@ from .rest import RestClient
 
 
 class Emails(object):
-
     """Auth0 email endpoints
 
     Args:
@@ -34,11 +33,11 @@ class Emails(object):
 
         Args:
             fields (list of str, optional): A list of fields to include or
-                exclude from the result (depending on include_fields). Empty
-                to retrieve all fields.
+                exclude from the result (depending on include_fields). Leave empty to
+                retrieve all fields.
 
             include_fields (bool, optional): True if the fields specified are
-                to be included in the result, False otherwise.
+                to be included in the result, False otherwise. Defaults to True.
 
         See: https://auth0.com/docs/api/management/v2#!/Emails/get_provider
         """
@@ -51,7 +50,9 @@ class Emails(object):
         """Configure the email provider.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Emails/post_provider
+            body (dict): attributes of the created email provider.
+
+        See: https://auth0.com/docs/api/v2#!/Emails/post_provider
         """
         return self.client.post(self._url(), data=body)
 
@@ -66,6 +67,8 @@ class Emails(object):
         """Update the email provider.
 
         Args:
-            body (dict): Please see: https://auth0.com/docs/api/v2#!/Emails/patch_provider
+            body (dict): attributes to update on the email provider
+
+        See: https://auth0.com/docs/api/v2#!/Emails/patch_provider
         """
         return self.client.patch(self._url(), data=body)
