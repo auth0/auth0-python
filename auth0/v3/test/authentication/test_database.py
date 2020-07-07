@@ -52,8 +52,6 @@ class TestDatabase(unittest.TestCase):
             'email': 'a@b.com',
             'password': 'pswd',
             'connection': 'conn',
-            'username': None,
-            'user_metadata': None
         })
 
         # Using also optional properties

@@ -39,7 +39,7 @@ class Blacklists(object):
 
         return self.client.get(self.url, params=params)
 
-    def create(self, jti, aud=''):
+    def create(self, jti, aud=None):
         """Adds a token to the blacklist.
 
         Args:
@@ -50,5 +50,11 @@ class Blacklists(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Blacklists/post_tokens
         """
+        body = {
+            'jti': jti,
+        }
 
-        return self.client.post(self.url, data={'jti': jti, 'aud': aud})
+        if aud:
+            body.update({'aud': aud})
+
+        return self.client.post(self.url, data=body)
