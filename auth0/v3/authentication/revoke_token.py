@@ -2,7 +2,6 @@ from .base import AuthenticationBase
 
 
 class RevokeToken(AuthenticationBase):
-
     """Revoke Refresh Token endpoint
 
     Args:
@@ -30,8 +29,9 @@ class RevokeToken(AuthenticationBase):
         body = {
             'client_id': client_id,
             'token': token,
-            'client_secret': client_secret
         }
 
-        return self.post(
-            'https://{}/oauth/revoke'.format(self.domain), data=body)
+        if client_secret:
+            body.update({'client_secret': client_secret})
+
+        return self.post('https://{}/oauth/revoke'.format(self.domain), data=body)

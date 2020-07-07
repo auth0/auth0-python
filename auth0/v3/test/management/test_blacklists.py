@@ -28,6 +28,16 @@ class TestBlacklists(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         t = Blacklists(domain='domain', token='jwttoken')
+
+        # create without audience
+        t.create(jti='the-jti')
+
+        args, kwargs = mock_instance.post.call_args
+
+        self.assertEqual('https://domain/api/v2/blacklists/tokens', args[0])
+        self.assertEqual(kwargs['data'], {'jti': 'the-jti'})
+
+        # create with audience
         t.create(jti='the-jti', aud='the-aud')
 
         args, kwargs = mock_instance.post.call_args

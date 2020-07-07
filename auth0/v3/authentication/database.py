@@ -21,19 +21,20 @@ class Database(AuthenticationBase):
         Windows Azure AD and ADFS.
         """
         warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
-        return self.post(
-            'https://{}/oauth/ro'.format(self.domain),
-            data={
-                'client_id': client_id,
-                'username': username,
-                'password': password,
-                'id_token': id_token,
-                'connection': connection,
-                'device': device,
-                'grant_type': grant_type,
-                'scope': scope,
-            }
-        )
+
+        body = {
+            'client_id': client_id,
+            'username': username,
+            'password': password,
+            'connection': connection,
+            'grant_type': grant_type,
+            'scope': scope,
+        }
+        if id_token:
+            body.update({'id_token': id_token})
+        if device:
+            body.update({'device': device})
+        return self.post('https://{}/oauth/ro'.format(self.domain), data=body)
 
     def signup(self, client_id, email, password, connection, username=None, user_metadata=None,
                given_name=None, family_name=None, name=None, nickname=None, picture=None):
@@ -71,10 +72,7 @@ class Database(AuthenticationBase):
             'email': email,
             'password': password,
             'connection': connection,
-            'username': username,
-            'user_metadata': user_metadata
         }
-
         if username:
             body.update({'username': username})
         if user_metadata:
@@ -90,21 +88,17 @@ class Database(AuthenticationBase):
         if picture:
             body.update({'picture': picture})
 
-        return self.post(
-            'https://{}/dbconnections/signup'.format(self.domain),
-            data=body
-        )
+        return self.post('https://{}/dbconnections/signup'.format(self.domain), data=body)
 
     def change_password(self, client_id, email, connection, password=None):
         """Asks to change a password for a given user.
         """
+        body = {
+            'client_id': client_id,
+            'email': email,
+            'connection': connection,
+        }
+        if password:
+            body.update({'password': password})
 
-        return self.post(
-            'https://{}/dbconnections/change_password'.format(self.domain),
-            data={
-                'client_id': client_id,
-                'email': email,
-                'password': password,
-                'connection': connection,
-            }
-        )
+        return self.post('https://{}/dbconnections/change_password'.format(self.domain), data=body)

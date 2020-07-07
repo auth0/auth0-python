@@ -2,7 +2,6 @@ from .base import AuthenticationBase
 
 
 class Delegated(AuthenticationBase):
-
     """Delegated authentication endpoints.
 
     Args:
@@ -35,7 +34,4 @@ class Delegated(AuthenticationBase):
             raise ValueError('Either id_token or refresh_token must '
                              'have a value')
 
-        return self.post(
-            'https://{}/delegation'.format(self.domain),
-            data=data
-        )
+        return self.post('https://{}/delegation'.format(self.domain), data=data)
