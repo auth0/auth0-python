@@ -92,13 +92,17 @@ class Database(AuthenticationBase):
 
     def change_password(self, client_id, email, connection, password=None):
         """Asks to change a password for a given user.
+            
+           client_id (str): ID of the application to use.
+
+           email (str): The user's email address.
+
+           connection (str): The name of the database connection where this user should be created.
         """
         body = {
             'client_id': client_id,
             'email': email,
             'connection': connection,
         }
-        if password:
-            body.update({'password': password})
-
+        
         return self.post('https://{}/dbconnections/change_password'.format(self.domain), data=body)

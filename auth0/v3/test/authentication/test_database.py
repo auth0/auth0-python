@@ -94,6 +94,7 @@ class TestDatabase(unittest.TestCase):
     def test_change_password(self, mock_post):
         d = Database('my.domain.com')
 
+        # ignores the password argument
         d.change_password(client_id='cid',
                           email='a@b.com',
                           password='pswd',
@@ -106,6 +107,5 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(kwargs['data'], {
             'client_id': 'cid',
             'email': 'a@b.com',
-            'password': 'pswd',
             'connection': 'conn',
         })
