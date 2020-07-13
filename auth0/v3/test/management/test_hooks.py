@@ -81,16 +81,14 @@ class TestRules(unittest.TestCase):
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/hooks/an-id', args[0])
-        self.assertEqual(kwargs['params'], {'fields': None,
-                                            'include_fields': 'true'})
+        self.assertEqual(kwargs['params'], {'fields': None})
 
-        c.get('an-id', fields=['a', 'b'], include_fields=False)
+        c.get('an-id', fields=['a', 'b'])
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/hooks/an-id', args[0])
-        self.assertEqual(kwargs['params'], {'fields': 'a,b',
-                                            'include_fields': 'false'})
+        self.assertEqual(kwargs['params'], {'fields': 'a,b'})
 
     @mock.patch('auth0.v3.management.hooks.RestClient')
     def test_delete(self, mock_rc):
