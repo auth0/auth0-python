@@ -1,6 +1,20 @@
 Changes
 =======
 
+3.12.0
+------------------
+
+**Added**
+- Add missing user profile properties to the signup endpoint [\#231](https://github.com/auth0/auth0-python/pull/231) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add Hooks management API [\#227](https://github.com/auth0/auth0-python/pull/227) ([guillp](https://github.com/guillp))
+- Add missing external_id property to the import users job [\#222](https://github.com/auth0/auth0-python/pull/222) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Changed**
+- Remove iat claim value check [\#223](https://github.com/auth0/auth0-python/pull/223) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Fixed**
+- Skip sending optional parameters on POST request when unspecified [\#230](https://github.com/auth0/auth0-python/pull/230) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.11.0
 ------------------
 
