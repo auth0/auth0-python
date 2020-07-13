@@ -85,7 +85,7 @@ class Hooks(object):
         """
         return self.client.post(self._url(), data=body)
 
-    def get(self, id, fields=None, include_fields=True):
+    def get(self, id, fields=None):
         """Retrieves a hook by its ID.
 
         Args:
@@ -95,15 +95,10 @@ class Hooks(object):
                 (depending on include_fields) from the result, empty to
                 retrieve all fields.
 
-            include_fields (bool, optional): True if the fields specified are
-                to be included in the result, False otherwise
-                (defaults to true).
-
         See: https://auth0.com/docs/api/management/v2#!/Hooks/get_hooks_by_id
         """
         params = {
             "fields": fields and ",".join(fields) or None,
-            "include_fields": str(include_fields).lower(),
         }
         return self.client.get(self._url(id), params=params)
 
