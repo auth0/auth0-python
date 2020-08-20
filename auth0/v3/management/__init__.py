@@ -9,6 +9,7 @@ from .email_templates import EmailTemplates
 from .emails import Emails
 from .grants import Grants
 from .guardian import Guardian
+from .hooks import Hooks
 from .jobs import Jobs
 from .logs import Logs
 from .resource_servers import ResourceServers
