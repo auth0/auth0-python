@@ -1,17 +1,19 @@
 import unittest
+
 from ...management.auth0 import Auth0
 from ...management.blacklists import Blacklists
-from ...management.clients import Clients
 from ...management.client_grants import ClientGrants
+from ...management.clients import Clients
 from ...management.connections import Connections
 from ...management.custom_domains import CustomDomains
 from ...management.device_credentials import DeviceCredentials
-from ...management.emails import Emails
 from ...management.email_templates import EmailTemplates
+from ...management.emails import Emails
 from ...management.grants import Grants
 from ...management.guardian import Guardian
 from ...management.hooks import Hooks
 from ...management.jobs import Jobs
+from ...management.log_streams import LogStreams
 from ...management.logs import Logs
 from ...management.resource_servers import ResourceServers
 from ...management.roles import Roles
@@ -70,6 +72,9 @@ class TestAuth0(unittest.TestCase):
 
     def test_logs(self):
         self.assertIsInstance(self.a0.logs, Logs)
+
+    def test_log_streams(self):
+        self.assertIsInstance(self.a0.log_streams, LogStreams)
 
     def test_resource_servers(self):
         self.assertIsInstance(self.a0.resource_servers, ResourceServers)

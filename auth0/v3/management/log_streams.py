@@ -35,7 +35,7 @@ class LogStreams(object):
         See: https://auth0.com/docs/api/management/v2/#!/Log_Streams/get_log_streams
         """
 
-        return self.client.get(self._url(), params={})
+        return self.client.get(self._url())
 
     def get(self, id):
         """Retrieves the data related to the log stream entry identified by id.
