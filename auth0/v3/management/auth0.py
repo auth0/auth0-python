@@ -10,6 +10,7 @@ from .grants import Grants
 from .guardian import Guardian
 from .hooks import Hooks
 from .jobs import Jobs
+from .log_streams import LogStreams
 from .logs import Logs
 from .resource_servers import ResourceServers
 from .roles import Roles
@@ -46,6 +47,7 @@ class Auth0(object):
         self.hooks = Hooks(domain, token)
         self.jobs = Jobs(domain, token)
         self.logs = Logs(domain, token)
+        self.log_streams = LogStreams(domain, token)
         self.resource_servers = ResourceServers(domain, token)
         self.roles = Roles(domain, token)
         self.rules = Rules(domain, token)
