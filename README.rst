@@ -238,6 +238,7 @@ Available Management Endpoints
 - Guardian() ( ``Auth0().guardian`` )
 - Jobs() ( ``Auth0().jobs`` )
 - Logs() ( ``Auth0().logs`` )
+- LogStreams() ( ``Auth0().log_streams`` )
 - ResourceServers() (``Auth0().resource_servers`` )
 - Roles() ( ``Auth0().roles`` )
 - Rules() ( ``Auth0().rules`` )
