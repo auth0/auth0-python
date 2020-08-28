@@ -1,3 +1,4 @@
+from .auth0 import Auth0
 from .blacklists import Blacklists
 from .client_grants import ClientGrants
 from .clients import Clients
