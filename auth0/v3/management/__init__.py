@@ -1,4 +1,3 @@
-from .auth0 import Auth0
 from .blacklists import Blacklists
 from .client_grants import ClientGrants
 from .clients import Clients
@@ -11,8 +10,10 @@ from .grants import Grants
 from .guardian import Guardian
 from .hooks import Hooks
 from .jobs import Jobs
+from .log_streams import LogStreams
 from .logs import Logs
 from .resource_servers import ResourceServers
+from .roles import Roles
 from .rules import Rules
 from .rules_configs import RulesConfigs
 from .stats import Stats
