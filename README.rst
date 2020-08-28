@@ -223,6 +223,27 @@ When consuming methods from the API clients, the requests could fail for a numbe
 resets is exposed in the ``reset_at`` property. When the header is unset, this value will be ``-1``.
 - Network timeouts: Adjustable by passing a ``timeout`` argument to the client. See the `rate limit docs <https://auth0.com/docs/policies/rate-limits>`_ for details.
 
+==============
+Bot Protection
+==============
+
+If you are using the `Bot Protection <https://auth0.com/docs/anomaly-detection/bot-protection>`_ feature and performing database 
+login/signup via the Authentication API, you need to handle the ``requires_verification`` error. It indicates that the request was 
+flagged as suspicious and an additional verification step is necessary to log the user in. That verification step is web-based, 
+so you need to use Universal Login to complete it.
+
+.. code-block:: python
+
+    from auth0.v3.authentication import Database
+
+    db = Database('myaccount.auth0.com')
+
+    try:
+        res = db.signup(client_id='my_client_id', email='user@app.com', password='secret', connection='database-1')
+    except Auth0Error as err:
+        if (err.error_code == 'requires_verification')
+            # Use the AuthorizeClient and redirect the user to the Universal Login to complete the authentication
+
 Available Management Endpoints
 ==============================
 
