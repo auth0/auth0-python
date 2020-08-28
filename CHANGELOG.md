@@ -1,6 +1,15 @@
 Changes
 =======
 
+3.13.0
+------------------
+
+**Added**
+- Add support for Log Streams API [\#236](https://github.com/auth0/auth0-python/pull/236) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Fixed**
+- Fix imports on the management/__init__.py file [\#235](https://github.com/auth0/auth0-python/pull/235) ([matthewarmand](https://github.com/matthewarmand))
+
 3.12.0
 ------------------
 
