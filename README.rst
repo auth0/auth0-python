@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fauth0%2Fauth0-python.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fauth0%2Fauth0-python?ref=badge_shield)
+
 **************
 Auth0 - Python
 **************
@@ -307,3 +309,6 @@ file for more info.
 .. |license| image:: https://img.shields.io/:license-mit-blue.svg?style=flat-square
     :target: https://opensource.org/licenses/MIT
     :alt: License
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fauth0%2Fauth0-python.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fauth0%2Fauth0-python?ref=badge_large)
