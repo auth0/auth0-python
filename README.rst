@@ -33,7 +33,7 @@ Create a free Auth0 Account
 2. Use Google, GitHub or Microsoft Account to log in.
 
 ============
-Installation
+Installation Procedure
 ============
 
 You can install the auth0 Python SDK using the following command.
