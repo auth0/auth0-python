@@ -353,3 +353,15 @@ class Users(object):
 
         url = self._url('{}/logs'.format(user_id))
         return self.client.get(url, params=params)
+
+    def invalidate_remembered_browsers(self, user_id):
+        """Invalidate all remembered browsers across all authentication factors for a user.
+
+        Args:
+            user_id (str):  The user_id to invalidate remembered browsers for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/post_invalidate_remember_browser
+        """
+
+        url = self._url('{}/multifactor/actions/invalidate-remember-browser'.format(user_id))
+        return self.client.post(url)

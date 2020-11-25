@@ -293,3 +293,13 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(kwargs['params']['per_page'], 50)
         self.assertIsNone(kwargs['params']['sort'])
         self.assertEqual(kwargs['params']['include_totals'], 'false')
+
+    @mock.patch('auth0.v3.management.users.RestClient')
+    def test_invalidate_remembered_browsers(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.invalidate_remembered_browsers('used_id')
+
+        args, kwargs = mock_instance.post.call_args
+        self.assertEqual('https://domain/api/v2/users/used_id/multifactor/actions/invalidate-remember-browser', args[0])
