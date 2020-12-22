@@ -299,7 +299,7 @@ class TestUsers(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         u = Users(domain='domain', token='jwttoken')
-        u.invalidate_remembered_browsers('used_id')
+        u.invalidate_remembered_browsers('user-id')
 
         args, kwargs = mock_instance.post.call_args
-        self.assertEqual('https://domain/api/v2/users/used_id/multifactor/actions/invalidate-remember-browser', args[0])
+        self.assertEqual('https://domain/api/v2/users/user-id/multifactor/actions/invalidate-remember-browser', args[0])
