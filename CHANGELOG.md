@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.14.0
+------------------
+
+**Added**
+- Adds a new user method invalidate_remembered_browsers [\#248](https://github.com/auth0/auth0-python/pull/248) ([kpurdon](https://github.com/kpurdon))
+
 3.13.0
 ------------------
 
