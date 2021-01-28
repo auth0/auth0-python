@@ -34,4 +34,4 @@ class RevokeToken(AuthenticationBase):
         if client_secret:
             body.update({'client_secret': client_secret})
 
-        return self.post('https://{}/oauth/revoke'.format(self.domain), data=body)
+        return self.post('{}://{}/oauth/revoke'.format(self.protocol, self.domain), data=body)

@@ -20,9 +20,10 @@ class AuthenticationBase(object):
             (defaults to 5.0 for both)
     """
 
-    def __init__(self, domain, telemetry=True, timeout=5.0):
+    def __init__(self, domain, telemetry=True, timeout=5.0, protocol="https"):
         self.domain = domain
         self.timeout = timeout
+        self.protocol = protocol
         self.base_headers = {'Content-Type': 'application/json'}
 
         if telemetry:

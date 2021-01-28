@@ -47,7 +47,7 @@ class Passwordless(AuthenticationBase):
             data.update({'client_secret': client_secret})
 
         return self.post(
-            'https://{}/passwordless/start'.format(self.domain),
+            '{}://{}/passwordless/start'.format(self.protocol, self.domain),
             data=data
         )
 
@@ -75,7 +75,7 @@ class Passwordless(AuthenticationBase):
             data.update({'client_secret': client_secret})
             
         return self.post(
-            'https://{}/passwordless/start'.format(self.domain),
+            '{}://{}/passwordless/start'.format(self.protocol, self.domain),
             data=data
         )
 
@@ -93,7 +93,7 @@ class Passwordless(AuthenticationBase):
         """
 
         return self.post(
-            'https://{}/oauth/ro'.format(self.domain),
+            '{}://{}/oauth/ro'.format(self.protocol, self.domain),
             data={
                 'client_id': client_id,
                 'connection': 'sms',

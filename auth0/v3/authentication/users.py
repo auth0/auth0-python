@@ -23,7 +23,7 @@ class Users(AuthenticationBase):
         """
 
         return self.get(
-            url='https://{}/userinfo'.format(self.domain),
+            url='{}://{}/userinfo'.format(self.protocol, self.domain),
             headers={'Authorization': 'Bearer {}'.format(access_token)}
         )
 
@@ -43,6 +43,6 @@ class Users(AuthenticationBase):
         """
         warnings.warn("/tokeninfo will be deprecated in future releases", DeprecationWarning)
         return self.post(
-            url='https://{}/tokeninfo'.format(self.domain),
+            url='{}://{}/tokeninfo'.format(self.protocol, self.domain),
             data={'id_token': jwt}
         )

@@ -34,7 +34,7 @@ class Database(AuthenticationBase):
             body.update({'id_token': id_token})
         if device:
             body.update({'device': device})
-        return self.post('https://{}/oauth/ro'.format(self.domain), data=body)
+        return self.post('{}://{}/oauth/ro'.format(self.protocol, self.domain), data=body)
 
     def signup(self, client_id, email, password, connection, username=None, user_metadata=None,
                given_name=None, family_name=None, name=None, nickname=None, picture=None):
@@ -88,7 +88,7 @@ class Database(AuthenticationBase):
         if picture:
             body.update({'picture': picture})
 
-        return self.post('https://{}/dbconnections/signup'.format(self.domain), data=body)
+        return self.post('{}://{}/dbconnections/signup'.format(self.protocol, self.domain), data=body)
 
     def change_password(self, client_id, email, connection, password=None):
         """Asks to change a password for a given user.
@@ -105,4 +105,4 @@ class Database(AuthenticationBase):
             'connection': connection,
         }
         
-        return self.post('https://{}/dbconnections/change_password'.format(self.domain), data=body)
+        return self.post('{}://{}/dbconnections/change_password'.format(self.protocol, self.domain), data=body)
