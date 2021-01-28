@@ -18,12 +18,13 @@ class Jobs(object):
             (defaults to 5.0 for both)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
         self.domain = domain
+        self.protocol = protocol
         self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
 
     def _url(self, path=None):
-        url = 'https://{}/api/v2/jobs'.format(self.domain)
+        url = '{}://{}/api/v2/jobs'.format(self.protocol, self.domain)
         if path is not None:
             return '{}/{}'.format(url, path)
         return url

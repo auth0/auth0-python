@@ -18,12 +18,13 @@ class Connections(object):
             (defaults to 5.0 for both)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
         self.domain = domain
+        self.protocol = protocol
         self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
 
     def _url(self, id=None):
-        url = 'https://{}/api/v2/connections'.format(self.domain)
+        url = '{}://{}/api/v2/connections'.format(self.protocol, self.domain)
         if id is not None:
             return '{}/{}'.format(url, id)
         return url

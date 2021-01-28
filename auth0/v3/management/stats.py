@@ -18,12 +18,13 @@ class Stats(object):
             (defaults to 5.0 for both)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
         self.domain = domain
+        self.protocol = protocol
         self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
 
     def _url(self, action):
-        return 'https://{}/api/v2/stats/{}'.format(self.domain, action)
+        return '{}://{}/api/v2/stats/{}'.format(self.protocol, self.domain, action)
 
     def active_users(self):
         """Gets the active users count (logged in during the last 30 days).

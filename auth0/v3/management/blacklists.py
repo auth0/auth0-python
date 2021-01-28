@@ -18,8 +18,8 @@ class Blacklists(object):
             (defaults to 5.0 for both)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0):
-        self.url = 'https://{}/api/v2/blacklists/tokens'.format(domain)
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
+        self.url = '{}://{}/api/v2/blacklists/tokens'.format(protocol, domain)
         self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
 
     def get(self, aud=None):
