@@ -6,30 +6,6 @@ Auth0 - Python
 
 In this repository, you'll find all the information about integrating Auth0 with Python.
 
-
-==============
-What is Auth0?
-==============
-
-Auth0 helps you to:
-
-* Add authentication with `multiple authentication sources <https://auth0.com/docs/identityproviders>`_,
-  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**,
-  or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`_.
-* Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`_ with the same user.
-* Support for generating signed `JSON Web Tokens <https://auth0.com/docs/jwt>`_ to call your APIs and **flow the user identity** securely.
-* Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://auth0.com/docs/rules>`_.
-
-
-===========================
-Create a free Auth0 Account
-===========================
-
-1. Go to `Auth0`_ and click Sign Up.
-2. Use Google, GitHub or Microsoft Account to log in.
-
 ============
 Installation
 ============
@@ -62,7 +38,30 @@ For example:
 
     social = Social('myaccount.auth0.com')
 
-    s.login(client_id='...', access_token='...', connection='facebook')
+    social.login(client_id='...', access_token='...', connection='facebook')
+
+
+If you need to sign up a user using their email and password, you can use the Database object.
+
+.. code-block:: python
+
+    from auth0.v3.authentication import Database
+
+    database = Database('myaccount.auth0.com'')
+
+    database.signup(client_id='...', email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
+
+
+If you need to authenticate a user using their email and password, you can use the GetToken object, which gives you access to requests made against the /oauth/token endpoint.
+
+.. code-block:: python
+
+    from auth0.v3.authentication import GetToken
+
+    token = GetToken('myaccount.auth0.com')
+
+    token.login(client_id='...', client_secret='...', username='user@domain.com', password='secr3t', realm='Username-Password-Authentication')
+
 
 ===================
 ID Token validation
@@ -234,7 +233,8 @@ Available Authentication Endpoints
 - Social ( ``authentication.Social`` )
 - API Authorization - Get Token ( ``authentication.GetToken``)
 - API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
-    
+
+
 Available Management Endpoints
 ==============================
 
@@ -276,11 +276,27 @@ If you have found a bug or if you have a feature request, please report them at 
 Please do not report security vulnerabilities on the public GitHub issue tracker.
 The `Responsible Disclosure Program <https://auth0.com/whitehat>`_ details the procedure for disclosing security issues.
 
-======
-Author
-======
+==============
+What is Auth0?
+==============
 
-`Auth0`_
+Auth0 helps you to:
+
+* Add authentication with `multiple authentication sources <https://auth0.com/docs/identityproviders>`_,
+  either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**,
+  or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+* Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`_.
+* Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`_ with the same user.
+* Support for generating signed `JSON Web Tokens <https://auth0.com/docs/jwt>`_ to call your APIs and **flow the user identity** securely.
+* Analytics of how, when and where users are logging in.
+* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://auth0.com/docs/rules>`_.
+
+===========================
+Create a free Auth0 Account
+===========================
+
+1. Go to `Auth0 <https://auth0.com/>`_ and click Sign Up.
+2. Use Google, GitHub or Microsoft Account to log in.
 
 =======
 License

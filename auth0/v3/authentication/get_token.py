@@ -3,7 +3,7 @@ from .base import AuthenticationBase
 
 class GetToken(AuthenticationBase):
 
-    """Oauth/token related endpoints
+    """/oauth/token related endpoints
 
     Args:
         domain (str): Your auth0 domain (e.g: username.auth0.com)
@@ -116,7 +116,7 @@ class GetToken(AuthenticationBase):
 
     def login(self, client_id, client_secret, username, password, scope, realm,
               audience, grant_type='http://auth0.com/oauth/grant-type/password-realm'):
-        """Calls oauth/token endpoint with password-realm grant type
+        """Calls /oauth/token endpoint with password-realm grant type
 
 
         This is the OAuth 2.0 grant that highly trusted apps utilize in order
@@ -165,7 +165,7 @@ class GetToken(AuthenticationBase):
         )
 
     def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token'):
-        """Calls oauth/token endpoint with refresh token grant type
+        """Calls /oauth/token endpoint with refresh token grant type
 
         Use this endpoint to refresh an access token, using the refresh token you got during authorization.
 
