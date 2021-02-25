@@ -2,7 +2,7 @@
 Auth0 - Python
 **************
 
-|pypi| |build| |coverage| |license| |fossa|
+|pypi| |build| |coverage| |license|
 
 In this repository, you'll find all the information about integrating Auth0 with Python.
 
@@ -322,7 +322,3 @@ file for more info.
 .. |license| image:: https://img.shields.io/:license-mit-blue.svg?style=flat-square
     :target: https://opensource.org/licenses/MIT
     :alt: License
-
-.. |fossa| image:: https://app.fossa.com/api/projects/git%2Bgithub.com%2Fauth0%2Fauth0-python.svg?type=large
-    :target: https://app.fossa.com/projects/git%2Bgithub.com%2Fauth0%2Fauth0-python?ref=badge_large
-    :alt: fossa
