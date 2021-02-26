@@ -1,3 +1,5 @@
+"""Authentication module
+"""
 from .authorize_client import AuthorizeClient
 from .database import Database
 from .delegated import Delegated

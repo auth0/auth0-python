@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>v3.management.auth0 &mdash; auth0-python 3.13.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> auth0-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme_content.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">auth0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../v3.authentication.html">v3.authentication package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../v3.management.html">v3.management package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">auth0-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>v3.management.auth0</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for v3.management.auth0</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.blacklists</span> <span class="kn">import</span> <span class="n">Blacklists</span>
+<span class="kn">from</span> <span class="nn">.client_grants</span> <span class="kn">import</span> <span class="n">ClientGrants</span>
+<span class="kn">from</span> <span class="nn">.clients</span> <span class="kn">import</span> <span class="n">Clients</span>
+<span class="kn">from</span> <span class="nn">.connections</span> <span class="kn">import</span> <span class="n">Connections</span>
+<span class="kn">from</span> <span class="nn">.custom_domains</span> <span class="kn">import</span> <span class="n">CustomDomains</span>
+<span class="kn">from</span> <span class="nn">.device_credentials</span> <span class="kn">import</span> <span class="n">DeviceCredentials</span>
+<span class="kn">from</span> <span class="nn">.email_templates</span> <span class="kn">import</span> <span class="n">EmailTemplates</span>
+<span class="kn">from</span> <span class="nn">.emails</span> <span class="kn">import</span> <span class="n">Emails</span>
+<span class="kn">from</span> <span class="nn">.grants</span> <span class="kn">import</span> <span class="n">Grants</span>
+<span class="kn">from</span> <span class="nn">.guardian</span> <span class="kn">import</span> <span class="n">Guardian</span>
+<span class="kn">from</span> <span class="nn">.hooks</span> <span class="kn">import</span> <span class="n">Hooks</span>
+<span class="kn">from</span> <span class="nn">.jobs</span> <span class="kn">import</span> <span class="n">Jobs</span>
+<span class="kn">from</span> <span class="nn">.log_streams</span> <span class="kn">import</span> <span class="n">LogStreams</span>
+<span class="kn">from</span> <span class="nn">.logs</span> <span class="kn">import</span> <span class="n">Logs</span>
+<span class="kn">from</span> <span class="nn">.resource_servers</span> <span class="kn">import</span> <span class="n">ResourceServers</span>
+<span class="kn">from</span> <span class="nn">.roles</span> <span class="kn">import</span> <span class="n">Roles</span>
+<span class="kn">from</span> <span class="nn">.rules</span> <span class="kn">import</span> <span class="n">Rules</span>
+<span class="kn">from</span> <span class="nn">.rules_configs</span> <span class="kn">import</span> <span class="n">RulesConfigs</span>
+<span class="kn">from</span> <span class="nn">.stats</span> <span class="kn">import</span> <span class="n">Stats</span>
+<span class="kn">from</span> <span class="nn">.tenants</span> <span class="kn">import</span> <span class="n">Tenants</span>
+<span class="kn">from</span> <span class="nn">.tickets</span> <span class="kn">import</span> <span class="n">Tickets</span>
+<span class="kn">from</span> <span class="nn">.user_blocks</span> <span class="kn">import</span> <span class="n">UserBlocks</span>
+<span class="kn">from</span> <span class="nn">.users</span> <span class="kn">import</span> <span class="n">Users</span>
+<span class="kn">from</span> <span class="nn">.users_by_email</span> <span class="kn">import</span> <span class="n">UsersByEmail</span>
+
+
+<div class="viewcode-block" id="Auth0"><a class="viewcode-back" href="../../../v3.management.html#v3.management.auth0.Auth0">[docs]</a><span class="k">class</span> <span class="nc">Auth0</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Provides easy access to all endpoint classes</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        domain (str): Your Auth0 domain, e.g: &#39;username.auth0.com&#39;</span>
+
+<span class="sd">        token (str): Management API v2 Token</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blacklists</span> <span class="o">=</span> <span class="n">Blacklists</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span> <span class="o">=</span> <span class="n">Clients</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_grants</span> <span class="o">=</span> <span class="n">ClientGrants</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">custom_domains</span> <span class="o">=</span> <span class="n">CustomDomains</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connections</span> <span class="o">=</span> <span class="n">Connections</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_credentials</span> <span class="o">=</span> <span class="n">DeviceCredentials</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emails</span> <span class="o">=</span> <span class="n">Emails</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">email_templates</span> <span class="o">=</span> <span class="n">EmailTemplates</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grants</span> <span class="o">=</span> <span class="n">Grants</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guardian</span> <span class="o">=</span> <span class="n">Guardian</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hooks</span> <span class="o">=</span> <span class="n">Hooks</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span> <span class="o">=</span> <span class="n">Jobs</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logs</span> <span class="o">=</span> <span class="n">Logs</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_streams</span> <span class="o">=</span> <span class="n">LogStreams</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_servers</span> <span class="o">=</span> <span class="n">ResourceServers</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="n">Roles</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rules</span> <span class="o">=</span> <span class="n">Rules</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rules_configs</span> <span class="o">=</span> <span class="n">RulesConfigs</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">Stats</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tenants</span> <span class="o">=</span> <span class="n">Tenants</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tickets</span> <span class="o">=</span> <span class="n">Tickets</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_blocks</span> <span class="o">=</span> <span class="n">UserBlocks</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">users</span> <span class="o">=</span> <span class="n">Users</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">users_by_email</span> <span class="o">=</span> <span class="n">UsersByEmail</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Auth0.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

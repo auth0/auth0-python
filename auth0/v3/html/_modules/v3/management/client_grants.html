@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>v3.management.client_grants &mdash; auth0-python 3.13.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> auth0-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme_content.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">auth0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../v3.authentication.html">v3.authentication package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../v3.management.html">v3.management package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">auth0-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>v3.management.client_grants</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for v3.management.client_grants</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.rest</span> <span class="kn">import</span> <span class="n">RestClient</span>
+
+
+<div class="viewcode-block" id="ClientGrants"><a class="viewcode-back" href="../../../v3.management.html#v3.management.client_grants.ClientGrants">[docs]</a><span class="k">class</span> <span class="nc">ClientGrants</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Auth0 client grants endpoints</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        domain (str): Your Auth0 domain, e.g: &#39;username.auth0.com&#39;</span>
+
+<span class="sd">        token (str): Management API v2 Token</span>
+
+<span class="sd">        telemetry (bool, optional): Enable or disable Telemetry</span>
+<span class="sd">            (defaults to True)</span>
+
+<span class="sd">        timeout (float or tuple, optional): Change the requests</span>
+<span class="sd">            connect and read timeout. Pass a tuple to specify</span>
+<span class="sd">            both values separately or a float to set both to it.</span>
+<span class="sd">            (defaults to 5.0 for both)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">RestClient</span><span class="p">(</span><span class="n">jwt</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">telemetry</span><span class="o">=</span><span class="n">telemetry</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://</span><span class="si">{}</span><span class="s1">/api/v2/client-grants&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">url</span>
+
+<div class="viewcode-block" id="ClientGrants.all"><a class="viewcode-back" href="../../../v3.management.html#v3.management.client_grants.ClientGrants.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">audience</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_totals</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves all client grants.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            audience (str, optional): URL encoded audience of a Resource Server</span>
+<span class="sd">                to filter.</span>
+
+<span class="sd">            page (int, optional): The result&#39;s page number (zero based). When not set,</span>
+<span class="sd">                the default value is up to the server.</span>
+
+<span class="sd">            per_page (int, optional): The amount of entries per page. When not set,</span>
+<span class="sd">                the default value is up to the server.</span>
+
+<span class="sd">            include_totals (bool, optional): True if the query summary is</span>
+<span class="sd">                to be included in the result, False otherwise. Defaults to False.</span>
+
+<span class="sd">            client_id (string, optional): The id of a client to filter.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;audience&#39;</span><span class="p">:</span> <span class="n">audience</span><span class="p">,</span>
+            <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s1">&#39;per_page&#39;</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+            <span class="s1">&#39;include_totals&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">include_totals</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+            <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">client_id</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClientGrants.create"><a class="viewcode-back" href="../../../v3.management.html#v3.management.client_grants.ClientGrants.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a client grant.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           body (dict): Attributes for the new client grant.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Client_Grants/post_client_grants</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(),</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClientGrants.delete"><a class="viewcode-back" href="../../../v3.management.html#v3.management.client_grants.ClientGrants.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Deletes a client grant.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           id (str): Id of client grant to delete.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Client_Grants/delete_client_grants_by_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ClientGrants.update"><a class="viewcode-back" href="../../../v3.management.html#v3.management.client_grants.ClientGrants.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Modifies a client grant.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           id (str): The id of the client grant to modify.</span>
+
+<span class="sd">           body (dict): Attributes to update.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Client_Grants/patch_client_grants_by_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Auth0.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

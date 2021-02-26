@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>v3.management.users &mdash; auth0-python 3.13.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> auth0-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme_content.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">auth0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../v3.authentication.html">v3.authentication package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../v3.management.html">v3.management package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">auth0-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>v3.management.users</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for v3.management.users</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">.rest</span> <span class="kn">import</span> <span class="n">RestClient</span>
+
+
+<div class="viewcode-block" id="Users"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users">[docs]</a><span class="k">class</span> <span class="nc">Users</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Auth0 users endpoints</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        domain (str): Your Auth0 domain, e.g: &#39;username.auth0.com&#39;</span>
+
+<span class="sd">        token (str): Management API v2 Token</span>
+
+<span class="sd">        telemetry (bool, optional): Enable or disable Telemetry</span>
+<span class="sd">            (defaults to True)</span>
+
+<span class="sd">        timeout (float or tuple, optional): Change the requests</span>
+<span class="sd">            connect and read timeout. Pass a tuple to specify</span>
+<span class="sd">            both values separately or a float to set both to it.</span>
+<span class="sd">            (defaults to 5.0 for both)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">RestClient</span><span class="p">(</span><span class="n">jwt</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">telemetry</span><span class="o">=</span><span class="n">telemetry</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://</span><span class="si">{}</span><span class="s1">/api/v2/users&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">url</span>
+
+<div class="viewcode-block" id="Users.list"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">search_engine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_totals</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">include_fields</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List or search users.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            page (int, optional): The result&#39;s page number (zero based). By default,</span>
+<span class="sd">               retrieves the first page of results.</span>
+
+<span class="sd">            per_page (int, optional): The amount of entries per page. By default,</span>
+<span class="sd">               retrieves 25 results per page.</span>
+
+<span class="sd">            sort (str, optional): The field to use for sorting.</span>
+<span class="sd">                1 == ascending and -1 == descending. (e.g: email:1)</span>
+<span class="sd">                When not set, the default value is up to the server.</span>
+
+<span class="sd">            connection (str, optional): Connection filter.</span>
+
+<span class="sd">            q (str, optional): Query in Lucene query string syntax. Only fields</span>
+<span class="sd">                in app_metadata, user_metadata or the normalized user profile</span>
+<span class="sd">                are searchable.</span>
+
+<span class="sd">            search_engine (str, optional): The version of the search_engine to use</span>
+<span class="sd">                when querying for users. Will default to the latest version available.</span>
+<span class="sd">                See: https://auth0.com/docs/users/search.</span>
+
+<span class="sd">            include_totals (bool, optional): True if the query summary is</span>
+<span class="sd">                to be included in the result, False otherwise. Defaults to True.</span>
+
+<span class="sd">            fields (list of str, optional): A list of fields to include or</span>
+<span class="sd">                exclude from the result (depending on include_fields). Leave empty to</span>
+<span class="sd">                retrieve all fields.</span>
+
+<span class="sd">            include_fields (bool, optional): True if the fields specified are</span>
+<span class="sd">                to be include in the result, False otherwise. Defaults to True.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/get_users</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;per_page&#39;</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+            <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s1">&#39;include_totals&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">include_totals</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+            <span class="s1">&#39;sort&#39;</span><span class="p">:</span> <span class="n">sort</span><span class="p">,</span>
+            <span class="s1">&#39;connection&#39;</span><span class="p">:</span> <span class="n">connection</span><span class="p">,</span>
+            <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="n">fields</span> <span class="ow">and</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;include_fields&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">include_fields</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+            <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="n">q</span><span class="p">,</span>
+            <span class="s1">&#39;search_engine&#39;</span><span class="p">:</span> <span class="n">search_engine</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.create"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            body (dict): the attributes to set on the user to create.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/v2#!/Users/post_users</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(),</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.delete_all_users"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.delete_all_users">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all_users</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Deletes all users (USE WITH CAUTION).</span>
+<span class="sd">        Deprecation: This endpoint is no longer available server-side.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;DELETE all users endpoint is no longer available.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Users.get"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_fields</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user_id of the user to retrieve.</span>
+
+<span class="sd">            fields (list of str, optional): A list of fields to include or</span>
+<span class="sd">                exclude from the result (depending on include_fields). Leave empty to</span>
+<span class="sd">                retrieve all fields.</span>
+
+<span class="sd">            include_fields (bool, optional): True if the fields specified are</span>
+<span class="sd">                to be included in the result, False otherwise. Defaults to True.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="n">fields</span> <span class="ow">and</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;include_fields&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">include_fields</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.delete"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user_id of the user to delete.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Users.update"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update a user with the attributes passed in &#39;body&#39;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user_id of the user to update.</span>
+
+<span class="sd">            body (dict): The attributes of the user to update.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/v2#!/Users/patch_users_by_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.list_roles"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.list_roles">[docs]</a>    <span class="k">def</span> <span class="nf">list_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">include_totals</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List the roles associated with a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user&#39;s id.</span>
+
+<span class="sd">            page (int, optional): The result&#39;s page number (zero based). By default,</span>
+<span class="sd">               retrieves the first page of results.</span>
+
+<span class="sd">            per_page (int, optional): The amount of entries per page. By default,</span>
+<span class="sd">               retrieves 25 results per page.</span>
+
+<span class="sd">            include_totals (bool, optional): True if the query summary is</span>
+<span class="sd">               to be included in the result, False otherwise. Defaults to True.</span>
+
+<span class="sd">        See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;per_page&#39;</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+            <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s1">&#39;include_totals&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">include_totals</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/roles&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.remove_roles"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.remove_roles">[docs]</a>    <span class="k">def</span> <span class="nf">remove_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">roles</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes an array of roles from a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user&#39;s id.</span>
+
+<span class="sd">            roles (list of str): A list of roles ids to unassociate from the user.</span>
+
+<span class="sd">        See https://auth0.com/docs/api/management/v2#!/Users/delete_user_roles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/roles&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;roles&#39;</span><span class="p">:</span> <span class="n">roles</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.add_roles"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.add_roles">[docs]</a>    <span class="k">def</span> <span class="nf">add_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">roles</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Associate an array of roles with a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user&#39;s id.</span>
+
+<span class="sd">            roles (list of str): A list of roles ids to associated with the user.</span>
+
+<span class="sd">        See https://auth0.com/docs/api/management/v2#!/Users/post_user_roles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/roles&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;roles&#39;</span><span class="p">:</span> <span class="n">roles</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.list_permissions"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.list_permissions">[docs]</a>    <span class="k">def</span> <span class="nf">list_permissions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">include_totals</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List the permissions associated to the user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user&#39;s id.</span>
+
+<span class="sd">            page (int, optional): The result&#39;s page number (zero based). By default,</span>
+<span class="sd">               retrieves the first page of results.</span>
+
+<span class="sd">            per_page (int, optional): The amount of entries per page. By default,</span>
+<span class="sd">               retrieves 25 results per page.</span>
+
+<span class="sd">            include_totals (bool, optional): True if the query summary is</span>
+<span class="sd">                to be included in the result, False otherwise. Defaults to True.</span>
+
+<span class="sd">        See https://auth0.com/docs/api/management/v2#!/Users/get_permissions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;per_page&#39;</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+            <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s1">&#39;include_totals&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">include_totals</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/permissions&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.remove_permissions"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.remove_permissions">[docs]</a>    <span class="k">def</span> <span class="nf">remove_permissions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">permissions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes permissions from a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user&#39;s id.</span>
+
+<span class="sd">            permissions (list of str): A list of permission ids to unassociate from the user.</span>
+
+<span class="sd">        See https://auth0.com/docs/api/management/v2#!/Users/delete_permissions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/permissions&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;permissions&#39;</span><span class="p">:</span> <span class="n">permissions</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.add_permissions"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.add_permissions">[docs]</a>    <span class="k">def</span> <span class="nf">add_permissions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">permissions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Assign permissions to a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user&#39;s id.</span>
+
+<span class="sd">            permissions (list of str): A list of permission ids to associated with the user.</span>
+
+<span class="sd">        See https://auth0.com/docs/api/management/v2#!/Users/post_permissions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/permissions&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;permissions&#39;</span><span class="p">:</span> <span class="n">permissions</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.delete_multifactor"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.delete_multifactor">[docs]</a>    <span class="k">def</span> <span class="nf">delete_multifactor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete a user&#39;s multifactor provider.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user&#39;s id.</span>
+
+<span class="sd">            provider (str): The multifactor provider. Supported values &#39;duo&#39;</span>
+<span class="sd">                or &#39;google-authenticator&#39;.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/multifactor/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">provider</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.unlink_user_account"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.unlink_user_account">[docs]</a>    <span class="k">def</span> <span class="nf">unlink_user_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Unlink a user account</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user_id of the user identity.</span>
+
+<span class="sd">            provider (str): The type of identity provider (e.g: facebook).</span>
+
+<span class="sd">            user_id (str): The unique identifier for the user for the identity.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/delete_user_identity_by_user_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/identities/</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">user_id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.link_user_account"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.link_user_account">[docs]</a>    <span class="k">def</span> <span class="nf">link_user_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Link user accounts.</span>
+
+<span class="sd">        Links the account specified in the body (secondary account) to the</span>
+<span class="sd">        account specified by the id param of the URL (primary account).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The user_id of the primary identity where you are linking</span>
+<span class="sd">                the secondary account to.</span>
+
+<span class="sd">            body (dict): the attributes to send as part of this request.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/v2#!/Users/post_identities</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/identities&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.regenerate_recovery_code"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.regenerate_recovery_code">[docs]</a>    <span class="k">def</span> <span class="nf">regenerate_recovery_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes the current recovery token, generates and returns a new one</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str):  The user_id of the user identity.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/recovery-code-regeneration&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.get_guardian_enrollments"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.get_guardian_enrollments">[docs]</a>    <span class="k">def</span> <span class="nf">get_guardian_enrollments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves all Guardian enrollments.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str):  The user_id of the user to retrieve.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/get_enrollments</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/enrollments&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.get_log_events"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.get_log_events">[docs]</a>    <span class="k">def</span> <span class="nf">get_log_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">include_totals</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve every log event for a specific user id.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str):  The user_id of the logs to retrieve.</span>
+
+<span class="sd">            page (int, optional): The result&#39;s page number (zero based). By default,</span>
+<span class="sd">                retrieves the first page of results.</span>
+
+<span class="sd">            per_page (int, optional): The amount of entries per page. By default,</span>
+<span class="sd">                retrieves 50 results per page.</span>
+
+<span class="sd">            sort (str, optional):  The field to use for sorting. Use field:order</span>
+<span class="sd">                where order is 1 for ascending and -1 for descending.</span>
+<span class="sd">                For example date:-1</span>
+<span class="sd">                When not set, the default value is up to the server.</span>
+
+<span class="sd">            include_totals (bool, optional): True if the query summary is</span>
+<span class="sd">                to be included in the result, False otherwise. Defaults to False.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/get_logs_by_user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;per_page&#39;</span><span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+            <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s1">&#39;include_totals&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">include_totals</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+            <span class="s1">&#39;sort&#39;</span><span class="p">:</span> <span class="n">sort</span>
+        <span class="p">}</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/logs&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Users.invalidate_remembered_browsers"><a class="viewcode-back" href="../../../v3.management.html#v3.management.users.Users.invalidate_remembered_browsers">[docs]</a>    <span class="k">def</span> <span class="nf">invalidate_remembered_browsers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Invalidate all remembered browsers across all authentication factors for a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str):  The user_id to invalidate remembered browsers for.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Users/post_invalidate_remember_browser</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/multifactor/actions/invalidate-remember-browser&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Auth0.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
