@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>v3.management.jobs &mdash; auth0-python 3.13.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> auth0-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme_content.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">auth0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../v3.authentication.html">v3.authentication package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../v3.management.html">v3.management package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">auth0-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>v3.management.jobs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for v3.management.jobs</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.rest</span> <span class="kn">import</span> <span class="n">RestClient</span>
+
+
+<div class="viewcode-block" id="Jobs"><a class="viewcode-back" href="../../../v3.management.html#v3.management.jobs.Jobs">[docs]</a><span class="k">class</span> <span class="nc">Jobs</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Auth0 jobs endpoints</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        domain (str): Your Auth0 domain, e.g: &#39;username.auth0.com&#39;</span>
+
+<span class="sd">        token (str): Management API v2 Token</span>
+
+<span class="sd">        telemetry (bool, optional): Enable or disable Telemetry</span>
+<span class="sd">            (defaults to True)</span>
+
+<span class="sd">        timeout (float or tuple, optional): Change the requests</span>
+<span class="sd">            connect and read timeout. Pass a tuple to specify</span>
+<span class="sd">            both values separately or a float to set both to it.</span>
+<span class="sd">            (defaults to 5.0 for both)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">telemetry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">RestClient</span><span class="p">(</span><span class="n">jwt</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">telemetry</span><span class="o">=</span><span class="n">telemetry</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://</span><span class="si">{}</span><span class="s1">/api/v2/jobs&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">url</span>
+
+<div class="viewcode-block" id="Jobs.get"><a class="viewcode-back" href="../../../v3.management.html#v3.management.jobs.Jobs.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves a job. Useful to check its status.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The id of the job.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Jobs.get_failed_job"><a class="viewcode-back" href="../../../v3.management.html#v3.management.jobs.Jobs.get_failed_job">[docs]</a>    <span class="k">def</span> <span class="nf">get_failed_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get failed job error details.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The id of the job.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_errors</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/errors&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Jobs.get_results"><a class="viewcode-back" href="../../../v3.management.html#v3.management.jobs.Jobs.get_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get results of a job</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            job_id (str): The id of the job.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/results&#39;</span> <span class="o">%</span> <span class="n">job_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Jobs.export_users"><a class="viewcode-back" href="../../../v3.management.html#v3.management.jobs.Jobs.export_users">[docs]</a>    <span class="k">def</span> <span class="nf">export_users</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Export all users to a file using a long running job.</span>
+
+<span class="sd">        Check job status with get(). URL pointing to the export file will be</span>
+<span class="sd">        included in the status once the job is complete.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            body (dict): The details of the export users request.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;users-exports&#39;</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Jobs.import_users"><a class="viewcode-back" href="../../../v3.management.html#v3.management.jobs.Jobs.import_users">[docs]</a>    <span class="k">def</span> <span class="nf">import_users</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection_id</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">,</span> <span class="n">upsert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">send_completion_email</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">external_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Imports users to a connection from a file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            connection_id (str): The connection id of the connection to which</span>
+<span class="sd">                users will be inserted.</span>
+
+<span class="sd">            file_obj (file): A file-like object to upload. The format for</span>
+<span class="sd">                this file is explained in: https://auth0.com/docs/bulk-import.</span>
+
+<span class="sd">            upsert (bool, optional): When set to False, pre-existing users that match on email address, user ID, or username</span>
+<span class="sd">                will fail. When set to True, pre-existing users that match on any of these fields will be updated, but</span>
+<span class="sd">                only with upsertable attributes. Defaults to False.</span>
+<span class="sd">                For a list of user profile fields that can be upserted during import, see the following article</span>
+<span class="sd">                https://auth0.com/docs/users/references/user-profile-structure#user-profile-attributes.</span>
+
+<span class="sd">            send_completion_email (bool, optional): When set to True, an email will be sent to notify the completion of this job.</span>
+<span class="sd">                When set to False, no email will be sent. Defaults to True.</span>
+
+<span class="sd">            external_id (str, optional):  Customer-defined ID.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">file_post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;users-imports&#39;</span><span class="p">),</span>
+                                     <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;connection_id&#39;</span><span class="p">:</span> <span class="n">connection_id</span><span class="p">,</span>
+                                           <span class="s1">&#39;upsert&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">upsert</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+                                           <span class="s1">&#39;send_completion_email&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">send_completion_email</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+                                           <span class="s1">&#39;external_id&#39;</span><span class="p">:</span> <span class="n">external_id</span><span class="p">},</span>
+                                     <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;users&#39;</span><span class="p">:</span> <span class="n">file_obj</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="Jobs.send_verification_email"><a class="viewcode-back" href="../../../v3.management.html#v3.management.jobs.Jobs.send_verification_email">[docs]</a>    <span class="k">def</span> <span class="nf">send_verification_email</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send verification email.</span>
+
+<span class="sd">        Send an email to the specified user that asks them to click a link to</span>
+<span class="sd">        verify their email address.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            body (dict): Details of verification email request.</span>
+
+<span class="sd">        See: https://auth0.com/docs/api/v2#!/Jobs/post_verification_email</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s1">&#39;verification-email&#39;</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Auth0.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
