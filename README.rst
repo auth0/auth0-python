@@ -28,8 +28,8 @@ Python 3.2 and 3.3 have reached `EOL <https://en.wikipedia.org/wiki/CPython#Vers
 Authentication SDK Usage
 ========================
 
-The Authentication SDK is divided into components mimicking the structure of the
-`API's documentation <https://auth0.com/docs/auth-api>`_.
+The Authentication SDK is organized into components that mirror the structure of the
+`API documentation <https://auth0.com/docs/auth-api>`_.
 For example:
 
 .. code-block:: python
@@ -52,7 +52,7 @@ If you need to sign up a user using their email and password, you can use the Da
     database.signup(client_id='...', email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
 
 
-If you need to authenticate a user using their email and password, you can use the GetToken object, which gives you access to requests made against the /oauth/token endpoint.
+If you need to authenticate a user using their email and password, you can use the ``GetToken`` object, which enables making requests to the ``/oauth/token`` endpoint.
 
 .. code-block:: python
 
