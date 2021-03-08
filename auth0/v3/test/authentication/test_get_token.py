@@ -104,6 +104,7 @@ class TestGetToken(unittest.TestCase):
         g.refresh_token(client_id='cid',
                         client_secret='clsec',
                         refresh_token='rt',
+                        scope='s',
                         grant_type='gt')
 
         args, kwargs = mock_post.call_args
@@ -113,5 +114,6 @@ class TestGetToken(unittest.TestCase):
             'client_id': 'cid',
             'client_secret': 'clsec',
             'refresh_token': 'rt',
+            'scope': 's',
             'grant_type': 'gt'
         })
