@@ -164,7 +164,8 @@ class GetToken(AuthenticationBase):
             }
         )
 
-    def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token'):
+    def refresh_token(self, client_id, client_secret, refresh_token, scope,
+                      grant_type='refresh_token'):
         """Calls /oauth/token endpoint with refresh token grant type
 
         Use this endpoint to refresh an access token, using the refresh token you got during authorization.
@@ -179,6 +180,9 @@ class GetToken(AuthenticationBase):
 
             refresh_token (str): The refresh token returned from the initial token request.
 
+            scope (str): String value of the different scopes the client is asking for.
+            Multiple scopes are separated with whitespace.
+
         Returns:
             access_token, id_token
         """
@@ -189,6 +193,7 @@ class GetToken(AuthenticationBase):
                 'client_id': client_id,
                 'client_secret': client_secret,
                 'refresh_token': refresh_token,
+                'scope': scope,
                 'grant_type': grant_type
             }
         )
