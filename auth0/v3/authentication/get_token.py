@@ -164,8 +164,7 @@ class GetToken(AuthenticationBase):
             }
         )
 
-    def refresh_token(self, client_id, client_secret, refresh_token, scope,
-                      grant_type='refresh_token'):
+    def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token', scope=''):
         """Calls /oauth/token endpoint with refresh token grant type
 
         Use this endpoint to refresh an access token, using the refresh token you got during authorization.
