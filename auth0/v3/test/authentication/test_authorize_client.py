@@ -15,7 +15,9 @@ class TestAuthorizeClient(unittest.TestCase):
                     state='st',
                     redirect_uri='http://localhost',
                     response_type='token',
-                    scope='openid profile')
+                    scope='openid profile',
+                    organization='org_123',
+                    invitation='invitation_abc')
 
         args, kwargs = mock_get.call_args
 
@@ -26,5 +28,28 @@ class TestAuthorizeClient(unittest.TestCase):
             'state': 'st',
             'redirect_uri': 'http://localhost',
             'response_type': 'token',
-            'scope': 'openid profile'
+            'scope': 'openid profile',
+            'organization': 'org_123',
+            'invitation': 'invitation_abc'
+        })
+
+    @mock.patch('auth0.v3.authentication.authorize_client.AuthorizeClient.get')
+    def test_login_default_param_values(self, mock_get):
+
+        a = AuthorizeClient('my.domain.com')
+
+        a.authorize(client_id='cid')
+
+        args, kwargs = mock_get.call_args
+
+        self.assertEqual(args[0], 'https://my.domain.com/authorize')
+        self.assertEqual(kwargs['params'], {
+            'audience': None,
+            'invitation': None,
+            'organization':  None,
+            'redirect_uri': None,
+            'state': None,
+            'client_id': 'cid',
+            'response_type':  'code',
+            'scope': 'openid'
         })

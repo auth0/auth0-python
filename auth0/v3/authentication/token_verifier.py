@@ -227,13 +227,15 @@ class TokenVerifier():
         token (str): The JWT to verify.
         nonce (str, optional): The nonce value sent during authentication.
         max_age (int, optional): The max_age value sent during authentication.
+        organization (str, optional): The expected organization ID (org_id) claim value. This should be specified
+            when logging in to an organization.
         
     Raises:
         TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one, 
         the token signature is invalid or the token has a claim missing or with unexpected value.
     """
 
-    def verify(self, token, nonce=None, max_age=None):
+    def verify(self, token, nonce=None, max_age=None, organization=None):
         # Verify token presence
         if not token or not isinstance(token, str):
             raise TokenValidationError("ID token is required but missing.")
@@ -242,9 +244,9 @@ class TokenVerifier():
         payload = self._sv.verify_signature(token)
 
         # Verify claims
-        self._verify_payload(payload, nonce, max_age)
+        self._verify_payload(payload, nonce, max_age, organization)
 
-    def _verify_payload(self, payload, nonce=None, max_age=None):
+    def _verify_payload(self, payload, nonce=None, max_age=None, organization=None):
         try:
             # on Python 2.7, 'str' keys as parsed as 'unicode'
             # But 'unicode' was removed on Python 3.7
@@ -306,6 +308,15 @@ class TokenVerifier():
                 raise TokenValidationError(
                     'Nonce (nonce) claim mismatch in the ID token; expected "{}", '
                     'found "{}"'.format(nonce, payload['nonce']))
+
+        # Organization
+        if organization:
+            if 'org_id' not in payload or not isinstance(payload['org_id'], (str, ustr)):
+                raise TokenValidationError('Organization (org_id) claim must be a string present in the ID token')
+            if payload['org_id'] != organization:
+                raise TokenValidationError(
+                    'Organization (org_id) claim mismatch in the ID token; expected "{}", '
+                    'found "{}"'.format(organization, payload['org_id']))
 
         # Authorized party
         if isinstance(payload['aud'], list) and len(payload['aud']) > 1:

@@ -221,7 +221,7 @@ class TestTokenVerifier(unittest.TestCase):
         verifier._fetch_key.return_value = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(RSA_PUB_KEY_1_JWK))
         return verifier
 
-    def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=expectations['audience'], issuer=expectations['issuer'], nonce=None, max_age=None, clock=MOCKED_CLOCK):
+    def assert_fails_with_error(self, token, error_message, signature_verifier=None, audience=expectations['audience'], issuer=expectations['issuer'], nonce=None, max_age=None, clock=MOCKED_CLOCK, organization=None):
         sv = signature_verifier or self.asymmetric_signature_verifier_mock()
         tv = TokenVerifier(
             signature_verifier=sv,
@@ -231,7 +231,7 @@ class TestTokenVerifier(unittest.TestCase):
         )
         tv._clock = clock
         with self.assertRaises(TokenValidationError) as err:
-            tv.verify(token, nonce, max_age)
+            tv.verify(token, nonce, max_age, organization)
         self.assertEqual(str(err.exception), error_message)
 
     def test_fails_at_creation_with_invalid_signature_verifier(self):
@@ -369,3 +369,37 @@ class TestTokenVerifier(unittest.TestCase):
         mocked_clock = expected_auth_time + 1
 
         self.assert_fails_with_error(token, "Authentication Time (auth_time) claim in the ID token indicates that too much time has passed since the last end-user authentication. Current time ({}) is after last auth at ({})".format(mocked_clock, expected_auth_time), max_age=max_age, clock=mocked_clock)
+
+    def test_passes_when_org_present_but_not_required(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjF9.hjSPgJpg0Dn2z0giCdGqVLD5Kmqy_yMYlSkgwKD7ahQ"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = TokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations['issuer'],
+            audience=expectations['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        tv.verify(token)
+
+    def test_passes_when_org_present_and_matches(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjF9.hjSPgJpg0Dn2z0giCdGqVLD5Kmqy_yMYlSkgwKD7ahQ"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = TokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations['issuer'],
+            audience=expectations['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        tv.verify(token, organization='org_123')    
+
+    def test_fails_when_org_specified_but_not_present(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.wotJnUdD5IfdZMewF_-BnHc0pI56uwzwr5qaSXvSu9w"
+        self.assert_fails_with_error(token, "Organization (org_id) claim must be a string present in the ID token", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), organization='org_123')
+
+    def test_fails_when_org_specified_but_not_(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOjQyLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.fGL1_akaHikdovS7NRYla3flne1xdtCjP0ei_CRxO6k"
+        self.assert_fails_with_error(token, "Organization (org_id) claim must be a string present in the ID token", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), organization='org_123')
+
+    def test_fails_when_org_specified_but_does_not_match(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjF9.hjSPgJpg0Dn2z0giCdGqVLD5Kmqy_yMYlSkgwKD7ahQ"
+        self.assert_fails_with_error(token, 'Organization (org_id) claim mismatch in the ID token; expected "org_abc", found "org_123"', signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), organization='org_abc')
