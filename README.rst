@@ -133,7 +133,7 @@ Log in to an organization by specifying the ``organization`` property when calli
 
     client.authorize(client_id='client_id',
                 redirect_uri='http://localhost',
-                invitation="invitation_123")
+                organization="org_abc")
 
 When logging into an organization, it is important to ensure the ``org_id`` claim of the ID Token matches the expected organization value. The ``TokenVerifier`` can be be used to ensure the ID Token contains the expected ``org_id`` claim value:
 
@@ -160,7 +160,8 @@ When logging into an organization, it is important to ensure the ``org_id`` clai
 Accept user invitations
 -----------------------
 
-Accept a user invitation by specifying the ``invitation`` property when calling ``authorize()``. Note that you must also specify the ``organization`` if providing an ``invitation``:
+Accept a user invitation by specifying the ``invitation`` property when calling ``authorize()``. Note that you must also specify the ``organization`` if providing an ``invitation``.
+The ID of the invitation and organization are available as query parameters on the invitation URL, e.g., ``https://your-domain.auth0.com/login?invitation=invitation_id&organization=org_id&organization_name=org_name``
 
 .. code-block:: python
 
