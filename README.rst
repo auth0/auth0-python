@@ -104,6 +104,75 @@ The following example demonstrates the verification of an ID token signed with t
     
 If the token verification fails, a ``TokenValidationError`` will be raised. In that scenario, the ID token should be deemed invalid and its contents should not be trusted.
 
+===========================
+Organizations (Closed Beta)
+===========================
+
+Organizations is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
+
+Using Organizations, you can:
+* Represent teams, business customers, partner companies, or any logical grouping of users that should have different ways of accessing your applications, as organizations.
+* Manage their membership in a variety of ways, including user invitation.
+* Configure branded, federated login flows for each organization.
+* Implement role-based access control, such that users can have different roles when authenticating in the context of different organizations.
+* Build administration capabilities into your products, using Organizations APIs, so that those businesses can manage their own organizations.
+
+Note that Organizations is currently only available to customers on our Enterprise and Startup subscription plans.
+
+-------------------------
+Log in to an organization
+-------------------------
+
+Log in to an organization by specifying the ``organization`` property when calling ``authorize()``:
+
+.. code-block:: python
+
+    from auth0.v3.authentication.authorize_client import AuthorizeClient
+    
+    client = AuthorizeClient('my.domain.com')
+
+    client.authorize(client_id='client_id',
+                redirect_uri='http://localhost',
+                organization="org_abc")
+
+When logging into an organization, it is important to ensure the ``org_id`` claim of the ID Token matches the expected organization value. The ``TokenVerifier`` can be be used to ensure the ID Token contains the expected ``org_id`` claim value:
+
+.. code-block:: python
+    
+    from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
+    
+    domain = 'myaccount.auth0.com'
+    client_id = 'exampleid'
+    
+    # After authenticating
+    id_token = auth_result['id_token']
+    
+    jwks_url = 'https://{}/.well-known/jwks.json'.format(domain)
+    issuer = 'https://{}/'.format(domain)
+    
+    sv = AsymmetricSignatureVerifier(jwks_url)  # Reusable instance
+    tv = TokenVerifier(signature_verifier=sv, issuer=issuer, audience=client_id)
+
+    # pass the expected organization the user logged in to:
+    tv.verify(id_token, organization='org_abc')
+
+-----------------------
+Accept user invitations
+-----------------------
+
+Accept a user invitation by specifying the ``invitation`` property when calling ``authorize()``. Note that you must also specify the ``organization`` if providing an ``invitation``.
+The ID of the invitation and organization are available as query parameters on the invitation URL, e.g., ``https://your-domain.auth0.com/login?invitation=invitation_id&organization=org_id&organization_name=org_name``
+
+.. code-block:: python
+
+    from auth0.v3.authentication.authorize_client import AuthorizeClient
+
+    client = AuthorizeClient('my.domain.com')
+
+    client.authorize(client_id='client_id',
+            redirect_uri='http://localhost',
+            organization='org_abc',
+            invitation="invitation_123")
 
 ====================
 Management SDK Usage

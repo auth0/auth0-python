@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.15.0
+------------------
+
+**Added**
+- Add support for organizations feature [\#258](https://github.com/auth0/auth0-python/pull/258) ([jimmyjames](https://github.com/jimmyjames))
+
 3.14.0
 ------------------
 

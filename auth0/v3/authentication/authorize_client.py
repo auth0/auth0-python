@@ -10,7 +10,7 @@ class AuthorizeClient(AuthenticationBase):
     """
 
     def authorize(self, client_id, audience=None, state=None, redirect_uri=None,
-                  response_type='code', scope='openid'):
+                  response_type='code', scope='openid', organization=None, invitation=None):
         """Authorization code grant
 
         This is the OAuth 2.0 grant that regular web apps utilize in order to access an API.
@@ -21,7 +21,9 @@ class AuthorizeClient(AuthenticationBase):
             'response_type': response_type,
             'scope': scope,
             'state': state,
-            'redirect_uri': redirect_uri
+            'redirect_uri': redirect_uri,
+            'organization': organization,
+            'invitation': invitation
         }
 
         return self.get(
