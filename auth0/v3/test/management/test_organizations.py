@@ -60,11 +60,11 @@ class TestOrganizations(unittest.TestCase):
         )
 
     @mock.patch('auth0.v3.management.organizations.RestClient')
-    def test_update(self, mock_rc):
+    def test_update_organization(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         c = Organizations(domain='domain', token='jwttoken')
-        c.update('this-id', {'a': 'b', 'c': 'd'})
+        c.update_organization('this-id', {'a': 'b', 'c': 'd'})
 
         args, kwargs = mock_instance.patch.call_args
 
