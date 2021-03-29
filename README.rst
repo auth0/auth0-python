@@ -12,24 +12,24 @@ Installation
 
 You can install the auth0 Python SDK using the following command.
 
-.. code-block::
+.. code-block:: python
 
     pip install auth0-python
 
 For python3, use the following command
 
-.. code-block::
+.. code-block:: python
     
     pip3 install auth0-python
 
-Python 3.2 and 3.3 have reached `EOL <https://en.wikipedia.org/wiki/CPython#Version_history>`_ and support will be removed in the near future.
+Python 3.2 and 3.3 have reached `EOL <https://en.wikipedia.org/wiki/CPython#Version_history>`__ and support will be removed in the near future.
 
 ========================
 Authentication SDK Usage
 ========================
 
 The Authentication SDK is organized into components that mirror the structure of the
-`API documentation <https://auth0.com/docs/auth-api>`_.
+`API documentation <https://auth0.com/docs/auth-api>`__.
 For example:
 
 .. code-block:: python
@@ -67,16 +67,17 @@ If you need to authenticate a user using their email and password, you can use t
 ID Token validation
 ===================
 
-Upon successful authentication, the credentials received may include an ``id_token``, if the authentication request contained the ``openid`` scope. The ``id_token`` contains information associated with the authenticated user. You can read more about ID tokens `here <https://auth0.com/docs/tokens/concepts/id-tokens>`_.
+Upon successful authentication, the credentials received may include an ``id_token``, if the authentication request contained the ``openid`` scope. The ``id_token`` contains information associated with the authenticated user. You can read more about ID tokens `here <https://auth0.com/docs/tokens/concepts/id-tokens>`__.
 
 Before you access its contents, you must verify that the ID token has not been tampered with and that it is meant for your application to consume. The ``TokenVerifier`` class can be used to perform this verification.
 
 To create a ``TokenVerifier``, the following arguments are required:
-* A ``SignatureVerifier`` instance, which is responsible for verifying the token's algorithm name and signature.
-* The expected issuer value, which typically matches the Auth0 domain prefixed with ``https://`` and suffixed with ``/``.
-* The expected audience value, which typically matches the Auth0 application client ID.
 
-The type of ``SignatureVerifier`` used depends upon the signing algorithm used by your Auth0 application. You can view this value in your application settings under ``Advanced settings | OAuth | JsonWebToken Signature Algorithm``. Auth0 recommends using the RS256 asymmetric signing algorithm. You can read more about signing algorithms `here <https://auth0.com/docs/tokens/signing-algorithms>`_.
+- A ``SignatureVerifier`` instance, which is responsible for verifying the token's algorithm name and signature.
+- The expected issuer value, which typically matches the Auth0 domain prefixed with ``https://`` and suffixed with ``/``.
+- The expected audience value, which typically matches the Auth0 application client ID.
+
+The type of ``SignatureVerifier`` used depends upon the signing algorithm used by your Auth0 application. You can view this value in your application settings under ``Advanced settings | OAuth | JsonWebToken Signature Algorithm``. Auth0 recommends using the RS256 asymmetric signing algorithm. You can read more about signing algorithms `here <https://auth0.com/docs/tokens/signing-algorithms>`__.
 
 For asymmetric algorithms like RS256, use the ``AsymmetricSignatureVerifier`` class, passing
 the public URL where the certificates for the public keys can be found. This will typically be your Auth0 domain with the ``/.well-known/jwks.json`` path appended to it. For example, ``https://your-domain.auth0.com/.well-known/jwks.json``.
@@ -178,7 +179,7 @@ The ID of the invitation and organization are available as query parameters on t
 Management SDK Usage
 ====================
 
-To use the management library you will need to instantiate an Auth0 object with a domain and a `Management API v2 token <https://auth0.com/docs/api/management/v2/tokens>`_. Please note that these token last 24 hours, so if you need it constantly you should ask for it programmatically using the client credentials grant with a `non interactive client <https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client>`_ authorized to access the API. For example:
+To use the management library you will need to instantiate an Auth0 object with a domain and a `Management API v2 token <https://auth0.com/docs/api/management/v2/tokens>`__. Please note that these token last 24 hours, so if you need it constantly you should ask for it programmatically using the client credentials grant with a `non interactive client <https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client>`__ authorized to access the API. For example:
 
 .. code-block:: python
 
@@ -264,7 +265,7 @@ Which returns something like this
 Success!
 
 All endpoints follow a similar structure to ``connections``, and try to follow as
-closely as possible the `API documentation <https://auth0.com/docs/api/v2>`_.
+closely as possible the `API documentation <https://auth0.com/docs/api/v2>`__.
 
 ==============
 Error Handling
@@ -274,8 +275,9 @@ When consuming methods from the API clients, the requests could fail for a numbe
 - Invalid data sent as part of the request: An ``Auth0Error` is raised with the error code and description.
 - Global or Client Rate Limit reached: A ``RateLimitError`` is raised and the time at which the limit
 resets is exposed in the ``reset_at`` property. When the header is unset, this value will be ``-1``.
-- Network timeouts: Adjustable by passing a ``timeout`` argument to the client. See the `rate limit docs <https://auth0.com/docs/policies/rate-limits>`_ for details.
+- Network timeouts: Adjustable by passing a ``timeout`` argument to the client. See the `rate limit docs <https://auth0.com/docs/policies/rate-limits>`__ for details.
 
+==================================
 Available Authentication Endpoints
 ==================================
 
@@ -288,7 +290,7 @@ Available Authentication Endpoints
 - API Authorization - Get Token ( ``authentication.GetToken``)
 - API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
 
-
+==============================
 Available Management Endpoints
 ==============================
 
@@ -320,7 +322,7 @@ Available Management Endpoints
 Change Log
 ==========
 
-Please see `CHANGELOG.md <https://github.com/auth0/auth0-python/blob/master/CHANGELOG.md>`_.
+Please see `CHANGELOG.md <https://github.com/auth0/auth0-python/blob/master/CHANGELOG.md>`__.
 
 ===============
 Issue Reporting
@@ -328,7 +330,7 @@ Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at this repository issues section.
 Please do not report security vulnerabilities on the public GitHub issue tracker.
-The `Responsible Disclosure Program <https://auth0.com/whitehat>`_ details the procedure for disclosing security issues.
+The `Responsible Disclosure Program <https://auth0.com/whitehat>`__ details the procedure for disclosing security issues.
 
 ==============
 What is Auth0?
@@ -336,20 +338,20 @@ What is Auth0?
 
 Auth0 helps you to:
 
-* Add authentication with `multiple authentication sources <https://auth0.com/docs/identityproviders>`_,
+* Add authentication with `multiple authentication sources <https://auth0.com/docs/identityproviders>`__,
   either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**,
   or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`_.
-* Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`_ with the same user.
-* Support for generating signed `JSON Web Tokens <https://auth0.com/docs/jwt>`_ to call your APIs and **flow the user identity** securely.
+* Add authentication through more traditional `username/password databases <https://auth0.com/docs/connections/database/mysql>`__.
+* Add support for `linking different user accounts <https://auth0.com/docs/link-accounts>`__ with the same user.
+* Support for generating signed `JSON Web Tokens <https://auth0.com/docs/jwt>`__ to call your APIs and **flow the user identity** securely.
 * Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://auth0.com/docs/rules>`_.
+* Pull data from other sources and add it to the user profile, through `JavaScript rules <https://auth0.com/docs/rules>`__.
 
 ===========================
 Create a free Auth0 Account
 ===========================
 
-1. Go to `Auth0 <https://auth0.com/>`_ and click Sign Up.
+1. Go to `Auth0 <https://auth0.com/>`__ and click Sign Up.
 2. Use Google, GitHub or Microsoft Account to log in.
 
 =======
