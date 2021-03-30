@@ -120,6 +120,32 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
 
     @mock.patch('auth0.v3.management.users.RestClient')
+    def test_list_organizations(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.list_organizations('an-id')
+
+        args, kwargs = mock_instance.get.call_args
+        self.assertEqual('https://domain/api/v2/users/an-id/organizations', args[0])
+        self.assertEqual(kwargs['params'], {
+            'per_page': 25,
+            'page': 0,
+            'include_totals': 'true'
+        })
+
+        u.list_organizations(id='an-id', page=1, per_page=50, include_totals=False)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/users/an-id/organizations', args[0])
+        self.assertEqual(kwargs['params'], {
+            'per_page': 50,
+            'page': 1,
+            'include_totals': 'false'
+        })
+
+    @mock.patch('auth0.v3.management.users.RestClient')
     def test_list_roles(self, mock_rc):
         mock_instance = mock_rc.return_value
 

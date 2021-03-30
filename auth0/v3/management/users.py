@@ -145,6 +145,32 @@ class Users(object):
         """
         return self.client.patch(self._url(id), data=body)
 
+    def list_organizations(self, id, page=0, per_page=25, include_totals=True):
+        """List the organizations that the user is member of.
+
+        Args:
+            id (str): The user's id.
+
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
+
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 25 results per page.
+
+            include_totals (bool, optional): True if the query summary is
+               to be included in the result, False otherwise. Defaults to True.
+
+        See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
+        """
+        params = {
+            'per_page': per_page,
+            'page': page,
+            'include_totals': str(include_totals).lower()
+        }
+
+        url = self._url('{}/organizations'.format(id))
+        return self.client.get(url, params=params)
+
     def list_roles(self, id, page=0, per_page=25, include_totals=True):
         """List the roles associated with a user.
 
