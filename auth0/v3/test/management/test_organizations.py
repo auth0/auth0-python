@@ -155,7 +155,7 @@ class TestOrganizations(unittest.TestCase):
             'https://domain/api/v2/organizations/test-org/enabled_connections/test-con'
         )
 
-    # Organization Connections
+    # Organization Members
     @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_all_organization_members(self, mock_rc):
         mock_instance = mock_rc.return_value
@@ -201,5 +201,54 @@ class TestOrganizations(unittest.TestCase):
 
         mock_instance.delete.assert_called_with(
             'https://domain/api/v2/organizations/test-org/members',
+            data={'a': 'b', 'c': 'd'}
+        )
+
+    # Organization Member Roles
+    @mock.patch('auth0.v3.management.organizations.RestClient')
+    def test_all_organization_member_roles(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain='domain', token='jwttoken')
+
+        # Default parameters are requested
+        c.all_organization_member_roles('test-org', 'test-user')
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/organizations/test-org/members/test-user/roles', args[0])
+        self.assertEqual(kwargs['params'], {'page': None,
+                                            'per_page': None})
+
+        # Specific pagination
+        c.all_organization_member_roles('test-org', 'test-user', page=7, per_page=25)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/organizations/test-org/members/test-user/roles', args[0])
+        self.assertEqual(kwargs['params'], {'page': 7,
+                                            'per_page': 25})
+
+    @mock.patch('auth0.v3.management.organizations.RestClient')
+    def test_create_organization_member_roles(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain='domain', token='jwttoken')
+        c.create_organization_member_roles('test-org', 'test-user', {'a': 'b', 'c': 'd'})
+
+        mock_instance.post.assert_called_with(
+            'https://domain/api/v2/organizations/test-org/members/test-user/roles',
+            data={'a': 'b', 'c': 'd'}
+        )
+
+    @mock.patch('auth0.v3.management.organizations.RestClient')
+    def test_delete_organization_member_roles(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain='domain', token='jwttoken')
+        c.delete_organization_member_roles('test-org', 'test-user', {'a': 'b', 'c': 'd'})
+
+        mock_instance.delete.assert_called_with(
+            'https://domain/api/v2/organizations/test-org/members/test-user/roles',
             data={'a': 'b', 'c': 'd'}
         )

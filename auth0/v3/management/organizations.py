@@ -22,14 +22,11 @@ class Organizations(object):
         self.domain = domain
         self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
 
-    def _url(self, id=None, path=None, secondary_id=None):
+    def _url(self, *args):
         url = 'https://{}/api/v2/organizations'.format(self.domain)
-        if id is not None:
-            url = '{}/{}'.format(url, id)
-        if path is not None:
-            url = '{}/{}'.format(url, path)
-            if secondary_id is not None:
-                url = '{}/{}'.format(url, secondary_id)
+        for p in args:
+            if p is not None:
+                url = '{}/{}'.format(url, p)
         return url
 
     # Organizations
@@ -222,3 +219,56 @@ class Organizations(object):
         """
 
         return self.client.delete(self._url(id, 'members'), data=body)
+
+    # Organization Member Roles
+    def all_organization_member_roles(self, id, user_id, page=None, per_page=None):
+        """Retrieves a list of all the roles from the given organization member.
+
+        Args:
+           id (str): the ID of the organization.
+           
+           user_id (str): the ID of the user member of the organization.
+
+           page (int): The result's page number (zero based). When not set,
+              the default value is up to the server.
+
+           per_page (int, optional): The amount of entries per page. When not set,
+              the default value is up to the server.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        """
+        params = {}
+        params['page'] = page
+        params['per_page'] = per_page
+
+        return self.client.get(self._url(id, 'members', user_id, 'roles'), params=params)
+
+    def create_organization_member_roles(self, id, user_id, body):
+        """Adds roles to a member of an organization.
+
+        Args:
+           id (str): the ID of the organization.
+
+           user_id (str): the ID of the user member of the organization.
+
+           body (dict): Attributes from the members to add.
+
+        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+        """
+
+        return self.client.post(self._url(id, 'members', user_id, 'roles'), data=body)
+
+    def delete_organization_member_roles(self, id, user_id, body):
+        """Deletes roles from a member of an organization.
+
+        Args:
+           id (str): Id of organization.
+
+           user_id (str): the ID of the user member of the organization.
+
+           body (dict): Attributes from the members to delete
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
+        """
+
+        return self.client.delete(self._url(id, 'members', user_id, 'roles'), data=body)
