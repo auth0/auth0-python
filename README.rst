@@ -347,6 +347,7 @@ Available Management Endpoints
 - Jobs() ( ``Auth0().jobs`` )
 - Logs() ( ``Auth0().logs`` )
 - LogStreams() ( ``Auth0().log_streams`` )
+- Organizations() ( ``Auth0().organizations`` )
 - ResourceServers() (``Auth0().resource_servers`` )
 - Roles() ( ``Auth0().roles`` )
 - Rules() ( ``Auth0().rules`` )

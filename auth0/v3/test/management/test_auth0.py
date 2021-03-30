@@ -76,6 +76,9 @@ class TestAuth0(unittest.TestCase):
     def test_log_streams(self):
         self.assertIsInstance(self.a0.log_streams, LogStreams)
 
+    def test_organizations(self):
+        self.assertIsInstance(self.a0.organizations, Organizations)
+
     def test_resource_servers(self):
         self.assertIsInstance(self.a0.resource_servers, ResourceServers)
 
