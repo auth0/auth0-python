@@ -272,3 +272,65 @@ class Organizations(object):
         """
 
         return self.client.delete(self._url(id, 'members', user_id, 'roles'), data=body)
+
+
+    # Organization Invitations
+    def all_organization_invitations(self, id, page=None, per_page=None):
+        """Retrieves a list of all the organization invitations.
+
+        Args:
+           id (str): the ID of the organization.
+
+           page (int): The result's page number (zero based). When not set,
+              the default value is up to the server.
+
+           per_page (int, optional): The amount of entries per page. When not set,
+              the default value is up to the server.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        """
+        params = {}
+        params['page'] = page
+        params['per_page'] = per_page
+
+        return self.client.get(self._url(id, 'invitations'), params=params)
+
+    def get_organization_invitation(self, id, invitaton_id):
+        """Retrieves an organization invitation by its ID.
+
+        Args:
+           id (str): the ID of the organization.
+
+           invitaton_id (str): the ID of the invitation.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        """
+        params = {}
+
+        return self.client.get(self._url(id, 'invitations', invitaton_id), params=params)
+
+    def create_organization_invitation(self, id, body):
+        """Create an invitation to an organization.
+
+        Args:
+           id (str): the ID of the organization.
+
+           body (dict): Attributes for the invitation to create.
+
+        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+        """
+
+        return self.client.post(self._url(id, 'invitations'), data=body)
+   
+    def delete_organization_invitation(self, id, invitation_id):
+        """Deletes an invitation from the given organization.
+
+        Args:
+           id (str): Id of organization.
+
+           invitation_id (str): the ID of the invitation to delete.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
+        """
+
+        return self.client.delete(self._url(id, 'invitations', invitation_id))

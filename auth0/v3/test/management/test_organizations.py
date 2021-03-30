@@ -252,3 +252,63 @@ class TestOrganizations(unittest.TestCase):
             'https://domain/api/v2/organizations/test-org/members/test-user/roles',
             data={'a': 'b', 'c': 'd'}
         )
+
+    # Organization Invitations
+    @mock.patch('auth0.v3.management.organizations.RestClient')
+    def test_all_organization_invitations(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain='domain', token='jwttoken')
+
+        # Default parameters are requested
+        c.all_organization_invitations('test-org')
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/organizations/test-org/invitations', args[0])
+        self.assertEqual(kwargs['params'], {'page': None,
+                                            'per_page': None})
+
+        # Specific pagination
+        c.all_organization_invitations('test-org', page=7, per_page=25)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/organizations/test-org/invitations', args[0])
+        self.assertEqual(kwargs['params'], {'page': 7,
+                                            'per_page': 25})
+
+    @mock.patch('auth0.v3.management.organizations.RestClient')
+    def test_get_organization_invitation(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain='domain', token='jwttoken')
+        c.get_organization_invitation('test-org', 'test-inv')
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/organizations/test-org/invitations/test-inv', args[0])
+        self.assertEqual(kwargs['params'], {})
+
+    @mock.patch('auth0.v3.management.organizations.RestClient')
+    def test_create_organization_invitation(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain='domain', token='jwttoken')
+        c.create_organization_invitation('test-org', {'a': 'b', 'c': 'd'})
+
+        mock_instance.post.assert_called_with(
+            'https://domain/api/v2/organizations/test-org/invitations',
+            data={'a': 'b', 'c': 'd'}
+        )
+   
+    @mock.patch('auth0.v3.management.organizations.RestClient')
+    def test_delete_organization_invitation(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain='domain', token='jwttoken')
+        c.delete_organization_invitation('test-org', 'test-inv')
+
+        mock_instance.delete.assert_called_with(
+            'https://domain/api/v2/organizations/test-org/invitations/test-inv'
+        )
