@@ -22,12 +22,17 @@ class Organizations(object):
         self.domain = domain
         self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
 
-    def _url(self, id=None):
+    def _url(self, id=None, path=None, secondary_id=None):
         url = 'https://{}/api/v2/organizations'.format(self.domain)
         if id is not None:
-            return '{}/{}'.format(url, id)
+            url = '{}/{}'.format(url, id)
+        if path is not None:
+            url = '{}/{}'.format(url, path)
+            if secondary_id is not None:
+                url = '{}/{}'.format(url, secondary_id)
         return url
 
+    # Organizations
     def all_organizations(self, page=None, per_page=None):
         """Retrieves a list of all the organizations.
 
@@ -93,3 +98,80 @@ class Organizations(object):
         """
 
         return self.client.delete(self._url(id))
+
+
+    # Organization Connections
+    def all_organization_connections(self, id, page=None, per_page=None):
+        """Retrieves a list of all the organization connections.
+
+        Args:
+           id (str): the ID of the organization.
+
+           page (int): The result's page number (zero based). When not set,
+              the default value is up to the server.
+
+           per_page (int, optional): The amount of entries per page. When not set,
+              the default value is up to the server.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        """
+        params = {}
+        params['page'] = page
+        params['per_page'] = per_page
+
+        return self.client.get(self._url(id, 'enabled_connections'), params=params)
+
+    def get_organization_connection(self, id, connection_id):
+        """Retrieves an organization connection by its ID.
+
+        Args:
+           id (str): the ID of the organization.
+
+           connection_id (str): the ID of the connection.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        """
+        params = {}
+
+        return self.client.get(self._url(id, 'enabled_connections', connection_id), params=params)
+
+    def create_organization_connection(self, id, body):
+        """Adds a connection to an organization.
+
+        Args:
+           id (str): the ID of the organization.
+
+           body (dict): Attributes for the connection to add.
+
+        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+        """
+
+        return self.client.post(self._url(id, 'enabled_connections'), data=body)
+    
+    def update_organization_connection(self, id, connection_id, body):
+        """Modifies an organization.
+
+        Args:
+           id (str): the ID of the organization.
+
+           connection_id (str): the ID of the connection to update.
+
+           body (dict): Attributes to modify.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/patch_clients_by_id
+        """
+
+        return self.client.patch(self._url(id, 'enabled_connections', connection_id), data=body)
+
+    def delete_organization_connection(self, id, connection_id):
+        """Deletes a connection from the given organization.
+
+        Args:
+           id (str): Id of organization.
+
+           connection_id (str): the ID of the connection to delete.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
+        """
+
+        return self.client.delete(self._url(id, 'enabled_connections', connection_id))
