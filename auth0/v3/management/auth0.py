@@ -12,6 +12,7 @@ from .hooks import Hooks
 from .jobs import Jobs
 from .log_streams import LogStreams
 from .logs import Logs
+from .organizations import Organizations
 from .resource_servers import ResourceServers
 from .roles import Roles
 from .rules import Rules
@@ -48,6 +49,7 @@ class Auth0(object):
         self.jobs = Jobs(domain, token)
         self.logs = Logs(domain, token)
         self.log_streams = LogStreams(domain, token)
+        self.organizations = Organizations(domain, token)
         self.resource_servers = ResourceServers(domain, token)
         self.roles = Roles(domain, token)
         self.rules = Rules(domain, token)
