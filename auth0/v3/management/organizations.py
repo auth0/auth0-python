@@ -60,6 +60,18 @@ class Organizations(object):
         params['name'] = name
 
         return self.client.get(self._url(), params=params)
+    
+    def get_organization(self, id):
+        """Retrieves an organization by its ID.
+
+        Args:
+           id (str): Id of organization to retrieve.
+
+        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        """
+        params = {}
+
+        return self.client.get(self._url(id), params=params)
 
     def create_organization(self, body):
         """Create a new organization.

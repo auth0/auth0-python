@@ -49,6 +49,18 @@ class TestOrganizations(unittest.TestCase):
         self.assertEqual(kwargs['params'], {'name': 'test-org'})
 
     @mock.patch('auth0.v3.management.organizations.RestClient')
+    def test_get_organization(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain='domain', token='jwttoken')
+        c.get_organization('org123')
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/organizations/org123', args[0])
+        self.assertEqual(kwargs['params'], {})
+
+    @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_create_organization(self, mock_rc):
         mock_instance = mock_rc.return_value
 

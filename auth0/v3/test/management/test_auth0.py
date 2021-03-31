@@ -15,6 +15,7 @@ from ...management.hooks import Hooks
 from ...management.jobs import Jobs
 from ...management.log_streams import LogStreams
 from ...management.logs import Logs
+from ...management.organizations import Organizations
 from ...management.resource_servers import ResourceServers
 from ...management.roles import Roles
 from ...management.rules import Rules
