@@ -175,6 +175,37 @@ The ID of the invitation and organization are available as query parameters on t
             organization='org_abc',
             invitation="invitation_123")
 
+--------------------------------------
+Authorizing users from an Organization
+--------------------------------------
+
+When this SDK is used in an API or Backend application, it would typically receive network requests with an Access Token coming from the client application. These tokens include information that is useful to determine whether the request is coming from an authorized individual. 
+
+Among checking for the Access Token's signature, expiration, and audience values, when a specific organization is expected it should also be checked against the value of the ``org_id`` claim. The snippet below attempts to illustrate how this verification could look like using the `PyJWT <https://pyjwt.readthedocs.io/en/latest/usage.html#encoding-decoding-tokens-with-rs256-rsa>`__ library. This dependency will take care of pulling the RS256 public key that was used by the server to sign the Access Token. It will also validate its signature, expiration, and the audience value. After the basic verification, get the ``org_id`` claim and check it against the expected value.
+
+.. code-block:: python
+
+    import jwt  # PyJWT
+    from jwt import PyJWKClient
+
+    access_token = # access token from the request
+    url = 'https://{YOUR AUTH0 DOMAIN}/.well-known/jwks.json'
+    jwks_client = PyJWKClient(url)
+    signing_key = jwks_client.get_signing_key_from_jwt(access_token)
+    data = jwt.decode(
+        access_token,
+        signing_key.key,
+        algorithms=['RS256'],
+        audience='{YOUR API AUDIENCE}'
+    )
+
+    organization = # expected organization ID
+    if data['org_id'] != organization:
+        raise Exception('Organization (org_id) claim mismatch')
+    
+    # if this line is reached, validation is successful
+  
+
 ====================
 Management SDK Usage
 ====================
