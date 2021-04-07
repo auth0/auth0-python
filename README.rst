@@ -179,9 +179,18 @@ The ID of the invitation and organization are available as query parameters on t
 Authorizing users from an Organization
 --------------------------------------
 
-When this SDK is used in an API or Backend application, it would typically receive network requests with an Access Token coming from the client application. These tokens include information that is useful to determine whether the request is coming from an authorized individual. 
+If an ``org_id`` claim is present in the Access Token, then the claim should be validated by the API to ensure that the value received is expected or known.
 
-Among checking for the Access Token's signature, expiration, and audience values, when a specific organization is expected it should also be checked against the value of the ``org_id`` claim. The snippet below attempts to illustrate how this verification could look like using the `PyJWT <https://pyjwt.readthedocs.io/en/latest/usage.html#encoding-decoding-tokens-with-rs256-rsa>`__ library. This dependency will take care of pulling the RS256 public key that was used by the server to sign the Access Token. It will also validate its signature, expiration, and the audience value. After the basic verification, get the ``org_id`` claim and check it against the expected value.
+In particular:
+
+- The issuer (``iss``) claim should be checked to ensure the token was issued by Auth0
+- The organization ID (``org_id``) claim should be checked to ensure it is a value that is already known to the application. This could be validated against a known list of organization IDs, or perhaps checked in conjunction with the current request URL. e.g. the sub-domain may hint at what organization should be used to validate the Access Token.
+
+Normally, validating the issuer would be enough to ensure that the token was issued by Auth0. In the case of organizations, additional checks should be made so that the organization within an Auth0 tenant is expected.
+
+If the claim cannot be validated, then the application should deem the token invalid.
+
+The snippet below attempts to illustrate how this verification could look like using the external `PyJWT <https://pyjwt.readthedocs.io/en/latest/usage.html#encoding-decoding-tokens-with-rs256-rsa>`__ library. This dependency will take care of pulling the RS256 Public Key that was used by the server to sign the Access Token. It will also validate its signature, expiration, and the audience value. After the basic verification, get the ``org_id`` claim and check it against the expected value. The code assumes your application is configured to sign tokens using the RS256 algorithm. Check the `Validate JSON Web Tokens <https://auth0.com/docs/tokens/json-web-tokens/validate-json-web-tokens>`__ article to learn more about this verification.
 
 .. code-block:: python
 
