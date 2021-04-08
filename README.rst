@@ -109,7 +109,7 @@ If the token verification fails, a ``TokenValidationError`` will be raised. In t
 Organizations
 ===========================
 
-[Organizations](https://auth0.com/docs/organizations) is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
+`Organizations <https://auth0.com/docs/organizations>`__ is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
 
 Using Organizations, you can:
 * Represent teams, business customers, partner companies, or any logical grouping of users that should have different ways of accessing your applications, as organizations.
