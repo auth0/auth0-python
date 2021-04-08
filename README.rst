@@ -106,10 +106,10 @@ The following example demonstrates the verification of an ID token signed with t
 If the token verification fails, a ``TokenValidationError`` will be raised. In that scenario, the ID token should be deemed invalid and its contents should not be trusted.
 
 ===========================
-Organizations (Closed Beta)
+Organizations
 ===========================
 
-Organizations is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
+[Organizations](https://auth0.com/docs/organizations) is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
 
 Using Organizations, you can:
 * Represent teams, business customers, partner companies, or any logical grouping of users that should have different ways of accessing your applications, as organizations.
