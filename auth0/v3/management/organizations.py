@@ -41,7 +41,7 @@ class Organizations(object):
            per_page (int, optional): The amount of entries per page. When not set,
               the default value is up to the server.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_organizations
         """
         params = {}
         params['page'] = page
@@ -55,7 +55,7 @@ class Organizations(object):
         Args:
            name (str): The name of the organization to retrieve.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_name_by_name
         """
         params = {}
         params['name'] = name
@@ -68,7 +68,7 @@ class Organizations(object):
         Args:
            id (str): Id of organization to retrieve.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_organizations_by_id
         """
         params = {}
 
@@ -80,7 +80,7 @@ class Organizations(object):
         Args:
            body (dict): Attributes for the new organization.
 
-        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/post_organizations
         """
 
         return self.client.post(self._url(), data=body)
@@ -93,7 +93,7 @@ class Organizations(object):
 
            body (dict): Attributes to modify.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/patch_clients_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/patch_organizations_by_id
         """
 
         return self.client.patch(self._url(id), data=body)
@@ -104,7 +104,7 @@ class Organizations(object):
         Args:
            id (str): Id of organization to delete.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_organizations_by_id
         """
 
         return self.client.delete(self._url(id))
@@ -123,7 +123,7 @@ class Organizations(object):
            per_page (int, optional): The amount of entries per page. When not set,
               the default value is up to the server.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_enabled_connections
         """
         params = {}
         params['page'] = page
@@ -139,7 +139,7 @@ class Organizations(object):
 
            connection_id (str): the ID of the connection.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_enabled_connections_by_connectionId
         """
         params = {}
 
@@ -153,7 +153,7 @@ class Organizations(object):
 
            body (dict): Attributes for the connection to add.
 
-        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/post_enabled_connections
         """
 
         return self.client.post(self._url(id, 'enabled_connections'), data=body)
@@ -168,7 +168,7 @@ class Organizations(object):
 
            body (dict): Attributes to modify.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/patch_clients_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/patch_enabled_connections_by_connectionId
         """
 
         return self.client.patch(self._url(id, 'enabled_connections', connection_id), data=body)
@@ -181,7 +181,7 @@ class Organizations(object):
 
            connection_id (str): the ID of the connection to delete.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_enabled_connections_by_connectionId
         """
 
         return self.client.delete(self._url(id, 'enabled_connections', connection_id))
@@ -199,7 +199,7 @@ class Organizations(object):
            per_page (int, optional): The amount of entries per page. When not set,
               the default value is up to the server.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_members
         """
         params = {}
         params['page'] = page
@@ -215,7 +215,7 @@ class Organizations(object):
 
            body (dict): Attributes from the members to add.
 
-        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/post_members
         """
 
         return self.client.post(self._url(id, 'members'), data=body)
@@ -228,7 +228,7 @@ class Organizations(object):
 
            body (dict): Attributes from the members to delete
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_members
         """
 
         return self.client.delete(self._url(id, 'members'), data=body)
@@ -248,7 +248,7 @@ class Organizations(object):
            per_page (int, optional): The amount of entries per page. When not set,
               the default value is up to the server.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_organization_member_roles
         """
         params = {}
         params['page'] = page
@@ -266,7 +266,7 @@ class Organizations(object):
 
            body (dict): Attributes from the members to add.
 
-        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/post_organization_member_roles
         """
 
         return self.client.post(self._url(id, 'members', user_id, 'roles'), data=body)
@@ -281,7 +281,7 @@ class Organizations(object):
 
            body (dict): Attributes from the members to delete
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_organization_member_roles
         """
 
         return self.client.delete(self._url(id, 'members', user_id, 'roles'), data=body)
@@ -300,7 +300,7 @@ class Organizations(object):
            per_page (int, optional): The amount of entries per page. When not set,
               the default value is up to the server.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_invitations
         """
         params = {}
         params['page'] = page
@@ -316,7 +316,7 @@ class Organizations(object):
 
            invitaton_id (str): the ID of the invitation.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_invitations_by_invitation_id
         """
         params = {}
 
@@ -330,7 +330,7 @@ class Organizations(object):
 
            body (dict): Attributes for the invitation to create.
 
-        See: https://auth0.com/docs/api/v2#!/Clients/post_clients
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/post_invitations
         """
 
         return self.client.post(self._url(id, 'invitations'), data=body)
@@ -343,7 +343,7 @@ class Organizations(object):
 
            invitation_id (str): the ID of the invitation to delete.
 
-        See: https://auth0.com/docs/api/management/v2#!/Clients/delete_clients_by_id
+        See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_invitations_by_invitation_id
         """
 
         return self.client.delete(self._url(id, 'invitations', invitation_id))
