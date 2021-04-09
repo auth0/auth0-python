@@ -160,7 +160,7 @@ class Users(object):
             include_totals (bool, optional): True if the query summary is
                to be included in the result, False otherwise. Defaults to True.
 
-        See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
+        See https://auth0.com/docs/api/management/v2#!/Users/get_organizations
         """
         params = {
             'per_page': per_page,
