@@ -1,6 +1,15 @@
 Changes
 =======
 
+3.16.0
+------------------
+
+**Added**
+- Add access token validation guidance for organizations [\#262](https://github.com/auth0/auth0-python/pull/262) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add support for Organization MGMT API endpoints [SDK-2439] [\#261](https://github.com/auth0/auth0-python/pull/261) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add scope to refresh_token [\#256](https://github.com/auth0/auth0-python/pull/256) ([criles25](https://github.com/criles25))
+- Allow configuration of outgoing request protocol [\#254](https://github.com/auth0/auth0-python/pull/254) ([garry-jeromson](https://github.com/garry-jeromson))
+
 3.15.0
 ------------------
 
