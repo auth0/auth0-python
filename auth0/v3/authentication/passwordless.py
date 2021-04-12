@@ -79,8 +79,76 @@ class Passwordless(AuthenticationBase):
             data=data
         )
 
+    def login(self,
+        client_id,
+        client_secret,
+        username,
+        realm,
+        otp,
+        audience=None,
+        scope='openid'):
+
+        """Login using email/sms + OTP.
+
+        Args:
+            client_id (str): Client Id of the application.
+            
+            client_secret (str): Client Secret of the application.
+
+            username (str): Email address or phone number.
+
+            realm (str): email or sms
+
+            otp (str): Code received in the email.
+
+            audience (str): API identifier of the API
+
+            scope (str, optional): Scope to use. Defaults to 'openid'.
+        """
+
+        return self.post(
+            '{}://{}/oauth/token'.format(self.protocol, self.domain),
+            data={
+                'grant_type': 'http://auth0.com/oauth/grant-type/passwordless/otp',
+                'client_id': client_id,
+                'client_secret': client_secret,
+                'username': username,
+                'realm': realm,
+                'otp': otp,
+                'audience': audience,
+                'scope': scope,
+            }
+        )
+
+    def email_login_legacy(self, client_id, email, code, scope='openid'):
+        """Login using email/verification code.
+
+        Args:
+            client_id (str): Client Id of the application.
+
+            email (str): Email address.
+
+            code (str): Code received in the email.
+
+            scope (str, optional): Scope to use. Defaults to 'openid'.
+        """
+
+        return self.post(
+            '{}://{}/oauth/ro'.format(self.protocol, self.domain),
+            data={
+                'client_id': client_id,
+                'connection': 'email',
+                'grant_type': 'password',
+                'username': email,
+                'password': code,
+                'scope': scope,
+            }
+        )
+
     def sms_login(self, client_id, phone_number, code, scope='openid'):
         """Login using phone number/verification code.
+        
+        Note: this method should be depcrecated in the future.
 
         Args:
             client_id (str): Client Id of the application.
@@ -103,3 +171,17 @@ class Passwordless(AuthenticationBase):
                 'scope': scope,
             }
         )
+    
+    def sms_login_legacy(self, client_id, phone_number, code, scope='openid'):
+        """Login using phone number/verification code.
+
+        Args:
+            client_id (str): Client Id of the application.
+
+            phone_number (str): Phone number.
+
+            code (str): Code received in the SMS.
+
+            scope (str, optional): Scope to use. Defaults to 'openid'.
+        """
+        return sms_login(client_id, phone_number, code, scope)
