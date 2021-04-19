@@ -57,7 +57,9 @@ class Organizations(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_name_by_name
         """
-        return self.client.get(self._url('name', name))
+        params = {}
+
+        return self.client.get(self._url('name', name), params=params)
 
     def get_organization(self, id):
         """Retrieves an organization by its ID.
