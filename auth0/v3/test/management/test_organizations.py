@@ -45,7 +45,7 @@ class TestOrganizations(unittest.TestCase):
 
         args, kwargs = mock_instance.get.call_args
 
-        self.assertEqual('https://domain/api/v2/organizations', args[0])
+        self.assertEqual('https://domain/api/v2/organizations/name/test-org', args[0])
         self.assertEqual(kwargs['params'], {'name': 'test-org'})
 
     @mock.patch('auth0.v3.management.organizations.RestClient')
