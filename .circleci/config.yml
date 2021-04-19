@@ -10,13 +10,13 @@ jobs:
             sudo chown -R circleci:circleci /usr/local/bin
             sudo chown -R circleci:circleci /usr/local/lib/python2.7/site-packages
       - restore_cache:
-          key: deps2-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key: deps2-{{ .Branch }}-{{ checksum "setup.py" }}
       - run:
           command: |
-            pip install -r requirements.txt
+            pip install .[test]
             pip install codecov
       - save_cache:
-          key: deps2-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key: deps2-{{ .Branch }}-{{ checksum "setup.py" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -35,13 +35,13 @@ jobs:
             sudo chown -R circleci:circleci /usr/local/bin
             sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
-          key: deps3-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key: deps3-{{ .Branch }}-{{ checksum "setup.py" }}
       - run:
           command: |
-            pip install -r requirements.txt
+            pip install .[test]
             pip install codecov
       - save_cache:
-          key: deps3-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key: deps3-{{ .Branch }}-{{ checksum "setup.py" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
