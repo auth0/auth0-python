@@ -27,8 +27,8 @@ setup(
     author_email='support@auth0.com',
     license='MIT',
     packages=find_packages(),
-    install_requires=['requests'],
-    extras_require={'test': ['mock']},
+    install_requires=['requests>=2.14.0', 'pyjwt[crypto]>=1.7.1'],
+    extras_require={'test': ['mock>=1.3.0', 'pre-commit']},
     python_requires='>=2.7, !=3.0.*, !=3.1.*',
     classifiers=[
         'Development Status :: 4 - Beta',
