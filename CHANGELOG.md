@@ -1,13 +1,6 @@
 Changes
 =======
 
-3.17.0
-------------------
-
-**Added**
-- Added `login` to `Passwordless` [\#252](https://github.com/auth0/auth0-python/pull/252) ([maurerbot](https://github.com/maurerbot))
-- Deprecated legacy passwordless calls [\#252](https://github.com/auth0/auth0-python/pull/252) ([maurerbot](https://github.com/maurerbot))
-
 3.16.0
 ------------------
 

@@ -120,31 +120,6 @@ class Passwordless(AuthenticationBase):
             }
         )
 
-    def email_login_legacy(self, client_id, email, code, scope='openid'):
-        """Login using email/verification code.
-
-        Args:
-            client_id (str): Client Id of the application.
-
-            email (str): Email address.
-
-            code (str): Code received in the email.
-
-            scope (str, optional): Scope to use. Defaults to 'openid'.
-        """
-
-        return self.post(
-            '{}://{}/oauth/ro'.format(self.protocol, self.domain),
-            data={
-                'client_id': client_id,
-                'connection': 'email',
-                'grant_type': 'password',
-                'username': email,
-                'password': code,
-                'scope': scope,
-            }
-        )
-
     def sms_login(self, client_id, phone_number, code, scope='openid'):
         """Login using phone number/verification code.
         
