@@ -1,6 +1,13 @@
 Changes
 =======
 
+3.16.1
+------------------
+
+**Fixed**
+- Remove requirements.txt file [\#270](https://github.com/auth0/auth0-python/pull/270) ([lbalmaceda](https://github.com/lbalmaceda))
+- Repair Organisation get by name URL. [\#269](https://github.com/auth0/auth0-python/pull/269) ([queenvictoria](https://github.com/queenvictoria))
+
 3.16.0
 ------------------
 
