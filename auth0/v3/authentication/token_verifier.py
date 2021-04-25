@@ -245,6 +245,8 @@ class TokenVerifier():
 
         # Verify claims
         self._verify_payload(payload, nonce, max_age, organization)
+        
+        return True
 
     def _verify_payload(self, payload, nonce=None, max_age=None, organization=None):
         try:
