@@ -38,7 +38,7 @@ class TestJobs(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         j = Jobs(domain='domain', token='jwttoken')
-        j.get('an-id')
+        j.get_results('an-id')
 
         # Should use the 'get by id' URL
         mock_instance.get.assert_called_with(
