@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.16.2
+------------------
+
+**Fixed**
+- Re-Route Job Results endpoint [\#275](https://github.com/auth0/auth0-python/pull/275) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.16.1
 ------------------
 
