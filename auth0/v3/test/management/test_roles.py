@@ -112,6 +112,16 @@ class TestRoles(unittest.TestCase):
             'include_totals': 'false'
         })
 
+        u.list_users(id='an-id', from_param=8675309, take=75)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/roles/an-id/users', args[0])
+        self.assertEqual(kwargs['params'], {
+            'from': 8675309,
+            'take': 75
+        })
+
 
     @mock.patch('auth0.v3.management.roles.RestClient')
     def test_add_users(self, mock_rc):
