@@ -220,7 +220,10 @@ class TestOrganizations(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/organizations/test-org/members', args[0])
         self.assertEqual(kwargs['params'], {'from': 8675309,
-                                            'take': 75})
+                                            'take': 75,
+                                            'page': None,
+                                            'per_page': None,
+                                            'include_totals': 'true'})
 
     @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_create_organization_members(self, mock_rc):

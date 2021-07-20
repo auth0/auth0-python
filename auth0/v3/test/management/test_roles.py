@@ -124,8 +124,8 @@ class TestRoles(unittest.TestCase):
         self.assertEqual(kwargs['params'], {
             'from': 8675309,
             'take': 75,
-            'per_page': None,
-            'page': None,
+            'per_page': 25,
+            'page': 0,
             'include_totals': 'true',
         })
 
