@@ -123,7 +123,10 @@ class TestRoles(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/roles/an-id/users', args[0])
         self.assertEqual(kwargs['params'], {
             'from': 8675309,
-            'take': 75
+            'take': 75,
+            'per_page': None,
+            'page': None,
+            'include_totals': True,
         })
 
 

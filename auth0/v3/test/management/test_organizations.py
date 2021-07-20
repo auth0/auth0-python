@@ -25,7 +25,10 @@ class TestOrganizations(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/organizations', args[0])
         self.assertEqual(kwargs['params'], {'page': None,
-                                            'per_page': None})
+                                            'per_page': None,
+                                            'include_totals': True,
+                                            'from': None,
+                                            'take': None})
 
         # Basic pagination
         c.all_organizations(page=7, per_page=25)
@@ -191,7 +194,7 @@ class TestOrganizations(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/organizations/test-org/members', args[0])
         self.assertEqual(kwargs['params'], {'page': None,
                                             'per_page': None,
-                                            'include_totals': None,
+                                            'include_totals': True,
                                             'from': None,
                                             'take': None})
 
