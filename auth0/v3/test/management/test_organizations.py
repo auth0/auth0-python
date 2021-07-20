@@ -31,13 +31,16 @@ class TestOrganizations(unittest.TestCase):
                                             'take': None})
 
         # Basic pagination
-        c.all_organizations(page=7, per_page=25)
+        c.all_organizations(page=7, per_page=25, include_totals=False)
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/organizations', args[0])
         self.assertEqual(kwargs['params'], {'page': 7,
-                                            'per_page': 25})
+                                            'per_page': 25,
+                                            'include_totals': 'false',
+                                            'from': None,
+                                            'take': None})
 
         # Checkpoint pagination
         c.all_organizations(from_param=8675309, take=75)
@@ -199,13 +202,16 @@ class TestOrganizations(unittest.TestCase):
                                             'take': None})
 
         # Specific pagination
-        c.all_organization_members('test-org', page=7, per_page=25)
+        c.all_organization_members('test-org', page=7, per_page=25, include_totals=False)
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/organizations/test-org/members', args[0])
         self.assertEqual(kwargs['params'], {'page': 7,
-                                            'per_page': 25})
+                                            'per_page': 25,
+                                            'include_totals': 'false',
+                                            'from': None,
+                                            'take': None})
 
         # Checkpoint pagination
         c.all_organization_members('test-org', from_param=8675309, take=75)
