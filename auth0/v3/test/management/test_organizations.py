@@ -190,7 +190,10 @@ class TestOrganizations(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/organizations/test-org/members', args[0])
         self.assertEqual(kwargs['params'], {'page': None,
-                                            'per_page': None})
+                                            'per_page': None,
+                                            'include_totals': None,
+                                            'from': None,
+                                            'take': None})
 
         # Specific pagination
         c.all_organization_members('test-org', page=7, per_page=25)
@@ -248,7 +251,10 @@ class TestOrganizations(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/organizations/test-org/members/test-user/roles', args[0])
         self.assertEqual(kwargs['params'], {'page': None,
-                                            'per_page': None})
+                                            'per_page': None
+                                            'include_totals': None,
+                                            'from': None,
+                                            'take': None})
 
         # Specific pagination
         c.all_organization_member_roles('test-org', 'test-user', page=7, per_page=25)

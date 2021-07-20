@@ -98,7 +98,9 @@ class TestRoles(unittest.TestCase):
         self.assertEqual(kwargs['params'], {
             'per_page': 25,
             'page': 0,
-            'include_totals': 'true'
+            'include_totals': 'true',
+            'from': None,
+            'take': None
         })
 
         u.list_users(id='an-id', page=1, per_page=50, include_totals=False)
