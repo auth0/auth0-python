@@ -126,7 +126,7 @@ class TestRoles(unittest.TestCase):
             'take': 75,
             'per_page': None,
             'page': None,
-            'include_totals': True,
+            'include_totals': 'true',
         })
 
 

@@ -26,7 +26,7 @@ class TestOrganizations(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/organizations', args[0])
         self.assertEqual(kwargs['params'], {'page': None,
                                             'per_page': None,
-                                            'include_totals': True,
+                                            'include_totals': 'true',
                                             'from': None,
                                             'take': None})
 
@@ -194,7 +194,7 @@ class TestOrganizations(unittest.TestCase):
         self.assertEqual('https://domain/api/v2/organizations/test-org/members', args[0])
         self.assertEqual(kwargs['params'], {'page': None,
                                             'per_page': None,
-                                            'include_totals': True,
+                                            'include_totals': 'true',
                                             'from': None,
                                             'take': None})
 
