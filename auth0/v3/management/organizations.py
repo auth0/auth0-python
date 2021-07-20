@@ -31,21 +31,35 @@ class Organizations(object):
         return url
 
     # Organizations
-    def all_organizations(self, page=None, per_page=None):
+    def all_organizations(self, page=None, per_page=None, include_totals=True, from_param=None, take=None):
         """Retrieves a list of all the organizations.
 
         Args:
-           page (int): The result's page number (zero based). When not set,
-              the default value is up to the server.
+            page (int): The result's page number (zero based). When not set,
+                the default value is up to the server.
 
-           per_page (int, optional): The amount of entries per page. When not set,
-              the default value is up to the server.
+            per_page (int, optional): The amount of entries per page. When not set,
+                the default value is up to the server.
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise. Defaults to True.
+
+            from_param (str, optional): Checkpoint Id form which to begin retrieving results.
+                You can limit the amount of logs using the take parameter.
+
+            take (int, optional): The total amount of entries to retrieve when
+                using the from parameter. When not set, the default value is up to the server.
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_organizations
         """
-        params = {}
-        params['page'] = page
-        params['per_page'] = per_page
+
+        params = {
+            'page': page,
+            'per_page': per_page,
+            'include_totals': str(include_totals).lower(),
+            'from': from_param,
+            'take': take
+        }
 
         return self.client.get(self._url(), params=params)
 
@@ -83,7 +97,7 @@ class Organizations(object):
         """
 
         return self.client.post(self._url(), data=body)
-    
+
     def update_organization(self, id, body):
         """Modifies an organization.
 
@@ -156,7 +170,7 @@ class Organizations(object):
         """
 
         return self.client.post(self._url(id, 'enabled_connections'), data=body)
-    
+
     def update_organization_connection(self, id, connection_id, body):
         """Modifies an organization.
 
@@ -186,23 +200,37 @@ class Organizations(object):
         return self.client.delete(self._url(id, 'enabled_connections', connection_id))
 
     # Organization Members
-    def all_organization_members(self, id, page=None, per_page=None):
+    def all_organization_members(self, id, page=None, per_page=None, include_totals=True, from_param=None, take=None):
         """Retrieves a list of all the organization members.
 
         Args:
-           id (str): the ID of the organization.
+            id (str): the ID of the organization.
 
-           page (int): The result's page number (zero based). When not set,
-              the default value is up to the server.
+            page (int): The result's page number (zero based). When not set,
+                the default value is up to the server.
 
-           per_page (int, optional): The amount of entries per page. When not set,
-              the default value is up to the server.
+            per_page (int, optional): The amount of entries per page. When not set,
+                the default value is up to the server.
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise. Defaults to True.
+
+            from_param (str, optional): Checkpoint Id form which to begin retrieving results.
+                You can limit the amount of logs using the take parameter.
+
+            take (int, optional): The total amount of entries to retrieve when
+                using the from parameter. When not set, the default value is up to the server.
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_members
         """
-        params = {}
-        params['page'] = page
-        params['per_page'] = per_page
+
+        params = {
+            'page': page,
+            'per_page': per_page,
+            'include_totals': str(include_totals).lower(),
+            'from': from_param,
+            'take': take
+        }
 
         return self.client.get(self._url(id, 'members'), params=params)
 
@@ -238,7 +266,7 @@ class Organizations(object):
 
         Args:
            id (str): the ID of the organization.
-           
+
            user_id (str): the ID of the user member of the organization.
 
            page (int): The result's page number (zero based). When not set,
@@ -333,7 +361,7 @@ class Organizations(object):
         """
 
         return self.client.post(self._url(id, 'invitations'), data=body)
-   
+
     def delete_organization_invitation(self, id, invitation_id):
         """Deletes an invitation from the given organization.
 
