@@ -113,8 +113,8 @@ class Roles(object):
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise. Defaults to True.
 
-            from_param (str, optional): Checkpoint Id form which to begin retrieving results.
-                You can limit the amount of logs using the take parameter.
+            from_param (str, optional): Checkpoint Id from which to begin retrieving results.
+                You can limit the number of entries using the take parameter.
 
             take (int, optional): The total amount of entries to retrieve when
                 using the from parameter. When not set, the default value is up to the server.
