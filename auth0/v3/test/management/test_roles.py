@@ -98,7 +98,9 @@ class TestRoles(unittest.TestCase):
         self.assertEqual(kwargs['params'], {
             'per_page': 25,
             'page': 0,
-            'include_totals': 'true'
+            'include_totals': 'true',
+            'from': None,
+            'take': None
         })
 
         u.list_users(id='an-id', page=1, per_page=50, include_totals=False)
@@ -109,7 +111,22 @@ class TestRoles(unittest.TestCase):
         self.assertEqual(kwargs['params'], {
             'per_page': 50,
             'page': 1,
-            'include_totals': 'false'
+            'include_totals': 'false',
+            'from': None,
+            'take': None
+        })
+
+        u.list_users(id='an-id', from_param=8675309, take=75)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/roles/an-id/users', args[0])
+        self.assertEqual(kwargs['params'], {
+            'from': 8675309,
+            'take': 75,
+            'per_page': 25,
+            'page': 0,
+            'include_totals': 'true',
         })
 
 

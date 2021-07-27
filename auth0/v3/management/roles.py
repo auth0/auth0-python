@@ -98,7 +98,7 @@ class Roles(object):
         """
         return self.client.patch(self._url(id), data=body)
 
-    def list_users(self, id, page=0, per_page=25, include_totals=True):
+    def list_users(self, id, page=0, per_page=25, include_totals=True, from_param=None, take=None):
         """List the users that have been associated with a given role.
 
         Args:
@@ -113,14 +113,23 @@ class Roles(object):
             include_totals (bool, optional): True if the query summary is
                 to be included in the result, False otherwise. Defaults to True.
 
+            from_param (str, optional): Checkpoint Id from which to begin retrieving results.
+                You can limit the number of entries using the take parameter.
+
+            take (int, optional): The total amount of entries to retrieve when
+                using the from parameter. When not set, the default value is up to the server.
+
         See https://auth0.com/docs/api/management/v2#!/Roles/get_role_user
         """
 
         params = {
             'per_page': per_page,
             'page': page,
-            'include_totals': str(include_totals).lower()
+            'include_totals': str(include_totals).lower(),
+            'from': from_param,
+            'take': take
         }
+
         url = self._url('{}/users'.format(id))
         return self.client.get(url, params=params)
 
