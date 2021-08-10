@@ -196,3 +196,44 @@ class GetToken(AuthenticationBase):
                 'grant_type': grant_type
             }
         )
+
+    def passwordless_login(self, client_id, client_secret, username, otp, realm, scope, audience):
+        """Calls /oauth/token endpoint with http://auth0.com/oauth/grant-type/passwordless/otp grant type
+
+        Once the verification code was received, login the user using this endpoint with their
+        phone number/email and verification code.
+
+        Args:
+            client_id (str): your application's client Id
+
+            client_secret (str): your application's client Secret. Only required for Regular Web Apps.
+
+            username (str): The user's phone number or email address.
+
+            otp (str): the user's verification code.
+
+            realm (str): use 'sms' or 'email'. 
+            Should be the same as the one used to start the passwordless flow.
+
+            scope(str): String value of the different scopes the client is asking for.
+            Multiple scopes are separated with whitespace.
+
+            audience (str): The unique identifier of the target API you want to access.
+
+        Returns:
+            access_token, id_token
+        """
+
+        return self.post(
+            '{}://{}/oauth/token'.format(self.protocol, self.domain),
+            data={
+                'client_id': client_id,
+                'username': username,
+                'otp': otp,
+                'realm': realm,
+                'client_secret': client_secret,
+                'scope': scope,
+                'audience': audience,
+                'grant_type': 'http://auth0.com/oauth/grant-type/passwordless/otp'
+            }
+        )
