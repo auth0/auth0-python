@@ -23,6 +23,8 @@ class Passwordless(AuthenticationBase):
           - A verification code (send:"code"). You can then authenticate with
             this user using email as username and code as password.
 
+        Complete the authentication using the get_token.passwordless_login method.
+
         Args:
             client_id (str): Client Id of the application.
 
@@ -57,6 +59,8 @@ class Passwordless(AuthenticationBase):
         Given the user phone number, it will send an SMS with 
         a verification code. You can then authenticate with
         this user using phone number as username and code as password.
+
+        Complete the authentication using the get_token.passwordless_login method.
 
         Args:
             client_id (str): Client Id of the application.
