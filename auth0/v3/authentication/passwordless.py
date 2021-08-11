@@ -1,3 +1,4 @@
+import warnings
 from .base import AuthenticationBase
 
 
@@ -96,7 +97,7 @@ class Passwordless(AuthenticationBase):
             scope (str, optional): Scope to use. Defaults to 'openid'.
         """
         warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
-        
+
         return self.post(
             '{}://{}/oauth/ro'.format(self.protocol, self.domain),
             data={
