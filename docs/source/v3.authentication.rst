@@ -1,10 +1,7 @@
-v3.authentication package
+authentication package
 =========================
 
-Submodules
-----------
-
-v3.authentication.authorize\_client module
+authentication.authorize\_client module
 ------------------------------------------
 
 .. automodule:: auth0.v3.authentication.authorize_client
@@ -12,7 +9,7 @@ v3.authentication.authorize\_client module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.base module
+authentication.base module
 -----------------------------
 
 .. automodule:: auth0.v3.authentication.base
@@ -20,7 +17,7 @@ v3.authentication.base module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.database module
+authentication.database module
 ---------------------------------
 
 .. automodule:: auth0.v3.authentication.database
@@ -28,7 +25,7 @@ v3.authentication.database module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.delegated module
+authentication.delegated module
 ----------------------------------
 
 .. automodule:: auth0.v3.authentication.delegated
@@ -36,7 +33,7 @@ v3.authentication.delegated module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.enterprise module
+authentication.enterprise module
 -----------------------------------
 
 .. automodule:: auth0.v3.authentication.enterprise
@@ -44,7 +41,7 @@ v3.authentication.enterprise module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.get\_token module
+authentication.get\_token module
 -----------------------------------
 
 .. automodule:: auth0.v3.authentication.get_token
@@ -52,7 +49,7 @@ v3.authentication.get\_token module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.logout module
+authentication.logout module
 -------------------------------
 
 .. automodule:: auth0.v3.authentication.logout
@@ -60,7 +57,7 @@ v3.authentication.logout module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.passwordless module
+authentication.passwordless module
 -------------------------------------
 
 .. automodule:: auth0.v3.authentication.passwordless
@@ -68,7 +65,7 @@ v3.authentication.passwordless module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.revoke\_token module
+authentication.revoke\_token module
 --------------------------------------
 
 .. automodule:: auth0.v3.authentication.revoke_token
@@ -76,7 +73,7 @@ v3.authentication.revoke\_token module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.social module
+authentication.social module
 -------------------------------
 
 .. automodule:: auth0.v3.authentication.social
@@ -84,7 +81,7 @@ v3.authentication.social module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.token\_verifier module
+authentication.token\_verifier module
 ----------------------------------------
 
 .. automodule:: auth0.v3.authentication.token_verifier
@@ -92,18 +89,10 @@ v3.authentication.token\_verifier module
    :undoc-members:
    :show-inheritance:
 
-v3.authentication.users module
+authentication.users module
 ------------------------------
 
 .. automodule:: auth0.v3.authentication.users
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: auth0.v3.authentication
    :members:
    :undoc-members:
    :show-inheritance:
