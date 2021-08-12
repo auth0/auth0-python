@@ -121,6 +121,14 @@ management.logs module
    :undoc-members:
    :show-inheritance:
 
+management.organizations module
+-------------------------
+
+.. automodule:: auth0.v3.management.organizations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 management.resource\_servers module
 --------------------------------------
 
@@ -145,18 +153,18 @@ management.roles module
    :undoc-members:
    :show-inheritance:
 
-management.rules module
---------------------------
-
-.. automodule:: auth0.v3.management.rules
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 management.rules\_configs module
 -----------------------------------
 
 .. automodule:: auth0.v3.management.rules_configs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+management.rules module
+--------------------------
+
+.. automodule:: auth0.v3.management.rules
    :members:
    :undoc-members:
    :show-inheritance:
@@ -193,18 +201,18 @@ management.user\_blocks module
    :undoc-members:
    :show-inheritance:
 
-management.users module
---------------------------
-
-.. automodule:: auth0.v3.management.users
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 management.users\_by\_email module
 -------------------------------------
 
 .. automodule:: auth0.v3.management.users_by_email
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+management.users module
+--------------------------
+
+.. automodule:: auth0.v3.management.users
    :members:
    :undoc-members:
    :show-inheritance:

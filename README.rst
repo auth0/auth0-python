@@ -325,14 +325,15 @@ Supported APIs
 Authentication Endpoints
 ************************
 
-- Users ( ``authentication.Users`` )
+- API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
 - Database ( ``authentication.Database`` )
 - Delegated ( ``authentication.Delegated`` )
 - Enterprise ( ``authentication.Enterprise`` )
-- Passwordless ( ``authentication.Passwordless`` )
-- Social ( ``authentication.Social`` )
 - API Authorization - Get Token ( ``authentication.GetToken``)
-- API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
+- Passwordless ( ``authentication.Passwordless`` )
+- RevokeToken ( ``authentication.RevokeToken`` )
+- Social ( ``authentication.Social`` )
+- Users ( ``authentication.Users`` )
 
 
 ********************
@@ -340,29 +341,30 @@ Management Endpoints
 ********************
 
 - Blacklists() ( ``Auth0().blacklists`` )
-- Clients() ( ``Auth0().clients`` )
 - ClientGrants() ( ``Auth0().client_grants`` )
-- CustomDomains() ( ``Auth0().custom_domains`` )
+- Clients() ( ``Auth0().clients`` )
 - Connections() ( ``Auth0().connections`` )
+- CustomDomains() ( ``Auth0().custom_domains`` )
 - DeviceCredentials() ( ``Auth0().device_credentials`` )
-- Emails() ( ``Auth0().emails`` )
 - EmailTemplates() ( ``Auth0().email_templates`` )
+- Emails() ( ``Auth0().emails`` )
 - Grants() ( ``Auth0().grants`` )
 - Guardian() ( ``Auth0().guardian`` )
+- Hooks() ( ``Auth0().hooks`` )
 - Jobs() ( ``Auth0().jobs`` )
-- Logs() ( ``Auth0().logs`` )
 - LogStreams() ( ``Auth0().log_streams`` )
+- Logs() ( ``Auth0().logs`` )
 - Organizations() ( ``Auth0().organizations`` )
 - ResourceServers() (``Auth0().resource_servers`` )
 - Roles() ( ``Auth0().roles`` )
-- Rules() ( ``Auth0().rules`` )
 - RulesConfigs() ( ``Auth0().rules_configs`` )
+- Rules() ( ``Auth0().rules`` )
 - Stats() ( ``Auth0().stats`` )
 - Tenants() ( ``Auth0().tenants`` )
 - Tickets() ( ``Auth0().tickets`` )
 - UserBlocks() (``Auth0().user_blocks`` )
-- Users() ( ``Auth0().users`` )
 - UsersByEmail() ( ``Auth0().users_by_email`` )
+- Users() ( ``Auth0().users`` )
 
 =====
 About
