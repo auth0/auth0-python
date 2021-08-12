@@ -208,7 +208,7 @@ class TokenVerifier():
         issuer (str): The expected issuer claim value.
         audience (str): The expected audience claim value.
         leeway (int, optional): The clock skew to accept when verifying date related claims in seconds.
-            Defaults to 60 seconds.
+        Defaults to 60 seconds.
     """
 
     def __init__(self, signature_verifier, issuer, audience, leeway=0):

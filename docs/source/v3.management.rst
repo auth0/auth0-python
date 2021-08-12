@@ -1,10 +1,7 @@
-v3.management package
+management package
 =====================
 
-Submodules
-----------
-
-v3.management.auth0 module
+management.auth0 module
 --------------------------
 
 .. automodule:: auth0.v3.management.auth0
@@ -12,7 +9,7 @@ v3.management.auth0 module
    :undoc-members:
    :show-inheritance:
 
-v3.management.blacklists module
+management.blacklists module
 -------------------------------
 
 .. automodule:: auth0.v3.management.blacklists
@@ -20,7 +17,7 @@ v3.management.blacklists module
    :undoc-members:
    :show-inheritance:
 
-v3.management.client\_grants module
+management.client\_grants module
 -----------------------------------
 
 .. automodule:: auth0.v3.management.client_grants
@@ -28,7 +25,7 @@ v3.management.client\_grants module
    :undoc-members:
    :show-inheritance:
 
-v3.management.clients module
+management.clients module
 ----------------------------
 
 .. automodule:: auth0.v3.management.clients
@@ -36,7 +33,7 @@ v3.management.clients module
    :undoc-members:
    :show-inheritance:
 
-v3.management.connections module
+management.connections module
 --------------------------------
 
 .. automodule:: auth0.v3.management.connections
@@ -44,7 +41,7 @@ v3.management.connections module
    :undoc-members:
    :show-inheritance:
 
-v3.management.custom\_domains module
+management.custom\_domains module
 ------------------------------------
 
 .. automodule:: auth0.v3.management.custom_domains
@@ -52,7 +49,7 @@ v3.management.custom\_domains module
    :undoc-members:
    :show-inheritance:
 
-v3.management.device\_credentials module
+management.device\_credentials module
 ----------------------------------------
 
 .. automodule:: auth0.v3.management.device_credentials
@@ -60,7 +57,7 @@ v3.management.device\_credentials module
    :undoc-members:
    :show-inheritance:
 
-v3.management.email\_templates module
+management.email\_templates module
 -------------------------------------
 
 .. automodule:: auth0.v3.management.email_templates
@@ -68,7 +65,7 @@ v3.management.email\_templates module
    :undoc-members:
    :show-inheritance:
 
-v3.management.emails module
+management.emails module
 ---------------------------
 
 .. automodule:: auth0.v3.management.emails
@@ -76,7 +73,7 @@ v3.management.emails module
    :undoc-members:
    :show-inheritance:
 
-v3.management.grants module
+management.grants module
 ---------------------------
 
 .. automodule:: auth0.v3.management.grants
@@ -84,7 +81,7 @@ v3.management.grants module
    :undoc-members:
    :show-inheritance:
 
-v3.management.guardian module
+management.guardian module
 -----------------------------
 
 .. automodule:: auth0.v3.management.guardian
@@ -92,7 +89,7 @@ v3.management.guardian module
    :undoc-members:
    :show-inheritance:
 
-v3.management.hooks module
+management.hooks module
 --------------------------
 
 .. automodule:: auth0.v3.management.hooks
@@ -100,7 +97,7 @@ v3.management.hooks module
    :undoc-members:
    :show-inheritance:
 
-v3.management.jobs module
+management.jobs module
 -------------------------
 
 .. automodule:: auth0.v3.management.jobs
@@ -108,7 +105,7 @@ v3.management.jobs module
    :undoc-members:
    :show-inheritance:
 
-v3.management.log\_streams module
+management.log\_streams module
 ---------------------------------
 
 .. automodule:: auth0.v3.management.log_streams
@@ -116,7 +113,7 @@ v3.management.log\_streams module
    :undoc-members:
    :show-inheritance:
 
-v3.management.logs module
+management.logs module
 -------------------------
 
 .. automodule:: auth0.v3.management.logs
@@ -124,7 +121,7 @@ v3.management.logs module
    :undoc-members:
    :show-inheritance:
 
-v3.management.resource\_servers module
+management.resource\_servers module
 --------------------------------------
 
 .. automodule:: auth0.v3.management.resource_servers
@@ -132,7 +129,7 @@ v3.management.resource\_servers module
    :undoc-members:
    :show-inheritance:
 
-v3.management.rest module
+management.rest module
 -------------------------
 
 .. automodule:: auth0.v3.management.rest
@@ -140,7 +137,7 @@ v3.management.rest module
    :undoc-members:
    :show-inheritance:
 
-v3.management.roles module
+management.roles module
 --------------------------
 
 .. automodule:: auth0.v3.management.roles
@@ -148,7 +145,7 @@ v3.management.roles module
    :undoc-members:
    :show-inheritance:
 
-v3.management.rules module
+management.rules module
 --------------------------
 
 .. automodule:: auth0.v3.management.rules
@@ -156,7 +153,7 @@ v3.management.rules module
    :undoc-members:
    :show-inheritance:
 
-v3.management.rules\_configs module
+management.rules\_configs module
 -----------------------------------
 
 .. automodule:: auth0.v3.management.rules_configs
@@ -164,7 +161,7 @@ v3.management.rules\_configs module
    :undoc-members:
    :show-inheritance:
 
-v3.management.stats module
+management.stats module
 --------------------------
 
 .. automodule:: auth0.v3.management.stats
@@ -172,7 +169,7 @@ v3.management.stats module
    :undoc-members:
    :show-inheritance:
 
-v3.management.tenants module
+management.tenants module
 ----------------------------
 
 .. automodule:: auth0.v3.management.tenants
@@ -180,7 +177,7 @@ v3.management.tenants module
    :undoc-members:
    :show-inheritance:
 
-v3.management.tickets module
+management.tickets module
 ----------------------------
 
 .. automodule:: auth0.v3.management.tickets
@@ -188,7 +185,7 @@ v3.management.tickets module
    :undoc-members:
    :show-inheritance:
 
-v3.management.user\_blocks module
+management.user\_blocks module
 ---------------------------------
 
 .. automodule:: auth0.v3.management.user_blocks
@@ -196,7 +193,7 @@ v3.management.user\_blocks module
    :undoc-members:
    :show-inheritance:
 
-v3.management.users module
+management.users module
 --------------------------
 
 .. automodule:: auth0.v3.management.users
@@ -204,18 +201,10 @@ v3.management.users module
    :undoc-members:
    :show-inheritance:
 
-v3.management.users\_by\_email module
+management.users\_by\_email module
 -------------------------------------
 
 .. automodule:: auth0.v3.management.users_by_email
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: auth0.v3.management
    :members:
    :undoc-members:
    :show-inheritance:

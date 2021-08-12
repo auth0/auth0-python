@@ -11,9 +11,26 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import io
+import re
 import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
+
+# -- helper function to read a file without importing it
+def read(*names, **kwargs):
+    with io.open(
+        os.path.join(os.path.dirname(__file__)[:-7], *names), encoding=kwargs.get("encoding", "utf8")
+    ) as fp:
+        return fp.read()
+
+# -- helper function to get the __version__ from a file
+def find_version(*file_paths):
+    version_file = read(*file_paths)
+    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
 
 # -- regenerate autodoc definitions
 # sphinx-apidoc -o ./source ../auth0/v3/
@@ -25,7 +42,7 @@ copyright = '2021, Auth0'
 author = 'Auth0'
 
 # The full version, including alpha/beta/rc tags
-release = '3.13.0'
+release = find_version("..", "auth0", "__init__.py")
 
 
 # -- General configuration ---------------------------------------------------

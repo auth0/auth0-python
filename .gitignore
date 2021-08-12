@@ -46,7 +46,7 @@ coverage.xml
 *.pot
 
 # Sphinx documentation
-docs/_build/
+docs/build/
 
 # IDEA
 .idea/
