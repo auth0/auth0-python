@@ -227,7 +227,7 @@ class TokenVerifier():
             nonce (str, optional): The nonce value sent during authentication.
             max_age (int, optional): The max_age value sent during authentication.
             organization (str, optional): The expected organization ID (org_id) claim value. This should be specified
-                when logging in to an organization.
+            when logging in to an organization.
 
         Raises:
             TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one,
