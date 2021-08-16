@@ -7,8 +7,8 @@ import time
 from mock import MagicMock, patch
 
 from ...authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier, \
-    SymmetricSignatureVerifier, JwksFetcher, SignatureVerifier
-from ...exceptions import TokenValidationError
+    SymmetricSignatureVerifier, JwksFetcher, SignatureVerifier, AccessTokenVerifier
+from ...exceptions import Auth0Error, TokenValidationError
 
 RSA_PUB_KEY_1_PEM = b"""-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGbXWiK3dQTyCbX5xdE4\nyCuYp0AF2d15Qq1JSXT/lx8CEcXb9RbDddl8jGDv+spi5qPa8qEHiK7FwV2KpRE9\n83wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVs\nWXI9C+yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT\n69s7of9+I9l5lsJ9cozf1rxrXX4V1u/SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8\nAziMCxS+VrRPDM+zfvpIJg3JljAh3PJHDiLu902v9w+Iplu1WyoB2aPfitxEhRN0\nYwIDAQAB\n-----END PUBLIC KEY-----\n"""
 RSA_PUB_KEY_2_PEM = b"""-----BEGIN PUBLIC KEY-----\nMDowDQYJKoZIhvcNAQEBBQADKQAwJgIfAI7TBUCn8e1hj/fNpb5dqMf8Jj6Ja6qN\npqyeOGYEzAIDAQAB\n-----END PUBLIC KEY-----\n"""
@@ -26,6 +26,16 @@ expectations = {
   "audience_alt": "external-test-999",
   "issuer": "https://tokens-test.auth0.com/",
   "nonce": "a1b2c3d4e5"
+}
+
+expectations_2 = {
+  "audience": "tokens-test-123",
+  "audience_alt": "external-test-999",
+  "issuer": "https://tokens-test.auth0.com/",
+  "scopes": "scope:one scope:two",
+  "permissions": [
+      "scope:two",
+  ]
 }
 
 
@@ -403,3 +413,199 @@ class TestTokenVerifier(unittest.TestCase):
     def test_fails_when_org_specified_but_does_not_match(self):
         token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjF9.hjSPgJpg0Dn2z0giCdGqVLD5Kmqy_yMYlSkgwKD7ahQ"
         self.assert_fails_with_error(token, 'Organization (org_id) claim mismatch in the ID token; expected "org_abc", found "org_123"', signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), organization='org_abc')
+
+
+class TestAccessTokenVerifier(unittest.TestCase):
+
+    @staticmethod
+    def asymmetric_signature_verifier_mock():
+        verifier = AsymmetricSignatureVerifier('some URL')
+        verifier._fetch_key = MagicMock('_fetch_key')
+
+        # noinspection PyUnresolvedReferences
+        # requirement already includes cryptography -> pyjwt[crypto]
+        verifier._fetch_key.return_value = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(RSA_PUB_KEY_1_JWK))
+        return verifier
+
+    def assert_fails_with_token_error(self, token, error_message, signature_verifier=None, audience=expectations_2['audience'], issuer=expectations_2['issuer'],
+                                      scopes=None, permissions=None, clock=MOCKED_CLOCK):
+        sv = signature_verifier or self.asymmetric_signature_verifier_mock()
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=issuer,
+            audience=audience,
+            leeway=DEFAULT_LEEWAY
+        )
+        tv._clock = clock
+        with self.assertRaises(TokenValidationError) as err:
+            tv.verify(token, scopes, permissions)
+        self.assertEqual(str(err.exception), error_message)
+
+    def assert_fails_with_auth0_error(self, token, error_message, signature_verifier=None, audience=expectations_2['audience'], issuer=expectations_2['issuer'],
+                                      scopes=None, permissions=None, clock=MOCKED_CLOCK):
+        sv = signature_verifier or self.asymmetric_signature_verifier_mock()
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=issuer,
+            audience=audience,
+            leeway=DEFAULT_LEEWAY
+        )
+        tv._clock = clock
+        with self.assertRaises(Auth0Error) as err:
+            tv.verify(token, scopes, permissions)
+        self.assertEqual(str(err.exception), error_message)
+
+    def test_fails_at_creation_with_invalid_signature_verifier(self):
+        sv = "string is not an instance of signature verifier"
+        with self.assertRaises(TypeError) as err:
+            # noinspection PyTypeChecker
+            AccessTokenVerifier(signature_verifier=sv, issuer="valid issuer", audience="valid audience")
+        self.assertEqual(str(err.exception), "signature_verifier must be an instance of SignatureVerifier.")
+
+    def test_err_token_empty(self):
+        token = ""
+        self.assert_fails_with_token_error(token, "Access token is required but missing.")
+        token = None
+        self.assert_fails_with_token_error(token, "Access token is required but missing.")
+
+    def test_err_token_format_invalid(self):
+        token = "a.b"
+        self.assert_fails_with_token_error(token, "ID token could not be decoded.")
+        token = "a.b."
+        self.assert_fails_with_token_error(token, "ID token could not be decoded.")
+        token = "a.b.c.d"
+        self.assert_fails_with_token_error(token, "ID token could not be decoded.")
+
+    def test_HS256_token_signature_passes(self):
+        token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Hn38QVtN_mWN0c-jOa-Fqq69kXpbBp0THsvE-CQ47Ps"
+
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations_2['issuer'],
+            audience=expectations_2['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        tv.verify(token)
+
+    def test_RS256_token_signature_passes(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Eo2jxdlrKmutIeyn9Un6VHorMJaCL5txPDCC3QiAQn0pYYnrRU7VMQwqbTiXLQ9zPYh5Q4pQmT-XRaGL-HwDH8vCUieVJKOm0-gNFAMzx1i8sRH1ubw75sn69y09AQKcitYtjnBmahgfZrswtsxOXM7XovlLftPjv6goAi_U38GYsS_V_zOBvdbX2cM5zdooJAC0e7vlCr3bXNo90qwgCuezvCGt1ZrgWyDNO9oMzK-TlK86q36LuIkux7XZboF5rc3zsThEce_tPufA5qoEa-7I_ybmjwlvOCWmngYLT52_S2CbHeRNarePMjZIlmAuG-DcetwO8jJsX84Ra0SdUw"
+
+        sv = self.asymmetric_signature_verifier_mock()
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations_2['issuer'],
+            audience=expectations_2['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        tv.verify(token)
+
+    def test_HS256_token_signature_fails(self):
+        token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.invalidsignature"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+
+        self.assert_fails_with_token_error(token, "Invalid token signature.", signature_verifier=sv)
+
+    def test_RS256_token_signature_fails(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.invalidsignature"
+        sv = self.asymmetric_signature_verifier_mock()
+
+        self.assert_fails_with_token_error(token, "Invalid token signature.", signature_verifier=sv)
+
+    def test_fails_with_algorithm_not_supported(self):
+        token = "eyJhbGciOiJub25lIn0.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0."
+        # ID here because it comes from base class
+        self.assert_fails_with_token_error(token, 'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "RS256"')
+
+    def test_fails_with_iss_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.XuWmo_XxNET0mOW1AaLwi8koUOd05TZULWCGF_3WbeR5VJB6aK0rzo8AkHXrSv9Yr6he_1N8xFDKBIIyXFa4Y2PN8kdwUQtsJcj-cj8_2Ta2S0vV6O7XqbW58eXhX8Ng0OUrqgkHT1leIUJnBZ10YhM0-0zmdIq_WlNnwTdmvAGtYAUGcjyUmq-QEKBc2YYnf83vtGuFT2xGUGsTKR_Jj7lH_QTYdFaiT4t7gwFyXhP5KVUkG3ebdQUkIAQnoY0TXwrgDDCQhAWiUYZehMlv7Ml4tqLsiIUMgm4w5wSfdTdhVEMa7wHPj7gp4s-bfEqaOuyg0xH24rP19LkJROITDw"
+        self.assert_fails_with_token_error(token, 'Issuer (iss) claim must be a string present in the access token')
+
+    def test_fails_with_iss_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzb21ldGhpbmctZWxzZSIsInN1YiI6ImF1dGgwfDEyMzQ1Njc4OSIsImF1ZCI6WyJ0b2tlbnMtdGVzdC0xMjMiLCJleHRlcm5hbC10ZXN0LTk5OSJdLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MSwibm9uY2UiOiJhMWIyYzNkNGU1IiwiYXpwIjoidG9rZW5zLXRlc3QtMTIzIiwiYXV0aF90aW1lIjoxNTg3Njc4OTYxfQ.HNQ1lXWWQOC4D1-D4XfYlF2MBE6F7TW1EoBqt3ayxehNqtc8ZUJ6MR4aE_o7NnY0aBNbp7J9okgRC2PIKPHZkXUdxHvGZNldrEDDKeKPe0kZFxF5sEK8RYCnJk5m28JFpgRYvXA9KjKnLsBsbV--8VnkgRlw0-LClxqp3ynoGgmh2dVvBqXV8DiAbRvvRPZOg7CVFqCxJoMFD0FJ_dej7ChxMDSe_NDW-CjG9rgEsw_el-_vUcKSp7bzZ1jKm0zOcPDRPfgda5oek0xR6_bg2es_TarYKCwlQCVG1NEmgcJ5gNeVIsrwaPrMXqGr9KNs-nLerQO9Jl1EhCU8No5Sfg"
+        self.assert_fails_with_token_error(token, 'Issuer (iss) claim mismatch in the access token; expected "{}", found "something-else"'.format(expectations['issuer']))
+
+    def test_fails_with_sub_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.VtPtxkKh7vZKECzFiNXLWBeWcRgaX1lIOhW0fKU5WSgTcjYZRYoxW-wwI8pai7vgJMQQCizBpLpjMPpCBYBGEiYgGpa9D7vAD8XmYjcVZujG1FLFGkOTkgisCtgVT6WpvwxIejNrl_TcgSEBkCcD9f7gGnFVOjJe4YtSMEUdtuDz-pHEGGNbJLdq0L-pPUrO2Fyw3NspX1RrEYVn7uGuAlDQWQ4x6IOtM40NPzAmyLVrsOPmz_5Igyi7ZZar6epcfd5dBeUbgp8yK178XV-r6-UMuj39NJE4Bx8cDQR1qjxMsxgZ3Lem6OLfFvKWXsgJs7dh13kJDqrx2jXfhvpd-w"
+        self.assert_fails_with_token_error(token, 'Subject (sub) claim must be a string present in the access token')
+
+    def test_fails_with_aud_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MSwibm9uY2UiOiJhMWIyYzNkNGU1IiwiYXpwIjoidG9rZW5zLXRlc3QtMTIzIiwiYXV0aF90aW1lIjoxNTg3Njc4OTYxfQ.t5SBd_J-k_GwPHfyGfPxOcT8n0Pbwy9R-pj7tK8231m3My1Zg3LyKx3tl7MFtymgRHcs2hd4WrWrKjyFrHMOzUWX8dQ2-b6KVRuFQjc70gnW54igj-cT-oo07Lzen0Ol6_7w_5rabWCOL9lM0UM9jpau_llVh97zyYgcUEBeA5lLld5ZLTB-JKMVehjJelBR-MPEDvMr2zT9nRPPUXqezAWZOPYG83oRRB2ktoafaUM4RVvp34q6uUWJq49m-qY2DfKuyDGK4axo1fHKE3JmrsayEDpuGDYDFNDQzy4g1lJvzBKxV2SJl0LKP6sxbM8sw7qaH4ViRNZpFQBZ7veGPQ"
+        self.assert_fails_with_token_error(token, 'Audience (aud) claim must be a string or array of strings present in the access token')
+
+    def test_fails_with_aud_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.d1BFaw_h5VOAw0tXAQ98hrru4gWCNjIxcCQktFVcLIqrX9m74-vWv2SVoFBAQlXihEXoDS-5QSMhVPG1iry9arseN16PnSOmilBhSebiqAVSBojLxq5KFEDuUz90lApt4d5BSCMAIAQ1Dp1pGKwJC0BiLrFNOQ2KrmoEvQMgaD0PLlCLy1lL7MntABE86tX_BoqI4ZkWJ1lX1n2-SZAn-ldoOK8W8RUYiwBUDTktpgAfICFUSPAZXj_vn05vwvQBoozhMQkuJrPziz81Tj8lPh0iPsnMBtsAqvAhdwtp3p-eadXPVcjNu4yE3dkBgFDQwoNtV_elWQtmFBn49FEKyw"
+        self.assert_fails_with_token_error(token, 'Audience (aud) claim mismatch in the access token; expected "{}" but was not one of "external-test-999"'.format(expectations['audience']))
+
+    def test_fails_with_exp_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiaWF0IjoxNTg3NTkyNTYxLCJub25jZSI6ImExYjJjM2Q0ZTUiLCJhenAiOiJ0b2tlbnMtdGVzdC0xMjMiLCJhdXRoX3RpbWUiOjE1ODc2Nzg5NjF9.qq4Tyz8VGnAJy2KmKo3zmThnWXviGwJB-Bz18lnJlicjAXk4ObeUVoX0WHB3I8vmDMscC9JXhkDP5KIGSAkeaLzil0FFJwwQB_saFE_y3zjfMQgdsz_qtDR96S1SQtnZ7AhChIAZ7cV4p_wmj_-TQYuZVQ0F6MoBmFsJITIr7gxnNFJWw6KJEU94nq8-q_IAyC5-9epdEtphUi_wkalHzEy6w8tQawKXCLYxo12VNlEy5mi8PlwqGsqVcwFwqec-ERt2hajyuqL1210-cZJMA-NmXz4mv4scHdiE09KZcLScKcezs9KaM5iaButMBL0Fyec0KcwwfELX_zghekALOA"
+        self.assert_fails_with_token_error(token, 'Expiration Time (exp) claim must be a number present in the access token')
+
+    def test_fails_with_exp_invalid(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NTkyNTYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.KUbd2s3Km-PVpP8KEJo1e0lyQv19TjiKMFX-lVebFoiPNwlVTXS08g5qe_G8pcOrwNfX6cRkRLbp7TNQ7tGDCuEcdia9KOaWeVWla5B3UPCv1qozCyMv4ZYrA0qdT2KgwytRMVWSov9ly29FSo6SRQksAMKZdnAzPaqnJGKBgVIjKN3a5ePIeX5yBIGxlNjS3nyWt8LIQJ9BFaQWk3i0vAKYpDeco3VLNLX-wH7739MzS7ll6t6LyuZi6kBaRG6XZc394glKidTvCp06ViQlPlcuV7JsCJfbkBc0AS5TmzOEdUCype-gzNqbuLcSXihS-qOx7Yjv8y3farV1_7qYqw"
+        mocked_clock = MOCKED_CLOCK + DEFAULT_LEEWAY + 1
+        self.assert_fails_with_token_error(token, 'Expiration Time (exp) claim error in the access token; current time ({}) is after expiration time (1587592621)'.format(mocked_clock), clock=mocked_clock)
+
+    def test_fails_with_iat_missing(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJub25jZSI6ImExYjJjM2Q0ZTUiLCJhenAiOiJ0b2tlbnMtdGVzdC0xMjMiLCJhdXRoX3RpbWUiOjE1ODc2Nzg5NjF9.CWW7mWUhiI-rramQ2dIGi7vBsOMmsouIg32IL9u2g4Dg3PV0C55R7dL6Jvf9hqaZXvx9Psrw0vLnOlhFztAC6LlQuq2eCaLYsDme36NxeYGC7CFXygvlU_eXD5IdNK35GriTfpG_b5hC7tl2glMmNQcZWlsIyKw7eq8o1POpqo0K2bCVjoyJkHL6WUpw6_08HPspmTL_Qd0km08z6zgvbl8Hpzk-tLmXqN7LjmuhEsjnIFphu-dGwcQsoY3RAomYxAFXAPYT8siEIf2w3zlIoUde-mujiMUtMD-Od7t7w36GO6Kubb9M9inVwPEg1yFKlFTXZBKXu91xmOmvMJ5Qfg"
+        self.assert_fails_with_token_error(token, 'Issued At (iat) claim must be a number present in the access token')
+
+    def test_passes_when_permissions_present_but_not_required(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInBlcm1pc3Npb25zIjpbXX0.jShHBS7Tc3OwXjJa9KHyqn_huqr1-cB3g0gtW4GP__Q"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations_2['issuer'],
+            audience=expectations_2['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        tv.verify(token)
+
+    def test_passes_when_permissions_present_and_matches(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInBlcm1pc3Npb25zIjpbInNjb3BlOnR3byJdfQ.B61W_7woP3d-8Y-IG4I5XMBW_6MvxAT5xt_Gut8EjPM"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations_2['issuer'],
+            audience=expectations_2['audience'],
+        )
+        tv._clock = MOCKED_CLOCK
+        tv.verify(token, permissions=['scope:two'])
+
+    def test_fails_when_permissions_specified_but_not_present(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.wotJnUdD5IfdZMewF_-BnHc0pI56uwzwr5qaSXvSu9w"
+        self.assert_fails_with_token_error(token, "No permissions claim found in token.", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), permissions=['scope:three'])
+
+    def test_fails_when_permissions_specified_but_does_not_mactch(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInBlcm1pc3Npb25zIjpbInNjb3BlOnR3byJdfQ.B61W_7woP3d-8Y-IG4I5XMBW_6MvxAT5xt_Gut8EjPM"
+        self.assert_fails_with_auth0_error(token, "403: You don't have access to this resource", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), permissions=['scope:three'])
+
+    def test_passes_when_scopes_present_but_not_required(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlcyI6InNjb3BlOm9uZSBzY29wZTp0d28ifQ.PROQRTvGrFGkQp-P1FARX5hEUI2ePWyREaw_zwCbzlo"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations_2['issuer'],
+            audience=expectations_2['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        tv.verify(token)
+
+    def test_passes_when_scopes_present_and_matches(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlcyI6InNjb3BlOm9uZSBzY29wZTp0d28ifQ.PROQRTvGrFGkQp-P1FARX5hEUI2ePWyREaw_zwCbzlo"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations_2['issuer'],
+            audience=expectations_2['audience'],
+        )
+        tv._clock = MOCKED_CLOCK
+        tv.verify(token, scopes='scope:two scope:one')
+
+    def test_fails_when_scopes_specified_but_not_present(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.wotJnUdD5IfdZMewF_-BnHc0pI56uwzwr5qaSXvSu9w"
+        self.assert_fails_with_token_error(token, "No scopes claim found in token.", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), scopes='scope:three')
+
+    def test_fails_when_scopes_specified_but_does_not_mactch(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlcyI6InNjb3BlOm9uZSBzY29wZTp0d28ifQ.PROQRTvGrFGkQp-P1FARX5hEUI2ePWyREaw_zwCbzlo"
+        self.assert_fails_with_auth0_error(token, "401: You don't have access to this resource", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), scopes='scope:three')
