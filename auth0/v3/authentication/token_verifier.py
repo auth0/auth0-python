@@ -375,8 +375,8 @@ class AccessTokenVerifier():
 
         Args:
             token (str): The JWT access token to verify.
-            scopes (list(str), optional): a list of scopes to verify.
-            permissions (list(str), optional): a list of permissions to verify.
+            scopes (str, optional): A string of scopes to verify.
+            permissions (list(str), optional): A list of permissions to verify.
 
         Raises:
             TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one,
