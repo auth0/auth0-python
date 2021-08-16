@@ -449,7 +449,7 @@ class AccessTokenVerifier():
 
         # Scopes
         if scopes:
-            if 'scopes' not in payload or not isinstance(payload['scopes'], str):
+            if 'scopes' not in payload or not isinstance(payload['scopes'], (str, ustr)):
                 raise TokenValidationError('No scopes claim found in token.')
 
             for scope in scopes.split(' '):
