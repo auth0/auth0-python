@@ -5,7 +5,7 @@ import time
 import jwt
 import requests
 
-from auth0.v3.exceptions import TokenValidationError
+from auth0.v3.exceptions import Auth0Error, TokenValidationError
 
 
 class SignatureVerifier(object):
@@ -172,7 +172,6 @@ class JwksFetcher(object):
             keys[key["kid"]] = rsa_key
         return keys
 
-
     def get_key(self, key_id):
         """Obtains the JWK associated with the given key id.
 
@@ -270,7 +269,7 @@ class TokenVerifier():
             raise TokenValidationError(
                 'Audience (aud) claim must be a string or array of strings present in the ID token')
 
-        if isinstance(payload['aud'], list) and not self.aud in payload['aud']:
+        if isinstance(payload['aud'], list) and self.aud not in payload['aud']:
             payload_audiences = ", ".join(payload['aud'])
             raise TokenValidationError(
                 'Audience (aud) claim mismatch in the ID token; expected "{}" but was '
@@ -340,3 +339,130 @@ class TokenVerifier():
                     'Authentication Time (auth_time) claim in the ID token indicates that too much '
                     'time has passed since the last end-user authentication. Current time ({}) '
                     'is after last auth at ({})'.format(now, auth_valid_until))
+
+
+class AccessTokenVerifier():
+    """Class that verifies JWT access tokens following the steps defined in the
+    RFC 7519, for more details see:
+    https://datatracker.ietf.org/doc/html/rfc7519#section-7.2
+
+    Args:
+        signature_verifier (SignatureVerifier): The instance that knows how to
+        verify the signature.
+        issuer (str): The expected issuer claim value.
+        audience (str): The expected audience claim value.
+        leeway (int, optional): The clock skew to accept when verifying date
+        related claims in seconds. Defaults to 60 seconds.
+    """
+
+    def __init__(self, signature_verifier, issuer, audience, leeway=0):
+        instance_check = isinstance(signature_verifier, SignatureVerifier)
+        if not signature_verifier or not instance_check:
+            raise TypeError("signature_verifier must be an instance of "
+                            "SignatureVerifier.")
+
+        self.iss = issuer
+        self.aud = audience
+        self.leeway = leeway
+        self._sv = signature_verifier
+        self._clock = None  # visible for testing
+
+    def verify(self, token, scopes=None, permissions=None):
+        """Attempts to verify the given JWT access token, following the steps
+        defined in the RFC 7519, for more details see:
+        https://datatracker.ietf.org/doc/html/rfc7519#section-7.2
+        Auth0 only uses JWT access tokens.
+
+        Args:
+            token (str): The JWT access token to verify.
+            scopes (list(str), optional): a list of scopes to verify.
+            permissions (list(str), optional): a list of permissions to verify.
+
+        Raises:
+            TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one,
+            the token signature is invalid or the token has a claim missing or with unexpected value.
+        """
+
+        # Verify token presence
+        if not token or not isinstance(token, str):
+            raise TokenValidationError("Access token is required but missing.")
+
+        # Verify algorithm and signature
+        payload = self._sv.verify_signature(token)
+
+        # Verify claims
+        self._verify_payload(payload, scopes, permissions)
+
+    def _verify_payload(self, payload, scopes=None, permissions=None):
+        try:
+            # on Python 2.7, 'str' keys as parsed as 'unicode'
+            # But 'unicode' was removed on Python 3.7
+            # noinspection PyUnresolvedReferences
+            ustr = unicode
+        except NameError:
+            ustr = str
+
+        # Issuer
+        if 'iss' not in payload or not isinstance(payload['iss'], (str, ustr)):
+            raise TokenValidationError('Issuer (iss) claim must be a string present in the access token')
+        if payload['iss'] != self.iss:
+            raise TokenValidationError(
+                'Issuer (iss) claim mismatch in the access token; expected "{}", '
+                'found "{}"'.format(self.iss, payload['iss']))
+
+        # Subject
+        if 'sub' not in payload or not isinstance(payload['sub'], (str, ustr)):
+            raise TokenValidationError('Subject (sub) claim must be a string present in the access token')
+
+        # Audience
+        if 'aud' not in payload or not (isinstance(payload['aud'], (str, ustr)) or isinstance(payload['aud'], list)):
+            raise TokenValidationError(
+                'Audience (aud) claim must be a string or array of strings present in the access token')
+
+        if isinstance(payload['aud'], list) and self.aud not in payload['aud']:
+            payload_audiences = ", ".join(payload['aud'])
+            raise TokenValidationError(
+                'Audience (aud) claim mismatch in the access token; expected "{}" but was '
+                'not one of "{}"'.format(self.aud, payload_audiences))
+        elif isinstance(payload['aud'], (str, ustr)) and payload['aud'] != self.aud:
+            raise TokenValidationError(
+                'Audience (aud) claim mismatch in the access token; expected "{}" '
+                'but found "{}"'.format(self.aud, payload['aud']))
+
+        # --Time validation (epoch)--
+        now = self._clock or time.time()
+        leeway = self.leeway
+
+        # Expires at
+        if 'exp' not in payload or not isinstance(payload['exp'], int):
+            raise TokenValidationError('Expiration Time (exp) claim must be a number present in the access token')
+
+        exp_time = payload['exp'] + leeway
+        if now > exp_time:
+            raise TokenValidationError(
+                'Expiration Time (exp) claim error in the access token; current time ({}) is '
+                'after expiration time ({})'.format(now, exp_time))
+
+        # Issued at
+        if 'iat' not in payload or not isinstance(payload['iat'], int):
+            raise TokenValidationError('Issued At (iat) claim must be a number present in the access token')
+
+        # Scopes
+        if scopes:
+            if 'scopes' not in payload or not isinstance(payload['scopes'], str):
+                raise TokenValidationError('No scopes claim found in token.')
+
+            for scope in scopes.split(' '):
+                if scope not in payload['scopes'].split(' '):
+                    msg = "You don't have access to this resource"
+                    raise Auth0Error(status_code=401, error_code=401, message=msg)
+
+        # Permissions
+        if permissions:
+            if 'permissions' not in payload or not isinstance(payload['permissions'], list):
+                raise TokenValidationError('No permissions claim found in token.')
+
+            for permission in permissions:
+                if permission not in payload['permissions']:
+                    msg = "You don't have access to this resource"
+                    raise Auth0Error(status_code=403, error_code=403, message=msg)
