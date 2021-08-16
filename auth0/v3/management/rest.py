@@ -93,16 +93,16 @@ class RestClient(object):
             # Retry the request. Apply a exponential backoff for subsequent attempts, using this formula:
             # max(MIN_REQUEST_RETRY_DELAY, min(MAX_REQUEST_RETRY_DELAY, (100ms * (2 ** attempt - 1)) + random_between(1, MAX_REQUEST_RETRY_JITTER)))
 
-            # ✔ Increases base delay by (100ms * (2 ** attempt - 1))
+            # Increases base delay by (100ms * (2 ** attempt - 1))
             wait = 100 * 2 ** (attempt - 1)
 
-            # ✔ Introduces jitter to the base delay; increases delay between 1ms to MAX_REQUEST_RETRY_JITTER (100ms)
+            # Introduces jitter to the base delay; increases delay between 1ms to MAX_REQUEST_RETRY_JITTER (100ms)
             wait += randint(1, self.MAX_REQUEST_RETRY_JITTER())
 
-            # ✔ Is never more than MAX_REQUEST_RETRY_DELAY (1s)
+            # Is never more than MAX_REQUEST_RETRY_DELAY (1s)
             wait = min(self.MAX_REQUEST_RETRY_DELAY(), wait)
 
-            # ✔ Is never less than MIN_REQUEST_RETRY_DELAY (100ms)
+            # Is never less than MIN_REQUEST_RETRY_DELAY (100ms)
             wait = max(self.MIN_REQUEST_RETRY_DELAY(), wait)
 
             self._metrics['retries'] = attempt
