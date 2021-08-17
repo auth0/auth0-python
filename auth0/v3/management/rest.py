@@ -123,13 +123,7 @@ class RestClient(object):
         self._metrics = {'retries': 0, 'backoff': []}
 
         # Cap the maximum number of retries to 10 or fewer. Floor the retries at 0.
-        retries = 3
-
-        if self.options is not None:
-            if self.options.retries is not None:
-                retries = self.options.retries
-
-        retries = min(self.MAX_REQUEST_RETRIES(), max(0, retries))
+        retries = min(self.MAX_REQUEST_RETRIES(), max(0, self.options.retries))
 
         while True:
             # Increment attempt number
