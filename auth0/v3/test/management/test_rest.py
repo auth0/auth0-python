@@ -177,8 +177,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_rate_limit_error_without_headers(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False, retries=0)
-        rc._skip_sleep = True
+        rc = RestClient(jwt='a-token', telemetry=False, retries=1)
 
         mock_get.return_value.text = '{"statusCode": 429,' \
                                      ' "errorCode": "code",' \
@@ -195,7 +194,7 @@ class TestRest(unittest.TestCase):
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, -1)
 
-        self.assertEqual(rc._metrics['retries'], 0)
+        self.assertEqual(rc._metrics['retries'], 1)
 
     @mock.patch('requests.get')
     def test_get_rate_limit_custom_retries(self, mock_get):
