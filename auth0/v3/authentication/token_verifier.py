@@ -465,4 +465,4 @@ class AccessTokenVerifier():
             for permission in permissions:
                 if permission not in payload['permissions']:
                     msg = "You don't have access to this resource"
-                    raise Auth0Error(status_code=403, error_code=403, message=msg)
+                    raise Auth0Error(status_code=403, error_code='forbidden', message=msg)
