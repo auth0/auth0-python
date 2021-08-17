@@ -608,4 +608,4 @@ class TestAccessTokenVerifier(unittest.TestCase):
 
     def test_fails_when_scopes_specified_but_does_not_mactch(self):
         token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlcyI6InNjb3BlOm9uZSBzY29wZTp0d28ifQ.PROQRTvGrFGkQp-P1FARX5hEUI2ePWyREaw_zwCbzlo"
-        self.assert_fails_with_auth0_error(token, "401: You don't have access to this resource", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), scopes='scope:three')
+        self.assert_fails_with_auth0_error(token, "400: The requested scope is invalid, unknown, malformed, or exceeds the scope granted by the resource owner.", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), scopes='scope:three')
