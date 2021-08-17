@@ -454,8 +454,8 @@ class AccessTokenVerifier():
 
             for scope in scopes.split(' '):
                 if scope not in payload['scopes'].split(' '):
-                    msg = "The requested scope is invalid, unknown, malformed, or exceeds the scope granted by the resource owner."
-                    raise Auth0Error(status_code=400, error_code='invalid_scope', message=msg)
+                    msg = "Insufficient scope."
+                    raise Auth0Error(status_code=403, error_code='insufficient_scope', message=msg)
 
         # Permissions
         if permissions:
