@@ -449,11 +449,11 @@ class AccessTokenVerifier():
 
         # Scopes
         if scopes:
-            if 'scopes' not in payload or not isinstance(payload['scopes'], (str, ustr)):
+            if 'scope' not in payload or not isinstance(payload['scope'], (str, ustr)):
                 raise TokenValidationError('No scopes claim found in token.')
 
             for scope in scopes.split(' '):
-                if scope not in payload['scopes'].split(' '):
+                if scope not in payload['scope'].split(' '):
                     msg = "Insufficient scope."
                     raise Auth0Error(status_code=403, error_code='insufficient_scope', message=msg)
 

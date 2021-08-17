@@ -592,7 +592,7 @@ class TestAccessTokenVerifier(unittest.TestCase):
         tv.verify(token)
 
     def test_passes_when_scopes_present_and_matches(self):
-        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlcyI6InNjb3BlOm9uZSBzY29wZTp0d28ifQ.PROQRTvGrFGkQp-P1FARX5hEUI2ePWyREaw_zwCbzlo"
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlIjoic2NvcGU6b25lIHNjb3BlOnR3byJ9.kNZzMYNyYeVG1vbBuGAgjWdMhv8C2iYHWlJ9BWSYTkA"
         sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
         tv = AccessTokenVerifier(
             signature_verifier=sv,
@@ -607,5 +607,5 @@ class TestAccessTokenVerifier(unittest.TestCase):
         self.assert_fails_with_token_error(token, "No scopes claim found in token.", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), scopes='scope:three')
 
     def test_fails_when_scopes_specified_but_does_not_mactch(self):
-        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlcyI6InNjb3BlOm9uZSBzY29wZTp0d28ifQ.PROQRTvGrFGkQp-P1FARX5hEUI2ePWyREaw_zwCbzlo"
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlIjoic2NvcGU6b25lIHNjb3BlOnR3byJ9.kNZzMYNyYeVG1vbBuGAgjWdMhv8C2iYHWlJ9BWSYTkA"
         self.assert_fails_with_auth0_error(token, "403: Insufficient scope.", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), scopes='scope:three')
