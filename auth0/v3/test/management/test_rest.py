@@ -6,11 +6,95 @@ import base64
 import mock
 import requests
 
-from ...management.rest import RestClient
+from ...management.rest import RestClient, RestClientOptions
 from ...exceptions import Auth0Error, RateLimitError
 
 
 class TestRest(unittest.TestCase):
+    def test_options_are_used_and_override(self):
+        """
+        This test ensures RestClientOptions are read when passed to
+        RestClient's constructor by (1) configuring a timeout and (2)
+        turning off Telemetry. This proves that RestClient is inheriting
+        those options, and overriding it's own constructor arguments.
+        """
+
+        options = RestClientOptions(telemetry=False, timeout=0.00001, retries=10)
+        rc = RestClient(jwt='a-token', telemetry=True, timeout=30, options=options)
+
+        # Does a timeout occur as expected?
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.get('http://google.com')
+
+        # Is RestClient using the RestClientOptions.timeout value properly?
+        self.assertEqual(rc.options.timeout, 0.00001)
+
+        # Is RestClient using the RestClientOptions.retries value properly?
+        self.assertEqual(rc.options.retries, 10)
+
+        # Is RestClient using the RestClientOptions.telemetry value properly?
+        self.assertEqual(rc.options.telemetry, False)
+
+        # Is RestClient using the RestClientOptions.telemetry value properly?
+        self.assertEqual(rc.base_headers, {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer a-token',
+        })
+
+    def test_options_are_created_by_default(self):
+        """
+        This test ensures RestClientOptions are read when passed to
+        RestClient's constructor by (1) configuring a timeout and (2)
+        turning off Telemetry. This proves that RestClient is inheriting
+        those options, and overriding it's own constructor arguments.
+        """
+
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00002)
+
+        # Does a timeout occur as expected?
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.get('http://google.com')
+
+        # Did RestClient create a RestClientOptions for us?
+        self.assertIsNotNone(rc.options)
+
+        # Did RestClient assign the new RestClientOptions instance the proper timeout value from the constructor?
+        self.assertEqual(rc.options.timeout, 0.00002)
+
+        # Did RestClient use the default RestClientOptions value for retries?
+        self.assertEqual(rc.options.retries, 3)
+
+        # Did RestClient assign the new RestClientOptions instance the proper telemetry value from the constructor?
+        self.assertEqual(rc.options.telemetry, False)
+
+        # Is RestClient using the RestClientOptions.telemetry value properly?
+        self.assertEqual(rc.base_headers, {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer a-token',
+        })
+
+    def test_default_options_are_used(self):
+        """
+        This test ensures RestClientOptions are read when passed to
+        RestClient's constructor by (1) configuring a timeout and (2)
+        turning off Telemetry. This proves that RestClient is inheriting
+        those options, and overriding it's own constructor arguments.
+        """
+
+        options = RestClientOptions()
+        rc = RestClient(jwt='a-token', options=options)
+
+        # Did RestClient store the RestClientOptions?
+        self.assertIsNotNone(rc.options)
+
+        # Did RestClientOptions use the default 5.0 timeout?
+        self.assertEqual(rc.options.timeout, 5.0)
+
+        # Did RestClientOptions use the default 3 retries?
+        self.assertEqual(rc.options.retries, 3)
+
+        # Did RestClientOptions use the default True telemetry value?
+        self.assertEqual(rc.options.telemetry, True)
 
     def test_get_can_timeout(self):
         rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
@@ -151,7 +235,8 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_rate_limit_error(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False, retries=0)
+        options = RestClientOptions(telemetry=False, retries=0)
+        rc = RestClient(jwt='a-token', options=options)
         rc._skip_sleep = True
 
         mock_get.return_value.text = '{"statusCode": 429,' \
@@ -177,7 +262,8 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_rate_limit_error_without_headers(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False, retries=1)
+        options = RestClientOptions(telemetry=False, retries=1)
+        rc = RestClient(jwt='a-token', options=options)
 
         mock_get.return_value.text = '{"statusCode": 429,' \
                                      ' "errorCode": "code",' \
@@ -198,7 +284,8 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_rate_limit_custom_retries(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False, retries=5)
+        options = RestClientOptions(telemetry=False, retries=5)
+        rc = RestClient(jwt='a-token', options=options)
         rc._skip_sleep = True
 
         mock_get.return_value.text = '{"statusCode": 429,' \
@@ -225,7 +312,8 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_rate_limit_invalid_retries_below_min(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False, retries=-1)
+        options = RestClientOptions(telemetry=False, retries=-1)
+        rc = RestClient(jwt='a-token', options=options)
         rc._skip_sleep = True
 
         mock_get.return_value.text = '{"statusCode": 429,' \
@@ -252,7 +340,8 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_rate_limit_invalid_retries_above_max(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False, retries=11)
+        options = RestClientOptions(telemetry=False, retries=11)
+        rc = RestClient(jwt='a-token', options=options)
         rc._skip_sleep = True
 
         mock_get.return_value.text = '{"statusCode": 429,' \
@@ -278,7 +367,8 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_rate_limit_retries_use_exponential_backoff(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False, retries=10)
+        options = RestClientOptions(telemetry=False, retries=10)
+        rc = RestClient(jwt='a-token', options=options)
         rc._skip_sleep = True
 
         mock_get.return_value.text = '{"statusCode": 429,' \
