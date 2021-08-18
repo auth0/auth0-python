@@ -609,3 +609,25 @@ class TestAccessTokenVerifier(unittest.TestCase):
     def test_fails_when_scopes_specified_but_does_not_mactch(self):
         token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlIjoic2NvcGU6b25lIHNjb3BlOnR3byJ9.kNZzMYNyYeVG1vbBuGAgjWdMhv8C2iYHWlJ9BWSYTkA"
         self.assert_fails_with_auth0_error(token, "403: Insufficient scope.", signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), scopes='scope:three')
+
+    def test_passes_when_returned_payload_matches(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsInNjb3BlIjoic2NvcGU6b25lIHNjb3BlOnR3byIsInBlcm1pc3Npb25zIjpbInNjb3BlOm9uZSJdfQ.JRdT4HpDpL8lTbIBPtCC86dSpNKVkiZg26LcaZ4bjUE"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = AccessTokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations_2['issuer'],
+            audience=expectations_2['audience'],
+        )
+        tv._clock = MOCKED_CLOCK
+        result = tv.verify(token, permissions=["scope:one"], scopes='scope:two scope:one')
+        expected_payload = {
+            'aud': 'tokens-test-123',
+            'exp': 1587765361,
+            'iat': 1587592561,
+            'iss': 'https://tokens-test.auth0.com/',
+            'org_id': 'org_123',
+            'permissions': ['scope:one'],
+            'scope': 'scope:one scope:two',
+            'sub': 'auth0|sdk458fks'
+        }
+        self.assertEqual(result, expected_payload)

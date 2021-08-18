@@ -381,6 +381,9 @@ class AccessTokenVerifier():
         Raises:
             TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one,
             the token signature is invalid or the token has a claim missing or with unexpected value.
+
+        Returns:
+            If all checks pass, the token payload is returned
         """
 
         # Verify token presence
@@ -392,6 +395,8 @@ class AccessTokenVerifier():
 
         # Verify claims
         self._verify_payload(payload, scopes, permissions)
+
+        return payload
 
     def _verify_payload(self, payload, scopes=None, permissions=None):
         try:
