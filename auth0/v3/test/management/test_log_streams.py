@@ -9,7 +9,7 @@ class TestLogStreams(unittest.TestCase):
 
     def test_init_with_optionals(self):
         t = LogStreams(domain='domain', token='jwttoken', telemetry=False, timeout=(10, 2))
-        self.assertEqual(t.client.timeout, (10, 2))
+        self.assertEqual(t.client.options.timeout, (10, 2))
         telemetry_header = t.client.base_headers.get('Auth0-Client', None)
         self.assertEqual(telemetry_header, None)
 
@@ -24,7 +24,7 @@ class TestLogStreams(unittest.TestCase):
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/log-streams', args[0])
-        
+
     @mock.patch('auth0.v3.management.log_streams.RestClient')
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value

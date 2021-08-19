@@ -6,11 +6,95 @@ import base64
 import mock
 import requests
 
-from ...management.rest import RestClient
+from ...management.rest import RestClient, RestClientOptions
 from ...exceptions import Auth0Error, RateLimitError
 
 
 class TestRest(unittest.TestCase):
+    def test_options_are_used_and_override(self):
+        """
+        This test ensures RestClientOptions are read when passed to
+        RestClient's constructor by (1) configuring a timeout and (2)
+        turning off Telemetry. This proves that RestClient is inheriting
+        those options, and overriding it's own constructor arguments.
+        """
+
+        options = RestClientOptions(telemetry=False, timeout=0.00001, retries=10)
+        rc = RestClient(jwt='a-token', telemetry=True, timeout=30, options=options)
+
+        # Does a timeout occur as expected?
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.get('http://google.com')
+
+        # Is RestClient using the RestClientOptions.timeout value properly?
+        self.assertEqual(rc.options.timeout, 0.00001)
+
+        # Is RestClient using the RestClientOptions.retries value properly?
+        self.assertEqual(rc.options.retries, 10)
+
+        # Is RestClient using the RestClientOptions.telemetry value properly?
+        self.assertEqual(rc.options.telemetry, False)
+
+        # Is RestClient using the RestClientOptions.telemetry value properly?
+        self.assertEqual(rc.base_headers, {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer a-token',
+        })
+
+    def test_options_are_created_by_default(self):
+        """
+        This test ensures RestClientOptions are read when passed to
+        RestClient's constructor by (1) configuring a timeout and (2)
+        turning off Telemetry. This proves that RestClient is inheriting
+        those options, and overriding it's own constructor arguments.
+        """
+
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00002)
+
+        # Does a timeout occur as expected?
+        with self.assertRaises(requests.exceptions.Timeout):
+            rc.get('http://google.com')
+
+        # Did RestClient create a RestClientOptions for us?
+        self.assertIsNotNone(rc.options)
+
+        # Did RestClient assign the new RestClientOptions instance the proper timeout value from the constructor?
+        self.assertEqual(rc.options.timeout, 0.00002)
+
+        # Did RestClient use the default RestClientOptions value for retries?
+        self.assertEqual(rc.options.retries, 3)
+
+        # Did RestClient assign the new RestClientOptions instance the proper telemetry value from the constructor?
+        self.assertEqual(rc.options.telemetry, False)
+
+        # Is RestClient using the RestClientOptions.telemetry value properly?
+        self.assertEqual(rc.base_headers, {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer a-token',
+        })
+
+    def test_default_options_are_used(self):
+        """
+        This test ensures RestClientOptions are read when passed to
+        RestClient's constructor by (1) configuring a timeout and (2)
+        turning off Telemetry. This proves that RestClient is inheriting
+        those options, and overriding it's own constructor arguments.
+        """
+
+        options = RestClientOptions()
+        rc = RestClient(jwt='a-token', options=options)
+
+        # Did RestClient store the RestClientOptions?
+        self.assertIsNotNone(rc.options)
+
+        # Did RestClientOptions use the default 5.0 timeout?
+        self.assertEqual(rc.options.timeout, 5.0)
+
+        # Did RestClientOptions use the default 3 retries?
+        self.assertEqual(rc.options.retries, 3)
+
+        # Did RestClientOptions use the default True telemetry value?
+        self.assertEqual(rc.options.telemetry, True)
 
     def test_get_can_timeout(self):
         rc = RestClient(jwt='a-token', telemetry=False, timeout=0.00001)
@@ -151,7 +235,9 @@ class TestRest(unittest.TestCase):
 
     @mock.patch('requests.get')
     def test_get_rate_limit_error(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False)
+        options = RestClientOptions(telemetry=False, retries=0)
+        rc = RestClient(jwt='a-token', options=options)
+        rc._skip_sleep = True
 
         mock_get.return_value.text = '{"statusCode": 429,' \
                                      ' "errorCode": "code",' \
@@ -172,15 +258,18 @@ class TestRest(unittest.TestCase):
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, 9)
 
+        self.assertEqual(rc._metrics['retries'], 0)
+
     @mock.patch('requests.get')
     def test_get_rate_limit_error_without_headers(self, mock_get):
-        rc = RestClient(jwt='a-token', telemetry=False)
+        options = RestClientOptions(telemetry=False, retries=1)
+        rc = RestClient(jwt='a-token', options=options)
 
         mock_get.return_value.text = '{"statusCode": 429,' \
                                      ' "errorCode": "code",' \
                                      ' "message": "message"}'
         mock_get.return_value.status_code = 429
-        
+
         mock_get.return_value.headers = {}
         with self.assertRaises(Auth0Error) as context:
             rc.get('the/url')
@@ -190,6 +279,179 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.message, 'message')
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, -1)
+
+        self.assertEqual(rc._metrics['retries'], 1)
+
+    @mock.patch('requests.get')
+    def test_get_rate_limit_custom_retries(self, mock_get):
+        options = RestClientOptions(telemetry=False, retries=5)
+        rc = RestClient(jwt='a-token', options=options)
+        rc._skip_sleep = True
+
+        mock_get.return_value.text = '{"statusCode": 429,' \
+                                     ' "errorCode": "code",' \
+                                     ' "message": "message"}'
+        mock_get.return_value.status_code = 429
+        mock_get.return_value.headers = {
+            'x-ratelimit-limit': '3',
+            'x-ratelimit-remaining': '6',
+            'x-ratelimit-reset': '9',
+        }
+
+        with self.assertRaises(Auth0Error) as context:
+            response = rc.get('the/url')
+
+        self.assertEqual(context.exception.status_code, 429)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+        self.assertIsInstance(context.exception, RateLimitError)
+        self.assertEqual(context.exception.reset_at, 9)
+
+        self.assertEqual(rc._metrics['retries'], 5)
+        self.assertEqual(rc._metrics['retries'], len(rc._metrics['backoff']))
+
+    @mock.patch('requests.get')
+    def test_get_rate_limit_invalid_retries_below_min(self, mock_get):
+        options = RestClientOptions(telemetry=False, retries=-1)
+        rc = RestClient(jwt='a-token', options=options)
+        rc._skip_sleep = True
+
+        mock_get.return_value.text = '{"statusCode": 429,' \
+                                     ' "errorCode": "code",' \
+                                     ' "message": "message"}'
+        mock_get.return_value.status_code = 429
+        mock_get.return_value.headers = {
+            'x-ratelimit-limit': '3',
+            'x-ratelimit-remaining': '6',
+            'x-ratelimit-reset': '9',
+        }
+
+        with self.assertRaises(Auth0Error) as context:
+            response = rc.get('the/url')
+
+        self.assertEqual(context.exception.status_code, 429)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+        self.assertIsInstance(context.exception, RateLimitError)
+        self.assertEqual(context.exception.reset_at, 9)
+
+        self.assertEqual(rc._metrics['retries'], 0)
+
+
+    @mock.patch('requests.get')
+    def test_get_rate_limit_invalid_retries_above_max(self, mock_get):
+        options = RestClientOptions(telemetry=False, retries=11)
+        rc = RestClient(jwt='a-token', options=options)
+        rc._skip_sleep = True
+
+        mock_get.return_value.text = '{"statusCode": 429,' \
+                                     ' "errorCode": "code",' \
+                                     ' "message": "message"}'
+        mock_get.return_value.status_code = 429
+        mock_get.return_value.headers = {
+            'x-ratelimit-limit': '3',
+            'x-ratelimit-remaining': '6',
+            'x-ratelimit-reset': '9',
+        }
+
+        with self.assertRaises(Auth0Error) as context:
+            response = rc.get('the/url')
+
+        self.assertEqual(context.exception.status_code, 429)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+        self.assertIsInstance(context.exception, RateLimitError)
+        self.assertEqual(context.exception.reset_at, 9)
+
+        self.assertEqual(rc._metrics['retries'], rc.MAX_REQUEST_RETRIES())
+
+    @mock.patch('requests.get')
+    def test_get_rate_limit_retries_use_exponential_backoff(self, mock_get):
+        options = RestClientOptions(telemetry=False, retries=10)
+        rc = RestClient(jwt='a-token', options=options)
+        rc._skip_sleep = True
+
+        mock_get.return_value.text = '{"statusCode": 429,' \
+                                     ' "errorCode": "code",' \
+                                     ' "message": "message"}'
+        mock_get.return_value.status_code = 429
+        mock_get.return_value.headers = {
+            'x-ratelimit-limit': '3',
+            'x-ratelimit-remaining': '6',
+            'x-ratelimit-reset': '9',
+        }
+
+        with self.assertRaises(Auth0Error) as context:
+            response = rc.get('the/url')
+
+        self.assertEqual(context.exception.status_code, 429)
+        self.assertEqual(context.exception.error_code, 'code')
+        self.assertEqual(context.exception.message, 'message')
+        self.assertIsInstance(context.exception, RateLimitError)
+        self.assertEqual(context.exception.reset_at, 9)
+
+        self.assertEqual(rc._metrics['retries'], 10)
+        self.assertEqual(rc._metrics['retries'], len(rc._metrics['backoff']))
+
+        baseBackoff = [0]
+        baseBackoffSum = 0
+        finalBackoff = 0
+
+        for i in range(0, 9):
+            backoff = 100 * 2 ** i
+            baseBackoff.append(backoff)
+            baseBackoffSum += backoff
+
+        for backoff in rc._metrics['backoff']:
+            finalBackoff += backoff
+
+        # Assert that exponential backoff is happening.
+        self.assertGreaterEqual(rc._metrics['backoff'][1], rc._metrics['backoff'][0])
+        self.assertGreaterEqual(rc._metrics['backoff'][2], rc._metrics['backoff'][1])
+        self.assertGreaterEqual(rc._metrics['backoff'][3], rc._metrics['backoff'][2])
+        self.assertGreaterEqual(rc._metrics['backoff'][4], rc._metrics['backoff'][3])
+        self.assertGreaterEqual(rc._metrics['backoff'][5], rc._metrics['backoff'][4])
+        self.assertGreaterEqual(rc._metrics['backoff'][6], rc._metrics['backoff'][5])
+        self.assertGreaterEqual(rc._metrics['backoff'][7], rc._metrics['backoff'][6])
+        self.assertGreaterEqual(rc._metrics['backoff'][8], rc._metrics['backoff'][7])
+        self.assertGreaterEqual(rc._metrics['backoff'][9], rc._metrics['backoff'][8])
+
+        # Ensure jitter is being applied.
+        self.assertNotEquals(rc._metrics['backoff'][1], baseBackoff[1])
+        self.assertNotEquals(rc._metrics['backoff'][2], baseBackoff[2])
+        self.assertNotEquals(rc._metrics['backoff'][3], baseBackoff[3])
+        self.assertNotEquals(rc._metrics['backoff'][4], baseBackoff[4])
+        self.assertNotEquals(rc._metrics['backoff'][5], baseBackoff[5])
+        self.assertNotEquals(rc._metrics['backoff'][6], baseBackoff[6])
+        self.assertNotEquals(rc._metrics['backoff'][7], baseBackoff[7])
+        self.assertNotEquals(rc._metrics['backoff'][8], baseBackoff[8])
+        self.assertNotEquals(rc._metrics['backoff'][9], baseBackoff[9])
+
+        # Ensure subsequent delay is never less than the minimum.
+        self.assertGreaterEqual(rc._metrics['backoff'][1], rc.MIN_REQUEST_RETRY_DELAY())
+        self.assertGreaterEqual(rc._metrics['backoff'][2], rc.MIN_REQUEST_RETRY_DELAY())
+        self.assertGreaterEqual(rc._metrics['backoff'][3], rc.MIN_REQUEST_RETRY_DELAY())
+        self.assertGreaterEqual(rc._metrics['backoff'][4], rc.MIN_REQUEST_RETRY_DELAY())
+        self.assertGreaterEqual(rc._metrics['backoff'][5], rc.MIN_REQUEST_RETRY_DELAY())
+        self.assertGreaterEqual(rc._metrics['backoff'][6], rc.MIN_REQUEST_RETRY_DELAY())
+        self.assertGreaterEqual(rc._metrics['backoff'][7], rc.MIN_REQUEST_RETRY_DELAY())
+        self.assertGreaterEqual(rc._metrics['backoff'][8], rc.MIN_REQUEST_RETRY_DELAY())
+        self.assertGreaterEqual(rc._metrics['backoff'][9], rc.MIN_REQUEST_RETRY_DELAY())
+
+        # Ensure delay is never more than the maximum.
+        self.assertLessEqual(rc._metrics['backoff'][0], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][1], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][2], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][3], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][4], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][5], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][6], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][7], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][8], rc.MAX_REQUEST_RETRY_DELAY())
+        self.assertLessEqual(rc._metrics['backoff'][9], rc.MAX_REQUEST_RETRY_DELAY())
+
+        # Ensure total delay sum is never more than 10s.
+        self.assertLessEqual(finalBackoff, 10000)
 
     @mock.patch('requests.post')
     def test_post(self, mock_post):

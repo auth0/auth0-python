@@ -32,31 +32,36 @@ class Auth0(object):
         domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
 
         token (str): Management API v2 Token
+
+        rest_options (RestClientOptions): Pass an instance of
+            RestClientOptions to configure additional RestClient
+            options, such as rate-limit retries.
+            (defaults to None)
     """
 
-    def __init__(self, domain, token):
-        self.blacklists = Blacklists(domain, token)
-        self.client_grants = ClientGrants(domain, token)
-        self.clients = Clients(domain, token)
-        self.connections = Connections(domain, token)
-        self.custom_domains = CustomDomains(domain, token)
-        self.device_credentials = DeviceCredentials(domain, token)
-        self.email_templates = EmailTemplates(domain, token)
-        self.emails = Emails(domain, token)
-        self.grants = Grants(domain, token)
-        self.guardian = Guardian(domain, token)
-        self.hooks = Hooks(domain, token)
-        self.jobs = Jobs(domain, token)
-        self.log_streams = LogStreams(domain, token)
-        self.logs = Logs(domain, token)
-        self.organizations = Organizations(domain, token)
-        self.resource_servers = ResourceServers(domain, token)
-        self.roles = Roles(domain, token)
-        self.rules_configs = RulesConfigs(domain, token)
-        self.rules = Rules(domain, token)
-        self.stats = Stats(domain, token)
-        self.tenants = Tenants(domain, token)
-        self.tickets = Tickets(domain, token)
-        self.user_blocks = UserBlocks(domain, token)
-        self.users_by_email = UsersByEmail(domain, token)
-        self.users = Users(domain, token)
+    def __init__(self, domain, token, rest_options=None):
+        self.blacklists = Blacklists(domain=domain, token=token, rest_options=rest_options)
+        self.client_grants = ClientGrants(domain=domain, token=token, rest_options=rest_options)
+        self.clients = Clients(domain=domain, token=token, rest_options=rest_options)
+        self.connections = Connections(domain=domain, token=token, rest_options=rest_options)
+        self.custom_domains = CustomDomains(domain=domain, token=token, rest_options=rest_options)
+        self.device_credentials = DeviceCredentials(domain=domain, token=token, rest_options=rest_options)
+        self.email_templates = EmailTemplates(domain=domain, token=token, rest_options=rest_options)
+        self.emails = Emails(domain=domain, token=token, rest_options=rest_options)
+        self.grants = Grants(domain=domain, token=token, rest_options=rest_options)
+        self.guardian = Guardian(domain=domain, token=token, rest_options=rest_options)
+        self.hooks = Hooks(domain=domain, token=token, rest_options=rest_options)
+        self.jobs = Jobs(domain=domain, token=token, rest_options=rest_options)
+        self.log_streams = LogStreams(domain=domain, token=token, rest_options=rest_options)
+        self.logs = Logs(domain=domain, token=token, rest_options=rest_options)
+        self.organizations = Organizations(domain=domain, token=token, rest_options=rest_options)
+        self.resource_servers = ResourceServers(domain=domain, token=token, rest_options=rest_options)
+        self.roles = Roles(domain=domain, token=token, rest_options=rest_options)
+        self.rules_configs = RulesConfigs(domain=domain, token=token, rest_options=rest_options)
+        self.rules = Rules(domain=domain, token=token, rest_options=rest_options)
+        self.stats = Stats(domain=domain, token=token, rest_options=rest_options)
+        self.tenants = Tenants(domain=domain, token=token, rest_options=rest_options)
+        self.tickets = Tickets(domain=domain, token=token, rest_options=rest_options)
+        self.user_blocks = UserBlocks(domain=domain, token=token, rest_options=rest_options)
+        self.users_by_email = UsersByEmail(domain=domain, token=token, rest_options=rest_options)
+        self.users = Users(domain=domain, token=token, rest_options=rest_options)
