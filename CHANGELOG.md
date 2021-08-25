@@ -1,6 +1,19 @@
 Changes
 =======
 
+3.17.0
+------------------
+
+**Added**
+- Make the CI fail when the docs syntax is invalid [\#287](https://github.com/auth0/auth0-python/pull/287) ([lbalmaceda](https://github.com/lbalmaceda))
+- [SDK-2687] Implement automatic rate-limit handling [\#285](https://github.com/auth0/auth0-python/pull/285) ([evansims](https://github.com/evansims))
+- Use Sphinx to generate API docs [\#281](https://github.com/auth0/auth0-python/pull/281) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add Passwordless Login function [\#279](https://github.com/auth0/auth0-python/pull/279) ([lbalmaceda](https://github.com/lbalmaceda))
+- [SDK 2665] Update endpoint methods to support 'from' and 'take' checkpoint pagination parameters, where appropriate [\#278](https://github.com/auth0/auth0-python/pull/278) ([evansims](https://github.com/evansims))
+
+**Deprecated**
+- Deprecate /oauth/ro for passwordless [\#280](https://github.com/auth0/auth0-python/pull/280) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.16.2
 ------------------
 
