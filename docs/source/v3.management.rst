@@ -122,7 +122,7 @@ management.logs module
    :show-inheritance:
 
 management.organizations module
--------------------------
+----------------------------------
 
 .. automodule:: auth0.v3.management.organizations
    :members:

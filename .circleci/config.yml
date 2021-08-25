@@ -21,7 +21,9 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python2.7/site-packages"
-      - run: coverage run --include=auth0/v3/*.py --omit=auth0/v3/test/*.py -m unittest discover
+      - run:
+          name: Run tests
+          command: coverage run --include=auth0/v3/*.py --omit=auth0/v3/test/*.py -m unittest discover
       - run:
           when: on_success
           command: bash <(curl -s https://codecov.io/bash)
