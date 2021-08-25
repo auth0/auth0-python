@@ -40,13 +40,19 @@ jobs:
           command: |
             pip install .[test]
             pip install codecov
+            pip install -r docs/requirements.txt
       - save_cache:
           key: deps3-{{ .Branch }}-{{ checksum "setup.py" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.6/site-packages"
-      - run: coverage run --include=auth0/v3/*.py --omit=auth0/v3/test/*.py -m unittest discover
+      - run:
+          name: Run tests
+          command: coverage run --include=auth0/v3/*.py --omit=auth0/v3/test/*.py -m unittest discover
+      - run:
+          name: Build docs
+          command: cd docs/ && make html
       - run:
           when: on_success
           command: bash <(curl -s https://codecov.io/bash)
