@@ -340,6 +340,7 @@ Authentication Endpoints
 Management Endpoints
 ********************
 
+- Actions() (``Auth0().actions``)
 - Blacklists() ( ``Auth0().blacklists`` )
 - ClientGrants() ( ``Auth0().client_grants`` )
 - Clients() ( ``Auth0().clients`` )
