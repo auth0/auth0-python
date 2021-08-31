@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.18.0
+------------------
+
+**Added**
+- [SDK-2720] Add support for actions APIs [\#289](https://github.com/auth0/auth0-python/pull/289) ([jimmyjames](https://github.com/jimmyjames))
+
 3.17.0
 ------------------
 
