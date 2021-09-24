@@ -13,16 +13,17 @@ from .jobs import Jobs
 from .log_streams import LogStreams
 from .logs import Logs
 from .organizations import Organizations
+from .prompts import Prompts
 from .resource_servers import ResourceServers
 from .roles import Roles
-from .rules_configs import RulesConfigs
 from .rules import Rules
+from .rules_configs import RulesConfigs
 from .stats import Stats
 from .tenants import Tenants
 from .tickets import Tickets
 from .user_blocks import UserBlocks
-from .users_by_email import UsersByEmail
 from .users import Users
+from .users_by_email import UsersByEmail
 
 
 class Auth0(object):
@@ -55,6 +56,7 @@ class Auth0(object):
         self.log_streams = LogStreams(domain=domain, token=token, rest_options=rest_options)
         self.logs = Logs(domain=domain, token=token, rest_options=rest_options)
         self.organizations = Organizations(domain=domain, token=token, rest_options=rest_options)
+        self.prompts = Prompts(domain=domain, token=token, rest_options=rest_options)
         self.resource_servers = ResourceServers(domain=domain, token=token, rest_options=rest_options)
         self.roles = Roles(domain=domain, token=token, rest_options=rest_options)
         self.rules_configs = RulesConfigs(domain=domain, token=token, rest_options=rest_options)

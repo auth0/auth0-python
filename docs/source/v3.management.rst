@@ -129,6 +129,14 @@ management.organizations module
    :undoc-members:
    :show-inheritance:
 
+management.prompts module
+----------------------------------
+
+.. automodule:: auth0.v3.management.prompts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 management.resource\_servers module
 --------------------------------------
 
