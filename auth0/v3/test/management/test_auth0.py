@@ -16,23 +16,23 @@ from ...management.jobs import Jobs
 from ...management.log_streams import LogStreams
 from ...management.logs import Logs
 from ...management.organizations import Organizations
+from ...management.prompts import Prompts
 from ...management.resource_servers import ResourceServers
 from ...management.roles import Roles
-from ...management.rules_configs import RulesConfigs
 from ...management.rules import Rules
+from ...management.rules_configs import RulesConfigs
 from ...management.stats import Stats
 from ...management.tenants import Tenants
 from ...management.tickets import Tickets
 from ...management.user_blocks import UserBlocks
-from ...management.users_by_email import UsersByEmail
 from ...management.users import Users
+from ...management.users_by_email import UsersByEmail
 
 
 class TestAuth0(unittest.TestCase):
-
     def setUp(self):
-        self.domain = 'user.some.domain'
-        self.token = 'a-token'
+        self.domain = "user.some.domain"
+        self.token = "a-token"
         self.a0 = Auth0(self.domain, self.token)
 
     def test_blacklists(self):
@@ -73,12 +73,15 @@ class TestAuth0(unittest.TestCase):
 
     def test_log_streams(self):
         self.assertIsInstance(self.a0.log_streams, LogStreams)
-    
+
     def test_logs(self):
         self.assertIsInstance(self.a0.logs, Logs)
 
     def test_organizations(self):
         self.assertIsInstance(self.a0.organizations, Organizations)
+
+    def test_prompts(self):
+        self.assertIsInstance(self.a0.prompts, Prompts)
 
     def test_resource_servers(self):
         self.assertIsInstance(self.a0.resource_servers, ResourceServers)

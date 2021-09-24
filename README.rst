@@ -356,6 +356,7 @@ Management Endpoints
 - LogStreams() ( ``Auth0().log_streams`` )
 - Logs() ( ``Auth0().logs`` )
 - Organizations() ( ``Auth0().organizations`` )
+- Prompts() ( ``Auth0().prompts`` )
 - ResourceServers() (``Auth0().resource_servers`` )
 - Roles() ( ``Auth0().roles`` )
 - RulesConfigs() ( ``Auth0().rules_configs`` )
