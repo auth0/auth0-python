@@ -1,6 +1,7 @@
 import unittest
 
 from ...management.auth0 import Auth0
+from ...management.actions import Actions
 from ...management.blacklists import Blacklists
 from ...management.client_grants import ClientGrants
 from ...management.clients import Clients
@@ -34,6 +35,9 @@ class TestAuth0(unittest.TestCase):
         self.domain = "user.some.domain"
         self.token = "a-token"
         self.a0 = Auth0(self.domain, self.token)
+
+    def test_blacklists(self):
+        self.assertIsInstance(self.a0.actions, Actions)
 
     def test_blacklists(self):
         self.assertIsInstance(self.a0.blacklists, Blacklists)
