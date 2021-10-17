@@ -417,15 +417,15 @@ class TestRest(unittest.TestCase):
         self.assertGreaterEqual(rc._metrics['backoff'][9], rc._metrics['backoff'][8])
 
         # Ensure jitter is being applied.
-        self.assertNotEquals(rc._metrics['backoff'][1], baseBackoff[1])
-        self.assertNotEquals(rc._metrics['backoff'][2], baseBackoff[2])
-        self.assertNotEquals(rc._metrics['backoff'][3], baseBackoff[3])
-        self.assertNotEquals(rc._metrics['backoff'][4], baseBackoff[4])
-        self.assertNotEquals(rc._metrics['backoff'][5], baseBackoff[5])
-        self.assertNotEquals(rc._metrics['backoff'][6], baseBackoff[6])
-        self.assertNotEquals(rc._metrics['backoff'][7], baseBackoff[7])
-        self.assertNotEquals(rc._metrics['backoff'][8], baseBackoff[8])
-        self.assertNotEquals(rc._metrics['backoff'][9], baseBackoff[9])
+        self.assertNotEqual(rc._metrics['backoff'][1], baseBackoff[1])
+        self.assertNotEqual(rc._metrics['backoff'][2], baseBackoff[2])
+        self.assertNotEqual(rc._metrics['backoff'][3], baseBackoff[3])
+        self.assertNotEqual(rc._metrics['backoff'][4], baseBackoff[4])
+        self.assertNotEqual(rc._metrics['backoff'][5], baseBackoff[5])
+        self.assertNotEqual(rc._metrics['backoff'][6], baseBackoff[6])
+        self.assertNotEqual(rc._metrics['backoff'][7], baseBackoff[7])
+        self.assertNotEqual(rc._metrics['backoff'][8], baseBackoff[8])
+        self.assertNotEqual(rc._metrics['backoff'][9], baseBackoff[9])
 
         # Ensure subsequent delay is never less than the minimum.
         self.assertGreaterEqual(rc._metrics['backoff'][1], rc.MIN_REQUEST_RETRY_DELAY())
