@@ -58,12 +58,12 @@ class SignatureVerifier(object):
         try:
             header = jwt.get_unverified_header(token)
         except jwt.exceptions.DecodeError:
-            raise TokenValidationError("ID token could not be decoded.")
+            raise TokenValidationError("token could not be decoded.")
 
         alg = header.get('alg', None)
         if alg != self._algorithm:
             raise TokenValidationError(
-                'Signature algorithm of "{}" is not supported. Expected the ID token '
+                'Signature algorithm of "{}" is not supported. Expected the token '
                 'to be signed with "{}"'.format(alg, self._algorithm))
 
         kid = header.get('kid', None)
