@@ -1,6 +1,19 @@
 Changes
 =======
 
+3.19.0
+------------------
+
+**Added**
+- Add actions to Auth0 class [\#293](https://github.com/auth0/auth0-python/pull/293) ([jrzerr](https://github.com/jrzerr))
+- Added support for prompts API [\#291](https://github.com/auth0/auth0-python/pull/291) ([lorinkoz](https://github.com/lorinkoz))
+
+**Changed**
+- Remove references to ID token in generic token classes [\#295](https://github.com/auth0/auth0-python/pull/295) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Fixed**
+- Use assertNotEqual instead of assertNotEquals for Python 3.11 compatibility. [\#294](https://github.com/auth0/auth0-python/pull/294) ([tirkarthi](https://github.com/tirkarthi))
+
 3.18.0
 ------------------
 
