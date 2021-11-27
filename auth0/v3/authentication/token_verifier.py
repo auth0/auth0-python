@@ -233,6 +233,9 @@ class TokenVerifier():
     Raises:
         TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one, 
         the token signature is invalid or the token has a claim missing or with unexpected value.
+        
+    Returns:
+        Dict: Verified token claims.
     """
 
     def verify(self, token, nonce=None, max_age=None, organization=None):
