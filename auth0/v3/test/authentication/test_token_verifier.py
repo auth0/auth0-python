@@ -267,6 +267,31 @@ class TestTokenVerifier(unittest.TestCase):
         tv._clock = MOCKED_CLOCK
         tv.verify(token)
 
+    def test_verify_method_returns_correct_payload_for_HS256(self):
+        token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Hn38QVtN_mWN0c-jOa-Fqq69kXpbBp0THsvE-CQ47Ps"
+
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = TokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations['issuer'],
+            audience=expectations['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        payload = tv.verify(token)
+        self.assertEqual(payload, {
+            "iss": "https://tokens-test.auth0.com/",
+            "sub": "auth0|123456789",
+            "aud": [
+                "tokens-test-123",
+                "external-test-999"
+            ],
+            "exp": 1587765361,
+            "iat": 1587592561,
+            "nonce": "a1b2c3d4e5",
+            "azp": "tokens-test-123",
+            "auth_time": 1587678961
+        })
+
     def test_RS256_token_signature_passes(self):
         token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Eo2jxdlrKmutIeyn9Un6VHorMJaCL5txPDCC3QiAQn0pYYnrRU7VMQwqbTiXLQ9zPYh5Q4pQmT-XRaGL-HwDH8vCUieVJKOm0-gNFAMzx1i8sRH1ubw75sn69y09AQKcitYtjnBmahgfZrswtsxOXM7XovlLftPjv6goAi_U38GYsS_V_zOBvdbX2cM5zdooJAC0e7vlCr3bXNo90qwgCuezvCGt1ZrgWyDNO9oMzK-TlK86q36LuIkux7XZboF5rc3zsThEce_tPufA5qoEa-7I_ybmjwlvOCWmngYLT52_S2CbHeRNarePMjZIlmAuG-DcetwO8jJsX84Ra0SdUw"
 
@@ -278,6 +303,31 @@ class TestTokenVerifier(unittest.TestCase):
         )
         tv._clock = MOCKED_CLOCK
         tv.verify(token)
+
+    def test_verify_method_returns_correct_payload_for_RS256(self):
+        token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Eo2jxdlrKmutIeyn9Un6VHorMJaCL5txPDCC3QiAQn0pYYnrRU7VMQwqbTiXLQ9zPYh5Q4pQmT-XRaGL-HwDH8vCUieVJKOm0-gNFAMzx1i8sRH1ubw75sn69y09AQKcitYtjnBmahgfZrswtsxOXM7XovlLftPjv6goAi_U38GYsS_V_zOBvdbX2cM5zdooJAC0e7vlCr3bXNo90qwgCuezvCGt1ZrgWyDNO9oMzK-TlK86q36LuIkux7XZboF5rc3zsThEce_tPufA5qoEa-7I_ybmjwlvOCWmngYLT52_S2CbHeRNarePMjZIlmAuG-DcetwO8jJsX84Ra0SdUw"
+
+        sv = self.asymmetric_signature_verifier_mock()
+        tv = TokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations['issuer'],
+            audience=expectations['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        payload = tv.verify(token)
+        self.assertEqual(payload, {
+            "iss": "https://tokens-test.auth0.com/",
+            "sub": "auth0|123456789",
+            "aud": [
+            "tokens-test-123",
+            "external-test-999"
+            ],
+            "exp": 1587765361,
+            "iat": 1587592561,
+            "nonce": "a1b2c3d4e5",
+            "azp": "tokens-test-123",
+            "auth_time": 1587678961
+        })
 
     def test_HS256_token_signature_fails(self):
         token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.invalidsignature"
