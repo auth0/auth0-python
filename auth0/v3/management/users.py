@@ -297,6 +297,17 @@ class Users(object):
         """
         url = self._url('{}/multifactor/{}'.format(id, provider))
         return self.client.delete(url)
+    
+    def delete_authenticators(self, id):
+        """Delete all user's MFA enrollments (like the Reset MFA action on the dashboard)
+
+        Args:
+            id (str): The user's id.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_authenticators
+        """
+        url = self._url('{}/authenticators'.format(id))
+        return self.client.delete(url)    
 
     def unlink_user_account(self, id, provider, user_id):
         """Unlink a user account
