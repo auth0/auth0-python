@@ -1,5 +1,6 @@
 from .auth0 import Auth0
 from .actions import Actions
+from .attack_protection import AttackProtection
 from .blacklists import Blacklists
 from .client_grants import ClientGrants
 from .clients import Clients
