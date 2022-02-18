@@ -69,6 +69,7 @@ class DeviceCredentials(object):
             'client_id': client_id,
             'type': type,
             'page': page,
+            'per_page': per_page,
             'include_totals': str(include_totals).lower()
         }
         return self.client.get(self._url(), params=params)
