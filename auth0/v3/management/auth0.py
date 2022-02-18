@@ -1,4 +1,5 @@
 from .actions import Actions
+from .attack_protection import AttackProtection
 from .blacklists import Blacklists
 from .client_grants import ClientGrants
 from .clients import Clients
@@ -43,6 +44,7 @@ class Auth0(object):
 
     def __init__(self, domain, token, rest_options=None):
         self.actions = Actions(domain=domain, token=token, rest_options=rest_options)
+        self.attack_protection = AttackProtection(domain=domain, token=token, rest_options=rest_options)
         self.blacklists = Blacklists(domain=domain, token=token, rest_options=rest_options)
         self.client_grants = ClientGrants(domain=domain, token=token, rest_options=rest_options)
         self.clients = Clients(domain=domain, token=token, rest_options=rest_options)

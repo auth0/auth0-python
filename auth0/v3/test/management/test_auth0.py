@@ -2,6 +2,7 @@ import unittest
 
 from ...management.auth0 import Auth0
 from ...management.actions import Actions
+from ...management.attack_protection import AttackProtection
 from ...management.blacklists import Blacklists
 from ...management.client_grants import ClientGrants
 from ...management.clients import Clients
@@ -36,8 +37,11 @@ class TestAuth0(unittest.TestCase):
         self.token = "a-token"
         self.a0 = Auth0(self.domain, self.token)
 
-    def test_blacklists(self):
+    def test_actions(self):
         self.assertIsInstance(self.a0.actions, Actions)
+
+    def test_attack_protection(self):
+        self.assertIsInstance(self.a0.attack_protection, AttackProtection)
 
     def test_blacklists(self):
         self.assertIsInstance(self.a0.blacklists, Blacklists)

@@ -19,7 +19,7 @@ You can install the auth0 Python SDK using the following command.
 For python3, use the following command
 
 .. code-block:: python
-    
+
     pip3 install auth0-python
 
 Python 3.2 and 3.3 have reached `EOL <https://en.wikipedia.org/wiki/CPython#Version_history>`__ and support will be removed in the near future.
@@ -86,22 +86,22 @@ For symmetric algorithms like HS256, use the ``SymmetricSignatureVerifier`` clas
 The following example demonstrates the verification of an ID token signed with the RS256 signing algorithm:
 
 .. code-block:: python
-    
+
     from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
-    
+
     domain = 'myaccount.auth0.com'
     client_id = 'exampleid'
-    
+
     # After authenticating
     id_token = auth_result['id_token']
-    
+
     jwks_url = 'https://{}/.well-known/jwks.json'.format(domain)
     issuer = 'https://{}/'.format(domain)
-    
+
     sv = AsymmetricSignatureVerifier(jwks_url)  # Reusable instance
     tv = TokenVerifier(signature_verifier=sv, issuer=issuer, audience=client_id)
     tv.verify(id_token)
-    
+
 If the token verification fails, a ``TokenValidationError`` will be raised. In that scenario, the ID token should be deemed invalid and its contents should not be trusted.
 
 
@@ -128,7 +128,7 @@ Log in to an organization by specifying the ``organization`` property when calli
 .. code-block:: python
 
     from auth0.v3.authentication.authorize_client import AuthorizeClient
-    
+
     client = AuthorizeClient('my.domain.com')
 
     client.authorize(client_id='client_id',
@@ -138,18 +138,18 @@ Log in to an organization by specifying the ``organization`` property when calli
 When logging into an organization, it is important to ensure the ``org_id`` claim of the ID Token matches the expected organization value. The ``TokenVerifier`` can be be used to ensure the ID Token contains the expected ``org_id`` claim value:
 
 .. code-block:: python
-    
+
     from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
-    
+
     domain = 'myaccount.auth0.com'
     client_id = 'exampleid'
-    
+
     # After authenticating
     id_token = auth_result['id_token']
-    
+
     jwks_url = 'https://{}/.well-known/jwks.json'.format(domain)
     issuer = 'https://{}/'.format(domain)
-    
+
     sv = AsymmetricSignatureVerifier(jwks_url)  # Reusable instance
     tv = TokenVerifier(signature_verifier=sv, issuer=issuer, audience=client_id)
 
@@ -210,9 +210,9 @@ The snippet below attempts to illustrate how this verification could look like u
     organization = # expected organization ID
     if data['org_id'] != organization:
         raise Exception('Organization (org_id) claim mismatch')
-    
+
     # if this line is reached, validation is successful
-  
+
 
 **************
 Management SDK
@@ -341,6 +341,7 @@ Management Endpoints
 ********************
 
 - Actions() (``Auth0().actions``)
+- AttackProtection() (``Auth0().attack_protection``)
 - Blacklists() ( ``Auth0().blacklists`` )
 - ClientGrants() ( ``Auth0().client_grants`` )
 - Clients() ( ``Auth0().clients`` )
