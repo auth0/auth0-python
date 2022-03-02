@@ -16,7 +16,7 @@ class TestDeviceCredentials(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         c = DeviceCredentials(domain='domain', token='jwttoken')
-        c.get(user_id='uid', client_id='cid', type='type')
+        c.get(user_id='uid', client_id='cid', type='type', page=0, per_page=20)
 
         args, kwargs = mock_instance.get.call_args
 
@@ -25,7 +25,24 @@ class TestDeviceCredentials(unittest.TestCase):
                                             'include_fields': 'true',
                                             'user_id': 'uid',
                                             'client_id': 'cid',
-                                            'type': 'type'})
+                                            'type': 'type',
+                                            'page': 0,
+                                            'per_page': 20,
+                                            'include_totals': 'false'})
+
+        c.get(user_id='uid', client_id='cid', type='type', page=5, per_page=50, include_totals=True)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/device-credentials', args[0])
+        self.assertEqual(kwargs['params'], {'fields': None,
+                                            'include_fields': 'true',
+                                            'user_id': 'uid',
+                                            'client_id': 'cid',
+                                            'type': 'type',
+                                            'page': 5,
+                                            'per_page': 50,
+                                            'include_totals': 'true'})
 
     @mock.patch('auth0.v3.management.device_credentials.RestClient')
     def test_create(self, mock_rc):
