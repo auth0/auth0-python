@@ -7,6 +7,7 @@ import requests
 from ..exceptions import Auth0Error, RateLimitError
 from time import sleep
 from random import randint
+from circuitbreaker import circuit
 
 UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
 
