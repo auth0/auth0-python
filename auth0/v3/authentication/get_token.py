@@ -10,7 +10,8 @@ class GetToken(AuthenticationBase):
     """
 
     def authorization_code(self, client_id, client_secret, code,
-                           redirect_uri, grant_type='authorization_code'):
+                           redirect_uri, grant_type='authorization_code',
+                           timeout=5.0):
         """Authorization code grant
 
         This is the OAuth 2.0 grant that regular web apps utilize in order
@@ -30,6 +31,11 @@ class GetToken(AuthenticationBase):
             redirect_uri (str, optional): This is required only if it was set at
             the GET /authorize endpoint. The values must match
 
+            timeout (float or tuple, optional): Change the requests
+            connect and read timeout. Pass a tuple to specify
+            both values separately or a float to set both to it.
+            (defaults to 5.0 for both)
+
         Returns:
             access_token, id_token
         """
@@ -42,11 +48,13 @@ class GetToken(AuthenticationBase):
                 'code': code,
                 'grant_type': grant_type,
                 'redirect_uri': redirect_uri,
-            }
+            },
+            timeout=timeout
         )
 
     def authorization_code_pkce(self, client_id, code_verifier, code,
-                                redirect_uri, grant_type='authorization_code'):
+                                redirect_uri, grant_type='authorization_code',
+                                timeout=5.0):
         """Authorization code pkce grant
 
         This is the OAuth 2.0 grant that mobile apps utilize in order to access an API.
@@ -66,6 +74,11 @@ class GetToken(AuthenticationBase):
             redirect_uri (str, optional): This is required only if it was set at
             the GET /authorize endpoint. The values must match
 
+            timeout (float or tuple, optional): Change the requests
+            connect and read timeout. Pass a tuple to specify
+            both values separately or a float to set both to it.
+            (defaults to 5.0 for both)
+
         Returns:
             access_token, id_token
         """
@@ -78,11 +91,13 @@ class GetToken(AuthenticationBase):
                 'code': code,
                 'grant_type': grant_type,
                 'redirect_uri': redirect_uri,
-            }
+            },
+            timeout=timeout
         )
 
     def client_credentials(self, client_id, client_secret, audience,
-                           grant_type='client_credentials'):
+                           grant_type='client_credentials',
+                           timeout=5.0):
         """Client credentials grant
 
         This is the OAuth 2.0 grant that server processes utilize in
@@ -100,6 +115,11 @@ class GetToken(AuthenticationBase):
 
             audience (str): The unique identifier of the target API you want to access.
 
+            timeout (float or tuple, optional): Change the requests
+            connect and read timeout. Pass a tuple to specify
+            both values separately or a float to set both to it.
+            (defaults to 5.0 for both)
+
         Returns:
             access_token
         """
@@ -111,11 +131,13 @@ class GetToken(AuthenticationBase):
                 'client_secret': client_secret,
                 'audience': audience,
                 'grant_type': grant_type,
-            }
+            },
+            timeout=timeout
         )
 
     def login(self, client_id, client_secret, username, password, scope, realm,
-              audience, grant_type='http://auth0.com/oauth/grant-type/password-realm'):
+              audience, grant_type='http://auth0.com/oauth/grant-type/password-realm',
+              timeout=5.0):
         """Calls /oauth/token endpoint with password-realm grant type
 
 
@@ -146,6 +168,11 @@ class GetToken(AuthenticationBase):
             realm (str): String value of the realm the user belongs.
             Set this if you want to add realm support at this grant.
 
+            timeout (float or tuple, optional): Change the requests
+            connect and read timeout. Pass a tuple to specify
+            both values separately or a float to set both to it.
+            (defaults to 5.0 for both)
+
         Returns:
             access_token, id_token
         """
@@ -161,10 +188,13 @@ class GetToken(AuthenticationBase):
                 'scope': scope,
                 'audience': audience,
                 'grant_type': grant_type
-            }
+            },
+            timeout=timeout
         )
 
-    def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token', scope=''):
+    def refresh_token(self, client_id, client_secret, refresh_token,
+                      grant_type='refresh_token', scope='',
+                      timeout=5.0):
         """Calls /oauth/token endpoint with refresh token grant type
 
         Use this endpoint to refresh an access token, using the refresh token you got during authorization.
@@ -182,6 +212,11 @@ class GetToken(AuthenticationBase):
             scope (str): String value of the different scopes the client is asking for.
             Multiple scopes are separated with whitespace.
 
+            timeout (float or tuple, optional): Change the requests
+            connect and read timeout. Pass a tuple to specify
+            both values separately or a float to set both to it.
+            (defaults to 5.0 for both)
+
         Returns:
             access_token, id_token
         """
@@ -194,10 +229,13 @@ class GetToken(AuthenticationBase):
                 'refresh_token': refresh_token,
                 'scope': scope,
                 'grant_type': grant_type
-            }
+            },
+            timeout=timeout
         )
 
-    def passwordless_login(self, client_id, client_secret, username, otp, realm, scope, audience):
+    def passwordless_login(self, client_id, client_secret, username,
+                           otp, realm, scope, audience,
+                           timeout=timeout):
         """Calls /oauth/token endpoint with http://auth0.com/oauth/grant-type/passwordless/otp grant type
 
         Once the verification code was received, login the user using this endpoint with their
@@ -212,13 +250,18 @@ class GetToken(AuthenticationBase):
 
             otp (str): the user's verification code.
 
-            realm (str): use 'sms' or 'email'. 
+            realm (str): use 'sms' or 'email'.
             Should be the same as the one used to start the passwordless flow.
 
             scope(str): String value of the different scopes the client is asking for.
             Multiple scopes are separated with whitespace.
 
             audience (str): The unique identifier of the target API you want to access.
+
+            timeout (float or tuple, optional): Change the requests
+            connect and read timeout. Pass a tuple to specify
+            both values separately or a float to set both to it.
+            (defaults to 5.0 for both)
 
         Returns:
             access_token, id_token
@@ -235,5 +278,6 @@ class GetToken(AuthenticationBase):
                 'scope': scope,
                 'audience': audience,
                 'grant_type': 'http://auth0.com/oauth/grant-type/passwordless/otp'
-            }
+            },
+            timeout=timeout
         )
