@@ -12,6 +12,15 @@ from ...exceptions import Auth0Error, RateLimitError
 
 class TestBase(unittest.TestCase):
 
+    @mock.patch('requests.get')
+    @mock.patch('requests.post')
+    def setUp(self, mock_post, mock_set):
+        ab = AuthenticationBase('auth0.com')
+
+        # reset the circuit breaker
+        ab.get("the-url")
+        ab.post("the-url")
+
     def test_telemetry_enabled_by_default(self):
         ab = AuthenticationBase('auth0.com')
 
