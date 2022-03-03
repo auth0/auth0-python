@@ -3,6 +3,7 @@ import json
 import sys
 import platform
 import requests
+from circuitbreaker import circuit
 from ..exceptions import Auth0Error, RateLimitError
 
 UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
@@ -43,12 +44,14 @@ class AuthenticationBase(object):
                 'Auth0-Client': base64.b64encode(auth0_client),
             })
 
+    @circuit
     def post(self, url, data=None, headers=None):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
         response = requests.post(url=url, json=data, headers=request_headers, timeout=self.timeout)
         return self._process_response(response)
 
+    @circuit
     def get(self, url, params=None, headers=None):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})

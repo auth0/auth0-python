@@ -113,6 +113,7 @@ class RestClient(object):
     def MIN_REQUEST_RETRY_DELAY(self):
         return 100
 
+    @circuit
     def get(self, url, params=None):
         headers = self.base_headers.copy()
 
@@ -162,12 +163,14 @@ class RestClient(object):
         # Return the final Response
         return self._process_response(response)
 
+    @circuit
     def post(self, url, data=None):
         headers = self.base_headers.copy()
 
         response = requests.post(url, json=data, headers=headers, timeout=self.options.timeout)
         return self._process_response(response)
 
+    @circuit
     def file_post(self, url, data=None, files=None):
         headers = self.base_headers.copy()
         headers.pop('Content-Type', None)
@@ -175,18 +178,21 @@ class RestClient(object):
         response = requests.post(url, data=data, files=files, headers=headers, timeout=self.options.timeout)
         return self._process_response(response)
 
+    @circuit
     def patch(self, url, data=None):
         headers = self.base_headers.copy()
 
         response = requests.patch(url, json=data, headers=headers, timeout=self.options.timeout)
         return self._process_response(response)
 
+    @circuit
     def put(self, url, data=None):
         headers = self.base_headers.copy()
 
         response = requests.put(url, json=data, headers=headers, timeout=self.options.timeout)
         return self._process_response(response)
 
+    @circuit
     def delete(self, url, params=None, data=None):
         headers = self.base_headers.copy()
 
