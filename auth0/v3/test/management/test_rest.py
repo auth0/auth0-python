@@ -11,6 +11,22 @@ from ...exceptions import Auth0Error, RateLimitError
 
 
 class TestRest(unittest.TestCase):
+
+    @mock.patch('requests.get')
+    @mock.patch('requests.post')
+    @mock.patch('requests.put')
+    @mock.patch('requests.patch')
+    @mock.patch('requests.delete')
+    def setUp(self, mock_delete, mock_patch, mock_put, mock_post, mock_set):
+        rc = RestClient(jwt='a-token', telemetry=False, timeout=(10, 2))
+
+        # reset the circuit breaker
+        rc.get("the-url")
+        rc.post("the-url")
+        rc.put("the-url")
+        rc.patch("the-url")
+        rc.delete("the-url")
+
     def test_options_are_used_and_override(self):
         """
         This test ensures RestClientOptions are read when passed to
