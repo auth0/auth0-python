@@ -1,3 +1,4 @@
+"""Token Verifier module"""
 import json
 import time
 
@@ -8,6 +9,13 @@ from auth0.v3.exceptions import TokenValidationError
 
 
 class SignatureVerifier(object):
+    """Abstract class that will verify a given JSON web token's signature
+    using the key fetched internally given its key id.
+
+    Args:
+        algorithm (str): The expected signing algorithm (e.g. RS256).
+    """
+
     DISABLE_JWT_CHECKS = {
         "verify_signature": True,
         "verify_exp": False,
@@ -20,51 +28,42 @@ class SignatureVerifier(object):
         "require_nbf": False,
     }
 
-    """Abstract class that will verify a given JSON web token's signature
-    using the key fetched internally given its key id.
-    
-    Args:
-        algorithm (str): The expected signing algorithm (e.g. RS256).
-    """
-
     def __init__(self, algorithm):
         if not algorithm or type(algorithm) != str:
             raise ValueError("algorithm must be specified.")
         self._algorithm = algorithm
 
-    """Obtains the key associated to the given key id.
-    Must be implemented by subclasses.
-
-    Args:
-        key_id (str, optional): The id of the key to fetch.
-    
-    Returns:
-        the key to use for verifying a cryptographic signature
-    """
-
     def _fetch_key(self, key_id=None):
+        """Obtains the key associated to the given key id.
+        Must be implemented by subclasses.
+
+        Args:
+            key_id (str, optional): The id of the key to fetch.
+
+        Returns:
+            the key to use for verifying a cryptographic signature
+        """
         raise NotImplementedError
 
-    """Verifies the signature of the given JSON web token.
-
-    Args:
-        token (str): The JWT to get its signature verified.
-
-    Raises:
-        TokenValidationError: if the token cannot be decoded, the algorithm is invalid
-        or the token's signature doesn't match the calculated one.
-    """
-
     def verify_signature(self, token):
+        """Verifies the signature of the given JSON web token.
+
+        Args:
+            token (str): The JWT to get its signature verified.
+
+        Raises:
+            TokenValidationError: if the token cannot be decoded, the algorithm is invalid
+            or the token's signature doesn't match the calculated one.
+        """
         try:
             header = jwt.get_unverified_header(token)
         except jwt.exceptions.DecodeError:
-            raise TokenValidationError("ID token could not be decoded.")
+            raise TokenValidationError("token could not be decoded.")
 
         alg = header.get('alg', None)
         if alg != self._algorithm:
             raise TokenValidationError(
-                'Signature algorithm of "{}" is not supported. Expected the ID token '
+                'Signature algorithm of "{}" is not supported. Expected the token '
                 'to be signed with "{}"'.format(alg, self._algorithm))
 
         kid = header.get('kid', None)
@@ -111,8 +110,6 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
 
 
 class JwksFetcher(object):
-    CACHE_TTL = 600  # 10 min cache lifetime
-
     """Class that fetches and holds a JSON web key set.
     This class makes use of an in-memory cache. For it to work properly, define this instance once and re-use it.
 
@@ -120,6 +117,8 @@ class JwksFetcher(object):
         jwks_url (str): The url where the JWK set is located.
         cache_ttl (str, optional): The lifetime of the JWK set cache in seconds. Defaults to 600 seconds.
     """
+
+    CACHE_TTL = 600  # 10 min cache lifetime
 
     def __init__(self, jwks_url, cache_ttl=CACHE_TTL):
         self._jwks_url = jwks_url
@@ -132,15 +131,14 @@ class JwksFetcher(object):
         self._cache_ttl = cache_ttl
         self._cache_is_fresh = False
 
-    """Attempts to obtain the JWK set from the cache, as long as it's still valid.
-    When not, it will perform a network request to the jwks_url to obtain a fresh result
-    and update the cache value with it.
-
-    Args:
-        force (bool, optional): whether to ignore the cache and force a network request or not. Defaults to False.
-    """
-
     def _fetch_jwks(self, force=False):
+        """Attempts to obtain the JWK set from the cache, as long as it's still valid.
+        When not, it will perform a network request to the jwks_url to obtain a fresh result
+        and update the cache value with it.
+
+        Args:
+            force (bool, optional): whether to ignore the cache and force a network request or not. Defaults to False.
+        """
         has_expired = self._cache_date + self._cache_ttl < time.time()
 
         if not force and not has_expired:
@@ -160,11 +158,11 @@ class JwksFetcher(object):
             self._cache_date = time.time()
         return self._cache_value
 
-    """Converts a JWK string representation into a binary certificate in PEM format.
-    """
-
     @staticmethod
     def _parse_jwks(jwks):
+        """
+        Converts a JWK string representation into a binary certificate in PEM format.
+        """
         keys = {}
 
         for key in jwks['keys']:
@@ -174,19 +172,19 @@ class JwksFetcher(object):
             keys[key["kid"]] = rsa_key
         return keys
 
-    """Obtains the JWK associated with the given key id.
-
-    Args:
-        key_id (str): The id of the key to fetch.
-
-    Returns:
-        the JWK associated with the given key id.
-    
-    Raises:
-        TokenValidationError: when a key with that id cannot be found
-    """
 
     def get_key(self, key_id):
+        """Obtains the JWK associated with the given key id.
+
+        Args:
+            key_id (str): The id of the key to fetch.
+
+        Returns:
+            the JWK associated with the given key id.
+
+        Raises:
+            TokenValidationError: when a key with that id cannot be found
+        """
         keys = self._fetch_jwks()
 
         if keys and key_id in keys:
@@ -208,7 +206,7 @@ class TokenVerifier():
         issuer (str): The expected issuer claim value.
         audience (str): The expected audience claim value.
         leeway (int, optional): The clock skew to accept when verifying date related claims in seconds.
-            Defaults to 60 seconds.
+        Defaults to 60 seconds.
     """
 
     def __init__(self, signature_verifier, issuer, audience, leeway=0):
@@ -221,21 +219,21 @@ class TokenVerifier():
         self._sv = signature_verifier
         self._clock = None  # visible for testing
 
-    """Attempts to verify the given ID token, following the steps defined in the OpenID Connect spec.
-
-    Args:
-        token (str): The JWT to verify.
-        nonce (str, optional): The nonce value sent during authentication.
-        max_age (int, optional): The max_age value sent during authentication.
-        organization (str, optional): The expected organization ID (org_id) claim value. This should be specified
-            when logging in to an organization.
-        
-    Raises:
-        TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one, 
-        the token signature is invalid or the token has a claim missing or with unexpected value.
-    """
-
     def verify(self, token, nonce=None, max_age=None, organization=None):
+        """Attempts to verify the given ID token, following the steps defined in the OpenID Connect spec.
+
+        Args:
+            token (str): The JWT to verify.
+            nonce (str, optional): The nonce value sent during authentication.
+            max_age (int, optional): The max_age value sent during authentication.
+            organization (str, optional): The expected organization ID (org_id) claim value. This should be specified
+            when logging in to an organization.
+
+        Raises:
+            TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one,
+            the token signature is invalid or the token has a claim missing or with unexpected value.
+        """
+
         # Verify token presence
         if not token or not isinstance(token, str):
             raise TokenValidationError("ID token is required but missing.")

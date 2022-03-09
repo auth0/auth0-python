@@ -1,3 +1,4 @@
+import warnings
 from .base import AuthenticationBase
 
 
@@ -22,6 +23,8 @@ class Passwordless(AuthenticationBase):
 
           - A verification code (send:"code"). You can then authenticate with
             this user using email as username and code as password.
+
+        Complete the authentication using the get_token.passwordless_login method.
 
         Args:
             client_id (str): Client Id of the application.
@@ -58,6 +61,8 @@ class Passwordless(AuthenticationBase):
         a verification code. You can then authenticate with
         this user using phone number as username and code as password.
 
+        Complete the authentication using the get_token.passwordless_login method.
+
         Args:
             client_id (str): Client Id of the application.
 
@@ -91,6 +96,7 @@ class Passwordless(AuthenticationBase):
 
             scope (str, optional): Scope to use. Defaults to 'openid'.
         """
+        warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
 
         return self.post(
             '{}://{}/oauth/ro'.format(self.protocol, self.domain),

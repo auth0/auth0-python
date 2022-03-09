@@ -7,7 +7,7 @@ class TestJobs(unittest.TestCase):
 
     def test_init_with_optionals(self):
         t = Jobs(domain='domain', token='jwttoken', telemetry=False, timeout=(10, 2))
-        self.assertEqual(t.client.timeout, (10, 2))
+        self.assertEqual(t.client.options.timeout, (10, 2))
         telemetry_header = t.client.base_headers.get('Auth0-Client', None)
         self.assertEqual(telemetry_header, None)
 
@@ -23,25 +23,26 @@ class TestJobs(unittest.TestCase):
         )
 
     @mock.patch('auth0.v3.management.jobs.RestClient')
-    def get_failed_job(self, mock_rc):
+    def test_get_failed_job(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         j = Jobs(domain='domain', token='jwttoken')
-        j.get('an-id')
+        j.get_failed_job('an-id')
 
         mock_instance.get.assert_called_with(
             'https://domain/api/v2/jobs/an-id/errors',
         )
 
     @mock.patch('auth0.v3.management.jobs.RestClient')
-    def get_job_results(self, mock_rc):
+    def test_get_job_results(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         j = Jobs(domain='domain', token='jwttoken')
-        j.get('an-id')
+        j.get_results('an-id')
 
+        # Should use the 'get by id' URL
         mock_instance.get.assert_called_with(
-            'https://domain/api/v2/jobs/an-id/results',
+            'https://domain/api/v2/jobs/an-id',
         )
 
     @mock.patch('auth0.v3.management.jobs.RestClient')

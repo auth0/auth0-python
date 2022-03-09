@@ -7,7 +7,7 @@ class TestOrganizations(unittest.TestCase):
 
     def test_init_with_optionals(self):
         t = Organizations(domain='domain', token='jwttoken', telemetry=False, timeout=(10, 2))
-        self.assertEqual(t.client.timeout, (10, 2))
+        self.assertEqual(t.client.options.timeout, (10, 2))
         telemetry_header = t.client.base_headers.get('Auth0-Client', None)
         self.assertEqual(telemetry_header, None)
 
@@ -25,16 +25,34 @@ class TestOrganizations(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/organizations', args[0])
         self.assertEqual(kwargs['params'], {'page': None,
-                                            'per_page': None})
+                                            'per_page': None,
+                                            'include_totals': 'true',
+                                            'from': None,
+                                            'take': None})
 
-        # Specific pagination
-        c.all_organizations(page=7, per_page=25)
+        # Basic pagination
+        c.all_organizations(page=7, per_page=25, include_totals=False)
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/organizations', args[0])
         self.assertEqual(kwargs['params'], {'page': 7,
-                                            'per_page': 25})
+                                            'per_page': 25,
+                                            'include_totals': 'false',
+                                            'from': None,
+                                            'take': None})
+
+        # Checkpoint pagination
+        c.all_organizations(from_param=8675309, take=75)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/organizations', args[0])
+        self.assertEqual(kwargs['params'], {'from': 8675309,
+                                            'take': 75,
+                                            'page': None,
+                                            'per_page': None,
+                                            'include_totals': 'true'})
 
     @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_get_organization_by_name(self, mock_rc):
@@ -83,7 +101,7 @@ class TestOrganizations(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/organizations/this-id', args[0])
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
-   
+
     @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_delete_organization(self, mock_rc):
         mock_instance = mock_rc.return_value
@@ -94,7 +112,7 @@ class TestOrganizations(unittest.TestCase):
         mock_instance.delete.assert_called_with(
             'https://domain/api/v2/organizations/this-id'
         )
-    
+
     # Organization Connections
     @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_all_organization_connections(self, mock_rc):
@@ -155,7 +173,7 @@ class TestOrganizations(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/organizations/test-org/enabled_connections/test-con', args[0])
         self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
-   
+
     @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_delete_organization_connection(self, mock_rc):
         mock_instance = mock_rc.return_value
@@ -181,16 +199,34 @@ class TestOrganizations(unittest.TestCase):
 
         self.assertEqual('https://domain/api/v2/organizations/test-org/members', args[0])
         self.assertEqual(kwargs['params'], {'page': None,
-                                            'per_page': None})
+                                            'per_page': None,
+                                            'include_totals': 'true',
+                                            'from': None,
+                                            'take': None})
 
         # Specific pagination
-        c.all_organization_members('test-org', page=7, per_page=25)
+        c.all_organization_members('test-org', page=7, per_page=25, include_totals=False)
 
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/organizations/test-org/members', args[0])
         self.assertEqual(kwargs['params'], {'page': 7,
-                                            'per_page': 25})
+                                            'per_page': 25,
+                                            'include_totals': 'false',
+                                            'from': None,
+                                            'take': None})
+
+        # Checkpoint pagination
+        c.all_organization_members('test-org', from_param=8675309, take=75)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/organizations/test-org/members', args[0])
+        self.assertEqual(kwargs['params'], {'from': 8675309,
+                                            'take': 75,
+                                            'page': None,
+                                            'per_page': None,
+                                            'include_totals': 'true'})
 
     @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_create_organization_members(self, mock_rc):
@@ -313,7 +349,7 @@ class TestOrganizations(unittest.TestCase):
             'https://domain/api/v2/organizations/test-org/invitations',
             data={'a': 'b', 'c': 'd'}
         )
-   
+
     @mock.patch('auth0.v3.management.organizations.RestClient')
     def test_delete_organization_invitation(self, mock_rc):
         mock_instance = mock_rc.return_value

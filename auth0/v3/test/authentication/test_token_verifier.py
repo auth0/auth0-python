@@ -86,13 +86,13 @@ class TestSignatureVerifier(unittest.TestCase):
         verifier = SymmetricSignatureVerifier("some secret")
         with self.assertRaises(Exception) as err:
             verifier.verify_signature(jwt)
-        self.assertEqual(str(err.exception), 'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "HS256"')
+        self.assertEqual(str(err.exception), 'Signature algorithm of "none" is not supported. Expected the token to be signed with "HS256"')
 
         verifier = AsymmetricSignatureVerifier("some url")
         with self.assertRaises(Exception) as err:
             verifier.verify_signature(jwt)
         self.assertEqual(str(err.exception),
-                         'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "RS256"')
+                         'Signature algorithm of "none" is not supported. Expected the token to be signed with "RS256"')
 
 
 class TestJwksFetcher(unittest.TestCase):
@@ -249,11 +249,11 @@ class TestTokenVerifier(unittest.TestCase):
 
     def test_err_token_format_invalid(self):
         token = "a.b"
-        self.assert_fails_with_error(token, "ID token could not be decoded.")
+        self.assert_fails_with_error(token, "token could not be decoded.")
         token = "a.b."
-        self.assert_fails_with_error(token, "ID token could not be decoded.")
+        self.assert_fails_with_error(token, "token could not be decoded.")
         token = "a.b.c.d"
-        self.assert_fails_with_error(token, "ID token could not be decoded.")
+        self.assert_fails_with_error(token, "token could not be decoded.")
 
     def test_HS256_token_signature_passes(self):
         token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0.Hn38QVtN_mWN0c-jOa-Fqq69kXpbBp0THsvE-CQ47Ps"
@@ -293,7 +293,7 @@ class TestTokenVerifier(unittest.TestCase):
 
     def test_fails_with_algorithm_not_supported(self):
         token = "eyJhbGciOiJub25lIn0.eyJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHwxMjM0NTY3ODkiLCJhdWQiOlsidG9rZW5zLXRlc3QtMTIzIiwiZXh0ZXJuYWwtdGVzdC05OTkiXSwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjEsIm5vbmNlIjoiYTFiMmMzZDRlNSIsImF6cCI6InRva2Vucy10ZXN0LTEyMyIsImF1dGhfdGltZSI6MTU4NzY3ODk2MX0."
-        self.assert_fails_with_error(token, 'Signature algorithm of "none" is not supported. Expected the ID token to be signed with "RS256"')
+        self.assert_fails_with_error(token, 'Signature algorithm of "none" is not supported. Expected the token to be signed with "RS256"')
         return
 
     def test_fails_with_iss_missing(self):

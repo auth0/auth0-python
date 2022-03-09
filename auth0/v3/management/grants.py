@@ -16,12 +16,17 @@ class Grants(object):
             connect and read timeout. Pass a tuple to specify
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
+
+        rest_options (RestClientOptions): Pass an instance of
+            RestClientOptions to configure additional RestClient
+            options, such as rate-limit retries.
+            (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
+        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
 
     def _url(self, id=None):
         url = '{}://{}/api/v2/grants'.format(self.protocol, self.domain)
@@ -45,7 +50,7 @@ class Grants(object):
            extra_params (dictionary, optional): The extra parameters to add to
                the request. The page, per_page, and include_totals values
                specified as parameters take precedence over the ones defined here.
-            
+
         See: https://auth0.com/docs/api/management/v2#!/Grants/get_grants
         """
         params = extra_params or {}

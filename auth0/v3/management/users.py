@@ -18,12 +18,17 @@ class Users(object):
             connect and read timeout. Pass a tuple to specify
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
+
+        rest_options (RestClientOptions): Pass an instance of
+            RestClientOptions to configure additional RestClient
+            options, such as rate-limit retries.
+            (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
+        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
 
     def _url(self, id=None):
         url = '{}://{}/api/v2/users'.format(self.protocol, self.domain)
@@ -291,6 +296,17 @@ class Users(object):
         See: https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
         """
         url = self._url('{}/multifactor/{}'.format(id, provider))
+        return self.client.delete(url)
+
+    def delete_authenticators(self, id):
+        """Delete a user's MFA enrollments.
+
+        Args:
+            id (str): The user's id.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_authenticators
+        """
+        url = self._url('{}/authenticators'.format(id))
         return self.client.delete(url)
 
     def unlink_user_account(self, id, provider, user_id):

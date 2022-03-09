@@ -16,12 +16,17 @@ class Guardian(object):
             connect and read timeout. Pass a tuple to specify
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
+
+        rest_options (RestClientOptions): Pass an instance of
+            RestClientOptions to configure additional RestClient
+            options, such as rate-limit retries.
+            (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
+        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
 
     def _url(self, id=None):
         url = '{}://{}/api/v2/guardian'.format(self.protocol, self.domain)
@@ -33,7 +38,7 @@ class Guardian(object):
         """Retrieves all factors. Useful to check factor enablement and
              trial status.
 
-        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_factors                 
+        See: https://auth0.com/docs/api/management/v2#!/Guardian/get_factors
         """
 
         return self.client.get(self._url('factors'))

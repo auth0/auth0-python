@@ -6,7 +6,7 @@ from ...authentication.passwordless import Passwordless
 class TestPasswordless(unittest.TestCase):
 
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
-    def test_email(self, mock_post):
+    def test_send_email(self, mock_post):
 
         p = Passwordless('my.domain.com')
 
@@ -25,7 +25,7 @@ class TestPasswordless(unittest.TestCase):
         })
 
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
-    def test_email_with_auth_params(self, mock_post):
+    def test_send_email_with_auth_params(self, mock_post):
 
         p = Passwordless('my.domain.com')
 
@@ -46,7 +46,7 @@ class TestPasswordless(unittest.TestCase):
         })
 
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
-    def test_email_with_client_secret(self, mock_post):
+    def test_send_email_with_client_secret(self, mock_post):
 
         p = Passwordless('my.domain.com')
 
@@ -67,7 +67,7 @@ class TestPasswordless(unittest.TestCase):
         })
 
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
-    def test_sms(self, mock_post):
+    def test_send_sms(self, mock_post):
         p = Passwordless('my.domain.com')
 
         p.sms(client_id='cid', phone_number='123456')
@@ -82,7 +82,7 @@ class TestPasswordless(unittest.TestCase):
         })
 
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
-    def test_sms_with_client_secret(self, mock_post):
+    def test_send_sms_with_client_secret(self, mock_post):
         p = Passwordless('my.domain.com')
 
         p.sms(client_id='cid', client_secret='csecret', phone_number='123456')
@@ -98,7 +98,7 @@ class TestPasswordless(unittest.TestCase):
         })
         
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
-    def test_sms_login(self, mock_post):
+    def test_send_sms_login(self, mock_post):
 
         p = Passwordless('my.domain.com')
 
@@ -117,7 +117,7 @@ class TestPasswordless(unittest.TestCase):
         })
 
     @mock.patch('auth0.v3.authentication.passwordless.Passwordless.post')
-    def test_sms_login_with_scope(self, mock_post):
+    def test_send_sms_login_with_scope(self, mock_post):
 
         p = Passwordless('my.domain.com')
 

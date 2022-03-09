@@ -1,4 +1,5 @@
 from .rest import RestClient
+import warnings
 
 
 class Jobs(object):
@@ -16,12 +17,17 @@ class Jobs(object):
             connect and read timeout. Pass a tuple to specify
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
+
+        rest_options (RestClientOptions): Pass an instance of
+            RestClientOptions to configure additional RestClient
+            options, such as rate-limit retries.
+            (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
+        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
 
     def _url(self, path=None):
         url = '{}://{}/api/v2/jobs'.format(self.protocol, self.domain)
@@ -56,10 +62,14 @@ class Jobs(object):
         Args:
             job_id (str): The id of the job.
 
-        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_results
+        Deprecation:
+            The /jobs/{id}/results endpoint was removed from the Management API.
+            You can obtain the Job results by querying a Job by ID.
+
+        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
         """
-        url = self._url('%s/results' % job_id)
-        return self.client.get(url)
+        warnings.warn("/jobs/{id}/results is no longer available. The get(id) function will be called instead.", DeprecationWarning)
+        return self.get(job_id)
 
     def export_users(self, body):
         """Export all users to a file using a long running job.

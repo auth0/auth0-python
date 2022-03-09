@@ -16,12 +16,17 @@ class DeviceCredentials(object):
             connect and read timeout. Pass a tuple to specify
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
+
+        rest_options (RestClientOptions): Pass an instance of
+            RestClientOptions to configure additional RestClient
+            options, such as rate-limit retries.
+            (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https"):
+    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout)
+        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
 
     def _url(self, id=None):
         url = '{}://{}/api/v2/device-credentials'.format(self.protocol, self.domain)
@@ -29,7 +34,7 @@ class DeviceCredentials(object):
             return '{}/{}'.format(url, id)
         return url
 
-    def get(self, user_id, client_id, type, fields=None, include_fields=True):
+    def get(self, user_id, client_id, type, fields=None, include_fields=True, page=None, per_page=None, include_totals=False):
         """List device credentials.
 
         Args:
@@ -46,6 +51,14 @@ class DeviceCredentials(object):
             include_fields (bool, optional): True if the fields specified are
                 to be included in the result, False otherwise. Defaults to True.
 
+            page (int, optional): Page index of the results to return. First page is 0.
+
+            per_page (int, optional): Number of results per page.
+
+            include_totals (bool, optional): True to return results inside an object
+                that contains the total result count (True) or as a direct array of
+                results (False, default).
+
         See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials
         """
 
@@ -55,6 +68,9 @@ class DeviceCredentials(object):
             'user_id': user_id,
             'client_id': client_id,
             'type': type,
+            'page': page,
+            'per_page': per_page,
+            'include_totals': str(include_totals).lower()
         }
         return self.client.get(self._url(), params=params)
 

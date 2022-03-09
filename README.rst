@@ -1,14 +1,14 @@
-**************
-Auth0 - Python
-**************
-
 |pypi| |build| |coverage| |license|
 
-In this repository, you'll find all the information about integrating Auth0 with Python.
+Learn how to integrate Auth0 with Python.
 
-============
+=====
+Usage
+=====
+
+************
 Installation
-============
+************
 
 You can install the auth0 Python SDK using the following command.
 
@@ -19,14 +19,14 @@ You can install the auth0 Python SDK using the following command.
 For python3, use the following command
 
 .. code-block:: python
-    
+
     pip3 install auth0-python
 
 Python 3.2 and 3.3 have reached `EOL <https://en.wikipedia.org/wiki/CPython#Version_history>`__ and support will be removed in the near future.
 
-========================
-Authentication SDK Usage
-========================
+******************
+Authentication SDK
+******************
 
 The Authentication SDK is organized into components that mirror the structure of the
 `API documentation <https://auth0.com/docs/auth-api>`__.
@@ -63,9 +63,8 @@ If you need to authenticate a user using their email and password, you can use t
     token.login(client_id='...', client_secret='...', username='user@domain.com', password='secr3t', realm='Username-Password-Authentication')
 
 
-===================
 ID Token validation
-===================
+-------------------
 
 Upon successful authentication, the credentials received may include an ``id_token``, if the authentication request contained the ``openid`` scope. The ``id_token`` contains information associated with the authenticated user. You can read more about ID tokens `here <https://auth0.com/docs/tokens/concepts/id-tokens>`__.
 
@@ -87,27 +86,27 @@ For symmetric algorithms like HS256, use the ``SymmetricSignatureVerifier`` clas
 The following example demonstrates the verification of an ID token signed with the RS256 signing algorithm:
 
 .. code-block:: python
-    
+
     from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
-    
+
     domain = 'myaccount.auth0.com'
     client_id = 'exampleid'
-    
+
     # After authenticating
     id_token = auth_result['id_token']
-    
+
     jwks_url = 'https://{}/.well-known/jwks.json'.format(domain)
     issuer = 'https://{}/'.format(domain)
-    
+
     sv = AsymmetricSignatureVerifier(jwks_url)  # Reusable instance
     tv = TokenVerifier(signature_verifier=sv, issuer=issuer, audience=client_id)
     tv.verify(id_token)
-    
+
 If the token verification fails, a ``TokenValidationError`` will be raised. In that scenario, the ID token should be deemed invalid and its contents should not be trusted.
 
-===========================
+
 Organizations
-===========================
+-------------
 
 `Organizations <https://auth0.com/docs/organizations>`__ is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
 
@@ -120,16 +119,16 @@ Using Organizations, you can:
 
 Note that Organizations is currently only available to customers on our Enterprise and Startup subscription plans.
 
--------------------------
+
 Log in to an organization
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Log in to an organization by specifying the ``organization`` property when calling ``authorize()``:
 
 .. code-block:: python
 
     from auth0.v3.authentication.authorize_client import AuthorizeClient
-    
+
     client = AuthorizeClient('my.domain.com')
 
     client.authorize(client_id='client_id',
@@ -139,27 +138,27 @@ Log in to an organization by specifying the ``organization`` property when calli
 When logging into an organization, it is important to ensure the ``org_id`` claim of the ID Token matches the expected organization value. The ``TokenVerifier`` can be be used to ensure the ID Token contains the expected ``org_id`` claim value:
 
 .. code-block:: python
-    
+
     from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
-    
+
     domain = 'myaccount.auth0.com'
     client_id = 'exampleid'
-    
+
     # After authenticating
     id_token = auth_result['id_token']
-    
+
     jwks_url = 'https://{}/.well-known/jwks.json'.format(domain)
     issuer = 'https://{}/'.format(domain)
-    
+
     sv = AsymmetricSignatureVerifier(jwks_url)  # Reusable instance
     tv = TokenVerifier(signature_verifier=sv, issuer=issuer, audience=client_id)
 
     # pass the expected organization the user logged in to:
     tv.verify(id_token, organization='org_abc')
 
------------------------
+
 Accept user invitations
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Accept a user invitation by specifying the ``invitation`` property when calling ``authorize()``. Note that you must also specify the ``organization`` if providing an ``invitation``.
 The ID of the invitation and organization are available as query parameters on the invitation URL, e.g., ``https://your-domain.auth0.com/login?invitation=invitation_id&organization=org_id&organization_name=org_name``
@@ -175,9 +174,9 @@ The ID of the invitation and organization are available as query parameters on t
             organization='org_abc',
             invitation="invitation_123")
 
---------------------------------------
+
 Authorizing users from an Organization
---------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If an ``org_id`` claim is present in the Access Token, then the claim should be validated by the API to ensure that the value received is expected or known.
 
@@ -211,13 +210,13 @@ The snippet below attempts to illustrate how this verification could look like u
     organization = # expected organization ID
     if data['org_id'] != organization:
         raise Exception('Organization (org_id) claim mismatch')
-    
-    # if this line is reached, validation is successful
-  
 
-====================
-Management SDK Usage
-====================
+    # if this line is reached, validation is successful
+
+
+**************
+Management SDK
+**************
 
 To use the management library you will need to instantiate an Auth0 object with a domain and a `Management API v2 token <https://auth0.com/docs/api/management/v2/tokens>`__. Please note that these token last 24 hours, so if you need it constantly you should ask for it programmatically using the client credentials grant with a `non interactive client <https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client>`__ authorized to access the API. For example:
 
@@ -317,65 +316,86 @@ When consuming methods from the API clients, the requests could fail for a numbe
 resets is exposed in the ``reset_at`` property. When the header is unset, this value will be ``-1``.
 - Network timeouts: Adjustable by passing a ``timeout`` argument to the client. See the `rate limit docs <https://auth0.com/docs/policies/rate-limits>`__ for details.
 
-==================================
-Available Authentication Endpoints
-==================================
 
-- Users ( ``authentication.Users`` )
+==============
+Supported APIs
+==============
+
+************************
+Authentication Endpoints
+************************
+
+- API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
 - Database ( ``authentication.Database`` )
 - Delegated ( ``authentication.Delegated`` )
 - Enterprise ( ``authentication.Enterprise`` )
-- Passwordless ( ``authentication.Passwordless`` )
-- Social ( ``authentication.Social`` )
 - API Authorization - Get Token ( ``authentication.GetToken``)
-- API Authorization - Authorization Code Grant (``authentication.AuthorizeClient``)
+- Passwordless ( ``authentication.Passwordless`` )
+- RevokeToken ( ``authentication.RevokeToken`` )
+- Social ( ``authentication.Social`` )
+- Users ( ``authentication.Users`` )
 
-==============================
-Available Management Endpoints
-==============================
 
+********************
+Management Endpoints
+********************
+
+- Actions() (``Auth0().actions``)
+- AttackProtection() (``Auth0().attack_protection``)
 - Blacklists() ( ``Auth0().blacklists`` )
-- Clients() ( ``Auth0().clients`` )
 - ClientGrants() ( ``Auth0().client_grants`` )
-- CustomDomains() ( ``Auth0().custom_domains`` )
+- Clients() ( ``Auth0().clients`` )
 - Connections() ( ``Auth0().connections`` )
+- CustomDomains() ( ``Auth0().custom_domains`` )
 - DeviceCredentials() ( ``Auth0().device_credentials`` )
-- Emails() ( ``Auth0().emails`` )
 - EmailTemplates() ( ``Auth0().email_templates`` )
+- Emails() ( ``Auth0().emails`` )
 - Grants() ( ``Auth0().grants`` )
 - Guardian() ( ``Auth0().guardian`` )
+- Hooks() ( ``Auth0().hooks`` )
 - Jobs() ( ``Auth0().jobs`` )
-- Logs() ( ``Auth0().logs`` )
 - LogStreams() ( ``Auth0().log_streams`` )
+- Logs() ( ``Auth0().logs`` )
 - Organizations() ( ``Auth0().organizations`` )
+- Prompts() ( ``Auth0().prompts`` )
 - ResourceServers() (``Auth0().resource_servers`` )
 - Roles() ( ``Auth0().roles`` )
-- Rules() ( ``Auth0().rules`` )
 - RulesConfigs() ( ``Auth0().rules_configs`` )
+- Rules() ( ``Auth0().rules`` )
 - Stats() ( ``Auth0().stats`` )
 - Tenants() ( ``Auth0().tenants`` )
 - Tickets() ( ``Auth0().tickets`` )
 - UserBlocks() (``Auth0().user_blocks`` )
-- Users() ( ``Auth0().users`` )
 - UsersByEmail() ( ``Auth0().users_by_email`` )
+- Users() ( ``Auth0().users`` )
 
-==========
+=====
+About
+=====
+
+******
+Author
+******
+
+`Auth0`_
+
+**********
 Change Log
-==========
+**********
 
 Please see `CHANGELOG.md <https://github.com/auth0/auth0-python/blob/master/CHANGELOG.md>`__.
 
-===============
+***************
 Issue Reporting
-===============
+***************
 
 If you have found a bug or if you have a feature request, please report them at this repository issues section.
 Please do not report security vulnerabilities on the public GitHub issue tracker.
 The `Responsible Disclosure Program <https://auth0.com/whitehat>`__ details the procedure for disclosing security issues.
 
-==============
+**************
 What is Auth0?
-==============
+**************
 
 Auth0 helps you to:
 
@@ -388,16 +408,16 @@ Auth0 helps you to:
 * Analytics of how, when and where users are logging in.
 * Pull data from other sources and add it to the user profile, through `JavaScript rules <https://auth0.com/docs/rules>`__.
 
-===========================
+***************************
 Create a free Auth0 Account
-===========================
+***************************
 
 1. Go to `Auth0 <https://auth0.com/>`__ and click Sign Up.
 2. Use Google, GitHub or Microsoft Account to log in.
 
-=======
+*******
 License
-=======
+*******
 
 This project is licensed under the MIT license. See the `LICENSE <https://github.com/auth0/auth0-python/blob/master/LICENSE>`_
 file for more info.

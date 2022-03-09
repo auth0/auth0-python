@@ -1,6 +1,56 @@
 Changes
 =======
 
+3.21.0
+------------------
+
+**Added**
+- Add pagination to device credentials [\#300](https://github.com/auth0/auth0-python/pull/300) ([fionnulak](https://github.com/fionnulak))
+
+3.20.0
+------------------
+
+**Added**
+- Add attack protection endpoints [\#303](https://github.com/auth0/auth0-python/pull/303) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+3.19.0
+------------------
+
+**Added**
+- Add actions to Auth0 class [\#293](https://github.com/auth0/auth0-python/pull/293) ([jrzerr](https://github.com/jrzerr))
+- Added support for prompts API [\#291](https://github.com/auth0/auth0-python/pull/291) ([lorinkoz](https://github.com/lorinkoz))
+
+**Changed**
+- Remove references to ID token in generic token classes [\#295](https://github.com/auth0/auth0-python/pull/295) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Fixed**
+- Use assertNotEqual instead of assertNotEquals for Python 3.11 compatibility. [\#294](https://github.com/auth0/auth0-python/pull/294) ([tirkarthi](https://github.com/tirkarthi))
+
+3.18.0
+------------------
+
+**Added**
+- [SDK-2720] Add support for actions APIs [\#289](https://github.com/auth0/auth0-python/pull/289) ([jimmyjames](https://github.com/jimmyjames))
+
+3.17.0
+------------------
+
+**Added**
+- Make the CI fail when the docs syntax is invalid [\#287](https://github.com/auth0/auth0-python/pull/287) ([lbalmaceda](https://github.com/lbalmaceda))
+- [SDK-2687] Implement automatic rate-limit handling [\#285](https://github.com/auth0/auth0-python/pull/285) ([evansims](https://github.com/evansims))
+- Use Sphinx to generate API docs [\#281](https://github.com/auth0/auth0-python/pull/281) ([lbalmaceda](https://github.com/lbalmaceda))
+- Add Passwordless Login function [\#279](https://github.com/auth0/auth0-python/pull/279) ([lbalmaceda](https://github.com/lbalmaceda))
+- [SDK 2665] Update endpoint methods to support 'from' and 'take' checkpoint pagination parameters, where appropriate [\#278](https://github.com/auth0/auth0-python/pull/278) ([evansims](https://github.com/evansims))
+
+**Deprecated**
+- Deprecate /oauth/ro for passwordless [\#280](https://github.com/auth0/auth0-python/pull/280) ([lbalmaceda](https://github.com/lbalmaceda))
+
+3.16.2
+------------------
+
+**Fixed**
+- Re-Route Job Results endpoint [\#275](https://github.com/auth0/auth0-python/pull/275) ([lbalmaceda](https://github.com/lbalmaceda))
+
 3.16.1
 ------------------
 

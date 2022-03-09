@@ -117,3 +117,61 @@ class TestGetToken(unittest.TestCase):
             'grant_type': 'gt',
             'scope': 's'
         })
+
+
+    @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
+    def test_passwordless_login_with_sms(self, mock_post):
+
+        g = GetToken('my.domain.com')
+
+        g.passwordless_login(
+                client_id='cid',
+                client_secret='csec',
+                username='123456',
+                otp='abcd',
+                realm='sms',
+                audience='aud',
+                scope='openid')
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], 'https://my.domain.com/oauth/token')
+        self.assertEqual(kwargs['data'], {
+            'client_id': 'cid',
+            'client_secret': 'csec',
+            'realm': 'sms',
+            'grant_type': 'http://auth0.com/oauth/grant-type/passwordless/otp',
+            'username': '123456',
+            'otp': 'abcd',
+            'audience': 'aud',
+            'scope': 'openid',
+        })
+
+
+    @mock.patch('auth0.v3.authentication.get_token.GetToken.post')
+    def test_passwordless_login_with_email(self, mock_post):
+
+        g = GetToken('my.domain.com')
+
+        g.passwordless_login(
+                client_id='cid',
+                client_secret='csec',
+                username='a@b.c',
+                otp='abcd',
+                realm='email',
+                audience='aud',
+                scope='openid')
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], 'https://my.domain.com/oauth/token')
+        self.assertEqual(kwargs['data'], {
+            'client_id': 'cid',
+            'client_secret': 'csec',
+            'realm': 'email',
+            'grant_type': 'http://auth0.com/oauth/grant-type/passwordless/otp',
+            'username': 'a@b.c',
+            'otp': 'abcd',
+            'audience': 'aud',
+            'scope': 'openid',
+        })

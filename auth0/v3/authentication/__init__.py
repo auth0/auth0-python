@@ -5,5 +5,6 @@ from .enterprise import Enterprise
 from .get_token import GetToken
 from .logout import Logout
 from .passwordless import Passwordless
+from .revoke_token import RevokeToken
 from .social import Social
 from .users import Users
