@@ -390,7 +390,7 @@ class TestTokenVerifier(unittest.TestCase):
             audience=expectations['audience']
         )
         tv._clock = MOCKED_CLOCK
-        tv.verify(token, organization='org_123')    
+        tv.verify(token, organization='org_123')
 
     def test_fails_when_org_specified_but_not_present(self):
         token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.wotJnUdD5IfdZMewF_-BnHc0pI56uwzwr5qaSXvSu9w"
@@ -403,3 +403,21 @@ class TestTokenVerifier(unittest.TestCase):
     def test_fails_when_org_specified_but_does_not_match(self):
         token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjF9.hjSPgJpg0Dn2z0giCdGqVLD5Kmqy_yMYlSkgwKD7ahQ"
         self.assert_fails_with_error(token, 'Organization (org_id) claim mismatch in the ID token; expected "org_abc", found "org_123"', signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET), organization='org_abc')
+
+    def test_verify_returns_payload(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjF9.hjSPgJpg0Dn2z0giCdGqVLD5Kmqy_yMYlSkgwKD7ahQ"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = TokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations['issuer'],
+            audience=expectations['audience']
+        )
+        tv._clock = MOCKED_CLOCK
+        response = tv.verify(token)
+        self.assertIn('sub', response);
+        self.assertIn('aud', response);
+        self.assertIn('org_id', response);
+        self.assertIn('iss', response);
+        self.assertIn('exp', response);
+        self.assertIn('iat', response);
+        self.assertEqual('org_123', response['org_id'])

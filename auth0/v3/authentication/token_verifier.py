@@ -229,6 +229,9 @@ class TokenVerifier():
             organization (str, optional): The expected organization ID (org_id) claim value. This should be specified
             when logging in to an organization.
 
+        Returns:
+            the decoded payload from the token
+
         Raises:
             TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one,
             the token signature is invalid or the token has a claim missing or with unexpected value.
@@ -243,6 +246,8 @@ class TokenVerifier():
 
         # Verify claims
         self._verify_payload(payload, nonce, max_age, organization)
+
+        return payload
 
     def _verify_payload(self, payload, nonce=None, max_age=None, organization=None):
         try:
@@ -266,11 +271,13 @@ class TokenVerifier():
             raise TokenValidationError('Subject (sub) claim must be a string present in the ID token')
 
         # Audience
-        if 'aud' not in payload or not (isinstance(payload['aud'], (str, ustr)) or isinstance(payload['aud'], list)):
+        if 'aud' not in payload or not isinstance(
+            payload['aud'], (str, ustr, list)
+        ):
             raise TokenValidationError(
                 'Audience (aud) claim must be a string or array of strings present in the ID token')
 
-        if isinstance(payload['aud'], list) and not self.aud in payload['aud']:
+        if isinstance(payload['aud'], list) and self.aud not in payload['aud']:
             payload_audiences = ", ".join(payload['aud'])
             raise TokenValidationError(
                 'Audience (aud) claim mismatch in the ID token; expected "{}" but was '
