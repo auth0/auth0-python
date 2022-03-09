@@ -261,6 +261,17 @@ class TestUsers(unittest.TestCase):
         )
 
     @mock.patch('auth0.v3.management.users.RestClient')
+    def test_delete_authenticators(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain='domain', token='jwttoken')
+        u.delete_authenticators('an-id')
+
+        mock_instance.delete.assert_called_with(
+            'https://domain/api/v2/users/an-id/authenticators'
+        )
+
+    @mock.patch('auth0.v3.management.users.RestClient')
     def test_unlink_user_account(self, mock_rc):
         mock_instance = mock_rc.return_value
 
