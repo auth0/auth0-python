@@ -143,10 +143,7 @@ class Organizations(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_enabled_connections
         """
-        params = {}
-        params['page'] = page
-        params['per_page'] = per_page
-
+        params = {'page': page, 'per_page': per_page}
         return self.client.get(self._url(id, 'enabled_connections'), params=params)
 
     def get_organization_connection(self, id, connection_id):
@@ -282,10 +279,7 @@ class Organizations(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_organization_member_roles
         """
-        params = {}
-        params['page'] = page
-        params['per_page'] = per_page
-
+        params = {'page': page, 'per_page': per_page}
         return self.client.get(self._url(id, 'members', user_id, 'roles'), params=params)
 
     def create_organization_member_roles(self, id, user_id, body):
@@ -334,10 +328,7 @@ class Organizations(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_invitations
         """
-        params = {}
-        params['page'] = page
-        params['per_page'] = per_page
-
+        params = {'page': page, 'per_page': per_page}
         return self.client.get(self._url(id, 'invitations'), params=params)
 
     def get_organization_invitation(self, id, invitaton_id):

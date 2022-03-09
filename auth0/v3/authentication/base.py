@@ -74,18 +74,18 @@ class Response(object):
         self._headers = headers
 
     def content(self):
-        if self._is_error():
-            if self._status_code == 429:
-                reset_at = int(self._headers.get('x-ratelimit-reset', '-1'))
-                raise RateLimitError(error_code=self._error_code(),
-                                     message=self._error_message(),
-                                     reset_at=reset_at)
-
-            raise Auth0Error(status_code=self._status_code,
-                             error_code=self._error_code(),
-                             message=self._error_message())
-        else:
+        if not self._is_error():
             return self._content
+
+        if self._status_code == 429:
+            reset_at = int(self._headers.get('x-ratelimit-reset', '-1'))
+            raise RateLimitError(error_code=self._error_code(),
+                                 message=self._error_message(),
+                                 reset_at=reset_at)
+
+        raise Auth0Error(status_code=self._status_code,
+                         error_code=self._error_code(),
+                         message=self._error_message())
 
     def _is_error(self):
         return self._status_code is None or self._status_code >= 400
