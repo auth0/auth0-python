@@ -1,6 +1,18 @@
 Changes
 =======
 
+3.21.0
+------------------
+
+**Added**
+- Add pagination to device credentials [\#300](https://github.com/auth0/auth0-python/pull/300) ([fionnulak](https://github.com/fionnulak))
+
+3.20.0
+------------------
+
+**Added**
+- Add attack protection endpoints [\#303](https://github.com/auth0/auth0-python/pull/303) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 3.19.0
 ------------------
 
