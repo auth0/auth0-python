@@ -229,6 +229,9 @@ class TokenVerifier():
             organization (str, optional): The expected organization ID (org_id) claim value. This should be specified
             when logging in to an organization.
 
+        Returns:
+            the decoded payload from the token
+
         Raises:
             TokenValidationError: when the token cannot be decoded, the token signing algorithm is not the expected one,
             the token signature is invalid or the token has a claim missing or with unexpected value.
@@ -243,7 +246,7 @@ class TokenVerifier():
 
         # Verify claims
         self._verify_payload(payload, nonce, max_age, organization)
-        
+
         return payload
 
     def _verify_payload(self, payload, nonce=None, max_age=None, organization=None):
