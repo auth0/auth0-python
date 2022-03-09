@@ -1,6 +1,12 @@
 Changes
 =======
 
+3.21.0
+------------------
+
+**Added**
+- Add pagination to device credentials [\#300](https://github.com/auth0/auth0-python/pull/300) ([fionnulak](https://github.com/fionnulak))
+
 3.20.0
 ------------------
 
