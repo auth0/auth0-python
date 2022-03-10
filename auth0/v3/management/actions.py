@@ -35,7 +35,7 @@ class Actions(object):
                 url = '{}/{}'.format(url, p)
         return url
 
-    def get_actions(self, trigger_id=None, action_name=None, deployed=False, installed=False, page=None, per_page=None):
+    def get_actions(self, trigger_id=None, action_name=None, deployed=None, installed=False, page=None, per_page=None):
         """Get all actions.
 
         Args:
@@ -58,10 +58,14 @@ class Actions(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Actions/get_actions
         """
+
+        if deployed is not None:
+            deployed = str(deployed).lower()
+
         params = {
             'triggerId': trigger_id,
             'actionName': action_name,
-            'deployed': str(deployed).lower(),
+            'deployed': deployed,
             'installed': str(installed).lower(),
             'page': page,
             'per_page': per_page
@@ -111,9 +115,9 @@ class Actions(object):
         Args:
            id (str): ID of the action to delete.
 
-           force (bool, optional): True to force action deletion detaching bindings, 
+           force (bool, optional): True to force action deletion detaching bindings,
                False otherwise. Defaults to False.
-        
+
         See: https://auth0.com/docs/api/management/v2#!/Actions/delete_action
         """
         params = {
@@ -121,7 +125,7 @@ class Actions(object):
         }
 
         return self.client.delete(self._url('actions', id), params=params)
-        
+
     def get_triggers(self):
         """Retrieve the set of triggers currently available within actions.
 
@@ -132,7 +136,7 @@ class Actions(object):
         return self.client.get(self._url('triggers'), params=params)
 
     def get_execution(self, id):
-        """Get information about a specific execution of a trigger. 
+        """Get information about a specific execution of a trigger.
 
         Args:
            id (str): The ID of the execution to retrieve.
@@ -145,7 +149,7 @@ class Actions(object):
 
     def get_action_versions(self, id, page=None, per_page=None):
         """Get all of an action's versions.
-        
+
         Args:
            id (str): The ID of the action.
 
@@ -185,7 +189,7 @@ class Actions(object):
         return self.client.get(self._url('triggers', id, 'bindings'), params=params)
 
     def get_action_version(self, action_id, version_id):
-        """Retrieve a specific version of an action. 
+        """Retrieve a specific version of an action.
 
         Args:
            action_id (str): The ID of the action.
@@ -227,8 +231,8 @@ class Actions(object):
         Args:
            id (str): The ID of the trigger to update.
 
-           body (dict): Attributes for the updated trigger binding. 
-        
+           body (dict): Attributes for the updated trigger binding.
+
         See: https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings
         """
         return self.client.patch(self._url('triggers', id, 'bindings'), data=body)

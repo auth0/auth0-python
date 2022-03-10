@@ -16,26 +16,36 @@ class TestActions(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         c = Actions(domain='domain', token='jwttoken')
-        c.get_actions()
 
+        c.get_actions()
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/actions/actions', args[0])
         self.assertEqual(kwargs['params'], {'triggerId': None,
                                             'actionName': None,
-                                            'deployed': 'false',
+                                            'deployed': None,
                                             'installed': 'false',
                                             'page': None,
                                             'per_page': None})
 
         c.get_actions('trigger-id', 'action-name', True, True,  0, 5)
-
         args, kwargs = mock_instance.get.call_args
 
         self.assertEqual('https://domain/api/v2/actions/actions', args[0])
         self.assertEqual(kwargs['params'], {'triggerId': 'trigger-id',
                                             'actionName': 'action-name',
                                             'deployed': 'true',
+                                            'installed': 'true',
+                                            'page': 0,
+                                            'per_page': 5})
+
+        c.get_actions('trigger-id', 'action-name', False, True,  0, 5)
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual('https://domain/api/v2/actions/actions', args[0])
+        self.assertEqual(kwargs['params'], {'triggerId': 'trigger-id',
+                                            'actionName': 'action-name',
+                                            'deployed': 'false',
                                             'installed': 'true',
                                             'page': 0,
                                             'per_page': 5})
@@ -195,7 +205,7 @@ class TestActions(unittest.TestCase):
         args, kwargs = mock_instance.post.call_args
 
         self.assertEqual('https://domain/api/v2/actions/actions/action-id/versions/version-id/deploy', args[0])
-        self.assertEqual(kwargs['data'], {})   
+        self.assertEqual(kwargs['data'], {})
 
     @mock.patch('auth0.v3.management.actions.RestClient')
     def test_update_trigger_bindings(self, mock_rc):
@@ -207,4 +217,4 @@ class TestActions(unittest.TestCase):
         args, kwargs = mock_instance.patch.call_args
 
         self.assertEqual('https://domain/api/v2/actions/triggers/trigger-id/bindings', args[0])
-        self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})  
+        self.assertEqual(kwargs['data'], {'a': 'b', 'c': 'd'})
