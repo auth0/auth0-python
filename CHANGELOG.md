@@ -1,6 +1,16 @@
 Changes
 =======
 
+3.22.0
+------------------
+
+**Added**
+- [SDK-3174] Add `DELETE` method for `/api/v2/users/{id}/authenticators` endpoint [\#301](https://github.com/auth0/auth0-python/pull/301) ([akmjenkins](https://github.com/akmjenkins))
+- [SDK-3175] Return token claims in TokenVerifier.verify() [\#273](https://github.com/auth0/auth0-python/pull/273) ([bisguzar](https://github.com/bisguzar))
+
+**Fixed**
+- [SDK-3173] Default to 'None' for `deployed` on GET /api/v2/actions/actions endpoint [\#309](https://github.com/auth0/auth0-python/pull/309) ([evansims](https://github.com/evansims))
+
 3.21.0
 ------------------
 
