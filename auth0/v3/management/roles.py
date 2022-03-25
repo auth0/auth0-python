@@ -23,15 +23,25 @@ class Roles(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, id=None):
-        url = '{}://{}/api/v2/roles'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/roles".format(self.protocol, self.domain)
         if id is not None:
-            return '{}/{}'.format(url, id)
+            return "{}/{}".format(url, id)
         return url
 
     def list(self, page=0, per_page=25, include_totals=True, name_filter=None):
@@ -53,10 +63,10 @@ class Roles(object):
         See: https://auth0.com/docs/api/management/v2#!/Roles/get_roles
         """
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower(),
-            'name_filter': name_filter
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
+            "name_filter": name_filter,
         }
         return self.client.get(self._url(), params=params)
 
@@ -103,7 +113,9 @@ class Roles(object):
         """
         return self.client.patch(self._url(id), data=body)
 
-    def list_users(self, id, page=0, per_page=25, include_totals=True, from_param=None, take=None):
+    def list_users(
+        self, id, page=0, per_page=25, include_totals=True, from_param=None, take=None
+    ):
         """List the users that have been associated with a given role.
 
         Args:
@@ -128,14 +140,14 @@ class Roles(object):
         """
 
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower(),
-            'from': from_param,
-            'take': take
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
+            "from": from_param,
+            "take": take,
         }
 
-        url = self._url('{}/users'.format(id))
+        url = self._url("{}/users".format(id))
         return self.client.get(url, params=params)
 
     def add_users(self, id, users):
@@ -148,8 +160,8 @@ class Roles(object):
 
         See https://auth0.com/docs/api/management/v2#!/Roles/post_role_users
         """
-        url = self._url('{}/users'.format(id))
-        body = {'users': users}
+        url = self._url("{}/users".format(id))
+        body = {"users": users}
         return self.client.post(url, data=body)
 
     def list_permissions(self, id, page=0, per_page=25, include_totals=True):
@@ -170,11 +182,11 @@ class Roles(object):
         See https://auth0.com/docs/api/management/v2#!/Roles/get_role_permission
         """
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower()
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
         }
-        url = self._url('{}/permissions'.format(id))
+        url = self._url("{}/permissions".format(id))
         return self.client.get(url, params=params)
 
     def remove_permissions(self, id, permissions):
@@ -187,8 +199,8 @@ class Roles(object):
 
         See https://auth0.com/docs/api/management/v2#!/Roles/delete_role_permission_assignment
         """
-        url = self._url('{}/permissions'.format(id))
-        body = {'permissions': permissions}
+        url = self._url("{}/permissions".format(id))
+        body = {"permissions": permissions}
         return self.client.delete(url, data=body)
 
     def add_permissions(self, id, permissions):
@@ -201,6 +213,6 @@ class Roles(object):
 
         See https://auth0.com/docs/api/management/v2#!/Roles/post_role_permission_assignment
         """
-        url = self._url('{}/permissions'.format(id))
-        body = {'permissions': permissions}
+        url = self._url("{}/permissions".format(id))
+        body = {"permissions": permissions}
         return self.client.post(url, data=body)

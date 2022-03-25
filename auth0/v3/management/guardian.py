@@ -23,15 +23,25 @@ class Guardian(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, id=None):
-        url = '{}://{}/api/v2/guardian'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/guardian".format(self.protocol, self.domain)
         if id is not None:
-            return '{}/{}'.format(url, id)
+            return "{}/{}".format(url, id)
         return url
 
     def all_factors(self):
@@ -41,7 +51,7 @@ class Guardian(object):
         See: https://auth0.com/docs/api/management/v2#!/Guardian/get_factors
         """
 
-        return self.client.get(self._url('factors'))
+        return self.client.get(self._url("factors"))
 
     def update_factor(self, name, body):
         """Update Guardian factor.
@@ -54,7 +64,7 @@ class Guardian(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name
         """
-        url = self._url('factors/{}'.format(name))
+        url = self._url("factors/{}".format(name))
         return self.client.put(url, data=body)
 
     def update_templates(self, body):
@@ -68,7 +78,7 @@ class Guardian(object):
         See: https://auth0.com/docs/api/management/v2#!/Guardian/put_templates
         """
 
-        return self.client.put(self._url('factors/sms/templates'), data=body)
+        return self.client.put(self._url("factors/sms/templates"), data=body)
 
     def get_templates(self):
         """Get enrollment and verification templates.
@@ -79,7 +89,7 @@ class Guardian(object):
         See: https://auth0.com/docs/api/management/v2#!/Guardian/get_templates
         """
 
-        return self.client.get(self._url('factors/sms/templates'))
+        return self.client.get(self._url("factors/sms/templates"))
 
     def get_enrollment(self, id):
         """Retrieves an enrollment.
@@ -90,7 +100,7 @@ class Guardian(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/get_enrollments_by_id
         """
-        url = self._url('enrollments/{}'.format(id))
+        url = self._url("enrollments/{}".format(id))
         return self.client.get(url)
 
     def delete_enrollment(self, id):
@@ -103,7 +113,7 @@ class Guardian(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id
         """
-        url = self._url('enrollments/{}'.format(id))
+        url = self._url("enrollments/{}".format(id))
         return self.client.delete(url)
 
     def create_enrollment_ticket(self, body):
@@ -117,7 +127,7 @@ class Guardian(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/post_ticket
         """
-        return self.client.post(self._url('enrollments/ticket'), data=body)
+        return self.client.post(self._url("enrollments/ticket"), data=body)
 
     def get_factor_providers(self, factor_name, name):
         """Get Guardian SNS or SMS factor providers.
@@ -132,7 +142,7 @@ class Guardian(object):
         See: https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
              https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
         """
-        url = self._url('factors/{}/providers/{}'.format(factor_name, name))
+        url = self._url("factors/{}/providers/{}".format(factor_name, name))
         return self.client.get(url)
 
     def update_factor_providers(self, factor_name, name, body):
@@ -149,5 +159,5 @@ class Guardian(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/put_twilio
         """
-        url = self._url('factors/{}/providers/{}'.format(factor_name, name))
+        url = self._url("factors/{}/providers/{}".format(factor_name, name))
         return self.client.put(url, data=body)

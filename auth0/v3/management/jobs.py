@@ -1,5 +1,6 @@
-from .rest import RestClient
 import warnings
+
+from .rest import RestClient
 
 
 class Jobs(object):
@@ -24,15 +25,25 @@ class Jobs(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, path=None):
-        url = '{}://{}/api/v2/jobs'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/jobs".format(self.protocol, self.domain)
         if path is not None:
-            return '{}/{}'.format(url, path)
+            return "{}/{}".format(url, path)
         return url
 
     def get(self, id):
@@ -53,7 +64,7 @@ class Jobs(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Jobs/get_errors
         """
-        url = self._url('{}/errors'.format(id))
+        url = self._url("{}/errors".format(id))
         return self.client.get(url)
 
     def get_results(self, job_id):
@@ -68,7 +79,11 @@ class Jobs(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
         """
-        warnings.warn("/jobs/{id}/results is no longer available. The get(id) function will be called instead.", DeprecationWarning)
+        warnings.warn(
+            "/jobs/{id}/results is no longer available. The get(id) function will be"
+            " called instead.",
+            DeprecationWarning,
+        )
         return self.get(job_id)
 
     def export_users(self, body):
@@ -82,9 +97,16 @@ class Jobs(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports
         """
-        return self.client.post(self._url('users-exports'), data=body)
+        return self.client.post(self._url("users-exports"), data=body)
 
-    def import_users(self, connection_id, file_obj, upsert=False, send_completion_email=True, external_id=None):
+    def import_users(
+        self,
+        connection_id,
+        file_obj,
+        upsert=False,
+        send_completion_email=True,
+        external_id=None,
+    ):
         """Imports users to a connection from a file.
 
         Args:
@@ -107,12 +129,16 @@ class Jobs(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports
         """
-        return self.client.file_post(self._url('users-imports'),
-                                     data={'connection_id': connection_id,
-                                           'upsert': str(upsert).lower(),
-                                           'send_completion_email': str(send_completion_email).lower(),
-                                           'external_id': external_id},
-                                     files={'users': file_obj})
+        return self.client.file_post(
+            self._url("users-imports"),
+            data={
+                "connection_id": connection_id,
+                "upsert": str(upsert).lower(),
+                "send_completion_email": str(send_completion_email).lower(),
+                "external_id": external_id,
+            },
+            files={"users": file_obj},
+        )
 
     def send_verification_email(self, body):
         """Send verification email.
@@ -125,4 +151,4 @@ class Jobs(object):
 
         See: https://auth0.com/docs/api/v2#!/Jobs/post_verification_email
         """
-        return self.client.post(self._url('verification-email'), data=body)
+        return self.client.post(self._url("verification-email"), data=body)

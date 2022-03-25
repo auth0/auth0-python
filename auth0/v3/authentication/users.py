@@ -1,5 +1,6 @@
-from .base import AuthenticationBase
 import warnings
+
+from .base import AuthenticationBase
 
 
 class Users(AuthenticationBase):
@@ -23,8 +24,8 @@ class Users(AuthenticationBase):
         """
 
         return self.get(
-            url='{}://{}/userinfo'.format(self.protocol, self.domain),
-            headers={'Authorization': 'Bearer {}'.format(access_token)}
+            url="{}://{}/userinfo".format(self.protocol, self.domain),
+            headers={"Authorization": "Bearer {}".format(access_token)},
         )
 
     def tokeninfo(self, jwt):
@@ -41,8 +42,10 @@ class Users(AuthenticationBase):
         Returns:
             The user profile.
         """
-        warnings.warn("/tokeninfo will be deprecated in future releases", DeprecationWarning)
+        warnings.warn(
+            "/tokeninfo will be deprecated in future releases", DeprecationWarning
+        )
         return self.post(
-            url='{}://{}/tokeninfo'.format(self.protocol, self.domain),
-            data={'id_token': jwt}
+            url="{}://{}/tokeninfo".format(self.protocol, self.domain),
+            data={"id_token": jwt},
         )

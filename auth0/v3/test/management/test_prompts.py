@@ -44,7 +44,10 @@ class TestPrompts(unittest.TestCase):
 
         args, _ = mock_instance.get.call_args
 
-        self.assertEqual("https://domain/api/v2/prompts/some-prompt/custom-text/some-language", args[0])
+        self.assertEqual(
+            "https://domain/api/v2/prompts/some-prompt/custom-text/some-language",
+            args[0],
+        )
 
     @mock.patch("auth0.v3.management.prompts.RestClient")
     def test_update_custom_text(self, mock_rc):
@@ -55,5 +58,8 @@ class TestPrompts(unittest.TestCase):
 
         args, kwargs = mock_instance.put.call_args
 
-        self.assertEqual("https://domain/api/v2/prompts/some-prompt/custom-text/some-language", args[0])
+        self.assertEqual(
+            "https://domain/api/v2/prompts/some-prompt/custom-text/some-language",
+            args[0],
+        )
         self.assertEqual(kwargs["data"], {"a": "b", "c": "d"})

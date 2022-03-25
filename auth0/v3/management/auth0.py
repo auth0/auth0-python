@@ -44,30 +44,56 @@ class Auth0(object):
 
     def __init__(self, domain, token, rest_options=None):
         self.actions = Actions(domain=domain, token=token, rest_options=rest_options)
-        self.attack_protection = AttackProtection(domain=domain, token=token, rest_options=rest_options)
-        self.blacklists = Blacklists(domain=domain, token=token, rest_options=rest_options)
-        self.client_grants = ClientGrants(domain=domain, token=token, rest_options=rest_options)
+        self.attack_protection = AttackProtection(
+            domain=domain, token=token, rest_options=rest_options
+        )
+        self.blacklists = Blacklists(
+            domain=domain, token=token, rest_options=rest_options
+        )
+        self.client_grants = ClientGrants(
+            domain=domain, token=token, rest_options=rest_options
+        )
         self.clients = Clients(domain=domain, token=token, rest_options=rest_options)
-        self.connections = Connections(domain=domain, token=token, rest_options=rest_options)
-        self.custom_domains = CustomDomains(domain=domain, token=token, rest_options=rest_options)
-        self.device_credentials = DeviceCredentials(domain=domain, token=token, rest_options=rest_options)
-        self.email_templates = EmailTemplates(domain=domain, token=token, rest_options=rest_options)
+        self.connections = Connections(
+            domain=domain, token=token, rest_options=rest_options
+        )
+        self.custom_domains = CustomDomains(
+            domain=domain, token=token, rest_options=rest_options
+        )
+        self.device_credentials = DeviceCredentials(
+            domain=domain, token=token, rest_options=rest_options
+        )
+        self.email_templates = EmailTemplates(
+            domain=domain, token=token, rest_options=rest_options
+        )
         self.emails = Emails(domain=domain, token=token, rest_options=rest_options)
         self.grants = Grants(domain=domain, token=token, rest_options=rest_options)
         self.guardian = Guardian(domain=domain, token=token, rest_options=rest_options)
         self.hooks = Hooks(domain=domain, token=token, rest_options=rest_options)
         self.jobs = Jobs(domain=domain, token=token, rest_options=rest_options)
-        self.log_streams = LogStreams(domain=domain, token=token, rest_options=rest_options)
+        self.log_streams = LogStreams(
+            domain=domain, token=token, rest_options=rest_options
+        )
         self.logs = Logs(domain=domain, token=token, rest_options=rest_options)
-        self.organizations = Organizations(domain=domain, token=token, rest_options=rest_options)
+        self.organizations = Organizations(
+            domain=domain, token=token, rest_options=rest_options
+        )
         self.prompts = Prompts(domain=domain, token=token, rest_options=rest_options)
-        self.resource_servers = ResourceServers(domain=domain, token=token, rest_options=rest_options)
+        self.resource_servers = ResourceServers(
+            domain=domain, token=token, rest_options=rest_options
+        )
         self.roles = Roles(domain=domain, token=token, rest_options=rest_options)
-        self.rules_configs = RulesConfigs(domain=domain, token=token, rest_options=rest_options)
+        self.rules_configs = RulesConfigs(
+            domain=domain, token=token, rest_options=rest_options
+        )
         self.rules = Rules(domain=domain, token=token, rest_options=rest_options)
         self.stats = Stats(domain=domain, token=token, rest_options=rest_options)
         self.tenants = Tenants(domain=domain, token=token, rest_options=rest_options)
         self.tickets = Tickets(domain=domain, token=token, rest_options=rest_options)
-        self.user_blocks = UserBlocks(domain=domain, token=token, rest_options=rest_options)
-        self.users_by_email = UsersByEmail(domain=domain, token=token, rest_options=rest_options)
+        self.user_blocks = UserBlocks(
+            domain=domain, token=token, rest_options=rest_options
+        )
+        self.users_by_email = UsersByEmail(
+            domain=domain, token=token, rest_options=rest_options
+        )
         self.users = Users(domain=domain, token=token, rest_options=rest_options)

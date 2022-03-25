@@ -23,13 +23,23 @@ class UsersByEmail(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self):
-        return '{}://{}/api/v2/users-by-email'.format(self.protocol, self.domain)
+        return "{}://{}/api/v2/users-by-email".format(self.protocol, self.domain)
 
     def search_users_by_email(self, email, fields=None, include_fields=True):
         """List or search users.
@@ -48,8 +58,8 @@ class UsersByEmail(object):
         See: https://auth0.com/docs/api/management/v2#!/Users_By_Email/get_users_by_email
         """
         params = {
-            'email': email,
-            'fields': fields and ','.join(fields) or None,
-            'include_fields': str(include_fields).lower()
+            "email": email,
+            "fields": fields and ",".join(fields) or None,
+            "include_fields": str(include_fields).lower(),
         }
         return self.client.get(self._url(), params=params)

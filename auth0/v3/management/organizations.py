@@ -23,20 +23,32 @@ class Organizations(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, *args):
-        url = '{}://{}/api/v2/organizations'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/organizations".format(self.protocol, self.domain)
         for p in args:
             if p is not None:
-                url = '{}/{}'.format(url, p)
+                url = "{}/{}".format(url, p)
         return url
 
     # Organizations
-    def all_organizations(self, page=None, per_page=None, include_totals=True, from_param=None, take=None):
+    def all_organizations(
+        self, page=None, per_page=None, include_totals=True, from_param=None, take=None
+    ):
         """Retrieves a list of all the organizations.
 
         Args:
@@ -59,11 +71,11 @@ class Organizations(object):
         """
 
         params = {
-            'page': page,
-            'per_page': per_page,
-            'include_totals': str(include_totals).lower(),
-            'from': from_param,
-            'take': take
+            "page": page,
+            "per_page": per_page,
+            "include_totals": str(include_totals).lower(),
+            "from": from_param,
+            "take": take,
         }
 
         return self.client.get(self._url(), params=params)
@@ -78,7 +90,7 @@ class Organizations(object):
         """
         params = {}
 
-        return self.client.get(self._url('name', name), params=params)
+        return self.client.get(self._url("name", name), params=params)
 
     def get_organization(self, id):
         """Retrieves an organization by its ID.
@@ -127,7 +139,6 @@ class Organizations(object):
 
         return self.client.delete(self._url(id))
 
-
     # Organization Connections
     def all_organization_connections(self, id, page=None, per_page=None):
         """Retrieves a list of all the organization connections.
@@ -143,8 +154,8 @@ class Organizations(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_enabled_connections
         """
-        params = {'page': page, 'per_page': per_page}
-        return self.client.get(self._url(id, 'enabled_connections'), params=params)
+        params = {"page": page, "per_page": per_page}
+        return self.client.get(self._url(id, "enabled_connections"), params=params)
 
     def get_organization_connection(self, id, connection_id):
         """Retrieves an organization connection by its ID.
@@ -158,7 +169,9 @@ class Organizations(object):
         """
         params = {}
 
-        return self.client.get(self._url(id, 'enabled_connections', connection_id), params=params)
+        return self.client.get(
+            self._url(id, "enabled_connections", connection_id), params=params
+        )
 
     def create_organization_connection(self, id, body):
         """Adds a connection to an organization.
@@ -171,7 +184,7 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/post_enabled_connections
         """
 
-        return self.client.post(self._url(id, 'enabled_connections'), data=body)
+        return self.client.post(self._url(id, "enabled_connections"), data=body)
 
     def update_organization_connection(self, id, connection_id, body):
         """Modifies an organization.
@@ -186,7 +199,9 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/patch_enabled_connections_by_connectionId
         """
 
-        return self.client.patch(self._url(id, 'enabled_connections', connection_id), data=body)
+        return self.client.patch(
+            self._url(id, "enabled_connections", connection_id), data=body
+        )
 
     def delete_organization_connection(self, id, connection_id):
         """Deletes a connection from the given organization.
@@ -199,10 +214,18 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_enabled_connections_by_connectionId
         """
 
-        return self.client.delete(self._url(id, 'enabled_connections', connection_id))
+        return self.client.delete(self._url(id, "enabled_connections", connection_id))
 
     # Organization Members
-    def all_organization_members(self, id, page=None, per_page=None, include_totals=True, from_param=None, take=None):
+    def all_organization_members(
+        self,
+        id,
+        page=None,
+        per_page=None,
+        include_totals=True,
+        from_param=None,
+        take=None,
+    ):
         """Retrieves a list of all the organization members.
 
         Args:
@@ -227,14 +250,14 @@ class Organizations(object):
         """
 
         params = {
-            'page': page,
-            'per_page': per_page,
-            'include_totals': str(include_totals).lower(),
-            'from': from_param,
-            'take': take
+            "page": page,
+            "per_page": per_page,
+            "include_totals": str(include_totals).lower(),
+            "from": from_param,
+            "take": take,
         }
 
-        return self.client.get(self._url(id, 'members'), params=params)
+        return self.client.get(self._url(id, "members"), params=params)
 
     def create_organization_members(self, id, body):
         """Adds members to an organization.
@@ -247,7 +270,7 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/post_members
         """
 
-        return self.client.post(self._url(id, 'members'), data=body)
+        return self.client.post(self._url(id, "members"), data=body)
 
     def delete_organization_members(self, id, body):
         """Deletes members from the given organization.
@@ -260,7 +283,7 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_members
         """
 
-        return self.client.delete(self._url(id, 'members'), data=body)
+        return self.client.delete(self._url(id, "members"), data=body)
 
     # Organization Member Roles
     def all_organization_member_roles(self, id, user_id, page=None, per_page=None):
@@ -279,8 +302,10 @@ class Organizations(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_organization_member_roles
         """
-        params = {'page': page, 'per_page': per_page}
-        return self.client.get(self._url(id, 'members', user_id, 'roles'), params=params)
+        params = {"page": page, "per_page": per_page}
+        return self.client.get(
+            self._url(id, "members", user_id, "roles"), params=params
+        )
 
     def create_organization_member_roles(self, id, user_id, body):
         """Adds roles to a member of an organization.
@@ -295,7 +320,7 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/post_organization_member_roles
         """
 
-        return self.client.post(self._url(id, 'members', user_id, 'roles'), data=body)
+        return self.client.post(self._url(id, "members", user_id, "roles"), data=body)
 
     def delete_organization_member_roles(self, id, user_id, body):
         """Deletes roles from a member of an organization.
@@ -310,8 +335,7 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_organization_member_roles
         """
 
-        return self.client.delete(self._url(id, 'members', user_id, 'roles'), data=body)
-
+        return self.client.delete(self._url(id, "members", user_id, "roles"), data=body)
 
     # Organization Invitations
     def all_organization_invitations(self, id, page=None, per_page=None):
@@ -328,8 +352,8 @@ class Organizations(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_invitations
         """
-        params = {'page': page, 'per_page': per_page}
-        return self.client.get(self._url(id, 'invitations'), params=params)
+        params = {"page": page, "per_page": per_page}
+        return self.client.get(self._url(id, "invitations"), params=params)
 
     def get_organization_invitation(self, id, invitaton_id):
         """Retrieves an organization invitation by its ID.
@@ -343,7 +367,9 @@ class Organizations(object):
         """
         params = {}
 
-        return self.client.get(self._url(id, 'invitations', invitaton_id), params=params)
+        return self.client.get(
+            self._url(id, "invitations", invitaton_id), params=params
+        )
 
     def create_organization_invitation(self, id, body):
         """Create an invitation to an organization.
@@ -356,7 +382,7 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/post_invitations
         """
 
-        return self.client.post(self._url(id, 'invitations'), data=body)
+        return self.client.post(self._url(id, "invitations"), data=body)
 
     def delete_organization_invitation(self, id, invitation_id):
         """Deletes an invitation from the given organization.
@@ -369,4 +395,4 @@ class Organizations(object):
         See: https://auth0.com/docs/api/management/v2#!/Organizations/delete_invitations_by_invitation_id
         """
 
-        return self.client.delete(self._url(id, 'invitations', invitation_id))
+        return self.client.delete(self._url(id, "invitations", invitation_id))

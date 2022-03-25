@@ -1,4 +1,5 @@
 from .base import AuthenticationBase
+
 try:
     from urllib.parse import quote_plus
 except ImportError:
@@ -31,12 +32,12 @@ class Logout(AuthenticationBase):
 
         if federated is True:
             return self.get(
-                '{}://{}/v2/logout?federated&client_id={}&returnTo={}'.format(
-                    self.protocol, self.domain, client_id, return_to)
+                "{}://{}/v2/logout?federated&client_id={}&returnTo={}".format(
+                    self.protocol, self.domain, client_id, return_to
+                )
             )
         return self.get(
-            '{}://{}/v2/logout?client_id={}&returnTo={}'.format(self.protocol,
-                                                                   self.domain,
-                                                                   client_id,
-                                                                   return_to)
+            "{}://{}/v2/logout?client_id={}&returnTo={}".format(
+                self.protocol, self.domain, client_id, return_to
+            )
         )

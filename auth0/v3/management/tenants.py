@@ -23,13 +23,23 @@ class Tenants(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self):
-        return '{}://{}/api/v2/tenants/settings'.format(self.protocol, self.domain)
+        return "{}://{}/api/v2/tenants/settings".format(self.protocol, self.domain)
 
     def get(self, fields=None, include_fields=True):
         """Get tenant settings.
@@ -45,8 +55,10 @@ class Tenants(object):
         See: https://auth0.com/docs/api/management/v2#!/Tenants/get_settings
         """
 
-        params = {'fields': fields and ','.join(fields) or None,
-                  'include_fields': str(include_fields).lower()}
+        params = {
+            "fields": fields and ",".join(fields) or None,
+            "include_fields": str(include_fields).lower(),
+        }
 
         return self.client.get(self._url(), params=params)
 

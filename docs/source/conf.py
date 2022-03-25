@@ -6,23 +6,28 @@
 
 # -- Path setup --------------------------------------------------------------
 
+import io
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-import io
 import re
 import sys
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../..'))
+
+sys.path.insert(0, os.path.abspath("."))
+sys.path.insert(0, os.path.abspath("../.."))
+
 
 # -- helper function to read a file without importing it
 def read(*names, **kwargs):
     with io.open(
-        os.path.join(os.path.dirname(__file__)[:-7], *names), encoding=kwargs.get("encoding", "utf8")
+        os.path.join(os.path.dirname(__file__)[:-7], *names),
+        encoding=kwargs.get("encoding", "utf8"),
     ) as fp:
         return fp.read()
+
 
 # -- helper function to get the __version__ from a file
 def find_version(*file_paths):
@@ -32,14 +37,15 @@ def find_version(*file_paths):
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
 
+
 # -- regenerate autodoc definitions
 # sphinx-apidoc -o ./source ../auth0/v3/
 
 # -- Project information -----------------------------------------------------
 
-project = 'auth0-python'
-copyright = '2021, Auth0'
-author = 'Auth0'
+project = "auth0-python"
+copyright = "2021, Auth0"
+author = "Auth0"
 
 # The full version, including alpha/beta/rc tags
 release = find_version("..", "auth0", "__init__.py")
@@ -51,13 +57,13 @@ release = find_version("..", "auth0", "__init__.py")
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-  'sphinx.ext.autodoc',
-  'sphinx.ext.viewcode',
-  'sphinx.ext.githubpages',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.githubpages",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -68,13 +74,13 @@ exclude_patterns = []
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = "index"
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -82,7 +88,7 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

@@ -23,15 +23,25 @@ class UserBlocks(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, id=None):
-        url = '{}://{}/api/v2/user-blocks'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/user-blocks".format(self.protocol, self.domain)
         if id is not None:
-            return '{}/{}'.format(url, id)
+            return "{}/{}".format(url, id)
         return url
 
     def get_by_identifier(self, identifier):
@@ -43,7 +53,7 @@ class UserBlocks(object):
         See: https://auth0.com/docs/api/management/v2#!/User_Blocks/get_user_blocks
         """
 
-        params = {'identifier': identifier}
+        params = {"identifier": identifier}
 
         return self.client.get(self._url(), params=params)
 
@@ -56,7 +66,7 @@ class UserBlocks(object):
         See: https://auth0.com/docs/api/management/v2#!/User_Blocks/delete_user_blocks
         """
 
-        params = {'identifier': identifier}
+        params = {"identifier": identifier}
 
         return self.client.delete(self._url(), params=params)
 

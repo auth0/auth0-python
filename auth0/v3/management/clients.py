@@ -23,18 +23,35 @@ class Clients(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, id=None):
-        url = '{}://{}/api/v2/clients'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/clients".format(self.protocol, self.domain)
         if id is not None:
-            return '{}/{}'.format(url, id)
+            return "{}/{}".format(url, id)
         return url
 
-    def all(self, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
+    def all(
+        self,
+        fields=None,
+        include_fields=True,
+        page=None,
+        per_page=None,
+        extra_params=None,
+    ):
         """Retrieves a list of all the applications.
 
         Important: The client_secret and encryption_key attributes can only be
@@ -61,10 +78,10 @@ class Clients(object):
         See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients
         """
         params = extra_params or {}
-        params['fields'] = fields and ','.join(fields) or None
-        params['include_fields'] = str(include_fields).lower()
-        params['page'] = page
-        params['per_page'] = per_page
+        params["fields"] = fields and ",".join(fields) or None
+        params["include_fields"] = str(include_fields).lower()
+        params["page"] = page
+        params["per_page"] = per_page
 
         return self.client.get(self._url(), params=params)
 
@@ -98,8 +115,10 @@ class Clients(object):
         See: https://auth0.com/docs/api/management/v2#!/Clients/get_clients_by_id
         """
 
-        params = {'fields': fields and ','.join(fields) or None,
-                  'include_fields': str(include_fields).lower()}
+        params = {
+            "fields": fields and ",".join(fields) or None,
+            "include_fields": str(include_fields).lower(),
+        }
 
         return self.client.get(self._url(id), params=params)
 
@@ -139,7 +158,7 @@ class Clients(object):
         See: https://auth0.com/docs/api/management/v2#!/Clients/post_rotate_secret
         """
 
-        data = {'id': id}
+        data = {"id": id}
 
-        url = self._url('%s/rotate-secret' % id)
+        url = self._url("%s/rotate-secret" % id)
         return self.client.post(url, data=data)

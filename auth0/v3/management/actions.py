@@ -23,19 +23,37 @@ class Actions(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, *args):
-        url = '{}://{}/api/v2/actions'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/actions".format(self.protocol, self.domain)
         for p in args:
             if p is not None:
-                url = '{}/{}'.format(url, p)
+                url = "{}/{}".format(url, p)
         return url
 
-    def get_actions(self, trigger_id=None, action_name=None, deployed=None, installed=False, page=None, per_page=None):
+    def get_actions(
+        self,
+        trigger_id=None,
+        action_name=None,
+        deployed=None,
+        installed=False,
+        page=None,
+        per_page=None,
+    ):
         """Get all actions.
 
         Args:
@@ -63,15 +81,15 @@ class Actions(object):
             deployed = str(deployed).lower()
 
         params = {
-            'triggerId': trigger_id,
-            'actionName': action_name,
-            'deployed': deployed,
-            'installed': str(installed).lower(),
-            'page': page,
-            'per_page': per_page
+            "triggerId": trigger_id,
+            "actionName": action_name,
+            "deployed": deployed,
+            "installed": str(installed).lower(),
+            "page": page,
+            "per_page": per_page,
         }
 
-        return self.client.get(self._url('actions'), params=params)
+        return self.client.get(self._url("actions"), params=params)
 
     def create_action(self, body):
         """Create a new action.
@@ -82,7 +100,7 @@ class Actions(object):
         See: https://auth0.com/docs/api/management/v2#!/Actions/post_action
         """
 
-        return self.client.post(self._url('actions'), data=body)
+        return self.client.post(self._url("actions"), data=body)
 
     def update_action(self, id, body):
         """Updates an action.
@@ -95,7 +113,7 @@ class Actions(object):
         See: https://auth0.com/docs/api/management/v2#!/Actions/patch_action
         """
 
-        return self.client.patch(self._url('actions', id), data=body)
+        return self.client.patch(self._url("actions", id), data=body)
 
     def get_action(self, id):
         """Retrieves an action by its ID.
@@ -107,7 +125,7 @@ class Actions(object):
         """
         params = {}
 
-        return self.client.get(self._url('actions', id), params=params)
+        return self.client.get(self._url("actions", id), params=params)
 
     def delete_action(self, id, force=False):
         """Deletes an action and all of its associated versions.
@@ -120,11 +138,9 @@ class Actions(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Actions/delete_action
         """
-        params = {
-            'force': str(force).lower()
-        }
+        params = {"force": str(force).lower()}
 
-        return self.client.delete(self._url('actions', id), params=params)
+        return self.client.delete(self._url("actions", id), params=params)
 
     def get_triggers(self):
         """Retrieve the set of triggers currently available within actions.
@@ -133,7 +149,7 @@ class Actions(object):
         """
         params = {}
 
-        return self.client.get(self._url('triggers'), params=params)
+        return self.client.get(self._url("triggers"), params=params)
 
     def get_execution(self, id):
         """Get information about a specific execution of a trigger.
@@ -145,7 +161,7 @@ class Actions(object):
         """
         params = {}
 
-        return self.client.get(self._url('executions', id), params=params)
+        return self.client.get(self._url("executions", id), params=params)
 
     def get_action_versions(self, id, page=None, per_page=None):
         """Get all of an action's versions.
@@ -161,12 +177,9 @@ class Actions(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Actions/get_action_versions
         """
-        params = {
-            'page': page,
-            'per_page': per_page
-        }
+        params = {"page": page, "per_page": per_page}
 
-        return self.client.get(self._url('actions', id, 'versions'), params=params)
+        return self.client.get(self._url("actions", id, "versions"), params=params)
 
     def get_trigger_bindings(self, id, page=None, per_page=None):
         """Get the actions that are bound to a trigger.
@@ -182,11 +195,8 @@ class Actions(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Actions/get_bindings
         """
-        params = {
-            'page': page,
-            'per_page': per_page
-        }
-        return self.client.get(self._url('triggers', id, 'bindings'), params=params)
+        params = {"page": page, "per_page": per_page}
+        return self.client.get(self._url("triggers", id, "bindings"), params=params)
 
     def get_action_version(self, action_id, version_id):
         """Retrieve a specific version of an action.
@@ -200,7 +210,9 @@ class Actions(object):
         """
         params = {}
 
-        return self.client.get(self._url('actions', action_id, 'versions', version_id), params=params)
+        return self.client.get(
+            self._url("actions", action_id, "versions", version_id), params=params
+        )
 
     def deploy_action(self, id):
         """Deploy an action.
@@ -210,7 +222,7 @@ class Actions(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Actions/post_deploy_action
         """
-        return self.client.post(self._url('actions', id, 'deploy'))
+        return self.client.post(self._url("actions", id, "deploy"))
 
     def rollback_action_version(self, action_id, version_id):
         """Roll back to a previous version of an action.
@@ -222,8 +234,9 @@ class Actions(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Actions/post_deploy_draft_version
         """
-        params = {}
-        return self.client.post(self._url('actions', action_id, 'versions', version_id, 'deploy'), data={})
+        return self.client.post(
+            self._url("actions", action_id, "versions", version_id, "deploy"), data={}
+        )
 
     def update_trigger_bindings(self, id, body):
         """Update a trigger's bindings.
@@ -235,4 +248,4 @@ class Actions(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Actions/patch_bindings
         """
-        return self.client.patch(self._url('triggers', id, 'bindings'), data=body)
+        return self.client.patch(self._url("triggers", id, "bindings"), data=body)

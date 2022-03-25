@@ -23,13 +23,25 @@ class AttackProtection(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, component):
-        return '{}://{}/api/v2/attack-protection/{}'.format(self.protocol, self.domain, component)
+        return "{}://{}/api/v2/attack-protection/{}".format(
+            self.protocol, self.domain, component
+        )
 
     def get_breached_password_detection(self):
         """Get breached password detection settings.
@@ -38,7 +50,7 @@ class AttackProtection(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Attack_Protection/get_breached_password_detection
         """
-        url = self._url('breached-password-detection')
+        url = self._url("breached-password-detection")
         return self.client.get(url)
 
     def update_breached_password_detection(self, body):
@@ -52,7 +64,7 @@ class AttackProtection(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Attack_Protection/patch_breached_password_detection
         """
-        url = self._url('breached-password-detection')
+        url = self._url("breached-password-detection")
         return self.client.patch(url, data=body)
 
     def get_brute_force_protection(self):
@@ -62,7 +74,7 @@ class AttackProtection(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Attack_Protection/get_brute_force_protection
         """
-        url = self._url('brute-force-protection')
+        url = self._url("brute-force-protection")
         return self.client.get(url)
 
     def update_brute_force_protection(self, body):
@@ -76,7 +88,7 @@ class AttackProtection(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Attack_Protection/patch_brute_force_protection
         """
-        url = self._url('brute-force-protection')
+        url = self._url("brute-force-protection")
         return self.client.patch(url, data=body)
 
     def get_suspicious_ip_throttling(self):
@@ -86,7 +98,7 @@ class AttackProtection(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Attack_Protection/get_suspicious_ip_throttling
         """
-        url = self._url('suspicious-ip-throttling')
+        url = self._url("suspicious-ip-throttling")
         return self.client.get(url)
 
     def update_suspicious_ip_throttling(self, body):
@@ -100,5 +112,5 @@ class AttackProtection(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Attack_Protection/patch_suspicious_ip_throttling
         """
-        url = self._url('suspicious-ip-throttling')
+        url = self._url("suspicious-ip-throttling")
         return self.client.patch(url, data=body)

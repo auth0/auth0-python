@@ -1,4 +1,5 @@
 import warnings
+
 from .base import AuthenticationBase
 
 
@@ -10,7 +11,9 @@ class Passwordless(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def email(self, client_id, email, send='link', auth_params=None, client_secret=None):
+    def email(
+        self, client_id, email, send="link", auth_params=None, client_secret=None
+    ):
         """Start flow sending an email.
 
         Given the user email address, it will send an email with:
@@ -38,26 +41,25 @@ class Passwordless(AuthenticationBase):
             client_secret (str): Client Secret of the application.
         """
 
-        data={
-            'client_id': client_id,
-            'connection': 'email',
-            'email': email,
-            'send': send,
+        data = {
+            "client_id": client_id,
+            "connection": "email",
+            "email": email,
+            "send": send,
         }
         if auth_params:
-            data.update({'authParams': auth_params})
+            data.update({"authParams": auth_params})
         if client_secret:
-            data.update({'client_secret': client_secret})
+            data.update({"client_secret": client_secret})
 
         return self.post(
-            '{}://{}/passwordless/start'.format(self.protocol, self.domain),
-            data=data
+            "{}://{}/passwordless/start".format(self.protocol, self.domain), data=data
         )
 
     def sms(self, client_id, phone_number, client_secret=None):
         """Start flow sending an SMS message.
 
-        Given the user phone number, it will send an SMS with 
+        Given the user phone number, it will send an SMS with
         a verification code. You can then authenticate with
         this user using phone number as username and code as password.
 
@@ -71,20 +73,19 @@ class Passwordless(AuthenticationBase):
             phone_number (str): Phone number.
         """
 
-        data={
-            'client_id': client_id,
-            'connection': 'sms',
-            'phone_number': phone_number,
+        data = {
+            "client_id": client_id,
+            "connection": "sms",
+            "phone_number": phone_number,
         }
         if client_secret:
-            data.update({'client_secret': client_secret})
-            
+            data.update({"client_secret": client_secret})
+
         return self.post(
-            '{}://{}/passwordless/start'.format(self.protocol, self.domain),
-            data=data
+            "{}://{}/passwordless/start".format(self.protocol, self.domain), data=data
         )
 
-    def sms_login(self, client_id, phone_number, code, scope='openid'):
+    def sms_login(self, client_id, phone_number, code, scope="openid"):
         """Login using phone number/verification code.
 
         Args:
@@ -96,16 +97,18 @@ class Passwordless(AuthenticationBase):
 
             scope (str, optional): Scope to use. Defaults to 'openid'.
         """
-        warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
+        warnings.warn(
+            "/oauth/ro will be deprecated in future releases", DeprecationWarning
+        )
 
         return self.post(
-            '{}://{}/oauth/ro'.format(self.protocol, self.domain),
+            "{}://{}/oauth/ro".format(self.protocol, self.domain),
             data={
-                'client_id': client_id,
-                'connection': 'sms',
-                'grant_type': 'password',
-                'username': phone_number,
-                'password': code,
-                'scope': scope,
-            }
+                "client_id": client_id,
+                "connection": "sms",
+                "grant_type": "password",
+                "username": phone_number,
+                "password": code,
+                "scope": scope,
+            },
         )

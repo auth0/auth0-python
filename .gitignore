@@ -20,10 +20,12 @@ lib64/
 parts/
 sdist/
 var/
+bin/
 *.egg-info/
 .installed.cfg
 *.egg
 .pypirc
+pyvenv.cfg
 
 # Installer logs
 pip-log.txt
