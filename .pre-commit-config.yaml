@@ -16,4 +16,5 @@ repos:
     rev: 22.1.0
     hooks:
       - id: black
+        additional_dependencies: ['click<8.1.0']
 
