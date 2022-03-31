@@ -96,7 +96,7 @@ class RestClient(object):
             self.base_headers.update(
                 {
                     "User-Agent": "Python/{}".format(py_version),
-                    "Auth0-Client": base64.b64encode(auth0_client),
+                    "Auth0-Client": base64.b64encode(auth0_client).decode(),
                 }
             )
 
