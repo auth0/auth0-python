@@ -100,6 +100,9 @@ class RestClient(object):
                 }
             )
 
+        # Cap the maximum number of retries to 10 or fewer. Floor the retries at 0.
+        self._retries = min(self.MAX_REQUEST_RETRIES(), max(0, options.retries))
+
         # For backwards compatibility reasons only
         # TODO: Deprecate in the next major so we can prune these arguments. Guidance should be to use RestClient.options.*
         self.telemetry = options.telemetry
@@ -130,9 +133,6 @@ class RestClient(object):
         # Reset the metrics tracker
         self._metrics = {"retries": 0, "backoff": []}
 
-        # Cap the maximum number of retries to 10 or fewer. Floor the retries at 0.
-        retries = min(self.MAX_REQUEST_RETRIES(), max(0, self.options.retries))
-
         while True:
             # Increment attempt number
             attempt += 1
@@ -142,27 +142,11 @@ class RestClient(object):
                 url, params=params, headers=headers, timeout=self.options.timeout
             )
 
-            # If the response did not have a 429 header, or the retries were configured at 0, or the attempt number is equal to or greater than the configured retries, break
-            if response.status_code != 429 or retries <= 0 or attempt > retries:
+            # If the response did not have a 429 header, or the attempt number is greater than the configured retries, break
+            if response.status_code != 429 or attempt > self._retries:
                 break
 
-            # Retry the request. Apply a exponential backoff for subsequent attempts, using this formula:
-            # max(MIN_REQUEST_RETRY_DELAY, min(MAX_REQUEST_RETRY_DELAY, (100ms * (2 ** attempt - 1)) + random_between(1, MAX_REQUEST_RETRY_JITTER)))
-
-            # Increases base delay by (100ms * (2 ** attempt - 1))
-            wait = 100 * 2 ** (attempt - 1)
-
-            # Introduces jitter to the base delay; increases delay between 1ms to MAX_REQUEST_RETRY_JITTER (100ms)
-            wait += randint(1, self.MAX_REQUEST_RETRY_JITTER())
-
-            # Is never more than MAX_REQUEST_RETRY_DELAY (1s)
-            wait = min(self.MAX_REQUEST_RETRY_DELAY(), wait)
-
-            # Is never less than MIN_REQUEST_RETRY_DELAY (100ms)
-            wait = max(self.MIN_REQUEST_RETRY_DELAY(), wait)
-
-            self._metrics["retries"] = attempt
-            self._metrics["backoff"].append(wait)
+            wait = self._calculate_wait(attempt)
 
             # Skip calling sleep() when running unit tests
             if self._skip_sleep is False:
@@ -216,6 +200,27 @@ class RestClient(object):
             timeout=self.options.timeout,
         )
         return self._process_response(response)
+
+    def _calculate_wait(self, attempt):
+        # Retry the request. Apply a exponential backoff for subsequent attempts, using this formula:
+        # max(MIN_REQUEST_RETRY_DELAY, min(MAX_REQUEST_RETRY_DELAY, (100ms * (2 ** attempt - 1)) + random_between(1, MAX_REQUEST_RETRY_JITTER)))
+
+        # Increases base delay by (100ms * (2 ** attempt - 1))
+        wait = 100 * 2 ** (attempt - 1)
+
+        # Introduces jitter to the base delay; increases delay between 1ms to MAX_REQUEST_RETRY_JITTER (100ms)
+        wait += randint(1, self.MAX_REQUEST_RETRY_JITTER())
+
+        # Is never more than MAX_REQUEST_RETRY_DELAY (1s)
+        wait = min(self.MAX_REQUEST_RETRY_DELAY(), wait)
+
+        # Is never less than MIN_REQUEST_RETRY_DELAY (100ms)
+        wait = max(self.MIN_REQUEST_RETRY_DELAY(), wait)
+
+        self._metrics["retries"] = attempt
+        self._metrics["backoff"].append(wait)
+
+        return wait
 
     def _process_response(self, response):
         return self._parse(response).content()

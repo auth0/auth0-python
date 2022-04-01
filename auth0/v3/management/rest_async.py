@@ -3,6 +3,7 @@ import json
 
 import aiohttp
 
+from ..exceptions import RateLimitError
 from .rest import EmptyResponse, JsonResponse, PlainResponse
 from .rest import Response as _Response
 from .rest import RestClient
@@ -34,6 +35,14 @@ class AsyncRestClient(RestClient):
     def __init__(self, *args, **kwargs):
         super(AsyncRestClient, self).__init__(*args, **kwargs)
         self._session = None
+        sock_connect, sock_read = (
+            self.timeout
+            if isinstance(self.timeout, tuple)
+            else (self.timeout, self.timeout)
+        )
+        self.timeout = aiohttp.ClientTimeout(
+            sock_connect=sock_connect, sock_read=sock_read
+        )
 
     def set_session(self, session):
         """Set Client Session to improve performance by reusing session.
@@ -42,8 +51,8 @@ class AsyncRestClient(RestClient):
         self._session = session
 
     async def _request(self, *args, **kwargs):
-        # FIXME add support for timeouts
         kwargs["headers"] = kwargs.get("headers", self.base_headers)
+        kwargs["timeout"] = self.timeout
         if self._session is not None:
             # Request with re-usable session
             async with self._session.request(*args, **kwargs) as response:
@@ -55,7 +64,31 @@ class AsyncRestClient(RestClient):
                     return await self._process_response(response)
 
     async def get(self, url, params=None):
-        return await self._request("get", url, params=_clean_params(params))
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        params = _clean_params(params)
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            try:
+                response = await self._request("get", url, params=params)
+                return response
+            except RateLimitError as e:
+                # If the attempt number is greater than the configured retries, raise RateLimitError
+                if attempt > self._retries:
+                    raise e
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                await asyncio.sleep(wait / 1000)
 
     async def post(self, url, data=None):
         return await self._request("post", url, json=data)

@@ -48,7 +48,11 @@ def asyncify(cls):
             super(Wrapper, self).__init__(*args, **kwargs)
             self._async_client = AsyncClient(*args, **kwargs)
             for method in methods:
-                setattr(self, f"{method}_async", _gen_async(self._async_client, method))
+                setattr(
+                    self,
+                    "{}_async".format(method),
+                    _gen_async(self._async_client, method),
+                )
 
         async def __aenter__(self):
             """Automatically create and set session within context manager."""
