@@ -42,16 +42,15 @@ class AsyncRestClient(RestClient):
         self._session = session
 
     async def _request(self, *args, **kwargs):
-        headers = kwargs.get("headers", self.base_headers)
+        # FIXME add support for timeouts
+        kwargs["headers"] = kwargs.get("headers", self.base_headers)
         if self._session is not None:
             # Request with re-usable session
-            async with self._session.request(
-                *args, **kwargs, headers=headers
-            ) as response:
+            async with self._session.request(*args, **kwargs) as response:
                 return await self._process_response(response)
         else:
             # Request without re-usable session
-            async with aiohttp.ClientSession(headers=headers) as session:
+            async with aiohttp.ClientSession() as session:
                 async with session.request(*args, **kwargs) as response:
                     return await self._process_response(response)
 

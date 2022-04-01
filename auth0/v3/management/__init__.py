@@ -1,4 +1,5 @@
 from .actions import Actions
+from .asyncify import asyncify
 from .attack_protection import AttackProtection
 from .auth0 import Auth0
 from .blacklists import Blacklists
@@ -56,4 +57,5 @@ __all__ = (
     "UserBlocks",
     "UsersByEmail",
     "Users",
+    "asyncify",
 )
