@@ -23,9 +23,19 @@ class Blacklists(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
-        self.url = '{}://{}/api/v2/blacklists/tokens'.format(protocol, domain)
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
+        self.url = "{}://{}/api/v2/blacklists/tokens".format(protocol, domain)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def get(self, aud=None):
         """Retrieves the jti and aud of all tokens in the blacklist.
@@ -38,9 +48,7 @@ class Blacklists(object):
         See: https://auth0.com/docs/api/management/v2#!/Blacklists/get_tokens
         """
 
-        params = {
-            'aud': aud
-        }
+        params = {"aud": aud}
 
         return self.client.get(self.url, params=params)
 
@@ -56,10 +64,10 @@ class Blacklists(object):
         See: https://auth0.com/docs/api/management/v2#!/Blacklists/post_tokens
         """
         body = {
-            'jti': jti,
+            "jti": jti,
         }
 
         if aud:
-            body.update({'aud': aud})
+            body.update({"aud": aud})
 
         return self.client.post(self.url, data=body)

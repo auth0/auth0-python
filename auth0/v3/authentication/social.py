@@ -9,7 +9,7 @@ class Social(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def login(self, client_id, access_token, connection, scope='openid'):
+    def login(self, client_id, access_token, connection, scope="openid"):
         """Login using a social provider's access token
 
         Given the social provider's access_token and the connection specified,
@@ -29,11 +29,11 @@ class Social(AuthenticationBase):
         """
 
         return self.post(
-            '{}://{}/oauth/access_token'.format(self.protocol, self.domain),
+            "{}://{}/oauth/access_token".format(self.protocol, self.domain),
             data={
-                'client_id': client_id,
-                'access_token': access_token,
-                'connection': connection,
-                'scope': scope,
-            }
+                "client_id": client_id,
+                "access_token": access_token,
+                "connection": connection,
+                "scope": scope,
+            },
         )

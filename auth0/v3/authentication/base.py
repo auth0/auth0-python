@@ -1,11 +1,13 @@
 import base64
 import json
-import sys
 import platform
+import sys
+
 import requests
+
 from ..exceptions import Auth0Error, RateLimitError
 
-UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
+UNKNOWN_ERROR = "a0.sdk.internal.unknown"
 
 
 class AuthenticationBase(object):
@@ -24,35 +26,43 @@ class AuthenticationBase(object):
         self.domain = domain
         self.timeout = timeout
         self.protocol = protocol
-        self.base_headers = {'Content-Type': 'application/json'}
+        self.base_headers = {"Content-Type": "application/json"}
 
         if telemetry:
             py_version = platform.python_version()
-            version = sys.modules['auth0'].__version__
+            version = sys.modules["auth0"].__version__
 
-            auth0_client = json.dumps({
-                'name': 'auth0-python',
-                'version': version,
-                'env': {
-                    'python': py_version,
+            auth0_client = json.dumps(
+                {
+                    "name": "auth0-python",
+                    "version": version,
+                    "env": {
+                        "python": py_version,
+                    },
                 }
-            }).encode('utf-8')
+            ).encode("utf-8")
 
-            self.base_headers.update({
-                'User-Agent': 'Python/{}'.format(py_version),
-                'Auth0-Client': base64.b64encode(auth0_client),
-            })
+            self.base_headers.update(
+                {
+                    "User-Agent": "Python/{}".format(py_version),
+                    "Auth0-Client": base64.b64encode(auth0_client),
+                }
+            )
 
     def post(self, url, data=None, headers=None):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
-        response = requests.post(url=url, json=data, headers=request_headers, timeout=self.timeout)
+        response = requests.post(
+            url=url, json=data, headers=request_headers, timeout=self.timeout
+        )
         return self._process_response(response)
 
     def get(self, url, params=None, headers=None):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
-        response = requests.get(url=url, params=params, headers=request_headers, timeout=self.timeout)
+        response = requests.get(
+            url=url, params=params, headers=request_headers, timeout=self.timeout
+        )
         return self._process_response(response)
 
     def _process_response(self, response):
@@ -78,14 +88,18 @@ class Response(object):
             return self._content
 
         if self._status_code == 429:
-            reset_at = int(self._headers.get('x-ratelimit-reset', '-1'))
-            raise RateLimitError(error_code=self._error_code(),
-                                 message=self._error_message(),
-                                 reset_at=reset_at)
+            reset_at = int(self._headers.get("x-ratelimit-reset", "-1"))
+            raise RateLimitError(
+                error_code=self._error_code(),
+                message=self._error_message(),
+                reset_at=reset_at,
+            )
 
-        raise Auth0Error(status_code=self._status_code,
-                         error_code=self._error_code(),
-                         message=self._error_message())
+        raise Auth0Error(
+            status_code=self._status_code,
+            error_code=self._error_code(),
+            message=self._error_message(),
+        )
 
     def _is_error(self):
         return self._status_code is None or self._status_code >= 400
@@ -101,23 +115,27 @@ class Response(object):
 class JsonResponse(Response):
     def __init__(self, response):
         content = json.loads(response.text)
-        super(JsonResponse, self).__init__(response.status_code, content, response.headers)
+        super(JsonResponse, self).__init__(
+            response.status_code, content, response.headers
+        )
 
     def _error_code(self):
-        if 'error' in self._content:
-            return self._content.get('error')
-        elif 'code' in self._content:
-            return self._content.get('code')
+        if "error" in self._content:
+            return self._content.get("error")
+        elif "code" in self._content:
+            return self._content.get("code")
         else:
             return UNKNOWN_ERROR
 
     def _error_message(self):
-        return self._content.get('error_description', '')
+        return self._content.get("error_description", "")
 
 
 class PlainResponse(Response):
     def __init__(self, response):
-        super(PlainResponse, self).__init__(response.status_code, response.text, response.headers)
+        super(PlainResponse, self).__init__(
+            response.status_code, response.text, response.headers
+        )
 
     def _error_code(self):
         return UNKNOWN_ERROR
@@ -128,10 +146,10 @@ class PlainResponse(Response):
 
 class EmptyResponse(Response):
     def __init__(self, status_code):
-        super(EmptyResponse, self).__init__(status_code, '', {})
+        super(EmptyResponse, self).__init__(status_code, "", {})
 
     def _error_code(self):
         return UNKNOWN_ERROR
 
     def _error_message(self):
-        return ''
+        return ""

@@ -2,13 +2,15 @@ import base64
 import json
 import platform
 import sys
+from random import randint
+from time import sleep
+
 import requests
 
 from ..exceptions import Auth0Error, RateLimitError
-from time import sleep
-from random import randint
 
-UNKNOWN_ERROR = 'a0.sdk.internal.unknown'
+UNKNOWN_ERROR = "a0.sdk.internal.unknown"
+
 
 class RestClientOptions(object):
     """Configuration object for RestClient. Used for configuring
@@ -29,6 +31,7 @@ class RestClientOptions(object):
             raising a RateLimitError exception. 10 retries max.
             (defaults to 3)
     """
+
     def __init__(self, telemetry=None, timeout=None, retries=None):
         self.telemetry = True
         self.timeout = 5.0
@@ -42,6 +45,7 @@ class RestClientOptions(object):
 
         if retries is not None:
             self.retries = retries
+
 
 class RestClient(object):
     """Provides simple methods for handling all RESTful api endpoints.
@@ -67,30 +71,34 @@ class RestClient(object):
         self.options = options
         self.jwt = jwt
 
-        self._metrics = {'retries': 0, 'backoff': []}
+        self._metrics = {"retries": 0, "backoff": []}
         self._skip_sleep = False
 
         self.base_headers = {
-            'Authorization': 'Bearer {}'.format(self.jwt),
-            'Content-Type': 'application/json',
+            "Authorization": "Bearer {}".format(self.jwt),
+            "Content-Type": "application/json",
         }
 
         if options.telemetry:
             py_version = platform.python_version()
-            version = sys.modules['auth0'].__version__
+            version = sys.modules["auth0"].__version__
 
-            auth0_client = json.dumps({
-                'name': 'auth0-python',
-                'version': version,
-                'env': {
-                    'python': py_version,
+            auth0_client = json.dumps(
+                {
+                    "name": "auth0-python",
+                    "version": version,
+                    "env": {
+                        "python": py_version,
+                    },
                 }
-            }).encode('utf-8')
+            ).encode("utf-8")
 
-            self.base_headers.update({
-                'User-Agent': 'Python/{}'.format(py_version),
-                'Auth0-Client': base64.b64encode(auth0_client),
-            })
+            self.base_headers.update(
+                {
+                    "User-Agent": "Python/{}".format(py_version),
+                    "Auth0-Client": base64.b64encode(auth0_client),
+                }
+            )
 
         # For backwards compatibility reasons only
         # TODO: Deprecate in the next major so we can prune these arguments. Guidance should be to use RestClient.options.*
@@ -120,7 +128,7 @@ class RestClient(object):
         attempt = 0
 
         # Reset the metrics tracker
-        self._metrics = {'retries': 0, 'backoff': []}
+        self._metrics = {"retries": 0, "backoff": []}
 
         # Cap the maximum number of retries to 10 or fewer. Floor the retries at 0.
         retries = min(self.MAX_REQUEST_RETRIES(), max(0, self.options.retries))
@@ -130,7 +138,9 @@ class RestClient(object):
             attempt += 1
 
             # Issue the request
-            response = requests.get(url, params=params, headers=headers, timeout=self.options.timeout);
+            response = requests.get(
+                url, params=params, headers=headers, timeout=self.options.timeout
+            )
 
             # If the response did not have a 429 header, or the retries were configured at 0, or the attempt number is equal to or greater than the configured retries, break
             if response.status_code != 429 or retries <= 0 or attempt > retries:
@@ -151,8 +161,8 @@ class RestClient(object):
             # Is never less than MIN_REQUEST_RETRY_DELAY (100ms)
             wait = max(self.MIN_REQUEST_RETRY_DELAY(), wait)
 
-            self._metrics['retries'] = attempt
-            self._metrics['backoff'].append(wait)
+            self._metrics["retries"] = attempt
+            self._metrics["backoff"].append(wait)
 
             # Skip calling sleep() when running unit tests
             if self._skip_sleep is False:
@@ -165,32 +175,46 @@ class RestClient(object):
     def post(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.post(url, json=data, headers=headers, timeout=self.options.timeout)
+        response = requests.post(
+            url, json=data, headers=headers, timeout=self.options.timeout
+        )
         return self._process_response(response)
 
     def file_post(self, url, data=None, files=None):
         headers = self.base_headers.copy()
-        headers.pop('Content-Type', None)
+        headers.pop("Content-Type", None)
 
-        response = requests.post(url, data=data, files=files, headers=headers, timeout=self.options.timeout)
+        response = requests.post(
+            url, data=data, files=files, headers=headers, timeout=self.options.timeout
+        )
         return self._process_response(response)
 
     def patch(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.patch(url, json=data, headers=headers, timeout=self.options.timeout)
+        response = requests.patch(
+            url, json=data, headers=headers, timeout=self.options.timeout
+        )
         return self._process_response(response)
 
     def put(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.put(url, json=data, headers=headers, timeout=self.options.timeout)
+        response = requests.put(
+            url, json=data, headers=headers, timeout=self.options.timeout
+        )
         return self._process_response(response)
 
     def delete(self, url, params=None, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.delete(url, headers=headers, params=params or {}, json=data, timeout=self.options.timeout)
+        response = requests.delete(
+            url,
+            headers=headers,
+            params=params or {},
+            json=data,
+            timeout=self.options.timeout,
+        )
         return self._process_response(response)
 
     def _process_response(self, response):
@@ -214,14 +238,18 @@ class Response(object):
     def content(self):
         if self._is_error():
             if self._status_code == 429:
-                reset_at = int(self._headers.get('x-ratelimit-reset', '-1'))
-                raise RateLimitError(error_code=self._error_code(),
-                                     message=self._error_message(),
-                                     reset_at=reset_at)
+                reset_at = int(self._headers.get("x-ratelimit-reset", "-1"))
+                raise RateLimitError(
+                    error_code=self._error_code(),
+                    message=self._error_message(),
+                    reset_at=reset_at,
+                )
 
-            raise Auth0Error(status_code=self._status_code,
-                             error_code=self._error_code(),
-                             message=self._error_message())
+            raise Auth0Error(
+                status_code=self._status_code,
+                error_code=self._error_code(),
+                message=self._error_message(),
+            )
         else:
             return self._content
 
@@ -239,26 +267,30 @@ class Response(object):
 class JsonResponse(Response):
     def __init__(self, response):
         content = json.loads(response.text)
-        super(JsonResponse, self).__init__(response.status_code, content, response.headers)
+        super(JsonResponse, self).__init__(
+            response.status_code, content, response.headers
+        )
 
     def _error_code(self):
-        if 'errorCode' in self._content:
-            return self._content.get('errorCode')
-        elif 'error' in self._content:
-            return self._content.get('error')
+        if "errorCode" in self._content:
+            return self._content.get("errorCode")
+        elif "error" in self._content:
+            return self._content.get("error")
         else:
             return UNKNOWN_ERROR
 
     def _error_message(self):
-        message = self._content.get('message', '')
-        if message is not None and message != '':
+        message = self._content.get("message", "")
+        if message is not None and message != "":
             return message
-        return self._content.get('error', '')
+        return self._content.get("error", "")
 
 
 class PlainResponse(Response):
     def __init__(self, response):
-        super(PlainResponse, self).__init__(response.status_code, response.text, response.headers)
+        super(PlainResponse, self).__init__(
+            response.status_code, response.text, response.headers
+        )
 
     def _error_code(self):
         return UNKNOWN_ERROR
@@ -269,10 +301,10 @@ class PlainResponse(Response):
 
 class EmptyResponse(Response):
     def __init__(self, status_code):
-        super(EmptyResponse, self).__init__(status_code, '', {})
+        super(EmptyResponse, self).__init__(status_code, "", {})
 
     def _error_code(self):
         return UNKNOWN_ERROR
 
     def _error_message(self):
-        return ''
+        return ""

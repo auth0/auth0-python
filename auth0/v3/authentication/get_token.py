@@ -9,8 +9,14 @@ class GetToken(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def authorization_code(self, client_id, client_secret, code,
-                           redirect_uri, grant_type='authorization_code'):
+    def authorization_code(
+        self,
+        client_id,
+        client_secret,
+        code,
+        redirect_uri,
+        grant_type="authorization_code",
+    ):
         """Authorization code grant
 
         This is the OAuth 2.0 grant that regular web apps utilize in order
@@ -35,18 +41,24 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            '{}://{}/oauth/token'.format(self.protocol, self.domain),
+            "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'code': code,
-                'grant_type': grant_type,
-                'redirect_uri': redirect_uri,
-            }
+                "client_id": client_id,
+                "client_secret": client_secret,
+                "code": code,
+                "grant_type": grant_type,
+                "redirect_uri": redirect_uri,
+            },
         )
 
-    def authorization_code_pkce(self, client_id, code_verifier, code,
-                                redirect_uri, grant_type='authorization_code'):
+    def authorization_code_pkce(
+        self,
+        client_id,
+        code_verifier,
+        code,
+        redirect_uri,
+        grant_type="authorization_code",
+    ):
         """Authorization code pkce grant
 
         This is the OAuth 2.0 grant that mobile apps utilize in order to access an API.
@@ -71,18 +83,19 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            '{}://{}/oauth/token'.format(self.protocol, self.domain),
+            "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                'client_id': client_id,
-                'code_verifier': code_verifier,
-                'code': code,
-                'grant_type': grant_type,
-                'redirect_uri': redirect_uri,
-            }
+                "client_id": client_id,
+                "code_verifier": code_verifier,
+                "code": code,
+                "grant_type": grant_type,
+                "redirect_uri": redirect_uri,
+            },
         )
 
-    def client_credentials(self, client_id, client_secret, audience,
-                           grant_type='client_credentials'):
+    def client_credentials(
+        self, client_id, client_secret, audience, grant_type="client_credentials"
+    ):
         """Client credentials grant
 
         This is the OAuth 2.0 grant that server processes utilize in
@@ -105,17 +118,26 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            '{}://{}/oauth/token'.format(self.protocol, self.domain),
+            "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'audience': audience,
-                'grant_type': grant_type,
-            }
+                "client_id": client_id,
+                "client_secret": client_secret,
+                "audience": audience,
+                "grant_type": grant_type,
+            },
         )
 
-    def login(self, client_id, client_secret, username, password, scope, realm,
-              audience, grant_type='http://auth0.com/oauth/grant-type/password-realm'):
+    def login(
+        self,
+        client_id,
+        client_secret,
+        username,
+        password,
+        scope,
+        realm,
+        audience,
+        grant_type="http://auth0.com/oauth/grant-type/password-realm",
+    ):
         """Calls /oauth/token endpoint with password-realm grant type
 
 
@@ -151,20 +173,27 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            '{}://{}/oauth/token'.format(self.protocol, self.domain),
+            "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                'client_id': client_id,
-                'username': username,
-                'password': password,
-                'realm': realm,
-                'client_secret': client_secret,
-                'scope': scope,
-                'audience': audience,
-                'grant_type': grant_type
-            }
+                "client_id": client_id,
+                "username": username,
+                "password": password,
+                "realm": realm,
+                "client_secret": client_secret,
+                "scope": scope,
+                "audience": audience,
+                "grant_type": grant_type,
+            },
         )
 
-    def refresh_token(self, client_id, client_secret, refresh_token, grant_type='refresh_token', scope=''):
+    def refresh_token(
+        self,
+        client_id,
+        client_secret,
+        refresh_token,
+        grant_type="refresh_token",
+        scope="",
+    ):
         """Calls /oauth/token endpoint with refresh token grant type
 
         Use this endpoint to refresh an access token, using the refresh token you got during authorization.
@@ -187,17 +216,19 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            '{}://{}/oauth/token'.format(self.protocol, self.domain),
+            "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'refresh_token': refresh_token,
-                'scope': scope,
-                'grant_type': grant_type
-            }
+                "client_id": client_id,
+                "client_secret": client_secret,
+                "refresh_token": refresh_token,
+                "scope": scope,
+                "grant_type": grant_type,
+            },
         )
 
-    def passwordless_login(self, client_id, client_secret, username, otp, realm, scope, audience):
+    def passwordless_login(
+        self, client_id, client_secret, username, otp, realm, scope, audience
+    ):
         """Calls /oauth/token endpoint with http://auth0.com/oauth/grant-type/passwordless/otp grant type
 
         Once the verification code was received, login the user using this endpoint with their
@@ -212,7 +243,7 @@ class GetToken(AuthenticationBase):
 
             otp (str): the user's verification code.
 
-            realm (str): use 'sms' or 'email'. 
+            realm (str): use 'sms' or 'email'.
             Should be the same as the one used to start the passwordless flow.
 
             scope(str): String value of the different scopes the client is asking for.
@@ -225,15 +256,15 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            '{}://{}/oauth/token'.format(self.protocol, self.domain),
+            "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                'client_id': client_id,
-                'username': username,
-                'otp': otp,
-                'realm': realm,
-                'client_secret': client_secret,
-                'scope': scope,
-                'audience': audience,
-                'grant_type': 'http://auth0.com/oauth/grant-type/passwordless/otp'
-            }
+                "client_id": client_id,
+                "username": username,
+                "otp": otp,
+                "realm": realm,
+                "client_secret": client_secret,
+                "scope": scope,
+                "audience": audience,
+                "grant_type": "http://auth0.com/oauth/grant-type/passwordless/otp",
+            },
         )

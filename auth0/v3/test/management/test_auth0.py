@@ -1,8 +1,8 @@
 import unittest
 
-from ...management.auth0 import Auth0
 from ...management.actions import Actions
 from ...management.attack_protection import AttackProtection
+from ...management.auth0 import Auth0
 from ...management.blacklists import Blacklists
 from ...management.client_grants import ClientGrants
 from ...management.clients import Clients

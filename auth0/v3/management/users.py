@@ -25,20 +25,39 @@ class Users(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, id=None):
-        url = '{}://{}/api/v2/users'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/users".format(self.protocol, self.domain)
         if id is not None:
-            return '{}/{}'.format(url, id)
+            return "{}/{}".format(url, id)
         return url
 
-    def list(self, page=0, per_page=25, sort=None, connection=None, q=None,
-             search_engine=None, include_totals=True, fields=None,
-             include_fields=True):
+    def list(
+        self,
+        page=0,
+        per_page=25,
+        sort=None,
+        connection=None,
+        q=None,
+        search_engine=None,
+        include_totals=True,
+        fields=None,
+        include_fields=True,
+    ):
         """List or search users.
 
         Args:
@@ -75,15 +94,15 @@ class Users(object):
         See: https://auth0.com/docs/api/management/v2#!/Users/get_users
         """
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower(),
-            'sort': sort,
-            'connection': connection,
-            'fields': fields and ','.join(fields) or None,
-            'include_fields': str(include_fields).lower(),
-            'q': q,
-            'search_engine': search_engine
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
+            "sort": sort,
+            "connection": connection,
+            "fields": fields and ",".join(fields) or None,
+            "include_fields": str(include_fields).lower(),
+            "q": q,
+            "search_engine": search_engine,
         }
         return self.client.get(self._url(), params=params)
 
@@ -103,7 +122,9 @@ class Users(object):
 
         Args:
         """
-        warnings.warn("DELETE all users endpoint is no longer available.", DeprecationWarning)
+        warnings.warn(
+            "DELETE all users endpoint is no longer available.", DeprecationWarning
+        )
         return self.client.delete(self._url())
 
     def get(self, id, fields=None, include_fields=True):
@@ -122,8 +143,8 @@ class Users(object):
         See: https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
         """
         params = {
-            'fields': fields and ','.join(fields) or None,
-            'include_fields': str(include_fields).lower()
+            "fields": fields and ",".join(fields) or None,
+            "include_fields": str(include_fields).lower(),
         }
 
         return self.client.get(self._url(id), params=params)
@@ -168,12 +189,12 @@ class Users(object):
         See https://auth0.com/docs/api/management/v2#!/Users/get_organizations
         """
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower()
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
         }
 
-        url = self._url('{}/organizations'.format(id))
+        url = self._url("{}/organizations".format(id))
         return self.client.get(url, params=params)
 
     def list_roles(self, id, page=0, per_page=25, include_totals=True):
@@ -194,12 +215,12 @@ class Users(object):
         See https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
         """
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower()
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
         }
 
-        url = self._url('{}/roles'.format(id))
+        url = self._url("{}/roles".format(id))
         return self.client.get(url, params=params)
 
     def remove_roles(self, id, roles):
@@ -212,8 +233,8 @@ class Users(object):
 
         See https://auth0.com/docs/api/management/v2#!/Users/delete_user_roles
         """
-        url = self._url('{}/roles'.format(id))
-        body = {'roles': roles}
+        url = self._url("{}/roles".format(id))
+        body = {"roles": roles}
         return self.client.delete(url, data=body)
 
     def add_roles(self, id, roles):
@@ -226,8 +247,8 @@ class Users(object):
 
         See https://auth0.com/docs/api/management/v2#!/Users/post_user_roles
         """
-        url = self._url('{}/roles'.format(id))
-        body = {'roles': roles}
+        url = self._url("{}/roles".format(id))
+        body = {"roles": roles}
         return self.client.post(url, data=body)
 
     def list_permissions(self, id, page=0, per_page=25, include_totals=True):
@@ -249,11 +270,11 @@ class Users(object):
         """
 
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower()
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
         }
-        url = self._url('{}/permissions'.format(id))
+        url = self._url("{}/permissions".format(id))
         return self.client.get(url, params=params)
 
     def remove_permissions(self, id, permissions):
@@ -266,8 +287,8 @@ class Users(object):
 
         See https://auth0.com/docs/api/management/v2#!/Users/delete_permissions
         """
-        url = self._url('{}/permissions'.format(id))
-        body = {'permissions': permissions}
+        url = self._url("{}/permissions".format(id))
+        body = {"permissions": permissions}
         return self.client.delete(url, data=body)
 
     def add_permissions(self, id, permissions):
@@ -280,8 +301,8 @@ class Users(object):
 
         See https://auth0.com/docs/api/management/v2#!/Users/post_permissions
         """
-        url = self._url('{}/permissions'.format(id))
-        body = {'permissions': permissions}
+        url = self._url("{}/permissions".format(id))
+        body = {"permissions": permissions}
         return self.client.post(url, data=body)
 
     def delete_multifactor(self, id, provider):
@@ -295,7 +316,7 @@ class Users(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
         """
-        url = self._url('{}/multifactor/{}'.format(id, provider))
+        url = self._url("{}/multifactor/{}".format(id, provider))
         return self.client.delete(url)
 
     def delete_authenticators(self, id):
@@ -306,7 +327,7 @@ class Users(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Users/delete_authenticators
         """
-        url = self._url('{}/authenticators'.format(id))
+        url = self._url("{}/authenticators".format(id))
         return self.client.delete(url)
 
     def unlink_user_account(self, id, provider, user_id):
@@ -321,7 +342,7 @@ class Users(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Users/delete_user_identity_by_user_id
         """
-        url = self._url('{}/identities/{}/{}'.format(id, provider, user_id))
+        url = self._url("{}/identities/{}/{}".format(id, provider, user_id))
         return self.client.delete(url)
 
     def link_user_account(self, user_id, body):
@@ -338,7 +359,7 @@ class Users(object):
 
         See: https://auth0.com/docs/api/v2#!/Users/post_identities
         """
-        url = self._url('{}/identities'.format(user_id))
+        url = self._url("{}/identities".format(user_id))
         return self.client.post(url, data=body)
 
     def regenerate_recovery_code(self, user_id):
@@ -349,7 +370,7 @@ class Users(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration
         """
-        url = self._url('{}/recovery-code-regeneration'.format(user_id))
+        url = self._url("{}/recovery-code-regeneration".format(user_id))
         return self.client.post(url)
 
     def get_guardian_enrollments(self, user_id):
@@ -360,11 +381,12 @@ class Users(object):
 
         See: https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
         """
-        url = self._url('{}/enrollments'.format(user_id))
+        url = self._url("{}/enrollments".format(user_id))
         return self.client.get(url)
 
-    def get_log_events(self, user_id, page=0, per_page=50, sort=None,
-                       include_totals=False):
+    def get_log_events(
+        self, user_id, page=0, per_page=50, sort=None, include_totals=False
+    ):
         """Retrieve every log event for a specific user id.
 
         Args:
@@ -388,13 +410,13 @@ class Users(object):
         """
 
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower(),
-            'sort': sort
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
+            "sort": sort,
         }
 
-        url = self._url('{}/logs'.format(user_id))
+        url = self._url("{}/logs".format(user_id))
         return self.client.get(url, params=params)
 
     def invalidate_remembered_browsers(self, user_id):
@@ -406,5 +428,7 @@ class Users(object):
         See: https://auth0.com/docs/api/management/v2#!/Users/post_invalidate_remember_browser
         """
 
-        url = self._url('{}/multifactor/actions/invalidate-remember-browser'.format(user_id))
+        url = self._url(
+            "{}/multifactor/actions/invalidate-remember-browser".format(user_id)
+        )
         return self.client.post(url)

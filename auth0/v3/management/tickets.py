@@ -23,13 +23,23 @@ class Tickets(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, action):
-        return '{}://{}/api/v2/tickets/{}'.format(self.protocol, self.domain, action)
+        return "{}://{}/api/v2/tickets/{}".format(self.protocol, self.domain, action)
 
     def create_email_verification(self, body):
         """Create an email verification ticket.
@@ -39,7 +49,7 @@ class Tickets(object):
 
         See: https://auth0.com/docs/api/v2#!/Tickets/post_email_verification
         """
-        return self.client.post(self._url('email-verification'), data=body)
+        return self.client.post(self._url("email-verification"), data=body)
 
     def create_pswd_change(self, body):
         """Create password change ticket.
@@ -49,4 +59,4 @@ class Tickets(object):
 
         See: https://auth0.com/docs/api/v2#!/Tickets/post_password_change
         """
-        return self.client.post(self._url('password-change'), data=body)
+        return self.client.post(self._url("password-change"), data=body)

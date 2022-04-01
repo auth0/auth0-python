@@ -23,13 +23,23 @@ class Stats(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, action):
-        return '{}://{}/api/v2/stats/{}'.format(self.protocol, self.domain, action)
+        return "{}://{}/api/v2/stats/{}".format(self.protocol, self.domain, action)
 
     def active_users(self):
         """Gets the active users count (logged in during the last 30 days).
@@ -39,7 +49,7 @@ class Stats(object):
         See: https://auth0.com/docs/api/management/v2#!/Stats/get_active_users
         """
 
-        return self.client.get(self._url('active-users'))
+        return self.client.get(self._url("active-users"))
 
     def daily_stats(self, from_date=None, to_date=None):
         """Gets the daily stats for a particular period.
@@ -54,5 +64,6 @@ class Stats(object):
         See: https://auth0.com/docs/api/management/v2#!/Stats/get_daily
         """
 
-        return self.client.get(self._url('daily'), params={'from': from_date,
-                                                           'to': to_date})
+        return self.client.get(
+            self._url("daily"), params={"from": from_date, "to": to_date}
+        )

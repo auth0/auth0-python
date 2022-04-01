@@ -1,67 +1,41 @@
-version: 2
+version: 2.1
+
+orbs:
+  python: circleci/python@2.0.3
+
+executors:
+  python_3_10:
+    docker:
+      - image: cimg/python:3.10
+  python_2_7:
+    docker:
+      - image: cimg/python:2.7
+
 jobs:
-  python_2:
-    docker:
-      - image: circleci/python:2.7-jessie
-    steps:
-      - checkout
-      - run: 
-          command: |
-            sudo chown -R circleci:circleci /usr/local/bin
-            sudo chown -R circleci:circleci /usr/local/lib/python2.7/site-packages
-      - restore_cache:
-          key: deps2-{{ .Branch }}-{{ checksum "setup.py" }}
-      - run:
-          command: |
-            pip install .[test]
-            pip install codecov
-      - save_cache:
-          key: deps2-{{ .Branch }}-{{ checksum "setup.py" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python2.7/site-packages"
-      - run:
-          name: Run tests
-          command: coverage run --include=auth0/v3/*.py --omit=auth0/v3/test/*.py -m unittest discover
-      - run:
-          when: on_success
-          command: bash <(curl -s https://codecov.io/bash)
   python_3:
-    docker:
-      - image: circleci/python:3.6-jessie
+    executor: python_3_10
     steps:
       - checkout
-      - run: 
-          command: |
-            sudo chown -R circleci:circleci /usr/local/bin
-            sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
-      - restore_cache:
-          key: deps3-{{ .Branch }}-{{ checksum "setup.py" }}
-      - run:
-          command: |
-            pip install .[test]
-            pip install codecov
-            pip install -r docs/requirements.txt
-      - save_cache:
-          key: deps3-{{ .Branch }}-{{ checksum "setup.py" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
-      - run:
-          name: Run tests
-          command: coverage run --include=auth0/v3/*.py --omit=auth0/v3/test/*.py -m unittest discover
-      - run:
-          name: Build docs
-          command: cd docs/ && make html
-      - run:
-          when: on_success
-          command: bash <(curl -s https://codecov.io/bash)
+      - python/install-packages:
+          pkg-manager: pip
+      - run: pre-commit run --all-files
+      - run: coverage run -m unittest
+      - run: bash <(curl -s https://codecov.io/bash)
+      - run: make -C docs html
+
+  python_2:
+    executor: python_2_7
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip-dist
+          path-args: ".[test]"
+      - run: coverage run -m unittest discover
+      - run: bash <(curl -s https://codecov.io/bash)
 
 workflows:
-  version: 2
-  build:
+  main:
     jobs:
-      - python_2
       - python_3
+      - python_2
+

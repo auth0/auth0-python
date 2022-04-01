@@ -23,20 +23,39 @@ class Logs(object):
             (defaults to None)
     """
 
-    def __init__(self, domain, token, telemetry=True, timeout=5.0, protocol="https", rest_options=None):
+    def __init__(
+        self,
+        domain,
+        token,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+        rest_options=None,
+    ):
         self.domain = domain
         self.protocol = protocol
-        self.client = RestClient(jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options)
+        self.client = RestClient(
+            jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
+        )
 
     def _url(self, id=None):
-        url = '{}://{}/api/v2/logs'.format(self.protocol, self.domain)
+        url = "{}://{}/api/v2/logs".format(self.protocol, self.domain)
         if id is not None:
-            return '{}/{}'.format(url, id)
+            return "{}/{}".format(url, id)
         return url
 
-    def search(self, page=0, per_page=50, sort=None, q=None,
-               include_totals=True, fields=None, from_param=None, take=None,
-               include_fields=True):
+    def search(
+        self,
+        page=0,
+        per_page=50,
+        sort=None,
+        q=None,
+        include_totals=True,
+        fields=None,
+        from_param=None,
+        take=None,
+        include_fields=True,
+    ):
         """Search log events.
 
         Args:
@@ -71,15 +90,15 @@ class Logs(object):
         See: https://auth0.com/docs/api/management/v2#!/Logs/get_logs
         """
         params = {
-            'per_page': per_page,
-            'page': page,
-            'include_totals': str(include_totals).lower(),
-            'sort': sort,
-            'fields': fields and ','.join(fields) or None,
-            'include_fields': str(include_fields).lower(),
-            'q': q,
-            'from': from_param,
-            'take': take
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
+            "sort": sort,
+            "fields": fields and ",".join(fields) or None,
+            "include_fields": str(include_fields).lower(),
+            "q": q,
+            "from": from_param,
+            "take": take,
         }
         return self.client.get(self._url(), params=params)
 

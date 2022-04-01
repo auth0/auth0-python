@@ -10,8 +10,17 @@ class Database(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def login(self, client_id, username, password, connection, id_token=None,
-              grant_type='password', device=None, scope='openid'):
+    def login(
+        self,
+        client_id,
+        username,
+        password,
+        connection,
+        id_token=None,
+        grant_type="password",
+        device=None,
+        scope="openid",
+    ):
         """Login using username and password
 
         Given the user credentials and the connection specified, it will do
@@ -20,24 +29,40 @@ class Database(AuthenticationBase):
         connections, passwordless connections, Active Directory/LDAP,
         Windows Azure AD and ADFS.
         """
-        warnings.warn("/oauth/ro will be deprecated in future releases", DeprecationWarning)
+        warnings.warn(
+            "/oauth/ro will be deprecated in future releases", DeprecationWarning
+        )
 
         body = {
-            'client_id': client_id,
-            'username': username,
-            'password': password,
-            'connection': connection,
-            'grant_type': grant_type,
-            'scope': scope,
+            "client_id": client_id,
+            "username": username,
+            "password": password,
+            "connection": connection,
+            "grant_type": grant_type,
+            "scope": scope,
         }
         if id_token:
-            body.update({'id_token': id_token})
+            body.update({"id_token": id_token})
         if device:
-            body.update({'device': device})
-        return self.post('{}://{}/oauth/ro'.format(self.protocol, self.domain), data=body)
+            body.update({"device": device})
+        return self.post(
+            "{}://{}/oauth/ro".format(self.protocol, self.domain), data=body
+        )
 
-    def signup(self, client_id, email, password, connection, username=None, user_metadata=None,
-               given_name=None, family_name=None, name=None, nickname=None, picture=None):
+    def signup(
+        self,
+        client_id,
+        email,
+        password,
+        connection,
+        username=None,
+        user_metadata=None,
+        given_name=None,
+        family_name=None,
+        name=None,
+        nickname=None,
+        picture=None,
+    ):
         """Signup using email and password.
 
         Args:
@@ -68,41 +93,46 @@ class Database(AuthenticationBase):
         See: https://auth0.com/docs/api/authentication#signup
         """
         body = {
-            'client_id': client_id,
-            'email': email,
-            'password': password,
-            'connection': connection,
+            "client_id": client_id,
+            "email": email,
+            "password": password,
+            "connection": connection,
         }
         if username:
-            body.update({'username': username})
+            body.update({"username": username})
         if user_metadata:
-            body.update({'user_metadata': user_metadata})
+            body.update({"user_metadata": user_metadata})
         if given_name:
-            body.update({'given_name': given_name})
+            body.update({"given_name": given_name})
         if family_name:
-            body.update({'family_name': family_name})
+            body.update({"family_name": family_name})
         if name:
-            body.update({'name': name})
+            body.update({"name": name})
         if nickname:
-            body.update({'nickname': nickname})
+            body.update({"nickname": nickname})
         if picture:
-            body.update({'picture': picture})
+            body.update({"picture": picture})
 
-        return self.post('{}://{}/dbconnections/signup'.format(self.protocol, self.domain), data=body)
+        return self.post(
+            "{}://{}/dbconnections/signup".format(self.protocol, self.domain), data=body
+        )
 
     def change_password(self, client_id, email, connection, password=None):
         """Asks to change a password for a given user.
-            
-           client_id (str): ID of the application to use.
 
-           email (str): The user's email address.
+        client_id (str): ID of the application to use.
 
-           connection (str): The name of the database connection where this user should be created.
+        email (str): The user's email address.
+
+        connection (str): The name of the database connection where this user should be created.
         """
         body = {
-            'client_id': client_id,
-            'email': email,
-            'connection': connection,
+            "client_id": client_id,
+            "email": email,
+            "connection": connection,
         }
-        
-        return self.post('{}://{}/dbconnections/change_password'.format(self.protocol, self.domain), data=body)
+
+        return self.post(
+            "{}://{}/dbconnections/change_password".format(self.protocol, self.domain),
+            data=body,
+        )
