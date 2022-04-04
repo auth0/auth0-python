@@ -12,7 +12,8 @@ from aioresponses import CallbackResult, aioresponses
 from callee import Attrs
 from mock import ANY, MagicMock
 
-from auth0.v3.management import Clients, Guardian, Jobs, asyncify
+from auth0.v3.management import Clients, Guardian, Jobs
+from auth0.v3.management.asyncify import asyncify
 
 clients = re.compile(r"^https://example\.com/api/v2/clients.*")
 factors = re.compile(r"^https://example\.com/api/v2/guardian/factors.*")
@@ -60,6 +61,7 @@ class TestAsyncify(IsolatedAsyncioTestCase):
             allow_redirects=True,
             params={"include_fields": "true"},
             headers=headers,
+            timeout=ANY,
         )
 
     @aioresponses()
@@ -74,6 +76,7 @@ class TestAsyncify(IsolatedAsyncioTestCase):
             allow_redirects=True,
             json=data,
             headers=headers,
+            timeout=ANY,
         )
 
     @aioresponses()
@@ -96,6 +99,7 @@ class TestAsyncify(IsolatedAsyncioTestCase):
                 "users": users,
             },
             headers=file_port_headers,
+            timeout=ANY,
         )
         users.close()
 
@@ -111,6 +115,7 @@ class TestAsyncify(IsolatedAsyncioTestCase):
             allow_redirects=True,
             json=data,
             headers=headers,
+            timeout=ANY,
         )
 
     @aioresponses()
@@ -125,6 +130,7 @@ class TestAsyncify(IsolatedAsyncioTestCase):
             allow_redirects=True,
             json=data,
             headers=headers,
+            timeout=ANY,
         )
 
     @aioresponses()
@@ -139,6 +145,7 @@ class TestAsyncify(IsolatedAsyncioTestCase):
             params={},
             json=None,
             headers=headers,
+            timeout=ANY,
         )
 
     @aioresponses()
@@ -152,6 +159,7 @@ class TestAsyncify(IsolatedAsyncioTestCase):
             allow_redirects=True,
             params={"include_fields": "true"},
             headers=headers,
+            timeout=ANY,
         )
 
     @aioresponses()
