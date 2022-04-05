@@ -75,9 +75,11 @@ class RestClient(object):
         self._skip_sleep = False
 
         self.base_headers = {
-            "Authorization": "Bearer {}".format(self.jwt),
             "Content-Type": "application/json",
         }
+
+        if jwt is not None:
+            self.base_headers["Authorization"] = "Bearer {}".format(self.jwt)
 
         if options.telemetry:
             py_version = platform.python_version()
@@ -124,8 +126,9 @@ class RestClient(object):
     def MIN_REQUEST_RETRY_DELAY(self):
         return 100
 
-    def get(self, url, params=None):
-        headers = self.base_headers.copy()
+    def get(self, url, params=None, headers=None):
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers or {})
 
         # Track the API request attempt number
         attempt = 0
@@ -139,7 +142,10 @@ class RestClient(object):
 
             # Issue the request
             response = requests.get(
-                url, params=params, headers=headers, timeout=self.options.timeout
+                url,
+                params=params,
+                headers=request_headers,
+                timeout=self.options.timeout,
             )
 
             # If the response did not have a 429 header, or the attempt number is greater than the configured retries, break
@@ -156,11 +162,12 @@ class RestClient(object):
         # Return the final Response
         return self._process_response(response)
 
-    def post(self, url, data=None):
-        headers = self.base_headers.copy()
+    def post(self, url, data=None, headers=None):
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers or {})
 
         response = requests.post(
-            url, json=data, headers=headers, timeout=self.options.timeout
+            url, json=data, headers=request_headers, timeout=self.options.timeout
         )
         return self._process_response(response)
 
@@ -281,10 +288,14 @@ class JsonResponse(Response):
             return self._content.get("errorCode")
         elif "error" in self._content:
             return self._content.get("error")
+        elif "code" in self._content:
+            return self._content.get("code")
         else:
             return UNKNOWN_ERROR
 
     def _error_message(self):
+        if "error_description" in self._content:
+            return self._content.get("error_description")
         message = self._content.get("message", "")
         if message is not None and message != "":
             return message

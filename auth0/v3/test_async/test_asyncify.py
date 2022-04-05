@@ -1,4 +1,3 @@
-import asyncio
 import base64
 import json
 import platform
@@ -12,8 +11,8 @@ from aioresponses import CallbackResult, aioresponses
 from callee import Attrs
 from mock import ANY, MagicMock
 
+from auth0.v3.asyncify import asyncify
 from auth0.v3.management import Clients, Guardian, Jobs
-from auth0.v3.management.asyncify import asyncify
 
 clients = re.compile(r"^https://example\.com/api/v2/clients.*")
 factors = re.compile(r"^https://example\.com/api/v2/guardian/factors.*")
