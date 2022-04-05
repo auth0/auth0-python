@@ -7,7 +7,7 @@ from time import sleep
 
 import requests
 
-from ..exceptions import Auth0Error, RateLimitError
+from auth0.v3.exceptions import Auth0Error, RateLimitError
 
 UNKNOWN_ERROR = "a0.sdk.internal.unknown"
 

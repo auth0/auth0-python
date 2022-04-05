@@ -3,7 +3,8 @@ import json
 
 import aiohttp
 
-from ..exceptions import RateLimitError
+from auth0.v3.exceptions import RateLimitError
+
 from .rest import EmptyResponse, JsonResponse, PlainResponse
 from .rest import Response as _Response
 from .rest import RestClient

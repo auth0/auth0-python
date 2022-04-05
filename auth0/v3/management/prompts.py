@@ -1,4 +1,4 @@
-from .rest import RestClient
+from auth0.v3.rest import RestClient
 
 
 class Prompts(object):

@@ -1,8 +1,6 @@
-import asyncio
-
 import aiohttp
 
-from .rest_async import AsyncRestClient
+from auth0.v3.rest_async import AsyncRestClient
 
 
 def _gen_async(client, method):
