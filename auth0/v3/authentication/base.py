@@ -28,7 +28,7 @@ class AuthenticationBase(object):
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
-            jwt=None,
+            None,
             options=RestClientOptions(telemetry=telemetry, timeout=timeout, retries=0),
         )
 

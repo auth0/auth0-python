@@ -29,22 +29,40 @@ def asyncify(cls):
             protocol="https",
             rest_options=None,
         ):
-            super(AsyncClient, self).__init__(
-                domain,
-                token,
-                telemetry,
-                timeout,
-                protocol,
-                rest_options,
-            )
+            if token is None:
+                # Wrap the auth client
+                super(AsyncClient, self).__init__(domain, telemetry, timeout, protocol)
+            else:
+                # Wrap the mngtmt client
+                super(AsyncClient, self).__init__(
+                    domain, token, telemetry, timeout, protocol, rest_options
+                )
             self.client = AsyncRestClient(
                 jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
             )
 
     class Wrapper(cls):
-        def __init__(self, *args, **kwargs):
-            super(Wrapper, self).__init__(*args, **kwargs)
-            self._async_client = AsyncClient(*args, **kwargs)
+        def __init__(
+            self,
+            domain,
+            token=None,
+            telemetry=True,
+            timeout=5.0,
+            protocol="https",
+            rest_options=None,
+        ):
+            if token is None:
+                # Wrap the auth client
+                super(Wrapper, self).__init__(domain, telemetry, timeout, protocol)
+            else:
+                # Wrap the mngtmt client
+                super(Wrapper, self).__init__(
+                    domain, token, telemetry, timeout, protocol, rest_options
+                )
+
+            self._async_client = AsyncClient(
+                domain, token, telemetry, timeout, protocol, rest_options
+            )
             for method in methods:
                 setattr(
                     self,

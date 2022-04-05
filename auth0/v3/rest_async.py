@@ -64,7 +64,9 @@ class AsyncRestClient(RestClient):
                 async with session.request(*args, **kwargs) as response:
                     return await self._process_response(response)
 
-    async def get(self, url, params=None):
+    async def get(self, url, params=None, headers=None):
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers or {})
         # Track the API request attempt number
         attempt = 0
 
@@ -77,7 +79,9 @@ class AsyncRestClient(RestClient):
             attempt += 1
 
             try:
-                response = await self._request("get", url, params=params)
+                response = await self._request(
+                    "get", url, params=params, headers=request_headers
+                )
                 return response
             except RateLimitError as e:
                 # If the attempt number is greater than the configured retries, raise RateLimitError
@@ -91,8 +95,10 @@ class AsyncRestClient(RestClient):
                 # sleep() functions in seconds, so convert the milliseconds formula above accordingly
                 await asyncio.sleep(wait / 1000)
 
-    async def post(self, url, data=None):
-        return await self._request("post", url, json=data)
+    async def post(self, url, data=None, headers=None):
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers or {})
+        return await self._request("post", url, json=data, headers=request_headers)
 
     async def file_post(self, url, data=None, files=None):
         headers = self.base_headers.copy()
