@@ -1,6 +1,6 @@
 import warnings
 
-from auth0.v3.rest import RestClient
+from ..rest import RestClient
 
 
 class Jobs(object):

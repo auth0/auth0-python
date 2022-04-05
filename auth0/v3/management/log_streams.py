@@ -1,4 +1,4 @@
-from auth0.v3.rest import RestClient
+from ..rest import RestClient
 
 
 class LogStreams(object):
