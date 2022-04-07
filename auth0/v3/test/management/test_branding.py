@@ -1,5 +1,7 @@
 import unittest
+
 import mock
+
 from ...management.branding import Branding
 
 
