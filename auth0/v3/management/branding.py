@@ -89,4 +89,8 @@ class Branding(object):
         See: https://auth0.com/docs/api/management/v2#!/Branding/put_universal_login
         """
 
-        return self.client.put(self._url("templates", "universal-login"), type="put_universal-login_body", body={"template":body})
+        return self.client.put(
+            self._url("templates", "universal-login"),
+            type="put_universal-login_body",
+            body={"template": body},
+        )
