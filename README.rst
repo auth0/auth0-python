@@ -328,7 +328,7 @@ Then additional methods with the ``_async`` suffix will be added to modules crea
 
     import asyncio
     import aiohttp
-    from auth0.v3 import asyncify
+    from auth0.v3.asyncify import asyncify
     from auth0.v3.management import Auth0, Users, Connections
     from auth0.v3.authentication import Users as AuthUsers
 
