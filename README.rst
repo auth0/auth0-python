@@ -316,6 +316,54 @@ When consuming methods from the API clients, the requests could fail for a numbe
 resets is exposed in the ``reset_at`` property. When the header is unset, this value will be ``-1``.
 - Network timeouts: Adjustable by passing a ``timeout`` argument to the client. See the `rate limit docs <https://auth0.com/docs/policies/rate-limits>`__ for details.
 
+=========================
+Asynchronous Environments
+=========================
+
+This SDK provides async methods built on top of `asyncio <https://docs.python.org/3/library/asyncio.html>`__. To make them available you must have Python >=3.6 and the `aiohttp <https://docs.aiohttp.org/en/stable/>`__ module installed.
+
+Then additional methods with the ``_async`` suffix will be added to modules created by the ``management.Auth0`` class or to classes that are passed to the ``asyncify`` method. For example:
+
+.. code-block:: python
+
+    import asyncio
+    import aiohttp
+    from auth0.v3.asyncify import asyncify
+    from auth0.v3.management import Auth0, Users, Connections
+    from auth0.v3.authentication import Users as AuthUsers
+
+    auth0 = Auth0('domain', 'mgmt_api_token')
+
+    async def main():
+        # users = auth0.users.all() <= sync
+        users = await auth0.users.all_async() # <= async
+
+        # To share a session amongst multiple calls to the same service
+        async with auth0.users as users:
+            data = await users.get_async(id)
+            users.update_async(id, data)
+
+        # Use asyncify directly on services
+        Users = asyncify(Users)
+        Connections = asyncify(Connections)
+        users = Users(domain, mgmt_api_token)
+        connections = Connections(domain, mgmt_api_token)
+
+        # Create a session and share it among the services
+        session = aiohttp.ClientSession()
+        users.set_session(session)
+        connections.set_session(session)
+        u = await auth0.users.all_async()
+        c = await auth0.connections.all_async()
+        session.close()
+
+        # Use auth api
+        U = asyncify(AuthUsers)
+        u = U(domain=domain)
+        await u.userinfo_async(access_token)
+
+
+    asyncio.run(main())
 
 ==============
 Supported APIs

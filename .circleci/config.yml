@@ -30,7 +30,7 @@ jobs:
       - python/install-packages:
           pkg-manager: pip-dist
           path-args: ".[test]"
-      - run: coverage run -m unittest discover
+      - run: coverage run -m unittest discover -s auth0/v3/test -t .
       - run: bash <(curl -s https://codecov.io/bash)
 
 workflows:

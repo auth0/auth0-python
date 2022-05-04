@@ -6,8 +6,9 @@ import unittest
 import mock
 import requests
 
+from auth0.v3.rest import RestClient, RestClientOptions
+
 from ...exceptions import Auth0Error, RateLimitError
-from ...management.rest import RestClient, RestClientOptions
 
 
 class TestRest(unittest.TestCase):

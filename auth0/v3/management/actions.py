@@ -1,4 +1,4 @@
-from .rest import RestClient
+from ..rest import RestClient
 
 
 class Actions(object):

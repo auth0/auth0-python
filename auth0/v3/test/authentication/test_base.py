@@ -13,12 +13,13 @@ from ...exceptions import Auth0Error, RateLimitError
 class TestBase(unittest.TestCase):
     def test_telemetry_enabled_by_default(self):
         ab = AuthenticationBase("auth0.com")
+        base_headers = ab.client.base_headers
 
-        user_agent = ab.base_headers["User-Agent"]
-        auth0_client_bytes = base64.b64decode(ab.base_headers["Auth0-Client"])
+        user_agent = base_headers["User-Agent"]
+        auth0_client_bytes = base64.b64decode(base_headers["Auth0-Client"])
         auth0_client_json = auth0_client_bytes.decode("utf-8")
         auth0_client = json.loads(auth0_client_json)
-        content_type = ab.base_headers["Content-Type"]
+        content_type = base_headers["Content-Type"]
 
         from auth0 import __version__ as auth0_version
 
@@ -39,7 +40,7 @@ class TestBase(unittest.TestCase):
     def test_telemetry_disabled(self):
         ab = AuthenticationBase("auth0.com", telemetry=False)
 
-        self.assertEqual(ab.base_headers, {"Content-Type": "application/json"})
+        self.assertEqual(ab.client.base_headers, {"Content-Type": "application/json"})
 
     @mock.patch("requests.post")
     def test_post(self, mock_post):
@@ -51,7 +52,7 @@ class TestBase(unittest.TestCase):
         data = ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
 
         mock_post.assert_called_with(
-            url="the-url",
+            "the-url",
             json={"a": "b"},
             headers={"c": "d", "Content-Type": "application/json"},
             timeout=(10, 2),
@@ -70,7 +71,7 @@ class TestBase(unittest.TestCase):
         data = ab.post("the-url")
 
         mock_post.assert_called_with(
-            url="the-url",
+            "the-url",
             json=None,
             headers={"Content-Type": "application/json"},
             timeout=5.0,
@@ -88,8 +89,8 @@ class TestBase(unittest.TestCase):
         data = ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
 
         self.assertEqual(mock_post.call_count, 1)
-        call_kwargs = mock_post.call_args[1]
-        self.assertEqual(call_kwargs["url"], "the-url")
+        call_args, call_kwargs = mock_post.call_args
+        self.assertEqual(call_args[0], "the-url")
         self.assertEqual(call_kwargs["json"], {"a": "b"})
         headers = call_kwargs["headers"]
         self.assertEqual(headers["c"], "d")
@@ -228,7 +229,7 @@ class TestBase(unittest.TestCase):
         data = ab.get("the-url", params={"a": "b"}, headers={"c": "d"})
 
         mock_get.assert_called_with(
-            url="the-url",
+            "the-url",
             params={"a": "b"},
             headers={"c": "d", "Content-Type": "application/json"},
             timeout=(10, 2),
@@ -247,7 +248,7 @@ class TestBase(unittest.TestCase):
         data = ab.get("the-url")
 
         mock_get.assert_called_with(
-            url="the-url",
+            "the-url",
             params=None,
             headers={"Content-Type": "application/json"},
             timeout=5.0,
@@ -265,8 +266,8 @@ class TestBase(unittest.TestCase):
         data = ab.get("the-url", params={"a": "b"}, headers={"c": "d"})
 
         self.assertEqual(mock_get.call_count, 1)
-        call_kwargs = mock_get.call_args[1]
-        self.assertEqual(call_kwargs["url"], "the-url")
+        call_args, call_kwargs = mock_get.call_args
+        self.assertEqual(call_args[0], "the-url")
         self.assertEqual(call_kwargs["params"], {"a": "b"})
         headers = call_kwargs["headers"]
         self.assertEqual(headers["c"], "d")

@@ -1,6 +1,6 @@
 import warnings
 
-from .rest import RestClient
+from ..rest import RestClient
 
 
 class Users(object):

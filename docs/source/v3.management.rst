@@ -145,14 +145,6 @@ management.resource\_servers module
    :undoc-members:
    :show-inheritance:
 
-management.rest module
--------------------------
-
-.. automodule:: auth0.v3.management.rest
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 management.roles module
 --------------------------
 
