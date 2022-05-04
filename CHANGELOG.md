@@ -1,6 +1,13 @@
 Changes
 =======
 
+3.23.0
+------------------
+
+**Added**
+- Asyncio Support [\#312](https://github.com/auth0/auth0-python/pull/312) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add `/api/v2/branding` endpoints support [\#313](https://github.com/auth0/auth0-python/pull/313) ([evansims](https://github.com/evansims))
+
 3.22.0
 ------------------
 
