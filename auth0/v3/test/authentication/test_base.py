@@ -116,6 +116,22 @@ class TestBase(unittest.TestCase):
             self.assertEqual(context.exception.message, "desc")
 
     @mock.patch("requests.post")
+    def test_post_error_mfa_required(self, mock_post):
+        ab = AuthenticationBase("auth0.com", telemetry=False)
+
+        for error_status in [400, 500, None]:
+            mock_post.return_value.status_code = error_status
+            mock_post.return_value.text = '{"error": "mfa_required", "error_description": "Multifactor authentication required", "mfa_token": "Fe26...Ha"}'
+
+            with self.assertRaises(Auth0Error) as context:
+                ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+
+            self.assertEqual(context.exception.status_code, error_status)
+            self.assertEqual(context.exception.error_code, "mfa_required")
+            self.assertEqual(context.exception.message, "Multifactor authentication required")
+            self.assertEqual(context.exception.content.get("mfa_token"), "Fe26...Ha")
+
+    @mock.patch("requests.post")
     def test_post_rate_limit_error(self, mock_post):
         ab = AuthenticationBase("auth0.com", telemetry=False)
 

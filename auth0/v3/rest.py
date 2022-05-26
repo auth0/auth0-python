@@ -247,6 +247,8 @@ class Response(object):
         self._content = content
         self._headers = headers
 
+        print("FOO1_CONTENT", content)
+
     def content(self):
         if self._is_error():
             if self._status_code == 429:
@@ -255,6 +257,14 @@ class Response(object):
                     error_code=self._error_code(),
                     message=self._error_message(),
                     reset_at=reset_at,
+                )
+
+            if self._error_code() == "mfa_required":
+                raise Auth0Error(
+                    status_code=self._status_code,
+                    error_code=self._error_code(),
+                    message=self._error_message(),
+                    content=self._content,
                 )
 
             raise Auth0Error(
@@ -270,10 +280,22 @@ class Response(object):
 
     # Adding these methods to force implementation in subclasses because they are references in this parent class
     def _error_code(self):
-        raise NotImplementedError
+        if "errorCode" in self._content:
+            return self._content.get("errorCode")
+        elif "error" in self._content:
+            return self._content.get("error")
+        elif "code" in self._content:
+            return self._content.get("code")
+        else:
+            return UNKNOWN_ERROR
 
     def _error_message(self):
-        raise NotImplementedError
+        if "error_description" in self._content:
+            return self._content.get("error_description")
+        message = self._content.get("message", "")
+        if message is not None and message != "":
+            return message
+        return self._content.get("error", "")
 
 
 class JsonResponse(Response):
