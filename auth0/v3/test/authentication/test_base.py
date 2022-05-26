@@ -128,7 +128,9 @@ class TestBase(unittest.TestCase):
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "mfa_required")
-            self.assertEqual(context.exception.message, "Multifactor authentication required")
+            self.assertEqual(
+                context.exception.message, "Multifactor authentication required"
+            )
             self.assertEqual(context.exception.content.get("mfa_token"), "Fe26...Ha")
 
     @mock.patch("requests.post")
