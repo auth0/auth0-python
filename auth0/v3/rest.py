@@ -247,8 +247,6 @@ class Response(object):
         self._content = content
         self._headers = headers
 
-        print("FOO1_CONTENT", content)
-
     def content(self):
         if self._is_error():
             if self._status_code == 429:
