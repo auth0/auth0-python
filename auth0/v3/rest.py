@@ -256,8 +256,7 @@ class Response(object):
                     message=self._error_message(),
                     reset_at=reset_at,
                 )
-
-            if self._error_code() == "mfa_required":
+            if self._content is not None:
                 raise Auth0Error(
                     status_code=self._status_code,
                     error_code=self._error_code(),
