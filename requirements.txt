@@ -52,7 +52,7 @@ PyJWT==2.4.0
 pyparsing==3.0.7
 pytest==7.1.2
 pytest-mock==3.7.0
-python-dotenv==0.19.2
+python-dotenv==0.20.0
 pytz==2022.1
 pyupgrade==2.31.1
 PyYAML==6.0
