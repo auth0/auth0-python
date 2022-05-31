@@ -33,7 +33,7 @@ itsdangerous==2.1.1
 Jinja2==3.1.2
 jwcrypto==1.0
 MarkupSafe==2.1.1
-mccabe==0.6.1
+mccabe==0.7.0
 mock==4.0.3
 multidict==6.0.2
 mypy-extensions==0.4.3
