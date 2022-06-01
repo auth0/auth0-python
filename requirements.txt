@@ -19,7 +19,7 @@ cryptography==36.0.2
 Deprecated==1.2.13
 distlib==0.3.4
 docutils==0.17.1
-filelock==3.6.0
+filelock==3.7.1
 flake8==4.0.1
 Flask==2.0.3
 Flask-Cors==3.0.10
