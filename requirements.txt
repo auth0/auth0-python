@@ -19,7 +19,7 @@ cryptography==36.0.2
 Deprecated==1.2.13
 distlib==0.3.4
 docutils==0.17.1
-filelock==3.6.0
+filelock==3.7.1
 flake8==4.0.1
 Flask==2.0.3
 Flask-Cors==3.0.10
@@ -42,14 +42,14 @@ packaging==21.3
 pathspec==0.9.0
 platformdirs==2.5.1
 pluggy==1.0.0
-pre-commit==2.17.0
+pre-commit==2.19.0
 py==1.11.0
 pycodestyle==2.8.0
 pycparser==2.21
 pyflakes==2.4.0
 Pygments==2.12.0
 PyJWT==2.4.0
-pyparsing==3.0.7
+pyparsing==3.0.9
 pytest==7.1.2
 pytest-mock==3.7.0
 python-dotenv==0.20.0
@@ -71,7 +71,7 @@ tokenize-rt==4.2.1
 toml==0.10.2
 tomli==2.0.1
 urllib3==1.26.9
-virtualenv==20.13.4
+virtualenv==20.14.1
 Werkzeug==2.1.2
 wrapt==1.14.0
 yarl==1.7.2
