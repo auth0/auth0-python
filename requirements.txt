@@ -73,5 +73,5 @@ tomli==2.0.1
 urllib3==1.26.9
 virtualenv==20.14.1
 Werkzeug==2.1.2
-wrapt==1.14.0
+wrapt==1.14.1
 yarl==1.7.2
