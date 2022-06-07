@@ -143,9 +143,9 @@ class TestRest(unittest.TestCase):
         mock_get.return_value.text = '["a", "b"]'
         mock_get.return_value.status_code = 200
 
-        rc.get("the-url")
+        rc.get("http://the-url")
         mock_get.assert_called_with(
-            "the-url", params=None, headers=headers, timeout=(10, 2)
+            "http://the-url", params=None, headers=headers, timeout=(10, 2)
         )
 
     @mock.patch("requests.post")
@@ -158,9 +158,9 @@ class TestRest(unittest.TestCase):
         mock_post.return_value.text = '["a", "b"]'
         mock_post.return_value.status_code = 200
 
-        rc.post("the-url")
+        rc.post("http://the-url")
         mock_post.assert_called_with(
-            "the-url", json=None, headers=headers, timeout=(10, 2)
+            "http://the-url", json=None, headers=headers, timeout=(10, 2)
         )
 
     @mock.patch("requests.put")
@@ -173,9 +173,9 @@ class TestRest(unittest.TestCase):
         mock_put.return_value.text = '["a", "b"]'
         mock_put.return_value.status_code = 200
 
-        rc.put("the-url")
+        rc.put("http://the-url")
         mock_put.assert_called_with(
-            "the-url", json=None, headers=headers, timeout=(10, 2)
+            "http://the-url", json=None, headers=headers, timeout=(10, 2)
         )
 
     @mock.patch("requests.patch")
@@ -188,9 +188,9 @@ class TestRest(unittest.TestCase):
         mock_patch.return_value.text = '["a", "b"]'
         mock_patch.return_value.status_code = 200
 
-        rc.patch("the-url")
+        rc.patch("http://the-url")
         mock_patch.assert_called_with(
-            "the-url", json=None, headers=headers, timeout=(10, 2)
+            "http://the-url", json=None, headers=headers, timeout=(10, 2)
         )
 
     @mock.patch("requests.delete")
@@ -203,9 +203,9 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.text = '["a", "b"]'
         mock_delete.return_value.status_code = 200
 
-        rc.delete("the-url")
+        rc.delete("http://the-url")
         mock_delete.assert_called_with(
-            "the-url", params={}, json=None, headers=headers, timeout=(10, 2)
+            "http://the-url", params={}, json=None, headers=headers, timeout=(10, 2)
         )
 
     @mock.patch("requests.get")
@@ -219,9 +219,9 @@ class TestRest(unittest.TestCase):
         mock_get.return_value.text = '["a", "b"]'
         mock_get.return_value.status_code = 200
 
-        response = rc.get("the-url")
+        response = rc.get("http://the-url")
         mock_get.assert_called_with(
-            "the-url", params=None, headers=headers, timeout=5.0
+            "http://the-url", params=None, headers=headers, timeout=5.0
         )
 
         self.assertEqual(response, ["a", "b"])
@@ -499,7 +499,7 @@ class TestRest(unittest.TestCase):
         mock_post.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
-            rc.post("the-url")
+            rc.post("http://the-url")
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, "code")
@@ -515,7 +515,7 @@ class TestRest(unittest.TestCase):
         mock_post.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
-            rc.post("the-url")
+            rc.post("http://the-url")
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, "code")
@@ -531,7 +531,7 @@ class TestRest(unittest.TestCase):
         mock_post.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
-            rc.post("the-url")
+            rc.post("http://the-url")
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, "code")
@@ -552,7 +552,7 @@ class TestRest(unittest.TestCase):
         mock_post.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
-            rc.post("the-url")
+            rc.post("http://the-url")
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, "code")
@@ -567,7 +567,7 @@ class TestRest(unittest.TestCase):
             mock_post.return_value.text = '{"errorCode": "e0","message": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
-                rc.post("the-url")
+                rc.post("http://the-url")
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "e0")
@@ -582,7 +582,7 @@ class TestRest(unittest.TestCase):
             mock_post.return_value.text = '{"message": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
-                rc.post("the-url")
+                rc.post("http://the-url")
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
@@ -597,7 +597,7 @@ class TestRest(unittest.TestCase):
             mock_post.return_value.text = "there has been a terrible error"
 
             with self.assertRaises(Auth0Error) as context:
-                rc.post("the-url")
+                rc.post("http://the-url")
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
@@ -614,7 +614,7 @@ class TestRest(unittest.TestCase):
             mock_post.return_value.text = None
 
             with self.assertRaises(Auth0Error) as context:
-                rc.post("the-url")
+                rc.post("http://the-url")
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
@@ -630,10 +630,10 @@ class TestRest(unittest.TestCase):
         data = {"some": "data"}
         files = [mock.Mock()]
 
-        rc.file_post("the-url", data=data, files=files)
+        rc.file_post("http://the-url", data=data, files=files)
 
         mock_post.assert_called_once_with(
-            "the-url", data=data, files=files, headers=headers, timeout=5.0
+            "http://the-url", data=data, files=files, headers=headers, timeout=5.0
         )
 
     @mock.patch("requests.put")
@@ -649,8 +649,8 @@ class TestRest(unittest.TestCase):
 
         data = {"some": "data"}
 
-        response = rc.put(url="the-url", data=data)
-        mock_put.assert_called_with("the-url", json=data, headers=headers, timeout=5.0)
+        response = rc.put(url="http://the-url", data=data)
+        mock_put.assert_called_with("http://the-url", json=data, headers=headers, timeout=5.0)
 
         self.assertEqual(response, ["a", "b"])
 
@@ -683,9 +683,9 @@ class TestRest(unittest.TestCase):
 
         data = {"some": "data"}
 
-        response = rc.patch(url="the-url", data=data)
+        response = rc.patch(url="http://the-url", data=data)
         mock_patch.assert_called_with(
-            "the-url", json=data, headers=headers, timeout=5.0
+            "http://the-url", json=data, headers=headers, timeout=5.0
         )
 
         self.assertEqual(response, ["a", "b"])
@@ -755,7 +755,7 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
-            rc.delete(url="the-url")
+            rc.delete(url="http://the-url")
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, "code")

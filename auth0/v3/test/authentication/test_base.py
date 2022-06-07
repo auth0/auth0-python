@@ -49,10 +49,10 @@ class TestBase(unittest.TestCase):
         mock_post.return_value.status_code = 200
         mock_post.return_value.text = '{"x": "y"}'
 
-        data = ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+        data = ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
         mock_post.assert_called_with(
-            "the-url",
+            "http://the-url",
             json={"a": "b"},
             headers={"c": "d", "Content-Type": "application/json"},
             timeout=(10, 2),
@@ -68,10 +68,10 @@ class TestBase(unittest.TestCase):
         mock_post.return_value.text = '{"x": "y"}'
 
         # Only required params are passed
-        data = ab.post("the-url")
+        data = ab.post("http://the-url")
 
         mock_post.assert_called_with(
-            "the-url",
+            "http://the-url",
             json=None,
             headers={"Content-Type": "application/json"},
             timeout=5.0,
@@ -86,11 +86,11 @@ class TestBase(unittest.TestCase):
         mock_post.return_value.status_code = 200
         mock_post.return_value.text = '{"x": "y"}'
 
-        data = ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+        data = ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
         self.assertEqual(mock_post.call_count, 1)
         call_args, call_kwargs = mock_post.call_args
-        self.assertEqual(call_args[0], "the-url")
+        self.assertEqual(call_args[0], "http://the-url")
         self.assertEqual(call_kwargs["json"], {"a": "b"})
         headers = call_kwargs["headers"]
         self.assertEqual(headers["c"], "d")
@@ -109,7 +109,7 @@ class TestBase(unittest.TestCase):
             mock_post.return_value.text = '{"error": "e0","error_description": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
-                ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+                ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "e0")
@@ -130,7 +130,7 @@ class TestBase(unittest.TestCase):
         }
 
         with self.assertRaises(Auth0Error) as context:
-            ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+            ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
         self.assertEqual(context.exception.status_code, 429)
         self.assertEqual(context.exception.error_code, "e0")
@@ -149,7 +149,7 @@ class TestBase(unittest.TestCase):
         mock_post.return_value.headers = {}
 
         with self.assertRaises(Auth0Error) as context:
-            ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+            ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
         self.assertEqual(context.exception.status_code, 429)
         self.assertEqual(context.exception.error_code, "e0")
@@ -166,7 +166,7 @@ class TestBase(unittest.TestCase):
             mock_post.return_value.text = '{"code": "e0","error_description": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
-                ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+                ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "e0")
@@ -181,7 +181,7 @@ class TestBase(unittest.TestCase):
             mock_post.return_value.text = '{"error_description": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
-                ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+                ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
@@ -196,7 +196,7 @@ class TestBase(unittest.TestCase):
             mock_post.return_value.text = "there has been a terrible error"
 
             with self.assertRaises(Auth0Error) as context:
-                ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+                ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
@@ -213,7 +213,7 @@ class TestBase(unittest.TestCase):
             mock_post.return_value.text = None
 
             with self.assertRaises(Auth0Error) as context:
-                ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
+                ab.post("http://the-url", data={"a": "b"}, headers={"c": "d"})
 
             self.assertEqual(context.exception.status_code, error_status)
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
@@ -226,10 +226,10 @@ class TestBase(unittest.TestCase):
         mock_get.return_value.status_code = 200
         mock_get.return_value.text = '{"x": "y"}'
 
-        data = ab.get("the-url", params={"a": "b"}, headers={"c": "d"})
+        data = ab.get("http://the-url", params={"a": "b"}, headers={"c": "d"})
 
         mock_get.assert_called_with(
-            "the-url",
+            "http://the-url",
             params={"a": "b"},
             headers={"c": "d", "Content-Type": "application/json"},
             timeout=(10, 2),
@@ -245,10 +245,10 @@ class TestBase(unittest.TestCase):
         mock_get.return_value.text = '{"x": "y"}'
 
         # Only required params are passed
-        data = ab.get("the-url")
+        data = ab.get("http://the-url")
 
         mock_get.assert_called_with(
-            "the-url",
+            "http://the-url",
             params=None,
             headers={"Content-Type": "application/json"},
             timeout=5.0,
@@ -263,11 +263,11 @@ class TestBase(unittest.TestCase):
         mock_get.return_value.status_code = 200
         mock_get.return_value.text = '{"x": "y"}'
 
-        data = ab.get("the-url", params={"a": "b"}, headers={"c": "d"})
+        data = ab.get("http://the-url", params={"a": "b"}, headers={"c": "d"})
 
         self.assertEqual(mock_get.call_count, 1)
         call_args, call_kwargs = mock_get.call_args
-        self.assertEqual(call_args[0], "the-url")
+        self.assertEqual(call_args[0], "http://the-url")
         self.assertEqual(call_kwargs["params"], {"a": "b"})
         headers = call_kwargs["headers"]
         self.assertEqual(headers["c"], "d")
