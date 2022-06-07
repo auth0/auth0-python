@@ -74,11 +74,9 @@ class RestClient(object):
         self._metrics = {"retries": 0, "backoff": []}
         self._skip_sleep = False
 
-        self.content_type_json_header = {
+        self.base_headers = {
             "Content-Type": "application/json",
         }
-
-        self.base_headers = {}
 
         if jwt is not None:
             self.base_headers["Authorization"] = "Bearer {}".format(self.jwt)
@@ -135,9 +133,6 @@ class RestClient(object):
         return 100
 
     def get(self, url, params=None, headers=None):
-        request_headers = self.content_type_json_header.copy()
-        request_headers.update(headers or {})
-
         # Track the API request attempt number
         attempt = 0
 
@@ -152,7 +147,7 @@ class RestClient(object):
             response = self.session.get(
                 url,
                 params=params,
-                headers=request_headers,
+                headers=headers,
                 timeout=self.options.timeout,
             )
 
@@ -171,42 +166,39 @@ class RestClient(object):
         return self._process_response(response)
 
     def post(self, url, data=None, headers=None):
-        request_headers = self.content_type_json_header.copy()
-        request_headers.update(headers or {})
-
         response = self.session.post(
-            url, json=data, headers=request_headers, timeout=self.options.timeout
+            url, json=data, headers=headers, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def file_post(self, url, data=None, files=None):
-        response = self.session.post(
-            url, data=data, files=files, headers={}, timeout=self.options.timeout
+        headers = self.content_type_json_header.copy()
+        headers.pop("Content-Type", None)
+
+        request = requests.Request(
+            'POST', url, data=data, files=files, headers=headers, timeout=self.options.timeout
         )
+        prepped = req.prepare()
+        del prepped.headers['Content-Type']
+        response = self.session.send(prepped)
         return self._process_response(response)
 
     def patch(self, url, data=None):
-        headers = self.content_type_json_header.copy()
-
         response = self.session.patch(
-            url, json=data, headers=headers, timeout=self.options.timeout
+            url, json=data, headers={}, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def put(self, url, data=None):
-        headers = self.content_type_json_header.copy()
-
         response = self.session.put(
-            url, json=data, headers=headers, timeout=self.options.timeout
+            url, json=data, headers={}, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def delete(self, url, params=None, data=None):
-        headers = self.content_type_json_header.copy()
-
         response = self.session.delete(
             url,
-            headers=headers,
+            headers={},
             params=params or {},
             json=data,
             timeout=self.options.timeout,
