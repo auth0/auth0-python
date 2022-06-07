@@ -172,11 +172,8 @@ class RestClient(object):
         return self._process_response(response)
 
     def file_post(self, url, data=None, files=None):
-        headers = self.content_type_json_header.copy()
-        headers.pop("Content-Type", None)
-
         request = requests.Request(
-            'POST', url, data=data, files=files, headers=headers, timeout=self.options.timeout
+            'POST', url, data=data, files=files, headers=None, timeout=self.options.timeout
         )
         prepped = req.prepare()
         del prepped.headers['Content-Type']
@@ -185,20 +182,20 @@ class RestClient(object):
 
     def patch(self, url, data=None):
         response = self.session.patch(
-            url, json=data, headers={}, timeout=self.options.timeout
+            url, json=data, headers=None, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def put(self, url, data=None):
         response = self.session.put(
-            url, json=data, headers={}, timeout=self.options.timeout
+            url, json=data, headers=None, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def delete(self, url, params=None, data=None):
         response = self.session.delete(
             url,
-            headers={},
+            headers=None,
             params=params or {},
             json=data,
             timeout=self.options.timeout,
