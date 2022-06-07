@@ -64,7 +64,7 @@ class RestClient(object):
             (defaults to 3)
     """
 
-    def __init__(self, jwt, telemetry=True, timeout=5.0, options=None):
+    def __init__(self, jwt, telemetry=True, timeout=5.0, options=None, pool_connection=10, pool_maxsize=10):
         if options is None:
             options = RestClientOptions(telemetry=telemetry, timeout=timeout)
 
@@ -114,7 +114,7 @@ class RestClient(object):
 
         self.session = requests.Session()
         self.session.headers.update(self.base_headers)
-        adapter = requests.adapters.HTTPAdapter(pool_connections=10, pool_maxsize=10)
+        adapter = requests.adapters.HTTPAdapter(pool_connections=pool_connection, pool_maxsize=pool_maxsize)
         self.session.mount('http://', adapter)
         self.session.mount('https://', adapter)
 
