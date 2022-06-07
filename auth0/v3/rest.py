@@ -74,9 +74,11 @@ class RestClient(object):
         self._metrics = {"retries": 0, "backoff": []}
         self._skip_sleep = False
 
-        self.base_headers = {
+        self.content_type_json_header = {
             "Content-Type": "application/json",
         }
+
+        self.base_headers = {}
 
         if jwt is not None:
             self.base_headers["Authorization"] = "Bearer {}".format(self.jwt)
@@ -110,6 +112,12 @@ class RestClient(object):
         self.telemetry = options.telemetry
         self.timeout = options.timeout
 
+        self.session = requests.Session()
+        self.session.headers.update(self.base_headers)
+        adapter = requests.adapters.HTTPAdapter(pool_connections=10, pool_maxsize=10)
+        self.session.mount('http://', adapter)
+        self.session.mount('https://', adapter)
+
     # Returns a hard cap for the maximum number of retries allowed (10)
     def MAX_REQUEST_RETRIES(self):
         return 10
@@ -127,7 +135,7 @@ class RestClient(object):
         return 100
 
     def get(self, url, params=None, headers=None):
-        request_headers = self.base_headers.copy()
+        request_headers = self.content_type_json_header.copy()
         request_headers.update(headers or {})
 
         # Track the API request attempt number
@@ -141,7 +149,7 @@ class RestClient(object):
             attempt += 1
 
             # Issue the request
-            response = requests.get(
+            response = self.session.get(
                 url,
                 params=params,
                 headers=request_headers,
@@ -163,43 +171,43 @@ class RestClient(object):
         return self._process_response(response)
 
     def post(self, url, data=None, headers=None):
-        request_headers = self.base_headers.copy()
+        request_headers = self.content_type_json_header.copy()
         request_headers.update(headers or {})
 
-        response = requests.post(
+        response = self.session.post(
             url, json=data, headers=request_headers, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def file_post(self, url, data=None, files=None):
-        headers = self.base_headers.copy()
+        headers = self.content_type_json_header.copy()
         headers.pop("Content-Type", None)
 
-        response = requests.post(
+        response = self.session.post(
             url, data=data, files=files, headers=headers, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def patch(self, url, data=None):
-        headers = self.base_headers.copy()
+        headers = self.content_type_json_header.copy()
 
-        response = requests.patch(
+        response = self.session.patch(
             url, json=data, headers=headers, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def put(self, url, data=None):
-        headers = self.base_headers.copy()
+        headers = self.content_type_json_header.copy()
 
-        response = requests.put(
+        response = self.session.put(
             url, json=data, headers=headers, timeout=self.options.timeout
         )
         return self._process_response(response)
 
     def delete(self, url, params=None, data=None):
-        headers = self.base_headers.copy()
+        headers = self.content_type_json_header.copy()
 
-        response = requests.delete(
+        response = self.session.delete(
             url,
             headers=headers,
             params=params or {},
