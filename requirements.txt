@@ -54,7 +54,7 @@ pytest==7.1.2
 pytest-mock==3.7.0
 python-dotenv==0.20.0
 pytz==2022.1
-pyupgrade==2.32.1
+pyupgrade==2.34.0
 PyYAML==6.0
 requests==2.27.1
 six==1.16.0
