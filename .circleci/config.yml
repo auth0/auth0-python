@@ -44,10 +44,10 @@ workflows:
           context:
             - publish-pypi
             - publish-gh
-          filters:
-            branches:
-              only:
-                - master
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
           requires:
             - python_3
             - python_2
