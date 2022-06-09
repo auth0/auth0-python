@@ -40,6 +40,7 @@ workflows:
       - python_3
       - python_2
       - ship/python-publish:
+          prefix-tag: false
           context:
             - publish-pypi
             - publish-gh
