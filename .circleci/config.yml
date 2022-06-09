@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.0.3
-  ship: auth0/ship@dev:alpha
+  ship: auth0/ship@dev:2101167
 
 executors:
   python_3_10:
