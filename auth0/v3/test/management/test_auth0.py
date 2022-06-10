@@ -29,6 +29,7 @@ from ...management.tickets import Tickets
 from ...management.user_blocks import UserBlocks
 from ...management.users import Users
 from ...management.users_by_email import UsersByEmail
+from ...rest import RestClientOptions
 
 
 class TestAuth0(unittest.TestCase):
@@ -120,3 +121,8 @@ class TestAuth0(unittest.TestCase):
 
     def test_users(self):
         self.assertIsInstance(self.a0.users, Users)
+
+    def test_args(self):
+        rest_options = RestClientOptions(retries=99)
+        auth0 = Auth0(self.domain, self.token, rest_options=rest_options)
+        self.assertEqual(auth0.users.client.options.retries, 99)
