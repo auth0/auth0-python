@@ -200,6 +200,9 @@ class RestClient(object):
             json=data,
             timeout=self.options.timeout,
         )
+        print("1111111")
+        print(response)
+        print(response.text)
         return self._process_response(response)
 
     def _calculate_wait(self, attempt):

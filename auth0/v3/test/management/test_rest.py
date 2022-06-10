@@ -203,42 +203,43 @@ class TestRest(unittest.TestCase):
             "Authorization": "Bearer a-token",
             "Content-Type": "application/json",
         }
-        mock_session.delete.return_value.text = '["a", "b"]'
-        mock_session.delete.return_value.status_code = 200
+        mock_session_object.headers.update.assert_called_once_with(headers)
 
+        mock_session_object.delete.return_value.text = '["a", "b"]'
+        mock_session_object.delete.return_value.status_code = 200
         rc.delete("http://the-url")
-        mock_session.headers.update.assert_called_once_with(headers)
-        mock_session.delete.assert_called_with(
+        mock_session_object.delete.assert_called_with(
             "http://the-url", params={}, json=None, headers=None, timeout=(10, 2)
         )
 
-    @mock.patch("requests.Session.headers.update")
-    @mock.patch("requests.Session.get")
-    def test_get(self, mock_get, mock_headers_update):
+    @mock.patch("requests.Session")
+    def test_get(self,mock_session):
+        mock_session_object = mock.Mock()
+        mock_session.return_value = mock_session_object
+
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {
             "Authorization": "Bearer a-token",
             "Content-Type": "application/json",
         }
+        mock_session_object.headers.update.assert_called_once_with(headers)
 
-        mock_get.return_value.text = '["a", "b"]'
-        mock_get.return_value.status_code = 200
-
+        mock_session_object.get.return_value.text = '["a", "b"]'
+        mock_session_object.get.return_value.status_code = 200
         response = rc.get("http://the-url")
-        mock_headers_update.assert_called_once_with(headers)
-        mock_get.assert_called_with(
+        mock_session_object.get.assert_called_with(
             "http://the-url", params=None, headers=None, timeout=5.0
         )
 
         self.assertEqual(response, ["a", "b"])
 
         response = rc.get(url="http://the/url", params={"A": "param", "B": "param"})
-        mock_get.assert_called_with(
-            "http://the/url", params={"A": "param", "B": "param"}, headers=headers, timeout=5.0
+        mock_session_object.get.assert_called_with(
+            "http://the/url", params={"A": "param", "B": "param"}, headers=None, timeout=5.0
         )
         self.assertEqual(response, ["a", "b"])
 
-        mock_get.return_value.text = ""
+        mock_session_object.get.return_value.text = ""
         response = rc.get("http://the/url")
         self.assertEqual(response, "")
 
