@@ -80,7 +80,15 @@ class Auth0(object):
 
             for name, cls in modules.items():
                 cls = asyncify(cls)
-                setattr(self, name, cls(domain=domain, token=token, rest_options=None))
+                setattr(
+                    self,
+                    name,
+                    cls(domain=domain, token=token, rest_options=rest_options),
+                )
         else:
             for name, cls in modules.items():
-                setattr(self, name, cls(domain=domain, token=token, rest_options=None))
+                setattr(
+                    self,
+                    name,
+                    cls(domain=domain, token=token, rest_options=rest_options),
+                )
