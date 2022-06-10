@@ -1,5 +1,7 @@
 import unittest
 
+import mock
+
 from ...management.actions import Actions
 from ...management.attack_protection import AttackProtection
 from ...management.auth0 import Auth0
@@ -29,6 +31,7 @@ from ...management.tickets import Tickets
 from ...management.user_blocks import UserBlocks
 from ...management.users import Users
 from ...management.users_by_email import UsersByEmail
+from ...rest import RestClientOptions
 
 
 class TestAuth0(unittest.TestCase):
@@ -120,3 +123,16 @@ class TestAuth0(unittest.TestCase):
 
     def test_users(self):
         self.assertIsInstance(self.a0.users, Users)
+
+    @mock.patch("auth0.v3.management.users.Users.__init__")
+    def test_args(self, users):
+        rest_options = RestClientOptions(retries=99)
+        Auth0(self.domain, self.token, rest_options=rest_options)
+        users.assert_called_with(
+            "user.some.domain",
+            "a-token",
+            True,
+            5.0,
+            "https",
+            rest_options,
+        )
