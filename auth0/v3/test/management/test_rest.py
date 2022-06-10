@@ -193,9 +193,11 @@ class TestRest(unittest.TestCase):
             "http://the-url", json=None, headers=headers, timeout=(10, 2)
         )
 
-    @mock.patch("requests.Session.headers.update")
-    @mock.patch("requests.Session.delete")
-    def test_delete_custom_timeout(self, mock_delete, mock_headers_update):
+    @mock.patch("requests.Session")
+    def test_delete_custom_timeout(self, mock_session):
+        mock_session_object = Mock()
+        mock_session.return_value = mock_session_object
+
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
         headers = {
             "Authorization": "Bearer a-token",
@@ -205,8 +207,8 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.status_code = 200
 
         rc.delete("http://the-url")
-        mock_headers_update.assert_called_once_with(headers)
-        mock_delete.assert_called_with(
+        mock_session.headers.update.assert_called_once_with(headers)
+        mock_session.delete.assert_called_with(
             "http://the-url", params={}, json=None, headers=None, timeout=(10, 2)
         )
 
