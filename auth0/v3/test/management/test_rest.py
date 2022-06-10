@@ -133,7 +133,7 @@ class TestRest(unittest.TestCase):
         with self.assertRaises(requests.exceptions.Timeout):
             rc.delete("http://google.com")
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get_custom_timeout(self, mock_get):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
         headers = {
@@ -148,7 +148,7 @@ class TestRest(unittest.TestCase):
             "http://the-url", params=None, headers=headers, timeout=(10, 2)
         )
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_custom_timeout(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
         headers = {
@@ -163,7 +163,7 @@ class TestRest(unittest.TestCase):
             "http://the-url", json=None, headers=headers, timeout=(10, 2)
         )
 
-    @mock.patch("requests.put")
+    @mock.patch("requests.Session.put")
     def test_put_custom_timeout(self, mock_put):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
         headers = {
@@ -178,7 +178,7 @@ class TestRest(unittest.TestCase):
             "http://the-url", json=None, headers=headers, timeout=(10, 2)
         )
 
-    @mock.patch("requests.patch")
+    @mock.patch("requests.Session.patch")
     def test_patch_custom_timeout(self, mock_patch):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
         headers = {
@@ -193,7 +193,7 @@ class TestRest(unittest.TestCase):
             "http://the-url", json=None, headers=headers, timeout=(10, 2)
         )
 
-    @mock.patch("requests.delete")
+    @mock.patch("requests.Session.delete")
     def test_delete_custom_timeout(self, mock_delete):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
         headers = {
@@ -208,7 +208,7 @@ class TestRest(unittest.TestCase):
             "http://the-url", params={}, json=None, headers=headers, timeout=(10, 2)
         )
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get(self, mock_get):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {
@@ -236,7 +236,7 @@ class TestRest(unittest.TestCase):
         response = rc.get("http://the/url")
         self.assertEqual(response, "")
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get_errors(self, mock_get):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -252,7 +252,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, "code")
         self.assertEqual(context.exception.message, "message")
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get_rate_limit_error(self, mock_get):
         options = RestClientOptions(telemetry=False, retries=0)
         rc = RestClient(jwt="a-token", options=options)
@@ -279,7 +279,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(rc._metrics["retries"], 0)
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get_rate_limit_error_without_headers(self, mock_get):
         options = RestClientOptions(telemetry=False, retries=1)
         rc = RestClient(jwt="a-token", options=options)
@@ -301,7 +301,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(rc._metrics["retries"], 1)
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get_rate_limit_custom_retries(self, mock_get):
         options = RestClientOptions(telemetry=False, retries=5)
         rc = RestClient(jwt="a-token", options=options)
@@ -329,7 +329,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(rc._metrics["retries"], 5)
         self.assertEqual(rc._metrics["retries"], len(rc._metrics["backoff"]))
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get_rate_limit_invalid_retries_below_min(self, mock_get):
         options = RestClientOptions(telemetry=False, retries=-1)
         rc = RestClient(jwt="a-token", options=options)
@@ -356,7 +356,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(rc._metrics["retries"], 0)
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get_rate_limit_invalid_retries_above_max(self, mock_get):
         options = RestClientOptions(telemetry=False, retries=11)
         rc = RestClient(jwt="a-token", options=options)
@@ -383,7 +383,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(rc._metrics["retries"], rc.MAX_REQUEST_RETRIES())
 
-    @mock.patch("requests.get")
+    @mock.patch("requests.Session.get")
     def test_get_rate_limit_retries_use_exponential_backoff(self, mock_get):
         options = RestClientOptions(telemetry=False, retries=10)
         rc = RestClient(jwt="a-token", options=options)
@@ -471,7 +471,7 @@ class TestRest(unittest.TestCase):
         # Ensure total delay sum is never more than 10s.
         self.assertLessEqual(finalBackoff, 10000)
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {
@@ -489,7 +489,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(response, {"a": "b"})
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_errors(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -505,7 +505,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, "code")
         self.assertEqual(context.exception.message, "message")
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_errors_with_no_message_property(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -521,7 +521,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, "code")
         self.assertEqual(context.exception.message, "error")
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_errors_with_no_message_or_error_property(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -537,7 +537,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, "code")
         self.assertEqual(context.exception.message, "")
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_errors_with_message_and_error_property(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -558,7 +558,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, "code")
         self.assertEqual(context.exception.message, "message")
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_error_with_code_property(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -573,7 +573,7 @@ class TestRest(unittest.TestCase):
             self.assertEqual(context.exception.error_code, "e0")
             self.assertEqual(context.exception.message, "desc")
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_error_with_no_error_code(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -588,7 +588,7 @@ class TestRest(unittest.TestCase):
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
             self.assertEqual(context.exception.message, "desc")
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_error_with_text_response(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -605,7 +605,7 @@ class TestRest(unittest.TestCase):
                 context.exception.message, "there has been a terrible error"
             )
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_post_error_with_no_response_text(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -620,7 +620,7 @@ class TestRest(unittest.TestCase):
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
             self.assertEqual(context.exception.message, "")
 
-    @mock.patch("requests.post")
+    @mock.patch("requests.Session.post")
     def test_file_post_content_type_is_none(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {"Authorization": "Bearer a-token"}
@@ -636,7 +636,7 @@ class TestRest(unittest.TestCase):
             "http://the-url", data=data, files=files, headers=headers, timeout=5.0
         )
 
-    @mock.patch("requests.put")
+    @mock.patch("requests.Session.put")
     def test_put(self, mock_put):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {
@@ -654,7 +654,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(response, ["a", "b"])
 
-    @mock.patch("requests.put")
+    @mock.patch("requests.Session.put")
     def test_put_errors(self, mock_put):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -670,7 +670,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, "code")
         self.assertEqual(context.exception.message, "message")
 
-    @mock.patch("requests.patch")
+    @mock.patch("requests.Session.patch")
     def test_patch(self, mock_patch):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {
@@ -690,7 +690,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(response, ["a", "b"])
 
-    @mock.patch("requests.patch")
+    @mock.patch("requests.Session.patch")
     def test_patch_errors(self, mock_patch):
         rc = RestClient(jwt="a-token", telemetry=False)
 
@@ -706,7 +706,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.error_code, "code")
         self.assertEqual(context.exception.message, "message")
 
-    @mock.patch("requests.delete")
+    @mock.patch("requests.Session.delete")
     def test_delete(self, mock_delete):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {
@@ -724,7 +724,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(response, ["a", "b"])
 
-    @mock.patch("requests.delete")
+    @mock.patch("requests.Session.delete")
     def test_delete_with_body_and_params(self, mock_delete):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {
@@ -745,7 +745,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(response, ["a", "b"])
 
-    @mock.patch("requests.delete")
+    @mock.patch("requests.Session.delete")
     def test_delete_errors(self, mock_delete):
         rc = RestClient(jwt="a-token", telemetry=False)
 
