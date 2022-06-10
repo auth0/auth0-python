@@ -226,14 +226,14 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(response, ["a", "b"])
 
-        response = rc.get(url="the/url", params={"A": "param", "B": "param"})
+        response = rc.get(url="http://the/url", params={"A": "param", "B": "param"})
         mock_get.assert_called_with(
-            "the/url", params={"A": "param", "B": "param"}, headers=headers, timeout=5.0
+            "http://the/url", params={"A": "param", "B": "param"}, headers=headers, timeout=5.0
         )
         self.assertEqual(response, ["a", "b"])
 
         mock_get.return_value.text = ""
-        response = rc.get("the/url")
+        response = rc.get("http://the/url")
         self.assertEqual(response, "")
 
     @mock.patch("requests.get")
@@ -246,7 +246,7 @@ class TestRest(unittest.TestCase):
         mock_get.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
-            rc.get("the/url")
+            rc.get("http://the/url")
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, "code")
@@ -269,7 +269,7 @@ class TestRest(unittest.TestCase):
         }
 
         with self.assertRaises(Auth0Error) as context:
-            rc.get("the/url")
+            rc.get("http://the/url")
 
         self.assertEqual(context.exception.status_code, 429)
         self.assertEqual(context.exception.error_code, "code")
@@ -291,7 +291,7 @@ class TestRest(unittest.TestCase):
 
         mock_get.return_value.headers = {}
         with self.assertRaises(Auth0Error) as context:
-            rc.get("the/url")
+            rc.get("http://the/url")
 
         self.assertEqual(context.exception.status_code, 429)
         self.assertEqual(context.exception.error_code, "code")
@@ -318,7 +318,7 @@ class TestRest(unittest.TestCase):
         }
 
         with self.assertRaises(Auth0Error) as context:
-            rc.get("the/url")
+            rc.get("http://the/url")
 
         self.assertEqual(context.exception.status_code, 429)
         self.assertEqual(context.exception.error_code, "code")
@@ -346,7 +346,7 @@ class TestRest(unittest.TestCase):
         }
 
         with self.assertRaises(Auth0Error) as context:
-            rc.get("the/url")
+            rc.get("http://the/url")
 
         self.assertEqual(context.exception.status_code, 429)
         self.assertEqual(context.exception.error_code, "code")
@@ -373,7 +373,7 @@ class TestRest(unittest.TestCase):
         }
 
         with self.assertRaises(Auth0Error) as context:
-            rc.get("the/url")
+            rc.get("http://the/url")
 
         self.assertEqual(context.exception.status_code, 429)
         self.assertEqual(context.exception.error_code, "code")
@@ -400,7 +400,7 @@ class TestRest(unittest.TestCase):
         }
 
         with self.assertRaises(Auth0Error) as context:
-            rc.get("the/url")
+            rc.get("http://the/url")
 
         self.assertEqual(context.exception.status_code, 429)
         self.assertEqual(context.exception.error_code, "code")
@@ -484,8 +484,8 @@ class TestRest(unittest.TestCase):
         data = {"some": "data"}
 
         mock_post.return_value.status_code = 200
-        response = rc.post("the/url", data=data)
-        mock_post.assert_called_with("the/url", json=data, headers=headers, timeout=5.0)
+        response = rc.post("http://the/url", data=data)
+        mock_post.assert_called_with("http://the/url", json=data, headers=headers, timeout=5.0)
 
         self.assertEqual(response, {"a": "b"})
 
@@ -664,7 +664,7 @@ class TestRest(unittest.TestCase):
         mock_put.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
-            rc.put(url="the/url")
+            rc.put(url="http://the/url")
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, "code")
@@ -700,7 +700,7 @@ class TestRest(unittest.TestCase):
         mock_patch.return_value.status_code = 999
 
         with self.assertRaises(Auth0Error) as context:
-            rc.patch(url="the/url")
+            rc.patch(url="http://the/url")
 
         self.assertEqual(context.exception.status_code, 999)
         self.assertEqual(context.exception.error_code, "code")
