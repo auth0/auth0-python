@@ -203,8 +203,8 @@ class TestRest(unittest.TestCase):
             "Authorization": "Bearer a-token",
             "Content-Type": "application/json",
         }
-        mock_delete.return_value.text = '["a", "b"]'
-        mock_delete.return_value.status_code = 200
+        mock_session.delete.return_value.text = '["a", "b"]'
+        mock_session.delete.return_value.status_code = 200
 
         rc.delete("http://the-url")
         mock_session.headers.update.assert_called_once_with(headers)
