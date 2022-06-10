@@ -195,7 +195,7 @@ class TestRest(unittest.TestCase):
 
     @mock.patch("requests.Session")
     def test_delete_custom_timeout(self, mock_session):
-        mock_session_object = Mock()
+        mock_session_object = mock.Mock()
         mock_session.return_value = mock_session_object
 
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
