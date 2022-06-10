@@ -193,8 +193,9 @@ class TestRest(unittest.TestCase):
             "http://the-url", json=None, headers=headers, timeout=(10, 2)
         )
 
+    @mock.patch("requests.Session.headers.update")
     @mock.patch("requests.Session.delete")
-    def test_delete_custom_timeout(self, mock_delete):
+    def test_delete_custom_timeout(self, mock_delete, mock_headers_update):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
         headers = {
             "Authorization": "Bearer a-token",
@@ -204,12 +205,14 @@ class TestRest(unittest.TestCase):
         mock_delete.return_value.status_code = 200
 
         rc.delete("http://the-url")
+        mock_headers_update.assert_called_once_with(headers)
         mock_delete.assert_called_with(
-            "http://the-url", params={}, json=None, headers=headers, timeout=(10, 2)
+            "http://the-url", params={}, json=None, headers=None, timeout=(10, 2)
         )
 
+    @mock.patch("requests.Session.headers.update")
     @mock.patch("requests.Session.get")
-    def test_get(self, mock_get):
+    def test_get(self, mock_get, mock_headers_update):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {
             "Authorization": "Bearer a-token",
@@ -220,8 +223,9 @@ class TestRest(unittest.TestCase):
         mock_get.return_value.status_code = 200
 
         response = rc.get("http://the-url")
+        mock_headers_update.assert_called_once_with(headers)
         mock_get.assert_called_with(
-            "http://the-url", params=None, headers=headers, timeout=5.0
+            "http://the-url", params=None, headers=None, timeout=5.0
         )
 
         self.assertEqual(response, ["a", "b"])
