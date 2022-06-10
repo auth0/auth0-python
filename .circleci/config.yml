@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.0.3
+  ship: auth0/ship@dev:7cb543a
 
 executors:
   python_3_10:
@@ -38,4 +39,16 @@ workflows:
     jobs:
       - python_3
       - python_2
+      - ship/python-publish:
+          prefix-tag: false
+          context:
+            - publish-pypi
+            - publish-gh
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - python_3
+            - python_2
 
