@@ -277,22 +277,10 @@ class Response(object):
 
     # Adding these methods to force implementation in subclasses because they are references in this parent class
     def _error_code(self):
-        if "errorCode" in self._content:
-            return self._content.get("errorCode")
-        elif "error" in self._content:
-            return self._content.get("error")
-        elif "code" in self._content:
-            return self._content.get("code")
-        else:
-            return UNKNOWN_ERROR
+        raise NotImplementedError
 
     def _error_message(self):
-        if "error_description" in self._content:
-            return self._content.get("error_description")
-        message = self._content.get("message", "")
-        if message is not None and message != "":
-            return message
-        return self._content.get("error", "")
+        raise NotImplementedError
 
 
 class JsonResponse(Response):
