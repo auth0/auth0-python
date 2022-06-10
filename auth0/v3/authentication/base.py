@@ -24,12 +24,16 @@ class AuthenticationBase(object):
             (defaults to 5.0 for both)
     """
 
-    def __init__(self, domain, telemetry=True, timeout=5.0, protocol="https"):
+    def __init__(
+            self, domain, telemetry=True, timeout=5.0,
+            protocol="https", pool_connection=10, pool_maxsize=10):
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             None,
-            options=RestClientOptions(telemetry=telemetry, timeout=timeout, retries=0),
+            options=RestClientOptions(
+                telemetry=telemetry, timeout=timeout, retries=0,
+                pool_connections=pool_connection, pool_maxsize=pool_maxsize),
         )
 
     def post(self, url, data=None, headers=None):
