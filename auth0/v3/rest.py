@@ -175,7 +175,7 @@ class RestClient(object):
         request = requests.Request(
             'POST', url, data=data, files=files, headers=None, timeout=self.options.timeout
         )
-        prepped = req.prepare()
+        prepped = request.prepare()
         del prepped.headers['Content-Type']
         response = self.session.send(prepped)
         return self._process_response(response)
