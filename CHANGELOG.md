@@ -1,5 +1,11 @@
-Changes
-=======
+# Change Log
+
+## [3.23.1](https://github.com/auth0/auth0-python/tree/3.23.1) (2022-06-10)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/3.23.0...3.23.1)
+
+**Fixed**
+- Pass rest_options through Auth0 constructor [\#354](https://github.com/auth0/auth0-python/pull/354) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 
 3.23.0
 ------------------
