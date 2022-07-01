@@ -30,12 +30,15 @@ class RestClientOptions(object):
             times using an exponential backoff strategy, before
             raising a RateLimitError exception. 10 retries max.
             (defaults to 3)
+        delay (integer): Change the maximum delay allowed in the
+            event of a retry.
     """
 
-    def __init__(self, telemetry=None, timeout=None, retries=None):
+    def __init__(self, telemetry=None, timeout=None, retries=None, delay=None):
         self.telemetry = True
         self.timeout = 5.0
         self.retries = 3
+        self.delay = 1000
 
         if telemetry is not None:
             self.telemetry = telemetry
@@ -45,6 +48,9 @@ class RestClientOptions(object):
 
         if retries is not None:
             self.retries = retries
+
+        if delay is not None:
+            self.delay = delay
 
 
 class RestClient(object):
@@ -105,6 +111,12 @@ class RestClient(object):
         # Cap the maximum number of retries to 10 or fewer. Floor the retries at 0.
         self._retries = min(self.MAX_REQUEST_RETRIES(), max(0, options.retries))
 
+        # Modify default 1s maximum delay
+        self._delay = max(
+            self.MIN_REQUEST_RETRY_DELAY(),
+            min(self.MAX_REQUEST_RETRY_DELAY(), options.delay),
+        )
+
         # For backwards compatibility reasons only
         # TODO: Deprecate in the next major so we can prune these arguments. Guidance should be to use RestClient.options.*
         self.telemetry = options.telemetry
@@ -118,9 +130,9 @@ class RestClient(object):
     def MAX_REQUEST_RETRY_JITTER(self):
         return 100
 
-    # Returns the maximum delay window allowed (1000ms)
+    # Returns the maximum delay window allowed (4000ms)
     def MAX_REQUEST_RETRY_DELAY(self):
-        return 1000
+        return 4000
 
     # Returns the minimum delay window allowed (100ms)
     def MIN_REQUEST_RETRY_DELAY(self):
@@ -218,8 +230,8 @@ class RestClient(object):
         # Introduces jitter to the base delay; increases delay between 1ms to MAX_REQUEST_RETRY_JITTER (100ms)
         wait += randint(1, self.MAX_REQUEST_RETRY_JITTER())
 
-        # Is never more than MAX_REQUEST_RETRY_DELAY (1s)
-        wait = min(self.MAX_REQUEST_RETRY_DELAY(), wait)
+        # Is never more than min(self._delay, MAX_REQUEST_RETRY_DELAY) (4s)
+        wait = min(self._delay, wait)
 
         # Is never less than MIN_REQUEST_RETRY_DELAY (100ms)
         wait = max(self.MIN_REQUEST_RETRY_DELAY(), wait)

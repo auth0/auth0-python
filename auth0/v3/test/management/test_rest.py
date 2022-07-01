@@ -20,7 +20,9 @@ class TestRest(unittest.TestCase):
         those options, and overriding it's own constructor arguments.
         """
 
-        options = RestClientOptions(telemetry=False, timeout=0.00001, retries=10)
+        options = RestClientOptions(
+            telemetry=False, timeout=0.00001, retries=10, delay=2500
+        )
         rc = RestClient(jwt="a-token", telemetry=True, timeout=30, options=options)
 
         # Does a timeout occur as expected?
@@ -35,6 +37,9 @@ class TestRest(unittest.TestCase):
 
         # Is RestClient using the RestClientOptions.telemetry value properly?
         self.assertEqual(rc.options.telemetry, False)
+
+        # Is RestClient using the RestClientOptions.delay value properly?
+        self.assertEqual(rc.options.delay, 2500)
 
         # Is RestClient using the RestClientOptions.telemetry value properly?
         self.assertEqual(
@@ -102,6 +107,9 @@ class TestRest(unittest.TestCase):
 
         # Did RestClientOptions use the default True telemetry value?
         self.assertEqual(rc.options.telemetry, True)
+
+        # Did RestClientOptions use the default 1000s maximum delay?
+        self.assertEqual(rc.options.delay, 1000)
 
     def test_get_can_timeout(self):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00001)
@@ -382,6 +390,42 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.reset_at, 9)
 
         self.assertEqual(rc._metrics["retries"], rc.MAX_REQUEST_RETRIES())
+
+    def test_get_delay_invalid_delay_below_min(self):
+        options = RestClientOptions(telemetry=False, delay=10)
+        rc = RestClient(jwt="a-token", options=options)
+        self.assertEqual(rc._delay, rc.MIN_REQUEST_RETRY_DELAY())
+
+    def test_get_delay_invalid_delay_above_max(self):
+        options = RestClientOptions(telemetry=False, delay=10000)
+        rc = RestClient(jwt="a-token", options=options)
+        self.assertEqual(rc._delay, rc.MAX_REQUEST_RETRY_DELAY())
+
+    def test_get_delay_invalid_delay_within_valid_range(self):
+        test_delay = 100
+        options = RestClientOptions(telemetry=False, delay=test_delay)
+        rc = RestClient(jwt="a-token", options=options)
+        self.assertEqual(rc._delay, test_delay)
+
+        test_delay = 99
+        options = RestClientOptions(telemetry=False, delay=test_delay)
+        rc = RestClient(jwt="a-token", options=options)
+        self.assertEqual(rc._delay, rc.MIN_REQUEST_RETRY_DELAY())
+
+        test_delay = 4000
+        options = RestClientOptions(telemetry=False, delay=test_delay)
+        rc = RestClient(jwt="a-token", options=options)
+        self.assertEqual(rc._delay, test_delay)
+
+        test_delay = 4001
+        options = RestClientOptions(telemetry=False, delay=test_delay)
+        rc = RestClient(jwt="a-token", options=options)
+        self.assertEqual(rc._delay, rc.MAX_REQUEST_RETRY_DELAY())
+
+        test_delay = 2000
+        options = RestClientOptions(telemetry=False, delay=test_delay)
+        rc = RestClient(jwt="a-token", options=options)
+        self.assertEqual(rc._delay, test_delay)
 
     @mock.patch("requests.get")
     def test_get_rate_limit_retries_use_exponential_backoff(self, mock_get):
