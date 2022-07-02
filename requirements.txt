@@ -10,7 +10,7 @@ Babel==2.10.3
 black==22.6.0
 callee==0.3.1
 certifi==2021.10.8
-cffi==1.15.0
+cffi==1.15.1
 cfgv==3.3.1
 charset-normalizer==2.0.12
 click==8.1.3
