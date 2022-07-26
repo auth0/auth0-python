@@ -70,7 +70,7 @@ sphinxcontrib-serializinghtml==1.1.5
 tokenize-rt==4.2.1
 toml==0.10.2
 tomli==2.0.1
-urllib3==1.26.10
+urllib3==1.26.11
 virtualenv==20.15.1
 Werkzeug==2.2.0
 wrapt==1.14.1
