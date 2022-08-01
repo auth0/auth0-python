@@ -372,7 +372,14 @@ class TestOrganizations(unittest.TestCase):
         self.assertEqual(
             "https://domain/api/v2/organizations/test-org/invitations", args[0]
         )
-        self.assertEqual(kwargs["params"], {"page": None, "per_page": None})
+        self.assertEqual(
+            kwargs["params"],
+            {
+                "page": None,
+                "per_page": None,
+                "include_totals": "false",
+            },
+        )
 
         # Specific pagination
         c.all_organization_invitations("test-org", page=7, per_page=25)
@@ -382,7 +389,33 @@ class TestOrganizations(unittest.TestCase):
         self.assertEqual(
             "https://domain/api/v2/organizations/test-org/invitations", args[0]
         )
-        self.assertEqual(kwargs["params"], {"page": 7, "per_page": 25})
+        self.assertEqual(
+            kwargs["params"],
+            {
+                "page": 7,
+                "per_page": 25,
+                "include_totals": "false",
+            },
+        )
+
+        # Return paged collection with paging properties
+        c.all_organization_invitations(
+            "test-org", page=7, per_page=25, include_totals=True
+        )
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual(
+            "https://domain/api/v2/organizations/test-org/invitations", args[0]
+        )
+        self.assertEqual(
+            kwargs["params"],
+            {
+                "page": 7,
+                "per_page": 25,
+                "include_totals": "true",
+            },
+        )
 
     @mock.patch("auth0.v3.management.organizations.RestClient")
     def test_get_organization_invitation(self, mock_rc):
