@@ -46,7 +46,7 @@ pre-commit==2.20.0
 py==1.11.0
 pycodestyle==2.8.0
 pycparser==2.21
-pyflakes==2.4.0
+pyflakes==2.5.0
 Pygments==2.12.0
 PyJWT==2.4.0
 pyparsing==3.0.9
