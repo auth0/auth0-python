@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   python: circleci/python@2.0.3
   ship: auth0/ship@0.5.0
+  codecov: codecov/codecov@3
 
 executors:
   python_3_10:
@@ -32,7 +33,7 @@ jobs:
           pkg-manager: pip-dist
           path-args: ".[test]"
       - run: coverage run -m unittest discover -s auth0/v3/test -t .
-      - run: bash <(curl -s https://codecov.io/bash)
+      - codecov/upload
 
 workflows:
   main:
@@ -51,4 +52,3 @@ workflows:
           requires:
             - python_3
             - python_2
-
