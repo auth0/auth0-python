@@ -71,7 +71,7 @@ tokenize-rt==4.2.1
 toml==0.10.2
 tomli==2.0.1
 urllib3==1.26.12
-virtualenv==20.16.3
+virtualenv==20.16.4
 Werkzeug==2.2.2
 wrapt==1.14.1
 yarl==1.7.2
