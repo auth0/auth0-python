@@ -391,6 +391,7 @@ Management Endpoints
 - Actions() (``Auth0().actions``)
 - AttackProtection() (``Auth0().attack_protection``)
 - Blacklists() ( ``Auth0().blacklists`` )
+- Branding() ( ``Auth0().branding`` )
 - ClientGrants() ( ``Auth0().client_grants`` )
 - Clients() ( ``Auth0().clients`` )
 - Connections() ( ``Auth0().connections`` )

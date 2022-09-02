@@ -17,6 +17,14 @@ management.blacklists module
    :undoc-members:
    :show-inheritance:
 
+management.branding module
+-------------------------------
+
+.. automodule:: auth0.v3.management.branding
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 management.client\_grants module
 -----------------------------------
 
