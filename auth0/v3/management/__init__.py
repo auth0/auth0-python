@@ -26,12 +26,14 @@ from .tickets import Tickets
 from .user_blocks import UserBlocks
 from .users import Users
 from .users_by_email import UsersByEmail
+from .branding import Branding
 
 __all__ = (
     "Auth0",
     "Actions",
     "AttackProtection",
     "Blacklists",
+    "Branding",
     "ClientGrants",
     "Clients",
     "Connections",
