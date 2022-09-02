@@ -2,6 +2,7 @@ from .actions import Actions
 from .attack_protection import AttackProtection
 from .auth0 import Auth0
 from .blacklists import Blacklists
+from .branding import Branding
 from .client_grants import ClientGrants
 from .clients import Clients
 from .connections import Connections
@@ -26,7 +27,7 @@ from .tickets import Tickets
 from .user_blocks import UserBlocks
 from .users import Users
 from .users_by_email import UsersByEmail
-from .branding import Branding
+
 
 __all__ = (
     "Auth0",
