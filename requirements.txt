@@ -5,7 +5,7 @@ aiosignal==1.2.0
 alabaster==0.7.12
 async-timeout==4.0.2
 attrs==21.4.0
-Authlib==1.0.1
+Authlib==1.1.0
 Babel==2.10.3
 black==22.8.0
 callee==0.3.1
