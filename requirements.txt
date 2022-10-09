@@ -7,7 +7,7 @@ async-timeout==4.0.2
 attrs==21.4.0
 Authlib==1.1.0
 Babel==2.10.3
-black==22.8.0
+black==22.10.0
 callee==0.3.1
 certifi==2021.10.8
 cffi==1.15.1
