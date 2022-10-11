@@ -70,11 +70,19 @@ def asyncify(cls):
                     _gen_async(self._async_client, method),
                 )
 
+        def set_session(self, session):
+            """Set Client Session to improve performance by reusing session.
+
+            Args:
+                session (aiohttp.ClientSession): The client session which should be closed
+                    manually or within context manager.
+            """
+            self._session = session
+            self._async_client.client.set_session(self._session)
+
         async def __aenter__(self):
             """Automatically create and set session within context manager."""
-            async_rest_client = self._async_client.client
-            self._session = aiohttp.ClientSession()
-            async_rest_client.set_session(self._session)
+            self.set_session(aiohttp.ClientSession())
             return self
 
         async def __aexit__(self, exc_type, exc_val, exc_tb):

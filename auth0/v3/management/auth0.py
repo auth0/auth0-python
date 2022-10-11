@@ -75,20 +75,9 @@ class Auth0(object):
     """
 
     def __init__(self, domain, token, rest_options=None):
-        if is_async_available():
-            from ..asyncify import asyncify
-
-            for name, cls in modules.items():
-                cls = asyncify(cls)
-                setattr(
-                    self,
-                    name,
-                    cls(domain=domain, token=token, rest_options=rest_options),
-                )
-        else:
-            for name, cls in modules.items():
-                setattr(
-                    self,
-                    name,
-                    cls(domain=domain, token=token, rest_options=rest_options),
-                )
+        for name, cls in modules.items():
+            setattr(
+                self,
+                name,
+                cls(domain=domain, token=token, rest_options=rest_options),
+            )

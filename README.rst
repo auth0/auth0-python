@@ -343,6 +343,12 @@ Then additional methods with the ``_async`` suffix will be added to modules crea
             data = await users.get_async(id)
             users.update_async(id, data)
 
+
+        # To share a session amongst multiple calls to multiple services
+        async with Auth0('domain', 'mgmt_api_token') as auth0:
+            user = await auth0.users.get_async(user_id)
+            connection = await auth0.connections.get_async(connection_id)
+
         # Use asyncify directly on services
         Users = asyncify(Users)
         Connections = asyncify(Connections)
