@@ -8,7 +8,7 @@ class AsyncAuth0(object):
     """Provides easy access to all endpoint classes
 
     Args:
-        domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
+        domain (str): Your Auth0 domain, for example 'username.auth0.com'
 
         token (str): Management API v2 Token
 
