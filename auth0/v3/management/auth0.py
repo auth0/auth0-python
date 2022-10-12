@@ -2,6 +2,7 @@ from ..utils import is_async_available
 from .actions import Actions
 from .attack_protection import AttackProtection
 from .blacklists import Blacklists
+from .branding import Branding
 from .client_grants import ClientGrants
 from .clients import Clients
 from .connections import Connections
@@ -32,6 +33,7 @@ modules = {
     "actions": Actions,
     "attack_protection": AttackProtection,
     "blacklists": Blacklists,
+    "branding": Branding,
     "client_grants": ClientGrants,
     "clients": Clients,
     "connections": Connections,
