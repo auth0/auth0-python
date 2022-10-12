@@ -1,7 +1,8 @@
+from ..utils import is_async_available
 from .actions import Actions
 from .attack_protection import AttackProtection
-from .auth0 import Auth0
 from .blacklists import Blacklists
+from .branding import Branding
 from .client_grants import ClientGrants
 from .clients import Clients
 from .connections import Connections
@@ -27,11 +28,17 @@ from .user_blocks import UserBlocks
 from .users import Users
 from .users_by_email import UsersByEmail
 
+if is_async_available():
+    from .async_auth0 import AsyncAuth0 as Auth0
+else:
+    from .auth0 import Auth0
+
 __all__ = (
     "Auth0",
     "Actions",
     "AttackProtection",
     "Blacklists",
+    "Branding",
     "ClientGrants",
     "Clients",
     "Connections",
