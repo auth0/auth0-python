@@ -16,3 +16,4 @@ pytest-mock
 pyupgrade
 requests
 Sphinx
+sphinx_rtd_theme
