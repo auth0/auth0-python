@@ -39,8 +39,10 @@ headers = {
 }
 
 
-def get_callback(status=200):
-    mock = MagicMock(return_value=CallbackResult(status=status, payload=payload))
+def get_callback(status=200, response=None):
+    mock = MagicMock(
+        return_value=CallbackResult(status=status, payload=response or payload)
+    )
 
     def callback(url, **kwargs):
         return mock(url, **kwargs)

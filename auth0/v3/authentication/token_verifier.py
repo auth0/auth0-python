@@ -45,15 +45,18 @@ class SignatureVerifier(object):
         """
         raise NotImplementedError
 
-    def verify_signature(self, token):
-        """Verifies the signature of the given JSON web token.
+    def _get_kid(self, token):
+        """Gets the key id from the kid claim of the header of the token
 
         Args:
-            token (str): The JWT to get its signature verified.
+            token (str): The JWT to get the header from.
 
         Raises:
             TokenValidationError: if the token cannot be decoded, the algorithm is invalid
             or the token's signature doesn't match the calculated one.
+
+        Returns:
+            the key id or None
         """
         try:
             header = jwt.get_unverified_header(token)
@@ -67,9 +70,19 @@ class SignatureVerifier(object):
                 'to be signed with "{}"'.format(alg, self._algorithm)
             )
 
-        kid = header.get("kid", None)
-        secret_or_certificate = self._fetch_key(key_id=kid)
+        return header.get("kid", None)
 
+    def _decode_jwt(self, token, secret_or_certificate):
+        """Verifies the signature of the given JSON web token.
+
+        Args:
+            token (str): The JWT to get its signature verified.
+            secret_or_certificate (str): The public key or shared secret.
+
+        Raises:
+            TokenValidationError: if the token cannot be decoded, the algorithm is invalid
+            or the token's signature doesn't match the calculated one.
+        """
         try:
             decoded = jwt.decode(
                 jwt=token,
@@ -80,6 +93,21 @@ class SignatureVerifier(object):
         except jwt.exceptions.InvalidSignatureError:
             raise TokenValidationError("Invalid token signature.")
         return decoded
+
+    def verify_signature(self, token):
+        """Verifies the signature of the given JSON web token.
+
+        Args:
+            token (str): The JWT to get its signature verified.
+
+        Raises:
+            TokenValidationError: if the token cannot be decoded, the algorithm is invalid
+            or the token's signature doesn't match the calculated one.
+        """
+        kid = self._get_kid(token)
+        secret_or_certificate = self._fetch_key(key_id=kid)
+
+        return self._decode_jwt(token, secret_or_certificate)
 
 
 class SymmetricSignatureVerifier(SignatureVerifier):
@@ -136,6 +164,24 @@ class JwksFetcher(object):
         self._cache_ttl = cache_ttl
         self._cache_is_fresh = False
 
+    def _cache_expired(self):
+        """Checks if the cache is expired
+
+        Returns:
+            True if it should use the cache.
+        """
+        return self._cache_date + self._cache_ttl < time.time()
+
+    def _cache_jwks(self, jwks):
+        """Cache the response of the JWKS request
+
+        Args:
+            jwks (dict): The JWKS
+        """
+        self._cache_value = self._parse_jwks(jwks)
+        self._cache_is_fresh = True
+        self._cache_date = time.time()
+
     def _fetch_jwks(self, force=False):
         """Attempts to obtain the JWK set from the cache, as long as it's still valid.
         When not, it will perform a network request to the jwks_url to obtain a fresh result
@@ -144,23 +190,15 @@ class JwksFetcher(object):
         Args:
             force (bool, optional): whether to ignore the cache and force a network request or not. Defaults to False.
         """
-        has_expired = self._cache_date + self._cache_ttl < time.time()
-
-        if not force and not has_expired:
-            # Return from cache
-            self._cache_is_fresh = False
+        if force or self._cache_expired():
+            self._cache_value = {}
+            response = requests.get(self._jwks_url)
+            if response.ok:
+                jwks = response.json()
+                self._cache_jwks(jwks)
             return self._cache_value
 
-        # Invalidate cache and fetch fresh data
-        self._cache_value = {}
-        response = requests.get(self._jwks_url)
-
-        if response.ok:
-            # Update cache
-            jwks = response.json()
-            self._cache_value = self._parse_jwks(jwks)
-            self._cache_is_fresh = True
-            self._cache_date = time.time()
+        self._cache_is_fresh = False
         return self._cache_value
 
     @staticmethod
