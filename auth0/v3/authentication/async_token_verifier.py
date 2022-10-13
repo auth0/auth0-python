@@ -5,7 +5,7 @@ from .token_verifier import AsymmetricSignatureVerifier, JwksFetcher, TokenVerif
 
 
 class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
-    """Verifier for RSA signatures, which rely on public key certificates.
+    """Async verifier for RSA signatures, which rely on public key certificates.
 
     Args:
         jwks_url (str): The url where the JWK set is located.
@@ -26,6 +26,10 @@ class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
         self._fetcher.set_session(session)
 
     async def _fetch_key(self, key_id=None):
+        """Request the JWKS.
+
+        Args:
+        key_id (str): The key's key id."""
         return await self._fetcher.get_key(key_id)
 
     async def verify_signature(self, token):
@@ -45,7 +49,7 @@ class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
 
 
 class AsyncJwksFetcher(JwksFetcher):
-    """Class that fetches and holds a JSON web key set.
+    """Class that async fetches and holds a JSON web key set.
     This class makes use of an in-memory cache. For it to work properly, define this instance once and re-use it.
 
     Args:

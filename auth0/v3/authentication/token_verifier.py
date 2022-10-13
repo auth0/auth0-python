@@ -73,7 +73,7 @@ class SignatureVerifier(object):
         return header.get("kid", None)
 
     def _decode_jwt(self, token, secret_or_certificate):
-        """Verifies the signature of the given JSON web token.
+        """Verifies and decodes the given JSON web token with the given public key or shared secret.
 
         Args:
             token (str): The JWT to get its signature verified.
