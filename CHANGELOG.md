@@ -1,5 +1,15 @@
 # Change Log
 
+## [3.24.0](https://github.com/auth0/auth0-python/tree/3.24.0) (2022-10-17)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/3.23.1...3.24.0)
+
+**Added**
+- [SDK-3714] Async token verifier [\#445](https://github.com/auth0/auth0-python/pull/445) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add AsyncAuth0 to share a session among many services [\#443](https://github.com/auth0/auth0-python/pull/443) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+**Fixed**
+- Bugfix 414 missing import [\#442](https://github.com/auth0/auth0-python/pull/442) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [3.23.1](https://github.com/auth0/auth0-python/tree/3.23.1) (2022-06-10)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/3.23.0...3.23.1)
 
