@@ -1,6 +1,6 @@
 Auth0-Python documentation
 ========================================
-.. include:: ../../README.rst
+.. mdInclude:: ../../README.md
 
 .. toctree::
    :hidden:

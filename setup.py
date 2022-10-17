@@ -15,7 +15,7 @@ def find_version():
             raise RuntimeError("Unable to find version string.")
 
 
-with io.open("README.rst", encoding="utf-8") as f:
+with io.open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 
@@ -24,6 +24,7 @@ setup(
     version=find_version(),
     description="Auth0 Python SDK",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     author="Auth0",
     author_email="support@auth0.com",
     license="MIT",
