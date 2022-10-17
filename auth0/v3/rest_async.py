@@ -1,13 +1,10 @@
 import asyncio
-import json
 
 import aiohttp
 
 from auth0.v3.exceptions import RateLimitError
 
-from .rest import EmptyResponse, JsonResponse, PlainResponse
-from .rest import Response as _Response
-from .rest import RestClient
+from .rest import EmptyResponse, JsonResponse, PlainResponse, RestClient
 
 
 def _clean_params(params):
