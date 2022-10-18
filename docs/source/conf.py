@@ -66,7 +66,7 @@ extensions = [
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
-html_extra_path = ["_static"]
+html_extra_path = ["../../auth0_dark_mode.png", "../../auth0_light_mode.png"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
