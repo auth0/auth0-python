@@ -1,8 +1,15 @@
 # Examples using auth0-python
 
+- [Authentication SDK](#authentication-sdk)
+  - [ID token validation](#id-token-validation)
+  - [Organizations](#organizations)
+- [Management SDK](#management-sdk)
+  - [Error handling](#error-handling)
+  - [Asynchronous environments](#asynchronous-environments)
+  
 ## Authentication SDK
 
-### ID Token validation
+### ID token validation
 
 Upon successful authentication, the credentials received may include an `id_token`, if the authentication request contained the `openid` scope. The `id_token` contains information associated with the authenticated user. You can read more about ID tokens [here](https://auth0.com/docs/tokens/concepts/id-tokens).
 
@@ -46,15 +53,7 @@ If the token verification fails, a `TokenValidationError` will be raised. In tha
 
 ### Organizations
 
-
 [Organizations](https://auth0.com/docs/organizations) is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
-
-Using Organizations, you can:
-* Represent teams, business customers, partner companies, or any logical grouping of users that should have different ways of accessing your applications, as organizations.
-* Manage their membership in a variety of ways, including user invitation.
-* Configure branded, federated login flows for each organization.
-* Implement role-based access control, such that users can have different roles when authenticating in the context of different organizations.
-* Build administration capabilities into your products, using Organizations APIs, so that those businesses can manage their own organizations.
 
 Note that Organizations is currently only available to customers on our Enterprise and Startup subscription plans.
 
@@ -150,7 +149,7 @@ if data['org_id'] != organization:
 
 ## Management SDK
 
-### Error Handling
+### Error handling
 
 When consuming methods from the API clients, the requests could fail for a number of reasons:
 - Invalid data sent as part of the request: An `Auth0Error` is raised with the error code and description.
@@ -158,7 +157,7 @@ When consuming methods from the API clients, the requests could fail for a numbe
 resets is exposed in the `reset_at` property. When the header is unset, this value will be `-1`.
 - Network timeouts: Adjustable by passing a `timeout` argument to the client. See the [rate limit docs](https://auth0.com/docs/policies/rate-limits) for details.
 
-### Asynchronous Environments
+### Asynchronous environments
 
 This SDK provides async methods built on top of [asyncio](https://docs.python.org/3/library/asyncio.html). To make them available you must have Python >=3.6 and the [aiohttp](https://docs.aiohttp.org/en/stable/) module installed.
 
