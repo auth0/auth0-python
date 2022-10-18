@@ -4,6 +4,7 @@
   - [ID token validation](#id-token-validation)
   - [Organizations](#organizations)
 - [Management SDK](#management-sdk)
+  - [Connections](#connections)
   - [Error handling](#error-handling)
   - [Asynchronous environments](#asynchronous-environments)
   
@@ -148,6 +149,67 @@ if data['org_id'] != organization:
 ```
 
 ## Management SDK
+
+### Connections
+
+Let's see how we can use this to get all available connections.
+(this action requires the token to have the following scope: `read:connections`)
+
+```python
+auth0.connections.all()
+```
+
+Which will yield a list of connections similar to this:
+
+```python
+[
+    {
+        'enabled_clients': [u'rOsnWgtw23nje2QCDuDJNVpxlsCylSLE'],
+        'id': u'con_ErZf9LpXQDE0cNBr',
+        'name': u'Amazon-Connection',
+        'options': {u'profile': True, u'scope': [u'profile']},
+        'strategy': u'amazon'
+    },
+    {
+        'enabled_clients': [u'rOsnWgtw23nje2QCDuDJNVpxlsCylSLE'],
+        'id': u'con_i8qF5DPiZ3FdadwJ',
+        'name': u'Username-Password-Authentication',
+        'options': {u'brute_force_protection': True},
+        'strategy': u'auth0'
+    }
+]
+```
+
+Modifying an existing connection is equally as easy. Let's change the name
+of connection `'con_ErZf9LpXQDE0cNBr'`.
+(The token will need scope: `update:connections` to make this one work)
+
+```python
+auth0.connections.update('con_ErZf9LpXQDE0cNBr', {'name': 'MyNewName'})
+```
+
+That's it! Using the `get` method of the connections endpoint we can verify
+that the rename actually happened.
+
+```python
+modified_connection = auth0.connections.get('con_ErZf9LpXQDE0cNBr')
+```
+
+Which returns something like this
+
+```python
+{
+    'enabled_clients': [u'rOsnWgtw23nje2QCDuDJNVpxlsCylSLE'],
+    'id': u'con_ErZf9LpXQDE0cNBr',
+    'name': u'MyNewName',
+    'options': {u'profile': True, u'scope': [u'profile']},
+    'strategy': u'amazon'
+}
+```
+Success!
+
+All endpoints follow a similar structure to `connections`, and try to follow as
+closely as possible the [API documentation](https://auth0.com/docs/api/v2).
 
 ### Error handling
 
