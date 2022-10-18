@@ -15,11 +15,3 @@ Auth0-Python documentation
    v3.authentication
    v3.management
    v3.exceptions
-
-==================
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
