@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/:license-MIT-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://img.shields.io/circleci/build/github/auth0/auth0-python)](https://circleci.com/gh/auth0/auth0-python)
 
-<div style="margin-bottom: 1em">
+<div>
 📚 <a href="#documentation">Documentation</a> - 🚀 <a href="#getting-started">Getting started</a> - 💻 <a href="#api-reference">API reference</a> - 💬 <a href="#feedback">Feedback</a>
 </div>
 
@@ -147,6 +147,8 @@ Success!
 
 All endpoints follow a similar structure to `connections`, and try to follow as
 closely as possible the [API documentation](https://auth0.com/docs/api/v2).
+
+For more code samples on how to integrate the auth0-python SDK in your Python application, have a look at our [examples](https://github.com/auth0/auth0-python/blob/master/EXAMPLES.md).
 
 ## API reference
 
