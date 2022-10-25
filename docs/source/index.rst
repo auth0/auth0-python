@@ -1,6 +1,6 @@
 Auth0-Python documentation
 ========================================
-.. include:: ../../README.rst
+.. mdInclude:: ../../README.md
 
 .. toctree::
    :hidden:
@@ -15,11 +15,3 @@ Auth0-Python documentation
    v3.authentication
    v3.management
    v3.exceptions
-
-==================
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
