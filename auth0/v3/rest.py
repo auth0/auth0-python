@@ -183,11 +183,11 @@ class RestClient(object):
 
     def file_post(self, url, data=None, files=None):
         request = requests.Request(
-            'POST', url, data=data, files=files, headers=None, timeout=self.options.timeout
+            'POST', url, data=data, files=files, headers=None
         )
         prepped = request.prepare()
         del prepped.headers['Content-Type']
-        response = self.session.send(prepped)
+        response = self.session.send(prepped, timeout=self.options.timeout)
         return self._process_response(response)
 
     def patch(self, url, data=None):
