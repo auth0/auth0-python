@@ -32,10 +32,12 @@ class RestClientOptions(object):
             (defaults to 3)
     """
 
-    def __init__(self, telemetry=None, timeout=None, retries=None):
+    def __init__(self, telemetry=None, timeout=None, retries=None, pool_connections=None, pool_maxsize=None):
         self.telemetry = True
         self.timeout = 5.0
         self.retries = 3
+        self.pool_connections=10
+        self.pool_maxsize=10
 
         if telemetry is not None:
             self.telemetry = telemetry
@@ -45,6 +47,12 @@ class RestClientOptions(object):
 
         if retries is not None:
             self.retries = retries
+
+        if pool_connections is not None:
+            self.pool_connections = pool_connections
+
+        if pool_maxsize is not None:
+            self.pool_maxsize = pool_maxsize
 
 
 class RestClient(object):
@@ -66,7 +74,8 @@ class RestClient(object):
 
     def __init__(self, jwt, telemetry=True, timeout=5.0, options=None, pool_connections=10, pool_maxsize=10):
         if options is None:
-            options = RestClientOptions(telemetry=telemetry, timeout=timeout)
+            options = RestClientOptions(
+                telemetry=telemetry, timeout=timeout, pool_connections=pool_connections, pool_maxsize=pool_maxsize)
 
         self.options = options
         self.jwt = jwt
@@ -112,7 +121,8 @@ class RestClient(object):
 
         self.session = requests.Session()
         self.session.headers.update(self.base_headers)
-        adapter = requests.adapters.HTTPAdapter(pool_connections=pool_connections, pool_maxsize=pool_maxsize)
+        adapter = requests.adapters.HTTPAdapter(
+            pool_connections=options.pool_connections, pool_maxsize=options.pool_maxsize)
         self.session.mount('http://', adapter)
         self.session.mount('https://', adapter)
 
