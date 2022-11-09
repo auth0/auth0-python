@@ -136,61 +136,45 @@ class TestRest(unittest.TestCase):
     @mock.patch("requests.Session.get")
     def test_get_custom_timeout(self, mock_get):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
         mock_get.return_value.text = '["a", "b"]'
         mock_get.return_value.status_code = 200
 
         rc.get("http://the-url")
         mock_get.assert_called_with(
-            "http://the-url", params=None, headers=headers, timeout=(10, 2)
+            "http://the-url", params=None, headers=None, timeout=(10, 2)
         )
 
     @mock.patch("requests.Session.post")
     def test_post_custom_timeout(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
         mock_post.return_value.text = '["a", "b"]'
         mock_post.return_value.status_code = 200
 
         rc.post("http://the-url")
         mock_post.assert_called_with(
-            "http://the-url", json=None, headers=headers, timeout=(10, 2)
+            "http://the-url", json=None, headers=None, timeout=(10, 2)
         )
 
     @mock.patch("requests.Session.put")
     def test_put_custom_timeout(self, mock_put):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
         mock_put.return_value.text = '["a", "b"]'
         mock_put.return_value.status_code = 200
 
         rc.put("http://the-url")
         mock_put.assert_called_with(
-            "http://the-url", json=None, headers=headers, timeout=(10, 2)
+            "http://the-url", json=None, headers=None, timeout=(10, 2)
         )
 
     @mock.patch("requests.Session.patch")
     def test_patch_custom_timeout(self, mock_patch):
         rc = RestClient(jwt="a-token", telemetry=False, timeout=(10, 2))
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
         mock_patch.return_value.text = '["a", "b"]'
         mock_patch.return_value.status_code = 200
 
         rc.patch("http://the-url")
         mock_patch.assert_called_with(
-            "http://the-url", json=None, headers=headers, timeout=(10, 2)
+            "http://the-url", json=None, headers=None, timeout=(10, 2)
         )
 
     @mock.patch("requests.Session")
@@ -481,10 +465,6 @@ class TestRest(unittest.TestCase):
     @mock.patch("requests.Session.post")
     def test_post(self, mock_post):
         rc = RestClient(jwt="a-token", telemetry=False)
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
 
         mock_post.return_value.text = '{"a": "b"}'
 
@@ -492,7 +472,7 @@ class TestRest(unittest.TestCase):
 
         mock_post.return_value.status_code = 200
         response = rc.post("http://the/url", data=data)
-        mock_post.assert_called_with("http://the/url", json=data, headers=headers, timeout=5.0)
+        mock_post.assert_called_with("http://the/url", json=data, headers=None, timeout=5.0)
 
         self.assertEqual(response, {"a": "b"})
 
@@ -646,10 +626,6 @@ class TestRest(unittest.TestCase):
     @mock.patch("requests.Session.put")
     def test_put(self, mock_put):
         rc = RestClient(jwt="a-token", telemetry=False)
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
 
         mock_put.return_value.text = '["a", "b"]'
         mock_put.return_value.status_code = 200
@@ -657,7 +633,7 @@ class TestRest(unittest.TestCase):
         data = {"some": "data"}
 
         response = rc.put(url="http://the-url", data=data)
-        mock_put.assert_called_with("http://the-url", json=data, headers=headers, timeout=5.0)
+        mock_put.assert_called_with("http://the-url", json=data, headers=None, timeout=5.0)
 
         self.assertEqual(response, ["a", "b"])
 
@@ -680,10 +656,6 @@ class TestRest(unittest.TestCase):
     @mock.patch("requests.Session.patch")
     def test_patch(self, mock_patch):
         rc = RestClient(jwt="a-token", telemetry=False)
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
 
         mock_patch.return_value.text = '["a", "b"]'
         mock_patch.return_value.status_code = 200
@@ -692,7 +664,7 @@ class TestRest(unittest.TestCase):
 
         response = rc.patch(url="http://the-url", data=data)
         mock_patch.assert_called_with(
-            "http://the-url", json=data, headers=headers, timeout=5.0
+            "http://the-url", json=data, headers=None, timeout=5.0
         )
 
         self.assertEqual(response, ["a", "b"])
@@ -716,17 +688,13 @@ class TestRest(unittest.TestCase):
     @mock.patch("requests.Session.delete")
     def test_delete(self, mock_delete):
         rc = RestClient(jwt="a-token", telemetry=False)
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
 
         mock_delete.return_value.text = '["a", "b"]'
         mock_delete.return_value.status_code = 200
 
         response = rc.delete(url="the-url/ID")
         mock_delete.assert_called_with(
-            "the-url/ID", headers=headers, params={}, json=None, timeout=5.0
+            "the-url/ID", headers=None, params={}, json=None, timeout=5.0
         )
 
         self.assertEqual(response, ["a", "b"])
@@ -734,10 +702,6 @@ class TestRest(unittest.TestCase):
     @mock.patch("requests.Session.delete")
     def test_delete_with_body_and_params(self, mock_delete):
         rc = RestClient(jwt="a-token", telemetry=False)
-        headers = {
-            "Authorization": "Bearer a-token",
-            "Content-Type": "application/json",
-        }
 
         mock_delete.return_value.text = '["a", "b"]'
         mock_delete.return_value.status_code = 200
@@ -747,7 +711,7 @@ class TestRest(unittest.TestCase):
 
         response = rc.delete(url="the-url/ID", params=params, data=data)
         mock_delete.assert_called_with(
-            "the-url/ID", headers=headers, params=params, json=data, timeout=5.0
+            "the-url/ID", headers=None, params=params, json=data, timeout=5.0
         )
 
         self.assertEqual(response, ["a", "b"])
