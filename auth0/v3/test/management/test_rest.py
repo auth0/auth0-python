@@ -607,8 +607,9 @@ class TestRest(unittest.TestCase):
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
             self.assertEqual(context.exception.message, "")
 
+    @mock.patch("requests.Request")
     @mock.patch("requests.Session.post")
-    def test_file_post_content_type_is_none(self, mock_post):
+    def test_file_post_content_type_is_none(self, mock_post, mock_request):
         rc = RestClient(jwt="a-token", telemetry=False)
         headers = {"Authorization": "Bearer a-token"}
         mock_post.return_value.status_code = 200
@@ -619,8 +620,11 @@ class TestRest(unittest.TestCase):
 
         rc.file_post("http://the-url", data=data, files=files)
 
+        mock_request.assert_called_with(
+            "POST", "http://the-url", data=data, files=files, headers=headers
+        )
         mock_post.assert_called_once_with(
-            "http://the-url", data=data, files=files, headers=headers, timeout=5.0
+            mock.ANY, timeout=5.0
         )
 
     @mock.patch("requests.Session.put")
