@@ -338,7 +338,13 @@ class Organizations(object):
         return self.client.delete(self._url(id, "members", user_id, "roles"), data=body)
 
     # Organization Invitations
-    def all_organization_invitations(self, id, page=None, per_page=None):
+    def all_organization_invitations(
+        self,
+        id,
+        page=None,
+        per_page=None,
+        include_totals=False,
+    ):
         """Retrieves a list of all the organization invitations.
 
         Args:
@@ -350,9 +356,18 @@ class Organizations(object):
            per_page (int, optional): The amount of entries per page. When not set,
               the default value is up to the server.
 
+           include_totals (bool, optional): True if the query summary is
+              to be included in the result, False otherwise. Defaults to False.
+              NOTE: returns start and limit, total count is not yet supported
+
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_invitations
         """
-        params = {"page": page, "per_page": per_page}
+        params = {
+            "page": page,
+            "per_page": per_page,
+            "include_totals": str(include_totals).lower(),
+        }
+
         return self.client.get(self._url(id, "invitations"), params=params)
 
     def get_organization_invitation(self, id, invitaton_id):

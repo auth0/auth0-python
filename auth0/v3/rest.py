@@ -253,6 +253,13 @@ class Response(object):
                     message=self._error_message(),
                     reset_at=reset_at,
                 )
+            if self._error_code() == "mfa_required":
+                raise Auth0Error(
+                    status_code=self._status_code,
+                    error_code=self._error_code(),
+                    message=self._error_message(),
+                    content=self._content,
+                )
 
             raise Auth0Error(
                 status_code=self._status_code,

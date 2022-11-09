@@ -2,6 +2,7 @@ from ..utils import is_async_available
 from .actions import Actions
 from .attack_protection import AttackProtection
 from .blacklists import Blacklists
+from .branding import Branding
 from .client_grants import ClientGrants
 from .clients import Clients
 from .connections import Connections
@@ -32,6 +33,7 @@ modules = {
     "actions": Actions,
     "attack_protection": AttackProtection,
     "blacklists": Blacklists,
+    "branding": Branding,
     "client_grants": ClientGrants,
     "clients": Clients,
     "connections": Connections,
@@ -75,12 +77,9 @@ class Auth0(object):
     """
 
     def __init__(self, domain, token, rest_options=None):
-        if is_async_available():
-            from ..asyncify import asyncify
-
-            for name, cls in modules.items():
-                cls = asyncify(cls)
-                setattr(self, name, cls(domain=domain, token=token, rest_options=None))
-        else:
-            for name, cls in modules.items():
-                setattr(self, name, cls(domain=domain, token=token, rest_options=None))
+        for name, cls in modules.items():
+            setattr(
+                self,
+                name,
+                cls(domain=domain, token=token, rest_options=rest_options),
+            )
