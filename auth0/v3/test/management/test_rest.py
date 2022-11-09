@@ -213,7 +213,7 @@ class TestRest(unittest.TestCase):
         )
 
     @mock.patch("requests.Session")
-    def test_get(self,mock_session):
+    def test_get(self, mock_session):
         mock_session_object = mock.Mock()
         mock_session.return_value = mock_session_object
 

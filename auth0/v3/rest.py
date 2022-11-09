@@ -36,8 +36,8 @@ class RestClientOptions(object):
         self.telemetry = True
         self.timeout = 5.0
         self.retries = 3
-        self.pool_connections=10
-        self.pool_maxsize=10
+        self.pool_connections = 10
+        self.pool_maxsize = 10
 
         if telemetry is not None:
             self.telemetry = telemetry
