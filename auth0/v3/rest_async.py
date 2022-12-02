@@ -95,23 +95,138 @@ class AsyncRestClient(RestClient):
     async def post(self, url, data=None, headers=None):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
-        return await self._request("post", url, json=data, headers=request_headers)
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            try:
+                response = await self._request("post", url, json=data, headers=request_headers)
+                return response
+            except RateLimitError as e:
+                # If the attempt number is greater than the configured retries, raise RateLimitError
+                if attempt > self._retries:
+                    raise e
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                await asyncio.sleep(wait / 1000)
 
     async def file_post(self, url, data=None, files=None):
         headers = self.base_headers.copy()
         headers.pop("Content-Type", None)
-        return await self._request("post", url, data={**data, **files}, headers=headers)
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            try:
+                response = await self._request("post", url, data={**data, **files}, headers=headers)
+                return response
+            except RateLimitError as e:
+                # If the attempt number is greater than the configured retries, raise RateLimitError
+                if attempt > self._retries:
+                    raise e
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                await asyncio.sleep(wait / 1000)
 
     async def patch(self, url, data=None):
-        return await self._request("patch", url, json=data)
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            try:
+                response = await self._request("patch", url, json=data)
+                return response
+            except RateLimitError as e:
+                # If the attempt number is greater than the configured retries, raise RateLimitError
+                if attempt > self._retries:
+                    raise e
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                await asyncio.sleep(wait / 1000)
 
     async def put(self, url, data=None):
-        return await self._request("put", url, json=data)
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            try:
+                response = await self._request("put", url, json=data)
+                return response
+            except RateLimitError as e:
+                # If the attempt number is greater than the configured retries, raise RateLimitError
+                if attempt > self._retries:
+                    raise e
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                await asyncio.sleep(wait / 1000)
 
     async def delete(self, url, params=None, data=None):
-        return await self._request(
-            "delete", url, json=data, params=_clean_params(params) or {}
-        )
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            try:
+                response = await self._request(
+                    "delete", url, json=data, params=_clean_params(params) or {}
+                )
+                return response
+            except RateLimitError as e:
+                # If the attempt number is greater than the configured retries, raise RateLimitError
+                if attempt > self._retries:
+                    raise e
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                await asyncio.sleep(wait / 1000)
 
     async def _process_response(self, response):
         parsed_response = await self._parse(response)

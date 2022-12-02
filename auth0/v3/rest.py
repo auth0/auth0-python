@@ -166,46 +166,166 @@ class RestClient(object):
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
 
-        response = requests.post(
-            url, json=data, headers=request_headers, timeout=self.options.timeout
-        )
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            # Issue the request
+            response = requests.post(
+                url, json=data, headers=request_headers, timeout=self.options.timeout
+            )
+
+            # If the response did not have a 429 header, or the attempt number is greater than the configured retries, break
+            if response.status_code != 429 or attempt > self._retries:
+                break
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                sleep(wait / 1000)
+
+        # Return the final Response
         return self._process_response(response)
 
     def file_post(self, url, data=None, files=None):
         headers = self.base_headers.copy()
         headers.pop("Content-Type", None)
 
-        response = requests.post(
-            url, data=data, files=files, headers=headers, timeout=self.options.timeout
-        )
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            # Issue the request
+            response = requests.post(
+                url, data=data, files=files, headers=headers, timeout=self.options.timeout
+            )
+
+            # If the response did not have a 429 header, or the attempt number is greater than the configured retries, break
+            if response.status_code != 429 or attempt > self._retries:
+                break
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                sleep(wait / 1000)
+
+        # Return the final Response
         return self._process_response(response)
 
     def patch(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.patch(
-            url, json=data, headers=headers, timeout=self.options.timeout
-        )
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            # Issue the request
+            response = requests.patch(
+                url, json=data, headers=headers, timeout=self.options.timeout
+            )
+
+            # If the response did not have a 429 header, or the attempt number is greater than the configured retries, break
+            if response.status_code != 429 or attempt > self._retries:
+                break
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                sleep(wait / 1000)
+
+        # Return the final Response
         return self._process_response(response)
 
     def put(self, url, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.put(
-            url, json=data, headers=headers, timeout=self.options.timeout
-        )
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            # Issue the request
+            response = requests.put(
+                url, json=data, headers=headers, timeout=self.options.timeout
+            )
+
+            # If the response did not have a 429 header, or the attempt number is greater than the configured retries, break
+            if response.status_code != 429 or attempt > self._retries:
+                break
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                sleep(wait / 1000)
+
+        # Return the final Response
         return self._process_response(response)
 
     def delete(self, url, params=None, data=None):
         headers = self.base_headers.copy()
 
-        response = requests.delete(
-            url,
-            headers=headers,
-            params=params or {},
-            json=data,
-            timeout=self.options.timeout,
-        )
+        # Track the API request attempt number
+        attempt = 0
+
+        # Reset the metrics tracker
+        self._metrics = {"retries": 0, "backoff": []}
+
+        while True:
+            # Increment attempt number
+            attempt += 1
+
+            # Issue the request
+            response = requests.delete(
+                url,
+                headers=headers,
+                params=params or {},
+                json=data,
+                timeout=self.options.timeout,
+            )
+
+            # If the response did not have a 429 header, or the attempt number is greater than the configured retries, break
+            if response.status_code != 429 or attempt > self._retries:
+                break
+
+            wait = self._calculate_wait(attempt)
+
+            # Skip calling sleep() when running unit tests
+            if self._skip_sleep is False:
+                # sleep() functions in seconds, so convert the milliseconds formula above accordingly
+                sleep(wait / 1000)
+
+        # Return the final Response
         return self._process_response(response)
 
     def _calculate_wait(self, attempt):
