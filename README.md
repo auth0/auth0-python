@@ -136,6 +136,32 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 - UsersByEmail() ( `Auth0().users_by_email` )
 - Users() ( `Auth0().users` )
 
+## Support Policy
+
+Our support lifecycle policy mirrors the [Python support schedule](https://devguide.python.org/versions/). We do not support running the SDK on unsupported versions of Python that have ceased to receive security updates. Please ensure your environment remains up to date and running the latest Python version possible.
+
+| SDK Version | Python Version | Support Ends |
+|-------------| -------------- | ------------ |
+| 4.x         | 3.11           | Oct 2027     |
+|             | 3.10           | Oct 2026     |
+|             | 3.9            | Oct 2025     |
+|             | 3.8            | Oct 2024     |
+|             | 3.7            | Oct 2023     |
+
+> As `pip` [reliably avoids](https://packaging.python.org/en/latest/tutorials/packaging-projects/#configuring-metadata) installing package updates that target incompatible Python versions, we may opt to remove support for [end-of-life](https://en.wikipedia.org/wiki/CPython#Version_history) Python versions during minor SDK updates. These are not considered breaking changes by this SDK.
+
+The following is a list of unsupported Python versions, and the last SDK version supporting them:
+
+| Python Version | Last SDK Version Supporting |
+| -------------- |-----------------------------|
+| >= 2.0, <= 3.6 | 3.x                         |
+
+You can determine what version of Python you have installed by running:
+
+```
+python --version
+```
+
 ## Feedback
 
 ### Contributing
