@@ -8,8 +8,8 @@ from ...authentication.social import Social
 class TestSocial(unittest.TestCase):
     @mock.patch("auth0.v3.authentication.social.Social.post")
     def test_login(self, mock_post):
-        s = Social("a.b.c")
-        s.login(client_id="cid", access_token="atk", connection="conn")
+        s = Social("a.b.c", "cid")
+        s.login(access_token="atk", connection="conn")
 
         args, kwargs = mock_post.call_args
 
@@ -26,9 +26,8 @@ class TestSocial(unittest.TestCase):
 
     @mock.patch("auth0.v3.authentication.social.Social.post")
     def test_login_with_scope(self, mock_post):
-        s = Social("a.b.c")
+        s = Social("a.b.c", "cid")
         s.login(
-            client_id="cid",
             access_token="atk",
             connection="conn",
             scope="openid profile",

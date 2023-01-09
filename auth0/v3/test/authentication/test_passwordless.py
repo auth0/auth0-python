@@ -6,12 +6,12 @@ from ...authentication.passwordless import Passwordless
 
 
 class TestPasswordless(unittest.TestCase):
-    @mock.patch("auth0.v3.authentication.passwordless.Passwordless.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_send_email(self, mock_post):
 
-        p = Passwordless("my.domain.com")
+        p = Passwordless("my.domain.com", "cid")
 
-        p.email(client_id="cid", email="a@b.com", send="snd")
+        p.email(email="a@b.com", send="snd")
 
         args, kwargs = mock_post.call_args
 
@@ -26,12 +26,12 @@ class TestPasswordless(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.v3.authentication.passwordless.Passwordless.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_send_email_with_auth_params(self, mock_post):
 
-        p = Passwordless("my.domain.com")
+        p = Passwordless("my.domain.com", "cid")
 
-        p.email(client_id="cid", email="a@b.com", send="snd", auth_params={"a": "b"})
+        p.email(email="a@b.com", send="snd", auth_params={"a": "b"})
 
         args, kwargs = mock_post.call_args
 
@@ -47,12 +47,12 @@ class TestPasswordless(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.v3.authentication.passwordless.Passwordless.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_send_email_with_client_secret(self, mock_post):
 
-        p = Passwordless("my.domain.com")
+        p = Passwordless("my.domain.com", "cid", client_secret="csecret")
 
-        p.email(client_id="cid", client_secret="csecret", email="a@b.com", send="snd")
+        p.email(email="a@b.com", send="snd")
 
         args, kwargs = mock_post.call_args
 
@@ -68,11 +68,11 @@ class TestPasswordless(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.v3.authentication.passwordless.Passwordless.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_send_sms(self, mock_post):
-        p = Passwordless("my.domain.com")
+        p = Passwordless("my.domain.com", "cid")
 
-        p.sms(client_id="cid", phone_number="123456")
+        p.sms(phone_number="123456")
 
         args, kwargs = mock_post.call_args
 
@@ -86,11 +86,11 @@ class TestPasswordless(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.v3.authentication.passwordless.Passwordless.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_send_sms_with_client_secret(self, mock_post):
-        p = Passwordless("my.domain.com")
+        p = Passwordless("my.domain.com", "cid", client_secret="csecret")
 
-        p.sms(client_id="cid", client_secret="csecret", phone_number="123456")
+        p.sms(phone_number="123456")
 
         args, kwargs = mock_post.call_args
 
@@ -105,12 +105,12 @@ class TestPasswordless(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.v3.authentication.passwordless.Passwordless.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_send_sms_login(self, mock_post):
 
-        p = Passwordless("my.domain.com")
+        p = Passwordless("my.domain.com", "cid")
 
-        p.sms_login(client_id="cid", phone_number="123456", code="abcd")
+        p.sms_login(phone_number="123456", code="abcd")
 
         args, kwargs = mock_post.call_args
 
@@ -127,14 +127,12 @@ class TestPasswordless(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.v3.authentication.passwordless.Passwordless.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_send_sms_login_with_scope(self, mock_post):
 
-        p = Passwordless("my.domain.com")
+        p = Passwordless("my.domain.com", "cid")
 
-        p.sms_login(
-            client_id="cid", phone_number="123456", code="abcd", scope="openid profile"
-        )
+        p.sms_login(phone_number="123456", code="abcd", scope="openid profile")
 
         args, kwargs = mock_post.call_args
 

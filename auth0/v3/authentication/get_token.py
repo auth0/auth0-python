@@ -1,4 +1,5 @@
 from .base import AuthenticationBase
+from .client_authentication import add_client_authentication
 
 
 class GetToken(AuthenticationBase):
@@ -11,8 +12,6 @@ class GetToken(AuthenticationBase):
 
     def authorization_code(
         self,
-        client_id,
-        client_secret,
         code,
         redirect_uri,
         grant_type="authorization_code",
@@ -24,27 +23,22 @@ class GetToken(AuthenticationBase):
         for a Token.
 
         Args:
-            grant_type (str): Denotes the flow you're using. For authorization code
-            use authorization_code
-
-            client_id (str): your application's client Id
-
-            client_secret (str): your application's client Secret
-
             code (str): The Authorization Code received from the /authorize Calls
 
             redirect_uri (str, optional): This is required only if it was set at
             the GET /authorize endpoint. The values must match
 
+            grant_type (str): Denotes the flow you're using. For authorization code
+            use authorization_code
+
         Returns:
             access_token, id_token
         """
 
-        return self.post(
+        return self.authenticated_post(
             "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                "client_id": client_id,
-                "client_secret": client_secret,
+                "client_id": self.client_id,
                 "code": code,
                 "grant_type": grant_type,
                 "redirect_uri": redirect_uri,
@@ -53,7 +47,6 @@ class GetToken(AuthenticationBase):
 
     def authorization_code_pkce(
         self,
-        client_id,
         code_verifier,
         code,
         redirect_uri,
@@ -65,11 +58,6 @@ class GetToken(AuthenticationBase):
         Use this endpoint to exchange an Authorization Code for a Token.
 
         Args:
-            grant_type (str): Denotes the flow you're using. For authorization code pkce
-            use authorization_code
-
-            client_id (str): your application's client Id
-
             code_verifier (str): Cryptographically random key that was used to generate
             the code_challenge passed to /authorize.
 
@@ -78,6 +66,9 @@ class GetToken(AuthenticationBase):
             redirect_uri (str, optional): This is required only if it was set at
             the GET /authorize endpoint. The values must match
 
+            grant_type (str): Denotes the flow you're using. For authorization code pkce
+            use authorization_code
+
         Returns:
             access_token, id_token
         """
@@ -85,7 +76,7 @@ class GetToken(AuthenticationBase):
         return self.post(
             "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                "client_id": client_id,
+                "client_id": self.client_id,
                 "code_verifier": code_verifier,
                 "code": code,
                 "grant_type": grant_type,
@@ -94,7 +85,9 @@ class GetToken(AuthenticationBase):
         )
 
     def client_credentials(
-        self, client_id, client_secret, audience, grant_type="client_credentials"
+        self,
+        audience,
+        grant_type="client_credentials",
     ):
         """Client credentials grant
 
@@ -104,24 +97,18 @@ class GetToken(AuthenticationBase):
         a Client Secret).
 
         Args:
-            grant_type (str): Denotes the flow you're using. For client credentials
-            use client_credentials
-
-            client_id (str): your application's client Id
-
-            client_secret (str): your application's client Secret
-
             audience (str): The unique identifier of the target API you want to access.
+
+            grant_type (str, optional): Denotes the flow you're using. For client credentials use "client_credentials"
 
         Returns:
             access_token
         """
 
-        return self.post(
+        return self.authenticated_post(
             "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                "client_id": client_id,
-                "client_secret": client_secret,
+                "client_id": self.client_id,
                 "audience": audience,
                 "grant_type": grant_type,
             },
@@ -129,8 +116,6 @@ class GetToken(AuthenticationBase):
 
     def login(
         self,
-        client_id,
-        client_secret,
         username,
         password,
         scope,
@@ -149,13 +134,6 @@ class GetToken(AuthenticationBase):
         this information.
 
         Args:
-            grant_type (str): Denotes the flow you're using. For password realm
-            use http://auth0.com/oauth/grant-type/password-realm
-
-            client_id (str): your application's client Id
-
-            client_secret (str): your application's client Secret
-
             audience (str): The unique identifier of the target API you want to access.
 
             username (str): Resource owner's identifier
@@ -168,18 +146,20 @@ class GetToken(AuthenticationBase):
             realm (str): String value of the realm the user belongs.
             Set this if you want to add realm support at this grant.
 
+            grant_type (str, optional): Denotes the flow you're using. For password realm
+            use http://auth0.com/oauth/grant-type/password-realm
+
         Returns:
             access_token, id_token
         """
 
-        return self.post(
+        return self.authenticated_post(
             "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                "client_id": client_id,
+                "client_id": self.client_id,
                 "username": username,
                 "password": password,
                 "realm": realm,
-                "client_secret": client_secret,
                 "scope": scope,
                 "audience": audience,
                 "grant_type": grant_type,
@@ -188,57 +168,44 @@ class GetToken(AuthenticationBase):
 
     def refresh_token(
         self,
-        client_id,
-        client_secret,
         refresh_token,
-        grant_type="refresh_token",
         scope="",
+        grant_type="refresh_token",
     ):
         """Calls /oauth/token endpoint with refresh token grant type
 
         Use this endpoint to refresh an access token, using the refresh token you got during authorization.
 
         Args:
-            grant_type (str): Denotes the flow you're using. For refresh token
-            use refresh_token
-
-            client_id (str): your application's client Id
-
-            client_secret (str): your application's client Secret
-
             refresh_token (str): The refresh token returned from the initial token request.
 
-            scope (str): String value of the different scopes the client is asking for.
+            scope (str): Use this to limit the scopes of the new access token.
             Multiple scopes are separated with whitespace.
+
+            grant_type (str): Denotes the flow you're using. For refresh token
+            use refresh_token
 
         Returns:
             access_token, id_token
         """
 
-        return self.post(
+        return self.authenticated_post(
             "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                "client_id": client_id,
-                "client_secret": client_secret,
+                "client_id": self.client_id,
                 "refresh_token": refresh_token,
                 "scope": scope,
                 "grant_type": grant_type,
             },
         )
 
-    def passwordless_login(
-        self, client_id, client_secret, username, otp, realm, scope, audience
-    ):
+    def passwordless_login(self, username, otp, realm, scope, audience):
         """Calls /oauth/token endpoint with http://auth0.com/oauth/grant-type/passwordless/otp grant type
 
         Once the verification code was received, login the user using this endpoint with their
         phone number/email and verification code.
 
         Args:
-            client_id (str): your application's client Id
-
-            client_secret (str): your application's client Secret. Only required for Regular Web Apps.
-
             username (str): The user's phone number or email address.
 
             otp (str): the user's verification code.
@@ -255,14 +222,13 @@ class GetToken(AuthenticationBase):
             access_token, id_token
         """
 
-        return self.post(
+        return self.authenticated_post(
             "{}://{}/oauth/token".format(self.protocol, self.domain),
             data={
-                "client_id": client_id,
+                "client_id": self.client_id,
                 "username": username,
                 "otp": otp,
                 "realm": realm,
-                "client_secret": client_secret,
                 "scope": scope,
                 "audience": audience,
                 "grant_type": "http://auth0.com/oauth/grant-type/passwordless/otp",

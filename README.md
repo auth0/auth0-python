@@ -48,7 +48,7 @@ If you need to sign up a user using their email and password, you can use the Da
 ```python
 from auth0.v3.authentication import Database
 
-database = Database('myaccount.auth0.com'')
+database = Database('myaccount.auth0.com')
 
 database.signup(client_id='...', email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
 ```
@@ -140,6 +140,7 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 - UserBlocks() (`Auth0().user_blocks` )
 - UsersByEmail() ( `Auth0().users_by_email` )
 - Users() ( `Auth0().users` )
+
 ## Feedback
 
 ### Contributing

@@ -6,12 +6,11 @@ from ...authentication.database import Database
 
 
 class TestDatabase(unittest.TestCase):
-    @mock.patch("auth0.v3.authentication.database.Database.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_login(self, mock_post):
-        d = Database("my.domain.com")
+        d = Database("my.domain.com", "cid")
 
         d.login(
-            client_id="cid",
             username="usrnm",
             password="pswd",
             id_token="idt",
@@ -38,12 +37,12 @@ class TestDatabase(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.v3.authentication.database.Database.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_signup(self, mock_post):
-        d = Database("my.domain.com")
+        d = Database("my.domain.com", "cid")
 
         # using only email and password
-        d.signup(client_id="cid", email="a@b.com", password="pswd", connection="conn")
+        d.signup(email="a@b.com", password="pswd", connection="conn")
 
         args, kwargs = mock_post.call_args
 
@@ -61,7 +60,6 @@ class TestDatabase(unittest.TestCase):
         # Using also optional properties
         sample_meta = {"hobby": "surfing", "preference": {"color": "pink"}}
         d.signup(
-            client_id="cid",
             email="a@b.com",
             password="pswd",
             connection="conn",
@@ -94,14 +92,12 @@ class TestDatabase(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.v3.authentication.database.Database.post")
+    @mock.patch("auth0.v3.rest.RestClient.post")
     def test_change_password(self, mock_post):
-        d = Database("my.domain.com")
+        d = Database("my.domain.com", "cid")
 
         # ignores the password argument
-        d.change_password(
-            client_id="cid", email="a@b.com", password="pswd", connection="conn"
-        )
+        d.change_password(email="a@b.com", password="pswd", connection="conn")
 
         args, kwargs = mock_post.call_args
 

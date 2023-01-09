@@ -9,10 +9,9 @@ class TestDelegated(unittest.TestCase):
     @mock.patch("auth0.v3.authentication.delegated.Delegated.post")
     def test_get_token_id_token(self, mock_post):
 
-        d = Delegated("my.domain.com")
+        d = Delegated("my.domain.com", "cid")
 
         d.get_token(
-            client_id="cid",
             target="tgt",
             api_type="apt",
             grant_type="gt",
@@ -38,10 +37,9 @@ class TestDelegated(unittest.TestCase):
     @mock.patch("auth0.v3.authentication.delegated.Delegated.post")
     def test_get_token_refresh_token(self, mock_post):
 
-        d = Delegated("my.domain.com")
+        d = Delegated("my.domain.com", "cid")
 
         d.get_token(
-            client_id="cid",
             target="tgt",
             api_type="apt",
             grant_type="gt",
@@ -66,11 +64,10 @@ class TestDelegated(unittest.TestCase):
     @mock.patch("auth0.v3.authentication.delegated.Delegated.post")
     def test_get_token_value_error(self, mock_post):
 
-        d = Delegated("my.domain.com")
+        d = Delegated("my.domain.com", "cid")
 
         with self.assertRaises(ValueError):
             d.get_token(
-                client_id="cid",
                 target="tgt",
                 api_type="apt",
                 grant_type="gt",

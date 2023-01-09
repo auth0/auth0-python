@@ -12,7 +12,6 @@ class Database(AuthenticationBase):
 
     def login(
         self,
-        client_id,
         username,
         password,
         connection,
@@ -34,7 +33,7 @@ class Database(AuthenticationBase):
         )
 
         body = {
-            "client_id": client_id,
+            "client_id": self.client_id,
             "username": username,
             "password": password,
             "connection": connection,
@@ -51,7 +50,6 @@ class Database(AuthenticationBase):
 
     def signup(
         self,
-        client_id,
         email,
         password,
         connection,
@@ -66,8 +64,6 @@ class Database(AuthenticationBase):
         """Signup using email and password.
 
         Args:
-           client_id (str): ID of the application to use.
-
            email (str): The user's email address.
 
            password (str): The user's desired password.
@@ -93,7 +89,7 @@ class Database(AuthenticationBase):
         See: https://auth0.com/docs/api/authentication#signup
         """
         body = {
-            "client_id": client_id,
+            "client_id": self.client_id,
             "email": email,
             "password": password,
             "connection": connection,
@@ -117,17 +113,15 @@ class Database(AuthenticationBase):
             "{}://{}/dbconnections/signup".format(self.protocol, self.domain), data=body
         )
 
-    def change_password(self, client_id, email, connection, password=None):
+    def change_password(self, email, connection, password=None):
         """Asks to change a password for a given user.
-
-        client_id (str): ID of the application to use.
 
         email (str): The user's email address.
 
         connection (str): The name of the database connection where this user should be created.
         """
         body = {
-            "client_id": client_id,
+            "client_id": self.client_id,
             "email": email,
             "connection": connection,
         }
