@@ -4,6 +4,7 @@ Guide to migrating from `3.x` to `4.x`
 
 - [Python <3.6 is no longer supported](#python-36-is-no-longer-supported)
 - [Client ID and Client Secret are now specified in the constructor for Authentication Clients](#client-id-and-client-secret-are-now-specified-in-the-constructor-for-authentication-clients)
+- [AuthorizeClient and Logout have been removed](#authorizeclient-and-logout-have-been-removed)
 
 ## Python <3.6 is no longer supported
 
@@ -31,3 +32,7 @@ get_token = GetToken('myaccount.auth0.com', 'my-client-id', client_secret='my-cl
 
 get_token.client_credentials('my-api')
 ```
+
+## AuthorizeClient and Logout have been removed
+
+The authorize and logout requests need to be done in a user agent, so it didn't make sense to include them in a REST client.

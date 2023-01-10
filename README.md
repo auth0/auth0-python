@@ -98,7 +98,6 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 
 ### Authentication Endpoints
 
-- API Authorization - Authorization Code Grant (`authentication.AuthorizeClient`)
 - Database ( `authentication.Database` )
 - Delegated ( `authentication.Delegated` )
 - Enterprise ( `authentication.Enterprise` )
