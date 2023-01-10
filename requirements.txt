@@ -10,7 +10,7 @@ flake8
 isort
 mock
 pre-commit
-PyJWT
+pyjwt
 pytest
 pytest-mock
 pyupgrade
