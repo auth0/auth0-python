@@ -38,9 +38,9 @@ For example:
 ```python
 from auth0.v3.authentication import Social
 
-social = Social('myaccount.auth0.com')
+social = Social('myaccount.auth0.com', 'my-client-id')
 
-social.login(client_id='...', access_token='...', connection='facebook')
+social.login(access_token='...', connection='facebook')
 ```
 
 If you need to sign up a user using their email and password, you can use the Database object.
@@ -48,9 +48,9 @@ If you need to sign up a user using their email and password, you can use the Da
 ```python
 from auth0.v3.authentication import Database
 
-database = Database('myaccount.auth0.com')
+database = Database('myaccount.auth0.com', 'my-client-id')
 
-database.signup(client_id='...', email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
+database.signup(email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
 ```
 
 If you need to authenticate a user using their email and password, you can use the `GetToken` object, which enables making requests to the `/oauth/token` endpoint.
@@ -58,9 +58,9 @@ If you need to authenticate a user using their email and password, you can use t
 ```python
 from auth0.v3.authentication import GetToken
 
-token = GetToken('myaccount.auth0.com')
+token = GetToken('myaccount.auth0.com', 'my-client-id', client_secret='my-client-secret')
 
-token.login(client_id='...', client_secret='...', username='user@domain.com', password='secr3t', realm='Username-Password-Authentication')
+token.login(username='user@domain.com', password='secr3t', realm='Username-Password-Authentication')
 ```
 
 #### Management SDK
@@ -73,9 +73,8 @@ domain = 'myaccount.auth0.com'
 non_interactive_client_id = 'exampleid'
 non_interactive_client_secret = 'examplesecret'
 
-get_token = GetToken(domain)
-token = get_token.client_credentials(non_interactive_client_id,
-    non_interactive_client_secret, 'https://{}/api/v2/'.format(domain))
+get_token = GetToken(domain, non_interactive_client_id, client_secret=non_interactive_client_secret)
+token = get_token.client_credentials('https://{}/api/v2/'.format(domain))
 mgmt_api_token = token['access_token']
 ```
 
