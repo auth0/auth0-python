@@ -9,7 +9,7 @@ def is_async_available():
             import aiohttp
 
             return True
-        except ImportError:
+        except ImportError:  # pragma: no cover
             pass
 
     return False
