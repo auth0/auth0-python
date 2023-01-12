@@ -10,14 +10,9 @@ class Users(object):
 
     Args:
         domain (str): The domain of your auth0 tenant
-        telemetry (bool, optional): Enable or disable Telemetry
-            (defaults to True)
-        timeout (float or tuple, optional): Change the requests
-            connect and read timeout. Pass a tuple to specify
-            both values separately or a float to set both to it.
-            (defaults to 5.0 for both)
-        protocol (str, optional): Useful for testing.
-            (defaults to 'https')
+        telemetry (bool, optional): Enable or disable Telemetry (defaults to True)
+        timeout (float or tuple, optional): Change the requests connect and read timeout. Pass a tuple to specify both values separately or a float to set both to it. (defaults to 5.0 for both)
+        protocol (str, optional): Useful for testing. (defaults to 'https')
     """
 
     def __init__(
