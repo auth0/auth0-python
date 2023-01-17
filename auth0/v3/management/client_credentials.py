@@ -5,11 +5,11 @@ class ClientCredentials(object):
     """Auth0 client credentials endpoints.
 
     Args:
-        domain (str): Your Auth0 domain, e.g: 'username.auth0.com'
+        domain (str): Your Auth0 domain, for example: 'my-domain.us.auth0.com'
 
         token (str): Management API v2 Token
 
-        telemetry (bool, optional): Enable or disable Telemetry
+        telemetry (bool, optional): Enable or disable telemetry
             (defaults to True)
 
         timeout (float or tuple, optional): Change the requests
