@@ -6,19 +6,15 @@ class Enterprise(AuthenticationBase):
     """Enterprise endpoints.
 
     Args:
-        domain (str): Your auth0 domain (e.g: username.auth0.com)
+        domain (str): Your auth0 domain (e.g: my-domain.us.auth0.com)
     """
 
-    def saml_metadata(self, client_id):
-        """Get SAML2.0 Metadata.
-
-        Args:
-            client_id (str): Client Id of the application to get the SAML metadata for.
-        """
+    def saml_metadata(self):
+        """Get SAML2.0 Metadata."""
 
         return self.get(
             url="{}://{}/samlp/metadata/{}".format(
-                self.protocol, self.domain, client_id
+                self.protocol, self.domain, self.client_id
             )
         )
 

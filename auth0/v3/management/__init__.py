@@ -30,7 +30,7 @@ from .users_by_email import UsersByEmail
 
 if is_async_available():
     from .async_auth0 import AsyncAuth0 as Auth0
-else:
+else:  # pragma: no cover
     from .auth0 import Auth0
 
 __all__ = (

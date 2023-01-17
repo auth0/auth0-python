@@ -1,9 +1,31 @@
 import warnings
 
-from .base import AuthenticationBase
+from auth0.v3.rest import RestClient, RestClientOptions
 
 
-class Users(AuthenticationBase):
+class Users(object):
+    """Users client.
+
+    Args:
+        domain (str): The domain of your Auth0 tenant
+        telemetry (bool, optional): Enable or disable telemetry (defaults to True)
+        timeout (float or tuple, optional): Change the requests connect and read timeout. Pass a tuple to specify both values separately or a float to set both to it. (defaults to 5.0 for both)
+        protocol (str, optional): Useful for testing. (defaults to 'https')
+    """
+
+    def __init__(
+        self,
+        domain,
+        telemetry=True,
+        timeout=5.0,
+        protocol="https",
+    ):
+        self.domain = domain
+        self.protocol = protocol
+        self.client = RestClient(
+            None,
+            options=RestClientOptions(telemetry=telemetry, timeout=timeout, retries=0),
+        )
 
     """Userinfo related endpoints.
 
@@ -23,7 +45,7 @@ class Users(AuthenticationBase):
             The user profile.
         """
 
-        return self.get(
+        return self.client.get(
             url="{}://{}/userinfo".format(self.protocol, self.domain),
             headers={"Authorization": "Bearer {}".format(access_token)},
         )
@@ -45,7 +67,7 @@ class Users(AuthenticationBase):
         warnings.warn(
             "/tokeninfo will be deprecated in future releases", DeprecationWarning
         )
-        return self.post(
+        return self.client.post(
             url="{}://{}/tokeninfo".format(self.protocol, self.domain),
             data={"id_token": jwt},
         )

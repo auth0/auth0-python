@@ -1,14 +1,6 @@
 authentication package
 =========================
 
-authentication.authorize\_client module
-------------------------------------------
-
-.. automodule:: auth0.v3.authentication.authorize_client
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 authentication.base module
 -----------------------------
 
@@ -45,14 +37,6 @@ authentication.get\_token module
 -----------------------------------
 
 .. automodule:: auth0.v3.authentication.get_token
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-authentication.logout module
--------------------------------
-
-.. automodule:: auth0.v3.authentication.logout
    :members:
    :undoc-members:
    :show-inheritance:

@@ -10,7 +10,6 @@ class Delegated(AuthenticationBase):
 
     def get_token(
         self,
-        client_id,
         target,
         api_type,
         grant_type,
@@ -25,7 +24,7 @@ class Delegated(AuthenticationBase):
             raise ValueError("Only one of id_token or refresh_token can be None")
 
         data = {
-            "client_id": client_id,
+            "client_id": self.client_id,
             "grant_type": grant_type,
             "target": target,
             "scope": scope,
