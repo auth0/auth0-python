@@ -6,7 +6,7 @@ class Social(AuthenticationBase):
     """Social provider's endpoints.
 
     Args:
-        domain (str): Your auth0 domain (e.g: username.auth0.com)
+        domain (str): Your auth0 domain (e.g: my-domain.us.auth0.com)
     """
 
     def login(self, access_token, connection, scope="openid"):

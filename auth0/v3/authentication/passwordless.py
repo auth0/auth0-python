@@ -8,7 +8,7 @@ class Passwordless(AuthenticationBase):
     """Passwordless connections endpoints.
 
     Args:
-        domain (str): Your auth0 domain (e.g: username.auth0.com)
+        domain (str): Your auth0 domain (e.g: my-domain.us.auth0.com)
     """
 
     def email(self, email, send="link", auth_params=None):

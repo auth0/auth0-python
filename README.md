@@ -38,7 +38,7 @@ For example:
 ```python
 from auth0.v3.authentication import Social
 
-social = Social('myaccount.auth0.com', 'my-client-id')
+social = Social('my-domain.us.auth0.com', 'my-client-id')
 
 social.login(access_token='...', connection='facebook')
 ```
@@ -48,7 +48,7 @@ If you need to sign up a user using their email and password, you can use the Da
 ```python
 from auth0.v3.authentication import Database
 
-database = Database('myaccount.auth0.com', 'my-client-id')
+database = Database('my-domain.us.auth0.com', 'my-client-id')
 
 database.signup(email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
 ```
@@ -58,7 +58,7 @@ If you need to authenticate a user using their email and password, you can use t
 ```python
 from auth0.v3.authentication import GetToken
 
-token = GetToken('myaccount.auth0.com', 'my-client-id', client_secret='my-client-secret')
+token = GetToken('my-domain.us.auth0.com', 'my-client-id', client_secret='my-client-secret')
 
 token.login(username='user@domain.com', password='secr3t', realm='Username-Password-Authentication')
 ```

@@ -17,12 +17,12 @@ class AuthenticationBase(object):
     """Base authentication object providing simple REST methods.
 
     Args:
-        domain (str): The domain of your auth0 tenant
-        client_id (str): your application's client Id
-        client_secret (str, optional): your application's client Secret
+        domain (str): The domain of your Auth0 tenant
+        client_id (str): Your application's client ID
+        client_secret (str, optional): Your application's client secret
         client_assertion_signing_key (str, optional): Private key used to sign the client assertion JWT.
-        client_assertion_signing_alg (str, optional): Algorithm used to sign the client assertion JWT (Default RS256).
-        telemetry (bool, optional): Enable or disable Telemetry (defaults to True)
+        client_assertion_signing_alg (str, optional): Algorithm used to sign the client assertion JWT (defaults to 'RS256').
+        telemetry (bool, optional): Enable or disable telemetry (defaults to True)
         timeout (float or tuple, optional): Change the requests connect and read timeout. Pass a tuple to specify both values separately or a float to set both to it. (defaults to 5.0 for both)
         protocol (str, optional): Useful for testing. (defaults to 'https')
     """

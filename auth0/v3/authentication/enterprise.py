@@ -6,7 +6,7 @@ class Enterprise(AuthenticationBase):
     """Enterprise endpoints.
 
     Args:
-        domain (str): Your auth0 domain (e.g: username.auth0.com)
+        domain (str): Your auth0 domain (e.g: my-domain.us.auth0.com)
     """
 
     def saml_metadata(self):

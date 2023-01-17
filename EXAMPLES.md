@@ -2,7 +2,7 @@
 
 - [Authentication SDK](#authentication-sdk)
   - [ID token validation](#id-token-validation)
-  - [Authenticating with a application configured to use `private_key_jwt` token endpoint auth method.](#authenticating-with-a-application-configured-to-use-private-key-jwt-token-endpoint-auth-method)
+  - [Authenticating with a application configured to use `private_key_jwt` token endpoint auth method](#authenticating-with-a-application-configured-to-use-private-key-jwt-token-endpoint-auth-method)
 - [Management SDK](#management-sdk)
   - [Connections](#connections)
   - [Error handling](#error-handling)
@@ -50,7 +50,7 @@ tv.verify(id_token)
 
 If the token verification fails, a `TokenValidationError` will be raised. In that scenario, the ID token should be deemed invalid and its contents should not be trusted.
 
-### Authenticating with a application configured to use `private_key_jwt` token endpoint auth method.
+### Authenticating with a application configured to use `private_key_jwt` token endpoint auth method
 
 ```python
 from auth0.v3.authentication import GetToken
@@ -63,12 +63,12 @@ MIIJKQIBAAKCAgEAwfUb0nUC0aKB3WiytFhnCIg455BYC+dR3MUGadWpIg7S6lbi
 """
 
 get_token = GetToken(
-    "my-domain.auth0.com",
+    "my-domain.us.auth0.com",
     "my-client-id",
     client_assertion_signing_key=private_key,
 )
 token = get_token.client_credentials(
-    "https://my-domain.auth0.com/api/v2/"
+    "https://my-domain.us.auth0.com/api/v2/"
 )
 ```
 
