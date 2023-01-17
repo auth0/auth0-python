@@ -3,6 +3,7 @@ from .actions import Actions
 from .attack_protection import AttackProtection
 from .blacklists import Blacklists
 from .branding import Branding
+from .client_credentials import ClientCredentials
 from .client_grants import ClientGrants
 from .clients import Clients
 from .connections import Connections
@@ -39,6 +40,7 @@ __all__ = (
     "AttackProtection",
     "Blacklists",
     "Branding",
+    "ClientCredentials",
     "ClientGrants",
     "Clients",
     "Connections",

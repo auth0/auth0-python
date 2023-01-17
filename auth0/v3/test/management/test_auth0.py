@@ -4,6 +4,7 @@ from ...management.actions import Actions
 from ...management.attack_protection import AttackProtection
 from ...management.auth0 import Auth0
 from ...management.blacklists import Blacklists
+from ...management.client_credentials import ClientCredentials
 from ...management.client_grants import ClientGrants
 from ...management.clients import Clients
 from ...management.connections import Connections
@@ -46,6 +47,9 @@ class TestAuth0(unittest.TestCase):
 
     def test_blacklists(self):
         self.assertIsInstance(self.a0.blacklists, Blacklists)
+
+    def test_client_credentials(self):
+        self.assertIsInstance(self.a0.client_credentials, ClientCredentials)
 
     def test_client_grants(self):
         self.assertIsInstance(self.a0.client_grants, ClientGrants)

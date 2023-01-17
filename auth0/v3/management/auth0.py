@@ -3,6 +3,7 @@ from .actions import Actions
 from .attack_protection import AttackProtection
 from .blacklists import Blacklists
 from .branding import Branding
+from .client_credentials import ClientCredentials
 from .client_grants import ClientGrants
 from .clients import Clients
 from .connections import Connections
@@ -34,6 +35,7 @@ modules = {
     "attack_protection": AttackProtection,
     "blacklists": Blacklists,
     "branding": Branding,
+    "client_credentials": ClientCredentials,
     "client_grants": ClientGrants,
     "clients": Clients,
     "connections": Connections,

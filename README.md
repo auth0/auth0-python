@@ -113,6 +113,7 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 - AttackProtection() (`Auth0().attack_protection`)
 - Blacklists() ( `Auth0().blacklists` )
 - Branding() ( `Auth0().branding` )
+- ClientCredentials() ( `Auth0().client_credentials` )
 - ClientGrants() ( `Auth0().client_grants` )
 - Clients() ( `Auth0().clients` )
 - Connections() ( `Auth0().connections` )
