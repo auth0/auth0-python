@@ -2,8 +2,6 @@ import warnings
 
 from auth0.v3.rest import RestClient, RestClientOptions
 
-from .base import AuthenticationBase
-
 
 class Users(object):
     """Users client.

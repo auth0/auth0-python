@@ -28,8 +28,6 @@ class Passwordless(AuthenticationBase):
         Complete the authentication using the get_token.passwordless_login method.
 
         Args:
-            client_id (str): Client Id of the application.
-
             email (str): Email address.
 
             send (str, optional): Can be: 'link' or 'code'. Defaults to 'link'.
