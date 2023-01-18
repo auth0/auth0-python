@@ -69,8 +69,13 @@ class TestAsyncAsymmetricSignatureVerifier(unittest.IsolatedAsyncioTestCase):
 
 class TestAsyncJwksFetcher(unittest.IsolatedAsyncioTestCase):
     @aioresponses()
-    async def test_async_get_jwks_json_twice_on_cache_expired(self, mocked):
-        fetcher = AsyncJwksFetcher(JWKS_URI, cache_ttl=1)
+    @unittest.mock.patch(
+        "auth0.v3.authentication.token_verifier.time.time", return_value=0
+    )
+    async def test_async_get_jwks_json_twice_on_cache_expired(
+        self, mocked, mocked_time
+    ):
+        fetcher = AsyncJwksFetcher(JWKS_URI, cache_ttl=100)
 
         callback, mock = get_callback(200, JWKS_RESPONSE_SINGLE_KEY)
         mocked.get(JWKS_URI, callback=callback)
@@ -89,7 +94,7 @@ class TestAsyncJwksFetcher(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(mock.call_count, 1)
 
-        time.sleep(2)
+        mocked_time.return_value = 200
 
         # 2 seconds has passed, cache should be expired
         key_1 = await fetcher.get_key("test-key-1")

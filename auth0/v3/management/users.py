@@ -116,17 +116,6 @@ class Users(object):
         """
         return self.client.post(self._url(), data=body)
 
-    def delete_all_users(self):
-        """Deletes all users (USE WITH CAUTION).
-        Deprecation: This endpoint is no longer available server-side.
-
-        Args:
-        """
-        warnings.warn(
-            "DELETE all users endpoint is no longer available.", DeprecationWarning
-        )
-        return self.client.delete(self._url())
-
     def get(self, id, fields=None, include_fields=True):
         """Get a user.
 

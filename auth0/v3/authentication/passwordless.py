@@ -70,29 +70,3 @@ class Passwordless(AuthenticationBase):
         return self.authenticated_post(
             "{}://{}/passwordless/start".format(self.protocol, self.domain), data=data
         )
-
-    def sms_login(self, phone_number, code, scope="openid"):
-        """Login using phone number/verification code.
-
-        Args:
-            phone_number (str): Phone number.
-
-            code (str): Code received in the SMS.
-
-            scope (str, optional): Scope to use. Defaults to 'openid'.
-        """
-        warnings.warn(
-            "/oauth/ro will be deprecated in future releases", DeprecationWarning
-        )
-
-        return self.post(
-            "{}://{}/oauth/ro".format(self.protocol, self.domain),
-            data={
-                "client_id": self.client_id,
-                "connection": "sms",
-                "grant_type": "password",
-                "username": phone_number,
-                "password": code,
-                "scope": scope,
-            },
-        )

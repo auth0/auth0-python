@@ -67,25 +67,6 @@ class Jobs(object):
         url = self._url("{}/errors".format(id))
         return self.client.get(url)
 
-    def get_results(self, job_id):
-        """Get results of a job
-
-        Args:
-            job_id (str): The id of the job.
-
-        Deprecation:
-            The /jobs/{id}/results endpoint was removed from the Management API.
-            You can obtain the Job results by querying a Job by ID.
-
-        See: https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
-        """
-        warnings.warn(
-            "/jobs/{id}/results is no longer available. The get(id) function will be"
-            " called instead.",
-            DeprecationWarning,
-        )
-        return self.get(job_id)
-
     def export_users(self, body):
         """Export all users to a file using a long running job.
 

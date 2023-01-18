@@ -49,25 +49,3 @@ class Users(object):
             url="{}://{}/userinfo".format(self.protocol, self.domain),
             headers={"Authorization": "Bearer {}".format(access_token)},
         )
-
-    def tokeninfo(self, jwt):
-
-        """Returns user profile based on the user's jwt
-
-        Validates a JSON Web Token (signature and expiration) and returns the
-        user information associated with the user id (sub property) of
-        the token.
-
-        Args:
-            jwt (str): User's jwt
-
-        Returns:
-            The user profile.
-        """
-        warnings.warn(
-            "/tokeninfo will be deprecated in future releases", DeprecationWarning
-        )
-        return self.client.post(
-            url="{}://{}/tokeninfo".format(self.protocol, self.domain),
-            data={"id_token": jwt},
-        )
