@@ -5,14 +5,14 @@ orbs:
   ship: auth0/ship@0.5.0
   codecov: codecov/codecov@3
 
-executors:
-  python_3_10:
-    docker:
-      - image: cimg/python:3.10
-
 jobs:
-  build:
-    executor: python_3_10
+  build_and_test:
+    parameters:
+      py_version:
+        type: string
+        default: "3.10"
+    docker:
+      - image: cimg/python:<< parameters.py_version >>
     steps:
       - checkout
       - python/install-packages:
@@ -20,12 +20,19 @@ jobs:
       - run: pre-commit run --all-files
       - run: coverage run -m unittest
       - run: bash <(curl -s https://codecov.io/bash)
-      - run: make -C docs html
+      - when:
+          condition:
+            equal: [ "3.10", << parameters.py_version >> ]
+          steps:
+            - run: make -C docs html
 
 workflows:
   main:
     jobs:
-      - build
+      - build_and_test:
+          matrix:
+            parameters:
+              py_version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
       - ship/python-publish:
           prefix-tag: false
           context:
@@ -36,4 +43,4 @@ workflows:
               only:
                 - master
           requires:
-            - build
+            - build_and_test

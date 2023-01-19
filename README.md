@@ -22,11 +22,7 @@ You can install the auth0 Python SDK using the following command.
 pip install auth0-python
 ```
 
-For python3, use the following command
-```
-pip3 install auth0-python
-```
-Python 3.2 and 3.3 have reached [EOL](https://en.wikipedia.org/wiki/CPython#Version_history) and support will be removed in the near future.
+> Requires Python 3.7 or higher.
 
 ### Usage
 

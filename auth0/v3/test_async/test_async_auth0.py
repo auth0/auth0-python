@@ -3,8 +3,8 @@ import json
 import platform
 import re
 import sys
+import unittest
 from tempfile import TemporaryFile
-from unittest import IsolatedAsyncioTestCase
 
 import aiohttp
 from aioresponses import CallbackResult, aioresponses
@@ -27,7 +27,11 @@ def get_callback(status=200):
     return callback, mock
 
 
-class TestAsyncify(IsolatedAsyncioTestCase):
+@unittest.skipIf(
+    not hasattr(unittest, "IsolatedAsyncioTestCase"),
+    "python 3.7 doesn't have IsolatedAsyncioTestCase",
+)
+class TestAuth0(getattr(unittest, "IsolatedAsyncioTestCase", object)):
     @aioresponses()
     async def test_get(self, mocked):
         callback, mock = get_callback()
