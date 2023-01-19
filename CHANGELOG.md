@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.24.1](https://github.com/auth0/auth0-python/tree/3.24.1) (2023-01-19)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/3.24.0...3.24.1)
+
+**Fixed**
+- Remove unnecessary type param from update_template_universal_login [\#463](https://github.com/auth0/auth0-python/pull/463) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [3.24.0](https://github.com/auth0/auth0-python/tree/3.24.0) (2022-10-17)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/3.23.1...3.24.0)
 
