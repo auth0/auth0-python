@@ -12,6 +12,8 @@ Guide to migrating from `3.x` to `4.x`
 
 Python <=3.6 and Python 2 are EOL and are no longer supported. 
 
+Also note the new Python [Support Policy](https://github.com/auth0/auth0-python#support-policy)
+
 ## The `v3` subfolder has been removed
 
 Versioning the import paths was not necessary and made major upgrades unnecessarily complex, so this has been removed and all files have been moved up a directory.
