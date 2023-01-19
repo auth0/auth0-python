@@ -19,7 +19,7 @@ Versioning the import paths was not necessary and made major upgrades unnecessar
 ### Before
 
 ```python
-from auth0.management import Auth0
+from auth0.v3.management import Auth0
 
 auth0 = Auth0(domain, mgmt_api_token)
 ```
