@@ -2,7 +2,7 @@
 
 - [Authentication SDK](#authentication-sdk)
   - [ID token validation](#id-token-validation)
-  - [Organizations](#organizations)
+  - [Authenticating with a application configured to use `private_key_jwt` token endpoint auth method](#authenticating-with-a-application-configured-to-use-private-key-jwt-token-endpoint-auth-method)
 - [Management SDK](#management-sdk)
   - [Connections](#connections)
   - [Error handling](#error-handling)
@@ -32,7 +32,7 @@ For symmetric algorithms like HS256, use the `SymmetricSignatureVerifier` class,
 The following example demonstrates the verification of an ID token signed with the RS256 signing algorithm:
 
 ```python
-from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
+from auth0.authentication import TokenVerifier, AsymmetricSignatureVerifier
 
 domain = 'myaccount.auth0.com'
 client_id = 'exampleid'
@@ -50,102 +50,26 @@ tv.verify(id_token)
 
 If the token verification fails, a `TokenValidationError` will be raised. In that scenario, the ID token should be deemed invalid and its contents should not be trusted.
 
-
-
-### Organizations
-
-[Organizations](https://auth0.com/docs/organizations) is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications.
-
-Note that Organizations is currently only available to customers on our Enterprise and Startup subscription plans.
-
-
-#### Log in to an organization
-
-Log in to an organization by specifying the ``organization`` property when calling ``authorize()``:
+### Authenticating with a application configured to use `private_key_jwt` token endpoint auth method
 
 ```python
-from auth0.v3.authentication.authorize_client import AuthorizeClient
+from auth0.authentication import GetToken
 
-client = AuthorizeClient('my.domain.com')
+private_key = """-----BEGIN RSA PRIVATE KEY-----
+MIIJKQIBAAKCAgEAwfUb0nUC0aKB3WiytFhnCIg455BYC+dR3MUGadWpIg7S6lbi
+...
+2tjIvH4GN9ZkIGwzxIOP61wkUGwGaIzacOTIWOvqRI0OaYr9U18Ep1trvgGR
+-----END RSA PRIVATE KEY-----
+"""
 
-client.authorize(client_id='client_id',
-            redirect_uri='http://localhost',
-            organization="org_abc")
-```
-
-When logging into an organization, it is important to ensure the `org_id` claim of the ID Token matches the expected organization value. The `TokenVerifier` can be be used to ensure the ID Token contains the expected `org_id` claim value:
-
-```python
-from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
-
-domain = 'myaccount.auth0.com'
-client_id = 'exampleid'
-
-# After authenticating
-id_token = auth_result['id_token']
-
-jwks_url = 'https://{}/.well-known/jwks.json'.format(domain)
-issuer = 'https://{}/'.format(domain)
-
-sv = AsymmetricSignatureVerifier(jwks_url)  # Reusable instance
-tv = TokenVerifier(signature_verifier=sv, issuer=issuer, audience=client_id)
-
-# pass the expected organization the user logged in to:
-tv.verify(id_token, organization='org_abc')
-
-```
-
-#### Accept user invitations
-
-Accept a user invitation by specifying the `invitation` property when calling `authorize()`. Note that you must also specify the ``organization`` if providing an ``invitation``.
-The ID of the invitation and organization are available as query parameters on the invitation URL, e.g., ``https://your-domain.auth0.com/login?invitation=invitation_id&organization=org_id&organization_name=org_name``
-
-```python
-from auth0.v3.authentication.authorize_client import AuthorizeClient
-
-client = AuthorizeClient('my.domain.com')
-
-client.authorize(client_id='client_id',
-        redirect_uri='http://localhost',
-        organization='org_abc',
-        invitation="invitation_123")
-```
-
-#### Authorizing users from an Organization
-
-If an `org_id` claim is present in the Access Token, then the claim should be validated by the API to ensure that the value received is expected or known.
-
-In particular:
-
-- The issuer (`iss`) claim should be checked to ensure the token was issued by Auth0
-- The organization ID (`org_id`) claim should be checked to ensure it is a value that is already known to the application. This could be validated against a known list of organization IDs, or perhaps checked in conjunction with the current request URL. e.g. the sub-domain may hint at what organization should be used to validate the Access Token.
-
-Normally, validating the issuer would be enough to ensure that the token was issued by Auth0. In the case of organizations, additional checks should be made so that the organization within an Auth0 tenant is expected.
-
-If the claim cannot be validated, then the application should deem the token invalid.
-
-The snippet below attempts to illustrate how this verification could look like using the external [PyJWT](https://pyjwt.readthedocs.io/en/latest/usage.html#encoding-decoding-tokens-with-rs256-rsa) library. This dependency will take care of pulling the RS256 Public Key that was used by the server to sign the Access Token. It will also validate its signature, expiration, and the audience value. After the basic verification, get the `org_id` claim and check it against the expected value. The code assumes your application is configured to sign tokens using the RS256 algorithm. Check the [Validate JSON Web Tokens](https://auth0.com/docs/tokens/json-web-tokens/validate-json-web-tokens) article to learn more about this verification.
-
-```python
-import jwt  # PyJWT
-from jwt import PyJWKClient
-
-access_token = # access token from the request
-url = 'https://{YOUR AUTH0 DOMAIN}/.well-known/jwks.json'
-jwks_client = PyJWKClient(url)
-signing_key = jwks_client.get_signing_key_from_jwt(access_token)
-data = jwt.decode(
-    access_token,
-    signing_key.key,
-    algorithms=['RS256'],
-    audience='{YOUR API AUDIENCE}'
+get_token = GetToken(
+    "my-domain.us.auth0.com",
+    "my-client-id",
+    client_assertion_signing_key=private_key,
 )
-
-organization = # expected organization ID
-if data['org_id'] != organization:
-    raise Exception('Organization (org_id) claim mismatch')
-
-# if this line is reached, validation is successful
+token = get_token.client_credentials(
+    "https://my-domain.us.auth0.com/api/v2/"
+)
 ```
 
 ## Management SDK
@@ -221,28 +145,28 @@ resets is exposed in the `reset_at` property. When the header is unset, this val
 
 ### Asynchronous environments
 
-This SDK provides async methods built on top of [asyncio](https://docs.python.org/3/library/asyncio.html). To make them available you must have Python >=3.6 and the [aiohttp](https://docs.aiohttp.org/en/stable/) module installed.
+This SDK provides async methods built on top of [asyncio](https://docs.python.org/3/library/asyncio.html). To make them available you must have the [aiohttp](https://docs.aiohttp.org/en/stable/) module installed.
 
 Then additional methods with the `_async` suffix will be added to modules created by the `management.Auth0` class or to classes that are passed to the `asyncify` method. For example:
 
 ```python
 import asyncio
 import aiohttp
-from auth0.v3.asyncify import asyncify
-from auth0.v3.management import Auth0, Users, Connections
-from auth0.v3.authentication import Users as AuthUsers
+from auth0.asyncify import asyncify
+from auth0.management import Auth0, Users, Connections
+from auth0.authentication import Users as AuthUsers
 
 auth0 = Auth0('domain', 'mgmt_api_token')
 
+
 async def main():
     # users = auth0.users.all() <= sync
-    users = await auth0.users.all_async() # <= async
+    users = await auth0.users.all_async()  # <= async
 
     # To share a session amongst multiple calls to the same service
     async with auth0.users as users:
         data = await users.get_async(id)
         users.update_async(id, data)
-
 
     # To share a session amongst multiple calls to multiple services
     async with Auth0('domain', 'mgmt_api_token') as auth0:

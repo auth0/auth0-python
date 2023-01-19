@@ -22,11 +22,7 @@ You can install the auth0 Python SDK using the following command.
 pip install auth0-python
 ```
 
-For python3, use the following command
-```
-pip3 install auth0-python
-```
-Python 3.2 and 3.3 have reached [EOL](https://en.wikipedia.org/wiki/CPython#Version_history) and support will be removed in the near future.
+> Requires Python 3.7 or higher.
 
 ### Usage
 
@@ -36,53 +32,52 @@ The Authentication SDK is organized into components that mirror the structure of
 For example:
 
 ```python
-from auth0.v3.authentication import Social
+from auth0.authentication import Social
 
-social = Social('myaccount.auth0.com')
+social = Social('my-domain.us.auth0.com', 'my-client-id')
 
-social.login(client_id='...', access_token='...', connection='facebook')
+social.login(access_token='...', connection='facebook')
 ```
 
 If you need to sign up a user using their email and password, you can use the Database object.
 
 ```python
-from auth0.v3.authentication import Database
+from auth0.authentication import Database
 
-database = Database('myaccount.auth0.com'')
+database = Database('my-domain.us.auth0.com', 'my-client-id')
 
-database.signup(client_id='...', email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
+database.signup(email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
 ```
 
 If you need to authenticate a user using their email and password, you can use the `GetToken` object, which enables making requests to the `/oauth/token` endpoint.
 
 ```python
-from auth0.v3.authentication import GetToken
+from auth0.authentication import GetToken
 
-token = GetToken('myaccount.auth0.com')
+token = GetToken('my-domain.us.auth0.com', 'my-client-id', client_secret='my-client-secret')
 
-token.login(client_id='...', client_secret='...', username='user@domain.com', password='secr3t', realm='Username-Password-Authentication')
+token.login(username='user@domain.com', password='secr3t', realm='Username-Password-Authentication')
 ```
 
 #### Management SDK
 To use the management library you will need to instantiate an Auth0 object with a domain and a [Management API v2 token](https://auth0.com/docs/api/management/v2/tokens). Please note that these token last 24 hours, so if you need it constantly you should ask for it programmatically using the client credentials grant with a [non interactive client](https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client) authorized to access the API. For example:
 
 ```python
-from auth0.v3.authentication import GetToken
+from auth0.authentication import GetToken
 
 domain = 'myaccount.auth0.com'
 non_interactive_client_id = 'exampleid'
 non_interactive_client_secret = 'examplesecret'
 
-get_token = GetToken(domain)
-token = get_token.client_credentials(non_interactive_client_id,
-    non_interactive_client_secret, 'https://{}/api/v2/'.format(domain))
+get_token = GetToken(domain, non_interactive_client_id, client_secret=non_interactive_client_secret)
+token = get_token.client_credentials('https://{}/api/v2/'.format(domain))
 mgmt_api_token = token['access_token']
 ```
 
 Then use the token you've obtained as follows:
 
 ```python
-from auth0.v3.management import Auth0
+from auth0.management import Auth0
 
 domain = 'myaccount.auth0.com'
 mgmt_api_token = 'MGMT_API_TOKEN'
@@ -98,7 +93,6 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 
 ### Authentication Endpoints
 
-- API Authorization - Authorization Code Grant (`authentication.AuthorizeClient`)
 - Database ( `authentication.Database` )
 - Delegated ( `authentication.Delegated` )
 - Enterprise ( `authentication.Enterprise` )
@@ -115,6 +109,7 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 - AttackProtection() (`Auth0().attack_protection`)
 - Blacklists() ( `Auth0().blacklists` )
 - Branding() ( `Auth0().branding` )
+- ClientCredentials() ( `Auth0().client_credentials` )
 - ClientGrants() ( `Auth0().client_grants` )
 - Clients() ( `Auth0().clients` )
 - Connections() ( `Auth0().connections` )
@@ -140,6 +135,33 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 - UserBlocks() (`Auth0().user_blocks` )
 - UsersByEmail() ( `Auth0().users_by_email` )
 - Users() ( `Auth0().users` )
+
+## Support Policy
+
+Our support lifecycle policy mirrors the [Python support schedule](https://devguide.python.org/versions/). We do not support running the SDK on unsupported versions of Python that have ceased to receive security updates. Please ensure your environment remains up to date and running the latest Python version possible.
+
+| SDK Version | Python Version | Support Ends |
+|-------------| -------------- | ------------ |
+| 4.x         | 3.11           | Oct 2027     |
+|             | 3.10           | Oct 2026     |
+|             | 3.9            | Oct 2025     |
+|             | 3.8            | Oct 2024     |
+|             | 3.7            | Oct 2023     |
+
+> As `pip` [reliably avoids](https://packaging.python.org/en/latest/tutorials/packaging-projects/#configuring-metadata) installing package updates that target incompatible Python versions, we may opt to remove support for [end-of-life](https://en.wikipedia.org/wiki/CPython#Version_history) Python versions during minor SDK updates. These are not considered breaking changes by this SDK.
+
+The following is a list of unsupported Python versions, and the last SDK version supporting them:
+
+| Python Version | Last SDK Version Supporting |
+| -------------- |-----------------------------|
+| >= 2.0, <= 3.6 | 3.x                         |
+
+You can determine what version of Python you have installed by running:
+
+```
+python --version
+```
+
 ## Feedback
 
 ### Contributing

@@ -26,6 +26,7 @@ bin/
 *.egg
 .pypirc
 pyvenv.cfg
+.python-version
 
 # Installer logs
 pip-log.txt
