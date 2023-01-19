@@ -298,16 +298,8 @@ class TokenVerifier:
         return payload
 
     def _verify_payload(self, payload, nonce=None, max_age=None, organization=None):
-        try:
-            # on Python 2.7, 'str' keys as parsed as 'unicode'
-            # But 'unicode' was removed on Python 3.7
-            # noinspection PyUnresolvedReferences
-            ustr = unicode
-        except NameError:
-            ustr = str
-
         # Issuer
-        if "iss" not in payload or not isinstance(payload["iss"], (str, ustr)):
+        if "iss" not in payload or not isinstance(payload["iss"], str):
             raise TokenValidationError(
                 "Issuer (iss) claim must be a string present in the ID token"
             )
@@ -318,13 +310,13 @@ class TokenVerifier:
             )
 
         # Subject
-        if "sub" not in payload or not isinstance(payload["sub"], (str, ustr)):
+        if "sub" not in payload or not isinstance(payload["sub"], str):
             raise TokenValidationError(
                 "Subject (sub) claim must be a string present in the ID token"
             )
 
         # Audience
-        if "aud" not in payload or not isinstance(payload["aud"], (str, ustr, list)):
+        if "aud" not in payload or not isinstance(payload["aud"], (str, list)):
             raise TokenValidationError(
                 "Audience (aud) claim must be a string or array of strings present in"
                 " the ID token"
@@ -336,7 +328,7 @@ class TokenVerifier:
                 'Audience (aud) claim mismatch in the ID token; expected "{}" but was '
                 'not one of "{}"'.format(self.aud, payload_audiences)
             )
-        elif isinstance(payload["aud"], (str, ustr)) and payload["aud"] != self.aud:
+        elif isinstance(payload["aud"], str) and payload["aud"] != self.aud:
             raise TokenValidationError(
                 'Audience (aud) claim mismatch in the ID token; expected "{}" '
                 'but found "{}"'.format(self.aud, payload["aud"])
@@ -367,7 +359,7 @@ class TokenVerifier:
 
         # Nonce
         if nonce:
-            if "nonce" not in payload or not isinstance(payload["nonce"], (str, ustr)):
+            if "nonce" not in payload or not isinstance(payload["nonce"], str):
                 raise TokenValidationError(
                     "Nonce (nonce) claim must be a string present in the ID token"
                 )
@@ -379,9 +371,7 @@ class TokenVerifier:
 
         # Organization
         if organization:
-            if "org_id" not in payload or not isinstance(
-                payload["org_id"], (str, ustr)
-            ):
+            if "org_id" not in payload or not isinstance(payload["org_id"], str):
                 raise TokenValidationError(
                     "Organization (org_id) claim must be a string present in the ID"
                     " token"
@@ -394,7 +384,7 @@ class TokenVerifier:
 
         # Authorized party
         if isinstance(payload["aud"], list) and len(payload["aud"]) > 1:
-            if "azp" not in payload or not isinstance(payload["azp"], (str, ustr)):
+            if "azp" not in payload or not isinstance(payload["azp"], str):
                 raise TokenValidationError(
                     "Authorized Party (azp) claim must be a string present in the ID"
                     " token when Audience (aud) claim has multiple values"

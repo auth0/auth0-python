@@ -145,7 +145,7 @@ resets is exposed in the `reset_at` property. When the header is unset, this val
 
 ### Asynchronous environments
 
-This SDK provides async methods built on top of [asyncio](https://docs.python.org/3/library/asyncio.html). To make them available you must have Python >=3.6 and the [aiohttp](https://docs.aiohttp.org/en/stable/) module installed.
+This SDK provides async methods built on top of [asyncio](https://docs.python.org/3/library/asyncio.html). To make them available you must have the [aiohttp](https://docs.aiohttp.org/en/stable/) module installed.
 
 Then additional methods with the `_async` suffix will be added to modules created by the `management.Auth0` class or to classes that are passed to the `asyncify` method. For example:
 
