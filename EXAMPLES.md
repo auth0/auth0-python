@@ -32,7 +32,7 @@ For symmetric algorithms like HS256, use the `SymmetricSignatureVerifier` class,
 The following example demonstrates the verification of an ID token signed with the RS256 signing algorithm:
 
 ```python
-from auth0.v3.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
+from auth0.authentication import TokenVerifier, AsymmetricSignatureVerifier
 
 domain = 'myaccount.auth0.com'
 client_id = 'exampleid'
@@ -53,7 +53,7 @@ If the token verification fails, a `TokenValidationError` will be raised. In tha
 ### Authenticating with a application configured to use `private_key_jwt` token endpoint auth method
 
 ```python
-from auth0.v3.authentication import GetToken
+from auth0.authentication import GetToken
 
 private_key = """-----BEGIN RSA PRIVATE KEY-----
 MIIJKQIBAAKCAgEAwfUb0nUC0aKB3WiytFhnCIg455BYC+dR3MUGadWpIg7S6lbi
@@ -152,21 +152,21 @@ Then additional methods with the `_async` suffix will be added to modules create
 ```python
 import asyncio
 import aiohttp
-from auth0.v3.asyncify import asyncify
-from auth0.v3.management import Auth0, Users, Connections
-from auth0.v3.authentication import Users as AuthUsers
+from auth0.asyncify import asyncify
+from auth0.management import Auth0, Users, Connections
+from auth0.authentication import Users as AuthUsers
 
 auth0 = Auth0('domain', 'mgmt_api_token')
 
+
 async def main():
     # users = auth0.users.all() <= sync
-    users = await auth0.users.all_async() # <= async
+    users = await auth0.users.all_async()  # <= async
 
     # To share a session amongst multiple calls to the same service
     async with auth0.users as users:
         data = await users.get_async(id)
         users.update_async(id, data)
-
 
     # To share a session amongst multiple calls to multiple services
     async with Auth0('domain', 'mgmt_api_token') as auth0:

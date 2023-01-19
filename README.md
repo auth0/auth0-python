@@ -32,7 +32,7 @@ The Authentication SDK is organized into components that mirror the structure of
 For example:
 
 ```python
-from auth0.v3.authentication import Social
+from auth0.authentication import Social
 
 social = Social('my-domain.us.auth0.com', 'my-client-id')
 
@@ -42,7 +42,7 @@ social.login(access_token='...', connection='facebook')
 If you need to sign up a user using their email and password, you can use the Database object.
 
 ```python
-from auth0.v3.authentication import Database
+from auth0.authentication import Database
 
 database = Database('my-domain.us.auth0.com', 'my-client-id')
 
@@ -52,7 +52,7 @@ database.signup(email='user@domain.com', password='secr3t', connection='Username
 If you need to authenticate a user using their email and password, you can use the `GetToken` object, which enables making requests to the `/oauth/token` endpoint.
 
 ```python
-from auth0.v3.authentication import GetToken
+from auth0.authentication import GetToken
 
 token = GetToken('my-domain.us.auth0.com', 'my-client-id', client_secret='my-client-secret')
 
@@ -63,7 +63,7 @@ token.login(username='user@domain.com', password='secr3t', realm='Username-Passw
 To use the management library you will need to instantiate an Auth0 object with a domain and a [Management API v2 token](https://auth0.com/docs/api/management/v2/tokens). Please note that these token last 24 hours, so if you need it constantly you should ask for it programmatically using the client credentials grant with a [non interactive client](https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client) authorized to access the API. For example:
 
 ```python
-from auth0.v3.authentication import GetToken
+from auth0.authentication import GetToken
 
 domain = 'myaccount.auth0.com'
 non_interactive_client_id = 'exampleid'
@@ -77,7 +77,7 @@ mgmt_api_token = token['access_token']
 Then use the token you've obtained as follows:
 
 ```python
-from auth0.v3.management import Auth0
+from auth0.management import Auth0
 
 domain = 'myaccount.auth0.com'
 mgmt_api_token = 'MGMT_API_TOKEN'
