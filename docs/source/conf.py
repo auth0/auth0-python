@@ -39,7 +39,7 @@ def find_version(*file_paths):
 
 
 # -- regenerate autodoc definitions
-# sphinx-apidoc -o ./source ../auth0/v3/
+# sphinx-apidoc -o ./source ../auth0/
 
 # -- Project information -----------------------------------------------------
 

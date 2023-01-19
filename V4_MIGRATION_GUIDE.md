@@ -3,6 +3,7 @@
 Guide to migrating from `3.x` to `4.x`
 
 - [Python <3.7 is no longer supported](#python-37-is-no-longer-supported)
+- [The `v3` subfolder has been removed](#the-v3-subfolder-has-been-removed)
 - [Client ID and client secret are now specified in the constructor for authentication clients](#client-id-and-client-secret-are-now-specified-in-the-constructor-for-authentication-clients)
 - [AuthorizeClient and Logout have been removed](#authorizeclient-and-logout-have-been-removed)
 - [Methods that call deprecated endpoints have been removed](#methods-that-call-deprecated-endpoints-have-been-removed)
@@ -11,12 +12,32 @@ Guide to migrating from `3.x` to `4.x`
 
 Python <=3.6 and Python 2 are EOL and are no longer supported. 
 
+## The `v3` subfolder has been removed
+
+Versioning the import paths was not necessary and made major upgrades unnecessarily complex, so this has been removed and all files have been moved up a directory.
+
+### Before
+
+```python
+from auth0.v3.management import Auth0
+
+auth0 = Auth0(domain, mgmt_api_token)
+```
+
+### After
+
+```python
+from auth0.management import Auth0
+
+auth0 = Auth0(domain, mgmt_api_token)
+```
+
 ## Client ID and client secret are now specified in the constructor for authentication clients
 
 ### Before
 
 ```py
-from auth0.v3.authentication import GetToken
+from auth0.authentication import GetToken
 
 get_token = GetToken('my-domain.us.auth0.com')
 
@@ -26,7 +47,7 @@ get_token.client_credentials('my-client-id', 'my-client-secret', 'my-api')
 ### After
 
 ```py
-from auth0.v3.authentication import GetToken
+from auth0.authentication import GetToken
 
 # `client_secret` is optional (you can now use `client_assertion_signing_key` as an alternative) 
 get_token = GetToken('my-domain.us.auth0.com', 'my-client-id', client_secret='my-client-secret')

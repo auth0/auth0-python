@@ -12,6 +12,6 @@ Auth0-Python documentation
    :hidden:
    :caption: API Documentation
 
-   v3.authentication
-   v3.management
-   v3.exceptions
+   authentication
+   management
+   exceptions
