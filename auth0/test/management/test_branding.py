@@ -70,6 +70,5 @@ class TestBranding(unittest.TestCase):
 
         api.put.assert_called_with(
             "https://domain/api/v2/branding/templates/universal-login",
-            type="put_universal-login_body",
             body={"template": {"a": "b", "c": "d"}},
         )
