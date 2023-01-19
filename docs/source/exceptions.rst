@@ -4,7 +4,7 @@ exceptions module
 Module contents
 ---------------
 
-.. automodule:: auth0.v3.exceptions
+.. automodule:: auth0.exceptions
    :members:
    :undoc-members:
    :show-inheritance:
