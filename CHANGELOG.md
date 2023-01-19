@@ -1,5 +1,24 @@
 # Change Log
 
+## [4.0.0](https://github.com/auth0/auth0-python/tree/4.0.0) (2023-01-19)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/3.24.1...4.0.0)
+
+**Added**
+- Add support for private_key_jwt [\#456](https://github.com/auth0/auth0-python/pull/456) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add support for managing client credentials [\#459](https://github.com/auth0/auth0-python/pull/459) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+**Security**
+- Update pyjwt [\#460](https://github.com/auth0/auth0-python/pull/460) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+**Changed**
+- Publish Python Support Schedule [\#454](https://github.com/auth0/auth0-python/pull/454) ([evansims](https://github.com/evansims))
+
+**⚠️ BREAKING CHANGES**
+- Remove deprecated methods [\#461](https://github.com/auth0/auth0-python/pull/461) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Remove v3 folder [\#462](https://github.com/auth0/auth0-python/pull/462) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+See the [V4_MIGRATION_GUIDE](https://github.com/auth0/auth0-python/blob/master/V4_MIGRATION_GUIDE.md) for more info.
+
 ## [3.24.1](https://github.com/auth0/auth0-python/tree/3.24.1) (2023-01-19)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/3.24.0...3.24.1)
 
