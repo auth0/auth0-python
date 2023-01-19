@@ -91,6 +91,5 @@ class Branding(object):
 
         return self.client.put(
             self._url("templates", "universal-login"),
-            type="put_universal-login_body",
             body={"template": body},
         )
