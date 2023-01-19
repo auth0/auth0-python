@@ -7,8 +7,7 @@ from callee import Attrs
 from cryptography.hazmat.primitives import serialization
 from mock import ANY
 
-from auth0 import TokenValidationError
-
+from .. import TokenValidationError
 from ..authentication.async_token_verifier import (
     AsyncAsymmetricSignatureVerifier,
     AsyncJwksFetcher,

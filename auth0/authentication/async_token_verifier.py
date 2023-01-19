@@ -1,6 +1,5 @@
 """Token Verifier module"""
-from auth0 import TokenValidationError
-
+from .. import TokenValidationError
 from ..rest_async import AsyncRestClient
 from .token_verifier import AsymmetricSignatureVerifier, JwksFetcher, TokenVerifier
 
