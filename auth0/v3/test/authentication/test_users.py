@@ -17,14 +17,3 @@ class TestUsers(unittest.TestCase):
             url="https://my.domain.com/userinfo",
             headers={"Authorization": "Bearer atk"},
         )
-
-    @mock.patch("auth0.v3.rest.RestClient.post")
-    def test_tokeninfo(self, mock_post):
-
-        u = Users("my.domain.com")
-
-        u.tokeninfo(jwt="jwtoken")
-
-        mock_post.assert_called_with(
-            url="https://my.domain.com/tokeninfo", data={"id_token": "jwtoken"}
-        )

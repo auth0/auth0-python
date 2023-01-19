@@ -80,15 +80,6 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(kwargs["data"], {"a": "b", "c": "d"})
 
     @mock.patch("auth0.v3.management.users.RestClient")
-    def test_delete_all_users(self, mock_rc):
-        mock_instance = mock_rc.return_value
-
-        u = Users(domain="domain", token="jwttoken")
-        u.delete_all_users()
-
-        mock_instance.delete.assert_called_with("https://domain/api/v2/users")
-
-    @mock.patch("auth0.v3.management.users.RestClient")
     def test_get(self, mock_rc):
         mock_instance = mock_rc.return_value
 

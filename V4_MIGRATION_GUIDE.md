@@ -2,13 +2,14 @@
 
 Guide to migrating from `3.x` to `4.x`
 
-- [Python <3.6 is no longer supported](#python-36-is-no-longer-supported)
+- [Python <3.7 is no longer supported](#python-37-is-no-longer-supported)
 - [Client ID and client secret are now specified in the constructor for authentication clients](#client-id-and-client-secret-are-now-specified-in-the-constructor-for-authentication-clients)
 - [AuthorizeClient and Logout have been removed](#authorizeclient-and-logout-have-been-removed)
+- [Methods that call deprecated endpoints have been removed](#methods-that-call-deprecated-endpoints-have-been-removed)
 
-## Python <3.6 is no longer supported
+## Python <3.7 is no longer supported
 
-Python 3.5 and Python 2 are EOL and are no longer supported. 
+Python <=3.6 and Python 2 are EOL and are no longer supported. 
 
 ## Client ID and client secret are now specified in the constructor for authentication clients
 
@@ -36,3 +37,18 @@ get_token.client_credentials('my-api')
 ## AuthorizeClient and Logout have been removed
 
 The authorize and logout requests need to be done in a user agent, so it didn't make sense to include them in a REST client.
+
+## Methods that call deprecated endpoints have been removed
+
+The following methods have been removed:
+
+### Authentication
+
+- `database.login` - Use `get_token.login`
+- `passwordless.sms_login` - Use `get_token.passwordless_login`
+- `users.tokeninfo` - `users.userinfo`
+
+### Management
+
+- `users.delete_all_users` - Use `users.delete`
+- `jobs.get_results` - Use `jobs.get`
