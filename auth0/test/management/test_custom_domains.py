@@ -1,6 +1,6 @@
 import unittest
 
-import mock
+from unittest import mock
 
 from ...management.custom_domains import CustomDomains
 

@@ -5,7 +5,7 @@ import jwt
 from aioresponses import aioresponses
 from callee import Attrs
 from cryptography.hazmat.primitives import serialization
-from mock import ANY
+from unittest.mock import ANY
 
 from .. import TokenValidationError
 from ..authentication.async_token_verifier import (

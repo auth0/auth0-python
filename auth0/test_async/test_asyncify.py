@@ -9,7 +9,7 @@ from tempfile import TemporaryFile
 import aiohttp
 from aioresponses import CallbackResult, aioresponses
 from callee import Attrs
-from mock import ANY, MagicMock
+from unittest.mock import ANY, MagicMock
 
 from auth0.asyncify import asyncify
 from auth0.management import Clients, Guardian, Jobs

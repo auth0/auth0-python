@@ -3,7 +3,7 @@ import json
 import sys
 import unittest
 
-import mock
+from unittest import mock
 import requests
 
 from auth0.rest import RestClient, RestClientOptions

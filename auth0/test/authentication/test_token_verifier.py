@@ -3,7 +3,7 @@ import time
 import unittest
 
 import jwt
-from mock import MagicMock, patch
+from unittest.mock import MagicMock, patch
 
 from ...authentication.token_verifier import (
     AsymmetricSignatureVerifier,

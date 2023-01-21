@@ -1,6 +1,6 @@
 import unittest
 
-import mock
+from unittest import mock
 
 from ...authentication.revoke_token import RevokeToken
 
