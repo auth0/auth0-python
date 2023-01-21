@@ -4,7 +4,7 @@ from ..asyncify import asyncify
 from .auth0 import modules
 
 
-class AsyncAuth0(object):
+class AsyncAuth0:
     """Provides easy access to all endpoint classes
 
     Args:

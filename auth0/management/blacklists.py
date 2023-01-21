@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Blacklists(object):
+class Blacklists:
     """Auth0 blacklists endpoints
 
     Args:

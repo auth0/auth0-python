@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class UserBlocks(object):
+class UserBlocks:
     """Auth0 user blocks endpoints
 
     Args:

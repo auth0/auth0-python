@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class DeviceCredentials(object):
+class DeviceCredentials:
     """Auth0 connection endpoints
 
     Args:

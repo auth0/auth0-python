@@ -13,7 +13,7 @@ class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
     """
 
     def __init__(self, jwks_url, algorithm="RS256"):
-        super(AsyncAsymmetricSignatureVerifier, self).__init__(jwks_url, algorithm)
+        super().__init__(jwks_url, algorithm)
         self._fetcher = AsyncJwksFetcher(jwks_url)
 
     def set_session(self, session):
@@ -58,7 +58,7 @@ class AsyncJwksFetcher(JwksFetcher):
     """
 
     def __init__(self, *args, **kwargs):
-        super(AsyncJwksFetcher, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._async_client = AsyncRestClient(None)
 
     def set_session(self, session):

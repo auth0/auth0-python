@@ -8,7 +8,7 @@ import requests
 from auth0.exceptions import TokenValidationError
 
 
-class SignatureVerifier(object):
+class SignatureVerifier:
     """Abstract class that will verify a given JSON web token's signature
     using the key fetched internally given its key id.
 
@@ -119,7 +119,7 @@ class SymmetricSignatureVerifier(SignatureVerifier):
     """
 
     def __init__(self, shared_secret, algorithm="HS256"):
-        super(SymmetricSignatureVerifier, self).__init__(algorithm)
+        super().__init__(algorithm)
         self._shared_secret = shared_secret
 
     def _fetch_key(self, key_id=None):
@@ -135,14 +135,14 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
     """
 
     def __init__(self, jwks_url, algorithm="RS256"):
-        super(AsymmetricSignatureVerifier, self).__init__(algorithm)
+        super().__init__(algorithm)
         self._fetcher = JwksFetcher(jwks_url)
 
     def _fetch_key(self, key_id=None):
         return self._fetcher.get_key(key_id)
 
 
-class JwksFetcher(object):
+class JwksFetcher:
     """Class that fetches and holds a JSON web key set.
     This class makes use of an in-memory cache. For it to work properly, define this instance once and re-use it.
 

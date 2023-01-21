@@ -64,7 +64,7 @@ modules = {
 }
 
 
-class Auth0(object):
+class Auth0:
     """Provides easy access to all endpoint classes
 
     Args:

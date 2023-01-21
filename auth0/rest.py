@@ -12,7 +12,7 @@ from auth0.exceptions import Auth0Error, RateLimitError
 UNKNOWN_ERROR = "a0.sdk.internal.unknown"
 
 
-class RestClientOptions(object):
+class RestClientOptions:
     """Configuration object for RestClient. Used for configuring
             additional RestClient options, such as rate-limit
             retries.
@@ -47,7 +47,7 @@ class RestClientOptions(object):
             self.retries = retries
 
 
-class RestClient(object):
+class RestClient:
     """Provides simple methods for handling all RESTful api endpoints.
 
     Args:
@@ -241,7 +241,7 @@ class RestClient(object):
             return PlainResponse(response)
 
 
-class Response(object):
+class Response:
     def __init__(self, status_code, content, headers):
         self._status_code = status_code
         self._content = content
@@ -286,7 +286,7 @@ class Response(object):
 class JsonResponse(Response):
     def __init__(self, response):
         content = json.loads(response.text)
-        super(JsonResponse, self).__init__(
+        super().__init__(
             response.status_code, content, response.headers
         )
 
@@ -311,7 +311,7 @@ class JsonResponse(Response):
 
 class PlainResponse(Response):
     def __init__(self, response):
-        super(PlainResponse, self).__init__(
+        super().__init__(
             response.status_code, response.text, response.headers
         )
 
@@ -324,7 +324,7 @@ class PlainResponse(Response):
 
 class EmptyResponse(Response):
     def __init__(self, status_code):
-        super(EmptyResponse, self).__init__(status_code, "", {})
+        super().__init__(status_code, "", {})
 
     def _error_code(self):
         return UNKNOWN_ERROR

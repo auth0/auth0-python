@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Tenants(object):
+class Tenants:
     """Auth0 tenants endpoints
 
     Args:

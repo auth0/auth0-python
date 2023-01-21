@@ -31,10 +31,10 @@ def asyncify(cls):
         ):
             if token is None:
                 # Wrap the auth client
-                super(AsyncClient, self).__init__(domain, telemetry, timeout, protocol)
+                super().__init__(domain, telemetry, timeout, protocol)
             else:
                 # Wrap the mngtmt client
-                super(AsyncClient, self).__init__(
+                super().__init__(
                     domain, token, telemetry, timeout, protocol, rest_options
                 )
             self.client = AsyncRestClient(
@@ -53,10 +53,10 @@ def asyncify(cls):
         ):
             if token is None:
                 # Wrap the auth client
-                super(Wrapper, self).__init__(domain, telemetry, timeout, protocol)
+                super().__init__(domain, telemetry, timeout, protocol)
             else:
                 # Wrap the mngtmt client
-                super(Wrapper, self).__init__(
+                super().__init__(
                     domain, token, telemetry, timeout, protocol, rest_options
                 )
 

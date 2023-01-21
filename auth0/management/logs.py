@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Logs(object):
+class Logs:
     """Auth0 logs endpoints
 
     Args:

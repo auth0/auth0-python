@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Grants(object):
+class Grants:
     """Auth0 grants endpoints
 
     Args:

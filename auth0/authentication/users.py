@@ -1,7 +1,7 @@
 from auth0.rest import RestClient, RestClientOptions
 
 
-class Users(object):
+class Users:
     """Users client.
 
     Args:

@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Tickets(object):
+class Tickets:
     """Auth0 tickets endpoints
 
     Args:

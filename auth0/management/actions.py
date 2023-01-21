@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Actions(object):
+class Actions:
     """Auth0 Actions endpoints
 
     Args:

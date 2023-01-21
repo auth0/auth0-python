@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Branding(object):
+class Branding:
     """Auth0 Branding endpoints
 
     Args:

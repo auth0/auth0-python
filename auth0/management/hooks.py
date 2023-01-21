@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Hooks(object):
+class Hooks:
 
     """Hooks endpoint implementation.
 

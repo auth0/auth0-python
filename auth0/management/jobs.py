@@ -3,7 +3,7 @@ import warnings
 from ..rest import RestClient
 
 
-class Jobs(object):
+class Jobs:
     """Auth0 jobs endpoints
 
     Args:

@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class UsersByEmail(object):
+class UsersByEmail:
     """Auth0 users by email endpoints
 
     Args:
