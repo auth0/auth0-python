@@ -1,5 +1,4 @@
 import unittest
-
 from unittest import mock
 
 from ...management.email_templates import EmailTemplates

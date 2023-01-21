@@ -286,9 +286,7 @@ class Response:
 class JsonResponse(Response):
     def __init__(self, response):
         content = json.loads(response.text)
-        super().__init__(
-            response.status_code, content, response.headers
-        )
+        super().__init__(response.status_code, content, response.headers)
 
     def _error_code(self):
         if "errorCode" in self._content:
@@ -311,9 +309,7 @@ class JsonResponse(Response):
 
 class PlainResponse(Response):
     def __init__(self, response):
-        super().__init__(
-            response.status_code, response.text, response.headers
-        )
+        super().__init__(response.status_code, response.text, response.headers)
 
     def _error_code(self):
         return UNKNOWN_ERROR

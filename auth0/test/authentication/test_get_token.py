@@ -1,6 +1,6 @@
 import unittest
-
 from unittest import mock
+
 from callee.strings import Glob
 from cryptography.hazmat.primitives import asymmetric, serialization
 

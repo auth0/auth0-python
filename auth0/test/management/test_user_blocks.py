@@ -1,5 +1,4 @@
 import unittest
-
 from unittest import mock
 
 from ...management.user_blocks import UserBlocks

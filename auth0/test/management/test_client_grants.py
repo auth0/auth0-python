@@ -1,5 +1,4 @@
 import unittest
-
 from unittest import mock
 
 from ...management.client_grants import ClientGrants

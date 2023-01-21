@@ -1,5 +1,4 @@
 import unittest
-
 from unittest import mock
 
 from ...management.users_by_email import UsersByEmail

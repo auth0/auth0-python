@@ -1,5 +1,4 @@
 import unittest
-
 from unittest import mock
 
 from ...management.attack_protection import AttackProtection
