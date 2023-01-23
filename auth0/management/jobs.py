@@ -41,9 +41,9 @@ class Jobs:
         )
 
     def _url(self, path=None):
-        url = "{}://{}/api/v2/jobs".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/jobs"
         if path is not None:
-            return "{}/{}".format(url, path)
+            return f"{url}/{path}"
         return url
 
     def get(self, id):
@@ -64,7 +64,7 @@ class Jobs:
 
         See: https://auth0.com/docs/api/management/v2#!/Jobs/get_errors
         """
-        url = self._url("{}/errors".format(id))
+        url = self._url(f"{id}/errors")
         return self.client.get(url)
 
     def export_users(self, body):

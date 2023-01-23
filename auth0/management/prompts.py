@@ -39,9 +39,9 @@ class Prompts:
         )
 
     def _url(self, prompt=None, language=None):
-        url = "{}://{}/api/v2/prompts".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/prompts"
         if prompt is not None and language is not None:
-            return "{}/{}/custom-text/{}".format(url, prompt, language)
+            return f"{url}/{prompt}/custom-text/{language}"
         return url
 
     def get(self):

@@ -39,10 +39,10 @@ class Organizations:
         )
 
     def _url(self, *args):
-        url = "{}://{}/api/v2/organizations".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/organizations"
         for p in args:
             if p is not None:
-                url = "{}/{}".format(url, p)
+                url = f"{url}/{p}"
         return url
 
     # Organizations

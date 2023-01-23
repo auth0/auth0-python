@@ -39,7 +39,7 @@ class CustomDomains:
         )
 
     def _url(self, id=None):
-        url = "{}://{}/api/v2/custom-domains".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/custom-domains"
         if id is not None:
             return url + "/" + id
         return url

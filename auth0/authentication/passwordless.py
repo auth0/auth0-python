@@ -45,7 +45,7 @@ class Passwordless(AuthenticationBase):
             data.update({"authParams": auth_params})
 
         return self.authenticated_post(
-            "{}://{}/passwordless/start".format(self.protocol, self.domain), data=data
+            f"{self.protocol}://{self.domain}/passwordless/start", data=data
         )
 
     def sms(self, phone_number):
@@ -68,5 +68,5 @@ class Passwordless(AuthenticationBase):
         }
 
         return self.authenticated_post(
-            "{}://{}/passwordless/start".format(self.protocol, self.domain), data=data
+            f"{self.protocol}://{self.domain}/passwordless/start", data=data
         )

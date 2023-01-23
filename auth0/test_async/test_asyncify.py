@@ -32,7 +32,7 @@ telemetry = base64.b64encode(
 ).decode()
 
 headers = {
-    "User-Agent": "Python/{}".format(platform.python_version()),
+    "User-Agent": f"Python/{platform.python_version()}",
     "Authorization": "Bearer jwt",
     "Content-Type": "application/json",
     "Auth0-Client": telemetry,

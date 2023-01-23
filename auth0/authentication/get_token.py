@@ -36,7 +36,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.authenticated_post(
-            "{}://{}/oauth/token".format(self.protocol, self.domain),
+            f"{self.protocol}://{self.domain}/oauth/token",
             data={
                 "client_id": self.client_id,
                 "code": code,
@@ -74,7 +74,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.post(
-            "{}://{}/oauth/token".format(self.protocol, self.domain),
+            f"{self.protocol}://{self.domain}/oauth/token",
             data={
                 "client_id": self.client_id,
                 "code_verifier": code_verifier,
@@ -106,7 +106,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.authenticated_post(
-            "{}://{}/oauth/token".format(self.protocol, self.domain),
+            f"{self.protocol}://{self.domain}/oauth/token",
             data={
                 "client_id": self.client_id,
                 "audience": audience,
@@ -154,7 +154,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.authenticated_post(
-            "{}://{}/oauth/token".format(self.protocol, self.domain),
+            f"{self.protocol}://{self.domain}/oauth/token",
             data={
                 "client_id": self.client_id,
                 "username": username,
@@ -190,7 +190,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.authenticated_post(
-            "{}://{}/oauth/token".format(self.protocol, self.domain),
+            f"{self.protocol}://{self.domain}/oauth/token",
             data={
                 "client_id": self.client_id,
                 "refresh_token": refresh_token,
@@ -223,7 +223,7 @@ class GetToken(AuthenticationBase):
         """
 
         return self.authenticated_post(
-            "{}://{}/oauth/token".format(self.protocol, self.domain),
+            f"{self.protocol}://{self.domain}/oauth/token",
             data={
                 "client_id": self.client_id,
                 "username": username,

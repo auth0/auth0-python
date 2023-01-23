@@ -72,7 +72,7 @@ class Database(AuthenticationBase):
             body.update({"picture": picture})
 
         return self.post(
-            "{}://{}/dbconnections/signup".format(self.protocol, self.domain), data=body
+            f"{self.protocol}://{self.domain}/dbconnections/signup", data=body
         )
 
     def change_password(self, email, connection, password=None):
@@ -89,6 +89,6 @@ class Database(AuthenticationBase):
         }
 
         return self.post(
-            "{}://{}/dbconnections/change_password".format(self.protocol, self.domain),
+            f"{self.protocol}://{self.domain}/dbconnections/change_password",
             data=body,
         )

@@ -44,6 +44,6 @@ class Users:
         """
 
         return self.client.get(
-            url="{}://{}/userinfo".format(self.protocol, self.domain),
-            headers={"Authorization": "Bearer {}".format(access_token)},
+            url=f"{self.protocol}://{self.domain}/userinfo",
+            headers={"Authorization": f"Bearer {access_token}"},
         )

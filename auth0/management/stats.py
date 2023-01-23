@@ -39,7 +39,7 @@ class Stats:
         )
 
     def _url(self, action):
-        return "{}://{}/api/v2/stats/{}".format(self.protocol, self.domain, action)
+        return f"{self.protocol}://{self.domain}/api/v2/stats/{action}"
 
     def active_users(self):
         """Gets the active users count (logged in during the last 30 days).

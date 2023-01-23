@@ -38,6 +38,4 @@ class Delegated(AuthenticationBase):
         else:
             raise ValueError("Either id_token or refresh_token must have a value")
 
-        return self.post(
-            "{}://{}/delegation".format(self.protocol, self.domain), data=data
-        )
+        return self.post(f"{self.protocol}://{self.domain}/delegation", data=data)

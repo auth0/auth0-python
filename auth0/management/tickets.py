@@ -39,7 +39,7 @@ class Tickets:
         )
 
     def _url(self, action):
-        return "{}://{}/api/v2/tickets/{}".format(self.protocol, self.domain, action)
+        return f"{self.protocol}://{self.domain}/api/v2/tickets/{action}"
 
     def create_email_verification(self, body):
         """Create an email verification ticket.
