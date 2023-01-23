@@ -66,7 +66,7 @@ def asyncify(cls):
             for method in methods:
                 setattr(
                     self,
-                    "{}_async".format(method),
+                    f"{method}_async",
                     _gen_async(self._async_client, method),
                 )
 

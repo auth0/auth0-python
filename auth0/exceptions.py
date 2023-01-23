@@ -6,7 +6,7 @@ class Auth0Error(Exception):
         self.content = content
 
     def __str__(self):
-        return "{}: {}".format(self.status_code, self.message)
+        return f"{self.status_code}: {self.message}"
 
 
 class RateLimitError(Auth0Error):

@@ -79,7 +79,7 @@ class RestClient:
         }
 
         if jwt is not None:
-            self.base_headers["Authorization"] = "Bearer {}".format(self.jwt)
+            self.base_headers["Authorization"] = f"Bearer {self.jwt}"
 
         if options.telemetry:
             py_version = platform.python_version()
@@ -97,7 +97,7 @@ class RestClient:
 
             self.base_headers.update(
                 {
-                    "User-Agent": "Python/{}".format(py_version),
+                    "User-Agent": f"Python/{py_version}",
                     "Auth0-Client": base64.b64encode(auth0_client).decode(),
                 }
             )

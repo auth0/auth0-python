@@ -32,7 +32,7 @@ class Blacklists:
         protocol="https",
         rest_options=None,
     ):
-        self.url = "{}://{}/api/v2/blacklists/tokens".format(protocol, domain)
+        self.url = f"{protocol}://{domain}/api/v2/blacklists/tokens"
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )

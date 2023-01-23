@@ -39,7 +39,7 @@ class Tenants:
         )
 
     def _url(self):
-        return "{}://{}/api/v2/tenants/settings".format(self.protocol, self.domain)
+        return f"{self.protocol}://{self.domain}/api/v2/tenants/settings"
 
     def get(self, fields=None, include_fields=True):
         """Get tenant settings.

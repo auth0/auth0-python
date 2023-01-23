@@ -41,9 +41,9 @@ class Users:
         )
 
     def _url(self, id=None):
-        url = "{}://{}/api/v2/users".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/users"
         if id is not None:
-            return "{}/{}".format(url, id)
+            return f"{url}/{id}"
         return url
 
     def list(
@@ -183,7 +183,7 @@ class Users:
             "include_totals": str(include_totals).lower(),
         }
 
-        url = self._url("{}/organizations".format(id))
+        url = self._url(f"{id}/organizations")
         return self.client.get(url, params=params)
 
     def list_roles(self, id, page=0, per_page=25, include_totals=True):
@@ -209,7 +209,7 @@ class Users:
             "include_totals": str(include_totals).lower(),
         }
 
-        url = self._url("{}/roles".format(id))
+        url = self._url(f"{id}/roles")
         return self.client.get(url, params=params)
 
     def remove_roles(self, id, roles):
@@ -222,7 +222,7 @@ class Users:
 
         See https://auth0.com/docs/api/management/v2#!/Users/delete_user_roles
         """
-        url = self._url("{}/roles".format(id))
+        url = self._url(f"{id}/roles")
         body = {"roles": roles}
         return self.client.delete(url, data=body)
 
@@ -236,7 +236,7 @@ class Users:
 
         See https://auth0.com/docs/api/management/v2#!/Users/post_user_roles
         """
-        url = self._url("{}/roles".format(id))
+        url = self._url(f"{id}/roles")
         body = {"roles": roles}
         return self.client.post(url, data=body)
 
@@ -263,7 +263,7 @@ class Users:
             "page": page,
             "include_totals": str(include_totals).lower(),
         }
-        url = self._url("{}/permissions".format(id))
+        url = self._url(f"{id}/permissions")
         return self.client.get(url, params=params)
 
     def remove_permissions(self, id, permissions):
@@ -276,7 +276,7 @@ class Users:
 
         See https://auth0.com/docs/api/management/v2#!/Users/delete_permissions
         """
-        url = self._url("{}/permissions".format(id))
+        url = self._url(f"{id}/permissions")
         body = {"permissions": permissions}
         return self.client.delete(url, data=body)
 
@@ -290,7 +290,7 @@ class Users:
 
         See https://auth0.com/docs/api/management/v2#!/Users/post_permissions
         """
-        url = self._url("{}/permissions".format(id))
+        url = self._url(f"{id}/permissions")
         body = {"permissions": permissions}
         return self.client.post(url, data=body)
 
@@ -305,7 +305,7 @@ class Users:
 
         See: https://auth0.com/docs/api/management/v2#!/Users/delete_multifactor_by_provider
         """
-        url = self._url("{}/multifactor/{}".format(id, provider))
+        url = self._url(f"{id}/multifactor/{provider}")
         return self.client.delete(url)
 
     def delete_authenticators(self, id):
@@ -316,7 +316,7 @@ class Users:
 
         See: https://auth0.com/docs/api/management/v2#!/Users/delete_authenticators
         """
-        url = self._url("{}/authenticators".format(id))
+        url = self._url(f"{id}/authenticators")
         return self.client.delete(url)
 
     def unlink_user_account(self, id, provider, user_id):
@@ -331,7 +331,7 @@ class Users:
 
         See: https://auth0.com/docs/api/management/v2#!/Users/delete_user_identity_by_user_id
         """
-        url = self._url("{}/identities/{}/{}".format(id, provider, user_id))
+        url = self._url(f"{id}/identities/{provider}/{user_id}")
         return self.client.delete(url)
 
     def link_user_account(self, user_id, body):
@@ -348,7 +348,7 @@ class Users:
 
         See: https://auth0.com/docs/api/v2#!/Users/post_identities
         """
-        url = self._url("{}/identities".format(user_id))
+        url = self._url(f"{user_id}/identities")
         return self.client.post(url, data=body)
 
     def regenerate_recovery_code(self, user_id):
@@ -359,7 +359,7 @@ class Users:
 
         See: https://auth0.com/docs/api/management/v2#!/Users/post_recovery_code_regeneration
         """
-        url = self._url("{}/recovery-code-regeneration".format(user_id))
+        url = self._url(f"{user_id}/recovery-code-regeneration")
         return self.client.post(url)
 
     def get_guardian_enrollments(self, user_id):
@@ -370,7 +370,7 @@ class Users:
 
         See: https://auth0.com/docs/api/management/v2#!/Users/get_enrollments
         """
-        url = self._url("{}/enrollments".format(user_id))
+        url = self._url(f"{user_id}/enrollments")
         return self.client.get(url)
 
     def get_log_events(
@@ -405,7 +405,7 @@ class Users:
             "sort": sort,
         }
 
-        url = self._url("{}/logs".format(user_id))
+        url = self._url(f"{user_id}/logs")
         return self.client.get(url, params=params)
 
     def invalidate_remembered_browsers(self, user_id):
@@ -417,7 +417,5 @@ class Users:
         See: https://auth0.com/docs/api/management/v2#!/Users/post_invalidate_remember_browser
         """
 
-        url = self._url(
-            "{}/multifactor/actions/invalidate-remember-browser".format(user_id)
-        )
+        url = self._url(f"{user_id}/multifactor/actions/invalidate-remember-browser")
         return self.client.post(url)

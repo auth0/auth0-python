@@ -27,7 +27,7 @@ class Social(AuthenticationBase):
         """
 
         return self.post(
-            "{}://{}/oauth/access_token".format(self.protocol, self.domain),
+            f"{self.protocol}://{self.domain}/oauth/access_token",
             data={
                 "client_id": self.client_id,
                 "access_token": access_token,

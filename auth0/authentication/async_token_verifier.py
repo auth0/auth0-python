@@ -111,9 +111,7 @@ class AsyncJwksFetcher(JwksFetcher):
             keys = await self._fetch_jwks(force=True)
             if keys and key_id in keys:
                 return keys[key_id]
-        raise TokenValidationError(
-            'RSA Public Key with ID "{}" was not found.'.format(key_id)
-        )
+        raise TokenValidationError(f'RSA Public Key with ID "{key_id}" was not found.')
 
 
 class AsyncTokenVerifier(TokenVerifier):

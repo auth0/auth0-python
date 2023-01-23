@@ -33,7 +33,7 @@ class TestBase(unittest.TestCase):
             "env": {"python": python_version},
         }
 
-        self.assertEqual(user_agent, "Python/{}".format(python_version))
+        self.assertEqual(user_agent, f"Python/{python_version}")
         self.assertEqual(auth0_client, client_info)
         self.assertEqual(content_type, "application/json")
 

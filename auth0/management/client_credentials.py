@@ -43,7 +43,7 @@ class ClientCredentials:
             self.protocol, self.domain, client_id
         )
         if id is not None:
-            return "{}/{}".format(url, id)
+            return f"{url}/{id}"
         return url
 
     def all(self, client_id):

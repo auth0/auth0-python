@@ -26,5 +26,5 @@ class RevokeToken(AuthenticationBase):
         }
 
         return self.authenticated_post(
-            "{}://{}/oauth/revoke".format(self.protocol, self.domain), data=body
+            f"{self.protocol}://{self.domain}/oauth/revoke", data=body
         )

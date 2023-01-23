@@ -39,7 +39,7 @@ class RulesConfigs:
         )
 
     def _url(self, id=None):
-        url = "{}://{}/api/v2/rules-configs".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/rules-configs"
         if id is not None:
             return url + "/" + id
         return url
@@ -71,6 +71,6 @@ class RulesConfigs:
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/put_rules_configs_by_key
         """
-        url = self._url("{}".format(key))
+        url = self._url(f"{key}")
         body = {"value": value}
         return self.client.put(url, data=body)

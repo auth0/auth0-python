@@ -24,7 +24,7 @@ def create_client_assertion_jwt(
         {
             "iss": client_id,
             "sub": client_id,
-            "aud": "https://{}/".format(domain),
+            "aud": f"https://{domain}/",
             "iat": now,
             "exp": now + datetime.timedelta(seconds=180),
             "jti": str(uuid.uuid4()),

@@ -39,9 +39,9 @@ class Guardian:
         )
 
     def _url(self, id=None):
-        url = "{}://{}/api/v2/guardian".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/guardian"
         if id is not None:
-            return "{}/{}".format(url, id)
+            return f"{url}/{id}"
         return url
 
     def all_factors(self):
@@ -64,7 +64,7 @@ class Guardian:
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/put_factors_by_name
         """
-        url = self._url("factors/{}".format(name))
+        url = self._url(f"factors/{name}")
         return self.client.put(url, data=body)
 
     def update_templates(self, body):
@@ -100,7 +100,7 @@ class Guardian:
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/get_enrollments_by_id
         """
-        url = self._url("enrollments/{}".format(id))
+        url = self._url(f"enrollments/{id}")
         return self.client.get(url)
 
     def delete_enrollment(self, id):
@@ -113,7 +113,7 @@ class Guardian:
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/delete_enrollments_by_id
         """
-        url = self._url("enrollments/{}".format(id))
+        url = self._url(f"enrollments/{id}")
         return self.client.delete(url)
 
     def create_enrollment_ticket(self, body):
@@ -142,7 +142,7 @@ class Guardian:
         See: https://auth0.com/docs/api/management/v2#!/Guardian/get_sns
              https://auth0.com/docs/api/management/v2#!/Guardian/get_twilio
         """
-        url = self._url("factors/{}/providers/{}".format(factor_name, name))
+        url = self._url(f"factors/{factor_name}/providers/{name}")
         return self.client.get(url)
 
     def update_factor_providers(self, factor_name, name, body):
@@ -159,5 +159,5 @@ class Guardian:
 
         See: https://auth0.com/docs/api/management/v2#!/Guardian/put_twilio
         """
-        url = self._url("factors/{}/providers/{}".format(factor_name, name))
+        url = self._url(f"factors/{factor_name}/providers/{name}")
         return self.client.put(url, data=body)

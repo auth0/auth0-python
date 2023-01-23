@@ -39,9 +39,9 @@ class EmailTemplates:
         )
 
     def _url(self, id=None):
-        url = "{}://{}/api/v2/email-templates".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/email-templates"
         if id is not None:
-            return "{}/{}".format(url, id)
+            return f"{url}/{id}"
         return url
 
     def create(self, body):

@@ -39,7 +39,7 @@ class Grants:
         )
 
     def _url(self, id=None):
-        url = "{}://{}/api/v2/grants".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/grants"
         if id is not None:
             return url + "/" + id
         return url

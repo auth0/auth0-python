@@ -39,9 +39,9 @@ class Roles:
         )
 
     def _url(self, id=None):
-        url = "{}://{}/api/v2/roles".format(self.protocol, self.domain)
+        url = f"{self.protocol}://{self.domain}/api/v2/roles"
         if id is not None:
-            return "{}/{}".format(url, id)
+            return f"{url}/{id}"
         return url
 
     def list(self, page=0, per_page=25, include_totals=True, name_filter=None):
@@ -147,7 +147,7 @@ class Roles:
             "take": take,
         }
 
-        url = self._url("{}/users".format(id))
+        url = self._url(f"{id}/users")
         return self.client.get(url, params=params)
 
     def add_users(self, id, users):
@@ -160,7 +160,7 @@ class Roles:
 
         See https://auth0.com/docs/api/management/v2#!/Roles/post_role_users
         """
-        url = self._url("{}/users".format(id))
+        url = self._url(f"{id}/users")
         body = {"users": users}
         return self.client.post(url, data=body)
 
@@ -186,7 +186,7 @@ class Roles:
             "page": page,
             "include_totals": str(include_totals).lower(),
         }
-        url = self._url("{}/permissions".format(id))
+        url = self._url(f"{id}/permissions")
         return self.client.get(url, params=params)
 
     def remove_permissions(self, id, permissions):
@@ -199,7 +199,7 @@ class Roles:
 
         See https://auth0.com/docs/api/management/v2#!/Roles/delete_role_permission_assignment
         """
-        url = self._url("{}/permissions".format(id))
+        url = self._url(f"{id}/permissions")
         body = {"permissions": permissions}
         return self.client.delete(url, data=body)
 
@@ -213,6 +213,6 @@ class Roles:
 
         See https://auth0.com/docs/api/management/v2#!/Roles/post_role_permission_assignment
         """
-        url = self._url("{}/permissions".format(id))
+        url = self._url(f"{id}/permissions")
         body = {"permissions": permissions}
         return self.client.post(url, data=body)

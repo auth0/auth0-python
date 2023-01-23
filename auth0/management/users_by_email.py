@@ -39,7 +39,7 @@ class UsersByEmail:
         )
 
     def _url(self):
-        return "{}://{}/api/v2/users-by-email".format(self.protocol, self.domain)
+        return f"{self.protocol}://{self.domain}/api/v2/users-by-email"
 
     def search_users_by_email(self, email, fields=None, include_fields=True):
         """List or search users.
