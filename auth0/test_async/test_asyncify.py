@@ -5,11 +5,11 @@ import re
 import sys
 import unittest
 from tempfile import TemporaryFile
+from unittest.mock import ANY, MagicMock
 
 import aiohttp
 from aioresponses import CallbackResult, aioresponses
 from callee import Attrs
-from mock import ANY, MagicMock
 
 from auth0.asyncify import asyncify
 from auth0.management import Clients, Guardian, Jobs

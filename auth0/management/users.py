@@ -3,7 +3,7 @@ import warnings
 from ..rest import RestClient
 
 
-class Users(object):
+class Users:
     """Auth0 users endpoints
 
     Args:

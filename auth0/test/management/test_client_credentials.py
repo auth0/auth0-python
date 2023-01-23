@@ -1,6 +1,5 @@
 import unittest
-
-import mock
+from unittest import mock
 
 from ...management.client_credentials import ClientCredentials
 

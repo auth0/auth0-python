@@ -2,8 +2,8 @@ import base64
 import json
 import sys
 import unittest
+from unittest import mock
 
-import mock
 import requests
 
 from auth0.rest import RestClient, RestClientOptions

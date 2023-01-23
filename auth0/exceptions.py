@@ -11,9 +11,7 @@ class Auth0Error(Exception):
 
 class RateLimitError(Auth0Error):
     def __init__(self, error_code, message, reset_at):
-        super(RateLimitError, self).__init__(
-            status_code=429, error_code=error_code, message=message
-        )
+        super().__init__(status_code=429, error_code=error_code, message=message)
         self.reset_at = reset_at
 
 

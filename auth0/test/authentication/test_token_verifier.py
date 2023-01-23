@@ -1,9 +1,9 @@
 import json
 import time
 import unittest
+from unittest.mock import MagicMock, patch
 
 import jwt
-from mock import MagicMock, patch
 
 from ...authentication.token_verifier import (
     AsymmetricSignatureVerifier,

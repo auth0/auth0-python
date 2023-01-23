@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class RulesConfigs(object):
+class RulesConfigs:
     """RulesConfig endpoint implementation.
 
     Args:

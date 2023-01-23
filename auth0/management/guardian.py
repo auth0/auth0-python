@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Guardian(object):
+class Guardian:
     """Auth0 guardian endpoints
 
     Args:

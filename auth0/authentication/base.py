@@ -5,7 +5,7 @@ from .client_authentication import add_client_authentication
 UNKNOWN_ERROR = "a0.sdk.internal.unknown"
 
 
-class AuthenticationBase(object):
+class AuthenticationBase:
     """Base authentication object providing simple REST methods.
 
     Args:

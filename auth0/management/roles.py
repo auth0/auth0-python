@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Roles(object):
+class Roles:
     """Auth0 roles endpoints
 
     Args:

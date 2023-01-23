@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class ResourceServers(object):
+class ResourceServers:
     """Auth0 resource servers endpoints
 
     Args:

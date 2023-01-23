@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Stats(object):
+class Stats:
     """Auth0 stats endpoints
 
     Args:

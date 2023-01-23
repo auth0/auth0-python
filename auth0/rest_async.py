@@ -31,7 +31,7 @@ class AsyncRestClient(RestClient):
     """
 
     def __init__(self, *args, **kwargs):
-        super(AsyncRestClient, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._session = None
         sock_connect, sock_read = (
             self.timeout
@@ -128,7 +128,7 @@ class AsyncRestClient(RestClient):
             return PlainResponse(requests_response)
 
 
-class RequestsResponse(object):
+class RequestsResponse:
     def __init__(self, response, text):
         self.status_code = response.status
         self.headers = response.headers

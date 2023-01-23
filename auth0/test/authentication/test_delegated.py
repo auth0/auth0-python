@@ -1,6 +1,5 @@
 import unittest
-
-import mock
+from unittest import mock
 
 from ...authentication.delegated import Delegated
 

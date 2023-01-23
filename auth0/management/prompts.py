@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class Prompts(object):
+class Prompts:
     """Auth0 prompts endpoints
 
     Args:

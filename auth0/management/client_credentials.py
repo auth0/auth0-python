@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class ClientCredentials(object):
+class ClientCredentials:
     """Auth0 client credentials endpoints.
 
     Args:

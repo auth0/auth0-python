@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class CustomDomains(object):
+class CustomDomains:
     """Auth0 custom domains endpoints
 
     Args:

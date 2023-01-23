@@ -1,7 +1,7 @@
 from ..rest import RestClient
 
 
-class AttackProtection(object):
+class AttackProtection:
     """Auth0 attack protection endpoints
 
     Args:

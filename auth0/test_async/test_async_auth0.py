@@ -1,9 +1,9 @@
 import re
 import unittest
+from unittest.mock import ANY, MagicMock
 
 from aioresponses import CallbackResult, aioresponses
 from callee import Attrs
-from mock import ANY, MagicMock
 
 from auth0.management.async_auth0 import AsyncAuth0 as Auth0
 
