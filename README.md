@@ -29,15 +29,6 @@ pip install auth0-python
 #### Authentication SDK
 The Authentication SDK is organized into components that mirror the structure of the
 [API documentation](https://auth0.com/docs/auth-api).
-For example:
-
-```python
-from auth0.authentication import Social
-
-social = Social('my-domain.us.auth0.com', 'my-client-id')
-
-social.login(access_token='...', connection='facebook')
-```
 
 If you need to sign up a user using their email and password, you can use the Database object.
 
