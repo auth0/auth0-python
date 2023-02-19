@@ -17,7 +17,12 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      - run: pre-commit run --all-files
+      - when:
+          condition:
+            not:
+              equal: ["3.7", << parameters.py_version >> ]
+          steps:
+            - run: pre-commit run --all-files
       - run: coverage run -m unittest
       - run: bash <(curl -s https://codecov.io/bash)
       - when:

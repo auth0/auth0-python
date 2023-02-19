@@ -7,7 +7,6 @@ from ...authentication.enterprise import Enterprise
 class TestEnterprise(unittest.TestCase):
     @mock.patch("auth0.authentication.enterprise.Enterprise.get")
     def test_saml_metadata(self, mock_get):
-
         e = Enterprise("my.domain.com", "cid")
 
         e.saml_metadata()
@@ -16,7 +15,6 @@ class TestEnterprise(unittest.TestCase):
 
     @mock.patch("auth0.authentication.enterprise.Enterprise.get")
     def test_wsfed_metadata(self, mock_get):
-
         e = Enterprise("my.domain.com", "cid")
 
         e.wsfed_metadata()

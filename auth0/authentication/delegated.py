@@ -17,7 +17,6 @@ class Delegated(AuthenticationBase):
         refresh_token=None,
         scope="openid",
     ):
-
         """Obtain a delegation token."""
 
         if id_token and refresh_token:

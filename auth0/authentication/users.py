@@ -32,7 +32,6 @@ class Users:
     """
 
     def userinfo(self, access_token):
-
         """Returns the user information based on the Auth0 access token.
         This endpoint will work only if openid was granted as a scope for the access_token.
 
