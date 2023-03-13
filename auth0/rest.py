@@ -6,13 +6,15 @@ import platform
 import sys
 from random import randint
 from time import sleep
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 
 import requests
 
 from auth0.exceptions import Auth0Error, RateLimitError
-from auth0.rest_async import RequestsResponse
 from auth0.types import RequestData, TimeoutType
+
+if TYPE_CHECKING:
+    from auth0.rest_async import RequestsResponse
 
 UNKNOWN_ERROR = "a0.sdk.internal.unknown"
 
