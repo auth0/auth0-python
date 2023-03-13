@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import asyncio
 from typing import Any
 
@@ -7,7 +8,7 @@ import aiohttp
 from auth0.exceptions import RateLimitError
 from auth0.types import RequestData
 
-from .rest import Response, EmptyResponse, JsonResponse, PlainResponse, RestClient
+from .rest import EmptyResponse, JsonResponse, PlainResponse, Response, RestClient
 
 
 def _clean_params(params: dict[Any, Any] | None) -> dict[Any, Any] | None:
@@ -64,7 +65,12 @@ class AsyncRestClient(RestClient):
                 async with session.request(*args, **kwargs) as response:
                     return await self._process_response(response)
 
-    async def get(self, url: str, params: dict[str, Any] | None = None, headers: dict[str, str] | None = None) -> Any:
+    async def get(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
         # Track the API request attempt number
@@ -95,12 +101,22 @@ class AsyncRestClient(RestClient):
                 # sleep() functions in seconds, so convert the milliseconds formula above accordingly
                 await asyncio.sleep(wait / 1000)
 
-    async def post(self, url: str, data: RequestData | None = None, headers: dict[str, str] | None = None) -> Any:
+    async def post(
+        self,
+        url: str,
+        data: RequestData | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
         return await self._request("post", url, json=data, headers=request_headers)
 
-    async def file_post(self, url: str, data: dict[str, Any] | None = None, files: dict[str, Any] | None = None) -> Any:
+    async def file_post(
+        self,
+        url: str,
+        data: dict[str, Any] | None = None,
+        files: dict[str, Any] | None = None,
+    ) -> Any:
         headers = self.base_headers.copy()
         headers.pop("Content-Type", None)
         return await self._request("post", url, data={**data, **files}, headers=headers)
@@ -111,7 +127,12 @@ class AsyncRestClient(RestClient):
     async def put(self, url: str, data: RequestData | None = None) -> Any:
         return await self._request("put", url, json=data)
 
-    async def delete(self, url: str, params: dict[str, Any] | None = None, data: RequestData | None = None) -> Any:
+    async def delete(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        data: RequestData | None = None,
+    ) -> Any:
         return await self._request(
             "delete", url, json=data, params=_clean_params(params) or {}
         )

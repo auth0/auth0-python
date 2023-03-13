@@ -1,8 +1,16 @@
 from __future__ import annotations
+
 from typing import Any
 
+
 class Auth0Error(Exception):
-    def __init__(self, status_code: int, error_code: str, message: str, content: Any | None = None) -> None:
+    def __init__(
+        self,
+        status_code: int,
+        error_code: str,
+        message: str,
+        content: Any | None = None,
+    ) -> None:
         self.status_code = status_code
         self.error_code = error_code
         self.message = message

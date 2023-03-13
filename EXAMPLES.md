@@ -7,7 +7,7 @@
   - [Connections](#connections)
 - [Error handling](#error-handling)
 - [Asynchronous environments](#asynchronous-environments)
-  
+
 ## Authentication SDK
 
 ### ID token validation

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import base64
 import json
 import platform
@@ -36,7 +37,12 @@ class RestClientOptions:
             (defaults to 3)
     """
 
-    def __init__(self, telemetry: bool | None = None, timeout: TimeoutType | None = None, retries: int | None = None) -> None:
+    def __init__(
+        self,
+        telemetry: bool | None = None,
+        timeout: TimeoutType | None = None,
+        retries: int | None = None,
+    ) -> None:
         self.telemetry = True
         self.timeout = 5.0
         self.retries = 3
@@ -69,7 +75,13 @@ class RestClient:
             (defaults to 3)
     """
 
-    def __init__(self, jwt: str, telemetry: bool = True, timeout: TimeoutType = 5.0, options: RestClientOptions | None = None) -> None:
+    def __init__(
+        self,
+        jwt: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        options: RestClientOptions | None = None,
+    ) -> None:
         if options is None:
             options = RestClientOptions(telemetry=telemetry, timeout=timeout)
 
@@ -131,7 +143,12 @@ class RestClient:
     def MIN_REQUEST_RETRY_DELAY(self) -> int:
         return 100
 
-    def get(self, url: str, params: dict[str, Any] | None = None, headers: dict[str, str] | None = None) -> Any:
+    def get(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
 
@@ -167,7 +184,12 @@ class RestClient:
         # Return the final Response
         return self._process_response(response)
 
-    def post(self, url: str, data: RequestData | None = None, headers: dict[str, str] | None = None) -> Any:
+    def post(
+        self,
+        url: str,
+        data: RequestData | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
 
@@ -176,7 +198,12 @@ class RestClient:
         )
         return self._process_response(response)
 
-    def file_post(self, url: str, data: RequestData | None = None, files: dict[str, Any] | None = None) -> Any:
+    def file_post(
+        self,
+        url: str,
+        data: RequestData | None = None,
+        files: dict[str, Any] | None = None,
+    ) -> Any:
         headers = self.base_headers.copy()
         headers.pop("Content-Type", None)
 
@@ -201,7 +228,12 @@ class RestClient:
         )
         return self._process_response(response)
 
-    def delete(self, url: str, params: dict[str, Any] | None = None, data: RequestData | None = None) -> Any:
+    def delete(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        data: RequestData | None = None,
+    ) -> Any:
         headers = self.base_headers.copy()
 
         response = requests.delete(
@@ -247,7 +279,9 @@ class RestClient:
 
 
 class Response:
-    def __init__(self, status_code: int, content: Any, headers: Mapping[str, str]) -> None:
+    def __init__(
+        self, status_code: int, content: Any, headers: Mapping[str, str]
+    ) -> None:
         self._status_code = status_code
         self._content = content
         self._headers = headers

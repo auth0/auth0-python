@@ -1,7 +1,15 @@
 """Token Verifier module"""
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
+
 from .. import TokenValidationError
 from ..rest_async import AsyncRestClient
 from .token_verifier import AsymmetricSignatureVerifier, JwksFetcher, TokenVerifier
+
+if TYPE_CHECKING:
+    from aiohttp import ClientSession
+    from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
 
 
 class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
@@ -12,11 +20,11 @@ class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
         algorithm (str, optional): The expected signing algorithm. Defaults to "RS256".
     """
 
-    def __init__(self, jwks_url, algorithm="RS256"):
+    def __init__(self, jwks_url: str, algorithm: str = "RS256") -> None:
         super().__init__(jwks_url, algorithm)
         self._fetcher = AsyncJwksFetcher(jwks_url)
 
-    def set_session(self, session):
+    def set_session(self, session: ClientSession) -> None:
         """Set Client Session to improve performance by reusing session.
 
         Args:
@@ -57,11 +65,11 @@ class AsyncJwksFetcher(JwksFetcher):
         cache_ttl (str, optional): The lifetime of the JWK set cache in seconds. Defaults to 600 seconds.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self._async_client = AsyncRestClient(None)
 
-    def set_session(self, session):
+    def set_session(self, session: ClientSession) -> None:
         """Set Client Session to improve performance by reusing session.
 
         Args:
@@ -70,7 +78,7 @@ class AsyncJwksFetcher(JwksFetcher):
         """
         self._async_client.set_session(session)
 
-    async def _fetch_jwks(self, force=False):
+    async def _fetch_jwks(self, force: bool = False) -> dict[str, RSAPublicKey]:
         """Attempts to obtain the JWK set from the cache, as long as it's still valid.
         When not, it will perform a network request to the jwks_url to obtain a fresh result
         and update the cache value with it.
@@ -90,7 +98,7 @@ class AsyncJwksFetcher(JwksFetcher):
         self._cache_is_fresh = False
         return self._cache_value
 
-    async def get_key(self, key_id):
+    async def get_key(self, key_id: str) -> RSAPublicKey:
         """Obtains the JWK associated with the given key id.
 
         Args:
@@ -126,7 +134,13 @@ class AsyncTokenVerifier(TokenVerifier):
         Defaults to 60 seconds.
     """
 
-    def __init__(self, signature_verifier, issuer, audience, leeway=0):
+    def __init__(
+        self,
+        signature_verifier: AsyncAsymmetricSignatureVerifier,
+        issuer: str,
+        audience: str,
+        leeway: int = 0,
+    ) -> None:
         if not signature_verifier or not isinstance(
             signature_verifier, AsyncAsymmetricSignatureVerifier
         ):
@@ -140,7 +154,7 @@ class AsyncTokenVerifier(TokenVerifier):
         self._sv = signature_verifier
         self._clock = None  # legacy testing requirement
 
-    def set_session(self, session):
+    def set_session(self, session: ClientSession) -> None:
         """Set Client Session to improve performance by reusing session.
 
         Args:
@@ -149,7 +163,13 @@ class AsyncTokenVerifier(TokenVerifier):
         """
         self._sv.set_session(session)
 
-    async def verify(self, token, nonce=None, max_age=None, organization=None):
+    async def verify(
+        self,
+        token: str,
+        nonce: str | None = None,
+        max_age: int | None = None,
+        organization: str | None = None,
+    ) -> dict[str, Any]:
         """Attempts to verify the given ID token, following the steps defined in the OpenID Connect spec.
 
         Args:
