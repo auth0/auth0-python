@@ -77,7 +77,6 @@ class TestSignatureVerifier(unittest.TestCase):
         self.assertEqual(key, "some secret")
 
     def test_asymmetric_verifier_fetches_key(self):
-
         mock_fetcher = JwksFetcher("some URL")
         mock_fetcher.get_key = MagicMock("get_key")
         mock_fetcher.get_key.return_value = RSA_PUB_KEY_1_JWK

@@ -7,7 +7,6 @@ from ...authentication.revoke_token import RevokeToken
 class TestRevokeToken(unittest.TestCase):
     @mock.patch("auth0.rest.RestClient.post")
     def test_revoke_refresh_token(self, mock_post):
-
         a = RevokeToken("my.domain.com", "cid")
 
         # regular apps
