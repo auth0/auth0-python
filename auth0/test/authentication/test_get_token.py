@@ -22,7 +22,6 @@ def get_private_key():
 class TestGetToken(unittest.TestCase):
     @mock.patch("auth0.rest.RestClient.post")
     def test_authorization_code(self, mock_post):
-
         g = GetToken("my.domain.com", "cid", client_secret="clsec")
 
         g.authorization_code(
@@ -47,7 +46,6 @@ class TestGetToken(unittest.TestCase):
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_authorization_code_with_client_assertion(self, mock_post):
-
         g = GetToken(
             "my.domain.com", "cid", client_assertion_signing_key=get_private_key()
         )
@@ -71,7 +69,6 @@ class TestGetToken(unittest.TestCase):
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_authorization_code_pkce(self, mock_post):
-
         g = GetToken("my.domain.com", "cid")
 
         g.authorization_code_pkce(
@@ -97,7 +94,6 @@ class TestGetToken(unittest.TestCase):
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_client_credentials(self, mock_post):
-
         g = GetToken("my.domain.com", "cid", client_secret="clsec")
 
         g.client_credentials(audience="aud", grant_type="gt")
@@ -139,7 +135,6 @@ class TestGetToken(unittest.TestCase):
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_login(self, mock_post):
-
         g = GetToken("my.domain.com", "cid", client_secret="clsec")
 
         g.login(
@@ -194,7 +189,6 @@ class TestGetToken(unittest.TestCase):
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_passwordless_login_with_sms(self, mock_post):
-
         g = GetToken("my.domain.com", "cid", client_secret="csec")
 
         g.passwordless_login(

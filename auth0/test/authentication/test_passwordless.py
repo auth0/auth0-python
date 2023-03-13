@@ -7,7 +7,6 @@ from ...authentication.passwordless import Passwordless
 class TestPasswordless(unittest.TestCase):
     @mock.patch("auth0.rest.RestClient.post")
     def test_send_email(self, mock_post):
-
         p = Passwordless("my.domain.com", "cid")
 
         p.email(email="a@b.com", send="snd")
@@ -27,7 +26,6 @@ class TestPasswordless(unittest.TestCase):
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_send_email_with_auth_params(self, mock_post):
-
         p = Passwordless("my.domain.com", "cid")
 
         p.email(email="a@b.com", send="snd", auth_params={"a": "b"})
@@ -48,7 +46,6 @@ class TestPasswordless(unittest.TestCase):
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_send_email_with_client_secret(self, mock_post):
-
         p = Passwordless("my.domain.com", "cid", client_secret="csecret")
 
         p.email(email="a@b.com", send="snd")
