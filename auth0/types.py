@@ -1,7 +1,5 @@
-from __future__ import annotations
+from typing import Any, Dict, List, Tuple, Union
 
-from typing import Any
+TimeoutType = Union[float, Tuple[float, float]]
 
-TimeoutType = float | tuple[float, float]
-
-RequestData = dict[str, Any] | list[Any]
+RequestData = Union[Dict[str, Any], List[Any]]
