@@ -1,5 +1,13 @@
 # Change Log
 
+## [4.1.0](https://github.com/auth0/auth0-python/tree/4.1.0) (2023-03-14)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.0.0...4.1.0)
+
+**Added**
+- Add branding theme endpoints [\#477](https://github.com/auth0/auth0-python/pull/477) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- [SDK-4011]  Add API2 Factor Management Endpoints [\#476](https://github.com/auth0/auth0-python/pull/476) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Use declarative setup with `pyproject.toml` [\#474](https://github.com/auth0/auth0-python/pull/474) ([Viicos](https://github.com/Viicos))
+
 ## [4.0.0](https://github.com/auth0/auth0-python/tree/4.0.0) (2023-01-19)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/3.24.1...4.0.0)
 
