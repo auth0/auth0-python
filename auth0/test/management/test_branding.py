@@ -71,3 +71,65 @@ class TestBranding(unittest.TestCase):
             "https://domain/api/v2/branding/templates/universal-login",
             body={"template": {"a": "b", "c": "d"}},
         )
+
+    @mock.patch("auth0.management.branding.RestClient")
+    def test_get_default_branding_theme(self, mock_rc):
+        api = mock_rc.return_value
+        api.get.return_value = {}
+
+        branding = Branding(domain="domain", token="jwttoken")
+        branding.get_default_branding_theme()
+
+        api.get.assert_called_with(
+            "https://domain/api/v2/branding/themes/default",
+        )
+
+    @mock.patch("auth0.management.branding.RestClient")
+    def test_get_branding_theme(self, mock_rc):
+        api = mock_rc.return_value
+        api.get.return_value = {}
+
+        branding = Branding(domain="domain", token="jwttoken")
+        branding.get_branding_theme("theme_id")
+
+        api.get.assert_called_with(
+            "https://domain/api/v2/branding/themes/theme_id",
+        )
+
+    @mock.patch("auth0.management.branding.RestClient")
+    def test_delete_branding_theme(self, mock_rc):
+        api = mock_rc.return_value
+        api.delete.return_value = {}
+
+        branding = Branding(domain="domain", token="jwttoken")
+        branding.delete_branding_theme("theme_id")
+
+        api.delete.assert_called_with(
+            "https://domain/api/v2/branding/themes/theme_id",
+        )
+
+    @mock.patch("auth0.management.branding.RestClient")
+    def test_update_branding_theme(self, mock_rc):
+        api = mock_rc.return_value
+        api.patch.return_value = {}
+
+        branding = Branding(domain="domain", token="jwttoken")
+        branding.update_branding_theme("theme_id", {})
+
+        api.patch.assert_called_with(
+            "https://domain/api/v2/branding/themes/theme_id",
+            data={},
+        )
+
+    @mock.patch("auth0.management.branding.RestClient")
+    def test_create_branding_theme(self, mock_rc):
+        api = mock_rc.return_value
+        api.post.return_value = {}
+
+        branding = Branding(domain="domain", token="jwttoken")
+        branding.create_branding_theme({})
+
+        api.post.assert_called_with(
+            "https://domain/api/v2/branding/themes",
+            data={},
+        )

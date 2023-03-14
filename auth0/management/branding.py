@@ -93,3 +93,56 @@ class Branding:
             self._url("templates", "universal-login"),
             body={"template": body},
         )
+
+    def get_default_branding_theme(self):
+        """Retrieve default branding theme.
+
+        See: https://auth0.com/docs/api/management/v2#!/Branding/get_default_branding_theme
+        """
+
+        return self.client.get(self._url("themes", "default"))
+
+    def get_branding_theme(self, theme_id):
+        """Retrieve branding theme.
+
+        Args:
+            theme_id (str): The theme_id to retrieve branding theme for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Branding/get_branding_theme
+        """
+
+        return self.client.get(self._url("themes", theme_id))
+
+    def delete_branding_theme(self, theme_id):
+        """Delete branding theme.
+
+        Args:
+            theme_id (str): The theme_id to delete branding theme for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Branding/delete_branding_theme
+        """
+
+        return self.client.delete(self._url("themes", theme_id))
+
+    def update_branding_theme(self, theme_id, body):
+        """Update branding theme.
+
+        Args:
+            theme_id (str): The theme_id to update branding theme for.
+            body (dict): The attributes to set on the theme.
+
+        See: https://auth0.com/docs/api/management/v2#!/Branding/patch_branding_theme
+        """
+
+        return self.client.patch(self._url("themes", theme_id), data=body)
+
+    def create_branding_theme(self, body):
+        """Create branding theme.
+
+        Args:
+            body (dict): The attributes to set on the theme.
+
+        See: https://auth0.com/docs/api/management/v2#!/Branding/post_branding_theme
+        """
+
+        return self.client.post(self._url("themes"), data=body)
