@@ -325,3 +325,81 @@ class TestUsers(unittest.TestCase):
             "https://domain/api/v2/users/user-id/multifactor/actions/invalidate-remember-browser",
             args[0],
         )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_get_authentication_methods(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.get_authentication_methods("user_id")
+
+        mock_instance.get.assert_called_with(
+            "https://domain/api/v2/users/user_id/authentication-methods"
+        )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_get_authentication_method_by_id(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.get_authentication_method_by_id("user_id", "authentication_method_id")
+
+        mock_instance.get.assert_called_with(
+            "https://domain/api/v2/users/user_id/authentication-methods/authentication_method_id"
+        )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_create_authentication_method(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.create_authentication_method("user_id", {})
+
+        mock_instance.post.assert_called_with(
+            "https://domain/api/v2/users/user_id/authentication-methods", data={}
+        )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_update_authentication_methods(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.update_authentication_methods("user_id", {})
+
+        mock_instance.put.assert_called_with(
+            "https://domain/api/v2/users/user_id/authentication-methods", data={}
+        )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_update_authentication_method_by_id(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.update_authentication_method_by_id("user_id", "authentication_method_id", {})
+
+        mock_instance.patch.assert_called_with(
+            "https://domain/api/v2/users/user_id/authentication-methods/authentication_method_id",
+            data={},
+        )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_delete_authentication_methods(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.delete_authentication_methods("user_id")
+
+        mock_instance.delete.assert_called_with(
+            "https://domain/api/v2/users/user_id/authentication-methods"
+        )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_delete_authentication_method_by_id(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.delete_authentication_method_by_id("user_id", "authentication_method_id")
+
+        mock_instance.delete.assert_called_with(
+            "https://domain/api/v2/users/user_id/authentication-methods/authentication_method_id"
+        )
