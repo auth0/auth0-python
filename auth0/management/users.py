@@ -419,3 +419,95 @@ class Users:
 
         url = self._url(f"{user_id}/multifactor/actions/invalidate-remember-browser")
         return self.client.post(url)
+
+    def get_authentication_methods(self, user_id):
+        """Gets a list of authentication methods
+
+        Args:
+            user_id (str):  The user_id to get a list of authentication methods for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods
+        """
+
+        url = self._url(f"{user_id}/authentication-methods")
+        return self.client.get(url)
+
+    def get_authentication_method_by_id(self, user_id, authentication_method_id):
+        """Gets an authentication method by ID.
+
+        Args:
+            user_id (str):  The user_id to get an authentication method by ID for.
+            authentication_method_id (str):  The authentication_method_id to get an authentication method by ID for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/get_authentication_methods_by_authentication_method_id
+        """
+
+        url = self._url(f"{user_id}/authentication-methods/{authentication_method_id}")
+        return self.client.get(url)
+
+    def create_authentication_method(self, user_id, body):
+        """Creates an authentication method for a given user.
+
+        Args:
+            user_id (str):  The user_id to create an authentication method for a given user.
+            body (dict): the request body to create an authentication method for a given user.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/post_authentication_methods
+        """
+
+        url = self._url(f"{user_id}/authentication-methods")
+        return self.client.post(url, data=body)
+
+    def update_authentication_methods(self, user_id, body):
+        """Updates all authentication methods for a user by replacing them with the given ones.
+
+        Args:
+            user_id (str):  The user_id to update all authentication methods for.
+            body (dict): the request body to update all authentication methods with.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/put_authentication_methods
+        """
+
+        url = self._url(f"{user_id}/authentication-methods")
+        return self.client.put(url, data=body)
+
+    def update_authentication_method_by_id(
+        self, user_id, authentication_method_id, body
+    ):
+        """Updates an authentication method.
+
+        Args:
+            user_id (str):  The user_id to update an authentication method.
+            authentication_method_id (str):  The authentication_method_id to update an authentication method for.
+            body (dict): the request body to update an authentication method.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/patch_authentication_methods_by_authentication_method_id
+        """
+
+        url = self._url(f"{user_id}/authentication-methods/{authentication_method_id}")
+        return self.client.patch(url, data=body)
+
+    def delete_authentication_methods(self, user_id):
+        """Deletes all authentication methods for the given user.
+
+        Args:
+            user_id (str):  The user_id to delete all authentication methods for the given user for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_authentication_methods
+        """
+
+        url = self._url(f"{user_id}/authentication-methods")
+        return self.client.delete(url)
+
+    def delete_authentication_method_by_id(self, user_id, authentication_method_id):
+        """Deletes an authentication method by ID.
+
+        Args:
+            user_id (str):  The user_id to delete an authentication method by ID for.
+            authentication_method_id (str):  The authentication_method_id to delete an authentication method by ID for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_authentication_methods_by_authentication_method_id
+        """
+
+        url = self._url(f"{user_id}/authentication-methods/{authentication_method_id}")
+        return self.client.delete(url)
