@@ -1,4 +1,6 @@
-import warnings
+from __future__ import annotations
+
+from typing import Any
 
 from .base import AuthenticationBase
 
@@ -11,7 +13,9 @@ class Passwordless(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: my-domain.us.auth0.com)
     """
 
-    def email(self, email, send="link", auth_params=None):
+    def email(
+        self, email: str, send: str = "link", auth_params: dict[str, str] | None = None
+    ) -> Any:
         """Start flow sending an email.
 
         Given the user email address, it will send an email with:
@@ -48,7 +52,7 @@ class Passwordless(AuthenticationBase):
             f"{self.protocol}://{self.domain}/passwordless/start", data=data
         )
 
-    def sms(self, phone_number):
+    def sms(self, phone_number: str) -> Any:
         """Start flow sending an SMS message.
 
         Given the user phone number, it will send an SMS with

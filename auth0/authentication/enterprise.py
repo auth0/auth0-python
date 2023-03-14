@@ -1,3 +1,5 @@
+from typing import Any
+
 from .base import AuthenticationBase
 
 
@@ -9,7 +11,7 @@ class Enterprise(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: my-domain.us.auth0.com)
     """
 
-    def saml_metadata(self):
+    def saml_metadata(self) -> Any:
         """Get SAML2.0 Metadata."""
 
         return self.get(
@@ -18,7 +20,7 @@ class Enterprise(AuthenticationBase):
             )
         )
 
-    def wsfed_metadata(self):
+    def wsfed_metadata(self) -> Any:
         """Returns the WS-Federation Metadata."""
 
         url = "{}://{}/wsfed/FederationMetadata/2007-06/FederationMetadata.xml"

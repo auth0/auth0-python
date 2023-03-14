@@ -1,12 +1,18 @@
+from __future__ import annotations
+
 import datetime
 import uuid
+from typing import Any
 
 import jwt
 
 
 def create_client_assertion_jwt(
-    domain, client_id, client_assertion_signing_key, client_assertion_signing_alg
-):
+    domain: str,
+    client_id: str,
+    client_assertion_signing_key: str | None,
+    client_assertion_signing_alg: str | None,
+) -> str:
     """Creates a JWT for the client_assertion field.
 
     Args:
@@ -35,13 +41,13 @@ def create_client_assertion_jwt(
 
 
 def add_client_authentication(
-    payload,
-    domain,
-    client_id,
-    client_secret,
-    client_assertion_signing_key,
-    client_assertion_signing_alg,
-):
+    payload: dict[str, Any],
+    domain: str,
+    client_id: str,
+    client_secret: str,
+    client_assertion_signing_key: str | None,
+    client_assertion_signing_alg: str | None,
+) -> dict[str, Any]:
     """Adds the client_assertion or client_secret fields to authenticate a payload.
 
     Args:

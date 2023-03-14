@@ -1,3 +1,5 @@
+from typing import Any
+
 from .base import AuthenticationBase
 
 
@@ -8,7 +10,7 @@ class RevokeToken(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: my-domain.us.auth0.com)
     """
 
-    def revoke_refresh_token(self, token):
+    def revoke_refresh_token(self, token: str) -> Any:
         """Revokes a Refresh Token if it has been compromised
 
         Each revocation request invalidates not only the specific token, but all other tokens

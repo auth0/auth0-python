@@ -1,4 +1,6 @@
-import warnings
+from __future__ import annotations
+
+from typing import Any
 
 from .base import AuthenticationBase
 
@@ -12,17 +14,17 @@ class Database(AuthenticationBase):
 
     def signup(
         self,
-        email,
-        password,
-        connection,
-        username=None,
-        user_metadata=None,
-        given_name=None,
-        family_name=None,
-        name=None,
-        nickname=None,
-        picture=None,
-    ):
+        email: str,
+        password: str,
+        connection: str,
+        username: str | None = None,
+        user_metadata: dict[str, Any] | None = None,
+        given_name: str | None = None,
+        family_name: str | None = None,
+        name: str | None = None,
+        nickname: str | None = None,
+        picture: str | None = None,
+    ) -> Any:
         """Signup using email and password.
 
         Args:
@@ -75,7 +77,9 @@ class Database(AuthenticationBase):
             f"{self.protocol}://{self.domain}/dbconnections/signup", data=body
         )
 
-    def change_password(self, email, connection, password=None):
+    def change_password(
+        self, email: str, connection: str, password: str | None = None
+    ) -> Any:
         """Asks to change a password for a given user.
 
         email (str): The user's email address.
