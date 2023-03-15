@@ -113,7 +113,7 @@ class SignatureVerifier:
         kid = self._get_kid(token)
         secret_or_certificate = self._fetch_key(key_id=kid)
 
-        return self._decode_jwt(token, secret_or_certificate)
+        return self._decode_jwt(token, secret_or_certificate)  # type: ignore[arg-type]
 
 
 class SymmetricSignatureVerifier(SignatureVerifier):
@@ -149,7 +149,7 @@ class JwksFetcher:
 
     def _init_cache(self, cache_ttl: int) -> None:
         self._cache_value: dict[str, RSAPublicKey] = {}
-        self._cache_date = 0
+        self._cache_date = 0.0
         self._cache_ttl = cache_ttl
         self._cache_is_fresh = False
 

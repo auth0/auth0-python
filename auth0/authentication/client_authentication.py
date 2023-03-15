@@ -44,7 +44,7 @@ def add_client_authentication(
     payload: dict[str, Any],
     domain: str,
     client_id: str,
-    client_secret: str,
+    client_secret: str | None,
     client_assertion_signing_key: str | None,
     client_assertion_signing_alg: str | None,
 ) -> dict[str, Any]:
@@ -54,7 +54,7 @@ def add_client_authentication(
         payload (dict): The POST payload that needs additional fields to be authenticated.
         domain (str): The domain of your Auth0 tenant
         client_id (str): Your application's client ID
-        client_secret (str): Your application's client secret
+        client_secret (str, optional): Your application's client secret
         client_assertion_signing_key (str, optional): Private key used to sign the client assertion JWT
         client_assertion_signing_alg (str, optional): Algorithm used to sign the client assertion JWT (defaults to 'RS256')
 

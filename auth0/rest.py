@@ -41,29 +41,20 @@ class RestClientOptions:
 
     def __init__(
         self,
-        telemetry: bool | None = None,
-        timeout: TimeoutType | None = None,
-        retries: int | None = None,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        retries: int = 3,
     ) -> None:
-        self.telemetry = True
-        self.timeout = 5.0
-        self.retries = 3
-
-        if telemetry is not None:
-            self.telemetry = telemetry
-
-        if timeout is not None:
-            self.timeout = timeout
-
-        if retries is not None:
-            self.retries = retries
+        self.telemetry = telemetry
+        self.timeout = timeout
+        self.retries = retries
 
 
 class RestClient:
     """Provides simple methods for handling all RESTful api endpoints.
 
     Args:
-        jwt (str): The JWT to be used with the RestClient.
+        jwt (str, optional): The JWT to be used with the RestClient.
         telemetry (bool, optional): Enable or disable Telemetry
             (defaults to True)
         timeout (float or tuple, optional): Change the requests
@@ -79,7 +70,7 @@ class RestClient:
 
     def __init__(
         self,
-        jwt: str,
+        jwt: str | None,
         telemetry: bool = True,
         timeout: TimeoutType = 5.0,
         options: RestClientOptions | None = None,

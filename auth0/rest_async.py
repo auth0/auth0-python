@@ -1,3 +1,4 @@
+# mypy: disable-error-code=override
 from __future__ import annotations
 
 import asyncio
@@ -36,7 +37,7 @@ class AsyncRestClient(RestClient):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self._session = None
+        self._session: aiohttp.ClientSession | None = None
         sock_connect, sock_read = (
             self.timeout
             if isinstance(self.timeout, tuple)

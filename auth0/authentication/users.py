@@ -1,4 +1,9 @@
+from __future__ import annotations
+
+from typing import Any
+
 from auth0.rest import RestClient, RestClientOptions
+from auth0.types import TimeoutType
 
 
 class Users:
@@ -13,11 +18,11 @@ class Users:
 
     def __init__(
         self,
-        domain,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-    ):
+        domain: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
@@ -31,7 +36,7 @@ class Users:
         domain (str): Your auth0 domain (e.g: username.auth0.com)
     """
 
-    def userinfo(self, access_token):
+    def userinfo(self, access_token: str) -> dict[str, Any]:
         """Returns the user information based on the Auth0 access token.
         This endpoint will work only if openid was granted as a scope for the access_token.
 
@@ -42,7 +47,8 @@ class Users:
             The user profile.
         """
 
-        return self.client.get(
+        data: dict[str, Any] = self.client.get(
             url=f"{self.protocol}://{self.domain}/userinfo",
             headers={"Authorization": f"Bearer {access_token}"},
         )
+        return data

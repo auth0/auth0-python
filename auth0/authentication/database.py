@@ -24,7 +24,7 @@ class Database(AuthenticationBase):
         name: str | None = None,
         nickname: str | None = None,
         picture: str | None = None,
-    ) -> Any:
+    ) -> dict[str, Any]:
         """Signup using email and password.
 
         Args:
@@ -52,7 +52,7 @@ class Database(AuthenticationBase):
 
         See: https://auth0.com/docs/api/authentication#signup
         """
-        body = {
+        body: dict[str, Any] = {
             "client_id": self.client_id,
             "email": email,
             "password": password,
@@ -73,13 +73,14 @@ class Database(AuthenticationBase):
         if picture:
             body.update({"picture": picture})
 
-        return self.post(
+        data: dict[str, Any] = self.post(
             f"{self.protocol}://{self.domain}/dbconnections/signup", data=body
         )
+        return data
 
     def change_password(
         self, email: str, connection: str, password: str | None = None
-    ) -> Any:
+    ) -> str:
         """Asks to change a password for a given user.
 
         email (str): The user's email address.
@@ -92,7 +93,8 @@ class Database(AuthenticationBase):
             "connection": connection,
         }
 
-        return self.post(
+        data: str = self.post(
             f"{self.protocol}://{self.domain}/dbconnections/change_password",
             data=body,
         )
+        return data

@@ -39,7 +39,7 @@ class Passwordless(AuthenticationBase):
             auth_params (dict, optional): Parameters to append or override.
         """
 
-        data = {
+        data: dict[str, Any] = {
             "client_id": self.client_id,
             "connection": "email",
             "email": email,

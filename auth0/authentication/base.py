@@ -67,7 +67,7 @@ class AuthenticationBase:
     def authenticated_post(
         self,
         url: str,
-        data: dict[str, Any] | None = None,
+        data: dict[str, Any],
         headers: dict[str, str] | None = None,
     ) -> Any:
         return self.client.post(
