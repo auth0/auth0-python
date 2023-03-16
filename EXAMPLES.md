@@ -32,7 +32,7 @@ For symmetric algorithms like HS256, use the `SymmetricSignatureVerifier` class,
 The following example demonstrates the verification of an ID token signed with the RS256 signing algorithm:
 
 ```python
-from auth0.authentication import TokenVerifier, AsymmetricSignatureVerifier
+from auth0.authentication.token_verifier import TokenVerifier, AsymmetricSignatureVerifier
 
 domain = 'myaccount.auth0.com'
 client_id = 'exampleid'
