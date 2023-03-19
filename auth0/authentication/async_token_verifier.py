@@ -40,7 +40,7 @@ class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
         key_id (str): The key's key id."""
         return await self._fetcher.get_key(key_id)
 
-    async def verify_signature(self, token):
+    async def verify_signature(self, token) -> dict[str, Any]:
         """Verifies the signature of the given JSON web token.
 
         Args:

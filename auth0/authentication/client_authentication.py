@@ -10,7 +10,7 @@ import jwt
 def create_client_assertion_jwt(
     domain: str,
     client_id: str,
-    client_assertion_signing_key: str | None,
+    client_assertion_signing_key: str,
     client_assertion_signing_alg: str | None,
 ) -> str:
     """Creates a JWT for the client_assertion field.
@@ -18,7 +18,7 @@ def create_client_assertion_jwt(
     Args:
         domain (str): The domain of your Auth0 tenant
         client_id (str): Your application's client ID
-        client_assertion_signing_key (str, optional): Private key used to sign the client assertion JWT
+        client_assertion_signing_key (str): Private key used to sign the client assertion JWT
         client_assertion_signing_alg (str, optional): Algorithm used to sign the client assertion JWT (defaults to 'RS256')
 
     Returns:

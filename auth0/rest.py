@@ -255,7 +255,7 @@ class RestClient:
         wait = max(self.MIN_REQUEST_RETRY_DELAY(), wait)
 
         self._metrics["retries"] = attempt
-        self._metrics["backoff"].append(wait)
+        self._metrics["backoff"].append(wait)  # type: ignore[attr-defined]
 
         return wait
 

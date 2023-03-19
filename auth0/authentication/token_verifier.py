@@ -39,7 +39,7 @@ class SignatureVerifier:
             raise ValueError("algorithm must be specified.")
         self._algorithm = algorithm
 
-    def _fetch_key(self, key_id: str | None = None) -> str | RSAPublicKey:
+    def _fetch_key(self, key_id: str) -> str | RSAPublicKey:
         """Obtains the key associated to the given key id.
         Must be implemented by subclasses.
 
@@ -111,6 +111,8 @@ class SignatureVerifier:
             or the token's signature doesn't match the calculated one.
         """
         kid = self._get_kid(token)
+        if kid is None:
+            kid = ""
         secret_or_certificate = self._fetch_key(key_id=kid)
 
         return self._decode_jwt(token, secret_or_certificate)  # type: ignore[arg-type]
@@ -128,7 +130,7 @@ class SymmetricSignatureVerifier(SignatureVerifier):
         super().__init__(algorithm)
         self._shared_secret = shared_secret
 
-    def _fetch_key(self, key_id: str | None = None) -> str:
+    def _fetch_key(self, key_id: str = "") -> str:
         return self._shared_secret
 
 

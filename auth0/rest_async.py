@@ -1,4 +1,3 @@
-# mypy: disable-error-code=override
 from __future__ import annotations
 
 import asyncio
@@ -115,8 +114,8 @@ class AsyncRestClient(RestClient):
     async def file_post(
         self,
         url: str,
-        data: dict[str, Any] | None = None,
-        files: dict[str, Any] | None = None,
+        data: dict[str, Any],
+        files: dict[str, Any],
     ) -> Any:
         headers = self.base_headers.copy()
         headers.pop("Content-Type", None)
