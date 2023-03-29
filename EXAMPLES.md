@@ -2,11 +2,11 @@
 
 - [Authentication SDK](#authentication-sdk)
   - [ID token validation](#id-token-validation)
-  - [Authenticating with a application configured to use `private_key_jwt` token endpoint auth method](#authenticating-with-a-application-configured-to-use-private-key-jwt-token-endpoint-auth-method)
+  - [Authenticating with an application configured to use `private_key_jwt` token endpoint auth method](#authenticating-with-a-application-configured-to-use-private-key-jwt-token-endpoint-auth-method)
 - [Management SDK](#management-sdk)
   - [Connections](#connections)
-  - [Error handling](#error-handling)
-  - [Asynchronous environments](#asynchronous-environments)
+- [Error handling](#error-handling)
+- [Asynchronous environments](#asynchronous-environments)
   
 ## Authentication SDK
 
@@ -135,7 +135,7 @@ Success!
 All endpoints follow a similar structure to `connections`, and try to follow as
 closely as possible the [API documentation](https://auth0.com/docs/api/v2).
 
-### Error handling
+## Error handling
 
 When consuming methods from the API clients, the requests could fail for a number of reasons:
 - Invalid data sent as part of the request: An `Auth0Error` is raised with the error code and description.
@@ -143,7 +143,7 @@ When consuming methods from the API clients, the requests could fail for a numbe
 resets is exposed in the `reset_at` property. When the header is unset, this value will be `-1`.
 - Network timeouts: Adjustable by passing a `timeout` argument to the client. See the [rate limit docs](https://auth0.com/docs/policies/rate-limits) for details.
 
-### Asynchronous environments
+## Asynchronous environments
 
 This SDK provides async methods built on top of [asyncio](https://docs.python.org/3/library/asyncio.html). To make them available you must have the [aiohttp](https://docs.aiohttp.org/en/stable/) module installed.
 
