@@ -1,7 +1,7 @@
 import aiohttp
 
 from ..asyncify import asyncify
-from .auth0 import modules
+from .auth0 import Auth0
 
 
 class AsyncAuth0:
@@ -20,8 +20,8 @@ class AsyncAuth0:
 
     def __init__(self, domain, token, rest_options=None):
         self._services = []
-        for name, cls in modules.items():
-            cls = asyncify(cls)
+        for name, attr in vars(Auth0(domain, token, rest_options=rest_options)).items():
+            cls = asyncify(attr.__class__)
             service = cls(domain=domain, token=token, rest_options=rest_options)
             self._services.append(service)
             setattr(

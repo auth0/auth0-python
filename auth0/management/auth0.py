@@ -1,4 +1,3 @@
-from ..utils import is_async_available
 from .actions import Actions
 from .attack_protection import AttackProtection
 from .blacklists import Blacklists
@@ -30,39 +29,6 @@ from .user_blocks import UserBlocks
 from .users import Users
 from .users_by_email import UsersByEmail
 
-modules = {
-    "actions": Actions,
-    "attack_protection": AttackProtection,
-    "blacklists": Blacklists,
-    "branding": Branding,
-    "client_credentials": ClientCredentials,
-    "client_grants": ClientGrants,
-    "clients": Clients,
-    "connections": Connections,
-    "custom_domains": CustomDomains,
-    "device_credentials": DeviceCredentials,
-    "email_templates": EmailTemplates,
-    "emails": Emails,
-    "grants": Grants,
-    "guardian": Guardian,
-    "hooks": Hooks,
-    "jobs": Jobs,
-    "log_streams": LogStreams,
-    "logs": Logs,
-    "organizations": Organizations,
-    "prompts": Prompts,
-    "resource_servers": ResourceServers,
-    "roles": Roles,
-    "rules_configs": RulesConfigs,
-    "rules": Rules,
-    "stats": Stats,
-    "tenants": Tenants,
-    "tickets": Tickets,
-    "user_blocks": UserBlocks,
-    "users_by_email": UsersByEmail,
-    "users": Users,
-}
-
 
 class Auth0:
     """Provides easy access to all endpoint classes
@@ -79,9 +45,41 @@ class Auth0:
     """
 
     def __init__(self, domain, token, rest_options=None):
-        for name, cls in modules.items():
-            setattr(
-                self,
-                name,
-                cls(domain=domain, token=token, rest_options=rest_options),
-            )
+        self.actions = Actions(domain, token, rest_options=rest_options)
+        self.attack_protection = AttackProtection(
+            domain, token, rest_options=rest_options
+        )
+        self.blacklists = Blacklists(domain, token, rest_options=rest_options)
+        self.branding = Branding(domain, token, rest_options=rest_options)
+        self.client_credentials = ClientCredentials(
+            domain, token, rest_options=rest_options
+        )
+        self.client_grants = ClientGrants(domain, token, rest_options=rest_options)
+        self.clients = Clients(domain, token, rest_options=rest_options)
+        self.connections = Connections(domain, token, rest_options=rest_options)
+        self.custom_domains = CustomDomains(domain, token, rest_options=rest_options)
+        self.device_credentials = DeviceCredentials(
+            domain, token, rest_options=rest_options
+        )
+        self.email_templates = EmailTemplates(domain, token, rest_options=rest_options)
+        self.emails = Emails(domain, token, rest_options=rest_options)
+        self.grants = Grants(domain, token, rest_options=rest_options)
+        self.guardian = Guardian(domain, token, rest_options=rest_options)
+        self.hooks = Hooks(domain, token, rest_options=rest_options)
+        self.jobs = Jobs(domain, token, rest_options=rest_options)
+        self.log_streams = LogStreams(domain, token, rest_options=rest_options)
+        self.logs = Logs(domain, token, rest_options=rest_options)
+        self.organizations = Organizations(domain, token, rest_options=rest_options)
+        self.prompts = Prompts(domain, token, rest_options=rest_options)
+        self.resource_servers = ResourceServers(
+            domain, token, rest_options=rest_options
+        )
+        self.roles = Roles(domain, token, rest_options=rest_options)
+        self.rules_configs = RulesConfigs(domain, token, rest_options=rest_options)
+        self.rules = Rules(domain, token, rest_options=rest_options)
+        self.stats = Stats(domain, token, rest_options=rest_options)
+        self.tenants = Tenants(domain, token, rest_options=rest_options)
+        self.tickets = Tickets(domain, token, rest_options=rest_options)
+        self.user_blocks = UserBlocks(domain, token, rest_options=rest_options)
+        self.users_by_email = UsersByEmail(domain, token, rest_options=rest_options)
+        self.users = Users(domain, token, rest_options=rest_options)
