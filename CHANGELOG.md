@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.1.1](https://github.com/auth0/auth0-python/tree/4.1.1) (2023-04-03)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.1.0...4.1.1)
+
+**Fixed**
+- Fix intellisense on Auth0 class [\#486](https://github.com/auth0/auth0-python/pull/486) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.1.0](https://github.com/auth0/auth0-python/tree/4.1.0) (2023-03-14)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.0.0...4.1.0)
 
