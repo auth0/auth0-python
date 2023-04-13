@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.1.1](https://github.com/auth0/auth0-python/tree/4.1.1) (2023-04-13)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.1.0...4.1.1)
+
+**Fixed**
+- Make pw realm params optional [\#484](https://github.com/auth0/auth0-python/pull/484) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Fix intellisense on Auth0 class [\#486](https://github.com/auth0/auth0-python/pull/486) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.1.0](https://github.com/auth0/auth0-python/tree/4.1.0) (2023-03-14)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.0.0...4.1.0)
 
