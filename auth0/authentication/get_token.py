@@ -118,9 +118,9 @@ class GetToken(AuthenticationBase):
         self,
         username,
         password,
-        scope,
-        realm,
-        audience,
+        scope=None,
+        realm=None,
+        audience=None,
         grant_type="http://auth0.com/oauth/grant-type/password-realm",
     ):
         """Calls /oauth/token endpoint with password-realm grant type
@@ -134,17 +134,17 @@ class GetToken(AuthenticationBase):
         this information.
 
         Args:
-            audience (str): The unique identifier of the target API you want to access.
-
             username (str): Resource owner's identifier
 
             password (str): resource owner's Secret
 
-            scope(str): String value of the different scopes the client is asking for.
+            scope(str, optional): String value of the different scopes the client is asking for.
             Multiple scopes are separated with whitespace.
 
-            realm (str): String value of the realm the user belongs.
+            realm (str, optional): String value of the realm the user belongs.
             Set this if you want to add realm support at this grant.
+
+            audience (str, optional): The unique identifier of the target API you want to access.
 
             grant_type (str, optional): Denotes the flow you're using. For password realm
             use http://auth0.com/oauth/grant-type/password-realm

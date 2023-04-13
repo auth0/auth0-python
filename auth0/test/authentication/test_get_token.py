@@ -164,6 +164,32 @@ class TestGetToken(unittest.TestCase):
         )
 
     @mock.patch("auth0.rest.RestClient.post")
+    def test_login_simple(self, mock_post):
+        g = GetToken("my.domain.com", "cid", client_secret="clsec")
+
+        g.login(
+            username="usrnm",
+            password="pswd",
+        )
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], "https://my.domain.com/oauth/token")
+        self.assertEqual(
+            kwargs["data"],
+            {
+                "client_id": "cid",
+                "client_secret": "clsec",
+                "username": "usrnm",
+                "password": "pswd",
+                "realm": None,
+                "scope": None,
+                "audience": None,
+                "grant_type": "http://auth0.com/oauth/grant-type/password-realm",
+            },
+        )
+
+    @mock.patch("auth0.rest.RestClient.post")
     def test_refresh_token(self, mock_post):
         g = GetToken("my.domain.com", "cid", client_secret="clsec")
 
