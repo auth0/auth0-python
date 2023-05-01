@@ -69,6 +69,14 @@ class TestSignatureVerifier(unittest.TestCase):
         verifier = AsymmetricSignatureVerifier("some URL")
         self.assertEqual(verifier._algorithm, "RS256")
 
+    def test_asymmetric_verifier_uses_default_jwks_cache_ttl(self):
+        verifier = AsymmetricSignatureVerifier("some URL")
+        self.assertEqual(verifier._fetcher._cache_ttl, JwksFetcher.CACHE_TTL)
+
+    def test_asymmetric_verifier_uses_provided_jwks_cache_ttl(self):
+        verifier = AsymmetricSignatureVerifier("some URL", cache_ttl=3600)
+        self.assertEqual(verifier._fetcher._cache_ttl, 3600)
+
     def test_symmetric_verifier_fetches_key(self):
         verifier = SymmetricSignatureVerifier("some secret")
         key = verifier._fetch_key()
