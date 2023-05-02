@@ -126,22 +126,6 @@ class SymmetricSignatureVerifier(SignatureVerifier):
         return self._shared_secret
 
 
-class AsymmetricSignatureVerifier(SignatureVerifier):
-    """Verifier for RSA signatures, which rely on public key certificates.
-
-    Args:
-        jwks_url (str): The url where the JWK set is located.
-        algorithm (str, optional): The expected signing algorithm. Defaults to "RS256".
-    """
-
-    def __init__(self, jwks_url, algorithm="RS256"):
-        super().__init__(algorithm)
-        self._fetcher = JwksFetcher(jwks_url)
-
-    def _fetch_key(self, key_id=None):
-        return self._fetcher.get_key(key_id)
-
-
 class JwksFetcher:
     """Class that fetches and holds a JSON web key set.
     This class makes use of an in-memory cache. For it to work properly, define this instance once and re-use it.
@@ -237,6 +221,23 @@ class JwksFetcher:
             if keys and key_id in keys:
                 return keys[key_id]
         raise TokenValidationError(f'RSA Public Key with ID "{key_id}" was not found.')
+
+
+class AsymmetricSignatureVerifier(SignatureVerifier):
+    """Verifier for RSA signatures, which rely on public key certificates.
+
+    Args:
+        jwks_url (str): The url where the JWK set is located.
+        algorithm (str, optional): The expected signing algorithm. Defaults to "RS256".
+        cache_ttl (int, optional): The lifetime of the JWK set cache in seconds. Defaults to 600 seconds.
+    """
+
+    def __init__(self, jwks_url, algorithm="RS256", cache_ttl=JwksFetcher.CACHE_TTL):
+        super().__init__(algorithm)
+        self._fetcher = JwksFetcher(jwks_url, cache_ttl)
+
+    def _fetch_key(self, key_id=None):
+        return self._fetcher.get_key(key_id)
 
 
 class TokenVerifier:
