@@ -1,4 +1,4 @@
-__version__ = "4.1.1"
+__version__ = "4.2.0"
 
 from auth0.exceptions import Auth0Error, RateLimitError, TokenValidationError
 

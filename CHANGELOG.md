@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.2.0](https://github.com/auth0/auth0-python/tree/4.2.0) (2023-05-02)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.1.1...4.2.0)
+
+**Added**
+- Add cache_ttl param to AsymmetricSignatureVerifier [\#490](https://github.com/auth0/auth0-python/pull/490) ([matei-radu](https://github.com/matei-radu))
+
 ## [4.1.1](https://github.com/auth0/auth0-python/tree/4.1.1) (2023-04-13)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.1.0...4.1.1)
 
