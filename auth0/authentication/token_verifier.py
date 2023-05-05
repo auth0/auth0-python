@@ -241,7 +241,12 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
         cache_ttl (int, optional): The lifetime of the JWK set cache in seconds. Defaults to 600 seconds.
     """
 
-    def __init__(self, jwks_url: str, algorithm: str = "RS256", cache_ttl: int = JwksFetcher.CACHE_TTL) -> None:
+    def __init__(
+        self,
+        jwks_url: str,
+        algorithm: str = "RS256",
+        cache_ttl: int = JwksFetcher.CACHE_TTL,
+    ) -> None:
         super().__init__(algorithm)
         self._fetcher = JwksFetcher(jwks_url, cache_ttl)
 
