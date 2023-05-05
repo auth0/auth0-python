@@ -44,7 +44,7 @@ class SignatureVerifier:
         Must be implemented by subclasses.
 
         Args:
-            key_id (str, optional): The id of the key to fetch.
+            key_id (str): The id of the key to fetch.
 
         Returns:
             the key to use for verifying a cryptographic signature
@@ -250,7 +250,7 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
         super().__init__(algorithm)
         self._fetcher = JwksFetcher(jwks_url, cache_ttl)
 
-    def _fetch_key(self, key_id: str | None = None) -> RSAPublicKey:
+    def _fetch_key(self, key_id: str) -> RSAPublicKey:
         return self._fetcher.get_key(key_id)
 
 
