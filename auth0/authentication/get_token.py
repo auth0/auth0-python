@@ -1,5 +1,8 @@
+from __future__ import annotations
+
+from typing import Any
+
 from .base import AuthenticationBase
-from .client_authentication import add_client_authentication
 
 
 class GetToken(AuthenticationBase):
@@ -12,10 +15,10 @@ class GetToken(AuthenticationBase):
 
     def authorization_code(
         self,
-        code,
-        redirect_uri,
-        grant_type="authorization_code",
-    ):
+        code: str,
+        redirect_uri: str | None,
+        grant_type: str = "authorization_code",
+    ) -> Any:
         """Authorization code grant
 
         This is the OAuth 2.0 grant that regular web apps utilize in order
@@ -47,11 +50,11 @@ class GetToken(AuthenticationBase):
 
     def authorization_code_pkce(
         self,
-        code_verifier,
-        code,
-        redirect_uri,
-        grant_type="authorization_code",
-    ):
+        code_verifier: str,
+        code: str,
+        redirect_uri: str | None,
+        grant_type: str = "authorization_code",
+    ) -> Any:
         """Authorization code pkce grant
 
         This is the OAuth 2.0 grant that mobile apps utilize in order to access an API.
@@ -86,9 +89,9 @@ class GetToken(AuthenticationBase):
 
     def client_credentials(
         self,
-        audience,
-        grant_type="client_credentials",
-    ):
+        audience: str,
+        grant_type: str = "client_credentials",
+    ) -> Any:
         """Client credentials grant
 
         This is the OAuth 2.0 grant that server processes utilize in
@@ -116,13 +119,13 @@ class GetToken(AuthenticationBase):
 
     def login(
         self,
-        username,
-        password,
-        scope=None,
-        realm=None,
-        audience=None,
-        grant_type="http://auth0.com/oauth/grant-type/password-realm",
-    ):
+        username: str,
+        password: str,
+        scope: str | None = None,
+        realm: str | None = None,
+        audience: str | None = None,
+        grant_type: str = "http://auth0.com/oauth/grant-type/password-realm",
+    ) -> Any:
         """Calls /oauth/token endpoint with password-realm grant type
 
 
@@ -168,10 +171,10 @@ class GetToken(AuthenticationBase):
 
     def refresh_token(
         self,
-        refresh_token,
-        scope="",
-        grant_type="refresh_token",
-    ):
+        refresh_token: str,
+        scope: str = "",
+        grant_type: str = "refresh_token",
+    ) -> Any:
         """Calls /oauth/token endpoint with refresh token grant type
 
         Use this endpoint to refresh an access token, using the refresh token you got during authorization.
@@ -199,7 +202,9 @@ class GetToken(AuthenticationBase):
             },
         )
 
-    def passwordless_login(self, username, otp, realm, scope, audience):
+    def passwordless_login(
+        self, username: str, otp: str, realm: str, scope: str, audience: str
+    ) -> Any:
         """Calls /oauth/token endpoint with http://auth0.com/oauth/grant-type/passwordless/otp grant type
 
         Once the verification code was received, login the user using this endpoint with their

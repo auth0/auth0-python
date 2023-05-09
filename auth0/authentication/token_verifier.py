@@ -1,11 +1,17 @@
 """Token Verifier module"""
+from __future__ import annotations
+
 import json
 import time
+from typing import TYPE_CHECKING, Any, ClassVar
 
 import jwt
 import requests
 
 from auth0.exceptions import TokenValidationError
+
+if TYPE_CHECKING:
+    from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
 
 
 class SignatureVerifier:
@@ -16,7 +22,7 @@ class SignatureVerifier:
         algorithm (str): The expected signing algorithm (e.g. RS256).
     """
 
-    DISABLE_JWT_CHECKS = {
+    DISABLE_JWT_CHECKS: ClassVar[dict[str, bool]] = {
         "verify_signature": True,
         "verify_exp": False,
         "verify_nbf": False,
@@ -28,24 +34,24 @@ class SignatureVerifier:
         "require_nbf": False,
     }
 
-    def __init__(self, algorithm):
+    def __init__(self, algorithm: str) -> None:
         if not algorithm or type(algorithm) != str:
             raise ValueError("algorithm must be specified.")
         self._algorithm = algorithm
 
-    def _fetch_key(self, key_id=None):
+    def _fetch_key(self, key_id: str) -> str | RSAPublicKey:
         """Obtains the key associated to the given key id.
         Must be implemented by subclasses.
 
         Args:
-            key_id (str, optional): The id of the key to fetch.
+            key_id (str): The id of the key to fetch.
 
         Returns:
             the key to use for verifying a cryptographic signature
         """
         raise NotImplementedError
 
-    def _get_kid(self, token):
+    def _get_kid(self, token: str) -> str | None:
         """Gets the key id from the kid claim of the header of the token
 
         Args:
@@ -72,7 +78,7 @@ class SignatureVerifier:
 
         return header.get("kid", None)
 
-    def _decode_jwt(self, token, secret_or_certificate):
+    def _decode_jwt(self, token: str, secret_or_certificate: str) -> dict[str, Any]:
         """Verifies and decodes the given JSON web token with the given public key or shared secret.
 
         Args:
@@ -94,7 +100,7 @@ class SignatureVerifier:
             raise TokenValidationError("Invalid token signature.")
         return decoded
 
-    def verify_signature(self, token):
+    def verify_signature(self, token: str) -> dict[str, Any]:
         """Verifies the signature of the given JSON web token.
 
         Args:
@@ -105,9 +111,11 @@ class SignatureVerifier:
             or the token's signature doesn't match the calculated one.
         """
         kid = self._get_kid(token)
+        if kid is None:
+            kid = ""
         secret_or_certificate = self._fetch_key(key_id=kid)
 
-        return self._decode_jwt(token, secret_or_certificate)
+        return self._decode_jwt(token, secret_or_certificate)  # type: ignore[arg-type]
 
 
 class SymmetricSignatureVerifier(SignatureVerifier):
@@ -118,11 +126,11 @@ class SymmetricSignatureVerifier(SignatureVerifier):
         algorithm (str, optional): The expected signing algorithm. Defaults to "HS256".
     """
 
-    def __init__(self, shared_secret, algorithm="HS256"):
+    def __init__(self, shared_secret: str, algorithm: str = "HS256") -> None:
         super().__init__(algorithm)
         self._shared_secret = shared_secret
 
-    def _fetch_key(self, key_id=None):
+    def _fetch_key(self, key_id: str = "") -> str:
         return self._shared_secret
 
 
@@ -135,20 +143,19 @@ class JwksFetcher:
         cache_ttl (str, optional): The lifetime of the JWK set cache in seconds. Defaults to 600 seconds.
     """
 
-    CACHE_TTL = 600  # 10 min cache lifetime
+    CACHE_TTL: ClassVar[int] = 600  # 10 min cache lifetime
 
-    def __init__(self, jwks_url, cache_ttl=CACHE_TTL):
+    def __init__(self, jwks_url: str, cache_ttl: int = CACHE_TTL) -> None:
         self._jwks_url = jwks_url
         self._init_cache(cache_ttl)
-        return
 
-    def _init_cache(self, cache_ttl):
-        self._cache_value = {}
-        self._cache_date = 0
+    def _init_cache(self, cache_ttl: int) -> None:
+        self._cache_value: dict[str, RSAPublicKey] = {}
+        self._cache_date = 0.0
         self._cache_ttl = cache_ttl
         self._cache_is_fresh = False
 
-    def _cache_expired(self):
+    def _cache_expired(self) -> bool:
         """Checks if the cache is expired
 
         Returns:
@@ -156,7 +163,7 @@ class JwksFetcher:
         """
         return self._cache_date + self._cache_ttl < time.time()
 
-    def _cache_jwks(self, jwks):
+    def _cache_jwks(self, jwks: dict[str, Any]) -> None:
         """Cache the response of the JWKS request
 
         Args:
@@ -166,7 +173,7 @@ class JwksFetcher:
         self._cache_is_fresh = True
         self._cache_date = time.time()
 
-    def _fetch_jwks(self, force=False):
+    def _fetch_jwks(self, force: bool = False) -> dict[str, RSAPublicKey]:
         """Attempts to obtain the JWK set from the cache, as long as it's still valid.
         When not, it will perform a network request to the jwks_url to obtain a fresh result
         and update the cache value with it.
@@ -178,7 +185,7 @@ class JwksFetcher:
             self._cache_value = {}
             response = requests.get(self._jwks_url)
             if response.ok:
-                jwks = response.json()
+                jwks: dict[str, Any] = response.json()
                 self._cache_jwks(jwks)
             return self._cache_value
 
@@ -186,20 +193,22 @@ class JwksFetcher:
         return self._cache_value
 
     @staticmethod
-    def _parse_jwks(jwks):
+    def _parse_jwks(jwks: dict[str, Any]) -> dict[str, RSAPublicKey]:
         """
         Converts a JWK string representation into a binary certificate in PEM format.
         """
-        keys = {}
+        keys: dict[str, RSAPublicKey] = {}
 
         for key in jwks["keys"]:
             # noinspection PyUnresolvedReferences
             # requirement already includes cryptography -> pyjwt[crypto]
-            rsa_key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(key))
+            rsa_key: RSAPublicKey = jwt.algorithms.RSAAlgorithm.from_jwk(
+                json.dumps(key)
+            )
             keys[key["kid"]] = rsa_key
         return keys
 
-    def get_key(self, key_id):
+    def get_key(self, key_id: str) -> RSAPublicKey:
         """Obtains the JWK associated with the given key id.
 
         Args:
@@ -232,11 +241,16 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
         cache_ttl (int, optional): The lifetime of the JWK set cache in seconds. Defaults to 600 seconds.
     """
 
-    def __init__(self, jwks_url, algorithm="RS256", cache_ttl=JwksFetcher.CACHE_TTL):
+    def __init__(
+        self,
+        jwks_url: str,
+        algorithm: str = "RS256",
+        cache_ttl: int = JwksFetcher.CACHE_TTL,
+    ) -> None:
         super().__init__(algorithm)
         self._fetcher = JwksFetcher(jwks_url, cache_ttl)
 
-    def _fetch_key(self, key_id=None):
+    def _fetch_key(self, key_id: str) -> RSAPublicKey:
         return self._fetcher.get_key(key_id)
 
 
@@ -252,7 +266,13 @@ class TokenVerifier:
         Defaults to 60 seconds.
     """
 
-    def __init__(self, signature_verifier, issuer, audience, leeway=0):
+    def __init__(
+        self,
+        signature_verifier: SignatureVerifier,
+        issuer: str,
+        audience: str,
+        leeway: int = 0,
+    ) -> None:
         if not signature_verifier or not isinstance(
             signature_verifier, SignatureVerifier
         ):
@@ -266,7 +286,13 @@ class TokenVerifier:
         self._sv = signature_verifier
         self._clock = None  # visible for testing
 
-    def verify(self, token, nonce=None, max_age=None, organization=None):
+    def verify(
+        self,
+        token: str,
+        nonce: str | None = None,
+        max_age: int | None = None,
+        organization: str | None = None,
+    ) -> dict[str, Any]:
         """Attempts to verify the given ID token, following the steps defined in the OpenID Connect spec.
 
         Args:
@@ -296,7 +322,13 @@ class TokenVerifier:
 
         return payload
 
-    def _verify_payload(self, payload, nonce=None, max_age=None, organization=None):
+    def _verify_payload(
+        self,
+        payload: dict[str, Any],
+        nonce: str | None = None,
+        max_age: int | None = None,
+        organization: str | None = None,
+    ) -> None:
         # Issuer
         if "iss" not in payload or not isinstance(payload["iss"], str):
             raise TokenValidationError(

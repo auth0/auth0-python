@@ -1,4 +1,6 @@
-import warnings
+from __future__ import annotations
+
+from typing import Any
 
 from .base import AuthenticationBase
 
@@ -12,17 +14,17 @@ class Database(AuthenticationBase):
 
     def signup(
         self,
-        email,
-        password,
-        connection,
-        username=None,
-        user_metadata=None,
-        given_name=None,
-        family_name=None,
-        name=None,
-        nickname=None,
-        picture=None,
-    ):
+        email: str,
+        password: str,
+        connection: str,
+        username: str | None = None,
+        user_metadata: dict[str, Any] | None = None,
+        given_name: str | None = None,
+        family_name: str | None = None,
+        name: str | None = None,
+        nickname: str | None = None,
+        picture: str | None = None,
+    ) -> dict[str, Any]:
         """Signup using email and password.
 
         Args:
@@ -50,7 +52,7 @@ class Database(AuthenticationBase):
 
         See: https://auth0.com/docs/api/authentication#signup
         """
-        body = {
+        body: dict[str, Any] = {
             "client_id": self.client_id,
             "email": email,
             "password": password,
@@ -71,11 +73,14 @@ class Database(AuthenticationBase):
         if picture:
             body.update({"picture": picture})
 
-        return self.post(
+        data: dict[str, Any] = self.post(
             f"{self.protocol}://{self.domain}/dbconnections/signup", data=body
         )
+        return data
 
-    def change_password(self, email, connection, password=None):
+    def change_password(
+        self, email: str, connection: str, password: str | None = None
+    ) -> str:
         """Asks to change a password for a given user.
 
         email (str): The user's email address.
@@ -88,7 +93,8 @@ class Database(AuthenticationBase):
             "connection": connection,
         }
 
-        return self.post(
+        data: str = self.post(
             f"{self.protocol}://{self.domain}/dbconnections/change_password",
             data=body,
         )
+        return data

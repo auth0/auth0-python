@@ -1,4 +1,4 @@
-def is_async_available():
+def is_async_available() -> bool:
     try:
         import asyncio
 

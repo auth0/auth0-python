@@ -1,3 +1,5 @@
+from typing import Any
+
 from .base import AuthenticationBase
 
 
@@ -9,7 +11,7 @@ class Social(AuthenticationBase):
         domain (str): Your auth0 domain (e.g: my-domain.us.auth0.com)
     """
 
-    def login(self, access_token, connection, scope="openid"):
+    def login(self, access_token: str, connection: str, scope: str = "openid") -> Any:
         """Login using a social provider's access token
 
         Given the social provider's access_token and the connection specified,

@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Any
+
 from .base import AuthenticationBase
 
 
@@ -10,13 +14,13 @@ class Delegated(AuthenticationBase):
 
     def get_token(
         self,
-        target,
-        api_type,
-        grant_type,
-        id_token=None,
-        refresh_token=None,
-        scope="openid",
-    ):
+        target: str,
+        api_type: str,
+        grant_type: str,
+        id_token: str | None = None,
+        refresh_token: str | None = None,
+        scope: str = "openid",
+    ) -> Any:
         """Obtain a delegation token."""
 
         if id_token and refresh_token:

@@ -1,13 +1,20 @@
+from __future__ import annotations
+
 import base64
 import json
 import platform
 import sys
 from random import randint
 from time import sleep
+from typing import TYPE_CHECKING, Any, Mapping
 
 import requests
 
 from auth0.exceptions import Auth0Error, RateLimitError
+from auth0.types import RequestData, TimeoutType
+
+if TYPE_CHECKING:
+    from auth0.rest_async import RequestsResponse
 
 UNKNOWN_ERROR = "a0.sdk.internal.unknown"
 
@@ -32,25 +39,22 @@ class RestClientOptions:
             (defaults to 3)
     """
 
-    def __init__(self, telemetry=None, timeout=None, retries=None):
-        self.telemetry = True
-        self.timeout = 5.0
-        self.retries = 3
-
-        if telemetry is not None:
-            self.telemetry = telemetry
-
-        if timeout is not None:
-            self.timeout = timeout
-
-        if retries is not None:
-            self.retries = retries
+    def __init__(
+        self,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        retries: int = 3,
+    ) -> None:
+        self.telemetry = telemetry
+        self.timeout = timeout
+        self.retries = retries
 
 
 class RestClient:
     """Provides simple methods for handling all RESTful api endpoints.
 
     Args:
+        jwt (str, optional): The JWT to be used with the RestClient.
         telemetry (bool, optional): Enable or disable Telemetry
             (defaults to True)
         timeout (float or tuple, optional): Change the requests
@@ -64,7 +68,13 @@ class RestClient:
             (defaults to 3)
     """
 
-    def __init__(self, jwt, telemetry=True, timeout=5.0, options=None):
+    def __init__(
+        self,
+        jwt: str | None,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        options: RestClientOptions | None = None,
+    ) -> None:
         if options is None:
             options = RestClientOptions(telemetry=telemetry, timeout=timeout)
 
@@ -111,22 +121,27 @@ class RestClient:
         self.timeout = options.timeout
 
     # Returns a hard cap for the maximum number of retries allowed (10)
-    def MAX_REQUEST_RETRIES(self):
+    def MAX_REQUEST_RETRIES(self) -> int:
         return 10
 
     # Returns the maximum amount of jitter to introduce in milliseconds (100ms)
-    def MAX_REQUEST_RETRY_JITTER(self):
+    def MAX_REQUEST_RETRY_JITTER(self) -> int:
         return 100
 
     # Returns the maximum delay window allowed (1000ms)
-    def MAX_REQUEST_RETRY_DELAY(self):
+    def MAX_REQUEST_RETRY_DELAY(self) -> int:
         return 1000
 
     # Returns the minimum delay window allowed (100ms)
-    def MIN_REQUEST_RETRY_DELAY(self):
+    def MIN_REQUEST_RETRY_DELAY(self) -> int:
         return 100
 
-    def get(self, url, params=None, headers=None):
+    def get(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
 
@@ -162,7 +177,12 @@ class RestClient:
         # Return the final Response
         return self._process_response(response)
 
-    def post(self, url, data=None, headers=None):
+    def post(
+        self,
+        url: str,
+        data: RequestData | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
 
@@ -171,7 +191,12 @@ class RestClient:
         )
         return self._process_response(response)
 
-    def file_post(self, url, data=None, files=None):
+    def file_post(
+        self,
+        url: str,
+        data: RequestData | None = None,
+        files: dict[str, Any] | None = None,
+    ) -> Any:
         headers = self.base_headers.copy()
         headers.pop("Content-Type", None)
 
@@ -180,7 +205,7 @@ class RestClient:
         )
         return self._process_response(response)
 
-    def patch(self, url, data=None):
+    def patch(self, url: str, data: RequestData | None = None) -> Any:
         headers = self.base_headers.copy()
 
         response = requests.patch(
@@ -188,7 +213,7 @@ class RestClient:
         )
         return self._process_response(response)
 
-    def put(self, url, data=None):
+    def put(self, url: str, data: RequestData | None = None) -> Any:
         headers = self.base_headers.copy()
 
         response = requests.put(
@@ -196,7 +221,12 @@ class RestClient:
         )
         return self._process_response(response)
 
-    def delete(self, url, params=None, data=None):
+    def delete(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        data: RequestData | None = None,
+    ) -> Any:
         headers = self.base_headers.copy()
 
         response = requests.delete(
@@ -208,7 +238,7 @@ class RestClient:
         )
         return self._process_response(response)
 
-    def _calculate_wait(self, attempt):
+    def _calculate_wait(self, attempt: int) -> int:
         # Retry the request. Apply a exponential backoff for subsequent attempts, using this formula:
         # max(MIN_REQUEST_RETRY_DELAY, min(MAX_REQUEST_RETRY_DELAY, (100ms * (2 ** attempt - 1)) + random_between(1, MAX_REQUEST_RETRY_JITTER)))
 
@@ -225,14 +255,14 @@ class RestClient:
         wait = max(self.MIN_REQUEST_RETRY_DELAY(), wait)
 
         self._metrics["retries"] = attempt
-        self._metrics["backoff"].append(wait)
+        self._metrics["backoff"].append(wait)  # type: ignore[attr-defined]
 
         return wait
 
-    def _process_response(self, response):
+    def _process_response(self, response: requests.Response) -> Any:
         return self._parse(response).content()
 
-    def _parse(self, response):
+    def _parse(self, response: requests.Response) -> Response:
         if not response.text:
             return EmptyResponse(response.status_code)
         try:
@@ -242,12 +272,14 @@ class RestClient:
 
 
 class Response:
-    def __init__(self, status_code, content, headers):
+    def __init__(
+        self, status_code: int, content: Any, headers: Mapping[str, str]
+    ) -> None:
         self._status_code = status_code
         self._content = content
         self._headers = headers
 
-    def content(self):
+    def content(self) -> Any:
         if self._is_error():
             if self._status_code == 429:
                 reset_at = int(self._headers.get("x-ratelimit-reset", "-1"))
@@ -272,7 +304,7 @@ class Response:
         else:
             return self._content
 
-    def _is_error(self):
+    def _is_error(self) -> bool:
         return self._status_code is None or self._status_code >= 400
 
     # Adding these methods to force implementation in subclasses because they are references in this parent class
@@ -284,11 +316,11 @@ class Response:
 
 
 class JsonResponse(Response):
-    def __init__(self, response):
+    def __init__(self, response: requests.Response | RequestsResponse) -> None:
         content = json.loads(response.text)
         super().__init__(response.status_code, content, response.headers)
 
-    def _error_code(self):
+    def _error_code(self) -> str:
         if "errorCode" in self._content:
             return self._content.get("errorCode")
         elif "error" in self._content:
@@ -298,7 +330,7 @@ class JsonResponse(Response):
         else:
             return UNKNOWN_ERROR
 
-    def _error_message(self):
+    def _error_message(self) -> str:
         if "error_description" in self._content:
             return self._content.get("error_description")
         message = self._content.get("message", "")
@@ -308,22 +340,22 @@ class JsonResponse(Response):
 
 
 class PlainResponse(Response):
-    def __init__(self, response):
+    def __init__(self, response: requests.Response | RequestsResponse) -> None:
         super().__init__(response.status_code, response.text, response.headers)
 
-    def _error_code(self):
+    def _error_code(self) -> str:
         return UNKNOWN_ERROR
 
-    def _error_message(self):
+    def _error_message(self) -> str:
         return self._content
 
 
 class EmptyResponse(Response):
-    def __init__(self, status_code):
+    def __init__(self, status_code: int) -> None:
         super().__init__(status_code, "", {})
 
-    def _error_code(self):
+    def _error_code(self) -> str:
         return UNKNOWN_ERROR
 
-    def _error_message(self):
+    def _error_message(self) -> str:
         return ""
