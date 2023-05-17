@@ -292,6 +292,7 @@ class TokenVerifier:
         nonce: str | None = None,
         max_age: int | None = None,
         organization: str | None = None,
+        azp: str | None = None,
     ) -> dict[str, Any]:
         """Attempts to verify the given ID token, following the steps defined in the OpenID Connect spec.
 
@@ -318,7 +319,7 @@ class TokenVerifier:
         payload = self._sv.verify_signature(token)
 
         # Verify claims
-        self._verify_payload(payload, nonce, max_age, organization)
+        self._verify_payload(payload, nonce, max_age, organization, azp)
 
         return payload
 
@@ -328,6 +329,7 @@ class TokenVerifier:
         nonce: str | None = None,
         max_age: int | None = None,
         organization: str | None = None,
+        azp: str | None = None,
     ) -> None:
         # Issuer
         if "iss" not in payload or not isinstance(payload["iss"], str):
@@ -420,10 +422,14 @@ class TokenVerifier:
                     "Authorized Party (azp) claim must be a string present in the ID"
                     " token when Audience (aud) claim has multiple values"
                 )
-            if payload["azp"] != self.aud:
+
+            if not azp:
+                azp = self.aud
+
+            if payload["azp"] != azp:
                 raise TokenValidationError(
                     "Authorized Party (azp) claim mismatch in the ID token; expected"
-                    ' "{}", found "{}"'.format(self.aud, payload["azp"])
+                    ' "{}", found "{}"'.format(azp, payload["azp"])
                 )
 
         # Authentication time
