@@ -91,7 +91,7 @@ class Branding:
 
         return self.client.put(
             self._url("templates", "universal-login"),
-            body={"template": body},
+            data={"template": body},
         )
 
     def get_default_branding_theme(self):

@@ -59,17 +59,19 @@ class TestBranding(unittest.TestCase):
             "https://domain/api/v2/branding/templates/universal-login",
         )
 
-    @mock.patch("auth0.management.branding.RestClient")
+    @mock.patch("auth0.rest.requests.put")
     def test_update_template_universal_login(self, mock_rc):
-        api = mock_rc.return_value
-        api.put.return_value = {}
+        mock_rc.return_value.status_code = 200
+        mock_rc.return_value.text = "{}"
 
         branding = Branding(domain="domain", token="jwttoken")
         branding.update_template_universal_login({"a": "b", "c": "d"})
 
-        api.put.assert_called_with(
+        mock_rc.assert_called_with(
             "https://domain/api/v2/branding/templates/universal-login",
-            body={"template": {"a": "b", "c": "d"}},
+            json={"template": {"a": "b", "c": "d"}},
+            headers=mock.ANY,
+            timeout=5.0,
         )
 
     @mock.patch("auth0.management.branding.RestClient")
