@@ -1,8 +1,8 @@
 import aiohttp
 
+from auth0.authentication.base import AuthenticationBase
 from auth0.rest import RestClientOptions
 from auth0.rest_async import AsyncRestClient
-from auth0.authentication.base import AuthenticationBase
 
 
 def _gen_async(client, method):
@@ -67,7 +67,7 @@ def asyncify(cls):
 
     class Wrapper(cls):
         def __init__(self, *args, **kwargs):
-            super(Wrapper, self).__init__(*args, **kwargs)
+            super().__init__(*args, **kwargs)
             if AuthenticationBase in cls.__bases__:
                 self._async_client = AsyncAuthenticationClient(*args, **kwargs)
             else:

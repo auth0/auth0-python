@@ -12,8 +12,8 @@ from aioresponses import CallbackResult, aioresponses
 from callee import Attrs
 
 from auth0.asyncify import asyncify
-from auth0.management import Clients, Guardian, Jobs
 from auth0.authentication import GetToken
+from auth0.management import Clients, Guardian, Jobs
 
 clients = re.compile(r"^https://example\.com/api/v2/clients.*")
 token = re.compile(r"^https://example\.com/oauth/token.*")
@@ -91,7 +91,6 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         callback, mock = get_callback()
         mocked.post(token, callback=callback)
         c = asyncify(GetToken)("example.com", "cid", client_secret="clsec")
-        g = GetToken("my.domain.com", "cid", client_secret="clsec")
         self.assertEqual(
             await c.login_async(username="usrnm", password="pswd"), payload
         )
