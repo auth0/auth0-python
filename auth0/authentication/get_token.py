@@ -125,6 +125,7 @@ class GetToken(AuthenticationBase):
         realm: str | None = None,
         audience: str | None = None,
         grant_type: str = "http://auth0.com/oauth/grant-type/password-realm",
+        forwarded_for: str | None = None,
     ) -> Any:
         """Calls /oauth/token endpoint with password-realm grant type
 
@@ -152,9 +153,16 @@ class GetToken(AuthenticationBase):
             grant_type (str, optional): Denotes the flow you're using. For password realm
             use http://auth0.com/oauth/grant-type/password-realm
 
+            forwarded_for (str, optional): End-user IP as a string value. Set this if you want
+            brute-force protection to work in server-side scenarios.
+            See https://auth0.com/docs/get-started/authentication-and-authorization-flow/avoid-common-issues-with-resource-owner-password-flow-and-attack-protection
+
         Returns:
             access_token, id_token
         """
+        headers = None
+        if forwarded_for:
+            headers = {"auth0-forwarded-for": forwarded_for}
 
         return self.authenticated_post(
             f"{self.protocol}://{self.domain}/oauth/token",
@@ -167,6 +175,7 @@ class GetToken(AuthenticationBase):
                 "audience": audience,
                 "grant_type": grant_type,
             },
+            headers=headers,
         )
 
     def refresh_token(
