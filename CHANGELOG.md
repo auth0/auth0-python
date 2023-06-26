@@ -1,5 +1,17 @@
 # Change Log
 
+## [4.3.0](https://github.com/auth0/auth0-python/tree/4.3.0) (2023-06-26)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.2.0...4.3.0)
+
+**Added**
+- Add forwardedFor option to password grant login [\#501](https://github.com/auth0/auth0-python/pull/501) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add connections.all name parameter [\#500](https://github.com/auth0/auth0-python/pull/500) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add type hints to base and `authentication` [\#472](https://github.com/auth0/auth0-python/pull/472) ([Viicos](https://github.com/Viicos))
+
+**Fixed**
+- Fix async auth client [\#499](https://github.com/auth0/auth0-python/pull/499) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Fix update_template_universal_login [\#495](https://github.com/auth0/auth0-python/pull/495) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.2.0](https://github.com/auth0/auth0-python/tree/4.2.0) (2023-05-02)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.1.1...4.2.0)
 
