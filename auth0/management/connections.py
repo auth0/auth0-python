@@ -52,6 +52,7 @@ class Connections:
         page=None,
         per_page=None,
         extra_params=None,
+        name=None,
     ):
         """Retrieves all connections.
 
@@ -76,6 +77,8 @@ class Connections:
              the request. The fields, include_fields, page and per_page values
              specified as parameters take precedence over the ones defined here.
 
+           name (str): Provide the name of the connection to retrieve.
+
         See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections
 
         Returns:
@@ -88,6 +91,7 @@ class Connections:
         params["include_fields"] = str(include_fields).lower()
         params["page"] = page
         params["per_page"] = per_page
+        params["name"] = name
 
         return self.client.get(self._url(), params=params)
 

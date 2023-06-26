@@ -1,5 +1,7 @@
 import aiohttp
 
+from auth0.authentication.base import AuthenticationBase
+from auth0.rest import RestClientOptions
 from auth0.rest_async import AsyncRestClient
 
 
@@ -19,7 +21,7 @@ def asyncify(cls):
         if callable(getattr(cls, func)) and not func.startswith("_")
     ]
 
-    class AsyncClient(cls):
+    class AsyncManagementClient(cls):
         def __init__(
             self,
             domain,
@@ -29,40 +31,47 @@ def asyncify(cls):
             protocol="https",
             rest_options=None,
         ):
-            if token is None:
-                # Wrap the auth client
-                super().__init__(domain, telemetry, timeout, protocol)
-            else:
-                # Wrap the mngtmt client
-                super().__init__(
-                    domain, token, telemetry, timeout, protocol, rest_options
-                )
+            super().__init__(domain, token, telemetry, timeout, protocol, rest_options)
             self.client = AsyncRestClient(
                 jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
             )
 
-    class Wrapper(cls):
+    class AsyncAuthenticationClient(cls):
         def __init__(
             self,
             domain,
-            token=None,
+            client_id,
+            client_secret=None,
+            client_assertion_signing_key=None,
+            client_assertion_signing_alg=None,
             telemetry=True,
             timeout=5.0,
             protocol="https",
-            rest_options=None,
         ):
-            if token is None:
-                # Wrap the auth client
-                super().__init__(domain, telemetry, timeout, protocol)
-            else:
-                # Wrap the mngtmt client
-                super().__init__(
-                    domain, token, telemetry, timeout, protocol, rest_options
-                )
-
-            self._async_client = AsyncClient(
-                domain, token, telemetry, timeout, protocol, rest_options
+            super().__init__(
+                domain,
+                client_id,
+                client_secret,
+                client_assertion_signing_key,
+                client_assertion_signing_alg,
+                telemetry,
+                timeout,
+                protocol,
             )
+            self.client = AsyncRestClient(
+                None,
+                options=RestClientOptions(
+                    telemetry=telemetry, timeout=timeout, retries=0
+                ),
+            )
+
+    class Wrapper(cls):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            if AuthenticationBase in cls.__bases__:
+                self._async_client = AsyncAuthenticationClient(*args, **kwargs)
+            else:
+                self._async_client = AsyncManagementClient(*args, **kwargs)
             for method in methods:
                 setattr(
                     self,

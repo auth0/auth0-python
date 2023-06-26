@@ -12,9 +12,11 @@ from aioresponses import CallbackResult, aioresponses
 from callee import Attrs
 
 from auth0.asyncify import asyncify
+from auth0.authentication import GetToken
 from auth0.management import Clients, Guardian, Jobs
 
 clients = re.compile(r"^https://example\.com/api/v2/clients.*")
+token = re.compile(r"^https://example\.com/oauth/token.*")
 factors = re.compile(r"^https://example\.com/api/v2/guardian/factors.*")
 users_imports = re.compile(r"^https://example\.com/api/v2/jobs/users-imports.*")
 payload = {"foo": "bar"}
@@ -81,6 +83,31 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             allow_redirects=True,
             json=data,
             headers=headers,
+            timeout=ANY,
+        )
+
+    @aioresponses()
+    async def test_post_auth(self, mocked):
+        callback, mock = get_callback()
+        mocked.post(token, callback=callback)
+        c = asyncify(GetToken)("example.com", "cid", client_secret="clsec")
+        self.assertEqual(
+            await c.login_async(username="usrnm", password="pswd"), payload
+        )
+        mock.assert_called_with(
+            Attrs(path="/oauth/token"),
+            allow_redirects=True,
+            json={
+                "client_id": "cid",
+                "username": "usrnm",
+                "password": "pswd",
+                "realm": None,
+                "scope": None,
+                "audience": None,
+                "grant_type": "http://auth0.com/oauth/grant-type/password-realm",
+                "client_secret": "clsec",
+            },
+            headers={i: headers[i] for i in headers if i != "Authorization"},
             timeout=ANY,
         )
 
