@@ -1,5 +1,4 @@
 -e .
--r docs/requirements.txt
 aiohttp
 aioresponses
 black
@@ -16,4 +15,7 @@ pytest
 pytest-mock
 pyupgrade
 requests
+Sphinx
+sphinx_rtd_theme
+sphinx_mdinclude
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
