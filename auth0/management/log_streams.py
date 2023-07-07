@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class LogStreams:
@@ -17,6 +22,9 @@ class LogStreams:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,26 +33,26 @@ class LogStreams:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/log-streams"
         if id is not None:
             return f"{url}/{id}"
         return url
 
-    def list(self):
+    def list(self) -> list[dict[str, Any]]:
         """Search log events.
 
         Args:
@@ -53,7 +61,7 @@ class LogStreams:
 
         return self.client.get(self._url())
 
-    def get(self, id):
+    def get(self, id: str) -> dict[str, Any]:
         """Retrieves the data related to the log stream entry identified by id.
 
         Args:
@@ -64,7 +72,7 @@ class LogStreams:
 
         return self.client.get(self._url(id))
 
-    def create(self, body):
+    def create(self, body: dict[str, Any]) -> dict[str, Any]:
         """Creates a new log stream.
 
         Args:
@@ -74,7 +82,7 @@ class LogStreams:
         """
         return self.client.post(self._url(), data=body)
 
-    def delete(self, id):
+    def delete(self, id: str) -> dict[str, Any]:
         """Delete a log stream.
 
         Args:
@@ -84,7 +92,7 @@ class LogStreams:
         """
         return self.client.delete(self._url(id))
 
-    def update(self, id, body):
+    def update(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Update a log stream with the attributes passed in 'body'
 
         Args:

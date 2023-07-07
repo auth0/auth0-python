@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class UsersByEmail:
@@ -17,6 +22,9 @@ class UsersByEmail:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,23 +33,25 @@ class UsersByEmail:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self):
+    def _url(self) -> str:
         return f"{self.protocol}://{self.domain}/api/v2/users-by-email"
 
-    def search_users_by_email(self, email, fields=None, include_fields=True):
+    def search_users_by_email(
+        self, email: str, fields: list[str] | None = None, include_fields: bool = True
+    ) -> list[dict[str, Any]]:
         """List or search users.
 
         Args:

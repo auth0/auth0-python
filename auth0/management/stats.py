@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Stats:
@@ -17,6 +22,9 @@ class Stats:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,23 +33,23 @@ class Stats:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, action):
+    def _url(self, action: str) -> str:
         return f"{self.protocol}://{self.domain}/api/v2/stats/{action}"
 
-    def active_users(self):
+    def active_users(self) -> int:
         """Gets the active users count (logged in during the last 30 days).
 
         Returns: An integer.
@@ -51,7 +59,9 @@ class Stats:
 
         return self.client.get(self._url("active-users"))
 
-    def daily_stats(self, from_date=None, to_date=None):
+    def daily_stats(
+        self, from_date: str | None = None, to_date: str | None = None
+    ) -> list[dict[str, Any]]:
         """Gets the daily stats for a particular period.
 
         Args:

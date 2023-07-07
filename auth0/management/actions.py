@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Actions:
@@ -17,7 +22,10 @@ class Actions:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
-        rest_options (RestClientOptions): Pass an instance of
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
+        rest_options (RestClientOptions, optional): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
             (defaults to None)
@@ -25,20 +33,20 @@ class Actions:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, *args):
+    def _url(self, *args: str | None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/actions"
         for p in args:
             if p is not None:
@@ -47,13 +55,13 @@ class Actions:
 
     def get_actions(
         self,
-        trigger_id=None,
-        action_name=None,
-        deployed=None,
-        installed=False,
-        page=None,
-        per_page=None,
-    ):
+        trigger_id: str | None = None,
+        action_name: str | None = None,
+        deployed: bool | None = None,
+        installed: bool = False,
+        page: int | None = None,
+        per_page: int | None = None,
+    ) -> Any:
         """Get all actions.
 
         Args:
@@ -77,13 +85,12 @@ class Actions:
         See: https://auth0.com/docs/api/management/v2#!/Actions/get_actions
         """
 
-        if deployed is not None:
-            deployed = str(deployed).lower()
+        deployed_str = str(deployed).lower() if deployed is not None else None
 
         params = {
             "triggerId": trigger_id,
             "actionName": action_name,
-            "deployed": deployed,
+            "deployed": deployed_str,
             "installed": str(installed).lower(),
             "page": page,
             "per_page": per_page,
@@ -91,7 +98,7 @@ class Actions:
 
         return self.client.get(self._url("actions"), params=params)
 
-    def create_action(self, body):
+    def create_action(self, body: dict[str, Any]) -> dict[str, Any]:
         """Create a new action.
 
         Args:
@@ -102,7 +109,7 @@ class Actions:
 
         return self.client.post(self._url("actions"), data=body)
 
-    def update_action(self, id, body):
+    def update_action(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Updates an action.
 
         Args:
@@ -115,7 +122,7 @@ class Actions:
 
         return self.client.patch(self._url("actions", id), data=body)
 
-    def get_action(self, id):
+    def get_action(self, id: str) -> dict[str, Any]:
         """Retrieves an action by its ID.
 
         Args:
@@ -127,7 +134,7 @@ class Actions:
 
         return self.client.get(self._url("actions", id), params=params)
 
-    def delete_action(self, id, force=False):
+    def delete_action(self, id: str, force: bool = False) -> Any:
         """Deletes an action and all of its associated versions.
 
         Args:
@@ -142,7 +149,7 @@ class Actions:
 
         return self.client.delete(self._url("actions", id), params=params)
 
-    def get_triggers(self):
+    def get_triggers(self) -> dict[str, Any]:
         """Retrieve the set of triggers currently available within actions.
 
         See: https://auth0.com/docs/api/management/v2#!/Actions/get_triggers
@@ -151,7 +158,7 @@ class Actions:
 
         return self.client.get(self._url("triggers"), params=params)
 
-    def get_execution(self, id):
+    def get_execution(self, id: str) -> dict[str, Any]:
         """Get information about a specific execution of a trigger.
 
         Args:
@@ -163,7 +170,9 @@ class Actions:
 
         return self.client.get(self._url("executions", id), params=params)
 
-    def get_action_versions(self, id, page=None, per_page=None):
+    def get_action_versions(
+        self, id: str, page: int | None = None, per_page: int | None = None
+    ) -> dict[str, Any]:
         """Get all of an action's versions.
 
         Args:
@@ -181,7 +190,9 @@ class Actions:
 
         return self.client.get(self._url("actions", id, "versions"), params=params)
 
-    def get_trigger_bindings(self, id, page=None, per_page=None):
+    def get_trigger_bindings(
+        self, id: str, page: int | None = None, per_page: int | None = None
+    ) -> dict[str, Any]:
         """Get the actions that are bound to a trigger.
 
         Args:
@@ -198,7 +209,7 @@ class Actions:
         params = {"page": page, "per_page": per_page}
         return self.client.get(self._url("triggers", id, "bindings"), params=params)
 
-    def get_action_version(self, action_id, version_id):
+    def get_action_version(self, action_id: str, version_id: str) -> dict[str, Any]:
         """Retrieve a specific version of an action.
 
         Args:
@@ -214,7 +225,7 @@ class Actions:
             self._url("actions", action_id, "versions", version_id), params=params
         )
 
-    def deploy_action(self, id):
+    def deploy_action(self, id: str) -> dict[str, Any]:
         """Deploy an action.
 
         Args:
@@ -224,7 +235,9 @@ class Actions:
         """
         return self.client.post(self._url("actions", id, "deploy"))
 
-    def rollback_action_version(self, action_id, version_id):
+    def rollback_action_version(
+        self, action_id: str, version_id: str
+    ) -> dict[str, Any]:
         """Roll back to a previous version of an action.
 
         Args:
@@ -238,7 +251,7 @@ class Actions:
             self._url("actions", action_id, "versions", version_id, "deploy"), data={}
         )
 
-    def update_trigger_bindings(self, id, body):
+    def update_trigger_bindings(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Update a trigger's bindings.
 
         Args:
