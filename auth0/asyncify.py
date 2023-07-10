@@ -1,5 +1,6 @@
 import aiohttp
 
+from auth0.authentication import Users
 from auth0.authentication.base import AuthenticationBase
 from auth0.rest import RestClientOptions
 from auth0.rest_async import AsyncRestClient
@@ -20,6 +21,17 @@ def asyncify(cls):
         for func in dir(cls)
         if callable(getattr(cls, func)) and not func.startswith("_")
     ]
+
+    class BareAsyncClient(cls):
+        def __init__(
+            self,
+            domain,
+            telemetry=True,
+            timeout=5.0,
+            protocol="https",
+        ):
+            super().__init__(domain, telemetry, timeout, protocol)
+            self.client = AsyncRestClient(None, telemetry=telemetry, timeout=timeout)
 
     class AsyncManagementClient(cls):
         def __init__(
@@ -68,7 +80,9 @@ def asyncify(cls):
     class Wrapper(cls):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            if AuthenticationBase in cls.__bases__:
+            if cls == Users:
+                self._async_client = BareAsyncClient(*args, **kwargs)
+            elif AuthenticationBase in cls.__bases__:
                 self._async_client = AsyncAuthenticationClient(*args, **kwargs)
             else:
                 self._async_client = AsyncManagementClient(*args, **kwargs)
