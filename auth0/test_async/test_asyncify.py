@@ -122,7 +122,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         )
         mock.assert_called_with(
             Attrs(path="/userinfo"),
-            headers={**headers, "Authorization": f"Bearer access-token-example"},
+            headers={**headers, "Authorization": "Bearer access-token-example"},
             timeout=ANY,
             allow_redirects=True,
             params=None,
