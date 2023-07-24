@@ -1,4 +1,7 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Blacklists:
@@ -17,6 +20,9 @@ class Blacklists:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,19 +31,19 @@ class Blacklists:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.url = f"{protocol}://{domain}/api/v2/blacklists/tokens"
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def get(self, aud=None):
+    def get(self, aud: str | None = None) -> list[dict[str, str]]:
         """Retrieves the jti and aud of all tokens in the blacklist.
 
         Args:
@@ -52,7 +58,7 @@ class Blacklists:
 
         return self.client.get(self.url, params=params)
 
-    def create(self, jti, aud=None):
+    def create(self, jti: str, aud: str | None = None) -> dict[str, str]:
         """Adds a token to the blacklist.
 
         Args:

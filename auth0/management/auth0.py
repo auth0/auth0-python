@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from .actions import Actions
 from .attack_protection import AttackProtection
 from .blacklists import Blacklists
@@ -29,6 +33,9 @@ from .user_blocks import UserBlocks
 from .users import Users
 from .users_by_email import UsersByEmail
 
+if TYPE_CHECKING:
+    from auth0.rest import RestClientOptions
+
 
 class Auth0:
     """Provides easy access to all endpoint classes
@@ -44,7 +51,9 @@ class Auth0:
             (defaults to None)
     """
 
-    def __init__(self, domain, token, rest_options=None):
+    def __init__(
+        self, domain: str, token: str, rest_options: RestClientOptions | None = None
+    ):
         self.actions = Actions(domain, token, rest_options=rest_options)
         self.attack_protection = AttackProtection(
             domain, token, rest_options=rest_options

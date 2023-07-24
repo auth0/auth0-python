@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Tickets:
@@ -17,6 +22,9 @@ class Tickets:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,23 +33,23 @@ class Tickets:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, action):
+    def _url(self, action: str) -> str:
         return f"{self.protocol}://{self.domain}/api/v2/tickets/{action}"
 
-    def create_email_verification(self, body):
+    def create_email_verification(self, body: dict[str, Any]) -> dict[str, Any]:
         """Create an email verification ticket.
 
         Args:
@@ -51,7 +59,7 @@ class Tickets:
         """
         return self.client.post(self._url("email-verification"), data=body)
 
-    def create_pswd_change(self, body):
+    def create_pswd_change(self, body: dict[str, Any]) -> dict[str, Any]:
         """Create password change ticket.
 
         Args:

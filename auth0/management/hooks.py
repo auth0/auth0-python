@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Hooks:
@@ -18,6 +23,9 @@ class Hooks:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -26,20 +34,20 @@ class Hooks:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/hooks"
         if id is not None:
             return f"{url}/{id}"
@@ -47,13 +55,13 @@ class Hooks:
 
     def all(
         self,
-        enabled=True,
-        fields=None,
-        include_fields=True,
-        page=None,
-        per_page=None,
-        include_totals=False,
-    ):
+        enabled: bool = True,
+        fields: list[str] | None = None,
+        include_fields: bool = True,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
+    ) -> list[dict[str, Any]]:
         """Retrieves a list of all hooks.
 
         Args:
@@ -92,7 +100,7 @@ class Hooks:
 
         return self.client.get(self._url(), params=params)
 
-    def create(self, body):
+    def create(self, body: dict[str, Any]) -> dict[str, Any]:
         """Creates a new Hook.
 
         Args:
@@ -101,7 +109,7 @@ class Hooks:
         """
         return self.client.post(self._url(), data=body)
 
-    def get(self, id, fields=None):
+    def get(self, id: str, fields: list[str] | None = None) -> dict[str, Any]:
         """Retrieves a hook by its ID.
 
         Args:
@@ -118,7 +126,7 @@ class Hooks:
         }
         return self.client.get(self._url(id), params=params)
 
-    def delete(self, id):
+    def delete(self, id: str) -> Any:
         """Deletes a hook.
 
         Args:
@@ -128,7 +136,7 @@ class Hooks:
         """
         return self.client.delete(self._url(id))
 
-    def update(self, id, body):
+    def update(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Updates an existing hook.
 
         Args:
@@ -140,7 +148,7 @@ class Hooks:
         """
         return self.client.patch(self._url(id), data=body)
 
-    def get_secrets(self, id):
+    def get_secrets(self, id: str) -> dict[str, Any]:
         """Retrieves a hook's secrets.
 
         Args:
@@ -151,7 +159,7 @@ class Hooks:
 
         return self.client.get(self._url("%s/secrets" % id))
 
-    def add_secrets(self, id, body):
+    def add_secrets(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Add one or more secrets for an existing hook.
 
         Args:
@@ -163,7 +171,7 @@ class Hooks:
         """
         return self.client.post(self._url("%s/secrets" % id), data=body)
 
-    def delete_secrets(self, id, body):
+    def delete_secrets(self, id: str, body: list[str]) -> Any:
         """Delete one or more existing secrets for an existing hook.
 
         Args:
@@ -175,7 +183,7 @@ class Hooks:
         """
         return self.client.delete(self._url("%s/secrets" % id), data=body)
 
-    def update_secrets(self, id, body):
+    def update_secrets(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Update one or more existing secrets for an existing hook.
 
         Args:

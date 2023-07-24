@@ -32,7 +32,7 @@ from .users_by_email import UsersByEmail
 if is_async_available():
     from .async_auth0 import AsyncAuth0 as Auth0
 else:  # pragma: no cover
-    from .auth0 import Auth0
+    from .auth0 import Auth0  # type: ignore[assignment]
 
 __all__ = (
     "Auth0",
