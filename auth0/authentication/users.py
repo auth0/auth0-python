@@ -46,7 +46,6 @@ class Users:
         Returns:
             The user profile.
         """
-
         data: dict[str, Any] = self.client.get(
             url=f"{self.protocol}://{self.domain}/userinfo",
             headers={"Authorization": f"Bearer {access_token}"},

@@ -12,11 +12,12 @@ from aioresponses import CallbackResult, aioresponses
 from callee import Attrs
 
 from auth0.asyncify import asyncify
-from auth0.authentication import GetToken
+from auth0.authentication import GetToken, Users
 from auth0.management import Clients, Guardian, Jobs
 
 clients = re.compile(r"^https://example\.com/api/v2/clients.*")
 token = re.compile(r"^https://example\.com/oauth/token.*")
+user_info = re.compile(r"^https://example\.com/userinfo.*")
 factors = re.compile(r"^https://example\.com/api/v2/guardian/factors.*")
 users_imports = re.compile(r"^https://example\.com/api/v2/jobs/users-imports.*")
 payload = {"foo": "bar"}
@@ -109,6 +110,22 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             },
             headers={i: headers[i] for i in headers if i != "Authorization"},
             timeout=ANY,
+        )
+
+    @aioresponses()
+    async def test_user_info(self, mocked):
+        callback, mock = get_callback()
+        mocked.get(user_info, callback=callback)
+        c = asyncify(Users)(domain="example.com")
+        self.assertEqual(
+            await c.userinfo_async(access_token="access-token-example"), payload
+        )
+        mock.assert_called_with(
+            Attrs(path="/userinfo"),
+            headers={**headers, "Authorization": "Bearer access-token-example"},
+            timeout=ANY,
+            allow_redirects=True,
+            params=None,
         )
 
     @aioresponses()
