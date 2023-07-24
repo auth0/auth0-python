@@ -30,6 +30,7 @@ setup(
     packages=find_packages(),
     install_requires=["requests>=2.14.0", "pyjwt[crypto]>=2.6.0"],
     extras_require={"test": ["coverage", "pre-commit"]},
+    package_data={"auth0": ["py.typed"]},
     python_requires=">=3.7",
     classifiers=[
         "Development Status :: 5 - Production/Stable",

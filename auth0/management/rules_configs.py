@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class RulesConfigs:
@@ -17,6 +22,9 @@ class RulesConfigs:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,33 +33,33 @@ class RulesConfigs:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/rules-configs"
         if id is not None:
             return url + "/" + id
         return url
 
-    def all(self):
+    def all(self) -> list[dict[str, Any]]:
         """Lists the config variable keys for rules.
 
         See: https://auth0.com/docs/api/management/v2#!/Rules_Configs/get_rules_configs
         """
         return self.client.get(self._url())
 
-    def unset(self, key):
+    def unset(self, key: str) -> Any:
         """Removes the rules config for a given key.
 
         Args:
@@ -61,7 +69,7 @@ class RulesConfigs:
         """
         return self.client.delete(self._url(key))
 
-    def set(self, key, value):
+    def set(self, key: str, value: str) -> dict[str, Any]:
         """Sets the rules config for a given key.
 
         Args:

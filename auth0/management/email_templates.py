@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class EmailTemplates:
@@ -17,6 +22,9 @@ class EmailTemplates:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,26 +33,26 @@ class EmailTemplates:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/email-templates"
         if id is not None:
             return f"{url}/{id}"
         return url
 
-    def create(self, body):
+    def create(self, body: dict[str, Any]) -> dict[str, Any]:
         """Create a new email template.
 
         Args:
@@ -55,7 +63,7 @@ class EmailTemplates:
 
         return self.client.post(self._url(), data=body)
 
-    def get(self, template_name):
+    def get(self, template_name: str) -> dict[str, Any]:
         """Retrieves an email template by its name.
 
         Args:
@@ -69,7 +77,7 @@ class EmailTemplates:
 
         return self.client.get(self._url(template_name))
 
-    def update(self, template_name, body):
+    def update(self, template_name: str, body: dict[str, Any]) -> dict[str, Any]:
         """Update an existing email template.
 
         Args:
