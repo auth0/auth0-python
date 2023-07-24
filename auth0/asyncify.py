@@ -22,7 +22,7 @@ def asyncify(cls):
         if callable(getattr(cls, func)) and not func.startswith("_")
     ]
 
-    class BareAsyncClient(cls):
+    class UsersAsyncClient(cls):
         def __init__(
             self,
             domain,
@@ -81,7 +81,7 @@ def asyncify(cls):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             if cls == Users:
-                self._async_client = BareAsyncClient(*args, **kwargs)
+                self._async_client = UsersAsyncClient(*args, **kwargs)
             elif AuthenticationBase in cls.__bases__:
                 self._async_client = AsyncAuthenticationClient(*args, **kwargs)
             else:
