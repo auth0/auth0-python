@@ -1,5 +1,15 @@
 # Change Log
 
+## [4.4.0](https://github.com/auth0/auth0-python/tree/4.4.0) (2023-07-25)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.3.0...4.4.0)
+
+**Added**
+- [SDK-4394] Add organization name validation [\#507](https://github.com/auth0/auth0-python/pull/507) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add type hints to `management` [\#497](https://github.com/auth0/auth0-python/pull/497) ([Viicos](https://github.com/Viicos))
+
+**Fixed**
+- Fix asyncify for users client where token is not required [\#506](https://github.com/auth0/auth0-python/pull/506) ([cgearing](https://github.com/cgearing))
+
 ## [4.3.0](https://github.com/auth0/auth0-python/tree/4.3.0) (2023-06-26)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.2.0...4.3.0)
 
