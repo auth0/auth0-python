@@ -506,7 +506,48 @@ class TestTokenVerifier(unittest.TestCase):
         tv._clock = MOCKED_CLOCK
         tv.verify(token, organization="org_123")
 
-    def test_fails_when_org_specified_but_not_present(self):
+    def test_fails_when_org_name_specified_but_not_present(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.wotJnUdD5IfdZMewF_-BnHc0pI56uwzwr5qaSXvSu9w"
+        self.assert_fails_with_error(
+            token,
+            "Organization (org_name) claim must be a string present in the ID token",
+            signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET),
+            organization="org-123",
+        )
+
+    def test_fails_when_org_name_specified_but_not_string(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfbmFtZSI6NDIsImlzcyI6Imh0dHBzOi8vdG9rZW5zLXRlc3QuYXV0aDAuY29tLyIsImV4cCI6MTU4Nzc2NTM2MSwiaWF0IjoxNTg3NTkyNTYxfQ.RXu-dz1u2pftk_iInk1To8z9g1B6TVA-5FAwoCx85T0"
+        self.assert_fails_with_error(
+            token,
+            "Organization (org_name) claim must be a string present in the ID token",
+            signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET),
+            organization="org-123",
+        )
+
+    def test_fails_when_org_name_specified_but_does_not_match(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfbmFtZSI6Im9yZy1hYmMiLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.P_ldJGEaFg58cARwGMtog_KTsqv7cGJZXoS9xdTEkvQ"
+        self.assert_fails_with_error(
+            token,
+            'Organization (org_name) claim mismatch in the ID token; expected "org-123",'
+            ' found "org-abc"',
+            signature_verifier=SymmetricSignatureVerifier(HMAC_SHARED_SECRET),
+            organization="org-123",
+        )
+
+    def test_succeeds_when_org_name_specified_matches(self):
+        token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfbmFtZSI6Im9yZy0xMjMiLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.P8Kba8Fgamyiw1qw_lBfp2OAzWn6NOLL6fBCDQhGvyc"
+        sv = SymmetricSignatureVerifier(HMAC_SHARED_SECRET)
+        tv = TokenVerifier(
+            signature_verifier=sv,
+            issuer=expectations["issuer"],
+            audience=expectations["audience"],
+        )
+        tv._clock = MOCKED_CLOCK
+        response = tv.verify(token)
+        self.assertIn("org_name", response)
+        self.assertEqual("org-123", response["org_name"])
+
+    def test_fails_when_org_id_specified_but_not_present(self):
         token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.wotJnUdD5IfdZMewF_-BnHc0pI56uwzwr5qaSXvSu9w"
         self.assert_fails_with_error(
             token,
@@ -515,7 +556,7 @@ class TestTokenVerifier(unittest.TestCase):
             organization="org_123",
         )
 
-    def test_fails_when_org_specified_but_not_(self):
+    def test_fails_when_org_id_specified_but_not_string(self):
         token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOjQyLCJpc3MiOiJodHRwczovL3Rva2Vucy10ZXN0LmF1dGgwLmNvbS8iLCJleHAiOjE1ODc3NjUzNjEsImlhdCI6MTU4NzU5MjU2MX0.fGL1_akaHikdovS7NRYla3flne1xdtCjP0ei_CRxO6k"
         self.assert_fails_with_error(
             token,
@@ -524,7 +565,7 @@ class TestTokenVerifier(unittest.TestCase):
             organization="org_123",
         )
 
-    def test_fails_when_org_specified_but_does_not_match(self):
+    def test_fails_when_org_id_specified_but_does_not_match(self):
         token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoMHxzZGs0NThma3MiLCJhdWQiOiJ0b2tlbnMtdGVzdC0xMjMiLCJvcmdfaWQiOiJvcmdfMTIzIiwiaXNzIjoiaHR0cHM6Ly90b2tlbnMtdGVzdC5hdXRoMC5jb20vIiwiZXhwIjoxNTg3NzY1MzYxLCJpYXQiOjE1ODc1OTI1NjF9.hjSPgJpg0Dn2z0giCdGqVLD5Kmqy_yMYlSkgwKD7ahQ"
         self.assert_fails_with_error(
             token,
