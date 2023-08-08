@@ -59,7 +59,7 @@ class ClientGrants:
         per_page: int | None = None,
         include_totals: bool = False,
         client_id: str | None = None,
-    ) -> list[dict[str, Any]]:
+    ):
         """Retrieves all client grants.
 
         Args:

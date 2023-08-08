@@ -63,7 +63,7 @@ class Users:
         include_totals: bool = True,
         fields: List[str] | None = None,
         include_fields: bool = True,
-    ) -> List[dict[str, Any]]:
+    ):
         """List or search users.
 
         Args:
@@ -170,7 +170,7 @@ class Users:
 
     def list_organizations(
         self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
-    ) -> List[dict[str, Any]]:
+    ):
         """List the organizations that the user is member of.
 
         Args:
@@ -198,7 +198,7 @@ class Users:
 
     def list_roles(
         self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
-    ) -> List[dict[str, Any]]:
+    ):
         """List the roles associated with a user.
 
         Args:
@@ -254,7 +254,7 @@ class Users:
 
     def list_permissions(
         self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
-    ) -> List[dict[str, Any]]:
+    ):
         """List the permissions associated to the user.
 
         Args:
@@ -394,7 +394,7 @@ class Users:
         per_page: int = 50,
         sort: str | None = None,
         include_totals: bool = False,
-    ) -> List[dict[str, Any]]:
+    ):
         """Retrieve every log event for a specific user id.
 
         Args:

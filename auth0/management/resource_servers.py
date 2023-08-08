@@ -68,7 +68,7 @@ class ResourceServers:
         page: int | None = None,
         per_page: int | None = None,
         include_totals: bool = False,
-    ) -> list[dict[str, Any]]:
+    ):
         """Retrieves all resource servers
 
         Args:

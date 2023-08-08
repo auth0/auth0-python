@@ -63,7 +63,7 @@ class Logs:
         from_param: str | None = None,
         take: int | None = None,
         include_fields: bool = True,
-    ) -> list[dict[str, Any]]:
+    ):
         """Search log events.
 
         Args:

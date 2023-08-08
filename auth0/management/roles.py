@@ -58,7 +58,7 @@ class Roles:
         per_page: int = 25,
         include_totals: bool = True,
         name_filter: str | None = None,
-    ) -> List[dict[str, Any]]:
+    ):
         """List or search roles.
 
         Args:
@@ -135,7 +135,7 @@ class Roles:
         include_totals: bool = True,
         from_param: str | None = None,
         take: int | None = None,
-    ) -> List[dict[str, Any]]:
+    ):
         """List the users that have been associated with a given role.
 
         Args:
@@ -186,7 +186,7 @@ class Roles:
 
     def list_permissions(
         self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
-    ) -> List[dict[str, Any]]:
+    ):
         """List the permissions associated to a role.
 
         Args:
