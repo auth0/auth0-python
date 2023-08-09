@@ -61,7 +61,7 @@ class Rules:
         page: int | None = None,
         per_page: int | None = None,
         include_totals: bool = False,
-    ) -> list[dict[str, Any]]:
+    ):
         """Retrieves a list of all rules.
 
         Args:

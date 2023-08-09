@@ -61,7 +61,7 @@ class Organizations:
         include_totals: bool = True,
         from_param: str | None = None,
         take: int | None = None,
-    ) -> list[dict[str, Any]]:
+    ):
         """Retrieves a list of all the organizations.
 
         Args:
@@ -246,7 +246,7 @@ class Organizations:
         include_totals: bool = True,
         from_param: str | None = None,
         take: int | None = None,
-    ) -> list[dict[str, Any]]:
+    ):
         """Retrieves a list of all the organization members.
 
         Args:
@@ -377,7 +377,7 @@ class Organizations:
         page: int | None = None,
         per_page: int | None = None,
         include_totals: bool = False,
-    ) -> list[dict[str, Any]]:
+    ):
         """Retrieves a list of all the organization invitations.
 
         Args:

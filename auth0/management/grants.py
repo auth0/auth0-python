@@ -58,7 +58,7 @@ class Grants:
         per_page: int | None = None,
         include_totals: bool = False,
         extra_params: dict[str, Any] | None = None,
-    ) -> list[dict[str, Any]]:
+    ):
         """Retrieves all grants.
 
         Args:

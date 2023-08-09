@@ -62,7 +62,7 @@ class DeviceCredentials:
         page: int | None = None,
         per_page: int | None = None,
         include_totals: bool = False,
-    ) -> list[dict[str, Any]]:
+    ):
         """List device credentials.
 
         Args:
