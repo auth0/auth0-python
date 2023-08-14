@@ -31,11 +31,6 @@ jobs:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
-      - name: Update network connectivity
-        run: |
-          sudo ethtool -K eth0 tx off rx off
-          sudo apt install bubblewrap
-
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -44,19 +39,18 @@ jobs:
         with:
           python-version: "${{ matrix.python-version }}"
 
-      - name: Install dependencies and create virtual environment
+      - name: Install dependencies
         run: |
-          python3 -m pip install --user --upgrade pip
-          python3 -m pip install --user virtualenv
-          python3 -m venv env
-          ls -lha
+          sudo ethtool -K eth0 tx off rx off
+          sudo apt install bubblewrap
+          pip install --user --upgrade pip
+          pip install --user pipenv
+          cd env && ls -lha
 
-      - name: Run tests in isolated virtual environment
+      - name: Run tests
         run: |
-          source env/bin/activate
-          if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
-          if [ -f requirements-dev.txt ]; then python3 -m pip install -r requirements.txt-dev; fi
-          python3 -m pip install--upgrade pip
+          if [ -f requirements.txt ]; then pipenv install -r requirements.txt; fi
+          if [ -f requirements-dev.txt ]; then pipenv install -r requirements.txt-dev; fi
           which python3
           bwrap \
             --ro-bind / / \
@@ -64,7 +58,7 @@ jobs:
             --unshare-all \
             --clearenv \
             --setenv EXAMPLE VALUE \
-            python3 -m coverage run -m unittest
+            pipenv run coverage run -m unittest
           deactivate
 
       - name: Run linting
@@ -73,14 +67,6 @@ jobs:
       - if: ${{ matrix.python-version == '3.10' }}
         name: Upload coverage
         uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # pin@3.1.4
-        with:
-          directory: ./coverage/reports/
-          env_vars: OS,PYTHON
-          fail_ci_if_error: true
-          files: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
-          verbose: true
 
       - if: ${{ matrix.python-version == '3.10' }}
         name: Build documentation
