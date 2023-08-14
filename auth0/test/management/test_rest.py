@@ -104,34 +104,34 @@ class TestRest(unittest.TestCase):
         self.assertEqual(rc.options.telemetry, True)
 
     def test_get_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00001)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=1.0)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.get("http://google.com")
+            rc.get("https://google.com")
 
     def test_post_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00001)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=1.0)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.post("http://google.com")
+            rc.post("https://google.com")
 
     def test_put_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00001)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=1.0)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.put("http://google.com")
+            rc.put("https://google.com")
 
     def test_patch_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00001)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=1.0)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.patch("http://google.com")
+            rc.patch("https://google.com")
 
     def test_delete_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00001)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=1.0)
 
         with self.assertRaises(requests.exceptions.Timeout):
-            rc.delete("http://google.com")
+            rc.delete("https://google.com")
 
     @mock.patch("requests.get")
     def test_get_custom_timeout(self, mock_get):
