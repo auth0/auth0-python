@@ -5,7 +5,7 @@ black
 callee
 click
 coverage
-cryptography<4
+cryptography
 flake8
 isort
 mock
@@ -18,5 +18,5 @@ requests
 Sphinx
 sphinx_rtd_theme
 sphinx_mdinclude
-urllib3<2
+urllib3
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
