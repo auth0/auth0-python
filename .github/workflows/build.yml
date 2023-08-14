@@ -48,10 +48,11 @@ jobs:
           export PIP_IGNORE_INSTALLED=1
           pip install --user --upgrade pip
           pip install --user pipenv
+          pipenv --site-packages
 
       - name: Run tests
         run: |
-          if [ -f requirements.txt ]; then pipenv install -r requirements.txt; fi
+          if [ -f requirements.txt ]; then pipenv install --dev -r requirements.txt; fi
           if [ -f requirements-dev.txt ]; then pipenv install --dev -r requirements-dev.txt; fi
           bwrap \
             --unshare-all \
