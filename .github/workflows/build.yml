@@ -45,35 +45,29 @@ jobs:
           sudo apt install bubblewrap
           export PIPENV_VENV_IN_PROJECT=1
           export PIP_IGNORE_INSTALLED=1
-          python -m pip install --no-cache-dir --user pip
-          python -m pip install --no-cache-dir --user pipenv
+          pip install --no-cache-dir --user pip setuptools pipenv
 
       - name: Run tests
         run: |
-          if [ -f requirements.txt ]; then python -m pipenv install --dev -r requirements.txt; fi
-          if [ -f requirements-dev.txt ]; then python -m pipenv install --dev -r requirements-dev.txt; fi
-          pipenv --python `python --version | grep -Eo '3\.[0-9]+'` sync --dev
-          python -m pipenv run coverage run -m unittest
-
-      # - name: Run tests
-      #   run: |
-      #     if [ -f requirements.txt ]; then pipenv install --dev -r requirements.txt; fi
-      #     if [ -f requirements-dev.txt ]; then pipenv install --dev -r requirements-dev.txt; fi
-      #     bwrap \
-      #       --unshare-all \
-      #       --clearenv \
-      #       --setenv EXAMPLE VALUE \
-      #       --ro-bind / / \
-      #       --bind ${{ github.workspace }} ${{ github.workspace }} \
-      #       --tmpfs $HOME \
-      #       --tmpfs /tmp \
-      #       --tmpfs /var \
-      #       --tmpfs /run --dir /run/user/$(id -u) \
-      #       --dev /dev \
-      #       --proc /proc \
-      #       --die-with-parent \
-      #       --new-session \
-      #       python -m pipenv run coverage run -m unittest
+          pipenv shell
+          pipenv install -e .
+          if [ -f requirements.txt ]; then pipenv install --dev -r requirements.txt; fi
+          if [ -f requirements-dev.txt ]; then pipenv install --dev -r requirements-dev.txt; fi
+          bwrap \
+            --unshare-all \
+            --clearenv \
+            --setenv EXAMPLE VALUE \
+            --ro-bind / / \
+            --bind ${{ github.workspace }} ${{ github.workspace }} \
+            --tmpfs $HOME \
+            --tmpfs /tmp \
+            --tmpfs /var \
+            --tmpfs /run --dir /run/user/$(id -u) \
+            --dev /dev \
+            --proc /proc \
+            --die-with-parent \
+            --new-session \
+            python -m pipenv run coverage run -m unittest
 
       - name: Run linting
         run: pre-commit run --all-files

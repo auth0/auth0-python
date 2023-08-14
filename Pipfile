@@ -1,0 +1,37 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+auth0-python = {editable = true, path = "."}
+aiohttp = "*"
+requests = "*"
+pyjwt = "*"
+
+[dev-packages]
+black = "*"
+flake8 = "*"
+isort = "*"
+pre-commit = "*"
+pyupgrade = "*"
+
+[test-packages]
+aioresponses = "*"
+callee = "*"
+coverage = "*"
+mock = "*"
+pre-commit = "*"
+pytest = "*"
+responses = "*"
+
+[crypto-packages]
+cryptography = "*"
+
+[docs-packages]
+sphinx = "*"
+sphinx-mdinclude = "*"
+sphinx-rtd-theme = "*"
+
+[requires]
+python_version = "3.7"
