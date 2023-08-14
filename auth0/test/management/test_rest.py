@@ -20,7 +20,7 @@ class TestRest(unittest.TestCase):
         those options, and overriding it's own constructor arguments.
         """
 
-        options = RestClientOptions(telemetry=False, timeout=0.00001, retries=10)
+        options = RestClientOptions(telemetry=False, timeout=0.00002, retries=10)
         rc = RestClient(jwt="a-token", telemetry=True, timeout=30, options=options)
 
         # Does a timeout occur as expected?
@@ -28,7 +28,7 @@ class TestRest(unittest.TestCase):
             rc.get("http://google.com")
 
         # Is RestClient using the RestClientOptions.timeout value properly?
-        self.assertEqual(rc.options.timeout, 0.00001)
+        self.assertEqual(rc.options.timeout, 0.00002)
 
         # Is RestClient using the RestClientOptions.retries value properly?
         self.assertEqual(rc.options.retries, 10)
@@ -104,31 +104,31 @@ class TestRest(unittest.TestCase):
         self.assertEqual(rc.options.telemetry, True)
 
     def test_get_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00002)
 
         with self.assertRaises(requests.exceptions.Timeout):
             rc.get("https://google.com")
 
     def test_post_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00002)
 
         with self.assertRaises(requests.exceptions.Timeout):
             rc.post("https://google.com")
 
     def test_put_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00002)
 
         with self.assertRaises(requests.exceptions.Timeout):
             rc.put("https://google.com")
 
     def test_patch_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00002)
 
         with self.assertRaises(requests.exceptions.Timeout):
             rc.patch("https://google.com")
 
     def test_delete_can_timeout(self):
-        rc = RestClient(jwt="a-token", telemetry=False, timeout=0)
+        rc = RestClient(jwt="a-token", telemetry=False, timeout=0.00002)
 
         with self.assertRaises(requests.exceptions.Timeout):
             rc.delete("https://google.com")
