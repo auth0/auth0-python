@@ -53,11 +53,13 @@ jobs:
           if [ -f requirements-dev.txt ]; then pipenv install -r requirements.txt-dev; fi
           which python3
           bwrap \
-            --ro-bind / / \
-            --bind $PWD $PWD \
             --unshare-all \
             --clearenv \
             --setenv EXAMPLE VALUE \
+            --ro-bind / / \
+            --bind $PWD $PWD \
+            --tmpfs $HOME \
+            --tmpfs /tmp \
             pipenv run coverage run -m unittest
           deactivate
 
