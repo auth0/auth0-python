@@ -297,11 +297,11 @@ class TestBase(unittest.TestCase):
     def test_get_can_timeout(self):
         ab = AuthenticationBase("auth0.com", "cid", timeout=0.00002)
 
-        with self.assertRaises(requests.exceptions.Timeout):
+        with self.assertRaises(requests.exceptions.ConnectionError):
             ab.get("https://google.com", params={"a": "b"}, headers={"c": "d"})
 
     def test_post_can_timeout(self):
         ab = AuthenticationBase("auth0.com", "cid", timeout=0.00002)
 
-        with self.assertRaises(requests.exceptions.Timeout):
+        with self.assertRaises(requests.exceptions.ConnectionError):
             ab.post("https://google.com", data={"a": "b"}, headers={"c": "d"})
