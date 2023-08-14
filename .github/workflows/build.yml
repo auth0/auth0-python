@@ -64,7 +64,7 @@ jobs:
             --proc /proc \
             --die-with-parent \
             --new-session \
-            pipenv run coverage run -m unittest
+            bash pipenv run coverage run -m unittest
 
       - name: Run linting
         run: pre-commit run --all-files
