@@ -43,13 +43,16 @@ jobs:
         run: |
           sudo ethtool -K eth0 tx off rx off
           sudo apt install bubblewrap
+          export PIPENV_DEFAULT_PYTHON_VERSION=${{ matrix.python-version }}
+          export PIPENV_VENV_IN_PROJECT=1
+          export PIP_IGNORE_INSTALLED=1
           pip install --user --upgrade pip
           pip install --user pipenv
 
       - name: Run tests
         run: |
           if [ -f requirements.txt ]; then pipenv install -r requirements.txt; fi
-          if [ -f requirements-dev.txt ]; then pipenv install -r requirements.txt-dev; fi
+          if [ -f requirements-dev.txt ]; then pipenv install --dev -r requirements-dev.txt; fi
           bwrap \
             --unshare-all \
             --clearenv \
