@@ -31,6 +31,14 @@ jobs:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
+      - name: Disable network connectivity
+        run: |
+          ip netns add jail
+          ip netns exec jail /bin/bash
+          ip addr add 127.0.0.1/8 dev lo
+          ip link set dev lo up
+          exit
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -47,7 +55,8 @@ jobs:
           if [ -f requirements-dev.txt ]; then python3 -m pip install -r requirements.txt-dev; fi
 
       - name: Run tests
-        run: python3 -m coverage run -m unittest
+        run: |
+          ip netns exec jail su user -c 'python3 -m coverage run -m unittest'
 
       - name: Run linting
         run: pre-commit run --all-files
