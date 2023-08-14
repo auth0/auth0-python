@@ -5,7 +5,7 @@ black
 callee
 click
 coverage
-cryptography
+cryptography<4
 flake8
 isort
 mock
