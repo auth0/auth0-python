@@ -49,12 +49,15 @@ jobs:
           python3 -m pip install --user --upgrade pip
           python3 -m pip install --user virtualenv
           python3 -m venv env
+          ls -lha
 
       - name: Run tests in isolated virtual environment
         run: |
           source env/bin/activate
           if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
           if [ -f requirements-dev.txt ]; then python3 -m pip install -r requirements.txt-dev; fi
+          python3 -m pip install--upgrade pip
+          which python3
           bwrap \
             --ro-bind / / \
             --bind $PWD $PWD \
