@@ -295,13 +295,13 @@ class TestBase(unittest.TestCase):
         self.assertEqual(data, {"x": "y"})
 
     def test_get_can_timeout(self):
-        ab = AuthenticationBase("auth0.com", "cid", timeout=1.0)
+        ab = AuthenticationBase("auth0.com", "cid", timeout=0)
 
         with self.assertRaises(requests.exceptions.Timeout):
             ab.get("https://google.com", params={"a": "b"}, headers={"c": "d"})
 
     def test_post_can_timeout(self):
-        ab = AuthenticationBase("auth0.com", "cid", timeout=1.0)
+        ab = AuthenticationBase("auth0.com", "cid", timeout=0)
 
         with self.assertRaises(requests.exceptions.Timeout):
             ab.post("https://google.com", data={"a": "b"}, headers={"c": "d"})
