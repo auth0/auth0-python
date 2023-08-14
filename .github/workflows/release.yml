@@ -1,0 +1,39 @@
+name: Publish Release
+
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: read
+  id-token: write # Required for trusted publishing to PyPI
+
+jobs:
+  publish-pypi:
+    name: "PyPI"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Remove artifacts
+        run: rm -rf build/ dist/ auth0_python.egg-info
+
+      - name: Package release
+        run: python setup.py sdist bdist_wheel --universal
+
+      - name: Publish release
+        uses: pypa/gh-action-pypi-publish@release/v1
