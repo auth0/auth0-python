@@ -55,9 +55,15 @@ jobs:
             --clearenv \
             --setenv EXAMPLE VALUE \
             --ro-bind / / \
-            --bind $PWD $PWD \
+            --bind ${{ github.workspace }} ${{ github.workspace }} \
             --tmpfs $HOME \
             --tmpfs /tmp \
+            --tmpfs /var \
+            --tmpfs /run --dir /run/user/$(id -u) \
+            --dev /dev \
+            --proc /proc \
+            --die-with-parent \
+            --new-session \
             pipenv run coverage run -m unittest
 
       - name: Run linting
