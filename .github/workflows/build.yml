@@ -45,13 +45,11 @@ jobs:
           sudo apt install bubblewrap
           pip install --user --upgrade pip
           pip install --user pipenv
-          cd env && ls -lha
 
       - name: Run tests
         run: |
           if [ -f requirements.txt ]; then pipenv install -r requirements.txt; fi
           if [ -f requirements-dev.txt ]; then pipenv install -r requirements.txt-dev; fi
-          which python3
           bwrap \
             --unshare-all \
             --clearenv \
@@ -61,7 +59,6 @@ jobs:
             --tmpfs $HOME \
             --tmpfs /tmp \
             pipenv run coverage run -m unittest
-          deactivate
 
       - name: Run linting
         run: pre-commit run --all-files
