@@ -45,14 +45,12 @@ jobs:
           sudo apt install bubblewrap
           export PIPENV_VENV_IN_PROJECT=1
           export PIP_IGNORE_INSTALLED=1
-          pip install --no-cache-dir --user pip setuptools pipenv
+          pip install --no-cache-dir --user pip setuptools pipenv build
 
       - name: Run tests
         run: |
           pipenv shell
-          pipenv install -e .
-          if [ -f requirements.txt ]; then pipenv install --dev -r requirements.txt; fi
-          if [ -f requirements-dev.txt ]; then pipenv install --dev -r requirements-dev.txt; fi
+          pipenv install -d
           bwrap \
             --unshare-all \
             --clearenv \
@@ -68,6 +66,7 @@ jobs:
             --die-with-parent \
             --new-session \
             python -m pipenv run coverage run -m unittest
+            exit
 
       - name: Run linting
         run: pre-commit run --all-files
