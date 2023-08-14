@@ -34,7 +34,7 @@ jobs:
       - name: Update network connectivity
         run: |
           sudo ethtool -K eth0 tx off rx off
-          sudo apt install bubblewrap unshare
+          sudo apt install bubblewrap
 
       - name: Checkout code
         uses: actions/checkout@v3
