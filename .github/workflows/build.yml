@@ -44,10 +44,10 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install pytest pytest-cov flake8 pyupgrade isort black pre-commit
           if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
-          if [ -f dev-requirements.txt ]; then python3 -m pip install -r dev-requirements.txt; fi
+          if [ -f requirements-dev.txt ]; then python3 -m pip install -r requirements.txt-dev; fi
 
       - name: Run tests
-        run: coverage run -m unittest
+        run: python3 -m coverage run -m unittest
 
       - name: Run linting
         run: pre-commit run --all-files
