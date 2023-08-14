@@ -16,7 +16,7 @@ jobs:
   authorize:
     name: Authorize
     environment: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository && 'external' || 'internal' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - run: true
 
@@ -24,7 +24,7 @@ jobs:
     needs: authorize # Require approval before running on forked pull requests
 
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     strategy:
       matrix:
