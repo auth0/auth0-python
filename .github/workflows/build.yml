@@ -53,7 +53,7 @@ jobs:
 
       - name: Run tests
         run: |
-          bwrap --bind / / --dev /dev --unshare-net python3 -m coverage run -m unittest
+          bwrap --ro-bind / / --unshare-all python3 -m coverage run -m unittest
 
       - name: Run linting
         run: pre-commit run --all-files
