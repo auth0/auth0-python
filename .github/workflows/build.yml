@@ -64,12 +64,12 @@ jobs:
 
       - name: Run tests
         run: |
-          bwrap $BUBBLEWRAP_ARGUMENTS poetry run poe test
+          bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} poetry run poe test
 
       - name: Run lint
         run: |
           poetry run poe lint:install
-          bwrap $BUBBLEWRAP_ARGUMENTS poetry run poe lint
+          bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} poetry run poe lint
 
       - if: ${{ matrix.python-version == '3.10' }}
         name: Upload coverage
