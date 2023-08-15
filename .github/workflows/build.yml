@@ -28,17 +28,18 @@ jobs:
 
     env:
       BUBBLEWRAP_ARGUMENTS: |
-        --unshare-all \
-        --clearenv \
-        --ro-bind / / \
         --bind ${{ github.workspace }} ${{ github.workspace }} \
-        --tmpfs $HOME \
-        --tmpfs /tmp \
-        --tmpfs /var \
-        --dev /dev \
-        --proc /proc \
-        --die-with-parent \
-        --new-session \
+      # --unshare-all \
+      # --clearenv \
+      # --ro-bind / / \
+      # --bind ${{ github.workspace }} ${{ github.workspace }} \
+      # --tmpfs $HOME \
+      # --tmpfs /tmp \
+      # --tmpfs /var \
+      # --dev /dev \
+      # --proc /proc \
+      # --die-with-parent \
+      # --new-session \
 
     strategy:
       matrix:
