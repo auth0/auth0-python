@@ -1,4 +1,4 @@
-name: CI
+name: Build and Test
 
 on:
   pull_request_target:
@@ -20,10 +20,10 @@ jobs:
     steps:
       - run: true
 
-  build-and-test:
+  run:
     needs: authorize # Require approval before running on forked pull requests
 
-    name: Build and Test
+    name: Run
     runs-on: ubuntu-latest
 
     env:
