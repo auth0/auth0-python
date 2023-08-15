@@ -54,11 +54,7 @@ def get_callback(status=200, response=None):
     return callback, mock
 
 
-@unittest.skipIf(
-    not hasattr(unittest, "IsolatedAsyncioTestCase"),
-    "python 3.7 doesn't have IsolatedAsyncioTestCase",
-)
-class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
+class TestAsyncify(unittest.TestCase):
     @pytest.mark.asyncio
     @aioresponses()
     async def test_get(self, mocked):
