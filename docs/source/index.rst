@@ -5,7 +5,7 @@ Auth0-Python documentation
 .. toctree::
    :hidden:
    :caption: Learn the basics
-   
+
    readme_content
 
 .. toctree::

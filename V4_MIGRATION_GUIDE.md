@@ -10,7 +10,7 @@ Guide to migrating from `3.x` to `4.x`
 
 ## Python <3.7 is no longer supported
 
-Python <=3.6 and Python 2 are EOL and are no longer supported. 
+Python <=3.6 and Python 2 are EOL and are no longer supported.
 
 Also note the new Python [Support Policy](https://github.com/auth0/auth0-python#support-policy)
 
@@ -51,7 +51,7 @@ get_token.client_credentials('my-client-id', 'my-client-secret', 'my-api')
 ```py
 from auth0.authentication import GetToken
 
-# `client_secret` is optional (you can now use `client_assertion_signing_key` as an alternative) 
+# `client_secret` is optional (you can now use `client_assertion_signing_key` as an alternative)
 get_token = GetToken('my-domain.us.auth0.com', 'my-client-id', client_secret='my-client-secret')
 
 get_token.client_credentials('my-api')

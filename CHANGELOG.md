@@ -243,7 +243,7 @@ See the [V4_MIGRATION_GUIDE](https://github.com/auth0/auth0-python/blob/master/V
 3.8.1
 ------------------
 
-July 18, 2019: This release included an unintentionally breaking change affecting those users that were manually parsing the response from GET requests. e.g. /userinfo or /authorize. The `AuthenticationBase#get` method was incorrectly parsing the request result into a String. 
+July 18, 2019: This release included an unintentionally breaking change affecting those users that were manually parsing the response from GET requests. e.g. /userinfo or /authorize. The `AuthenticationBase#get` method was incorrectly parsing the request result into a String.
 
 From this release on, making a GET request returns a Dictionary instead.
 
@@ -375,7 +375,7 @@ Authentication API
 Authentication API
 - Added Logout Functionality
 
-3.0.0 
+3.0.0
 ------------------
 
 Authentication API
@@ -388,8 +388,8 @@ Authentication API
   - Authorization Code Grant
 
 Management API v2
-- Added Support for Guardian   
+- Added Support for Guardian
 - Added Support to retrieve Logs
 - Added Support to manage Resource Servers
 - Added Support to manage Client Grants
-- Added Support to manage User blocks 
+- Added Support to manage User blocks
