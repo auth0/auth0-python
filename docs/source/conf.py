@@ -59,6 +59,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
     "sphinx_mdinclude",
+    "sphinx_autodoc_typehints",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -95,4 +96,8 @@ html_theme = "sphinx_rtd_theme"
 html_static_path = []
 
 # Sphinx somehow can't find this one
-nitpick_ignore = [("py:class", "RSAPublicKey")]
+nitpick_ignore = [
+    ("py:class", "RSAPublicKey"),
+    ("py:data", "typing.Any"),
+    ("py:data", "typing.ClassVar"),
+]
