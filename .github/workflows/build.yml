@@ -56,20 +56,22 @@ jobs:
       - name: Configure dependencies
         run: |
           sudo apt install bubblewrap
+          pip install --user --upgrade pip
           pip install --user pipx
           pipx ensurepath
           pipx install poetry
           pipx install poethepoet
+          poetry config virtualenvs.in-project true
           poetry install --with dev
 
       - name: Run tests
         run: |
-          bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} poetry run poe test
+          bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} bash poetry run poe test
 
       - name: Run lint
         run: |
           poetry run poe lint:install
-          bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} poetry run poe lint
+          bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} bash poetry run poe lint
 
       - if: ${{ matrix.python-version == '3.10' }}
         name: Upload coverage
