@@ -39,6 +39,7 @@ mock = "^5.1.0"
 pipx = "^1.2.0"
 pytest = "^7.4.0"
 pytest-aiohttp = "^1.0.4"
+pytest-asyncio = "^0.21.1"
 pytest-cov = "^4.1.0"
 responses = "^0.23.3"
 
