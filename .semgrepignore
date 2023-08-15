@@ -1,4 +1,4 @@
-.github/
-docs/
-examples/
+/.github/
+/docs/
+/examples/
 *.md
