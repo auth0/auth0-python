@@ -1,4 +1,4 @@
-name: CI
+name: Semgrep
 
 on:
   pull_request_target:
@@ -22,11 +22,11 @@ jobs:
     steps:
       - run: true
 
-  semgrep:
+  run:
     if: (github.actor != 'dependabot[bot]')
     needs: authorize # Require approval before running on forked pull requests
 
-    name: Semgrep
+    name: Run
     runs-on: ubuntu-latest
 
     container:
