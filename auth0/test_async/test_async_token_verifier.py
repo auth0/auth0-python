@@ -4,8 +4,8 @@ from unittest.mock import ANY
 
 import jwt
 from aioresponses import aioresponses
-from callee import Attrs
 from cryptography.hazmat.primitives import serialization
+from yarl import URL
 
 from .. import TokenValidationError
 from ..authentication.async_token_verifier import (
@@ -96,7 +96,7 @@ class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object))
         self.assertEqual(expected_key_1_pem, RSA_PUB_KEY_1_PEM)
 
         mock.assert_called_with(
-            Attrs(path="/.well-known/jwks.json"),
+            URL("https://example.auth0.com/.well-known/jwks.json"),
             allow_redirects=True,
             params=None,
             headers=ANY,
@@ -112,7 +112,7 @@ class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object))
         self.assertEqual(expected_key_1_pem, RSA_PUB_KEY_1_PEM)
 
         mock.assert_called_with(
-            Attrs(path="/.well-known/jwks.json"),
+            URL("https://example.auth0.com/.well-known/jwks.json"),
             allow_redirects=True,
             params=None,
             headers=ANY,
@@ -136,7 +136,7 @@ class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object))
         self.assertEqual(expected_key_2_pem, RSA_PUB_KEY_2_PEM)
 
         mock.assert_called_with(
-            Attrs(path="/.well-known/jwks.json"),
+            URL("https://example.auth0.com/.well-known/jwks.json"),
             allow_redirects=True,
             params=None,
             headers=ANY,
@@ -157,7 +157,7 @@ class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object))
         self.assertEqual(expected_key_1_pem, RSA_PUB_KEY_1_PEM)
 
         mock.assert_called_with(
-            Attrs(path="/.well-known/jwks.json"),
+            URL("https://example.auth0.com/.well-known/jwks.json"),
             allow_redirects=True,
             params=None,
             headers=ANY,
@@ -174,7 +174,7 @@ class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object))
         self.assertEqual(expected_key_2_pem, RSA_PUB_KEY_2_PEM)
 
         mock.assert_called_with(
-            Attrs(path="/.well-known/jwks.json"),
+            URL("https://example.auth0.com/.well-known/jwks.json"),
             allow_redirects=True,
             params=None,
             headers=ANY,
@@ -193,7 +193,7 @@ class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object))
             await fetcher.get_key("missing-key")
 
         mock.assert_called_with(
-            Attrs(path="/.well-known/jwks.json"),
+            URL("https://example.auth0.com/.well-known/jwks.json"),
             allow_redirects=True,
             params=None,
             headers=ANY,
@@ -216,7 +216,7 @@ class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object))
             await fetcher.get_key("id1")
 
         mock.assert_called_with(
-            Attrs(path="/.well-known/jwks.json"),
+            URL("https://example.auth0.com/.well-known/jwks.json"),
             allow_redirects=True,
             params=None,
             headers=ANY,

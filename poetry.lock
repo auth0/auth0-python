@@ -202,16 +202,6 @@ tests = ["attrs[tests-no-zope]", "zope-interface"]
 tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "pytest-xdist[psutil]"]
 
 [[package]]
-name = "callee"
-version = "0.3.1"
-description = "Argument matchers for unittest.mock"
-optional = false
-python-versions = "*"
-files = [
-    {file = "callee-0.3.1.tar.gz", hash = "sha256:056f95d7760c87ce470aa4ab83bab5f9bdf090d4ecf77d52efe9c4559c0aefd3"},
-]
-
-[[package]]
 name = "certifi"
 version = "2023.7.22"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -1202,4 +1192,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "bc3b8984de4b7c91b7a17e2309f66f5928189b66dd2d2073a7a0919980ced62e"
+content-hash = "4b8c5e953423802ae9caa55f63477ddb80c4c5a890b516b1064cbd1117f88a90"

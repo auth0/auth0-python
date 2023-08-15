@@ -9,7 +9,7 @@ from unittest.mock import ANY, MagicMock
 
 import aiohttp
 from aioresponses import CallbackResult, aioresponses
-from callee import Attrs
+from yarl import URL
 
 from auth0.asyncify import asyncify
 from auth0.authentication import GetToken, Users
@@ -65,7 +65,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         c = asyncify(Clients)(domain="example.com", token="jwt")
         self.assertEqual(await c.all_async(), payload)
         mock.assert_called_with(
-            Attrs(path="/api/v2/clients"),
+            URL("https://example.com/api/v2/clients?include_fields=true"),
             allow_redirects=True,
             params={"include_fields": "true"},
             headers=headers,
@@ -80,7 +80,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         data = {"client": 1}
         self.assertEqual(await c.create_async(data), payload)
         mock.assert_called_with(
-            Attrs(path="/api/v2/clients"),
+            URL("https://example.com/api/v2/clients"),
             allow_redirects=True,
             json=data,
             headers=headers,
@@ -96,7 +96,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             await c.login_async(username="usrnm", password="pswd"), payload
         )
         mock.assert_called_with(
-            Attrs(path="/oauth/token"),
+            URL("https://example.com/oauth/token"),
             allow_redirects=True,
             json={
                 "client_id": "cid",
@@ -121,7 +121,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             await c.userinfo_async(access_token="access-token-example"), payload
         )
         mock.assert_called_with(
-            Attrs(path="/userinfo"),
+            URL("https://example.com/userinfo"),
             headers={**headers, "Authorization": "Bearer access-token-example"},
             timeout=ANY,
             allow_redirects=True,
@@ -138,7 +138,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         file_port_headers = headers.copy()
         file_port_headers.pop("Content-Type")
         mock.assert_called_with(
-            Attrs(path="/api/v2/jobs/users-imports"),
+            URL("https://example.com/api/v2/jobs/users-imports"),
             allow_redirects=True,
             data={
                 "connection_id": "connection-1",
@@ -160,7 +160,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         data = {"client": 1}
         self.assertEqual(await c.update_async("client-1", data), payload)
         mock.assert_called_with(
-            Attrs(path="/api/v2/clients/client-1"),
+            URL("https://example.com/api/v2/clients/client-1"),
             allow_redirects=True,
             json=data,
             headers=headers,
@@ -175,7 +175,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         data = {"factor": 1}
         self.assertEqual(await g.update_factor_async("factor-1", data), payload)
         mock.assert_called_with(
-            Attrs(path="/api/v2/guardian/factors/factor-1"),
+            URL("https://example.com/api/v2/guardian/factors/factor-1"),
             allow_redirects=True,
             json=data,
             headers=headers,
@@ -189,7 +189,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         c = asyncify(Clients)(domain="example.com", token="jwt")
         self.assertEqual(await c.delete_async("client-1"), payload)
         mock.assert_called_with(
-            Attrs(path="/api/v2/clients/client-1"),
+            URL("https://example.com/api/v2/clients/client-1"),
             allow_redirects=True,
             params={},
             json=None,
@@ -204,7 +204,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         async with asyncify(Clients)(domain="example.com", token="jwt") as c:
             self.assertEqual(await c.all_async(), payload)
         mock.assert_called_with(
-            Attrs(path="/api/v2/clients"),
+            URL("https://example.com/api/v2/clients?include_fields=true"),
             allow_redirects=True,
             params={"include_fields": "true"},
             headers=headers,
