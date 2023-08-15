@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class CustomDomains:
@@ -17,6 +22,9 @@ class CustomDomains:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,33 +33,33 @@ class CustomDomains:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/custom-domains"
         if id is not None:
             return url + "/" + id
         return url
 
-    def all(self):
+    def all(self) -> list[dict[str, Any]]:
         """Retrieves all custom domains.
 
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/get_custom_domains
         """
         return self.client.get(self._url())
 
-    def get(self, id):
+    def get(self, id: str) -> dict[str, Any]:
         """Retrieves custom domain.
 
         See: https://auth0.com/docs/api/management/v2#!/Custom_Domains/get_custom_domains_by_id
@@ -59,7 +67,7 @@ class CustomDomains:
         url = self._url("%s" % (id))
         return self.client.get(url)
 
-    def delete(self, id):
+    def delete(self, id: str) -> Any:
         """Deletes a grant.
 
         Args:
@@ -70,7 +78,7 @@ class CustomDomains:
         url = self._url("%s" % (id))
         return self.client.delete(url)
 
-    def create_new(self, body):
+    def create_new(self, body: dict[str, Any]) -> dict[str, Any]:
         """Configure a new custom domain.
 
         Args:
@@ -80,7 +88,7 @@ class CustomDomains:
         """
         return self.client.post(self._url(), data=body)
 
-    def verify(self, id):
+    def verify(self, id: str) -> dict[str, Any]:
         """Verify a custom domain.
 
         Args:

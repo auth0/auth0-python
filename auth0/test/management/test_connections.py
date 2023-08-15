@@ -33,6 +33,7 @@ class TestConnection(unittest.TestCase):
                 "page": None,
                 "per_page": None,
                 "include_fields": "true",
+                "name": None,
             },
         )
 
@@ -50,6 +51,7 @@ class TestConnection(unittest.TestCase):
                 "page": None,
                 "per_page": None,
                 "include_fields": "false",
+                "name": None,
             },
         )
 
@@ -67,6 +69,7 @@ class TestConnection(unittest.TestCase):
                 "page": None,
                 "per_page": None,
                 "include_fields": "true",
+                "name": None,
             },
         )
 
@@ -84,6 +87,7 @@ class TestConnection(unittest.TestCase):
                 "page": 7,
                 "per_page": 25,
                 "include_fields": "true",
+                "name": None,
             },
         )
 
@@ -102,6 +106,25 @@ class TestConnection(unittest.TestCase):
                 "per_page": None,
                 "include_fields": "true",
                 "some_key": "some_value",
+                "name": None,
+            },
+        )
+
+        # Name
+        c.all(name="foo")
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual("https://domain/api/v2/connections", args[0])
+        self.assertEqual(
+            kwargs["params"],
+            {
+                "fields": None,
+                "strategy": None,
+                "page": None,
+                "per_page": None,
+                "include_fields": "true",
+                "name": "foo",
             },
         )
 

@@ -1,6 +1,9 @@
-import warnings
+from __future__ import annotations
 
-from ..rest import RestClient
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Jobs:
@@ -19,6 +22,9 @@ class Jobs:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -27,26 +33,26 @@ class Jobs:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, path=None):
+    def _url(self, path: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/jobs"
         if path is not None:
             return f"{url}/{path}"
         return url
 
-    def get(self, id):
+    def get(self, id: str) -> dict[str, Any]:
         """Retrieves a job. Useful to check its status.
 
         Args:
@@ -56,7 +62,7 @@ class Jobs:
         """
         return self.client.get(self._url(id))
 
-    def get_failed_job(self, id):
+    def get_failed_job(self, id: str) -> dict[str, Any]:
         """Get failed job error details.
 
         Args:
@@ -67,7 +73,7 @@ class Jobs:
         url = self._url(f"{id}/errors")
         return self.client.get(url)
 
-    def export_users(self, body):
+    def export_users(self, body: dict[str, Any]):
         """Export all users to a file using a long running job.
 
         Check job status with get(). URL pointing to the export file will be
@@ -82,12 +88,12 @@ class Jobs:
 
     def import_users(
         self,
-        connection_id,
-        file_obj,
-        upsert=False,
-        send_completion_email=True,
-        external_id=None,
-    ):
+        connection_id: str,
+        file_obj: Any,
+        upsert: bool = False,
+        send_completion_email: bool = True,
+        external_id: str | None = None,
+    ) -> dict[str, Any]:
         """Imports users to a connection from a file.
 
         Args:
@@ -121,7 +127,7 @@ class Jobs:
             files={"users": file_obj},
         )
 
-    def send_verification_email(self, body):
+    def send_verification_email(self, body: dict[str, Any]) -> dict[str, Any]:
         """Send verification email.
 
         Send an email to the specified user that asks them to click a link to

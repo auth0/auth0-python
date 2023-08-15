@@ -1,6 +1,9 @@
-import warnings
+from __future__ import annotations
 
-from ..rest import RestClient
+from typing import Any, List  # List is being used as list is already a method.
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Users:
@@ -19,6 +22,9 @@ class Users:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -27,20 +33,20 @@ class Users:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/users"
         if id is not None:
             return f"{url}/{id}"
@@ -48,15 +54,15 @@ class Users:
 
     def list(
         self,
-        page=0,
-        per_page=25,
-        sort=None,
-        connection=None,
-        q=None,
-        search_engine=None,
-        include_totals=True,
-        fields=None,
-        include_fields=True,
+        page: int = 0,
+        per_page: int = 25,
+        sort: str | None = None,
+        connection: str | None = None,
+        q: str | None = None,
+        search_engine: str | None = None,
+        include_totals: bool = True,
+        fields: List[str] | None = None,
+        include_fields: bool = True,
     ):
         """List or search users.
 
@@ -106,7 +112,7 @@ class Users:
         }
         return self.client.get(self._url(), params=params)
 
-    def create(self, body):
+    def create(self, body: dict[str, Any]) -> dict[str, Any]:
         """Creates a new user.
 
         Args:
@@ -116,7 +122,9 @@ class Users:
         """
         return self.client.post(self._url(), data=body)
 
-    def get(self, id, fields=None, include_fields=True):
+    def get(
+        self, id: str, fields: List[str] | None = None, include_fields: bool = True
+    ) -> dict[str, Any]:
         """Get a user.
 
         Args:
@@ -138,7 +146,7 @@ class Users:
 
         return self.client.get(self._url(id), params=params)
 
-    def delete(self, id):
+    def delete(self, id: str) -> Any:
         """Delete a user.
 
         Args:
@@ -148,7 +156,7 @@ class Users:
         """
         return self.client.delete(self._url(id))
 
-    def update(self, id, body):
+    def update(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Update a user with the attributes passed in 'body'
 
         Args:
@@ -160,7 +168,9 @@ class Users:
         """
         return self.client.patch(self._url(id), data=body)
 
-    def list_organizations(self, id, page=0, per_page=25, include_totals=True):
+    def list_organizations(
+        self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
+    ):
         """List the organizations that the user is member of.
 
         Args:
@@ -186,7 +196,9 @@ class Users:
         url = self._url(f"{id}/organizations")
         return self.client.get(url, params=params)
 
-    def list_roles(self, id, page=0, per_page=25, include_totals=True):
+    def list_roles(
+        self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
+    ):
         """List the roles associated with a user.
 
         Args:
@@ -212,7 +224,7 @@ class Users:
         url = self._url(f"{id}/roles")
         return self.client.get(url, params=params)
 
-    def remove_roles(self, id, roles):
+    def remove_roles(self, id: str, roles: List[str]) -> Any:
         """Removes an array of roles from a user.
 
         Args:
@@ -226,7 +238,7 @@ class Users:
         body = {"roles": roles}
         return self.client.delete(url, data=body)
 
-    def add_roles(self, id, roles):
+    def add_roles(self, id: str, roles: List[str]) -> dict[str, Any]:
         """Associate an array of roles with a user.
 
         Args:
@@ -240,7 +252,9 @@ class Users:
         body = {"roles": roles}
         return self.client.post(url, data=body)
 
-    def list_permissions(self, id, page=0, per_page=25, include_totals=True):
+    def list_permissions(
+        self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
+    ):
         """List the permissions associated to the user.
 
         Args:
@@ -266,7 +280,7 @@ class Users:
         url = self._url(f"{id}/permissions")
         return self.client.get(url, params=params)
 
-    def remove_permissions(self, id, permissions):
+    def remove_permissions(self, id: str, permissions: List[str]) -> Any:
         """Removes permissions from a user.
 
         Args:
@@ -280,7 +294,7 @@ class Users:
         body = {"permissions": permissions}
         return self.client.delete(url, data=body)
 
-    def add_permissions(self, id, permissions):
+    def add_permissions(self, id: str, permissions: List[str]) -> dict[str, Any]:
         """Assign permissions to a user.
 
         Args:
@@ -294,7 +308,7 @@ class Users:
         body = {"permissions": permissions}
         return self.client.post(url, data=body)
 
-    def delete_multifactor(self, id, provider):
+    def delete_multifactor(self, id: str, provider: str) -> Any:
         """Delete a user's multifactor provider.
 
         Args:
@@ -308,7 +322,7 @@ class Users:
         url = self._url(f"{id}/multifactor/{provider}")
         return self.client.delete(url)
 
-    def delete_authenticators(self, id):
+    def delete_authenticators(self, id: str) -> Any:
         """Delete a user's MFA enrollments.
 
         Args:
@@ -319,7 +333,7 @@ class Users:
         url = self._url(f"{id}/authenticators")
         return self.client.delete(url)
 
-    def unlink_user_account(self, id, provider, user_id):
+    def unlink_user_account(self, id: str, provider: str, user_id: str) -> Any:
         """Unlink a user account
 
         Args:
@@ -334,7 +348,7 @@ class Users:
         url = self._url(f"{id}/identities/{provider}/{user_id}")
         return self.client.delete(url)
 
-    def link_user_account(self, user_id, body):
+    def link_user_account(self, user_id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Link user accounts.
 
         Links the account specified in the body (secondary account) to the
@@ -351,7 +365,7 @@ class Users:
         url = self._url(f"{user_id}/identities")
         return self.client.post(url, data=body)
 
-    def regenerate_recovery_code(self, user_id):
+    def regenerate_recovery_code(self, user_id: str) -> dict[str, Any]:
         """Removes the current recovery token, generates and returns a new one
 
         Args:
@@ -362,7 +376,7 @@ class Users:
         url = self._url(f"{user_id}/recovery-code-regeneration")
         return self.client.post(url)
 
-    def get_guardian_enrollments(self, user_id):
+    def get_guardian_enrollments(self, user_id: str) -> dict[str, Any]:
         """Retrieves all Guardian enrollments.
 
         Args:
@@ -374,7 +388,12 @@ class Users:
         return self.client.get(url)
 
     def get_log_events(
-        self, user_id, page=0, per_page=50, sort=None, include_totals=False
+        self,
+        user_id: str,
+        page: int = 0,
+        per_page: int = 50,
+        sort: str | None = None,
+        include_totals: bool = False,
     ):
         """Retrieve every log event for a specific user id.
 
@@ -408,7 +427,7 @@ class Users:
         url = self._url(f"{user_id}/logs")
         return self.client.get(url, params=params)
 
-    def invalidate_remembered_browsers(self, user_id):
+    def invalidate_remembered_browsers(self, user_id: str) -> dict[str, Any]:
         """Invalidate all remembered browsers across all authentication factors for a user.
 
         Args:
@@ -420,7 +439,7 @@ class Users:
         url = self._url(f"{user_id}/multifactor/actions/invalidate-remember-browser")
         return self.client.post(url)
 
-    def get_authentication_methods(self, user_id):
+    def get_authentication_methods(self, user_id: str) -> dict[str, Any]:
         """Gets a list of authentication methods
 
         Args:
@@ -432,7 +451,9 @@ class Users:
         url = self._url(f"{user_id}/authentication-methods")
         return self.client.get(url)
 
-    def get_authentication_method_by_id(self, user_id, authentication_method_id):
+    def get_authentication_method_by_id(
+        self, user_id: str, authentication_method_id: str
+    ) -> dict[str, Any]:
         """Gets an authentication method by ID.
 
         Args:
@@ -445,7 +466,9 @@ class Users:
         url = self._url(f"{user_id}/authentication-methods/{authentication_method_id}")
         return self.client.get(url)
 
-    def create_authentication_method(self, user_id, body):
+    def create_authentication_method(
+        self, user_id: str, body: dict[str, Any]
+    ) -> dict[str, Any]:
         """Creates an authentication method for a given user.
 
         Args:
@@ -458,7 +481,9 @@ class Users:
         url = self._url(f"{user_id}/authentication-methods")
         return self.client.post(url, data=body)
 
-    def update_authentication_methods(self, user_id, body):
+    def update_authentication_methods(
+        self, user_id: str, body: dict[str, Any]
+    ) -> dict[str, Any]:
         """Updates all authentication methods for a user by replacing them with the given ones.
 
         Args:
@@ -472,8 +497,8 @@ class Users:
         return self.client.put(url, data=body)
 
     def update_authentication_method_by_id(
-        self, user_id, authentication_method_id, body
-    ):
+        self, user_id: str, authentication_method_id: str, body: dict[str, Any]
+    ) -> dict[str, Any]:
         """Updates an authentication method.
 
         Args:
@@ -487,7 +512,7 @@ class Users:
         url = self._url(f"{user_id}/authentication-methods/{authentication_method_id}")
         return self.client.patch(url, data=body)
 
-    def delete_authentication_methods(self, user_id):
+    def delete_authentication_methods(self, user_id: str) -> Any:
         """Deletes all authentication methods for the given user.
 
         Args:
@@ -499,7 +524,9 @@ class Users:
         url = self._url(f"{user_id}/authentication-methods")
         return self.client.delete(url)
 
-    def delete_authentication_method_by_id(self, user_id, authentication_method_id):
+    def delete_authentication_method_by_id(
+        self, user_id: str, authentication_method_id: str
+    ) -> Any:
         """Deletes an authentication method by ID.
 
         Args:

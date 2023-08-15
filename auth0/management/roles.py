@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any, List  # List is being used as list is already a method.
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Roles:
@@ -17,6 +22,9 @@ class Roles:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,26 +33,32 @@ class Roles:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/roles"
         if id is not None:
             return f"{url}/{id}"
         return url
 
-    def list(self, page=0, per_page=25, include_totals=True, name_filter=None):
+    def list(
+        self,
+        page: int = 0,
+        per_page: int = 25,
+        include_totals: bool = True,
+        name_filter: str | None = None,
+    ):
         """List or search roles.
 
         Args:
@@ -70,7 +84,7 @@ class Roles:
         }
         return self.client.get(self._url(), params=params)
 
-    def create(self, body):
+    def create(self, body: dict[str, Any]) -> dict[str, Any]:
         """Creates a new role.
 
         Args:
@@ -80,7 +94,7 @@ class Roles:
         """
         return self.client.post(self._url(), data=body)
 
-    def get(self, id):
+    def get(self, id: str) -> dict[str, Any]:
         """Get a role.
 
         Args:
@@ -91,7 +105,7 @@ class Roles:
 
         return self.client.get(self._url(id))
 
-    def delete(self, id):
+    def delete(self, id: str) -> Any:
         """Delete a role.
 
         Args:
@@ -101,7 +115,7 @@ class Roles:
         """
         return self.client.delete(self._url(id))
 
-    def update(self, id, body):
+    def update(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Update a role with the attributes passed in 'body'
 
         Args:
@@ -114,7 +128,13 @@ class Roles:
         return self.client.patch(self._url(id), data=body)
 
     def list_users(
-        self, id, page=0, per_page=25, include_totals=True, from_param=None, take=None
+        self,
+        id: str,
+        page: int = 0,
+        per_page: int = 25,
+        include_totals: bool = True,
+        from_param: str | None = None,
+        take: int | None = None,
     ):
         """List the users that have been associated with a given role.
 
@@ -150,7 +170,7 @@ class Roles:
         url = self._url(f"{id}/users")
         return self.client.get(url, params=params)
 
-    def add_users(self, id, users):
+    def add_users(self, id: str, users: List[str]) -> dict[str, Any]:
         """Assign users to a role.
 
         Args:
@@ -164,7 +184,9 @@ class Roles:
         body = {"users": users}
         return self.client.post(url, data=body)
 
-    def list_permissions(self, id, page=0, per_page=25, include_totals=True):
+    def list_permissions(
+        self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
+    ):
         """List the permissions associated to a role.
 
         Args:
@@ -189,7 +211,7 @@ class Roles:
         url = self._url(f"{id}/permissions")
         return self.client.get(url, params=params)
 
-    def remove_permissions(self, id, permissions):
+    def remove_permissions(self, id: str, permissions: List[str]) -> Any:
         """Unassociates permissions from a role.
 
         Args:
@@ -203,7 +225,7 @@ class Roles:
         body = {"permissions": permissions}
         return self.client.delete(url, data=body)
 
-    def add_permissions(self, id, permissions):
+    def add_permissions(self, id: str, permissions: List[str]) -> dict[str, Any]:
         """Associates permissions with a role.
 
         Args:

@@ -1,7 +1,8 @@
 import unittest
+from fnmatch import fnmatch
 from unittest import mock
+from unittest.mock import ANY
 
-from callee.strings import Glob
 from cryptography.hazmat.primitives import asymmetric, serialization
 
 from ...authentication.get_token import GetToken
@@ -59,13 +60,15 @@ class TestGetToken(unittest.TestCase):
             kwargs["data"],
             {
                 "client_id": "cid",
-                "client_assertion": Glob("*.*.*"),
+                "client_assertion": ANY,
                 "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
                 "code": "cd",
                 "grant_type": "gt",
                 "redirect_uri": "idt",
             },
         )
+
+        self.assertTrue(fnmatch(kwargs["data"]["client_assertion"], "*.*.*"))
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_authorization_code_pkce(self, mock_post):
@@ -126,12 +129,14 @@ class TestGetToken(unittest.TestCase):
             kwargs["data"],
             {
                 "client_id": "cid",
-                "client_assertion": Glob("*.*.*"),
+                "client_assertion": ANY,
                 "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
                 "audience": "aud",
                 "grant_type": "gt",
             },
         )
+
+        self.assertTrue(fnmatch(kwargs["data"]["client_assertion"], "*.*.*"))
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_login(self, mock_post):
@@ -186,6 +191,22 @@ class TestGetToken(unittest.TestCase):
                 "scope": None,
                 "audience": None,
                 "grant_type": "http://auth0.com/oauth/grant-type/password-realm",
+            },
+        )
+
+    @mock.patch("auth0.rest.RestClient.post")
+    def test_login_with_forwarded_for(self, mock_post):
+        g = GetToken("my.domain.com", "cid", client_secret="clsec")
+
+        g.login(username="usrnm", password="pswd", forwarded_for="192.168.0.1")
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], "https://my.domain.com/oauth/token")
+        self.assertEqual(
+            kwargs["headers"],
+            {
+                "auth0-forwarded-for": "192.168.0.1",
             },
         )
 

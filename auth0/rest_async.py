@@ -44,7 +44,7 @@ class AsyncRestClient(RestClient):
         )
         self.timeout = aiohttp.ClientTimeout(
             sock_connect=sock_connect, sock_read=sock_read
-        )
+        )  # type: ignore[assignment]
 
     def set_session(self, session: aiohttp.ClientSession) -> None:
         """Set Client Session to improve performance by reusing session.

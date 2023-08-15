@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class DeviceCredentials:
@@ -17,6 +22,9 @@ class DeviceCredentials:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,20 +33,20 @@ class DeviceCredentials:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/device-credentials"
         if id is not None:
             return f"{url}/{id}"
@@ -46,14 +54,14 @@ class DeviceCredentials:
 
     def get(
         self,
-        user_id,
-        client_id,
-        type,
-        fields=None,
-        include_fields=True,
-        page=None,
-        per_page=None,
-        include_totals=False,
+        user_id: str,
+        client_id: str,
+        type: str,
+        fields: list[str] | None = None,
+        include_fields: bool = True,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
     ):
         """List device credentials.
 
@@ -94,7 +102,7 @@ class DeviceCredentials:
         }
         return self.client.get(self._url(), params=params)
 
-    def create(self, body):
+    def create(self, body: dict[str, Any]) -> dict[str, Any]:
         """Create a device public key.
 
         Args:
@@ -105,7 +113,7 @@ class DeviceCredentials:
         """
         return self.client.post(self._url(), data=body)
 
-    def delete(self, id):
+    def delete(self, id: str) -> Any:
         """Delete credential.
 
         Args:

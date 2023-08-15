@@ -1,0 +1,64 @@
+[build-system]
+requires = ["poetry-core", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry]
+name = "auth0-python"
+version = "0.0.0"                                    # This is replaced by dynamic versioning
+description = ""
+authors = ["Auth0 <support@auth0.com>"]
+license = "MIT"
+repository = "https://github.com/auth0/auth0-python"
+homepage = "https://auth0.com"
+readme = "README.md"
+packages = [{ include = "auth0" }]
+
+[tool.poetry-dynamic-versioning]
+strict = true
+enable = true
+vcs = "git"
+style = "semver"
+format-jinja = "{% if distance == 0 %}{{ base }}{% else %}{{ base }}{% endif %}"
+pattern = "default-unprefixed"
+
+[tool.poetry-dynamic-versioning.substitution]
+files = ["*/__init__.py"]
+folders = [{ path = "auth0" }]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+aiohttp = "^3.8.5"
+pyjwt = "^2.8.0"
+cryptography = "^41.0.3" # pyjwt has a weak dependency on cryptography
+pyopenssl = "^23.2.0"    # pyopenssl is required to work with cryptography 41+
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+aioresponses = "^0.7.4"
+mock = "^5.1.0"
+pipx = "^1.2.0"
+pytest = "^7.4.0"
+pytest-aiohttp = "^1.0.4"
+pytest-asyncio = "^0.21.1"
+pytest-cov = "^4.1.0"
+responses = "^0.23.3"
+
+[tool.poe.tasks]
+test = "pytest --cov=auth0 --cov-report=term-missing:skip-covered --cov-report=xml"
+lint = "pre-commit run --all-files"
+"lint:install" = [
+  { cmd = "pipx install pre-commit==2.21.0" },
+  { cmd = "pipx install black==23.3.0" },
+  { cmd = "pipx install flake8==5.0.4" },
+  { cmd = "pipx install isort==5.11.5" },
+  { cmd = "pipx install pyupgrade==3.3.2" },
+  { cmd = "pipx install mypy==1.4.1" },
+]
+"docs:install" = [
+  { cmd = "pipx install sphinx" },
+  { cmd = "pipx inject sphinx pyjwt cryptography sphinx-mdinclude sphinx-rtd-theme sphinx-autodoc-typehints" },
+  { cmd = "sphinx-build ./docs/source ./docs/build --keep-going -n -a -b html" },
+]
+requirements = [
+  { cmd = "poetry export --with dev --without-hashes --format requirements.txt --output requirements.txt" },
+]

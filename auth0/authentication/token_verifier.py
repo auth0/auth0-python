@@ -300,7 +300,7 @@ class TokenVerifier:
             token (str): The JWT to verify.
             nonce (str, optional): The nonce value sent during authentication.
             max_age (int, optional): The max_age value sent during authentication.
-            organization (str, optional): The expected organization ID (org_id) claim value. This should be specified
+            organization (str, optional): The expected organization ID (org_id) or orgnization name (org_name) claim value. This should be specified
             when logging in to an organization.
 
         Returns:
@@ -404,16 +404,30 @@ class TokenVerifier:
 
         # Organization
         if organization:
-            if "org_id" not in payload or not isinstance(payload["org_id"], str):
-                raise TokenValidationError(
-                    "Organization (org_id) claim must be a string present in the ID"
-                    " token"
-                )
-            if payload["org_id"] != organization:
-                raise TokenValidationError(
-                    "Organization (org_id) claim mismatch in the ID token; expected"
-                    ' "{}", found "{}"'.format(organization, payload["org_id"])
-                )
+            if organization.startswith("org_"):
+                if "org_id" not in payload or not isinstance(payload["org_id"], str):
+                    raise TokenValidationError(
+                        "Organization (org_id) claim must be a string present in the ID"
+                        " token"
+                    )
+                if payload["org_id"] != organization:
+                    raise TokenValidationError(
+                        "Organization (org_id) claim mismatch in the ID token; expected"
+                        ' "{}", found "{}"'.format(organization, payload["org_id"])
+                    )
+            else:
+                if "org_name" not in payload or not isinstance(
+                    payload["org_name"], str
+                ):
+                    raise TokenValidationError(
+                        "Organization (org_name) claim must be a string present in the ID"
+                        " token"
+                    )
+                if payload["org_name"] != organization.lower():
+                    raise TokenValidationError(
+                        "Organization (org_name) claim mismatch in the ID token; expected"
+                        ' "{}", found "{}"'.format(organization, payload["org_name"])
+                    )
 
         # Authorized party
         if isinstance(payload["aud"], list) and len(payload["aud"]) > 1:

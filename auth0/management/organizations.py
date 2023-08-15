@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Organizations:
@@ -17,6 +22,9 @@ class Organizations:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,20 +33,20 @@ class Organizations:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, *args):
+    def _url(self, *args: str | None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/organizations"
         for p in args:
             if p is not None:
@@ -47,7 +55,12 @@ class Organizations:
 
     # Organizations
     def all_organizations(
-        self, page=None, per_page=None, include_totals=True, from_param=None, take=None
+        self,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = True,
+        from_param: str | None = None,
+        take: int | None = None,
     ):
         """Retrieves a list of all the organizations.
 
@@ -80,7 +93,7 @@ class Organizations:
 
         return self.client.get(self._url(), params=params)
 
-    def get_organization_by_name(self, name=None):
+    def get_organization_by_name(self, name: str | None = None) -> dict[str, Any]:
         """Retrieves an organization given its name.
 
         Args:
@@ -92,7 +105,7 @@ class Organizations:
 
         return self.client.get(self._url("name", name), params=params)
 
-    def get_organization(self, id):
+    def get_organization(self, id: str) -> dict[str, Any]:
         """Retrieves an organization by its ID.
 
         Args:
@@ -104,7 +117,7 @@ class Organizations:
 
         return self.client.get(self._url(id), params=params)
 
-    def create_organization(self, body):
+    def create_organization(self, body: dict[str, Any]) -> dict[str, Any]:
         """Create a new organization.
 
         Args:
@@ -115,7 +128,7 @@ class Organizations:
 
         return self.client.post(self._url(), data=body)
 
-    def update_organization(self, id, body):
+    def update_organization(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Modifies an organization.
 
         Args:
@@ -128,7 +141,7 @@ class Organizations:
 
         return self.client.patch(self._url(id), data=body)
 
-    def delete_organization(self, id):
+    def delete_organization(self, id: str) -> Any:
         """Deletes an organization and all its related assets.
 
         Args:
@@ -140,7 +153,9 @@ class Organizations:
         return self.client.delete(self._url(id))
 
     # Organization Connections
-    def all_organization_connections(self, id, page=None, per_page=None):
+    def all_organization_connections(
+        self, id: str, page: int | None = None, per_page: int | None = None
+    ) -> list[dict[str, Any]]:
         """Retrieves a list of all the organization connections.
 
         Args:
@@ -157,7 +172,9 @@ class Organizations:
         params = {"page": page, "per_page": per_page}
         return self.client.get(self._url(id, "enabled_connections"), params=params)
 
-    def get_organization_connection(self, id, connection_id):
+    def get_organization_connection(
+        self, id: str, connection_id: str
+    ) -> dict[str, Any]:
         """Retrieves an organization connection by its ID.
 
         Args:
@@ -173,7 +190,9 @@ class Organizations:
             self._url(id, "enabled_connections", connection_id), params=params
         )
 
-    def create_organization_connection(self, id, body):
+    def create_organization_connection(
+        self, id: str, body: dict[str, Any]
+    ) -> dict[str, Any]:
         """Adds a connection to an organization.
 
         Args:
@@ -186,7 +205,9 @@ class Organizations:
 
         return self.client.post(self._url(id, "enabled_connections"), data=body)
 
-    def update_organization_connection(self, id, connection_id, body):
+    def update_organization_connection(
+        self, id: str, connection_id: str, body: dict[str, Any]
+    ) -> dict[str, Any]:
         """Modifies an organization.
 
         Args:
@@ -203,7 +224,7 @@ class Organizations:
             self._url(id, "enabled_connections", connection_id), data=body
         )
 
-    def delete_organization_connection(self, id, connection_id):
+    def delete_organization_connection(self, id: str, connection_id: str) -> Any:
         """Deletes a connection from the given organization.
 
         Args:
@@ -219,12 +240,12 @@ class Organizations:
     # Organization Members
     def all_organization_members(
         self,
-        id,
-        page=None,
-        per_page=None,
-        include_totals=True,
-        from_param=None,
-        take=None,
+        id: str,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = True,
+        from_param: str | None = None,
+        take: int | None = None,
     ):
         """Retrieves a list of all the organization members.
 
@@ -259,7 +280,9 @@ class Organizations:
 
         return self.client.get(self._url(id, "members"), params=params)
 
-    def create_organization_members(self, id, body):
+    def create_organization_members(
+        self, id: str, body: dict[str, Any]
+    ) -> dict[str, Any]:
         """Adds members to an organization.
 
         Args:
@@ -272,7 +295,7 @@ class Organizations:
 
         return self.client.post(self._url(id, "members"), data=body)
 
-    def delete_organization_members(self, id, body):
+    def delete_organization_members(self, id: str, body: dict[str, Any]) -> Any:
         """Deletes members from the given organization.
 
         Args:
@@ -286,7 +309,13 @@ class Organizations:
         return self.client.delete(self._url(id, "members"), data=body)
 
     # Organization Member Roles
-    def all_organization_member_roles(self, id, user_id, page=None, per_page=None):
+    def all_organization_member_roles(
+        self,
+        id: str,
+        user_id: str,
+        page: int | None = None,
+        per_page: int | None = None,
+    ) -> list[dict[str, Any]]:
         """Retrieves a list of all the roles from the given organization member.
 
         Args:
@@ -307,7 +336,9 @@ class Organizations:
             self._url(id, "members", user_id, "roles"), params=params
         )
 
-    def create_organization_member_roles(self, id, user_id, body):
+    def create_organization_member_roles(
+        self, id: str, user_id: str, body: dict[str, Any]
+    ) -> dict[str, Any]:
         """Adds roles to a member of an organization.
 
         Args:
@@ -322,7 +353,9 @@ class Organizations:
 
         return self.client.post(self._url(id, "members", user_id, "roles"), data=body)
 
-    def delete_organization_member_roles(self, id, user_id, body):
+    def delete_organization_member_roles(
+        self, id: str, user_id: str, body: dict[str, Any]
+    ) -> Any:
         """Deletes roles from a member of an organization.
 
         Args:
@@ -340,10 +373,10 @@ class Organizations:
     # Organization Invitations
     def all_organization_invitations(
         self,
-        id,
-        page=None,
-        per_page=None,
-        include_totals=False,
+        id: str,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
     ):
         """Retrieves a list of all the organization invitations.
 
@@ -370,7 +403,7 @@ class Organizations:
 
         return self.client.get(self._url(id, "invitations"), params=params)
 
-    def get_organization_invitation(self, id, invitaton_id):
+    def get_organization_invitation(self, id: str, invitaton_id: str) -> dict[str, Any]:
         """Retrieves an organization invitation by its ID.
 
         Args:
@@ -386,7 +419,9 @@ class Organizations:
             self._url(id, "invitations", invitaton_id), params=params
         )
 
-    def create_organization_invitation(self, id, body):
+    def create_organization_invitation(
+        self, id: str, body: dict[str, Any]
+    ) -> dict[str, Any]:
         """Create an invitation to an organization.
 
         Args:
@@ -399,7 +434,7 @@ class Organizations:
 
         return self.client.post(self._url(id, "invitations"), data=body)
 
-    def delete_organization_invitation(self, id, invitation_id):
+    def delete_organization_invitation(self, id: str, invitation_id: str) -> Any:
         """Deletes an invitation from the given organization.
 
         Args:

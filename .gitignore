@@ -53,7 +53,7 @@ docs/build/
 
 # IDEA
 .idea/
-*.iml 
+*.iml
 
 # VSCode
 .vscode/

@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Connections:
@@ -17,6 +22,9 @@ class Connections:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,20 +33,20 @@ class Connections:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/connections"
         if id is not None:
             return f"{url}/{id}"
@@ -46,13 +54,14 @@ class Connections:
 
     def all(
         self,
-        strategy=None,
-        fields=None,
-        include_fields=True,
-        page=None,
-        per_page=None,
-        extra_params=None,
-    ):
+        strategy: str | None = None,
+        fields: list[str] | None = None,
+        include_fields: bool = True,
+        page: int | None = None,
+        per_page: int | None = None,
+        extra_params: dict[str, Any] | None = None,
+        name: str | None = None,
+    ) -> list[dict[str, Any]]:
         """Retrieves all connections.
 
         Args:
@@ -76,6 +85,8 @@ class Connections:
              the request. The fields, include_fields, page and per_page values
              specified as parameters take precedence over the ones defined here.
 
+           name (str): Provide the name of the connection to retrieve.
+
         See: https://auth0.com/docs/api/management/v2#!/Connections/get_connections
 
         Returns:
@@ -88,10 +99,13 @@ class Connections:
         params["include_fields"] = str(include_fields).lower()
         params["page"] = page
         params["per_page"] = per_page
+        params["name"] = name
 
         return self.client.get(self._url(), params=params)
 
-    def get(self, id, fields=None, include_fields=True):
+    def get(
+        self, id: str, fields: list[str] | None = None, include_fields: bool = True
+    ) -> dict[str, Any]:
         """Retrieve connection by id.
 
         Args:
@@ -117,7 +131,7 @@ class Connections:
 
         return self.client.get(self._url(id), params=params)
 
-    def delete(self, id):
+    def delete(self, id: str) -> Any:
         """Deletes a connection and all its users.
 
         Args:
@@ -131,7 +145,7 @@ class Connections:
 
         return self.client.delete(self._url(id))
 
-    def update(self, id, body):
+    def update(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Modifies a connection.
 
         Args:
@@ -147,7 +161,7 @@ class Connections:
 
         return self.client.patch(self._url(id), data=body)
 
-    def create(self, body):
+    def create(self, body: dict[str, Any]) -> dict[str, Any]:
         """Creates a new connection.
 
         Args:
@@ -159,7 +173,7 @@ class Connections:
 
         return self.client.post(self._url(), data=body)
 
-    def delete_user_by_email(self, id, email):
+    def delete_user_by_email(self, id: str, email: str) -> Any:
         """Deletes a specified connection user by its email.
 
         Args:

@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Rules:
@@ -17,6 +22,9 @@ class Rules:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,20 +33,20 @@ class Rules:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/rules"
         if id is not None:
             return f"{url}/{id}"
@@ -46,13 +54,13 @@ class Rules:
 
     def all(
         self,
-        stage="login_success",
-        enabled=True,
-        fields=None,
-        include_fields=True,
-        page=None,
-        per_page=None,
-        include_totals=False,
+        stage: str = "login_success",
+        enabled: bool = True,
+        fields: list[str] | None = None,
+        include_fields: bool = True,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
     ):
         """Retrieves a list of all rules.
 
@@ -97,7 +105,7 @@ class Rules:
 
         return self.client.get(self._url(), params=params)
 
-    def create(self, body):
+    def create(self, body: dict[str, Any]) -> dict[str, Any]:
         """Creates a new rule.
 
         Args:
@@ -107,7 +115,9 @@ class Rules:
         """
         return self.client.post(self._url(), data=body)
 
-    def get(self, id, fields=None, include_fields=True):
+    def get(
+        self, id: str, fields: list[str] | None = None, include_fields: bool = True
+    ) -> dict[str, Any]:
         """Retrieves a rule by its ID.
 
         Args:
@@ -128,7 +138,7 @@ class Rules:
         }
         return self.client.get(self._url(id), params=params)
 
-    def delete(self, id):
+    def delete(self, id: str) -> Any:
         """Delete a rule.
 
         Args:
@@ -138,7 +148,7 @@ class Rules:
         """
         return self.client.delete(self._url(id))
 
-    def update(self, id, body):
+    def update(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
         """Update an existing rule
 
         Args:

@@ -1,4 +1,9 @@
-from ..rest import RestClient
+from __future__ import annotations
+
+from typing import Any
+
+from ..rest import RestClient, RestClientOptions
+from ..types import TimeoutType
 
 
 class Logs:
@@ -17,6 +22,9 @@ class Logs:
             both values separately or a float to set both to it.
             (defaults to 5.0 for both)
 
+        protocol (str, optional): Protocol to use when making requests.
+            (defaults to "https")
+
         rest_options (RestClientOptions): Pass an instance of
             RestClientOptions to configure additional RestClient
             options, such as rate-limit retries.
@@ -25,20 +33,20 @@ class Logs:
 
     def __init__(
         self,
-        domain,
-        token,
-        telemetry=True,
-        timeout=5.0,
-        protocol="https",
-        rest_options=None,
-    ):
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None:
         self.domain = domain
         self.protocol = protocol
         self.client = RestClient(
             jwt=token, telemetry=telemetry, timeout=timeout, options=rest_options
         )
 
-    def _url(self, id=None):
+    def _url(self, id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/logs"
         if id is not None:
             return f"{url}/{id}"
@@ -46,15 +54,15 @@ class Logs:
 
     def search(
         self,
-        page=0,
-        per_page=50,
-        sort=None,
-        q=None,
-        include_totals=True,
-        fields=None,
-        from_param=None,
-        take=None,
-        include_fields=True,
+        page: int = 0,
+        per_page: int = 50,
+        sort: str | None = None,
+        q: str | None = None,
+        include_totals: bool = True,
+        fields: list[str] | None = None,
+        from_param: str | None = None,
+        take: int | None = None,
+        include_fields: bool = True,
     ):
         """Search log events.
 
@@ -102,7 +110,7 @@ class Logs:
         }
         return self.client.get(self._url(), params=params)
 
-    def get(self, id):
+    def get(self, id: str) -> dict[str, Any]:
         """Retrieves the data related to the log entry identified by id.
 
         Args:

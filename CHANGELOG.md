@@ -1,5 +1,27 @@
 # Change Log
 
+## [4.4.0](https://github.com/auth0/auth0-python/tree/4.4.0) (2023-07-25)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.3.0...4.4.0)
+
+**Added**
+- [SDK-4394] Add organization name validation [\#507](https://github.com/auth0/auth0-python/pull/507) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add type hints to `management` [\#497](https://github.com/auth0/auth0-python/pull/497) ([Viicos](https://github.com/Viicos))
+
+**Fixed**
+- Fix asyncify for users client where token is not required [\#506](https://github.com/auth0/auth0-python/pull/506) ([cgearing](https://github.com/cgearing))
+
+## [4.3.0](https://github.com/auth0/auth0-python/tree/4.3.0) (2023-06-26)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.2.0...4.3.0)
+
+**Added**
+- Add forwardedFor option to password grant login [\#501](https://github.com/auth0/auth0-python/pull/501) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add connections.all name parameter [\#500](https://github.com/auth0/auth0-python/pull/500) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add type hints to base and `authentication` [\#472](https://github.com/auth0/auth0-python/pull/472) ([Viicos](https://github.com/Viicos))
+
+**Fixed**
+- Fix async auth client [\#499](https://github.com/auth0/auth0-python/pull/499) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Fix update_template_universal_login [\#495](https://github.com/auth0/auth0-python/pull/495) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.2.0](https://github.com/auth0/auth0-python/tree/4.2.0) (2023-05-02)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.1.1...4.2.0)
 
@@ -221,7 +243,7 @@ See the [V4_MIGRATION_GUIDE](https://github.com/auth0/auth0-python/blob/master/V
 3.8.1
 ------------------
 
-July 18, 2019: This release included an unintentionally breaking change affecting those users that were manually parsing the response from GET requests. e.g. /userinfo or /authorize. The `AuthenticationBase#get` method was incorrectly parsing the request result into a String. 
+July 18, 2019: This release included an unintentionally breaking change affecting those users that were manually parsing the response from GET requests. e.g. /userinfo or /authorize. The `AuthenticationBase#get` method was incorrectly parsing the request result into a String.
 
 From this release on, making a GET request returns a Dictionary instead.
 
@@ -353,7 +375,7 @@ Authentication API
 Authentication API
 - Added Logout Functionality
 
-3.0.0 
+3.0.0
 ------------------
 
 Authentication API
@@ -366,8 +388,8 @@ Authentication API
   - Authorization Code Grant
 
 Management API v2
-- Added Support for Guardian   
+- Added Support for Guardian
 - Added Support to retrieve Logs
 - Added Support to manage Resource Servers
 - Added Support to manage Client Grants
-- Added Support to manage User blocks 
+- Added Support to manage User blocks
