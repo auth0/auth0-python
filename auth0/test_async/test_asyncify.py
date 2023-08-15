@@ -8,6 +8,7 @@ from tempfile import TemporaryFile
 from unittest.mock import ANY, MagicMock
 
 import aiohttp
+import pytest
 from aioresponses import CallbackResult, aioresponses
 from yarl import URL
 
@@ -58,6 +59,7 @@ def get_callback(status=200, response=None):
     "python 3.7 doesn't have IsolatedAsyncioTestCase",
 )
 class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_get(self, mocked):
         callback, mock = get_callback()
@@ -72,6 +74,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             timeout=ANY,
         )
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_post(self, mocked):
         callback, mock = get_callback()
@@ -87,6 +90,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             timeout=ANY,
         )
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_post_auth(self, mocked):
         callback, mock = get_callback()
@@ -112,6 +116,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             timeout=ANY,
         )
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_user_info(self, mocked):
         callback, mock = get_callback()
@@ -128,6 +133,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             params=None,
         )
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_file_post(self, mocked):
         callback, mock = get_callback()
@@ -152,6 +158,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         )
         users.close()
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_patch(self, mocked):
         callback, mock = get_callback()
@@ -167,6 +174,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             timeout=ANY,
         )
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_put(self, mocked):
         callback, mock = get_callback()
@@ -182,6 +190,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             timeout=ANY,
         )
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_delete(self, mocked):
         callback, mock = get_callback()
@@ -197,6 +206,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             timeout=ANY,
         )
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_shared_session(self, mocked):
         callback, mock = get_callback()
@@ -211,6 +221,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
             timeout=ANY,
         )
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_rate_limit(self, mocked):
         callback, mock = get_callback(status=429)
@@ -226,6 +237,7 @@ class TestAsyncify(getattr(unittest, "IsolatedAsyncioTestCase", object)):
         (a, b, c) = rest_client._metrics["backoff"]
         self.assertTrue(100 <= a < b < c <= 1000)
 
+    @pytest.mark.asyncio
     @aioresponses()
     async def test_timeout(self, mocked):
         callback, mock = get_callback()
