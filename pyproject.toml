@@ -47,12 +47,12 @@ responses = "^0.23.3"
 test = "pytest --cov=auth0 --cov-report=term-missing:skip-covered --cov-report=xml"
 lint = "pre-commit run --all-files"
 "lint:install" = [
-  { cmd = "pipx install pre-commit" },
-  { cmd = "pipx install black" },
+  { cmd = "pipx install pre-commit==2.21.0" },
+  { cmd = "pipx install black==23.3.0" },
   { cmd = "pipx install flake8==5.0.4" },
   { cmd = "pipx install isort==5.11.5" },
   { cmd = "pipx install pyupgrade==3.3.2" },
-  { cmd = "pipx install mypy" },
+  { cmd = "pipx install mypy==1.4.1" },
 ]
 "docs:install" = [
   { cmd = "pipx install sphinx" },
