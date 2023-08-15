@@ -79,7 +79,8 @@ jobs:
         name: Upload coverage
         uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # pin@3.1.4
 
-      - if: ${{ matrix.python-version == '3.10' }}
-        name: Build documentation
-        run: |
-          pipx install sphinx && pipx inject sphinx pyjwt cryptography sphinx-mdinclude sphinx-rtd-theme sphinx-autodoc-typehints && sphinx-build ./docs/source ./docs/build --keep-going -n -a -b html
+
+      # - if: ${{ matrix.python-version == '3.10' }}
+      #   name: Build documentation
+      #   run: |
+      #     pipx install sphinx && pipx inject sphinx pyjwt cryptography sphinx-mdinclude sphinx-rtd-theme sphinx-autodoc-typehints && sphinx-build ./docs/source ./docs/build --keep-going -n -a -b html
