@@ -51,7 +51,7 @@ lint = "pre-commit run --all-files"
   { cmd = "pipx install black" },
   { cmd = "pipx install flake8~=5.0" },
   { cmd = "pipx install isort" },
-  { cmd = "pipx install pyupgrade" },
+  { cmd = "pipx install pyupgrade<=3.3.2" },
   { cmd = "pipx install mypy" },
 ]
 "docs:install" = [
