@@ -28,18 +28,17 @@ jobs:
 
     env:
       BUBBLEWRAP_ARGUMENTS: |
+        --unshare-all \
+        --clearenv \
+        --ro-bind / / \
         --bind ${{ github.workspace }} ${{ github.workspace }} \
-      # --unshare-all \
-      # --clearenv \
-      # --ro-bind / / \
-      # --bind ${{ github.workspace }} ${{ github.workspace }} \
-      # --tmpfs $HOME \
-      # --tmpfs /tmp \
-      # --tmpfs /var \
-      # --dev /dev \
-      # --proc /proc \
-      # --die-with-parent \
-      # --new-session \
+        --tmpfs $HOME \
+        --tmpfs /tmp \
+        --tmpfs /var \
+        --dev /dev \
+        --proc /proc \
+        --die-with-parent \
+        --new-session \
 
     strategy:
       matrix:
@@ -67,12 +66,14 @@ jobs:
 
       - name: Run tests
         run: |
-          bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} bash poetry run poe test
+          poetry run poe test
+        # bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} bash
 
       - name: Run lint
         run: |
           poetry run poe lint:install
-          bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} bash poetry run poe lint
+          poetry run poe lint
+        # bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} bash
 
       - if: ${{ matrix.python-version == '3.10' }}
         name: Upload coverage
