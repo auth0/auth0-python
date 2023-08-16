@@ -1,6 +1,7 @@
 name: Build and Test
 
 on:
+  merge_group:
   pull_request_target:
     types:
       - opened
