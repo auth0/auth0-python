@@ -97,6 +97,7 @@ html_static_path = []
 
 # Sphinx somehow can't find this one
 nitpick_ignore = [
+    ("py:class", "cryptography.hazmat.primitives.asymmetric.rsa.RSAPublicKey"),
     ("py:class", "RSAPublicKey"),
     ("py:data", "typing.Any"),
     ("py:data", "typing.ClassVar"),

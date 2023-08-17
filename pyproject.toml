@@ -42,23 +42,3 @@ pytest-aiohttp = "^1.0.4"
 pytest-asyncio = "^0.21.1"
 pytest-cov = "^4.1.0"
 responses = "^0.23.3"
-
-[tool.poe.tasks]
-test = "pytest --cov=auth0 --cov-report=term-missing:skip-covered --cov-report=xml"
-lint = "pre-commit run --all-files"
-"lint:install" = [
-  { cmd = "pipx install pre-commit==2.21.0" },
-  { cmd = "pipx install black==23.3.0" },
-  { cmd = "pipx install flake8==5.0.4" },
-  { cmd = "pipx install isort==5.11.5" },
-  { cmd = "pipx install pyupgrade==3.3.2" },
-  { cmd = "pipx install mypy==1.4.1" },
-]
-"docs:install" = [
-  { cmd = "pipx install sphinx" },
-  { cmd = "pipx inject sphinx pyjwt cryptography sphinx-mdinclude sphinx-rtd-theme sphinx-autodoc-typehints" },
-  { cmd = "sphinx-build ./docs/source ./docs/build --keep-going -n -a -b html" },
-]
-requirements = [
-  { cmd = "poetry export --with dev --without-hashes --format requirements.txt --output requirements.txt" },
-]
