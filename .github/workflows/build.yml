@@ -71,8 +71,14 @@ jobs:
 
       - name: Run lint
         run: |
-          poetry run pre-commit run --all-files
-        # bwrap ${{ env.BUBBLEWRAP_ARGUMENTS }} bash
+          pipx install black==23.3.0
+          pipx install flake8==5.0.4
+          pipx install isort==5.11.5
+          pipx install pyupgrade==3.3.2
+          black . --check
+          flake8 . --count --show-source --statistics
+          isort .  --diff --profile black
+          pyupgrade .  --py37-plus --keep-runtime-typing
 
       - if: ${{ matrix.python-version == '3.10' }}
         name: Upload coverage
