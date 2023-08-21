@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.4.1](https://github.com/auth0/auth0-python/tree/4.4.1) (2023-08-21)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.4.0...4.4.1)
+
+**Fixed**
+- Fix for async types [\#515](https://github.com/auth0/auth0-python/pull/515) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.4.0](https://github.com/auth0/auth0-python/tree/4.4.0) (2023-07-25)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.3.0...4.4.0)
 
