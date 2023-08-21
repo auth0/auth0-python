@@ -1,6 +1,7 @@
 name: Publish Release
 
 on:
+  workflow_dispatch:
   release:
     types:
       - published
@@ -13,6 +14,7 @@ jobs:
   publish-pypi:
     name: "PyPI"
     runs-on: ubuntu-latest
+    environment: release
 
     steps:
       - name: Checkout code
