@@ -42,16 +42,17 @@ class TestBase(unittest.TestCase):
 
         self.assertEqual(ab.client.base_headers, {"Content-Type": "application/json"})
 
-    @mock.patch("requests.post")
-    def test_post(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False, timeout=(10, 2))
 
-        mock_post.return_value.status_code = 200
-        mock_post.return_value.text = '{"x": "y"}'
+        mock_request.return_value.status_code = 200
+        mock_request.return_value.text = '{"x": "y"}'
 
         data = ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
 
-        mock_post.assert_called_with(
+        mock_request.assert_called_with(
+            "POST",
             "the-url",
             json={"a": "b"},
             headers={"c": "d", "Content-Type": "application/json"},
@@ -60,37 +61,38 @@ class TestBase(unittest.TestCase):
 
         self.assertEqual(data, {"x": "y"})
 
-    @mock.patch("requests.post")
-    def test_post_with_defaults(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_with_defaults(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
-        mock_post.return_value.status_code = 200
-        mock_post.return_value.text = '{"x": "y"}'
+        mock_request.return_value.status_code = 200
+        mock_request.return_value.text = '{"x": "y"}'
 
         # Only required params are passed
         data = ab.post("the-url")
 
-        mock_post.assert_called_with(
+        mock_request.assert_called_with(
+            "POST",
             "the-url",
-            json=None,
             headers={"Content-Type": "application/json"},
             timeout=5.0,
         )
 
         self.assertEqual(data, {"x": "y"})
 
-    @mock.patch("requests.post")
-    def test_post_includes_telemetry(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_includes_telemetry(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid")
 
-        mock_post.return_value.status_code = 200
-        mock_post.return_value.text = '{"x": "y"}'
+        mock_request.return_value.status_code = 200
+        mock_request.return_value.text = '{"x": "y"}'
 
         data = ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
 
-        self.assertEqual(mock_post.call_count, 1)
-        call_args, call_kwargs = mock_post.call_args
-        self.assertEqual(call_args[0], "the-url")
+        self.assertEqual(mock_request.call_count, 1)
+        call_args, call_kwargs = mock_request.call_args
+        self.assertEqual(call_args[0], "POST")
+        self.assertEqual(call_args[1], "the-url")
         self.assertEqual(call_kwargs["json"], {"a": "b"})
         headers = call_kwargs["headers"]
         self.assertEqual(headers["c"], "d")
@@ -100,13 +102,15 @@ class TestBase(unittest.TestCase):
 
         self.assertEqual(data, {"x": "y"})
 
-    @mock.patch("requests.post")
-    def test_post_error(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_error(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
         for error_status in [400, 500, None]:
-            mock_post.return_value.status_code = error_status
-            mock_post.return_value.text = '{"error": "e0","error_description": "desc"}'
+            mock_request.return_value.status_code = error_status
+            mock_request.return_value.text = (
+                '{"error": "e0","error_description": "desc"}'
+            )
 
             with self.assertRaises(Auth0Error) as context:
                 ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
@@ -115,12 +119,12 @@ class TestBase(unittest.TestCase):
             self.assertEqual(context.exception.error_code, "e0")
             self.assertEqual(context.exception.message, "desc")
 
-    @mock.patch("requests.post")
-    def test_post_error_mfa_required(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_error_mfa_required(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
-        mock_post.return_value.status_code = 403
-        mock_post.return_value.text = '{"error": "mfa_required", "error_description": "Multifactor authentication required", "mfa_token": "Fe26...Ha"}'
+        mock_request.return_value.status_code = 403
+        mock_request.return_value.text = '{"error": "mfa_required", "error_description": "Multifactor authentication required", "mfa_token": "Fe26...Ha"}'
 
         with self.assertRaises(Auth0Error) as context:
             ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
@@ -132,15 +136,15 @@ class TestBase(unittest.TestCase):
         )
         self.assertEqual(context.exception.content.get("mfa_token"), "Fe26...Ha")
 
-    @mock.patch("requests.post")
-    def test_post_rate_limit_error(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_rate_limit_error(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
-        mock_post.return_value.text = (
+        mock_request.return_value.text = (
             '{"statusCode": 429, "error": "e0", "error_description": "desc"}'
         )
-        mock_post.return_value.status_code = 429
-        mock_post.return_value.headers = {
+        mock_request.return_value.status_code = 429
+        mock_request.return_value.headers = {
             "x-ratelimit-limit": "3",
             "x-ratelimit-remaining": "6",
             "x-ratelimit-reset": "9",
@@ -155,15 +159,15 @@ class TestBase(unittest.TestCase):
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, 9)
 
-    @mock.patch("requests.post")
-    def test_post_rate_limit_error_without_headers(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_rate_limit_error_without_headers(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
-        mock_post.return_value.text = (
+        mock_request.return_value.text = (
             '{"statusCode": 429, "error": "e0", "error_description": "desc"}'
         )
-        mock_post.return_value.status_code = 429
-        mock_post.return_value.headers = {}
+        mock_request.return_value.status_code = 429
+        mock_request.return_value.headers = {}
 
         with self.assertRaises(Auth0Error) as context:
             ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
@@ -174,13 +178,15 @@ class TestBase(unittest.TestCase):
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, -1)
 
-    @mock.patch("requests.post")
-    def test_post_error_with_code_property(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_error_with_code_property(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
         for error_status in [400, 500, None]:
-            mock_post.return_value.status_code = error_status
-            mock_post.return_value.text = '{"code": "e0","error_description": "desc"}'
+            mock_request.return_value.status_code = error_status
+            mock_request.return_value.text = (
+                '{"code": "e0","error_description": "desc"}'
+            )
 
             with self.assertRaises(Auth0Error) as context:
                 ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
@@ -189,13 +195,13 @@ class TestBase(unittest.TestCase):
             self.assertEqual(context.exception.error_code, "e0")
             self.assertEqual(context.exception.message, "desc")
 
-    @mock.patch("requests.post")
-    def test_post_error_with_no_error_code(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_error_with_no_error_code(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
         for error_status in [400, 500, None]:
-            mock_post.return_value.status_code = error_status
-            mock_post.return_value.text = '{"error_description": "desc"}'
+            mock_request.return_value.status_code = error_status
+            mock_request.return_value.text = '{"error_description": "desc"}'
 
             with self.assertRaises(Auth0Error) as context:
                 ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
@@ -204,13 +210,13 @@ class TestBase(unittest.TestCase):
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
             self.assertEqual(context.exception.message, "desc")
 
-    @mock.patch("requests.post")
-    def test_post_error_with_text_response(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_error_with_text_response(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
         for error_status in [400, 500, None]:
-            mock_post.return_value.status_code = error_status
-            mock_post.return_value.text = "there has been a terrible error"
+            mock_request.return_value.status_code = error_status
+            mock_request.return_value.text = "there has been a terrible error"
 
             with self.assertRaises(Auth0Error) as context:
                 ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
@@ -221,13 +227,13 @@ class TestBase(unittest.TestCase):
                 context.exception.message, "there has been a terrible error"
             )
 
-    @mock.patch("requests.post")
-    def test_post_error_with_no_response_text(self, mock_post):
+    @mock.patch("requests.request")
+    def test_post_error_with_no_response_text(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
         for error_status in [400, 500, None]:
-            mock_post.return_value.status_code = error_status
-            mock_post.return_value.text = None
+            mock_request.return_value.status_code = error_status
+            mock_request.return_value.text = None
 
             with self.assertRaises(Auth0Error) as context:
                 ab.post("the-url", data={"a": "b"}, headers={"c": "d"})
@@ -236,16 +242,17 @@ class TestBase(unittest.TestCase):
             self.assertEqual(context.exception.error_code, "a0.sdk.internal.unknown")
             self.assertEqual(context.exception.message, "")
 
-    @mock.patch("requests.get")
-    def test_get(self, mock_get):
+    @mock.patch("requests.request")
+    def test_get(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False, timeout=(10, 2))
 
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.text = '{"x": "y"}'
+        mock_request.return_value.status_code = 200
+        mock_request.return_value.text = '{"x": "y"}'
 
         data = ab.get("the-url", params={"a": "b"}, headers={"c": "d"})
 
-        mock_get.assert_called_with(
+        mock_request.assert_called_with(
+            "GET",
             "the-url",
             params={"a": "b"},
             headers={"c": "d", "Content-Type": "application/json"},
@@ -254,37 +261,38 @@ class TestBase(unittest.TestCase):
 
         self.assertEqual(data, {"x": "y"})
 
-    @mock.patch("requests.get")
-    def test_get_with_defaults(self, mock_get):
+    @mock.patch("requests.request")
+    def test_get_with_defaults(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.text = '{"x": "y"}'
+        mock_request.return_value.status_code = 200
+        mock_request.return_value.text = '{"x": "y"}'
 
         # Only required params are passed
         data = ab.get("the-url")
 
-        mock_get.assert_called_with(
+        mock_request.assert_called_with(
+            "GET",
             "the-url",
-            params=None,
             headers={"Content-Type": "application/json"},
             timeout=5.0,
         )
 
         self.assertEqual(data, {"x": "y"})
 
-    @mock.patch("requests.get")
-    def test_get_includes_telemetry(self, mock_get):
+    @mock.patch("requests.request")
+    def test_get_includes_telemetry(self, mock_request):
         ab = AuthenticationBase("auth0.com", "cid")
 
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.text = '{"x": "y"}'
+        mock_request.return_value.status_code = 200
+        mock_request.return_value.text = '{"x": "y"}'
 
         data = ab.get("the-url", params={"a": "b"}, headers={"c": "d"})
 
-        self.assertEqual(mock_get.call_count, 1)
-        call_args, call_kwargs = mock_get.call_args
-        self.assertEqual(call_args[0], "the-url")
+        self.assertEqual(mock_request.call_count, 1)
+        call_args, call_kwargs = mock_request.call_args
+        self.assertEqual(call_args[0], "GET")
+        self.assertEqual(call_args[1], "the-url")
         self.assertEqual(call_kwargs["params"], {"a": "b"})
         headers = call_kwargs["headers"]
         self.assertEqual(headers["c"], "d")

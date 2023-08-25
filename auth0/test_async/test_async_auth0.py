@@ -28,7 +28,7 @@ class TestAuth0(unittest.TestCase):
     async def test_get(self, mocked):
         callback, mock = get_callback()
 
-        await mocked.get(clients, callback=callback)
+        mocked.get(clients, callback=callback)
 
         auth0 = Auth0(domain="example.com", token="jwt")
 
