@@ -4,8 +4,6 @@ import sys
 import unittest
 from unittest import mock
 
-import requests
-
 from auth0.rest import RestClient, RestClientOptions
 
 from ...exceptions import Auth0Error, RateLimitError
@@ -474,6 +472,24 @@ class TestRest(unittest.TestCase):
 
         # Ensure total delay sum is never more than 10s.
         self.assertLessEqual(finalBackoff, 10000)
+
+    @mock.patch("requests.request")
+    def test_post_rate_limit_retries(self, mock_request):
+        options = RestClientOptions(telemetry=False, retries=10)
+        rc = RestClient(jwt="a-token", options=options)
+        rc._skip_sleep = True
+
+        mock_request.return_value.text = (
+            '{"statusCode": 429, "errorCode": "code", "message": "message"}'
+        )
+        mock_request.return_value.status_code = 429
+
+        with self.assertRaises(Auth0Error) as context:
+            rc.post("the/url")
+
+        self.assertEqual(context.exception.status_code, 429)
+
+        self.assertEqual(len(rc._metrics["backoff"]), 10)
 
     @mock.patch("requests.request")
     def test_post(self, mock_request):

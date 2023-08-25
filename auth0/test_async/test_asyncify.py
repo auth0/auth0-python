@@ -235,6 +235,20 @@ class TestAsyncify(unittest.TestCase):
 
     @pytest.mark.asyncio
     @aioresponses()
+    async def test_rate_limit_post(self, mocked):
+        callback, mock = get_callback(status=429)
+        await mocked.post(clients, callback=callback)
+        await mocked.post(clients, callback=callback)
+        await mocked.post(clients, callback=callback)
+        await mocked.post(clients, payload=payload)
+        c = asyncify(Clients)(domain="example.com", token="jwt")
+        rest_client = c._async_client.client
+        rest_client._skip_sleep = True
+        self.assertEqual(await c.all_async(), payload)
+        self.assertEqual(3, mock.call_count)
+
+    @pytest.mark.asyncio
+    @aioresponses()
     async def test_timeout(self, mocked):
         callback, mock = get_callback()
         await mocked.get(clients, callback=callback)
