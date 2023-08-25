@@ -52,43 +52,23 @@ class AsyncRestClient(RestClient):
         """
         self._session = session
 
-    async def _request(self, *args: Any, **kwargs: Any) -> Any:
-        kwargs["headers"] = kwargs.get("headers", self.base_headers)
-        kwargs["timeout"] = self.timeout
-        if self._session is not None:
-            # Request with re-usable session
-            async with self._session.request(*args, **kwargs) as response:
-                return await self._process_response(response)
-        else:
-            # Request without re-usable session
-            async with aiohttp.ClientSession() as session:
-                async with session.request(*args, **kwargs) as response:
-                    return await self._process_response(response)
-
-    async def get(
-        self,
-        url: str,
-        params: dict[str, Any] | None = None,
-        headers: dict[str, str] | None = None,
+    async def _request_with_session(
+        self, session: aiohttp.ClientSession, *args: Any, **kwargs: Any
     ) -> Any:
-        request_headers = self.base_headers.copy()
-        request_headers.update(headers or {})
         # Track the API request attempt number
         attempt = 0
 
         # Reset the metrics tracker
         self._metrics = {"retries": 0, "backoff": []}
 
-        params = _clean_params(params)
         while True:
             # Increment attempt number
             attempt += 1
 
             try:
-                response = await self._request(
-                    "get", url, params=params, headers=request_headers
-                )
-                return response
+                async with session.request(*args, **kwargs) as response:
+                    return await self._process_response(response)
+
             except RateLimitError as e:
                 # If the attempt number is greater than the configured retries, raise RateLimitError
                 if attempt > self._retries:
@@ -100,6 +80,30 @@ class AsyncRestClient(RestClient):
             if self._skip_sleep is False:
                 # sleep() functions in seconds, so convert the milliseconds formula above accordingly
                 await asyncio.sleep(wait / 1000)
+
+    async def _request(self, *args: Any, **kwargs: Any) -> Any:
+        kwargs["headers"] = kwargs.get("headers", self.base_headers)
+        kwargs["timeout"] = self.timeout
+        if self._session is not None:
+            # Request with re-usable session
+            return self._request_with_session(self.session, *args, **kwargs)
+        else:
+            # Request without re-usable session
+            async with aiohttp.ClientSession() as session:
+                return self._request_with_session(session, *args, **kwargs)
+
+    async def get(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers or {})
+
+        return await self._request(
+            "get", url, params=_clean_params(params), headers=request_headers
+        )
 
     async def post(
         self,
@@ -118,7 +122,7 @@ class AsyncRestClient(RestClient):
         files: dict[str, Any],
     ) -> Any:
         headers = self.base_headers.copy()
-        headers.pop("Content-Type", None)
+        headers.pop("Content-Type")
         return await self._request("post", url, data={**data, **files}, headers=headers)
 
     async def patch(self, url: str, data: RequestData | None = None) -> Any:

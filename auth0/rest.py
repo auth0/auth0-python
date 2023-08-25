@@ -146,11 +146,6 @@ class RestClient:
         headers: dict[str, str] | None = None,
         files: dict[str, Any] | None = None,
     ) -> Any:
-        request_headers = self.base_headers.copy()
-        request_headers.update(headers or {})
-        if files:
-            request_headers.pop("Content-Type")
-
         # Track the API request attempt number
         attempt = 0
 
@@ -163,7 +158,7 @@ class RestClient:
                 "params": params,
                 "json": json,
                 "data": data,
-                "headers": request_headers,
+                "headers": headers,
                 "files": files,
                 "timeout": self.options.timeout,
             }.items()
@@ -197,7 +192,9 @@ class RestClient:
         params: dict[str, Any] | None = None,
         headers: dict[str, str] | None = None,
     ) -> Any:
-        return self._request("GET", url, params=params, headers=headers)
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers or {})
+        return self._request("GET", url, params=params, headers=request_headers)
 
     def post(
         self,
@@ -205,7 +202,9 @@ class RestClient:
         data: RequestData | None = None,
         headers: dict[str, str] | None = None,
     ) -> Any:
-        return self._request("POST", url, json=data, headers=headers)
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers or {})
+        return self._request("POST", url, json=data, headers=request_headers)
 
     def file_post(
         self,
@@ -213,18 +212,17 @@ class RestClient:
         data: RequestData | None = None,
         files: dict[str, Any] | None = None,
     ) -> Any:
-        return self._request(
-            "POST",
-            url,
-            data=data,
-            files=files,
-        )
+        headers = self.base_headers.copy()
+        headers.pop("Content-Type", None)
+        return self._request("POST", url, data=data, files=files, headers=headers)
 
     def patch(self, url: str, data: RequestData | None = None) -> Any:
-        return self._request("PATCH", url, json=data)
+        headers = self.base_headers.copy()
+        return self._request("PATCH", url, json=data, headers=headers)
 
     def put(self, url: str, data: RequestData | None = None) -> Any:
-        return self._request("PUT", url, json=data)
+        headers = self.base_headers.copy()
+        return self._request("PUT", url, json=data, headers=headers)
 
     def delete(
         self,
@@ -232,12 +230,8 @@ class RestClient:
         params: dict[str, Any] | None = None,
         data: RequestData | None = None,
     ) -> Any:
-        return self._request(
-            "DELETE",
-            url,
-            params=params,
-            json=data,
-        )
+        headers = self.base_headers.copy()
+        return self._request("DELETE", url, params=params, json=data, headers=headers)
 
     def _calculate_wait(self, attempt: int) -> int:
         # Retry the request. Apply a exponential backoff for subsequent attempts, using this formula:
