@@ -3,7 +3,7 @@ name: Build Documentation
 on:
   push:
     branches:
-      - "master"
+      - master
 
 permissions:
   contents: read
