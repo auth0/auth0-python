@@ -2,7 +2,7 @@ name: Snyk
 
 on:
   merge_group:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - synchronize
@@ -44,6 +44,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
 
       - uses: snyk/actions/python-3.7@b98d498629f1c368650224d6d212bf7dfa89e4bf # pin@0.4.0
+        continue-on-error: true # Make sure the SARIF upload is called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
