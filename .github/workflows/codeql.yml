@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   analyze:
-    name: Analyze
+    name: Check for Vulnerabilities
     runs-on: ubuntu-latest
 
     strategy:
