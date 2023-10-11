@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.4.2](https://github.com/auth0/auth0-python/tree/4.4.2) (2023-08-31)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.4.1...4.4.2)
+
+**Fixed**
+- Fix python dependency version [\#522](https://github.com/auth0/auth0-python/pull/522) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Revert publishing types [\#521](https://github.com/auth0/auth0-python/pull/521) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.4.1](https://github.com/auth0/auth0-python/tree/4.4.1) (2023-08-21)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.4.0...4.4.1)
 
