@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.5.0](https://github.com/auth0/auth0-python/tree/4.5.0) (2023-10-20)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.4.2...4.5.0)
+
+**Added**
+- [SDK-4656] Add fields to all_organization_members [\#537](https://github.com/auth0/auth0-python/pull/537) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.4.2](https://github.com/auth0/auth0-python/tree/4.4.2) (2023-08-31)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.4.1...4.4.2)
 

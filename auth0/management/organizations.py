@@ -246,8 +246,13 @@ class Organizations:
         include_totals: bool = True,
         from_param: str | None = None,
         take: int | None = None,
+        fields: list[str] | None = None,
+        include_fields: bool = True,
     ):
         """Retrieves a list of all the organization members.
+
+        Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member.
+        To use this parameter, you must include the `read:organization_member_roles scope` in the token.
 
         Args:
             id (str): the ID of the organization.
@@ -267,7 +272,14 @@ class Organizations:
             take (int, optional): The total amount of entries to retrieve when
                 using the from parameter. When not set, the default value is up to the server.
 
-        See: https://auth0.com/docs/api/management/v2#!/Organizations/get_members
+            fields (list of str, optional): A list of fields to include or
+              exclude from the result (depending on include_fields). If fields is left blank,
+              all fields (except roles) are returned.
+
+            include_fields (bool, optional): True if the fields specified are
+              to be included in the result, False otherwise. Defaults to True.
+
+        See: https://auth0.com/docs/api/management/v2/organizations/get-members
         """
 
         params = {
@@ -276,6 +288,8 @@ class Organizations:
             "include_totals": str(include_totals).lower(),
             "from": from_param,
             "take": take,
+            "fields": fields and ",".join(fields) or None,
+            "include_fields": str(include_fields).lower(),
         }
 
         return self.client.get(self._url(id, "members"), params=params)

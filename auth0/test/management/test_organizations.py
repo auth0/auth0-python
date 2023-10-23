@@ -232,6 +232,8 @@ class TestOrganizations(unittest.TestCase):
                 "include_totals": "true",
                 "from": None,
                 "take": None,
+                "fields": None,
+                "include_fields": "true",
             },
         )
 
@@ -253,6 +255,8 @@ class TestOrganizations(unittest.TestCase):
                 "include_totals": "false",
                 "from": None,
                 "take": None,
+                "fields": None,
+                "include_fields": "true",
             },
         )
 
@@ -272,6 +276,29 @@ class TestOrganizations(unittest.TestCase):
                 "page": None,
                 "per_page": None,
                 "include_totals": "true",
+                "fields": None,
+                "include_fields": "true",
+            },
+        )
+
+        # With fields
+        c.all_organization_members("test-org", fields=["a,b"], include_fields=False)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual(
+            "https://domain/api/v2/organizations/test-org/members", args[0]
+        )
+        self.assertEqual(
+            kwargs["params"],
+            {
+                "page": None,
+                "per_page": None,
+                "include_totals": "true",
+                "from": None,
+                "take": None,
+                "fields": "a,b",
+                "include_fields": "false",
             },
         )
 
