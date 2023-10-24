@@ -769,13 +769,13 @@ files = [
 
 [[package]]
 name = "pipx"
-version = "1.2.0"
+version = "1.2.1"
 description = "Install and Run Python Applications in Isolated Environments"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pipx-1.2.0-py3-none-any.whl", hash = "sha256:a94c4bca865cd6e85b37cd6717a22481744890fe36b70db081a78d1feb923ce0"},
-    {file = "pipx-1.2.0.tar.gz", hash = "sha256:d1908041d24d525cafebeb177efb686133d719499cb55c54f596c95add579286"},
+    {file = "pipx-1.2.1-py3-none-any.whl", hash = "sha256:22fba63cffab0f009c7939449ec8dfe6a98f1b88b72ddd1ff05820bda56d5898"},
+    {file = "pipx-1.2.1.tar.gz", hash = "sha256:698777c05a97cca81df4dc6a71d9ca4ece2184c6f91dc7a0e4802ac51d86d32a"},
 ]
 
 [package.dependencies]
