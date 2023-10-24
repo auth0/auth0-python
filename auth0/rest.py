@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import base64
-import json
 import platform
 import sys
+from json import dumps, loads
 from random import randint
 from time import sleep
 from typing import TYPE_CHECKING, Any, Mapping
@@ -95,7 +95,7 @@ class RestClient:
             py_version = platform.python_version()
             version = sys.modules["auth0"].__version__
 
-            auth0_client = json.dumps(
+            auth0_client = dumps(
                 {
                     "name": "auth0-python",
                     "version": version,
@@ -136,32 +136,41 @@ class RestClient:
     def MIN_REQUEST_RETRY_DELAY(self) -> int:
         return 100
 
-    def get(
+    def _request(
         self,
+        method: str,
         url: str,
         params: dict[str, Any] | None = None,
+        data: RequestData | None = None,
+        json: RequestData | None = None,
         headers: dict[str, str] | None = None,
+        files: dict[str, Any] | None = None,
     ) -> Any:
-        request_headers = self.base_headers.copy()
-        request_headers.update(headers or {})
-
         # Track the API request attempt number
         attempt = 0
 
         # Reset the metrics tracker
         self._metrics = {"retries": 0, "backoff": []}
 
+        kwargs = {
+            k: v
+            for k, v in {
+                "params": params,
+                "json": json,
+                "data": data,
+                "headers": headers,
+                "files": files,
+                "timeout": self.options.timeout,
+            }.items()
+            if v is not None
+        }
+
         while True:
             # Increment attempt number
             attempt += 1
 
             # Issue the request
-            response = requests.get(
-                url,
-                params=params,
-                headers=request_headers,
-                timeout=self.options.timeout,
-            )
+            response = requests.request(method, url, **kwargs)
 
             # If the response did not have a 429 header, or the attempt number is greater than the configured retries, break
             if response.status_code != 429 or attempt > self._retries:
@@ -177,6 +186,16 @@ class RestClient:
         # Return the final Response
         return self._process_response(response)
 
+    def get(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> Any:
+        request_headers = self.base_headers.copy()
+        request_headers.update(headers or {})
+        return self._request("GET", url, params=params, headers=request_headers)
+
     def post(
         self,
         url: str,
@@ -185,11 +204,7 @@ class RestClient:
     ) -> Any:
         request_headers = self.base_headers.copy()
         request_headers.update(headers or {})
-
-        response = requests.post(
-            url, json=data, headers=request_headers, timeout=self.options.timeout
-        )
-        return self._process_response(response)
+        return self._request("POST", url, json=data, headers=request_headers)
 
     def file_post(
         self,
@@ -199,27 +214,15 @@ class RestClient:
     ) -> Any:
         headers = self.base_headers.copy()
         headers.pop("Content-Type", None)
-
-        response = requests.post(
-            url, data=data, files=files, headers=headers, timeout=self.options.timeout
-        )
-        return self._process_response(response)
+        return self._request("POST", url, data=data, files=files, headers=headers)
 
     def patch(self, url: str, data: RequestData | None = None) -> Any:
         headers = self.base_headers.copy()
-
-        response = requests.patch(
-            url, json=data, headers=headers, timeout=self.options.timeout
-        )
-        return self._process_response(response)
+        return self._request("PATCH", url, json=data, headers=headers)
 
     def put(self, url: str, data: RequestData | None = None) -> Any:
         headers = self.base_headers.copy()
-
-        response = requests.put(
-            url, json=data, headers=headers, timeout=self.options.timeout
-        )
-        return self._process_response(response)
+        return self._request("PUT", url, json=data, headers=headers)
 
     def delete(
         self,
@@ -228,15 +231,7 @@ class RestClient:
         data: RequestData | None = None,
     ) -> Any:
         headers = self.base_headers.copy()
-
-        response = requests.delete(
-            url,
-            headers=headers,
-            params=params or {},
-            json=data,
-            timeout=self.options.timeout,
-        )
-        return self._process_response(response)
+        return self._request("DELETE", url, params=params, json=data, headers=headers)
 
     def _calculate_wait(self, attempt: int) -> int:
         # Retry the request. Apply a exponential backoff for subsequent attempts, using this formula:
@@ -317,7 +312,7 @@ class Response:
 
 class JsonResponse(Response):
     def __init__(self, response: requests.Response | RequestsResponse) -> None:
-        content = json.loads(response.text)
+        content = loads(response.text)
         super().__init__(response.status_code, content, response.headers)
 
     def _error_code(self) -> str:
