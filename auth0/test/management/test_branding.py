@@ -59,7 +59,7 @@ class TestBranding(unittest.TestCase):
             "https://domain/api/v2/branding/templates/universal-login",
         )
 
-    @mock.patch("auth0.rest.requests.put")
+    @mock.patch("auth0.rest.requests.request")
     def test_update_template_universal_login(self, mock_rc):
         mock_rc.return_value.status_code = 200
         mock_rc.return_value.text = "{}"
@@ -68,6 +68,7 @@ class TestBranding(unittest.TestCase):
         branding.update_template_universal_login({"a": "b", "c": "d"})
 
         mock_rc.assert_called_with(
+            "PUT",
             "https://domain/api/v2/branding/templates/universal-login",
             json={"template": {"a": "b", "c": "d"}},
             headers=mock.ANY,
