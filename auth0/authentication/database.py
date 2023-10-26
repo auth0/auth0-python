@@ -79,19 +79,27 @@ class Database(AuthenticationBase):
         return data
 
     def change_password(
-        self, email: str, connection: str, password: str | None = None
+        self,
+        email: str,
+        connection: str,
+        password: str | None = None,
+        organization: str | None = None,
     ) -> str:
         """Asks to change a password for a given user.
 
         email (str): The user's email address.
 
         connection (str): The name of the database connection where this user should be created.
+
+        organization (str, optional): The id of the Organization associated with the user.
         """
         body = {
             "client_id": self.client_id,
             "email": email,
             "connection": connection,
         }
+        if organization:
+            body["organization"] = organization
 
         data: str = self.post(
             f"{self.protocol}://{self.domain}/dbconnections/change_password",
