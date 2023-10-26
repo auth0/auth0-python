@@ -377,7 +377,7 @@ class Users:
         return self.client.post(url)
 
     def get_guardian_enrollments(self, user_id: str) -> dict[str, Any]:
-        """Retrieves all Guardian enrollments.
+        """Retrieve the first confirmed Guardian enrollment for a user.
 
         Args:
             user_id (str):  The user_id of the user to retrieve.
