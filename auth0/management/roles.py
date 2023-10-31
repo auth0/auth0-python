@@ -211,7 +211,7 @@ class Roles:
         url = self._url(f"{id}/permissions")
         return self.client.get(url, params=params)
 
-    def remove_permissions(self, id: str, permissions: List[str]) -> Any:
+    def remove_permissions(self, id: str, permissions: List[dict[str, str]]) -> Any:
         """Unassociates permissions from a role.
 
         Args:
@@ -225,7 +225,7 @@ class Roles:
         body = {"permissions": permissions}
         return self.client.delete(url, data=body)
 
-    def add_permissions(self, id: str, permissions: List[str]) -> dict[str, Any]:
+    def add_permissions(self, id: str, permissions: List[dict[str, str]]) -> dict[str, Any]:
         """Associates permissions with a role.
 
         Args:
