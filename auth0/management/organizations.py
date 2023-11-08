@@ -460,3 +460,65 @@ class Organizations:
         """
 
         return self.client.delete(self._url(id, "invitations", invitation_id))
+
+    def get_client_grants(
+        self,
+        id: str,
+        audience: str | None = None,
+        client_id: str | None = None,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
+    ):
+        """Get client grants associated to an organization.
+
+        Args:
+            id (str): Id of organization.
+
+            audience (str, optional): URL encoded audience of a Resource Server
+                to filter.
+
+            client_id (string, optional): The id of a client to filter.
+
+            page (int, optional): The result's page number (zero based). When not set,
+                the default value is up to the server.
+
+            per_page (int, optional): The amount of entries per page. When not set,
+                the default value is up to the server.
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise. Defaults to False.
+        """
+        params = {
+            "audience": audience,
+            "client_id": client_id,
+            "page": page,
+            "per_page": per_page,
+            "include_totals": str(include_totals).lower(),
+        }
+
+        return self.client.get(self._url(id, "client-grants"), params=params)
+
+    def add_client_grant(self, id: str, grant_id: str) -> dict[str, Any]:
+        """Associate a client grant with an organization.
+
+        Args:
+           id (str): the ID of the organization.
+
+           grant_id (string) A Client Grant ID to add to the organization.
+        """
+
+        return self.client.post(
+            self._url(id, "client-grants"), data={"grant_id": grant_id}
+        )
+
+    def delete_client_grant(self, id: str, grant_id: str) -> dict[str, Any]:
+        """Remove a client grant from an organization.
+
+        Args:
+           id (str): the ID of the organization.
+
+           grant_id (string) A Client Grant ID to remove from the organization.
+        """
+
+        return self.client.delete(self._url(id, "client-grants", grant_id))

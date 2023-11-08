@@ -59,6 +59,7 @@ class ClientGrants:
         per_page: int | None = None,
         include_totals: bool = False,
         client_id: str | None = None,
+        allow_any_organization: bool | None = None,
     ):
         """Retrieves all client grants.
 
@@ -77,6 +78,8 @@ class ClientGrants:
 
             client_id (string, optional): The id of a client to filter.
 
+            allow_any_organization (bool, optional): Optional filter on allow_any_organization.
+
         See: https://auth0.com/docs/api/management/v2#!/Client_Grants/get_client_grants
         """
 
@@ -86,6 +89,7 @@ class ClientGrants:
             "per_page": per_page,
             "include_totals": str(include_totals).lower(),
             "client_id": client_id,
+            "allow_any_organization": allow_any_organization,
         }
 
         return self.client.get(self._url(), params=params)
@@ -124,3 +128,43 @@ class ClientGrants:
         """
 
         return self.client.patch(self._url(id), data=body)
+
+    def get_organizations(
+        self,
+        id: str,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
+        from_param: str | None = None,
+        take: int | None = None,
+    ):
+        """Get the organizations associated to a client grant.
+
+        Args:
+            id (str): Id of client grant.
+
+            page (int, optional): The result's page number (zero based). When not set,
+                the default value is up to the server.
+
+            per_page (int, optional): The amount of entries per page. When not set,
+                the default value is up to the server.
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise. Defaults to False.
+
+            from_param (str, optional): Id to start retrieving entries. You can
+                limit the amount of entries using the take parameter.
+
+            take (int, optional): The total amount of entries to retrieve when
+                using the from parameter. When not set, the default value is up to the server.
+        """
+
+        params = {
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
+            "from": from_param,
+            "take": take,
+        }
+
+        return self.client.get(self._url(f"{id}/organizations"), params=params)

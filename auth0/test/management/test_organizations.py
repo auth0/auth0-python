@@ -479,3 +479,44 @@ class TestOrganizations(unittest.TestCase):
         mock_instance.delete.assert_called_with(
             "https://domain/api/v2/organizations/test-org/invitations/test-inv"
         )
+
+    @mock.patch("auth0.management.organizations.RestClient")
+    def test_get_client_grants(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain="domain", token="jwttoken")
+        c.get_client_grants("test-org")
+
+        mock_instance.get.assert_called_with(
+            "https://domain/api/v2/organizations/test-org/client-grants",
+            params={
+                "audience": None,
+                "client_id": None,
+                "page": None,
+                "per_page": None,
+                "include_totals": "false",
+            },
+        )
+
+    @mock.patch("auth0.management.organizations.RestClient")
+    def test_add_client_grant(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain="domain", token="jwttoken")
+        c.add_client_grant("test-org", "test-cg")
+
+        mock_instance.post.assert_called_with(
+            "https://domain/api/v2/organizations/test-org/client-grants",
+            data={"grant_id": "test-cg"},
+        )
+
+    @mock.patch("auth0.management.organizations.RestClient")
+    def test_delete_client_grant(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = Organizations(domain="domain", token="jwttoken")
+        c.delete_client_grant("test-org", "test-cg")
+
+        mock_instance.delete.assert_called_with(
+            "https://domain/api/v2/organizations/test-org/client-grants/test-cg",
+        )
