@@ -33,6 +33,7 @@ class TestClientGrants(unittest.TestCase):
                 "per_page": None,
                 "include_totals": "false",
                 "client_id": None,
+                "allow_any_organization": None,
             },
         )
 
@@ -50,6 +51,7 @@ class TestClientGrants(unittest.TestCase):
                 "per_page": None,
                 "include_totals": "false",
                 "client_id": None,
+                "allow_any_organization": None,
             },
         )
 
@@ -67,6 +69,7 @@ class TestClientGrants(unittest.TestCase):
                 "per_page": 23,
                 "include_totals": "true",
                 "client_id": None,
+                "allow_any_organization": None,
             },
         )
 
@@ -84,6 +87,25 @@ class TestClientGrants(unittest.TestCase):
                 "per_page": None,
                 "include_totals": "false",
                 "client_id": "exampleid",
+                "allow_any_organization": None,
+            },
+        )
+
+        # With allow any organization
+        c.all(allow_any_organization=True)
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual("https://domain/api/v2/client-grants", args[0])
+        self.assertEqual(
+            kwargs["params"],
+            {
+                "audience": None,
+                "page": None,
+                "per_page": None,
+                "include_totals": "false",
+                "client_id": None,
+                "allow_any_organization": True,
             },
         )
 
@@ -120,3 +142,26 @@ class TestClientGrants(unittest.TestCase):
 
         self.assertEqual("https://domain/api/v2/client-grants/this-id", args[0])
         self.assertEqual(kwargs["data"], {"a": "b", "c": "d"})
+
+    @mock.patch("auth0.management.client_grants.RestClient")
+    def test_get_organizations(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        c = ClientGrants(domain="domain", token="jwttoken")
+        c.get_organizations("cgid")
+
+        args, kwargs = mock_instance.get.call_args
+
+        self.assertEqual(
+            "https://domain/api/v2/client-grants/cgid/organizations", args[0]
+        )
+        self.assertEqual(
+            kwargs["params"],
+            {
+                "page": None,
+                "per_page": None,
+                "include_totals": "false",
+                "from": None,
+                "take": None,
+            },
+        )

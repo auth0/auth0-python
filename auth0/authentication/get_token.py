@@ -91,6 +91,7 @@ class GetToken(AuthenticationBase):
         self,
         audience: str,
         grant_type: str = "client_credentials",
+        organization: str | None = None,
     ) -> Any:
         """Client credentials grant
 
@@ -104,6 +105,9 @@ class GetToken(AuthenticationBase):
 
             grant_type (str, optional): Denotes the flow you're using. For client credentials use "client_credentials"
 
+            organization (str, optional): Optional Organization name or ID. When included, the access token returned
+            will include the org_id and org_name claims
+
         Returns:
             access_token
         """
@@ -114,6 +118,7 @@ class GetToken(AuthenticationBase):
                 "client_id": self.client_id,
                 "audience": audience,
                 "grant_type": grant_type,
+                "organization": organization,
             },
         )
 
