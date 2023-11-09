@@ -1,5 +1,13 @@
 # Change Log
 
+## [4.6.0](https://github.com/auth0/auth0-python/tree/4.6.0) (2023-11-09)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.5.0...4.6.0)
+
+**Added**
+- [SDK-4544] Add orgs in client credentials support [\#549](https://github.com/auth0/auth0-python/pull/549) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Authentication API, the Database classs, Add the organization param to the change_password method [\#539](https://github.com/auth0/auth0-python/pull/539) ([shchotse](https://github.com/shchotse))
+- Retry all methods on 429 [\#518](https://github.com/auth0/auth0-python/pull/518) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.5.0](https://github.com/auth0/auth0-python/tree/4.5.0) (2023-10-20)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.4.2...4.5.0)
 
