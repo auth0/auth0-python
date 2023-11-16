@@ -348,7 +348,7 @@ class Users:
         url = self._url(f"{id}/identities/{provider}/{user_id}")
         return self.client.delete(url)
 
-    def link_user_account(self, user_id: str, body: dict[str, Any]) -> dict[str, Any]:
+    def link_user_account(self, user_id: str, body: dict[str, Any]) -> list[dict[str, Any]]:
         """Link user accounts.
 
         Links the account specified in the body (secondary account) to the
