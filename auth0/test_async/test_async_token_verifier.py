@@ -55,13 +55,7 @@ def get_pem_bytes(rsa_public_key):
     )
 
 
-@unittest.skipIf(
-    not hasattr(unittest, "IsolatedAsyncioTestCase"),
-    "python 3.7 doesn't have IsolatedAsyncioTestCase",
-)
-class TestAsyncAsymmetricSignatureVerifier(
-    getattr(unittest, "IsolatedAsyncioTestCase", object)
-):
+class TestAsyncAsymmetricSignatureVerifier(unittest.IsolatedAsyncioTestCase):
     @pytest.mark.asyncio
     @aioresponses()
     async def test_async_asymmetric_verifier_fetches_key(self, mocked):
@@ -75,11 +69,7 @@ class TestAsyncAsymmetricSignatureVerifier(
         self.assertEqual(get_pem_bytes(key), RSA_PUB_KEY_1_PEM)
 
 
-@unittest.skipIf(
-    not hasattr(unittest, "IsolatedAsyncioTestCase"),
-    "python 3.7 doesn't have IsolatedAsyncioTestCase",
-)
-class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object)):
+class TestAsyncJwksFetcher(unittest.IsolatedAsyncioTestCase):
     @pytest.mark.asyncio
     @aioresponses()
     @unittest.mock.patch(
@@ -235,11 +225,7 @@ class TestAsyncJwksFetcher(getattr(unittest, "IsolatedAsyncioTestCase", object))
         self.assertEqual(mock.call_count, 2)
 
 
-@unittest.skipIf(
-    not hasattr(unittest, "IsolatedAsyncioTestCase"),
-    "python 3.7 doesn't have IsolatedAsyncioTestCase",
-)
-class TestAsyncTokenVerifier(getattr(unittest, "IsolatedAsyncioTestCase", object)):
+class TestAsyncTokenVerifier(unittest.IsolatedAsyncioTestCase):
     @pytest.mark.asyncio
     @aioresponses()
     async def test_RS256_token_signature_passes(self, mocked):
