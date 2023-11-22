@@ -72,7 +72,7 @@ jobs:
           poetry self add "poetry-dynamic-versioning[plugin]"
 
       - name: Run tests
-        if: ${{ matrix.python-version != '3.7' }}
+        if: ${{ matrix.python-version !== '3.7' }}
         run: |
           poetry run pytest --cov=auth0 --cov-report=term-missing:skip-covered --cov-report=xml
 
