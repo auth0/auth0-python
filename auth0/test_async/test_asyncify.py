@@ -54,12 +54,12 @@ def get_callback(status=200, response=None):
     return callback, mock
 
 
-class TestAsyncify(unittest.TestCase):
+class TestAsyncify(unittest.IsolatedAsyncioTestCase):
     @pytest.mark.asyncio
     @aioresponses()
     async def test_get(self, mocked):
         callback, mock = get_callback()
-        await mocked.get(clients, callback=callback)
+        mocked.get(clients, callback=callback)
         c = asyncify(Clients)(domain="example.com", token="jwt")
         self.assertEqual(await c.all_async(), payload)
         mock.assert_called_with(
@@ -74,7 +74,7 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_post(self, mocked):
         callback, mock = get_callback()
-        await mocked.post(clients, callback=callback)
+        mocked.post(clients, callback=callback)
         c = asyncify(Clients)(domain="example.com", token="jwt")
         data = {"client": 1}
         self.assertEqual(await c.create_async(data), payload)
@@ -90,7 +90,7 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_post_auth(self, mocked):
         callback, mock = get_callback()
-        await mocked.post(token, callback=callback)
+        mocked.post(token, callback=callback)
         c = asyncify(GetToken)("example.com", "cid", client_secret="clsec")
         self.assertEqual(
             await c.login_async(username="usrnm", password="pswd"), payload
@@ -116,7 +116,7 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_user_info(self, mocked):
         callback, mock = get_callback()
-        await mocked.get(user_info, callback=callback)
+        mocked.get(user_info, callback=callback)
         c = asyncify(Users)(domain="example.com")
         self.assertEqual(
             await c.userinfo_async(access_token="access-token-example"), payload
@@ -133,7 +133,7 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_file_post(self, mocked):
         callback, mock = get_callback()
-        await mocked.post(users_imports, callback=callback)
+        mocked.post(users_imports, callback=callback)
         j = asyncify(Jobs)(domain="example.com", token="jwt")
         users = TemporaryFile()
         self.assertEqual(await j.import_users_async("connection-1", users), payload)
@@ -158,7 +158,7 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_patch(self, mocked):
         callback, mock = get_callback()
-        await mocked.patch(clients, callback=callback)
+        mocked.patch(clients, callback=callback)
         c = asyncify(Clients)(domain="example.com", token="jwt")
         data = {"client": 1}
         self.assertEqual(await c.update_async("client-1", data), payload)
@@ -174,7 +174,7 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_put(self, mocked):
         callback, mock = get_callback()
-        await mocked.put(factors, callback=callback)
+        mocked.put(factors, callback=callback)
         g = asyncify(Guardian)(domain="example.com", token="jwt")
         data = {"factor": 1}
         self.assertEqual(await g.update_factor_async("factor-1", data), payload)
@@ -190,7 +190,7 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_delete(self, mocked):
         callback, mock = get_callback()
-        await mocked.delete(clients, callback=callback)
+        mocked.delete(clients, callback=callback)
         c = asyncify(Clients)(domain="example.com", token="jwt")
         self.assertEqual(await c.delete_async("client-1"), payload)
         mock.assert_called_with(
@@ -206,7 +206,7 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_shared_session(self, mocked):
         callback, mock = get_callback()
-        await mocked.get(clients, callback=callback)
+        mocked.get(clients, callback=callback)
         async with asyncify(Clients)(domain="example.com", token="jwt") as c:
             self.assertEqual(await c.all_async(), payload)
         mock.assert_called_with(
@@ -221,10 +221,10 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_rate_limit(self, mocked):
         callback, mock = get_callback(status=429)
-        await mocked.get(clients, callback=callback)
-        await mocked.get(clients, callback=callback)
-        await mocked.get(clients, callback=callback)
-        await mocked.get(clients, payload=payload)
+        mocked.get(clients, callback=callback)
+        mocked.get(clients, callback=callback)
+        mocked.get(clients, callback=callback)
+        mocked.get(clients, payload=payload)
         c = asyncify(Clients)(domain="example.com", token="jwt")
         rest_client = c._async_client.client
         rest_client._skip_sleep = True
@@ -237,21 +237,21 @@ class TestAsyncify(unittest.TestCase):
     @aioresponses()
     async def test_rate_limit_post(self, mocked):
         callback, mock = get_callback(status=429)
-        await mocked.post(clients, callback=callback)
-        await mocked.post(clients, callback=callback)
-        await mocked.post(clients, callback=callback)
-        await mocked.post(clients, payload=payload)
+        mocked.post(clients, callback=callback)
+        mocked.post(clients, callback=callback)
+        mocked.post(clients, callback=callback)
+        mocked.post(clients, payload=payload)
         c = asyncify(Clients)(domain="example.com", token="jwt")
         rest_client = c._async_client.client
         rest_client._skip_sleep = True
-        self.assertEqual(await c.all_async(), payload)
+        self.assertEqual(await c.create_async({}), payload)
         self.assertEqual(3, mock.call_count)
 
     @pytest.mark.asyncio
     @aioresponses()
     async def test_timeout(self, mocked):
         callback, mock = get_callback()
-        await mocked.get(clients, callback=callback)
+        mocked.get(clients, callback=callback)
         c = asyncify(Clients)(domain="example.com", token="jwt", timeout=(8.8, 9.9))
         self.assertEqual(await c.all_async(), payload)
         mock.assert_called_with(

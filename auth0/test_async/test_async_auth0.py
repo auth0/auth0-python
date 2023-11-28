@@ -22,13 +22,13 @@ def get_callback(status=200):
     return callback, mock
 
 
-class TestAuth0(unittest.TestCase):
+class TestAuth0(unittest.IsolatedAsyncioTestCase):
     @pytest.mark.asyncio
     @aioresponses()
     async def test_get(self, mocked):
         callback, mock = get_callback()
 
-        await mocked.get(clients, callback=callback)
+        mocked.get(clients, callback=callback)
 
         auth0 = Auth0(domain="example.com", token="jwt")
 
@@ -48,8 +48,8 @@ class TestAuth0(unittest.TestCase):
         callback, mock = get_callback()
         callback2, mock2 = get_callback()
 
-        await mocked.get(clients, callback=callback)
-        await mocked.put(factors, callback=callback2)
+        mocked.get(clients, callback=callback)
+        mocked.put(factors, callback=callback2)
 
         async with Auth0(domain="example.com", token="jwt") as auth0:
             self.assertEqual(await auth0.clients.all_async(), payload)
