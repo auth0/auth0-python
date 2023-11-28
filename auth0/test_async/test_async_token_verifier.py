@@ -55,12 +55,12 @@ def get_pem_bytes(rsa_public_key):
     )
 
 
-class TestAsyncAsymmetricSignatureVerifier(unittest.TestCase):
+class TestAsyncAsymmetricSignatureVerifier(unittest.IsolatedAsyncioTestCase):
     @pytest.mark.asyncio
     @aioresponses()
     async def test_async_asymmetric_verifier_fetches_key(self, mocked):
         callback, mock = get_callback(200, JWKS_RESPONSE_SINGLE_KEY)
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         verifier = AsyncAsymmetricSignatureVerifier(JWKS_URI)
 
@@ -69,7 +69,7 @@ class TestAsyncAsymmetricSignatureVerifier(unittest.TestCase):
         self.assertEqual(get_pem_bytes(key), RSA_PUB_KEY_1_PEM)
 
 
-class TestAsyncJwksFetcher(unittest.TestCase):
+class TestAsyncJwksFetcher(unittest.IsolatedAsyncioTestCase):
     @pytest.mark.asyncio
     @aioresponses()
     @unittest.mock.patch(
@@ -81,8 +81,8 @@ class TestAsyncJwksFetcher(unittest.TestCase):
         fetcher = AsyncJwksFetcher(JWKS_URI, cache_ttl=100)
 
         callback, mock = get_callback(200, JWKS_RESPONSE_SINGLE_KEY)
-        await mocked.get(JWKS_URI, callback=callback)
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         key_1 = await fetcher.get_key("test-key-1")
         expected_key_1_pem = get_pem_bytes(key_1)
@@ -119,8 +119,8 @@ class TestAsyncJwksFetcher(unittest.TestCase):
         fetcher = AsyncJwksFetcher(JWKS_URI, cache_ttl=1)
 
         callback, mock = get_callback(200, JWKS_RESPONSE_MULTIPLE_KEYS)
-        await mocked.get(JWKS_URI, callback=callback)
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         key_1 = await fetcher.get_key("test-key-1")
         key_2 = await fetcher.get_key("test-key-2")
@@ -144,7 +144,7 @@ class TestAsyncJwksFetcher(unittest.TestCase):
         fetcher = AsyncJwksFetcher(JWKS_URI, cache_ttl=1)
 
         callback, mock = get_callback(200, {"keys": [RSA_PUB_KEY_1_JWK]})
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         # Triggers the first call
         key_1 = await fetcher.get_key("test-key-1")
@@ -161,7 +161,7 @@ class TestAsyncJwksFetcher(unittest.TestCase):
         self.assertEqual(mock.call_count, 1)
 
         callback, mock = get_callback(200, JWKS_RESPONSE_MULTIPLE_KEYS)
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         # Triggers the second call
         key_2 = await fetcher.get_key("test-key-2")
@@ -183,7 +183,7 @@ class TestAsyncJwksFetcher(unittest.TestCase):
         fetcher = AsyncJwksFetcher(JWKS_URI, cache_ttl=1)
 
         callback, mock = get_callback(200, JWKS_RESPONSE_SINGLE_KEY)
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         with self.assertRaises(Exception) as err:
             await fetcher.get_key("missing-key")
@@ -206,8 +206,8 @@ class TestAsyncJwksFetcher(unittest.TestCase):
         fetcher = AsyncJwksFetcher(JWKS_URI, cache_ttl=1)
 
         callback, mock = get_callback(500, {})
-        await mocked.get(JWKS_URI, callback=callback)
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         with self.assertRaises(Exception) as err:
             await fetcher.get_key("id1")
@@ -225,12 +225,12 @@ class TestAsyncJwksFetcher(unittest.TestCase):
         self.assertEqual(mock.call_count, 2)
 
 
-class TestAsyncTokenVerifier(unittest.TestCase):
+class TestAsyncTokenVerifier(unittest.IsolatedAsyncioTestCase):
     @pytest.mark.asyncio
     @aioresponses()
     async def test_RS256_token_signature_passes(self, mocked):
         callback, mock = get_callback(200, {"keys": [PUBLIC_KEY]})
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         issuer = "https://tokens-test.auth0.com/"
         audience = "tokens-test-123"
@@ -261,7 +261,7 @@ class TestAsyncTokenVerifier(unittest.TestCase):
         callback, mock = get_callback(
             200, {"keys": [RSA_PUB_KEY_1_JWK]}
         )  # different pub key
-        await mocked.get(JWKS_URI, callback=callback)
+        mocked.get(JWKS_URI, callback=callback)
 
         issuer = "https://tokens-test.auth0.com/"
         audience = "tokens-test-123"

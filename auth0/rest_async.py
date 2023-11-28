@@ -86,11 +86,11 @@ class AsyncRestClient(RestClient):
         kwargs["timeout"] = self.timeout
         if self._session is not None:
             # Request with re-usable session
-            return self._request_with_session(self.session, *args, **kwargs)
+            return await self._request_with_session(self._session, *args, **kwargs)
         else:
             # Request without re-usable session
             async with aiohttp.ClientSession() as session:
-                return self._request_with_session(session, *args, **kwargs)
+                return await self._request_with_session(session, *args, **kwargs)
 
     async def get(
         self,
