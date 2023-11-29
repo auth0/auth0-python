@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.6.1](https://github.com/auth0/auth0-python/tree/4.6.1) (2023-11-29)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.6.0...4.6.1)
+
+**Fixed**
+- Fix rest_async and async tests [\#556](https://github.com/auth0/auth0-python/pull/556) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- fix type hint for link_user_account [\#552](https://github.com/auth0/auth0-python/pull/552) ([tzzh](https://github.com/tzzh))
+
 ## [4.6.0](https://github.com/auth0/auth0-python/tree/4.6.0) (2023-11-09)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.5.0...4.6.0)
 
