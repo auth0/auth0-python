@@ -69,7 +69,7 @@ jobs:
           pipx install poetry==1.4.2
           poetry config virtualenvs.in-project true
           poetry install --with dev
-          poetry self add "poetry-dynamic-versioning[plugin]"
+          poetry self add "poetry-dynamic-versioning[plugin]==1.1.1"
 
       - name: Run tests
         if: ${{ matrix.python-version != '3.7' }}
