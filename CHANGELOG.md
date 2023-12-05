@@ -1,5 +1,14 @@
 # Change Log
 
+## [4.7.0](https://github.com/auth0/auth0-python/tree/4.7.0) (2023-12-05)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.6.1...4.7.0)
+
+**⚠️ BREAKING CHANGES**
+- Add python 3.12 support, drop 3.7 [\#562](https://github.com/auth0/auth0-python/pull/562) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+**Added**
+- [SDK-4138] Add support for Pushed Authorization Requests (PAR) [\#560](https://github.com/auth0/auth0-python/pull/560) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.6.1](https://github.com/auth0/auth0-python/tree/4.6.1) (2023-11-29)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.6.0...4.6.1)
 
