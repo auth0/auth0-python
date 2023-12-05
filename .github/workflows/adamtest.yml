@@ -1,0 +1,62 @@
+name: Adam Test
+
+on:
+  merge_group:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  push:
+    branches:
+      - py12-build-fix
+
+permissions:
+  contents: read
+
+jobs:
+
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+
+    env:
+      BUBBLEWRAP_ARGUMENTS: |
+        --unshare-all \
+        --clearenv \
+        --ro-bind / / \
+        --bind ${{ github.workspace }} ${{ github.workspace }} \
+        --tmpfs $HOME \
+        --tmpfs /tmp \
+        --tmpfs /var \
+        --dev /dev \
+        --proc /proc \
+        --die-with-parent \
+        --new-session \
+
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: "${{ matrix.python-version }}"
+
+      - name: Configure dependencies
+        run: |
+          pip install --user --upgrade pip
+          pip install --user pipx
+          pip install --user setuptools
+          pipx ensurepath
+          pipx install poetry==1.4.2
+          poetry config virtualenvs.in-project true
+          poetry install --with dev
+          poetry self add "poetry-dynamic-versioning[plugin]==1.1.1"
+
+      - name: Run tests
+        run: |
+          poetry run pytest --cov=auth0 --cov-report=term-missing:skip-covered --cov-report=xml

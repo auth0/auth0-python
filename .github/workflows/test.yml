@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   merge_group:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - synchronize
@@ -18,6 +18,12 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
+  authorize:
+    name: Authorize
+    environment: ${{ github.actor != 'dependabot[bot]' && github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository && 'external' || 'internal' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: true
 
   run:
     needs: authorize # Require approval before running on forked pull requests
@@ -41,11 +47,13 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.12"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
 
       - name: Configure Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -54,6 +62,7 @@ jobs:
 
       - name: Configure dependencies
         run: |
+          sudo apt install bubblewrap
           pip install --user --upgrade pip
           pip install --user pipx
           pip install --user setuptools
@@ -77,3 +86,7 @@ jobs:
       #     flake8 . --count --show-source --statistics
       #     isort .  --diff --profile black
       #     pyupgrade .  --py37-plus --keep-runtime-typing
+
+      - if: ${{ matrix.python-version == '3.10' }}
+        name: Upload coverage
+        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # pin@3.1.4
