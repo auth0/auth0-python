@@ -65,6 +65,7 @@ jobs:
           sudo apt install bubblewrap
           pip install --user --upgrade pip
           pip install --user pipx
+          pip install --user setuptools
           pipx ensurepath
           pipx install poetry==1.4.2
           poetry config virtualenvs.in-project true
