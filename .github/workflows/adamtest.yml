@@ -51,7 +51,6 @@ jobs:
           pip install --user --upgrade pip
           pip install --user pipx
           pipx ensurepath
-          pip install setuptools
           pipx install poetry==1.4.2
           poetry config virtualenvs.in-project true
           poetry install --with dev
