@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.7.1](https://github.com/auth0/auth0-python/tree/4.7.1) (2024-02-26)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.7.0...4.7.1)
+
+**Security**
+- Update cryptography requirements.txt [\#597](https://github.com/auth0/auth0-python/pull/597) ([skjensen](https://github.com/skjensen))
+
 ## [4.7.0](https://github.com/auth0/auth0-python/tree/4.7.0) (2023-12-05)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.6.1...4.7.0)
 
