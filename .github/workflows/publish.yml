@@ -58,6 +58,16 @@ jobs:
       - if: steps.tag_exists.outputs.exists == 'true'
         run: exit 1
 
+      # Create a release for the tag
+      - uses: ./.github/actions/release-create
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ steps.get_version.outputs.version }}
+          body: ${{ steps.get_release_notes.outputs.release-notes }}
+          tag: ${{ steps.get_version.outputs.version }}
+          commit: ${{ github.sha }}
+          prerelease: ${{ steps.get_prerelease.outputs.prerelease }}
+
       - name: Configure Python
         uses: actions/setup-python@v5
         with:
@@ -76,16 +86,6 @@ jobs:
       - name: Build release
         run: |
           poetry build
-
-      # Create a release for the tag
-      - uses: ./.github/actions/release-create
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: ${{ steps.get_version.outputs.version }}
-          body: ${{ steps.get_release_notes.outputs.release-notes }}
-          tag: ${{ steps.get_version.outputs.version }}
-          commit: ${{ github.sha }}
-          prerelease: ${{ steps.get_prerelease.outputs.prerelease }}
 
       - name: Publish release
         uses: pypa/gh-action-pypi-publish@release/v1
