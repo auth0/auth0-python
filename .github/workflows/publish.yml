@@ -77,9 +77,6 @@ jobs:
         run: |
           poetry build
 
-      - name: Publish release
-        uses: pypa/gh-action-pypi-publish@release/v1
-
       # Create a release for the tag
       - uses: ./.github/actions/release-create
         with:
@@ -89,3 +86,6 @@ jobs:
           tag: ${{ steps.get_version.outputs.version }}
           commit: ${{ github.sha }}
           prerelease: ${{ steps.get_prerelease.outputs.prerelease }}
+
+      - name: Publish release
+        uses: pypa/gh-action-pypi-publish@release/v1
