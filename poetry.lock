@@ -913,7 +913,7 @@ tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)", "pytest-asyncio 
 type = "git"
 url = "https://github.com/padrepitufo/pyjwt.git"
 reference = "2.9.0"
-resolved_reference = "1855894c3c46b7967559a37d8bcbc0977b1003cb"
+resolved_reference = "662107ec7d397e6a533932a0edaed12acf2ba1f6"
 
 [[package]]
 name = "pytest"
