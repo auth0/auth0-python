@@ -29,7 +29,7 @@ folders = [{ path = "auth0" }]
 python = ">=3.8"
 aiohttp = "^3.8.5"
 cryptography = "^42.0.4" # pyjwt has a weak dependency on cryptography
-pyjwt = { git = "https://github.com/padrepitufo/pyjwt.git", tag = "v0.0.1", extras = ["async"] }
+pyjwt = { git = "https://github.com/padrepitufo/pyjwt.git", tag = "2.9.0", extras = ["async"] }
 requests = "^2.31.0"
 urllib3 = "^2.0.7"       # requests has a weak dependency on urllib3
 

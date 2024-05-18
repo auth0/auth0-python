@@ -891,7 +891,7 @@ files = [
 
 [[package]]
 name = "PyJWT"
-version = "2.8.0"
+version = "2.9.0"
 description = "JSON Web Token implementation in Python"
 optional = false
 python-versions = ">=3.8"
@@ -912,8 +912,8 @@ tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)", "pytest-asyncio 
 [package.source]
 type = "git"
 url = "https://github.com/padrepitufo/pyjwt.git"
-reference = "96691c0f"
-resolved_reference = "96691c0ffa7b96aa8e8fa8f21c125422289775be"
+reference = "2.9.0"
+resolved_reference = "1855894c3c46b7967559a37d8bcbc0977b1003cb"
 
 [[package]]
 name = "pytest"
@@ -1262,4 +1262,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8"
-content-hash = "439141628825d38eb5c91c3b686f11b431b5bda261dbf0f386ace00550b42f3d"
+content-hash = "f463aaec48c99a154bd5ddf126b42f51a0d9ec24328b0d3be0a38e34695cb779"
