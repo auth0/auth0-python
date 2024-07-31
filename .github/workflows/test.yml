@@ -89,4 +89,7 @@ jobs:
 
       - if: ${{ matrix.python-version == '3.10' }}
         name: Upload coverage
-        uses: codecov/codecov-action@4fe8c5f003fae66aa5ebb77cfd3e7bfbbda0b6b0 # pin@3.1.5
+        uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # pin@4.5.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
