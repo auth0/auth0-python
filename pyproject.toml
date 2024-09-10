@@ -28,10 +28,11 @@ folders = [{ path = "auth0" }]
 [tool.poetry.dependencies]
 python = ">=3.8"
 aiohttp = "^3.8.5"
-cryptography = "^42.0.4" # pyjwt has a weak dependency on cryptography
+cryptography = "^43.0.1" # pyjwt has a weak dependency on cryptography
 pyjwt = "^2.8.0"
 requests = "^2.31.0"
 urllib3 = "^2.0.7"       # requests has a weak dependency on urllib3
+multidict = "^6.1.0"
 
 [tool.poetry.group.dev.dependencies]
 aioresponses = "^0.7.4"
