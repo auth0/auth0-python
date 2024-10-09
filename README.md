@@ -145,7 +145,7 @@ The following is a list of unsupported Python versions, and the last SDK version
 
 | Python Version | Last SDK Version Supporting |
 |----------------|-----------------------------|
-| <= 3.7         | 4.6.1                       |
+| >= 3.7         | 4.6.1                       |
 | >= 2.0, <= 3.6 | 3.x                         |
 
 You can determine what version of Python you have installed by running:
