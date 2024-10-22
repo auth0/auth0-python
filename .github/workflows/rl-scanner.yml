@@ -1,0 +1,76 @@
+name: RL-Secure Workflow
+run-name: rl-scanner-only
+
+on:
+  merge_group:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  checkout-build-scan-only:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Configure dependencies
+        run: |
+          pip install --user --upgrade pip
+          pip install --user pipx
+          pipx ensurepath
+          pipx install poetry==1.4.2
+          pip install --upgrade pip
+          pip install boto3 requests
+          poetry config virtualenvs.in-project true
+          poetry install --with dev
+          poetry self add "poetry-dynamic-versioning[plugin]==1.1.1"
+
+      - name: Build release
+        run: |
+          poetry build
+
+      - name: Create tgz build artifact
+        run: |
+          tar -czvf auth0-python.tgz *
+
+      - name: Get Artifact Version
+        id: get_version
+        run: echo "version=$(cat .version)" >> $GITHUB_ENV
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.PRODSEC_TOOLS_ARN }}
+          aws-region: us-east-1
+          mask-aws-account-id: true
+
+      - name: Run Reversing Labs Wrapper Scanner
+        env:
+          RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
+          RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
+          SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
+          WRAPPER_INDEX_URL: "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
+          PYTHONUNBUFFERED: 1
+        run: |
+          pip install rl-wrapper --index-url $WRAPPER_INDEX_URL && \
+          rl-wrapper \
+            --artifact "$(pwd)/auth0-python.tgz" \
+            --name "${{ github.event.repository.name }}" \
+            --version "${{ steps.get_version.outputs.version }}" \
+            --repository "${{ github.repository }}" \
+            --commit "${{ github.sha }}" \
+            --build-env "github_action"
