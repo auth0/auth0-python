@@ -1,20 +1,31 @@
 name: RL-Secure Workflow
-run-name: rl-scanner-only
+name: RL-Secure Workflow
 
 on:
-  merge_group:
-  workflow_dispatch:
-  push:
-    branches: ["main"]
-  pull_request:
-    types:
-      - opened
-      - synchronize
+  workflow_call:
+    inputs:
+      python-version:
+        required: true
+        type: string
+      artifact-name:
+        required: true
+        type: string
+    secrets:
+      RLSECURE_LICENSE:
+        required: true
+      RLSECURE_SITE_KEY:
+        required: true
+      SIGNAL_HANDLER_TOKEN:
+        required: true
+      PRODSEC_TOOLS_USER:
+        required: true
+      PRODSEC_TOOLS_TOKEN:
+        required: true
+      PRODSEC_TOOLS_ARN:
+        required: true
 
 jobs:
   checkout-build-scan-only:
-    if: github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'release/'))
     runs-on: ubuntu-latest
 
     permissions:
@@ -30,7 +41,7 @@ jobs:
       - name: Configure Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: ${{ inputs.python-version }}
 
       - name: Configure dependencies
         run: |
@@ -50,32 +61,25 @@ jobs:
 
       - name: Create tgz build artifact
         run: |
-          tar -czvf auth0-python.tgz *
+          tar -czvf ${{ inputs.artifact-name }} *
 
       - name: Get Artifact Version
         id: get_version
         run: echo "version=$(cat .version)" >> $GITHUB_ENV
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Run RL Scanner
+        id: rl-scan-conclusion
+        uses: ./.github/actions/rl-scanner
         with:
-          role-to-assume: ${{ secrets.PRODSEC_TOOLS_ARN }}
-          aws-region: us-east-1
-          mask-aws-account-id: true
-
-      - name: Run Reversing Labs Wrapper Scanner
+          artifact-path: "$(pwd)/${{ inputs.artifact-name }}"
+          version: "${{ steps.get_version.outputs.version }}"
         env:
           RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
           RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
-          WRAPPER_INDEX_URL: "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
-          PYTHONUNBUFFERED: 1
-        run: |
-          pip install rl-wrapper --index-url $WRAPPER_INDEX_URL && \
-          rl-wrapper \
-            --artifact "$(pwd)/auth0-python.tgz" \
-            --name "${{ github.event.repository.name }}" \
-            --version "${{ steps.get_version.outputs.version }}" \
-            --repository "${{ github.repository }}" \
-            --commit "${{ github.sha }}" \
-            --build-env "github_action"
+          PRODSEC_TOOLS_USER: ${{ secrets.PRODSEC_TOOLS_USER }}
+          PRODSEC_TOOLS_TOKEN: ${{ secrets.PRODSEC_TOOLS_TOKEN }}
+          PRODSEC_TOOLS_ARN: ${{ secrets.PRODSEC_TOOLS_ARN }}
+
+      - name: Output scan result
+        run: echo "scan-status=${{ steps.rl-scan-conclusion.outcome }}" >> $GITHUB_ENV
