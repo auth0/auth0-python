@@ -2,7 +2,7 @@ name: Snyk
 
 on:
   merge_group:
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - synchronize
@@ -22,16 +22,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
-  authorize:
-    name: Authorize
-    environment: ${{ github.actor != 'dependabot[bot]' && github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository && 'external' || 'internal' }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: true
-
   check:
-    needs: authorize
-
     name: Check for Vulnerabilities
     runs-on: ubuntu-latest
 
@@ -43,7 +34,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
 
-      - uses: snyk/actions/python-3.7@b98d498629f1c368650224d6d212bf7dfa89e4bf # pin@0.4.0
+      - uses: snyk/actions/python-3.8@4a528b5c534bb771b6e3772656a8e0e9dc902f8b # pinned 2023-06-13
         continue-on-error: true # Make sure the SARIF upload is called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
