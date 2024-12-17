@@ -329,6 +329,7 @@ class Organizations:
         user_id: str,
         page: int | None = None,
         per_page: int | None = None,
+        include_totals: bool = False,
     ) -> list[dict[str, Any]]:
         """Retrieves a list of all the roles from the given organization member.
 
@@ -343,9 +344,17 @@ class Organizations:
            per_page (int, optional): The amount of entries per page. When not set,
               the default value is up to the server.
 
+           include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise. Defaults to False.
+
         See: https://auth0.com/docs/api/management/v2#!/Organizations/get_organization_member_roles
         """
-        params = {"page": page, "per_page": per_page}
+        params = {
+            "page": page,
+            "per_page": per_page,
+            "include_totals": str(include_totals).lower()
+        }
+
         return self.client.get(
             self._url(id, "members", user_id, "roles"), params=params
         )
