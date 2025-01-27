@@ -42,7 +42,7 @@ jobs:
           sphinx-build ./docs/source ./docs/build --keep-going -n -a -b html
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: "./docs/build"
 
@@ -56,4 +56,4 @@ jobs:
     steps:
       - id: deployment
         name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
