@@ -61,7 +61,7 @@ jobs:
           pipx install poetry
           poetry config virtualenvs.in-project true
           poetry install --with dev
-          poetry self add "poetry-dynamic-versioning[plugin]==1.1.1"
+          poetry self add "poetry-dynamic-versioning[plugin]"
 
       - name: Run tests
         run: |
