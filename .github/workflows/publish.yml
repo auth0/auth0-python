@@ -12,9 +12,9 @@ permissions:
 
 jobs:
   rl-scanner:
-  uses: ./.github/workflows/rl-scanner.yml
+  uses: ./.github/workflows/rl-scanner
   with:
-    node-version: 18
+    python-version: 3.10
     artifact-name: "auth0-python.tgz"
   secrets:
     RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
