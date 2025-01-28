@@ -1,5 +1,4 @@
 name: RL-Secure Workflow
-name: RL-Secure Workflow
 
 on:
   workflow_call:
