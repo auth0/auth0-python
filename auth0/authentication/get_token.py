@@ -253,3 +253,27 @@ class GetToken(AuthenticationBase):
                 "grant_type": "http://auth0.com/oauth/grant-type/passwordless/otp",
             },
         )
+
+    def backchannel_login(
+        self, auth_req_id: str, grant_type: str = "urn:openid:params:grant-type:ciba",
+    ) -> Any:
+        """Calls /oauth/token endpoint with "urn:openid:params:grant-type:ciba" grant type
+
+        Args:
+            auth_req_id (str): The id received from /bc-authorize
+
+            grant_type (str): Denotes the flow you're using.For Back Channel login
+            use urn:openid:params:grant-type:ciba
+
+        Returns:
+            access_token, id_token
+        """
+
+        return self.authenticated_post(
+            f"{self.protocol}://{self.domain}/oauth/token",
+            data={
+                "client_id": self.client_id,
+                "auth_req_id": auth_req_id,
+                "grant_type": grant_type,
+            },
+        )
