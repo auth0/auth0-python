@@ -342,10 +342,17 @@ class TestOrganizations(unittest.TestCase):
             "https://domain/api/v2/organizations/test-org/members/test-user/roles",
             args[0],
         )
-        self.assertEqual(kwargs["params"], {"page": None, "per_page": None})
+        self.assertEqual(
+            kwargs["params"], 
+            {
+                "page": None, 
+                "per_page": None,
+                "include_totals": "false",
+            }
+        )
 
         # Specific pagination
-        c.all_organization_member_roles("test-org", "test-user", page=7, per_page=25)
+        c.all_organization_member_roles("test-org", "test-user", page=7, per_page=25, include_totals=True)
 
         args, kwargs = mock_instance.get.call_args
 
@@ -353,7 +360,14 @@ class TestOrganizations(unittest.TestCase):
             "https://domain/api/v2/organizations/test-org/members/test-user/roles",
             args[0],
         )
-        self.assertEqual(kwargs["params"], {"page": 7, "per_page": 25})
+        self.assertEqual(
+            kwargs["params"], 
+            {
+                "page": 7, 
+                "per_page": 25,
+                "include_totals": "true",
+            }
+        )
 
     @mock.patch("auth0.management.organizations.RestClient")
     def test_create_organization_member_roles(self, mock_rc):
