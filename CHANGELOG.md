@@ -1,5 +1,17 @@
 # Change Log
 
+## [4.8.0](https://github.com/auth0/auth0-python/tree/4.8.0) (2025-01-29)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.7.2...4.8.0)
+
+**Added**
+- Adding Support For RAR and JAR Requests [\#659](https://github.com/auth0/auth0-python/pull/659) ([kishore7snehil](https://github.com/kishore7snehil))
+- Adding Support For Back Channel Login [\#643](https://github.com/auth0/auth0-python/pull/643) ([kishore7snehil](https://github.com/kishore7snehil))
+
+**Fixed**
+- Consolidated Community PRs and Dependency Upgrades [\#660](https://github.com/auth0/auth0-python/pull/660) ([kishore7snehil](https://github.com/kishore7snehil))
+- Updating Dependancies And Workflow Action Versions [\#653](https://github.com/auth0/auth0-python/pull/653) ([kishore7snehil](https://github.com/kishore7snehil))
+- Fixing the Github Workflow Issues [\#644](https://github.com/auth0/auth0-python/pull/644) ([kishore7snehil](https://github.com/kishore7snehil))
+
 ## [4.7.2](https://github.com/auth0/auth0-python/tree/4.7.2) (2024-09-10)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.7.1...4.7.2)
 
