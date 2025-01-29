@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   rl-scanner:
-    uses: ./.github/workflows/rl-scanner
+    uses: ./.github/workflows/rl-scanner.yml
     with:
       python-version: 3.10
       artifact-name: "auth0-python.tgz"
