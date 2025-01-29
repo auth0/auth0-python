@@ -12,17 +12,17 @@ permissions:
 
 jobs:
   rl-scanner:
-  uses: ./.github/workflows/rl-scanner
-  with:
-    python-version: 3.10
-    artifact-name: "auth0-python.tgz"
-  secrets:
-    RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
-    RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
-    SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
-    PRODSEC_TOOLS_USER: ${{ secrets.PRODSEC_TOOLS_USER }}
-    PRODSEC_TOOLS_TOKEN: ${{ secrets.PRODSEC_TOOLS_TOKEN }}
-    PRODSEC_TOOLS_ARN: ${{ secrets.PRODSEC_TOOLS_ARN }}
+    uses: ./.github/workflows/rl-scanner.yml
+    with:
+      python-version: 3.10
+      artifact-name: "auth0-python.tgz"
+    secrets:
+      RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
+      RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
+      SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
+      PRODSEC_TOOLS_USER: ${{ secrets.PRODSEC_TOOLS_USER }}
+      PRODSEC_TOOLS_TOKEN: ${{ secrets.PRODSEC_TOOLS_TOKEN }}
+      PRODSEC_TOOLS_ARN: ${{ secrets.PRODSEC_TOOLS_ARN }}
   publish-pypi:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release/'))
     name: "PyPI"
