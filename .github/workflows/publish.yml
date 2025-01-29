@@ -14,7 +14,7 @@ jobs:
   rl-scanner:
     uses: ./.github/workflows/rl-scanner.yml
     with:
-      python-version: 3.10
+      python-version: "3.10"
       artifact-name: "auth0-python.tgz"
     secrets:
       RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
