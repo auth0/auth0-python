@@ -16,6 +16,8 @@ class PushedAuthorizationRequests(AuthenticationBase):
              redirect_uri (str): The URL to which Auth0 will redirect the browser after authorization has been granted
              by the user.
              **kwargs: Other fields to send along with the PAR.
+             For RAR requests, authorization_details parameter should be added in a proper format. See:https://datatracker.ietf.org/doc/html/rfc9396
+             For JAR requests, requests parameter should be send with the JWT as the value. See: https://datatracker.ietf.org/doc/html/rfc9126#name-the-request-request-paramet
 
         See: https://www.rfc-editor.org/rfc/rfc9126.html
         """
