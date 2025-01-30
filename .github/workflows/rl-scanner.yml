@@ -63,7 +63,7 @@ jobs:
 
       - name: Get Artifact Version
         id: get_version
-        run: echo "version=$(cat .version)" >> $GITHUB_ENV
+        uses: ./.github/actions/get-version
 
       - name: Run RL Scanner
         id: rl-scan-conclusion
