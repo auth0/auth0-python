@@ -335,3 +335,48 @@ class TestGetToken(unittest.TestCase):
                 "grant_type": "urn:openid:params:grant-type:ciba",
             },
         )
+
+    @mock.patch("auth0.rest.RestClient.post")
+    def test_federated_connection_token(self, mock_post):
+
+
+        g = GetToken("my.domain.com", "<client_id>", client_secret="<client_secret>")
+
+        g.federated_connection_token(refresh_token='<refresh_token>', connection='<connection_name>')
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], "https://my.domain.com/oauth/token")
+        self.assertEqual(
+            kwargs["data"],
+            {
+                "client_id": "<client_id>",
+                "client_secret": "<client_secret>",
+                "grant_type": "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token",
+                "connection": "<connection_name>",
+                "subject_token": "<refresh_token>",
+                "subject_token_type": "urn:ietf:params:oauth:token-type:refresh_token",
+                "requested_token_type": "http://auth0.com/oauth/token-type/federated-connection-access-token",
+            }
+        )
+
+        
+        # Get a new federated connection access token with a login hint
+        g.federated_connection_token(refresh_token='<refresh_token>', connection='<connection_name>', login_hint='<login_hint>')
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], "https://my.domain.com/oauth/token")
+        self.assertEqual(
+            kwargs["data"],
+            {
+                "client_id": "<client_id>",
+                "client_secret": "<client_secret>",
+                "grant_type": "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token",
+                "connection": "<connection_name>",
+                "subject_token": "<refresh_token>",
+                "subject_token_type": "urn:ietf:params:oauth:token-type:refresh_token",
+                "requested_token_type": "http://auth0.com/oauth/token-type/federated-connection-access-token",
+                'login_hint': '<login_hint>',
+            }
+        )

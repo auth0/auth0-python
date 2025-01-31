@@ -195,7 +195,6 @@ class GetToken(AuthenticationBase):
 
         Args:
             refresh_token (str): The refresh token returned from the initial token request.
-
             scope (str): Use this to limit the scopes of the new access token.
             Multiple scopes are separated with whitespace.
 
@@ -236,7 +235,6 @@ class GetToken(AuthenticationBase):
             Multiple scopes are separated with whitespace.
 
             audience (str): The unique identifier of the target API you want to access.
-
         Returns:
             access_token, id_token
         """
@@ -276,4 +274,40 @@ class GetToken(AuthenticationBase):
                 "auth_req_id": auth_req_id,
                 "grant_type": grant_type,
             },
+        )
+
+    def federated_connection_token(
+        self,
+        refresh_token: str,
+        connection: str,
+        login_hint: str | None = None,
+    ) -> Any:
+        """Calls oauth/token endpoint with token-exchange:federated-connection-access-token grant type
+
+        Args:
+            refresh_token (str): The refresh token returned from the initial token request.
+
+            connection (str): The name of the connection to use.
+
+            login_hint (str, optional): The login hint to use.
+
+        Returns:
+            access_token, expires_in, scope
+        """
+
+        data = {
+            "client_id": self.client_id,
+            "grant_type": "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token",
+            "connection": connection,
+            "subject_token": refresh_token,
+            "subject_token_type": "urn:ietf:params:oauth:token-type:refresh_token",
+            "requested_token_type": "http://auth0.com/oauth/token-type/federated-connection-access-token",
+        }
+
+        if login_hint:
+            data["login_hint"] = login_hint
+
+        return self.authenticated_post(
+            f"{self.protocol}://{self.domain}/oauth/token",
+            data=data,
         )
