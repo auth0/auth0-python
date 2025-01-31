@@ -277,3 +277,51 @@ class GetToken(AuthenticationBase):
                 "grant_type": grant_type,
             },
         )
+    
+    def federated_login(
+        self,
+        subject_token_type: str, 
+        subject_token: str,
+        requested_token_type: str,
+        login_hint: str | None = None,
+        scope: str | None = None,
+        connection: str | None = None,
+        grant_type: str = "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token"
+    ) -> Any:
+        """Calls /oauth/token endpoint with federated-connection-access-token grant type
+
+        Args:
+            subject_token_type (str): String containing the typpe of token.
+
+            subject_token (str): String containing the value of subject_token_type.
+
+            requested_token_type (str): String containing the type of rquested token.
+
+            connection (str, optional): Denotes the name of a social identity provider configured to your application
+
+            login_hint (str, optional): String containing information about the user to contact for authentication.
+
+            scope(str, optional): String value of the different scopes the client is asking for.
+            Multiple scopes are separated with whitespace.
+
+            grant_type (str): Denotes the flow you're using. For Federated Connection Access token use
+            urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token  
+          
+
+        Returns:
+            access_token, scope, issued_token_type, token_type
+        """
+
+        return self.authenticated_post(
+            f"{self.protocol}://{self.domain}/oauth/token",
+            data={
+                "client_id": self.client_id,
+                "grant_type": grant_type,
+                "subject_token_type": subject_token_type,                
+                "subject_token": subject_token,
+                "requested_token_type": requested_token_type,
+                "login_hint": login_hint,
+                "connection": connection, 
+                "scope": scope,
+            },
+        )
