@@ -335,3 +335,36 @@ class TestGetToken(unittest.TestCase):
                 "grant_type": "urn:openid:params:grant-type:ciba",
             },
         )
+
+    @mock.patch("auth0.rest.RestClient.post")
+    def test_federated_login(self, mock_post):
+        g = GetToken("my.domain.com", "cid", client_secret="csec")
+
+        g.federated_login(
+            grant_type="urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token",
+            subject_token_type="urn:ietf:params:oauth:token-type:refresh_token",
+            subject_token="refid",
+            requested_token_type="http://auth0.com/oauth/token-type/federated-connection-access-token",
+            connection="google-oauth2",
+            login_hint="idp_user_id"
+        )
+
+        args, kwargs = mock_post.call_args
+
+        print(kwargs["data"])
+
+        self.assertEqual(args[0], "https://my.domain.com/oauth/token")
+        self.assertEqual(
+            kwargs["data"],
+            {
+                "grant_type": "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token",
+                "client_id": "cid",
+                "client_secret": "csec",
+                "subject_token_type": "urn:ietf:params:oauth:token-type:refresh_token",
+                "subject_token": "refid",
+                "requested_token_type": "http://auth0.com/oauth/token-type/federated-connection-access-token",
+                "connection": "google-oauth2",
+                "login_hint": "idp_user_id",
+                "scope": None,
+            },
+        )
