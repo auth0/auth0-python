@@ -292,7 +292,7 @@ class GetToken(AuthenticationBase):
             login_hint (str, optional): The login hint to use.
 
         Returns:
-            access_token, expires_in, scope
+            access_token, expires_in, scope, issued_token_type, token_type
         """
 
         data = {
