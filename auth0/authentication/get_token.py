@@ -278,7 +278,7 @@ class GetToken(AuthenticationBase):
             },
         )
     
-    def federated_login(
+    def federated_connection_access_token(
         self,
         subject_token_type: str, 
         subject_token: str,
@@ -291,7 +291,7 @@ class GetToken(AuthenticationBase):
         """Calls /oauth/token endpoint with federated-connection-access-token grant type
 
         Args:
-            subject_token_type (str): String containing the typpe of token.
+            subject_token_type (str): String containing the type of token.
 
             subject_token (str): String containing the value of subject_token_type.
 
@@ -303,9 +303,6 @@ class GetToken(AuthenticationBase):
 
             scope(str, optional): String value of the different scopes the client is asking for.
             Multiple scopes are separated with whitespace.
-
-            grant_type (str): Denotes the flow you're using. For Federated Connection Access token use
-            urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token  
           
 
         Returns:
