@@ -340,13 +340,12 @@ class TestGetToken(unittest.TestCase):
     def test_federated_login(self, mock_post):
         g = GetToken("my.domain.com", "cid", client_secret="csec")
 
-        g.federated_login(
+        g.federated_connection_access_token(
             grant_type="urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token",
             subject_token_type="urn:ietf:params:oauth:token-type:refresh_token",
             subject_token="refid",
             requested_token_type="http://auth0.com/oauth/token-type/federated-connection-access-token",
-            connection="google-oauth2",
-            login_hint="idp_user_id"
+            connection="google-oauth2"
         )
 
         args, kwargs = mock_post.call_args
@@ -363,8 +362,6 @@ class TestGetToken(unittest.TestCase):
                 "subject_token_type": "urn:ietf:params:oauth:token-type:refresh_token",
                 "subject_token": "refid",
                 "requested_token_type": "http://auth0.com/oauth/token-type/federated-connection-access-token",
-                "connection": "google-oauth2",
-                "login_hint": "idp_user_id",
-                "scope": None,
+                "connection": "google-oauth2"
             },
         )
