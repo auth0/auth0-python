@@ -283,8 +283,6 @@ class GetToken(AuthenticationBase):
         subject_token_type: str, 
         subject_token: str,
         requested_token_type: str,
-        login_hint: str | None = None,
-        scope: str | None = None,
         connection: str | None = None,
         grant_type: str = "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token"
     ) -> Any:
@@ -297,13 +295,7 @@ class GetToken(AuthenticationBase):
 
             requested_token_type (str): String containing the type of rquested token.
 
-            connection (str, optional): Denotes the name of a social identity provider configured to your application
-
-            login_hint (str, optional): String containing information about the user to contact for authentication.
-
-            scope(str, optional): String value of the different scopes the client is asking for.
-            Multiple scopes are separated with whitespace.
-          
+            connection (str, optional): Denotes the name of a social identity provider configured to your application         
 
         Returns:
             access_token, scope, issued_token_type, token_type
@@ -317,8 +309,6 @@ class GetToken(AuthenticationBase):
                 "subject_token_type": subject_token_type,                
                 "subject_token": subject_token,
                 "requested_token_type": requested_token_type,
-                "login_hint": login_hint,
-                "connection": connection, 
-                "scope": scope,
+                "connection": connection,
             },
         )
