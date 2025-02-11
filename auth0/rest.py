@@ -152,6 +152,12 @@ class RestClient:
         # Reset the metrics tracker
         self._metrics = {"retries": 0, "backoff": []}
 
+        if data is None and json is not None and headers:
+            content_type = headers.get("Content-Type", "").lower()  # Get Content-Type 
+            if "application/x-www-form-urlencoded" in content_type:
+                data = json  # Copy JSON data into data
+                json = None  # Prevent JSON from being sent
+
         kwargs = {
             k: v
             for k, v in {
