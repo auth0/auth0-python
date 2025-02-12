@@ -2,7 +2,6 @@ from typing import Any
 
 from .base import AuthenticationBase
 
-from urllib.parse import urlencode
 
 
 class PushedAuthorizationRequests(AuthenticationBase):
@@ -23,14 +22,14 @@ class PushedAuthorizationRequests(AuthenticationBase):
 
         See: https://www.rfc-editor.org/rfc/rfc9126.html
         """
-        return self.post(
+        return self.authenticated_post(
             f"{self.protocol}://{self.domain}/oauth/par",
-            data=urlencode({
+            data={
                 "client_id":self.client_id,
                 "client_secret":self.client_secret,
                 "response_type": response_type,
                 "redirect_uri": redirect_uri,
                 **kwargs,
-            }),
+            },
             headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
