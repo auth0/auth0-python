@@ -3,6 +3,7 @@ from typing import Any
 from .base import AuthenticationBase
 
 
+
 class PushedAuthorizationRequests(AuthenticationBase):
     """Pushed Authorization Request (PAR) endpoint"""
 
@@ -24,9 +25,11 @@ class PushedAuthorizationRequests(AuthenticationBase):
         return self.authenticated_post(
             f"{self.protocol}://{self.domain}/oauth/par",
             data={
-                "client_id": self.client_id,
+                "client_id":self.client_id,
+                "client_secret":self.client_secret,
                 "response_type": response_type,
                 "redirect_uri": redirect_uri,
                 **kwargs,
             },
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
