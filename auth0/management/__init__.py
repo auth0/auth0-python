@@ -22,6 +22,7 @@ from .resource_servers import ResourceServers
 from .roles import Roles
 from .rules import Rules
 from .rules_configs import RulesConfigs
+from .sessions import Sessions
 from .stats import Stats
 from .tenants import Tenants
 from .tickets import Tickets
@@ -60,6 +61,7 @@ __all__ = (
     "RulesConfigs",
     "Rules",
     "Stats",
+    "Sessions",
     "Tenants",
     "Tickets",
     "UserBlocks",

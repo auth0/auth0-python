@@ -348,7 +348,9 @@ class Users:
         url = self._url(f"{id}/identities/{provider}/{user_id}")
         return self.client.delete(url)
 
-    def link_user_account(self, user_id: str, body: dict[str, Any]) -> list[dict[str, Any]]:
+    def link_user_account(
+        self, user_id: str, body: dict[str, Any]
+    ) -> list[dict[str, Any]]:
         """Link user accounts.
 
         Links the account specified in the body (secondary account) to the
@@ -538,7 +540,7 @@ class Users:
 
         url = self._url(f"{user_id}/authentication-methods/{authentication_method_id}")
         return self.client.delete(url)
-    
+
     def list_tokensets(
         self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
     ):
@@ -567,9 +569,7 @@ class Users:
         url = self._url(f"{id}/tokensets")
         return self.client.get(url, params=params)
 
-    def delete_tokenset_by_id(
-        self, user_id: str, tokenset_id: str
-    ) -> Any:
+    def delete_tokenset_by_id(self, user_id: str, tokenset_id: str) -> Any:
         """Deletes an tokenset by ID.
 
         Args:
@@ -580,4 +580,28 @@ class Users:
         """
 
         url = self._url(f"{user_id}/tokensets/{tokenset_id}")
+        return self.client.delete(url)
+
+    def get_sessions(self, user_id: str) -> dict[str, Any]:
+        """Get all sessions details for the given user.
+
+        Args:
+            user_id (str): The user_id to get all sessions for the given user for.
+
+        see: https://auth0.com/docs/api/management/v2#!/Users/get-sessions-for-user
+        """
+
+        url = self._url(f"{user_id}/sessions")
+        return self.client.get(url)
+
+    def delete_sessions(self, user_id: str) -> dict[str, Any]:
+        """Delete all sessions for the given user.
+
+        Args:
+            user_id (str): The user_id to delete all session for the given user for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete-sessions-for-user
+        """
+
+        url = self._url(f"{user_id}/sessions")
         return self.client.delete(url)
