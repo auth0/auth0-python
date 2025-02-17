@@ -24,6 +24,7 @@ from .roles import Roles
 from .rules import Rules
 from .rules_configs import RulesConfigs
 from .self_service_profiles import SelfServiceProfiles
+from .sessions import Sessions
 from .stats import Stats
 from .tenants import Tenants
 from .tickets import Tickets
@@ -64,6 +65,7 @@ __all__ = (
     "Rules",
     "SelfServiceProfiles",
     "Stats",
+    "Sessions",
     "Tenants",
     "Tickets",
     "UserBlocks",
