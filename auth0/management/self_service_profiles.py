@@ -48,7 +48,7 @@ class SelfServiceProfiles:
 
     def _url(self, profile_id: str | None = None) -> str:
         url = f"{self.protocol}://{self.domain}/api/v2/self-service-profiles"
-        if id is not None:
+        if profile_id is not None:
             return f"{url}/{profile_id}"
         return url
 
