@@ -178,7 +178,7 @@ management.rules module
    :show-inheritance:
 
 management.self_service_profiles module
---------------------------
+-----------------------------------------
 
 .. automodule:: auth0.management.self_service_profiles
    :members:
