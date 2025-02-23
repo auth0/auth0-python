@@ -120,6 +120,7 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 - Roles() ( `Auth0().roles` )
 - RulesConfigs() ( `Auth0().rules_configs` )
 - Rules() ( `Auth0().rules` )
+- SelfServiceProfiles() ( `Auth0().self_service_profiles` )
 - Stats() ( `Auth0().stats` )
 - Tenants() ( `Auth0().tenants` )
 - Tickets() ( `Auth0().tickets` )
