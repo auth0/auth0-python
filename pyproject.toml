@@ -1,10 +1,10 @@
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
-build-backend = "poetry.core.masonry.api"
+build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry]
 name = "auth0-python"
-version = "0.0.1"                                    # This is replaced by dynamic versioning
+version = "0.0.0"                                    # This is replaced by dynamic versioning
 description = ""
 authors = ["Auth0 <support@auth0.com>"]
 license = "MIT"
