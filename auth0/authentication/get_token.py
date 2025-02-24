@@ -278,7 +278,7 @@ class GetToken(AuthenticationBase):
             },
         )
     
-    def federated_connection_access_token(
+    def access_token_for_connection(
         self,
         subject_token_type: str, 
         subject_token: str,
