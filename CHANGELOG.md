@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.8.1](https://github.com/auth0/auth0-python/tree/4.8.1) (2025-02-24)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.8.0...4.8.1)
+
+**Fixed**
+- Fix: Unauthorized Access Error For PAR [\#671](https://github.com/auth0/auth0-python/pull/671) ([kishore7snehil](https://github.com/kishore7snehil))
+
 ## [4.8.0](https://github.com/auth0/auth0-python/tree/4.8.0) (2025-01-29)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.7.2...4.8.0)
 
