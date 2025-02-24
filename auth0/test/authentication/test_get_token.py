@@ -337,7 +337,7 @@ class TestGetToken(unittest.TestCase):
         )
 
     @mock.patch("auth0.rest.RestClient.post")
-    def test_federated_login(self, mock_post):
+    def test_connection_login(self, mock_post):
         g = GetToken("my.domain.com", "cid", client_secret="csec")
 
         g.access_token_for_connection(
