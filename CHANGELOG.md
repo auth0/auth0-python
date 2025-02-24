@@ -15,6 +15,11 @@
 
 **Fixed**
 - Consolidated Community PRs and Dependency Upgrades [\#660](https://github.com/auth0/auth0-python/pull/660) ([kishore7snehil](https://github.com/kishore7snehil))
+  - [fix typo in docstring](https://github.com/auth0/auth0-python/pull/637) ([@CarlosEduR ](https://github.com/CarlosEduR))
+  - [Added support for "include_totals" to all_organization_member_roles](https://github.com/auth0/auth0-python/pull/635) ([@jpayton-cx](https://github.com/jpayton-cx))
+  - [Fixed Version Table](https://github.com/auth0/auth0-python/pull/633) ([@sanchez](https://github.com/sanchez))
+  - [Remove upper bounds on all python dependency versions](https://github.com/auth0/auth0-python/pull/628) ([@ngfeldman](https://github.com/ngfeldman))
+  - [Adding secrets to Codecov Action Upload](https://github.com/auth0/auth0-python/pull/624) ([@developerkunal](https://github.com/developerkunal))
 - Updating Dependancies And Workflow Action Versions [\#653](https://github.com/auth0/auth0-python/pull/653) ([kishore7snehil](https://github.com/kishore7snehil))
 - Fixing the Github Workflow Issues [\#644](https://github.com/auth0/auth0-python/pull/644) ([kishore7snehil](https://github.com/kishore7snehil))
 
