@@ -7,6 +7,7 @@ from json import dumps, loads
 from random import randint
 from time import sleep
 from typing import TYPE_CHECKING, Any, Mapping
+from urllib.parse import urlencode
 
 import requests
 
@@ -151,6 +152,12 @@ class RestClient:
 
         # Reset the metrics tracker
         self._metrics = {"retries": 0, "backoff": []}
+
+        if data is None and json is not None and headers:
+            content_type = headers.get("Content-Type", "").lower()  # Get Content-Type 
+            if "application/x-www-form-urlencoded" in content_type:
+                data = urlencode(json)  # Copy JSON data into data
+                json = None  # Prevent JSON from being sent
 
         kwargs = {
             k: v

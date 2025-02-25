@@ -88,7 +88,9 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 - Delegated ( `authentication.Delegated` )
 - Enterprise ( `authentication.Enterprise` )
 - API Authorization - Get Token ( `authentication.GetToken`)
+- BackChannelLogin ( `authentication.BackChannelLogin`)
 - Passwordless ( `authentication.Passwordless` )
+- PushedAuthorizationRequests ( `authentication.PushedAuthorizationRequests` )
 - RevokeToken ( `authentication.RevokeToken` )
 - Social ( `authentication.Social` )
 - Users ( `authentication.Users` )
@@ -146,7 +148,7 @@ The following is a list of unsupported Python versions, and the last SDK version
 
 | Python Version | Last SDK Version Supporting |
 |----------------|-----------------------------|
-| <= 3.7         | 4.6.1                       |
+| >= 3.7         | 4.6.1                       |
 | >= 2.0, <= 3.6 | 3.x                         |
 
 You can determine what version of Python you have installed by running:
