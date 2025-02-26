@@ -52,7 +52,7 @@ class SelfServiceProfiles:
             return f"{url}/{profile_id}"
         return url
 
-    def list(
+    def all(
         self,
         page: int = 0,
         per_page: int = 25,
