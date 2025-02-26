@@ -14,18 +14,18 @@ class TestSelfServiceProfiles(unittest.TestCase):
         self.assertEqual(telemetry_header, None)
 
     @mock.patch("auth0.management.self_service_profiles.RestClient")
-    def test_list(self, mock_rc):
+    def test_all(self, mock_rc):
         mock_instance = mock_rc.return_value
 
         s = SelfServiceProfiles(domain="domain", token="jwttoken")
-        s.list()
+        s.all()
 
         mock_instance.get.assert_called_with(
             "https://domain/api/v2/self-service-profiles",
             params={"page": 0, "per_page": 25, "include_totals": "true"},
         )
 
-        s.list(page=1, per_page=50, include_totals=False)
+        s.all(page=1, per_page=50, include_totals=False)
 
         mock_instance.get.assert_called_with(
             "https://domain/api/v2/self-service-profiles",
