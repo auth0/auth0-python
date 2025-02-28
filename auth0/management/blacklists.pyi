@@ -1,0 +1,6 @@
+from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
+from ..types import TimeoutType as TimeoutType
+
+class Blacklists:
+    def get_async(self, aud: str | None = None) -> list[dict[str, str]]: ...
+    def create_async(self, jti: str, aud: str | None = None) -> dict[str, str]: ...
