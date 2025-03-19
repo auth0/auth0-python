@@ -1,0 +1,6 @@
+from typing import Any
+
+
+class Stats:
+    def active_users_async(self: Any) -> int: ...
+    def daily_stats_async(self: Any, from_date: str | None = None, to_date: str | None = None) -> list[dict[str, Any]]: ...

@@ -1,0 +1,6 @@
+from typing import Any
+
+
+class Tenants:
+    def get_async(self: Any, fields: list[str] | None = None, include_fields: bool = True) -> dict[str, Any]: ...
+    def update_async(self: Any, body: dict[str, Any]) -> dict[str, Any]: ...

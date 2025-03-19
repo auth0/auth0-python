@@ -1,0 +1,6 @@
+from typing import Any
+
+
+class Logs:
+    def search_async(self: Any, page: int = 0, per_page: int = 50, sort: str | None = None, q: str | None = None, include_totals: bool = True, fields: list[str] | None = None, from_param: str | None = None, take: int | None = None, include_fields: bool = True) -> Any: ...
+    def get_async(self: Any, id: str) -> dict[str, Any]: ...

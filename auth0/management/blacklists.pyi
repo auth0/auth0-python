@@ -1,0 +1,6 @@
+from typing import Any
+
+
+class Blacklists:
+    def get_async(self: Any, aud: str | None = None) -> list[dict[str, str]]: ...
+    def create_async(self: Any, jti: str, aud: str | None = None) -> dict[str, str]: ...

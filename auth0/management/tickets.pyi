@@ -1,0 +1,6 @@
+from typing import Any
+
+
+class Tickets:
+    def create_email_verification_async(self: Any, body: dict[str, Any]) -> dict[str, Any]: ...
+    def create_pswd_change_async(self: Any, body: dict[str, Any]) -> dict[str, Any]: ...

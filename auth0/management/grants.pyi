@@ -1,0 +1,6 @@
+from typing import Any
+
+
+class Grants:
+    def all_async(self: Any, page: int | None = None, per_page: int | None = None, include_totals: bool = False, extra_params: dict[str, Any] | None = None) -> Any: ...
+    def delete_async(self: Any, id: str) -> Any: ...
