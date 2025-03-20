@@ -33,6 +33,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 0
 
       - uses: snyk/actions/python-3.8@cdb760004ba9ea4d525f2e043745dfe85bb9077e # pinned 2023-06-13
         continue-on-error: true # Make sure the SARIF upload is called
@@ -40,6 +41,9 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --sarif-file-output=snyk.sarif
+
+      - name: Validate SARIF file
+        run: jq . snyk.sarif || (echo "Invalid SARIF file"; exit 1)
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
