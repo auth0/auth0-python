@@ -34,4 +34,5 @@ class BackChannelLogin(AuthenticationBase):
                 "scope": scope,
                 **kwargs,
             },
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
         )

@@ -48,7 +48,7 @@ class TestRevokeToken(unittest.TestCase):
         )
 
     @mock.patch("auth0.rest.RestClient.post")
-    def test_rar(self, mock_post):
+    def test_with_authorization_details(self, mock_post):
         a = PushedAuthorizationRequests("my.domain.com", "cid", client_secret="sh!")
         a.pushed_authorization_request(
             response_type="code", 
