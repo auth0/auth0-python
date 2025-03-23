@@ -1,6 +1,7 @@
 
 import unittest
 from unittest import mock
+import json
 
 import requests
 from ...exceptions import Auth0Error, RateLimitError
@@ -73,6 +74,65 @@ class TestBackChannelLogin(unittest.TestCase):
 
         # Assert the error message is correct
         self.assertIn("missing 1 required positional argument: \'scope\'", str(context.exception))
+
+    @mock.patch("auth0.rest.RestClient.post")
+    def test_with_authorization_details(self, mock_post):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        g.back_channel_login(
+            binding_message="This is a binding message.",
+            login_hint={"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"},
+            scope="openid",
+            authorization_details=[
+                {
+                    "type":"payment_initiation","locations":["https://example.com/payments"],
+                    "instructedAmount":
+                    {
+                        "currency":"EUR","amount":"123.50"
+                    },
+                    "creditorName":"Merchant A",
+                    "creditorAccount":
+                    {
+                        "bic":"ABCIDEFFXXX",
+                        "iban":"DE021001001093071118603"
+                    },
+                    "remittanceInformationUnstructured":"Ref Number Merchant"
+                }
+            ],
+        )
+
+        args, kwargs = mock_post.call_args
+
+        expected_data = {
+            "client_id": "cid",
+            "client_secret": "clsec",
+            "binding_message": "This is a binding message.",
+            "login_hint": {"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID" },
+            "scope": "openid",
+            "authorization_details": [
+                {
+                    "type":"payment_initiation","locations":["https://example.com/payments"],
+                    "instructedAmount":
+                    {
+                        "currency":"EUR","amount":"123.50"
+                    },
+                    "creditorName":"Merchant A",
+                    "creditorAccount":
+                    {
+                        "bic":"ABCIDEFFXXX",
+                        "iban":"DE021001001093071118603"
+                    },
+                    "remittanceInformationUnstructured":"Ref Number Merchant"
+                }],
+        }
+
+        actual_data = kwargs["data"]
+            
+        self.assertEqual(args[0], "https://my.domain.com/bc-authorize")
+    
+        self.assertEqual(
+            json.dumps(actual_data, sort_keys=True), 
+            json.dumps(expected_data, sort_keys=True)
+        )
 
 
 
