@@ -403,3 +403,36 @@ class TestUsers(unittest.TestCase):
         mock_instance.delete.assert_called_with(
             "https://domain/api/v2/users/user_id/authentication-methods/authentication_method_id"
         )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_list_tokensets(self, mock_rc):
+        mock_instance = mock_rc.return_value
+ 
+        u = Users(domain="domain", token="jwttoken")
+        u.list_tokensets("an-id")
+ 
+        args, kwargs = mock_instance.get.call_args
+        self.assertEqual("https://domain/api/v2/users/an-id/federated-connections-tokensets", args[0])
+        self.assertEqual(
+             kwargs["params"], {"per_page": 25, "page": 0, "include_totals": "true"}
+        )
+ 
+        u.list_tokensets(id="an-id", page=1, per_page=50, include_totals=False)
+ 
+        args, kwargs = mock_instance.get.call_args
+ 
+        self.assertEqual("https://domain/api/v2/users/an-id/federated-connections-tokensets", args[0])
+        self.assertEqual(
+            kwargs["params"], {"per_page": 50, "page": 1, "include_totals": "false"}
+        )
+ 
+    @mock.patch("auth0.management.users.RestClient")
+    def test_delete_tokenset_by_id(self, mock_rc):
+        mock_instance = mock_rc.return_value
+ 
+        u = Users(domain="domain", token="jwttoken")
+        u.delete_tokenset_by_id("user_id", "tokenset_id")
+ 
+        mock_instance.delete.assert_called_with(
+            "https://domain/api/v2/users/user_id/federated-connections-tokensets/tokenset_id"
+        )
