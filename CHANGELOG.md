@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.9.0](https://github.com/auth0/auth0-python/tree/4.9.0) (2025-04-01)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.8.1...4.9.0)
+
+**Added**
+- feat: Federated Connections Support [\#682](https://github.com/auth0/auth0-python/pull/682) ([kishore7snehil](https://github.com/kishore7snehil))
+- Adding Support For CIBA with RAR [\#679](https://github.com/auth0/auth0-python/pull/679) ([kishore7snehil](https://github.com/kishore7snehil))
+
 ## [4.8.1](https://github.com/auth0/auth0-python/tree/4.8.1) (2025-02-24)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.8.0...4.8.1)
 
