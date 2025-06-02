@@ -57,13 +57,16 @@ jobs:
           python -m pip install --upgrade pip setuptools
           python -m pip install --user pipx
           pip install --user setuptools
-          curl -sSf https://raw.githubusercontent.com/pypa/pipx/main/install.sh | bash
+           python -m pipx ensurepath
           export PATH="$HOME/.local/bin:$PATH"
-          python -m pipx ensurepath
-          python -m pipx install poetry || {
-          echo "❌ pipx install failed — printing pip log:"
-          cat /opt/pipx/logs/*_pip_errors.log || echo "Log not found"
-          exit 1
+          if [[ "${{ matrix.python-version }}" == "3.8" ]]; then
+            python -m pipx install 'poetry==1.5.1' --pip-args='installer<0.7.0'
+          else
+            python -m pipx install poetry
+          fi || {
+            echo "❌ pipx install failed — printing pip log:"
+            cat /opt/pipx/logs/*_pip_errors.log || echo "Log not found"
+            exit 1
           }
           poetry config virtualenvs.in-project true
           poetry install --with dev
