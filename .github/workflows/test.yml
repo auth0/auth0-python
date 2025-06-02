@@ -54,10 +54,11 @@ jobs:
       - name: Configure dependencies
         run: |
           sudo apt install bubblewrap
-          pip install --user --upgrade pip
-          pip install --user pipx
+          python -m pip install --upgrade pip setuptools
+          python -m pip install --user pipx
           pip install --user setuptools
-          pipx ensurepath
+          export PATH="$HOME/.local/bin:$PATH"
+          python -m pipx ensurepath
           pipx install poetry || {
           echo "❌ pipx install failed — printing pip log:"
           cat /opt/pipx/logs/*_pip_errors.log || echo "Log not found"
