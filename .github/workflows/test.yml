@@ -57,6 +57,7 @@ jobs:
           python -m pip install --upgrade pip setuptools
           python -m pip install --user pipx
           pip install --user setuptools
+          curl -sSf https://raw.githubusercontent.com/pypa/pipx/main/install.sh | bash
           export PATH="$HOME/.local/bin:$PATH"
           python -m pipx ensurepath
           python -m pipx install poetry || {
