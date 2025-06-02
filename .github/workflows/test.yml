@@ -59,7 +59,7 @@ jobs:
           pip install --user setuptools
           export PATH="$HOME/.local/bin:$PATH"
           python -m pipx ensurepath
-          pipx install poetry || {
+          python -m pipx install poetry || {
           echo "❌ pipx install failed — printing pip log:"
           cat /opt/pipx/logs/*_pip_errors.log || echo "Log not found"
           exit 1
