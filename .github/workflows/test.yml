@@ -59,7 +59,11 @@ jobs:
           pip install --user setuptools
           pipx ensurepath
           if [[ "${{ matrix.python-version }}" == "3.8" ]]; then
-            pipx install poetry==1.5.1
+            pipx install 'poetry==1.5.1' --pip-args='installer<0.7.0' || {
+              echo "❌ pipx install failed — printing pip log:"
+              cat /opt/pipx/logs/*_pip_errors.log || echo "Log not found"
+              exit 1
+            }
           else
             pipx install poetry
           fi
