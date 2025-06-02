@@ -38,7 +38,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - name: Checkout code
@@ -54,20 +54,11 @@ jobs:
       - name: Configure dependencies
         run: |
           sudo apt install bubblewrap
-          python -m pip install --upgrade pip setuptools
-          python -m pip install --user pipx
+          pip install --user --upgrade pip
+          pip install --user pipx
           pip install --user setuptools
-           python -m pipx ensurepath
-          export PATH="$HOME/.local/bin:$PATH"
-          if [[ "${{ matrix.python-version }}" == "3.8" ]]; then
-            python -m pipx install 'poetry==1.5.1' --pip-args='installer<0.7.0'
-          else
-            python -m pipx install poetry
-          fi || {
-            echo "❌ pipx install failed — printing pip log:"
-            cat /opt/pipx/logs/*_pip_errors.log || echo "Log not found"
-            exit 1
-          }
+          pipx ensurepath
+          pipx install poetry
           poetry config virtualenvs.in-project true
           poetry install --with dev
           poetry self add "poetry-dynamic-versioning[plugin]"
