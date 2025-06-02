@@ -1,4 +1,4 @@
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, List, Dict
 
 from .base import AuthenticationBase
 
@@ -13,7 +13,7 @@ class BackChannelLogin(AuthenticationBase):
         binding_message: str,
         login_hint: str,
         scope: str,
-        authorization_details:  Optional[Union[str, list[dict]]] = None,
+        authorization_details: Optional[Union[str, List[Dict]]] = None,
         **kwargs
     ) -> Any:
         """Send a Back-Channel Login.
