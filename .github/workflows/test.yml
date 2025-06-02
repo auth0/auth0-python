@@ -58,7 +58,11 @@ jobs:
           pip install --user pipx
           pip install --user setuptools
           pipx ensurepath
-          pipx install poetry
+          if [[ "${{ matrix.python-version }}" == "3.8" ]]; then
+            pipx install poetry==1.5.1
+          else
+            pipx install poetry
+          fi
           poetry config virtualenvs.in-project true
           poetry install --with dev
           poetry self add "poetry-dynamic-versioning[plugin]"
