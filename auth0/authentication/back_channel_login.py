@@ -22,13 +22,15 @@ class BackChannelLogin(AuthenticationBase):
              binding_message (str): Human-readable string displayed on both the device calling /bc-authorize and the user’s 
              authentication device to ensure the user is approves the correct request.
 
-             login_hint (str): A JSON object containing user details for authentication in the iss_sub format.
+             login_hint (str):  JSON string containing user details for authentication in the iss_sub format.Ensure 
+             serialization before passing.
 
              scope(str): "openid" is a required scope.Multiple scopes are separated 
              with whitespace.
 
-             authorization_details (str, list of dict, or dict, optional): JSON string or dictionary representing
+             authorization_details (str, list of dict, optional): JSON string or dictionary representing
              Rich Authorization Requests (RAR) details to include in the CIBA request.
+             If a Python list is provided, the SDK automatically serializes it to a JSON string before sending.
 
              **kwargs: Other fields to send along with the request.
 

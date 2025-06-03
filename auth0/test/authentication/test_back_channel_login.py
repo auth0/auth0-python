@@ -80,7 +80,7 @@ class TestBackChannelLogin(unittest.TestCase):
         g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
         g.back_channel_login(
             binding_message="This is a binding message.",
-            login_hint={"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"},
+            login_hint= json.dumps({"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"}),
             scope="openid",
             authorization_details=[
                 {
@@ -106,7 +106,7 @@ class TestBackChannelLogin(unittest.TestCase):
             "client_id": "cid",
             "client_secret": "clsec",
             "binding_message": "This is a binding message.",
-            "login_hint": {"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"},
+            "login_hint": json.dumps({"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"}),
             "scope": "openid",
             "authorization_details": json.dumps([
                 {
