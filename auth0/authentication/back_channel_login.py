@@ -49,7 +49,7 @@ class BackChannelLogin(AuthenticationBase):
         if authorization_details is not None:
             if isinstance(authorization_details, str):
                 data["authorization_details"] = authorization_details
-            elif isinstance(authorization_details, (list, dict)):
+            elif isinstance(authorization_details, (list)):
                 data["authorization_details"] = json.dumps(authorization_details)
                 
         data.update(kwargs)
