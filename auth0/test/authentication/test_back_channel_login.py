@@ -80,7 +80,7 @@ class TestBackChannelLogin(unittest.TestCase):
         g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
         g.back_channel_login(
             binding_message="This is a binding message.",
-            login_hint={"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"},
+            login_hint= json.dumps({"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"}),
             scope="openid",
             authorization_details=[
                 {
@@ -106,9 +106,9 @@ class TestBackChannelLogin(unittest.TestCase):
             "client_id": "cid",
             "client_secret": "clsec",
             "binding_message": "This is a binding message.",
-            "login_hint": {"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID" },
+            "login_hint": json.dumps({"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"}),
             "scope": "openid",
-            "authorization_details": [
+            "authorization_details": json.dumps([
                 {
                     "type":"payment_initiation","locations":["https://example.com/payments"],
                     "instructedAmount":
@@ -122,17 +122,17 @@ class TestBackChannelLogin(unittest.TestCase):
                         "iban":"DE021001001093071118603"
                     },
                     "remittanceInformationUnstructured":"Ref Number Merchant"
-                }],
+                }
+            ]),
         }
 
         actual_data = kwargs["data"]
-            
+
         self.assertEqual(args[0], "https://my.domain.com/bc-authorize")
-    
+
         self.assertEqual(
-            json.dumps(actual_data, sort_keys=True), 
-            json.dumps(expected_data, sort_keys=True)
+            actual_data,
+            expected_data,
+            "Request data does not match expected data after JSON serialization."
         )
-
-
 
