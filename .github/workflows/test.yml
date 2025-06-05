@@ -38,7 +38,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - name: Checkout code
@@ -58,7 +58,7 @@ jobs:
           pip install --user pipx
           pip install --user setuptools
           pipx ensurepath
-          pipx install poetry==1.4.2
+          pipx install poetry
           poetry config virtualenvs.in-project true
           poetry install --with dev
           poetry self add "poetry-dynamic-versioning[plugin]"
