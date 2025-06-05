@@ -1,5 +1,14 @@
 # Change Log
 
+## [4.10.0](https://github.com/auth0/auth0-python/tree/4.10.0) (2025-06-05)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.9.0...4.10.0)
+
+**Added**
+- chore: merge community PRs – bugfixes, features, and dependency upgrades [\#696](https://github.com/auth0/auth0-python/pull/696) ([kishore7snehil](https://github.com/kishore7snehil))
+
+**Fixed**
+- fix: handle `authorization_details` in back_channel_login [\#695](https://github.com/auth0/auth0-python/pull/695) ([kishore7snehil](https://github.com/kishore7snehil))
+
 ## [4.9.0](https://github.com/auth0/auth0-python/tree/4.9.0) (2025-04-01)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.8.1...4.9.0)
 
