@@ -70,17 +70,17 @@ jobs:
       - name: Configure Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.8"
+          python-version: "3.9"
 
       - name: Configure dependencies
         run: |
           pip install --user --upgrade pip
           pip install --user pipx
           pipx ensurepath
-          pipx install poetry==1.4.2
+          pipx install poetry
           poetry config virtualenvs.in-project true
           poetry install --with dev
-          poetry self add "poetry-dynamic-versioning[plugin]==1.1.1"
+          poetry self add "poetry-dynamic-versioning[plugin]"
 
       - name: Build release
         run: |
