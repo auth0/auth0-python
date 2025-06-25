@@ -116,6 +116,7 @@ For more code samples on how to integrate the auth0-python SDK in your Python ap
 - Jobs() ( `Auth0().jobs` )
 - LogStreams() ( `Auth0().log_streams` )
 - Logs() ( `Auth0().logs` )
+- NetworkAcls() ( `Auth0().network_acls` )
 - Organizations() ( `Auth0().organizations` )
 - Prompts() ( `Auth0().prompts` )
 - ResourceServers() (`Auth0().resource_servers` )

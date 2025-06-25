@@ -129,6 +129,14 @@ management.logs module
    :undoc-members:
    :show-inheritance:
 
+management.network\_acls module
+-----------------------------------------
+
+.. automodule:: auth0.management.network_acls
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 management.organizations module
 ----------------------------------
 
@@ -177,7 +185,7 @@ management.rules module
    :undoc-members:
    :show-inheritance:
 
-management.self_service_profiles module
+management.self\_service\_profiles module
 -----------------------------------------
 
 .. automodule:: auth0.management.self_service_profiles
