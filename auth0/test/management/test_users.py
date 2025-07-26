@@ -436,3 +436,25 @@ class TestUsers(unittest.TestCase):
         mock_instance.delete.assert_called_with(
             "https://domain/api/v2/users/user_id/federated-connections-tokensets/tokenset_id"
         )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_get_sessions_by_user(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.get_sessions("user_id")
+
+        mock_instance.get.assert_called_with(
+            "https://domain/api/v2/users/user_id/sessions"
+        )
+
+    @mock.patch("auth0.management.users.RestClient")
+    def test_delete_sessions_by_user(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        u = Users(domain="domain", token="jwttoken")
+        u.delete_sessions("user_id")
+
+        mock_instance.delete.assert_called_with(
+            "https://domain/api/v2/users/user_id/sessions"
+        )
