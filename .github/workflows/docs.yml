@@ -42,7 +42,7 @@ jobs:
           sphinx-build ./docs/source ./docs/build --keep-going -n -a -b html
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: "./docs/build"
 
