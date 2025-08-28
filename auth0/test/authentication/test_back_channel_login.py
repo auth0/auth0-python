@@ -136,3 +136,28 @@ class TestBackChannelLogin(unittest.TestCase):
             "Request data does not match expected data after JSON serialization."
         )
 
+    @mock.patch("auth0.rest.RestClient.post")
+    def test_with_request_expiry(self, mock_post):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+
+        g.back_channel_login(
+            binding_message="This is a binding message",
+            login_hint="{ \"format\": \"iss_sub\", \"iss\": \"https://my.domain.auth0.com/\", \"sub\": \"auth0|[USER ID]\" }",
+            scope="openid",
+            requested_expiry=100
+        )
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], "https://my.domain.com/bc-authorize")
+        self.assertEqual(
+            kwargs["data"],
+            {
+                "client_id": "cid",
+                "client_secret": "clsec",
+                "binding_message": "This is a binding message",
+                "login_hint": "{ \"format\": \"iss_sub\", \"iss\": \"https://my.domain.auth0.com/\", \"sub\": \"auth0|[USER ID]\" }",
+                "scope": "openid",
+                "requested_expiry": "100",
+            },
+        )
