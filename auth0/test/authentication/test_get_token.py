@@ -380,8 +380,6 @@ class TestGetToken(unittest.TestCase):
 
         args, kwargs = mock_post.call_args
 
-        print(kwargs["data"])
-
         self.assertEqual(args[0], "https://my.domain.com/oauth/token")
         self.assertEqual(
             kwargs["data"],
