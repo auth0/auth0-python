@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.11.0](https://github.com/auth0/auth0-python/tree/4.11.0) (2025-09-11)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.10.0...4.11.0)
+
+**Added**
+- feat: Support For Network ACL Endpoints [\#706](https://github.com/auth0/auth0-python/pull/706) ([kishore7snehil](https://github.com/kishore7snehil))
+
 ## [4.10.0](https://github.com/auth0/auth0-python/tree/4.10.0) (2025-06-05)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.9.0...4.10.0)
 
