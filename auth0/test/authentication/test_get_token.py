@@ -1,4 +1,5 @@
 import unittest
+import requests
 from fnmatch import fnmatch
 from unittest import mock
 from unittest.mock import ANY
@@ -335,7 +336,26 @@ class TestGetToken(unittest.TestCase):
                 "grant_type": "urn:openid:params:grant-type:ciba",
             },
         )
-        
+
+    @mock.patch("auth0.rest.RestClient.post")
+    def test_backchannel_login_headers_on_failure(self, mock_post):
+        response = requests.Response()
+        response.status_code = 400
+        response.headers = {"Retry-After": 100}
+        response._content = b'{"error":"slow_down"}'
+        mock_post.side_effect = requests.exceptions.HTTPError(response=response)
+
+        g = GetToken("my.domain.com", "cid", client_secret="csec")
+
+        try:
+            g.backchannel_login(
+                auth_req_id="reqid",
+                grant_type="urn:openid:params:grant-type:ciba",
+            )
+        except requests.exceptions.HTTPError as e:
+            self.assertEqual(e.response.headers["Retry-After"], 100)
+            self.assertEqual(e.response.status_code, 400)
+
     @mock.patch("auth0.rest.RestClient.post")
     def test_connection_login(self, mock_post):
         g = GetToken("my.domain.com", "cid", client_secret="csec")
@@ -367,7 +387,7 @@ class TestGetToken(unittest.TestCase):
         )
 
     @mock.patch("auth0.rest.RestClient.post")
-    def test_connection_loginwith_login_hint(self, mock_post):
+    def test_connection_login_with_login_hint(self, mock_post):
         g = GetToken("my.domain.com", "cid", client_secret="csec")
 
         g.access_token_for_connection(
