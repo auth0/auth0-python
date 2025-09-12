@@ -296,12 +296,14 @@ class Response:
                     error_code=self._error_code(),
                     message=self._error_message(),
                     content=self._content,
+                    headers=self._headers
                 )
 
             raise Auth0Error(
                 status_code=self._status_code,
                 error_code=self._error_code(),
                 message=self._error_message(),
+                headers=self._headers
             )
         else:
             return self._content
