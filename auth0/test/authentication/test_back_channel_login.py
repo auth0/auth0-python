@@ -33,6 +33,23 @@ class TestBackChannelLogin(unittest.TestCase):
             },
         )
 
+    @mock.patch("requests.request")
+    def test_server_error(self, mock_requests_request):
+        response = requests.Response()
+        response.status_code = 400
+        response._content = b'{"error":"foo"}'
+        mock_requests_request.return_value = response
+
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(Auth0Error) as context:
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid"
+            )
+        self.assertEqual(context.exception.status_code, 400)
+        self.assertEqual(context.exception.message, 'foo')
+
     @mock.patch("auth0.rest.RestClient.post")
     def test_should_require_binding_message(self, mock_post):
         g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
@@ -161,3 +178,33 @@ class TestBackChannelLogin(unittest.TestCase):
                 "requested_expiry": "100",
             },
         )
+
+    def test_requested_expiry_negative_raises(self):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(ValueError):
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid",
+                requested_expiry=-10
+            )
+
+    def test_requested_expiry_zero_raises(self):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(ValueError):
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid",
+                requested_expiry=0
+            )
+
+    def test_requested_non_int_raises(self):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(ValueError):
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid",
+                requested_expiry="string_instead_of_int"
+            )
