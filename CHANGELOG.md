@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.12.0](https://github.com/auth0/auth0-python/tree/4.12.0) (2025-09-15)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.11.0...4.12.0)
+
+**Added**
+- Updates for CIBA with email [\#720](https://github.com/auth0/auth0-python/pull/720) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [4.11.0](https://github.com/auth0/auth0-python/tree/4.11.0) (2025-09-11)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.10.0...4.11.0)
 
