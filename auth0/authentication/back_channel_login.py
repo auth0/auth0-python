@@ -14,6 +14,7 @@ class BackChannelLogin(AuthenticationBase):
         login_hint: str,
         scope: str,
         authorization_details: Optional[Union[str, List[Dict]]] = None,
+        requested_expiry: Optional[int] = None,
         **kwargs
     ) -> Any:
         """Send a Back-Channel Login.
@@ -30,6 +31,9 @@ class BackChannelLogin(AuthenticationBase):
 
              authorization_details (str, list of dict, optional): JSON string or a list of dictionaries representing
              Rich Authorization Requests (RAR) details to include in the CIBA request.
+
+             requested_expiry (int, optional): Number of seconds the authentication request is valid for.
+                Auth0 defaults to 300 seconds (5 mins) if not provided.
 
              **kwargs: Other fields to send along with the request.
 
@@ -50,7 +54,12 @@ class BackChannelLogin(AuthenticationBase):
                 data["authorization_details"] = authorization_details
             elif isinstance(authorization_details, list):
                 data["authorization_details"] = json.dumps(authorization_details)
-                
+
+        if requested_expiry is not None:
+            if not isinstance(requested_expiry, int) or requested_expiry <= 0:
+                raise ValueError("requested_expiry must be a positive integer")
+            data["requested_expiry"] = str(requested_expiry)
+
         data.update(kwargs)
 
         return self.authenticated_post(
