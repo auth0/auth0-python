@@ -6,6 +6,7 @@ from unittest.mock import ANY
 
 from cryptography.hazmat.primitives import asymmetric, serialization
 
+from ... import Auth0Error
 from ...authentication.get_token import GetToken
 
 
@@ -337,24 +338,23 @@ class TestGetToken(unittest.TestCase):
             },
         )
 
-    @mock.patch("auth0.rest.RestClient.post")
-    def test_backchannel_login_headers_on_failure(self, mock_post):
+    @mock.patch("requests.request")
+    def test_backchannel_login_headers_on_failure(self, mock_requests_request):
         response = requests.Response()
         response.status_code = 400
-        response.headers = {"Retry-After": 100}
+        response.headers = {"Retry-After": "100"}
         response._content = b'{"error":"slow_down"}'
-        mock_post.side_effect = requests.exceptions.HTTPError(response=response)
+        mock_requests_request.return_value = response
 
         g = GetToken("my.domain.com", "cid", client_secret="csec")
 
-        try:
+        with self.assertRaises(Auth0Error) as context:
             g.backchannel_login(
                 auth_req_id="reqid",
                 grant_type="urn:openid:params:grant-type:ciba",
             )
-        except requests.exceptions.HTTPError as e:
-            self.assertEqual(e.response.headers["Retry-After"], 100)
-            self.assertEqual(e.response.status_code, 400)
+        self.assertEqual(context.exception.headers["Retry-After"], "100")
+        self.assertEqual(context.exception.status_code, 400)
 
     @mock.patch("auth0.rest.RestClient.post")
     def test_connection_login(self, mock_post):
