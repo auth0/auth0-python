@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.13.0](https://github.com/auth0/auth0-python/tree/4.13.0) (2025-09-17)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.12.0...4.13.0)
+
+**Added**
+- fix(backchannel): expose headers on `slow_down` errors (HTTP 429s) [\#744](https://github.com/auth0/auth0-python/pull/744) ([pmalouin](https://github.com/pmalouin))
+
 ## [4.12.0](https://github.com/auth0/auth0-python/tree/4.12.0) (2025-09-15)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.11.0...4.12.0)
 
