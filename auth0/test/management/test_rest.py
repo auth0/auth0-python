@@ -278,6 +278,10 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.message, "message")
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, 9)
+        self.assertIsNotNone(context.exception.headers)
+        self.assertEqual(context.exception.headers["x-ratelimit-limit"], "3")
+        self.assertEqual(context.exception.headers["x-ratelimit-remaining"], "6")
+        self.assertEqual(context.exception.headers["x-ratelimit-reset"], "9")
 
         self.assertEqual(rc._metrics["retries"], 0)
 
@@ -300,6 +304,8 @@ class TestRest(unittest.TestCase):
         self.assertEqual(context.exception.message, "message")
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, -1)
+        self.assertIsNotNone(context.exception.headers)
+        self.assertEqual(context.exception.headers, {})
 
         self.assertEqual(rc._metrics["retries"], 1)
 
