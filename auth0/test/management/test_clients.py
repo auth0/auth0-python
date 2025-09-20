@@ -77,10 +77,10 @@ class TestClients(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         c = Clients(domain="domain", token="jwttoken")
-        c.create({"a": "b", "c": "d"})
+        c.create({"name": "ab", "description": "cd"})
 
         mock_instance.post.assert_called_with(
-            "https://domain/api/v2/clients", data={"a": "b", "c": "d"}
+            "https://domain/api/v2/clients", data={"name": "ab", "description": "cd"}
         )
 
     @mock.patch("auth0.management.clients.RestClient")
@@ -116,12 +116,12 @@ class TestClients(unittest.TestCase):
         mock_instance = mock_rc.return_value
 
         c = Clients(domain="domain", token="jwttoken")
-        c.update("this-id", {"a": "b", "c": "d"})
+        c.update("this-id", {"name": "ab", "description": "cd"})
 
         args, kwargs = mock_instance.patch.call_args
 
         self.assertEqual("https://domain/api/v2/clients/this-id", args[0])
-        self.assertEqual(kwargs["data"], {"a": "b", "c": "d"})
+        self.assertEqual(kwargs["data"], {"name": "ab", "description": "cd"})
 
     @mock.patch("auth0.management.clients.RestClient")
     def test_rotate_secret(self, mock_rc):
