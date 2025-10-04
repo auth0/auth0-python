@@ -33,6 +33,23 @@ class TestBackChannelLogin(unittest.TestCase):
             },
         )
 
+    @mock.patch("requests.request")
+    def test_server_error(self, mock_requests_request):
+        response = requests.Response()
+        response.status_code = 400
+        response._content = b'{"error":"foo"}'
+        mock_requests_request.return_value = response
+
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(Auth0Error) as context:
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid"
+            )
+        self.assertEqual(context.exception.status_code, 400)
+        self.assertEqual(context.exception.message, 'foo')
+
     @mock.patch("auth0.rest.RestClient.post")
     def test_should_require_binding_message(self, mock_post):
         g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
@@ -80,7 +97,7 @@ class TestBackChannelLogin(unittest.TestCase):
         g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
         g.back_channel_login(
             binding_message="This is a binding message.",
-            login_hint={"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"},
+            login_hint= json.dumps({"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"}),
             scope="openid",
             authorization_details=[
                 {
@@ -106,9 +123,9 @@ class TestBackChannelLogin(unittest.TestCase):
             "client_id": "cid",
             "client_secret": "clsec",
             "binding_message": "This is a binding message.",
-            "login_hint": {"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID" },
+            "login_hint": json.dumps({"format": "iss_sub", "iss": "https://my.domain.auth0.com/", "sub": "auth0|USER_ID"}),
             "scope": "openid",
-            "authorization_details": [
+            "authorization_details": json.dumps([
                 {
                     "type":"payment_initiation","locations":["https://example.com/payments"],
                     "instructedAmount":
@@ -122,17 +139,72 @@ class TestBackChannelLogin(unittest.TestCase):
                         "iban":"DE021001001093071118603"
                     },
                     "remittanceInformationUnstructured":"Ref Number Merchant"
-                }],
+                }
+            ]),
         }
 
         actual_data = kwargs["data"]
-            
+
         self.assertEqual(args[0], "https://my.domain.com/bc-authorize")
-    
+
         self.assertEqual(
-            json.dumps(actual_data, sort_keys=True), 
-            json.dumps(expected_data, sort_keys=True)
+            actual_data,
+            expected_data,
+            "Request data does not match expected data after JSON serialization."
         )
 
+    @mock.patch("auth0.rest.RestClient.post")
+    def test_with_request_expiry(self, mock_post):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
 
+        g.back_channel_login(
+            binding_message="This is a binding message",
+            login_hint="{ \"format\": \"iss_sub\", \"iss\": \"https://my.domain.auth0.com/\", \"sub\": \"auth0|[USER ID]\" }",
+            scope="openid",
+            requested_expiry=100
+        )
 
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], "https://my.domain.com/bc-authorize")
+        self.assertEqual(
+            kwargs["data"],
+            {
+                "client_id": "cid",
+                "client_secret": "clsec",
+                "binding_message": "This is a binding message",
+                "login_hint": "{ \"format\": \"iss_sub\", \"iss\": \"https://my.domain.auth0.com/\", \"sub\": \"auth0|[USER ID]\" }",
+                "scope": "openid",
+                "requested_expiry": "100",
+            },
+        )
+
+    def test_requested_expiry_negative_raises(self):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(ValueError):
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid",
+                requested_expiry=-10
+            )
+
+    def test_requested_expiry_zero_raises(self):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(ValueError):
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid",
+                requested_expiry=0
+            )
+
+    def test_requested_non_int_raises(self):
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(ValueError):
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid",
+                requested_expiry="string_instead_of_int"
+            )

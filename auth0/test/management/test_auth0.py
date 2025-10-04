@@ -18,6 +18,7 @@ from ...management.hooks import Hooks
 from ...management.jobs import Jobs
 from ...management.log_streams import LogStreams
 from ...management.logs import Logs
+from ...management.network_acls import NetworkAcls
 from ...management.organizations import Organizations
 from ...management.prompts import Prompts
 from ...management.resource_servers import ResourceServers
@@ -89,6 +90,9 @@ class TestAuth0(unittest.TestCase):
 
     def test_logs(self):
         self.assertIsInstance(self.a0.logs, Logs)
+    
+    def test_network_acls(self):
+        self.assertIsInstance(self.a0.network_acls, NetworkAcls)
 
     def test_organizations(self):
         self.assertIsInstance(self.a0.organizations, Organizations)

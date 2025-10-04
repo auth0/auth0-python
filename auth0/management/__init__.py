@@ -17,11 +17,13 @@ from .hooks import Hooks
 from .jobs import Jobs
 from .log_streams import LogStreams
 from .logs import Logs
+from .network_acls import NetworkAcls
 from .organizations import Organizations
 from .resource_servers import ResourceServers
 from .roles import Roles
 from .rules import Rules
 from .rules_configs import RulesConfigs
+from .self_service_profiles import SelfServiceProfiles
 from .stats import Stats
 from .tenants import Tenants
 from .tickets import Tickets
@@ -54,11 +56,13 @@ __all__ = (
     "Jobs",
     "LogStreams",
     "Logs",
+    "NetworkAcls"
     "Organizations",
     "ResourceServers",
     "Roles",
     "RulesConfigs",
     "Rules",
+    "SelfServiceProfiles",
     "Stats",
     "Tenants",
     "Tickets",

@@ -158,6 +158,10 @@ class TestBase(unittest.TestCase):
         self.assertEqual(context.exception.message, "desc")
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, 9)
+        self.assertIsNotNone(context.exception.headers)
+        self.assertEqual(context.exception.headers["x-ratelimit-limit"], "3")
+        self.assertEqual(context.exception.headers["x-ratelimit-remaining"], "6")
+        self.assertEqual(context.exception.headers["x-ratelimit-reset"], "9")
 
     @mock.patch("requests.request")
     def test_post_rate_limit_error_without_headers(self, mock_request):
@@ -177,6 +181,8 @@ class TestBase(unittest.TestCase):
         self.assertEqual(context.exception.message, "desc")
         self.assertIsInstance(context.exception, RateLimitError)
         self.assertEqual(context.exception.reset_at, -1)
+        self.assertIsNotNone(context.exception.headers)
+        self.assertEqual(context.exception.headers, {})
 
     @mock.patch("requests.request")
     def test_post_error_with_code_property(self, mock_request):

@@ -1,10 +1,12 @@
 import unittest
+import requests
 from fnmatch import fnmatch
 from unittest import mock
 from unittest.mock import ANY
 
 from cryptography.hazmat.primitives import asymmetric, serialization
 
+from ...exceptions import RateLimitError
 from ...authentication.get_token import GetToken
 
 
@@ -335,7 +337,25 @@ class TestGetToken(unittest.TestCase):
                 "grant_type": "urn:openid:params:grant-type:ciba",
             },
         )
-        
+
+    @mock.patch("requests.request")
+    def test_backchannel_login_headers_on_slow_down(self, mock_requests_request):
+        response = requests.Response()
+        response.status_code = 429
+        response.headers = {"Retry-After": "100"}
+        response._content = b'{"error":"slow_down"}'
+        mock_requests_request.return_value = response
+
+        g = GetToken("my.domain.com", "cid", client_secret="csec")
+
+        with self.assertRaises(RateLimitError) as context:
+            g.backchannel_login(
+                auth_req_id="reqid",
+                grant_type="urn:openid:params:grant-type:ciba",
+            )
+        self.assertEqual(context.exception.headers["Retry-After"], "100")
+        self.assertEqual(context.exception.status_code, 429)
+
     @mock.patch("auth0.rest.RestClient.post")
     def test_connection_login(self, mock_post):
         g = GetToken("my.domain.com", "cid", client_secret="csec")
@@ -363,5 +383,34 @@ class TestGetToken(unittest.TestCase):
                 "subject_token": "refid",
                 "requested_token_type": "http://auth0.com/oauth/token-type/federated-connection-access-token",
                 "connection": "google-oauth2"
+            },
+        )
+
+    @mock.patch("auth0.rest.RestClient.post")
+    def test_connection_login_with_login_hint(self, mock_post):
+        g = GetToken("my.domain.com", "cid", client_secret="csec")
+
+        g.access_token_for_connection(
+            subject_token_type="urn:ietf:params:oauth:token-type:refresh_token",
+            subject_token="refid",
+            requested_token_type="http://auth0.com/oauth/token-type/federated-connection-access-token",
+            connection="google-oauth2",
+            login_hint="john.doe@example.com"
+        )
+
+        args, kwargs = mock_post.call_args
+
+        self.assertEqual(args[0], "https://my.domain.com/oauth/token")
+        self.assertEqual(
+            kwargs["data"],
+            {
+                "grant_type": "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token",
+                "client_id": "cid",
+                "client_secret": "csec",
+                "subject_token_type": "urn:ietf:params:oauth:token-type:refresh_token",
+                "subject_token": "refid",
+                "requested_token_type": "http://auth0.com/oauth/token-type/federated-connection-access-token",
+                "connection": "google-oauth2",
+                "login_hint": "john.doe@example.com"
             },
         )

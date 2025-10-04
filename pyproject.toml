@@ -34,11 +34,11 @@ requests = ">=2.32.3"
 urllib3 = ">=2.2.3"       # requests has a weak dependency on urllib3
 
 [tool.poetry.group.dev.dependencies]
-aioresponses = "^0.7.4"
+aioresponses = "^0.7.8"
 mock = "^5.1.0"
 pipx = "^1.7.1"
 pytest = "^7.4.0"
 pytest-aiohttp = "^1.0.4"
 pytest-asyncio = ">=0.21.1,<0.24.0"
 pytest-cov = "^4.1.0"
-responses = ">=0.23.3,<0.25.0"
+responses = ">=0.23.3,<0.26.0"

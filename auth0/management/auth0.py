@@ -20,12 +20,14 @@ from .hooks import Hooks
 from .jobs import Jobs
 from .log_streams import LogStreams
 from .logs import Logs
+from .network_acls import NetworkAcls
 from .organizations import Organizations
 from .prompts import Prompts
 from .resource_servers import ResourceServers
 from .roles import Roles
 from .rules import Rules
 from .rules_configs import RulesConfigs
+from .self_service_profiles import SelfServiceProfiles
 from .stats import Stats
 from .tenants import Tenants
 from .tickets import Tickets
@@ -78,6 +80,7 @@ class Auth0:
         self.jobs = Jobs(domain, token, rest_options=rest_options)
         self.log_streams = LogStreams(domain, token, rest_options=rest_options)
         self.logs = Logs(domain, token, rest_options=rest_options)
+        self.network_acls = NetworkAcls(domain, token, rest_options=rest_options)
         self.organizations = Organizations(domain, token, rest_options=rest_options)
         self.prompts = Prompts(domain, token, rest_options=rest_options)
         self.resource_servers = ResourceServers(
@@ -86,6 +89,9 @@ class Auth0:
         self.roles = Roles(domain, token, rest_options=rest_options)
         self.rules_configs = RulesConfigs(domain, token, rest_options=rest_options)
         self.rules = Rules(domain, token, rest_options=rest_options)
+        self.self_service_profiles = SelfServiceProfiles(
+            domain, token, rest_options=rest_options
+        )
         self.stats = Stats(domain, token, rest_options=rest_options)
         self.tenants = Tenants(domain, token, rest_options=rest_options)
         self.tickets = Tickets(domain, token, rest_options=rest_options)

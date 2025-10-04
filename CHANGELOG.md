@@ -1,5 +1,35 @@
 # Change Log
 
+## [4.13.0](https://github.com/auth0/auth0-python/tree/4.13.0) (2025-09-17)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.12.0...4.13.0)
+
+**Added**
+- fix(backchannel): expose headers on `slow_down` errors (HTTP 429s) [\#744](https://github.com/auth0/auth0-python/pull/744) ([pmalouin](https://github.com/pmalouin))
+
+## [4.12.0](https://github.com/auth0/auth0-python/tree/4.12.0) (2025-09-15)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.11.0...4.12.0)
+
+**Added**
+- Updates for CIBA with email [\#720](https://github.com/auth0/auth0-python/pull/720) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+## [4.11.0](https://github.com/auth0/auth0-python/tree/4.11.0) (2025-09-11)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.10.0...4.11.0)
+
+**Added**
+- feat: Support For Network ACL Endpoints [\#706](https://github.com/auth0/auth0-python/pull/706) ([kishore7snehil](https://github.com/kishore7snehil))
+
+**Fixed**
+- chore: fix workflow syntax errors and update dependencies [\#724](https://github.com/auth0/auth0-python/pull/724) ([kishore7snehil](https://github.com/kishore7snehil))
+
+## [4.10.0](https://github.com/auth0/auth0-python/tree/4.10.0) (2025-06-05)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.9.0...4.10.0)
+
+**Added**
+- chore: merge community PRs – bugfixes, features, and dependency upgrades [\#696](https://github.com/auth0/auth0-python/pull/696) ([kishore7snehil](https://github.com/kishore7snehil))
+
+**Fixed**
+- fix: handle `authorization_details` in back_channel_login [\#695](https://github.com/auth0/auth0-python/pull/695) ([kishore7snehil](https://github.com/kishore7snehil))
+
 ## [4.9.0](https://github.com/auth0/auth0-python/tree/4.9.0) (2025-04-01)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.8.1...4.9.0)
 

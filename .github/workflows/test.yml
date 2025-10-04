@@ -38,16 +38,16 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
 
       - name: Configure Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ matrix.python-version }}"
 
@@ -80,6 +80,6 @@ jobs:
 
       - if: ${{ matrix.python-version == '3.10' }}
         name: Upload coverage
-        uses: codecov/codecov-action@13ce06bfc6bbe3ecf90edbbf1bc32fe5978ca1d3 # pin@5.3.1
+        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # pin@5.5.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
