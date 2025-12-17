@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import platform
 import sys
+from contextvars import ContextVar
 from json import dumps, loads
 from random import randint
 from time import sleep
@@ -18,6 +19,12 @@ if TYPE_CHECKING:
     from auth0.rest_async import RequestsResponse
 
 UNKNOWN_ERROR = "a0.sdk.internal.unknown"
+
+# Context variable to store response headers in a thread-safe and async-safe manner
+# Each execution context (thread or async task) gets its own isolated copy
+_response_headers: ContextVar[dict[str, str]] = ContextVar(
+    "response_headers", default={}
+)
 
 
 class RestClientOptions:
@@ -85,6 +92,9 @@ class RestClient:
         self._metrics = {"retries": 0, "backoff": []}
         self._skip_sleep = False
 
+        # Initialize context variable for this client instance
+        _response_headers.set({})
+
         self.base_headers = {
             "Content-Type": "application/json",
         }
@@ -120,6 +130,26 @@ class RestClient:
         # TODO: Deprecate in the next major so we can prune these arguments. Guidance should be to use RestClient.options.*
         self.telemetry = options.telemetry
         self.timeout = options.timeout
+
+    @property
+    def last_response_headers(self) -> dict[str, str]:
+        """Get the headers from the most recent API response.
+        
+        This property is thread-safe and async-safe, using context variables
+        to isolate response headers per execution context (thread or async task).
+        
+        Returns:
+            dict[str, str]: Response headers including rate-limit information
+                (X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset).
+                Returns an empty dict if no request has been made yet.
+        
+        Example:
+            >>> users = Users(domain="tenant.auth0.com", token="token")
+            >>> users.create({"email": "user@example.com"})
+            >>> headers = users.client.last_response_headers
+            >>> remaining = int(headers.get("X-RateLimit-Remaining", 0))
+        """
+        return _response_headers.get()
 
     # Returns a hard cap for the maximum number of retries allowed (10)
     def MAX_REQUEST_RETRIES(self) -> int:
@@ -262,11 +292,15 @@ class RestClient:
         return wait
 
     def _process_response(self, response: requests.Response) -> Any:
-        return self._parse(response).content()
+        parsed_response = self._parse(response)
+        content = parsed_response.content()
+        # Store headers in context variable for thread-safe/async-safe access
+        _response_headers.set(dict(parsed_response._headers))
+        return content
 
     def _parse(self, response: requests.Response) -> Response:
         if not response.text:
-            return EmptyResponse(response.status_code)
+            return EmptyResponse(response.status_code, response.headers)
         try:
             return JsonResponse(response)
         except ValueError:
@@ -356,8 +390,8 @@ class PlainResponse(Response):
 
 
 class EmptyResponse(Response):
-    def __init__(self, status_code: int) -> None:
-        super().__init__(status_code, "", {})
+    def __init__(self, status_code: int, headers: Mapping[str, str] | None = None) -> None:
+        super().__init__(status_code, "", headers or {})
 
     def _error_code(self) -> str:
         return UNKNOWN_ERROR
