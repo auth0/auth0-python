@@ -1,5 +1,44 @@
 # Change Log
 
+## [5.0.0b0](https://github.com/auth0/auth0-python/tree/5.0.0b0) (2025-12-18)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.13.0...5.0.0b0)
+
+⚠️ **BETA RELEASE** - This is a beta release with significant breaking changes. Please test thoroughly before upgrading production systems.
+
+**Breaking Changes**
+
+- **Complete rewrite of Management API client** - Generated from Auth0's OpenAPI specifications using [Fern](https://buildwithfern.com)
+- **Python 3.7 support dropped** - Minimum required version is now Python 3.8
+- **Management API client restructured** - Methods organized into modular sub-clients for better discoverability
+- **Method signatures changed** - Consistent and predictable naming conventions across all endpoints
+- **Response types changed** - Strongly-typed Pydantic models replace generic dictionaries
+- **Import paths changed** - `from auth0.management.core.api_error import ApiError` instead of `from auth0.exceptions import Auth0Error`
+- **Pagination defaults changed** - `include_totals=True` is now the default for list operations
+- **Client initialization simplified** - `ManagementClient` takes `domain` instead of full `base_url`
+
+**Added**
+
+- First-class async support with `AsyncAuth0` and `AsyncManagementClient`
+- Automatic token management with client credentials in `ManagementClient`
+- Built-in pagination support with `include_totals=True` by default
+- Type-safe request/response objects using Pydantic models
+- Better IntelliSense and code completion support
+- Comprehensive API reference documentation
+- Migration guide for upgrading from v4.x
+
+**Changed**
+
+- Management API client fully regenerated using Fern
+- Package structure reorganized with hierarchical sub-clients
+- Error handling updated to use `ApiError` base class
+- Documentation updated with v5 examples
+
+**Note**
+
+- Authentication API remains **fully backward compatible** - no changes required
+- See [v5_MIGRATION_GUIDE.md](https://github.com/auth0/auth0-python/blob/v5/v5_MIGRATION_GUIDE.md) for detailed upgrade instructions
+
+
 ## [4.13.0](https://github.com/auth0/auth0-python/tree/4.13.0) (2025-09-17)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.12.0...4.13.0)
 

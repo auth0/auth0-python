@@ -3,7 +3,7 @@ name = "auth0-python"
 
 [tool.poetry]
 name = "auth0-python"
-version = "4.13.0"
+version = "5.0.0b0"
 description = "Auth0 Python SDK - Management and Authentication APIs"
 readme = "README.md"
 authors = ["Auth0 <support@auth0.com>"]
