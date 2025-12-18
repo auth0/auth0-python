@@ -11,6 +11,9 @@ on:
           - testpypi
           - pypi
         default: 'testpypi'
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -20,7 +23,7 @@ jobs:
   publish-pypi:
     name: "PyPI"
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'testpypi' }}
 
     steps:
       - name: Checkout code
@@ -49,7 +52,7 @@ jobs:
           fi
 
       - name: Create GitHub Release
-        if: github.event.inputs.environment == 'pypi'
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'pypi'
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -80,20 +83,22 @@ jobs:
         run: |
           poetry build
           ls -lh dist/
+          echo "Build successful! Artifacts created:"
+          ls -lh dist/
 
       - name: Publish to Test PyPI
-        if: github.event.inputs.environment == 'testpypi'
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'testpypi'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
           skip-existing: true
           print-hash: true
 
-      - name: Publish to PyPI
-        if: github.event.inputs.environment == 'pypi'
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          print-hash: true
+      # - name: Publish to PyPI
+      #   if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'pypi'
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   with:
+      #     print-hash: true
 
       - name: Summary
         run: |
