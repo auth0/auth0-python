@@ -14,6 +14,7 @@ on:
   pull_request:
     branches:
       - v5
+      - master
 
 permissions:
   contents: write
@@ -29,6 +30,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
         with:
+          ref: v5
           fetch-depth: 0
           fetch-tags: true
 
@@ -87,7 +89,7 @@ jobs:
           ls -lh dist/
 
       - name: Publish to Test PyPI
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'testpypi'
+        # if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'testpypi'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
