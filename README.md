@@ -30,9 +30,16 @@ The Auth0 Python library provides convenient access to the Auth0 APIs from Pytho
 
 ## Installation
 
+> ⚠️ **This is a beta release (v5.0.0-beta)** of a major rewrite with breaking changes. See the [Migration Guide](v5_MIGRATION_GUIDE.md) for upgrade instructions from v4.x.
+
+**Install the v5 beta:**
+
 ```sh
-pip install auth0-python
+pip install auth0-python==5.0.0b0
 ```
+
+**Requirements:**
+- Python ≥3.8 (Python 3.7 support has been dropped)
 
 ## Reference
 
