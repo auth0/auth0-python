@@ -1,0 +1,85 @@
+name: Build and Test
+
+on:
+  merge_group:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+jobs:
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+
+    env:
+      BUBBLEWRAP_ARGUMENTS: |
+        --unshare-all \
+        --clearenv \
+        --ro-bind / / \
+        --bind ${{ github.workspace }} ${{ github.workspace }} \
+        --tmpfs $HOME \
+        --tmpfs /tmp \
+        --tmpfs /var \
+        --dev /dev \
+        --proc /proc \
+        --die-with-parent \
+        --new-session \
+
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
+
+      - name: Configure Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: "${{ matrix.python-version }}"
+
+      - name: Configure dependencies
+        run: |
+          sudo apt install bubblewrap
+          pip install --user --upgrade pip
+          pip install --user pipx
+          pip install --user setuptools
+          pipx ensurepath
+          pipx install poetry
+          poetry config virtualenvs.in-project true
+          poetry install --with dev
+          poetry self add "poetry-dynamic-versioning[plugin]"
+
+      - name: Run tests
+        run: |
+          poetry run pytest --cov=auth0 --cov-report=term-missing:skip-covered --cov-report=xml
+
+      # - name: Run lint
+      #   run: |
+      #     pipx install black==23.3.0
+      #     pipx install flake8==5.0.4
+      #     pipx install isort==5.11.5
+      #     pipx install pyupgrade==3.3.2
+      #     black . --check
+      #     flake8 . --count --show-source --statistics
+      #     isort .  --diff --profile black
+      #     pyupgrade .  --py37-plus --keep-runtime-typing
+
+      - if: ${{ matrix.python-version == '3.10' }}
+        name: Upload coverage
+        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # pin@5.5.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
