@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - v5
+  pull_request:
+    branches:
+      - master
 jobs:
   compile:
     runs-on: ubuntu-latest
