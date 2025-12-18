@@ -27,6 +27,7 @@ bin/
 .pypirc
 pyvenv.cfg
 .python-version
+poetry.toml
 
 # Installer logs
 pip-log.txt
@@ -42,7 +43,11 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
-.pytest_cache
+.pytest_cache/
+.mypy_cache/
+
+# Linting
+.ruff_cache/
 
 # Translations
 *.mo
@@ -51,11 +56,9 @@ coverage.xml
 # Sphinx documentation
 docs/build/
 
-# IDEA
+# IDEs
 .idea/
 *.iml
-
-# VSCode
 .vscode/
 
 # OS-specific files

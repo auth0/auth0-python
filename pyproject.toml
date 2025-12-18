@@ -1,44 +1,101 @@
-[build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
-build-backend = "poetry_dynamic_versioning.backend"
+[project]
+name = "auth0-python"
 
 [tool.poetry]
 name = "auth0-python"
-version = "0.0.0"                                    # This is replaced by dynamic versioning
-description = ""
+version = "4.13.0"
+description = "Auth0 Python SDK - Management and Authentication APIs"
+readme = "README.md"
 authors = ["Auth0 <support@auth0.com>"]
 license = "MIT"
-repository = "https://github.com/auth0/auth0-python"
-homepage = "https://auth0.com"
-readme = "README.md"
-packages = [{ include = "auth0" }]
+keywords = ["auth0", "authentication", "authorization", "oauth", "openid"]
 
-[tool.poetry-dynamic-versioning]
-strict = true
-enable = true
-vcs = "git"
-style = "semver"
-format-jinja = "{% if distance == 0 %}{{ base }}{% else %}{{ base }}{% endif %}"
-pattern = "default-unprefixed"
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Operating System :: POSIX",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed"
+]
+packages = [
+    { include = "auth0", from = "src"}
+]
 
-[tool.poetry-dynamic-versioning.substitution]
-files = ["*/__init__.py"]
-folders = [{ path = "auth0" }]
+[tool.poetry.urls]
+Repository = 'https://github.com/auth0/auth0-python'
+Homepage = 'https://auth0.com'
 
 [tool.poetry.dependencies]
-python = ">=3.8"
+python = "^3.8"
+httpx = ">=0.21.2"
+pydantic = ">= 1.9.2"
+pydantic-core = ">=2.18.2"
+typing_extensions = ">= 4.0.0"
+# Authentication API dependencies
 aiohttp = ">=3.10.11"
-cryptography = ">=43.0.1" # pyjwt has a weak dependency on cryptography
+cryptography = ">=43.0.1"
 pyjwt = ">=2.8.0"
 requests = ">=2.32.3"
-urllib3 = ">=2.2.3"       # requests has a weak dependency on urllib3
+urllib3 = ">=2.2.3"
 
 [tool.poetry.group.dev.dependencies]
+mypy = "==1.13.0"
+pytest = "^7.4.0"
+pytest-asyncio = "^0.23.5"
+pytest-xdist = "^3.6.1"
+python-dateutil = "^2.9.0"
+types-python-dateutil = "^2.9.0.20240316"
+types-requests = "^2.31.0"
+ruff = "==0.11.5"
+# Authentication API test dependencies
 aioresponses = "^0.7.8"
 mock = "^5.1.0"
-pipx = "^1.7.1"
-pytest = "^7.4.0"
 pytest-aiohttp = "^1.0.4"
-pytest-asyncio = ">=0.21.1,<0.24.0"
 pytest-cov = "^4.1.0"
 responses = ">=0.23.3,<0.26.0"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+# Exclude Authentication API, not built for mypy
+exclude = ["src/auth0/authentication/"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "F",  # pyflakes
+    "I",  # isort
+]
+ignore = [
+    "E402",  # Module level import not at top of file
+    "E501",  # Line too long
+    "E711",  # Comparison to `None` should be `cond is not None`
+    "E712",  # Avoid equality comparisons to `True`; use `if ...:` checks
+    "E721",  # Use `is` and `is not` for type comparisons, or `isinstance()` for insinstance checks
+    "E722",  # Do not use bare `except`
+    "E731",  # Do not assign a `lambda` expression, use a `def`
+    "F821",  # Undefined name
+    "F841"   # Local variable ... is assigned to but never used
+]
+
+[tool.ruff.lint.isort]
+section-order = ["future", "standard-library", "third-party", "first-party"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
