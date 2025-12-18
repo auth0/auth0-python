@@ -26,7 +26,7 @@ The Auth0 Python library provides convenient access to the Auth0 APIs from Pytho
   - [Retries](#retries)
   - [Timeouts](#timeouts)
   - [Custom Client](#custom-client)
-- [Contributing](#contributing)
+- [Feedback](#feedback)
 
 ## Installation
 
