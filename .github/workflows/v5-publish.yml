@@ -29,6 +29,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
         with:
+          ref: v5
           fetch-depth: 0
           fetch-tags: true
 
