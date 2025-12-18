@@ -6,15 +6,13 @@ on:
       - v5
   pull_request:
     branches:
-      - master
+      - v5
 jobs:
   compile:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          ref: v5
       - name: Set up python
         uses: actions/setup-python@v4
         with:
@@ -31,8 +29,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          ref: v5
       - name: Set up python
         uses: actions/setup-python@v4
         with:

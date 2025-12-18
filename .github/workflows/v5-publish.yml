@@ -13,7 +13,7 @@ on:
         default: 'testpypi'
   pull_request:
     branches:
-      - master
+      - v5
 
 permissions:
   contents: write
@@ -29,7 +29,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
         with:
-          ref: v5
           fetch-depth: 0
           fetch-tags: true
 
@@ -95,11 +94,11 @@ jobs:
           skip-existing: true
           print-hash: true
 
-      # - name: Publish to PyPI
-      #   if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'pypi'
-      #   uses: pypa/gh-action-pypi-publish@release/v1
-      #   with:
-      #     print-hash: true
+      - name: Publish to PyPI
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'pypi'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          print-hash: true
 
       - name: Summary
         run: |
