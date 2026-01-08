@@ -284,7 +284,11 @@ class Response:
     def content(self) -> Any:
         if self._is_error():
             if self._status_code == 429:
-                reset_at = int(self._headers.get("x-ratelimit-reset", "-1"))
+                raw_reset = self._headers.get("x-ratelimit-reset")
+                try:
+                    reset_at = int(raw_reset) if raw_reset is not None else -1
+                except (ValueError, TypeError):
+                    reset_at = -1
                 raise RateLimitError(
                     error_code=self._error_code(),
                     message=self._error_message(),
