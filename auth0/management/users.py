@@ -348,7 +348,9 @@ class Users:
         url = self._url(f"{id}/identities/{provider}/{user_id}")
         return self.client.delete(url)
 
-    def link_user_account(self, user_id: str, body: dict[str, Any]) -> list[dict[str, Any]]:
+    def link_user_account(
+        self, user_id: str, body: dict[str, Any]
+    ) -> list[dict[str, Any]]:
         """Link user accounts.
 
         Links the account specified in the body (secondary account) to the
@@ -540,44 +542,66 @@ class Users:
         return self.client.delete(url)
 
     def list_tokensets(
-         self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
-     ):
-         """List all the tokenset(s) associated to the user.
- 
-         Args:
-             id (str): The user's id.
- 
-             page (int, optional): The result's page number (zero based). By default,
-                retrieves the first page of results.
- 
-             per_page (int, optional): The amount of entries per page. By default,
-                retrieves 25 results per page.
- 
-             include_totals (bool, optional): True if the query summary is
-                 to be included in the result, False otherwise. Defaults to True.
- 
-         See https://auth0.com/docs/api/management/v2#!/Users/get_tokensets
-         """
- 
-         params = {
-             "per_page": per_page,
-             "page": page,
-             "include_totals": str(include_totals).lower(),
-         }
-         url = self._url(f"{id}/federated-connections-tokensets")
-         return self.client.get(url, params=params)
- 
-    def delete_tokenset_by_id(
-         self, user_id: str, tokenset_id: str
-     ) -> Any:
-         """Deletes an tokenset by ID.
- 
-         Args:
-             user_id (str):  The user_id to delete an authentication method by ID for.
-             tokenset_id (str):  The tokenset_id to delete an tokenset by ID for.
- 
-         See: https://auth0.com/docs/api/management/v2#!/Users/delete_tokenset_by_id
-         """
- 
-         url = self._url(f"{user_id}/federated-connections-tokensets/{tokenset_id}")
-         return self.client.delete(url)
+        self, id: str, page: int = 0, per_page: int = 25, include_totals: bool = True
+    ):
+        """List all the tokenset(s) associated to the user.
+
+        Args:
+            id (str): The user's id.
+
+            page (int, optional): The result's page number (zero based). By default,
+               retrieves the first page of results.
+
+            per_page (int, optional): The amount of entries per page. By default,
+               retrieves 25 results per page.
+
+            include_totals (bool, optional): True if the query summary is
+                to be included in the result, False otherwise. Defaults to True.
+
+        See https://auth0.com/docs/api/management/v2#!/Users/get_tokensets
+        """
+
+        params = {
+            "per_page": per_page,
+            "page": page,
+            "include_totals": str(include_totals).lower(),
+        }
+        url = self._url(f"{id}/federated-connections-tokensets")
+        return self.client.get(url, params=params)
+
+    def delete_tokenset_by_id(self, user_id: str, tokenset_id: str) -> Any:
+        """Deletes an tokenset by ID.
+
+        Args:
+            user_id (str):  The user_id to delete an authentication method by ID for.
+            tokenset_id (str):  The tokenset_id to delete an tokenset by ID for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete_tokenset_by_id
+        """
+
+        url = self._url(f"{user_id}/federated-connections-tokensets/{tokenset_id}")
+        return self.client.delete(url)
+
+    def get_sessions(self, user_id: str) -> dict[str, Any]:
+        """Get all sessions details for the given user.
+
+        Args:
+            user_id (str): The user_id to get all sessions for the given user for.
+
+        see: https://auth0.com/docs/api/management/v2#!/Users/get-sessions-for-user
+        """
+
+        url = self._url(f"{user_id}/sessions")
+        return self.client.get(url)
+
+    def delete_sessions(self, user_id: str) -> dict[str, Any]:
+        """Delete all sessions for the given user.
+
+        Args:
+            user_id (str): The user_id to delete all session for the given user for.
+
+        See: https://auth0.com/docs/api/management/v2#!/Users/delete-sessions-for-user
+        """
+
+        url = self._url(f"{user_id}/sessions")
+        return self.client.delete(url)
