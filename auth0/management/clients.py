@@ -5,6 +5,15 @@ from typing import Any
 from ..rest import RestClient, RestClientOptions
 from ..types import TimeoutType
 
+from .models import (
+    Client,
+    CreateClientRequestContent,
+    CreateClientResponseContent,
+    GetClientResponseContent,
+    UpdateClientRequestContent,
+    UpdateClientResponseContent,
+    RotateClientSecretResponseContent,
+)
 
 class Clients:
     """Auth0 applications endpoints
@@ -59,7 +68,7 @@ class Clients:
         page: int | None = None,
         per_page: int | None = None,
         extra_params: dict[str, Any] | None = None,
-    ) -> list[dict[str, Any]]:
+    ) -> list[Client]:
         """Retrieves a list of all the applications.
 
         Important: The client_secret and encryption_key attributes can only be
@@ -93,7 +102,7 @@ class Clients:
 
         return self.client.get(self._url(), params=params)
 
-    def create(self, body: dict[str, Any]) -> dict[str, Any]:
+    def create(self, body: CreateClientRequestContent) -> CreateClientResponseContent:
         """Create a new application.
 
         Args:
@@ -106,7 +115,7 @@ class Clients:
 
     def get(
         self, id: str, fields: list[str] | None = None, include_fields: bool = True
-    ) -> dict[str, Any]:
+    ) -> GetClientResponseContent:
         """Retrieves an application by its id.
 
         Important: The client_secret, encryption_key and signing_keys
@@ -143,7 +152,7 @@ class Clients:
 
         return self.client.delete(self._url(id))
 
-    def update(self, id: str, body: dict[str, Any]) -> dict[str, Any]:
+    def update(self, id: str, body: UpdateClientRequestContent) -> UpdateClientResponseContent:
         """Modifies an application.
 
         Important: The client_secret, encryption_key and signing_keys
@@ -159,7 +168,7 @@ class Clients:
 
         return self.client.patch(self._url(id), data=body)
 
-    def rotate_secret(self, id: str) -> dict[str, Any]:
+    def rotate_secret(self, id: str) -> RotateClientSecretResponseContent:
         """Rotate a client secret. The generated secret is NOT base64 encoded.
 
         Args:
