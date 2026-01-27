@@ -1,0 +1,27 @@
+# Specify files that shouldn't be modified by Fern
+
+# ManagementClient wrapper
+src/auth0/management/management_client.py
+src/auth0/management/token_provider.py
+tests/management/
+
+# Documentation
+v5_MIGRATION_GUIDE.md
+CHANGELOG.md
+
+# Authentication API (copied from auth0-python, not Fern-generated)
+src/auth0/authentication/
+tests/authentication/
+
+# Root auth0 __init__.pys
+src/auth0/__init__.py
+src/auth0/management/__init__.py
+
+# Files edited to incorporate both APIs
+pyproject.toml
+poetry.lock
+requirements.txt
+README.md
+.gitignore
+.github/workflows/ci.yml
+.version

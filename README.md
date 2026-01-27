@@ -1,3 +1,5 @@
+# Auth0 Python Library
+
 ![Auth0 SDK for Python](https://cdn.auth0.com/website/sdks/banners/auth0-python-banner.png)
 
 ![Release](https://img.shields.io/pypi/v/auth0-python)
@@ -6,157 +8,316 @@
 ![Downloads](https://img.shields.io/pypi/dw/auth0-python)
 [![License](https://img.shields.io/:license-MIT-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://img.shields.io/circleci/build/github/auth0/auth0-python)](https://circleci.com/gh/auth0/auth0-python)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fauth0%2Fauth0-python)
 
-<div>
-📚 <a href="#documentation">Documentation</a> - 🚀 <a href="#getting-started">Getting started</a> - 💻 <a href="#api-reference">API reference</a> - 💬 <a href="#feedback">Feedback</a>
-</div>
+The Auth0 Python library provides convenient access to the Auth0 APIs from Python.
 
+## Table of Contents
 
-Learn how to integrate Auth0 with Python.
-## Documentation
-- [Docs site](https://www.auth0.com/docs) - explore our docs site and learn more about Auth0.
+- [Installation](#installation)
+- [Reference](#reference)
+- [Authentication API](#authentication-api)
+- [Management API](#management-api)
+- [Async Client](#async-client)
+- [Exception Handling](#exception-handling)
+- [Pagination](#pagination)
+- [Advanced](#advanced)
+  - [Access Raw Response Data](#access-raw-response-data)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+  - [Custom Client](#custom-client)
+- [Feedback](#feedback)
 
-## Getting started
-### Installation
-You can install the auth0 Python SDK using the following command.
-```
-pip install auth0-python
-```
+## Installation
 
-> Requires Python 3.7 or higher.
+> ⚠️ **This is a beta release (v5.0.0-beta)** of a major rewrite with breaking changes. See the [Migration Guide](v5_MIGRATION_GUIDE.md) for upgrade instructions from v4.x.
 
-### Usage
+**Install the v5 beta:**
 
-#### Authentication SDK
-The Authentication SDK is organized into components that mirror the structure of the
-[API documentation](https://auth0.com/docs/auth-api).
-
-If you need to sign up a user using their email and password, you can use the Database object.
-
-```python
-from auth0.authentication import Database
-
-database = Database('my-domain.us.auth0.com', 'my-client-id')
-
-database.signup(email='user@domain.com', password='secr3t', connection='Username-Password-Authentication')
+```sh
+pip install auth0-python==5.0.0b0
 ```
 
-If you need to authenticate a user using their email and password, you can use the `GetToken` object, which enables making requests to the `/oauth/token` endpoint.
+**Requirements:**
+- Python ≥3.8 (Python 3.7 support has been dropped)
 
-```python
-from auth0.authentication import GetToken
+## Reference
 
-token = GetToken('my-domain.us.auth0.com', 'my-client-id', client_secret='my-client-secret')
+A full reference for this library is available [here](https://github.com/auth0/auth0-python/blob/HEAD/./reference.md).
 
-token.login(username='user@domain.com', password='secr3t', realm='Username-Password-Authentication')
-```
+## Authentication API
 
-#### Management SDK
-To use the management library you will need to instantiate an Auth0 object with a domain and a [Management API v2 token](https://auth0.com/docs/api/management/v2/tokens). Please note that these token last 24 hours, so if you need it constantly you should ask for it programmatically using the client credentials grant with a [non interactive client](https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-a-client) authorized to access the API. For example:
+The Authentication API is used for authentication flows such as obtaining tokens via client credentials, authorization codes, or resource owner password grants:
 
 ```python
 from auth0.authentication import GetToken
 
-domain = 'myaccount.auth0.com'
-non_interactive_client_id = 'exampleid'
-non_interactive_client_secret = 'examplesecret'
+token_client = GetToken(
+    domain="your-tenant.auth0.com",
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
 
-get_token = GetToken(domain, non_interactive_client_id, client_secret=non_interactive_client_secret)
-token = get_token.client_credentials('https://{}/api/v2/'.format(domain))
-mgmt_api_token = token['access_token']
+# Get an access token using client credentials
+token_response = token_client.client_credentials(
+    audience="https://your-tenant.auth0.com/api/v2/"
+)
+access_token = token_response["access_token"]
 ```
 
-Then use the token you've obtained as follows:
+## Management API
+
+### Recommended: Using ManagementClient
+
+The `ManagementClient` is the recommended way to interact with the Auth0 Management API. It provides a simpler interface using just your Auth0 domain, and supports automatic token management with client credentials:
+
+```python
+from auth0.management import ManagementClient
+
+# With an existing token
+client = ManagementClient(
+    domain="your-tenant.auth0.com",
+    token="YOUR_TOKEN",
+)
+
+# Or with client credentials (automatic token acquisition and refresh)
+client = ManagementClient(
+    domain="your-tenant.auth0.com",
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+```
+
+For async usage:
+
+```python
+import asyncio
+from auth0.management import AsyncManagementClient
+
+client = AsyncManagementClient(
+    domain="your-tenant.auth0.com",
+    token="YOUR_TOKEN",
+)
+
+async def main() -> None:
+    users = await client.users.list()
+    print(users)
+
+asyncio.run(main())
+```
+
+### Using a Token from the Authentication API
+
+You can obtain a token using the Authentication API and use it with the Management API client:
+
+```python
+from auth0.authentication import GetToken
+from auth0.management import Auth0
+
+domain = "your-tenant.auth0.com"
+
+# Get a token using the Authentication API
+token_client = GetToken(
+    domain=domain,
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+token_response = token_client.client_credentials(
+    audience=f"https://{domain}/api/v2/"
+)
+access_token = token_response["access_token"]
+
+# Use the token with the Management API client
+client = Auth0(
+    base_url=f"https://{domain}/api/v2",
+    token=access_token,
+)
+```
+
+### Using the Base Client
+
+Alternatively, you can use the `Auth0` client directly with a full base URL:
+
+```python
+from auth0.management import ActionTrigger, Auth0
+
+client = Auth0(
+    base_url="https://YOUR_TENANT.auth0.com/api/v2",
+    token="YOUR_TOKEN",
+)
+client.actions.create(
+    name="name",
+    supported_triggers=[
+        ActionTrigger(
+            id="id",
+        )
+    ],
+)
+```
+
+## Async Client
+
+The SDK also exports an `async` client so that you can make non-blocking calls to our API. Note that if you are constructing an Async httpx client class to pass into this client, use `httpx.AsyncClient()` instead of `httpx.Client()` (e.g. for the `httpx_client` parameter of this client).
+
+```python
+import asyncio
+
+from auth0.management import ActionTrigger, AsyncAuth0
+
+client = AsyncAuth0(
+    base_url="https://YOUR_TENANT.auth0.com/api/v2",
+    token="YOUR_TOKEN",
+)
+
+
+async def main() -> None:
+    await client.actions.create(
+        name="name",
+        supported_triggers=[
+            ActionTrigger(
+                id="id",
+            )
+        ],
+    )
+
+
+asyncio.run(main())
+```
+
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
+will be thrown.
+
+```python
+from auth0.management.core.api_error import ApiError
+
+try:
+    client.actions.create(...)
+except ApiError as e:
+    print(e.status_code)
+    print(e.body)
+```
+
+## Pagination
+
+Paginated requests will return a `SyncPager` or `AsyncPager`, which can be used as generators for the underlying object.
 
 ```python
 from auth0.management import Auth0
 
-domain = 'myaccount.auth0.com'
-mgmt_api_token = 'MGMT_API_TOKEN'
-
-auth0 = Auth0(domain, mgmt_api_token)
+client = Auth0(
+    base_url="https://YOUR_TENANT.auth0.com/api/v2",
+    token="YOUR_TOKEN",
+)
+response = client.actions.list(
+    trigger_id="post-login",
+    action_name="actionName",
+    deployed=True,
+    page=1,
+    per_page=1,
+    installed=True,
+)
+for item in response:
+    print(item)
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    print(page)
 ```
 
-The `Auth0()` object is now ready to take orders, see our [connections example](https://github.com/auth0/auth0-python/blob/master/EXAMPLES.md#connections) to find out how to use it!
-
-For more code samples on how to integrate the auth0-python SDK in your Python application, have a look at our [examples](https://github.com/auth0/auth0-python/blob/master/EXAMPLES.md).
-
-## API reference
-
-### Authentication Endpoints
-
-- Database ( `authentication.Database` )
-- Delegated ( `authentication.Delegated` )
-- Enterprise ( `authentication.Enterprise` )
-- API Authorization - Get Token ( `authentication.GetToken`)
-- BackChannelLogin ( `authentication.BackChannelLogin`)
-- Passwordless ( `authentication.Passwordless` )
-- PushedAuthorizationRequests ( `authentication.PushedAuthorizationRequests` )
-- RevokeToken ( `authentication.RevokeToken` )
-- Social ( `authentication.Social` )
-- Users ( `authentication.Users` )
-
-
-### Management Endpoints
-
-- Actions() (`Auth0().action`)
-- AttackProtection() (`Auth0().attack_protection`)
-- Blacklists() ( `Auth0().blacklists` )
-- Branding() ( `Auth0().branding` )
-- ClientCredentials() ( `Auth0().client_credentials` )
-- ClientGrants() ( `Auth0().client_grants` )
-- Clients() ( `Auth0().clients` )
-- Connections() ( `Auth0().connections` )
-- CustomDomains() ( `Auth0().custom_domains` )
-- DeviceCredentials() ( `Auth0().device_credentials` )
-- EmailTemplates() ( `Auth0().email_templates` )
-- Emails() ( `Auth0().emails` )
-- Grants() ( `Auth0().grants` )
-- Guardian() ( `Auth0().guardian` )
-- Hooks() ( `Auth0().hooks` )
-- Jobs() ( `Auth0().jobs` )
-- LogStreams() ( `Auth0().log_streams` )
-- Logs() ( `Auth0().logs` )
-- NetworkAcls() ( `Auth0().network_acls` )
-- Organizations() ( `Auth0().organizations` )
-- Prompts() ( `Auth0().prompts` )
-- ResourceServers() (`Auth0().resource_servers` )
-- Roles() ( `Auth0().roles` )
-- RulesConfigs() ( `Auth0().rules_configs` )
-- Rules() ( `Auth0().rules` )
-- SelfServiceProfiles() ( `Auth0().self_service_profiles` )
-- Stats() ( `Auth0().stats` )
-- Tenants() ( `Auth0().tenants` )
-- Tickets() ( `Auth0().tickets` )
-- UserBlocks() (`Auth0().user_blocks` )
-- UsersByEmail() ( `Auth0().users_by_email` )
-- Users() ( `Auth0().users` )
-
-## Support Policy
-
-Our support lifecycle policy mirrors the [Python support schedule](https://devguide.python.org/versions/). We do not support running the SDK on unsupported versions of Python that have ceased to receive security updates. Please ensure your environment remains up to date and running the latest Python version possible.
-
-| SDK Version | Python Version | Support Ends |
-|-------------|----------------|--------------|
-| 4.x         | 3.12           | Oct 2028     |
-|             | 3.11           | Oct 2027     |
-|             | 3.10           | Oct 2026     |
-|             | 3.9            | Oct 2025     |
-|             | 3.8            | Oct 2024     |
-
-> As `pip` [reliably avoids](https://packaging.python.org/en/latest/tutorials/packaging-projects/#configuring-metadata) installing package updates that target incompatible Python versions, we may opt to remove support for [end-of-life](https://en.wikipedia.org/wiki/CPython#Version_history) Python versions during minor SDK updates. These are not considered breaking changes by this SDK.
-
-The following is a list of unsupported Python versions, and the last SDK version supporting them:
-
-| Python Version | Last SDK Version Supporting |
-|----------------|-----------------------------|
-| >= 3.7         | 4.6.1                       |
-| >= 2.0, <= 3.6 | 3.x                         |
-
-You can determine what version of Python you have installed by running:
-
+```python
+# You can also iterate through pages and access the typed response per page
+pager = client.actions.list(...)
+for page in pager.iter_pages():
+    print(page.response)  # access the typed response for each page
+    for item in page:
+        print(item)
 ```
-python --version
+
+## Advanced
+
+### Access Raw Response Data
+
+The SDK provides access to raw response data, including headers, through the `.with_raw_response` property.
+The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
+
+```python
+from auth0.management import Auth0
+
+client = Auth0(
+    base_url="https://YOUR_TENANT.auth0.com/api/v2",
+    token="YOUR_TOKEN",
+)
+response = client.actions.with_raw_response.create(...)
+print(response.headers)  # access the response headers
+print(response.data)  # access the underlying object
+pager = client.actions.list(...)
+print(pager.response)  # access the typed response for the first page
+for item in pager:
+    print(item)  # access the underlying object(s)
+for page in pager.iter_pages():
+    print(page.response)  # access the typed response for each page
+    for item in page:
+        print(item)  # access the underlying object(s)
+```
+
+### Retries
+
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
+
+A request is deemed retryable when any of the following HTTP status codes is returned:
+
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+
+Use the `max_retries` request option to configure this behavior.
+
+```python
+client.actions.create(..., request_options={
+    "max_retries": 1
+})
+```
+
+### Timeouts
+
+The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
+
+```python
+from auth0.management import Auth0
+
+client = Auth0(
+    base_url="https://YOUR_TENANT.auth0.com/api/v2",
+    token="YOUR_TOKEN",
+    timeout=20.0,
+)
+
+
+# Override timeout for a specific method
+client.actions.create(..., request_options={
+    "timeout_in_seconds": 1
+})
+```
+
+### Custom Client
+
+You can override the `httpx` client to customize it for your use-case. Some common use-cases include support for proxies
+and transports.
+
+```python
+import httpx
+from auth0.management import Auth0
+
+client = Auth0(
+    base_url="https://YOUR_TENANT.auth0.com/api/v2",
+    token="YOUR_TOKEN",
+    httpx_client=httpx.Client(
+        proxy="http://my.test.proxy.example.com",
+        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+    ),
+)
 ```
 
 ## Feedback
@@ -185,6 +346,7 @@ Please do not report security vulnerabilities on the public GitHub issue tracker
     <img alt="Auth0 Logo" src="https://cdn.auth0.com/website/sdks/logos/auth0_light_mode.png" width="150">
   </picture>
 </p>
-<p align="center">Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a></p>
+<p align="center">Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0</a></p>
 <p align="center">
-This project is licensed under the MIT license. See the <a href="https://github.com/auth0/auth0-python/blob/master/LICENSE"> LICENSE</a> file for more info.</p>
+This project is licensed under the MIT license. See the <a href="https://github.com/auth0/auth0-python/blob/master/LICENSE"> LICENSE</a> file for more info
+</p>
