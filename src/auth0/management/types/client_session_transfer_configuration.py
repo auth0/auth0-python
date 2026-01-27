@@ -17,30 +17,30 @@ class ClientSessionTransferConfiguration(UniversalBaseModel):
 
     can_create_session_transfer_token: typing.Optional[bool] = pydantic.Field(default=False)
     """
-    Indicates whether an app can issue a Session Transfer Token through Token Exchange. If set to 'false', the app will not be able to issue a Session Transfer Token. Usually configured in the native application.
+    Indicates whether an app can issue a Session Transfer Token through Token Exchange. If set to 'false', the app will not be able to issue a Session Transfer Token. Usually configured in the native application. Default value is `false`.
     """
 
     enforce_cascade_revocation: typing.Optional[bool] = pydantic.Field(default=True)
     """
-    Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities. Usually configured in the native application.
+    Indicates whether revoking the parent Refresh Token that initiated a Native to Web flow and was used to issue a Session Transfer Token should trigger a cascade revocation affecting its dependent child entities. Usually configured in the native application. Default value is `true`, applicable only in Native to Web SSO context.
     """
 
     allowed_authentication_methods: typing.Optional[
         typing.List[ClientSessionTransferAllowedAuthenticationMethodsEnum]
     ] = pydantic.Field(default=None)
     """
-    Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include `cookie` and/or `query`. Usually configured in the web application.
+    Indicates whether an app can create a session from a Session Transfer Token received via indicated methods. Can include `cookie` and/or `query`. Usually configured in the web application. Default value is an empty array [].
     """
 
     enforce_device_binding: typing.Optional[ClientSessionTransferDeviceBindingEnum] = None
     allow_refresh_token: typing.Optional[bool] = pydantic.Field(default=False)
     """
-    Indicates whether Refresh Tokens are allowed to be issued when authenticating with a Session Transfer Token. Usually configured in the web application.
+    Indicates whether Refresh Tokens are allowed to be issued when authenticating with a Session Transfer Token. Usually configured in the web application. Default value is `false`.
     """
 
     enforce_online_refresh_tokens: typing.Optional[bool] = pydantic.Field(default=True)
     """
-    Indicates whether Refresh Tokens created during a native-to-web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application.
+    Indicates whether Refresh Tokens created during a Native to Web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application. Default value is `true`, applicable only in Native to Web SSO context.
     """
 
     if IS_PYDANTIC_V2:

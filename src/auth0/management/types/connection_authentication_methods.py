@@ -4,8 +4,10 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_email_otp_authentication_method import ConnectionEmailOtpAuthenticationMethod
 from .connection_passkey_authentication_method import ConnectionPasskeyAuthenticationMethod
 from .connection_password_authentication_method import ConnectionPasswordAuthenticationMethod
+from .connection_phone_otp_authentication_method import ConnectionPhoneOtpAuthenticationMethod
 
 
 class ConnectionAuthenticationMethods(UniversalBaseModel):
@@ -15,6 +17,8 @@ class ConnectionAuthenticationMethods(UniversalBaseModel):
 
     password: typing.Optional[ConnectionPasswordAuthenticationMethod] = None
     passkey: typing.Optional[ConnectionPasskeyAuthenticationMethod] = None
+    email_otp: typing.Optional[ConnectionEmailOtpAuthenticationMethod] = None
+    phone_otp: typing.Optional[ConnectionPhoneOtpAuthenticationMethod] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

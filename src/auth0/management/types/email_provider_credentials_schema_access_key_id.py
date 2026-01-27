@@ -10,14 +10,14 @@ from ..core.serialization import FieldMetadata
 
 class EmailProviderCredentialsSchemaAccessKeyId(UniversalBaseModel):
     access_key_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accessKeyId")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="accessKeyId", default=None)
     )
     """
     AWS Access Key ID.
     """
 
     secret_access_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="secretAccessKey")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="secretAccessKey", default=None)
     )
     """
     AWS Secret Access Key.

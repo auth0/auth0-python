@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeDropdownConst = typing.Literal["DROPDOWN"]
+FormFieldTypeDropdownConst = typing.Union[typing.Literal["DROPDOWN"], typing.Any]

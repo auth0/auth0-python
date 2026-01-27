@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionDocusignOauthCode(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdDocusignEnum = "DOCUSIGN"
+    app_id: FlowsVaultConnectionAppIdDocusignEnum
     setup: FlowsVaultConnectioSetupOauthCode
 
     if IS_PYDANTIC_V2:

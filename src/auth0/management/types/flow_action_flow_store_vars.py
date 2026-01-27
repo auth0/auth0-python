@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_flow_store_vars_action import FlowActionFlowStoreVarsAction
 from .flow_action_flow_store_vars_params import FlowActionFlowStoreVarsParams
+from .flow_action_flow_store_vars_type import FlowActionFlowStoreVarsType
 
 
 class FlowActionFlowStoreVars(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["FLOW"] = "FLOW"
-    action: typing.Literal["STORE_VARS"] = "STORE_VARS"
+    type: FlowActionFlowStoreVarsType
+    action: FlowActionFlowStoreVarsAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionFlowStoreVarsParams

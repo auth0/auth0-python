@@ -1,7 +1,7 @@
 {
   "cliVersion": "3.24.3",
   "generatorName": "fernapi/fern-python-sdk",
-  "generatorVersion": "4.46.2",
+  "generatorVersion": "4.48.1",
   "generatorConfig": {
     "client": {
       "class_name": "Auth0"
@@ -11,5 +11,6 @@
     "pydantic_config": {
       "use_provided_defaults": true
     }
-  }
+  },
+  "sdkVersion": "5.0.0b0"
 }

@@ -41,19 +41,19 @@ class ConnectionOptionsAuth0(ConnectionOptionsCommon):
     configuration: typing.Optional[ConnectionConfiguration] = None
     custom_scripts: typing_extensions.Annotated[
         typing.Optional[ConnectionCustomScripts], FieldMetadata(alias="customScripts")
-    ] = None
+    ] = pydantic.Field(alias="customScripts", default=None)
     disable_self_service_change_password: typing.Optional[ConnectionDisableSelfServiceChangePassword] = None
     disable_signup: typing.Optional[ConnectionDisableSignup] = None
     enable_script_context: typing.Optional[ConnectionEnableScriptContext] = None
     enabled_database_customization: typing_extensions.Annotated[
         typing.Optional[ConnectionEnabledDatabaseCustomization], FieldMetadata(alias="enabledDatabaseCustomization")
-    ] = None
+    ] = pydantic.Field(alias="enabledDatabaseCustomization", default=None)
     import_mode: typing.Optional[ConnectionImportMode] = None
     mfa: typing.Optional[ConnectionMfa] = None
     passkey_options: typing.Optional[ConnectionPasskeyOptions] = None
     password_policy: typing_extensions.Annotated[
         typing.Optional[ConnectionPasswordPolicyEnum], FieldMetadata(alias="passwordPolicy")
-    ] = None
+    ] = pydantic.Field(alias="passwordPolicy", default=None)
     password_complexity_options: typing.Optional[ConnectionPasswordComplexityOptions] = None
     password_dictionary: typing.Optional[ConnectionPasswordDictionaryOptions] = None
     password_history: typing.Optional[ConnectionPasswordHistoryOptions] = None

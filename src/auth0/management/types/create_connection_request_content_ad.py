@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_ad import ConnectionOptionsAd
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_ad_strategy import CreateConnectionRequestContentAdStrategy
 
 
 class CreateConnectionRequestContentAd(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentAd(CreateConnectionCommon):
     Create a connection with strategy=ad
     """
 
-    strategy: typing.Literal["ad"] = "ad"
+    strategy: CreateConnectionRequestContentAdStrategy
     options: typing.Optional[ConnectionOptionsAd] = None
 
     if IS_PYDANTIC_V2:

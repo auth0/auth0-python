@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeChoiceConst = typing.Literal["CHOICE"]
+FormFieldTypeChoiceConst = typing.Union[typing.Literal["CHOICE"], typing.Any]

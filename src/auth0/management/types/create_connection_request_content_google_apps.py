@@ -5,7 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_google_apps import ConnectionOptionsGoogleApps
+from .connection_show_as_button import ConnectionShowAsButton
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_google_apps_strategy import CreateConnectionRequestContentGoogleAppsStrategy
 
 
 class CreateConnectionRequestContentGoogleApps(CreateConnectionCommon):
@@ -13,8 +15,9 @@ class CreateConnectionRequestContentGoogleApps(CreateConnectionCommon):
     Create a connection with strategy=google-apps
     """
 
-    strategy: typing.Literal["google-apps"] = "google-apps"
+    strategy: CreateConnectionRequestContentGoogleAppsStrategy
     options: typing.Optional[ConnectionOptionsGoogleApps] = None
+    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -17,6 +17,7 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.action import Action
+from ..types.action_module_reference import ActionModuleReference
 from ..types.action_secret_request import ActionSecretRequest
 from ..types.action_trigger import ActionTrigger
 from ..types.action_trigger_type_enum import ActionTriggerTypeEnum
@@ -173,6 +174,7 @@ class RawActionsClient:
         dependencies: typing.Optional[typing.Sequence[ActionVersionDependency]] = OMIT,
         runtime: typing.Optional[str] = "node22",
         secrets: typing.Optional[typing.Sequence[ActionSecretRequest]] = OMIT,
+        modules: typing.Optional[typing.Sequence[ActionModuleReference]] = OMIT,
         deploy: typing.Optional[bool] = False,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateActionResponseContent]:
@@ -198,6 +200,9 @@ class RawActionsClient:
 
         secrets : typing.Optional[typing.Sequence[ActionSecretRequest]]
             The list of secrets that are included in an action or a version of an action.
+
+        modules : typing.Optional[typing.Sequence[ActionModuleReference]]
+            The list of action modules and their versions used by this action.
 
         deploy : typing.Optional[bool]
             True if the action should be deployed after creation.
@@ -225,6 +230,9 @@ class RawActionsClient:
                 "runtime": runtime,
                 "secrets": convert_and_respect_annotation_metadata(
                     object_=secrets, annotation=typing.Sequence[ActionSecretRequest], direction="write"
+                ),
+                "modules": convert_and_respect_annotation_metadata(
+                    object_=modules, annotation=typing.Sequence[ActionModuleReference], direction="write"
                 ),
                 "deploy": deploy,
             },
@@ -489,6 +497,7 @@ class RawActionsClient:
         dependencies: typing.Optional[typing.Sequence[ActionVersionDependency]] = OMIT,
         runtime: typing.Optional[str] = "node22",
         secrets: typing.Optional[typing.Sequence[ActionSecretRequest]] = OMIT,
+        modules: typing.Optional[typing.Sequence[ActionModuleReference]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateActionResponseContent]:
         """
@@ -517,6 +526,9 @@ class RawActionsClient:
         secrets : typing.Optional[typing.Sequence[ActionSecretRequest]]
             The list of secrets that are included in an action or a version of an action.
 
+        modules : typing.Optional[typing.Sequence[ActionModuleReference]]
+            The list of action modules and their versions used by this action.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -540,6 +552,9 @@ class RawActionsClient:
                 "runtime": runtime,
                 "secrets": convert_and_respect_annotation_metadata(
                     object_=secrets, annotation=typing.Sequence[ActionSecretRequest], direction="write"
+                ),
+                "modules": convert_and_respect_annotation_metadata(
+                    object_=modules, annotation=typing.Sequence[ActionModuleReference], direction="write"
                 ),
             },
             headers={
@@ -937,6 +952,7 @@ class AsyncRawActionsClient:
         dependencies: typing.Optional[typing.Sequence[ActionVersionDependency]] = OMIT,
         runtime: typing.Optional[str] = "node22",
         secrets: typing.Optional[typing.Sequence[ActionSecretRequest]] = OMIT,
+        modules: typing.Optional[typing.Sequence[ActionModuleReference]] = OMIT,
         deploy: typing.Optional[bool] = False,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateActionResponseContent]:
@@ -962,6 +978,9 @@ class AsyncRawActionsClient:
 
         secrets : typing.Optional[typing.Sequence[ActionSecretRequest]]
             The list of secrets that are included in an action or a version of an action.
+
+        modules : typing.Optional[typing.Sequence[ActionModuleReference]]
+            The list of action modules and their versions used by this action.
 
         deploy : typing.Optional[bool]
             True if the action should be deployed after creation.
@@ -989,6 +1008,9 @@ class AsyncRawActionsClient:
                 "runtime": runtime,
                 "secrets": convert_and_respect_annotation_metadata(
                     object_=secrets, annotation=typing.Sequence[ActionSecretRequest], direction="write"
+                ),
+                "modules": convert_and_respect_annotation_metadata(
+                    object_=modules, annotation=typing.Sequence[ActionModuleReference], direction="write"
                 ),
                 "deploy": deploy,
             },
@@ -1253,6 +1275,7 @@ class AsyncRawActionsClient:
         dependencies: typing.Optional[typing.Sequence[ActionVersionDependency]] = OMIT,
         runtime: typing.Optional[str] = "node22",
         secrets: typing.Optional[typing.Sequence[ActionSecretRequest]] = OMIT,
+        modules: typing.Optional[typing.Sequence[ActionModuleReference]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateActionResponseContent]:
         """
@@ -1281,6 +1304,9 @@ class AsyncRawActionsClient:
         secrets : typing.Optional[typing.Sequence[ActionSecretRequest]]
             The list of secrets that are included in an action or a version of an action.
 
+        modules : typing.Optional[typing.Sequence[ActionModuleReference]]
+            The list of action modules and their versions used by this action.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1304,6 +1330,9 @@ class AsyncRawActionsClient:
                 "runtime": runtime,
                 "secrets": convert_and_respect_annotation_metadata(
                     object_=secrets, annotation=typing.Sequence[ActionSecretRequest], direction="write"
+                ),
+                "modules": convert_and_respect_annotation_metadata(
+                    object_=modules, annotation=typing.Sequence[ActionModuleReference], direction="write"
                 ),
             },
             headers={

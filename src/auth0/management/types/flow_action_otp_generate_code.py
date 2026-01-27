@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_otp_generate_code_action import FlowActionOtpGenerateCodeAction
 from .flow_action_otp_generate_code_params import FlowActionOtpGenerateCodeParams
+from .flow_action_otp_generate_code_type import FlowActionOtpGenerateCodeType
 
 
 class FlowActionOtpGenerateCode(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["OTP"] = "OTP"
-    action: typing.Literal["GENERATE_CODE"] = "GENERATE_CODE"
+    type: FlowActionOtpGenerateCodeType
+    action: FlowActionOtpGenerateCodeAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionOtpGenerateCodeParams

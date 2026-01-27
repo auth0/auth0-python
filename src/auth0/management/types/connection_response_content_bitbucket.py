@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_bitbucket import ConnectionOptionsBitbucket
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_bitbucket_strategy import ConnectionResponseContentBitbucketStrategy
 
 
 class ConnectionResponseContentBitbucket(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentBitbucket(ConnectionResponseCommon):
     Response for connections with strategy=bitbucket
     """
 
-    strategy: typing.Literal["bitbucket"] = "bitbucket"
+    strategy: ConnectionResponseContentBitbucketStrategy
     options: typing.Optional[ConnectionOptionsBitbucket] = None
 
     if IS_PYDANTIC_V2:

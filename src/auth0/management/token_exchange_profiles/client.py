@@ -9,6 +9,7 @@ from ..types.create_token_exchange_profile_response_content import CreateTokenEx
 from ..types.get_token_exchange_profile_response_content import GetTokenExchangeProfileResponseContent
 from ..types.list_token_exchange_profile_response_content import ListTokenExchangeProfileResponseContent
 from ..types.token_exchange_profile_response_content import TokenExchangeProfileResponseContent
+from ..types.token_exchange_profile_type_enum import TokenExchangeProfileTypeEnum
 from .raw_client import AsyncRawTokenExchangeProfilesClient, RawTokenExchangeProfilesClient
 
 # this is used as the default value for optional parameters
@@ -91,6 +92,7 @@ class TokenExchangeProfilesClient:
         name: str = "Token Exchange Profile 1",
         subject_token_type: str,
         action_id: str,
+        type: TokenExchangeProfileTypeEnum,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateTokenExchangeProfileResponseContent:
         """
@@ -108,6 +110,8 @@ class TokenExchangeProfilesClient:
 
         action_id : str
             The ID of the Custom Token Exchange action to execute for this profile, in order to validate the subject_token. The action must use the custom-token-exchange trigger.
+
+        type : TokenExchangeProfileTypeEnum
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,10 +132,15 @@ class TokenExchangeProfilesClient:
             name="name",
             subject_token_type="subject_token_type",
             action_id="action_id",
+            type="custom_authentication",
         )
         """
         _response = self._raw_client.create(
-            name=name, subject_token_type=subject_token_type, action_id=action_id, request_options=request_options
+            name=name,
+            subject_token_type=subject_token_type,
+            action_id=action_id,
+            type=type,
+            request_options=request_options,
         )
         return _response.data
 
@@ -335,6 +344,7 @@ class AsyncTokenExchangeProfilesClient:
         name: str = "Token Exchange Profile 1",
         subject_token_type: str,
         action_id: str,
+        type: TokenExchangeProfileTypeEnum,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateTokenExchangeProfileResponseContent:
         """
@@ -352,6 +362,8 @@ class AsyncTokenExchangeProfilesClient:
 
         action_id : str
             The ID of the Custom Token Exchange action to execute for this profile, in order to validate the subject_token. The action must use the custom-token-exchange trigger.
+
+        type : TokenExchangeProfileTypeEnum
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -377,13 +389,18 @@ class AsyncTokenExchangeProfilesClient:
                 name="name",
                 subject_token_type="subject_token_type",
                 action_id="action_id",
+                type="custom_authentication",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            name=name, subject_token_type=subject_token_type, action_id=action_id, request_options=request_options
+            name=name,
+            subject_token_type=subject_token_type,
+            action_id=action_id,
+            type=type,
+            request_options=request_options,
         )
         return _response.data
 

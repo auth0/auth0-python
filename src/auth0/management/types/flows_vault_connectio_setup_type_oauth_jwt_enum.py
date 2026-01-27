@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectioSetupTypeOauthJwtEnum = typing.Literal["OAUTH_JWT"]
+FlowsVaultConnectioSetupTypeOauthJwtEnum = typing.Union[typing.Literal["OAUTH_JWT"], typing.Any]

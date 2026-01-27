@@ -2,9 +2,12 @@
 
 import typing
 
+from .create_flows_vault_connection_http_basic_auth import CreateFlowsVaultConnectionHttpBasicAuth
 from .create_flows_vault_connection_http_bearer import CreateFlowsVaultConnectionHttpBearer
 from .create_flows_vault_connection_http_uninitialized import CreateFlowsVaultConnectionHttpUninitialized
 
 CreateFlowsVaultConnectionHttp = typing.Union[
-    CreateFlowsVaultConnectionHttpBearer, CreateFlowsVaultConnectionHttpUninitialized
+    CreateFlowsVaultConnectionHttpBearer,
+    CreateFlowsVaultConnectionHttpBasicAuth,
+    CreateFlowsVaultConnectionHttpUninitialized,
 ]

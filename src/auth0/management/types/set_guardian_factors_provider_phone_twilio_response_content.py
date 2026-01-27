@@ -10,7 +10,7 @@ from ..core.serialization import FieldMetadata
 
 class SetGuardianFactorsProviderPhoneTwilioResponseContent(UniversalBaseModel):
     from_: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="from")] = pydantic.Field(
-        default="+1223323"
+        alias="from", default="+1223323"
     )
     """
     From number

@@ -2,4 +2,4 @@
 
 import typing
 
-FormWidgetTypeGMapsAddressConst = typing.Literal["GMAPS_ADDRESS"]
+FormWidgetTypeGMapsAddressConst = typing.Union[typing.Literal["GMAPS_ADDRESS"], typing.Any]

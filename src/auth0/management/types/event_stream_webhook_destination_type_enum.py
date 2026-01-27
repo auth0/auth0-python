@@ -2,4 +2,4 @@
 
 import typing
 
-EventStreamWebhookDestinationTypeEnum = typing.Literal["webhook"]
+EventStreamWebhookDestinationTypeEnum = typing.Union[typing.Literal["webhook"], typing.Any]

@@ -8,7 +8,7 @@ from .flows_vault_connectio_setup_type_api_key_enum import FlowsVaultConnectioSe
 
 
 class FlowsVaultConnectioSetupTwilioApiKey(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeApiKeyEnum = "API_KEY"
+    type: FlowsVaultConnectioSetupTypeApiKeyEnum
     account_id: str
     api_key: str
 

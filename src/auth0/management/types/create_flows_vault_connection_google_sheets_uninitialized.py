@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionGoogleSheetsUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdGoogleSheetsEnum = "GOOGLE_SHEETS"
+    app_id: FlowsVaultConnectionAppIdGoogleSheetsEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

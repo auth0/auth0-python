@@ -27,7 +27,7 @@ class LogStreamEventBridgeResponseSchema(UniversalBaseModel):
     status: typing.Optional[LogStreamStatusEnum] = None
     type: typing.Optional[LogStreamEventBridgeEnum] = None
     is_priority: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isPriority")] = pydantic.Field(
-        default=None
+        alias="isPriority", default=None
     )
     """
     True for priority log streams, false for non-priority

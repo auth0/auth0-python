@@ -5,7 +5,12 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.get_refresh_token_response_content import GetRefreshTokenResponseContent
+from ..types.refresh_token_metadata import RefreshTokenMetadata
+from ..types.update_refresh_token_response_content import UpdateRefreshTokenResponseContent
 from .raw_client import AsyncRawRefreshTokensClient, RawRefreshTokensClient
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class RefreshTokensClient:
@@ -84,6 +89,47 @@ class RefreshTokensClient:
         )
         """
         _response = self._raw_client.delete(id, request_options=request_options)
+        return _response.data
+
+    def update(
+        self,
+        id: str,
+        *,
+        refresh_token_metadata: typing.Optional[RefreshTokenMetadata] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateRefreshTokenResponseContent:
+        """
+        Update a refresh token by its ID.
+
+        Parameters
+        ----------
+        id : str
+            ID of the refresh token to update.
+
+        refresh_token_metadata : typing.Optional[RefreshTokenMetadata]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateRefreshTokenResponseContent
+            Refresh token successfully updated.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.refresh_tokens.update(
+            id="id",
+        )
+        """
+        _response = self._raw_client.update(
+            id, refresh_token_metadata=refresh_token_metadata, request_options=request_options
+        )
         return _response.data
 
 
@@ -179,4 +225,53 @@ class AsyncRefreshTokensClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.delete(id, request_options=request_options)
+        return _response.data
+
+    async def update(
+        self,
+        id: str,
+        *,
+        refresh_token_metadata: typing.Optional[RefreshTokenMetadata] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateRefreshTokenResponseContent:
+        """
+        Update a refresh token by its ID.
+
+        Parameters
+        ----------
+        id : str
+            ID of the refresh token to update.
+
+        refresh_token_metadata : typing.Optional[RefreshTokenMetadata]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateRefreshTokenResponseContent
+            Refresh token successfully updated.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.refresh_tokens.update(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update(
+            id, refresh_token_metadata=refresh_token_metadata, request_options=request_options
+        )
         return _response.data

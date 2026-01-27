@@ -2,4 +2,4 @@
 
 import typing
 
-FormNodeTypeFlowConst = typing.Literal["FLOW"]
+FormNodeTypeFlowConst = typing.Union[typing.Literal["FLOW"], typing.Any]

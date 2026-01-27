@@ -26,7 +26,7 @@ class DeleteUserIdentityResponseContentItem(UniversalBaseModel):
     """
 
     is_social: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isSocial")] = pydantic.Field(
-        default=None
+        alias="isSocial", default=None
     )
     """
     <code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise
@@ -48,7 +48,7 @@ class DeleteUserIdentityResponseContentItem(UniversalBaseModel):
     """
 
     profile_data: typing_extensions.Annotated[typing.Optional[UserProfileData], FieldMetadata(alias="profileData")] = (
-        None
+        pydantic.Field(alias="profileData", default=None)
     )
 
     if IS_PYDANTIC_V2:

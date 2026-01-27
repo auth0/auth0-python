@@ -6,9 +6,10 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from . import executions, triggers, versions
+    from . import executions, modules, triggers, versions
 _dynamic_imports: typing.Dict[str, str] = {
     "executions": ".executions",
+    "modules": ".modules",
     "triggers": ".triggers",
     "versions": ".versions",
 }
@@ -35,4 +36,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["executions", "triggers", "versions"]
+__all__ = ["executions", "modules", "triggers", "versions"]

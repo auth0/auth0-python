@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypePaymentConst = typing.Literal["PAYMENT"]
+FormFieldTypePaymentConst = typing.Union[typing.Literal["PAYMENT"], typing.Any]

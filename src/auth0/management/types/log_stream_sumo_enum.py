@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamSumoEnum = typing.Literal["sumo"]
+LogStreamSumoEnum = typing.Union[typing.Literal["sumo"], typing.Any]

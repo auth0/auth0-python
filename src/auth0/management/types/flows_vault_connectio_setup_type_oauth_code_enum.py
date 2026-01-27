@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectioSetupTypeOauthCodeEnum = typing.Literal["OAUTH_CODE"]
+FlowsVaultConnectioSetupTypeOauthCodeEnum = typing.Union[typing.Literal["OAUTH_CODE"], typing.Any]

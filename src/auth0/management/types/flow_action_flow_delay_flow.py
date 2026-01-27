@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_flow_delay_flow_action import FlowActionFlowDelayFlowAction
 from .flow_action_flow_delay_flow_params import FlowActionFlowDelayFlowParams
+from .flow_action_flow_delay_flow_type import FlowActionFlowDelayFlowType
 
 
 class FlowActionFlowDelayFlow(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["FLOW"] = "FLOW"
-    action: typing.Literal["DELAY_FLOW"] = "DELAY_FLOW"
+    type: FlowActionFlowDelayFlowType
+    action: FlowActionFlowDelayFlowAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionFlowDelayFlowParams

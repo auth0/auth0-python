@@ -2,4 +2,63 @@
 
 import typing
 
-ConnectionOptionsAdfs = typing.Dict[str, typing.Any]
+import pydantic
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from ..core.serialization import FieldMetadata
+from .connection_domain_aliases import ConnectionDomainAliases
+from .connection_icon_url_adfs import ConnectionIconUrlAdfs
+from .connection_metadata_xml_adfs import ConnectionMetadataXmlAdfs
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_should_trust_email_verified_connection_enum import ConnectionShouldTrustEmailVerifiedConnectionEnum
+from .connection_sign_in_endpoint_adfs import ConnectionSignInEndpointAdfs
+from .connection_tenant_domain import ConnectionTenantDomain
+from .connection_thumbprints import ConnectionThumbprints
+from .connection_upstream_params_adfs import ConnectionUpstreamParamsAdfs
+
+
+class ConnectionOptionsAdfs(ConnectionOptionsCommon):
+    """
+    Options for the 'adfs' connection
+    """
+
+    adfs_server: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ADFS federation metadata host or XML URL used to discover WS-Fed endpoints and certificates. Errors if adfs_server and fedMetadataXml are both absent.
+    """
+
+    domain_aliases: typing.Optional[ConnectionDomainAliases] = None
+    entity_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="entityId")] = pydantic.Field(
+        alias="entityId", default=None
+    )
+    """
+    The entity identifier (Issuer) for the ADFS Service Provider. When not provided, defaults to 'urn:auth0:{tenant}:{connection}'.
+    """
+
+    fed_metadata_xml: typing_extensions.Annotated[
+        typing.Optional[ConnectionMetadataXmlAdfs], FieldMetadata(alias="fedMetadataXml")
+    ] = pydantic.Field(alias="fedMetadataXml", default=None)
+    icon_url: typing.Optional[ConnectionIconUrlAdfs] = None
+    prev_thumbprints: typing.Optional[ConnectionThumbprints] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    should_trust_email_verified_connection: typing.Optional[ConnectionShouldTrustEmailVerifiedConnectionEnum] = None
+    sign_in_endpoint: typing_extensions.Annotated[
+        typing.Optional[ConnectionSignInEndpointAdfs], FieldMetadata(alias="signInEndpoint")
+    ] = pydantic.Field(alias="signInEndpoint", default=None)
+    tenant_domain: typing.Optional[ConnectionTenantDomain] = None
+    thumbprints: typing.Optional[ConnectionThumbprints] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParamsAdfs] = None
+    user_id_attribute: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Custom ADFS claim to use as the unique user identifier. When provided, this attribute is prepended to the default user_id mapping list with highest priority. Accepts a string (single ADFS claim name).
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

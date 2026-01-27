@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_jwt_sign_jwt_action import FlowActionJwtSignJwtAction
 from .flow_action_jwt_sign_jwt_params import FlowActionJwtSignJwtParams
+from .flow_action_jwt_sign_jwt_type import FlowActionJwtSignJwtType
 
 
 class FlowActionJwtSignJwt(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["JWT"] = "JWT"
-    action: typing.Literal["SIGN_JWT"] = "SIGN_JWT"
+    type: FlowActionJwtSignJwtType
+    action: FlowActionJwtSignJwtAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionJwtSignJwtParams

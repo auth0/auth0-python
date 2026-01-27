@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectioSetupTypeTokenEnum = typing.Literal["TOKEN"]
+FlowsVaultConnectioSetupTypeTokenEnum = typing.Union[typing.Literal["TOKEN"], typing.Any]

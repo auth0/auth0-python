@@ -4,8 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_paypal_sandbox import ConnectionOptionsPaypalSandbox
+from .connection_options_paypal import ConnectionOptionsPaypal
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_paypal_sandbox_strategy import (
+    CreateConnectionRequestContentPaypalSandboxStrategy,
+)
 
 
 class CreateConnectionRequestContentPaypalSandbox(CreateConnectionCommon):
@@ -13,8 +16,8 @@ class CreateConnectionRequestContentPaypalSandbox(CreateConnectionCommon):
     Create a connection with strategy=paypal-sandbox
     """
 
-    strategy: typing.Literal["paypal-sandbox"] = "paypal-sandbox"
-    options: typing.Optional[ConnectionOptionsPaypalSandbox] = None
+    strategy: CreateConnectionRequestContentPaypalSandboxStrategy
+    options: typing.Optional[ConnectionOptionsPaypal] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

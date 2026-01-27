@@ -20,6 +20,7 @@ from ..types.create_token_exchange_profile_response_content import CreateTokenEx
 from ..types.get_token_exchange_profile_response_content import GetTokenExchangeProfileResponseContent
 from ..types.list_token_exchange_profile_response_content import ListTokenExchangeProfileResponseContent
 from ..types.token_exchange_profile_response_content import TokenExchangeProfileResponseContent
+from ..types.token_exchange_profile_type_enum import TokenExchangeProfileTypeEnum
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -147,6 +148,7 @@ class RawTokenExchangeProfilesClient:
         name: str = "Token Exchange Profile 1",
         subject_token_type: str,
         action_id: str,
+        type: TokenExchangeProfileTypeEnum,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateTokenExchangeProfileResponseContent]:
         """
@@ -165,6 +167,8 @@ class RawTokenExchangeProfilesClient:
         action_id : str
             The ID of the Custom Token Exchange action to execute for this profile, in order to validate the subject_token. The action must use the custom-token-exchange trigger.
 
+        type : TokenExchangeProfileTypeEnum
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -180,7 +184,7 @@ class RawTokenExchangeProfilesClient:
                 "name": name,
                 "subject_token_type": subject_token_type,
                 "action_id": action_id,
-                "type": "custom_authentication",
+                "type": type,
             },
             headers={
                 "content-type": "application/json",
@@ -651,6 +655,7 @@ class AsyncRawTokenExchangeProfilesClient:
         name: str = "Token Exchange Profile 1",
         subject_token_type: str,
         action_id: str,
+        type: TokenExchangeProfileTypeEnum,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateTokenExchangeProfileResponseContent]:
         """
@@ -669,6 +674,8 @@ class AsyncRawTokenExchangeProfilesClient:
         action_id : str
             The ID of the Custom Token Exchange action to execute for this profile, in order to validate the subject_token. The action must use the custom-token-exchange trigger.
 
+        type : TokenExchangeProfileTypeEnum
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -684,7 +691,7 @@ class AsyncRawTokenExchangeProfilesClient:
                 "name": name,
                 "subject_token_type": subject_token_type,
                 "action_id": action_id,
-                "type": "custom_authentication",
+                "type": type,
             },
             headers={
                 "content-type": "application/json",

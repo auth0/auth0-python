@@ -2,4 +2,41 @@
 
 import typing
 
-ConnectionOptionsEmail = typing.Dict[str, typing.Any]
+import pydantic
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from ..core.serialization import FieldMetadata
+from .connection_auth_params_email import ConnectionAuthParamsEmail
+from .connection_brute_force_protection import ConnectionBruteForceProtection
+from .connection_disable_signup import ConnectionDisableSignup
+from .connection_email_email import ConnectionEmailEmail
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_totp_email import ConnectionTotpEmail
+
+
+class ConnectionOptionsEmail(ConnectionOptionsCommon):
+    """
+    Options for the 'email' connection
+    """
+
+    auth_params: typing_extensions.Annotated[
+        typing.Optional[ConnectionAuthParamsEmail], FieldMetadata(alias="authParams")
+    ] = pydantic.Field(alias="authParams", default=None)
+    brute_force_protection: ConnectionBruteForceProtection
+    disable_signup: typing.Optional[ConnectionDisableSignup] = None
+    email: ConnectionEmailEmail
+    name: str = pydantic.Field()
+    """
+    Connection name
+    """
+
+    totp: typing.Optional[ConnectionTotpEmail] = None
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

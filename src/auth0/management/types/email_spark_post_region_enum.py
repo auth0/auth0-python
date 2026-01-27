@@ -2,4 +2,4 @@
 
 import typing
 
-EmailSparkPostRegionEnum = typing.Literal["eu"]
+EmailSparkPostRegionEnum = typing.Union[typing.Literal["eu"], typing.Any]

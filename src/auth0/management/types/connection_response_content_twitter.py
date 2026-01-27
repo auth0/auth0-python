@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_twitter import ConnectionOptionsTwitter
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_twitter_strategy import ConnectionResponseContentTwitterStrategy
 
 
 class ConnectionResponseContentTwitter(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentTwitter(ConnectionResponseCommon):
     Response for connections with strategy=twitter
     """
 
-    strategy: typing.Literal["twitter"] = "twitter"
+    strategy: ConnectionResponseContentTwitterStrategy
     options: typing.Optional[ConnectionOptionsTwitter] = None
 
     if IS_PYDANTIC_V2:

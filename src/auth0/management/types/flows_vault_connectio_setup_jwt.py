@@ -9,7 +9,7 @@ from .flows_vault_connectio_setup_type_jwt_enum import FlowsVaultConnectioSetupT
 
 
 class FlowsVaultConnectioSetupJwt(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeJwtEnum = "JWT"
+    type: FlowsVaultConnectioSetupTypeJwtEnum
     algorithm: FlowsVaultConnectioSetupJwtAlgorithmEnum
 
     if IS_PYDANTIC_V2:

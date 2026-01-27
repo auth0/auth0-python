@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_weibo import ConnectionOptionsWeibo
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_weibo_strategy import ConnectionResponseContentWeiboStrategy
 
 
 class ConnectionResponseContentWeibo(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentWeibo(ConnectionResponseCommon):
     Response for connections with strategy=weibo
     """
 
-    strategy: typing.Literal["weibo"] = "weibo"
+    strategy: ConnectionResponseContentWeiboStrategy
     options: typing.Optional[ConnectionOptionsWeibo] = None
 
     if IS_PYDANTIC_V2:

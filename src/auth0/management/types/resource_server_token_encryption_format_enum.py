@@ -2,4 +2,4 @@
 
 import typing
 
-ResourceServerTokenEncryptionFormatEnum = typing.Literal["compact-nested-jwe"]
+ResourceServerTokenEncryptionFormatEnum = typing.Union[typing.Literal["compact-nested-jwe"], typing.Any]

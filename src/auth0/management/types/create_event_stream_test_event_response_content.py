@@ -25,7 +25,7 @@ class CreateEventStreamTestEventResponseContent(UniversalBaseModel):
     Unique identifier for the event stream.
     """
 
-    status: EventStreamDeliveryStatusEnum = "failed"
+    status: EventStreamDeliveryStatusEnum
     event_type: EventStreamDeliveryEventTypeEnum
     attempts: typing.List[EventStreamDeliveryAttempt] = pydantic.Field()
     """

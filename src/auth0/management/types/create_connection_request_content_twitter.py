@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_twitter import ConnectionOptionsTwitter
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_twitter_strategy import CreateConnectionRequestContentTwitterStrategy
 
 
 class CreateConnectionRequestContentTwitter(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentTwitter(CreateConnectionCommon):
     Create a connection with strategy=twitter
     """
 
-    strategy: typing.Literal["twitter"] = "twitter"
+    strategy: CreateConnectionRequestContentTwitterStrategy
     options: typing.Optional[ConnectionOptionsTwitter] = None
 
     if IS_PYDANTIC_V2:

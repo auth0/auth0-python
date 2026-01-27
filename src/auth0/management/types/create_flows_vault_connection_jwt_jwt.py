@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionJwtJwt(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdJwtEnum = "JWT"
+    app_id: FlowsVaultConnectionAppIdJwtEnum
     setup: FlowsVaultConnectioSetupJwt
 
     if IS_PYDANTIC_V2:

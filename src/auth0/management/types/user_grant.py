@@ -15,7 +15,7 @@ class UserGrant(UniversalBaseModel):
     """
 
     client_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="clientID")] = pydantic.Field(
-        default=None
+        alias="clientID", default=None
     )
     """
     ID of the client.

@@ -13,12 +13,16 @@ class LogSecurityContext(UniversalBaseModel):
     Information about security-related signals.
     """
 
-    ja_3: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ja3")] = pydantic.Field(default=None)
+    ja_3: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ja3")] = pydantic.Field(
+        alias="ja3", default=None
+    )
     """
     JA3 fingerprint value.
     """
 
-    ja_4: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ja4")] = pydantic.Field(default=None)
+    ja_4: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ja4")] = pydantic.Field(
+        alias="ja4", default=None
+    )
     """
     JA4 fingerprint value.
     """

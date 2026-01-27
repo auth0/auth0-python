@@ -277,6 +277,7 @@ class LogStreamsClient:
         )
         client.log_streams.create(
             request=CreateLogStreamHttpRequestBody(
+                type="http",
                 sink=LogStreamHttpSink(
                     http_endpoint="httpEndpoint",
                 ),
@@ -822,6 +823,7 @@ class AsyncLogStreamsClient:
         async def main() -> None:
             await client.log_streams.create(
                 request=CreateLogStreamHttpRequestBody(
+                    type="http",
                     sink=LogStreamHttpSink(
                         http_endpoint="httpEndpoint",
                     ),

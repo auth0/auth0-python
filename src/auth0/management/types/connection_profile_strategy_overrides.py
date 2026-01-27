@@ -20,7 +20,7 @@ class ConnectionProfileStrategyOverrides(UniversalBaseModel):
     waad: typing.Optional[ConnectionProfileStrategyOverride] = None
     google_apps: typing_extensions.Annotated[
         typing.Optional[ConnectionProfileStrategyOverride], FieldMetadata(alias="google-apps")
-    ] = None
+    ] = pydantic.Field(alias="google-apps", default=None)
     okta: typing.Optional[ConnectionProfileStrategyOverride] = None
     oidc: typing.Optional[ConnectionProfileStrategyOverride] = None
     samlp: typing.Optional[ConnectionProfileStrategyOverride] = None

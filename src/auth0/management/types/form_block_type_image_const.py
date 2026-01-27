@@ -2,4 +2,4 @@
 
 import typing
 
-FormBlockTypeImageConst = typing.Literal["IMAGE"]
+FormBlockTypeImageConst = typing.Union[typing.Literal["IMAGE"], typing.Any]

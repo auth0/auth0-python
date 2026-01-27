@@ -9,7 +9,7 @@ from .event_stream_webhook_destination_type_enum import EventStreamWebhookDestin
 
 
 class EventStreamWebhookDestination(UniversalBaseModel):
-    type: EventStreamWebhookDestinationTypeEnum = "webhook"
+    type: EventStreamWebhookDestinationTypeEnum
     configuration: EventStreamWebhookConfiguration
 
     if IS_PYDANTIC_V2:

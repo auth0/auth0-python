@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_twilio_make_call_action import FlowActionTwilioMakeCallAction
 from .flow_action_twilio_make_call_params import FlowActionTwilioMakeCallParams
+from .flow_action_twilio_make_call_type import FlowActionTwilioMakeCallType
 
 
 class FlowActionTwilioMakeCall(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["TWILIO"] = "TWILIO"
-    action: typing.Literal["MAKE_CALL"] = "MAKE_CALL"
+    type: FlowActionTwilioMakeCallType
+    action: FlowActionTwilioMakeCallAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionTwilioMakeCallParams

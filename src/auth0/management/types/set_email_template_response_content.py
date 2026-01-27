@@ -17,14 +17,14 @@ class SetEmailTemplateResponseContent(UniversalBaseModel):
     """
 
     from_: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="from")] = pydantic.Field(
-        default="sender@auth0.com"
+        alias="from", default="sender@auth0.com"
     )
     """
     Senders `from` email address.
     """
 
     result_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="resultUrl")] = pydantic.Field(
-        default=None
+        alias="resultUrl", default=None
     )
     """
     URL to redirect the user to after a successful action.
@@ -42,14 +42,14 @@ class SetEmailTemplateResponseContent(UniversalBaseModel):
 
     url_lifetime_in_seconds: typing_extensions.Annotated[
         typing.Optional[float], FieldMetadata(alias="urlLifetimeInSeconds")
-    ] = pydantic.Field(default=None)
+    ] = pydantic.Field(alias="urlLifetimeInSeconds", default=None)
     """
     Lifetime in seconds that the link within the email will be valid for.
     """
 
     include_email_in_redirect: typing_extensions.Annotated[
         typing.Optional[bool], FieldMetadata(alias="includeEmailInRedirect")
-    ] = pydantic.Field(default=None)
+    ] = pydantic.Field(alias="includeEmailInRedirect", default=None)
     """
     Whether the `reset_email` and `verify_email` templates should include the user's email address as the `email` parameter in the returnUrl (true) or whether no email address should be included in the redirect (false). Defaults to true.
     """

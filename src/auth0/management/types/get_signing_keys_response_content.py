@@ -23,7 +23,7 @@ class GetSigningKeysResponseContent(UniversalBaseModel):
     """
 
     pkcs_7: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pkcs7")] = pydantic.Field(
-        default="-----BEGIN PKCS7-----\r\nMIIDPA....t8xAA==\r\n-----END PKCS7-----"
+        alias="pkcs7", default="-----BEGIN PKCS7-----\r\nMIIDPA....t8xAA==\r\n-----END PKCS7-----"
     )
     """
     The public certificate of the signing key in pkcs7 format

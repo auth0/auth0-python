@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_dropbox import ConnectionOptionsDropbox
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_dropbox_strategy import CreateConnectionRequestContentDropboxStrategy
 
 
 class CreateConnectionRequestContentDropbox(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentDropbox(CreateConnectionCommon):
     Create a connection with strategy=dropbox
     """
 
-    strategy: typing.Literal["dropbox"] = "dropbox"
+    strategy: CreateConnectionRequestContentDropboxStrategy
     options: typing.Optional[ConnectionOptionsDropbox] = None
 
     if IS_PYDANTIC_V2:

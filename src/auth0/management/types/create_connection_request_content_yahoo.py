@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_yahoo import ConnectionOptionsYahoo
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_yahoo_strategy import CreateConnectionRequestContentYahooStrategy
 
 
 class CreateConnectionRequestContentYahoo(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentYahoo(CreateConnectionCommon):
     Create a connection with strategy=yahoo
     """
 
-    strategy: typing.Literal["yahoo"] = "yahoo"
+    strategy: CreateConnectionRequestContentYahooStrategy
     options: typing.Optional[ConnectionOptionsYahoo] = None
 
     if IS_PYDANTIC_V2:

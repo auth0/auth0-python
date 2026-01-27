@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionAirtableUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdAirtableEnum = "AIRTABLE"
+    app_id: FlowsVaultConnectionAppIdAirtableEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

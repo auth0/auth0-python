@@ -8,6 +8,9 @@ from ...core.request_options import RequestOptions
 from ...types.create_organization_discovery_domain_response_content import (
     CreateOrganizationDiscoveryDomainResponseContent,
 )
+from ...types.get_organization_discovery_domain_by_name_response_content import (
+    GetOrganizationDiscoveryDomainByNameResponseContent,
+)
 from ...types.get_organization_discovery_domain_response_content import GetOrganizationDiscoveryDomainResponseContent
 from ...types.list_organization_discovery_domains_response_content import (
     ListOrganizationDiscoveryDomainsResponseContent,
@@ -94,10 +97,11 @@ class DiscoveryDomainsClient:
         *,
         domain: str,
         status: typing.Optional[OrganizationDiscoveryDomainStatus] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationDiscoveryDomainResponseContent:
         """
-        Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+        Create a new discovery domain for an organization.
 
         Parameters
         ----------
@@ -108,6 +112,9 @@ class DiscoveryDomainsClient:
             The domain name to associate with the organization e.g. acme.com.
 
         status : typing.Optional[OrganizationDiscoveryDomainStatus]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether this domain should be used for organization discovery.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -129,7 +136,50 @@ class DiscoveryDomainsClient:
             domain="domain",
         )
         """
-        _response = self._raw_client.create(id, domain=domain, status=status, request_options=request_options)
+        _response = self._raw_client.create(
+            id,
+            domain=domain,
+            status=status,
+            use_for_organization_discovery=use_for_organization_discovery,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_by_name(
+        self, id: str, discovery_domain: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetOrganizationDiscoveryDomainByNameResponseContent:
+        """
+        Retrieve details about a single organization discovery domain specified by domain name.
+
+        Parameters
+        ----------
+        id : str
+            ID of the organization.
+
+        discovery_domain : str
+            Domain name of the discovery domain.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetOrganizationDiscoveryDomainByNameResponseContent
+            Organization discovery domain successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.organizations.discovery_domains.get_by_name(
+            id="id",
+            discovery_domain="discovery_domain",
+        )
+        """
+        _response = self._raw_client.get_by_name(id, discovery_domain, request_options=request_options)
         return _response.data
 
     def get(
@@ -211,10 +261,11 @@ class DiscoveryDomainsClient:
         discovery_domain_id: str,
         *,
         status: typing.Optional[OrganizationDiscoveryDomainStatus] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationDiscoveryDomainResponseContent:
         """
-        Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+        Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
 
         Parameters
         ----------
@@ -225,6 +276,9 @@ class DiscoveryDomainsClient:
             ID of the discovery domain to update.
 
         status : typing.Optional[OrganizationDiscoveryDomainStatus]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether this domain should be used for organization discovery.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -246,7 +300,13 @@ class DiscoveryDomainsClient:
             discovery_domain_id="discovery_domain_id",
         )
         """
-        _response = self._raw_client.update(id, discovery_domain_id, status=status, request_options=request_options)
+        _response = self._raw_client.update(
+            id,
+            discovery_domain_id,
+            status=status,
+            use_for_organization_discovery=use_for_organization_discovery,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -330,10 +390,11 @@ class AsyncDiscoveryDomainsClient:
         *,
         domain: str,
         status: typing.Optional[OrganizationDiscoveryDomainStatus] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationDiscoveryDomainResponseContent:
         """
-        Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+        Create a new discovery domain for an organization.
 
         Parameters
         ----------
@@ -344,6 +405,9 @@ class AsyncDiscoveryDomainsClient:
             The domain name to associate with the organization e.g. acme.com.
 
         status : typing.Optional[OrganizationDiscoveryDomainStatus]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether this domain should be used for organization discovery.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -373,7 +437,58 @@ class AsyncDiscoveryDomainsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(id, domain=domain, status=status, request_options=request_options)
+        _response = await self._raw_client.create(
+            id,
+            domain=domain,
+            status=status,
+            use_for_organization_discovery=use_for_organization_discovery,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_by_name(
+        self, id: str, discovery_domain: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetOrganizationDiscoveryDomainByNameResponseContent:
+        """
+        Retrieve details about a single organization discovery domain specified by domain name.
+
+        Parameters
+        ----------
+        id : str
+            ID of the organization.
+
+        discovery_domain : str
+            Domain name of the discovery domain.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetOrganizationDiscoveryDomainByNameResponseContent
+            Organization discovery domain successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.organizations.discovery_domains.get_by_name(
+                id="id",
+                discovery_domain="discovery_domain",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_by_name(id, discovery_domain, request_options=request_options)
         return _response.data
 
     async def get(
@@ -471,10 +586,11 @@ class AsyncDiscoveryDomainsClient:
         discovery_domain_id: str,
         *,
         status: typing.Optional[OrganizationDiscoveryDomainStatus] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationDiscoveryDomainResponseContent:
         """
-        Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+        Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
 
         Parameters
         ----------
@@ -485,6 +601,9 @@ class AsyncDiscoveryDomainsClient:
             ID of the discovery domain to update.
 
         status : typing.Optional[OrganizationDiscoveryDomainStatus]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether this domain should be used for organization discovery.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -515,6 +634,10 @@ class AsyncDiscoveryDomainsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id, discovery_domain_id, status=status, request_options=request_options
+            id,
+            discovery_domain_id,
+            status=status,
+            use_for_organization_discovery=use_for_organization_discovery,
+            request_options=request_options,
         )
         return _response.data

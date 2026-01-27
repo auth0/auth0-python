@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_soundcloud import ConnectionOptionsSoundcloud
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_soundcloud_strategy import ConnectionResponseContentSoundcloudStrategy
 
 
 class ConnectionResponseContentSoundcloud(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentSoundcloud(ConnectionResponseCommon):
     Response for connections with strategy=soundcloud
     """
 
-    strategy: typing.Literal["soundcloud"] = "soundcloud"
+    strategy: ConnectionResponseContentSoundcloudStrategy
     options: typing.Optional[ConnectionOptionsSoundcloud] = None
 
     if IS_PYDANTIC_V2:

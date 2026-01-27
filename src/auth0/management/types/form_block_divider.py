@@ -11,8 +11,8 @@ from .form_component_category_block_const import FormComponentCategoryBlockConst
 
 class FormBlockDivider(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryBlockConst = "BLOCK"
-    type: FormBlockTypeDividerConst = "DIVIDER"
+    category: FormComponentCategoryBlockConst
+    type: FormBlockTypeDividerConst
     config: typing.Optional[FormBlockDividerConfig] = None
 
     if IS_PYDANTIC_V2:

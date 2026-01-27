@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionAuth0Uninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdAuth0Enum = "AUTH0"
+    app_id: FlowsVaultConnectionAppIdAuth0Enum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

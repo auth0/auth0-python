@@ -38,8 +38,6 @@ class RawCustomDomainsClient:
     def list(
         self,
         *,
-        take: typing.Optional[int] = 50,
-        from_: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
@@ -51,12 +49,6 @@ class RawCustomDomainsClient:
 
         Parameters
         ----------
-        take : typing.Optional[int]
-            Number of results per page. Defaults to 50.
-
-        from_ : typing.Optional[str]
-            Optional Id from which to start selection.
-
         q : typing.Optional[str]
             Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
 
@@ -81,8 +73,6 @@ class RawCustomDomainsClient:
             "custom-domains",
             method="GET",
             params={
-                "take": take,
-                "from": from_,
                 "q": q,
                 "fields": fields,
                 "include_fields": include_fields,
@@ -147,6 +137,7 @@ class RawCustomDomainsClient:
         tls_policy: typing.Optional[CustomDomainTlsPolicyEnum] = OMIT,
         custom_client_ip_header: typing.Optional[CustomDomainCustomClientIpHeader] = OMIT,
         domain_metadata: typing.Optional[DomainMetadata] = OMIT,
+        relying_party_identifier: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateCustomDomainResponseContent]:
         """
@@ -180,6 +171,9 @@ class RawCustomDomainsClient:
 
         domain_metadata : typing.Optional[DomainMetadata]
 
+        relying_party_identifier : typing.Optional[str]
+            Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -198,6 +192,7 @@ class RawCustomDomainsClient:
                 "tls_policy": tls_policy,
                 "custom_client_ip_header": custom_client_ip_header,
                 "domain_metadata": domain_metadata,
+                "relying_party_identifier": relying_party_identifier,
             },
             headers={
                 "content-type": "application/json",
@@ -449,6 +444,7 @@ class RawCustomDomainsClient:
         tls_policy: typing.Optional[CustomDomainTlsPolicyEnum] = OMIT,
         custom_client_ip_header: typing.Optional[CustomDomainCustomClientIpHeader] = OMIT,
         domain_metadata: typing.Optional[DomainMetadata] = OMIT,
+        relying_party_identifier: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateCustomDomainResponseContent]:
         """
@@ -488,6 +484,9 @@ class RawCustomDomainsClient:
 
         domain_metadata : typing.Optional[DomainMetadata]
 
+        relying_party_identifier : typing.Optional[str]
+            Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -503,6 +502,7 @@ class RawCustomDomainsClient:
                 "tls_policy": tls_policy,
                 "custom_client_ip_header": custom_client_ip_header,
                 "domain_metadata": domain_metadata,
+                "relying_party_identifier": relying_party_identifier,
             },
             headers={
                 "content-type": "application/json",
@@ -772,8 +772,6 @@ class AsyncRawCustomDomainsClient:
     async def list(
         self,
         *,
-        take: typing.Optional[int] = 50,
-        from_: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
@@ -785,12 +783,6 @@ class AsyncRawCustomDomainsClient:
 
         Parameters
         ----------
-        take : typing.Optional[int]
-            Number of results per page. Defaults to 50.
-
-        from_ : typing.Optional[str]
-            Optional Id from which to start selection.
-
         q : typing.Optional[str]
             Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
 
@@ -815,8 +807,6 @@ class AsyncRawCustomDomainsClient:
             "custom-domains",
             method="GET",
             params={
-                "take": take,
-                "from": from_,
                 "q": q,
                 "fields": fields,
                 "include_fields": include_fields,
@@ -881,6 +871,7 @@ class AsyncRawCustomDomainsClient:
         tls_policy: typing.Optional[CustomDomainTlsPolicyEnum] = OMIT,
         custom_client_ip_header: typing.Optional[CustomDomainCustomClientIpHeader] = OMIT,
         domain_metadata: typing.Optional[DomainMetadata] = OMIT,
+        relying_party_identifier: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateCustomDomainResponseContent]:
         """
@@ -914,6 +905,9 @@ class AsyncRawCustomDomainsClient:
 
         domain_metadata : typing.Optional[DomainMetadata]
 
+        relying_party_identifier : typing.Optional[str]
+            Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -932,6 +926,7 @@ class AsyncRawCustomDomainsClient:
                 "tls_policy": tls_policy,
                 "custom_client_ip_header": custom_client_ip_header,
                 "domain_metadata": domain_metadata,
+                "relying_party_identifier": relying_party_identifier,
             },
             headers={
                 "content-type": "application/json",
@@ -1185,6 +1180,7 @@ class AsyncRawCustomDomainsClient:
         tls_policy: typing.Optional[CustomDomainTlsPolicyEnum] = OMIT,
         custom_client_ip_header: typing.Optional[CustomDomainCustomClientIpHeader] = OMIT,
         domain_metadata: typing.Optional[DomainMetadata] = OMIT,
+        relying_party_identifier: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateCustomDomainResponseContent]:
         """
@@ -1224,6 +1220,9 @@ class AsyncRawCustomDomainsClient:
 
         domain_metadata : typing.Optional[DomainMetadata]
 
+        relying_party_identifier : typing.Optional[str]
+            Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1239,6 +1238,7 @@ class AsyncRawCustomDomainsClient:
                 "tls_policy": tls_policy,
                 "custom_client_ip_header": custom_client_ip_header,
                 "domain_metadata": domain_metadata,
+                "relying_party_identifier": relying_party_identifier,
             },
             headers={
                 "content-type": "application/json",

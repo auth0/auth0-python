@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionSlackWebhook(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdSlackEnum = "SLACK"
+    app_id: FlowsVaultConnectionAppIdSlackEnum
     setup: FlowsVaultConnectioSetupWebhook
 
     if IS_PYDANTIC_V2:

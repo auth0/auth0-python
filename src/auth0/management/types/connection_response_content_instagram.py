@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_instagram import ConnectionOptionsInstagram
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_instagram_strategy import ConnectionResponseContentInstagramStrategy
 
 
 class ConnectionResponseContentInstagram(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentInstagram(ConnectionResponseCommon):
     Response for connections with strategy=instagram
     """
 
-    strategy: typing.Literal["instagram"] = "instagram"
+    strategy: ConnectionResponseContentInstagramStrategy
     options: typing.Optional[ConnectionOptionsInstagram] = None
 
     if IS_PYDANTIC_V2:

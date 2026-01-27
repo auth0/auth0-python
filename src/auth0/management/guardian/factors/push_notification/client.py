@@ -27,6 +27,15 @@ from ....types.set_guardian_factors_provider_push_notification_response_content 
 from ....types.set_guardian_factors_provider_push_notification_sns_response_content import (
     SetGuardianFactorsProviderPushNotificationSnsResponseContent,
 )
+from ....types.update_guardian_factors_provider_push_notification_apns_response_content import (
+    UpdateGuardianFactorsProviderPushNotificationApnsResponseContent,
+)
+from ....types.update_guardian_factors_provider_push_notification_fcm_response_content import (
+    UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
+)
+from ....types.update_guardian_factors_provider_push_notification_fcmv_1_response_content import (
+    UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
+)
 from ....types.update_guardian_factors_provider_push_notification_sns_response_content import (
     UpdateGuardianFactorsProviderPushNotificationSnsResponseContent,
 )
@@ -88,7 +97,7 @@ class PushNotificationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorsProviderPushNotificationApnsResponseContent:
         """
-        Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
 
         Parameters
         ----------
@@ -120,11 +129,52 @@ class PushNotificationClient:
         )
         return _response.data
 
+    def update_apns_provider(
+        self,
+        *,
+        sandbox: typing.Optional[bool] = OMIT,
+        bundle_id: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateGuardianFactorsProviderPushNotificationApnsResponseContent:
+        """
+        Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+
+        Parameters
+        ----------
+        sandbox : typing.Optional[bool]
+
+        bundle_id : typing.Optional[str]
+
+        p_12 : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateGuardianFactorsProviderPushNotificationApnsResponseContent
+            APNS configuration successfully updated.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.guardian.factors.push_notification.update_apns_provider()
+        """
+        _response = self._raw_client.update_apns_provider(
+            sandbox=sandbox, bundle_id=bundle_id, p_12=p_12, request_options=request_options
+        )
+        return _response.data
+
     def set_fcm_provider(
         self, *, server_key: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> SetGuardianFactorsProviderPushNotificationFcmResponseContent:
         """
-        Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
 
         Parameters
         ----------
@@ -150,6 +200,36 @@ class PushNotificationClient:
         _response = self._raw_client.set_fcm_provider(server_key=server_key, request_options=request_options)
         return _response.data
 
+    def update_fcm_provider(
+        self, *, server_key: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateGuardianFactorsProviderPushNotificationFcmResponseContent:
+        """
+        Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+
+        Parameters
+        ----------
+        server_key : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateGuardianFactorsProviderPushNotificationFcmResponseContent
+            FCM configuration updated
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.guardian.factors.push_notification.update_fcm_provider()
+        """
+        _response = self._raw_client.update_fcm_provider(server_key=server_key, request_options=request_options)
+        return _response.data
+
     def set_fcmv_1_provider(
         self,
         *,
@@ -157,7 +237,7 @@ class PushNotificationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent:
         """
-        Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
 
         Parameters
         ----------
@@ -181,6 +261,41 @@ class PushNotificationClient:
         client.guardian.factors.push_notification.set_fcmv_1_provider()
         """
         _response = self._raw_client.set_fcmv_1_provider(
+            server_credentials=server_credentials, request_options=request_options
+        )
+        return _response.data
+
+    def update_fcmv_1_provider(
+        self,
+        *,
+        server_credentials: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent:
+        """
+        Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+
+        Parameters
+        ----------
+        server_credentials : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent
+            FCMV1 configuration updated
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.guardian.factors.push_notification.update_fcmv_1_provider()
+        """
+        _response = self._raw_client.update_fcmv_1_provider(
             server_credentials=server_credentials, request_options=request_options
         )
         return _response.data
@@ -441,7 +556,7 @@ class AsyncPushNotificationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorsProviderPushNotificationApnsResponseContent:
         """
-        Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
 
         Parameters
         ----------
@@ -481,11 +596,60 @@ class AsyncPushNotificationClient:
         )
         return _response.data
 
+    async def update_apns_provider(
+        self,
+        *,
+        sandbox: typing.Optional[bool] = OMIT,
+        bundle_id: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateGuardianFactorsProviderPushNotificationApnsResponseContent:
+        """
+        Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+
+        Parameters
+        ----------
+        sandbox : typing.Optional[bool]
+
+        bundle_id : typing.Optional[str]
+
+        p_12 : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateGuardianFactorsProviderPushNotificationApnsResponseContent
+            APNS configuration successfully updated.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.guardian.factors.push_notification.update_apns_provider()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_apns_provider(
+            sandbox=sandbox, bundle_id=bundle_id, p_12=p_12, request_options=request_options
+        )
+        return _response.data
+
     async def set_fcm_provider(
         self, *, server_key: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> SetGuardianFactorsProviderPushNotificationFcmResponseContent:
         """
-        Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
 
         Parameters
         ----------
@@ -519,6 +683,44 @@ class AsyncPushNotificationClient:
         _response = await self._raw_client.set_fcm_provider(server_key=server_key, request_options=request_options)
         return _response.data
 
+    async def update_fcm_provider(
+        self, *, server_key: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateGuardianFactorsProviderPushNotificationFcmResponseContent:
+        """
+        Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+
+        Parameters
+        ----------
+        server_key : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateGuardianFactorsProviderPushNotificationFcmResponseContent
+            FCM configuration updated
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.guardian.factors.push_notification.update_fcm_provider()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_fcm_provider(server_key=server_key, request_options=request_options)
+        return _response.data
+
     async def set_fcmv_1_provider(
         self,
         *,
@@ -526,7 +728,7 @@ class AsyncPushNotificationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent:
         """
-        Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
 
         Parameters
         ----------
@@ -558,6 +760,49 @@ class AsyncPushNotificationClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.set_fcmv_1_provider(
+            server_credentials=server_credentials, request_options=request_options
+        )
+        return _response.data
+
+    async def update_fcmv_1_provider(
+        self,
+        *,
+        server_credentials: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent:
+        """
+        Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+
+        Parameters
+        ----------
+        server_credentials : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent
+            FCMV1 configuration updated
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.guardian.factors.push_notification.update_fcmv_1_provider()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_fcmv_1_provider(
             server_credentials=server_credentials, request_options=request_options
         )
         return _response.data

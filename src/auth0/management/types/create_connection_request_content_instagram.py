@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_instagram import ConnectionOptionsInstagram
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_instagram_strategy import CreateConnectionRequestContentInstagramStrategy
 
 
 class CreateConnectionRequestContentInstagram(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentInstagram(CreateConnectionCommon):
     Create a connection with strategy=instagram
     """
 
-    strategy: typing.Literal["instagram"] = "instagram"
+    strategy: CreateConnectionRequestContentInstagramStrategy
     options: typing.Optional[ConnectionOptionsInstagram] = None
 
     if IS_PYDANTIC_V2:

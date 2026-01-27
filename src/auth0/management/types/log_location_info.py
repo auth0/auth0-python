@@ -19,7 +19,7 @@ class LogLocationInfo(UniversalBaseModel):
     """
 
     country_code_3: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="country_code3")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="country_code3", default=None)
     )
     """
     Three-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-3 ISO 3166-1</a> country code.
@@ -35,12 +35,12 @@ class LogLocationInfo(UniversalBaseModel):
     Full city name in English.
     """
 
-    latitude: typing.Optional[str] = pydantic.Field(default=None)
+    latitude: typing.Optional[float] = pydantic.Field(default=None)
     """
     Global latitude (horizontal) position.
     """
 
-    longitude: typing.Optional[str] = pydantic.Field(default=None)
+    longitude: typing.Optional[float] = pydantic.Field(default=None)
     """
     Global longitude (vertical) position.
     """

@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_apple import ConnectionOptionsApple
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_apple_strategy import CreateConnectionRequestContentAppleStrategy
 
 
 class CreateConnectionRequestContentApple(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentApple(CreateConnectionCommon):
     Create a connection with strategy=apple
     """
 
-    strategy: typing.Literal["apple"] = "apple"
+    strategy: CreateConnectionRequestContentAppleStrategy
     options: typing.Optional[ConnectionOptionsApple] = None
 
     if IS_PYDANTIC_V2:

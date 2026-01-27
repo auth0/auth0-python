@@ -10,15 +10,19 @@ from .log_stream_event_bridge_sink_region_enum import LogStreamEventBridgeSinkRe
 
 
 class LogStreamEventBridgeSink(UniversalBaseModel):
-    aws_account_id: typing_extensions.Annotated[str, FieldMetadata(alias="awsAccountId")] = pydantic.Field()
+    aws_account_id: typing_extensions.Annotated[str, FieldMetadata(alias="awsAccountId")] = pydantic.Field(
+        alias="awsAccountId"
+    )
     """
     AWS account ID
     """
 
-    aws_region: typing_extensions.Annotated[LogStreamEventBridgeSinkRegionEnum, FieldMetadata(alias="awsRegion")]
+    aws_region: typing_extensions.Annotated[LogStreamEventBridgeSinkRegionEnum, FieldMetadata(alias="awsRegion")] = (
+        pydantic.Field(alias="awsRegion")
+    )
     aws_partner_event_source: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="awsPartnerEventSource")
-    ] = pydantic.Field(default=None)
+    ] = pydantic.Field(alias="awsPartnerEventSource", default=None)
     """
     AWS EventBridge partner event source
     """

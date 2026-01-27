@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_o_auth_2 import ConnectionOptionsOAuth2
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_o_auth_2_strategy import CreateConnectionRequestContentOAuth2Strategy
 
 
 class CreateConnectionRequestContentOAuth2(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentOAuth2(CreateConnectionCommon):
     Create a connection with strategy=oauth2
     """
 
-    strategy: typing.Literal["oauth2"] = "oauth2"
+    strategy: CreateConnectionRequestContentOAuth2Strategy
     options: typing.Optional[ConnectionOptionsOAuth2] = None
 
     if IS_PYDANTIC_V2:

@@ -22,7 +22,7 @@ class UserAttributeProfileStrategyOverridesUserId(UniversalBaseModel):
     waad: typing.Optional[UserAttributeProfileStrategyOverridesUserIdMapping] = None
     google_apps: typing_extensions.Annotated[
         typing.Optional[UserAttributeProfileStrategyOverridesUserIdMapping], FieldMetadata(alias="google-apps")
-    ] = None
+    ] = pydantic.Field(alias="google-apps", default=None)
     okta: typing.Optional[UserAttributeProfileStrategyOverridesUserIdMapping] = None
     oidc: typing.Optional[UserAttributeProfileStrategyOverridesUserIdMapping] = None
     samlp: typing.Optional[UserAttributeProfileStrategyOverridesUserIdMapping] = None

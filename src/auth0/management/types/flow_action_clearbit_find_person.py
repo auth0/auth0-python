@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_clearbit_find_person_action import FlowActionClearbitFindPersonAction
 from .flow_action_clearbit_find_person_params import FlowActionClearbitFindPersonParams
+from .flow_action_clearbit_find_person_type import FlowActionClearbitFindPersonType
 
 
 class FlowActionClearbitFindPerson(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["CLEARBIT"] = "CLEARBIT"
-    action: typing.Literal["FIND_PERSON"] = "FIND_PERSON"
+    type: FlowActionClearbitFindPersonType
+    action: FlowActionClearbitFindPersonAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionClearbitFindPersonParams

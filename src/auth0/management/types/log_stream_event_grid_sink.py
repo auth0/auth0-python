@@ -11,20 +11,24 @@ from .log_stream_event_grid_region_enum import LogStreamEventGridRegionEnum
 
 class LogStreamEventGridSink(UniversalBaseModel):
     azure_subscription_id: typing_extensions.Annotated[str, FieldMetadata(alias="azureSubscriptionId")] = (
-        pydantic.Field()
+        pydantic.Field(alias="azureSubscriptionId")
     )
     """
     Subscription ID
     """
 
-    azure_region: typing_extensions.Annotated[LogStreamEventGridRegionEnum, FieldMetadata(alias="azureRegion")]
-    azure_resource_group: typing_extensions.Annotated[str, FieldMetadata(alias="azureResourceGroup")] = pydantic.Field()
+    azure_region: typing_extensions.Annotated[LogStreamEventGridRegionEnum, FieldMetadata(alias="azureRegion")] = (
+        pydantic.Field(alias="azureRegion")
+    )
+    azure_resource_group: typing_extensions.Annotated[str, FieldMetadata(alias="azureResourceGroup")] = pydantic.Field(
+        alias="azureResourceGroup"
+    )
     """
     Resource Group
     """
 
     azure_partner_topic: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="azurePartnerTopic")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="azurePartnerTopic", default=None)
     )
     """
     Partner Topic

@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionZapierWebhook(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdZapierEnum = "ZAPIER"
+    app_id: FlowsVaultConnectionAppIdZapierEnum
     setup: FlowsVaultConnectioSetupWebhook
 
     if IS_PYDANTIC_V2:

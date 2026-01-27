@@ -142,6 +142,15 @@ class GetTenantSettingsResponseContent(UniversalBaseModel):
     """
 
     resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = None
+    phone_consolidated_experience: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether Phone Consolidated Experience is enabled for this tenant.
+    """
+
+    enable_ai_guide: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

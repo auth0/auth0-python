@@ -11,8 +11,8 @@ from .form_field_type_payment_const import FormFieldTypePaymentConst
 
 class FormFieldPayment(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypePaymentConst = "PAYMENT"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypePaymentConst
     config: FormFieldPaymentConfig
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeTextConst = typing.Literal["TEXT"]
+FormFieldTypeTextConst = typing.Union[typing.Literal["TEXT"], typing.Any]

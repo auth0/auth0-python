@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_untappd import ConnectionOptionsUntappd
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_untappd_strategy import CreateConnectionRequestContentUntappdStrategy
 
 
 class CreateConnectionRequestContentUntappd(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentUntappd(CreateConnectionCommon):
     Create a connection with strategy=untappd
     """
 
-    strategy: typing.Literal["untappd"] = "untappd"
+    strategy: CreateConnectionRequestContentUntappdStrategy
     options: typing.Optional[ConnectionOptionsUntappd] = None
 
     if IS_PYDANTIC_V2:

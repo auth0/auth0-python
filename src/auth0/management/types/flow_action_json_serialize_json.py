@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_json_serialize_json_action import FlowActionJsonSerializeJsonAction
 from .flow_action_json_serialize_json_params import FlowActionJsonSerializeJsonParams
+from .flow_action_json_serialize_json_type import FlowActionJsonSerializeJsonType
 
 
 class FlowActionJsonSerializeJson(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["JSON"] = "JSON"
-    action: typing.Literal["SERIALIZE_JSON"] = "SERIALIZE_JSON"
+    type: FlowActionJsonSerializeJsonType
+    action: FlowActionJsonSerializeJsonAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionJsonSerializeJsonParams

@@ -8,7 +8,7 @@ from .flows_vault_connectio_setup_type_token_enum import FlowsVaultConnectioSetu
 
 
 class FlowsVaultConnectioSetupToken(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeTokenEnum = "TOKEN"
+    type: FlowsVaultConnectioSetupTypeTokenEnum
     token: str
 
     if IS_PYDANTIC_V2:

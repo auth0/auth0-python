@@ -9,7 +9,9 @@ from ..core.serialization import FieldMetadata
 
 
 class ClientSigningKey(UniversalBaseModel):
-    pkcs_7: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pkcs7")] = pydantic.Field(default="")
+    pkcs_7: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pkcs7")] = pydantic.Field(
+        alias="pkcs7", default=""
+    )
     """
     Signing certificate public key and chain in PKCS#7 (.P7B) format.
     """

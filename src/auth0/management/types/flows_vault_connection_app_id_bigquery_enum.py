@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdBigqueryEnum = typing.Literal["BIGQUERY"]
+FlowsVaultConnectionAppIdBigqueryEnum = typing.Union[typing.Literal["BIGQUERY"], typing.Any]

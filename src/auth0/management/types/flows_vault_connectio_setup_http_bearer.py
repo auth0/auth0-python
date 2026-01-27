@@ -8,7 +8,7 @@ from .flows_vault_connectio_setup_type_bearer_enum import FlowsVaultConnectioSet
 
 
 class FlowsVaultConnectioSetupHttpBearer(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeBearerEnum = "BEARER"
+    type: FlowsVaultConnectioSetupTypeBearerEnum
     token: str
 
     if IS_PYDANTIC_V2:

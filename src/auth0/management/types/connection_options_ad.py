@@ -2,4 +2,80 @@
 
 import typing
 
-ConnectionOptionsAd = typing.Dict[str, typing.Any]
+import pydantic
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from ..core.serialization import FieldMetadata
+from .connection_agent_ipad import ConnectionAgentIpad
+from .connection_agent_mode_ad import ConnectionAgentModeAd
+from .connection_agent_version_ad import ConnectionAgentVersionAd
+from .connection_brute_force_protection import ConnectionBruteForceProtection
+from .connection_certs_ad import ConnectionCertsAd
+from .connection_domain_aliases_ad import ConnectionDomainAliasesAd
+from .connection_icon_url import ConnectionIconUrl
+from .connection_ips_ad import ConnectionIpsAd
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_sign_in_endpoint_ad import ConnectionSignInEndpointAd
+from .connection_tenant_domain_ad import ConnectionTenantDomainAd
+from .connection_thumbprints_ad import ConnectionThumbprintsAd
+from .connection_upstream_params import ConnectionUpstreamParams
+
+
+class ConnectionOptionsAd(ConnectionOptionsCommon):
+    """
+    Options for the 'ad' connection
+    """
+
+    agent_ip: typing_extensions.Annotated[typing.Optional[ConnectionAgentIpad], FieldMetadata(alias="agentIP")] = (
+        pydantic.Field(alias="agentIP", default=None)
+    )
+    agent_mode: typing_extensions.Annotated[
+        typing.Optional[ConnectionAgentModeAd], FieldMetadata(alias="agentMode")
+    ] = pydantic.Field(alias="agentMode", default=None)
+    agent_version: typing_extensions.Annotated[
+        typing.Optional[ConnectionAgentVersionAd], FieldMetadata(alias="agentVersion")
+    ] = pydantic.Field(alias="agentVersion", default=None)
+    brute_force_protection: typing.Optional[ConnectionBruteForceProtection] = None
+    cert_auth: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="certAuth")] = pydantic.Field(
+        alias="certAuth", default=None
+    )
+    """
+    Enables client SSL certificate authentication for the AD connector, requiring HTTPS on the sign-in endpoint
+    """
+
+    certs: typing.Optional[ConnectionCertsAd] = None
+    disable_cache: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, disables caching of AD connector authentication results to ensure real-time validation against the directory
+    """
+
+    disable_self_service_change_password: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, hides the 'Forgot Password' link on login pages to prevent users from initiating self-service password resets
+    """
+
+    domain_aliases: typing.Optional[ConnectionDomainAliasesAd] = None
+    icon_url: typing.Optional[ConnectionIconUrl] = None
+    ips: typing.Optional[ConnectionIpsAd] = None
+    kerberos: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Enables Windows Integrated Authentication (Kerberos) for seamless SSO when users authenticate from within the corporate network IP ranges
+    """
+
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    sign_in_endpoint: typing_extensions.Annotated[
+        typing.Optional[ConnectionSignInEndpointAd], FieldMetadata(alias="signInEndpoint")
+    ] = pydantic.Field(alias="signInEndpoint", default=None)
+    tenant_domain: typing.Optional[ConnectionTenantDomainAd] = None
+    thumbprints: typing.Optional[ConnectionThumbprintsAd] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

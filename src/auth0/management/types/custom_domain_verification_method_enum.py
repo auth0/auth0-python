@@ -2,4 +2,4 @@
 
 import typing
 
-CustomDomainVerificationMethodEnum = typing.Literal["txt"]
+CustomDomainVerificationMethodEnum = typing.Union[typing.Literal["txt"], typing.Any]

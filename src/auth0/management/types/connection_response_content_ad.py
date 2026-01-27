@@ -5,7 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_ad import ConnectionOptionsAd
+from .connection_provisioning_ticket_url import ConnectionProvisioningTicketUrl
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_ad_strategy import ConnectionResponseContentAdStrategy
 
 
 class ConnectionResponseContentAd(ConnectionResponseCommon):
@@ -13,8 +15,9 @@ class ConnectionResponseContentAd(ConnectionResponseCommon):
     Response for connections with strategy=ad
     """
 
-    strategy: typing.Literal["ad"] = "ad"
+    strategy: ConnectionResponseContentAdStrategy
     options: typing.Optional[ConnectionOptionsAd] = None
+    provisioning_ticket_url: typing.Optional[ConnectionProvisioningTicketUrl] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -11,8 +11,8 @@ from .form_field_type_cards_const import FormFieldTypeCardsConst
 
 class FormFieldCards(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeCardsConst = "CARDS"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeCardsConst
     config: typing.Optional[FormFieldCardsConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

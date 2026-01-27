@@ -5,9 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_azure_ad import ConnectionOptionsAzureAd
-from .connection_provisioning_ticket import ConnectionProvisioningTicket
-from .connection_provisioning_ticket_url import ConnectionProvisioningTicketUrl
+from .connection_show_as_button import ConnectionShowAsButton
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_azure_ad_strategy import CreateConnectionRequestContentAzureAdStrategy
 
 
 class CreateConnectionRequestContentAzureAd(CreateConnectionCommon):
@@ -15,10 +15,9 @@ class CreateConnectionRequestContentAzureAd(CreateConnectionCommon):
     Create a connection with strategy=waad
     """
 
-    strategy: typing.Literal["waad"] = "waad"
+    strategy: CreateConnectionRequestContentAzureAdStrategy
     options: typing.Optional[ConnectionOptionsAzureAd] = None
-    provisioning_ticket: typing.Optional[ConnectionProvisioningTicket] = None
-    provisioning_ticket_url: typing.Optional[ConnectionProvisioningTicketUrl] = None
+    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

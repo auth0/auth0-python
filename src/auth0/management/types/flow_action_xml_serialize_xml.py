@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_xml_serialize_xml_action import FlowActionXmlSerializeXmlAction
 from .flow_action_xml_serialize_xml_params import FlowActionXmlSerializeXmlParams
+from .flow_action_xml_serialize_xml_type import FlowActionXmlSerializeXmlType
 
 
 class FlowActionXmlSerializeXml(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["XML"] = "XML"
-    action: typing.Literal["SERIALIZE_XML"] = "SERIALIZE_XML"
+    type: FlowActionXmlSerializeXmlType
+    action: FlowActionXmlSerializeXmlAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionXmlSerializeXmlParams

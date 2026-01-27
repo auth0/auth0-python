@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdHubspotEnum = typing.Literal["HUBSPOT"]
+FlowsVaultConnectionAppIdHubspotEnum = typing.Union[typing.Literal["HUBSPOT"], typing.Any]

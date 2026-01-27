@@ -2,4 +2,4 @@
 
 import typing
 
-EventStreamEventBridgeDestinationTypeEnum = typing.Literal["eventbridge"]
+EventStreamEventBridgeDestinationTypeEnum = typing.Union[typing.Literal["eventbridge"], typing.Any]

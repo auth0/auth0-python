@@ -4,8 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_salesforce_community import ConnectionOptionsSalesforceCommunity
+from .connection_options_salesforce import ConnectionOptionsSalesforce
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_salesforce_community_strategy import (
+    ConnectionResponseContentSalesforceCommunityStrategy,
+)
 
 
 class ConnectionResponseContentSalesforceCommunity(ConnectionResponseCommon):
@@ -13,8 +16,8 @@ class ConnectionResponseContentSalesforceCommunity(ConnectionResponseCommon):
     Response for connections with strategy=salesforce-community
     """
 
-    strategy: typing.Literal["salesforce-community"] = "salesforce-community"
-    options: typing.Optional[ConnectionOptionsSalesforceCommunity] = None
+    strategy: ConnectionResponseContentSalesforceCommunityStrategy
+    options: typing.Optional[ConnectionOptionsSalesforce] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

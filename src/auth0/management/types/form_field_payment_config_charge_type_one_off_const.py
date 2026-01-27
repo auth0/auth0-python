@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldPaymentConfigChargeTypeOneOffConst = typing.Literal["ONE_OFF"]
+FormFieldPaymentConfigChargeTypeOneOffConst = typing.Union[typing.Literal["ONE_OFF"], typing.Any]

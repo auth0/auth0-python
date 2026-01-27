@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_git_hub import ConnectionOptionsGitHub
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_git_hub_strategy import CreateConnectionRequestContentGitHubStrategy
 
 
 class CreateConnectionRequestContentGitHub(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentGitHub(CreateConnectionCommon):
     Create a connection with strategy=github
     """
 
-    strategy: typing.Literal["github"] = "github"
+    strategy: CreateConnectionRequestContentGitHubStrategy
     options: typing.Optional[ConnectionOptionsGitHub] = None
 
     if IS_PYDANTIC_V2:

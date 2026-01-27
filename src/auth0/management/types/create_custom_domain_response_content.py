@@ -27,6 +27,11 @@ class CreateCustomDomainResponseContent(UniversalBaseModel):
     Whether this is a primary domain (true) or not (false).
     """
 
+    is_default: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Whether this is the default custom domain (true) or not (false).
+    """
+
     status: CustomDomainStatusFilterEnum
     type: CustomDomainTypeEnum
     verification: DomainVerification
@@ -42,6 +47,10 @@ class CreateCustomDomainResponseContent(UniversalBaseModel):
 
     domain_metadata: typing.Optional[DomainMetadata] = None
     certificate: typing.Optional[DomainCertificate] = None
+    relying_party_identifier: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not present, the full domain will be used.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

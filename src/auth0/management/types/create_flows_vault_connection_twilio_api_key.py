@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionTwilioApiKey(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdTwilioEnum = "TWILIO"
+    app_id: FlowsVaultConnectionAppIdTwilioEnum
     setup: FlowsVaultConnectioSetupTwilioApiKey
 
     if IS_PYDANTIC_V2:

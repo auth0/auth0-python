@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionWhatsappUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdWhatsappEnum = "WHATSAPP"
+    app_id: FlowsVaultConnectionAppIdWhatsappEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

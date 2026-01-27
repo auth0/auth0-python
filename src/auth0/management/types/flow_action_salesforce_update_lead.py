@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_salesforce_update_lead_action import FlowActionSalesforceUpdateLeadAction
 from .flow_action_salesforce_update_lead_params import FlowActionSalesforceUpdateLeadParams
+from .flow_action_salesforce_update_lead_type import FlowActionSalesforceUpdateLeadType
 
 
 class FlowActionSalesforceUpdateLead(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["SALESFORCE"] = "SALESFORCE"
-    action: typing.Literal["UPDATE_LEAD"] = "UPDATE_LEAD"
+    type: FlowActionSalesforceUpdateLeadType
+    action: FlowActionSalesforceUpdateLeadAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionSalesforceUpdateLeadParams

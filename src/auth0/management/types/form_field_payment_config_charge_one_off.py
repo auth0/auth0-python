@@ -9,7 +9,7 @@ from .form_field_payment_config_charge_type_one_off_const import FormFieldPaymen
 
 
 class FormFieldPaymentConfigChargeOneOff(UniversalBaseModel):
-    type: FormFieldPaymentConfigChargeTypeOneOffConst = "ONE_OFF"
+    type: FormFieldPaymentConfigChargeTypeOneOffConst
     one_off: FormFieldPaymentConfigChargeOneOffOneOff
 
     if IS_PYDANTIC_V2:

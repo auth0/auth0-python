@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_salesforce import ConnectionOptionsSalesforce
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_salesforce_strategy import ConnectionResponseContentSalesforceStrategy
 
 
 class ConnectionResponseContentSalesforce(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentSalesforce(ConnectionResponseCommon):
     Response for connections with strategy=salesforce
     """
 
-    strategy: typing.Literal["salesforce"] = "salesforce"
+    strategy: ConnectionResponseContentSalesforceStrategy
     options: typing.Optional[ConnectionOptionsSalesforce] = None
 
     if IS_PYDANTIC_V2:

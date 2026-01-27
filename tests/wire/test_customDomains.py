@@ -5,13 +5,9 @@ def test_customDomains_list_() -> None:
     """Test list endpoint with WireMock"""
     test_id = "custom_domains.list_.0"
     client = get_client(test_id)
-    client.custom_domains.list(take=1, from_="from", q="q", fields="fields", include_fields=True, sort="sort")
+    client.custom_domains.list(q="q", fields="fields", include_fields=True, sort="sort")
     verify_request_count(
-        test_id,
-        "GET",
-        "/custom-domains",
-        {"take": "1", "from": "from", "q": "q", "fields": "fields", "include_fields": "true", "sort": "sort"},
-        1,
+        test_id, "GET", "/custom-domains", {"q": "q", "fields": "fields", "include_fields": "true", "sort": "sort"}, 1
     )
 
 

@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_miicard import ConnectionOptionsMiicard
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_miicard_strategy import ConnectionResponseContentMiicardStrategy
 
 
 class ConnectionResponseContentMiicard(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentMiicard(ConnectionResponseCommon):
     Response for connections with strategy=miicard
     """
 
-    strategy: typing.Literal["miicard"] = "miicard"
+    strategy: ConnectionResponseContentMiicardStrategy
     options: typing.Optional[ConnectionOptionsMiicard] = None
 
     if IS_PYDANTIC_V2:

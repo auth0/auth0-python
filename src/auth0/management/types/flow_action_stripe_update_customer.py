@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_stripe_update_customer_action import FlowActionStripeUpdateCustomerAction
 from .flow_action_stripe_update_customer_params import FlowActionStripeUpdateCustomerParams
+from .flow_action_stripe_update_customer_type import FlowActionStripeUpdateCustomerType
 
 
 class FlowActionStripeUpdateCustomer(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["STRIPE"] = "STRIPE"
-    action: typing.Literal["UPDATE_CUSTOMER"] = "UPDATE_CUSTOMER"
+    type: FlowActionStripeUpdateCustomerType
+    action: FlowActionStripeUpdateCustomerAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionStripeUpdateCustomerParams

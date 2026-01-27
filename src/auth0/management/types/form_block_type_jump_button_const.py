@@ -2,4 +2,4 @@
 
 import typing
 
-FormBlockTypeJumpButtonConst = typing.Literal["JUMP_BUTTON"]
+FormBlockTypeJumpButtonConst = typing.Union[typing.Literal["JUMP_BUTTON"], typing.Any]

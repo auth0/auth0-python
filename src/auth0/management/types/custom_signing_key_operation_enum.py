@@ -2,4 +2,4 @@
 
 import typing
 
-CustomSigningKeyOperationEnum = typing.Literal["verify"]
+CustomSigningKeyOperationEnum = typing.Union[typing.Literal["verify"], typing.Any]

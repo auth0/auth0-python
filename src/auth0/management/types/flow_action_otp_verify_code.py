@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_otp_verify_code_action import FlowActionOtpVerifyCodeAction
 from .flow_action_otp_verify_code_params import FlowActionOtpVerifyCodeParams
+from .flow_action_otp_verify_code_type import FlowActionOtpVerifyCodeType
 
 
 class FlowActionOtpVerifyCode(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["OTP"] = "OTP"
-    action: typing.Literal["VERIFY_CODE"] = "VERIFY_CODE"
+    type: FlowActionOtpVerifyCodeType
+    action: FlowActionOtpVerifyCodeAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionOtpVerifyCodeParams

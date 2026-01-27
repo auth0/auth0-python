@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_salesforce_search_leads_action import FlowActionSalesforceSearchLeadsAction
 from .flow_action_salesforce_search_leads_params import FlowActionSalesforceSearchLeadsParams
+from .flow_action_salesforce_search_leads_type import FlowActionSalesforceSearchLeadsType
 
 
 class FlowActionSalesforceSearchLeads(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["SALESFORCE"] = "SALESFORCE"
-    action: typing.Literal["SEARCH_LEADS"] = "SEARCH_LEADS"
+    type: FlowActionSalesforceSearchLeadsType
+    action: FlowActionSalesforceSearchLeadsAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionSalesforceSearchLeadsParams

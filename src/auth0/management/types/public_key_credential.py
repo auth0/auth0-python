@@ -10,7 +10,7 @@ from .public_key_credential_type_enum import PublicKeyCredentialTypeEnum
 
 
 class PublicKeyCredential(UniversalBaseModel):
-    credential_type: PublicKeyCredentialTypeEnum = "public_key"
+    credential_type: PublicKeyCredentialTypeEnum
     name: typing.Optional[str] = pydantic.Field(default="")
     """
     Friendly name for a credential.

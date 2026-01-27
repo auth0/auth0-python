@@ -4,11 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .acul_response_content import AculResponseContent
+from .list_aculs_response_content_item import ListAculsResponseContentItem
 
 
 class ListAculsOffsetPaginatedResponseContent(UniversalBaseModel):
-    configs: typing.Optional[typing.List[AculResponseContent]] = None
+    configs: typing.Optional[typing.List[ListAculsResponseContentItem]] = None
     start: typing.Optional[float] = pydantic.Field(default=None)
     """
     the index of the first configuration in the response (before filtering)

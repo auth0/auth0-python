@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionSalesforceOauthCode(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdSalesforceEnum = "SALESFORCE"
+    app_id: FlowsVaultConnectionAppIdSalesforceEnum
     setup: FlowsVaultConnectioSetupOauthCode
 
     if IS_PYDANTIC_V2:

@@ -9,7 +9,9 @@ from ..core.serialization import FieldMetadata
 
 
 class LogStreamSegmentSinkWriteKey(UniversalBaseModel):
-    segment_write_key: typing_extensions.Annotated[str, FieldMetadata(alias="segmentWriteKey")] = pydantic.Field()
+    segment_write_key: typing_extensions.Annotated[str, FieldMetadata(alias="segmentWriteKey")] = pydantic.Field(
+        alias="segmentWriteKey"
+    )
     """
     Segment write key
     """

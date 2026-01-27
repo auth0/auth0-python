@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_flickr import ConnectionOptionsFlickr
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_flickr_strategy import ConnectionResponseContentFlickrStrategy
 
 
 class ConnectionResponseContentFlickr(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentFlickr(ConnectionResponseCommon):
     Response for connections with strategy=flickr
     """
 
-    strategy: typing.Literal["flickr"] = "flickr"
+    strategy: ConnectionResponseContentFlickrStrategy
     options: typing.Optional[ConnectionOptionsFlickr] = None
 
     if IS_PYDANTIC_V2:

@@ -14,14 +14,14 @@ class ConnectionScriptsOAuth2(UniversalBaseModel):
     """
 
     fetch_user_profile: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="fetchUserProfile")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="fetchUserProfile", default=None)
     )
     """
     Custom JavaScript function to retrieve and transform user profile data from the identity provider. Called with the access token and token exchange response. Must return a user profile object. Executed in a sandboxed environment. If not provided, an empty profile object is used.
     """
 
     get_logout_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="getLogoutUrl")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="getLogoutUrl", default=None)
     )
     """
     Custom JavaScript function to dynamically construct the logout URL for the identity provider. Called with the request query parameters and must invoke a callback with the logout URL. Only used if 'logoutUrl' is not configured. Executed in a sandboxed environment.

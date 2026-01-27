@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_paypal import ConnectionOptionsPaypal
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_paypal_strategy import CreateConnectionRequestContentPaypalStrategy
 
 
 class CreateConnectionRequestContentPaypal(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentPaypal(CreateConnectionCommon):
     Create a connection with strategy=paypal
     """
 
-    strategy: typing.Literal["paypal"] = "paypal"
+    strategy: CreateConnectionRequestContentPaypalStrategy
     options: typing.Optional[ConnectionOptionsPaypal] = None
 
     if IS_PYDANTIC_V2:

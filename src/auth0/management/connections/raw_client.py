@@ -201,7 +201,9 @@ class RawConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateConnectionResponseContent]:
         """
-        Creates a new connection according to the JSON object received in <code>body</code>.<br/>
+        Creates a new connection according to the JSON object received in <code>body</code>.
+
+        <b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
 
         Parameters
         ----------
@@ -451,6 +453,8 @@ class RawConnectionsClient:
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
         Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+
+        <b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.
 
         Parameters
         ----------
@@ -937,7 +941,9 @@ class AsyncRawConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateConnectionResponseContent]:
         """
-        Creates a new connection according to the JSON object received in <code>body</code>.<br/>
+        Creates a new connection according to the JSON object received in <code>body</code>.
+
+        <b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
 
         Parameters
         ----------
@@ -1189,6 +1195,8 @@ class AsyncRawConnectionsClient:
     ) -> AsyncHttpResponse[None]:
         """
         Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+
+        <b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.
 
         Parameters
         ----------

@@ -34,6 +34,15 @@ from ....types.set_guardian_factors_provider_push_notification_response_content 
 from ....types.set_guardian_factors_provider_push_notification_sns_response_content import (
     SetGuardianFactorsProviderPushNotificationSnsResponseContent,
 )
+from ....types.update_guardian_factors_provider_push_notification_apns_response_content import (
+    UpdateGuardianFactorsProviderPushNotificationApnsResponseContent,
+)
+from ....types.update_guardian_factors_provider_push_notification_fcm_response_content import (
+    UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
+)
+from ....types.update_guardian_factors_provider_push_notification_fcmv_1_response_content import (
+    UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
+)
 from ....types.update_guardian_factors_provider_push_notification_sns_response_content import (
     UpdateGuardianFactorsProviderPushNotificationSnsResponseContent,
 )
@@ -124,7 +133,7 @@ class RawPushNotificationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
-        Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
 
         Parameters
         ----------
@@ -144,7 +153,7 @@ class RawPushNotificationClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "guardian/factors/push-notification/providers/apns",
-            method="PATCH",
+            method="PUT",
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
@@ -204,11 +213,100 @@ class RawPushNotificationClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def update_apns_provider(
+        self,
+        *,
+        sandbox: typing.Optional[bool] = OMIT,
+        bundle_id: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[UpdateGuardianFactorsProviderPushNotificationApnsResponseContent]:
+        """
+        Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+
+        Parameters
+        ----------
+        sandbox : typing.Optional[bool]
+
+        bundle_id : typing.Optional[str]
+
+        p_12 : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[UpdateGuardianFactorsProviderPushNotificationApnsResponseContent]
+            APNS configuration successfully updated.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "guardian/factors/push-notification/providers/apns",
+            method="PATCH",
+            json={
+                "sandbox": sandbox,
+                "bundle_id": bundle_id,
+                "p12": p_12,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateGuardianFactorsProviderPushNotificationApnsResponseContent,
+                    parse_obj_as(
+                        type_=UpdateGuardianFactorsProviderPushNotificationApnsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def set_fcm_provider(
         self, *, server_key: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[SetGuardianFactorsProviderPushNotificationFcmResponseContent]:
         """
-        Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
 
         Parameters
         ----------
@@ -224,7 +322,7 @@ class RawPushNotificationClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "guardian/factors/push-notification/providers/fcm",
-            method="PATCH",
+            method="PUT",
             json={
                 "server_key": server_key,
             },
@@ -282,12 +380,171 @@ class RawPushNotificationClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def update_fcm_provider(
+        self, *, server_key: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[UpdateGuardianFactorsProviderPushNotificationFcmResponseContent]:
+        """
+        Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+
+        Parameters
+        ----------
+        server_key : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[UpdateGuardianFactorsProviderPushNotificationFcmResponseContent]
+            FCM configuration updated
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "guardian/factors/push-notification/providers/fcm",
+            method="PATCH",
+            json={
+                "server_key": server_key,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
+                    parse_obj_as(
+                        type_=UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def set_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent]:
+        """
+        Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+
+        Parameters
+        ----------
+        server_credentials : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent]
+            FCMV1 configuration updated
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "guardian/factors/push-notification/providers/fcmv1",
+            method="PUT",
+            json={
+                "server_credentials": server_credentials,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
+                    parse_obj_as(
+                        type_=SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update_fcmv_1_provider(
+        self,
+        *,
+        server_credentials: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent]:
         """
         Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
 
@@ -300,7 +557,7 @@ class RawPushNotificationClient:
 
         Returns
         -------
-        HttpResponse[SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent]
+        HttpResponse[UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent]
             FCMV1 configuration updated
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -318,9 +575,9 @@ class RawPushNotificationClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
+                    UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
                     parse_obj_as(
-                        type_=SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,  # type: ignore
+                        type_=UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -859,7 +1116,7 @@ class AsyncRawPushNotificationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
-        Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
 
         Parameters
         ----------
@@ -879,7 +1136,7 @@ class AsyncRawPushNotificationClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "guardian/factors/push-notification/providers/apns",
-            method="PATCH",
+            method="PUT",
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
@@ -939,11 +1196,100 @@ class AsyncRawPushNotificationClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def update_apns_provider(
+        self,
+        *,
+        sandbox: typing.Optional[bool] = OMIT,
+        bundle_id: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationApnsResponseContent]:
+        """
+        Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+
+        Parameters
+        ----------
+        sandbox : typing.Optional[bool]
+
+        bundle_id : typing.Optional[str]
+
+        p_12 : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationApnsResponseContent]
+            APNS configuration successfully updated.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "guardian/factors/push-notification/providers/apns",
+            method="PATCH",
+            json={
+                "sandbox": sandbox,
+                "bundle_id": bundle_id,
+                "p12": p_12,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateGuardianFactorsProviderPushNotificationApnsResponseContent,
+                    parse_obj_as(
+                        type_=UpdateGuardianFactorsProviderPushNotificationApnsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def set_fcm_provider(
         self, *, server_key: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationFcmResponseContent]:
         """
-        Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+        Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
 
         Parameters
         ----------
@@ -959,7 +1305,7 @@ class AsyncRawPushNotificationClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "guardian/factors/push-notification/providers/fcm",
-            method="PATCH",
+            method="PUT",
             json={
                 "server_key": server_key,
             },
@@ -1017,12 +1363,171 @@ class AsyncRawPushNotificationClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def update_fcm_provider(
+        self, *, server_key: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationFcmResponseContent]:
+        """
+        Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+
+        Parameters
+        ----------
+        server_key : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationFcmResponseContent]
+            FCM configuration updated
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "guardian/factors/push-notification/providers/fcm",
+            method="PATCH",
+            json={
+                "server_key": server_key,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
+                    parse_obj_as(
+                        type_=UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def set_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent]:
+        """
+        Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+
+        Parameters
+        ----------
+        server_credentials : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent]
+            FCMV1 configuration updated
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "guardian/factors/push-notification/providers/fcmv1",
+            method="PUT",
+            json={
+                "server_credentials": server_credentials,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
+                    parse_obj_as(
+                        type_=SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update_fcmv_1_provider(
+        self,
+        *,
+        server_credentials: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent]:
         """
         Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
 
@@ -1035,7 +1540,7 @@ class AsyncRawPushNotificationClient:
 
         Returns
         -------
-        AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent]
+        AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent]
             FCMV1 configuration updated
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1053,9 +1558,9 @@ class AsyncRawPushNotificationClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
+                    UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
                     parse_obj_as(
-                        type_=SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,  # type: ignore
+                        type_=UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

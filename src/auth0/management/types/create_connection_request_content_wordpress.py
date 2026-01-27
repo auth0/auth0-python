@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_wordpress import ConnectionOptionsWordpress
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_wordpress_strategy import CreateConnectionRequestContentWordpressStrategy
 
 
 class CreateConnectionRequestContentWordpress(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentWordpress(CreateConnectionCommon):
     Create a connection with strategy=wordpress
     """
 
-    strategy: typing.Literal["wordpress"] = "wordpress"
+    strategy: CreateConnectionRequestContentWordpressStrategy
     options: typing.Optional[ConnectionOptionsWordpress] = None
 
     if IS_PYDANTIC_V2:

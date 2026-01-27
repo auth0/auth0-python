@@ -9,7 +9,7 @@ from .event_stream_delivery_status_enum import EventStreamDeliveryStatusEnum
 
 
 class EventStreamDeliveryAttempt(UniversalBaseModel):
-    status: EventStreamDeliveryStatusEnum = "failed"
+    status: EventStreamDeliveryStatusEnum
     timestamp: dt.datetime = pydantic.Field()
     """
     Timestamp of delivery attempt
