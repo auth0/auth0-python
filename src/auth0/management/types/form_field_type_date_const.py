@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeDateConst = typing.Literal["DATE"]
+FormFieldTypeDateConst = typing.Union[typing.Literal["DATE"], typing.Any]

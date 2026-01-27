@@ -15,7 +15,7 @@ class TenantSettingsFlags(UniversalBaseModel):
 
     change_pwd_flow_v_1: typing_extensions.Annotated[
         typing.Optional[bool], FieldMetadata(alias="change_pwd_flow_v1")
-    ] = pydantic.Field(default=False)
+    ] = pydantic.Field(alias="change_pwd_flow_v1", default=False)
     """
     Whether to use the older v1 change password flow (true, not recommended except for backward compatibility) or the newer safer flow (false, recommended).
     """
@@ -36,7 +36,7 @@ class TenantSettingsFlags(UniversalBaseModel):
     """
 
     enable_pipeline_2: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="enable_pipeline2")] = (
-        pydantic.Field(default=True)
+        pydantic.Field(alias="enable_pipeline2", default=True)
     )
     """
     Whether advanced API Authorization scenarios are enabled (true) or disabled (false).
@@ -64,7 +64,7 @@ class TenantSettingsFlags(UniversalBaseModel):
 
     enable_idtoken_api_2: typing_extensions.Annotated[
         typing.Optional[bool], FieldMetadata(alias="enable_idtoken_api2")
-    ] = pydantic.Field(default=None)
+    ] = pydantic.Field(alias="enable_idtoken_api2", default=None)
     """
     Whether ID tokens can be used to authorize some types of requests to API v2 (true) not not (false).
     """

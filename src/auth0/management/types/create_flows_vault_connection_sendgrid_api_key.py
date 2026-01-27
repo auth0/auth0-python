@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionSendgridApiKey(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdSendgridEnum = "SENDGRID"
+    app_id: FlowsVaultConnectionAppIdSendgridEnum
     setup: FlowsVaultConnectioSetupApiKey
 
     if IS_PYDANTIC_V2:

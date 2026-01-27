@@ -2,4 +2,4 @@
 
 import typing
 
-CustomDomainTlsPolicyEnum = typing.Literal["recommended"]
+CustomDomainTlsPolicyEnum = typing.Union[typing.Literal["recommended"], typing.Any]

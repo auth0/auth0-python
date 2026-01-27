@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_telegram_send_message_action import FlowActionTelegramSendMessageAction
 from .flow_action_telegram_send_message_params import FlowActionTelegramSendMessageParams
+from .flow_action_telegram_send_message_type import FlowActionTelegramSendMessageType
 
 
 class FlowActionTelegramSendMessage(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["TELEGRAM"] = "TELEGRAM"
-    action: typing.Literal["SEND_MESSAGE"] = "SEND_MESSAGE"
+    type: FlowActionTelegramSendMessageType
+    action: FlowActionTelegramSendMessageAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionTelegramSendMessageParams

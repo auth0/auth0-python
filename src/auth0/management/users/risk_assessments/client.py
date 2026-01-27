@@ -65,7 +65,7 @@ class RiskAssessmentsClient:
         client.users.risk_assessments.clear(
             id="id",
             connection="connection",
-            assessors=[],
+            assessors=["new-device"],
         )
         """
         _response = self._raw_client.clear(
@@ -133,7 +133,7 @@ class AsyncRiskAssessmentsClient:
             await client.users.risk_assessments.clear(
                 id="id",
                 connection="connection",
-                assessors=[],
+                assessors=["new-device"],
             )
 
 

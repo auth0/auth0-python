@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdActivecampaignEnum = typing.Literal["ACTIVECAMPAIGN"]
+FlowsVaultConnectionAppIdActivecampaignEnum = typing.Union[typing.Literal["ACTIVECAMPAIGN"], typing.Any]

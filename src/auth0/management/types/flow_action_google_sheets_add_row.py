@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_google_sheets_add_row_action import FlowActionGoogleSheetsAddRowAction
 from .flow_action_google_sheets_add_row_params import FlowActionGoogleSheetsAddRowParams
+from .flow_action_google_sheets_add_row_type import FlowActionGoogleSheetsAddRowType
 
 
 class FlowActionGoogleSheetsAddRow(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["GOOGLE_SHEETS"] = "GOOGLE_SHEETS"
-    action: typing.Literal["ADD_ROW"] = "ADD_ROW"
+    type: FlowActionGoogleSheetsAddRowType
+    action: FlowActionGoogleSheetsAddRowAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionGoogleSheetsAddRowParams

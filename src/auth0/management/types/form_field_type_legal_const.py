@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeLegalConst = typing.Literal["LEGAL"]
+FormFieldTypeLegalConst = typing.Union[typing.Literal["LEGAL"], typing.Any]

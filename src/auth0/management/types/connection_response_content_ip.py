@@ -6,6 +6,8 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_ip import ConnectionOptionsIp
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_ip_strategy import ConnectionResponseContentIpStrategy
+from .connection_show_as_button import ConnectionShowAsButton
 
 
 class ConnectionResponseContentIp(ConnectionResponseCommon):
@@ -13,8 +15,9 @@ class ConnectionResponseContentIp(ConnectionResponseCommon):
     Response for connections with strategy=ip
     """
 
-    strategy: typing.Literal["ip"] = "ip"
+    strategy: ConnectionResponseContentIpStrategy
     options: typing.Optional[ConnectionOptionsIp] = None
+    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

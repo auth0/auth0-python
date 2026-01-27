@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_jwt_decode_jwt_action import FlowActionJwtDecodeJwtAction
 from .flow_action_jwt_decode_jwt_params import FlowActionJwtDecodeJwtParams
+from .flow_action_jwt_decode_jwt_type import FlowActionJwtDecodeJwtType
 
 
 class FlowActionJwtDecodeJwt(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["JWT"] = "JWT"
-    action: typing.Literal["DECODE_JWT"] = "DECODE_JWT"
+    type: FlowActionJwtDecodeJwtType
+    action: FlowActionJwtDecodeJwtAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionJwtDecodeJwtParams

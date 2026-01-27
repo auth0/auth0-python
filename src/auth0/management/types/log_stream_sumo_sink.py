@@ -9,7 +9,9 @@ from ..core.serialization import FieldMetadata
 
 
 class LogStreamSumoSink(UniversalBaseModel):
-    sumo_source_address: typing_extensions.Annotated[str, FieldMetadata(alias="sumoSourceAddress")] = pydantic.Field()
+    sumo_source_address: typing_extensions.Annotated[str, FieldMetadata(alias="sumoSourceAddress")] = pydantic.Field(
+        alias="sumoSourceAddress"
+    )
     """
     HTTP Source Address
     """

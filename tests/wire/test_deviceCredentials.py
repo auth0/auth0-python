@@ -37,7 +37,9 @@ def test_deviceCredentials_create_public_key() -> None:
     """Test createPublicKey endpoint with WireMock"""
     test_id = "device_credentials.create_public_key.0"
     client = get_client(test_id)
-    client.device_credentials.create_public_key(device_name="device_name", value="value", device_id="device_id")
+    client.device_credentials.create_public_key(
+        device_name="device_name", type="public_key", value="value", device_id="device_id"
+    )
     verify_request_count(test_id, "POST", "/device-credentials", None, 1)
 
 

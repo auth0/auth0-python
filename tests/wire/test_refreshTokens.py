@@ -15,3 +15,11 @@ def test_refreshTokens_delete() -> None:
     client = get_client(test_id)
     client.refresh_tokens.delete(id="id")
     verify_request_count(test_id, "DELETE", "/refresh-tokens/id", None, 1)
+
+
+def test_refreshTokens_update() -> None:
+    """Test update endpoint with WireMock"""
+    test_id = "refresh_tokens.update.0"
+    client = get_client(test_id)
+    client.refresh_tokens.update(id="id")
+    verify_request_count(test_id, "PATCH", "/refresh-tokens/id", None, 1)

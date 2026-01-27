@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionTelegramUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdTelegramEnum = "TELEGRAM"
+    app_id: FlowsVaultConnectionAppIdTelegramEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

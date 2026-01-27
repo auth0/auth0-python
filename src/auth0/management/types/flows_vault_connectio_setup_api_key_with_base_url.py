@@ -8,7 +8,7 @@ from .flows_vault_connectio_setup_type_api_key_enum import FlowsVaultConnectioSe
 
 
 class FlowsVaultConnectioSetupApiKeyWithBaseUrl(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeApiKeyEnum = "API_KEY"
+    type: FlowsVaultConnectioSetupTypeApiKeyEnum
     api_key: str
     base_url: str
 

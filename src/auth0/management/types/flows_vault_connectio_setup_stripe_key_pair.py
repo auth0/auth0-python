@@ -8,7 +8,7 @@ from .flows_vault_connectio_setup_type_key_pair_enum import FlowsVaultConnectioS
 
 
 class FlowsVaultConnectioSetupStripeKeyPair(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeKeyPairEnum = "KEY_PAIR"
+    type: FlowsVaultConnectioSetupTypeKeyPairEnum
     private_key: str
     public_key: str
 

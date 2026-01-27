@@ -24,7 +24,7 @@ class ClientAddonSalesforceSandboxApi(UniversalBaseModel):
     """
 
     community_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="communityName")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="communityName", default=None)
     )
     """
     Community name.

@@ -11,7 +11,7 @@ from .form_step_config import FormStepConfig
 
 class FormStep(UniversalBaseModel):
     id: str
-    type: FormNodeTypeStepConst = "STEP"
+    type: FormNodeTypeStepConst
     coordinates: typing.Optional[FormNodeCoordinates] = None
     alias: typing.Optional[str] = None
     config: typing.Optional[FormStepConfig] = None

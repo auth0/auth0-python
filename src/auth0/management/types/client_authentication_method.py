@@ -4,9 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .client_authentication_method_private_key_jwt import ClientAuthenticationMethodPrivateKeyJwt
 from .client_authentication_method_self_signed_tls_client_auth import ClientAuthenticationMethodSelfSignedTlsClientAuth
 from .client_authentication_method_tls_client_auth import ClientAuthenticationMethodTlsClientAuth
-from .private_key_jwt import PrivateKeyJwt
 
 
 class ClientAuthenticationMethod(UniversalBaseModel):
@@ -14,7 +14,7 @@ class ClientAuthenticationMethod(UniversalBaseModel):
     Defines client authentication methods.
     """
 
-    private_key_jwt: typing.Optional[PrivateKeyJwt] = None
+    private_key_jwt: typing.Optional[ClientAuthenticationMethodPrivateKeyJwt] = None
     tls_client_auth: typing.Optional[ClientAuthenticationMethodTlsClientAuth] = None
     self_signed_tls_client_auth: typing.Optional[ClientAuthenticationMethodSelfSignedTlsClientAuth] = None
 

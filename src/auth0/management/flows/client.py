@@ -15,6 +15,7 @@ from ..types.get_flow_response_content import GetFlowResponseContent
 from ..types.list_flows_offset_paginated_response_content import ListFlowsOffsetPaginatedResponseContent
 from ..types.update_flow_response_content import UpdateFlowResponseContent
 from .raw_client import AsyncRawFlowsClient, RawFlowsClient
+from .types.flows_list_request_hydrate_item import FlowsListRequestHydrateItem
 
 if typing.TYPE_CHECKING:
     from .executions.client import AsyncExecutionsClient, ExecutionsClient
@@ -48,7 +49,7 @@ class FlowsClient:
         per_page: typing.Optional[int] = 50,
         include_totals: typing.Optional[bool] = True,
         hydrate: typing.Optional[
-            typing.Union[typing.Literal["form_count"], typing.Sequence[typing.Literal["form_count"]]]
+            typing.Union[FlowsListRequestHydrateItem, typing.Sequence[FlowsListRequestHydrateItem]]
         ] = None,
         synchronous: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -65,7 +66,7 @@ class FlowsClient:
         include_totals : typing.Optional[bool]
             Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
-        hydrate : typing.Optional[typing.Union[typing.Literal["form_count"], typing.Sequence[typing.Literal["form_count"]]]]
+        hydrate : typing.Optional[typing.Union[FlowsListRequestHydrateItem, typing.Sequence[FlowsListRequestHydrateItem]]]
             hydration param
 
         synchronous : typing.Optional[bool]
@@ -293,7 +294,7 @@ class AsyncFlowsClient:
         per_page: typing.Optional[int] = 50,
         include_totals: typing.Optional[bool] = True,
         hydrate: typing.Optional[
-            typing.Union[typing.Literal["form_count"], typing.Sequence[typing.Literal["form_count"]]]
+            typing.Union[FlowsListRequestHydrateItem, typing.Sequence[FlowsListRequestHydrateItem]]
         ] = None,
         synchronous: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -310,7 +311,7 @@ class AsyncFlowsClient:
         include_totals : typing.Optional[bool]
             Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
-        hydrate : typing.Optional[typing.Union[typing.Literal["form_count"], typing.Sequence[typing.Literal["form_count"]]]]
+        hydrate : typing.Optional[typing.Union[FlowsListRequestHydrateItem, typing.Sequence[FlowsListRequestHydrateItem]]]
             hydration param
 
         synchronous : typing.Optional[bool]

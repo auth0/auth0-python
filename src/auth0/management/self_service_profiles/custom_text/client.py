@@ -7,6 +7,8 @@ from ...core.request_options import RequestOptions
 from ...types.list_self_service_profile_custom_text_response_content import (
     ListSelfServiceProfileCustomTextResponseContent,
 )
+from ...types.self_service_profile_custom_text_language_enum import SelfServiceProfileCustomTextLanguageEnum
+from ...types.self_service_profile_custom_text_page_enum import SelfServiceProfileCustomTextPageEnum
 from ...types.set_self_service_profile_custom_text_request_content import SetSelfServiceProfileCustomTextRequestContent
 from ...types.set_self_service_profile_custom_text_response_content import (
     SetSelfServiceProfileCustomTextResponseContent,
@@ -33,7 +35,12 @@ class CustomTextClient:
         return self._raw_client
 
     def list(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        language: SelfServiceProfileCustomTextLanguageEnum,
+        page: SelfServiceProfileCustomTextPageEnum,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ListSelfServiceProfileCustomTextResponseContent:
         """
         Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
@@ -42,6 +49,12 @@ class CustomTextClient:
         ----------
         id : str
             The id of the self-service profile.
+
+        language : SelfServiceProfileCustomTextLanguageEnum
+            The language of the custom text.
+
+        page : SelfServiceProfileCustomTextPageEnum
+            The page where the custom text is shown.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -60,14 +73,18 @@ class CustomTextClient:
         )
         client.self_service_profiles.custom_text.list(
             id="id",
+            language="en",
+            page="get-started",
         )
         """
-        _response = self._raw_client.list(id, request_options=request_options)
+        _response = self._raw_client.list(id, language, page, request_options=request_options)
         return _response.data
 
     def set(
         self,
         id: str,
+        language: SelfServiceProfileCustomTextLanguageEnum,
+        page: SelfServiceProfileCustomTextPageEnum,
         *,
         request: SetSelfServiceProfileCustomTextRequestContent,
         request_options: typing.Optional[RequestOptions] = None,
@@ -79,6 +96,12 @@ class CustomTextClient:
         ----------
         id : str
             The id of the self-service profile.
+
+        language : SelfServiceProfileCustomTextLanguageEnum
+            The language of the custom text.
+
+        page : SelfServiceProfileCustomTextPageEnum
+            The page where the custom text is shown.
 
         request : SetSelfServiceProfileCustomTextRequestContent
 
@@ -99,10 +122,12 @@ class CustomTextClient:
         )
         client.self_service_profiles.custom_text.set(
             id="id",
+            language="en",
+            page="get-started",
             request={"key": "value"},
         )
         """
-        _response = self._raw_client.set(id, request=request, request_options=request_options)
+        _response = self._raw_client.set(id, language, page, request=request, request_options=request_options)
         return _response.data
 
 
@@ -122,7 +147,12 @@ class AsyncCustomTextClient:
         return self._raw_client
 
     async def list(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        language: SelfServiceProfileCustomTextLanguageEnum,
+        page: SelfServiceProfileCustomTextPageEnum,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ListSelfServiceProfileCustomTextResponseContent:
         """
         Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
@@ -131,6 +161,12 @@ class AsyncCustomTextClient:
         ----------
         id : str
             The id of the self-service profile.
+
+        language : SelfServiceProfileCustomTextLanguageEnum
+            The language of the custom text.
+
+        page : SelfServiceProfileCustomTextPageEnum
+            The page where the custom text is shown.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -154,17 +190,21 @@ class AsyncCustomTextClient:
         async def main() -> None:
             await client.self_service_profiles.custom_text.list(
                 id="id",
+                language="en",
+                page="get-started",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(id, request_options=request_options)
+        _response = await self._raw_client.list(id, language, page, request_options=request_options)
         return _response.data
 
     async def set(
         self,
         id: str,
+        language: SelfServiceProfileCustomTextLanguageEnum,
+        page: SelfServiceProfileCustomTextPageEnum,
         *,
         request: SetSelfServiceProfileCustomTextRequestContent,
         request_options: typing.Optional[RequestOptions] = None,
@@ -176,6 +216,12 @@ class AsyncCustomTextClient:
         ----------
         id : str
             The id of the self-service profile.
+
+        language : SelfServiceProfileCustomTextLanguageEnum
+            The language of the custom text.
+
+        page : SelfServiceProfileCustomTextPageEnum
+            The page where the custom text is shown.
 
         request : SetSelfServiceProfileCustomTextRequestContent
 
@@ -201,11 +247,13 @@ class AsyncCustomTextClient:
         async def main() -> None:
             await client.self_service_profiles.custom_text.set(
                 id="id",
+                language="en",
+                page="get-started",
                 request={"key": "value"},
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.set(id, request=request, request_options=request_options)
+        _response = await self._raw_client.set(id, language, page, request=request, request_options=request_options)
         return _response.data

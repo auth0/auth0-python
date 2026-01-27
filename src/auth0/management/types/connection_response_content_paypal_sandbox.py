@@ -4,8 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_paypal_sandbox import ConnectionOptionsPaypalSandbox
+from .connection_options_paypal import ConnectionOptionsPaypal
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_paypal_sandbox_strategy import ConnectionResponseContentPaypalSandboxStrategy
 
 
 class ConnectionResponseContentPaypalSandbox(ConnectionResponseCommon):
@@ -13,8 +14,8 @@ class ConnectionResponseContentPaypalSandbox(ConnectionResponseCommon):
     Response for connections with strategy=paypal-sandbox
     """
 
-    strategy: typing.Literal["paypal-sandbox"] = "paypal-sandbox"
-    options: typing.Optional[ConnectionOptionsPaypalSandbox] = None
+    strategy: ConnectionResponseContentPaypalSandboxStrategy
+    options: typing.Optional[ConnectionOptionsPaypal] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

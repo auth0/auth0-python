@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .credential_id import CredentialId
+from .client_authentication_method_tls_client_auth_credentials import ClientAuthenticationMethodTlsClientAuthCredentials
 
 
 class ClientAuthenticationMethodTlsClientAuth(UniversalBaseModel):
@@ -12,10 +12,7 @@ class ClientAuthenticationMethodTlsClientAuth(UniversalBaseModel):
     Defines `tls_client_auth` client authentication method. If the property is defined, the client is configured to use CA-based mTLS authentication method.
     """
 
-    credentials: typing.List[CredentialId] = pydantic.Field()
-    """
-    A list of unique and previously created credential IDs enabled on the client for CA-based mTLS authentication.
-    """
+    credentials: ClientAuthenticationMethodTlsClientAuthCredentials
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

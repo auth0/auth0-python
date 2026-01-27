@@ -2,4 +2,4 @@
 
 import typing
 
-EncryptionKeyPublicWrappingAlgorithm = typing.Literal["CKM_RSA_AES_KEY_WRAP"]
+EncryptionKeyPublicWrappingAlgorithm = typing.Union[typing.Literal["CKM_RSA_AES_KEY_WRAP"], typing.Any]

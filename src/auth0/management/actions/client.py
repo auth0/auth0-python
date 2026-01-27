@@ -8,6 +8,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.action import Action
+from ..types.action_module_reference import ActionModuleReference
 from ..types.action_secret_request import ActionSecretRequest
 from ..types.action_trigger import ActionTrigger
 from ..types.action_trigger_type_enum import ActionTriggerTypeEnum
@@ -23,6 +24,7 @@ from .raw_client import AsyncRawActionsClient, RawActionsClient
 
 if typing.TYPE_CHECKING:
     from .executions.client import AsyncExecutionsClient, ExecutionsClient
+    from .modules.client import AsyncModulesClient, ModulesClient
     from .triggers.client import AsyncTriggersClient, TriggersClient
     from .versions.client import AsyncVersionsClient, VersionsClient
 # this is used as the default value for optional parameters
@@ -35,6 +37,7 @@ class ActionsClient:
         self._client_wrapper = client_wrapper
         self._versions: typing.Optional[VersionsClient] = None
         self._executions: typing.Optional[ExecutionsClient] = None
+        self._modules: typing.Optional[ModulesClient] = None
         self._triggers: typing.Optional[TriggersClient] = None
 
     @property
@@ -130,6 +133,7 @@ class ActionsClient:
         dependencies: typing.Optional[typing.Sequence[ActionVersionDependency]] = OMIT,
         runtime: typing.Optional[str] = "node22",
         secrets: typing.Optional[typing.Sequence[ActionSecretRequest]] = OMIT,
+        modules: typing.Optional[typing.Sequence[ActionModuleReference]] = OMIT,
         deploy: typing.Optional[bool] = False,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateActionResponseContent:
@@ -155,6 +159,9 @@ class ActionsClient:
 
         secrets : typing.Optional[typing.Sequence[ActionSecretRequest]]
             The list of secrets that are included in an action or a version of an action.
+
+        modules : typing.Optional[typing.Sequence[ActionModuleReference]]
+            The list of action modules and their versions used by this action.
 
         deploy : typing.Optional[bool]
             True if the action should be deployed after creation.
@@ -190,6 +197,7 @@ class ActionsClient:
             dependencies=dependencies,
             runtime=runtime,
             secrets=secrets,
+            modules=modules,
             deploy=deploy,
             request_options=request_options,
         )
@@ -272,6 +280,7 @@ class ActionsClient:
         dependencies: typing.Optional[typing.Sequence[ActionVersionDependency]] = OMIT,
         runtime: typing.Optional[str] = "node22",
         secrets: typing.Optional[typing.Sequence[ActionSecretRequest]] = OMIT,
+        modules: typing.Optional[typing.Sequence[ActionModuleReference]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateActionResponseContent:
         """
@@ -300,6 +309,9 @@ class ActionsClient:
         secrets : typing.Optional[typing.Sequence[ActionSecretRequest]]
             The list of secrets that are included in an action or a version of an action.
 
+        modules : typing.Optional[typing.Sequence[ActionModuleReference]]
+            The list of action modules and their versions used by this action.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -327,6 +339,7 @@ class ActionsClient:
             dependencies=dependencies,
             runtime=runtime,
             secrets=secrets,
+            modules=modules,
             request_options=request_options,
         )
         return _response.data
@@ -417,6 +430,14 @@ class ActionsClient:
         return self._executions
 
     @property
+    def modules(self):
+        if self._modules is None:
+            from .modules.client import ModulesClient  # noqa: E402
+
+            self._modules = ModulesClient(client_wrapper=self._client_wrapper)
+        return self._modules
+
+    @property
     def triggers(self):
         if self._triggers is None:
             from .triggers.client import TriggersClient  # noqa: E402
@@ -431,6 +452,7 @@ class AsyncActionsClient:
         self._client_wrapper = client_wrapper
         self._versions: typing.Optional[AsyncVersionsClient] = None
         self._executions: typing.Optional[AsyncExecutionsClient] = None
+        self._modules: typing.Optional[AsyncModulesClient] = None
         self._triggers: typing.Optional[AsyncTriggersClient] = None
 
     @property
@@ -535,6 +557,7 @@ class AsyncActionsClient:
         dependencies: typing.Optional[typing.Sequence[ActionVersionDependency]] = OMIT,
         runtime: typing.Optional[str] = "node22",
         secrets: typing.Optional[typing.Sequence[ActionSecretRequest]] = OMIT,
+        modules: typing.Optional[typing.Sequence[ActionModuleReference]] = OMIT,
         deploy: typing.Optional[bool] = False,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateActionResponseContent:
@@ -560,6 +583,9 @@ class AsyncActionsClient:
 
         secrets : typing.Optional[typing.Sequence[ActionSecretRequest]]
             The list of secrets that are included in an action or a version of an action.
+
+        modules : typing.Optional[typing.Sequence[ActionModuleReference]]
+            The list of action modules and their versions used by this action.
 
         deploy : typing.Optional[bool]
             True if the action should be deployed after creation.
@@ -603,6 +629,7 @@ class AsyncActionsClient:
             dependencies=dependencies,
             runtime=runtime,
             secrets=secrets,
+            modules=modules,
             deploy=deploy,
             request_options=request_options,
         )
@@ -703,6 +730,7 @@ class AsyncActionsClient:
         dependencies: typing.Optional[typing.Sequence[ActionVersionDependency]] = OMIT,
         runtime: typing.Optional[str] = "node22",
         secrets: typing.Optional[typing.Sequence[ActionSecretRequest]] = OMIT,
+        modules: typing.Optional[typing.Sequence[ActionModuleReference]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateActionResponseContent:
         """
@@ -730,6 +758,9 @@ class AsyncActionsClient:
 
         secrets : typing.Optional[typing.Sequence[ActionSecretRequest]]
             The list of secrets that are included in an action or a version of an action.
+
+        modules : typing.Optional[typing.Sequence[ActionModuleReference]]
+            The list of action modules and their versions used by this action.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -766,6 +797,7 @@ class AsyncActionsClient:
             dependencies=dependencies,
             runtime=runtime,
             secrets=secrets,
+            modules=modules,
             request_options=request_options,
         )
         return _response.data
@@ -870,6 +902,14 @@ class AsyncActionsClient:
 
             self._executions = AsyncExecutionsClient(client_wrapper=self._client_wrapper)
         return self._executions
+
+    @property
+    def modules(self):
+        if self._modules is None:
+            from .modules.client import AsyncModulesClient  # noqa: E402
+
+            self._modules = AsyncModulesClient(client_wrapper=self._client_wrapper)
+        return self._modules
 
     @property
     def triggers(self):

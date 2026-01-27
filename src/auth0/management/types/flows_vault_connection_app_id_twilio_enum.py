@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdTwilioEnum = typing.Literal["TWILIO"]
+FlowsVaultConnectionAppIdTwilioEnum = typing.Union[typing.Literal["TWILIO"], typing.Any]

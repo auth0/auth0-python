@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_zapier_trigger_webhook_action import FlowActionZapierTriggerWebhookAction
 from .flow_action_zapier_trigger_webhook_params import FlowActionZapierTriggerWebhookParams
+from .flow_action_zapier_trigger_webhook_type import FlowActionZapierTriggerWebhookType
 
 
 class FlowActionZapierTriggerWebhook(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["ZAPIER"] = "ZAPIER"
-    action: typing.Literal["TRIGGER_WEBHOOK"] = "TRIGGER_WEBHOOK"
+    type: FlowActionZapierTriggerWebhookType
+    action: FlowActionZapierTriggerWebhookAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionZapierTriggerWebhookParams

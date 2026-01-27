@@ -2,4 +2,4 @@
 
 import typing
 
-SelfServiceProfileCustomTextLanguageEnum = typing.Literal["en"]
+SelfServiceProfileCustomTextLanguageEnum = typing.Union[typing.Literal["en"], typing.Any]

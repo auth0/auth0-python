@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionSalesforceUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdSalesforceEnum = "SALESFORCE"
+    app_id: FlowsVaultConnectionAppIdSalesforceEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

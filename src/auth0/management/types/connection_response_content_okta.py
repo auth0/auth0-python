@@ -6,6 +6,8 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_okta import ConnectionOptionsOkta
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_okta_strategy import ConnectionResponseContentOktaStrategy
+from .connection_show_as_button import ConnectionShowAsButton
 
 
 class ConnectionResponseContentOkta(ConnectionResponseCommon):
@@ -13,8 +15,9 @@ class ConnectionResponseContentOkta(ConnectionResponseCommon):
     Response for connections with strategy=okta
     """
 
-    strategy: typing.Literal["okta"] = "okta"
+    strategy: ConnectionResponseContentOktaStrategy
     options: typing.Optional[ConnectionOptionsOkta] = None
+    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

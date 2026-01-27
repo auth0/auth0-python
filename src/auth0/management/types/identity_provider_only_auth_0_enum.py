@@ -2,4 +2,4 @@
 
 import typing
 
-IdentityProviderOnlyAuth0Enum = typing.Literal["auth0"]
+IdentityProviderOnlyAuth0Enum = typing.Union[typing.Literal["auth0"], typing.Any]

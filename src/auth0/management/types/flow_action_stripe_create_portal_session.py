@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_stripe_create_portal_session_action import FlowActionStripeCreatePortalSessionAction
 from .flow_action_stripe_create_portal_session_params import FlowActionStripeCreatePortalSessionParams
+from .flow_action_stripe_create_portal_session_type import FlowActionStripeCreatePortalSessionType
 
 
 class FlowActionStripeCreatePortalSession(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["STRIPE"] = "STRIPE"
-    action: typing.Literal["CREATE_PORTAL_SESSION"] = "CREATE_PORTAL_SESSION"
+    type: FlowActionStripeCreatePortalSessionType
+    action: FlowActionStripeCreatePortalSessionAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionStripeCreatePortalSessionParams

@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamEventGridEnum = typing.Literal["eventgrid"]
+LogStreamEventGridEnum = typing.Union[typing.Literal["eventgrid"], typing.Any]

@@ -2,4 +2,4 @@
 
 import typing
 
-ConnectedAccountAccessTypeEnum = typing.Literal["offline"]
+ConnectedAccountAccessTypeEnum = typing.Union[typing.Literal["offline"], typing.Any]

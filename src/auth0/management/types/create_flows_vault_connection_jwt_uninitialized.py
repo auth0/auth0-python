@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionJwtUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdJwtEnum = "JWT"
+    app_id: FlowsVaultConnectionAppIdJwtEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

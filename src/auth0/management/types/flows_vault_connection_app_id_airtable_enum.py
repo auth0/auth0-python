@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdAirtableEnum = typing.Literal["AIRTABLE"]
+FlowsVaultConnectionAppIdAirtableEnum = typing.Union[typing.Literal["AIRTABLE"], typing.Any]

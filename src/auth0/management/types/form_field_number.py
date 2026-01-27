@@ -11,8 +11,8 @@ from .form_field_type_number_const import FormFieldTypeNumberConst
 
 class FormFieldNumber(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeNumberConst = "NUMBER"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeNumberConst
     config: typing.Optional[FormFieldNumberConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

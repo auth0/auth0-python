@@ -11,7 +11,7 @@ from .connection_options_common_oidc import ConnectionOptionsCommonOidc
 from .connection_type_enum_okta import ConnectionTypeEnumOkta
 
 
-class ConnectionOptionsOkta(ConnectionOptionsCommonOidc, ConnectionOptionsCommon):
+class ConnectionOptionsOkta(ConnectionOptionsCommon, ConnectionOptionsCommonOidc):
     """
     Options for the 'okta' connection
     """

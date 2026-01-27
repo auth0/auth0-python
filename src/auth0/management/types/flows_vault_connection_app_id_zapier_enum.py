@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdZapierEnum = typing.Literal["ZAPIER"]
+FlowsVaultConnectionAppIdZapierEnum = typing.Union[typing.Literal["ZAPIER"], typing.Any]

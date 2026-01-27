@@ -11,7 +11,9 @@ from .flow_action_sendgrid_send_email_params_person import FlowActionSendgridSen
 
 class FlowActionSendgridSendEmailParams(UniversalBaseModel):
     connection_id: str
-    from_: typing_extensions.Annotated[FlowActionSendgridSendEmailParamsPerson, FieldMetadata(alias="from")]
+    from_: typing_extensions.Annotated[FlowActionSendgridSendEmailParamsPerson, FieldMetadata(alias="from")] = (
+        pydantic.Field(alias="from")
+    )
     personalizations: typing.List[typing.Any]
 
     if IS_PYDANTIC_V2:

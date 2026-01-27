@@ -11,8 +11,8 @@ from .form_field_type_text_const import FormFieldTypeTextConst
 
 class FormFieldText(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeTextConst = "TEXT"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeTextConst
     config: typing.Optional[FormFieldTextConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

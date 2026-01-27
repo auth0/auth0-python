@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .client_refresh_token_policy import ClientRefreshTokenPolicy
 from .refresh_token_expiration_type_enum import RefreshTokenExpirationTypeEnum
 from .refresh_token_rotation_type_enum import RefreshTokenRotationTypeEnum
 
@@ -38,6 +39,11 @@ class ClientRefreshTokenConfiguration(UniversalBaseModel):
     infinite_idle_token_lifetime: typing.Optional[bool] = pydantic.Field(default=False)
     """
     Prevents tokens from expiring without use when `true` (takes precedence over `idle_token_lifetime` values)
+    """
+
+    policies: typing.Optional[typing.List[ClientRefreshTokenPolicy]] = pydantic.Field(default=None)
+    """
+    A collection of policies governing multi-resource refresh token exchange (MRRT), defining how refresh tokens can be used across different resource servers
     """
 
     if IS_PYDANTIC_V2:

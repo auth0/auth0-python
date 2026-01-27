@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionBigqueryUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdBigqueryEnum = "BIGQUERY"
+    app_id: FlowsVaultConnectionAppIdBigqueryEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

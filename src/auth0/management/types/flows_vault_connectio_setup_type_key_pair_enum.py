@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectioSetupTypeKeyPairEnum = typing.Literal["KEY_PAIR"]
+FlowsVaultConnectioSetupTypeKeyPairEnum = typing.Union[typing.Literal["KEY_PAIR"], typing.Any]

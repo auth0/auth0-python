@@ -10,7 +10,7 @@ from ..core.serialization import FieldMetadata
 
 class ScimMappingItem(UniversalBaseModel):
     auth_0: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="auth0")] = pydantic.Field(
-        default=None
+        alias="auth0", default=None
     )
     """
     The field location in the auth0 schema

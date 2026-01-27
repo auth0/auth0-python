@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_baidu import ConnectionOptionsBaidu
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_baidu_strategy import ConnectionResponseContentBaiduStrategy
 
 
 class ConnectionResponseContentBaidu(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentBaidu(ConnectionResponseCommon):
     Response for connections with strategy=baidu
     """
 
-    strategy: typing.Literal["baidu"] = "baidu"
+    strategy: ConnectionResponseContentBaiduStrategy
     options: typing.Optional[ConnectionOptionsBaidu] = None
 
     if IS_PYDANTIC_V2:

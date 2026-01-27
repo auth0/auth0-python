@@ -23,10 +23,10 @@ class UserIdentity(UniversalBaseModel):
     """
 
     profile_data: typing_extensions.Annotated[typing.Optional[UserProfileData], FieldMetadata(alias="profileData")] = (
-        None
+        pydantic.Field(alias="profileData", default=None)
     )
     is_social: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isSocial")] = pydantic.Field(
-        default=None
+        alias="isSocial", default=None
     )
     """
     Whether the identity provider is a social provider (true) or not (false).

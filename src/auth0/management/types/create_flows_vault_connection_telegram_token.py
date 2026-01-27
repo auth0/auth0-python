@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionTelegramToken(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdTelegramEnum = "TELEGRAM"
+    app_id: FlowsVaultConnectionAppIdTelegramEnum
     setup: FlowsVaultConnectioSetupToken
 
     if IS_PYDANTIC_V2:

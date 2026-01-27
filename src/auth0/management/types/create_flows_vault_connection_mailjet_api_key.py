@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionMailjetApiKey(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdMailjetEnum = "MAILJET"
+    app_id: FlowsVaultConnectionAppIdMailjetEnum
     setup: FlowsVaultConnectioSetupMailjetApiKey
 
     if IS_PYDANTIC_V2:

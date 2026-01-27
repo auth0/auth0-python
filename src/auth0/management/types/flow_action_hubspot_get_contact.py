@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_hubspot_get_contact_action import FlowActionHubspotGetContactAction
 from .flow_action_hubspot_get_contact_params import FlowActionHubspotGetContactParams
+from .flow_action_hubspot_get_contact_type import FlowActionHubspotGetContactType
 
 
 class FlowActionHubspotGetContact(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["HUBSPOT"] = "HUBSPOT"
-    action: typing.Literal["GET_CONTACT"] = "GET_CONTACT"
+    type: FlowActionHubspotGetContactType
+    action: FlowActionHubspotGetContactAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionHubspotGetContactParams

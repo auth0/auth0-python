@@ -16,7 +16,7 @@ class MdlPresentationRequest(UniversalBaseModel):
 
     org_iso_18013_5_1_m_dl: typing_extensions.Annotated[
         MdlPresentationRequestProperties, FieldMetadata(alias="org.iso.18013.5.1.mDL")
-    ]
+    ] = pydantic.Field(alias="org.iso.18013.5.1.mDL")
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

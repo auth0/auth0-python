@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdMailjetEnum = typing.Literal["MAILJET"]
+FlowsVaultConnectionAppIdMailjetEnum = typing.Union[typing.Literal["MAILJET"], typing.Any]

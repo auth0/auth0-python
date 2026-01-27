@@ -8,7 +8,7 @@ from .flows_vault_connectio_setup_type_webhook_enum import FlowsVaultConnectioSe
 
 
 class FlowsVaultConnectioSetupWebhook(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeWebhookEnum = "WEBHOOK"
+    type: FlowsVaultConnectioSetupTypeWebhookEnum
     url: str
 
     if IS_PYDANTIC_V2:

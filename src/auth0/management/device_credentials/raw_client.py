@@ -17,6 +17,7 @@ from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.create_public_key_device_credential_response_content import CreatePublicKeyDeviceCredentialResponseContent
 from ..types.device_credential import DeviceCredential
+from ..types.device_credential_public_key_type_enum import DeviceCredentialPublicKeyTypeEnum
 from ..types.device_credential_type_enum import DeviceCredentialTypeEnum
 from ..types.list_device_credentials_offset_paginated_response_content import (
     ListDeviceCredentialsOffsetPaginatedResponseContent,
@@ -173,6 +174,7 @@ class RawDeviceCredentialsClient:
         self,
         *,
         device_name: str,
+        type: DeviceCredentialPublicKeyTypeEnum,
         value: str,
         device_id: str,
         client_id: typing.Optional[str] = OMIT,
@@ -187,6 +189,8 @@ class RawDeviceCredentialsClient:
         ----------
         device_name : str
             Name for this device easily recognized by owner.
+
+        type : DeviceCredentialPublicKeyTypeEnum
 
         value : str
             Base64 encoded string containing the credential.
@@ -210,10 +214,10 @@ class RawDeviceCredentialsClient:
             method="POST",
             json={
                 "device_name": device_name,
+                "type": type,
                 "value": value,
                 "device_id": device_id,
                 "client_id": client_id,
-                "type": "public_key",
             },
             headers={
                 "content-type": "application/json",
@@ -515,6 +519,7 @@ class AsyncRawDeviceCredentialsClient:
         self,
         *,
         device_name: str,
+        type: DeviceCredentialPublicKeyTypeEnum,
         value: str,
         device_id: str,
         client_id: typing.Optional[str] = OMIT,
@@ -529,6 +534,8 @@ class AsyncRawDeviceCredentialsClient:
         ----------
         device_name : str
             Name for this device easily recognized by owner.
+
+        type : DeviceCredentialPublicKeyTypeEnum
 
         value : str
             Base64 encoded string containing the credential.
@@ -552,10 +559,10 @@ class AsyncRawDeviceCredentialsClient:
             method="POST",
             json={
                 "device_name": device_name,
+                "type": type,
                 "value": value,
                 "device_id": device_id,
                 "client_id": client_id,
-                "type": "public_key",
             },
             headers={
                 "content-type": "application/json",

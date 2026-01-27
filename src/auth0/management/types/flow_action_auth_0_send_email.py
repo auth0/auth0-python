@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_auth_0_send_email_action import FlowActionAuth0SendEmailAction
 from .flow_action_auth_0_send_email_params import FlowActionAuth0SendEmailParams
+from .flow_action_auth_0_send_email_type import FlowActionAuth0SendEmailType
 
 
 class FlowActionAuth0SendEmail(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["AUTH0"] = "AUTH0"
-    action: typing.Literal["SEND_EMAIL"] = "SEND_EMAIL"
+    type: FlowActionAuth0SendEmailType
+    action: FlowActionAuth0SendEmailAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionAuth0SendEmailParams

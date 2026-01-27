@@ -2,4 +2,4 @@
 
 import typing
 
-FormBlockTypeHtmlConst = typing.Literal["HTML"]
+FormBlockTypeHtmlConst = typing.Union[typing.Literal["HTML"], typing.Any]

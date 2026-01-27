@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionSlackUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdSlackEnum = "SLACK"
+    app_id: FlowsVaultConnectionAppIdSlackEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

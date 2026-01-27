@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_clearbit_find_company_action import FlowActionClearbitFindCompanyAction
 from .flow_action_clearbit_find_company_params import FlowActionClearbitFindCompanyParams
+from .flow_action_clearbit_find_company_type import FlowActionClearbitFindCompanyType
 
 
 class FlowActionClearbitFindCompany(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["CLEARBIT"] = "CLEARBIT"
-    action: typing.Literal["FIND_COMPANY"] = "FIND_COMPANY"
+    type: FlowActionClearbitFindCompanyType
+    action: FlowActionClearbitFindCompanyAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionClearbitFindCompanyParams

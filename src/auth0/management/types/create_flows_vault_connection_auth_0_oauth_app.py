@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionAuth0OauthApp(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdAuth0Enum = "AUTH0"
+    app_id: FlowsVaultConnectionAppIdAuth0Enum
     setup: FlowsVaultConnectioSetupOauthApp
 
     if IS_PYDANTIC_V2:

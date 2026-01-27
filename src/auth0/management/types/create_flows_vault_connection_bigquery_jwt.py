@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionBigqueryJwt(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdBigqueryEnum = "BIGQUERY"
+    app_id: FlowsVaultConnectionAppIdBigqueryEnum
     setup: FlowsVaultConnectioSetupBigqueryOauthJwt
 
     if IS_PYDANTIC_V2:

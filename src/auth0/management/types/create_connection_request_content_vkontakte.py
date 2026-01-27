@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_vkontakte import ConnectionOptionsVkontakte
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_vkontakte_strategy import CreateConnectionRequestContentVkontakteStrategy
 
 
 class CreateConnectionRequestContentVkontakte(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentVkontakte(CreateConnectionCommon):
     Create a connection with strategy=vkontakte
     """
 
-    strategy: typing.Literal["vkontakte"] = "vkontakte"
+    strategy: CreateConnectionRequestContentVkontakteStrategy
     options: typing.Optional[ConnectionOptionsVkontakte] = None
 
     if IS_PYDANTIC_V2:

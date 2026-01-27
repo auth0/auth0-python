@@ -2,4 +2,4 @@
 
 import typing
 
-UserAttributeProfileUserIdOidcMappingEnum = typing.Literal["sub"]
+UserAttributeProfileUserIdOidcMappingEnum = typing.Union[typing.Literal["sub"], typing.Any]

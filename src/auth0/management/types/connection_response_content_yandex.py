@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_yandex import ConnectionOptionsYandex
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_yandex_strategy import ConnectionResponseContentYandexStrategy
 
 
 class ConnectionResponseContentYandex(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentYandex(ConnectionResponseCommon):
     Response for connections with strategy=yandex
     """
 
-    strategy: typing.Literal["yandex"] = "yandex"
+    strategy: ConnectionResponseContentYandexStrategy
     options: typing.Optional[ConnectionOptionsYandex] = None
 
     if IS_PYDANTIC_V2:

@@ -1,3 +1,3 @@
 from importlib import metadata
 
-__version__ = metadata.version("auth0-python")
+__version__ = metadata.version("auth0")

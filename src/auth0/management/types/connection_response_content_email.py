@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_email import ConnectionOptionsEmail
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_email_strategy import ConnectionResponseContentEmailStrategy
 
 
 class ConnectionResponseContentEmail(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentEmail(ConnectionResponseCommon):
     Response for connections with strategy=email
     """
 
-    strategy: typing.Literal["email"] = "email"
+    strategy: ConnectionResponseContentEmailStrategy
     options: typing.Optional[ConnectionOptionsEmail] = None
 
     if IS_PYDANTIC_V2:

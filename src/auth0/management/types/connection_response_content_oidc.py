@@ -6,6 +6,8 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_oidc import ConnectionOptionsOidc
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_oidc_strategy import ConnectionResponseContentOidcStrategy
+from .connection_show_as_button import ConnectionShowAsButton
 
 
 class ConnectionResponseContentOidc(ConnectionResponseCommon):
@@ -13,8 +15,9 @@ class ConnectionResponseContentOidc(ConnectionResponseCommon):
     Response for connections with strategy=oidc
     """
 
-    strategy: typing.Literal["oidc"] = "oidc"
+    strategy: ConnectionResponseContentOidcStrategy
     options: typing.Optional[ConnectionOptionsOidc] = None
+    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_amazon import ConnectionOptionsAmazon
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_amazon_strategy import CreateConnectionRequestContentAmazonStrategy
 
 
 class CreateConnectionRequestContentAmazon(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentAmazon(CreateConnectionCommon):
     Create a connection with strategy=amazon
     """
 
-    strategy: typing.Literal["amazon"] = "amazon"
+    strategy: CreateConnectionRequestContentAmazonStrategy
     options: typing.Optional[ConnectionOptionsAmazon] = None
 
     if IS_PYDANTIC_V2:

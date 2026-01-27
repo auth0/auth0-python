@@ -8,7 +8,7 @@ from .flows_vault_connectio_setup_type_oauth_app_enum import FlowsVaultConnectio
 
 
 class FlowsVaultConnectioSetupOauthApp(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeOauthAppEnum = "OAUTH_APP"
+    type: FlowsVaultConnectioSetupTypeOauthAppEnum
     client_id: str
     client_secret: str
     domain: str

@@ -19,21 +19,21 @@ class ClientAddonAzureSb(UniversalBaseModel):
     """
 
     sas_key_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="sasKeyName")] = pydantic.Field(
-        default=None
+        alias="sasKeyName", default=None
     )
     """
     Your shared access policy name defined in your Service Bus entity.
     """
 
     sas_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="sasKey")] = pydantic.Field(
-        default=None
+        alias="sasKey", default=None
     )
     """
     Primary Key associated with your shared access policy.
     """
 
     entity_path: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="entityPath")] = pydantic.Field(
-        default=None
+        alias="entityPath", default=None
     )
     """
     Entity you want to request a token for. e.g. `my-queue`.'

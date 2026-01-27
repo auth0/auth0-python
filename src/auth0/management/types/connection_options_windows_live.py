@@ -2,4 +2,24 @@
 
 import typing
 
-ConnectionOptionsWindowsLive = typing.Dict[str, typing.Any]
+import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_strategy_version_enum_windows_live import ConnectionStrategyVersionEnumWindowsLive
+
+
+class ConnectionOptionsWindowsLive(ConnectionOptionsOAuth2Common):
+    """
+    Options for the 'windowslive' connection
+    """
+
+    strategy_version: typing.Optional[ConnectionStrategyVersionEnumWindowsLive] = None
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

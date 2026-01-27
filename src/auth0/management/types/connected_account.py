@@ -29,7 +29,7 @@ class ConnectedAccount(UniversalBaseModel):
     The authentication strategy used by the connection.
     """
 
-    access_type: ConnectedAccountAccessTypeEnum = "offline"
+    access_type: ConnectedAccountAccessTypeEnum
     scopes: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     The scopes granted for this connected account.

@@ -11,8 +11,8 @@ from .form_field_type_choice_const import FormFieldTypeChoiceConst
 
 class FormFieldChoice(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeChoiceConst = "CHOICE"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeChoiceConst
     config: typing.Optional[FormFieldChoiceConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

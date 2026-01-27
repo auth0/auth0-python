@@ -17,6 +17,7 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.flow_execution_summary import FlowExecutionSummary
 from ...types.get_flow_execution_response_content import GetFlowExecutionResponseContent
 from ...types.list_flow_executions_paginated_response_content import ListFlowExecutionsPaginatedResponseContent
+from .types.executions_get_request_hydrate_item import ExecutionsGetRequestHydrateItem
 
 
 class RawExecutionsClient:
@@ -134,7 +135,7 @@ class RawExecutionsClient:
         execution_id: str,
         *,
         hydrate: typing.Optional[
-            typing.Union[typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]]
+            typing.Union[ExecutionsGetRequestHydrateItem, typing.Sequence[ExecutionsGetRequestHydrateItem]]
         ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[GetFlowExecutionResponseContent]:
@@ -147,7 +148,7 @@ class RawExecutionsClient:
         execution_id : str
             Flow execution id
 
-        hydrate : typing.Optional[typing.Union[typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]]]
+        hydrate : typing.Optional[typing.Union[ExecutionsGetRequestHydrateItem, typing.Sequence[ExecutionsGetRequestHydrateItem]]]
             Hydration param
 
         request_options : typing.Optional[RequestOptions]
@@ -420,7 +421,7 @@ class AsyncRawExecutionsClient:
         execution_id: str,
         *,
         hydrate: typing.Optional[
-            typing.Union[typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]]
+            typing.Union[ExecutionsGetRequestHydrateItem, typing.Sequence[ExecutionsGetRequestHydrateItem]]
         ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[GetFlowExecutionResponseContent]:
@@ -433,7 +434,7 @@ class AsyncRawExecutionsClient:
         execution_id : str
             Flow execution id
 
-        hydrate : typing.Optional[typing.Union[typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]]]
+        hydrate : typing.Optional[typing.Union[ExecutionsGetRequestHydrateItem, typing.Sequence[ExecutionsGetRequestHydrateItem]]]
             Hydration param
 
         request_options : typing.Optional[RequestOptions]

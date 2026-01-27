@@ -17,6 +17,14 @@ def test_organizations_discoveryDomains_create() -> None:
     verify_request_count(test_id, "POST", "/organizations/id/discovery-domains", None, 1)
 
 
+def test_organizations_discoveryDomains_get_by_name() -> None:
+    """Test getByName endpoint with WireMock"""
+    test_id = "organizations.discovery_domains.get_by_name.0"
+    client = get_client(test_id)
+    client.organizations.discovery_domains.get_by_name(id="id", discovery_domain="discovery_domain")
+    verify_request_count(test_id, "GET", "/organizations/id/discovery-domains/name/discovery_domain", None, 1)
+
+
 def test_organizations_discoveryDomains_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "organizations.discovery_domains.get.0"

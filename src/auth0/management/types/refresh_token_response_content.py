@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .refresh_token_date import RefreshTokenDate
 from .refresh_token_device import RefreshTokenDevice
+from .refresh_token_metadata import RefreshTokenMetadata
 from .refresh_token_resource_server import RefreshTokenResourceServer
 from .refresh_token_session_id import RefreshTokenSessionId
 
@@ -41,6 +42,7 @@ class RefreshTokenResponseContent(UniversalBaseModel):
     A list of the resource server IDs associated to this refresh-token and their granted scopes
     """
 
+    refresh_token_metadata: typing.Optional[RefreshTokenMetadata] = None
     last_exchanged_at: typing.Optional[RefreshTokenDate] = None
 
     if IS_PYDANTIC_V2:

@@ -5,7 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_sharepoint import ConnectionOptionsSharepoint
+from .connection_show_as_button import ConnectionShowAsButton
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_sharepoint_strategy import CreateConnectionRequestContentSharepointStrategy
 
 
 class CreateConnectionRequestContentSharepoint(CreateConnectionCommon):
@@ -13,8 +15,9 @@ class CreateConnectionRequestContentSharepoint(CreateConnectionCommon):
     Create a connection with strategy=sharepoint
     """
 
-    strategy: typing.Literal["sharepoint"] = "sharepoint"
+    strategy: CreateConnectionRequestContentSharepointStrategy
     options: typing.Optional[ConnectionOptionsSharepoint] = None
+    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

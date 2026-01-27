@@ -2,4 +2,4 @@
 
 import typing
 
-FormComponentCategoryBlockConst = typing.Literal["BLOCK"]
+FormComponentCategoryBlockConst = typing.Union[typing.Literal["BLOCK"], typing.Any]

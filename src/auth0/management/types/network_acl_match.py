@@ -16,16 +16,16 @@ class NetworkAclMatch(UniversalBaseModel):
     geo_subdivision_codes: typing.Optional[typing.List[str]] = None
     ipv_4_cidrs: typing_extensions.Annotated[
         typing.Optional[typing.List[NetworkAclMatchIpv4Cidr]], FieldMetadata(alias="ipv4_cidrs")
-    ] = None
+    ] = pydantic.Field(alias="ipv4_cidrs", default=None)
     ipv_6_cidrs: typing_extensions.Annotated[
         typing.Optional[typing.List[NetworkAclMatchIpv6Cidr]], FieldMetadata(alias="ipv6_cidrs")
-    ] = None
+    ] = pydantic.Field(alias="ipv6_cidrs", default=None)
     ja_3_fingerprints: typing_extensions.Annotated[
         typing.Optional[typing.List[str]], FieldMetadata(alias="ja3_fingerprints")
-    ] = None
+    ] = pydantic.Field(alias="ja3_fingerprints", default=None)
     ja_4_fingerprints: typing_extensions.Annotated[
         typing.Optional[typing.List[str]], FieldMetadata(alias="ja4_fingerprints")
-    ] = None
+    ] = pydantic.Field(alias="ja4_fingerprints", default=None)
     user_agents: typing.Optional[typing.List[str]] = None
 
     if IS_PYDANTIC_V2:

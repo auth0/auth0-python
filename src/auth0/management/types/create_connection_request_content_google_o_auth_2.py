@@ -6,6 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_google_o_auth_2 import ConnectionOptionsGoogleOAuth2
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_google_o_auth_2_strategy import (
+    CreateConnectionRequestContentGoogleOAuth2Strategy,
+)
 
 
 class CreateConnectionRequestContentGoogleOAuth2(CreateConnectionCommon):
@@ -13,7 +16,7 @@ class CreateConnectionRequestContentGoogleOAuth2(CreateConnectionCommon):
     Create a connection with strategy=google-oauth2
     """
 
-    strategy: typing.Literal["google-oauth2"] = "google-oauth2"
+    strategy: CreateConnectionRequestContentGoogleOAuth2Strategy
     options: typing.Optional[ConnectionOptionsGoogleOAuth2] = None
 
     if IS_PYDANTIC_V2:

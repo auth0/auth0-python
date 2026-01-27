@@ -2,4 +2,4 @@
 
 import typing
 
-FormBlockTypeDividerConst = typing.Literal["DIVIDER"]
+FormBlockTypeDividerConst = typing.Union[typing.Literal["DIVIDER"], typing.Any]

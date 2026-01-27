@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_untappd import ConnectionOptionsUntappd
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_untappd_strategy import ConnectionResponseContentUntappdStrategy
 
 
 class ConnectionResponseContentUntappd(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentUntappd(ConnectionResponseCommon):
     Response for connections with strategy=untappd
     """
 
-    strategy: typing.Literal["untappd"] = "untappd"
+    strategy: ConnectionResponseContentUntappdStrategy
     options: typing.Optional[ConnectionOptionsUntappd] = None
 
     if IS_PYDANTIC_V2:

@@ -2,4 +2,4 @@
 
 import typing
 
-FormBlockTypePreviousButtonConst = typing.Literal["PREVIOUS_BUTTON"]
+FormBlockTypePreviousButtonConst = typing.Union[typing.Literal["PREVIOUS_BUTTON"], typing.Any]

@@ -2,4 +2,60 @@
 
 import typing
 
-ConnectionOptionsSms = typing.Dict[str, typing.Any]
+import pydantic
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from ..core.serialization import FieldMetadata
+from .connection_disable_signup_sms import ConnectionDisableSignupSms
+from .connection_forward_req_info_sms import ConnectionForwardReqInfoSms
+from .connection_from_sms import ConnectionFromSms
+from .connection_gateway_authentication_sms import ConnectionGatewayAuthenticationSms
+from .connection_gateway_url_sms import ConnectionGatewayUrlSms
+from .connection_messaging_service_sid_sms import ConnectionMessagingServiceSidSms
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_provider_sms import ConnectionProviderSms
+from .connection_template_sms import ConnectionTemplateSms
+from .connection_template_syntax_enum_sms import ConnectionTemplateSyntaxEnumSms
+from .connection_totp_sms import ConnectionTotpSms
+from .connection_twilio_sid_sms import ConnectionTwilioSidSms
+from .connection_twilio_token_sms import ConnectionTwilioTokenSms
+
+
+class ConnectionOptionsSms(ConnectionOptionsCommon):
+    """
+    Options for the 'sms' connection
+    """
+
+    brute_force_protection: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether brute force protection is enabled
+    """
+
+    disable_signup: typing.Optional[ConnectionDisableSignupSms] = None
+    forward_req_info: typing.Optional[ConnectionForwardReqInfoSms] = None
+    from_: typing_extensions.Annotated[typing.Optional[ConnectionFromSms], FieldMetadata(alias="from")] = (
+        pydantic.Field(alias="from", default=None)
+    )
+    gateway_authentication: typing.Optional[ConnectionGatewayAuthenticationSms] = None
+    gateway_url: typing.Optional[ConnectionGatewayUrlSms] = None
+    messaging_service_sid: typing.Optional[ConnectionMessagingServiceSidSms] = None
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Connection name
+    """
+
+    provider: typing.Optional[ConnectionProviderSms] = None
+    syntax: typing.Optional[ConnectionTemplateSyntaxEnumSms] = None
+    template: typing.Optional[ConnectionTemplateSms] = None
+    totp: typing.Optional[ConnectionTotpSms] = None
+    twilio_sid: typing.Optional[ConnectionTwilioSidSms] = None
+    twilio_token: typing.Optional[ConnectionTwilioTokenSms] = None
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

@@ -9,22 +9,30 @@ from ..core.serialization import FieldMetadata
 
 
 class LogStreamSplunkSink(UniversalBaseModel):
-    splunk_domain: typing_extensions.Annotated[str, FieldMetadata(alias="splunkDomain")] = pydantic.Field()
+    splunk_domain: typing_extensions.Annotated[str, FieldMetadata(alias="splunkDomain")] = pydantic.Field(
+        alias="splunkDomain"
+    )
     """
     Splunk URL Endpoint
     """
 
-    splunk_port: typing_extensions.Annotated[str, FieldMetadata(alias="splunkPort")] = pydantic.Field()
+    splunk_port: typing_extensions.Annotated[str, FieldMetadata(alias="splunkPort")] = pydantic.Field(
+        alias="splunkPort"
+    )
     """
     Port
     """
 
-    splunk_token: typing_extensions.Annotated[str, FieldMetadata(alias="splunkToken")] = pydantic.Field()
+    splunk_token: typing_extensions.Annotated[str, FieldMetadata(alias="splunkToken")] = pydantic.Field(
+        alias="splunkToken"
+    )
     """
     Splunk token
     """
 
-    splunk_secure: typing_extensions.Annotated[bool, FieldMetadata(alias="splunkSecure")] = pydantic.Field()
+    splunk_secure: typing_extensions.Annotated[bool, FieldMetadata(alias="splunkSecure")] = pydantic.Field(
+        alias="splunkSecure"
+    )
     """
     Verify TLS certificate
     """

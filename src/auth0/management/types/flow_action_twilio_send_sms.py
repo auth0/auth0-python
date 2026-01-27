@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_twilio_send_sms_action import FlowActionTwilioSendSmsAction
 from .flow_action_twilio_send_sms_params import FlowActionTwilioSendSmsParams
+from .flow_action_twilio_send_sms_type import FlowActionTwilioSendSmsType
 
 
 class FlowActionTwilioSendSms(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["TWILIO"] = "TWILIO"
-    action: typing.Literal["SEND_SMS"] = "SEND_SMS"
+    type: FlowActionTwilioSendSmsType
+    action: FlowActionTwilioSendSmsAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionTwilioSendSmsParams

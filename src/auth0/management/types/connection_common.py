@@ -9,8 +9,6 @@ from .connection_connected_accounts_purpose import ConnectionConnectedAccountsPu
 from .connection_display_name import ConnectionDisplayName
 from .connection_enabled_clients import ConnectionEnabledClients
 from .connection_is_domain_connection import ConnectionIsDomainConnection
-from .connection_realms import ConnectionRealms
-from .connection_show_as_button import ConnectionShowAsButton
 from .connections_metadata import ConnectionsMetadata
 
 
@@ -21,8 +19,6 @@ class ConnectionCommon(UniversalBaseModel):
     enabled_clients: typing.Optional[ConnectionEnabledClients] = None
     is_domain_connection: typing.Optional[ConnectionIsDomainConnection] = None
     metadata: typing.Optional[ConnectionsMetadata] = None
-    realms: typing.Optional[ConnectionRealms] = None
-    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

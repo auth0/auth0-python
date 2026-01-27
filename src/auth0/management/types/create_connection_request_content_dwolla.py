@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_dwolla import ConnectionOptionsDwolla
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_dwolla_strategy import CreateConnectionRequestContentDwollaStrategy
 
 
 class CreateConnectionRequestContentDwolla(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentDwolla(CreateConnectionCommon):
     Create a connection with strategy=dwolla
     """
 
-    strategy: typing.Literal["dwolla"] = "dwolla"
+    strategy: CreateConnectionRequestContentDwollaStrategy
     options: typing.Optional[ConnectionOptionsDwolla] = None
 
     if IS_PYDANTIC_V2:

@@ -9,7 +9,7 @@ from .form_field_payment_config_subscription import FormFieldPaymentConfigSubscr
 
 
 class FormFieldPaymentConfigChargeSubscription(UniversalBaseModel):
-    type: FormFieldPaymentConfigChargeTypeSubscriptionConst = "SUBSCRIPTION"
+    type: FormFieldPaymentConfigChargeTypeSubscriptionConst
     subscription: FormFieldPaymentConfigSubscription
 
     if IS_PYDANTIC_V2:

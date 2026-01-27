@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdGoogleSheetsEnum = typing.Literal["GOOGLE_SHEETS"]
+FlowsVaultConnectionAppIdGoogleSheetsEnum = typing.Union[typing.Literal["GOOGLE_SHEETS"], typing.Any]

@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_line import ConnectionOptionsLine
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_line_strategy import ConnectionResponseContentLineStrategy
 
 
 class ConnectionResponseContentLine(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentLine(ConnectionResponseCommon):
     Response for connections with strategy=line
     """
 
-    strategy: typing.Literal["line"] = "line"
+    strategy: ConnectionResponseContentLineStrategy
     options: typing.Optional[ConnectionOptionsLine] = None
 
     if IS_PYDANTIC_V2:

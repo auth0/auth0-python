@@ -4,8 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_salesforce_sandbox import ConnectionOptionsSalesforceSandbox
+from .connection_options_salesforce import ConnectionOptionsSalesforce
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_salesforce_sandbox_strategy import ConnectionResponseContentSalesforceSandboxStrategy
 
 
 class ConnectionResponseContentSalesforceSandbox(ConnectionResponseCommon):
@@ -13,8 +14,8 @@ class ConnectionResponseContentSalesforceSandbox(ConnectionResponseCommon):
     Response for connections with strategy=salesforce-sandbox
     """
 
-    strategy: typing.Literal["salesforce-sandbox"] = "salesforce-sandbox"
-    options: typing.Optional[ConnectionOptionsSalesforceSandbox] = None
+    strategy: ConnectionResponseContentSalesforceSandboxStrategy
+    options: typing.Optional[ConnectionOptionsSalesforce] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

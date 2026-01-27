@@ -11,8 +11,8 @@ from .form_field_type_date_const import FormFieldTypeDateConst
 
 class FormFieldDate(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeDateConst = "DATE"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeDateConst
     config: FormFieldDateConfig
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

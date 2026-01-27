@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_bigquery_insert_rows_action import FlowActionBigqueryInsertRowsAction
 from .flow_action_bigquery_insert_rows_params import FlowActionBigqueryInsertRowsParams
+from .flow_action_bigquery_insert_rows_type import FlowActionBigqueryInsertRowsType
 
 
 class FlowActionBigqueryInsertRows(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["BIGQUERY"] = "BIGQUERY"
-    action: typing.Literal["INSERT_ROWS"] = "INSERT_ROWS"
+    type: FlowActionBigqueryInsertRowsType
+    action: FlowActionBigqueryInsertRowsAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionBigqueryInsertRowsParams

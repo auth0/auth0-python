@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamEventBridgeEnum = typing.Literal["eventbridge"]
+LogStreamEventBridgeEnum = typing.Union[typing.Literal["eventbridge"], typing.Any]

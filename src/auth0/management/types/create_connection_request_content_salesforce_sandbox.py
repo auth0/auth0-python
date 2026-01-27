@@ -4,8 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_salesforce_sandbox import ConnectionOptionsSalesforceSandbox
+from .connection_options_salesforce import ConnectionOptionsSalesforce
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_salesforce_sandbox_strategy import (
+    CreateConnectionRequestContentSalesforceSandboxStrategy,
+)
 
 
 class CreateConnectionRequestContentSalesforceSandbox(CreateConnectionCommon):
@@ -13,8 +16,8 @@ class CreateConnectionRequestContentSalesforceSandbox(CreateConnectionCommon):
     Create a connection with strategy=salesforce-sandbox
     """
 
-    strategy: typing.Literal["salesforce-sandbox"] = "salesforce-sandbox"
-    options: typing.Optional[ConnectionOptionsSalesforceSandbox] = None
+    strategy: CreateConnectionRequestContentSalesforceSandboxStrategy
+    options: typing.Optional[ConnectionOptionsSalesforce] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

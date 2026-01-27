@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_yandex import ConnectionOptionsYandex
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_yandex_strategy import CreateConnectionRequestContentYandexStrategy
 
 
 class CreateConnectionRequestContentYandex(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentYandex(CreateConnectionCommon):
     Create a connection with strategy=yandex
     """
 
-    strategy: typing.Literal["yandex"] = "yandex"
+    strategy: CreateConnectionRequestContentYandexStrategy
     options: typing.Optional[ConnectionOptionsYandex] = None
 
     if IS_PYDANTIC_V2:

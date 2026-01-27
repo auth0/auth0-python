@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdDocusignEnum = typing.Literal["DOCUSIGN"]
+FlowsVaultConnectionAppIdDocusignEnum = typing.Union[typing.Literal["DOCUSIGN"], typing.Any]

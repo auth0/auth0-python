@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_flow_return_json_action import FlowActionFlowReturnJsonAction
 from .flow_action_flow_return_json_params import FlowActionFlowReturnJsonParams
+from .flow_action_flow_return_json_type import FlowActionFlowReturnJsonType
 
 
 class FlowActionFlowReturnJson(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["FLOW"] = "FLOW"
-    action: typing.Literal["RETURN_JSON"] = "RETURN_JSON"
+    type: FlowActionFlowReturnJsonType
+    action: FlowActionFlowReturnJsonAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionFlowReturnJsonParams

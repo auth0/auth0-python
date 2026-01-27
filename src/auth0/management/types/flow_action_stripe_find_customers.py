@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_stripe_find_customers_action import FlowActionStripeFindCustomersAction
 from .flow_action_stripe_find_customers_params import FlowActionStripeFindCustomersParams
+from .flow_action_stripe_find_customers_type import FlowActionStripeFindCustomersType
 
 
 class FlowActionStripeFindCustomers(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["STRIPE"] = "STRIPE"
-    action: typing.Literal["FIND_CUSTOMERS"] = "FIND_CUSTOMERS"
+    type: FlowActionStripeFindCustomersType
+    action: FlowActionStripeFindCustomersAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionStripeFindCustomersParams

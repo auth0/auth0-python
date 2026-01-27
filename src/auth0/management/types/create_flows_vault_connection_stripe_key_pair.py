@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionStripeKeyPair(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdStripeEnum = "STRIPE"
+    app_id: FlowsVaultConnectionAppIdStripeEnum
     setup: FlowsVaultConnectioSetupStripeKeyPair
 
     if IS_PYDANTIC_V2:

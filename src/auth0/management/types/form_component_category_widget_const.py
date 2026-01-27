@@ -2,4 +2,4 @@
 
 import typing
 
-FormComponentCategoryWidgetConst = typing.Literal["WIDGET"]
+FormComponentCategoryWidgetConst = typing.Union[typing.Literal["WIDGET"], typing.Any]

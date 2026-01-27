@@ -90,9 +90,9 @@ ScreenGroupNameEnum = typing.Union[
         "brute-force-protection-unblock-success",
         "brute-force-protection-unblock-failure",
         "async-approval-error",
-        "async-approval-wrong-user",
         "async-approval-accepted",
         "async-approval-denied",
+        "async-approval-wrong-user",
     ],
     typing.Any,
 ]

@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_pipedrive_add_organization_action import FlowActionPipedriveAddOrganizationAction
 from .flow_action_pipedrive_add_organization_params import FlowActionPipedriveAddOrganizationParams
+from .flow_action_pipedrive_add_organization_type import FlowActionPipedriveAddOrganizationType
 
 
 class FlowActionPipedriveAddOrganization(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["PIPEDRIVE"] = "PIPEDRIVE"
-    action: typing.Literal["ADD_ORGANIZATION"] = "ADD_ORGANIZATION"
+    type: FlowActionPipedriveAddOrganizationType
+    action: FlowActionPipedriveAddOrganizationAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionPipedriveAddOrganizationParams

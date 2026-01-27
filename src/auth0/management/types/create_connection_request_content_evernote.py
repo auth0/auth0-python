@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_evernote import ConnectionOptionsEvernote
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_evernote_strategy import CreateConnectionRequestContentEvernoteStrategy
 
 
 class CreateConnectionRequestContentEvernote(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentEvernote(CreateConnectionCommon):
     Create a connection with strategy=evernote
     """
 
-    strategy: typing.Literal["evernote"] = "evernote"
+    strategy: CreateConnectionRequestContentEvernoteStrategy
     options: typing.Optional[ConnectionOptionsEvernote] = None
 
     if IS_PYDANTIC_V2:

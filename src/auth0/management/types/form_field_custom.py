@@ -11,8 +11,8 @@ from .form_field_type_custom_const import FormFieldTypeCustomConst
 
 class FormFieldCustom(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeCustomConst = "CUSTOM"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeCustomConst
     config: FormFieldCustomConfig
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

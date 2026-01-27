@@ -90,7 +90,7 @@ class Log(UniversalBaseModel):
     """
 
     is_mobile: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isMobile")] = pydantic.Field(
-        default=None
+        alias="isMobile", default=None
     )
     """
     Whether the client was a mobile device (true) or desktop/laptop/server (false).

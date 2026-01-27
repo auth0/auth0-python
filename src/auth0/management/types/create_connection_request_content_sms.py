@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_sms import ConnectionOptionsSms
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_sms_strategy import CreateConnectionRequestContentSmsStrategy
 
 
 class CreateConnectionRequestContentSms(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentSms(CreateConnectionCommon):
     Create a connection with strategy=sms
     """
 
-    strategy: typing.Literal["sms"] = "sms"
+    strategy: CreateConnectionRequestContentSmsStrategy
     options: typing.Optional[ConnectionOptionsSms] = None
 
     if IS_PYDANTIC_V2:

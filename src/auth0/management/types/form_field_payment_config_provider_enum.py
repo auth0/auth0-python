@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldPaymentConfigProviderEnum = typing.Literal["STRIPE"]
+FormFieldPaymentConfigProviderEnum = typing.Union[typing.Literal["STRIPE"], typing.Any]

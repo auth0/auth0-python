@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_airtable_create_record_action import FlowActionAirtableCreateRecordAction
 from .flow_action_airtable_create_record_params import FlowActionAirtableCreateRecordParams
+from .flow_action_airtable_create_record_type import FlowActionAirtableCreateRecordType
 
 
 class FlowActionAirtableCreateRecord(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["AIRTABLE"] = "AIRTABLE"
-    action: typing.Literal["CREATE_RECORD"] = "CREATE_RECORD"
+    type: FlowActionAirtableCreateRecordType
+    action: FlowActionAirtableCreateRecordAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionAirtableCreateRecordParams

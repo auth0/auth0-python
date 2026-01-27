@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_auth_0_oidc import ConnectionOptionsAuth0Oidc
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_auth_0_oidc_strategy import ConnectionResponseContentAuth0OidcStrategy
 
 
 class ConnectionResponseContentAuth0Oidc(ConnectionResponseCommon):
@@ -13,7 +14,7 @@ class ConnectionResponseContentAuth0Oidc(ConnectionResponseCommon):
     Response for connections with strategy=auth0-oidc
     """
 
-    strategy: typing.Literal["auth0-oidc"] = "auth0-oidc"
+    strategy: ConnectionResponseContentAuth0OidcStrategy
     options: typing.Optional[ConnectionOptionsAuth0Oidc] = None
 
     if IS_PYDANTIC_V2:

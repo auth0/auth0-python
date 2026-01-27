@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamDatadogEnum = typing.Literal["datadog"]
+LogStreamDatadogEnum = typing.Union[typing.Literal["datadog"], typing.Any]

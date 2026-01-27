@@ -2,4 +2,4 @@
 
 import typing
 
-FormEndingNodeId = typing.Literal["$ending"]
+FormEndingNodeId = typing.Union[typing.Literal["$ending"], typing.Any]

@@ -167,6 +167,8 @@ class RawSettingsClient:
         authorization_response_iss_parameter_supported: typing.Optional[bool] = False,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
+        enable_ai_guide: typing.Optional[bool] = OMIT,
+        phone_consolidated_experience: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateTenantSettingsResponseContent]:
         """
@@ -261,6 +263,12 @@ class RawSettingsClient:
 
         resource_parameter_profile : typing.Optional[TenantSettingsResourceParameterProfile]
 
+        enable_ai_guide : typing.Optional[bool]
+            Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+
+        phone_consolidated_experience : typing.Optional[bool]
+            Whether Phone Consolidated Experience is enabled for this tenant.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -325,6 +333,8 @@ class RawSettingsClient:
                 "authorization_response_iss_parameter_supported": authorization_response_iss_parameter_supported,
                 "skip_non_verifiable_callback_uri_confirmation_prompt": skip_non_verifiable_callback_uri_confirmation_prompt,
                 "resource_parameter_profile": resource_parameter_profile,
+                "enable_ai_guide": enable_ai_guide,
+                "phone_consolidated_experience": phone_consolidated_experience,
             },
             headers={
                 "content-type": "application/json",
@@ -525,6 +535,8 @@ class AsyncRawSettingsClient:
         authorization_response_iss_parameter_supported: typing.Optional[bool] = False,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
+        enable_ai_guide: typing.Optional[bool] = OMIT,
+        phone_consolidated_experience: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateTenantSettingsResponseContent]:
         """
@@ -619,6 +631,12 @@ class AsyncRawSettingsClient:
 
         resource_parameter_profile : typing.Optional[TenantSettingsResourceParameterProfile]
 
+        enable_ai_guide : typing.Optional[bool]
+            Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+
+        phone_consolidated_experience : typing.Optional[bool]
+            Whether Phone Consolidated Experience is enabled for this tenant.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -683,6 +701,8 @@ class AsyncRawSettingsClient:
                 "authorization_response_iss_parameter_supported": authorization_response_iss_parameter_supported,
                 "skip_non_verifiable_callback_uri_confirmation_prompt": skip_non_verifiable_callback_uri_confirmation_prompt,
                 "resource_parameter_profile": resource_parameter_profile,
+                "enable_ai_guide": enable_ai_guide,
+                "phone_consolidated_experience": phone_consolidated_experience,
             },
             headers={
                 "content-type": "application/json",

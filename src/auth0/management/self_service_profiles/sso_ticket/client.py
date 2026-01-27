@@ -45,6 +45,7 @@ class SsoTicketClient:
         ttl_sec: typing.Optional[int] = OMIT,
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateSelfServiceProfileSsoTicketResponseContent:
         """
@@ -72,6 +73,9 @@ class SsoTicketClient:
         domain_aliases_config : typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig]
 
         provisioning_config : typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether a verified domain should be used for organization discovery during authentication.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -101,6 +105,7 @@ class SsoTicketClient:
             ttl_sec=ttl_sec,
             domain_aliases_config=domain_aliases_config,
             provisioning_config=provisioning_config,
+            use_for_organization_discovery=use_for_organization_discovery,
             request_options=request_options,
         )
         return _response.data
@@ -167,6 +172,7 @@ class AsyncSsoTicketClient:
         ttl_sec: typing.Optional[int] = OMIT,
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateSelfServiceProfileSsoTicketResponseContent:
         """
@@ -194,6 +200,9 @@ class AsyncSsoTicketClient:
         domain_aliases_config : typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig]
 
         provisioning_config : typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether a verified domain should be used for organization discovery during authentication.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -231,6 +240,7 @@ class AsyncSsoTicketClient:
             ttl_sec=ttl_sec,
             domain_aliases_config=domain_aliases_config,
             provisioning_config=provisioning_config,
+            use_for_organization_discovery=use_for_organization_discovery,
             request_options=request_options,
         )
         return _response.data

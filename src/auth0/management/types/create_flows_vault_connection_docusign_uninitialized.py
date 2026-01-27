@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionDocusignUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdDocusignEnum = "DOCUSIGN"
+    app_id: FlowsVaultConnectionAppIdDocusignEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

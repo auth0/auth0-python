@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_line import ConnectionOptionsLine
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_line_strategy import CreateConnectionRequestContentLineStrategy
 
 
 class CreateConnectionRequestContentLine(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentLine(CreateConnectionCommon):
     Create a connection with strategy=line
     """
 
-    strategy: typing.Literal["line"] = "line"
+    strategy: CreateConnectionRequestContentLineStrategy
     options: typing.Optional[ConnectionOptionsLine] = None
 
     if IS_PYDANTIC_V2:

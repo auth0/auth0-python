@@ -10,21 +10,21 @@ from ..core.serialization import FieldMetadata
 
 class EmailProviderCredentialsSchemaClientId(UniversalBaseModel):
     tenant_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="tenantId")] = pydantic.Field(
-        default=None
+        alias="tenantId", default=None
     )
     """
     Microsoft 365 Tenant ID.
     """
 
     client_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="clientId")] = pydantic.Field(
-        default=None
+        alias="clientId", default=None
     )
     """
     Microsoft 365 Client ID.
     """
 
     client_secret: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="clientSecret")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="clientSecret", default=None)
     )
     """
     Microsoft 365 Client Secret.

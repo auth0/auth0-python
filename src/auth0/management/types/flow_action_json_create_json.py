@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_json_create_json_action import FlowActionJsonCreateJsonAction
 from .flow_action_json_create_json_params import FlowActionJsonCreateJsonParams
+from .flow_action_json_create_json_type import FlowActionJsonCreateJsonType
 
 
 class FlowActionJsonCreateJson(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["JSON"] = "JSON"
-    action: typing.Literal["CREATE_JSON"] = "CREATE_JSON"
+    type: FlowActionJsonCreateJsonType
+    action: FlowActionJsonCreateJsonAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionJsonCreateJsonParams
