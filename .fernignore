@@ -1,5 +1,8 @@
 # Specify files that shouldn't be modified by Fern
 
+# Fern metadata
+.fern/
+
 # ManagementClient wrapper
 src/auth0/management/management_client.py
 src/auth0/management/token_provider.py
@@ -23,5 +26,15 @@ poetry.lock
 requirements.txt
 README.md
 .gitignore
-.github/workflows/ci.yml
 .version
+
+# Configuration files
+.codecov.yml
+.readthedocs.yaml
+.semgrepignore
+.shiprc
+.snyk
+LICENSE
+
+# GitHub workflows and configuration
+.github/
