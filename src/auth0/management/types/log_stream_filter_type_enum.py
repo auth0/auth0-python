@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamFilterTypeEnum = typing.Literal["category"]
+LogStreamFilterTypeEnum = typing.Union[typing.Literal["category"], typing.Any]

@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_dropbox import ConnectionOptionsDropbox
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_dropbox_strategy import ConnectionResponseContentDropboxStrategy
 
 
-class ConnectionResponseContentDropbox(ConnectionResponseCommon):
+class ConnectionResponseContentDropbox(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=dropbox
     """
 
-    strategy: typing.Literal["dropbox"] = "dropbox"
+    strategy: ConnectionResponseContentDropboxStrategy
     options: typing.Optional[ConnectionOptionsDropbox] = None
 
     if IS_PYDANTIC_V2:

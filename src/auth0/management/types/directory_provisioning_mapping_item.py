@@ -9,7 +9,7 @@ from ..core.serialization import FieldMetadata
 
 
 class DirectoryProvisioningMappingItem(UniversalBaseModel):
-    auth_0: typing_extensions.Annotated[str, FieldMetadata(alias="auth0")] = pydantic.Field()
+    auth_0: typing_extensions.Annotated[str, FieldMetadata(alias="auth0")] = pydantic.Field(alias="auth0")
     """
     The field location in the Auth0 schema
     """

@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_jwt_verify_jwt_action import FlowActionJwtVerifyJwtAction
 from .flow_action_jwt_verify_jwt_params import FlowActionJwtVerifyJwtParams
+from .flow_action_jwt_verify_jwt_type import FlowActionJwtVerifyJwtType
 
 
 class FlowActionJwtVerifyJwt(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["JWT"] = "JWT"
-    action: typing.Literal["VERIFY_JWT"] = "VERIFY_JWT"
+    type: FlowActionJwtVerifyJwtType
+    action: FlowActionJwtVerifyJwtAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionJwtVerifyJwtParams

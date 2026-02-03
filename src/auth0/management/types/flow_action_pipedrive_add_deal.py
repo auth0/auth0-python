@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_pipedrive_add_deal_action import FlowActionPipedriveAddDealAction
 from .flow_action_pipedrive_add_deal_params import FlowActionPipedriveAddDealParams
+from .flow_action_pipedrive_add_deal_type import FlowActionPipedriveAddDealType
 
 
 class FlowActionPipedriveAddDeal(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["PIPEDRIVE"] = "PIPEDRIVE"
-    action: typing.Literal["ADD_DEAL"] = "ADD_DEAL"
+    type: FlowActionPipedriveAddDealType
+    action: FlowActionPipedriveAddDealAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionPipedriveAddDealParams

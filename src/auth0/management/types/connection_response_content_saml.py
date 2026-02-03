@@ -5,16 +5,22 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_saml import ConnectionOptionsSaml
+from .connection_provisioning_ticket_url import ConnectionProvisioningTicketUrl
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_saml_strategy import ConnectionResponseContentSamlStrategy
+from .connection_show_as_button import ConnectionShowAsButton
 
 
-class ConnectionResponseContentSaml(ConnectionResponseCommon):
+class ConnectionResponseContentSaml(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=samlp
     """
 
-    strategy: typing.Literal["samlp"] = "samlp"
+    strategy: ConnectionResponseContentSamlStrategy
     options: typing.Optional[ConnectionOptionsSaml] = None
+    provisioning_ticket_url: typing.Optional[ConnectionProvisioningTicketUrl] = None
+    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

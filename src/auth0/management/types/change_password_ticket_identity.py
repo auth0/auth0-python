@@ -17,7 +17,7 @@ class ChangePasswordTicketIdentity(UniversalBaseModel):
     user_id of the identity.
     """
 
-    provider: IdentityProviderOnlyAuth0Enum = "auth0"
+    provider: IdentityProviderOnlyAuth0Enum
     connection_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     connection_id of the identity.

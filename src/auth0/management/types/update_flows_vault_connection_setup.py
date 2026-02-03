@@ -15,6 +15,11 @@ from .flows_vault_connectio_setup_stripe_key_pair import FlowsVaultConnectioSetu
 from .flows_vault_connectio_setup_token import FlowsVaultConnectioSetupToken
 from .flows_vault_connectio_setup_twilio_api_key import FlowsVaultConnectioSetupTwilioApiKey
 from .flows_vault_connectio_setup_webhook import FlowsVaultConnectioSetupWebhook
+from .flows_vault_connection_http_api_key_setup import FlowsVaultConnectionHttpApiKeySetup
+from .flows_vault_connection_http_basic_auth_setup import FlowsVaultConnectionHttpBasicAuthSetup
+from .flows_vault_connection_http_oauth_client_credentials_setup import (
+    FlowsVaultConnectionHttpOauthClientCredentialsSetup,
+)
 
 UpdateFlowsVaultConnectionSetup = typing.Union[
     FlowsVaultConnectioSetupApiKeyWithBaseUrl,
@@ -23,6 +28,9 @@ UpdateFlowsVaultConnectionSetup = typing.Union[
     FlowsVaultConnectioSetupBigqueryOauthJwt,
     FlowsVaultConnectioSetupSecretApiKey,
     FlowsVaultConnectioSetupHttpBearer,
+    FlowsVaultConnectionHttpBasicAuthSetup,
+    FlowsVaultConnectionHttpApiKeySetup,
+    FlowsVaultConnectionHttpOauthClientCredentialsSetup,
     FlowsVaultConnectioSetupJwt,
     FlowsVaultConnectioSetupMailjetApiKey,
     FlowsVaultConnectioSetupToken,

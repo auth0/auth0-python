@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectioSetupTypeApiKeyEnum = typing.Literal["API_KEY"]
+FlowsVaultConnectioSetupTypeApiKeyEnum = typing.Union[typing.Literal["API_KEY"], typing.Any]

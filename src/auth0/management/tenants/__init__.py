@@ -7,11 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from . import settings
-    from .settings import UpdateTenantSettingsRequestContentEnabledLocalesItem
-_dynamic_imports: typing.Dict[str, str] = {
-    "UpdateTenantSettingsRequestContentEnabledLocalesItem": ".settings",
-    "settings": ".settings",
-}
+_dynamic_imports: typing.Dict[str, str] = {"settings": ".settings"}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -35,4 +31,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["UpdateTenantSettingsRequestContentEnabledLocalesItem", "settings"]
+__all__ = ["settings"]

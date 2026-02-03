@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdSendgridEnum = typing.Literal["SENDGRID"]
+FlowsVaultConnectionAppIdSendgridEnum = typing.Union[typing.Literal["SENDGRID"], typing.Any]

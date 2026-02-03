@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamPiiAlgorithmEnum = typing.Literal["xxhash"]
+LogStreamPiiAlgorithmEnum = typing.Union[typing.Literal["xxhash"], typing.Any]

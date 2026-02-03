@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_activecampaign_upsert_contact_action import FlowActionActivecampaignUpsertContactAction
 from .flow_action_activecampaign_upsert_contact_params import FlowActionActivecampaignUpsertContactParams
+from .flow_action_activecampaign_upsert_contact_type import FlowActionActivecampaignUpsertContactType
 
 
 class FlowActionActivecampaignUpsertContact(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["ACTIVECAMPAIGN"] = "ACTIVECAMPAIGN"
-    action: typing.Literal["UPSERT_CONTACT"] = "UPSERT_CONTACT"
+    type: FlowActionActivecampaignUpsertContactType
+    action: FlowActionActivecampaignUpsertContactAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionActivecampaignUpsertContactParams

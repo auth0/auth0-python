@@ -11,8 +11,8 @@ from .form_component_category_block_const import FormComponentCategoryBlockConst
 
 class FormBlockPreviousButton(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryBlockConst = "BLOCK"
-    type: FormBlockTypePreviousButtonConst = "PREVIOUS_BUTTON"
+    category: FormComponentCategoryBlockConst
+    type: FormBlockTypePreviousButtonConst
     config: FormBlockPreviousButtonConfig
 
     if IS_PYDANTIC_V2:

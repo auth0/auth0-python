@@ -14,7 +14,7 @@ class ClientAddonZendesk(UniversalBaseModel):
     """
 
     account_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountName")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="accountName", default=None)
     )
     """
     Zendesk account name usually first segment in your Zendesk URL. e.g. `https://acme-org.zendesk.com` would be `acme-org`.

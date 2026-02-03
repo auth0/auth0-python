@@ -10,7 +10,7 @@ from .resource_server_subject_type_authorization_user import ResourceServerSubje
 
 class ResourceServerSubjectTypeAuthorization(UniversalBaseModel):
     """
-    Defines application access permission for a resource server. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href="https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+    Defines application access permission for a resource server
     """
 
     user: typing.Optional[ResourceServerSubjectTypeAuthorizationUser] = None

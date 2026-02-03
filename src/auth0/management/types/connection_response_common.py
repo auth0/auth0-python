@@ -5,11 +5,13 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_id import ConnectionId
+from .connection_realms import ConnectionRealms
 from .create_connection_common import CreateConnectionCommon
 
 
 class ConnectionResponseCommon(CreateConnectionCommon):
     id: typing.Optional[ConnectionId] = None
+    realms: typing.Optional[ConnectionRealms] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -13,7 +13,7 @@ from .connection_domain_aliases_azure_ad import ConnectionDomainAliasesAzureAd
 from .connection_ext_admin import ConnectionExtAdmin
 from .connection_ext_agreed_terms import ConnectionExtAgreedTerms
 from .connection_ext_assigned_plans import ConnectionExtAssignedPlans
-from .connection_ext_groups import ConnectionExtGroups
+from .connection_ext_groups_azure_ad import ConnectionExtGroupsAzureAd
 from .connection_ext_is_suspended import ConnectionExtIsSuspended
 from .connection_ext_profile import ConnectionExtProfile
 from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
@@ -27,7 +27,7 @@ from .connection_should_trust_email_verified_connection_enum import ConnectionSh
 from .connection_tenant_domain_azure_ad_one import ConnectionTenantDomainAzureAdOne
 from .connection_tenant_id_azure_ad import ConnectionTenantIdAzureAd
 from .connection_thumbprints import ConnectionThumbprints
-from .connection_upstream_params_azure_ad import ConnectionUpstreamParamsAzureAd
+from .connection_upstream_params import ConnectionUpstreamParams
 from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
 from .connection_userid_attribute_azure_ad import ConnectionUseridAttributeAzureAd
 from .connection_waad_protocol import ConnectionWaadProtocol
@@ -130,7 +130,7 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     When false, prevents storing the list of Azure AD group IDs the user is a member of. When true (default), group membership IDs are persisted. See ext_groups for retrieving group details.
     """
 
-    ext_groups: typing.Optional[ConnectionExtGroups] = None
+    ext_groups: typing.Optional[ConnectionExtGroupsAzureAd] = None
     ext_is_suspended: typing.Optional[ConnectionExtIsSuspended] = None
     ext_job_title: typing.Optional[bool] = pydantic.Field(default=None)
     """
@@ -230,7 +230,7 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
 
     ext_telephone_number: typing_extensions.Annotated[
         typing.Optional[bool], FieldMetadata(alias="ext_telephoneNumber")
-    ] = pydantic.Field(default=None)
+    ] = pydantic.Field(alias="ext_telephoneNumber", default=None)
     """
     When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.
     """
@@ -270,9 +270,9 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     tenant_domain: typing.Optional[ConnectionTenantDomainAzureAdOne] = None
     tenant_id: typing_extensions.Annotated[
         typing.Optional[ConnectionTenantIdAzureAd], FieldMetadata(alias="tenantId")
-    ] = None
+    ] = pydantic.Field(alias="tenantId", default=None)
     thumbprints: typing.Optional[ConnectionThumbprints] = None
-    upstream_params: typing.Optional[ConnectionUpstreamParamsAzureAd] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     use_wsfed: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates WS-Federation protocol usage. When true, uses WS-Federation; when false, uses OpenID Connect.
@@ -280,7 +280,7 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
 
     use_common_endpoint: typing_extensions.Annotated[
         typing.Optional[ConnectionUseCommonEndpointAzureAd], FieldMetadata(alias="useCommonEndpoint")
-    ] = None
+    ] = pydantic.Field(alias="useCommonEndpoint", default=None)
     userid_attribute: typing.Optional[ConnectionUseridAttributeAzureAd] = None
     waad_protocol: typing.Optional[ConnectionWaadProtocol] = None
 

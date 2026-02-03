@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamMixpanelEnum = typing.Literal["mixpanel"]
+LogStreamMixpanelEnum = typing.Union[typing.Literal["mixpanel"], typing.Any]

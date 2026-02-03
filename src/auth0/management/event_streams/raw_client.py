@@ -7,6 +7,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
+from ..core.pagination import AsyncPager, SyncPager
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
@@ -24,6 +25,7 @@ from ..types.event_stream_status_enum import EventStreamStatusEnum
 from ..types.event_stream_subscription import EventStreamSubscription
 from ..types.event_stream_test_event_type_enum import EventStreamTestEventTypeEnum
 from ..types.get_event_stream_response_content import GetEventStreamResponseContent
+from ..types.list_event_streams_response_content import ListEventStreamsResponseContent
 from ..types.test_event_data_content import TestEventDataContent
 from ..types.update_event_stream_response_content import UpdateEventStreamResponseContent
 from .types.event_streams_create_request import EventStreamsCreateRequest
@@ -42,7 +44,7 @@ class RawEventStreamsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[EventStreamResponseContent]]:
+    ) -> SyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]:
         """
         Parameters
         ----------
@@ -57,7 +59,7 @@ class RawEventStreamsClient:
 
         Returns
         -------
-        HttpResponse[typing.List[EventStreamResponseContent]]
+        SyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]
             Event streams successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -71,14 +73,22 @@ class RawEventStreamsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[EventStreamResponseContent],
+                _parsed_response = typing.cast(
+                    ListEventStreamsResponseContent,
                     parse_obj_as(
-                        type_=typing.List[EventStreamResponseContent],  # type: ignore
+                        type_=ListEventStreamsResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.event_streams
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    from_=_parsed_next,
+                    take=take,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             if _response.status_code == 400:
                 raise BadRequestError(
                     headers=dict(_response.headers),
@@ -588,7 +598,7 @@ class AsyncRawEventStreamsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[EventStreamResponseContent]]:
+    ) -> AsyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]:
         """
         Parameters
         ----------
@@ -603,7 +613,7 @@ class AsyncRawEventStreamsClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.List[EventStreamResponseContent]]
+        AsyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]
             Event streams successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -617,14 +627,25 @@ class AsyncRawEventStreamsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[EventStreamResponseContent],
+                _parsed_response = typing.cast(
+                    ListEventStreamsResponseContent,
                     parse_obj_as(
-                        type_=typing.List[EventStreamResponseContent],  # type: ignore
+                        type_=ListEventStreamsResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.event_streams
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        from_=_parsed_next,
+                        take=take,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             if _response.status_code == 400:
                 raise BadRequestError(
                     headers=dict(_response.headers),

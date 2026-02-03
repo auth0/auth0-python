@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdWhatsappEnum = typing.Literal["WHATSAPP"]
+FlowsVaultConnectionAppIdWhatsappEnum = typing.Union[typing.Literal["WHATSAPP"], typing.Any]

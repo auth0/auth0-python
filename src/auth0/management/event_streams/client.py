@@ -5,6 +5,7 @@ from __future__ import annotations
 import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.create_event_stream_response_content import CreateEventStreamResponseContent
 from ..types.create_event_stream_test_event_response_content import CreateEventStreamTestEventResponseContent
@@ -14,6 +15,7 @@ from ..types.event_stream_status_enum import EventStreamStatusEnum
 from ..types.event_stream_subscription import EventStreamSubscription
 from ..types.event_stream_test_event_type_enum import EventStreamTestEventTypeEnum
 from ..types.get_event_stream_response_content import GetEventStreamResponseContent
+from ..types.list_event_streams_response_content import ListEventStreamsResponseContent
 from ..types.test_event_data_content import TestEventDataContent
 from ..types.update_event_stream_response_content import UpdateEventStreamResponseContent
 from .raw_client import AsyncRawEventStreamsClient, RawEventStreamsClient
@@ -50,7 +52,7 @@ class EventStreamsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[EventStreamResponseContent]:
+    ) -> SyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]:
         """
         Parameters
         ----------
@@ -65,7 +67,7 @@ class EventStreamsClient:
 
         Returns
         -------
-        typing.List[EventStreamResponseContent]
+        SyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]
             Event streams successfully retrieved.
 
         Examples
@@ -75,13 +77,17 @@ class EventStreamsClient:
         client = Auth0(
             token="YOUR_TOKEN",
         )
-        client.event_streams.list(
+        response = client.event_streams.list(
             from_="from",
             take=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(from_=from_, take=take, request_options=request_options)
-        return _response.data
+        return self._raw_client.list(from_=from_, take=take, request_options=request_options)
 
     def create(
         self, *, request: EventStreamsCreateRequest, request_options: typing.Optional[RequestOptions] = None
@@ -115,9 +121,11 @@ class EventStreamsClient:
         client.event_streams.create(
             request=CreateEventStreamWebHookRequestContent(
                 destination=EventStreamWebhookDestination(
+                    type="webhook",
                     configuration=EventStreamWebhookConfiguration(
                         webhook_endpoint="webhook_endpoint",
                         webhook_authorization=EventStreamWebhookBasicAuth(
+                            method="basic",
                             username="username",
                         ),
                     ),
@@ -322,7 +330,7 @@ class AsyncEventStreamsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[EventStreamResponseContent]:
+    ) -> AsyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]:
         """
         Parameters
         ----------
@@ -337,7 +345,7 @@ class AsyncEventStreamsClient:
 
         Returns
         -------
-        typing.List[EventStreamResponseContent]
+        AsyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]
             Event streams successfully retrieved.
 
         Examples
@@ -352,16 +360,21 @@ class AsyncEventStreamsClient:
 
 
         async def main() -> None:
-            await client.event_streams.list(
+            response = await client.event_streams.list(
                 from_="from",
                 take=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(from_=from_, take=take, request_options=request_options)
-        return _response.data
+        return await self._raw_client.list(from_=from_, take=take, request_options=request_options)
 
     async def create(
         self, *, request: EventStreamsCreateRequest, request_options: typing.Optional[RequestOptions] = None
@@ -400,9 +413,11 @@ class AsyncEventStreamsClient:
             await client.event_streams.create(
                 request=CreateEventStreamWebHookRequestContent(
                     destination=EventStreamWebhookDestination(
+                        type="webhook",
                         configuration=EventStreamWebhookConfiguration(
                             webhook_endpoint="webhook_endpoint",
                             webhook_authorization=EventStreamWebhookBasicAuth(
+                                method="basic",
                                 username="username",
                             ),
                         ),

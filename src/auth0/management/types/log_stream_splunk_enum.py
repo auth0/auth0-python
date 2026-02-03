@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamSplunkEnum = typing.Literal["splunk"]
+LogStreamSplunkEnum = typing.Union[typing.Literal["splunk"], typing.Any]

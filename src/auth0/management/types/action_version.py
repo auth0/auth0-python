@@ -7,6 +7,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .action_base import ActionBase
 from .action_error import ActionError
+from .action_module_reference import ActionModuleReference
 from .action_secret_response import ActionSecretResponse
 from .action_trigger import ActionTrigger
 from .action_version_build_status_enum import ActionVersionBuildStatusEnum
@@ -79,6 +80,11 @@ class ActionVersion(UniversalBaseModel):
     supported_triggers: typing.Optional[typing.List[ActionTrigger]] = pydantic.Field(default=None)
     """
     The list of triggers that this version supports. At this time, a version can only target a single trigger at a time.
+    """
+
+    modules: typing.Optional[typing.List[ActionModuleReference]] = pydantic.Field(default=None)
+    """
+    The list of action modules and their versions used by this action version.
     """
 
     if IS_PYDANTIC_V2:

@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdSlackEnum = typing.Literal["SLACK"]
+FlowsVaultConnectionAppIdSlackEnum = typing.Union[typing.Literal["SLACK"], typing.Any]

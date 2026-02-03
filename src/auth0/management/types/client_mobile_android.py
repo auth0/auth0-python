@@ -20,7 +20,7 @@ class ClientMobileAndroid(UniversalBaseModel):
 
     sha_256_cert_fingerprints: typing_extensions.Annotated[
         typing.Optional[typing.List[str]], FieldMetadata(alias="sha256_cert_fingerprints")
-    ] = pydantic.Field(default=None)
+    ] = pydantic.Field(alias="sha256_cert_fingerprints", default=None)
     """
     SHA256 fingerprints of the app's signing certificate. Multiple fingerprints can be used to support different versions of your app, such as debug and production builds.
     """

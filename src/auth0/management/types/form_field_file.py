@@ -11,8 +11,8 @@ from .form_field_type_file_const import FormFieldTypeFileConst
 
 class FormFieldFile(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeFileConst = "FILE"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeFileConst
     config: typing.Optional[FormFieldFileConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

@@ -2,4 +2,4 @@
 
 import typing
 
-FormBlockTypeRichTextConst = typing.Literal["RICH_TEXT"]
+FormBlockTypeRichTextConst = typing.Union[typing.Literal["RICH_TEXT"], typing.Any]

@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdMailchimpEnum = typing.Literal["MAILCHIMP"]
+FlowsVaultConnectionAppIdMailchimpEnum = typing.Union[typing.Literal["MAILCHIMP"], typing.Any]

@@ -2,4 +2,4 @@
 
 import typing
 
-EventStreamWebhookBearerAuthMethodEnum = typing.Literal["bearer"]
+EventStreamWebhookBearerAuthMethodEnum = typing.Union[typing.Literal["bearer"], typing.Any]

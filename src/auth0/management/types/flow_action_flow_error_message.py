@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_flow_error_message_action import FlowActionFlowErrorMessageAction
 from .flow_action_flow_error_message_params import FlowActionFlowErrorMessageParams
+from .flow_action_flow_error_message_type import FlowActionFlowErrorMessageType
 
 
 class FlowActionFlowErrorMessage(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["FLOW"] = "FLOW"
-    action: typing.Literal["ERROR_MESSAGE"] = "ERROR_MESSAGE"
+    type: FlowActionFlowErrorMessageType
+    action: FlowActionFlowErrorMessageAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionFlowErrorMessageParams

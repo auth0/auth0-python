@@ -13,7 +13,7 @@ class CreateEncryptionKeyPublicWrappingResponseContent(UniversalBaseModel):
     Public wrapping key in PEM format
     """
 
-    algorithm: EncryptionKeyPublicWrappingAlgorithm = "CKM_RSA_AES_KEY_WRAP"
+    algorithm: EncryptionKeyPublicWrappingAlgorithm
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_email_verify_email_action import FlowActionEmailVerifyEmailAction
 from .flow_action_email_verify_email_params import FlowActionEmailVerifyEmailParams
+from .flow_action_email_verify_email_type import FlowActionEmailVerifyEmailType
 
 
 class FlowActionEmailVerifyEmail(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["EMAIL"] = "EMAIL"
-    action: typing.Literal["VERIFY_EMAIL"] = "VERIFY_EMAIL"
+    type: FlowActionEmailVerifyEmailType
+    action: FlowActionEmailVerifyEmailAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionEmailVerifyEmailParams

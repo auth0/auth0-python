@@ -11,7 +11,7 @@ from .hook_dependencies import HookDependencies
 
 class CreateHookResponseContent(UniversalBaseModel):
     trigger_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="triggerId")] = pydantic.Field(
-        default=None
+        alias="triggerId", default=None
     )
     """
     Trigger ID

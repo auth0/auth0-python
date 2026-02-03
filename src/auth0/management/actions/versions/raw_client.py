@@ -268,7 +268,7 @@ class RawVersionsClient:
             f"actions/actions/{jsonable_encoder(action_id)}/versions/{jsonable_encoder(id)}/deploy",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=DeployActionVersionRequestContent, direction="write"
+                object_=request, annotation=typing.Optional[DeployActionVersionRequestContent], direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -581,7 +581,7 @@ class AsyncRawVersionsClient:
             f"actions/actions/{jsonable_encoder(action_id)}/versions/{jsonable_encoder(id)}/deploy",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=DeployActionVersionRequestContent, direction="write"
+                object_=request, annotation=typing.Optional[DeployActionVersionRequestContent], direction="write"
             ),
             headers={
                 "content-type": "application/json",

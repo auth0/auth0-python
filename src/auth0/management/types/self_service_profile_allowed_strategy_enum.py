@@ -3,5 +3,17 @@
 import typing
 
 SelfServiceProfileAllowedStrategyEnum = typing.Union[
-    typing.Literal["oidc", "samlp", "waad", "google-apps", "adfs", "okta", "keycloak-samlp", "pingfederate"], typing.Any
+    typing.Literal[
+        "oidc",
+        "samlp",
+        "waad",
+        "google-apps",
+        "adfs",
+        "okta",
+        "auth0-samlp",
+        "okta-samlp",
+        "keycloak-samlp",
+        "pingfederate",
+    ],
+    typing.Any,
 ]

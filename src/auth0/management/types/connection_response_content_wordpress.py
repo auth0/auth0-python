@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_wordpress import ConnectionOptionsWordpress
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_wordpress_strategy import ConnectionResponseContentWordpressStrategy
 
 
-class ConnectionResponseContentWordpress(ConnectionResponseCommon):
+class ConnectionResponseContentWordpress(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=wordpress
     """
 
-    strategy: typing.Literal["wordpress"] = "wordpress"
+    strategy: ConnectionResponseContentWordpressStrategy
     options: typing.Optional[ConnectionOptionsWordpress] = None
 
     if IS_PYDANTIC_V2:

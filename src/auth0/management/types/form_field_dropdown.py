@@ -11,8 +11,8 @@ from .form_field_type_dropdown_const import FormFieldTypeDropdownConst
 
 class FormFieldDropdown(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeDropdownConst = "DROPDOWN"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeDropdownConst
     config: typing.Optional[FormFieldDropdownConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

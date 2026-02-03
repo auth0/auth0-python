@@ -11,8 +11,8 @@ from .form_component_category_block_const import FormComponentCategoryBlockConst
 
 class FormBlockNextButton(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryBlockConst = "BLOCK"
-    type: FormBlockTypeNextButtonConst = "NEXT_BUTTON"
+    category: FormComponentCategoryBlockConst
+    type: FormBlockTypeNextButtonConst
     config: FormBlockNextButtonConfig
 
     if IS_PYDANTIC_V2:

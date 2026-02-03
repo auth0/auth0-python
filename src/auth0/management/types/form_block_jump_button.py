@@ -11,8 +11,8 @@ from .form_component_category_block_const import FormComponentCategoryBlockConst
 
 class FormBlockJumpButton(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryBlockConst = "BLOCK"
-    type: FormBlockTypeJumpButtonConst = "JUMP_BUTTON"
+    category: FormComponentCategoryBlockConst
+    type: FormBlockTypeJumpButtonConst
     config: FormBlockJumpButtonConfig
 
     if IS_PYDANTIC_V2:

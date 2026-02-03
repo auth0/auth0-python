@@ -35,7 +35,7 @@ class PatchClientCredentialResponseContent(UniversalBaseModel):
     """
 
     thumbprint_sha_256: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="thumbprint_sha256")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="thumbprint_sha256", default=None)
     )
     """
     The X509 certificate's SHA256 thumbprint

@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_activecampaign_list_contacts_action import FlowActionActivecampaignListContactsAction
 from .flow_action_activecampaign_list_contacts_params import FlowActionActivecampaignListContactsParams
+from .flow_action_activecampaign_list_contacts_type import FlowActionActivecampaignListContactsType
 
 
 class FlowActionActivecampaignListContacts(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["ACTIVECAMPAIGN"] = "ACTIVECAMPAIGN"
-    action: typing.Literal["LIST_CONTACTS"] = "LIST_CONTACTS"
+    type: FlowActionActivecampaignListContactsType
+    action: FlowActionActivecampaignListContactsAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionActivecampaignListContactsParams

@@ -2,4 +2,4 @@
 
 import typing
 
-SelfServiceProfileCustomTextPageEnum = typing.Literal["get-started"]
+SelfServiceProfileCustomTextPageEnum = typing.Union[typing.Literal["get-started"], typing.Any]

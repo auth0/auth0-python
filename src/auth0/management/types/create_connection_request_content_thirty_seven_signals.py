@@ -6,6 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_thirty_seven_signals import ConnectionOptionsThirtySevenSignals
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_thirty_seven_signals_strategy import (
+    CreateConnectionRequestContentThirtySevenSignalsStrategy,
+)
 
 
 class CreateConnectionRequestContentThirtySevenSignals(CreateConnectionCommon):
@@ -13,7 +16,7 @@ class CreateConnectionRequestContentThirtySevenSignals(CreateConnectionCommon):
     Create a connection with strategy=thirtysevensignals
     """
 
-    strategy: typing.Literal["thirtysevensignals"] = "thirtysevensignals"
+    strategy: CreateConnectionRequestContentThirtySevenSignalsStrategy
     options: typing.Optional[ConnectionOptionsThirtySevenSignals] = None
 
     if IS_PYDANTIC_V2:

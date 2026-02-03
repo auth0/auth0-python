@@ -6,6 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_planning_center import ConnectionOptionsPlanningCenter
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_planning_center_strategy import (
+    CreateConnectionRequestContentPlanningCenterStrategy,
+)
 
 
 class CreateConnectionRequestContentPlanningCenter(CreateConnectionCommon):
@@ -13,7 +16,7 @@ class CreateConnectionRequestContentPlanningCenter(CreateConnectionCommon):
     Create a connection with strategy=planningcenter
     """
 
-    strategy: typing.Literal["planningcenter"] = "planningcenter"
+    strategy: CreateConnectionRequestContentPlanningCenterStrategy
     options: typing.Optional[ConnectionOptionsPlanningCenter] = None
 
     if IS_PYDANTIC_V2:

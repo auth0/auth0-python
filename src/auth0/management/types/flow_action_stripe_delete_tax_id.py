@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_stripe_delete_tax_id_action import FlowActionStripeDeleteTaxIdAction
 from .flow_action_stripe_delete_tax_id_params import FlowActionStripeDeleteTaxIdParams
+from .flow_action_stripe_delete_tax_id_type import FlowActionStripeDeleteTaxIdType
 
 
 class FlowActionStripeDeleteTaxId(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["STRIPE"] = "STRIPE"
-    action: typing.Literal["DELETE_TAX_ID"] = "DELETE_TAX_ID"
+    type: FlowActionStripeDeleteTaxIdType
+    action: FlowActionStripeDeleteTaxIdAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionStripeDeleteTaxIdParams

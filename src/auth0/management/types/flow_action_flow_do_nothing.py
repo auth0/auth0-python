@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_flow_do_nothing_action import FlowActionFlowDoNothingAction
 from .flow_action_flow_do_nothing_params import FlowActionFlowDoNothingParams
+from .flow_action_flow_do_nothing_type import FlowActionFlowDoNothingType
 
 
 class FlowActionFlowDoNothing(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["FLOW"] = "FLOW"
-    action: typing.Literal["DO_NOTHING"] = "DO_NOTHING"
+    type: FlowActionFlowDoNothingType
+    action: FlowActionFlowDoNothingAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: typing.Optional[FlowActionFlowDoNothingParams] = None

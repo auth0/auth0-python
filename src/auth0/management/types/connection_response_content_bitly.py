@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_bitly import ConnectionOptionsBitly
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_bitly_strategy import ConnectionResponseContentBitlyStrategy
 
 
-class ConnectionResponseContentBitly(ConnectionResponseCommon):
+class ConnectionResponseContentBitly(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=bitly
     """
 
-    strategy: typing.Literal["bitly"] = "bitly"
+    strategy: ConnectionResponseContentBitlyStrategy
     options: typing.Optional[ConnectionOptionsBitly] = None
 
     if IS_PYDANTIC_V2:

@@ -2,4 +2,4 @@
 
 import typing
 
-FormNodeTypeStepConst = typing.Literal["STEP"]
+FormNodeTypeStepConst = typing.Union[typing.Literal["STEP"], typing.Any]

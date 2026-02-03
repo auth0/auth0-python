@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamSegmentEnum = typing.Literal["segment"]
+LogStreamSegmentEnum = typing.Union[typing.Literal["segment"], typing.Any]

@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_sms import ConnectionOptionsSms
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_sms_strategy import ConnectionResponseContentSmsStrategy
 
 
-class ConnectionResponseContentSms(ConnectionResponseCommon):
+class ConnectionResponseContentSms(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=sms
     """
 
-    strategy: typing.Literal["sms"] = "sms"
+    strategy: ConnectionResponseContentSmsStrategy
     options: typing.Optional[ConnectionOptionsSms] = None
 
     if IS_PYDANTIC_V2:

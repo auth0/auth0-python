@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionAirtableApiKey(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdAirtableEnum = "AIRTABLE"
+    app_id: FlowsVaultConnectionAppIdAirtableEnum
     setup: FlowsVaultConnectioSetupApiKey
 
     if IS_PYDANTIC_V2:

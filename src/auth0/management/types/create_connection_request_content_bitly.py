@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_bitly import ConnectionOptionsBitly
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_bitly_strategy import CreateConnectionRequestContentBitlyStrategy
 
 
 class CreateConnectionRequestContentBitly(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentBitly(CreateConnectionCommon):
     Create a connection with strategy=bitly
     """
 
-    strategy: typing.Literal["bitly"] = "bitly"
+    strategy: CreateConnectionRequestContentBitlyStrategy
     options: typing.Optional[ConnectionOptionsBitly] = None
 
     if IS_PYDANTIC_V2:

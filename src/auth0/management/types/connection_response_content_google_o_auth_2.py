@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_google_o_auth_2 import ConnectionOptionsGoogleOAuth2
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_google_o_auth_2_strategy import ConnectionResponseContentGoogleOAuth2Strategy
 
 
-class ConnectionResponseContentGoogleOAuth2(ConnectionResponseCommon):
+class ConnectionResponseContentGoogleOAuth2(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=google-oauth2
     """
 
-    strategy: typing.Literal["google-oauth2"] = "google-oauth2"
+    strategy: ConnectionResponseContentGoogleOAuth2Strategy
     options: typing.Optional[ConnectionOptionsGoogleOAuth2] = None
 
     if IS_PYDANTIC_V2:

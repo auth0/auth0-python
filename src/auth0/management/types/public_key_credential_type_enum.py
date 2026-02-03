@@ -2,4 +2,4 @@
 
 import typing
 
-PublicKeyCredentialTypeEnum = typing.Literal["public_key"]
+PublicKeyCredentialTypeEnum = typing.Union[typing.Literal["public_key"], typing.Any]

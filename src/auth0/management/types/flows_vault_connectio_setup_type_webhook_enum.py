@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectioSetupTypeWebhookEnum = typing.Literal["WEBHOOK"]
+FlowsVaultConnectioSetupTypeWebhookEnum = typing.Union[typing.Literal["WEBHOOK"], typing.Any]

@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_soundcloud import ConnectionOptionsSoundcloud
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_soundcloud_strategy import CreateConnectionRequestContentSoundcloudStrategy
 
 
 class CreateConnectionRequestContentSoundcloud(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentSoundcloud(CreateConnectionCommon):
     Create a connection with strategy=soundcloud
     """
 
-    strategy: typing.Literal["soundcloud"] = "soundcloud"
+    strategy: CreateConnectionRequestContentSoundcloudStrategy
     options: typing.Optional[ConnectionOptionsSoundcloud] = None
 
     if IS_PYDANTIC_V2:

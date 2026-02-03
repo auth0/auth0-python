@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_git_hub import ConnectionOptionsGitHub
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_git_hub_strategy import ConnectionResponseContentGitHubStrategy
 
 
-class ConnectionResponseContentGitHub(ConnectionResponseCommon):
+class ConnectionResponseContentGitHub(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=github
     """
 
-    strategy: typing.Literal["github"] = "github"
+    strategy: ConnectionResponseContentGitHubStrategy
     options: typing.Optional[ConnectionOptionsGitHub] = None
 
     if IS_PYDANTIC_V2:

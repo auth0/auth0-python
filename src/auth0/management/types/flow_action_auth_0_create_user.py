@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_auth_0_create_user_action import FlowActionAuth0CreateUserAction
 from .flow_action_auth_0_create_user_params import FlowActionAuth0CreateUserParams
+from .flow_action_auth_0_create_user_type import FlowActionAuth0CreateUserType
 
 
 class FlowActionAuth0CreateUser(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["AUTH0"] = "AUTH0"
-    action: typing.Literal["CREATE_USER"] = "CREATE_USER"
+    type: FlowActionAuth0CreateUserType
+    action: FlowActionAuth0CreateUserAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionAuth0CreateUserParams

@@ -15,6 +15,11 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.get_refresh_token_response_content import GetRefreshTokenResponseContent
+from ..types.refresh_token_metadata import RefreshTokenMetadata
+from ..types.update_refresh_token_response_content import UpdateRefreshTokenResponseContent
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class RawRefreshTokensClient:
@@ -152,6 +157,113 @@ class RawRefreshTokensClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update(
+        self,
+        id: str,
+        *,
+        refresh_token_metadata: typing.Optional[RefreshTokenMetadata] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[UpdateRefreshTokenResponseContent]:
+        """
+        Update a refresh token by its ID.
+
+        Parameters
+        ----------
+        id : str
+            ID of the refresh token to update.
+
+        refresh_token_metadata : typing.Optional[RefreshTokenMetadata]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[UpdateRefreshTokenResponseContent]
+            Refresh token successfully updated.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"refresh-tokens/{jsonable_encoder(id)}",
+            method="PATCH",
+            json={
+                "refresh_token_metadata": refresh_token_metadata,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateRefreshTokenResponseContent,
+                    parse_obj_as(
+                        type_=UpdateRefreshTokenResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -315,6 +427,113 @@ class AsyncRawRefreshTokensClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update(
+        self,
+        id: str,
+        *,
+        refresh_token_metadata: typing.Optional[RefreshTokenMetadata] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[UpdateRefreshTokenResponseContent]:
+        """
+        Update a refresh token by its ID.
+
+        Parameters
+        ----------
+        id : str
+            ID of the refresh token to update.
+
+        refresh_token_metadata : typing.Optional[RefreshTokenMetadata]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[UpdateRefreshTokenResponseContent]
+            Refresh token successfully updated.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"refresh-tokens/{jsonable_encoder(id)}",
+            method="PATCH",
+            json={
+                "refresh_token_metadata": refresh_token_metadata,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateRefreshTokenResponseContent,
+                    parse_obj_as(
+                        type_=UpdateRefreshTokenResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

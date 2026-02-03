@@ -11,8 +11,8 @@ from .form_field_type_password_const import FormFieldTypePasswordConst
 
 class FormFieldPassword(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypePasswordConst = "PASSWORD"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypePasswordConst
     config: FormFieldPasswordConfig
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

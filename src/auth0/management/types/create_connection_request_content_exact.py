@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_exact import ConnectionOptionsExact
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_exact_strategy import CreateConnectionRequestContentExactStrategy
 
 
 class CreateConnectionRequestContentExact(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentExact(CreateConnectionCommon):
     Create a connection with strategy=exact
     """
 
-    strategy: typing.Literal["exact"] = "exact"
+    strategy: CreateConnectionRequestContentExactStrategy
     options: typing.Optional[ConnectionOptionsExact] = None
 
     if IS_PYDANTIC_V2:

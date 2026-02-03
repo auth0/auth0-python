@@ -2,4 +2,4 @@
 
 import typing
 
-LogStreamHttpEnum = typing.Literal["http"]
+LogStreamHttpEnum = typing.Union[typing.Literal["http"], typing.Any]

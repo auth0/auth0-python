@@ -4,8 +4,10 @@ import typing
 
 from .flow_action_auth_0_create_user import FlowActionAuth0CreateUser
 from .flow_action_auth_0_get_user import FlowActionAuth0GetUser
+from .flow_action_auth_0_make_call import FlowActionAuth0MakeCall
 from .flow_action_auth_0_send_email import FlowActionAuth0SendEmail
 from .flow_action_auth_0_send_request import FlowActionAuth0SendRequest
+from .flow_action_auth_0_send_sms import FlowActionAuth0SendSms
 from .flow_action_auth_0_update_user import FlowActionAuth0UpdateUser
 
 FlowActionAuth0 = typing.Union[
@@ -14,4 +16,6 @@ FlowActionAuth0 = typing.Union[
     FlowActionAuth0UpdateUser,
     FlowActionAuth0SendRequest,
     FlowActionAuth0SendEmail,
+    FlowActionAuth0SendSms,
+    FlowActionAuth0MakeCall,
 ]

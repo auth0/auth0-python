@@ -27,6 +27,7 @@ if typing.TYPE_CHECKING:
         AsyncFederatedConnectionsTokensetsClient,
         FederatedConnectionsTokensetsClient,
     )
+    from .groups.client import AsyncGroupsClient, GroupsClient
     from .identities.client import AsyncIdentitiesClient, IdentitiesClient
     from .logs.client import AsyncLogsClient, LogsClient
     from .multifactor.client import AsyncMultifactorClient, MultifactorClient
@@ -49,6 +50,7 @@ class UsersClient:
         self._connected_accounts: typing.Optional[ConnectedAccountsClient] = None
         self._enrollments: typing.Optional[EnrollmentsClient] = None
         self._federated_connections_tokensets: typing.Optional[FederatedConnectionsTokensetsClient] = None
+        self._groups: typing.Optional[GroupsClient] = None
         self._identities: typing.Optional[IdentitiesClient] = None
         self._logs: typing.Optional[LogsClient] = None
         self._multifactor: typing.Optional[MultifactorClient] = None
@@ -750,6 +752,14 @@ class UsersClient:
         return self._federated_connections_tokensets
 
     @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import GroupsClient  # noqa: E402
+
+            self._groups = GroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
+
+    @property
     def identities(self):
         if self._identities is None:
             from .identities.client import IdentitiesClient  # noqa: E402
@@ -831,6 +841,7 @@ class AsyncUsersClient:
         self._connected_accounts: typing.Optional[AsyncConnectedAccountsClient] = None
         self._enrollments: typing.Optional[AsyncEnrollmentsClient] = None
         self._federated_connections_tokensets: typing.Optional[AsyncFederatedConnectionsTokensetsClient] = None
+        self._groups: typing.Optional[AsyncGroupsClient] = None
         self._identities: typing.Optional[AsyncIdentitiesClient] = None
         self._logs: typing.Optional[AsyncLogsClient] = None
         self._multifactor: typing.Optional[AsyncMultifactorClient] = None
@@ -1595,6 +1606,14 @@ class AsyncUsersClient:
                 client_wrapper=self._client_wrapper
             )
         return self._federated_connections_tokensets
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import AsyncGroupsClient  # noqa: E402
+
+            self._groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
 
     @property
     def identities(self):

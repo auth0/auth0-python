@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .acul_context_configuration import AculContextConfiguration
 from .acul_filters import AculFilters
 from .acul_head_tag import AculHeadTag
 from .acul_rendering_mode_enum import AculRenderingModeEnum
@@ -26,12 +27,8 @@ class GetAculResponseContent(UniversalBaseModel):
     """
 
     rendering_mode: typing.Optional[AculRenderingModeEnum] = None
-    context_configuration: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
-    """
-    Context values to make available
-    """
-
-    default_head_tags_disabled: typing.Optional[bool] = pydantic.Field(default=None)
+    context_configuration: typing.Optional[AculContextConfiguration] = None
+    default_head_tags_disabled: typing.Optional[bool] = pydantic.Field(default=False)
     """
     Override Universal Login default head tags
     """

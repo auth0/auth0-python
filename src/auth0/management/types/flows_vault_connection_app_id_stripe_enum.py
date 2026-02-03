@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdStripeEnum = typing.Literal["STRIPE"]
+FlowsVaultConnectionAppIdStripeEnum = typing.Union[typing.Literal["STRIPE"], typing.Any]

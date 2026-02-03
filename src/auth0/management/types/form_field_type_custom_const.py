@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeCustomConst = typing.Literal["CUSTOM"]
+FormFieldTypeCustomConst = typing.Union[typing.Literal["CUSTOM"], typing.Any]

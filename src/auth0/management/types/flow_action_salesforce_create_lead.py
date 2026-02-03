@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_salesforce_create_lead_action import FlowActionSalesforceCreateLeadAction
 from .flow_action_salesforce_create_lead_params import FlowActionSalesforceCreateLeadParams
+from .flow_action_salesforce_create_lead_type import FlowActionSalesforceCreateLeadType
 
 
 class FlowActionSalesforceCreateLead(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["SALESFORCE"] = "SALESFORCE"
-    action: typing.Literal["CREATE_LEAD"] = "CREATE_LEAD"
+    type: FlowActionSalesforceCreateLeadType
+    action: FlowActionSalesforceCreateLeadAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionSalesforceCreateLeadParams

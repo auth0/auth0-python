@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_exact import ConnectionOptionsExact
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_exact_strategy import ConnectionResponseContentExactStrategy
 
 
-class ConnectionResponseContentExact(ConnectionResponseCommon):
+class ConnectionResponseContentExact(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=exact
     """
 
-    strategy: typing.Literal["exact"] = "exact"
+    strategy: ConnectionResponseContentExactStrategy
     options: typing.Optional[ConnectionOptionsExact] = None
 
     if IS_PYDANTIC_V2:

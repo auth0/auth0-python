@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeTelConst = typing.Literal["TEL"]
+FormFieldTypeTelConst = typing.Union[typing.Literal["TEL"], typing.Any]

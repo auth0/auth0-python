@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_fitbit import ConnectionOptionsFitbit
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_fitbit_strategy import ConnectionResponseContentFitbitStrategy
 
 
-class ConnectionResponseContentFitbit(ConnectionResponseCommon):
+class ConnectionResponseContentFitbit(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=fitbit
     """
 
-    strategy: typing.Literal["fitbit"] = "fitbit"
+    strategy: ConnectionResponseContentFitbitStrategy
     options: typing.Optional[ConnectionOptionsFitbit] = None
 
     if IS_PYDANTIC_V2:

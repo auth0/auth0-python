@@ -2,4 +2,4 @@
 
 import typing
 
-EventStreamDeliveryStatusEnum = typing.Literal["failed"]
+EventStreamDeliveryStatusEnum = typing.Union[typing.Literal["failed"], typing.Any]

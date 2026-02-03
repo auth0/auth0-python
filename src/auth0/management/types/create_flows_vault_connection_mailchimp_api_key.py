@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionMailchimpApiKey(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdMailchimpEnum = "MAILCHIMP"
+    app_id: FlowsVaultConnectionAppIdMailchimpEnum
     setup: FlowsVaultConnectioSetupSecretApiKey
 
     if IS_PYDANTIC_V2:

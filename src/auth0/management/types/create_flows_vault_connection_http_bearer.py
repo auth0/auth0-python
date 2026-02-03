@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionHttpBearer(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdHttpEnum = "HTTP"
+    app_id: FlowsVaultConnectionAppIdHttpEnum
     setup: FlowsVaultConnectioSetupHttpBearer
 
     if IS_PYDANTIC_V2:

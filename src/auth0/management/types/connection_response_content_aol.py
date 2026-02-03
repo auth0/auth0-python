@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_aol import ConnectionOptionsAol
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_aol_strategy import ConnectionResponseContentAolStrategy
 
 
-class ConnectionResponseContentAol(ConnectionResponseCommon):
+class ConnectionResponseContentAol(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=aol
     """
 
-    strategy: typing.Literal["aol"] = "aol"
+    strategy: ConnectionResponseContentAolStrategy
     options: typing.Optional[ConnectionOptionsAol] = None
 
     if IS_PYDANTIC_V2:

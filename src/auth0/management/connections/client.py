@@ -37,8 +37,8 @@ class ConnectionsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawConnectionsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._clients: typing.Optional[ClientsClient] = None
         self._directory_provisioning: typing.Optional[DirectoryProvisioningClient] = None
+        self._clients: typing.Optional[ClientsClient] = None
         self._keys: typing.Optional[KeysClient] = None
         self._scim_configuration: typing.Optional[ScimConfigurationClient] = None
         self._users: typing.Optional[UsersClient] = None
@@ -161,7 +161,9 @@ class ConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateConnectionResponseContent:
         """
-        Creates a new connection according to the JSON object received in <code>body</code>.<br/>
+        Creates a new connection according to the JSON object received in <code>body</code>.
+
+        <b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
 
         Parameters
         ----------
@@ -280,6 +282,8 @@ class ConnectionsClient:
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+
+        <b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.
 
         Parameters
         ----------
@@ -420,20 +424,20 @@ class ConnectionsClient:
         return _response.data
 
     @property
-    def clients(self):
-        if self._clients is None:
-            from .clients.client import ClientsClient  # noqa: E402
-
-            self._clients = ClientsClient(client_wrapper=self._client_wrapper)
-        return self._clients
-
-    @property
     def directory_provisioning(self):
         if self._directory_provisioning is None:
             from .directory_provisioning.client import DirectoryProvisioningClient  # noqa: E402
 
             self._directory_provisioning = DirectoryProvisioningClient(client_wrapper=self._client_wrapper)
         return self._directory_provisioning
+
+    @property
+    def clients(self):
+        if self._clients is None:
+            from .clients.client import ClientsClient  # noqa: E402
+
+            self._clients = ClientsClient(client_wrapper=self._client_wrapper)
+        return self._clients
 
     @property
     def keys(self):
@@ -464,8 +468,8 @@ class AsyncConnectionsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawConnectionsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._clients: typing.Optional[AsyncClientsClient] = None
         self._directory_provisioning: typing.Optional[AsyncDirectoryProvisioningClient] = None
+        self._clients: typing.Optional[AsyncClientsClient] = None
         self._keys: typing.Optional[AsyncKeysClient] = None
         self._scim_configuration: typing.Optional[AsyncScimConfigurationClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
@@ -597,7 +601,9 @@ class AsyncConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateConnectionResponseContent:
         """
-        Creates a new connection according to the JSON object received in <code>body</code>.<br/>
+        Creates a new connection according to the JSON object received in <code>body</code>.
+
+        <b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
 
         Parameters
         ----------
@@ -732,6 +738,8 @@ class AsyncConnectionsClient:
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+
+        <b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.
 
         Parameters
         ----------
@@ -896,20 +904,20 @@ class AsyncConnectionsClient:
         return _response.data
 
     @property
-    def clients(self):
-        if self._clients is None:
-            from .clients.client import AsyncClientsClient  # noqa: E402
-
-            self._clients = AsyncClientsClient(client_wrapper=self._client_wrapper)
-        return self._clients
-
-    @property
     def directory_provisioning(self):
         if self._directory_provisioning is None:
             from .directory_provisioning.client import AsyncDirectoryProvisioningClient  # noqa: E402
 
             self._directory_provisioning = AsyncDirectoryProvisioningClient(client_wrapper=self._client_wrapper)
         return self._directory_provisioning
+
+    @property
+    def clients(self):
+        if self._clients is None:
+            from .clients.client import AsyncClientsClient  # noqa: E402
+
+            self._clients = AsyncClientsClient(client_wrapper=self._client_wrapper)
+        return self._clients
 
     @property
     def keys(self):

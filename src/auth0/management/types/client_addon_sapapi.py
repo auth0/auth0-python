@@ -19,14 +19,14 @@ class ClientAddonSapapi(UniversalBaseModel):
     """
 
     username_attribute: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="usernameAttribute")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="usernameAttribute", default=None)
     )
     """
     Name of the property in the user object that maps to a SAP username. e.g. `email`.
     """
 
     token_endpoint_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="tokenEndpointUrl")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="tokenEndpointUrl", default=None)
     )
     """
     Your SAP OData server OAuth2 token endpoint URL.
@@ -38,7 +38,7 @@ class ClientAddonSapapi(UniversalBaseModel):
     """
 
     service_password: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="servicePassword")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="servicePassword", default=None)
     )
     """
     Service account password to use to authenticate API calls to the token endpoint.
@@ -46,7 +46,7 @@ class ClientAddonSapapi(UniversalBaseModel):
 
     name_identifier_format: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="nameIdentifierFormat")
-    ] = pydantic.Field(default=None)
+    ] = pydantic.Field(alias="nameIdentifierFormat", default=None)
     """
     NameID element of the Subject which can be used to express the user's identity. Defaults to `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified`.
     """

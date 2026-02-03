@@ -9,7 +9,7 @@ from .event_stream_event_bridge_destination_type_enum import EventStreamEventBri
 
 
 class EventStreamEventBridgeDestination(UniversalBaseModel):
-    type: EventStreamEventBridgeDestinationTypeEnum = "eventbridge"
+    type: EventStreamEventBridgeDestinationTypeEnum
     configuration: EventStreamEventBridgeConfiguration
 
     if IS_PYDANTIC_V2:

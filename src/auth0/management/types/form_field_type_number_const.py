@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeNumberConst = typing.Literal["NUMBER"]
+FormFieldTypeNumberConst = typing.Union[typing.Literal["NUMBER"], typing.Any]

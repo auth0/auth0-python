@@ -11,8 +11,8 @@ from .form_field_type_social_const import FormFieldTypeSocialConst
 
 class FormFieldSocial(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeSocialConst = "SOCIAL"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeSocialConst
     config: typing.Optional[FormFieldSocialConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

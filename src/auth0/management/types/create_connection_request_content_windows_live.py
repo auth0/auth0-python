@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_windows_live import ConnectionOptionsWindowsLive
+from .connection_purposes import ConnectionPurposes
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_windows_live_strategy import CreateConnectionRequestContentWindowsLiveStrategy
 
 
-class CreateConnectionRequestContentWindowsLive(CreateConnectionCommon):
+class CreateConnectionRequestContentWindowsLive(ConnectionPurposes, CreateConnectionCommon):
     """
     Create a connection with strategy=windowslive
     """
 
-    strategy: typing.Literal["windowslive"] = "windowslive"
+    strategy: CreateConnectionRequestContentWindowsLiveStrategy
     options: typing.Optional[ConnectionOptionsWindowsLive] = None
 
     if IS_PYDANTIC_V2:

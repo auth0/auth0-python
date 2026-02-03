@@ -2,4 +2,4 @@
 
 import typing
 
-ResourceServerConsentPolicyEnum = typing.Optional[typing.Literal["transactional-authorization-with-mfa"]]
+ResourceServerConsentPolicyEnum = typing.Union[typing.Literal["transactional-authorization-with-mfa"], typing.Any]

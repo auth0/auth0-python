@@ -2,4 +2,21 @@
 
 import typing
 
-ConnectionOptionsFlickr = typing.Dict[str, typing.Any]
+import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from .connection_options_o_auth_1_common import ConnectionOptionsOAuth1Common
+
+
+class ConnectionOptionsFlickr(ConnectionOptionsOAuth1Common):
+    """
+    Options for the 'flickr' connection
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

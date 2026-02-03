@@ -59,7 +59,7 @@ class ClientAddons(UniversalBaseModel):
     firebase: typing.Optional[ClientAddonFirebase] = None
     newrelic: typing.Optional[ClientAddonNewRelic] = None
     office_365: typing_extensions.Annotated[typing.Optional[ClientAddonOffice365], FieldMetadata(alias="office365")] = (
-        None
+        pydantic.Field(alias="office365", default=None)
     )
     salesforce: typing.Optional[ClientAddonSalesforce] = None
     salesforce_api: typing.Optional[ClientAddonSalesforceApi] = None

@@ -7,6 +7,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .action_build_status_enum import ActionBuildStatusEnum
 from .action_deployed_version import ActionDeployedVersion
+from .action_module_reference import ActionModuleReference
 from .action_secret_response import ActionSecretResponse
 from .action_trigger import ActionTrigger
 from .action_version_dependency import ActionVersionDependency
@@ -80,6 +81,11 @@ class CreateActionResponseContent(UniversalBaseModel):
     deploy: typing.Optional[bool] = pydantic.Field(default=False)
     """
     True if the action should be deployed after creation.
+    """
+
+    modules: typing.Optional[typing.List[ActionModuleReference]] = pydantic.Field(default=None)
+    """
+    The list of action modules and their versions used by this action.
     """
 
     if IS_PYDANTIC_V2:

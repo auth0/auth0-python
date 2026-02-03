@@ -19,6 +19,11 @@ class OrganizationDiscoveryDomain(UniversalBaseModel):
     """
 
     status: OrganizationDiscoveryDomainStatus
+    use_for_organization_discovery: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Indicates whether this domain should be used for organization discovery.
+    """
+
     verification_txt: str = pydantic.Field()
     """
     A unique token generated for the discovery domain. This must be placed in a DNS TXT record at the location specified by the verification_host field to prove domain ownership.

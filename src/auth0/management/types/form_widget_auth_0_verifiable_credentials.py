@@ -11,8 +11,8 @@ from .form_widget_type_auth_0_verifiable_credentials_const import FormWidgetType
 
 class FormWidgetAuth0VerifiableCredentials(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryWidgetConst = "WIDGET"
-    type: FormWidgetTypeAuth0VerifiableCredentialsConst = "AUTH0_VERIFIABLE_CREDENTIALS"
+    category: FormComponentCategoryWidgetConst
+    type: FormWidgetTypeAuth0VerifiableCredentialsConst
     config: FormWidgetAuth0VerifiableCredentialsConfig
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

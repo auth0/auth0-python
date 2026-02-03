@@ -10,12 +10,16 @@ from .log_stream_datadog_region_enum import LogStreamDatadogRegionEnum
 
 
 class LogStreamDatadogSink(UniversalBaseModel):
-    datadog_api_key: typing_extensions.Annotated[str, FieldMetadata(alias="datadogApiKey")] = pydantic.Field()
+    datadog_api_key: typing_extensions.Annotated[str, FieldMetadata(alias="datadogApiKey")] = pydantic.Field(
+        alias="datadogApiKey"
+    )
     """
     Datadog API Key
     """
 
-    datadog_region: typing_extensions.Annotated[LogStreamDatadogRegionEnum, FieldMetadata(alias="datadogRegion")]
+    datadog_region: typing_extensions.Annotated[LogStreamDatadogRegionEnum, FieldMetadata(alias="datadogRegion")] = (
+        pydantic.Field(alias="datadogRegion")
+    )
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

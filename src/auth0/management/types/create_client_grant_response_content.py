@@ -43,7 +43,12 @@ class CreateClientGrantResponseContent(UniversalBaseModel):
     subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = None
     authorization_details_types: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+    Types of authorization_details allowed for this client grant.
+    """
+
+    allow_all_scopes: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If enabled, all scopes configured on the resource server are allowed for this grant.
     """
 
     if IS_PYDANTIC_V2:

@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_slack_post_message_action import FlowActionSlackPostMessageAction
 from .flow_action_slack_post_message_params import FlowActionSlackPostMessageParams
+from .flow_action_slack_post_message_type import FlowActionSlackPostMessageType
 
 
 class FlowActionSlackPostMessage(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["SLACK"] = "SLACK"
-    action: typing.Literal["POST_MESSAGE"] = "POST_MESSAGE"
+    type: FlowActionSlackPostMessageType
+    action: FlowActionSlackPostMessageAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionSlackPostMessageParams

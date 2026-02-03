@@ -118,7 +118,9 @@ class ConnectionsClient:
         client.flows.vault.connections.create(
             request=CreateFlowsVaultConnectionActivecampaignApiKey(
                 name="name",
+                app_id="ACTIVECAMPAIGN",
                 setup=FlowsVaultConnectioSetupApiKeyWithBaseUrl(
+                    type="API_KEY",
                     api_key="api_key",
                     base_url="base_url",
                 ),
@@ -341,7 +343,9 @@ class AsyncConnectionsClient:
             await client.flows.vault.connections.create(
                 request=CreateFlowsVaultConnectionActivecampaignApiKey(
                     name="name",
+                    app_id="ACTIVECAMPAIGN",
                     setup=FlowsVaultConnectioSetupApiKeyWithBaseUrl(
+                        type="API_KEY",
                         api_key="api_key",
                         base_url="base_url",
                     ),

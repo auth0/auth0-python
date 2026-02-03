@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_auth_0 import ConnectionOptionsAuth0
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_auth_0_strategy import ConnectionResponseContentAuth0Strategy
 
 
-class ConnectionResponseContentAuth0(ConnectionResponseCommon):
+class ConnectionResponseContentAuth0(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=auth0
     """
 
-    strategy: typing.Literal["auth0"] = "auth0"
+    strategy: ConnectionResponseContentAuth0Strategy
     options: typing.Optional[ConnectionOptionsAuth0] = None
 
     if IS_PYDANTIC_V2:

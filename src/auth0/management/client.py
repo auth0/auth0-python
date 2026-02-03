@@ -24,6 +24,7 @@ if typing.TYPE_CHECKING:
     from .event_streams.client import AsyncEventStreamsClient, EventStreamsClient
     from .flows.client import AsyncFlowsClient, FlowsClient
     from .forms.client import AsyncFormsClient, FormsClient
+    from .groups.client import AsyncGroupsClient, GroupsClient
     from .guardian.client import AsyncGuardianClient, GuardianClient
     from .hooks.client import AsyncHooksClient, HooksClient
     from .jobs.client import AsyncJobsClient, JobsClient
@@ -131,6 +132,7 @@ class Auth0:
         self._flows: typing.Optional[FlowsClient] = None
         self._forms: typing.Optional[FormsClient] = None
         self._user_grants: typing.Optional[UserGrantsClient] = None
+        self._groups: typing.Optional[GroupsClient] = None
         self._hooks: typing.Optional[HooksClient] = None
         self._jobs: typing.Optional[JobsClient] = None
         self._log_streams: typing.Optional[LogStreamsClient] = None
@@ -264,6 +266,14 @@ class Auth0:
 
             self._user_grants = UserGrantsClient(client_wrapper=self._client_wrapper)
         return self._user_grants
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import GroupsClient  # noqa: E402
+
+            self._groups = GroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
 
     @property
     def hooks(self):
@@ -576,6 +586,7 @@ class AsyncAuth0:
         self._flows: typing.Optional[AsyncFlowsClient] = None
         self._forms: typing.Optional[AsyncFormsClient] = None
         self._user_grants: typing.Optional[AsyncUserGrantsClient] = None
+        self._groups: typing.Optional[AsyncGroupsClient] = None
         self._hooks: typing.Optional[AsyncHooksClient] = None
         self._jobs: typing.Optional[AsyncJobsClient] = None
         self._log_streams: typing.Optional[AsyncLogStreamsClient] = None
@@ -709,6 +720,14 @@ class AsyncAuth0:
 
             self._user_grants = AsyncUserGrantsClient(client_wrapper=self._client_wrapper)
         return self._user_grants
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import AsyncGroupsClient  # noqa: E402
+
+            self._groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
 
     @property
     def hooks(self):

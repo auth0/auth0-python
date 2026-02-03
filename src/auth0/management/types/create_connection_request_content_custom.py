@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_custom import ConnectionOptionsCustom
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_custom_strategy import CreateConnectionRequestContentCustomStrategy
 
 
 class CreateConnectionRequestContentCustom(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentCustom(CreateConnectionCommon):
     Create a connection with strategy=custom
     """
 
-    strategy: typing.Literal["custom"] = "custom"
+    strategy: CreateConnectionRequestContentCustomStrategy
     options: typing.Optional[ConnectionOptionsCustom] = None
 
     if IS_PYDANTIC_V2:

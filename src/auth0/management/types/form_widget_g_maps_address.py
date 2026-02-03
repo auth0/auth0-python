@@ -11,8 +11,8 @@ from .form_widget_type_g_maps_address_const import FormWidgetTypeGMapsAddressCon
 
 class FormWidgetGMapsAddress(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryWidgetConst = "WIDGET"
-    type: FormWidgetTypeGMapsAddressConst = "GMAPS_ADDRESS"
+    category: FormComponentCategoryWidgetConst
+    type: FormWidgetTypeGMapsAddressConst
     config: FormWidgetGMapsAddressConfig
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

@@ -2,9 +2,18 @@
 
 import typing
 
+from .create_flows_vault_connection_http_api_key import CreateFlowsVaultConnectionHttpApiKey
+from .create_flows_vault_connection_http_basic_auth import CreateFlowsVaultConnectionHttpBasicAuth
 from .create_flows_vault_connection_http_bearer import CreateFlowsVaultConnectionHttpBearer
+from .create_flows_vault_connection_http_oauth_client_credentials import (
+    CreateFlowsVaultConnectionHttpOauthClientCredentials,
+)
 from .create_flows_vault_connection_http_uninitialized import CreateFlowsVaultConnectionHttpUninitialized
 
 CreateFlowsVaultConnectionHttp = typing.Union[
-    CreateFlowsVaultConnectionHttpBearer, CreateFlowsVaultConnectionHttpUninitialized
+    CreateFlowsVaultConnectionHttpBearer,
+    CreateFlowsVaultConnectionHttpBasicAuth,
+    CreateFlowsVaultConnectionHttpApiKey,
+    CreateFlowsVaultConnectionHttpOauthClientCredentials,
+    CreateFlowsVaultConnectionHttpUninitialized,
 ]

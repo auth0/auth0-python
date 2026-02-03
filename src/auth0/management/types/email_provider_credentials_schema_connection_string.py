@@ -10,7 +10,7 @@ from ..core.serialization import FieldMetadata
 
 class EmailProviderCredentialsSchemaConnectionString(UniversalBaseModel):
     connection_string: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="connectionString")] = (
-        pydantic.Field(default=None)
+        pydantic.Field(alias="connectionString", default=None)
     )
     """
     Azure Communication Services Connection String.

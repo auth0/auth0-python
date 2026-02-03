@@ -20,12 +20,19 @@ class ConnectionOptionsGoogleOAuth2(ConnectionOptionsCommon):
     Options for the 'google-oauth2' connection
     """
 
+    allowed_audiences: typing.Optional[ConnectionAllowedAudiencesGoogleOAuth2] = None
+    client_id: typing.Optional[ConnectionClientIdGoogleOAuth2] = None
+    client_secret: typing.Optional[ConnectionClientSecretGoogleOAuth2] = None
+    freeform_scopes: typing.Optional[ConnectionFreeformScopesGoogleOAuth2] = None
+    icon_url: typing.Optional[ConnectionIconUrlGoogleOAuth2] = None
+    scope: typing.Optional[ConnectionScopeGoogleOAuth2] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     adsense_management: typing.Optional[bool] = pydantic.Field(default=None)
     """
     View and manage user's ad applications, ad units, and channels in AdSense
     """
 
-    allowed_audiences: typing.Optional[ConnectionAllowedAudiencesGoogleOAuth2] = None
     analytics: typing.Optional[bool] = pydantic.Field(default=None)
     """
     View user's configuration information and reports
@@ -66,8 +73,6 @@ class ConnectionOptionsGoogleOAuth2(ConnectionOptionsCommon):
     Read access to user's chrome web store
     """
 
-    client_id: typing.Optional[ConnectionClientIdGoogleOAuth2] = None
-    client_secret: typing.Optional[ConnectionClientSecretGoogleOAuth2] = None
     contacts: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Full access to the authenticated user's contacts
@@ -173,7 +178,6 @@ class ConnectionOptionsGoogleOAuth2(ConnectionOptionsCommon):
     Email and verified email flag
     """
 
-    freeform_scopes: typing.Optional[ConnectionFreeformScopesGoogleOAuth2] = None
     gmail: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Full access to the account's mailboxes, including permanent deletion of threads and messages
@@ -259,7 +263,6 @@ class ConnectionOptionsGoogleOAuth2(ConnectionOptionsCommon):
     Associate user with its public Google profile
     """
 
-    icon_url: typing.Optional[ConnectionIconUrlGoogleOAuth2] = None
     latitude_best: typing.Optional[bool] = pydantic.Field(default=None)
     """
     View and manage user's best-available current location and location history in Google Latitude
@@ -295,8 +298,6 @@ class ConnectionOptionsGoogleOAuth2(ConnectionOptionsCommon):
     Name, public profile URL, photo, country, language, and timezone
     """
 
-    scope: typing.Optional[ConnectionScopeGoogleOAuth2] = None
-    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     sites: typing.Optional[bool] = pydantic.Field(default=None)
     """
     View and manage user's sites on Google Sites
@@ -312,7 +313,6 @@ class ConnectionOptionsGoogleOAuth2(ConnectionOptionsCommon):
     Read-only access to view your tasks and task lists
     """
 
-    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     url_shortener: typing.Optional[bool] = pydantic.Field(default=None)
     """
     View, manage and view statistics user's short URLs

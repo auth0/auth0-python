@@ -17,10 +17,10 @@ class SuspiciousIpThrottlingStage(UniversalBaseModel):
 
     pre_login: typing_extensions.Annotated[
         typing.Optional[SuspiciousIpThrottlingPreLoginStage], FieldMetadata(alias="pre-login")
-    ] = None
+    ] = pydantic.Field(alias="pre-login", default=None)
     pre_user_registration: typing_extensions.Annotated[
         typing.Optional[SuspiciousIpThrottlingPreUserRegistrationStage], FieldMetadata(alias="pre-user-registration")
-    ] = None
+    ] = pydantic.Field(alias="pre-user-registration", default=None)
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

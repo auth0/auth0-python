@@ -47,7 +47,7 @@ class ConnectionPropertiesOptions(UniversalBaseModel):
 
     enabled_database_customization: typing_extensions.Annotated[
         typing.Optional[bool], FieldMetadata(alias="enabledDatabaseCustomization")
-    ] = pydantic.Field(default=None)
+    ] = pydantic.Field(alias="enabledDatabaseCustomization", default=None)
     """
     Set to true to use a legacy user store
     """
@@ -59,12 +59,12 @@ class ConnectionPropertiesOptions(UniversalBaseModel):
 
     custom_scripts: typing_extensions.Annotated[
         typing.Optional[ConnectionCustomScripts], FieldMetadata(alias="customScripts")
-    ] = None
+    ] = pydantic.Field(alias="customScripts", default=None)
     authentication_methods: typing.Optional[ConnectionAuthenticationMethods] = None
     passkey_options: typing.Optional[ConnectionPasskeyOptions] = None
     password_policy: typing_extensions.Annotated[
         typing.Optional[ConnectionPasswordPolicyEnum], FieldMetadata(alias="passwordPolicy")
-    ] = None
+    ] = pydantic.Field(alias="passwordPolicy", default=None)
     password_complexity_options: typing.Optional[ConnectionPasswordComplexityOptions] = None
     password_history: typing.Optional[ConnectionPasswordHistoryOptions] = None
     password_no_personal_info: typing.Optional[ConnectionPasswordNoPersonalInfoOptions] = None

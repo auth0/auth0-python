@@ -11,8 +11,8 @@ from .form_widget_type_recaptcha_const import FormWidgetTypeRecaptchaConst
 
 class FormWidgetRecaptcha(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryWidgetConst = "WIDGET"
-    type: FormWidgetTypeRecaptchaConst = "RECAPTCHA"
+    category: FormComponentCategoryWidgetConst
+    type: FormWidgetTypeRecaptchaConst
     config: FormWidgetRecaptchaConfig
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

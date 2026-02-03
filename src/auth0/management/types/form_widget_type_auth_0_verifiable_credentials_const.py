@@ -2,4 +2,4 @@
 
 import typing
 
-FormWidgetTypeAuth0VerifiableCredentialsConst = typing.Literal["AUTH0_VERIFIABLE_CREDENTIALS"]
+FormWidgetTypeAuth0VerifiableCredentialsConst = typing.Union[typing.Literal["AUTH0_VERIFIABLE_CREDENTIALS"], typing.Any]

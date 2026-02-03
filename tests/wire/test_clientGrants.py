@@ -37,6 +37,14 @@ def test_clientGrants_create() -> None:
     verify_request_count(test_id, "POST", "/client-grants", None, 1)
 
 
+def test_clientGrants_get() -> None:
+    """Test get endpoint with WireMock"""
+    test_id = "client_grants.get.0"
+    client = get_client(test_id)
+    client.client_grants.get(id="id")
+    verify_request_count(test_id, "GET", "/client-grants/id", None, 1)
+
+
 def test_clientGrants_delete() -> None:
     """Test delete endpoint with WireMock"""
     test_id = "client_grants.delete.0"

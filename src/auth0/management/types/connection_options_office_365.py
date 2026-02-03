@@ -2,4 +2,25 @@
 
 import typing
 
-ConnectionOptionsOffice365 = typing.Dict[str, typing.Any]
+import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_client_id import ConnectionClientId
+from .connection_client_secret import ConnectionClientSecret
+
+
+class ConnectionOptionsOffice365(UniversalBaseModel):
+    """
+    Options for the 'office365' connection
+    """
+
+    client_id: typing.Optional[ConnectionClientId] = None
+    client_secret: typing.Optional[ConnectionClientSecret] = None
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

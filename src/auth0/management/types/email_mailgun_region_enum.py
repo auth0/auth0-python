@@ -2,4 +2,4 @@
 
 import typing
 
-EmailMailgunRegionEnum = typing.Literal["eu"]
+EmailMailgunRegionEnum = typing.Union[typing.Literal["eu"], typing.Any]

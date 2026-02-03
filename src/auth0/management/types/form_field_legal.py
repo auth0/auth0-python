@@ -11,8 +11,8 @@ from .form_field_type_legal_const import FormFieldTypeLegalConst
 
 class FormFieldLegal(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeLegalConst = "LEGAL"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeLegalConst
     config: typing.Optional[FormFieldLegalConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeUrlConst = typing.Literal["URL"]
+FormFieldTypeUrlConst = typing.Union[typing.Literal["URL"], typing.Any]

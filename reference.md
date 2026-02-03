@@ -1,6 +1,6 @@
 # Reference
 ## Actions
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">list</a>(...) -> AsyncPager[Action, ListActionsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">list</a>(...) -&gt; AsyncPager[Action, ListActionsPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -120,7 +120,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">create</a>(...) -> AsyncHttpResponse[CreateActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateActionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -223,6 +223,14 @@ client.actions.create(
 <dl>
 <dd>
 
+**modules:** `typing.Optional[typing.Sequence[ActionModuleReference]]` — The list of action modules and their versions used by this action.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **deploy:** `typing.Optional[bool]` — True if the action should be deployed after creation.
     
 </dd>
@@ -243,7 +251,7 @@ client.actions.create(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">get</a>(...) -> AsyncHttpResponse[GetActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -313,7 +321,7 @@ client.actions.get(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -392,7 +400,7 @@ client.actions.delete(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">update</a>(...) -> AsyncHttpResponse[UpdateActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateActionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -498,6 +506,14 @@ client.actions.update(
 <dl>
 <dd>
 
+**modules:** `typing.Optional[typing.Sequence[ActionModuleReference]]` — The list of action modules and their versions used by this action.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -510,7 +526,7 @@ client.actions.update(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">deploy</a>(...) -> AsyncHttpResponse[DeployActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">deploy</a>(...) -&gt; AsyncHttpResponse[DeployActionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -580,7 +596,7 @@ client.actions.deploy(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">test</a>(...) -> AsyncHttpResponse[TestActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">test</a>(...) -&gt; AsyncHttpResponse[TestActionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -660,7 +676,7 @@ client.actions.test(
 </details>
 
 ## Branding
-<details><summary><code>client.branding.<a href="src/auth0/management/branding/client.py">get</a>() -> AsyncHttpResponse[GetBrandingResponseContent]</code></summary>
+<details><summary><code>client.branding.<a href="src/auth0/management/branding/client.py">get</a>() -&gt; AsyncHttpResponse[GetBrandingResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -720,7 +736,7 @@ client.branding.get()
 </dl>
 </details>
 
-<details><summary><code>client.branding.<a href="src/auth0/management/branding/client.py">update</a>(...) -> AsyncHttpResponse[UpdateBrandingResponseContent]</code></summary>
+<details><summary><code>client.branding.<a href="src/auth0/management/branding/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBrandingResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -813,7 +829,7 @@ client.branding.update()
 </details>
 
 ## ClientGrants
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">list</a>(...) -> AsyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">list</a>(...) -&gt; AsyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -913,7 +929,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**subject_type:** `typing.Optional[ClientGrantSubjectTypeEnum]` — The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href="https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+**subject_type:** `typing.Optional[ClientGrantSubjectTypeEnum]` — The type of application access the client grant allows.
     
 </dd>
 </dl>
@@ -933,7 +949,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">create</a>(...) -> AsyncHttpResponse[CreateClientGrantResponseContent]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateClientGrantResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -1032,7 +1048,15 @@ client.client_grants.create(
 <dl>
 <dd>
 
-**authorization_details_types:** `typing.Optional[typing.Sequence[str]]` — Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+**authorization_details_types:** `typing.Optional[typing.Sequence[str]]` — Types of authorization_details allowed for this client grant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allow_all_scopes:** `typing.Optional[bool]` — If enabled, all scopes configured on the resource server are allowed for this grant.
     
 </dd>
 </dl>
@@ -1052,7 +1076,78 @@ client.client_grants.create(
 </dl>
 </details>
 
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetClientGrantResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+scopes associated with the application/API pair.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.client_grants.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the client grant to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -1122,7 +1217,7 @@ client.client_grants.delete(
 </dl>
 </details>
 
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">update</a>(...) -> AsyncHttpResponse[UpdateClientGrantResponseContent]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateClientGrantResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -1204,7 +1299,15 @@ client.client_grants.update(
 <dl>
 <dd>
 
-**authorization_details_types:** `typing.Optional[typing.Sequence[str]]` — Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+**authorization_details_types:** `typing.Optional[typing.Sequence[str]]` — Types of authorization_details allowed for this client grant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allow_all_scopes:** `typing.Optional[bool]` — If enabled, all scopes configured on the resource server are allowed for this grant.
     
 </dd>
 </dl>
@@ -1225,7 +1328,7 @@ client.client_grants.update(
 </details>
 
 ## Clients
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">list</a>(...) -> AsyncPager[Client, ListClientsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">list</a>(...) -&gt; AsyncPager[Client, ListClientsOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -1404,7 +1507,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">create</a>(...) -> AsyncHttpResponse[CreateClientResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateClientResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -1883,7 +1986,7 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">get</a>(...) -> AsyncHttpResponse[GetClientResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetClientResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -2001,7 +2104,7 @@ client.clients.get(
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -2071,7 +2174,7 @@ client.clients.delete(
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">update</a>(...) -> AsyncHttpResponse[UpdateClientResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateClientResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -2553,7 +2656,7 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">rotate_secret</a>(...) -> AsyncHttpResponse[RotateClientSecretResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">rotate_secret</a>(...) -&gt; AsyncHttpResponse[RotateClientSecretResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -2628,7 +2731,7 @@ client.clients.rotate_secret(
 </details>
 
 ## ConnectionProfiles
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">list</a>(...) -> AsyncPager[ConnectionProfile, ListConnectionProfilesPaginatedResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">list</a>(...) -&gt; AsyncPager[ConnectionProfile, ListConnectionProfilesPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -2712,7 +2815,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">create</a>(...) -> AsyncHttpResponse[CreateConnectionProfileResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateConnectionProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -2822,7 +2925,7 @@ client.connection_profiles.create(
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">list_templates</a>() -> AsyncHttpResponse[ListConnectionProfileTemplateResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">list_templates</a>() -&gt; AsyncHttpResponse[ListConnectionProfileTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -2882,7 +2985,7 @@ client.connection_profiles.list_templates()
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">get_template</a>(...) -> AsyncHttpResponse[GetConnectionProfileTemplateResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">get_template</a>(...) -&gt; AsyncHttpResponse[GetConnectionProfileTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -2952,7 +3055,7 @@ client.connection_profiles.get_template(
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">get</a>(...) -> AsyncHttpResponse[GetConnectionProfileResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetConnectionProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -3022,7 +3125,7 @@ client.connection_profiles.get(
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -3092,7 +3195,7 @@ client.connection_profiles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">update</a>(...) -> AsyncHttpResponse[UpdateConnectionProfileResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateConnectionProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -3211,7 +3314,7 @@ client.connection_profiles.update(
 </details>
 
 ## Connections
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">list</a>(...) -> AsyncPager[ConnectionForList, ListConnectionsCheckpointPaginatedResponseContent]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">list</a>(...) -&gt; AsyncPager[ConnectionForList, ListConnectionsCheckpointPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -3352,7 +3455,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">create</a>(...) -> AsyncHttpResponse[CreateConnectionResponseContent]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -3364,7 +3467,9 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-Creates a new connection according to the JSON object received in <code>body</code>.<br/>
+Creates a new connection according to the JSON object received in <code>body</code>.
+
+<b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results. 
 </dd>
 </dl>
 </dd>
@@ -3503,7 +3608,7 @@ client.connections.create(
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">get</a>(...) -> AsyncHttpResponse[GetConnectionResponseContent]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -3591,7 +3696,7 @@ client.connections.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -3604,6 +3709,8 @@ client.connections.get(
 <dd>
 
 Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+
+<b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name. 
 </dd>
 </dl>
 </dd>
@@ -3661,7 +3768,7 @@ client.connections.delete(
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">update</a>(...) -> AsyncHttpResponse[UpdateConnectionResponseContent]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -3805,7 +3912,7 @@ client.connections.update(
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">check_status</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">check_status</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -3876,7 +3983,7 @@ client.connections.check_status(
 </details>
 
 ## CustomDomains
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">list</a>(...) -> AsyncHttpResponse[ListCustomDomainsResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListCustomDomainsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -3909,8 +4016,6 @@ client = Auth0(
     token="YOUR_TOKEN",
 )
 client.custom_domains.list(
-    take=1,
-    from_="from",
     q="q",
     fields="fields",
     include_fields=True,
@@ -3927,22 +4032,6 @@ client.custom_domains.list(
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -3991,7 +4080,7 @@ client.custom_domains.list(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">create</a>(...) -> AsyncHttpResponse[CreateCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateCustomDomainResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -4103,6 +4192,14 @@ client.custom_domains.create(
 <dl>
 <dd>
 
+**relying_party_identifier:** `typing.Optional[str]` — Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -4115,7 +4212,7 @@ client.custom_domains.create(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">get</a>(...) -> AsyncHttpResponse[GetCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetCustomDomainResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -4185,7 +4282,7 @@ client.custom_domains.get(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -4255,7 +4352,7 @@ client.custom_domains.delete(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">update</a>(...) -> AsyncHttpResponse[UpdateCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateCustomDomainResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -4360,6 +4457,14 @@ client.custom_domains.update(
 <dl>
 <dd>
 
+**relying_party_identifier:** `typing.Optional[str]` — Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -4372,7 +4477,7 @@ client.custom_domains.update(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">test</a>(...) -> AsyncHttpResponse[TestCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">test</a>(...) -&gt; AsyncHttpResponse[TestCustomDomainResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -4442,7 +4547,7 @@ client.custom_domains.test(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">verify</a>(...) -> AsyncHttpResponse[VerifyCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">verify</a>(...) -&gt; AsyncHttpResponse[VerifyCustomDomainResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -4520,7 +4625,7 @@ client.custom_domains.verify(
 </details>
 
 ## DeviceCredentials
-<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">list</a>(...) -&gt; AsyncPager[
     DeviceCredential, ListDeviceCredentialsOffsetPaginatedResponseContent
 ]</code></summary>
 <dl>
@@ -4660,7 +4765,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">create_public_key</a>(...) -> AsyncHttpResponse[CreatePublicKeyDeviceCredentialResponseContent]</code></summary>
+<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">create_public_key</a>(...) -&gt; AsyncHttpResponse[CreatePublicKeyDeviceCredentialResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -4696,6 +4801,7 @@ client = Auth0(
 )
 client.device_credentials.create_public_key(
     device_name="device_name",
+    type="public_key",
     value="value",
     device_id="device_id",
 )
@@ -4715,6 +4821,14 @@ client.device_credentials.create_public_key(
 <dd>
 
 **device_name:** `str` — Name for this device easily recognized by owner.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `DeviceCredentialPublicKeyTypeEnum` 
     
 </dd>
 </dl>
@@ -4758,7 +4872,7 @@ client.device_credentials.create_public_key(
 </dl>
 </details>
 
-<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -4829,7 +4943,7 @@ client.device_credentials.delete(
 </details>
 
 ## EmailTemplates
-<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">create</a>(...) -> AsyncHttpResponse[CreateEmailTemplateResponseContent]</code></summary>
+<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEmailTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -4963,7 +5077,7 @@ client.email_templates.create(
 </dl>
 </details>
 
-<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">get</a>(...) -> AsyncHttpResponse[GetEmailTemplateResponseContent]</code></summary>
+<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetEmailTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5033,7 +5147,7 @@ client.email_templates.get(
 </dl>
 </details>
 
-<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">set</a>(...) -> AsyncHttpResponse[SetEmailTemplateResponseContent]</code></summary>
+<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetEmailTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5176,7 +5290,7 @@ client.email_templates.set(
 </dl>
 </details>
 
-<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">update</a>(...) -> AsyncHttpResponse[UpdateEmailTemplateResponseContent]</code></summary>
+<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateEmailTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5319,7 +5433,7 @@ client.email_templates.update(
 </details>
 
 ## EventStreams
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">list</a>(...) -> AsyncHttpResponse[typing.List[EventStreamResponseContent]]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">list</a>(...) -&gt; AsyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5337,10 +5451,15 @@ from auth0 import Auth0
 client = Auth0(
     token="YOUR_TOKEN",
 )
-client.event_streams.list(
+response = client.event_streams.list(
     from_="from",
     take=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -5384,7 +5503,7 @@ client.event_streams.list(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">create</a>(...) -> AsyncHttpResponse[CreateEventStreamResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEventStreamResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5411,9 +5530,11 @@ client = Auth0(
 client.event_streams.create(
     request=CreateEventStreamWebHookRequestContent(
         destination=EventStreamWebhookDestination(
+            type="webhook",
             configuration=EventStreamWebhookConfiguration(
                 webhook_endpoint="webhook_endpoint",
                 webhook_authorization=EventStreamWebhookBasicAuth(
+                    method="basic",
                     username="username",
                 ),
             ),
@@ -5455,7 +5576,7 @@ client.event_streams.create(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">get</a>(...) -> AsyncHttpResponse[GetEventStreamResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetEventStreamResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5511,7 +5632,7 @@ client.event_streams.get(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -5567,7 +5688,7 @@ client.event_streams.delete(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">update</a>(...) -> AsyncHttpResponse[UpdateEventStreamResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateEventStreamResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5655,7 +5776,7 @@ client.event_streams.update(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">test</a>(...) -> AsyncHttpResponse[CreateEventStreamTestEventResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">test</a>(...) -&gt; AsyncHttpResponse[CreateEventStreamTestEventResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5729,7 +5850,7 @@ client.event_streams.test(
 </details>
 
 ## Flows
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">list</a>(...) -> AsyncPager[FlowSummary, ListFlowsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">list</a>(...) -&gt; AsyncPager[FlowSummary, ListFlowsOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5799,8 +5920,8 @@ for page in response.iter_pages():
 
 **hydrate:** `typing.Optional[
     typing.Union[
-        typing.Literal["form_count"],
-        typing.Sequence[typing.Literal["form_count"]],
+        ListFlowsRequestParametersHydrateEnum,
+        typing.Sequence[ListFlowsRequestParametersHydrateEnum],
     ]
 ]` — hydration param
     
@@ -5830,7 +5951,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">create</a>(...) -> AsyncHttpResponse[CreateFlowResponseContent]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateFlowResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5894,7 +6015,7 @@ client.flows.create(
 </dl>
 </details>
 
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">get</a>(...) -> AsyncHttpResponse[GetFlowResponseContent]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetFlowResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -5963,7 +6084,7 @@ client.flows.get(
 </dl>
 </details>
 
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -6019,7 +6140,7 @@ client.flows.delete(
 </dl>
 </details>
 
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">update</a>(...) -> AsyncHttpResponse[UpdateFlowResponseContent]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateFlowResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -6092,7 +6213,7 @@ client.flows.update(
 </details>
 
 ## Forms
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">list</a>(...) -> AsyncPager[FormSummary, ListFormsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">list</a>(...) -&gt; AsyncPager[FormSummary, ListFormsOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -6184,7 +6305,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">create</a>(...) -> AsyncHttpResponse[CreateFormResponseContent]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateFormResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -6296,7 +6417,7 @@ client.forms.create(
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">get</a>(...) -> AsyncHttpResponse[GetFormResponseContent]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetFormResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -6365,7 +6486,7 @@ client.forms.get(
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -6421,7 +6542,7 @@ client.forms.delete(
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">update</a>(...) -> AsyncHttpResponse[UpdateFormResponseContent]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateFormResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -6542,7 +6663,7 @@ client.forms.update(
 </details>
 
 ## UserGrants
-<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">list</a>(...) -> AsyncPager[UserGrant, ListUserGrantsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">list</a>(...) -&gt; AsyncPager[UserGrant, ListUserGrantsOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -6662,7 +6783,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">delete_by_user_id</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">delete_by_user_id</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -6732,7 +6853,7 @@ client.user_grants.delete_by_user_id(
 </dl>
 </details>
 
-<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -6802,8 +6923,208 @@ client.user_grants.delete(
 </dl>
 </details>
 
+## Groups
+<details><summary><code>client.groups.<a href="src/auth0/management/groups/client.py">list</a>(...) -&gt; AsyncPager[Group, ListGroupsPaginatedResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all groups in your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.groups.list(
+    connection_id="connection_id",
+    name="name",
+    external_id="external_id",
+    fields="fields",
+    include_fields=True,
+    from_="from",
+    take=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connection_id:** `typing.Optional[str]` — Filter groups by connection ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter groups by name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_id:** `typing.Optional[str]` — Filter groups by external ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[str]` — A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_fields:** `typing.Optional[bool]` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.<a href="src/auth0/management/groups/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetGroupResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a group by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.groups.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Unique identifier for the group (service-generated).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hooks
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">list</a>(...) -> AsyncPager[Hook, ListHooksOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">list</a>(...) -&gt; AsyncPager[Hook, ListHooksOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -6923,7 +7244,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">create</a>(...) -> AsyncHttpResponse[CreateHookResponseContent]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateHookResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -7027,7 +7348,7 @@ client.hooks.create(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">get</a>(...) -> AsyncHttpResponse[GetHookResponseContent]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetHookResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -7106,7 +7427,7 @@ client.hooks.get(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -7176,7 +7497,7 @@ client.hooks.delete(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">update</a>(...) -> AsyncHttpResponse[UpdateHookResponseContent]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateHookResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -7279,7 +7600,7 @@ client.hooks.update(
 </details>
 
 ## Jobs
-<details><summary><code>client.jobs.<a href="src/auth0/management/jobs/client.py">get</a>(...) -> AsyncHttpResponse[GetJobResponseContent]</code></summary>
+<details><summary><code>client.jobs.<a href="src/auth0/management/jobs/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetJobResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -7350,7 +7671,7 @@ client.jobs.get(
 </details>
 
 ## LogStreams
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">list</a>() -> AsyncHttpResponse[typing.List[LogStreamResponseSchema]]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">list</a>() -&gt; AsyncHttpResponse[typing.List[LogStreamResponseSchema]]</code></summary>
 <dl>
 <dd>
 
@@ -7475,7 +7796,7 @@ client.log_streams.list()
 </dl>
 </details>
 
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">create</a>(...) -> AsyncHttpResponse[CreateLogStreamResponseContent]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateLogStreamResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -7634,6 +7955,7 @@ client = Auth0(
 )
 client.log_streams.create(
     request=CreateLogStreamHttpRequestBody(
+        type="http",
         sink=LogStreamHttpSink(
             http_endpoint="httpEndpoint",
         ),
@@ -7674,7 +7996,7 @@ client.log_streams.create(
 </dl>
 </details>
 
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">get</a>(...) -> AsyncHttpResponse[GetLogStreamResponseContent]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetLogStreamResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -7845,7 +8167,7 @@ client.log_streams.get(
 </dl>
 </details>
 
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -7915,7 +8237,7 @@ client.log_streams.delete(
 </dl>
 </details>
 
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">update</a>(...) -> AsyncHttpResponse[UpdateLogStreamResponseContent]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateLogStreamResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -8068,7 +8390,7 @@ client.log_streams.update(
 </details>
 
 ## Logs
-<details><summary><code>client.logs.<a href="src/auth0/management/logs/client.py">list</a>(...) -> AsyncPager[Log, ListLogOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.logs.<a href="src/auth0/management/logs/client.py">list</a>(...) -&gt; AsyncPager[Log, ListLogOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -8229,7 +8551,7 @@ Values specified without quotes are matched using a case insensitive 'starts wit
 </dl>
 </details>
 
-<details><summary><code>client.logs.<a href="src/auth0/management/logs/client.py">get</a>(...) -> AsyncHttpResponse[GetLogResponseContent]</code></summary>
+<details><summary><code>client.logs.<a href="src/auth0/management/logs/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetLogResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -8300,7 +8622,7 @@ client.logs.get(
 </details>
 
 ## NetworkAcls
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">list</a>(...) -&gt; AsyncPager[
     NetworkAclsResponseContent, ListNetworkAclsOffsetPaginatedResponseContent
 ]</code></summary>
 <dl>
@@ -8395,7 +8717,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">create</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">create</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -8495,7 +8817,7 @@ client.network_acls.create(
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">get</a>(...) -> AsyncHttpResponse[GetNetworkAclsResponseContent]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetNetworkAclsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -8565,7 +8887,7 @@ client.network_acls.get(
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">set</a>(...) -> AsyncHttpResponse[SetNetworkAclsResponseContent]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetNetworkAclsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -8674,7 +8996,7 @@ client.network_acls.set(
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -8744,7 +9066,7 @@ client.network_acls.delete(
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">update</a>(...) -> AsyncHttpResponse[UpdateNetworkAclResponseContent]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateNetworkAclResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -8847,7 +9169,7 @@ client.network_acls.update(
 </details>
 
 ## Organizations
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">list</a>(...) -> AsyncPager[Organization, ListOrganizationsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">list</a>(...) -&gt; AsyncPager[Organization, ListOrganizationsPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -8958,7 +9280,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">create</a>(...) -> AsyncHttpResponse[CreateOrganizationResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateOrganizationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9068,7 +9390,7 @@ client.organizations.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">get_by_name</a>(...) -> AsyncHttpResponse[GetOrganizationByNameResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">get_by_name</a>(...) -&gt; AsyncHttpResponse[GetOrganizationByNameResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9138,7 +9460,7 @@ client.organizations.get_by_name(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">get</a>(...) -> AsyncHttpResponse[GetOrganizationResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9208,7 +9530,7 @@ client.organizations.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -9280,7 +9602,7 @@ client.organizations.delete(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">update</a>(...) -> AsyncHttpResponse[UpdateOrganizationResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateOrganizationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9391,7 +9713,7 @@ client.organizations.update(
 </details>
 
 ## Prompts
-<details><summary><code>client.prompts.<a href="src/auth0/management/prompts/client.py">get_settings</a>() -> AsyncHttpResponse[GetSettingsResponseContent]</code></summary>
+<details><summary><code>client.prompts.<a href="src/auth0/management/prompts/client.py">get_settings</a>() -&gt; AsyncHttpResponse[GetSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9451,7 +9773,7 @@ client.prompts.get_settings()
 </dl>
 </details>
 
-<details><summary><code>client.prompts.<a href="src/auth0/management/prompts/client.py">update_settings</a>(...) -> AsyncHttpResponse[UpdateSettingsResponseContent]</code></summary>
+<details><summary><code>client.prompts.<a href="src/auth0/management/prompts/client.py">update_settings</a>(...) -&gt; AsyncHttpResponse[UpdateSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9536,7 +9858,7 @@ client.prompts.update_settings()
 </details>
 
 ## RefreshTokens
-<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">get</a>(...) -> AsyncHttpResponse[GetRefreshTokenResponseContent]</code></summary>
+<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetRefreshTokenResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9606,7 +9928,7 @@ client.refresh_tokens.get(
 </dl>
 </details>
 
-<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -9676,8 +9998,86 @@ client.refresh_tokens.delete(
 </dl>
 </details>
 
+<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRefreshTokenResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a refresh token by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.refresh_tokens.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the refresh token to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**refresh_token_metadata:** `typing.Optional[RefreshTokenMetadata]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## ResourceServers
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">list</a>(...) -> AsyncPager[ResourceServer, ListResourceServerOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">list</a>(...) -&gt; AsyncPager[ResourceServer, ListResourceServerOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9787,7 +10187,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">create</a>(...) -> AsyncHttpResponse[CreateResourceServerResponseContent]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateResourceServerResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -9969,7 +10369,7 @@ client.resource_servers.create(
 </dl>
 </details>
 
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">get</a>(...) -> AsyncHttpResponse[GetResourceServerResponseContent]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetResourceServerResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -10048,7 +10448,7 @@ client.resource_servers.get(
 </dl>
 </details>
 
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -10118,7 +10518,7 @@ client.resource_servers.delete(
 </dl>
 </details>
 
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">update</a>(...) -> AsyncHttpResponse[UpdateResourceServerResponseContent]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateResourceServerResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -10301,7 +10701,7 @@ client.resource_servers.update(
 </details>
 
 ## Roles
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">list</a>(...) -> AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">list</a>(...) -&gt; AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -10405,7 +10805,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">create</a>(...) -> AsyncHttpResponse[CreateRoleResponseContent]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateRoleResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -10485,7 +10885,7 @@ client.roles.create(
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">get</a>(...) -> AsyncHttpResponse[GetRoleResponseContent]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetRoleResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -10555,7 +10955,7 @@ client.roles.get(
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -10625,7 +11025,7 @@ client.roles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">update</a>(...) -> AsyncHttpResponse[UpdateRoleResponseContent]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRoleResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -10712,7 +11112,7 @@ client.roles.update(
 </details>
 
 ## Rules
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">list</a>(...) -> AsyncPager[Rule, ListRulesOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">list</a>(...) -&gt; AsyncPager[Rule, ListRulesOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -10832,7 +11232,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">create</a>(...) -> AsyncHttpResponse[CreateRuleResponseContent]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateRuleResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -10929,7 +11329,7 @@ client.rules.create(
 </dl>
 </details>
 
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">get</a>(...) -> AsyncHttpResponse[GetRuleResponseContent]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetRuleResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -11017,7 +11417,7 @@ client.rules.get(
 </dl>
 </details>
 
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -11087,7 +11487,7 @@ client.rules.delete(
 </dl>
 </details>
 
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">update</a>(...) -> AsyncHttpResponse[UpdateRuleResponseContent]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRuleResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -11190,7 +11590,7 @@ client.rules.update(
 </details>
 
 ## RulesConfigs
-<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">list</a>() -> AsyncHttpResponse[typing.List[RulesConfig]]</code></summary>
+<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">list</a>() -&gt; AsyncHttpResponse[typing.List[RulesConfig]]</code></summary>
 <dl>
 <dd>
 
@@ -11252,7 +11652,7 @@ client.rules_configs.list()
 </dl>
 </details>
 
-<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">set</a>(...) -> AsyncHttpResponse[SetRulesConfigResponseContent]</code></summary>
+<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetRulesConfigResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -11331,7 +11731,7 @@ client.rules_configs.set(
 </dl>
 </details>
 
-<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -11402,7 +11802,7 @@ client.rules_configs.delete(
 </details>
 
 ## SelfServiceProfiles
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">list</a>(...) -> AsyncPager[SelfServiceProfile, ListSelfServiceProfilesPaginatedResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">list</a>(...) -&gt; AsyncPager[SelfServiceProfile, ListSelfServiceProfilesPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -11495,7 +11895,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">create</a>(...) -> AsyncHttpResponse[CreateSelfServiceProfileResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateSelfServiceProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -11569,7 +11969,7 @@ client.self_service_profiles.create(
 <dl>
 <dd>
 
-**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -11605,7 +12005,7 @@ client.self_service_profiles.create(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">get</a>(...) -> AsyncHttpResponse[GetSelfServiceProfileResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetSelfServiceProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -11675,7 +12075,7 @@ client.self_service_profiles.get(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -11745,7 +12145,7 @@ client.self_service_profiles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">update</a>(...) -> AsyncHttpResponse[UpdateSelfServiceProfileResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateSelfServiceProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -11827,7 +12227,7 @@ client.self_service_profiles.update(
 <dl>
 <dd>
 
-**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -11864,7 +12264,7 @@ client.self_service_profiles.update(
 </details>
 
 ## Sessions
-<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">get</a>(...) -> AsyncHttpResponse[GetSessionResponseContent]</code></summary>
+<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetSessionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -11934,7 +12334,7 @@ client.sessions.get(
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -12004,7 +12404,7 @@ client.sessions.delete(
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">update</a>(...) -> AsyncHttpResponse[UpdateSessionResponseContent]</code></summary>
+<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateSessionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -12082,7 +12482,7 @@ client.sessions.update(
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">revoke</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">revoke</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -12153,7 +12553,7 @@ client.sessions.revoke(
 </details>
 
 ## Stats
-<details><summary><code>client.stats.<a href="src/auth0/management/stats/client.py">get_active_users_count</a>() -> AsyncHttpResponse[GetActiveUsersCountStatsResponseContent]</code></summary>
+<details><summary><code>client.stats.<a href="src/auth0/management/stats/client.py">get_active_users_count</a>() -&gt; AsyncHttpResponse[GetActiveUsersCountStatsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -12213,7 +12613,7 @@ client.stats.get_active_users_count()
 </dl>
 </details>
 
-<details><summary><code>client.stats.<a href="src/auth0/management/stats/client.py">get_daily</a>(...) -> AsyncHttpResponse[typing.List[DailyStats]]</code></summary>
+<details><summary><code>client.stats.<a href="src/auth0/management/stats/client.py">get_daily</a>(...) -&gt; AsyncHttpResponse[typing.List[DailyStats]]</code></summary>
 <dl>
 <dd>
 
@@ -12293,7 +12693,7 @@ client.stats.get_daily(
 </details>
 
 ## SupplementalSignals
-<details><summary><code>client.supplemental_signals.<a href="src/auth0/management/supplemental_signals/client.py">get</a>() -> AsyncHttpResponse[GetSupplementalSignalsResponseContent]</code></summary>
+<details><summary><code>client.supplemental_signals.<a href="src/auth0/management/supplemental_signals/client.py">get</a>() -&gt; AsyncHttpResponse[GetSupplementalSignalsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -12353,7 +12753,7 @@ client.supplemental_signals.get()
 </dl>
 </details>
 
-<details><summary><code>client.supplemental_signals.<a href="src/auth0/management/supplemental_signals/client.py">patch</a>(...) -> AsyncHttpResponse[PatchSupplementalSignalsResponseContent]</code></summary>
+<details><summary><code>client.supplemental_signals.<a href="src/auth0/management/supplemental_signals/client.py">patch</a>(...) -&gt; AsyncHttpResponse[PatchSupplementalSignalsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -12424,7 +12824,7 @@ client.supplemental_signals.patch(
 </details>
 
 ## Tickets
-<details><summary><code>client.tickets.<a href="src/auth0/management/tickets/client.py">verify_email</a>(...) -> AsyncHttpResponse[VerifyEmailTicketResponseContent]</code></summary>
+<details><summary><code>client.tickets.<a href="src/auth0/management/tickets/client.py">verify_email</a>(...) -&gt; AsyncHttpResponse[VerifyEmailTicketResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -12542,7 +12942,7 @@ client.tickets.verify_email(
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="src/auth0/management/tickets/client.py">change_password</a>(...) -> AsyncHttpResponse[ChangePasswordTicketResponseContent]</code></summary>
+<details><summary><code>client.tickets.<a href="src/auth0/management/tickets/client.py">change_password</a>(...) -&gt; AsyncHttpResponse[ChangePasswordTicketResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -12685,7 +13085,7 @@ client.tickets.change_password()
 </details>
 
 ## TokenExchangeProfiles
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">list</a>(...) -&gt; AsyncPager[
     TokenExchangeProfileResponseContent, ListTokenExchangeProfileResponseContent
 ]</code></summary>
 <dl>
@@ -12781,7 +13181,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">create</a>(...) -> AsyncHttpResponse[CreateTokenExchangeProfileResponseContent]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateTokenExchangeProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -12819,6 +13219,7 @@ client.token_exchange_profiles.create(
     name="name",
     subject_token_type="subject_token_type",
     action_id="action_id",
+    type="custom_authentication",
 )
 
 ```
@@ -12859,6 +13260,14 @@ client.token_exchange_profiles.create(
 <dl>
 <dd>
 
+**type:** `TokenExchangeProfileTypeEnum` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -12871,7 +13280,7 @@ client.token_exchange_profiles.create(
 </dl>
 </details>
 
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">get</a>(...) -> AsyncHttpResponse[GetTokenExchangeProfileResponseContent]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetTokenExchangeProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -12943,7 +13352,7 @@ client.token_exchange_profiles.get(
 </dl>
 </details>
 
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -13016,7 +13425,7 @@ client.token_exchange_profiles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">update</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">update</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -13106,7 +13515,7 @@ client.token_exchange_profiles.update(
 </details>
 
 ## UserAttributeProfiles
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">list</a>(...) -&gt; AsyncPager[
     UserAttributeProfile, ListUserAttributeProfilesPaginatedResponseContent
 ]</code></summary>
 <dl>
@@ -13192,7 +13601,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">create</a>(...) -> AsyncHttpResponse[CreateUserAttributeProfileResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateUserAttributeProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -13286,7 +13695,7 @@ client.user_attribute_profiles.create(
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">list_templates</a>() -> AsyncHttpResponse[ListUserAttributeProfileTemplateResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">list_templates</a>() -&gt; AsyncHttpResponse[ListUserAttributeProfileTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -13346,7 +13755,7 @@ client.user_attribute_profiles.list_templates()
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">get_template</a>(...) -> AsyncHttpResponse[GetUserAttributeProfileTemplateResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">get_template</a>(...) -&gt; AsyncHttpResponse[GetUserAttributeProfileTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -13416,7 +13825,7 @@ client.user_attribute_profiles.get_template(
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">get</a>(...) -> AsyncHttpResponse[GetUserAttributeProfileResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetUserAttributeProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -13486,7 +13895,7 @@ client.user_attribute_profiles.get(
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -13556,7 +13965,7 @@ client.user_attribute_profiles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">update</a>(...) -> AsyncHttpResponse[UpdateUserAttributeProfileResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateUserAttributeProfileResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -13651,7 +14060,7 @@ client.user_attribute_profiles.update(
 </details>
 
 ## UserBlocks
-<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">list_by_identifier</a>(...) -> AsyncHttpResponse[ListUserBlocksByIdentifierResponseContent]</code></summary>
+<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">list_by_identifier</a>(...) -&gt; AsyncHttpResponse[ListUserBlocksByIdentifierResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -13735,7 +14144,7 @@ client.user_blocks.list_by_identifier(
 </dl>
 </details>
 
-<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">delete_by_identifier</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">delete_by_identifier</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -13807,7 +14216,7 @@ client.user_blocks.delete_by_identifier(
 </dl>
 </details>
 
-<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">list</a>(...) -> AsyncHttpResponse[ListUserBlocksResponseContent]</code></summary>
+<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListUserBlocksResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -13891,7 +14300,7 @@ client.user_blocks.list(
 </dl>
 </details>
 
-<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -13964,7 +14373,7 @@ client.user_blocks.delete(
 </details>
 
 ## Users
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">list</a>(...) -> AsyncPager[UserResponseSchema, ListUsersOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">list</a>(...) -&gt; AsyncPager[UserResponseSchema, ListUsersOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -14133,7 +14542,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">create</a>(...) -> AsyncHttpResponse[CreateUserResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateUserResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -14333,7 +14742,7 @@ client.users.create(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">list_users_by_email</a>(...) -> AsyncHttpResponse[typing.List[UserResponseSchema]]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">list_users_by_email</a>(...) -&gt; AsyncHttpResponse[typing.List[UserResponseSchema]]</code></summary>
 <dl>
 <dd>
 
@@ -14425,7 +14834,7 @@ client.users.list_users_by_email(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">get</a>(...) -> AsyncHttpResponse[GetUserResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetUserResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -14513,7 +14922,7 @@ client.users.get(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -14583,7 +14992,7 @@ client.users.delete(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">update</a>(...) -> AsyncHttpResponse[UpdateUserResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateUserResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -14866,7 +15275,7 @@ client.users.update(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">regenerate_recovery_code</a>(...) -> AsyncHttpResponse[RegenerateUsersRecoveryCodeResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">regenerate_recovery_code</a>(...) -&gt; AsyncHttpResponse[RegenerateUsersRecoveryCodeResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -14936,7 +15345,7 @@ client.users.regenerate_recovery_code(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">revoke_access</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">revoke_access</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -15023,7 +15432,7 @@ client.users.revoke_access(
 </details>
 
 ## Actions Versions
-<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">list</a>(...) -> AsyncPager[ActionVersion, ListActionVersionsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">list</a>(...) -&gt; AsyncPager[ActionVersion, ListActionVersionsPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15116,7 +15525,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">get</a>(...) -> AsyncHttpResponse[GetActionVersionResponseContent]</code></summary>
+<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionVersionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15195,7 +15604,7 @@ client.actions.versions.get(
 </dl>
 </details>
 
-<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">deploy</a>(...) -> AsyncHttpResponse[DeployActionVersionResponseContent]</code></summary>
+<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">deploy</a>(...) -&gt; AsyncHttpResponse[DeployActionVersionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15222,7 +15631,7 @@ Performs the equivalent of a roll-back of an action to an earlier, specified ver
 <dd>
 
 ```python
-from auth0 import Auth0, DeployActionVersionRequestBodyParams
+from auth0 import Auth0, DeployActionVersionRequestContent
 
 client = Auth0(
     token="YOUR_TOKEN",
@@ -15230,7 +15639,7 @@ client = Auth0(
 client.actions.versions.deploy(
     action_id="actionId",
     id="id",
-    request=DeployActionVersionRequestBodyParams(),
+    request=DeployActionVersionRequestContent(),
 )
 
 ```
@@ -15284,7 +15693,7 @@ client.actions.versions.deploy(
 </details>
 
 ## Actions Executions
-<details><summary><code>client.actions.executions.<a href="src/auth0/management/actions/executions/client.py">get</a>(...) -> AsyncHttpResponse[GetActionExecutionResponseContent]</code></summary>
+<details><summary><code>client.actions.executions.<a href="src/auth0/management/actions/executions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionExecutionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15354,8 +15763,610 @@ client.actions.executions.get(
 </dl>
 </details>
 
+## Actions Modules
+<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">list</a>(...) -&gt; AsyncPager[ActionModuleListItem, GetActionModulesResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of all Actions Modules with optional filtering and totals.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.actions.modules.list(
+    page=1,
+    per_page=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Page index of the results to return. First page is 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**per_page:** `typing.Optional[int]` — Number of results per page. Paging is disabled if parameter not sent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateActionModuleResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new Actions Module for reusable code across actions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.actions.modules.create(
+    name="name",
+    code="code",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — The name of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**code:** `str` — The source code of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secrets:** `typing.Optional[typing.Sequence[ActionModuleSecretRequest]]` — The secrets to associate with the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**dependencies:** `typing.Optional[typing.Sequence[ActionModuleDependencyRequest]]` — The npm dependencies of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_version:** `typing.Optional[str]` — The API version of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**publish:** `typing.Optional[bool]` — Whether to publish the module immediately after creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionModuleResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details of a specific Actions Module by its unique identifier.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.actions.modules.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the action module to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete an Actions Module. This will fail if the module is still in use by any actions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.actions.modules.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the Actions Module to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateActionModuleResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update properties of an existing Actions Module, such as code, dependencies, or secrets.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.actions.modules.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the action module to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**code:** `typing.Optional[str]` — The source code of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secrets:** `typing.Optional[typing.Sequence[ActionModuleSecretRequest]]` — The secrets to associate with the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**dependencies:** `typing.Optional[typing.Sequence[ActionModuleDependencyRequest]]` — The npm dependencies of the action module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">list_actions</a>(...) -&gt; AsyncPager[ActionModuleAction, GetActionModuleActionsResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all actions that are using a specific Actions Module, showing which deployed action versions reference this Actions Module.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.actions.modules.list_actions(
+    id="id",
+    page=1,
+    per_page=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The unique ID of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Page index of the results to return. First page is 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**per_page:** `typing.Optional[int]` — Number of results per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">rollback</a>(...) -&gt; AsyncHttpResponse[RollbackActionModuleResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Rolls back an Actions Module's draft to a previously created version. This action copies the code, dependencies, and secrets from the specified version into the current draft.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.actions.modules.rollback(
+    id="id",
+    module_version_id="module_version_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The unique ID of the module to roll back.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**module_version_id:** `str` — The unique ID of the module version to roll back to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Actions Triggers
-<details><summary><code>client.actions.triggers.<a href="src/auth0/management/actions/triggers/client.py">list</a>() -> AsyncHttpResponse[ListActionTriggersResponseContent]</code></summary>
+<details><summary><code>client.actions.triggers.<a href="src/auth0/management/actions/triggers/client.py">list</a>() -&gt; AsyncHttpResponse[ListActionTriggersResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15415,8 +16426,228 @@ client.actions.triggers.list()
 </dl>
 </details>
 
+## Actions Modules Versions
+<details><summary><code>client.actions.modules.versions.<a href="src/auth0/management/actions/modules/versions/client.py">list</a>(...) -&gt; AsyncHttpResponse[GetActionModuleVersionsResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all published versions of a specific Actions Module.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.actions.modules.versions.list(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The unique ID of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.versions.<a href="src/auth0/management/actions/modules/versions/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateActionModuleVersionResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new immutable version of an Actions Module from the current draft version. This publishes the draft as a new version that can be referenced by actions, while maintaining the existing draft for continued development.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.actions.modules.versions.create(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the action module to create a version for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.actions.modules.versions.<a href="src/auth0/management/actions/modules/versions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionModuleVersionResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the details of a specific, immutable version of an Actions Module.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.actions.modules.versions.get(
+    id="id",
+    version_id="versionId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The unique ID of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version_id:** `str` — The unique ID of the module version to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Actions Triggers Bindings
-<details><summary><code>client.actions.triggers.bindings.<a href="src/auth0/management/actions/triggers/bindings/client.py">list</a>(...) -> AsyncPager[ActionBinding, ListActionBindingsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.actions.triggers.bindings.<a href="src/auth0/management/actions/triggers/bindings/client.py">list</a>(...) -&gt; AsyncPager[ActionBinding, ListActionBindingsPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15509,7 +16740,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.triggers.bindings.<a href="src/auth0/management/actions/triggers/bindings/client.py">update_many</a>(...) -> AsyncHttpResponse[UpdateActionBindingsResponseContent]</code></summary>
+<details><summary><code>client.actions.triggers.bindings.<a href="src/auth0/management/actions/triggers/bindings/client.py">update_many</a>(...) -&gt; AsyncHttpResponse[UpdateActionBindingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15588,7 +16819,7 @@ client.actions.triggers.bindings.update_many(
 </details>
 
 ## Anomaly Blocks
-<details><summary><code>client.anomaly.blocks.<a href="src/auth0/management/anomaly/blocks/client.py">check_ip</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.anomaly.blocks.<a href="src/auth0/management/anomaly/blocks/client.py">check_ip</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -15658,7 +16889,7 @@ client.anomaly.blocks.check_ip(
 </dl>
 </details>
 
-<details><summary><code>client.anomaly.blocks.<a href="src/auth0/management/anomaly/blocks/client.py">unblock_ip</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.anomaly.blocks.<a href="src/auth0/management/anomaly/blocks/client.py">unblock_ip</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -15729,7 +16960,7 @@ client.anomaly.blocks.unblock_ip(
 </details>
 
 ## AttackProtection BotDetection
-<details><summary><code>client.attack_protection.bot_detection.<a href="src/auth0/management/attack_protection/bot_detection/client.py">get</a>() -> AsyncHttpResponse[GetBotDetectionSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.bot_detection.<a href="src/auth0/management/attack_protection/bot_detection/client.py">get</a>() -&gt; AsyncHttpResponse[GetBotDetectionSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15789,7 +17020,7 @@ client.attack_protection.bot_detection.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.bot_detection.<a href="src/auth0/management/attack_protection/bot_detection/client.py">update</a>(...) -> AsyncHttpResponse[UpdateBotDetectionSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.bot_detection.<a href="src/auth0/management/attack_protection/bot_detection/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBotDetectionSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15898,7 +17129,7 @@ client.attack_protection.bot_detection.update()
 </details>
 
 ## AttackProtection BreachedPasswordDetection
-<details><summary><code>client.attack_protection.breached_password_detection.<a href="src/auth0/management/attack_protection/breached_password_detection/client.py">get</a>() -> AsyncHttpResponse[GetBreachedPasswordDetectionSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.breached_password_detection.<a href="src/auth0/management/attack_protection/breached_password_detection/client.py">get</a>() -&gt; AsyncHttpResponse[GetBreachedPasswordDetectionSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -15958,7 +17189,7 @@ client.attack_protection.breached_password_detection.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.breached_password_detection.<a href="src/auth0/management/attack_protection/breached_password_detection/client.py">update</a>(...) -> AsyncHttpResponse[UpdateBreachedPasswordDetectionSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.breached_password_detection.<a href="src/auth0/management/attack_protection/breached_password_detection/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBreachedPasswordDetectionSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16067,7 +17298,7 @@ When "admin_notification" is enabled, determines how often email notifications a
 </details>
 
 ## AttackProtection BruteForceProtection
-<details><summary><code>client.attack_protection.brute_force_protection.<a href="src/auth0/management/attack_protection/brute_force_protection/client.py">get</a>() -> AsyncHttpResponse[GetBruteForceSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.brute_force_protection.<a href="src/auth0/management/attack_protection/brute_force_protection/client.py">get</a>() -&gt; AsyncHttpResponse[GetBruteForceSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16127,7 +17358,7 @@ client.attack_protection.brute_force_protection.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.brute_force_protection.<a href="src/auth0/management/attack_protection/brute_force_protection/client.py">update</a>(...) -> AsyncHttpResponse[UpdateBruteForceSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.brute_force_protection.<a href="src/auth0/management/attack_protection/brute_force_protection/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBruteForceSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16183,9 +17414,7 @@ client.attack_protection.brute_force_protection.update()
 <dl>
 <dd>
 
-**shields:** `typing.Optional[
-    typing.Sequence[UpdateBruteForceSettingsRequestContentShieldsItem]
-]` 
+**shields:** `typing.Optional[typing.Sequence[BruteForceProtectionShieldsEnum]]` 
 
 Action to take when a brute force protection threshold is violated.
         Possible values: <code>block</code>, <code>user_notification</code>.
@@ -16204,10 +17433,7 @@ Action to take when a brute force protection threshold is violated.
 <dl>
 <dd>
 
-**mode:** `typing.Optional[UpdateBruteForceSettingsRequestContentMode]` 
-
-Account Lockout: Determines whether or not IP address is used when counting failed attempts.
-          Possible values: <code>count_per_identifier_and_ip</code>, <code>count_per_identifier</code>.
+**mode:** `typing.Optional[BruteForceProtectionModeEnum]` 
     
 </dd>
 </dl>
@@ -16236,7 +17462,7 @@ Account Lockout: Determines whether or not IP address is used when counting fail
 </details>
 
 ## AttackProtection Captcha
-<details><summary><code>client.attack_protection.captcha.<a href="src/auth0/management/attack_protection/captcha/client.py">get</a>() -> AsyncHttpResponse[GetAttackProtectionCaptchaResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.captcha.<a href="src/auth0/management/attack_protection/captcha/client.py">get</a>() -&gt; AsyncHttpResponse[GetAttackProtectionCaptchaResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16296,7 +17522,7 @@ client.attack_protection.captcha.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.captcha.<a href="src/auth0/management/attack_protection/captcha/client.py">update</a>(...) -> AsyncHttpResponse[UpdateAttackProtectionCaptchaResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.captcha.<a href="src/auth0/management/attack_protection/captcha/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateAttackProtectionCaptchaResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16421,7 +17647,7 @@ client.attack_protection.captcha.update()
 </details>
 
 ## AttackProtection SuspiciousIpThrottling
-<details><summary><code>client.attack_protection.suspicious_ip_throttling.<a href="src/auth0/management/attack_protection/suspicious_ip_throttling/client.py">get</a>() -> AsyncHttpResponse[GetSuspiciousIpThrottlingSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.suspicious_ip_throttling.<a href="src/auth0/management/attack_protection/suspicious_ip_throttling/client.py">get</a>() -&gt; AsyncHttpResponse[GetSuspiciousIpThrottlingSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16481,7 +17707,7 @@ client.attack_protection.suspicious_ip_throttling.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.suspicious_ip_throttling.<a href="src/auth0/management/attack_protection/suspicious_ip_throttling/client.py">update</a>(...) -> AsyncHttpResponse[UpdateSuspiciousIpThrottlingSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.suspicious_ip_throttling.<a href="src/auth0/management/attack_protection/suspicious_ip_throttling/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateSuspiciousIpThrottlingSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16577,7 +17803,7 @@ Action to take when a suspicious IP throttling threshold is violated.
 </details>
 
 ## Branding Templates
-<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">get_universal_login</a>() -> AsyncHttpResponse[GetUniversalLoginTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">get_universal_login</a>() -&gt; AsyncHttpResponse[GetUniversalLoginTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16623,7 +17849,7 @@ client.branding.templates.get_universal_login()
 </dl>
 </details>
 
-<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">update_universal_login</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">update_universal_login</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -16716,7 +17942,7 @@ client.branding.templates.update_universal_login(
 </dl>
 </details>
 
-<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">delete_universal_login</a>() -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">delete_universal_login</a>() -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -16763,7 +17989,7 @@ client.branding.templates.delete_universal_login()
 </details>
 
 ## Branding Themes
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">create</a>(...) -> AsyncHttpResponse[CreateBrandingThemeResponseContent]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateBrandingThemeResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16955,7 +18181,7 @@ client.branding.themes.create(
 </dl>
 </details>
 
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">get_default</a>() -> AsyncHttpResponse[GetBrandingDefaultThemeResponseContent]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">get_default</a>() -&gt; AsyncHttpResponse[GetBrandingDefaultThemeResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17015,7 +18241,7 @@ client.branding.themes.get_default()
 </dl>
 </details>
 
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">get</a>(...) -> AsyncHttpResponse[GetBrandingThemeResponseContent]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetBrandingThemeResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17085,7 +18311,7 @@ client.branding.themes.get(
 </dl>
 </details>
 
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -17155,7 +18381,7 @@ client.branding.themes.delete(
 </dl>
 </details>
 
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">update</a>(...) -> AsyncHttpResponse[UpdateBrandingThemeResponseContent]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBrandingThemeResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17357,7 +18583,7 @@ client.branding.themes.update(
 </details>
 
 ## Branding Phone Providers
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">list</a>(...) -> AsyncHttpResponse[ListBrandingPhoneProvidersResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListBrandingPhoneProvidersResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17427,7 +18653,7 @@ client.branding.phone.providers.list(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">create</a>(...) -> AsyncHttpResponse[CreateBrandingPhoneProviderResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateBrandingPhoneProviderResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17525,7 +18751,7 @@ client.branding.phone.providers.create(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">get</a>(...) -> AsyncHttpResponse[GetBrandingPhoneProviderResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetBrandingPhoneProviderResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17595,7 +18821,7 @@ client.branding.phone.providers.get(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -17665,7 +18891,7 @@ client.branding.phone.providers.delete(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">update</a>(...) -> AsyncHttpResponse[UpdateBrandingPhoneProviderResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBrandingPhoneProviderResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17768,7 +18994,7 @@ client.branding.phone.providers.update(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">test</a>(...) -> AsyncHttpResponse[CreatePhoneProviderSendTestResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">test</a>(...) -&gt; AsyncHttpResponse[CreatePhoneProviderSendTestResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17842,7 +19068,7 @@ client.branding.phone.providers.test(
 </details>
 
 ## Branding Phone Templates
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">list</a>(...) -> AsyncHttpResponse[ListPhoneTemplatesResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListPhoneTemplatesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17898,7 +19124,7 @@ client.branding.phone.templates.list(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">create</a>(...) -> AsyncHttpResponse[CreatePhoneTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreatePhoneTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -17968,7 +19194,7 @@ client.branding.phone.templates.create()
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">get</a>(...) -> AsyncHttpResponse[GetPhoneTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetPhoneTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18024,7 +19250,7 @@ client.branding.phone.templates.get(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -18080,7 +19306,7 @@ client.branding.phone.templates.delete(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">update</a>(...) -> AsyncHttpResponse[UpdatePhoneTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdatePhoneTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18152,7 +19378,7 @@ client.branding.phone.templates.update(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">reset</a>(...) -> AsyncHttpResponse[ResetPhoneTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">reset</a>(...) -&gt; AsyncHttpResponse[ResetPhoneTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18217,7 +19443,7 @@ client.branding.phone.templates.reset(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">test</a>(...) -> AsyncHttpResponse[CreatePhoneTemplateTestNotificationResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">test</a>(...) -&gt; AsyncHttpResponse[CreatePhoneTemplateTestNotificationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18291,7 +19517,7 @@ client.branding.phone.templates.test(
 </details>
 
 ## ClientGrants Organizations
-<details><summary><code>client.client_grants.organizations.<a href="src/auth0/management/client_grants/organizations/client.py">list</a>(...) -> AsyncPager[Organization, ListClientGrantOrganizationsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.client_grants.organizations.<a href="src/auth0/management/client_grants/organizations/client.py">list</a>(...) -&gt; AsyncPager[Organization, ListClientGrantOrganizationsPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18371,7 +19597,7 @@ for page in response.iter_pages():
 </details>
 
 ## Clients Credentials
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">list</a>(...) -> AsyncHttpResponse[typing.List[ClientCredential]]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">list</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientCredential]]</code></summary>
 <dl>
 <dd>
 
@@ -18443,7 +19669,7 @@ client.clients.credentials.list(
 </dl>
 </details>
 
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">create</a>(...) -> AsyncHttpResponse[PostClientCredentialResponseContent]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">create</a>(...) -&gt; AsyncHttpResponse[PostClientCredentialResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18602,7 +19828,7 @@ client.clients.credentials.create(
 </dl>
 </details>
 
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">get</a>(...) -> AsyncHttpResponse[GetClientCredentialResponseContent]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetClientCredentialResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18683,7 +19909,7 @@ client.clients.credentials.get(
 </dl>
 </details>
 
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -18762,7 +19988,7 @@ client.clients.credentials.delete(
 </dl>
 </details>
 
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">update</a>(...) -> AsyncHttpResponse[PatchClientCredentialResponseContent]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">update</a>(...) -&gt; AsyncHttpResponse[PatchClientCredentialResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18850,7 +20076,7 @@ client.clients.credentials.update(
 </details>
 
 ## Clients Connections
-<details><summary><code>client.clients.connections.<a href="src/auth0/management/clients/connections/client.py">get</a>(...) -> AsyncPager[ConnectionForList, ListClientConnectionsResponseContent]</code></summary>
+<details><summary><code>client.clients.connections.<a href="src/auth0/management/clients/connections/client.py">get</a>(...) -&gt; AsyncPager[ConnectionForList, ListClientConnectionsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -18981,8 +20207,461 @@ for page in response.iter_pages():
 </dl>
 </details>
 
+## Connections DirectoryProvisioning
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">list</a>(...) -&gt; AsyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of directory provisioning configurations of a tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.connections.directory_provisioning.list(
+    from_="from",
+    take=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetDirectoryProvisioningResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the directory provisioning configuration of a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.directory_provisioning.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The id of the connection to retrieve its directory provisioning configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateDirectoryProvisioningResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a directory provisioning configuration for a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0, CreateDirectoryProvisioningRequestContent
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.directory_provisioning.create(
+    id="id",
+    request=CreateDirectoryProvisioningRequestContent(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The id of the connection to create its directory provisioning configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Optional[CreateDirectoryProvisioningRequestContent]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete the directory provisioning configuration of a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.directory_provisioning.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The id of the connection to delete its directory provisioning configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateDirectoryProvisioningResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the directory provisioning configuration of a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0, UpdateDirectoryProvisioningRequestContent
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.directory_provisioning.update(
+    id="id",
+    request=UpdateDirectoryProvisioningRequestContent(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The id of the connection to create its directory provisioning configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Optional[UpdateDirectoryProvisioningRequestContent]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">get_default_mapping</a>(...) -&gt; AsyncHttpResponse[GetDirectoryProvisioningDefaultMappingResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the directory provisioning default attribute mapping of a connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.directory_provisioning.get_default_mapping(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The id of the connection to retrieve its directory provisioning configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Connections Clients
-<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">get</a>(...) -> AsyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]</code></summary>
+<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">get</a>(...) -&gt; AsyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -19077,7 +20756,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">update</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">update</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -19147,377 +20826,8 @@ client.connections.clients.update(
 </dl>
 </details>
 
-## Connections DirectoryProvisioning
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">get</a>(...) -> AsyncHttpResponse[GetDirectoryProvisioningResponseContent]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the directory provisioning configuration of a connection.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0 import Auth0
-
-client = Auth0(
-    token="YOUR_TOKEN",
-)
-client.connections.directory_provisioning.get(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The id of the connection to retrieve its directory provisioning configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">create</a>(...) -> AsyncHttpResponse[CreateDirectoryProvisioningResponseContent]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a directory provisioning configuration for a connection.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0 import Auth0, CreateDirectoryProvisioningRequestContent
-
-client = Auth0(
-    token="YOUR_TOKEN",
-)
-client.connections.directory_provisioning.create(
-    id="id",
-    request=CreateDirectoryProvisioningRequestContent(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The id of the connection to create its directory provisioning configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `typing.Optional[CreateDirectoryProvisioningRequestContent]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete the directory provisioning configuration of a connection.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0 import Auth0
-
-client = Auth0(
-    token="YOUR_TOKEN",
-)
-client.connections.directory_provisioning.delete(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The id of the connection to delete its directory provisioning configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">update</a>(...) -> AsyncHttpResponse[UpdateDirectoryProvisioningResponseContent]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update the directory provisioning configuration of a connection.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0 import Auth0, UpdateDirectoryProvisioningRequestContent
-
-client = Auth0(
-    token="YOUR_TOKEN",
-)
-client.connections.directory_provisioning.update(
-    id="id",
-    request=UpdateDirectoryProvisioningRequestContent(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The id of the connection to create its directory provisioning configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `typing.Optional[UpdateDirectoryProvisioningRequestContent]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">get_default_mapping</a>(...) -> AsyncHttpResponse[GetDirectoryProvisioningDefaultMappingResponseContent]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the directory provisioning default attribute mapping of a connection.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0 import Auth0
-
-client = Auth0(
-    token="YOUR_TOKEN",
-)
-client.connections.directory_provisioning.get_default_mapping(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The id of the connection to retrieve its directory provisioning configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Connections Keys
-<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">get</a>(...) -> AsyncHttpResponse[typing.List[ConnectionKey]]</code></summary>
+<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">get</a>(...) -&gt; AsyncHttpResponse[typing.List[ConnectionKey]]</code></summary>
 <dl>
 <dd>
 
@@ -19587,7 +20897,7 @@ client.connections.keys.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">rotate</a>(...) -> AsyncHttpResponse[RotateConnectionsKeysResponseContent]</code></summary>
+<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">rotate</a>(...) -&gt; AsyncHttpResponse[RotateConnectionsKeysResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -19667,7 +20977,7 @@ client.connections.keys.rotate(
 </details>
 
 ## Connections ScimConfiguration
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">get</a>(...) -> AsyncHttpResponse[GetScimConfigurationResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetScimConfigurationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -19737,7 +21047,7 @@ client.connections.scim_configuration.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">create</a>(...) -> AsyncHttpResponse[CreateScimConfigurationResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateScimConfigurationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -19816,7 +21126,7 @@ client.connections.scim_configuration.create(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -19886,7 +21196,7 @@ client.connections.scim_configuration.delete(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">update</a>(...) -> AsyncHttpResponse[UpdateScimConfigurationResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateScimConfigurationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -19974,7 +21284,7 @@ client.connections.scim_configuration.update(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">get_default_mapping</a>(...) -> AsyncHttpResponse[GetScimConfigurationDefaultMappingResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">get_default_mapping</a>(...) -&gt; AsyncHttpResponse[GetScimConfigurationDefaultMappingResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -20045,7 +21355,7 @@ client.connections.scim_configuration.get_default_mapping(
 </details>
 
 ## Connections Users
-<details><summary><code>client.connections.users.<a href="src/auth0/management/connections/users/client.py">delete_by_email</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.users.<a href="src/auth0/management/connections/users/client.py">delete_by_email</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -20125,7 +21435,7 @@ client.connections.users.delete_by_email(
 </details>
 
 ## Connections DirectoryProvisioning Synchronizations
-<details><summary><code>client.connections.directory_provisioning.synchronizations.<a href="src/auth0/management/connections/directory_provisioning/synchronizations/client.py">create</a>(...) -> AsyncHttpResponse[CreateDirectorySynchronizationResponseContent]</code></summary>
+<details><summary><code>client.connections.directory_provisioning.synchronizations.<a href="src/auth0/management/connections/directory_provisioning/synchronizations/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateDirectorySynchronizationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -20196,7 +21506,7 @@ client.connections.directory_provisioning.synchronizations.create(
 </details>
 
 ## Connections ScimConfiguration Tokens
-<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">get</a>(...) -> AsyncHttpResponse[GetScimTokensResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetScimTokensResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -20266,7 +21576,7 @@ client.connections.scim_configuration.tokens.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">create</a>(...) -> AsyncHttpResponse[CreateScimTokenResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateScimTokenResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -20352,7 +21662,7 @@ client.connections.scim_configuration.tokens.create(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -20432,7 +21742,7 @@ client.connections.scim_configuration.tokens.delete(
 </details>
 
 ## Emails Provider
-<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">get</a>(...) -> AsyncHttpResponse[GetEmailProviderResponseContent]</code></summary>
+<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetEmailProviderResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -20511,7 +21821,7 @@ client.emails.provider.get(
 </dl>
 </details>
 
-<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">create</a>(...) -> AsyncHttpResponse[CreateEmailProviderResponseContent]</code></summary>
+<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEmailProviderResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -20657,7 +21967,7 @@ client.emails.provider.create(
 </dl>
 </details>
 
-<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">delete</a>() -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">delete</a>() -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -20717,7 +22027,7 @@ client.emails.provider.delete()
 </dl>
 </details>
 
-<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">update</a>(...) -> AsyncHttpResponse[UpdateEmailProviderResponseContent]</code></summary>
+<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateEmailProviderResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -20857,7 +22167,7 @@ client.emails.provider.update()
 </details>
 
 ## EventStreams Deliveries
-<details><summary><code>client.event_streams.deliveries.<a href="src/auth0/management/event_streams/deliveries/client.py">list</a>(...) -> AsyncHttpResponse[typing.List[EventStreamDelivery]]</code></summary>
+<details><summary><code>client.event_streams.deliveries.<a href="src/auth0/management/event_streams/deliveries/client.py">list</a>(...) -&gt; AsyncHttpResponse[typing.List[EventStreamDelivery]]</code></summary>
 <dl>
 <dd>
 
@@ -20967,7 +22277,7 @@ client.event_streams.deliveries.list(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.deliveries.<a href="src/auth0/management/event_streams/deliveries/client.py">get_history</a>(...) -> AsyncHttpResponse[GetEventStreamDeliveryHistoryResponseContent]</code></summary>
+<details><summary><code>client.event_streams.deliveries.<a href="src/auth0/management/event_streams/deliveries/client.py">get_history</a>(...) -&gt; AsyncHttpResponse[GetEventStreamDeliveryHistoryResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21033,7 +22343,7 @@ client.event_streams.deliveries.get_history(
 </details>
 
 ## EventStreams Redeliveries
-<details><summary><code>client.event_streams.redeliveries.<a href="src/auth0/management/event_streams/redeliveries/client.py">create</a>(...) -> AsyncHttpResponse[CreateEventStreamRedeliveryResponseContent]</code></summary>
+<details><summary><code>client.event_streams.redeliveries.<a href="src/auth0/management/event_streams/redeliveries/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEventStreamRedeliveryResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21121,7 +22431,7 @@ client.event_streams.redeliveries.create(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.redeliveries.<a href="src/auth0/management/event_streams/redeliveries/client.py">create_by_id</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.event_streams.redeliveries.<a href="src/auth0/management/event_streams/redeliveries/client.py">create_by_id</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -21187,7 +22497,7 @@ client.event_streams.redeliveries.create_by_id(
 </details>
 
 ## Flows Executions
-<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">list</a>(...) -> AsyncPager[FlowExecutionSummary, ListFlowExecutionsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">list</a>(...) -&gt; AsyncPager[FlowExecutionSummary, ListFlowExecutionsPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21266,7 +22576,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">get</a>(...) -> AsyncHttpResponse[GetFlowExecutionResponseContent]</code></summary>
+<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetFlowExecutionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21321,7 +22631,8 @@ client.flows.executions.get(
 
 **hydrate:** `typing.Optional[
     typing.Union[
-        typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]
+        GetFlowExecutionRequestParametersHydrateEnum,
+        typing.Sequence[GetFlowExecutionRequestParametersHydrateEnum],
     ]
 ]` — Hydration param
     
@@ -21343,7 +22654,7 @@ client.flows.executions.get(
 </dl>
 </details>
 
-<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -21409,7 +22720,7 @@ client.flows.executions.delete(
 </details>
 
 ## Flows Vault Connections
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">list</a>(...) -&gt; AsyncPager[
     FlowsVaultConnectionSummary,
     ListFlowsVaultConnectionsOffsetPaginatedResponseContent,
 ]</code></summary>
@@ -21491,7 +22802,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">create</a>(...) -> AsyncHttpResponse[CreateFlowsVaultConnectionResponseContent]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateFlowsVaultConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21516,7 +22827,9 @@ client = Auth0(
 client.flows.vault.connections.create(
     request=CreateFlowsVaultConnectionActivecampaignApiKey(
         name="name",
+        app_id="ACTIVECAMPAIGN",
         setup=FlowsVaultConnectioSetupApiKeyWithBaseUrl(
+            type="API_KEY",
             api_key="api_key",
             base_url="base_url",
         ),
@@ -21557,7 +22870,7 @@ client.flows.vault.connections.create(
 </dl>
 </details>
 
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">get</a>(...) -> AsyncHttpResponse[GetFlowsVaultConnectionResponseContent]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetFlowsVaultConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21613,7 +22926,7 @@ client.flows.vault.connections.get(
 </dl>
 </details>
 
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -21669,7 +22982,7 @@ client.flows.vault.connections.delete(
 </dl>
 </details>
 
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">update</a>(...) -> AsyncHttpResponse[UpdateFlowsVaultConnectionResponseContent]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateFlowsVaultConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21741,8 +23054,120 @@ client.flows.vault.connections.update(
 </dl>
 </details>
 
+## Groups Members
+<details><summary><code>client.groups.members.<a href="src/auth0/management/groups/members/client.py">get</a>(...) -&gt; AsyncPager[GroupMember, GetGroupMembersResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all users that are a member of this group.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.groups.members.get(
+    id="id",
+    fields="fields",
+    include_fields=True,
+    from_="from",
+    take=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Unique identifier for the group (service-generated).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[str]` — A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_fields:** `typing.Optional[bool]` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Guardian Enrollments
-<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">create_ticket</a>(...) -> AsyncHttpResponse[CreateGuardianEnrollmentTicketResponseContent]</code></summary>
+<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">create_ticket</a>(...) -&gt; AsyncHttpResponse[CreateGuardianEnrollmentTicketResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21855,7 +23280,7 @@ client.guardian.enrollments.create_ticket(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">get</a>(...) -> AsyncHttpResponse[GetGuardianEnrollmentResponseContent]</code></summary>
+<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetGuardianEnrollmentResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -21925,7 +23350,7 @@ client.guardian.enrollments.get(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -21996,7 +23421,7 @@ client.guardian.enrollments.delete(
 </details>
 
 ## Guardian Factors
-<details><summary><code>client.guardian.factors.<a href="src/auth0/management/guardian/factors/client.py">list</a>() -> AsyncHttpResponse[typing.List[GuardianFactor]]</code></summary>
+<details><summary><code>client.guardian.factors.<a href="src/auth0/management/guardian/factors/client.py">list</a>() -&gt; AsyncHttpResponse[typing.List[GuardianFactor]]</code></summary>
 <dl>
 <dd>
 
@@ -22056,7 +23481,7 @@ client.guardian.factors.list()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.<a href="src/auth0/management/guardian/factors/client.py">set</a>(...) -> AsyncHttpResponse[SetGuardianFactorResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.<a href="src/auth0/management/guardian/factors/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22136,7 +23561,7 @@ client.guardian.factors.set(
 </details>
 
 ## Guardian Policies
-<details><summary><code>client.guardian.policies.<a href="src/auth0/management/guardian/policies/client.py">list</a>() -> AsyncHttpResponse[ListGuardianPoliciesResponseContent]</code></summary>
+<details><summary><code>client.guardian.policies.<a href="src/auth0/management/guardian/policies/client.py">list</a>() -&gt; AsyncHttpResponse[ListGuardianPoliciesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22204,7 +23629,7 @@ client.guardian.policies.list()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.policies.<a href="src/auth0/management/guardian/policies/client.py">set</a>(...) -> AsyncHttpResponse[SetGuardianPoliciesResponseContent]</code></summary>
+<details><summary><code>client.guardian.policies.<a href="src/auth0/management/guardian/policies/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetGuardianPoliciesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22283,7 +23708,7 @@ client.guardian.policies.set(
 </details>
 
 ## Guardian Factors Phone
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_message_types</a>() -> AsyncHttpResponse[GetGuardianFactorPhoneMessageTypesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_message_types</a>() -&gt; AsyncHttpResponse[GetGuardianFactorPhoneMessageTypesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22343,7 +23768,7 @@ client.guardian.factors.phone.get_message_types()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_message_types</a>(...) -> AsyncHttpResponse[SetGuardianFactorPhoneMessageTypesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_message_types</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorPhoneMessageTypesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22413,7 +23838,7 @@ client.guardian.factors.phone.set_message_types(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_twilio_provider</a>() -> AsyncHttpResponse[GetGuardianFactorsProviderPhoneTwilioResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_twilio_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderPhoneTwilioResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22473,7 +23898,7 @@ client.guardian.factors.phone.get_twilio_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_twilio_provider</a>(...) -> AsyncHttpResponse[SetGuardianFactorsProviderPhoneTwilioResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_twilio_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPhoneTwilioResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22565,7 +23990,7 @@ client.guardian.factors.phone.set_twilio_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_selected_provider</a>() -> AsyncHttpResponse[GetGuardianFactorsProviderPhoneResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_selected_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderPhoneResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22625,7 +24050,7 @@ client.guardian.factors.phone.get_selected_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_provider</a>(...) -> AsyncHttpResponse[SetGuardianFactorsProviderPhoneResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPhoneResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22681,7 +24106,7 @@ client.guardian.factors.phone.set_provider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_templates</a>() -> AsyncHttpResponse[GetGuardianFactorPhoneTemplatesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_templates</a>() -&gt; AsyncHttpResponse[GetGuardianFactorPhoneTemplatesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22741,7 +24166,7 @@ client.guardian.factors.phone.get_templates()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_templates</a>(...) -> AsyncHttpResponse[SetGuardianFactorPhoneTemplatesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_templates</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorPhoneTemplatesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22821,7 +24246,7 @@ client.guardian.factors.phone.set_templates(
 </details>
 
 ## Guardian Factors PushNotification
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_apns_provider</a>() -> AsyncHttpResponse[GetGuardianFactorsProviderApnsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_apns_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderApnsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22881,7 +24306,7 @@ client.guardian.factors.push_notification.get_apns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_apns_provider</a>(...) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_apns_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -22893,7 +24318,7 @@ client.guardian.factors.push_notification.get_apns_provider()
 <dl>
 <dd>
 
-Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+Overwrite all configuration details of the multi-factor authentication APNS provider associated with your tenant.
 </dd>
 </dl>
 </dd>
@@ -22965,7 +24390,9 @@ client.guardian.factors.push_notification.set_apns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_fcm_provider</a>(...) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationFcmResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_apns_provider</a>(...) -&gt; AsyncHttpResponse[
+    UpdateGuardianFactorsProviderPushNotificationApnsResponseContent
+]</code></summary>
 <dl>
 <dd>
 
@@ -22977,7 +24404,91 @@ client.guardian.factors.push_notification.set_apns_provider()
 <dl>
 <dd>
 
-Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+Modify configuration details of the multi-factor authentication APNS provider associated with your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.guardian.factors.push_notification.update_apns_provider()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandbox:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**bundle_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**p_12:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_fcm_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationFcmResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Overwrite all configuration details of the multi-factor authentication FCM provider associated with your tenant.
 </dd>
 </dl>
 </dd>
@@ -23033,7 +24544,77 @@ client.guardian.factors.push_notification.set_fcm_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_fcmv_1_provider</a>(...) -> AsyncHttpResponse[
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_fcm_provider</a>(...) -&gt; AsyncHttpResponse[
+    UpdateGuardianFactorsProviderPushNotificationFcmResponseContent
+]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify configuration details of the multi-factor authentication FCM provider associated with your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.guardian.factors.push_notification.update_fcm_provider()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**server_key:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_fcmv_1_provider</a>(...) -&gt; AsyncHttpResponse[
     SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent
 ]</code></summary>
 <dl>
@@ -23047,7 +24628,7 @@ client.guardian.factors.push_notification.set_fcm_provider()
 <dl>
 <dd>
 
-Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+Overwrite all configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
 </dd>
 </dl>
 </dd>
@@ -23103,7 +24684,77 @@ client.guardian.factors.push_notification.set_fcmv_1_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_sns_provider</a>() -> AsyncHttpResponse[GetGuardianFactorsProviderSnsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_fcmv_1_provider</a>(...) -&gt; AsyncHttpResponse[
+    UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent
+]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify configuration details of the multi-factor authentication FCMV1 provider associated with your tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.guardian.factors.push_notification.update_fcmv_1_provider()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**server_credentials:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_sns_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderSnsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23163,7 +24814,7 @@ client.guardian.factors.push_notification.get_sns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_sns_provider</a>(...) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationSnsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_sns_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationSnsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23263,7 +24914,7 @@ client.guardian.factors.push_notification.set_sns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_sns_provider</a>(...) -> AsyncHttpResponse[
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_sns_provider</a>(...) -&gt; AsyncHttpResponse[
     UpdateGuardianFactorsProviderPushNotificationSnsResponseContent
 ]</code></summary>
 <dl>
@@ -23365,7 +25016,7 @@ client.guardian.factors.push_notification.update_sns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_selected_provider</a>() -> AsyncHttpResponse[GetGuardianFactorsProviderPushNotificationResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_selected_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderPushNotificationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23425,7 +25076,7 @@ client.guardian.factors.push_notification.get_selected_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_provider</a>(...) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23496,7 +25147,7 @@ client.guardian.factors.push_notification.set_provider(
 </details>
 
 ## Guardian Factors Sms
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_twilio_provider</a>() -> AsyncHttpResponse[GetGuardianFactorsProviderSmsTwilioResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_twilio_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderSmsTwilioResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23558,7 +25209,7 @@ client.guardian.factors.sms.get_twilio_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_twilio_provider</a>(...) -> AsyncHttpResponse[SetGuardianFactorsProviderSmsTwilioResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_twilio_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderSmsTwilioResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23652,7 +25303,7 @@ client.guardian.factors.sms.set_twilio_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_selected_provider</a>() -> AsyncHttpResponse[GetGuardianFactorsProviderSmsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_selected_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderSmsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23714,7 +25365,7 @@ client.guardian.factors.sms.get_selected_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_provider</a>(...) -> AsyncHttpResponse[SetGuardianFactorsProviderSmsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderSmsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23786,7 +25437,7 @@ client.guardian.factors.sms.set_provider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_templates</a>() -> AsyncHttpResponse[GetGuardianFactorSmsTemplatesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_templates</a>() -&gt; AsyncHttpResponse[GetGuardianFactorSmsTemplatesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23848,7 +25499,7 @@ client.guardian.factors.sms.get_templates()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_templates</a>(...) -> AsyncHttpResponse[SetGuardianFactorSmsTemplatesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_templates</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorSmsTemplatesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23930,7 +25581,7 @@ client.guardian.factors.sms.set_templates(
 </details>
 
 ## Guardian Factors Duo Settings
-<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">get</a>() -> AsyncHttpResponse[GetGuardianFactorDuoSettingsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">get</a>() -&gt; AsyncHttpResponse[GetGuardianFactorDuoSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -23990,7 +25641,7 @@ client.guardian.factors.duo.settings.get()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">set</a>(...) -> AsyncHttpResponse[SetGuardianFactorDuoSettingsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorDuoSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -24074,7 +25725,7 @@ client.guardian.factors.duo.settings.set()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">update</a>(...) -> AsyncHttpResponse[UpdateGuardianFactorDuoSettingsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateGuardianFactorDuoSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -24145,7 +25796,7 @@ client.guardian.factors.duo.settings.update()
 </details>
 
 ## Hooks Secrets
-<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">get</a>(...) -> AsyncHttpResponse[GetHookSecretResponseContent]</code></summary>
+<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetHookSecretResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -24215,7 +25866,7 @@ client.hooks.secrets.get(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">create</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">create</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -24294,7 +25945,7 @@ client.hooks.secrets.create(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -24373,7 +26024,7 @@ client.hooks.secrets.delete(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">update</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">update</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -24453,7 +26104,7 @@ client.hooks.secrets.update(
 </details>
 
 ## Jobs UsersExports
-<details><summary><code>client.jobs.users_exports.<a href="src/auth0/management/jobs/users_exports/client.py">create</a>(...) -> AsyncHttpResponse[CreateExportUsersResponseContent]</code></summary>
+<details><summary><code>client.jobs.users_exports.<a href="src/auth0/management/jobs/users_exports/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateExportUsersResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -24546,7 +26197,7 @@ client.jobs.users_exports.create()
 </details>
 
 ## Jobs UsersImports
-<details><summary><code>client.jobs.users_imports.<a href="src/auth0/management/jobs/users_imports/client.py">create</a>(...) -> AsyncHttpResponse[CreateImportUsersResponseContent]</code></summary>
+<details><summary><code>client.jobs.users_imports.<a href="src/auth0/management/jobs/users_imports/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateImportUsersResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -24651,7 +26302,7 @@ core.File` — See core.File for more documentation
 </details>
 
 ## Jobs VerificationEmail
-<details><summary><code>client.jobs.verification_email.<a href="src/auth0/management/jobs/verification_email/client.py">create</a>(...) -> AsyncHttpResponse[CreateVerificationEmailResponseContent]</code></summary>
+<details><summary><code>client.jobs.verification_email.<a href="src/auth0/management/jobs/verification_email/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateVerificationEmailResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -24748,7 +26399,7 @@ client.jobs.verification_email.create(
 </details>
 
 ## Jobs Errors
-<details><summary><code>client.jobs.errors.<a href="src/auth0/management/jobs/errors/client.py">get</a>(...) -> AsyncHttpResponse[ErrorsGetResponse]</code></summary>
+<details><summary><code>client.jobs.errors.<a href="src/auth0/management/jobs/errors/client.py">get</a>(...) -&gt; AsyncHttpResponse[ErrorsGetResponse]</code></summary>
 <dl>
 <dd>
 
@@ -24819,7 +26470,7 @@ client.jobs.errors.get(
 </details>
 
 ## Keys CustomSigning
-<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">get</a>() -> AsyncHttpResponse[GetCustomSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">get</a>() -&gt; AsyncHttpResponse[GetCustomSigningKeysResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -24879,7 +26530,7 @@ client.keys.custom_signing.get()
 </dl>
 </details>
 
-<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">set</a>(...) -> AsyncHttpResponse[SetCustomSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetCustomSigningKeysResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -24953,7 +26604,7 @@ client.keys.custom_signing.set(
 </dl>
 </details>
 
-<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">delete</a>() -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">delete</a>() -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -25014,7 +26665,7 @@ client.keys.custom_signing.delete()
 </details>
 
 ## Keys Encryption
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">list</a>(...) -> AsyncPager[EncryptionKey, ListEncryptionKeyOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">list</a>(...) -&gt; AsyncPager[EncryptionKey, ListEncryptionKeyOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25107,7 +26758,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">create</a>(...) -> AsyncHttpResponse[CreateEncryptionKeyResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEncryptionKeyResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25177,7 +26828,7 @@ client.keys.encryption.create(
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">rekey</a>() -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">rekey</a>() -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -25237,7 +26888,7 @@ client.keys.encryption.rekey()
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">get</a>(...) -> AsyncHttpResponse[GetEncryptionKeyResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetEncryptionKeyResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25307,7 +26958,7 @@ client.keys.encryption.get(
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">import_</a>(...) -> AsyncHttpResponse[ImportEncryptionKeyResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">import_</a>(...) -&gt; AsyncHttpResponse[ImportEncryptionKeyResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25386,7 +27037,7 @@ client.keys.encryption.import_(
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -25456,7 +27107,7 @@ client.keys.encryption.delete(
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">create_public_wrapping_key</a>(...) -> AsyncHttpResponse[CreateEncryptionKeyPublicWrappingResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">create_public_wrapping_key</a>(...) -&gt; AsyncHttpResponse[CreateEncryptionKeyPublicWrappingResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25527,7 +27178,7 @@ client.keys.encryption.create_public_wrapping_key(
 </details>
 
 ## Keys Signing
-<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">list</a>() -> AsyncHttpResponse[typing.List[SigningKeys]]</code></summary>
+<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">list</a>() -&gt; AsyncHttpResponse[typing.List[SigningKeys]]</code></summary>
 <dl>
 <dd>
 
@@ -25587,7 +27238,7 @@ client.keys.signing.list()
 </dl>
 </details>
 
-<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">rotate</a>() -> AsyncHttpResponse[RotateSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">rotate</a>() -&gt; AsyncHttpResponse[RotateSigningKeysResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25647,7 +27298,7 @@ client.keys.signing.rotate()
 </dl>
 </details>
 
-<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">get</a>(...) -> AsyncHttpResponse[GetSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetSigningKeysResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25717,7 +27368,7 @@ client.keys.signing.get(
 </dl>
 </details>
 
-<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">revoke</a>(...) -> AsyncHttpResponse[RevokedSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">revoke</a>(...) -&gt; AsyncHttpResponse[RevokedSigningKeysResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25788,7 +27439,7 @@ client.keys.signing.revoke(
 </details>
 
 ## Organizations ClientGrants
-<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">list</a>(...) -&gt; AsyncPager[
     OrganizationClientGrant,
     ListOrganizationClientGrantsOffsetPaginatedResponseContent,
 ]</code></summary>
@@ -25905,7 +27556,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">create</a>(...) -> AsyncHttpResponse[AssociateOrganizationClientGrantResponseContent]</code></summary>
+<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">create</a>(...) -&gt; AsyncHttpResponse[AssociateOrganizationClientGrantResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -25970,7 +27621,7 @@ client.organizations.client_grants.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -26036,7 +27687,7 @@ client.organizations.client_grants.delete(
 </details>
 
 ## Organizations DiscoveryDomains
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">list</a>(...) -&gt; AsyncPager[
     OrganizationDiscoveryDomain, ListOrganizationDiscoveryDomainsResponseContent
 ]</code></summary>
 <dl>
@@ -26131,7 +27782,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">create</a>(...) -> AsyncHttpResponse[CreateOrganizationDiscoveryDomainResponseContent]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateOrganizationDiscoveryDomainResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -26143,7 +27794,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+Create a new discovery domain for an organization.
 </dd>
 </dl>
 </dd>
@@ -26206,6 +27857,14 @@ client.organizations.discovery_domains.create(
 <dl>
 <dd>
 
+**use_for_organization_discovery:** `typing.Optional[bool]` — Indicates whether this domain should be used for organization discovery.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -26218,7 +27877,87 @@ client.organizations.discovery_domains.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">get</a>(...) -> AsyncHttpResponse[GetOrganizationDiscoveryDomainResponseContent]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">get_by_name</a>(...) -&gt; AsyncHttpResponse[GetOrganizationDiscoveryDomainByNameResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details about a single organization discovery domain specified by domain name.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.organizations.discovery_domains.get_by_name(
+    id="id",
+    discovery_domain="discovery_domain",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**discovery_domain:** `str` — Domain name of the discovery domain.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationDiscoveryDomainResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -26297,7 +28036,7 @@ client.organizations.discovery_domains.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -26376,7 +28115,7 @@ client.organizations.discovery_domains.delete(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">update</a>(...) -> AsyncHttpResponse[UpdateOrganizationDiscoveryDomainResponseContent]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateOrganizationDiscoveryDomainResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -26388,7 +28127,7 @@ client.organizations.discovery_domains.delete(
 <dl>
 <dd>
 
-Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
 </dd>
 </dl>
 </dd>
@@ -26451,6 +28190,14 @@ client.organizations.discovery_domains.update(
 <dl>
 <dd>
 
+**use_for_organization_discovery:** `typing.Optional[bool]` — Indicates whether this domain should be used for organization discovery.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -26464,7 +28211,7 @@ client.organizations.discovery_domains.update(
 </details>
 
 ## Organizations EnabledConnections
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">list</a>(...) -&gt; AsyncPager[
     OrganizationConnection,
     ListOrganizationConnectionsOffsetPaginatedResponseContent,
 ]</code></summary>
@@ -26569,7 +28316,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">add</a>(...) -> AsyncHttpResponse[AddOrganizationConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">add</a>(...) -&gt; AsyncHttpResponse[AddOrganizationConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -26674,7 +28421,7 @@ client.organizations.enabled_connections.add(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">get</a>(...) -> AsyncHttpResponse[GetOrganizationConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -26753,7 +28500,7 @@ client.organizations.enabled_connections.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -26834,7 +28581,7 @@ client.organizations.enabled_connections.delete(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">update</a>(...) -> AsyncHttpResponse[UpdateOrganizationConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateOrganizationConnectionResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -26938,7 +28685,7 @@ client.organizations.enabled_connections.update(
 </details>
 
 ## Organizations Invitations
-<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">list</a>(...) -&gt; AsyncPager[
     OrganizationInvitation,
     ListOrganizationInvitationsOffsetPaginatedResponseContent,
 ]</code></summary>
@@ -27070,7 +28817,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">create</a>(...) -> AsyncHttpResponse[CreateOrganizationInvitationResponseContent]</code></summary>
+<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateOrganizationInvitationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -27223,7 +28970,7 @@ client.organizations.invitations.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">get</a>(...) -> AsyncHttpResponse[GetOrganizationInvitationResponseContent]</code></summary>
+<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationInvitationResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -27306,7 +29053,7 @@ client.organizations.invitations.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -27372,7 +29119,7 @@ client.organizations.invitations.delete(
 </details>
 
 ## Organizations Members
-<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">list</a>(...) -> AsyncPager[OrganizationMember, ListOrganizationMembersPaginatedResponseContent]</code></summary>
+<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">list</a>(...) -&gt; AsyncPager[OrganizationMember, ListOrganizationMembersPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -27504,7 +29251,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">create</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">create</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -27585,7 +29332,7 @@ client.organizations.members.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -27651,7 +29398,7 @@ client.organizations.members.delete(
 </details>
 
 ## Organizations Members Roles
-<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">list</a>(...) -> AsyncPager[Role, ListOrganizationMemberRolesOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">list</a>(...) -&gt; AsyncPager[Role, ListOrganizationMemberRolesOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -27764,7 +29511,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">assign</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">assign</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -27854,7 +29601,7 @@ client.organizations.members.roles.assign(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -27945,7 +29692,9 @@ client.organizations.members.roles.delete(
 </details>
 
 ## Prompts Rendering
-<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">list</a>(...) -> AsyncPager[AculResponseContent, ListAculsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">list</a>(...) -&gt; AsyncPager[
+    ListAculsResponseContentItem, ListAculsOffsetPaginatedResponseContent
+]</code></summary>
 <dl>
 <dd>
 
@@ -28083,7 +29832,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">bulk_update</a>(...) -> AsyncHttpResponse[BulkUpdateAculResponseContent]</code></summary>
+<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">bulk_update</a>(...) -&gt; AsyncHttpResponse[BulkUpdateAculResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28158,7 +29907,7 @@ client.prompts.rendering.bulk_update(
 </dl>
 </details>
 
-<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">get</a>(...) -> AsyncHttpResponse[GetAculResponseContent]</code></summary>
+<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetAculResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28237,7 +29986,7 @@ client.prompts.rendering.get(
 </dl>
 </details>
 
-<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">update</a>(...) -> AsyncHttpResponse[UpdateAculResponseContent]</code></summary>
+<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateAculResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28365,7 +30114,7 @@ client.prompts.rendering.update(
 </details>
 
 ## Prompts CustomText
-<details><summary><code>client.prompts.custom_text.<a href="src/auth0/management/prompts/custom_text/client.py">get</a>(...) -> AsyncHttpResponse[GetCustomTextsByLanguageResponseContent]</code></summary>
+<details><summary><code>client.prompts.custom_text.<a href="src/auth0/management/prompts/custom_text/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetCustomTextsByLanguageResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28444,7 +30193,7 @@ client.prompts.custom_text.get(
 </dl>
 </details>
 
-<details><summary><code>client.prompts.custom_text.<a href="src/auth0/management/prompts/custom_text/client.py">set</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.prompts.custom_text.<a href="src/auth0/management/prompts/custom_text/client.py">set</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -28533,7 +30282,7 @@ client.prompts.custom_text.set(
 </details>
 
 ## Prompts Partials
-<details><summary><code>client.prompts.partials.<a href="src/auth0/management/prompts/partials/client.py">get</a>(...) -> AsyncHttpResponse[GetPartialsResponseContent]</code></summary>
+<details><summary><code>client.prompts.partials.<a href="src/auth0/management/prompts/partials/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetPartialsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28603,7 +30352,7 @@ client.prompts.partials.get(
 </dl>
 </details>
 
-<details><summary><code>client.prompts.partials.<a href="src/auth0/management/prompts/partials/client.py">set</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.prompts.partials.<a href="src/auth0/management/prompts/partials/client.py">set</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -28683,7 +30432,7 @@ client.prompts.partials.set(
 </details>
 
 ## RiskAssessments Settings
-<details><summary><code>client.risk_assessments.settings.<a href="src/auth0/management/risk_assessments/settings/client.py">get</a>() -> AsyncHttpResponse[GetRiskAssessmentsSettingsResponseContent]</code></summary>
+<details><summary><code>client.risk_assessments.settings.<a href="src/auth0/management/risk_assessments/settings/client.py">get</a>() -&gt; AsyncHttpResponse[GetRiskAssessmentsSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28743,7 +30492,7 @@ client.risk_assessments.settings.get()
 </dl>
 </details>
 
-<details><summary><code>client.risk_assessments.settings.<a href="src/auth0/management/risk_assessments/settings/client.py">update</a>(...) -> AsyncHttpResponse[UpdateRiskAssessmentsSettingsResponseContent]</code></summary>
+<details><summary><code>client.risk_assessments.settings.<a href="src/auth0/management/risk_assessments/settings/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRiskAssessmentsSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28814,7 +30563,7 @@ client.risk_assessments.settings.update(
 </details>
 
 ## RiskAssessments Settings NewDevice
-<details><summary><code>client.risk_assessments.settings.new_device.<a href="src/auth0/management/risk_assessments/settings/new_device/client.py">get</a>() -> AsyncHttpResponse[GetRiskAssessmentsSettingsNewDeviceResponseContent]</code></summary>
+<details><summary><code>client.risk_assessments.settings.new_device.<a href="src/auth0/management/risk_assessments/settings/new_device/client.py">get</a>() -&gt; AsyncHttpResponse[GetRiskAssessmentsSettingsNewDeviceResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28874,7 +30623,7 @@ client.risk_assessments.settings.new_device.get()
 </dl>
 </details>
 
-<details><summary><code>client.risk_assessments.settings.new_device.<a href="src/auth0/management/risk_assessments/settings/new_device/client.py">update</a>(...) -> AsyncHttpResponse[UpdateRiskAssessmentsSettingsNewDeviceResponseContent]</code></summary>
+<details><summary><code>client.risk_assessments.settings.new_device.<a href="src/auth0/management/risk_assessments/settings/new_device/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRiskAssessmentsSettingsNewDeviceResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -28945,7 +30694,7 @@ client.risk_assessments.settings.new_device.update(
 </details>
 
 ## Roles Permissions
-<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">list</a>(...) -&gt; AsyncPager[
     PermissionsResponsePayload,
     ListRolePermissionsOffsetPaginatedResponseContent,
 ]</code></summary>
@@ -29050,7 +30799,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">add</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">add</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -29134,7 +30883,7 @@ client.roles.permissions.add(
 </dl>
 </details>
 
-<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -29219,7 +30968,7 @@ client.roles.permissions.delete(
 </details>
 
 ## Roles Users
-<details><summary><code>client.roles.users.<a href="src/auth0/management/roles/users/client.py">list</a>(...) -> AsyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]</code></summary>
+<details><summary><code>client.roles.users.<a href="src/auth0/management/roles/users/client.py">list</a>(...) -&gt; AsyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -29330,7 +31079,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.roles.users.<a href="src/auth0/management/roles/users/client.py">assign</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.roles.users.<a href="src/auth0/management/roles/users/client.py">assign</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -29412,7 +31161,7 @@ client.roles.users.assign(
 </details>
 
 ## SelfServiceProfiles CustomText
-<details><summary><code>client.self_service_profiles.custom_text.<a href="src/auth0/management/self_service_profiles/custom_text/client.py">list</a>(...) -> AsyncHttpResponse[ListSelfServiceProfileCustomTextResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.custom_text.<a href="src/auth0/management/self_service_profiles/custom_text/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListSelfServiceProfileCustomTextResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -29446,6 +31195,8 @@ client = Auth0(
 )
 client.self_service_profiles.custom_text.list(
     id="id",
+    language="en",
+    page="get-started",
 )
 
 ```
@@ -29470,6 +31221,22 @@ client.self_service_profiles.custom_text.list(
 <dl>
 <dd>
 
+**language:** `SelfServiceProfileCustomTextLanguageEnum` — The language of the custom text.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `SelfServiceProfileCustomTextPageEnum` — The page where the custom text is shown.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -29482,7 +31249,7 @@ client.self_service_profiles.custom_text.list(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.custom_text.<a href="src/auth0/management/self_service_profiles/custom_text/client.py">set</a>(...) -> AsyncHttpResponse[SetSelfServiceProfileCustomTextResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.custom_text.<a href="src/auth0/management/self_service_profiles/custom_text/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetSelfServiceProfileCustomTextResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -29516,6 +31283,8 @@ client = Auth0(
 )
 client.self_service_profiles.custom_text.set(
     id="id",
+    language="en",
+    page="get-started",
     request={"key": "value"},
 )
 
@@ -29534,6 +31303,22 @@ client.self_service_profiles.custom_text.set(
 <dd>
 
 **id:** `str` — The id of the self-service profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**language:** `SelfServiceProfileCustomTextLanguageEnum` — The language of the custom text.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `SelfServiceProfileCustomTextPageEnum` — The page where the custom text is shown.
     
 </dd>
 </dl>
@@ -29562,7 +31347,7 @@ client.self_service_profiles.custom_text.set(
 </details>
 
 ## SelfServiceProfiles SsoTicket
-<details><summary><code>client.self_service_profiles.sso_ticket.<a href="src/auth0/management/self_service_profiles/sso_ticket/client.py">create</a>(...) -> AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.sso_ticket.<a href="src/auth0/management/self_service_profiles/sso_ticket/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -29676,6 +31461,14 @@ client.self_service_profiles.sso_ticket.create(
 <dl>
 <dd>
 
+**use_for_organization_discovery:** `typing.Optional[bool]` — Indicates whether a verified domain should be used for organization discovery during authentication.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -29688,7 +31481,7 @@ client.self_service_profiles.sso_ticket.create(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.sso_ticket.<a href="src/auth0/management/self_service_profiles/sso_ticket/client.py">revoke</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.self_service_profiles.sso_ticket.<a href="src/auth0/management/self_service_profiles/sso_ticket/client.py">revoke</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -29769,7 +31562,7 @@ client.self_service_profiles.sso_ticket.revoke(
 </details>
 
 ## Tenants Settings
-<details><summary><code>client.tenants.settings.<a href="src/auth0/management/tenants/settings/client.py">get</a>(...) -> AsyncHttpResponse[GetTenantSettingsResponseContent]</code></summary>
+<details><summary><code>client.tenants.settings.<a href="src/auth0/management/tenants/settings/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetTenantSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -29848,7 +31641,7 @@ client.tenants.settings.get(
 </dl>
 </details>
 
-<details><summary><code>client.tenants.settings.<a href="src/auth0/management/tenants/settings/client.py">update</a>(...) -> AsyncHttpResponse[UpdateTenantSettingsResponseContent]</code></summary>
+<details><summary><code>client.tenants.settings.<a href="src/auth0/management/tenants/settings/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateTenantSettingsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -30056,9 +31849,7 @@ client.tenants.settings.update()
 <dl>
 <dd>
 
-**enabled_locales:** `typing.Optional[
-    typing.Sequence[UpdateTenantSettingsRequestContentEnabledLocalesItem]
-]` — Supported locales for the user interface
+**enabled_locales:** `typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]` — Supported locales for the user interface
     
 </dd>
 </dl>
@@ -30158,6 +31949,22 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**enable_ai_guide:** `typing.Optional[bool]` — Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone_consolidated_experience:** `typing.Optional[bool]` — Whether Phone Consolidated Experience is enabled for this tenant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -30171,7 +31978,7 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 </details>
 
 ## Users AuthenticationMethods
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">list</a>(...) -&gt; AsyncPager[
     UserAuthenticationMethod,
     ListUserAuthenticationMethodsOffsetPaginatedResponseContent,
 ]</code></summary>
@@ -30276,7 +32083,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">create</a>(...) -> AsyncHttpResponse[CreateUserAuthenticationMethodResponseContent]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateUserAuthenticationMethodResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -30419,7 +32226,7 @@ client.users.authentication_methods.create(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">set</a>(...) -> AsyncHttpResponse[typing.List[SetUserAuthenticationMethodResponseContent]]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">set</a>(...) -&gt; AsyncHttpResponse[typing.List[SetUserAuthenticationMethodResponseContent]]</code></summary>
 <dl>
 <dd>
 
@@ -30504,7 +32311,7 @@ client.users.authentication_methods.set(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">delete_all</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">delete_all</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -30574,7 +32381,7 @@ client.users.authentication_methods.delete_all(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">get</a>(...) -> AsyncHttpResponse[GetUserAuthenticationMethodResponseContent]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetUserAuthenticationMethodResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -30639,7 +32446,7 @@ client.users.authentication_methods.get(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -30718,7 +32525,7 @@ client.users.authentication_methods.delete(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">update</a>(...) -> AsyncHttpResponse[UpdateUserAuthenticationMethodResponseContent]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateUserAuthenticationMethodResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -30814,7 +32621,7 @@ client.users.authentication_methods.update(
 </details>
 
 ## Users Authenticators
-<details><summary><code>client.users.authenticators.<a href="src/auth0/management/users/authenticators/client.py">delete_all</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.authenticators.<a href="src/auth0/management/users/authenticators/client.py">delete_all</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -30885,7 +32692,7 @@ client.users.authenticators.delete_all(
 </details>
 
 ## Users ConnectedAccounts
-<details><summary><code>client.users.connected_accounts.<a href="src/auth0/management/users/connected_accounts/client.py">list</a>(...) -> AsyncPager[ConnectedAccount, ListUserConnectedAccountsResponseContent]</code></summary>
+<details><summary><code>client.users.connected_accounts.<a href="src/auth0/management/users/connected_accounts/client.py">list</a>(...) -&gt; AsyncPager[ConnectedAccount, ListUserConnectedAccountsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -30979,7 +32786,7 @@ for page in response.iter_pages():
 </details>
 
 ## Users Enrollments
-<details><summary><code>client.users.enrollments.<a href="src/auth0/management/users/enrollments/client.py">get</a>(...) -> AsyncHttpResponse[typing.List[UsersEnrollment]]</code></summary>
+<details><summary><code>client.users.enrollments.<a href="src/auth0/management/users/enrollments/client.py">get</a>(...) -&gt; AsyncHttpResponse[typing.List[UsersEnrollment]]</code></summary>
 <dl>
 <dd>
 
@@ -31050,7 +32857,7 @@ client.users.enrollments.get(
 </details>
 
 ## Users FederatedConnectionsTokensets
-<details><summary><code>client.users.federated_connections_tokensets.<a href="src/auth0/management/users/federated_connections_tokensets/client.py">list</a>(...) -> AsyncHttpResponse[typing.List[FederatedConnectionTokenSet]]</code></summary>
+<details><summary><code>client.users.federated_connections_tokensets.<a href="src/auth0/management/users/federated_connections_tokensets/client.py">list</a>(...) -&gt; AsyncHttpResponse[typing.List[FederatedConnectionTokenSet]]</code></summary>
 <dl>
 <dd>
 
@@ -31120,7 +32927,7 @@ client.users.federated_connections_tokensets.list(
 </dl>
 </details>
 
-<details><summary><code>client.users.federated_connections_tokensets.<a href="src/auth0/management/users/federated_connections_tokensets/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.federated_connections_tokensets.<a href="src/auth0/management/users/federated_connections_tokensets/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -31185,8 +32992,120 @@ client.users.federated_connections_tokensets.delete(
 </dl>
 </details>
 
+## Users Groups
+<details><summary><code>client.users.groups.<a href="src/auth0/management/users/groups/client.py">get</a>(...) -&gt; AsyncPager[UserGroupsResponseSchema, GetUserGroupsPaginatedResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all groups to which this user belongs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.users.groups.get(
+    id="id",
+    fields="fields",
+    include_fields=True,
+    from_="from",
+    take=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the user to list groups for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[str]` — A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_fields:** `typing.Optional[bool]` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Users Identities
-<details><summary><code>client.users.identities.<a href="src/auth0/management/users/identities/client.py">link</a>(...) -> AsyncHttpResponse[typing.List[UserIdentity]]</code></summary>
+<details><summary><code>client.users.identities.<a href="src/auth0/management/users/identities/client.py">link</a>(...) -&gt; AsyncHttpResponse[typing.List[UserIdentity]]</code></summary>
 <dl>
 <dd>
 
@@ -31315,7 +33234,7 @@ client.users.identities.link(
 </dl>
 </details>
 
-<details><summary><code>client.users.identities.<a href="src/auth0/management/users/identities/client.py">delete</a>(...) -> AsyncHttpResponse[DeleteUserIdentityResponseContent]</code></summary>
+<details><summary><code>client.users.identities.<a href="src/auth0/management/users/identities/client.py">delete</a>(...) -&gt; AsyncHttpResponse[DeleteUserIdentityResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -31406,7 +33325,7 @@ client.users.identities.delete(
 </details>
 
 ## Users Logs
-<details><summary><code>client.users.logs.<a href="src/auth0/management/users/logs/client.py">list</a>(...) -> AsyncPager[Log, UserListLogOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.logs.<a href="src/auth0/management/users/logs/client.py">list</a>(...) -&gt; AsyncPager[Log, UserListLogOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -31524,7 +33443,7 @@ for page in response.iter_pages():
 </details>
 
 ## Users Multifactor
-<details><summary><code>client.users.multifactor.<a href="src/auth0/management/users/multifactor/client.py">invalidate_remember_browser</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.multifactor.<a href="src/auth0/management/users/multifactor/client.py">invalidate_remember_browser</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -31594,7 +33513,7 @@ client.users.multifactor.invalidate_remember_browser(
 </dl>
 </details>
 
-<details><summary><code>client.users.multifactor.<a href="src/auth0/management/users/multifactor/client.py">delete_provider</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.multifactor.<a href="src/auth0/management/users/multifactor/client.py">delete_provider</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -31674,7 +33593,7 @@ client.users.multifactor.delete_provider(
 </details>
 
 ## Users Organizations
-<details><summary><code>client.users.organizations.<a href="src/auth0/management/users/organizations/client.py">list</a>(...) -> AsyncPager[Organization, ListUserOrganizationsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.organizations.<a href="src/auth0/management/users/organizations/client.py">list</a>(...) -&gt; AsyncPager[Organization, ListUserOrganizationsOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -31777,7 +33696,7 @@ for page in response.iter_pages():
 </details>
 
 ## Users Permissions
-<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">list</a>(...) -&gt; AsyncPager[
     UserPermissionSchema, ListUserPermissionsOffsetPaginatedResponseContent
 ]</code></summary>
 <dl>
@@ -31881,7 +33800,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">create</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">create</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -31965,7 +33884,7 @@ client.users.permissions.create(
 </dl>
 </details>
 
-<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -32050,7 +33969,7 @@ client.users.permissions.delete(
 </details>
 
 ## Users RiskAssessments
-<details><summary><code>client.users.risk_assessments.<a href="src/auth0/management/users/risk_assessments/client.py">clear</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.risk_assessments.<a href="src/auth0/management/users/risk_assessments/client.py">clear</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -32085,7 +34004,7 @@ client = Auth0(
 client.users.risk_assessments.clear(
     id="id",
     connection="connection",
-    assessors=[],
+    assessors=["new-device"],
 )
 
 ```
@@ -32139,7 +34058,7 @@ client.users.risk_assessments.clear(
 </details>
 
 ## Users Roles
-<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">list</a>(...) -> AsyncPager[Role, ListUserRolesOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">list</a>(...) -&gt; AsyncPager[Role, ListUserRolesOffsetPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -32243,7 +34162,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">assign</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">assign</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -32324,7 +34243,7 @@ client.users.roles.assign(
 </dl>
 </details>
 
-<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -32406,7 +34325,7 @@ client.users.roles.delete(
 </details>
 
 ## Users RefreshToken
-<details><summary><code>client.users.refresh_token.<a href="src/auth0/management/users/refresh_token/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.users.refresh_token.<a href="src/auth0/management/users/refresh_token/client.py">list</a>(...) -&gt; AsyncPager[
     RefreshTokenResponseContent, ListRefreshTokensPaginatedResponseContent
 ]</code></summary>
 <dl>
@@ -32501,7 +34420,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.refresh_token.<a href="src/auth0/management/users/refresh_token/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.refresh_token.<a href="src/auth0/management/users/refresh_token/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -32572,7 +34491,7 @@ client.users.refresh_token.delete(
 </details>
 
 ## Users Sessions
-<details><summary><code>client.users.sessions.<a href="src/auth0/management/users/sessions/client.py">list</a>(...) -> AsyncPager[SessionResponseContent, ListUserSessionsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.sessions.<a href="src/auth0/management/users/sessions/client.py">list</a>(...) -&gt; AsyncPager[SessionResponseContent, ListUserSessionsPaginatedResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -32665,7 +34584,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.sessions.<a href="src/auth0/management/users/sessions/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.sessions.<a href="src/auth0/management/users/sessions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -32736,7 +34655,7 @@ client.users.sessions.delete(
 </details>
 
 ## VerifiableCredentials Verification Templates
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">list</a>(...) -> AsyncPager[
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">list</a>(...) -&gt; AsyncPager[
     VerifiableCredentialTemplateResponse,
     ListVerifiableCredentialTemplatesPaginatedResponseContent,
 ]</code></summary>
@@ -32823,7 +34742,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">create</a>(...) -> AsyncHttpResponse[CreateVerifiableCredentialTemplateResponseContent]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateVerifiableCredentialTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -32946,7 +34865,7 @@ client.verifiable_credentials.verification.templates.create(
 </dl>
 </details>
 
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">get</a>(...) -> AsyncHttpResponse[GetVerifiableCredentialTemplateResponseContent]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetVerifiableCredentialTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -33016,7 +34935,7 @@ client.verifiable_credentials.verification.templates.get(
 </dl>
 </details>
 
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">delete</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -33086,7 +35005,7 @@ client.verifiable_credentials.verification.templates.delete(
 </dl>
 </details>
 
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">update</a>(...) -> AsyncHttpResponse[UpdateVerifiableCredentialTemplateResponseContent]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateVerifiableCredentialTemplateResponseContent]</code></summary>
 <dl>
 <dd>
 

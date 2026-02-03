@@ -2,4 +2,4 @@
 
 import typing
 
-EventStreamActionDestinationTypeEnum = typing.Literal["action"]
+EventStreamActionDestinationTypeEnum = typing.Union[typing.Literal["action"], typing.Any]

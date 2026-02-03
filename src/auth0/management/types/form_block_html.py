@@ -11,8 +11,8 @@ from .form_component_category_block_const import FormComponentCategoryBlockConst
 
 class FormBlockHtml(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryBlockConst = "BLOCK"
-    type: FormBlockTypeHtmlConst = "HTML"
+    category: FormComponentCategoryBlockConst
+    type: FormBlockTypeHtmlConst
     config: typing.Optional[FormBlockHtmlConfig] = None
 
     if IS_PYDANTIC_V2:

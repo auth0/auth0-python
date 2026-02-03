@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeBooleanConst = typing.Literal["BOOLEAN"]
+FormFieldTypeBooleanConst = typing.Union[typing.Literal["BOOLEAN"], typing.Any]

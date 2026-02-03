@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_shop import ConnectionOptionsShop
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_shop_strategy import ConnectionResponseContentShopStrategy
 
 
-class ConnectionResponseContentShop(ConnectionResponseCommon):
+class ConnectionResponseContentShop(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=shop
     """
 
-    strategy: typing.Literal["shop"] = "shop"
+    strategy: ConnectionResponseContentShopStrategy
     options: typing.Optional[ConnectionOptionsShop] = None
 
     if IS_PYDANTIC_V2:

@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_daccount import ConnectionOptionsDaccount
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_daccount_strategy import ConnectionResponseContentDaccountStrategy
 
 
-class ConnectionResponseContentDaccount(ConnectionResponseCommon):
+class ConnectionResponseContentDaccount(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=daccount
     """
 
-    strategy: typing.Literal["daccount"] = "daccount"
+    strategy: ConnectionResponseContentDaccountStrategy
     options: typing.Optional[ConnectionOptionsDaccount] = None
 
     if IS_PYDANTIC_V2:

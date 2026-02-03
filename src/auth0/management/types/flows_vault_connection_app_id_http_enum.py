@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdHttpEnum = typing.Literal["HTTP"]
+FlowsVaultConnectionAppIdHttpEnum = typing.Union[typing.Literal["HTTP"], typing.Any]

@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .resource_server_proof_of_possession_mechanism_enum import ResourceServerProofOfPossessionMechanismEnum
+from .resource_server_proof_of_possession_required_for_enum import ResourceServerProofOfPossessionRequiredForEnum
 
 
 class ResourceServerProofOfPossession(UniversalBaseModel):
@@ -17,6 +18,8 @@ class ResourceServerProofOfPossession(UniversalBaseModel):
     """
     Whether the use of Proof-of-Possession is required for the resource server
     """
+
+    required_for: typing.Optional[ResourceServerProofOfPossessionRequiredForEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

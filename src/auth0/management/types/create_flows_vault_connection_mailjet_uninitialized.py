@@ -13,7 +13,7 @@ class CreateFlowsVaultConnectionMailjetUninitialized(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdMailjetEnum = "MAILJET"
+    app_id: FlowsVaultConnectionAppIdMailjetEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

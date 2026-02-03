@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_shopify import ConnectionOptionsShopify
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_shopify_strategy import CreateConnectionRequestContentShopifyStrategy
 
 
 class CreateConnectionRequestContentShopify(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentShopify(CreateConnectionCommon):
     Create a connection with strategy=shopify
     """
 
-    strategy: typing.Literal["shopify"] = "shopify"
+    strategy: CreateConnectionRequestContentShopifyStrategy
     options: typing.Optional[ConnectionOptionsShopify] = None
 
     if IS_PYDANTIC_V2:

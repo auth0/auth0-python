@@ -11,8 +11,8 @@ from .form_field_type_tel_const import FormFieldTypeTelConst
 
 class FormFieldTel(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeTelConst = "TEL"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeTelConst
     config: typing.Optional[FormFieldTelConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

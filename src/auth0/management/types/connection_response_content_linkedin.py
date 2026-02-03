@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_linkedin import ConnectionOptionsLinkedin
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_linkedin_strategy import ConnectionResponseContentLinkedinStrategy
 
 
-class ConnectionResponseContentLinkedin(ConnectionResponseCommon):
+class ConnectionResponseContentLinkedin(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=linkedin
     """
 
-    strategy: typing.Literal["linkedin"] = "linkedin"
+    strategy: ConnectionResponseContentLinkedinStrategy
     options: typing.Optional[ConnectionOptionsLinkedin] = None
 
     if IS_PYDANTIC_V2:

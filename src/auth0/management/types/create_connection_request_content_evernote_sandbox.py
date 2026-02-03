@@ -4,8 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_evernote_sandbox import ConnectionOptionsEvernoteSandbox
+from .connection_options_evernote import ConnectionOptionsEvernote
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_evernote_sandbox_strategy import (
+    CreateConnectionRequestContentEvernoteSandboxStrategy,
+)
 
 
 class CreateConnectionRequestContentEvernoteSandbox(CreateConnectionCommon):
@@ -13,8 +16,8 @@ class CreateConnectionRequestContentEvernoteSandbox(CreateConnectionCommon):
     Create a connection with strategy=evernote-sandbox
     """
 
-    strategy: typing.Literal["evernote-sandbox"] = "evernote-sandbox"
-    options: typing.Optional[ConnectionOptionsEvernoteSandbox] = None
+    strategy: CreateConnectionRequestContentEvernoteSandboxStrategy
+    options: typing.Optional[ConnectionOptionsEvernote] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

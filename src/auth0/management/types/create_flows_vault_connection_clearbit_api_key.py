@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionClearbitApiKey(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdClearbitEnum = "CLEARBIT"
+    app_id: FlowsVaultConnectionAppIdClearbitEnum
     setup: FlowsVaultConnectioSetupSecretApiKey
 
     if IS_PYDANTIC_V2:

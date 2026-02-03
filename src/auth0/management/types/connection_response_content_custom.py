@@ -5,16 +5,20 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_custom import ConnectionOptionsCustom
+from .connection_provisioning_ticket_url import ConnectionProvisioningTicketUrl
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_custom_strategy import ConnectionResponseContentCustomStrategy
 
 
-class ConnectionResponseContentCustom(ConnectionResponseCommon):
+class ConnectionResponseContentCustom(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=custom
     """
 
-    strategy: typing.Literal["custom"] = "custom"
+    strategy: ConnectionResponseContentCustomStrategy
     options: typing.Optional[ConnectionOptionsCustom] = None
+    provisioning_ticket_url: typing.Optional[ConnectionProvisioningTicketUrl] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

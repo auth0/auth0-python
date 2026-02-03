@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_paypal import ConnectionOptionsPaypal
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_paypal_strategy import ConnectionResponseContentPaypalStrategy
 
 
-class ConnectionResponseContentPaypal(ConnectionResponseCommon):
+class ConnectionResponseContentPaypal(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=paypal
     """
 
-    strategy: typing.Literal["paypal"] = "paypal"
+    strategy: ConnectionResponseContentPaypalStrategy
     options: typing.Optional[ConnectionOptionsPaypal] = None
 
     if IS_PYDANTIC_V2:
