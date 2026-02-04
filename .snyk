@@ -11,6 +11,10 @@ ignore:
         reason: 'patched in latest python versions: https://bugs.python.org/issue27568'
   "snyk:lic:pip:certifi:MPL-2.0":
     - '*':
-        reason: "Accepting certifi’s MPL-2.0 license for now"
+        reason: "Accepting certifi's MPL-2.0 license for now"
+        expires: "2030-12-31T23:59:59Z"
+  "snyk:lic:pip:cryptography:Unknown":
+    - '*':
+        reason: "Accepting cryptography's license for now"
         expires: "2030-12-31T23:59:59Z"
 patch: {}
