@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldPaymentConfigChargeTypeSubscriptionConst = typing.Literal["SUBSCRIPTION"]
+FormFieldPaymentConfigChargeTypeSubscriptionConst = typing.Union[typing.Literal["SUBSCRIPTION"], typing.Any]

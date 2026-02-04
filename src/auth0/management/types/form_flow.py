@@ -11,7 +11,7 @@ from .form_node_type_flow_const import FormNodeTypeFlowConst
 
 class FormFlow(UniversalBaseModel):
     id: str
-    type: FormNodeTypeFlowConst = "FLOW"
+    type: FormNodeTypeFlowConst
     coordinates: typing.Optional[FormNodeCoordinates] = None
     alias: typing.Optional[str] = None
     config: FormFlowConfig

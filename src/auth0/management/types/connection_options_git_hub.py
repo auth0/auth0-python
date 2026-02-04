@@ -2,4 +2,133 @@
 
 import typing
 
-ConnectionOptionsGitHub = typing.Dict[str, typing.Any]
+import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from .connection_options_client_id_github import ConnectionOptionsClientIdGithub
+from .connection_options_client_secret_github import ConnectionOptionsClientSecretGithub
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_options_freeform_scopes_github import ConnectionOptionsFreeformScopesGithub
+from .connection_options_scope_github import ConnectionOptionsScopeGithub
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_upstream_params import ConnectionUpstreamParams
+
+
+class ConnectionOptionsGitHub(ConnectionOptionsCommon):
+    """
+    Options for the 'github' connection
+    """
+
+    client_id: typing.Optional[ConnectionOptionsClientIdGithub] = None
+    client_secret: typing.Optional[ConnectionOptionsClientSecretGithub] = None
+    freeform_scopes: typing.Optional[ConnectionOptionsFreeformScopesGithub] = None
+    scope: typing.Optional[ConnectionOptionsScopeGithub] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
+    admin_org: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the GitHub admin:org scope so Auth0 can fully manage organizations, teams, and memberships on behalf of the user.
+    """
+
+    admin_public_key: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the admin:public_key scope to allow creating, updating, and deleting the user's SSH public keys.
+    """
+
+    admin_repo_hook: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the admin:repo_hook scope so Auth0 can read, write, ping, and delete repository webhooks.
+    """
+
+    delete_repo: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the delete_repo scope so the user can remove repositories they administer while signing in through Auth0.
+    """
+
+    email: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the user:email scope so Auth0 pulls addresses from GitHub's /user/emails endpoint and populates the profile.
+    """
+
+    follow: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the user:follow scope to allow following or unfollowing GitHub users for the signed-in account.
+    """
+
+    gist: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the gist scope so the application can create or update gists on behalf of the user.
+    """
+
+    notifications: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the notifications scope to read GitHub inbox notifications; repo also implicitly grants this access.
+    """
+
+    profile: typing.Optional[bool] = pydantic.Field(default=True)
+    """
+    Controls the GitHub read:user call that returns the user's basic profile (name, avatar, profile URL) and is on by default for successful logins.
+    """
+
+    public_repo: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the public_repo scope for read and write operations on public repositories, deployments, and statuses.
+    """
+
+    read_org: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the read:org scope so Auth0 can view organizations, teams, and membership lists without making changes.
+    """
+
+    read_public_key: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the read:public_key scope so Auth0 can list and inspect the user's SSH public keys.
+    """
+
+    read_repo_hook: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the read:repo_hook scope to read and ping repository webhooks.
+    """
+
+    read_user: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the read:user scope to load extended profile information, implicitly covering user:email and user:follow.
+    """
+
+    repo: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the repo scope for read and write access to both public and private repositories, deployments, and statuses.
+    """
+
+    repo_deployment: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the repo_deployment scope in order to read and write deployment statuses for repositories.
+    """
+
+    repo_status: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the repo:status scope to manage commit statuses on public and private repositories.
+    """
+
+    write_org: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the write:org scope so Auth0 can change whether organization memberships are publicized.
+    """
+
+    write_public_key: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the write:public_key scope to create or update SSH public keys for the user.
+    """
+
+    write_repo_hook: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    Requests the write:repo_hook scope so Auth0 can read, create, update, and ping repository webhooks.
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

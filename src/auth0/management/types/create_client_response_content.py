@@ -54,7 +54,7 @@ class CreateClientResponseContent(UniversalBaseModel):
     """
 
     global_: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="global")] = pydantic.Field(
-        default=False
+        alias="global", default=False
     )
     """
     Whether this is your global 'All Applications' client representing legacy tenant settings (true) or a regular client (false).

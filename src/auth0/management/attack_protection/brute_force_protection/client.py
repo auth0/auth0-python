@@ -4,13 +4,11 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
+from ...types.brute_force_protection_mode_enum import BruteForceProtectionModeEnum
+from ...types.brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
 from ...types.get_brute_force_settings_response_content import GetBruteForceSettingsResponseContent
 from ...types.update_brute_force_settings_response_content import UpdateBruteForceSettingsResponseContent
 from .raw_client import AsyncRawBruteForceProtectionClient, RawBruteForceProtectionClient
-from .types.update_brute_force_settings_request_content_mode import UpdateBruteForceSettingsRequestContentMode
-from .types.update_brute_force_settings_request_content_shields_item import (
-    UpdateBruteForceSettingsRequestContentShieldsItem,
-)
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -61,9 +59,9 @@ class BruteForceProtectionClient:
         self,
         *,
         enabled: typing.Optional[bool] = OMIT,
-        shields: typing.Optional[typing.Sequence[UpdateBruteForceSettingsRequestContentShieldsItem]] = OMIT,
+        shields: typing.Optional[typing.Sequence[BruteForceProtectionShieldsEnum]] = OMIT,
         allowlist: typing.Optional[typing.Sequence[str]] = OMIT,
-        mode: typing.Optional[UpdateBruteForceSettingsRequestContentMode] = OMIT,
+        mode: typing.Optional[BruteForceProtectionModeEnum] = OMIT,
         max_attempts: typing.Optional[int] = 10,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBruteForceSettingsResponseContent:
@@ -75,16 +73,14 @@ class BruteForceProtectionClient:
         enabled : typing.Optional[bool]
             Whether or not brute force attack protections are active.
 
-        shields : typing.Optional[typing.Sequence[UpdateBruteForceSettingsRequestContentShieldsItem]]
+        shields : typing.Optional[typing.Sequence[BruteForceProtectionShieldsEnum]]
             Action to take when a brute force protection threshold is violated.
                     Possible values: <code>block</code>, <code>user_notification</code>.
 
         allowlist : typing.Optional[typing.Sequence[str]]
             List of trusted IP addresses that will not have attack protection enforced against them.
 
-        mode : typing.Optional[UpdateBruteForceSettingsRequestContentMode]
-            Account Lockout: Determines whether or not IP address is used when counting failed attempts.
-                      Possible values: <code>count_per_identifier_and_ip</code>, <code>count_per_identifier</code>.
+        mode : typing.Optional[BruteForceProtectionModeEnum]
 
         max_attempts : typing.Optional[int]
             Maximum number of unsuccessful attempts.
@@ -172,9 +168,9 @@ class AsyncBruteForceProtectionClient:
         self,
         *,
         enabled: typing.Optional[bool] = OMIT,
-        shields: typing.Optional[typing.Sequence[UpdateBruteForceSettingsRequestContentShieldsItem]] = OMIT,
+        shields: typing.Optional[typing.Sequence[BruteForceProtectionShieldsEnum]] = OMIT,
         allowlist: typing.Optional[typing.Sequence[str]] = OMIT,
-        mode: typing.Optional[UpdateBruteForceSettingsRequestContentMode] = OMIT,
+        mode: typing.Optional[BruteForceProtectionModeEnum] = OMIT,
         max_attempts: typing.Optional[int] = 10,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBruteForceSettingsResponseContent:
@@ -186,16 +182,14 @@ class AsyncBruteForceProtectionClient:
         enabled : typing.Optional[bool]
             Whether or not brute force attack protections are active.
 
-        shields : typing.Optional[typing.Sequence[UpdateBruteForceSettingsRequestContentShieldsItem]]
+        shields : typing.Optional[typing.Sequence[BruteForceProtectionShieldsEnum]]
             Action to take when a brute force protection threshold is violated.
                     Possible values: <code>block</code>, <code>user_notification</code>.
 
         allowlist : typing.Optional[typing.Sequence[str]]
             List of trusted IP addresses that will not have attack protection enforced against them.
 
-        mode : typing.Optional[UpdateBruteForceSettingsRequestContentMode]
-            Account Lockout: Determines whether or not IP address is used when counting failed attempts.
-                      Possible values: <code>count_per_identifier_and_ip</code>, <code>count_per_identifier</code>.
+        mode : typing.Optional[BruteForceProtectionModeEnum]
 
         max_attempts : typing.Optional[int]
             Maximum number of unsuccessful attempts.

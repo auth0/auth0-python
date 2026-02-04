@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypePasswordConst = typing.Literal["PASSWORD"]
+FormFieldTypePasswordConst = typing.Union[typing.Literal["PASSWORD"], typing.Any]

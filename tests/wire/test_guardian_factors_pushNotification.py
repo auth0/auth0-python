@@ -14,6 +14,14 @@ def test_guardian_factors_pushNotification_set_apns_provider() -> None:
     test_id = "guardian.factors.push_notification.set_apns_provider.0"
     client = get_client(test_id)
     client.guardian.factors.push_notification.set_apns_provider()
+    verify_request_count(test_id, "PUT", "/guardian/factors/push-notification/providers/apns", None, 1)
+
+
+def test_guardian_factors_pushNotification_update_apns_provider() -> None:
+    """Test updateApnsProvider endpoint with WireMock"""
+    test_id = "guardian.factors.push_notification.update_apns_provider.0"
+    client = get_client(test_id)
+    client.guardian.factors.push_notification.update_apns_provider()
     verify_request_count(test_id, "PATCH", "/guardian/factors/push-notification/providers/apns", None, 1)
 
 
@@ -22,6 +30,14 @@ def test_guardian_factors_pushNotification_set_fcm_provider() -> None:
     test_id = "guardian.factors.push_notification.set_fcm_provider.0"
     client = get_client(test_id)
     client.guardian.factors.push_notification.set_fcm_provider()
+    verify_request_count(test_id, "PUT", "/guardian/factors/push-notification/providers/fcm", None, 1)
+
+
+def test_guardian_factors_pushNotification_update_fcm_provider() -> None:
+    """Test updateFcmProvider endpoint with WireMock"""
+    test_id = "guardian.factors.push_notification.update_fcm_provider.0"
+    client = get_client(test_id)
+    client.guardian.factors.push_notification.update_fcm_provider()
     verify_request_count(test_id, "PATCH", "/guardian/factors/push-notification/providers/fcm", None, 1)
 
 
@@ -30,6 +46,14 @@ def test_guardian_factors_pushNotification_set_fcmv_1_provider() -> None:
     test_id = "guardian.factors.push_notification.set_fcmv_1_provider.0"
     client = get_client(test_id)
     client.guardian.factors.push_notification.set_fcmv_1_provider()
+    verify_request_count(test_id, "PUT", "/guardian/factors/push-notification/providers/fcmv1", None, 1)
+
+
+def test_guardian_factors_pushNotification_update_fcmv_1_provider() -> None:
+    """Test updateFcmv1Provider endpoint with WireMock"""
+    test_id = "guardian.factors.push_notification.update_fcmv_1_provider.0"
+    client = get_client(test_id)
+    client.guardian.factors.push_notification.update_fcmv_1_provider()
     verify_request_count(test_id, "PATCH", "/guardian/factors/push-notification/providers/fcmv1", None, 1)
 
 

@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionGoogleSheetsOauthCode(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdGoogleSheetsEnum = "GOOGLE_SHEETS"
+    app_id: FlowsVaultConnectionAppIdGoogleSheetsEnum
     setup: FlowsVaultConnectioSetupOauthCode
 
     if IS_PYDANTIC_V2:

@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionHubspotApiKey(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdHubspotEnum = "HUBSPOT"
+    app_id: FlowsVaultConnectionAppIdHubspotEnum
     setup: FlowsVaultConnectioSetupApiKey
 
     if IS_PYDANTIC_V2:

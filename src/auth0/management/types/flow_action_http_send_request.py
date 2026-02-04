@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_http_send_request_action import FlowActionHttpSendRequestAction
 from .flow_action_http_send_request_params import FlowActionHttpSendRequestParams
+from .flow_action_http_send_request_type import FlowActionHttpSendRequestType
 
 
 class FlowActionHttpSendRequest(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["HTTP"] = "HTTP"
-    action: typing.Literal["SEND_REQUEST"] = "SEND_REQUEST"
+    type: FlowActionHttpSendRequestType
+    action: FlowActionHttpSendRequestAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionHttpSendRequestParams

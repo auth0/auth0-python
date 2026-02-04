@@ -2,4 +2,4 @@
 
 import typing
 
-EventStreamWebhookBasicAuthMethodEnum = typing.Literal["basic"]
+EventStreamWebhookBasicAuthMethodEnum = typing.Union[typing.Literal["basic"], typing.Any]

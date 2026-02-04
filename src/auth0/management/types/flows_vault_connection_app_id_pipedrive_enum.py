@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdPipedriveEnum = typing.Literal["PIPEDRIVE"]
+FlowsVaultConnectionAppIdPipedriveEnum = typing.Union[typing.Literal["PIPEDRIVE"], typing.Any]

@@ -4,10 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .update_brute_force_settings_response_content_mode import UpdateBruteForceSettingsResponseContentMode
-from .update_brute_force_settings_response_content_shields_item import (
-    UpdateBruteForceSettingsResponseContentShieldsItem,
-)
+from .brute_force_protection_mode_enum import BruteForceProtectionModeEnum
+from .brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
 
 
 class UpdateBruteForceSettingsResponseContent(UniversalBaseModel):
@@ -16,9 +14,7 @@ class UpdateBruteForceSettingsResponseContent(UniversalBaseModel):
     Whether or not brute force attack protections are active.
     """
 
-    shields: typing.Optional[typing.List[UpdateBruteForceSettingsResponseContentShieldsItem]] = pydantic.Field(
-        default=None
-    )
+    shields: typing.Optional[typing.List[BruteForceProtectionShieldsEnum]] = pydantic.Field(default=None)
     """
     Action to take when a brute force protection threshold is violated.
             Possible values: <code>block</code>, <code>user_notification</code>.
@@ -29,12 +25,7 @@ class UpdateBruteForceSettingsResponseContent(UniversalBaseModel):
     List of trusted IP addresses that will not have attack protection enforced against them.
     """
 
-    mode: typing.Optional[UpdateBruteForceSettingsResponseContentMode] = pydantic.Field(default=None)
-    """
-    Account Lockout: Determines whether or not IP address is used when counting failed attempts.
-              Possible values: <code>count_per_identifier_and_ip</code>, <code>count_per_identifier</code>.
-    """
-
+    mode: typing.Optional[BruteForceProtectionModeEnum] = None
     max_attempts: typing.Optional[int] = pydantic.Field(default=10)
     """
     Maximum number of unsuccessful attempts.

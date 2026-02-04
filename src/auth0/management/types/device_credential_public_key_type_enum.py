@@ -2,4 +2,4 @@
 
 import typing
 
-DeviceCredentialPublicKeyTypeEnum = typing.Literal["public_key"]
+DeviceCredentialPublicKeyTypeEnum = typing.Union[typing.Literal["public_key"], typing.Any]

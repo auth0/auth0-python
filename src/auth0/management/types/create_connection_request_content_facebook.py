@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_facebook import ConnectionOptionsFacebook
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_facebook_strategy import CreateConnectionRequestContentFacebookStrategy
 
 
 class CreateConnectionRequestContentFacebook(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentFacebook(CreateConnectionCommon):
     Create a connection with strategy=facebook
     """
 
-    strategy: typing.Literal["facebook"] = "facebook"
+    strategy: CreateConnectionRequestContentFacebookStrategy
     options: typing.Optional[ConnectionOptionsFacebook] = None
 
     if IS_PYDANTIC_V2:

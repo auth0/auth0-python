@@ -8,7 +8,7 @@ from .flows_vault_connectio_setup_type_api_key_enum import FlowsVaultConnectioSe
 
 
 class FlowsVaultConnectioSetupSecretApiKey(UniversalBaseModel):
-    type: FlowsVaultConnectioSetupTypeApiKeyEnum = "API_KEY"
+    type: FlowsVaultConnectioSetupTypeApiKeyEnum
     secret_key: str
 
     if IS_PYDANTIC_V2:

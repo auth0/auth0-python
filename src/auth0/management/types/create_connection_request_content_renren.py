@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_renren import ConnectionOptionsRenren
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_renren_strategy import CreateConnectionRequestContentRenrenStrategy
 
 
 class CreateConnectionRequestContentRenren(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentRenren(CreateConnectionCommon):
     Create a connection with strategy=renren
     """
 
-    strategy: typing.Literal["renren"] = "renren"
+    strategy: CreateConnectionRequestContentRenrenStrategy
     options: typing.Optional[ConnectionOptionsRenren] = None
 
     if IS_PYDANTIC_V2:

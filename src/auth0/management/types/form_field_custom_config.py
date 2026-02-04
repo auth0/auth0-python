@@ -11,7 +11,9 @@ from .form_field_custom_config_schema import FormFieldCustomConfigSchema
 
 
 class FormFieldCustomConfig(UniversalBaseModel):
-    schema_: typing_extensions.Annotated[FormFieldCustomConfigSchema, FieldMetadata(alias="schema")]
+    schema_: typing_extensions.Annotated[FormFieldCustomConfigSchema, FieldMetadata(alias="schema")] = pydantic.Field(
+        alias="schema"
+    )
     code: str
     css: typing.Optional[str] = None
     params: typing.Optional[FormFieldCustomConfigParams] = None

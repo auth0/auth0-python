@@ -12,7 +12,7 @@ class EventStreamWebhookBasicAuth(UniversalBaseModel):
     Basic Authorization for HTTP requests (e.g., 'Basic credentials').
     """
 
-    method: EventStreamWebhookBasicAuthMethodEnum = "basic"
+    method: EventStreamWebhookBasicAuthMethodEnum
     username: str = pydantic.Field()
     """
     Username

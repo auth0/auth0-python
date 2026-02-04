@@ -9,7 +9,7 @@ from .event_stream_action_destination_type_enum import EventStreamActionDestinat
 
 
 class EventStreamActionDestination(UniversalBaseModel):
-    type: EventStreamActionDestinationTypeEnum = "action"
+    type: EventStreamActionDestinationTypeEnum
     configuration: EventStreamActionConfiguration
 
     if IS_PYDANTIC_V2:

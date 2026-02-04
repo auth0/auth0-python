@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionStripeOauthCode(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdStripeEnum = "STRIPE"
+    app_id: FlowsVaultConnectionAppIdStripeEnum
     setup: FlowsVaultConnectioSetupOauthCode
 
     if IS_PYDANTIC_V2:

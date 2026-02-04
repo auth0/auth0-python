@@ -5,13 +5,16 @@ from __future__ import annotations
 import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from ...types.create_directory_provisioning_request_content import CreateDirectoryProvisioningRequestContent
 from ...types.create_directory_provisioning_response_content import CreateDirectoryProvisioningResponseContent
+from ...types.directory_provisioning import DirectoryProvisioning
 from ...types.get_directory_provisioning_default_mapping_response_content import (
     GetDirectoryProvisioningDefaultMappingResponseContent,
 )
 from ...types.get_directory_provisioning_response_content import GetDirectoryProvisioningResponseContent
+from ...types.list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
 from ...types.update_directory_provisioning_request_content import UpdateDirectoryProvisioningRequestContent
 from ...types.update_directory_provisioning_response_content import UpdateDirectoryProvisioningResponseContent
 from .raw_client import AsyncRawDirectoryProvisioningClient, RawDirectoryProvisioningClient
@@ -38,6 +41,51 @@ class DirectoryProvisioningClient:
         RawDirectoryProvisioningClient
         """
         return self._raw_client
+
+    def list(
+        self,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]:
+        """
+        Retrieve a list of directory provisioning configurations of a tenant.
+
+        Parameters
+        ----------
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]
+            The tenant's directory provisioning configuration. See <strong>Response Schemas</strong> for schema.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.connections.directory_provisioning.list(
+            from_="from",
+            take=1,
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.list(from_=from_, take=take, request_options=request_options)
 
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -240,6 +288,60 @@ class AsyncDirectoryProvisioningClient:
         AsyncRawDirectoryProvisioningClient
         """
         return self._raw_client
+
+    async def list(
+        self,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]:
+        """
+        Retrieve a list of directory provisioning configurations of a tenant.
+
+        Parameters
+        ----------
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]
+            The tenant's directory provisioning configuration. See <strong>Response Schemas</strong> for schema.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.connections.directory_provisioning.list(
+                from_="from",
+                take=1,
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.list(from_=from_, take=take, request_options=request_options)
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None

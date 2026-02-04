@@ -2,4 +2,4 @@
 
 import typing
 
-PhoneProviderChannelEnum = typing.Literal["phone"]
+PhoneProviderChannelEnum = typing.Union[typing.Literal["phone"], typing.Any]

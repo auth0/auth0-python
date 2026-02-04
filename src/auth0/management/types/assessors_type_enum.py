@@ -2,4 +2,4 @@
 
 import typing
 
-AssessorsTypeEnum = typing.Literal["new-device"]
+AssessorsTypeEnum = typing.Union[typing.Literal["new-device"], typing.Any]

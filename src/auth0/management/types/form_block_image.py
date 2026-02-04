@@ -11,8 +11,8 @@ from .form_component_category_block_const import FormComponentCategoryBlockConst
 
 class FormBlockImage(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryBlockConst = "BLOCK"
-    type: FormBlockTypeImageConst = "IMAGE"
+    category: FormComponentCategoryBlockConst
+    type: FormBlockTypeImageConst
     config: typing.Optional[FormBlockImageConfig] = None
 
     if IS_PYDANTIC_V2:

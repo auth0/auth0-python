@@ -8,7 +8,7 @@ from .connection_authorization_endpoint import ConnectionAuthorizationEndpoint
 from .connection_client_id_oidc import ConnectionClientIdOidc
 from .connection_client_secret_oidc import ConnectionClientSecretOidc
 from .connection_connection_settings import ConnectionConnectionSettings
-from .connection_domain_aliases_one import ConnectionDomainAliasesOne
+from .connection_domain_aliases import ConnectionDomainAliases
 from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
 from .connection_icon_url import ConnectionIconUrl
 from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
@@ -22,7 +22,7 @@ from .connection_tenant_domain import ConnectionTenantDomain
 from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointAuthMethodEnum
 from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
 from .connection_token_endpoint_oidc import ConnectionTokenEndpointOidc
-from .connection_upstream_params_oidc import ConnectionUpstreamParamsOidc
+from .connection_upstream_params import ConnectionUpstreamParams
 from .connection_userinfo_endpoint_oidc import ConnectionUserinfoEndpointOidc
 
 
@@ -36,7 +36,7 @@ class ConnectionOptionsCommonOidc(UniversalBaseModel):
     client_secret: typing.Optional[ConnectionClientSecretOidc] = None
     connection_settings: typing.Optional[ConnectionConnectionSettings] = None
     federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
-    domain_aliases: typing.Optional[ConnectionDomainAliasesOne] = None
+    domain_aliases: typing.Optional[ConnectionDomainAliases] = None
     icon_url: typing.Optional[ConnectionIconUrl] = None
     id_token_signed_response_algs: typing.Optional[ConnectionIdTokenSignedResponseAlgs] = None
     issuer: typing.Optional[ConnectionIssuer] = None
@@ -49,7 +49,7 @@ class ConnectionOptionsCommonOidc(UniversalBaseModel):
     token_endpoint: typing.Optional[ConnectionTokenEndpointOidc] = None
     token_endpoint_auth_method: typing.Optional[ConnectionTokenEndpointAuthMethodEnum] = None
     token_endpoint_auth_signing_alg: typing.Optional[ConnectionTokenEndpointAuthSigningAlgEnum] = None
-    upstream_params: typing.Optional[ConnectionUpstreamParamsOidc] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     userinfo_endpoint: typing.Optional[ConnectionUserinfoEndpointOidc] = None
 
     if IS_PYDANTIC_V2:

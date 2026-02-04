@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_renren import ConnectionOptionsRenren
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_renren_strategy import ConnectionResponseContentRenrenStrategy
 
 
-class ConnectionResponseContentRenren(ConnectionResponseCommon):
+class ConnectionResponseContentRenren(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=renren
     """
 
-    strategy: typing.Literal["renren"] = "renren"
+    strategy: ConnectionResponseContentRenrenStrategy
     options: typing.Optional[ConnectionOptionsRenren] = None
 
     if IS_PYDANTIC_V2:

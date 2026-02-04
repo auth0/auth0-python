@@ -2,4 +2,54 @@
 
 import typing
 
-ConnectionOptionsTwitter = typing.Dict[str, typing.Any]
+import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_options_client_id_twitter import ConnectionOptionsClientIdTwitter
+from .connection_options_client_secret_twitter import ConnectionOptionsClientSecretTwitter
+from .connection_options_protocol_enum_twitter import ConnectionOptionsProtocolEnumTwitter
+from .connection_options_scope_twitter import ConnectionOptionsScopeTwitter
+from .connection_scope_array import ConnectionScopeArray
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_upstream_params import ConnectionUpstreamParams
+
+
+class ConnectionOptionsTwitter(UniversalBaseModel):
+    """
+    Options for the 'twitter' connection
+    """
+
+    client_id: typing.Optional[ConnectionOptionsClientIdTwitter] = None
+    client_secret: typing.Optional[ConnectionOptionsClientSecretTwitter] = None
+    freeform_scopes: typing.Optional[ConnectionScopeArray] = None
+    protocol: typing.Optional[ConnectionOptionsProtocolEnumTwitter] = None
+    scope: typing.Optional[ConnectionOptionsScopeTwitter] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
+    offline_access: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Request long-lived refresh tokens so your app can act on behalf of users even when they’re not actively signed in. Typical Twitter use case: keeping a background service synced without forcing users to reauthorize every session.
+    """
+
+    profile: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Pull account profile metadata such as display name, bio, location, and URL so downstream apps can prefill or personalize user experiences.
+    """
+
+    tweet_read: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Allow the application to read a user’s public and protected Tweets—required for timelines, analytics, or moderation workflows.
+    """
+
+    users_read: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Read non-Tweet user information (e.g., followers/following, account settings) to power relationship graphs or audience insights.
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

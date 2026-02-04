@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_stripe_add_tax_id_action import FlowActionStripeAddTaxIdAction
 from .flow_action_stripe_add_tax_id_params import FlowActionStripeAddTaxIdParams
+from .flow_action_stripe_add_tax_id_type import FlowActionStripeAddTaxIdType
 
 
 class FlowActionStripeAddTaxId(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["STRIPE"] = "STRIPE"
-    action: typing.Literal["ADD_TAX_ID"] = "ADD_TAX_ID"
+    type: FlowActionStripeAddTaxIdType
+    action: FlowActionStripeAddTaxIdAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionStripeAddTaxIdParams

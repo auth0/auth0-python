@@ -149,7 +149,7 @@ class VersionsClient:
 
         Examples
         --------
-        from auth0 import Auth0, DeployActionVersionRequestBodyParams
+        from auth0 import Auth0, DeployActionVersionRequestContent
 
         client = Auth0(
             token="YOUR_TOKEN",
@@ -157,7 +157,7 @@ class VersionsClient:
         client.actions.versions.deploy(
             action_id="actionId",
             id="id",
-            request=DeployActionVersionRequestBodyParams(),
+            request=DeployActionVersionRequestContent(),
         )
         """
         _response = self._raw_client.deploy(action_id, id, request=request, request_options=request_options)
@@ -316,7 +316,7 @@ class AsyncVersionsClient:
         --------
         import asyncio
 
-        from auth0 import AsyncAuth0, DeployActionVersionRequestBodyParams
+        from auth0 import AsyncAuth0, DeployActionVersionRequestContent
 
         client = AsyncAuth0(
             token="YOUR_TOKEN",
@@ -327,7 +327,7 @@ class AsyncVersionsClient:
             await client.actions.versions.deploy(
                 action_id="actionId",
                 id="id",
-                request=DeployActionVersionRequestBodyParams(),
+                request=DeployActionVersionRequestContent(),
             )
 
 

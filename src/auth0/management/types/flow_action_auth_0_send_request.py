@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_auth_0_send_request_action import FlowActionAuth0SendRequestAction
 from .flow_action_auth_0_send_request_params import FlowActionAuth0SendRequestParams
+from .flow_action_auth_0_send_request_type import FlowActionAuth0SendRequestType
 
 
 class FlowActionAuth0SendRequest(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["AUTH0"] = "AUTH0"
-    action: typing.Literal["SEND_REQUEST"] = "SEND_REQUEST"
+    type: FlowActionAuth0SendRequestType
+    action: FlowActionAuth0SendRequestAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionAuth0SendRequestParams

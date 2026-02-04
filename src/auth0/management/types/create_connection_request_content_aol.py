@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_aol import ConnectionOptionsAol
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_aol_strategy import CreateConnectionRequestContentAolStrategy
 
 
 class CreateConnectionRequestContentAol(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentAol(CreateConnectionCommon):
     Create a connection with strategy=aol
     """
 
-    strategy: typing.Literal["aol"] = "aol"
+    strategy: CreateConnectionRequestContentAolStrategy
     options: typing.Optional[ConnectionOptionsAol] = None
 
     if IS_PYDANTIC_V2:

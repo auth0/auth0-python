@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdClearbitEnum = typing.Literal["CLEARBIT"]
+FlowsVaultConnectionAppIdClearbitEnum = typing.Union[typing.Literal["CLEARBIT"], typing.Any]

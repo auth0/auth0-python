@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionActivecampaignApiKey(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdActivecampaignEnum = "ACTIVECAMPAIGN"
+    app_id: FlowsVaultConnectionAppIdActivecampaignEnum
     setup: FlowsVaultConnectioSetupApiKeyWithBaseUrl
 
     if IS_PYDANTIC_V2:

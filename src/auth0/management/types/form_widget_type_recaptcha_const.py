@@ -2,4 +2,4 @@
 
 import typing
 
-FormWidgetTypeRecaptchaConst = typing.Literal["RECAPTCHA"]
+FormWidgetTypeRecaptchaConst = typing.Union[typing.Literal["RECAPTCHA"], typing.Any]

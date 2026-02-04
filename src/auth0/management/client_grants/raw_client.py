@@ -22,6 +22,7 @@ from ..types.client_grant_organization_usage_enum import ClientGrantOrganization
 from ..types.client_grant_response_content import ClientGrantResponseContent
 from ..types.client_grant_subject_type_enum import ClientGrantSubjectTypeEnum
 from ..types.create_client_grant_response_content import CreateClientGrantResponseContent
+from ..types.get_client_grant_response_content import GetClientGrantResponseContent
 from ..types.list_client_grant_paginated_response_content import ListClientGrantPaginatedResponseContent
 from ..types.update_client_grant_response_content import UpdateClientGrantResponseContent
 
@@ -65,7 +66,7 @@ class RawClientGrantsClient:
             Optional filter on allow_any_organization.
 
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
-            The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href="https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            The type of application access the client grant allows.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -158,6 +159,7 @@ class RawClientGrantsClient:
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
         subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = OMIT,
         authorization_details_types: typing.Optional[typing.Sequence[str]] = OMIT,
+        allow_all_scopes: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateClientGrantResponseContent]:
         """
@@ -182,7 +184,10 @@ class RawClientGrantsClient:
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
 
         authorization_details_types : typing.Optional[typing.Sequence[str]]
-            Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            Types of authorization_details allowed for this client grant.
+
+        allow_all_scopes : typing.Optional[bool]
+            If enabled, all scopes configured on the resource server are allowed for this grant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -203,6 +208,7 @@ class RawClientGrantsClient:
                 "scope": scope,
                 "subject_type": subject_type,
                 "authorization_details_types": authorization_details_types,
+                "allow_all_scopes": allow_all_scopes,
             },
             headers={
                 "content-type": "application/json",
@@ -266,6 +272,90 @@ class RawClientGrantsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[GetClientGrantResponseContent]:
+        """
+        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        scopes associated with the application/API pair.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the client grant to retrieve.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetClientGrantResponseContent]
+            Client grant successfully retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"client-grants/{jsonable_encoder(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetClientGrantResponseContent,
+                    parse_obj_as(
+                        type_=GetClientGrantResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -372,6 +462,7 @@ class RawClientGrantsClient:
         organization_usage: typing.Optional[ClientGrantOrganizationNullableUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         authorization_details_types: typing.Optional[typing.Sequence[str]] = OMIT,
+        allow_all_scopes: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateClientGrantResponseContent]:
         """
@@ -391,7 +482,10 @@ class RawClientGrantsClient:
             Controls allowing any organization to be used with this grant
 
         authorization_details_types : typing.Optional[typing.Sequence[str]]
-            Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            Types of authorization_details allowed for this client grant.
+
+        allow_all_scopes : typing.Optional[bool]
+            If enabled, all scopes configured on the resource server are allowed for this grant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -409,6 +503,7 @@ class RawClientGrantsClient:
                 "organization_usage": organization_usage,
                 "allow_any_organization": allow_any_organization,
                 "authorization_details_types": authorization_details_types,
+                "allow_all_scopes": allow_all_scopes,
             },
             headers={
                 "content-type": "application/json",
@@ -523,7 +618,7 @@ class AsyncRawClientGrantsClient:
             Optional filter on allow_any_organization.
 
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
-            The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href="https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            The type of application access the client grant allows.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -619,6 +714,7 @@ class AsyncRawClientGrantsClient:
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
         subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = OMIT,
         authorization_details_types: typing.Optional[typing.Sequence[str]] = OMIT,
+        allow_all_scopes: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateClientGrantResponseContent]:
         """
@@ -643,7 +739,10 @@ class AsyncRawClientGrantsClient:
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
 
         authorization_details_types : typing.Optional[typing.Sequence[str]]
-            Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            Types of authorization_details allowed for this client grant.
+
+        allow_all_scopes : typing.Optional[bool]
+            If enabled, all scopes configured on the resource server are allowed for this grant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -664,6 +763,7 @@ class AsyncRawClientGrantsClient:
                 "scope": scope,
                 "subject_type": subject_type,
                 "authorization_details_types": authorization_details_types,
+                "allow_all_scopes": allow_all_scopes,
             },
             headers={
                 "content-type": "application/json",
@@ -727,6 +827,90 @@ class AsyncRawClientGrantsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[GetClientGrantResponseContent]:
+        """
+        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        scopes associated with the application/API pair.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the client grant to retrieve.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GetClientGrantResponseContent]
+            Client grant successfully retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"client-grants/{jsonable_encoder(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetClientGrantResponseContent,
+                    parse_obj_as(
+                        type_=GetClientGrantResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -835,6 +1019,7 @@ class AsyncRawClientGrantsClient:
         organization_usage: typing.Optional[ClientGrantOrganizationNullableUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         authorization_details_types: typing.Optional[typing.Sequence[str]] = OMIT,
+        allow_all_scopes: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateClientGrantResponseContent]:
         """
@@ -854,7 +1039,10 @@ class AsyncRawClientGrantsClient:
             Controls allowing any organization to be used with this grant
 
         authorization_details_types : typing.Optional[typing.Sequence[str]]
-            Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            Types of authorization_details allowed for this client grant.
+
+        allow_all_scopes : typing.Optional[bool]
+            If enabled, all scopes configured on the resource server are allowed for this grant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -872,6 +1060,7 @@ class AsyncRawClientGrantsClient:
                 "organization_usage": organization_usage,
                 "allow_any_organization": allow_any_organization,
                 "authorization_details_types": authorization_details_types,
+                "allow_all_scopes": allow_all_scopes,
             },
             headers={
                 "content-type": "application/json",

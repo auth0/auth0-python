@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_sendgrid_send_email_action import FlowActionSendgridSendEmailAction
 from .flow_action_sendgrid_send_email_params import FlowActionSendgridSendEmailParams
+from .flow_action_sendgrid_send_email_type import FlowActionSendgridSendEmailType
 
 
 class FlowActionSendgridSendEmail(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["SENDGRID"] = "SENDGRID"
-    action: typing.Literal["SEND_EMAIL"] = "SEND_EMAIL"
+    type: FlowActionSendgridSendEmailType
+    action: FlowActionSendgridSendEmailAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionSendgridSendEmailParams

@@ -7,13 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from . import bot_detection, breached_password_detection, brute_force_protection, captcha, suspicious_ip_throttling
-    from .brute_force_protection import (
-        UpdateBruteForceSettingsRequestContentMode,
-        UpdateBruteForceSettingsRequestContentShieldsItem,
-    )
 _dynamic_imports: typing.Dict[str, str] = {
-    "UpdateBruteForceSettingsRequestContentMode": ".brute_force_protection",
-    "UpdateBruteForceSettingsRequestContentShieldsItem": ".brute_force_protection",
     "bot_detection": ".bot_detection",
     "breached_password_detection": ".breached_password_detection",
     "brute_force_protection": ".brute_force_protection",
@@ -44,8 +38,6 @@ def __dir__():
 
 
 __all__ = [
-    "UpdateBruteForceSettingsRequestContentMode",
-    "UpdateBruteForceSettingsRequestContentShieldsItem",
     "bot_detection",
     "breached_password_detection",
     "brute_force_protection",

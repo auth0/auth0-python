@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_fitbit import ConnectionOptionsFitbit
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_fitbit_strategy import CreateConnectionRequestContentFitbitStrategy
 
 
 class CreateConnectionRequestContentFitbit(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentFitbit(CreateConnectionCommon):
     Create a connection with strategy=fitbit
     """
 
-    strategy: typing.Literal["fitbit"] = "fitbit"
+    strategy: CreateConnectionRequestContentFitbitStrategy
     options: typing.Optional[ConnectionOptionsFitbit] = None
 
     if IS_PYDANTIC_V2:

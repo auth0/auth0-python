@@ -2,4 +2,133 @@
 
 import typing
 
-ConnectionOptionsWindowsLive = typing.Dict[str, typing.Any]
+import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_strategy_version_enum_windows_live import ConnectionStrategyVersionEnumWindowsLive
+
+
+class ConnectionOptionsWindowsLive(ConnectionOptionsOAuth2Common):
+    """
+    Options for the 'windowslive' connection
+    """
+
+    strategy_version: typing.Optional[ConnectionStrategyVersionEnumWindowsLive] = None
+    graph_calendars: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's calendars.
+    """
+
+    graph_calendars_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read and write the user's calendars.
+    """
+
+    graph_contacts: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's contacts.
+    """
+
+    graph_contacts_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read and write the user's contacts.
+    """
+
+    graph_device: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's device information.
+    """
+
+    graph_device_command: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to send commands to the user's devices.
+    """
+
+    graph_emails: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's emails.
+    """
+
+    graph_emails_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read and write the user's emails.
+    """
+
+    graph_files: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's files.
+    """
+
+    graph_files_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read all files the user has access to.
+    """
+
+    graph_files_all_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read and write all files the user has access to.
+    """
+
+    graph_files_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read and write the user's files.
+    """
+
+    graph_notes: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's OneNote notebooks.
+    """
+
+    graph_notes_create: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to create new OneNote notebooks.
+    """
+
+    graph_notes_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read and write the user's OneNote notebooks.
+    """
+
+    graph_tasks: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's tasks.
+    """
+
+    graph_tasks_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read and write the user's tasks.
+    """
+
+    graph_user: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's profile.
+    """
+
+    graph_user_activity: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read the user's activity history.
+    """
+
+    graph_user_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to read and write the user's profile.
+    """
+
+    offline_access: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests a refresh token for offline access.
+    """
+
+    signin: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests the signin scope.
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

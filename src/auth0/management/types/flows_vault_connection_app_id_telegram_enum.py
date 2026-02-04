@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdTelegramEnum = typing.Literal["TELEGRAM"]
+FlowsVaultConnectionAppIdTelegramEnum = typing.Union[typing.Literal["TELEGRAM"], typing.Any]

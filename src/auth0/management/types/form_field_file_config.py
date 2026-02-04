@@ -15,8 +15,12 @@ class FormFieldFileConfig(UniversalBaseModel):
     storage: typing.Optional[FormFieldFileConfigStorage] = None
     categories: typing.Optional[typing.List[FormFieldFileConfigCategoryEnum]] = None
     extensions: typing.Optional[typing.List[str]] = None
-    max_size: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxSize")] = None
-    max_files: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxFiles")] = None
+    max_size: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxSize")] = pydantic.Field(
+        alias="maxSize", default=None
+    )
+    max_files: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxFiles")] = pydantic.Field(
+        alias="maxFiles", default=None
+    )
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

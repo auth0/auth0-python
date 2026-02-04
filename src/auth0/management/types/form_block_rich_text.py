@@ -11,8 +11,8 @@ from .form_component_category_block_const import FormComponentCategoryBlockConst
 
 class FormBlockRichText(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryBlockConst = "BLOCK"
-    type: FormBlockTypeRichTextConst = "RICH_TEXT"
+    category: FormComponentCategoryBlockConst
+    type: FormBlockTypeRichTextConst
     config: typing.Optional[FormBlockRichTextConfig] = None
 
     if IS_PYDANTIC_V2:

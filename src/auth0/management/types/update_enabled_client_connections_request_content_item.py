@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class UpdateEnabledClientConnectionsRequestContentItem(UniversalBaseModel):
     client_id: str = pydantic.Field()
     """
-    The client_id of the client to be the subject to change status
+    The client_id of the client whose status will be changed. Note that the limit per PATCH request is 50 clients.
     """
 
     status: bool = pydantic.Field()

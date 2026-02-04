@@ -6,13 +6,15 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel, update_forward_refs
+from .flow_action_flow_boolean_condition_action import FlowActionFlowBooleanConditionAction
+from .flow_action_flow_boolean_condition_type import FlowActionFlowBooleanConditionType
 
 
 class FlowActionFlowBooleanCondition(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["FLOW"] = "FLOW"
-    action: typing.Literal["BOOLEAN_CONDITION"] = "BOOLEAN_CONDITION"
+    type: FlowActionFlowBooleanConditionType
+    action: FlowActionFlowBooleanConditionAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: "FlowActionFlowBooleanConditionParams"

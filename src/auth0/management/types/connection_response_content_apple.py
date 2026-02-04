@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_apple import ConnectionOptionsApple
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_apple_strategy import ConnectionResponseContentAppleStrategy
 
 
-class ConnectionResponseContentApple(ConnectionResponseCommon):
+class ConnectionResponseContentApple(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=apple
     """
 
-    strategy: typing.Literal["apple"] = "apple"
+    strategy: ConnectionResponseContentAppleStrategy
     options: typing.Optional[ConnectionOptionsApple] = None
 
     if IS_PYDANTIC_V2:

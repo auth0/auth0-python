@@ -11,7 +11,7 @@ from .form_router_config import FormRouterConfig
 
 class FormRouter(UniversalBaseModel):
     id: str
-    type: FormNodeTypeRouterConst = "ROUTER"
+    type: FormNodeTypeRouterConst
     coordinates: typing.Optional[FormNodeCoordinates] = None
     alias: typing.Optional[str] = None
     config: typing.Optional[FormRouterConfig] = None

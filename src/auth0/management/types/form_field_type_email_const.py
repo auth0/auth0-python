@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeEmailConst = typing.Literal["EMAIL"]
+FormFieldTypeEmailConst = typing.Union[typing.Literal["EMAIL"], typing.Any]

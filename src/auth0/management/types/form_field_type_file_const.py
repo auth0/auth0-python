@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeFileConst = typing.Literal["FILE"]
+FormFieldTypeFileConst = typing.Union[typing.Literal["FILE"], typing.Any]

@@ -13,7 +13,9 @@ def test_tokenExchangeProfiles_create() -> None:
     """Test create endpoint with WireMock"""
     test_id = "token_exchange_profiles.create.0"
     client = get_client(test_id)
-    client.token_exchange_profiles.create(name="name", subject_token_type="subject_token_type", action_id="action_id")
+    client.token_exchange_profiles.create(
+        name="name", subject_token_type="subject_token_type", action_id="action_id", type="custom_authentication"
+    )
     verify_request_count(test_id, "POST", "/token-exchange-profiles", None, 1)
 
 

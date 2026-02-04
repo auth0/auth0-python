@@ -5,15 +5,19 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_thirty_seven_signals import ConnectionOptionsThirtySevenSignals
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_thirty_seven_signals_strategy import (
+    ConnectionResponseContentThirtySevenSignalsStrategy,
+)
 
 
-class ConnectionResponseContentThirtySevenSignals(ConnectionResponseCommon):
+class ConnectionResponseContentThirtySevenSignals(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=thirtysevensignals
     """
 
-    strategy: typing.Literal["thirtysevensignals"] = "thirtysevensignals"
+    strategy: ConnectionResponseContentThirtySevenSignalsStrategy
     options: typing.Optional[ConnectionOptionsThirtySevenSignals] = None
 
     if IS_PYDANTIC_V2:

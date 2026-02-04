@@ -21,7 +21,7 @@ class SessionAuthenticationSignal(UniversalBaseModel):
 
     timestamp: typing.Optional[SessionDate] = None
     type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="^type$")] = pydantic.Field(
-        default=None
+        alias="^type$", default=None
     )
     """
     A specific MFA factor. Only present when "name" is set to "mfa"

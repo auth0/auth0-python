@@ -10,10 +10,10 @@ from ...types.acul_context_configuration import AculContextConfiguration
 from ...types.acul_filters import AculFilters
 from ...types.acul_head_tag import AculHeadTag
 from ...types.acul_rendering_mode_enum import AculRenderingModeEnum
-from ...types.acul_response_content import AculResponseContent
 from ...types.bulk_update_acul_response_content import BulkUpdateAculResponseContent
 from ...types.get_acul_response_content import GetAculResponseContent
 from ...types.list_aculs_offset_paginated_response_content import ListAculsOffsetPaginatedResponseContent
+from ...types.list_aculs_response_content_item import ListAculsResponseContentItem
 from ...types.prompt_group_name_enum import PromptGroupNameEnum
 from ...types.screen_group_name_enum import ScreenGroupNameEnum
 from ...types.update_acul_response_content import UpdateAculResponseContent
@@ -50,7 +50,7 @@ class RenderingClient:
         screen: typing.Optional[str] = None,
         rendering_mode: typing.Optional[AculRenderingModeEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[AculResponseContent, ListAculsOffsetPaginatedResponseContent]:
+    ) -> SyncPager[ListAculsResponseContentItem, ListAculsOffsetPaginatedResponseContent]:
         """
         Get render setting configurations for all screens.
 
@@ -85,7 +85,7 @@ class RenderingClient:
 
         Returns
         -------
-        SyncPager[AculResponseContent, ListAculsOffsetPaginatedResponseContent]
+        SyncPager[ListAculsResponseContentItem, ListAculsOffsetPaginatedResponseContent]
             ACUL settings successfully retrieved.
 
         Examples
@@ -301,7 +301,7 @@ class AsyncRenderingClient:
         screen: typing.Optional[str] = None,
         rendering_mode: typing.Optional[AculRenderingModeEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[AculResponseContent, ListAculsOffsetPaginatedResponseContent]:
+    ) -> AsyncPager[ListAculsResponseContentItem, ListAculsOffsetPaginatedResponseContent]:
         """
         Get render setting configurations for all screens.
 
@@ -336,7 +336,7 @@ class AsyncRenderingClient:
 
         Returns
         -------
-        AsyncPager[AculResponseContent, ListAculsOffsetPaginatedResponseContent]
+        AsyncPager[ListAculsResponseContentItem, ListAculsOffsetPaginatedResponseContent]
             ACUL settings successfully retrieved.
 
         Examples

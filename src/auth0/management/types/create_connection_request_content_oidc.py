@@ -4,8 +4,12 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from .connection_authentication_purpose import ConnectionAuthenticationPurpose
+from .connection_connected_accounts_purpose_xaa import ConnectionConnectedAccountsPurposeXaa
 from .connection_options_oidc import ConnectionOptionsOidc
+from .connection_show_as_button import ConnectionShowAsButton
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_oidc_strategy import CreateConnectionRequestContentOidcStrategy
 
 
 class CreateConnectionRequestContentOidc(CreateConnectionCommon):
@@ -13,8 +17,11 @@ class CreateConnectionRequestContentOidc(CreateConnectionCommon):
     Create a connection with strategy=oidc
     """
 
-    strategy: typing.Literal["oidc"] = "oidc"
+    strategy: CreateConnectionRequestContentOidcStrategy
+    authentication: typing.Optional[ConnectionAuthenticationPurpose] = None
+    connected_accounts: typing.Optional[ConnectionConnectedAccountsPurposeXaa] = None
     options: typing.Optional[ConnectionOptionsOidc] = None
+    show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

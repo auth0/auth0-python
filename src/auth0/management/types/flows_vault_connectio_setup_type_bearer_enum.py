@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectioSetupTypeBearerEnum = typing.Literal["BEARER"]
+FlowsVaultConnectioSetupTypeBearerEnum = typing.Union[typing.Literal["BEARER"], typing.Any]

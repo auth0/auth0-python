@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionWhatsappToken(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdWhatsappEnum = "WHATSAPP"
+    app_id: FlowsVaultConnectionAppIdWhatsappEnum
     setup: FlowsVaultConnectioSetupToken
 
     if IS_PYDANTIC_V2:

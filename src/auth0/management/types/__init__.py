@@ -18,6 +18,15 @@ if typing.TYPE_CHECKING:
     from .action_error import ActionError
     from .action_execution_result import ActionExecutionResult
     from .action_execution_status_enum import ActionExecutionStatusEnum
+    from .action_module_action import ActionModuleAction
+    from .action_module_dependency import ActionModuleDependency
+    from .action_module_dependency_request import ActionModuleDependencyRequest
+    from .action_module_list_item import ActionModuleListItem
+    from .action_module_reference import ActionModuleReference
+    from .action_module_secret import ActionModuleSecret
+    from .action_module_secret_request import ActionModuleSecretRequest
+    from .action_module_version import ActionModuleVersion
+    from .action_module_version_reference import ActionModuleVersionReference
     from .action_secret_request import ActionSecretRequest
     from .action_secret_response import ActionSecretResponse
     from .action_trigger import ActionTrigger
@@ -35,7 +44,6 @@ if typing.TYPE_CHECKING:
     from .acul_context_configuration import AculContextConfiguration
     from .acul_context_configuration_item import AculContextConfigurationItem
     from .acul_context_enum import AculContextEnum
-    from .acul_default_head_tags_disabled import AculDefaultHeadTagsDisabled
     from .acul_domain_filter import AculDomainFilter
     from .acul_domain_filter_by_id import AculDomainFilterById
     from .acul_domain_filter_by_metadata import AculDomainFilterByMetadata
@@ -44,15 +52,12 @@ if typing.TYPE_CHECKING:
     from .acul_head_tag import AculHeadTag
     from .acul_head_tag_attributes import AculHeadTagAttributes
     from .acul_head_tag_content import AculHeadTagContent
-    from .acul_head_tags import AculHeadTags
     from .acul_match_type_enum import AculMatchTypeEnum
     from .acul_organization_filter import AculOrganizationFilter
     from .acul_organization_filter_by_id import AculOrganizationFilterById
     from .acul_organization_filter_by_metadata import AculOrganizationFilterByMetadata
     from .acul_organization_metadata import AculOrganizationMetadata
     from .acul_rendering_mode_enum import AculRenderingModeEnum
-    from .acul_response_content import AculResponseContent
-    from .acul_use_page_template import AculUsePageTemplate
     from .add_organization_connection_response_content import AddOrganizationConnectionResponseContent
     from .anomaly_ip_format import AnomalyIpFormat
     from .app_metadata import AppMetadata
@@ -136,7 +141,11 @@ if typing.TYPE_CHECKING:
     )
     from .breached_password_detection_shields_enum import BreachedPasswordDetectionShieldsEnum
     from .breached_password_detection_stage import BreachedPasswordDetectionStage
+    from .brute_force_protection_mode_enum import BruteForceProtectionModeEnum
+    from .brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
     from .bulk_update_acul_response_content import BulkUpdateAculResponseContent
+    from .certificate_subject_dn_credential import CertificateSubjectDnCredential
+    from .certificate_subject_dn_credential_type_enum import CertificateSubjectDnCredentialTypeEnum
     from .change_password_ticket_identity import ChangePasswordTicketIdentity
     from .change_password_ticket_response_content import ChangePasswordTicketResponseContent
     from .client import Client
@@ -181,12 +190,30 @@ if typing.TYPE_CHECKING:
         ClientAsyncApprovalNotificationsChannelsApiPostConfiguration,
     )
     from .client_authentication_method import ClientAuthenticationMethod
+    from .client_authentication_method_private_key_jwt import ClientAuthenticationMethodPrivateKeyJwt
+    from .client_authentication_method_private_key_jwt_credentials import (
+        ClientAuthenticationMethodPrivateKeyJwtCredentials,
+    )
     from .client_authentication_method_self_signed_tls_client_auth import (
         ClientAuthenticationMethodSelfSignedTlsClientAuth,
     )
+    from .client_authentication_method_self_signed_tls_client_auth_credentials import (
+        ClientAuthenticationMethodSelfSignedTlsClientAuthCredentials,
+    )
     from .client_authentication_method_tls_client_auth import ClientAuthenticationMethodTlsClientAuth
+    from .client_authentication_method_tls_client_auth_credentials import (
+        ClientAuthenticationMethodTlsClientAuthCredentials,
+    )
     from .client_compliance_level_enum import ClientComplianceLevelEnum
     from .client_create_authentication_method import ClientCreateAuthenticationMethod
+    from .client_create_authentication_method_private_key_jwt import ClientCreateAuthenticationMethodPrivateKeyJwt
+    from .client_create_authentication_method_private_key_jwt_credentials import (
+        ClientCreateAuthenticationMethodPrivateKeyJwtCredentials,
+    )
+    from .client_create_authentication_method_tls_client_auth import ClientCreateAuthenticationMethodTlsClientAuth
+    from .client_create_authentication_method_tls_client_auth_credentials import (
+        ClientCreateAuthenticationMethodTlsClientAuthCredentials,
+    )
     from .client_credential import ClientCredential
     from .client_credential_algorithm_enum import ClientCredentialAlgorithmEnum
     from .client_credential_type_enum import ClientCredentialTypeEnum
@@ -215,6 +242,7 @@ if typing.TYPE_CHECKING:
     from .client_organization_usage_enum import ClientOrganizationUsageEnum
     from .client_organization_usage_patch_enum import ClientOrganizationUsagePatchEnum
     from .client_refresh_token_configuration import ClientRefreshTokenConfiguration
+    from .client_refresh_token_policy import ClientRefreshTokenPolicy
     from .client_session_transfer_allowed_authentication_methods_enum import (
         ClientSessionTransferAllowedAuthenticationMethodsEnum,
     )
@@ -232,7 +260,16 @@ if typing.TYPE_CHECKING:
     from .connected_account import ConnectedAccount
     from .connected_account_access_type_enum import ConnectedAccountAccessTypeEnum
     from .connection_acr_values_supported import ConnectionAcrValuesSupported
+    from .connection_admin_access_token_expires_in_google_apps import ConnectionAdminAccessTokenExpiresInGoogleApps
+    from .connection_admin_access_token_google_apps import ConnectionAdminAccessTokenGoogleApps
+    from .connection_admin_refresh_token_google_apps import ConnectionAdminRefreshTokenGoogleApps
+    from .connection_agent_ipad import ConnectionAgentIpad
+    from .connection_agent_mode_ad import ConnectionAgentModeAd
+    from .connection_agent_version_ad import ConnectionAgentVersionAd
     from .connection_allowed_audiences_google_o_auth_2 import ConnectionAllowedAudiencesGoogleOAuth2
+    from .connection_api_behavior_enum import ConnectionApiBehaviorEnum
+    from .connection_api_enable_users import ConnectionApiEnableUsers
+    from .connection_api_enable_users_google_apps import ConnectionApiEnableUsersGoogleApps
     from .connection_app_domain_azure_ad import ConnectionAppDomainAzureAd
     from .connection_attribute_identifier import ConnectionAttributeIdentifier
     from .connection_attribute_map_attributes import ConnectionAttributeMapAttributes
@@ -241,6 +278,7 @@ if typing.TYPE_CHECKING:
     from .connection_attribute_map_userinfo_scope import ConnectionAttributeMapUserinfoScope
     from .connection_attributes import ConnectionAttributes
     from .connection_auth_params_additional_properties_o_auth_2 import ConnectionAuthParamsAdditionalPropertiesOAuth2
+    from .connection_auth_params_email import ConnectionAuthParamsEmail
     from .connection_auth_params_map import ConnectionAuthParamsMap
     from .connection_auth_params_o_auth_2 import ConnectionAuthParamsOAuth2
     from .connection_authentication_methods import ConnectionAuthenticationMethods
@@ -248,58 +286,106 @@ if typing.TYPE_CHECKING:
     from .connection_authorization_endpoint import ConnectionAuthorizationEndpoint
     from .connection_authorization_endpoint_o_auth_2 import ConnectionAuthorizationEndpointOAuth2
     from .connection_brute_force_protection import ConnectionBruteForceProtection
+    from .connection_calculated_thumbprint_saml import ConnectionCalculatedThumbprintSaml
+    from .connection_certs_ad import ConnectionCertsAd
     from .connection_claim_types_supported import ConnectionClaimTypesSupported
     from .connection_claims_locales_supported import ConnectionClaimsLocalesSupported
     from .connection_claims_parameter_supported import ConnectionClaimsParameterSupported
     from .connection_claims_supported import ConnectionClaimsSupported
     from .connection_client_id import ConnectionClientId
     from .connection_client_id_azure_ad import ConnectionClientIdAzureAd
+    from .connection_client_id_facebook import ConnectionClientIdFacebook
+    from .connection_client_id_google_apps import ConnectionClientIdGoogleApps
     from .connection_client_id_google_o_auth_2 import ConnectionClientIdGoogleOAuth2
     from .connection_client_id_o_auth_2 import ConnectionClientIdOAuth2
     from .connection_client_id_oidc import ConnectionClientIdOidc
+    from .connection_client_protocol_saml import ConnectionClientProtocolSaml
     from .connection_client_secret import ConnectionClientSecret
     from .connection_client_secret_azure_ad import ConnectionClientSecretAzureAd
+    from .connection_client_secret_facebook import ConnectionClientSecretFacebook
+    from .connection_client_secret_google_apps import ConnectionClientSecretGoogleApps
     from .connection_client_secret_google_o_auth_2 import ConnectionClientSecretGoogleOAuth2
     from .connection_client_secret_o_auth_2 import ConnectionClientSecretOAuth2
     from .connection_client_secret_oidc import ConnectionClientSecretOidc
     from .connection_common import ConnectionCommon
     from .connection_configuration import ConnectionConfiguration
     from .connection_connected_accounts_purpose import ConnectionConnectedAccountsPurpose
+    from .connection_connected_accounts_purpose_xaa import ConnectionConnectedAccountsPurposeXaa
     from .connection_connection_settings import ConnectionConnectionSettings
     from .connection_connection_settings_pkce_enum import ConnectionConnectionSettingsPkceEnum
     from .connection_custom_headers_o_auth_2 import ConnectionCustomHeadersOAuth2
     from .connection_custom_scripts import ConnectionCustomScripts
+    from .connection_debug_saml import ConnectionDebugSaml
+    from .connection_decryption_key_saml import ConnectionDecryptionKeySaml
+    from .connection_decryption_key_saml_cert import ConnectionDecryptionKeySamlCert
+    from .connection_destination_url_saml import ConnectionDestinationUrlSaml
+    from .connection_digest_algorithm_enum_saml import ConnectionDigestAlgorithmEnumSaml
+    from .connection_digest_algorithm_saml import ConnectionDigestAlgorithmSaml
     from .connection_disable_self_service_change_password import ConnectionDisableSelfServiceChangePassword
     from .connection_disable_signup import ConnectionDisableSignup
+    from .connection_disable_signup_sms import ConnectionDisableSignupSms
     from .connection_discovery_url import ConnectionDiscoveryUrl
     from .connection_display_name import ConnectionDisplayName
     from .connection_display_values_supported import ConnectionDisplayValuesSupported
+    from .connection_domain_aliases import ConnectionDomainAliases
+    from .connection_domain_aliases_ad import ConnectionDomainAliasesAd
     from .connection_domain_aliases_azure_ad import ConnectionDomainAliasesAzureAd
-    from .connection_domain_aliases_one import ConnectionDomainAliasesOne
+    from .connection_domain_aliases_items_one import ConnectionDomainAliasesItemsOne
+    from .connection_domain_aliases_saml import ConnectionDomainAliasesSaml
+    from .connection_domain_google_apps import ConnectionDomainGoogleApps
     from .connection_domain_okta import ConnectionDomainOkta
+    from .connection_email_body_email import ConnectionEmailBodyEmail
+    from .connection_email_email import ConnectionEmailEmail
+    from .connection_email_email_syntax import ConnectionEmailEmailSyntax
+    from .connection_email_from_email import ConnectionEmailFromEmail
+    from .connection_email_otp_authentication_method import ConnectionEmailOtpAuthenticationMethod
+    from .connection_email_subject_email import ConnectionEmailSubjectEmail
     from .connection_enable_script_context import ConnectionEnableScriptContext
     from .connection_enabled_client import ConnectionEnabledClient
     from .connection_enabled_clients import ConnectionEnabledClients
     from .connection_enabled_database_customization import ConnectionEnabledDatabaseCustomization
     from .connection_end_session_endpoint import ConnectionEndSessionEndpoint
     from .connection_end_session_endpoint_o_auth_2 import ConnectionEndSessionEndpointOAuth2
+    from .connection_entity_id_saml import ConnectionEntityIdSaml
     from .connection_ext_admin import ConnectionExtAdmin
     from .connection_ext_agreed_terms import ConnectionExtAgreedTerms
+    from .connection_ext_agreed_terms_google_apps import ConnectionExtAgreedTermsGoogleApps
     from .connection_ext_assigned_plans import ConnectionExtAssignedPlans
     from .connection_ext_groups import ConnectionExtGroups
+    from .connection_ext_groups_azure_ad import ConnectionExtGroupsAzureAd
+    from .connection_ext_groups_google_apps import ConnectionExtGroupsGoogleApps
+    from .connection_ext_is_admin_google_apps import ConnectionExtIsAdminGoogleApps
     from .connection_ext_is_suspended import ConnectionExtIsSuspended
+    from .connection_ext_is_suspended_google_apps import ConnectionExtIsSuspendedGoogleApps
     from .connection_ext_profile import ConnectionExtProfile
     from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
     from .connection_fields_map import ConnectionFieldsMap
+    from .connection_fields_map_saml import ConnectionFieldsMapSaml
+    from .connection_fields_map_saml_value import ConnectionFieldsMapSamlValue
     from .connection_for_list import ConnectionForList
     from .connection_for_organization import ConnectionForOrganization
+    from .connection_forward_req_info_sms import ConnectionForwardReqInfoSms
     from .connection_freeform_scopes_google_o_auth_2 import ConnectionFreeformScopesGoogleOAuth2
+    from .connection_from_sms import ConnectionFromSms
     from .connection_gateway_authentication import ConnectionGatewayAuthentication
+    from .connection_gateway_authentication_audience_sms import ConnectionGatewayAuthenticationAudienceSms
+    from .connection_gateway_authentication_method_sms import ConnectionGatewayAuthenticationMethodSms
+    from .connection_gateway_authentication_sms import ConnectionGatewayAuthenticationSms
+    from .connection_gateway_authentication_subject_sms import ConnectionGatewayAuthenticationSubjectSms
+    from .connection_gateway_url_sms import ConnectionGatewayUrlSms
+    from .connection_global_token_revocation_jwt_iss_saml import ConnectionGlobalTokenRevocationJwtIssSaml
+    from .connection_global_token_revocation_jwt_sub_saml import ConnectionGlobalTokenRevocationJwtSubSaml
     from .connection_grant_types_supported import ConnectionGrantTypesSupported
+    from .connection_handle_login_from_social_google_apps import ConnectionHandleLoginFromSocialGoogleApps
     from .connection_https_url_with_http_fallback import ConnectionHttpsUrlWithHttpFallback
+    from .connection_https_url_with_http_fallback_2048 import ConnectionHttpsUrlWithHttpFallback2048
+    from .connection_https_url_with_http_fallback_255 import ConnectionHttpsUrlWithHttpFallback255
     from .connection_icon_url import ConnectionIconUrl
+    from .connection_icon_url_adfs import ConnectionIconUrlAdfs
     from .connection_icon_url_azure_ad import ConnectionIconUrlAzureAd
+    from .connection_icon_url_google_apps import ConnectionIconUrlGoogleApps
     from .connection_icon_url_google_o_auth_2 import ConnectionIconUrlGoogleOAuth2
+    from .connection_icon_url_saml import ConnectionIconUrlSaml
     from .connection_id import ConnectionId
     from .connection_id_token_encryption_alg_values_supported import ConnectionIdTokenEncryptionAlgValuesSupported
     from .connection_id_token_encryption_enc_values_supported import ConnectionIdTokenEncryptionEncValuesSupported
@@ -312,6 +398,7 @@ if typing.TYPE_CHECKING:
     from .connection_identity_api_enum_azure_ad import ConnectionIdentityApiEnumAzureAd
     from .connection_identity_provider_enum import ConnectionIdentityProviderEnum
     from .connection_import_mode import ConnectionImportMode
+    from .connection_ips_ad import ConnectionIpsAd
     from .connection_is_domain_connection import ConnectionIsDomainConnection
     from .connection_issuer import ConnectionIssuer
     from .connection_jwks_uri import ConnectionJwksUri
@@ -320,6 +407,11 @@ if typing.TYPE_CHECKING:
     from .connection_mapping_mode_enum_oidc import ConnectionMappingModeEnumOidc
     from .connection_mapping_mode_enum_okta import ConnectionMappingModeEnumOkta
     from .connection_max_groups_to_retrieve import ConnectionMaxGroupsToRetrieve
+    from .connection_messaging_service_sid_sms import ConnectionMessagingServiceSidSms
+    from .connection_metadata_url_saml import ConnectionMetadataUrlSaml
+    from .connection_metadata_xml import ConnectionMetadataXml
+    from .connection_metadata_xml_adfs import ConnectionMetadataXmlAdfs
+    from .connection_metadata_xml_saml import ConnectionMetadataXmlSaml
     from .connection_mfa import ConnectionMfa
     from .connection_name import ConnectionName
     from .connection_name_prefix_template import ConnectionNamePrefixTemplate
@@ -339,29 +431,39 @@ if typing.TYPE_CHECKING:
     from .connection_options_bitbucket import ConnectionOptionsBitbucket
     from .connection_options_bitly import ConnectionOptionsBitly
     from .connection_options_box import ConnectionOptionsBox
+    from .connection_options_client_id_github import ConnectionOptionsClientIdGithub
+    from .connection_options_client_id_twitter import ConnectionOptionsClientIdTwitter
+    from .connection_options_client_secret_github import ConnectionOptionsClientSecretGithub
+    from .connection_options_client_secret_twitter import ConnectionOptionsClientSecretTwitter
     from .connection_options_common import ConnectionOptionsCommon
     from .connection_options_common_oidc import ConnectionOptionsCommonOidc
+    from .connection_options_common_saml import ConnectionOptionsCommonSaml
     from .connection_options_custom import ConnectionOptionsCustom
     from .connection_options_daccount import ConnectionOptionsDaccount
+    from .connection_options_deflate_saml import ConnectionOptionsDeflateSaml
     from .connection_options_dropbox import ConnectionOptionsDropbox
     from .connection_options_dwolla import ConnectionOptionsDwolla
     from .connection_options_email import ConnectionOptionsEmail
     from .connection_options_evernote import ConnectionOptionsEvernote
-    from .connection_options_evernote_common import ConnectionOptionsEvernoteCommon
-    from .connection_options_evernote_sandbox import ConnectionOptionsEvernoteSandbox
     from .connection_options_exact import ConnectionOptionsExact
     from .connection_options_facebook import ConnectionOptionsFacebook
     from .connection_options_fitbit import ConnectionOptionsFitbit
     from .connection_options_flickr import ConnectionOptionsFlickr
+    from .connection_options_freeform_scopes_github import ConnectionOptionsFreeformScopesGithub
     from .connection_options_git_hub import ConnectionOptionsGitHub
     from .connection_options_google_apps import ConnectionOptionsGoogleApps
     from .connection_options_google_o_auth_2 import ConnectionOptionsGoogleOAuth2
+    from .connection_options_idp_initiated_client_protocol_enum_saml import (
+        ConnectionOptionsIdpInitiatedClientProtocolEnumSaml,
+    )
+    from .connection_options_idpinitiated_saml import ConnectionOptionsIdpinitiatedSaml
     from .connection_options_instagram import ConnectionOptionsInstagram
     from .connection_options_ip import ConnectionOptionsIp
     from .connection_options_line import ConnectionOptionsLine
     from .connection_options_linkedin import ConnectionOptionsLinkedin
     from .connection_options_miicard import ConnectionOptionsMiicard
     from .connection_options_o_auth_1 import ConnectionOptionsOAuth1
+    from .connection_options_o_auth_1_common import ConnectionOptionsOAuth1Common
     from .connection_options_o_auth_2 import ConnectionOptionsOAuth2
     from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
     from .connection_options_office_365 import ConnectionOptionsOffice365
@@ -369,22 +471,19 @@ if typing.TYPE_CHECKING:
     from .connection_options_oidc_metadata import ConnectionOptionsOidcMetadata
     from .connection_options_okta import ConnectionOptionsOkta
     from .connection_options_paypal import ConnectionOptionsPaypal
-    from .connection_options_paypal_sandbox import ConnectionOptionsPaypalSandbox
     from .connection_options_ping_federate import ConnectionOptionsPingFederate
     from .connection_options_planning_center import ConnectionOptionsPlanningCenter
+    from .connection_options_protocol_enum_twitter import ConnectionOptionsProtocolEnumTwitter
     from .connection_options_renren import ConnectionOptionsRenren
     from .connection_options_salesforce import ConnectionOptionsSalesforce
-    from .connection_options_salesforce_common import ConnectionOptionsSalesforceCommon
-    from .connection_options_salesforce_community import ConnectionOptionsSalesforceCommunity
-    from .connection_options_salesforce_sandbox import ConnectionOptionsSalesforceSandbox
     from .connection_options_saml import ConnectionOptionsSaml
+    from .connection_options_scope_github import ConnectionOptionsScopeGithub
+    from .connection_options_scope_twitter import ConnectionOptionsScopeTwitter
     from .connection_options_sharepoint import ConnectionOptionsSharepoint
     from .connection_options_shop import ConnectionOptionsShop
     from .connection_options_shopify import ConnectionOptionsShopify
     from .connection_options_sms import ConnectionOptionsSms
     from .connection_options_soundcloud import ConnectionOptionsSoundcloud
-    from .connection_options_the_city import ConnectionOptionsTheCity
-    from .connection_options_the_city_sandbox import ConnectionOptionsTheCitySandbox
     from .connection_options_thirty_seven_signals import ConnectionOptionsThirtySevenSignals
     from .connection_options_twitter import ConnectionOptionsTwitter
     from .connection_options_untappd import ConnectionOptionsUntappd
@@ -404,6 +503,9 @@ if typing.TYPE_CHECKING:
     from .connection_password_history_options import ConnectionPasswordHistoryOptions
     from .connection_password_no_personal_info_options import ConnectionPasswordNoPersonalInfoOptions
     from .connection_password_policy_enum import ConnectionPasswordPolicyEnum
+    from .connection_phone_otp_authentication_method import ConnectionPhoneOtpAuthenticationMethod
+    from .connection_ping_federate_base_url import ConnectionPingFederateBaseUrl
+    from .connection_ping_federate_base_url_ping_federate import ConnectionPingFederateBaseUrlPingFederate
     from .connection_profile import ConnectionProfile
     from .connection_profile_config import ConnectionProfileConfig
     from .connection_profile_enabled_features import ConnectionProfileEnabledFeatures
@@ -425,10 +527,15 @@ if typing.TYPE_CHECKING:
     from .connection_profile_template import ConnectionProfileTemplate
     from .connection_profile_template_item import ConnectionProfileTemplateItem
     from .connection_properties_options import ConnectionPropertiesOptions
-    from .connection_provisioning_ticket import ConnectionProvisioningTicket
+    from .connection_protocol_binding_enum_saml import ConnectionProtocolBindingEnumSaml
+    from .connection_protocol_binding_saml import ConnectionProtocolBindingSaml
+    from .connection_provider_enum_sms import ConnectionProviderEnumSms
+    from .connection_provider_sms import ConnectionProviderSms
     from .connection_provisioning_ticket_url import ConnectionProvisioningTicketUrl
+    from .connection_purposes import ConnectionPurposes
     from .connection_realm_fallback import ConnectionRealmFallback
     from .connection_realms import ConnectionRealms
+    from .connection_recipient_url_saml import ConnectionRecipientUrlSaml
     from .connection_registration_endpoint import ConnectionRegistrationEndpoint
     from .connection_request_object_encryption_alg_values_supported import (
         ConnectionRequestObjectEncryptionAlgValuesSupported,
@@ -438,78 +545,147 @@ if typing.TYPE_CHECKING:
     )
     from .connection_request_object_signing_alg_values_supported import ConnectionRequestObjectSigningAlgValuesSupported
     from .connection_request_parameter_supported import ConnectionRequestParameterSupported
+    from .connection_request_template_saml import ConnectionRequestTemplateSaml
     from .connection_request_uri_parameter_supported import ConnectionRequestUriParameterSupported
     from .connection_require_request_uri_registration import ConnectionRequireRequestUriRegistration
     from .connection_requires_username import ConnectionRequiresUsername
     from .connection_response_common import ConnectionResponseCommon
     from .connection_response_content_ad import ConnectionResponseContentAd
+    from .connection_response_content_ad_strategy import ConnectionResponseContentAdStrategy
     from .connection_response_content_adfs import ConnectionResponseContentAdfs
+    from .connection_response_content_adfs_strategy import ConnectionResponseContentAdfsStrategy
     from .connection_response_content_amazon import ConnectionResponseContentAmazon
+    from .connection_response_content_amazon_strategy import ConnectionResponseContentAmazonStrategy
     from .connection_response_content_aol import ConnectionResponseContentAol
+    from .connection_response_content_aol_strategy import ConnectionResponseContentAolStrategy
     from .connection_response_content_apple import ConnectionResponseContentApple
+    from .connection_response_content_apple_strategy import ConnectionResponseContentAppleStrategy
     from .connection_response_content_auth_0 import ConnectionResponseContentAuth0
     from .connection_response_content_auth_0_oidc import ConnectionResponseContentAuth0Oidc
+    from .connection_response_content_auth_0_oidc_strategy import ConnectionResponseContentAuth0OidcStrategy
+    from .connection_response_content_auth_0_strategy import ConnectionResponseContentAuth0Strategy
     from .connection_response_content_azure_ad import ConnectionResponseContentAzureAd
+    from .connection_response_content_azure_ad_strategy import ConnectionResponseContentAzureAdStrategy
     from .connection_response_content_baidu import ConnectionResponseContentBaidu
+    from .connection_response_content_baidu_strategy import ConnectionResponseContentBaiduStrategy
     from .connection_response_content_bitbucket import ConnectionResponseContentBitbucket
+    from .connection_response_content_bitbucket_strategy import ConnectionResponseContentBitbucketStrategy
     from .connection_response_content_bitly import ConnectionResponseContentBitly
+    from .connection_response_content_bitly_strategy import ConnectionResponseContentBitlyStrategy
     from .connection_response_content_box import ConnectionResponseContentBox
+    from .connection_response_content_box_strategy import ConnectionResponseContentBoxStrategy
     from .connection_response_content_custom import ConnectionResponseContentCustom
+    from .connection_response_content_custom_strategy import ConnectionResponseContentCustomStrategy
     from .connection_response_content_daccount import ConnectionResponseContentDaccount
+    from .connection_response_content_daccount_strategy import ConnectionResponseContentDaccountStrategy
     from .connection_response_content_dropbox import ConnectionResponseContentDropbox
+    from .connection_response_content_dropbox_strategy import ConnectionResponseContentDropboxStrategy
     from .connection_response_content_dwolla import ConnectionResponseContentDwolla
+    from .connection_response_content_dwolla_strategy import ConnectionResponseContentDwollaStrategy
     from .connection_response_content_email import ConnectionResponseContentEmail
+    from .connection_response_content_email_strategy import ConnectionResponseContentEmailStrategy
     from .connection_response_content_evernote import ConnectionResponseContentEvernote
     from .connection_response_content_evernote_sandbox import ConnectionResponseContentEvernoteSandbox
+    from .connection_response_content_evernote_sandbox_strategy import ConnectionResponseContentEvernoteSandboxStrategy
+    from .connection_response_content_evernote_strategy import ConnectionResponseContentEvernoteStrategy
     from .connection_response_content_exact import ConnectionResponseContentExact
+    from .connection_response_content_exact_strategy import ConnectionResponseContentExactStrategy
     from .connection_response_content_facebook import ConnectionResponseContentFacebook
+    from .connection_response_content_facebook_strategy import ConnectionResponseContentFacebookStrategy
     from .connection_response_content_fitbit import ConnectionResponseContentFitbit
+    from .connection_response_content_fitbit_strategy import ConnectionResponseContentFitbitStrategy
     from .connection_response_content_flickr import ConnectionResponseContentFlickr
+    from .connection_response_content_flickr_strategy import ConnectionResponseContentFlickrStrategy
     from .connection_response_content_git_hub import ConnectionResponseContentGitHub
+    from .connection_response_content_git_hub_strategy import ConnectionResponseContentGitHubStrategy
     from .connection_response_content_google_apps import ConnectionResponseContentGoogleApps
+    from .connection_response_content_google_apps_strategy import ConnectionResponseContentGoogleAppsStrategy
     from .connection_response_content_google_o_auth_2 import ConnectionResponseContentGoogleOAuth2
+    from .connection_response_content_google_o_auth_2_strategy import ConnectionResponseContentGoogleOAuth2Strategy
     from .connection_response_content_instagram import ConnectionResponseContentInstagram
+    from .connection_response_content_instagram_strategy import ConnectionResponseContentInstagramStrategy
     from .connection_response_content_ip import ConnectionResponseContentIp
+    from .connection_response_content_ip_strategy import ConnectionResponseContentIpStrategy
     from .connection_response_content_line import ConnectionResponseContentLine
+    from .connection_response_content_line_strategy import ConnectionResponseContentLineStrategy
     from .connection_response_content_linkedin import ConnectionResponseContentLinkedin
+    from .connection_response_content_linkedin_strategy import ConnectionResponseContentLinkedinStrategy
     from .connection_response_content_miicard import ConnectionResponseContentMiicard
+    from .connection_response_content_miicard_strategy import ConnectionResponseContentMiicardStrategy
     from .connection_response_content_o_auth_1 import ConnectionResponseContentOAuth1
+    from .connection_response_content_o_auth_1_strategy import ConnectionResponseContentOAuth1Strategy
     from .connection_response_content_o_auth_2 import ConnectionResponseContentOAuth2
+    from .connection_response_content_o_auth_2_strategy import ConnectionResponseContentOAuth2Strategy
     from .connection_response_content_office_365 import ConnectionResponseContentOffice365
+    from .connection_response_content_office_365_strategy import ConnectionResponseContentOffice365Strategy
     from .connection_response_content_oidc import ConnectionResponseContentOidc
+    from .connection_response_content_oidc_strategy import ConnectionResponseContentOidcStrategy
     from .connection_response_content_okta import ConnectionResponseContentOkta
+    from .connection_response_content_okta_strategy import ConnectionResponseContentOktaStrategy
     from .connection_response_content_paypal import ConnectionResponseContentPaypal
     from .connection_response_content_paypal_sandbox import ConnectionResponseContentPaypalSandbox
+    from .connection_response_content_paypal_sandbox_strategy import ConnectionResponseContentPaypalSandboxStrategy
+    from .connection_response_content_paypal_strategy import ConnectionResponseContentPaypalStrategy
     from .connection_response_content_ping_federate import ConnectionResponseContentPingFederate
+    from .connection_response_content_ping_federate_strategy import ConnectionResponseContentPingFederateStrategy
     from .connection_response_content_planning_center import ConnectionResponseContentPlanningCenter
+    from .connection_response_content_planning_center_strategy import ConnectionResponseContentPlanningCenterStrategy
     from .connection_response_content_renren import ConnectionResponseContentRenren
+    from .connection_response_content_renren_strategy import ConnectionResponseContentRenrenStrategy
     from .connection_response_content_salesforce import ConnectionResponseContentSalesforce
     from .connection_response_content_salesforce_community import ConnectionResponseContentSalesforceCommunity
+    from .connection_response_content_salesforce_community_strategy import (
+        ConnectionResponseContentSalesforceCommunityStrategy,
+    )
     from .connection_response_content_salesforce_sandbox import ConnectionResponseContentSalesforceSandbox
+    from .connection_response_content_salesforce_sandbox_strategy import (
+        ConnectionResponseContentSalesforceSandboxStrategy,
+    )
+    from .connection_response_content_salesforce_strategy import ConnectionResponseContentSalesforceStrategy
     from .connection_response_content_saml import ConnectionResponseContentSaml
+    from .connection_response_content_saml_strategy import ConnectionResponseContentSamlStrategy
     from .connection_response_content_sharepoint import ConnectionResponseContentSharepoint
+    from .connection_response_content_sharepoint_strategy import ConnectionResponseContentSharepointStrategy
     from .connection_response_content_shop import ConnectionResponseContentShop
+    from .connection_response_content_shop_strategy import ConnectionResponseContentShopStrategy
     from .connection_response_content_shopify import ConnectionResponseContentShopify
+    from .connection_response_content_shopify_strategy import ConnectionResponseContentShopifyStrategy
     from .connection_response_content_sms import ConnectionResponseContentSms
+    from .connection_response_content_sms_strategy import ConnectionResponseContentSmsStrategy
     from .connection_response_content_soundcloud import ConnectionResponseContentSoundcloud
-    from .connection_response_content_the_city import ConnectionResponseContentTheCity
-    from .connection_response_content_the_city_sandbox import ConnectionResponseContentTheCitySandbox
+    from .connection_response_content_soundcloud_strategy import ConnectionResponseContentSoundcloudStrategy
     from .connection_response_content_thirty_seven_signals import ConnectionResponseContentThirtySevenSignals
+    from .connection_response_content_thirty_seven_signals_strategy import (
+        ConnectionResponseContentThirtySevenSignalsStrategy,
+    )
     from .connection_response_content_twitter import ConnectionResponseContentTwitter
+    from .connection_response_content_twitter_strategy import ConnectionResponseContentTwitterStrategy
     from .connection_response_content_untappd import ConnectionResponseContentUntappd
+    from .connection_response_content_untappd_strategy import ConnectionResponseContentUntappdStrategy
     from .connection_response_content_vkontakte import ConnectionResponseContentVkontakte
+    from .connection_response_content_vkontakte_strategy import ConnectionResponseContentVkontakteStrategy
     from .connection_response_content_weibo import ConnectionResponseContentWeibo
+    from .connection_response_content_weibo_strategy import ConnectionResponseContentWeiboStrategy
     from .connection_response_content_windows_live import ConnectionResponseContentWindowsLive
+    from .connection_response_content_windows_live_strategy import ConnectionResponseContentWindowsLiveStrategy
     from .connection_response_content_wordpress import ConnectionResponseContentWordpress
+    from .connection_response_content_wordpress_strategy import ConnectionResponseContentWordpressStrategy
     from .connection_response_content_yahoo import ConnectionResponseContentYahoo
+    from .connection_response_content_yahoo_strategy import ConnectionResponseContentYahooStrategy
     from .connection_response_content_yammer import ConnectionResponseContentYammer
+    from .connection_response_content_yammer_strategy import ConnectionResponseContentYammerStrategy
     from .connection_response_content_yandex import ConnectionResponseContentYandex
+    from .connection_response_content_yandex_strategy import ConnectionResponseContentYandexStrategy
     from .connection_response_modes_supported import ConnectionResponseModesSupported
     from .connection_response_types_supported import ConnectionResponseTypesSupported
     from .connection_scope_array import ConnectionScopeArray
+    from .connection_scope_array_facebook import ConnectionScopeArrayFacebook
     from .connection_scope_azure_ad import ConnectionScopeAzureAd
+    from .connection_scope_facebook import ConnectionScopeFacebook
+    from .connection_scope_google_apps import ConnectionScopeGoogleApps
     from .connection_scope_google_o_auth_2 import ConnectionScopeGoogleOAuth2
     from .connection_scope_item import ConnectionScopeItem
+    from .connection_scope_item_google_apps import ConnectionScopeItemGoogleApps
     from .connection_scope_o_auth_2 import ConnectionScopeOAuth2
     from .connection_scope_oidc import ConnectionScopeOidc
     from .connection_scopes_supported import ConnectionScopesSupported
@@ -517,15 +693,37 @@ if typing.TYPE_CHECKING:
     from .connection_send_back_channel_nonce import ConnectionSendBackChannelNonce
     from .connection_service_documentation import ConnectionServiceDocumentation
     from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+    from .connection_sha_1_thumbprint import ConnectionSha1Thumbprint
     from .connection_should_trust_email_verified_connection_enum import ConnectionShouldTrustEmailVerifiedConnectionEnum
     from .connection_show_as_button import ConnectionShowAsButton
+    from .connection_sign_in_endpoint_ad import ConnectionSignInEndpointAd
+    from .connection_sign_in_endpoint_adfs import ConnectionSignInEndpointAdfs
+    from .connection_sign_in_endpoint_saml import ConnectionSignInEndpointSaml
+    from .connection_sign_out_endpoint_saml import ConnectionSignOutEndpointSaml
+    from .connection_sign_saml_request_saml import ConnectionSignSamlRequestSaml
+    from .connection_signature_algorithm_enum_saml import ConnectionSignatureAlgorithmEnumSaml
+    from .connection_signature_algorithm_saml import ConnectionSignatureAlgorithmSaml
+    from .connection_signing_cert_saml import ConnectionSigningCertSaml
+    from .connection_signing_certificate_der_saml import ConnectionSigningCertificateDerSaml
+    from .connection_signing_certificate_pem_ping_federate import ConnectionSigningCertificatePemPingFederate
+    from .connection_signing_certificate_pem_saml import ConnectionSigningCertificatePemSaml
+    from .connection_signing_key_saml import ConnectionSigningKeySaml
+    from .connection_signup_behavior_enum import ConnectionSignupBehaviorEnum
     from .connection_strategy_enum import ConnectionStrategyEnum
-    from .connection_strategy_version_enum_azure_ad import ConnectionStrategyVersionEnumAzureAd
+    from .connection_strategy_version_enum_linkedin import ConnectionStrategyVersionEnumLinkedin
+    from .connection_strategy_version_enum_windows_live import ConnectionStrategyVersionEnumWindowsLive
     from .connection_subject_types_supported import ConnectionSubjectTypesSupported
+    from .connection_template_sms import ConnectionTemplateSms
+    from .connection_template_syntax_enum_sms import ConnectionTemplateSyntaxEnumSms
     from .connection_tenant_domain import ConnectionTenantDomain
+    from .connection_tenant_domain_ad import ConnectionTenantDomainAd
     from .connection_tenant_domain_azure_ad_one import ConnectionTenantDomainAzureAdOne
+    from .connection_tenant_domain_google_apps import ConnectionTenantDomainGoogleApps
+    from .connection_tenant_domain_saml import ConnectionTenantDomainSaml
     from .connection_tenant_id_azure_ad import ConnectionTenantIdAzureAd
     from .connection_thumbprints import ConnectionThumbprints
+    from .connection_thumbprints_ad import ConnectionThumbprintsAd
+    from .connection_thumbprints_saml import ConnectionThumbprintsSaml
     from .connection_token_endpoint import ConnectionTokenEndpoint
     from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointAuthMethodEnum
     from .connection_token_endpoint_auth_methods_supported import ConnectionTokenEndpointAuthMethodsSupported
@@ -535,6 +733,16 @@ if typing.TYPE_CHECKING:
     )
     from .connection_token_endpoint_o_auth_2 import ConnectionTokenEndpointOAuth2
     from .connection_token_endpoint_oidc import ConnectionTokenEndpointOidc
+    from .connection_totp_email import ConnectionTotpEmail
+    from .connection_totp_length_email import ConnectionTotpLengthEmail
+    from .connection_totp_length_passwordless import ConnectionTotpLengthPasswordless
+    from .connection_totp_length_sms import ConnectionTotpLengthSms
+    from .connection_totp_sms import ConnectionTotpSms
+    from .connection_totp_time_step_email import ConnectionTotpTimeStepEmail
+    from .connection_totp_time_step_passwordless import ConnectionTotpTimeStepPasswordless
+    from .connection_totp_time_step_sms import ConnectionTotpTimeStepSms
+    from .connection_twilio_sid_sms import ConnectionTwilioSidSms
+    from .connection_twilio_token_sms import ConnectionTwilioTokenSms
     from .connection_type_enum_oidc import ConnectionTypeEnumOidc
     from .connection_type_enum_okta import ConnectionTypeEnumOkta
     from .connection_ui_locales_supported import ConnectionUiLocalesSupported
@@ -542,10 +750,11 @@ if typing.TYPE_CHECKING:
     from .connection_upstream_alias import ConnectionUpstreamAlias
     from .connection_upstream_alias_enum import ConnectionUpstreamAliasEnum
     from .connection_upstream_params import ConnectionUpstreamParams
-    from .connection_upstream_params_azure_ad import ConnectionUpstreamParamsAzureAd
-    from .connection_upstream_params_oidc import ConnectionUpstreamParamsOidc
+    from .connection_upstream_params_adfs import ConnectionUpstreamParamsAdfs
+    from .connection_upstream_params_facebook import ConnectionUpstreamParamsFacebook
     from .connection_upstream_value import ConnectionUpstreamValue
     from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
+    from .connection_user_id_attribute_saml import ConnectionUserIdAttributeSaml
     from .connection_userid_attribute_azure_ad import ConnectionUseridAttributeAzureAd
     from .connection_userid_attribute_enum_azure_ad import ConnectionUseridAttributeEnumAzureAd
     from .connection_userinfo_encryption_alg_values_supported import ConnectionUserinfoEncryptionAlgValuesSupported
@@ -558,77 +767,161 @@ if typing.TYPE_CHECKING:
     from .connection_waad_protocol import ConnectionWaadProtocol
     from .connection_waad_protocol_enum_azure_ad import ConnectionWaadProtocolEnumAzureAd
     from .connections_metadata import ConnectionsMetadata
+    from .create_action_module_response_content import CreateActionModuleResponseContent
+    from .create_action_module_version_response_content import CreateActionModuleVersionResponseContent
     from .create_action_response_content import CreateActionResponseContent
     from .create_branding_phone_provider_response_content import CreateBrandingPhoneProviderResponseContent
     from .create_branding_theme_response_content import CreateBrandingThemeResponseContent
+    from .create_client_authentication_method_self_signed_tls_client_auth import (
+        CreateClientAuthenticationMethodSelfSignedTlsClientAuth,
+    )
+    from .create_client_authentication_method_self_signed_tls_client_auth_credentials import (
+        CreateClientAuthenticationMethodSelfSignedTlsClientAuthCredentials,
+    )
     from .create_client_grant_response_content import CreateClientGrantResponseContent
     from .create_client_response_content import CreateClientResponseContent
     from .create_connection_common import CreateConnectionCommon
     from .create_connection_profile_response_content import CreateConnectionProfileResponseContent
     from .create_connection_request_content_ad import CreateConnectionRequestContentAd
+    from .create_connection_request_content_ad_strategy import CreateConnectionRequestContentAdStrategy
     from .create_connection_request_content_adfs import CreateConnectionRequestContentAdfs
+    from .create_connection_request_content_adfs_strategy import CreateConnectionRequestContentAdfsStrategy
     from .create_connection_request_content_amazon import CreateConnectionRequestContentAmazon
+    from .create_connection_request_content_amazon_strategy import CreateConnectionRequestContentAmazonStrategy
     from .create_connection_request_content_aol import CreateConnectionRequestContentAol
+    from .create_connection_request_content_aol_strategy import CreateConnectionRequestContentAolStrategy
     from .create_connection_request_content_apple import CreateConnectionRequestContentApple
+    from .create_connection_request_content_apple_strategy import CreateConnectionRequestContentAppleStrategy
     from .create_connection_request_content_auth_0 import CreateConnectionRequestContentAuth0
     from .create_connection_request_content_auth_0_oidc import CreateConnectionRequestContentAuth0Oidc
+    from .create_connection_request_content_auth_0_oidc_strategy import CreateConnectionRequestContentAuth0OidcStrategy
+    from .create_connection_request_content_auth_0_strategy import CreateConnectionRequestContentAuth0Strategy
     from .create_connection_request_content_azure_ad import CreateConnectionRequestContentAzureAd
+    from .create_connection_request_content_azure_ad_strategy import CreateConnectionRequestContentAzureAdStrategy
     from .create_connection_request_content_baidu import CreateConnectionRequestContentBaidu
+    from .create_connection_request_content_baidu_strategy import CreateConnectionRequestContentBaiduStrategy
     from .create_connection_request_content_bitbucket import CreateConnectionRequestContentBitbucket
+    from .create_connection_request_content_bitbucket_strategy import CreateConnectionRequestContentBitbucketStrategy
     from .create_connection_request_content_bitly import CreateConnectionRequestContentBitly
+    from .create_connection_request_content_bitly_strategy import CreateConnectionRequestContentBitlyStrategy
     from .create_connection_request_content_box import CreateConnectionRequestContentBox
+    from .create_connection_request_content_box_strategy import CreateConnectionRequestContentBoxStrategy
     from .create_connection_request_content_custom import CreateConnectionRequestContentCustom
+    from .create_connection_request_content_custom_strategy import CreateConnectionRequestContentCustomStrategy
     from .create_connection_request_content_daccount import CreateConnectionRequestContentDaccount
+    from .create_connection_request_content_daccount_strategy import CreateConnectionRequestContentDaccountStrategy
     from .create_connection_request_content_dropbox import CreateConnectionRequestContentDropbox
+    from .create_connection_request_content_dropbox_strategy import CreateConnectionRequestContentDropboxStrategy
     from .create_connection_request_content_dwolla import CreateConnectionRequestContentDwolla
+    from .create_connection_request_content_dwolla_strategy import CreateConnectionRequestContentDwollaStrategy
     from .create_connection_request_content_email import CreateConnectionRequestContentEmail
+    from .create_connection_request_content_email_strategy import CreateConnectionRequestContentEmailStrategy
     from .create_connection_request_content_evernote import CreateConnectionRequestContentEvernote
     from .create_connection_request_content_evernote_sandbox import CreateConnectionRequestContentEvernoteSandbox
+    from .create_connection_request_content_evernote_sandbox_strategy import (
+        CreateConnectionRequestContentEvernoteSandboxStrategy,
+    )
+    from .create_connection_request_content_evernote_strategy import CreateConnectionRequestContentEvernoteStrategy
     from .create_connection_request_content_exact import CreateConnectionRequestContentExact
+    from .create_connection_request_content_exact_strategy import CreateConnectionRequestContentExactStrategy
     from .create_connection_request_content_facebook import CreateConnectionRequestContentFacebook
+    from .create_connection_request_content_facebook_strategy import CreateConnectionRequestContentFacebookStrategy
     from .create_connection_request_content_fitbit import CreateConnectionRequestContentFitbit
+    from .create_connection_request_content_fitbit_strategy import CreateConnectionRequestContentFitbitStrategy
     from .create_connection_request_content_flickr import CreateConnectionRequestContentFlickr
+    from .create_connection_request_content_flickr_strategy import CreateConnectionRequestContentFlickrStrategy
     from .create_connection_request_content_git_hub import CreateConnectionRequestContentGitHub
+    from .create_connection_request_content_git_hub_strategy import CreateConnectionRequestContentGitHubStrategy
     from .create_connection_request_content_google_apps import CreateConnectionRequestContentGoogleApps
+    from .create_connection_request_content_google_apps_strategy import CreateConnectionRequestContentGoogleAppsStrategy
     from .create_connection_request_content_google_o_auth_2 import CreateConnectionRequestContentGoogleOAuth2
+    from .create_connection_request_content_google_o_auth_2_strategy import (
+        CreateConnectionRequestContentGoogleOAuth2Strategy,
+    )
     from .create_connection_request_content_instagram import CreateConnectionRequestContentInstagram
+    from .create_connection_request_content_instagram_strategy import CreateConnectionRequestContentInstagramStrategy
     from .create_connection_request_content_ip import CreateConnectionRequestContentIp
+    from .create_connection_request_content_ip_strategy import CreateConnectionRequestContentIpStrategy
     from .create_connection_request_content_line import CreateConnectionRequestContentLine
+    from .create_connection_request_content_line_strategy import CreateConnectionRequestContentLineStrategy
     from .create_connection_request_content_linkedin import CreateConnectionRequestContentLinkedin
+    from .create_connection_request_content_linkedin_strategy import CreateConnectionRequestContentLinkedinStrategy
     from .create_connection_request_content_miicard import CreateConnectionRequestContentMiicard
+    from .create_connection_request_content_miicard_strategy import CreateConnectionRequestContentMiicardStrategy
     from .create_connection_request_content_o_auth_1 import CreateConnectionRequestContentOAuth1
+    from .create_connection_request_content_o_auth_1_strategy import CreateConnectionRequestContentOAuth1Strategy
     from .create_connection_request_content_o_auth_2 import CreateConnectionRequestContentOAuth2
+    from .create_connection_request_content_o_auth_2_strategy import CreateConnectionRequestContentOAuth2Strategy
     from .create_connection_request_content_office_365 import CreateConnectionRequestContentOffice365
+    from .create_connection_request_content_office_365_strategy import CreateConnectionRequestContentOffice365Strategy
     from .create_connection_request_content_oidc import CreateConnectionRequestContentOidc
+    from .create_connection_request_content_oidc_strategy import CreateConnectionRequestContentOidcStrategy
     from .create_connection_request_content_okta import CreateConnectionRequestContentOkta
+    from .create_connection_request_content_okta_strategy import CreateConnectionRequestContentOktaStrategy
     from .create_connection_request_content_paypal import CreateConnectionRequestContentPaypal
     from .create_connection_request_content_paypal_sandbox import CreateConnectionRequestContentPaypalSandbox
+    from .create_connection_request_content_paypal_sandbox_strategy import (
+        CreateConnectionRequestContentPaypalSandboxStrategy,
+    )
+    from .create_connection_request_content_paypal_strategy import CreateConnectionRequestContentPaypalStrategy
     from .create_connection_request_content_ping_federate import CreateConnectionRequestContentPingFederate
+    from .create_connection_request_content_ping_federate_strategy import (
+        CreateConnectionRequestContentPingFederateStrategy,
+    )
     from .create_connection_request_content_planning_center import CreateConnectionRequestContentPlanningCenter
+    from .create_connection_request_content_planning_center_strategy import (
+        CreateConnectionRequestContentPlanningCenterStrategy,
+    )
     from .create_connection_request_content_renren import CreateConnectionRequestContentRenren
+    from .create_connection_request_content_renren_strategy import CreateConnectionRequestContentRenrenStrategy
     from .create_connection_request_content_salesforce import CreateConnectionRequestContentSalesforce
     from .create_connection_request_content_salesforce_community import (
         CreateConnectionRequestContentSalesforceCommunity,
     )
+    from .create_connection_request_content_salesforce_community_strategy import (
+        CreateConnectionRequestContentSalesforceCommunityStrategy,
+    )
     from .create_connection_request_content_salesforce_sandbox import CreateConnectionRequestContentSalesforceSandbox
+    from .create_connection_request_content_salesforce_sandbox_strategy import (
+        CreateConnectionRequestContentSalesforceSandboxStrategy,
+    )
+    from .create_connection_request_content_salesforce_strategy import CreateConnectionRequestContentSalesforceStrategy
     from .create_connection_request_content_saml import CreateConnectionRequestContentSaml
+    from .create_connection_request_content_saml_strategy import CreateConnectionRequestContentSamlStrategy
     from .create_connection_request_content_sharepoint import CreateConnectionRequestContentSharepoint
+    from .create_connection_request_content_sharepoint_strategy import CreateConnectionRequestContentSharepointStrategy
     from .create_connection_request_content_shop import CreateConnectionRequestContentShop
+    from .create_connection_request_content_shop_strategy import CreateConnectionRequestContentShopStrategy
     from .create_connection_request_content_shopify import CreateConnectionRequestContentShopify
+    from .create_connection_request_content_shopify_strategy import CreateConnectionRequestContentShopifyStrategy
     from .create_connection_request_content_sms import CreateConnectionRequestContentSms
+    from .create_connection_request_content_sms_strategy import CreateConnectionRequestContentSmsStrategy
     from .create_connection_request_content_soundcloud import CreateConnectionRequestContentSoundcloud
-    from .create_connection_request_content_the_city import CreateConnectionRequestContentTheCity
-    from .create_connection_request_content_the_city_sandbox import CreateConnectionRequestContentTheCitySandbox
+    from .create_connection_request_content_soundcloud_strategy import CreateConnectionRequestContentSoundcloudStrategy
     from .create_connection_request_content_thirty_seven_signals import CreateConnectionRequestContentThirtySevenSignals
+    from .create_connection_request_content_thirty_seven_signals_strategy import (
+        CreateConnectionRequestContentThirtySevenSignalsStrategy,
+    )
     from .create_connection_request_content_twitter import CreateConnectionRequestContentTwitter
+    from .create_connection_request_content_twitter_strategy import CreateConnectionRequestContentTwitterStrategy
     from .create_connection_request_content_untappd import CreateConnectionRequestContentUntappd
+    from .create_connection_request_content_untappd_strategy import CreateConnectionRequestContentUntappdStrategy
     from .create_connection_request_content_vkontakte import CreateConnectionRequestContentVkontakte
+    from .create_connection_request_content_vkontakte_strategy import CreateConnectionRequestContentVkontakteStrategy
     from .create_connection_request_content_weibo import CreateConnectionRequestContentWeibo
+    from .create_connection_request_content_weibo_strategy import CreateConnectionRequestContentWeiboStrategy
     from .create_connection_request_content_windows_live import CreateConnectionRequestContentWindowsLive
+    from .create_connection_request_content_windows_live_strategy import (
+        CreateConnectionRequestContentWindowsLiveStrategy,
+    )
     from .create_connection_request_content_wordpress import CreateConnectionRequestContentWordpress
+    from .create_connection_request_content_wordpress_strategy import CreateConnectionRequestContentWordpressStrategy
     from .create_connection_request_content_yahoo import CreateConnectionRequestContentYahoo
+    from .create_connection_request_content_yahoo_strategy import CreateConnectionRequestContentYahooStrategy
     from .create_connection_request_content_yammer import CreateConnectionRequestContentYammer
+    from .create_connection_request_content_yammer_strategy import CreateConnectionRequestContentYammerStrategy
     from .create_connection_request_content_yandex import CreateConnectionRequestContentYandex
+    from .create_connection_request_content_yandex_strategy import CreateConnectionRequestContentYandexStrategy
     from .create_connection_response_content import CreateConnectionResponseContent
     from .create_custom_domain_response_content import CreateCustomDomainResponseContent
     from .create_directory_provisioning_request_content import CreateDirectoryProvisioningRequestContent
@@ -674,7 +967,12 @@ if typing.TYPE_CHECKING:
         CreateFlowsVaultConnectionGoogleSheetsUninitialized,
     )
     from .create_flows_vault_connection_http import CreateFlowsVaultConnectionHttp
+    from .create_flows_vault_connection_http_api_key import CreateFlowsVaultConnectionHttpApiKey
+    from .create_flows_vault_connection_http_basic_auth import CreateFlowsVaultConnectionHttpBasicAuth
     from .create_flows_vault_connection_http_bearer import CreateFlowsVaultConnectionHttpBearer
+    from .create_flows_vault_connection_http_oauth_client_credentials import (
+        CreateFlowsVaultConnectionHttpOauthClientCredentials,
+    )
     from .create_flows_vault_connection_http_uninitialized import CreateFlowsVaultConnectionHttpUninitialized
     from .create_flows_vault_connection_hubspot import CreateFlowsVaultConnectionHubspot
     from .create_flows_vault_connection_hubspot_api_key import CreateFlowsVaultConnectionHubspotApiKey
@@ -788,17 +1086,18 @@ if typing.TYPE_CHECKING:
     from .custom_signing_key_type_enum import CustomSigningKeyTypeEnum
     from .custom_signing_key_use_enum import CustomSigningKeyUseEnum
     from .daily_stats import DailyStats
+    from .default_method_email_identifier_enum import DefaultMethodEmailIdentifierEnum
     from .default_token_quota import DefaultTokenQuota
     from .delete_hook_secret_request_content import DeleteHookSecretRequestContent
     from .delete_user_identity_response_content import DeleteUserIdentityResponseContent
     from .delete_user_identity_response_content_item import DeleteUserIdentityResponseContentItem
     from .deploy_action_response_content import DeployActionResponseContent
-    from .deploy_action_version_request_body_params import DeployActionVersionRequestBodyParams
     from .deploy_action_version_request_content import DeployActionVersionRequestContent
     from .deploy_action_version_response_content import DeployActionVersionResponseContent
     from .device_credential import DeviceCredential
     from .device_credential_public_key_type_enum import DeviceCredentialPublicKeyTypeEnum
     from .device_credential_type_enum import DeviceCredentialTypeEnum
+    from .directory_provisioning import DirectoryProvisioning
     from .directory_provisioning_mapping_item import DirectoryProvisioningMappingItem
     from .domain_certificate import DomainCertificate
     from .domain_certificate_authority_enum import DomainCertificateAuthorityEnum
@@ -868,33 +1167,55 @@ if typing.TYPE_CHECKING:
     from .flow_action import FlowAction
     from .flow_action_activecampaign import FlowActionActivecampaign
     from .flow_action_activecampaign_list_contacts import FlowActionActivecampaignListContacts
+    from .flow_action_activecampaign_list_contacts_action import FlowActionActivecampaignListContactsAction
     from .flow_action_activecampaign_list_contacts_params import FlowActionActivecampaignListContactsParams
+    from .flow_action_activecampaign_list_contacts_type import FlowActionActivecampaignListContactsType
     from .flow_action_activecampaign_upsert_contact import FlowActionActivecampaignUpsertContact
+    from .flow_action_activecampaign_upsert_contact_action import FlowActionActivecampaignUpsertContactAction
     from .flow_action_activecampaign_upsert_contact_params import FlowActionActivecampaignUpsertContactParams
     from .flow_action_activecampaign_upsert_contact_params_custom_fields import (
         FlowActionActivecampaignUpsertContactParamsCustomFields,
     )
+    from .flow_action_activecampaign_upsert_contact_type import FlowActionActivecampaignUpsertContactType
     from .flow_action_airtable import FlowActionAirtable
     from .flow_action_airtable_create_record import FlowActionAirtableCreateRecord
+    from .flow_action_airtable_create_record_action import FlowActionAirtableCreateRecordAction
     from .flow_action_airtable_create_record_params import FlowActionAirtableCreateRecordParams
     from .flow_action_airtable_create_record_params_fields import FlowActionAirtableCreateRecordParamsFields
+    from .flow_action_airtable_create_record_type import FlowActionAirtableCreateRecordType
     from .flow_action_airtable_list_records import FlowActionAirtableListRecords
+    from .flow_action_airtable_list_records_action import FlowActionAirtableListRecordsAction
     from .flow_action_airtable_list_records_params import FlowActionAirtableListRecordsParams
+    from .flow_action_airtable_list_records_type import FlowActionAirtableListRecordsType
     from .flow_action_airtable_update_record import FlowActionAirtableUpdateRecord
+    from .flow_action_airtable_update_record_action import FlowActionAirtableUpdateRecordAction
     from .flow_action_airtable_update_record_params import FlowActionAirtableUpdateRecordParams
     from .flow_action_airtable_update_record_params_fields import FlowActionAirtableUpdateRecordParamsFields
+    from .flow_action_airtable_update_record_type import FlowActionAirtableUpdateRecordType
     from .flow_action_auth_0 import FlowActionAuth0
     from .flow_action_auth_0_create_user import FlowActionAuth0CreateUser
+    from .flow_action_auth_0_create_user_action import FlowActionAuth0CreateUserAction
     from .flow_action_auth_0_create_user_params import FlowActionAuth0CreateUserParams
     from .flow_action_auth_0_create_user_params_payload import FlowActionAuth0CreateUserParamsPayload
+    from .flow_action_auth_0_create_user_type import FlowActionAuth0CreateUserType
     from .flow_action_auth_0_get_user import FlowActionAuth0GetUser
+    from .flow_action_auth_0_get_user_action import FlowActionAuth0GetUserAction
     from .flow_action_auth_0_get_user_params import FlowActionAuth0GetUserParams
+    from .flow_action_auth_0_get_user_type import FlowActionAuth0GetUserType
+    from .flow_action_auth_0_make_call import FlowActionAuth0MakeCall
+    from .flow_action_auth_0_make_call_action import FlowActionAuth0MakeCallAction
+    from .flow_action_auth_0_make_call_params import FlowActionAuth0MakeCallParams
+    from .flow_action_auth_0_make_call_params_custom_vars import FlowActionAuth0MakeCallParamsCustomVars
+    from .flow_action_auth_0_make_call_type import FlowActionAuth0MakeCallType
     from .flow_action_auth_0_send_email import FlowActionAuth0SendEmail
+    from .flow_action_auth_0_send_email_action import FlowActionAuth0SendEmailAction
     from .flow_action_auth_0_send_email_params import FlowActionAuth0SendEmailParams
     from .flow_action_auth_0_send_email_params_from import FlowActionAuth0SendEmailParamsFrom
     from .flow_action_auth_0_send_email_params_from_email import FlowActionAuth0SendEmailParamsFromEmail
     from .flow_action_auth_0_send_email_params_to import FlowActionAuth0SendEmailParamsTo
+    from .flow_action_auth_0_send_email_type import FlowActionAuth0SendEmailType
     from .flow_action_auth_0_send_request import FlowActionAuth0SendRequest
+    from .flow_action_auth_0_send_request_action import FlowActionAuth0SendRequestAction
     from .flow_action_auth_0_send_request_params import FlowActionAuth0SendRequestParams
     from .flow_action_auth_0_send_request_params_custom_vars import FlowActionAuth0SendRequestParamsCustomVars
     from .flow_action_auth_0_send_request_params_headers import FlowActionAuth0SendRequestParamsHeaders
@@ -905,53 +1226,86 @@ if typing.TYPE_CHECKING:
     from .flow_action_auth_0_send_request_params_query_params_value import (
         FlowActionAuth0SendRequestParamsQueryParamsValue,
     )
+    from .flow_action_auth_0_send_request_type import FlowActionAuth0SendRequestType
+    from .flow_action_auth_0_send_sms import FlowActionAuth0SendSms
+    from .flow_action_auth_0_send_sms_action import FlowActionAuth0SendSmsAction
+    from .flow_action_auth_0_send_sms_params import FlowActionAuth0SendSmsParams
+    from .flow_action_auth_0_send_sms_params_custom_vars import FlowActionAuth0SendSmsParamsCustomVars
+    from .flow_action_auth_0_send_sms_type import FlowActionAuth0SendSmsType
     from .flow_action_auth_0_update_user import FlowActionAuth0UpdateUser
+    from .flow_action_auth_0_update_user_action import FlowActionAuth0UpdateUserAction
     from .flow_action_auth_0_update_user_params import FlowActionAuth0UpdateUserParams
     from .flow_action_auth_0_update_user_params_changes import FlowActionAuth0UpdateUserParamsChanges
+    from .flow_action_auth_0_update_user_type import FlowActionAuth0UpdateUserType
     from .flow_action_bigquery import FlowActionBigquery
     from .flow_action_bigquery_insert_rows import FlowActionBigqueryInsertRows
+    from .flow_action_bigquery_insert_rows_action import FlowActionBigqueryInsertRowsAction
     from .flow_action_bigquery_insert_rows_params import FlowActionBigqueryInsertRowsParams
     from .flow_action_bigquery_insert_rows_params_data import FlowActionBigqueryInsertRowsParamsData
+    from .flow_action_bigquery_insert_rows_type import FlowActionBigqueryInsertRowsType
     from .flow_action_clearbit import FlowActionClearbit
     from .flow_action_clearbit_find_company import FlowActionClearbitFindCompany
+    from .flow_action_clearbit_find_company_action import FlowActionClearbitFindCompanyAction
     from .flow_action_clearbit_find_company_params import FlowActionClearbitFindCompanyParams
+    from .flow_action_clearbit_find_company_type import FlowActionClearbitFindCompanyType
     from .flow_action_clearbit_find_person import FlowActionClearbitFindPerson
+    from .flow_action_clearbit_find_person_action import FlowActionClearbitFindPersonAction
     from .flow_action_clearbit_find_person_params import FlowActionClearbitFindPersonParams
+    from .flow_action_clearbit_find_person_type import FlowActionClearbitFindPersonType
     from .flow_action_email import FlowActionEmail
     from .flow_action_email_verify_email import FlowActionEmailVerifyEmail
+    from .flow_action_email_verify_email_action import FlowActionEmailVerifyEmailAction
     from .flow_action_email_verify_email_params import FlowActionEmailVerifyEmailParams
     from .flow_action_email_verify_email_params_rules import FlowActionEmailVerifyEmailParamsRules
+    from .flow_action_email_verify_email_type import FlowActionEmailVerifyEmailType
     from .flow_action_flow import FlowActionFlow
     from .flow_action_flow_boolean_condition import FlowActionFlowBooleanCondition
+    from .flow_action_flow_boolean_condition_action import FlowActionFlowBooleanConditionAction
     from .flow_action_flow_boolean_condition_params import FlowActionFlowBooleanConditionParams
+    from .flow_action_flow_boolean_condition_type import FlowActionFlowBooleanConditionType
     from .flow_action_flow_delay_flow import FlowActionFlowDelayFlow
+    from .flow_action_flow_delay_flow_action import FlowActionFlowDelayFlowAction
     from .flow_action_flow_delay_flow_params import FlowActionFlowDelayFlowParams
     from .flow_action_flow_delay_flow_params_number import FlowActionFlowDelayFlowParamsNumber
     from .flow_action_flow_delay_flow_params_units import FlowActionFlowDelayFlowParamsUnits
+    from .flow_action_flow_delay_flow_type import FlowActionFlowDelayFlowType
     from .flow_action_flow_do_nothing import FlowActionFlowDoNothing
+    from .flow_action_flow_do_nothing_action import FlowActionFlowDoNothingAction
     from .flow_action_flow_do_nothing_params import FlowActionFlowDoNothingParams
+    from .flow_action_flow_do_nothing_type import FlowActionFlowDoNothingType
     from .flow_action_flow_error_message import FlowActionFlowErrorMessage
+    from .flow_action_flow_error_message_action import FlowActionFlowErrorMessageAction
     from .flow_action_flow_error_message_params import FlowActionFlowErrorMessageParams
+    from .flow_action_flow_error_message_type import FlowActionFlowErrorMessageType
     from .flow_action_flow_map_value import FlowActionFlowMapValue
+    from .flow_action_flow_map_value_action import FlowActionFlowMapValueAction
     from .flow_action_flow_map_value_params import FlowActionFlowMapValueParams
     from .flow_action_flow_map_value_params_cases import FlowActionFlowMapValueParamsCases
     from .flow_action_flow_map_value_params_fallback import FlowActionFlowMapValueParamsFallback
     from .flow_action_flow_map_value_params_fallback_object import FlowActionFlowMapValueParamsFallbackObject
     from .flow_action_flow_map_value_params_input import FlowActionFlowMapValueParamsInput
+    from .flow_action_flow_map_value_type import FlowActionFlowMapValueType
     from .flow_action_flow_return_json import FlowActionFlowReturnJson
+    from .flow_action_flow_return_json_action import FlowActionFlowReturnJsonAction
     from .flow_action_flow_return_json_params import FlowActionFlowReturnJsonParams
     from .flow_action_flow_return_json_params_payload import FlowActionFlowReturnJsonParamsPayload
     from .flow_action_flow_return_json_params_payload_object import FlowActionFlowReturnJsonParamsPayloadObject
+    from .flow_action_flow_return_json_type import FlowActionFlowReturnJsonType
     from .flow_action_flow_store_vars import FlowActionFlowStoreVars
+    from .flow_action_flow_store_vars_action import FlowActionFlowStoreVarsAction
     from .flow_action_flow_store_vars_params import FlowActionFlowStoreVarsParams
     from .flow_action_flow_store_vars_params_vars import FlowActionFlowStoreVarsParamsVars
+    from .flow_action_flow_store_vars_type import FlowActionFlowStoreVarsType
     from .flow_action_google_sheets import FlowActionGoogleSheets
     from .flow_action_google_sheets_add_row import FlowActionGoogleSheetsAddRow
+    from .flow_action_google_sheets_add_row_action import FlowActionGoogleSheetsAddRowAction
     from .flow_action_google_sheets_add_row_params import FlowActionGoogleSheetsAddRowParams
     from .flow_action_google_sheets_add_row_params_sheet_id import FlowActionGoogleSheetsAddRowParamsSheetId
     from .flow_action_google_sheets_add_row_params_values import FlowActionGoogleSheetsAddRowParamsValues
+    from .flow_action_google_sheets_add_row_type import FlowActionGoogleSheetsAddRowType
     from .flow_action_http import FlowActionHttp
     from .flow_action_http_send_request import FlowActionHttpSendRequest
+    from .flow_action_http_send_request_action import FlowActionHttpSendRequestAction
     from .flow_action_http_send_request_params import FlowActionHttpSendRequestParams
     from .flow_action_http_send_request_params_basic_auth import FlowActionHttpSendRequestParamsBasicAuth
     from .flow_action_http_send_request_params_content_type import FlowActionHttpSendRequestParamsContentType
@@ -961,139 +1315,212 @@ if typing.TYPE_CHECKING:
     from .flow_action_http_send_request_params_payload_object import FlowActionHttpSendRequestParamsPayloadObject
     from .flow_action_http_send_request_params_query_params import FlowActionHttpSendRequestParamsQueryParams
     from .flow_action_http_send_request_params_query_params_value import FlowActionHttpSendRequestParamsQueryParamsValue
+    from .flow_action_http_send_request_type import FlowActionHttpSendRequestType
     from .flow_action_hubspot import FlowActionHubspot
     from .flow_action_hubspot_enroll_contact import FlowActionHubspotEnrollContact
+    from .flow_action_hubspot_enroll_contact_action import FlowActionHubspotEnrollContactAction
     from .flow_action_hubspot_enroll_contact_params import FlowActionHubspotEnrollContactParams
     from .flow_action_hubspot_enroll_contact_params_workflow_id import FlowActionHubspotEnrollContactParamsWorkflowId
+    from .flow_action_hubspot_enroll_contact_type import FlowActionHubspotEnrollContactType
     from .flow_action_hubspot_get_contact import FlowActionHubspotGetContact
+    from .flow_action_hubspot_get_contact_action import FlowActionHubspotGetContactAction
     from .flow_action_hubspot_get_contact_params import FlowActionHubspotGetContactParams
+    from .flow_action_hubspot_get_contact_type import FlowActionHubspotGetContactType
     from .flow_action_hubspot_upsert_contact import FlowActionHubspotUpsertContact
+    from .flow_action_hubspot_upsert_contact_action import FlowActionHubspotUpsertContactAction
     from .flow_action_hubspot_upsert_contact_params import FlowActionHubspotUpsertContactParams
     from .flow_action_hubspot_upsert_contact_params_property import FlowActionHubspotUpsertContactParamsProperty
+    from .flow_action_hubspot_upsert_contact_type import FlowActionHubspotUpsertContactType
     from .flow_action_json import FlowActionJson
     from .flow_action_json_create_json import FlowActionJsonCreateJson
+    from .flow_action_json_create_json_action import FlowActionJsonCreateJsonAction
     from .flow_action_json_create_json_params import FlowActionJsonCreateJsonParams
     from .flow_action_json_create_json_params_object import FlowActionJsonCreateJsonParamsObject
+    from .flow_action_json_create_json_type import FlowActionJsonCreateJsonType
     from .flow_action_json_parse_json import FlowActionJsonParseJson
+    from .flow_action_json_parse_json_action import FlowActionJsonParseJsonAction
     from .flow_action_json_parse_json_params import FlowActionJsonParseJsonParams
+    from .flow_action_json_parse_json_type import FlowActionJsonParseJsonType
     from .flow_action_json_serialize_json import FlowActionJsonSerializeJson
+    from .flow_action_json_serialize_json_action import FlowActionJsonSerializeJsonAction
     from .flow_action_json_serialize_json_params import FlowActionJsonSerializeJsonParams
     from .flow_action_json_serialize_json_params_object import FlowActionJsonSerializeJsonParamsObject
     from .flow_action_json_serialize_json_params_object_object import FlowActionJsonSerializeJsonParamsObjectObject
+    from .flow_action_json_serialize_json_type import FlowActionJsonSerializeJsonType
     from .flow_action_jwt import FlowActionJwt
     from .flow_action_jwt_decode_jwt import FlowActionJwtDecodeJwt
+    from .flow_action_jwt_decode_jwt_action import FlowActionJwtDecodeJwtAction
     from .flow_action_jwt_decode_jwt_params import FlowActionJwtDecodeJwtParams
+    from .flow_action_jwt_decode_jwt_type import FlowActionJwtDecodeJwtType
     from .flow_action_jwt_sign_jwt import FlowActionJwtSignJwt
+    from .flow_action_jwt_sign_jwt_action import FlowActionJwtSignJwtAction
     from .flow_action_jwt_sign_jwt_params import FlowActionJwtSignJwtParams
     from .flow_action_jwt_sign_jwt_params_payload import FlowActionJwtSignJwtParamsPayload
+    from .flow_action_jwt_sign_jwt_type import FlowActionJwtSignJwtType
     from .flow_action_jwt_verify_jwt import FlowActionJwtVerifyJwt
+    from .flow_action_jwt_verify_jwt_action import FlowActionJwtVerifyJwtAction
     from .flow_action_jwt_verify_jwt_params import FlowActionJwtVerifyJwtParams
+    from .flow_action_jwt_verify_jwt_type import FlowActionJwtVerifyJwtType
     from .flow_action_mailchimp import FlowActionMailchimp
     from .flow_action_mailchimp_upsert_member import FlowActionMailchimpUpsertMember
+    from .flow_action_mailchimp_upsert_member_action import FlowActionMailchimpUpsertMemberAction
     from .flow_action_mailchimp_upsert_member_params import FlowActionMailchimpUpsertMemberParams
     from .flow_action_mailchimp_upsert_member_params_member import FlowActionMailchimpUpsertMemberParamsMember
     from .flow_action_mailchimp_upsert_member_params_member_merge_fields import (
         FlowActionMailchimpUpsertMemberParamsMemberMergeFields,
     )
+    from .flow_action_mailchimp_upsert_member_type import FlowActionMailchimpUpsertMemberType
     from .flow_action_mailjet import FlowActionMailjet
     from .flow_action_mailjet_send_email import FlowActionMailjetSendEmail
+    from .flow_action_mailjet_send_email_action import FlowActionMailjetSendEmailAction
     from .flow_action_mailjet_send_email_params import FlowActionMailjetSendEmailParams
     from .flow_action_mailjet_send_email_params_content import FlowActionMailjetSendEmailParamsContent
     from .flow_action_mailjet_send_email_params_template_id import FlowActionMailjetSendEmailParamsTemplateId
+    from .flow_action_mailjet_send_email_type import FlowActionMailjetSendEmailType
     from .flow_action_otp import FlowActionOtp
     from .flow_action_otp_generate_code import FlowActionOtpGenerateCode
+    from .flow_action_otp_generate_code_action import FlowActionOtpGenerateCodeAction
     from .flow_action_otp_generate_code_params import FlowActionOtpGenerateCodeParams
+    from .flow_action_otp_generate_code_type import FlowActionOtpGenerateCodeType
     from .flow_action_otp_verify_code import FlowActionOtpVerifyCode
+    from .flow_action_otp_verify_code_action import FlowActionOtpVerifyCodeAction
     from .flow_action_otp_verify_code_params import FlowActionOtpVerifyCodeParams
     from .flow_action_otp_verify_code_params_code import FlowActionOtpVerifyCodeParamsCode
+    from .flow_action_otp_verify_code_type import FlowActionOtpVerifyCodeType
     from .flow_action_pipedrive import FlowActionPipedrive
     from .flow_action_pipedrive_add_deal import FlowActionPipedriveAddDeal
+    from .flow_action_pipedrive_add_deal_action import FlowActionPipedriveAddDealAction
     from .flow_action_pipedrive_add_deal_params import FlowActionPipedriveAddDealParams
     from .flow_action_pipedrive_add_deal_params_fields import FlowActionPipedriveAddDealParamsFields
     from .flow_action_pipedrive_add_deal_params_organization_id import FlowActionPipedriveAddDealParamsOrganizationId
     from .flow_action_pipedrive_add_deal_params_person_id import FlowActionPipedriveAddDealParamsPersonId
     from .flow_action_pipedrive_add_deal_params_stage_id import FlowActionPipedriveAddDealParamsStageId
     from .flow_action_pipedrive_add_deal_params_user_id import FlowActionPipedriveAddDealParamsUserId
+    from .flow_action_pipedrive_add_deal_type import FlowActionPipedriveAddDealType
     from .flow_action_pipedrive_add_organization import FlowActionPipedriveAddOrganization
+    from .flow_action_pipedrive_add_organization_action import FlowActionPipedriveAddOrganizationAction
     from .flow_action_pipedrive_add_organization_params import FlowActionPipedriveAddOrganizationParams
     from .flow_action_pipedrive_add_organization_params_fields import FlowActionPipedriveAddOrganizationParamsFields
     from .flow_action_pipedrive_add_organization_params_owner_id import FlowActionPipedriveAddOrganizationParamsOwnerId
+    from .flow_action_pipedrive_add_organization_type import FlowActionPipedriveAddOrganizationType
     from .flow_action_pipedrive_add_person import FlowActionPipedriveAddPerson
+    from .flow_action_pipedrive_add_person_action import FlowActionPipedriveAddPersonAction
     from .flow_action_pipedrive_add_person_params import FlowActionPipedriveAddPersonParams
     from .flow_action_pipedrive_add_person_params_fields import FlowActionPipedriveAddPersonParamsFields
     from .flow_action_pipedrive_add_person_params_organization_id import (
         FlowActionPipedriveAddPersonParamsOrganizationId,
     )
     from .flow_action_pipedrive_add_person_params_owner_id import FlowActionPipedriveAddPersonParamsOwnerId
+    from .flow_action_pipedrive_add_person_type import FlowActionPipedriveAddPersonType
     from .flow_action_salesforce import FlowActionSalesforce
     from .flow_action_salesforce_create_lead import FlowActionSalesforceCreateLead
+    from .flow_action_salesforce_create_lead_action import FlowActionSalesforceCreateLeadAction
     from .flow_action_salesforce_create_lead_params import FlowActionSalesforceCreateLeadParams
     from .flow_action_salesforce_create_lead_params_payload import FlowActionSalesforceCreateLeadParamsPayload
+    from .flow_action_salesforce_create_lead_type import FlowActionSalesforceCreateLeadType
     from .flow_action_salesforce_get_lead import FlowActionSalesforceGetLead
+    from .flow_action_salesforce_get_lead_action import FlowActionSalesforceGetLeadAction
     from .flow_action_salesforce_get_lead_params import FlowActionSalesforceGetLeadParams
+    from .flow_action_salesforce_get_lead_type import FlowActionSalesforceGetLeadType
     from .flow_action_salesforce_search_leads import FlowActionSalesforceSearchLeads
+    from .flow_action_salesforce_search_leads_action import FlowActionSalesforceSearchLeadsAction
     from .flow_action_salesforce_search_leads_params import FlowActionSalesforceSearchLeadsParams
     from .flow_action_salesforce_search_leads_params_search_field import (
         FlowActionSalesforceSearchLeadsParamsSearchField,
     )
+    from .flow_action_salesforce_search_leads_type import FlowActionSalesforceSearchLeadsType
     from .flow_action_salesforce_update_lead import FlowActionSalesforceUpdateLead
+    from .flow_action_salesforce_update_lead_action import FlowActionSalesforceUpdateLeadAction
     from .flow_action_salesforce_update_lead_params import FlowActionSalesforceUpdateLeadParams
     from .flow_action_salesforce_update_lead_params_payload import FlowActionSalesforceUpdateLeadParamsPayload
+    from .flow_action_salesforce_update_lead_type import FlowActionSalesforceUpdateLeadType
     from .flow_action_sendgrid import FlowActionSendgrid
     from .flow_action_sendgrid_send_email import FlowActionSendgridSendEmail
+    from .flow_action_sendgrid_send_email_action import FlowActionSendgridSendEmailAction
     from .flow_action_sendgrid_send_email_params import FlowActionSendgridSendEmailParams
     from .flow_action_sendgrid_send_email_params_person import FlowActionSendgridSendEmailParamsPerson
+    from .flow_action_sendgrid_send_email_type import FlowActionSendgridSendEmailType
     from .flow_action_slack import FlowActionSlack
     from .flow_action_slack_post_message import FlowActionSlackPostMessage
+    from .flow_action_slack_post_message_action import FlowActionSlackPostMessageAction
     from .flow_action_slack_post_message_params import FlowActionSlackPostMessageParams
     from .flow_action_slack_post_message_params_attachment import FlowActionSlackPostMessageParamsAttachment
     from .flow_action_slack_post_message_params_attachment_color import FlowActionSlackPostMessageParamsAttachmentColor
     from .flow_action_slack_post_message_params_attachment_field import FlowActionSlackPostMessageParamsAttachmentField
+    from .flow_action_slack_post_message_type import FlowActionSlackPostMessageType
     from .flow_action_stripe import FlowActionStripe
     from .flow_action_stripe_add_tax_id import FlowActionStripeAddTaxId
+    from .flow_action_stripe_add_tax_id_action import FlowActionStripeAddTaxIdAction
     from .flow_action_stripe_add_tax_id_params import FlowActionStripeAddTaxIdParams
+    from .flow_action_stripe_add_tax_id_type import FlowActionStripeAddTaxIdType
     from .flow_action_stripe_address import FlowActionStripeAddress
     from .flow_action_stripe_create_customer import FlowActionStripeCreateCustomer
+    from .flow_action_stripe_create_customer_action import FlowActionStripeCreateCustomerAction
     from .flow_action_stripe_create_customer_params import FlowActionStripeCreateCustomerParams
+    from .flow_action_stripe_create_customer_type import FlowActionStripeCreateCustomerType
     from .flow_action_stripe_create_portal_session import FlowActionStripeCreatePortalSession
+    from .flow_action_stripe_create_portal_session_action import FlowActionStripeCreatePortalSessionAction
     from .flow_action_stripe_create_portal_session_params import FlowActionStripeCreatePortalSessionParams
+    from .flow_action_stripe_create_portal_session_type import FlowActionStripeCreatePortalSessionType
     from .flow_action_stripe_delete_tax_id import FlowActionStripeDeleteTaxId
+    from .flow_action_stripe_delete_tax_id_action import FlowActionStripeDeleteTaxIdAction
     from .flow_action_stripe_delete_tax_id_params import FlowActionStripeDeleteTaxIdParams
+    from .flow_action_stripe_delete_tax_id_type import FlowActionStripeDeleteTaxIdType
     from .flow_action_stripe_find_customers import FlowActionStripeFindCustomers
+    from .flow_action_stripe_find_customers_action import FlowActionStripeFindCustomersAction
     from .flow_action_stripe_find_customers_params import FlowActionStripeFindCustomersParams
+    from .flow_action_stripe_find_customers_type import FlowActionStripeFindCustomersType
     from .flow_action_stripe_get_customer import FlowActionStripeGetCustomer
+    from .flow_action_stripe_get_customer_action import FlowActionStripeGetCustomerAction
     from .flow_action_stripe_get_customer_params import FlowActionStripeGetCustomerParams
+    from .flow_action_stripe_get_customer_type import FlowActionStripeGetCustomerType
     from .flow_action_stripe_metadata import FlowActionStripeMetadata
     from .flow_action_stripe_tax_id import FlowActionStripeTaxId
     from .flow_action_stripe_update_customer import FlowActionStripeUpdateCustomer
+    from .flow_action_stripe_update_customer_action import FlowActionStripeUpdateCustomerAction
     from .flow_action_stripe_update_customer_params import FlowActionStripeUpdateCustomerParams
+    from .flow_action_stripe_update_customer_type import FlowActionStripeUpdateCustomerType
     from .flow_action_telegram import FlowActionTelegram
     from .flow_action_telegram_send_message import FlowActionTelegramSendMessage
+    from .flow_action_telegram_send_message_action import FlowActionTelegramSendMessageAction
     from .flow_action_telegram_send_message_params import FlowActionTelegramSendMessageParams
+    from .flow_action_telegram_send_message_type import FlowActionTelegramSendMessageType
     from .flow_action_twilio import FlowActionTwilio
     from .flow_action_twilio_make_call import FlowActionTwilioMakeCall
+    from .flow_action_twilio_make_call_action import FlowActionTwilioMakeCallAction
     from .flow_action_twilio_make_call_params import FlowActionTwilioMakeCallParams
+    from .flow_action_twilio_make_call_type import FlowActionTwilioMakeCallType
     from .flow_action_twilio_send_sms import FlowActionTwilioSendSms
+    from .flow_action_twilio_send_sms_action import FlowActionTwilioSendSmsAction
     from .flow_action_twilio_send_sms_params import FlowActionTwilioSendSmsParams
+    from .flow_action_twilio_send_sms_type import FlowActionTwilioSendSmsType
     from .flow_action_whatsapp import FlowActionWhatsapp
     from .flow_action_whatsapp_send_message import FlowActionWhatsappSendMessage
+    from .flow_action_whatsapp_send_message_action import FlowActionWhatsappSendMessageAction
     from .flow_action_whatsapp_send_message_params import FlowActionWhatsappSendMessageParams
     from .flow_action_whatsapp_send_message_params_payload import FlowActionWhatsappSendMessageParamsPayload
     from .flow_action_whatsapp_send_message_params_payload_object import (
         FlowActionWhatsappSendMessageParamsPayloadObject,
     )
     from .flow_action_whatsapp_send_message_params_type import FlowActionWhatsappSendMessageParamsType
+    from .flow_action_whatsapp_send_message_type import FlowActionWhatsappSendMessageType
     from .flow_action_xml import FlowActionXml
     from .flow_action_xml_parse_xml import FlowActionXmlParseXml
+    from .flow_action_xml_parse_xml_action import FlowActionXmlParseXmlAction
     from .flow_action_xml_parse_xml_params import FlowActionXmlParseXmlParams
+    from .flow_action_xml_parse_xml_type import FlowActionXmlParseXmlType
     from .flow_action_xml_serialize_xml import FlowActionXmlSerializeXml
+    from .flow_action_xml_serialize_xml_action import FlowActionXmlSerializeXmlAction
     from .flow_action_xml_serialize_xml_params import FlowActionXmlSerializeXmlParams
     from .flow_action_xml_serialize_xml_params_object import FlowActionXmlSerializeXmlParamsObject
     from .flow_action_xml_serialize_xml_params_object_object import FlowActionXmlSerializeXmlParamsObjectObject
+    from .flow_action_xml_serialize_xml_type import FlowActionXmlSerializeXmlType
     from .flow_action_zapier import FlowActionZapier
     from .flow_action_zapier_trigger_webhook import FlowActionZapierTriggerWebhook
+    from .flow_action_zapier_trigger_webhook_action import FlowActionZapierTriggerWebhookAction
     from .flow_action_zapier_trigger_webhook_params import FlowActionZapierTriggerWebhookParams
     from .flow_action_zapier_trigger_webhook_params_method import FlowActionZapierTriggerWebhookParamsMethod
+    from .flow_action_zapier_trigger_webhook_type import FlowActionZapierTriggerWebhookType
     from .flow_execution_debug import FlowExecutionDebug
     from .flow_execution_summary import FlowExecutionSummary
     from .flow_summary import FlowSummary
@@ -1141,6 +1568,17 @@ if typing.TYPE_CHECKING:
     from .flows_vault_connection_app_id_twilio_enum import FlowsVaultConnectionAppIdTwilioEnum
     from .flows_vault_connection_app_id_whatsapp_enum import FlowsVaultConnectionAppIdWhatsappEnum
     from .flows_vault_connection_app_id_zapier_enum import FlowsVaultConnectionAppIdZapierEnum
+    from .flows_vault_connection_http_api_key_setup import FlowsVaultConnectionHttpApiKeySetup
+    from .flows_vault_connection_http_api_key_setup_in_enum import FlowsVaultConnectionHttpApiKeySetupInEnum
+    from .flows_vault_connection_http_basic_auth_setup import FlowsVaultConnectionHttpBasicAuthSetup
+    from .flows_vault_connection_http_oauth_client_credentials_setup import (
+        FlowsVaultConnectionHttpOauthClientCredentialsSetup,
+    )
+    from .flows_vault_connection_setup_type_api_key_enum import FlowsVaultConnectionSetupTypeApiKeyEnum
+    from .flows_vault_connection_setup_type_basic_auth_enum import FlowsVaultConnectionSetupTypeBasicAuthEnum
+    from .flows_vault_connection_setup_type_oauth_client_credentials_enum import (
+        FlowsVaultConnectionSetupTypeOauthClientCredentialsEnum,
+    )
     from .flows_vault_connection_summary import FlowsVaultConnectionSummary
     from .form_block import FormBlock
     from .form_block_divider import FormBlockDivider
@@ -1301,6 +1739,11 @@ if typing.TYPE_CHECKING:
     from .form_widget_type_recaptcha_const import FormWidgetTypeRecaptchaConst
     from .forms_request_parameters_hydrate_enum import FormsRequestParametersHydrateEnum
     from .get_action_execution_response_content import GetActionExecutionResponseContent
+    from .get_action_module_actions_response_content import GetActionModuleActionsResponseContent
+    from .get_action_module_response_content import GetActionModuleResponseContent
+    from .get_action_module_version_response_content import GetActionModuleVersionResponseContent
+    from .get_action_module_versions_response_content import GetActionModuleVersionsResponseContent
+    from .get_action_modules_response_content import GetActionModulesResponseContent
     from .get_action_response_content import GetActionResponseContent
     from .get_action_version_response_content import GetActionVersionResponseContent
     from .get_active_users_count_stats_response_content import GetActiveUsersCountStatsResponseContent
@@ -1315,9 +1758,8 @@ if typing.TYPE_CHECKING:
         GetBreachedPasswordDetectionSettingsResponseContent,
     )
     from .get_brute_force_settings_response_content import GetBruteForceSettingsResponseContent
-    from .get_brute_force_settings_response_content_mode import GetBruteForceSettingsResponseContentMode
-    from .get_brute_force_settings_response_content_shields_item import GetBruteForceSettingsResponseContentShieldsItem
     from .get_client_credential_response_content import GetClientCredentialResponseContent
+    from .get_client_grant_response_content import GetClientGrantResponseContent
     from .get_client_response_content import GetClientResponseContent
     from .get_connection_enabled_clients_response_content import GetConnectionEnabledClientsResponseContent
     from .get_connection_profile_response_content import GetConnectionProfileResponseContent
@@ -1335,11 +1777,14 @@ if typing.TYPE_CHECKING:
     from .get_encryption_key_response_content import GetEncryptionKeyResponseContent
     from .get_event_stream_delivery_history_response_content import GetEventStreamDeliveryHistoryResponseContent
     from .get_event_stream_response_content import GetEventStreamResponseContent
+    from .get_flow_execution_request_parameters_hydrate_enum import GetFlowExecutionRequestParametersHydrateEnum
     from .get_flow_execution_response_content import GetFlowExecutionResponseContent
     from .get_flow_request_parameters_hydrate_enum import GetFlowRequestParametersHydrateEnum
     from .get_flow_response_content import GetFlowResponseContent
     from .get_flows_vault_connection_response_content import GetFlowsVaultConnectionResponseContent
     from .get_form_response_content import GetFormResponseContent
+    from .get_group_members_response_content import GetGroupMembersResponseContent
+    from .get_group_response_content import GetGroupResponseContent
     from .get_guardian_enrollment_response_content import GetGuardianEnrollmentResponseContent
     from .get_guardian_factor_duo_settings_response_content import GetGuardianFactorDuoSettingsResponseContent
     from .get_guardian_factor_phone_message_types_response_content import (
@@ -1366,12 +1811,16 @@ if typing.TYPE_CHECKING:
     from .get_job_generic_error_response_content import GetJobGenericErrorResponseContent
     from .get_job_import_user_error import GetJobImportUserError
     from .get_job_response_content import GetJobResponseContent
+    from .get_job_summary import GetJobSummary
     from .get_job_user_error import GetJobUserError
     from .get_log_response_content import GetLogResponseContent
     from .get_log_stream_response_content import GetLogStreamResponseContent
     from .get_network_acls_response_content import GetNetworkAclsResponseContent
     from .get_organization_by_name_response_content import GetOrganizationByNameResponseContent
     from .get_organization_connection_response_content import GetOrganizationConnectionResponseContent
+    from .get_organization_discovery_domain_by_name_response_content import (
+        GetOrganizationDiscoveryDomainByNameResponseContent,
+    )
     from .get_organization_discovery_domain_response_content import GetOrganizationDiscoveryDomainResponseContent
     from .get_organization_invitation_response_content import GetOrganizationInvitationResponseContent
     from .get_organization_response_content import GetOrganizationResponseContent
@@ -1403,9 +1852,13 @@ if typing.TYPE_CHECKING:
     from .get_user_attribute_profile_response_content import GetUserAttributeProfileResponseContent
     from .get_user_attribute_profile_template_response_content import GetUserAttributeProfileTemplateResponseContent
     from .get_user_authentication_method_response_content import GetUserAuthenticationMethodResponseContent
+    from .get_user_groups_paginated_response_content import GetUserGroupsPaginatedResponseContent
     from .get_user_response_content import GetUserResponseContent
     from .get_verifiable_credential_template_response_content import GetVerifiableCredentialTemplateResponseContent
     from .group import Group
+    from .group_member import GroupMember
+    from .group_member_type_enum import GroupMemberTypeEnum
+    from .group_type_enum import GroupTypeEnum
     from .guardian_enrollment_date import GuardianEnrollmentDate
     from .guardian_enrollment_factor_enum import GuardianEnrollmentFactorEnum
     from .guardian_enrollment_status import GuardianEnrollmentStatus
@@ -1438,6 +1891,7 @@ if typing.TYPE_CHECKING:
     from .list_action_versions_paginated_response_content import ListActionVersionsPaginatedResponseContent
     from .list_actions_paginated_response_content import ListActionsPaginatedResponseContent
     from .list_aculs_offset_paginated_response_content import ListAculsOffsetPaginatedResponseContent
+    from .list_aculs_response_content_item import ListAculsResponseContentItem
     from .list_branding_phone_providers_response_content import ListBrandingPhoneProvidersResponseContent
     from .list_client_connections_response_content import ListClientConnectionsResponseContent
     from .list_client_grant_organizations_paginated_response_content import (
@@ -1454,13 +1908,17 @@ if typing.TYPE_CHECKING:
     from .list_device_credentials_offset_paginated_response_content import (
         ListDeviceCredentialsOffsetPaginatedResponseContent,
     )
+    from .list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
     from .list_encryption_key_offset_paginated_response_content import ListEncryptionKeyOffsetPaginatedResponseContent
+    from .list_event_streams_response_content import ListEventStreamsResponseContent
     from .list_flow_executions_paginated_response_content import ListFlowExecutionsPaginatedResponseContent
     from .list_flows_offset_paginated_response_content import ListFlowsOffsetPaginatedResponseContent
+    from .list_flows_request_parameters_hydrate_enum import ListFlowsRequestParametersHydrateEnum
     from .list_flows_vault_connections_offset_paginated_response_content import (
         ListFlowsVaultConnectionsOffsetPaginatedResponseContent,
     )
     from .list_forms_offset_paginated_response_content import ListFormsOffsetPaginatedResponseContent
+    from .list_groups_paginated_response_content import ListGroupsPaginatedResponseContent
     from .list_guardian_policies_response_content import ListGuardianPoliciesResponseContent
     from .list_hooks_offset_paginated_response_content import ListHooksOffsetPaginatedResponseContent
     from .list_log_offset_paginated_response_content import ListLogOffsetPaginatedResponseContent
@@ -1617,8 +2075,6 @@ if typing.TYPE_CHECKING:
     from .phone_template_notification_type_enum import PhoneTemplateNotificationTypeEnum
     from .post_client_credential_response_content import PostClientCredentialResponseContent
     from .preferred_authentication_method_enum import PreferredAuthenticationMethodEnum
-    from .private_key_jwt import PrivateKeyJwt
-    from .private_key_jwt_credentials import PrivateKeyJwtCredentials
     from .prompt_group_name_enum import PromptGroupNameEnum
     from .prompt_language_enum import PromptLanguageEnum
     from .public_key_credential import PublicKeyCredential
@@ -1628,6 +2084,7 @@ if typing.TYPE_CHECKING:
     from .refresh_token_date_object import RefreshTokenDateObject
     from .refresh_token_device import RefreshTokenDevice
     from .refresh_token_expiration_type_enum import RefreshTokenExpirationTypeEnum
+    from .refresh_token_metadata import RefreshTokenMetadata
     from .refresh_token_resource_server import RefreshTokenResourceServer
     from .refresh_token_response_content import RefreshTokenResponseContent
     from .refresh_token_rotation_type_enum import RefreshTokenRotationTypeEnum
@@ -1639,6 +2096,7 @@ if typing.TYPE_CHECKING:
     from .resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
     from .resource_server_proof_of_possession import ResourceServerProofOfPossession
     from .resource_server_proof_of_possession_mechanism_enum import ResourceServerProofOfPossessionMechanismEnum
+    from .resource_server_proof_of_possession_required_for_enum import ResourceServerProofOfPossessionRequiredForEnum
     from .resource_server_scope import ResourceServerScope
     from .resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
     from .resource_server_subject_type_authorization_client import ResourceServerSubjectTypeAuthorizationClient
@@ -1659,6 +2117,7 @@ if typing.TYPE_CHECKING:
     from .revoked_signing_keys_response_content import RevokedSigningKeysResponseContent
     from .role import Role
     from .role_user import RoleUser
+    from .rollback_action_module_response_content import RollbackActionModuleResponseContent
     from .rotate_client_secret_response_content import RotateClientSecretResponseContent
     from .rotate_connection_keys_request_content import RotateConnectionKeysRequestContent
     from .rotate_connection_keys_signing_alg_enum import RotateConnectionKeysSigningAlgEnum
@@ -1723,20 +2182,11 @@ if typing.TYPE_CHECKING:
     from .set_guardian_factors_provider_phone_twilio_response_content import (
         SetGuardianFactorsProviderPhoneTwilioResponseContent,
     )
-    from .set_guardian_factors_provider_push_notification_apns_request_content import (
-        SetGuardianFactorsProviderPushNotificationApnsRequestContent,
-    )
     from .set_guardian_factors_provider_push_notification_apns_response_content import (
         SetGuardianFactorsProviderPushNotificationApnsResponseContent,
     )
-    from .set_guardian_factors_provider_push_notification_fcm_request_content import (
-        SetGuardianFactorsProviderPushNotificationFcmRequestContent,
-    )
     from .set_guardian_factors_provider_push_notification_fcm_response_content import (
         SetGuardianFactorsProviderPushNotificationFcmResponseContent,
-    )
-    from .set_guardian_factors_provider_push_notification_fcmv_1_request_content import (
-        SetGuardianFactorsProviderPushNotificationFcmv1RequestContent,
     )
     from .set_guardian_factors_provider_push_notification_fcmv_1_response_content import (
         SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
@@ -1786,6 +2236,7 @@ if typing.TYPE_CHECKING:
     from .tenant_settings_password_page import TenantSettingsPasswordPage
     from .tenant_settings_resource_parameter_profile import TenantSettingsResourceParameterProfile
     from .tenant_settings_sessions import TenantSettingsSessions
+    from .tenant_settings_supported_locales_enum import TenantSettingsSupportedLocalesEnum
     from .test_action_payload import TestActionPayload
     from .test_action_response_content import TestActionResponseContent
     from .test_action_result_payload import TestActionResultPayload
@@ -1801,6 +2252,7 @@ if typing.TYPE_CHECKING:
     from .twilio_provider_delivery_method_enum import TwilioProviderDeliveryMethodEnum
     from .universal_login_experience_enum import UniversalLoginExperienceEnum
     from .update_action_bindings_response_content import UpdateActionBindingsResponseContent
+    from .update_action_module_response_content import UpdateActionModuleResponseContent
     from .update_action_response_content import UpdateActionResponseContent
     from .update_acul_response_content import UpdateAculResponseContent
     from .update_attack_protection_captcha_response_content import UpdateAttackProtectionCaptchaResponseContent
@@ -1815,14 +2267,72 @@ if typing.TYPE_CHECKING:
         UpdateBreachedPasswordDetectionSettingsResponseContent,
     )
     from .update_brute_force_settings_response_content import UpdateBruteForceSettingsResponseContent
-    from .update_brute_force_settings_response_content_mode import UpdateBruteForceSettingsResponseContentMode
-    from .update_brute_force_settings_response_content_shields_item import (
-        UpdateBruteForceSettingsResponseContentShieldsItem,
-    )
     from .update_client_grant_response_content import UpdateClientGrantResponseContent
     from .update_client_response_content import UpdateClientResponseContent
     from .update_connection_options import UpdateConnectionOptions
     from .update_connection_profile_response_content import UpdateConnectionProfileResponseContent
+    from .update_connection_request_content_ad import UpdateConnectionRequestContentAd
+    from .update_connection_request_content_adfs import UpdateConnectionRequestContentAdfs
+    from .update_connection_request_content_amazon import UpdateConnectionRequestContentAmazon
+    from .update_connection_request_content_aol import UpdateConnectionRequestContentAol
+    from .update_connection_request_content_apple import UpdateConnectionRequestContentApple
+    from .update_connection_request_content_auth_0 import UpdateConnectionRequestContentAuth0
+    from .update_connection_request_content_auth_0_oidc import UpdateConnectionRequestContentAuth0Oidc
+    from .update_connection_request_content_azure_ad import UpdateConnectionRequestContentAzureAd
+    from .update_connection_request_content_baidu import UpdateConnectionRequestContentBaidu
+    from .update_connection_request_content_bitbucket import UpdateConnectionRequestContentBitbucket
+    from .update_connection_request_content_bitly import UpdateConnectionRequestContentBitly
+    from .update_connection_request_content_box import UpdateConnectionRequestContentBox
+    from .update_connection_request_content_custom import UpdateConnectionRequestContentCustom
+    from .update_connection_request_content_daccount import UpdateConnectionRequestContentDaccount
+    from .update_connection_request_content_dropbox import UpdateConnectionRequestContentDropbox
+    from .update_connection_request_content_dwolla import UpdateConnectionRequestContentDwolla
+    from .update_connection_request_content_email import UpdateConnectionRequestContentEmail
+    from .update_connection_request_content_evernote import UpdateConnectionRequestContentEvernote
+    from .update_connection_request_content_evernote_sandbox import UpdateConnectionRequestContentEvernoteSandbox
+    from .update_connection_request_content_exact import UpdateConnectionRequestContentExact
+    from .update_connection_request_content_facebook import UpdateConnectionRequestContentFacebook
+    from .update_connection_request_content_fitbit import UpdateConnectionRequestContentFitbit
+    from .update_connection_request_content_flickr import UpdateConnectionRequestContentFlickr
+    from .update_connection_request_content_git_hub import UpdateConnectionRequestContentGitHub
+    from .update_connection_request_content_google_apps import UpdateConnectionRequestContentGoogleApps
+    from .update_connection_request_content_google_o_auth_2 import UpdateConnectionRequestContentGoogleOAuth2
+    from .update_connection_request_content_instagram import UpdateConnectionRequestContentInstagram
+    from .update_connection_request_content_ip import UpdateConnectionRequestContentIp
+    from .update_connection_request_content_line import UpdateConnectionRequestContentLine
+    from .update_connection_request_content_linkedin import UpdateConnectionRequestContentLinkedin
+    from .update_connection_request_content_miicard import UpdateConnectionRequestContentMiicard
+    from .update_connection_request_content_o_auth_1 import UpdateConnectionRequestContentOAuth1
+    from .update_connection_request_content_o_auth_2 import UpdateConnectionRequestContentOAuth2
+    from .update_connection_request_content_office_365 import UpdateConnectionRequestContentOffice365
+    from .update_connection_request_content_oidc import UpdateConnectionRequestContentOidc
+    from .update_connection_request_content_okta import UpdateConnectionRequestContentOkta
+    from .update_connection_request_content_paypal import UpdateConnectionRequestContentPaypal
+    from .update_connection_request_content_paypal_sandbox import UpdateConnectionRequestContentPaypalSandbox
+    from .update_connection_request_content_ping_federate import UpdateConnectionRequestContentPingFederate
+    from .update_connection_request_content_planning_center import UpdateConnectionRequestContentPlanningCenter
+    from .update_connection_request_content_renren import UpdateConnectionRequestContentRenren
+    from .update_connection_request_content_salesforce import UpdateConnectionRequestContentSalesforce
+    from .update_connection_request_content_salesforce_community import (
+        UpdateConnectionRequestContentSalesforceCommunity,
+    )
+    from .update_connection_request_content_salesforce_sandbox import UpdateConnectionRequestContentSalesforceSandbox
+    from .update_connection_request_content_saml import UpdateConnectionRequestContentSaml
+    from .update_connection_request_content_sharepoint import UpdateConnectionRequestContentSharepoint
+    from .update_connection_request_content_shop import UpdateConnectionRequestContentShop
+    from .update_connection_request_content_shopify import UpdateConnectionRequestContentShopify
+    from .update_connection_request_content_sms import UpdateConnectionRequestContentSms
+    from .update_connection_request_content_soundcloud import UpdateConnectionRequestContentSoundcloud
+    from .update_connection_request_content_thirty_seven_signals import UpdateConnectionRequestContentThirtySevenSignals
+    from .update_connection_request_content_twitter import UpdateConnectionRequestContentTwitter
+    from .update_connection_request_content_untappd import UpdateConnectionRequestContentUntappd
+    from .update_connection_request_content_vkontakte import UpdateConnectionRequestContentVkontakte
+    from .update_connection_request_content_weibo import UpdateConnectionRequestContentWeibo
+    from .update_connection_request_content_windows_live import UpdateConnectionRequestContentWindowsLive
+    from .update_connection_request_content_wordpress import UpdateConnectionRequestContentWordpress
+    from .update_connection_request_content_yahoo import UpdateConnectionRequestContentYahoo
+    from .update_connection_request_content_yammer import UpdateConnectionRequestContentYammer
+    from .update_connection_request_content_yandex import UpdateConnectionRequestContentYandex
     from .update_connection_response_content import UpdateConnectionResponseContent
     from .update_custom_domain_response_content import UpdateCustomDomainResponseContent
     from .update_directory_provisioning_request_content import UpdateDirectoryProvisioningRequestContent
@@ -1837,6 +2347,15 @@ if typing.TYPE_CHECKING:
     from .update_flows_vault_connection_setup import UpdateFlowsVaultConnectionSetup
     from .update_form_response_content import UpdateFormResponseContent
     from .update_guardian_factor_duo_settings_response_content import UpdateGuardianFactorDuoSettingsResponseContent
+    from .update_guardian_factors_provider_push_notification_apns_response_content import (
+        UpdateGuardianFactorsProviderPushNotificationApnsResponseContent,
+    )
+    from .update_guardian_factors_provider_push_notification_fcm_response_content import (
+        UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
+    )
+    from .update_guardian_factors_provider_push_notification_fcmv_1_response_content import (
+        UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
+    )
     from .update_guardian_factors_provider_push_notification_sns_response_content import (
         UpdateGuardianFactorsProviderPushNotificationSnsResponseContent,
     )
@@ -1848,6 +2367,7 @@ if typing.TYPE_CHECKING:
     from .update_organization_discovery_domain_response_content import UpdateOrganizationDiscoveryDomainResponseContent
     from .update_organization_response_content import UpdateOrganizationResponseContent
     from .update_phone_template_response_content import UpdatePhoneTemplateResponseContent
+    from .update_refresh_token_response_content import UpdateRefreshTokenResponseContent
     from .update_resource_server_response_content import UpdateResourceServerResponseContent
     from .update_risk_assessments_settings_new_device_response_content import (
         UpdateRiskAssessmentsSettingsNewDeviceResponseContent,
@@ -1927,6 +2447,8 @@ if typing.TYPE_CHECKING:
     from .verification_method_enum import VerificationMethodEnum
     from .verify_custom_domain_response_content import VerifyCustomDomainResponseContent
     from .verify_email_ticket_response_content import VerifyEmailTicketResponseContent
+    from .x_509_certificate_credential import X509CertificateCredential
+    from .x_509_certificate_credential_type_enum import X509CertificateCredentialTypeEnum
 _dynamic_imports: typing.Dict[str, str] = {
     "Action": ".action",
     "ActionBase": ".action_base",
@@ -1940,6 +2462,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ActionError": ".action_error",
     "ActionExecutionResult": ".action_execution_result",
     "ActionExecutionStatusEnum": ".action_execution_status_enum",
+    "ActionModuleAction": ".action_module_action",
+    "ActionModuleDependency": ".action_module_dependency",
+    "ActionModuleDependencyRequest": ".action_module_dependency_request",
+    "ActionModuleListItem": ".action_module_list_item",
+    "ActionModuleReference": ".action_module_reference",
+    "ActionModuleSecret": ".action_module_secret",
+    "ActionModuleSecretRequest": ".action_module_secret_request",
+    "ActionModuleVersion": ".action_module_version",
+    "ActionModuleVersionReference": ".action_module_version_reference",
     "ActionSecretRequest": ".action_secret_request",
     "ActionSecretResponse": ".action_secret_response",
     "ActionTrigger": ".action_trigger",
@@ -1957,7 +2488,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AculContextConfiguration": ".acul_context_configuration",
     "AculContextConfigurationItem": ".acul_context_configuration_item",
     "AculContextEnum": ".acul_context_enum",
-    "AculDefaultHeadTagsDisabled": ".acul_default_head_tags_disabled",
     "AculDomainFilter": ".acul_domain_filter",
     "AculDomainFilterById": ".acul_domain_filter_by_id",
     "AculDomainFilterByMetadata": ".acul_domain_filter_by_metadata",
@@ -1966,15 +2496,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AculHeadTag": ".acul_head_tag",
     "AculHeadTagAttributes": ".acul_head_tag_attributes",
     "AculHeadTagContent": ".acul_head_tag_content",
-    "AculHeadTags": ".acul_head_tags",
     "AculMatchTypeEnum": ".acul_match_type_enum",
     "AculOrganizationFilter": ".acul_organization_filter",
     "AculOrganizationFilterById": ".acul_organization_filter_by_id",
     "AculOrganizationFilterByMetadata": ".acul_organization_filter_by_metadata",
     "AculOrganizationMetadata": ".acul_organization_metadata",
     "AculRenderingModeEnum": ".acul_rendering_mode_enum",
-    "AculResponseContent": ".acul_response_content",
-    "AculUsePageTemplate": ".acul_use_page_template",
     "AddOrganizationConnectionResponseContent": ".add_organization_connection_response_content",
     "AnomalyIpFormat": ".anomaly_ip_format",
     "AppMetadata": ".app_metadata",
@@ -2038,7 +2565,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BreachedPasswordDetectionPreUserRegistrationStage": ".breached_password_detection_pre_user_registration_stage",
     "BreachedPasswordDetectionShieldsEnum": ".breached_password_detection_shields_enum",
     "BreachedPasswordDetectionStage": ".breached_password_detection_stage",
+    "BruteForceProtectionModeEnum": ".brute_force_protection_mode_enum",
+    "BruteForceProtectionShieldsEnum": ".brute_force_protection_shields_enum",
     "BulkUpdateAculResponseContent": ".bulk_update_acul_response_content",
+    "CertificateSubjectDnCredential": ".certificate_subject_dn_credential",
+    "CertificateSubjectDnCredentialTypeEnum": ".certificate_subject_dn_credential_type_enum",
     "ChangePasswordTicketIdentity": ".change_password_ticket_identity",
     "ChangePasswordTicketResponseContent": ".change_password_ticket_response_content",
     "Client": ".client",
@@ -2079,10 +2610,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration": ".client_async_approval_notifications_channels_api_patch_configuration",
     "ClientAsyncApprovalNotificationsChannelsApiPostConfiguration": ".client_async_approval_notifications_channels_api_post_configuration",
     "ClientAuthenticationMethod": ".client_authentication_method",
+    "ClientAuthenticationMethodPrivateKeyJwt": ".client_authentication_method_private_key_jwt",
+    "ClientAuthenticationMethodPrivateKeyJwtCredentials": ".client_authentication_method_private_key_jwt_credentials",
     "ClientAuthenticationMethodSelfSignedTlsClientAuth": ".client_authentication_method_self_signed_tls_client_auth",
+    "ClientAuthenticationMethodSelfSignedTlsClientAuthCredentials": ".client_authentication_method_self_signed_tls_client_auth_credentials",
     "ClientAuthenticationMethodTlsClientAuth": ".client_authentication_method_tls_client_auth",
+    "ClientAuthenticationMethodTlsClientAuthCredentials": ".client_authentication_method_tls_client_auth_credentials",
     "ClientComplianceLevelEnum": ".client_compliance_level_enum",
     "ClientCreateAuthenticationMethod": ".client_create_authentication_method",
+    "ClientCreateAuthenticationMethodPrivateKeyJwt": ".client_create_authentication_method_private_key_jwt",
+    "ClientCreateAuthenticationMethodPrivateKeyJwtCredentials": ".client_create_authentication_method_private_key_jwt_credentials",
+    "ClientCreateAuthenticationMethodTlsClientAuth": ".client_create_authentication_method_tls_client_auth",
+    "ClientCreateAuthenticationMethodTlsClientAuthCredentials": ".client_create_authentication_method_tls_client_auth_credentials",
     "ClientCredential": ".client_credential",
     "ClientCredentialAlgorithmEnum": ".client_credential_algorithm_enum",
     "ClientCredentialTypeEnum": ".client_credential_type_enum",
@@ -2111,6 +2650,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientOrganizationUsageEnum": ".client_organization_usage_enum",
     "ClientOrganizationUsagePatchEnum": ".client_organization_usage_patch_enum",
     "ClientRefreshTokenConfiguration": ".client_refresh_token_configuration",
+    "ClientRefreshTokenPolicy": ".client_refresh_token_policy",
     "ClientSessionTransferAllowedAuthenticationMethodsEnum": ".client_session_transfer_allowed_authentication_methods_enum",
     "ClientSessionTransferConfiguration": ".client_session_transfer_configuration",
     "ClientSessionTransferDeviceBindingEnum": ".client_session_transfer_device_binding_enum",
@@ -2126,7 +2666,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectedAccount": ".connected_account",
     "ConnectedAccountAccessTypeEnum": ".connected_account_access_type_enum",
     "ConnectionAcrValuesSupported": ".connection_acr_values_supported",
+    "ConnectionAdminAccessTokenExpiresInGoogleApps": ".connection_admin_access_token_expires_in_google_apps",
+    "ConnectionAdminAccessTokenGoogleApps": ".connection_admin_access_token_google_apps",
+    "ConnectionAdminRefreshTokenGoogleApps": ".connection_admin_refresh_token_google_apps",
+    "ConnectionAgentIpad": ".connection_agent_ipad",
+    "ConnectionAgentModeAd": ".connection_agent_mode_ad",
+    "ConnectionAgentVersionAd": ".connection_agent_version_ad",
     "ConnectionAllowedAudiencesGoogleOAuth2": ".connection_allowed_audiences_google_o_auth_2",
+    "ConnectionApiBehaviorEnum": ".connection_api_behavior_enum",
+    "ConnectionApiEnableUsers": ".connection_api_enable_users",
+    "ConnectionApiEnableUsersGoogleApps": ".connection_api_enable_users_google_apps",
     "ConnectionAppDomainAzureAd": ".connection_app_domain_azure_ad",
     "ConnectionAttributeIdentifier": ".connection_attribute_identifier",
     "ConnectionAttributeMapAttributes": ".connection_attribute_map_attributes",
@@ -2135,6 +2684,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionAttributeMapUserinfoScope": ".connection_attribute_map_userinfo_scope",
     "ConnectionAttributes": ".connection_attributes",
     "ConnectionAuthParamsAdditionalPropertiesOAuth2": ".connection_auth_params_additional_properties_o_auth_2",
+    "ConnectionAuthParamsEmail": ".connection_auth_params_email",
     "ConnectionAuthParamsMap": ".connection_auth_params_map",
     "ConnectionAuthParamsOAuth2": ".connection_auth_params_o_auth_2",
     "ConnectionAuthenticationMethods": ".connection_authentication_methods",
@@ -2142,58 +2692,106 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionAuthorizationEndpoint": ".connection_authorization_endpoint",
     "ConnectionAuthorizationEndpointOAuth2": ".connection_authorization_endpoint_o_auth_2",
     "ConnectionBruteForceProtection": ".connection_brute_force_protection",
+    "ConnectionCalculatedThumbprintSaml": ".connection_calculated_thumbprint_saml",
+    "ConnectionCertsAd": ".connection_certs_ad",
     "ConnectionClaimTypesSupported": ".connection_claim_types_supported",
     "ConnectionClaimsLocalesSupported": ".connection_claims_locales_supported",
     "ConnectionClaimsParameterSupported": ".connection_claims_parameter_supported",
     "ConnectionClaimsSupported": ".connection_claims_supported",
     "ConnectionClientId": ".connection_client_id",
     "ConnectionClientIdAzureAd": ".connection_client_id_azure_ad",
+    "ConnectionClientIdFacebook": ".connection_client_id_facebook",
+    "ConnectionClientIdGoogleApps": ".connection_client_id_google_apps",
     "ConnectionClientIdGoogleOAuth2": ".connection_client_id_google_o_auth_2",
     "ConnectionClientIdOAuth2": ".connection_client_id_o_auth_2",
     "ConnectionClientIdOidc": ".connection_client_id_oidc",
+    "ConnectionClientProtocolSaml": ".connection_client_protocol_saml",
     "ConnectionClientSecret": ".connection_client_secret",
     "ConnectionClientSecretAzureAd": ".connection_client_secret_azure_ad",
+    "ConnectionClientSecretFacebook": ".connection_client_secret_facebook",
+    "ConnectionClientSecretGoogleApps": ".connection_client_secret_google_apps",
     "ConnectionClientSecretGoogleOAuth2": ".connection_client_secret_google_o_auth_2",
     "ConnectionClientSecretOAuth2": ".connection_client_secret_o_auth_2",
     "ConnectionClientSecretOidc": ".connection_client_secret_oidc",
     "ConnectionCommon": ".connection_common",
     "ConnectionConfiguration": ".connection_configuration",
     "ConnectionConnectedAccountsPurpose": ".connection_connected_accounts_purpose",
+    "ConnectionConnectedAccountsPurposeXaa": ".connection_connected_accounts_purpose_xaa",
     "ConnectionConnectionSettings": ".connection_connection_settings",
     "ConnectionConnectionSettingsPkceEnum": ".connection_connection_settings_pkce_enum",
     "ConnectionCustomHeadersOAuth2": ".connection_custom_headers_o_auth_2",
     "ConnectionCustomScripts": ".connection_custom_scripts",
+    "ConnectionDebugSaml": ".connection_debug_saml",
+    "ConnectionDecryptionKeySaml": ".connection_decryption_key_saml",
+    "ConnectionDecryptionKeySamlCert": ".connection_decryption_key_saml_cert",
+    "ConnectionDestinationUrlSaml": ".connection_destination_url_saml",
+    "ConnectionDigestAlgorithmEnumSaml": ".connection_digest_algorithm_enum_saml",
+    "ConnectionDigestAlgorithmSaml": ".connection_digest_algorithm_saml",
     "ConnectionDisableSelfServiceChangePassword": ".connection_disable_self_service_change_password",
     "ConnectionDisableSignup": ".connection_disable_signup",
+    "ConnectionDisableSignupSms": ".connection_disable_signup_sms",
     "ConnectionDiscoveryUrl": ".connection_discovery_url",
     "ConnectionDisplayName": ".connection_display_name",
     "ConnectionDisplayValuesSupported": ".connection_display_values_supported",
+    "ConnectionDomainAliases": ".connection_domain_aliases",
+    "ConnectionDomainAliasesAd": ".connection_domain_aliases_ad",
     "ConnectionDomainAliasesAzureAd": ".connection_domain_aliases_azure_ad",
-    "ConnectionDomainAliasesOne": ".connection_domain_aliases_one",
+    "ConnectionDomainAliasesItemsOne": ".connection_domain_aliases_items_one",
+    "ConnectionDomainAliasesSaml": ".connection_domain_aliases_saml",
+    "ConnectionDomainGoogleApps": ".connection_domain_google_apps",
     "ConnectionDomainOkta": ".connection_domain_okta",
+    "ConnectionEmailBodyEmail": ".connection_email_body_email",
+    "ConnectionEmailEmail": ".connection_email_email",
+    "ConnectionEmailEmailSyntax": ".connection_email_email_syntax",
+    "ConnectionEmailFromEmail": ".connection_email_from_email",
+    "ConnectionEmailOtpAuthenticationMethod": ".connection_email_otp_authentication_method",
+    "ConnectionEmailSubjectEmail": ".connection_email_subject_email",
     "ConnectionEnableScriptContext": ".connection_enable_script_context",
     "ConnectionEnabledClient": ".connection_enabled_client",
     "ConnectionEnabledClients": ".connection_enabled_clients",
     "ConnectionEnabledDatabaseCustomization": ".connection_enabled_database_customization",
     "ConnectionEndSessionEndpoint": ".connection_end_session_endpoint",
     "ConnectionEndSessionEndpointOAuth2": ".connection_end_session_endpoint_o_auth_2",
+    "ConnectionEntityIdSaml": ".connection_entity_id_saml",
     "ConnectionExtAdmin": ".connection_ext_admin",
     "ConnectionExtAgreedTerms": ".connection_ext_agreed_terms",
+    "ConnectionExtAgreedTermsGoogleApps": ".connection_ext_agreed_terms_google_apps",
     "ConnectionExtAssignedPlans": ".connection_ext_assigned_plans",
     "ConnectionExtGroups": ".connection_ext_groups",
+    "ConnectionExtGroupsAzureAd": ".connection_ext_groups_azure_ad",
+    "ConnectionExtGroupsGoogleApps": ".connection_ext_groups_google_apps",
+    "ConnectionExtIsAdminGoogleApps": ".connection_ext_is_admin_google_apps",
     "ConnectionExtIsSuspended": ".connection_ext_is_suspended",
+    "ConnectionExtIsSuspendedGoogleApps": ".connection_ext_is_suspended_google_apps",
     "ConnectionExtProfile": ".connection_ext_profile",
     "ConnectionFederatedConnectionsAccessTokens": ".connection_federated_connections_access_tokens",
     "ConnectionFieldsMap": ".connection_fields_map",
+    "ConnectionFieldsMapSaml": ".connection_fields_map_saml",
+    "ConnectionFieldsMapSamlValue": ".connection_fields_map_saml_value",
     "ConnectionForList": ".connection_for_list",
     "ConnectionForOrganization": ".connection_for_organization",
+    "ConnectionForwardReqInfoSms": ".connection_forward_req_info_sms",
     "ConnectionFreeformScopesGoogleOAuth2": ".connection_freeform_scopes_google_o_auth_2",
+    "ConnectionFromSms": ".connection_from_sms",
     "ConnectionGatewayAuthentication": ".connection_gateway_authentication",
+    "ConnectionGatewayAuthenticationAudienceSms": ".connection_gateway_authentication_audience_sms",
+    "ConnectionGatewayAuthenticationMethodSms": ".connection_gateway_authentication_method_sms",
+    "ConnectionGatewayAuthenticationSms": ".connection_gateway_authentication_sms",
+    "ConnectionGatewayAuthenticationSubjectSms": ".connection_gateway_authentication_subject_sms",
+    "ConnectionGatewayUrlSms": ".connection_gateway_url_sms",
+    "ConnectionGlobalTokenRevocationJwtIssSaml": ".connection_global_token_revocation_jwt_iss_saml",
+    "ConnectionGlobalTokenRevocationJwtSubSaml": ".connection_global_token_revocation_jwt_sub_saml",
     "ConnectionGrantTypesSupported": ".connection_grant_types_supported",
+    "ConnectionHandleLoginFromSocialGoogleApps": ".connection_handle_login_from_social_google_apps",
     "ConnectionHttpsUrlWithHttpFallback": ".connection_https_url_with_http_fallback",
+    "ConnectionHttpsUrlWithHttpFallback2048": ".connection_https_url_with_http_fallback_2048",
+    "ConnectionHttpsUrlWithHttpFallback255": ".connection_https_url_with_http_fallback_255",
     "ConnectionIconUrl": ".connection_icon_url",
+    "ConnectionIconUrlAdfs": ".connection_icon_url_adfs",
     "ConnectionIconUrlAzureAd": ".connection_icon_url_azure_ad",
+    "ConnectionIconUrlGoogleApps": ".connection_icon_url_google_apps",
     "ConnectionIconUrlGoogleOAuth2": ".connection_icon_url_google_o_auth_2",
+    "ConnectionIconUrlSaml": ".connection_icon_url_saml",
     "ConnectionId": ".connection_id",
     "ConnectionIdTokenEncryptionAlgValuesSupported": ".connection_id_token_encryption_alg_values_supported",
     "ConnectionIdTokenEncryptionEncValuesSupported": ".connection_id_token_encryption_enc_values_supported",
@@ -2206,6 +2804,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionIdentityApiEnumAzureAd": ".connection_identity_api_enum_azure_ad",
     "ConnectionIdentityProviderEnum": ".connection_identity_provider_enum",
     "ConnectionImportMode": ".connection_import_mode",
+    "ConnectionIpsAd": ".connection_ips_ad",
     "ConnectionIsDomainConnection": ".connection_is_domain_connection",
     "ConnectionIssuer": ".connection_issuer",
     "ConnectionJwksUri": ".connection_jwks_uri",
@@ -2214,6 +2813,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionMappingModeEnumOidc": ".connection_mapping_mode_enum_oidc",
     "ConnectionMappingModeEnumOkta": ".connection_mapping_mode_enum_okta",
     "ConnectionMaxGroupsToRetrieve": ".connection_max_groups_to_retrieve",
+    "ConnectionMessagingServiceSidSms": ".connection_messaging_service_sid_sms",
+    "ConnectionMetadataUrlSaml": ".connection_metadata_url_saml",
+    "ConnectionMetadataXml": ".connection_metadata_xml",
+    "ConnectionMetadataXmlAdfs": ".connection_metadata_xml_adfs",
+    "ConnectionMetadataXmlSaml": ".connection_metadata_xml_saml",
     "ConnectionMfa": ".connection_mfa",
     "ConnectionName": ".connection_name",
     "ConnectionNamePrefixTemplate": ".connection_name_prefix_template",
@@ -2233,29 +2837,37 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsBitbucket": ".connection_options_bitbucket",
     "ConnectionOptionsBitly": ".connection_options_bitly",
     "ConnectionOptionsBox": ".connection_options_box",
+    "ConnectionOptionsClientIdGithub": ".connection_options_client_id_github",
+    "ConnectionOptionsClientIdTwitter": ".connection_options_client_id_twitter",
+    "ConnectionOptionsClientSecretGithub": ".connection_options_client_secret_github",
+    "ConnectionOptionsClientSecretTwitter": ".connection_options_client_secret_twitter",
     "ConnectionOptionsCommon": ".connection_options_common",
     "ConnectionOptionsCommonOidc": ".connection_options_common_oidc",
+    "ConnectionOptionsCommonSaml": ".connection_options_common_saml",
     "ConnectionOptionsCustom": ".connection_options_custom",
     "ConnectionOptionsDaccount": ".connection_options_daccount",
+    "ConnectionOptionsDeflateSaml": ".connection_options_deflate_saml",
     "ConnectionOptionsDropbox": ".connection_options_dropbox",
     "ConnectionOptionsDwolla": ".connection_options_dwolla",
     "ConnectionOptionsEmail": ".connection_options_email",
     "ConnectionOptionsEvernote": ".connection_options_evernote",
-    "ConnectionOptionsEvernoteCommon": ".connection_options_evernote_common",
-    "ConnectionOptionsEvernoteSandbox": ".connection_options_evernote_sandbox",
     "ConnectionOptionsExact": ".connection_options_exact",
     "ConnectionOptionsFacebook": ".connection_options_facebook",
     "ConnectionOptionsFitbit": ".connection_options_fitbit",
     "ConnectionOptionsFlickr": ".connection_options_flickr",
+    "ConnectionOptionsFreeformScopesGithub": ".connection_options_freeform_scopes_github",
     "ConnectionOptionsGitHub": ".connection_options_git_hub",
     "ConnectionOptionsGoogleApps": ".connection_options_google_apps",
     "ConnectionOptionsGoogleOAuth2": ".connection_options_google_o_auth_2",
+    "ConnectionOptionsIdpInitiatedClientProtocolEnumSaml": ".connection_options_idp_initiated_client_protocol_enum_saml",
+    "ConnectionOptionsIdpinitiatedSaml": ".connection_options_idpinitiated_saml",
     "ConnectionOptionsInstagram": ".connection_options_instagram",
     "ConnectionOptionsIp": ".connection_options_ip",
     "ConnectionOptionsLine": ".connection_options_line",
     "ConnectionOptionsLinkedin": ".connection_options_linkedin",
     "ConnectionOptionsMiicard": ".connection_options_miicard",
     "ConnectionOptionsOAuth1": ".connection_options_o_auth_1",
+    "ConnectionOptionsOAuth1Common": ".connection_options_o_auth_1_common",
     "ConnectionOptionsOAuth2": ".connection_options_o_auth_2",
     "ConnectionOptionsOAuth2Common": ".connection_options_o_auth_2_common",
     "ConnectionOptionsOffice365": ".connection_options_office_365",
@@ -2263,22 +2875,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsOidcMetadata": ".connection_options_oidc_metadata",
     "ConnectionOptionsOkta": ".connection_options_okta",
     "ConnectionOptionsPaypal": ".connection_options_paypal",
-    "ConnectionOptionsPaypalSandbox": ".connection_options_paypal_sandbox",
     "ConnectionOptionsPingFederate": ".connection_options_ping_federate",
     "ConnectionOptionsPlanningCenter": ".connection_options_planning_center",
+    "ConnectionOptionsProtocolEnumTwitter": ".connection_options_protocol_enum_twitter",
     "ConnectionOptionsRenren": ".connection_options_renren",
     "ConnectionOptionsSalesforce": ".connection_options_salesforce",
-    "ConnectionOptionsSalesforceCommon": ".connection_options_salesforce_common",
-    "ConnectionOptionsSalesforceCommunity": ".connection_options_salesforce_community",
-    "ConnectionOptionsSalesforceSandbox": ".connection_options_salesforce_sandbox",
     "ConnectionOptionsSaml": ".connection_options_saml",
+    "ConnectionOptionsScopeGithub": ".connection_options_scope_github",
+    "ConnectionOptionsScopeTwitter": ".connection_options_scope_twitter",
     "ConnectionOptionsSharepoint": ".connection_options_sharepoint",
     "ConnectionOptionsShop": ".connection_options_shop",
     "ConnectionOptionsShopify": ".connection_options_shopify",
     "ConnectionOptionsSms": ".connection_options_sms",
     "ConnectionOptionsSoundcloud": ".connection_options_soundcloud",
-    "ConnectionOptionsTheCity": ".connection_options_the_city",
-    "ConnectionOptionsTheCitySandbox": ".connection_options_the_city_sandbox",
     "ConnectionOptionsThirtySevenSignals": ".connection_options_thirty_seven_signals",
     "ConnectionOptionsTwitter": ".connection_options_twitter",
     "ConnectionOptionsUntappd": ".connection_options_untappd",
@@ -2298,6 +2907,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionPasswordHistoryOptions": ".connection_password_history_options",
     "ConnectionPasswordNoPersonalInfoOptions": ".connection_password_no_personal_info_options",
     "ConnectionPasswordPolicyEnum": ".connection_password_policy_enum",
+    "ConnectionPhoneOtpAuthenticationMethod": ".connection_phone_otp_authentication_method",
+    "ConnectionPingFederateBaseUrl": ".connection_ping_federate_base_url",
+    "ConnectionPingFederateBaseUrlPingFederate": ".connection_ping_federate_base_url_ping_federate",
     "ConnectionProfile": ".connection_profile",
     "ConnectionProfileConfig": ".connection_profile_config",
     "ConnectionProfileEnabledFeatures": ".connection_profile_enabled_features",
@@ -2313,87 +2925,155 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionProfileTemplate": ".connection_profile_template",
     "ConnectionProfileTemplateItem": ".connection_profile_template_item",
     "ConnectionPropertiesOptions": ".connection_properties_options",
-    "ConnectionProvisioningTicket": ".connection_provisioning_ticket",
+    "ConnectionProtocolBindingEnumSaml": ".connection_protocol_binding_enum_saml",
+    "ConnectionProtocolBindingSaml": ".connection_protocol_binding_saml",
+    "ConnectionProviderEnumSms": ".connection_provider_enum_sms",
+    "ConnectionProviderSms": ".connection_provider_sms",
     "ConnectionProvisioningTicketUrl": ".connection_provisioning_ticket_url",
+    "ConnectionPurposes": ".connection_purposes",
     "ConnectionRealmFallback": ".connection_realm_fallback",
     "ConnectionRealms": ".connection_realms",
+    "ConnectionRecipientUrlSaml": ".connection_recipient_url_saml",
     "ConnectionRegistrationEndpoint": ".connection_registration_endpoint",
     "ConnectionRequestObjectEncryptionAlgValuesSupported": ".connection_request_object_encryption_alg_values_supported",
     "ConnectionRequestObjectEncryptionEncValuesSupported": ".connection_request_object_encryption_enc_values_supported",
     "ConnectionRequestObjectSigningAlgValuesSupported": ".connection_request_object_signing_alg_values_supported",
     "ConnectionRequestParameterSupported": ".connection_request_parameter_supported",
+    "ConnectionRequestTemplateSaml": ".connection_request_template_saml",
     "ConnectionRequestUriParameterSupported": ".connection_request_uri_parameter_supported",
     "ConnectionRequireRequestUriRegistration": ".connection_require_request_uri_registration",
     "ConnectionRequiresUsername": ".connection_requires_username",
     "ConnectionResponseCommon": ".connection_response_common",
     "ConnectionResponseContentAd": ".connection_response_content_ad",
+    "ConnectionResponseContentAdStrategy": ".connection_response_content_ad_strategy",
     "ConnectionResponseContentAdfs": ".connection_response_content_adfs",
+    "ConnectionResponseContentAdfsStrategy": ".connection_response_content_adfs_strategy",
     "ConnectionResponseContentAmazon": ".connection_response_content_amazon",
+    "ConnectionResponseContentAmazonStrategy": ".connection_response_content_amazon_strategy",
     "ConnectionResponseContentAol": ".connection_response_content_aol",
+    "ConnectionResponseContentAolStrategy": ".connection_response_content_aol_strategy",
     "ConnectionResponseContentApple": ".connection_response_content_apple",
+    "ConnectionResponseContentAppleStrategy": ".connection_response_content_apple_strategy",
     "ConnectionResponseContentAuth0": ".connection_response_content_auth_0",
     "ConnectionResponseContentAuth0Oidc": ".connection_response_content_auth_0_oidc",
+    "ConnectionResponseContentAuth0OidcStrategy": ".connection_response_content_auth_0_oidc_strategy",
+    "ConnectionResponseContentAuth0Strategy": ".connection_response_content_auth_0_strategy",
     "ConnectionResponseContentAzureAd": ".connection_response_content_azure_ad",
+    "ConnectionResponseContentAzureAdStrategy": ".connection_response_content_azure_ad_strategy",
     "ConnectionResponseContentBaidu": ".connection_response_content_baidu",
+    "ConnectionResponseContentBaiduStrategy": ".connection_response_content_baidu_strategy",
     "ConnectionResponseContentBitbucket": ".connection_response_content_bitbucket",
+    "ConnectionResponseContentBitbucketStrategy": ".connection_response_content_bitbucket_strategy",
     "ConnectionResponseContentBitly": ".connection_response_content_bitly",
+    "ConnectionResponseContentBitlyStrategy": ".connection_response_content_bitly_strategy",
     "ConnectionResponseContentBox": ".connection_response_content_box",
+    "ConnectionResponseContentBoxStrategy": ".connection_response_content_box_strategy",
     "ConnectionResponseContentCustom": ".connection_response_content_custom",
+    "ConnectionResponseContentCustomStrategy": ".connection_response_content_custom_strategy",
     "ConnectionResponseContentDaccount": ".connection_response_content_daccount",
+    "ConnectionResponseContentDaccountStrategy": ".connection_response_content_daccount_strategy",
     "ConnectionResponseContentDropbox": ".connection_response_content_dropbox",
+    "ConnectionResponseContentDropboxStrategy": ".connection_response_content_dropbox_strategy",
     "ConnectionResponseContentDwolla": ".connection_response_content_dwolla",
+    "ConnectionResponseContentDwollaStrategy": ".connection_response_content_dwolla_strategy",
     "ConnectionResponseContentEmail": ".connection_response_content_email",
+    "ConnectionResponseContentEmailStrategy": ".connection_response_content_email_strategy",
     "ConnectionResponseContentEvernote": ".connection_response_content_evernote",
     "ConnectionResponseContentEvernoteSandbox": ".connection_response_content_evernote_sandbox",
+    "ConnectionResponseContentEvernoteSandboxStrategy": ".connection_response_content_evernote_sandbox_strategy",
+    "ConnectionResponseContentEvernoteStrategy": ".connection_response_content_evernote_strategy",
     "ConnectionResponseContentExact": ".connection_response_content_exact",
+    "ConnectionResponseContentExactStrategy": ".connection_response_content_exact_strategy",
     "ConnectionResponseContentFacebook": ".connection_response_content_facebook",
+    "ConnectionResponseContentFacebookStrategy": ".connection_response_content_facebook_strategy",
     "ConnectionResponseContentFitbit": ".connection_response_content_fitbit",
+    "ConnectionResponseContentFitbitStrategy": ".connection_response_content_fitbit_strategy",
     "ConnectionResponseContentFlickr": ".connection_response_content_flickr",
+    "ConnectionResponseContentFlickrStrategy": ".connection_response_content_flickr_strategy",
     "ConnectionResponseContentGitHub": ".connection_response_content_git_hub",
+    "ConnectionResponseContentGitHubStrategy": ".connection_response_content_git_hub_strategy",
     "ConnectionResponseContentGoogleApps": ".connection_response_content_google_apps",
+    "ConnectionResponseContentGoogleAppsStrategy": ".connection_response_content_google_apps_strategy",
     "ConnectionResponseContentGoogleOAuth2": ".connection_response_content_google_o_auth_2",
+    "ConnectionResponseContentGoogleOAuth2Strategy": ".connection_response_content_google_o_auth_2_strategy",
     "ConnectionResponseContentInstagram": ".connection_response_content_instagram",
+    "ConnectionResponseContentInstagramStrategy": ".connection_response_content_instagram_strategy",
     "ConnectionResponseContentIp": ".connection_response_content_ip",
+    "ConnectionResponseContentIpStrategy": ".connection_response_content_ip_strategy",
     "ConnectionResponseContentLine": ".connection_response_content_line",
+    "ConnectionResponseContentLineStrategy": ".connection_response_content_line_strategy",
     "ConnectionResponseContentLinkedin": ".connection_response_content_linkedin",
+    "ConnectionResponseContentLinkedinStrategy": ".connection_response_content_linkedin_strategy",
     "ConnectionResponseContentMiicard": ".connection_response_content_miicard",
+    "ConnectionResponseContentMiicardStrategy": ".connection_response_content_miicard_strategy",
     "ConnectionResponseContentOAuth1": ".connection_response_content_o_auth_1",
+    "ConnectionResponseContentOAuth1Strategy": ".connection_response_content_o_auth_1_strategy",
     "ConnectionResponseContentOAuth2": ".connection_response_content_o_auth_2",
+    "ConnectionResponseContentOAuth2Strategy": ".connection_response_content_o_auth_2_strategy",
     "ConnectionResponseContentOffice365": ".connection_response_content_office_365",
+    "ConnectionResponseContentOffice365Strategy": ".connection_response_content_office_365_strategy",
     "ConnectionResponseContentOidc": ".connection_response_content_oidc",
+    "ConnectionResponseContentOidcStrategy": ".connection_response_content_oidc_strategy",
     "ConnectionResponseContentOkta": ".connection_response_content_okta",
+    "ConnectionResponseContentOktaStrategy": ".connection_response_content_okta_strategy",
     "ConnectionResponseContentPaypal": ".connection_response_content_paypal",
     "ConnectionResponseContentPaypalSandbox": ".connection_response_content_paypal_sandbox",
+    "ConnectionResponseContentPaypalSandboxStrategy": ".connection_response_content_paypal_sandbox_strategy",
+    "ConnectionResponseContentPaypalStrategy": ".connection_response_content_paypal_strategy",
     "ConnectionResponseContentPingFederate": ".connection_response_content_ping_federate",
+    "ConnectionResponseContentPingFederateStrategy": ".connection_response_content_ping_federate_strategy",
     "ConnectionResponseContentPlanningCenter": ".connection_response_content_planning_center",
+    "ConnectionResponseContentPlanningCenterStrategy": ".connection_response_content_planning_center_strategy",
     "ConnectionResponseContentRenren": ".connection_response_content_renren",
+    "ConnectionResponseContentRenrenStrategy": ".connection_response_content_renren_strategy",
     "ConnectionResponseContentSalesforce": ".connection_response_content_salesforce",
     "ConnectionResponseContentSalesforceCommunity": ".connection_response_content_salesforce_community",
+    "ConnectionResponseContentSalesforceCommunityStrategy": ".connection_response_content_salesforce_community_strategy",
     "ConnectionResponseContentSalesforceSandbox": ".connection_response_content_salesforce_sandbox",
+    "ConnectionResponseContentSalesforceSandboxStrategy": ".connection_response_content_salesforce_sandbox_strategy",
+    "ConnectionResponseContentSalesforceStrategy": ".connection_response_content_salesforce_strategy",
     "ConnectionResponseContentSaml": ".connection_response_content_saml",
+    "ConnectionResponseContentSamlStrategy": ".connection_response_content_saml_strategy",
     "ConnectionResponseContentSharepoint": ".connection_response_content_sharepoint",
+    "ConnectionResponseContentSharepointStrategy": ".connection_response_content_sharepoint_strategy",
     "ConnectionResponseContentShop": ".connection_response_content_shop",
+    "ConnectionResponseContentShopStrategy": ".connection_response_content_shop_strategy",
     "ConnectionResponseContentShopify": ".connection_response_content_shopify",
+    "ConnectionResponseContentShopifyStrategy": ".connection_response_content_shopify_strategy",
     "ConnectionResponseContentSms": ".connection_response_content_sms",
+    "ConnectionResponseContentSmsStrategy": ".connection_response_content_sms_strategy",
     "ConnectionResponseContentSoundcloud": ".connection_response_content_soundcloud",
-    "ConnectionResponseContentTheCity": ".connection_response_content_the_city",
-    "ConnectionResponseContentTheCitySandbox": ".connection_response_content_the_city_sandbox",
+    "ConnectionResponseContentSoundcloudStrategy": ".connection_response_content_soundcloud_strategy",
     "ConnectionResponseContentThirtySevenSignals": ".connection_response_content_thirty_seven_signals",
+    "ConnectionResponseContentThirtySevenSignalsStrategy": ".connection_response_content_thirty_seven_signals_strategy",
     "ConnectionResponseContentTwitter": ".connection_response_content_twitter",
+    "ConnectionResponseContentTwitterStrategy": ".connection_response_content_twitter_strategy",
     "ConnectionResponseContentUntappd": ".connection_response_content_untappd",
+    "ConnectionResponseContentUntappdStrategy": ".connection_response_content_untappd_strategy",
     "ConnectionResponseContentVkontakte": ".connection_response_content_vkontakte",
+    "ConnectionResponseContentVkontakteStrategy": ".connection_response_content_vkontakte_strategy",
     "ConnectionResponseContentWeibo": ".connection_response_content_weibo",
+    "ConnectionResponseContentWeiboStrategy": ".connection_response_content_weibo_strategy",
     "ConnectionResponseContentWindowsLive": ".connection_response_content_windows_live",
+    "ConnectionResponseContentWindowsLiveStrategy": ".connection_response_content_windows_live_strategy",
     "ConnectionResponseContentWordpress": ".connection_response_content_wordpress",
+    "ConnectionResponseContentWordpressStrategy": ".connection_response_content_wordpress_strategy",
     "ConnectionResponseContentYahoo": ".connection_response_content_yahoo",
+    "ConnectionResponseContentYahooStrategy": ".connection_response_content_yahoo_strategy",
     "ConnectionResponseContentYammer": ".connection_response_content_yammer",
+    "ConnectionResponseContentYammerStrategy": ".connection_response_content_yammer_strategy",
     "ConnectionResponseContentYandex": ".connection_response_content_yandex",
+    "ConnectionResponseContentYandexStrategy": ".connection_response_content_yandex_strategy",
     "ConnectionResponseModesSupported": ".connection_response_modes_supported",
     "ConnectionResponseTypesSupported": ".connection_response_types_supported",
     "ConnectionScopeArray": ".connection_scope_array",
+    "ConnectionScopeArrayFacebook": ".connection_scope_array_facebook",
     "ConnectionScopeAzureAd": ".connection_scope_azure_ad",
+    "ConnectionScopeFacebook": ".connection_scope_facebook",
+    "ConnectionScopeGoogleApps": ".connection_scope_google_apps",
     "ConnectionScopeGoogleOAuth2": ".connection_scope_google_o_auth_2",
     "ConnectionScopeItem": ".connection_scope_item",
+    "ConnectionScopeItemGoogleApps": ".connection_scope_item_google_apps",
     "ConnectionScopeOAuth2": ".connection_scope_o_auth_2",
     "ConnectionScopeOidc": ".connection_scope_oidc",
     "ConnectionScopesSupported": ".connection_scopes_supported",
@@ -2401,15 +3081,37 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionSendBackChannelNonce": ".connection_send_back_channel_nonce",
     "ConnectionServiceDocumentation": ".connection_service_documentation",
     "ConnectionSetUserRootAttributesEnum": ".connection_set_user_root_attributes_enum",
+    "ConnectionSha1Thumbprint": ".connection_sha_1_thumbprint",
     "ConnectionShouldTrustEmailVerifiedConnectionEnum": ".connection_should_trust_email_verified_connection_enum",
     "ConnectionShowAsButton": ".connection_show_as_button",
+    "ConnectionSignInEndpointAd": ".connection_sign_in_endpoint_ad",
+    "ConnectionSignInEndpointAdfs": ".connection_sign_in_endpoint_adfs",
+    "ConnectionSignInEndpointSaml": ".connection_sign_in_endpoint_saml",
+    "ConnectionSignOutEndpointSaml": ".connection_sign_out_endpoint_saml",
+    "ConnectionSignSamlRequestSaml": ".connection_sign_saml_request_saml",
+    "ConnectionSignatureAlgorithmEnumSaml": ".connection_signature_algorithm_enum_saml",
+    "ConnectionSignatureAlgorithmSaml": ".connection_signature_algorithm_saml",
+    "ConnectionSigningCertSaml": ".connection_signing_cert_saml",
+    "ConnectionSigningCertificateDerSaml": ".connection_signing_certificate_der_saml",
+    "ConnectionSigningCertificatePemPingFederate": ".connection_signing_certificate_pem_ping_federate",
+    "ConnectionSigningCertificatePemSaml": ".connection_signing_certificate_pem_saml",
+    "ConnectionSigningKeySaml": ".connection_signing_key_saml",
+    "ConnectionSignupBehaviorEnum": ".connection_signup_behavior_enum",
     "ConnectionStrategyEnum": ".connection_strategy_enum",
-    "ConnectionStrategyVersionEnumAzureAd": ".connection_strategy_version_enum_azure_ad",
+    "ConnectionStrategyVersionEnumLinkedin": ".connection_strategy_version_enum_linkedin",
+    "ConnectionStrategyVersionEnumWindowsLive": ".connection_strategy_version_enum_windows_live",
     "ConnectionSubjectTypesSupported": ".connection_subject_types_supported",
+    "ConnectionTemplateSms": ".connection_template_sms",
+    "ConnectionTemplateSyntaxEnumSms": ".connection_template_syntax_enum_sms",
     "ConnectionTenantDomain": ".connection_tenant_domain",
+    "ConnectionTenantDomainAd": ".connection_tenant_domain_ad",
     "ConnectionTenantDomainAzureAdOne": ".connection_tenant_domain_azure_ad_one",
+    "ConnectionTenantDomainGoogleApps": ".connection_tenant_domain_google_apps",
+    "ConnectionTenantDomainSaml": ".connection_tenant_domain_saml",
     "ConnectionTenantIdAzureAd": ".connection_tenant_id_azure_ad",
     "ConnectionThumbprints": ".connection_thumbprints",
+    "ConnectionThumbprintsAd": ".connection_thumbprints_ad",
+    "ConnectionThumbprintsSaml": ".connection_thumbprints_saml",
     "ConnectionTokenEndpoint": ".connection_token_endpoint",
     "ConnectionTokenEndpointAuthMethodEnum": ".connection_token_endpoint_auth_method_enum",
     "ConnectionTokenEndpointAuthMethodsSupported": ".connection_token_endpoint_auth_methods_supported",
@@ -2417,6 +3119,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionTokenEndpointAuthSigningAlgValuesSupported": ".connection_token_endpoint_auth_signing_alg_values_supported",
     "ConnectionTokenEndpointOAuth2": ".connection_token_endpoint_o_auth_2",
     "ConnectionTokenEndpointOidc": ".connection_token_endpoint_oidc",
+    "ConnectionTotpEmail": ".connection_totp_email",
+    "ConnectionTotpLengthEmail": ".connection_totp_length_email",
+    "ConnectionTotpLengthPasswordless": ".connection_totp_length_passwordless",
+    "ConnectionTotpLengthSms": ".connection_totp_length_sms",
+    "ConnectionTotpSms": ".connection_totp_sms",
+    "ConnectionTotpTimeStepEmail": ".connection_totp_time_step_email",
+    "ConnectionTotpTimeStepPasswordless": ".connection_totp_time_step_passwordless",
+    "ConnectionTotpTimeStepSms": ".connection_totp_time_step_sms",
+    "ConnectionTwilioSidSms": ".connection_twilio_sid_sms",
+    "ConnectionTwilioTokenSms": ".connection_twilio_token_sms",
     "ConnectionTypeEnumOidc": ".connection_type_enum_oidc",
     "ConnectionTypeEnumOkta": ".connection_type_enum_okta",
     "ConnectionUiLocalesSupported": ".connection_ui_locales_supported",
@@ -2424,10 +3136,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionUpstreamAlias": ".connection_upstream_alias",
     "ConnectionUpstreamAliasEnum": ".connection_upstream_alias_enum",
     "ConnectionUpstreamParams": ".connection_upstream_params",
-    "ConnectionUpstreamParamsAzureAd": ".connection_upstream_params_azure_ad",
-    "ConnectionUpstreamParamsOidc": ".connection_upstream_params_oidc",
+    "ConnectionUpstreamParamsAdfs": ".connection_upstream_params_adfs",
+    "ConnectionUpstreamParamsFacebook": ".connection_upstream_params_facebook",
     "ConnectionUpstreamValue": ".connection_upstream_value",
     "ConnectionUseCommonEndpointAzureAd": ".connection_use_common_endpoint_azure_ad",
+    "ConnectionUserIdAttributeSaml": ".connection_user_id_attribute_saml",
     "ConnectionUseridAttributeAzureAd": ".connection_userid_attribute_azure_ad",
     "ConnectionUseridAttributeEnumAzureAd": ".connection_userid_attribute_enum_azure_ad",
     "ConnectionUserinfoEncryptionAlgValuesSupported": ".connection_userinfo_encryption_alg_values_supported",
@@ -2440,75 +3153,137 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionWaadProtocol": ".connection_waad_protocol",
     "ConnectionWaadProtocolEnumAzureAd": ".connection_waad_protocol_enum_azure_ad",
     "ConnectionsMetadata": ".connections_metadata",
+    "CreateActionModuleResponseContent": ".create_action_module_response_content",
+    "CreateActionModuleVersionResponseContent": ".create_action_module_version_response_content",
     "CreateActionResponseContent": ".create_action_response_content",
     "CreateBrandingPhoneProviderResponseContent": ".create_branding_phone_provider_response_content",
     "CreateBrandingThemeResponseContent": ".create_branding_theme_response_content",
+    "CreateClientAuthenticationMethodSelfSignedTlsClientAuth": ".create_client_authentication_method_self_signed_tls_client_auth",
+    "CreateClientAuthenticationMethodSelfSignedTlsClientAuthCredentials": ".create_client_authentication_method_self_signed_tls_client_auth_credentials",
     "CreateClientGrantResponseContent": ".create_client_grant_response_content",
     "CreateClientResponseContent": ".create_client_response_content",
     "CreateConnectionCommon": ".create_connection_common",
     "CreateConnectionProfileResponseContent": ".create_connection_profile_response_content",
     "CreateConnectionRequestContentAd": ".create_connection_request_content_ad",
+    "CreateConnectionRequestContentAdStrategy": ".create_connection_request_content_ad_strategy",
     "CreateConnectionRequestContentAdfs": ".create_connection_request_content_adfs",
+    "CreateConnectionRequestContentAdfsStrategy": ".create_connection_request_content_adfs_strategy",
     "CreateConnectionRequestContentAmazon": ".create_connection_request_content_amazon",
+    "CreateConnectionRequestContentAmazonStrategy": ".create_connection_request_content_amazon_strategy",
     "CreateConnectionRequestContentAol": ".create_connection_request_content_aol",
+    "CreateConnectionRequestContentAolStrategy": ".create_connection_request_content_aol_strategy",
     "CreateConnectionRequestContentApple": ".create_connection_request_content_apple",
+    "CreateConnectionRequestContentAppleStrategy": ".create_connection_request_content_apple_strategy",
     "CreateConnectionRequestContentAuth0": ".create_connection_request_content_auth_0",
     "CreateConnectionRequestContentAuth0Oidc": ".create_connection_request_content_auth_0_oidc",
+    "CreateConnectionRequestContentAuth0OidcStrategy": ".create_connection_request_content_auth_0_oidc_strategy",
+    "CreateConnectionRequestContentAuth0Strategy": ".create_connection_request_content_auth_0_strategy",
     "CreateConnectionRequestContentAzureAd": ".create_connection_request_content_azure_ad",
+    "CreateConnectionRequestContentAzureAdStrategy": ".create_connection_request_content_azure_ad_strategy",
     "CreateConnectionRequestContentBaidu": ".create_connection_request_content_baidu",
+    "CreateConnectionRequestContentBaiduStrategy": ".create_connection_request_content_baidu_strategy",
     "CreateConnectionRequestContentBitbucket": ".create_connection_request_content_bitbucket",
+    "CreateConnectionRequestContentBitbucketStrategy": ".create_connection_request_content_bitbucket_strategy",
     "CreateConnectionRequestContentBitly": ".create_connection_request_content_bitly",
+    "CreateConnectionRequestContentBitlyStrategy": ".create_connection_request_content_bitly_strategy",
     "CreateConnectionRequestContentBox": ".create_connection_request_content_box",
+    "CreateConnectionRequestContentBoxStrategy": ".create_connection_request_content_box_strategy",
     "CreateConnectionRequestContentCustom": ".create_connection_request_content_custom",
+    "CreateConnectionRequestContentCustomStrategy": ".create_connection_request_content_custom_strategy",
     "CreateConnectionRequestContentDaccount": ".create_connection_request_content_daccount",
+    "CreateConnectionRequestContentDaccountStrategy": ".create_connection_request_content_daccount_strategy",
     "CreateConnectionRequestContentDropbox": ".create_connection_request_content_dropbox",
+    "CreateConnectionRequestContentDropboxStrategy": ".create_connection_request_content_dropbox_strategy",
     "CreateConnectionRequestContentDwolla": ".create_connection_request_content_dwolla",
+    "CreateConnectionRequestContentDwollaStrategy": ".create_connection_request_content_dwolla_strategy",
     "CreateConnectionRequestContentEmail": ".create_connection_request_content_email",
+    "CreateConnectionRequestContentEmailStrategy": ".create_connection_request_content_email_strategy",
     "CreateConnectionRequestContentEvernote": ".create_connection_request_content_evernote",
     "CreateConnectionRequestContentEvernoteSandbox": ".create_connection_request_content_evernote_sandbox",
+    "CreateConnectionRequestContentEvernoteSandboxStrategy": ".create_connection_request_content_evernote_sandbox_strategy",
+    "CreateConnectionRequestContentEvernoteStrategy": ".create_connection_request_content_evernote_strategy",
     "CreateConnectionRequestContentExact": ".create_connection_request_content_exact",
+    "CreateConnectionRequestContentExactStrategy": ".create_connection_request_content_exact_strategy",
     "CreateConnectionRequestContentFacebook": ".create_connection_request_content_facebook",
+    "CreateConnectionRequestContentFacebookStrategy": ".create_connection_request_content_facebook_strategy",
     "CreateConnectionRequestContentFitbit": ".create_connection_request_content_fitbit",
+    "CreateConnectionRequestContentFitbitStrategy": ".create_connection_request_content_fitbit_strategy",
     "CreateConnectionRequestContentFlickr": ".create_connection_request_content_flickr",
+    "CreateConnectionRequestContentFlickrStrategy": ".create_connection_request_content_flickr_strategy",
     "CreateConnectionRequestContentGitHub": ".create_connection_request_content_git_hub",
+    "CreateConnectionRequestContentGitHubStrategy": ".create_connection_request_content_git_hub_strategy",
     "CreateConnectionRequestContentGoogleApps": ".create_connection_request_content_google_apps",
+    "CreateConnectionRequestContentGoogleAppsStrategy": ".create_connection_request_content_google_apps_strategy",
     "CreateConnectionRequestContentGoogleOAuth2": ".create_connection_request_content_google_o_auth_2",
+    "CreateConnectionRequestContentGoogleOAuth2Strategy": ".create_connection_request_content_google_o_auth_2_strategy",
     "CreateConnectionRequestContentInstagram": ".create_connection_request_content_instagram",
+    "CreateConnectionRequestContentInstagramStrategy": ".create_connection_request_content_instagram_strategy",
     "CreateConnectionRequestContentIp": ".create_connection_request_content_ip",
+    "CreateConnectionRequestContentIpStrategy": ".create_connection_request_content_ip_strategy",
     "CreateConnectionRequestContentLine": ".create_connection_request_content_line",
+    "CreateConnectionRequestContentLineStrategy": ".create_connection_request_content_line_strategy",
     "CreateConnectionRequestContentLinkedin": ".create_connection_request_content_linkedin",
+    "CreateConnectionRequestContentLinkedinStrategy": ".create_connection_request_content_linkedin_strategy",
     "CreateConnectionRequestContentMiicard": ".create_connection_request_content_miicard",
+    "CreateConnectionRequestContentMiicardStrategy": ".create_connection_request_content_miicard_strategy",
     "CreateConnectionRequestContentOAuth1": ".create_connection_request_content_o_auth_1",
+    "CreateConnectionRequestContentOAuth1Strategy": ".create_connection_request_content_o_auth_1_strategy",
     "CreateConnectionRequestContentOAuth2": ".create_connection_request_content_o_auth_2",
+    "CreateConnectionRequestContentOAuth2Strategy": ".create_connection_request_content_o_auth_2_strategy",
     "CreateConnectionRequestContentOffice365": ".create_connection_request_content_office_365",
+    "CreateConnectionRequestContentOffice365Strategy": ".create_connection_request_content_office_365_strategy",
     "CreateConnectionRequestContentOidc": ".create_connection_request_content_oidc",
+    "CreateConnectionRequestContentOidcStrategy": ".create_connection_request_content_oidc_strategy",
     "CreateConnectionRequestContentOkta": ".create_connection_request_content_okta",
+    "CreateConnectionRequestContentOktaStrategy": ".create_connection_request_content_okta_strategy",
     "CreateConnectionRequestContentPaypal": ".create_connection_request_content_paypal",
     "CreateConnectionRequestContentPaypalSandbox": ".create_connection_request_content_paypal_sandbox",
+    "CreateConnectionRequestContentPaypalSandboxStrategy": ".create_connection_request_content_paypal_sandbox_strategy",
+    "CreateConnectionRequestContentPaypalStrategy": ".create_connection_request_content_paypal_strategy",
     "CreateConnectionRequestContentPingFederate": ".create_connection_request_content_ping_federate",
+    "CreateConnectionRequestContentPingFederateStrategy": ".create_connection_request_content_ping_federate_strategy",
     "CreateConnectionRequestContentPlanningCenter": ".create_connection_request_content_planning_center",
+    "CreateConnectionRequestContentPlanningCenterStrategy": ".create_connection_request_content_planning_center_strategy",
     "CreateConnectionRequestContentRenren": ".create_connection_request_content_renren",
+    "CreateConnectionRequestContentRenrenStrategy": ".create_connection_request_content_renren_strategy",
     "CreateConnectionRequestContentSalesforce": ".create_connection_request_content_salesforce",
     "CreateConnectionRequestContentSalesforceCommunity": ".create_connection_request_content_salesforce_community",
+    "CreateConnectionRequestContentSalesforceCommunityStrategy": ".create_connection_request_content_salesforce_community_strategy",
     "CreateConnectionRequestContentSalesforceSandbox": ".create_connection_request_content_salesforce_sandbox",
+    "CreateConnectionRequestContentSalesforceSandboxStrategy": ".create_connection_request_content_salesforce_sandbox_strategy",
+    "CreateConnectionRequestContentSalesforceStrategy": ".create_connection_request_content_salesforce_strategy",
     "CreateConnectionRequestContentSaml": ".create_connection_request_content_saml",
+    "CreateConnectionRequestContentSamlStrategy": ".create_connection_request_content_saml_strategy",
     "CreateConnectionRequestContentSharepoint": ".create_connection_request_content_sharepoint",
+    "CreateConnectionRequestContentSharepointStrategy": ".create_connection_request_content_sharepoint_strategy",
     "CreateConnectionRequestContentShop": ".create_connection_request_content_shop",
+    "CreateConnectionRequestContentShopStrategy": ".create_connection_request_content_shop_strategy",
     "CreateConnectionRequestContentShopify": ".create_connection_request_content_shopify",
+    "CreateConnectionRequestContentShopifyStrategy": ".create_connection_request_content_shopify_strategy",
     "CreateConnectionRequestContentSms": ".create_connection_request_content_sms",
+    "CreateConnectionRequestContentSmsStrategy": ".create_connection_request_content_sms_strategy",
     "CreateConnectionRequestContentSoundcloud": ".create_connection_request_content_soundcloud",
-    "CreateConnectionRequestContentTheCity": ".create_connection_request_content_the_city",
-    "CreateConnectionRequestContentTheCitySandbox": ".create_connection_request_content_the_city_sandbox",
+    "CreateConnectionRequestContentSoundcloudStrategy": ".create_connection_request_content_soundcloud_strategy",
     "CreateConnectionRequestContentThirtySevenSignals": ".create_connection_request_content_thirty_seven_signals",
+    "CreateConnectionRequestContentThirtySevenSignalsStrategy": ".create_connection_request_content_thirty_seven_signals_strategy",
     "CreateConnectionRequestContentTwitter": ".create_connection_request_content_twitter",
+    "CreateConnectionRequestContentTwitterStrategy": ".create_connection_request_content_twitter_strategy",
     "CreateConnectionRequestContentUntappd": ".create_connection_request_content_untappd",
+    "CreateConnectionRequestContentUntappdStrategy": ".create_connection_request_content_untappd_strategy",
     "CreateConnectionRequestContentVkontakte": ".create_connection_request_content_vkontakte",
+    "CreateConnectionRequestContentVkontakteStrategy": ".create_connection_request_content_vkontakte_strategy",
     "CreateConnectionRequestContentWeibo": ".create_connection_request_content_weibo",
+    "CreateConnectionRequestContentWeiboStrategy": ".create_connection_request_content_weibo_strategy",
     "CreateConnectionRequestContentWindowsLive": ".create_connection_request_content_windows_live",
+    "CreateConnectionRequestContentWindowsLiveStrategy": ".create_connection_request_content_windows_live_strategy",
     "CreateConnectionRequestContentWordpress": ".create_connection_request_content_wordpress",
+    "CreateConnectionRequestContentWordpressStrategy": ".create_connection_request_content_wordpress_strategy",
     "CreateConnectionRequestContentYahoo": ".create_connection_request_content_yahoo",
+    "CreateConnectionRequestContentYahooStrategy": ".create_connection_request_content_yahoo_strategy",
     "CreateConnectionRequestContentYammer": ".create_connection_request_content_yammer",
+    "CreateConnectionRequestContentYammerStrategy": ".create_connection_request_content_yammer_strategy",
     "CreateConnectionRequestContentYandex": ".create_connection_request_content_yandex",
+    "CreateConnectionRequestContentYandexStrategy": ".create_connection_request_content_yandex_strategy",
     "CreateConnectionResponseContent": ".create_connection_response_content",
     "CreateCustomDomainResponseContent": ".create_custom_domain_response_content",
     "CreateDirectoryProvisioningRequestContent": ".create_directory_provisioning_request_content",
@@ -2550,7 +3325,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateFlowsVaultConnectionGoogleSheetsOauthCode": ".create_flows_vault_connection_google_sheets_oauth_code",
     "CreateFlowsVaultConnectionGoogleSheetsUninitialized": ".create_flows_vault_connection_google_sheets_uninitialized",
     "CreateFlowsVaultConnectionHttp": ".create_flows_vault_connection_http",
+    "CreateFlowsVaultConnectionHttpApiKey": ".create_flows_vault_connection_http_api_key",
+    "CreateFlowsVaultConnectionHttpBasicAuth": ".create_flows_vault_connection_http_basic_auth",
     "CreateFlowsVaultConnectionHttpBearer": ".create_flows_vault_connection_http_bearer",
+    "CreateFlowsVaultConnectionHttpOauthClientCredentials": ".create_flows_vault_connection_http_oauth_client_credentials",
     "CreateFlowsVaultConnectionHttpUninitialized": ".create_flows_vault_connection_http_uninitialized",
     "CreateFlowsVaultConnectionHubspot": ".create_flows_vault_connection_hubspot",
     "CreateFlowsVaultConnectionHubspotApiKey": ".create_flows_vault_connection_hubspot_api_key",
@@ -2656,17 +3434,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CustomSigningKeyTypeEnum": ".custom_signing_key_type_enum",
     "CustomSigningKeyUseEnum": ".custom_signing_key_use_enum",
     "DailyStats": ".daily_stats",
+    "DefaultMethodEmailIdentifierEnum": ".default_method_email_identifier_enum",
     "DefaultTokenQuota": ".default_token_quota",
     "DeleteHookSecretRequestContent": ".delete_hook_secret_request_content",
     "DeleteUserIdentityResponseContent": ".delete_user_identity_response_content",
     "DeleteUserIdentityResponseContentItem": ".delete_user_identity_response_content_item",
     "DeployActionResponseContent": ".deploy_action_response_content",
-    "DeployActionVersionRequestBodyParams": ".deploy_action_version_request_body_params",
     "DeployActionVersionRequestContent": ".deploy_action_version_request_content",
     "DeployActionVersionResponseContent": ".deploy_action_version_response_content",
     "DeviceCredential": ".device_credential",
     "DeviceCredentialPublicKeyTypeEnum": ".device_credential_public_key_type_enum",
     "DeviceCredentialTypeEnum": ".device_credential_type_enum",
+    "DirectoryProvisioning": ".directory_provisioning",
     "DirectoryProvisioningMappingItem": ".directory_provisioning_mapping_item",
     "DomainCertificate": ".domain_certificate",
     "DomainCertificateAuthorityEnum": ".domain_certificate_authority_enum",
@@ -2734,31 +3513,53 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FlowAction": ".flow_action",
     "FlowActionActivecampaign": ".flow_action_activecampaign",
     "FlowActionActivecampaignListContacts": ".flow_action_activecampaign_list_contacts",
+    "FlowActionActivecampaignListContactsAction": ".flow_action_activecampaign_list_contacts_action",
     "FlowActionActivecampaignListContactsParams": ".flow_action_activecampaign_list_contacts_params",
+    "FlowActionActivecampaignListContactsType": ".flow_action_activecampaign_list_contacts_type",
     "FlowActionActivecampaignUpsertContact": ".flow_action_activecampaign_upsert_contact",
+    "FlowActionActivecampaignUpsertContactAction": ".flow_action_activecampaign_upsert_contact_action",
     "FlowActionActivecampaignUpsertContactParams": ".flow_action_activecampaign_upsert_contact_params",
     "FlowActionActivecampaignUpsertContactParamsCustomFields": ".flow_action_activecampaign_upsert_contact_params_custom_fields",
+    "FlowActionActivecampaignUpsertContactType": ".flow_action_activecampaign_upsert_contact_type",
     "FlowActionAirtable": ".flow_action_airtable",
     "FlowActionAirtableCreateRecord": ".flow_action_airtable_create_record",
+    "FlowActionAirtableCreateRecordAction": ".flow_action_airtable_create_record_action",
     "FlowActionAirtableCreateRecordParams": ".flow_action_airtable_create_record_params",
     "FlowActionAirtableCreateRecordParamsFields": ".flow_action_airtable_create_record_params_fields",
+    "FlowActionAirtableCreateRecordType": ".flow_action_airtable_create_record_type",
     "FlowActionAirtableListRecords": ".flow_action_airtable_list_records",
+    "FlowActionAirtableListRecordsAction": ".flow_action_airtable_list_records_action",
     "FlowActionAirtableListRecordsParams": ".flow_action_airtable_list_records_params",
+    "FlowActionAirtableListRecordsType": ".flow_action_airtable_list_records_type",
     "FlowActionAirtableUpdateRecord": ".flow_action_airtable_update_record",
+    "FlowActionAirtableUpdateRecordAction": ".flow_action_airtable_update_record_action",
     "FlowActionAirtableUpdateRecordParams": ".flow_action_airtable_update_record_params",
     "FlowActionAirtableUpdateRecordParamsFields": ".flow_action_airtable_update_record_params_fields",
+    "FlowActionAirtableUpdateRecordType": ".flow_action_airtable_update_record_type",
     "FlowActionAuth0": ".flow_action_auth_0",
     "FlowActionAuth0CreateUser": ".flow_action_auth_0_create_user",
+    "FlowActionAuth0CreateUserAction": ".flow_action_auth_0_create_user_action",
     "FlowActionAuth0CreateUserParams": ".flow_action_auth_0_create_user_params",
     "FlowActionAuth0CreateUserParamsPayload": ".flow_action_auth_0_create_user_params_payload",
+    "FlowActionAuth0CreateUserType": ".flow_action_auth_0_create_user_type",
     "FlowActionAuth0GetUser": ".flow_action_auth_0_get_user",
+    "FlowActionAuth0GetUserAction": ".flow_action_auth_0_get_user_action",
     "FlowActionAuth0GetUserParams": ".flow_action_auth_0_get_user_params",
+    "FlowActionAuth0GetUserType": ".flow_action_auth_0_get_user_type",
+    "FlowActionAuth0MakeCall": ".flow_action_auth_0_make_call",
+    "FlowActionAuth0MakeCallAction": ".flow_action_auth_0_make_call_action",
+    "FlowActionAuth0MakeCallParams": ".flow_action_auth_0_make_call_params",
+    "FlowActionAuth0MakeCallParamsCustomVars": ".flow_action_auth_0_make_call_params_custom_vars",
+    "FlowActionAuth0MakeCallType": ".flow_action_auth_0_make_call_type",
     "FlowActionAuth0SendEmail": ".flow_action_auth_0_send_email",
+    "FlowActionAuth0SendEmailAction": ".flow_action_auth_0_send_email_action",
     "FlowActionAuth0SendEmailParams": ".flow_action_auth_0_send_email_params",
     "FlowActionAuth0SendEmailParamsFrom": ".flow_action_auth_0_send_email_params_from",
     "FlowActionAuth0SendEmailParamsFromEmail": ".flow_action_auth_0_send_email_params_from_email",
     "FlowActionAuth0SendEmailParamsTo": ".flow_action_auth_0_send_email_params_to",
+    "FlowActionAuth0SendEmailType": ".flow_action_auth_0_send_email_type",
     "FlowActionAuth0SendRequest": ".flow_action_auth_0_send_request",
+    "FlowActionAuth0SendRequestAction": ".flow_action_auth_0_send_request_action",
     "FlowActionAuth0SendRequestParams": ".flow_action_auth_0_send_request_params",
     "FlowActionAuth0SendRequestParamsCustomVars": ".flow_action_auth_0_send_request_params_custom_vars",
     "FlowActionAuth0SendRequestParamsHeaders": ".flow_action_auth_0_send_request_params_headers",
@@ -2767,53 +3568,86 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FlowActionAuth0SendRequestParamsPayloadObject": ".flow_action_auth_0_send_request_params_payload_object",
     "FlowActionAuth0SendRequestParamsQueryParams": ".flow_action_auth_0_send_request_params_query_params",
     "FlowActionAuth0SendRequestParamsQueryParamsValue": ".flow_action_auth_0_send_request_params_query_params_value",
+    "FlowActionAuth0SendRequestType": ".flow_action_auth_0_send_request_type",
+    "FlowActionAuth0SendSms": ".flow_action_auth_0_send_sms",
+    "FlowActionAuth0SendSmsAction": ".flow_action_auth_0_send_sms_action",
+    "FlowActionAuth0SendSmsParams": ".flow_action_auth_0_send_sms_params",
+    "FlowActionAuth0SendSmsParamsCustomVars": ".flow_action_auth_0_send_sms_params_custom_vars",
+    "FlowActionAuth0SendSmsType": ".flow_action_auth_0_send_sms_type",
     "FlowActionAuth0UpdateUser": ".flow_action_auth_0_update_user",
+    "FlowActionAuth0UpdateUserAction": ".flow_action_auth_0_update_user_action",
     "FlowActionAuth0UpdateUserParams": ".flow_action_auth_0_update_user_params",
     "FlowActionAuth0UpdateUserParamsChanges": ".flow_action_auth_0_update_user_params_changes",
+    "FlowActionAuth0UpdateUserType": ".flow_action_auth_0_update_user_type",
     "FlowActionBigquery": ".flow_action_bigquery",
     "FlowActionBigqueryInsertRows": ".flow_action_bigquery_insert_rows",
+    "FlowActionBigqueryInsertRowsAction": ".flow_action_bigquery_insert_rows_action",
     "FlowActionBigqueryInsertRowsParams": ".flow_action_bigquery_insert_rows_params",
     "FlowActionBigqueryInsertRowsParamsData": ".flow_action_bigquery_insert_rows_params_data",
+    "FlowActionBigqueryInsertRowsType": ".flow_action_bigquery_insert_rows_type",
     "FlowActionClearbit": ".flow_action_clearbit",
     "FlowActionClearbitFindCompany": ".flow_action_clearbit_find_company",
+    "FlowActionClearbitFindCompanyAction": ".flow_action_clearbit_find_company_action",
     "FlowActionClearbitFindCompanyParams": ".flow_action_clearbit_find_company_params",
+    "FlowActionClearbitFindCompanyType": ".flow_action_clearbit_find_company_type",
     "FlowActionClearbitFindPerson": ".flow_action_clearbit_find_person",
+    "FlowActionClearbitFindPersonAction": ".flow_action_clearbit_find_person_action",
     "FlowActionClearbitFindPersonParams": ".flow_action_clearbit_find_person_params",
+    "FlowActionClearbitFindPersonType": ".flow_action_clearbit_find_person_type",
     "FlowActionEmail": ".flow_action_email",
     "FlowActionEmailVerifyEmail": ".flow_action_email_verify_email",
+    "FlowActionEmailVerifyEmailAction": ".flow_action_email_verify_email_action",
     "FlowActionEmailVerifyEmailParams": ".flow_action_email_verify_email_params",
     "FlowActionEmailVerifyEmailParamsRules": ".flow_action_email_verify_email_params_rules",
+    "FlowActionEmailVerifyEmailType": ".flow_action_email_verify_email_type",
     "FlowActionFlow": ".flow_action_flow",
     "FlowActionFlowBooleanCondition": ".flow_action_flow_boolean_condition",
+    "FlowActionFlowBooleanConditionAction": ".flow_action_flow_boolean_condition_action",
     "FlowActionFlowBooleanConditionParams": ".flow_action_flow_boolean_condition_params",
+    "FlowActionFlowBooleanConditionType": ".flow_action_flow_boolean_condition_type",
     "FlowActionFlowDelayFlow": ".flow_action_flow_delay_flow",
+    "FlowActionFlowDelayFlowAction": ".flow_action_flow_delay_flow_action",
     "FlowActionFlowDelayFlowParams": ".flow_action_flow_delay_flow_params",
     "FlowActionFlowDelayFlowParamsNumber": ".flow_action_flow_delay_flow_params_number",
     "FlowActionFlowDelayFlowParamsUnits": ".flow_action_flow_delay_flow_params_units",
+    "FlowActionFlowDelayFlowType": ".flow_action_flow_delay_flow_type",
     "FlowActionFlowDoNothing": ".flow_action_flow_do_nothing",
+    "FlowActionFlowDoNothingAction": ".flow_action_flow_do_nothing_action",
     "FlowActionFlowDoNothingParams": ".flow_action_flow_do_nothing_params",
+    "FlowActionFlowDoNothingType": ".flow_action_flow_do_nothing_type",
     "FlowActionFlowErrorMessage": ".flow_action_flow_error_message",
+    "FlowActionFlowErrorMessageAction": ".flow_action_flow_error_message_action",
     "FlowActionFlowErrorMessageParams": ".flow_action_flow_error_message_params",
+    "FlowActionFlowErrorMessageType": ".flow_action_flow_error_message_type",
     "FlowActionFlowMapValue": ".flow_action_flow_map_value",
+    "FlowActionFlowMapValueAction": ".flow_action_flow_map_value_action",
     "FlowActionFlowMapValueParams": ".flow_action_flow_map_value_params",
     "FlowActionFlowMapValueParamsCases": ".flow_action_flow_map_value_params_cases",
     "FlowActionFlowMapValueParamsFallback": ".flow_action_flow_map_value_params_fallback",
     "FlowActionFlowMapValueParamsFallbackObject": ".flow_action_flow_map_value_params_fallback_object",
     "FlowActionFlowMapValueParamsInput": ".flow_action_flow_map_value_params_input",
+    "FlowActionFlowMapValueType": ".flow_action_flow_map_value_type",
     "FlowActionFlowReturnJson": ".flow_action_flow_return_json",
+    "FlowActionFlowReturnJsonAction": ".flow_action_flow_return_json_action",
     "FlowActionFlowReturnJsonParams": ".flow_action_flow_return_json_params",
     "FlowActionFlowReturnJsonParamsPayload": ".flow_action_flow_return_json_params_payload",
     "FlowActionFlowReturnJsonParamsPayloadObject": ".flow_action_flow_return_json_params_payload_object",
+    "FlowActionFlowReturnJsonType": ".flow_action_flow_return_json_type",
     "FlowActionFlowStoreVars": ".flow_action_flow_store_vars",
+    "FlowActionFlowStoreVarsAction": ".flow_action_flow_store_vars_action",
     "FlowActionFlowStoreVarsParams": ".flow_action_flow_store_vars_params",
     "FlowActionFlowStoreVarsParamsVars": ".flow_action_flow_store_vars_params_vars",
+    "FlowActionFlowStoreVarsType": ".flow_action_flow_store_vars_type",
     "FlowActionGoogleSheets": ".flow_action_google_sheets",
     "FlowActionGoogleSheetsAddRow": ".flow_action_google_sheets_add_row",
+    "FlowActionGoogleSheetsAddRowAction": ".flow_action_google_sheets_add_row_action",
     "FlowActionGoogleSheetsAddRowParams": ".flow_action_google_sheets_add_row_params",
     "FlowActionGoogleSheetsAddRowParamsSheetId": ".flow_action_google_sheets_add_row_params_sheet_id",
     "FlowActionGoogleSheetsAddRowParamsValues": ".flow_action_google_sheets_add_row_params_values",
+    "FlowActionGoogleSheetsAddRowType": ".flow_action_google_sheets_add_row_type",
     "FlowActionHttp": ".flow_action_http",
     "FlowActionHttpSendRequest": ".flow_action_http_send_request",
+    "FlowActionHttpSendRequestAction": ".flow_action_http_send_request_action",
     "FlowActionHttpSendRequestParams": ".flow_action_http_send_request_params",
     "FlowActionHttpSendRequestParamsBasicAuth": ".flow_action_http_send_request_params_basic_auth",
     "FlowActionHttpSendRequestParamsContentType": ".flow_action_http_send_request_params_content_type",
@@ -2823,131 +3657,204 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FlowActionHttpSendRequestParamsPayloadObject": ".flow_action_http_send_request_params_payload_object",
     "FlowActionHttpSendRequestParamsQueryParams": ".flow_action_http_send_request_params_query_params",
     "FlowActionHttpSendRequestParamsQueryParamsValue": ".flow_action_http_send_request_params_query_params_value",
+    "FlowActionHttpSendRequestType": ".flow_action_http_send_request_type",
     "FlowActionHubspot": ".flow_action_hubspot",
     "FlowActionHubspotEnrollContact": ".flow_action_hubspot_enroll_contact",
+    "FlowActionHubspotEnrollContactAction": ".flow_action_hubspot_enroll_contact_action",
     "FlowActionHubspotEnrollContactParams": ".flow_action_hubspot_enroll_contact_params",
     "FlowActionHubspotEnrollContactParamsWorkflowId": ".flow_action_hubspot_enroll_contact_params_workflow_id",
+    "FlowActionHubspotEnrollContactType": ".flow_action_hubspot_enroll_contact_type",
     "FlowActionHubspotGetContact": ".flow_action_hubspot_get_contact",
+    "FlowActionHubspotGetContactAction": ".flow_action_hubspot_get_contact_action",
     "FlowActionHubspotGetContactParams": ".flow_action_hubspot_get_contact_params",
+    "FlowActionHubspotGetContactType": ".flow_action_hubspot_get_contact_type",
     "FlowActionHubspotUpsertContact": ".flow_action_hubspot_upsert_contact",
+    "FlowActionHubspotUpsertContactAction": ".flow_action_hubspot_upsert_contact_action",
     "FlowActionHubspotUpsertContactParams": ".flow_action_hubspot_upsert_contact_params",
     "FlowActionHubspotUpsertContactParamsProperty": ".flow_action_hubspot_upsert_contact_params_property",
+    "FlowActionHubspotUpsertContactType": ".flow_action_hubspot_upsert_contact_type",
     "FlowActionJson": ".flow_action_json",
     "FlowActionJsonCreateJson": ".flow_action_json_create_json",
+    "FlowActionJsonCreateJsonAction": ".flow_action_json_create_json_action",
     "FlowActionJsonCreateJsonParams": ".flow_action_json_create_json_params",
     "FlowActionJsonCreateJsonParamsObject": ".flow_action_json_create_json_params_object",
+    "FlowActionJsonCreateJsonType": ".flow_action_json_create_json_type",
     "FlowActionJsonParseJson": ".flow_action_json_parse_json",
+    "FlowActionJsonParseJsonAction": ".flow_action_json_parse_json_action",
     "FlowActionJsonParseJsonParams": ".flow_action_json_parse_json_params",
+    "FlowActionJsonParseJsonType": ".flow_action_json_parse_json_type",
     "FlowActionJsonSerializeJson": ".flow_action_json_serialize_json",
+    "FlowActionJsonSerializeJsonAction": ".flow_action_json_serialize_json_action",
     "FlowActionJsonSerializeJsonParams": ".flow_action_json_serialize_json_params",
     "FlowActionJsonSerializeJsonParamsObject": ".flow_action_json_serialize_json_params_object",
     "FlowActionJsonSerializeJsonParamsObjectObject": ".flow_action_json_serialize_json_params_object_object",
+    "FlowActionJsonSerializeJsonType": ".flow_action_json_serialize_json_type",
     "FlowActionJwt": ".flow_action_jwt",
     "FlowActionJwtDecodeJwt": ".flow_action_jwt_decode_jwt",
+    "FlowActionJwtDecodeJwtAction": ".flow_action_jwt_decode_jwt_action",
     "FlowActionJwtDecodeJwtParams": ".flow_action_jwt_decode_jwt_params",
+    "FlowActionJwtDecodeJwtType": ".flow_action_jwt_decode_jwt_type",
     "FlowActionJwtSignJwt": ".flow_action_jwt_sign_jwt",
+    "FlowActionJwtSignJwtAction": ".flow_action_jwt_sign_jwt_action",
     "FlowActionJwtSignJwtParams": ".flow_action_jwt_sign_jwt_params",
     "FlowActionJwtSignJwtParamsPayload": ".flow_action_jwt_sign_jwt_params_payload",
+    "FlowActionJwtSignJwtType": ".flow_action_jwt_sign_jwt_type",
     "FlowActionJwtVerifyJwt": ".flow_action_jwt_verify_jwt",
+    "FlowActionJwtVerifyJwtAction": ".flow_action_jwt_verify_jwt_action",
     "FlowActionJwtVerifyJwtParams": ".flow_action_jwt_verify_jwt_params",
+    "FlowActionJwtVerifyJwtType": ".flow_action_jwt_verify_jwt_type",
     "FlowActionMailchimp": ".flow_action_mailchimp",
     "FlowActionMailchimpUpsertMember": ".flow_action_mailchimp_upsert_member",
+    "FlowActionMailchimpUpsertMemberAction": ".flow_action_mailchimp_upsert_member_action",
     "FlowActionMailchimpUpsertMemberParams": ".flow_action_mailchimp_upsert_member_params",
     "FlowActionMailchimpUpsertMemberParamsMember": ".flow_action_mailchimp_upsert_member_params_member",
     "FlowActionMailchimpUpsertMemberParamsMemberMergeFields": ".flow_action_mailchimp_upsert_member_params_member_merge_fields",
+    "FlowActionMailchimpUpsertMemberType": ".flow_action_mailchimp_upsert_member_type",
     "FlowActionMailjet": ".flow_action_mailjet",
     "FlowActionMailjetSendEmail": ".flow_action_mailjet_send_email",
+    "FlowActionMailjetSendEmailAction": ".flow_action_mailjet_send_email_action",
     "FlowActionMailjetSendEmailParams": ".flow_action_mailjet_send_email_params",
     "FlowActionMailjetSendEmailParamsContent": ".flow_action_mailjet_send_email_params_content",
     "FlowActionMailjetSendEmailParamsTemplateId": ".flow_action_mailjet_send_email_params_template_id",
+    "FlowActionMailjetSendEmailType": ".flow_action_mailjet_send_email_type",
     "FlowActionOtp": ".flow_action_otp",
     "FlowActionOtpGenerateCode": ".flow_action_otp_generate_code",
+    "FlowActionOtpGenerateCodeAction": ".flow_action_otp_generate_code_action",
     "FlowActionOtpGenerateCodeParams": ".flow_action_otp_generate_code_params",
+    "FlowActionOtpGenerateCodeType": ".flow_action_otp_generate_code_type",
     "FlowActionOtpVerifyCode": ".flow_action_otp_verify_code",
+    "FlowActionOtpVerifyCodeAction": ".flow_action_otp_verify_code_action",
     "FlowActionOtpVerifyCodeParams": ".flow_action_otp_verify_code_params",
     "FlowActionOtpVerifyCodeParamsCode": ".flow_action_otp_verify_code_params_code",
+    "FlowActionOtpVerifyCodeType": ".flow_action_otp_verify_code_type",
     "FlowActionPipedrive": ".flow_action_pipedrive",
     "FlowActionPipedriveAddDeal": ".flow_action_pipedrive_add_deal",
+    "FlowActionPipedriveAddDealAction": ".flow_action_pipedrive_add_deal_action",
     "FlowActionPipedriveAddDealParams": ".flow_action_pipedrive_add_deal_params",
     "FlowActionPipedriveAddDealParamsFields": ".flow_action_pipedrive_add_deal_params_fields",
     "FlowActionPipedriveAddDealParamsOrganizationId": ".flow_action_pipedrive_add_deal_params_organization_id",
     "FlowActionPipedriveAddDealParamsPersonId": ".flow_action_pipedrive_add_deal_params_person_id",
     "FlowActionPipedriveAddDealParamsStageId": ".flow_action_pipedrive_add_deal_params_stage_id",
     "FlowActionPipedriveAddDealParamsUserId": ".flow_action_pipedrive_add_deal_params_user_id",
+    "FlowActionPipedriveAddDealType": ".flow_action_pipedrive_add_deal_type",
     "FlowActionPipedriveAddOrganization": ".flow_action_pipedrive_add_organization",
+    "FlowActionPipedriveAddOrganizationAction": ".flow_action_pipedrive_add_organization_action",
     "FlowActionPipedriveAddOrganizationParams": ".flow_action_pipedrive_add_organization_params",
     "FlowActionPipedriveAddOrganizationParamsFields": ".flow_action_pipedrive_add_organization_params_fields",
     "FlowActionPipedriveAddOrganizationParamsOwnerId": ".flow_action_pipedrive_add_organization_params_owner_id",
+    "FlowActionPipedriveAddOrganizationType": ".flow_action_pipedrive_add_organization_type",
     "FlowActionPipedriveAddPerson": ".flow_action_pipedrive_add_person",
+    "FlowActionPipedriveAddPersonAction": ".flow_action_pipedrive_add_person_action",
     "FlowActionPipedriveAddPersonParams": ".flow_action_pipedrive_add_person_params",
     "FlowActionPipedriveAddPersonParamsFields": ".flow_action_pipedrive_add_person_params_fields",
     "FlowActionPipedriveAddPersonParamsOrganizationId": ".flow_action_pipedrive_add_person_params_organization_id",
     "FlowActionPipedriveAddPersonParamsOwnerId": ".flow_action_pipedrive_add_person_params_owner_id",
+    "FlowActionPipedriveAddPersonType": ".flow_action_pipedrive_add_person_type",
     "FlowActionSalesforce": ".flow_action_salesforce",
     "FlowActionSalesforceCreateLead": ".flow_action_salesforce_create_lead",
+    "FlowActionSalesforceCreateLeadAction": ".flow_action_salesforce_create_lead_action",
     "FlowActionSalesforceCreateLeadParams": ".flow_action_salesforce_create_lead_params",
     "FlowActionSalesforceCreateLeadParamsPayload": ".flow_action_salesforce_create_lead_params_payload",
+    "FlowActionSalesforceCreateLeadType": ".flow_action_salesforce_create_lead_type",
     "FlowActionSalesforceGetLead": ".flow_action_salesforce_get_lead",
+    "FlowActionSalesforceGetLeadAction": ".flow_action_salesforce_get_lead_action",
     "FlowActionSalesforceGetLeadParams": ".flow_action_salesforce_get_lead_params",
+    "FlowActionSalesforceGetLeadType": ".flow_action_salesforce_get_lead_type",
     "FlowActionSalesforceSearchLeads": ".flow_action_salesforce_search_leads",
+    "FlowActionSalesforceSearchLeadsAction": ".flow_action_salesforce_search_leads_action",
     "FlowActionSalesforceSearchLeadsParams": ".flow_action_salesforce_search_leads_params",
     "FlowActionSalesforceSearchLeadsParamsSearchField": ".flow_action_salesforce_search_leads_params_search_field",
+    "FlowActionSalesforceSearchLeadsType": ".flow_action_salesforce_search_leads_type",
     "FlowActionSalesforceUpdateLead": ".flow_action_salesforce_update_lead",
+    "FlowActionSalesforceUpdateLeadAction": ".flow_action_salesforce_update_lead_action",
     "FlowActionSalesforceUpdateLeadParams": ".flow_action_salesforce_update_lead_params",
     "FlowActionSalesforceUpdateLeadParamsPayload": ".flow_action_salesforce_update_lead_params_payload",
+    "FlowActionSalesforceUpdateLeadType": ".flow_action_salesforce_update_lead_type",
     "FlowActionSendgrid": ".flow_action_sendgrid",
     "FlowActionSendgridSendEmail": ".flow_action_sendgrid_send_email",
+    "FlowActionSendgridSendEmailAction": ".flow_action_sendgrid_send_email_action",
     "FlowActionSendgridSendEmailParams": ".flow_action_sendgrid_send_email_params",
     "FlowActionSendgridSendEmailParamsPerson": ".flow_action_sendgrid_send_email_params_person",
+    "FlowActionSendgridSendEmailType": ".flow_action_sendgrid_send_email_type",
     "FlowActionSlack": ".flow_action_slack",
     "FlowActionSlackPostMessage": ".flow_action_slack_post_message",
+    "FlowActionSlackPostMessageAction": ".flow_action_slack_post_message_action",
     "FlowActionSlackPostMessageParams": ".flow_action_slack_post_message_params",
     "FlowActionSlackPostMessageParamsAttachment": ".flow_action_slack_post_message_params_attachment",
     "FlowActionSlackPostMessageParamsAttachmentColor": ".flow_action_slack_post_message_params_attachment_color",
     "FlowActionSlackPostMessageParamsAttachmentField": ".flow_action_slack_post_message_params_attachment_field",
+    "FlowActionSlackPostMessageType": ".flow_action_slack_post_message_type",
     "FlowActionStripe": ".flow_action_stripe",
     "FlowActionStripeAddTaxId": ".flow_action_stripe_add_tax_id",
+    "FlowActionStripeAddTaxIdAction": ".flow_action_stripe_add_tax_id_action",
     "FlowActionStripeAddTaxIdParams": ".flow_action_stripe_add_tax_id_params",
+    "FlowActionStripeAddTaxIdType": ".flow_action_stripe_add_tax_id_type",
     "FlowActionStripeAddress": ".flow_action_stripe_address",
     "FlowActionStripeCreateCustomer": ".flow_action_stripe_create_customer",
+    "FlowActionStripeCreateCustomerAction": ".flow_action_stripe_create_customer_action",
     "FlowActionStripeCreateCustomerParams": ".flow_action_stripe_create_customer_params",
+    "FlowActionStripeCreateCustomerType": ".flow_action_stripe_create_customer_type",
     "FlowActionStripeCreatePortalSession": ".flow_action_stripe_create_portal_session",
+    "FlowActionStripeCreatePortalSessionAction": ".flow_action_stripe_create_portal_session_action",
     "FlowActionStripeCreatePortalSessionParams": ".flow_action_stripe_create_portal_session_params",
+    "FlowActionStripeCreatePortalSessionType": ".flow_action_stripe_create_portal_session_type",
     "FlowActionStripeDeleteTaxId": ".flow_action_stripe_delete_tax_id",
+    "FlowActionStripeDeleteTaxIdAction": ".flow_action_stripe_delete_tax_id_action",
     "FlowActionStripeDeleteTaxIdParams": ".flow_action_stripe_delete_tax_id_params",
+    "FlowActionStripeDeleteTaxIdType": ".flow_action_stripe_delete_tax_id_type",
     "FlowActionStripeFindCustomers": ".flow_action_stripe_find_customers",
+    "FlowActionStripeFindCustomersAction": ".flow_action_stripe_find_customers_action",
     "FlowActionStripeFindCustomersParams": ".flow_action_stripe_find_customers_params",
+    "FlowActionStripeFindCustomersType": ".flow_action_stripe_find_customers_type",
     "FlowActionStripeGetCustomer": ".flow_action_stripe_get_customer",
+    "FlowActionStripeGetCustomerAction": ".flow_action_stripe_get_customer_action",
     "FlowActionStripeGetCustomerParams": ".flow_action_stripe_get_customer_params",
+    "FlowActionStripeGetCustomerType": ".flow_action_stripe_get_customer_type",
     "FlowActionStripeMetadata": ".flow_action_stripe_metadata",
     "FlowActionStripeTaxId": ".flow_action_stripe_tax_id",
     "FlowActionStripeUpdateCustomer": ".flow_action_stripe_update_customer",
+    "FlowActionStripeUpdateCustomerAction": ".flow_action_stripe_update_customer_action",
     "FlowActionStripeUpdateCustomerParams": ".flow_action_stripe_update_customer_params",
+    "FlowActionStripeUpdateCustomerType": ".flow_action_stripe_update_customer_type",
     "FlowActionTelegram": ".flow_action_telegram",
     "FlowActionTelegramSendMessage": ".flow_action_telegram_send_message",
+    "FlowActionTelegramSendMessageAction": ".flow_action_telegram_send_message_action",
     "FlowActionTelegramSendMessageParams": ".flow_action_telegram_send_message_params",
+    "FlowActionTelegramSendMessageType": ".flow_action_telegram_send_message_type",
     "FlowActionTwilio": ".flow_action_twilio",
     "FlowActionTwilioMakeCall": ".flow_action_twilio_make_call",
+    "FlowActionTwilioMakeCallAction": ".flow_action_twilio_make_call_action",
     "FlowActionTwilioMakeCallParams": ".flow_action_twilio_make_call_params",
+    "FlowActionTwilioMakeCallType": ".flow_action_twilio_make_call_type",
     "FlowActionTwilioSendSms": ".flow_action_twilio_send_sms",
+    "FlowActionTwilioSendSmsAction": ".flow_action_twilio_send_sms_action",
     "FlowActionTwilioSendSmsParams": ".flow_action_twilio_send_sms_params",
+    "FlowActionTwilioSendSmsType": ".flow_action_twilio_send_sms_type",
     "FlowActionWhatsapp": ".flow_action_whatsapp",
     "FlowActionWhatsappSendMessage": ".flow_action_whatsapp_send_message",
+    "FlowActionWhatsappSendMessageAction": ".flow_action_whatsapp_send_message_action",
     "FlowActionWhatsappSendMessageParams": ".flow_action_whatsapp_send_message_params",
     "FlowActionWhatsappSendMessageParamsPayload": ".flow_action_whatsapp_send_message_params_payload",
     "FlowActionWhatsappSendMessageParamsPayloadObject": ".flow_action_whatsapp_send_message_params_payload_object",
     "FlowActionWhatsappSendMessageParamsType": ".flow_action_whatsapp_send_message_params_type",
+    "FlowActionWhatsappSendMessageType": ".flow_action_whatsapp_send_message_type",
     "FlowActionXml": ".flow_action_xml",
     "FlowActionXmlParseXml": ".flow_action_xml_parse_xml",
+    "FlowActionXmlParseXmlAction": ".flow_action_xml_parse_xml_action",
     "FlowActionXmlParseXmlParams": ".flow_action_xml_parse_xml_params",
+    "FlowActionXmlParseXmlType": ".flow_action_xml_parse_xml_type",
     "FlowActionXmlSerializeXml": ".flow_action_xml_serialize_xml",
+    "FlowActionXmlSerializeXmlAction": ".flow_action_xml_serialize_xml_action",
     "FlowActionXmlSerializeXmlParams": ".flow_action_xml_serialize_xml_params",
     "FlowActionXmlSerializeXmlParamsObject": ".flow_action_xml_serialize_xml_params_object",
     "FlowActionXmlSerializeXmlParamsObjectObject": ".flow_action_xml_serialize_xml_params_object_object",
+    "FlowActionXmlSerializeXmlType": ".flow_action_xml_serialize_xml_type",
     "FlowActionZapier": ".flow_action_zapier",
     "FlowActionZapierTriggerWebhook": ".flow_action_zapier_trigger_webhook",
+    "FlowActionZapierTriggerWebhookAction": ".flow_action_zapier_trigger_webhook_action",
     "FlowActionZapierTriggerWebhookParams": ".flow_action_zapier_trigger_webhook_params",
     "FlowActionZapierTriggerWebhookParamsMethod": ".flow_action_zapier_trigger_webhook_params_method",
+    "FlowActionZapierTriggerWebhookType": ".flow_action_zapier_trigger_webhook_type",
     "FlowExecutionDebug": ".flow_execution_debug",
     "FlowExecutionSummary": ".flow_execution_summary",
     "FlowSummary": ".flow_summary",
@@ -2995,6 +3902,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FlowsVaultConnectionAppIdTwilioEnum": ".flows_vault_connection_app_id_twilio_enum",
     "FlowsVaultConnectionAppIdWhatsappEnum": ".flows_vault_connection_app_id_whatsapp_enum",
     "FlowsVaultConnectionAppIdZapierEnum": ".flows_vault_connection_app_id_zapier_enum",
+    "FlowsVaultConnectionHttpApiKeySetup": ".flows_vault_connection_http_api_key_setup",
+    "FlowsVaultConnectionHttpApiKeySetupInEnum": ".flows_vault_connection_http_api_key_setup_in_enum",
+    "FlowsVaultConnectionHttpBasicAuthSetup": ".flows_vault_connection_http_basic_auth_setup",
+    "FlowsVaultConnectionHttpOauthClientCredentialsSetup": ".flows_vault_connection_http_oauth_client_credentials_setup",
+    "FlowsVaultConnectionSetupTypeApiKeyEnum": ".flows_vault_connection_setup_type_api_key_enum",
+    "FlowsVaultConnectionSetupTypeBasicAuthEnum": ".flows_vault_connection_setup_type_basic_auth_enum",
+    "FlowsVaultConnectionSetupTypeOauthClientCredentialsEnum": ".flows_vault_connection_setup_type_oauth_client_credentials_enum",
     "FlowsVaultConnectionSummary": ".flows_vault_connection_summary",
     "FormBlock": ".form_block",
     "FormBlockDivider": ".form_block_divider",
@@ -3153,6 +4067,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FormWidgetTypeRecaptchaConst": ".form_widget_type_recaptcha_const",
     "FormsRequestParametersHydrateEnum": ".forms_request_parameters_hydrate_enum",
     "GetActionExecutionResponseContent": ".get_action_execution_response_content",
+    "GetActionModuleActionsResponseContent": ".get_action_module_actions_response_content",
+    "GetActionModuleResponseContent": ".get_action_module_response_content",
+    "GetActionModuleVersionResponseContent": ".get_action_module_version_response_content",
+    "GetActionModuleVersionsResponseContent": ".get_action_module_versions_response_content",
+    "GetActionModulesResponseContent": ".get_action_modules_response_content",
     "GetActionResponseContent": ".get_action_response_content",
     "GetActionVersionResponseContent": ".get_action_version_response_content",
     "GetActiveUsersCountStatsResponseContent": ".get_active_users_count_stats_response_content",
@@ -3165,9 +4084,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetBrandingThemeResponseContent": ".get_branding_theme_response_content",
     "GetBreachedPasswordDetectionSettingsResponseContent": ".get_breached_password_detection_settings_response_content",
     "GetBruteForceSettingsResponseContent": ".get_brute_force_settings_response_content",
-    "GetBruteForceSettingsResponseContentMode": ".get_brute_force_settings_response_content_mode",
-    "GetBruteForceSettingsResponseContentShieldsItem": ".get_brute_force_settings_response_content_shields_item",
     "GetClientCredentialResponseContent": ".get_client_credential_response_content",
+    "GetClientGrantResponseContent": ".get_client_grant_response_content",
     "GetClientResponseContent": ".get_client_response_content",
     "GetConnectionEnabledClientsResponseContent": ".get_connection_enabled_clients_response_content",
     "GetConnectionProfileResponseContent": ".get_connection_profile_response_content",
@@ -3183,11 +4101,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetEncryptionKeyResponseContent": ".get_encryption_key_response_content",
     "GetEventStreamDeliveryHistoryResponseContent": ".get_event_stream_delivery_history_response_content",
     "GetEventStreamResponseContent": ".get_event_stream_response_content",
+    "GetFlowExecutionRequestParametersHydrateEnum": ".get_flow_execution_request_parameters_hydrate_enum",
     "GetFlowExecutionResponseContent": ".get_flow_execution_response_content",
     "GetFlowRequestParametersHydrateEnum": ".get_flow_request_parameters_hydrate_enum",
     "GetFlowResponseContent": ".get_flow_response_content",
     "GetFlowsVaultConnectionResponseContent": ".get_flows_vault_connection_response_content",
     "GetFormResponseContent": ".get_form_response_content",
+    "GetGroupMembersResponseContent": ".get_group_members_response_content",
+    "GetGroupResponseContent": ".get_group_response_content",
     "GetGuardianEnrollmentResponseContent": ".get_guardian_enrollment_response_content",
     "GetGuardianFactorDuoSettingsResponseContent": ".get_guardian_factor_duo_settings_response_content",
     "GetGuardianFactorPhoneMessageTypesResponseContent": ".get_guardian_factor_phone_message_types_response_content",
@@ -3206,12 +4127,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetJobGenericErrorResponseContent": ".get_job_generic_error_response_content",
     "GetJobImportUserError": ".get_job_import_user_error",
     "GetJobResponseContent": ".get_job_response_content",
+    "GetJobSummary": ".get_job_summary",
     "GetJobUserError": ".get_job_user_error",
     "GetLogResponseContent": ".get_log_response_content",
     "GetLogStreamResponseContent": ".get_log_stream_response_content",
     "GetNetworkAclsResponseContent": ".get_network_acls_response_content",
     "GetOrganizationByNameResponseContent": ".get_organization_by_name_response_content",
     "GetOrganizationConnectionResponseContent": ".get_organization_connection_response_content",
+    "GetOrganizationDiscoveryDomainByNameResponseContent": ".get_organization_discovery_domain_by_name_response_content",
     "GetOrganizationDiscoveryDomainResponseContent": ".get_organization_discovery_domain_response_content",
     "GetOrganizationInvitationResponseContent": ".get_organization_invitation_response_content",
     "GetOrganizationResponseContent": ".get_organization_response_content",
@@ -3239,9 +4162,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetUserAttributeProfileResponseContent": ".get_user_attribute_profile_response_content",
     "GetUserAttributeProfileTemplateResponseContent": ".get_user_attribute_profile_template_response_content",
     "GetUserAuthenticationMethodResponseContent": ".get_user_authentication_method_response_content",
+    "GetUserGroupsPaginatedResponseContent": ".get_user_groups_paginated_response_content",
     "GetUserResponseContent": ".get_user_response_content",
     "GetVerifiableCredentialTemplateResponseContent": ".get_verifiable_credential_template_response_content",
     "Group": ".group",
+    "GroupMember": ".group_member",
+    "GroupMemberTypeEnum": ".group_member_type_enum",
+    "GroupTypeEnum": ".group_type_enum",
     "GuardianEnrollmentDate": ".guardian_enrollment_date",
     "GuardianEnrollmentFactorEnum": ".guardian_enrollment_factor_enum",
     "GuardianEnrollmentStatus": ".guardian_enrollment_status",
@@ -3272,6 +4199,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListActionVersionsPaginatedResponseContent": ".list_action_versions_paginated_response_content",
     "ListActionsPaginatedResponseContent": ".list_actions_paginated_response_content",
     "ListAculsOffsetPaginatedResponseContent": ".list_aculs_offset_paginated_response_content",
+    "ListAculsResponseContentItem": ".list_aculs_response_content_item",
     "ListBrandingPhoneProvidersResponseContent": ".list_branding_phone_providers_response_content",
     "ListClientConnectionsResponseContent": ".list_client_connections_response_content",
     "ListClientGrantOrganizationsPaginatedResponseContent": ".list_client_grant_organizations_paginated_response_content",
@@ -3282,11 +4210,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListConnectionsCheckpointPaginatedResponseContent": ".list_connections_checkpoint_paginated_response_content",
     "ListCustomDomainsResponseContent": ".list_custom_domains_response_content",
     "ListDeviceCredentialsOffsetPaginatedResponseContent": ".list_device_credentials_offset_paginated_response_content",
+    "ListDirectoryProvisioningsResponseContent": ".list_directory_provisionings_response_content",
     "ListEncryptionKeyOffsetPaginatedResponseContent": ".list_encryption_key_offset_paginated_response_content",
+    "ListEventStreamsResponseContent": ".list_event_streams_response_content",
     "ListFlowExecutionsPaginatedResponseContent": ".list_flow_executions_paginated_response_content",
     "ListFlowsOffsetPaginatedResponseContent": ".list_flows_offset_paginated_response_content",
+    "ListFlowsRequestParametersHydrateEnum": ".list_flows_request_parameters_hydrate_enum",
     "ListFlowsVaultConnectionsOffsetPaginatedResponseContent": ".list_flows_vault_connections_offset_paginated_response_content",
     "ListFormsOffsetPaginatedResponseContent": ".list_forms_offset_paginated_response_content",
+    "ListGroupsPaginatedResponseContent": ".list_groups_paginated_response_content",
     "ListGuardianPoliciesResponseContent": ".list_guardian_policies_response_content",
     "ListHooksOffsetPaginatedResponseContent": ".list_hooks_offset_paginated_response_content",
     "ListLogOffsetPaginatedResponseContent": ".list_log_offset_paginated_response_content",
@@ -3423,8 +4355,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PhoneTemplateNotificationTypeEnum": ".phone_template_notification_type_enum",
     "PostClientCredentialResponseContent": ".post_client_credential_response_content",
     "PreferredAuthenticationMethodEnum": ".preferred_authentication_method_enum",
-    "PrivateKeyJwt": ".private_key_jwt",
-    "PrivateKeyJwtCredentials": ".private_key_jwt_credentials",
     "PromptGroupNameEnum": ".prompt_group_name_enum",
     "PromptLanguageEnum": ".prompt_language_enum",
     "PublicKeyCredential": ".public_key_credential",
@@ -3434,6 +4364,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RefreshTokenDateObject": ".refresh_token_date_object",
     "RefreshTokenDevice": ".refresh_token_device",
     "RefreshTokenExpirationTypeEnum": ".refresh_token_expiration_type_enum",
+    "RefreshTokenMetadata": ".refresh_token_metadata",
     "RefreshTokenResourceServer": ".refresh_token_resource_server",
     "RefreshTokenResponseContent": ".refresh_token_response_content",
     "RefreshTokenRotationTypeEnum": ".refresh_token_rotation_type_enum",
@@ -3445,6 +4376,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResourceServerConsentPolicyEnum": ".resource_server_consent_policy_enum",
     "ResourceServerProofOfPossession": ".resource_server_proof_of_possession",
     "ResourceServerProofOfPossessionMechanismEnum": ".resource_server_proof_of_possession_mechanism_enum",
+    "ResourceServerProofOfPossessionRequiredForEnum": ".resource_server_proof_of_possession_required_for_enum",
     "ResourceServerScope": ".resource_server_scope",
     "ResourceServerSubjectTypeAuthorization": ".resource_server_subject_type_authorization",
     "ResourceServerSubjectTypeAuthorizationClient": ".resource_server_subject_type_authorization_client",
@@ -3461,6 +4393,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RevokedSigningKeysResponseContent": ".revoked_signing_keys_response_content",
     "Role": ".role",
     "RoleUser": ".role_user",
+    "RollbackActionModuleResponseContent": ".rollback_action_module_response_content",
     "RotateClientSecretResponseContent": ".rotate_client_secret_response_content",
     "RotateConnectionKeysRequestContent": ".rotate_connection_keys_request_content",
     "RotateConnectionKeysSigningAlgEnum": ".rotate_connection_keys_signing_alg_enum",
@@ -3513,11 +4446,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SetGuardianFactorSmsTemplatesResponseContent": ".set_guardian_factor_sms_templates_response_content",
     "SetGuardianFactorsProviderPhoneResponseContent": ".set_guardian_factors_provider_phone_response_content",
     "SetGuardianFactorsProviderPhoneTwilioResponseContent": ".set_guardian_factors_provider_phone_twilio_response_content",
-    "SetGuardianFactorsProviderPushNotificationApnsRequestContent": ".set_guardian_factors_provider_push_notification_apns_request_content",
     "SetGuardianFactorsProviderPushNotificationApnsResponseContent": ".set_guardian_factors_provider_push_notification_apns_response_content",
-    "SetGuardianFactorsProviderPushNotificationFcmRequestContent": ".set_guardian_factors_provider_push_notification_fcm_request_content",
     "SetGuardianFactorsProviderPushNotificationFcmResponseContent": ".set_guardian_factors_provider_push_notification_fcm_response_content",
-    "SetGuardianFactorsProviderPushNotificationFcmv1RequestContent": ".set_guardian_factors_provider_push_notification_fcmv_1_request_content",
     "SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent": ".set_guardian_factors_provider_push_notification_fcmv_1_response_content",
     "SetGuardianFactorsProviderPushNotificationResponseContent": ".set_guardian_factors_provider_push_notification_response_content",
     "SetGuardianFactorsProviderPushNotificationSnsResponseContent": ".set_guardian_factors_provider_push_notification_sns_response_content",
@@ -3558,6 +4488,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TenantSettingsPasswordPage": ".tenant_settings_password_page",
     "TenantSettingsResourceParameterProfile": ".tenant_settings_resource_parameter_profile",
     "TenantSettingsSessions": ".tenant_settings_sessions",
+    "TenantSettingsSupportedLocalesEnum": ".tenant_settings_supported_locales_enum",
     "TestActionPayload": ".test_action_payload",
     "TestActionResponseContent": ".test_action_response_content",
     "TestActionResultPayload": ".test_action_result_payload",
@@ -3573,6 +4504,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TwilioProviderDeliveryMethodEnum": ".twilio_provider_delivery_method_enum",
     "UniversalLoginExperienceEnum": ".universal_login_experience_enum",
     "UpdateActionBindingsResponseContent": ".update_action_bindings_response_content",
+    "UpdateActionModuleResponseContent": ".update_action_module_response_content",
     "UpdateActionResponseContent": ".update_action_response_content",
     "UpdateAculResponseContent": ".update_acul_response_content",
     "UpdateAttackProtectionCaptchaResponseContent": ".update_attack_protection_captcha_response_content",
@@ -3585,12 +4517,70 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateBrandingThemeResponseContent": ".update_branding_theme_response_content",
     "UpdateBreachedPasswordDetectionSettingsResponseContent": ".update_breached_password_detection_settings_response_content",
     "UpdateBruteForceSettingsResponseContent": ".update_brute_force_settings_response_content",
-    "UpdateBruteForceSettingsResponseContentMode": ".update_brute_force_settings_response_content_mode",
-    "UpdateBruteForceSettingsResponseContentShieldsItem": ".update_brute_force_settings_response_content_shields_item",
     "UpdateClientGrantResponseContent": ".update_client_grant_response_content",
     "UpdateClientResponseContent": ".update_client_response_content",
     "UpdateConnectionOptions": ".update_connection_options",
     "UpdateConnectionProfileResponseContent": ".update_connection_profile_response_content",
+    "UpdateConnectionRequestContentAd": ".update_connection_request_content_ad",
+    "UpdateConnectionRequestContentAdfs": ".update_connection_request_content_adfs",
+    "UpdateConnectionRequestContentAmazon": ".update_connection_request_content_amazon",
+    "UpdateConnectionRequestContentAol": ".update_connection_request_content_aol",
+    "UpdateConnectionRequestContentApple": ".update_connection_request_content_apple",
+    "UpdateConnectionRequestContentAuth0": ".update_connection_request_content_auth_0",
+    "UpdateConnectionRequestContentAuth0Oidc": ".update_connection_request_content_auth_0_oidc",
+    "UpdateConnectionRequestContentAzureAd": ".update_connection_request_content_azure_ad",
+    "UpdateConnectionRequestContentBaidu": ".update_connection_request_content_baidu",
+    "UpdateConnectionRequestContentBitbucket": ".update_connection_request_content_bitbucket",
+    "UpdateConnectionRequestContentBitly": ".update_connection_request_content_bitly",
+    "UpdateConnectionRequestContentBox": ".update_connection_request_content_box",
+    "UpdateConnectionRequestContentCustom": ".update_connection_request_content_custom",
+    "UpdateConnectionRequestContentDaccount": ".update_connection_request_content_daccount",
+    "UpdateConnectionRequestContentDropbox": ".update_connection_request_content_dropbox",
+    "UpdateConnectionRequestContentDwolla": ".update_connection_request_content_dwolla",
+    "UpdateConnectionRequestContentEmail": ".update_connection_request_content_email",
+    "UpdateConnectionRequestContentEvernote": ".update_connection_request_content_evernote",
+    "UpdateConnectionRequestContentEvernoteSandbox": ".update_connection_request_content_evernote_sandbox",
+    "UpdateConnectionRequestContentExact": ".update_connection_request_content_exact",
+    "UpdateConnectionRequestContentFacebook": ".update_connection_request_content_facebook",
+    "UpdateConnectionRequestContentFitbit": ".update_connection_request_content_fitbit",
+    "UpdateConnectionRequestContentFlickr": ".update_connection_request_content_flickr",
+    "UpdateConnectionRequestContentGitHub": ".update_connection_request_content_git_hub",
+    "UpdateConnectionRequestContentGoogleApps": ".update_connection_request_content_google_apps",
+    "UpdateConnectionRequestContentGoogleOAuth2": ".update_connection_request_content_google_o_auth_2",
+    "UpdateConnectionRequestContentInstagram": ".update_connection_request_content_instagram",
+    "UpdateConnectionRequestContentIp": ".update_connection_request_content_ip",
+    "UpdateConnectionRequestContentLine": ".update_connection_request_content_line",
+    "UpdateConnectionRequestContentLinkedin": ".update_connection_request_content_linkedin",
+    "UpdateConnectionRequestContentMiicard": ".update_connection_request_content_miicard",
+    "UpdateConnectionRequestContentOAuth1": ".update_connection_request_content_o_auth_1",
+    "UpdateConnectionRequestContentOAuth2": ".update_connection_request_content_o_auth_2",
+    "UpdateConnectionRequestContentOffice365": ".update_connection_request_content_office_365",
+    "UpdateConnectionRequestContentOidc": ".update_connection_request_content_oidc",
+    "UpdateConnectionRequestContentOkta": ".update_connection_request_content_okta",
+    "UpdateConnectionRequestContentPaypal": ".update_connection_request_content_paypal",
+    "UpdateConnectionRequestContentPaypalSandbox": ".update_connection_request_content_paypal_sandbox",
+    "UpdateConnectionRequestContentPingFederate": ".update_connection_request_content_ping_federate",
+    "UpdateConnectionRequestContentPlanningCenter": ".update_connection_request_content_planning_center",
+    "UpdateConnectionRequestContentRenren": ".update_connection_request_content_renren",
+    "UpdateConnectionRequestContentSalesforce": ".update_connection_request_content_salesforce",
+    "UpdateConnectionRequestContentSalesforceCommunity": ".update_connection_request_content_salesforce_community",
+    "UpdateConnectionRequestContentSalesforceSandbox": ".update_connection_request_content_salesforce_sandbox",
+    "UpdateConnectionRequestContentSaml": ".update_connection_request_content_saml",
+    "UpdateConnectionRequestContentSharepoint": ".update_connection_request_content_sharepoint",
+    "UpdateConnectionRequestContentShop": ".update_connection_request_content_shop",
+    "UpdateConnectionRequestContentShopify": ".update_connection_request_content_shopify",
+    "UpdateConnectionRequestContentSms": ".update_connection_request_content_sms",
+    "UpdateConnectionRequestContentSoundcloud": ".update_connection_request_content_soundcloud",
+    "UpdateConnectionRequestContentThirtySevenSignals": ".update_connection_request_content_thirty_seven_signals",
+    "UpdateConnectionRequestContentTwitter": ".update_connection_request_content_twitter",
+    "UpdateConnectionRequestContentUntappd": ".update_connection_request_content_untappd",
+    "UpdateConnectionRequestContentVkontakte": ".update_connection_request_content_vkontakte",
+    "UpdateConnectionRequestContentWeibo": ".update_connection_request_content_weibo",
+    "UpdateConnectionRequestContentWindowsLive": ".update_connection_request_content_windows_live",
+    "UpdateConnectionRequestContentWordpress": ".update_connection_request_content_wordpress",
+    "UpdateConnectionRequestContentYahoo": ".update_connection_request_content_yahoo",
+    "UpdateConnectionRequestContentYammer": ".update_connection_request_content_yammer",
+    "UpdateConnectionRequestContentYandex": ".update_connection_request_content_yandex",
     "UpdateConnectionResponseContent": ".update_connection_response_content",
     "UpdateCustomDomainResponseContent": ".update_custom_domain_response_content",
     "UpdateDirectoryProvisioningRequestContent": ".update_directory_provisioning_request_content",
@@ -3605,6 +4595,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFlowsVaultConnectionSetup": ".update_flows_vault_connection_setup",
     "UpdateFormResponseContent": ".update_form_response_content",
     "UpdateGuardianFactorDuoSettingsResponseContent": ".update_guardian_factor_duo_settings_response_content",
+    "UpdateGuardianFactorsProviderPushNotificationApnsResponseContent": ".update_guardian_factors_provider_push_notification_apns_response_content",
+    "UpdateGuardianFactorsProviderPushNotificationFcmResponseContent": ".update_guardian_factors_provider_push_notification_fcm_response_content",
+    "UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent": ".update_guardian_factors_provider_push_notification_fcmv_1_response_content",
     "UpdateGuardianFactorsProviderPushNotificationSnsResponseContent": ".update_guardian_factors_provider_push_notification_sns_response_content",
     "UpdateHookResponseContent": ".update_hook_response_content",
     "UpdateHookSecretRequestContent": ".update_hook_secret_request_content",
@@ -3614,6 +4607,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateOrganizationDiscoveryDomainResponseContent": ".update_organization_discovery_domain_response_content",
     "UpdateOrganizationResponseContent": ".update_organization_response_content",
     "UpdatePhoneTemplateResponseContent": ".update_phone_template_response_content",
+    "UpdateRefreshTokenResponseContent": ".update_refresh_token_response_content",
     "UpdateResourceServerResponseContent": ".update_resource_server_response_content",
     "UpdateRiskAssessmentsSettingsNewDeviceResponseContent": ".update_risk_assessments_settings_new_device_response_content",
     "UpdateRiskAssessmentsSettingsResponseContent": ".update_risk_assessments_settings_response_content",
@@ -3679,6 +4673,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VerificationMethodEnum": ".verification_method_enum",
     "VerifyCustomDomainResponseContent": ".verify_custom_domain_response_content",
     "VerifyEmailTicketResponseContent": ".verify_email_ticket_response_content",
+    "X509CertificateCredential": ".x_509_certificate_credential",
+    "X509CertificateCredentialTypeEnum": ".x_509_certificate_credential_type_enum",
 }
 
 
@@ -3716,6 +4712,15 @@ __all__ = [
     "ActionError",
     "ActionExecutionResult",
     "ActionExecutionStatusEnum",
+    "ActionModuleAction",
+    "ActionModuleDependency",
+    "ActionModuleDependencyRequest",
+    "ActionModuleListItem",
+    "ActionModuleReference",
+    "ActionModuleSecret",
+    "ActionModuleSecretRequest",
+    "ActionModuleVersion",
+    "ActionModuleVersionReference",
     "ActionSecretRequest",
     "ActionSecretResponse",
     "ActionTrigger",
@@ -3733,7 +4738,6 @@ __all__ = [
     "AculContextConfiguration",
     "AculContextConfigurationItem",
     "AculContextEnum",
-    "AculDefaultHeadTagsDisabled",
     "AculDomainFilter",
     "AculDomainFilterById",
     "AculDomainFilterByMetadata",
@@ -3742,15 +4746,12 @@ __all__ = [
     "AculHeadTag",
     "AculHeadTagAttributes",
     "AculHeadTagContent",
-    "AculHeadTags",
     "AculMatchTypeEnum",
     "AculOrganizationFilter",
     "AculOrganizationFilterById",
     "AculOrganizationFilterByMetadata",
     "AculOrganizationMetadata",
     "AculRenderingModeEnum",
-    "AculResponseContent",
-    "AculUsePageTemplate",
     "AddOrganizationConnectionResponseContent",
     "AnomalyIpFormat",
     "AppMetadata",
@@ -3814,7 +4815,11 @@ __all__ = [
     "BreachedPasswordDetectionPreUserRegistrationStage",
     "BreachedPasswordDetectionShieldsEnum",
     "BreachedPasswordDetectionStage",
+    "BruteForceProtectionModeEnum",
+    "BruteForceProtectionShieldsEnum",
     "BulkUpdateAculResponseContent",
+    "CertificateSubjectDnCredential",
+    "CertificateSubjectDnCredentialTypeEnum",
     "ChangePasswordTicketIdentity",
     "ChangePasswordTicketResponseContent",
     "Client",
@@ -3855,10 +4860,18 @@ __all__ = [
     "ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration",
     "ClientAsyncApprovalNotificationsChannelsApiPostConfiguration",
     "ClientAuthenticationMethod",
+    "ClientAuthenticationMethodPrivateKeyJwt",
+    "ClientAuthenticationMethodPrivateKeyJwtCredentials",
     "ClientAuthenticationMethodSelfSignedTlsClientAuth",
+    "ClientAuthenticationMethodSelfSignedTlsClientAuthCredentials",
     "ClientAuthenticationMethodTlsClientAuth",
+    "ClientAuthenticationMethodTlsClientAuthCredentials",
     "ClientComplianceLevelEnum",
     "ClientCreateAuthenticationMethod",
+    "ClientCreateAuthenticationMethodPrivateKeyJwt",
+    "ClientCreateAuthenticationMethodPrivateKeyJwtCredentials",
+    "ClientCreateAuthenticationMethodTlsClientAuth",
+    "ClientCreateAuthenticationMethodTlsClientAuthCredentials",
     "ClientCredential",
     "ClientCredentialAlgorithmEnum",
     "ClientCredentialTypeEnum",
@@ -3887,6 +4900,7 @@ __all__ = [
     "ClientOrganizationUsageEnum",
     "ClientOrganizationUsagePatchEnum",
     "ClientRefreshTokenConfiguration",
+    "ClientRefreshTokenPolicy",
     "ClientSessionTransferAllowedAuthenticationMethodsEnum",
     "ClientSessionTransferConfiguration",
     "ClientSessionTransferDeviceBindingEnum",
@@ -3902,7 +4916,16 @@ __all__ = [
     "ConnectedAccount",
     "ConnectedAccountAccessTypeEnum",
     "ConnectionAcrValuesSupported",
+    "ConnectionAdminAccessTokenExpiresInGoogleApps",
+    "ConnectionAdminAccessTokenGoogleApps",
+    "ConnectionAdminRefreshTokenGoogleApps",
+    "ConnectionAgentIpad",
+    "ConnectionAgentModeAd",
+    "ConnectionAgentVersionAd",
     "ConnectionAllowedAudiencesGoogleOAuth2",
+    "ConnectionApiBehaviorEnum",
+    "ConnectionApiEnableUsers",
+    "ConnectionApiEnableUsersGoogleApps",
     "ConnectionAppDomainAzureAd",
     "ConnectionAttributeIdentifier",
     "ConnectionAttributeMapAttributes",
@@ -3911,6 +4934,7 @@ __all__ = [
     "ConnectionAttributeMapUserinfoScope",
     "ConnectionAttributes",
     "ConnectionAuthParamsAdditionalPropertiesOAuth2",
+    "ConnectionAuthParamsEmail",
     "ConnectionAuthParamsMap",
     "ConnectionAuthParamsOAuth2",
     "ConnectionAuthenticationMethods",
@@ -3918,58 +4942,106 @@ __all__ = [
     "ConnectionAuthorizationEndpoint",
     "ConnectionAuthorizationEndpointOAuth2",
     "ConnectionBruteForceProtection",
+    "ConnectionCalculatedThumbprintSaml",
+    "ConnectionCertsAd",
     "ConnectionClaimTypesSupported",
     "ConnectionClaimsLocalesSupported",
     "ConnectionClaimsParameterSupported",
     "ConnectionClaimsSupported",
     "ConnectionClientId",
     "ConnectionClientIdAzureAd",
+    "ConnectionClientIdFacebook",
+    "ConnectionClientIdGoogleApps",
     "ConnectionClientIdGoogleOAuth2",
     "ConnectionClientIdOAuth2",
     "ConnectionClientIdOidc",
+    "ConnectionClientProtocolSaml",
     "ConnectionClientSecret",
     "ConnectionClientSecretAzureAd",
+    "ConnectionClientSecretFacebook",
+    "ConnectionClientSecretGoogleApps",
     "ConnectionClientSecretGoogleOAuth2",
     "ConnectionClientSecretOAuth2",
     "ConnectionClientSecretOidc",
     "ConnectionCommon",
     "ConnectionConfiguration",
     "ConnectionConnectedAccountsPurpose",
+    "ConnectionConnectedAccountsPurposeXaa",
     "ConnectionConnectionSettings",
     "ConnectionConnectionSettingsPkceEnum",
     "ConnectionCustomHeadersOAuth2",
     "ConnectionCustomScripts",
+    "ConnectionDebugSaml",
+    "ConnectionDecryptionKeySaml",
+    "ConnectionDecryptionKeySamlCert",
+    "ConnectionDestinationUrlSaml",
+    "ConnectionDigestAlgorithmEnumSaml",
+    "ConnectionDigestAlgorithmSaml",
     "ConnectionDisableSelfServiceChangePassword",
     "ConnectionDisableSignup",
+    "ConnectionDisableSignupSms",
     "ConnectionDiscoveryUrl",
     "ConnectionDisplayName",
     "ConnectionDisplayValuesSupported",
+    "ConnectionDomainAliases",
+    "ConnectionDomainAliasesAd",
     "ConnectionDomainAliasesAzureAd",
-    "ConnectionDomainAliasesOne",
+    "ConnectionDomainAliasesItemsOne",
+    "ConnectionDomainAliasesSaml",
+    "ConnectionDomainGoogleApps",
     "ConnectionDomainOkta",
+    "ConnectionEmailBodyEmail",
+    "ConnectionEmailEmail",
+    "ConnectionEmailEmailSyntax",
+    "ConnectionEmailFromEmail",
+    "ConnectionEmailOtpAuthenticationMethod",
+    "ConnectionEmailSubjectEmail",
     "ConnectionEnableScriptContext",
     "ConnectionEnabledClient",
     "ConnectionEnabledClients",
     "ConnectionEnabledDatabaseCustomization",
     "ConnectionEndSessionEndpoint",
     "ConnectionEndSessionEndpointOAuth2",
+    "ConnectionEntityIdSaml",
     "ConnectionExtAdmin",
     "ConnectionExtAgreedTerms",
+    "ConnectionExtAgreedTermsGoogleApps",
     "ConnectionExtAssignedPlans",
     "ConnectionExtGroups",
+    "ConnectionExtGroupsAzureAd",
+    "ConnectionExtGroupsGoogleApps",
+    "ConnectionExtIsAdminGoogleApps",
     "ConnectionExtIsSuspended",
+    "ConnectionExtIsSuspendedGoogleApps",
     "ConnectionExtProfile",
     "ConnectionFederatedConnectionsAccessTokens",
     "ConnectionFieldsMap",
+    "ConnectionFieldsMapSaml",
+    "ConnectionFieldsMapSamlValue",
     "ConnectionForList",
     "ConnectionForOrganization",
+    "ConnectionForwardReqInfoSms",
     "ConnectionFreeformScopesGoogleOAuth2",
+    "ConnectionFromSms",
     "ConnectionGatewayAuthentication",
+    "ConnectionGatewayAuthenticationAudienceSms",
+    "ConnectionGatewayAuthenticationMethodSms",
+    "ConnectionGatewayAuthenticationSms",
+    "ConnectionGatewayAuthenticationSubjectSms",
+    "ConnectionGatewayUrlSms",
+    "ConnectionGlobalTokenRevocationJwtIssSaml",
+    "ConnectionGlobalTokenRevocationJwtSubSaml",
     "ConnectionGrantTypesSupported",
+    "ConnectionHandleLoginFromSocialGoogleApps",
     "ConnectionHttpsUrlWithHttpFallback",
+    "ConnectionHttpsUrlWithHttpFallback2048",
+    "ConnectionHttpsUrlWithHttpFallback255",
     "ConnectionIconUrl",
+    "ConnectionIconUrlAdfs",
     "ConnectionIconUrlAzureAd",
+    "ConnectionIconUrlGoogleApps",
     "ConnectionIconUrlGoogleOAuth2",
+    "ConnectionIconUrlSaml",
     "ConnectionId",
     "ConnectionIdTokenEncryptionAlgValuesSupported",
     "ConnectionIdTokenEncryptionEncValuesSupported",
@@ -3982,6 +5054,7 @@ __all__ = [
     "ConnectionIdentityApiEnumAzureAd",
     "ConnectionIdentityProviderEnum",
     "ConnectionImportMode",
+    "ConnectionIpsAd",
     "ConnectionIsDomainConnection",
     "ConnectionIssuer",
     "ConnectionJwksUri",
@@ -3990,6 +5063,11 @@ __all__ = [
     "ConnectionMappingModeEnumOidc",
     "ConnectionMappingModeEnumOkta",
     "ConnectionMaxGroupsToRetrieve",
+    "ConnectionMessagingServiceSidSms",
+    "ConnectionMetadataUrlSaml",
+    "ConnectionMetadataXml",
+    "ConnectionMetadataXmlAdfs",
+    "ConnectionMetadataXmlSaml",
     "ConnectionMfa",
     "ConnectionName",
     "ConnectionNamePrefixTemplate",
@@ -4009,29 +5087,37 @@ __all__ = [
     "ConnectionOptionsBitbucket",
     "ConnectionOptionsBitly",
     "ConnectionOptionsBox",
+    "ConnectionOptionsClientIdGithub",
+    "ConnectionOptionsClientIdTwitter",
+    "ConnectionOptionsClientSecretGithub",
+    "ConnectionOptionsClientSecretTwitter",
     "ConnectionOptionsCommon",
     "ConnectionOptionsCommonOidc",
+    "ConnectionOptionsCommonSaml",
     "ConnectionOptionsCustom",
     "ConnectionOptionsDaccount",
+    "ConnectionOptionsDeflateSaml",
     "ConnectionOptionsDropbox",
     "ConnectionOptionsDwolla",
     "ConnectionOptionsEmail",
     "ConnectionOptionsEvernote",
-    "ConnectionOptionsEvernoteCommon",
-    "ConnectionOptionsEvernoteSandbox",
     "ConnectionOptionsExact",
     "ConnectionOptionsFacebook",
     "ConnectionOptionsFitbit",
     "ConnectionOptionsFlickr",
+    "ConnectionOptionsFreeformScopesGithub",
     "ConnectionOptionsGitHub",
     "ConnectionOptionsGoogleApps",
     "ConnectionOptionsGoogleOAuth2",
+    "ConnectionOptionsIdpInitiatedClientProtocolEnumSaml",
+    "ConnectionOptionsIdpinitiatedSaml",
     "ConnectionOptionsInstagram",
     "ConnectionOptionsIp",
     "ConnectionOptionsLine",
     "ConnectionOptionsLinkedin",
     "ConnectionOptionsMiicard",
     "ConnectionOptionsOAuth1",
+    "ConnectionOptionsOAuth1Common",
     "ConnectionOptionsOAuth2",
     "ConnectionOptionsOAuth2Common",
     "ConnectionOptionsOffice365",
@@ -4039,22 +5125,19 @@ __all__ = [
     "ConnectionOptionsOidcMetadata",
     "ConnectionOptionsOkta",
     "ConnectionOptionsPaypal",
-    "ConnectionOptionsPaypalSandbox",
     "ConnectionOptionsPingFederate",
     "ConnectionOptionsPlanningCenter",
+    "ConnectionOptionsProtocolEnumTwitter",
     "ConnectionOptionsRenren",
     "ConnectionOptionsSalesforce",
-    "ConnectionOptionsSalesforceCommon",
-    "ConnectionOptionsSalesforceCommunity",
-    "ConnectionOptionsSalesforceSandbox",
     "ConnectionOptionsSaml",
+    "ConnectionOptionsScopeGithub",
+    "ConnectionOptionsScopeTwitter",
     "ConnectionOptionsSharepoint",
     "ConnectionOptionsShop",
     "ConnectionOptionsShopify",
     "ConnectionOptionsSms",
     "ConnectionOptionsSoundcloud",
-    "ConnectionOptionsTheCity",
-    "ConnectionOptionsTheCitySandbox",
     "ConnectionOptionsThirtySevenSignals",
     "ConnectionOptionsTwitter",
     "ConnectionOptionsUntappd",
@@ -4074,6 +5157,9 @@ __all__ = [
     "ConnectionPasswordHistoryOptions",
     "ConnectionPasswordNoPersonalInfoOptions",
     "ConnectionPasswordPolicyEnum",
+    "ConnectionPhoneOtpAuthenticationMethod",
+    "ConnectionPingFederateBaseUrl",
+    "ConnectionPingFederateBaseUrlPingFederate",
     "ConnectionProfile",
     "ConnectionProfileConfig",
     "ConnectionProfileEnabledFeatures",
@@ -4089,87 +5175,155 @@ __all__ = [
     "ConnectionProfileTemplate",
     "ConnectionProfileTemplateItem",
     "ConnectionPropertiesOptions",
-    "ConnectionProvisioningTicket",
+    "ConnectionProtocolBindingEnumSaml",
+    "ConnectionProtocolBindingSaml",
+    "ConnectionProviderEnumSms",
+    "ConnectionProviderSms",
     "ConnectionProvisioningTicketUrl",
+    "ConnectionPurposes",
     "ConnectionRealmFallback",
     "ConnectionRealms",
+    "ConnectionRecipientUrlSaml",
     "ConnectionRegistrationEndpoint",
     "ConnectionRequestObjectEncryptionAlgValuesSupported",
     "ConnectionRequestObjectEncryptionEncValuesSupported",
     "ConnectionRequestObjectSigningAlgValuesSupported",
     "ConnectionRequestParameterSupported",
+    "ConnectionRequestTemplateSaml",
     "ConnectionRequestUriParameterSupported",
     "ConnectionRequireRequestUriRegistration",
     "ConnectionRequiresUsername",
     "ConnectionResponseCommon",
     "ConnectionResponseContentAd",
+    "ConnectionResponseContentAdStrategy",
     "ConnectionResponseContentAdfs",
+    "ConnectionResponseContentAdfsStrategy",
     "ConnectionResponseContentAmazon",
+    "ConnectionResponseContentAmazonStrategy",
     "ConnectionResponseContentAol",
+    "ConnectionResponseContentAolStrategy",
     "ConnectionResponseContentApple",
+    "ConnectionResponseContentAppleStrategy",
     "ConnectionResponseContentAuth0",
     "ConnectionResponseContentAuth0Oidc",
+    "ConnectionResponseContentAuth0OidcStrategy",
+    "ConnectionResponseContentAuth0Strategy",
     "ConnectionResponseContentAzureAd",
+    "ConnectionResponseContentAzureAdStrategy",
     "ConnectionResponseContentBaidu",
+    "ConnectionResponseContentBaiduStrategy",
     "ConnectionResponseContentBitbucket",
+    "ConnectionResponseContentBitbucketStrategy",
     "ConnectionResponseContentBitly",
+    "ConnectionResponseContentBitlyStrategy",
     "ConnectionResponseContentBox",
+    "ConnectionResponseContentBoxStrategy",
     "ConnectionResponseContentCustom",
+    "ConnectionResponseContentCustomStrategy",
     "ConnectionResponseContentDaccount",
+    "ConnectionResponseContentDaccountStrategy",
     "ConnectionResponseContentDropbox",
+    "ConnectionResponseContentDropboxStrategy",
     "ConnectionResponseContentDwolla",
+    "ConnectionResponseContentDwollaStrategy",
     "ConnectionResponseContentEmail",
+    "ConnectionResponseContentEmailStrategy",
     "ConnectionResponseContentEvernote",
     "ConnectionResponseContentEvernoteSandbox",
+    "ConnectionResponseContentEvernoteSandboxStrategy",
+    "ConnectionResponseContentEvernoteStrategy",
     "ConnectionResponseContentExact",
+    "ConnectionResponseContentExactStrategy",
     "ConnectionResponseContentFacebook",
+    "ConnectionResponseContentFacebookStrategy",
     "ConnectionResponseContentFitbit",
+    "ConnectionResponseContentFitbitStrategy",
     "ConnectionResponseContentFlickr",
+    "ConnectionResponseContentFlickrStrategy",
     "ConnectionResponseContentGitHub",
+    "ConnectionResponseContentGitHubStrategy",
     "ConnectionResponseContentGoogleApps",
+    "ConnectionResponseContentGoogleAppsStrategy",
     "ConnectionResponseContentGoogleOAuth2",
+    "ConnectionResponseContentGoogleOAuth2Strategy",
     "ConnectionResponseContentInstagram",
+    "ConnectionResponseContentInstagramStrategy",
     "ConnectionResponseContentIp",
+    "ConnectionResponseContentIpStrategy",
     "ConnectionResponseContentLine",
+    "ConnectionResponseContentLineStrategy",
     "ConnectionResponseContentLinkedin",
+    "ConnectionResponseContentLinkedinStrategy",
     "ConnectionResponseContentMiicard",
+    "ConnectionResponseContentMiicardStrategy",
     "ConnectionResponseContentOAuth1",
+    "ConnectionResponseContentOAuth1Strategy",
     "ConnectionResponseContentOAuth2",
+    "ConnectionResponseContentOAuth2Strategy",
     "ConnectionResponseContentOffice365",
+    "ConnectionResponseContentOffice365Strategy",
     "ConnectionResponseContentOidc",
+    "ConnectionResponseContentOidcStrategy",
     "ConnectionResponseContentOkta",
+    "ConnectionResponseContentOktaStrategy",
     "ConnectionResponseContentPaypal",
     "ConnectionResponseContentPaypalSandbox",
+    "ConnectionResponseContentPaypalSandboxStrategy",
+    "ConnectionResponseContentPaypalStrategy",
     "ConnectionResponseContentPingFederate",
+    "ConnectionResponseContentPingFederateStrategy",
     "ConnectionResponseContentPlanningCenter",
+    "ConnectionResponseContentPlanningCenterStrategy",
     "ConnectionResponseContentRenren",
+    "ConnectionResponseContentRenrenStrategy",
     "ConnectionResponseContentSalesforce",
     "ConnectionResponseContentSalesforceCommunity",
+    "ConnectionResponseContentSalesforceCommunityStrategy",
     "ConnectionResponseContentSalesforceSandbox",
+    "ConnectionResponseContentSalesforceSandboxStrategy",
+    "ConnectionResponseContentSalesforceStrategy",
     "ConnectionResponseContentSaml",
+    "ConnectionResponseContentSamlStrategy",
     "ConnectionResponseContentSharepoint",
+    "ConnectionResponseContentSharepointStrategy",
     "ConnectionResponseContentShop",
+    "ConnectionResponseContentShopStrategy",
     "ConnectionResponseContentShopify",
+    "ConnectionResponseContentShopifyStrategy",
     "ConnectionResponseContentSms",
+    "ConnectionResponseContentSmsStrategy",
     "ConnectionResponseContentSoundcloud",
-    "ConnectionResponseContentTheCity",
-    "ConnectionResponseContentTheCitySandbox",
+    "ConnectionResponseContentSoundcloudStrategy",
     "ConnectionResponseContentThirtySevenSignals",
+    "ConnectionResponseContentThirtySevenSignalsStrategy",
     "ConnectionResponseContentTwitter",
+    "ConnectionResponseContentTwitterStrategy",
     "ConnectionResponseContentUntappd",
+    "ConnectionResponseContentUntappdStrategy",
     "ConnectionResponseContentVkontakte",
+    "ConnectionResponseContentVkontakteStrategy",
     "ConnectionResponseContentWeibo",
+    "ConnectionResponseContentWeiboStrategy",
     "ConnectionResponseContentWindowsLive",
+    "ConnectionResponseContentWindowsLiveStrategy",
     "ConnectionResponseContentWordpress",
+    "ConnectionResponseContentWordpressStrategy",
     "ConnectionResponseContentYahoo",
+    "ConnectionResponseContentYahooStrategy",
     "ConnectionResponseContentYammer",
+    "ConnectionResponseContentYammerStrategy",
     "ConnectionResponseContentYandex",
+    "ConnectionResponseContentYandexStrategy",
     "ConnectionResponseModesSupported",
     "ConnectionResponseTypesSupported",
     "ConnectionScopeArray",
+    "ConnectionScopeArrayFacebook",
     "ConnectionScopeAzureAd",
+    "ConnectionScopeFacebook",
+    "ConnectionScopeGoogleApps",
     "ConnectionScopeGoogleOAuth2",
     "ConnectionScopeItem",
+    "ConnectionScopeItemGoogleApps",
     "ConnectionScopeOAuth2",
     "ConnectionScopeOidc",
     "ConnectionScopesSupported",
@@ -4177,15 +5331,37 @@ __all__ = [
     "ConnectionSendBackChannelNonce",
     "ConnectionServiceDocumentation",
     "ConnectionSetUserRootAttributesEnum",
+    "ConnectionSha1Thumbprint",
     "ConnectionShouldTrustEmailVerifiedConnectionEnum",
     "ConnectionShowAsButton",
+    "ConnectionSignInEndpointAd",
+    "ConnectionSignInEndpointAdfs",
+    "ConnectionSignInEndpointSaml",
+    "ConnectionSignOutEndpointSaml",
+    "ConnectionSignSamlRequestSaml",
+    "ConnectionSignatureAlgorithmEnumSaml",
+    "ConnectionSignatureAlgorithmSaml",
+    "ConnectionSigningCertSaml",
+    "ConnectionSigningCertificateDerSaml",
+    "ConnectionSigningCertificatePemPingFederate",
+    "ConnectionSigningCertificatePemSaml",
+    "ConnectionSigningKeySaml",
+    "ConnectionSignupBehaviorEnum",
     "ConnectionStrategyEnum",
-    "ConnectionStrategyVersionEnumAzureAd",
+    "ConnectionStrategyVersionEnumLinkedin",
+    "ConnectionStrategyVersionEnumWindowsLive",
     "ConnectionSubjectTypesSupported",
+    "ConnectionTemplateSms",
+    "ConnectionTemplateSyntaxEnumSms",
     "ConnectionTenantDomain",
+    "ConnectionTenantDomainAd",
     "ConnectionTenantDomainAzureAdOne",
+    "ConnectionTenantDomainGoogleApps",
+    "ConnectionTenantDomainSaml",
     "ConnectionTenantIdAzureAd",
     "ConnectionThumbprints",
+    "ConnectionThumbprintsAd",
+    "ConnectionThumbprintsSaml",
     "ConnectionTokenEndpoint",
     "ConnectionTokenEndpointAuthMethodEnum",
     "ConnectionTokenEndpointAuthMethodsSupported",
@@ -4193,6 +5369,16 @@ __all__ = [
     "ConnectionTokenEndpointAuthSigningAlgValuesSupported",
     "ConnectionTokenEndpointOAuth2",
     "ConnectionTokenEndpointOidc",
+    "ConnectionTotpEmail",
+    "ConnectionTotpLengthEmail",
+    "ConnectionTotpLengthPasswordless",
+    "ConnectionTotpLengthSms",
+    "ConnectionTotpSms",
+    "ConnectionTotpTimeStepEmail",
+    "ConnectionTotpTimeStepPasswordless",
+    "ConnectionTotpTimeStepSms",
+    "ConnectionTwilioSidSms",
+    "ConnectionTwilioTokenSms",
     "ConnectionTypeEnumOidc",
     "ConnectionTypeEnumOkta",
     "ConnectionUiLocalesSupported",
@@ -4200,10 +5386,11 @@ __all__ = [
     "ConnectionUpstreamAlias",
     "ConnectionUpstreamAliasEnum",
     "ConnectionUpstreamParams",
-    "ConnectionUpstreamParamsAzureAd",
-    "ConnectionUpstreamParamsOidc",
+    "ConnectionUpstreamParamsAdfs",
+    "ConnectionUpstreamParamsFacebook",
     "ConnectionUpstreamValue",
     "ConnectionUseCommonEndpointAzureAd",
+    "ConnectionUserIdAttributeSaml",
     "ConnectionUseridAttributeAzureAd",
     "ConnectionUseridAttributeEnumAzureAd",
     "ConnectionUserinfoEncryptionAlgValuesSupported",
@@ -4216,75 +5403,137 @@ __all__ = [
     "ConnectionWaadProtocol",
     "ConnectionWaadProtocolEnumAzureAd",
     "ConnectionsMetadata",
+    "CreateActionModuleResponseContent",
+    "CreateActionModuleVersionResponseContent",
     "CreateActionResponseContent",
     "CreateBrandingPhoneProviderResponseContent",
     "CreateBrandingThemeResponseContent",
+    "CreateClientAuthenticationMethodSelfSignedTlsClientAuth",
+    "CreateClientAuthenticationMethodSelfSignedTlsClientAuthCredentials",
     "CreateClientGrantResponseContent",
     "CreateClientResponseContent",
     "CreateConnectionCommon",
     "CreateConnectionProfileResponseContent",
     "CreateConnectionRequestContentAd",
+    "CreateConnectionRequestContentAdStrategy",
     "CreateConnectionRequestContentAdfs",
+    "CreateConnectionRequestContentAdfsStrategy",
     "CreateConnectionRequestContentAmazon",
+    "CreateConnectionRequestContentAmazonStrategy",
     "CreateConnectionRequestContentAol",
+    "CreateConnectionRequestContentAolStrategy",
     "CreateConnectionRequestContentApple",
+    "CreateConnectionRequestContentAppleStrategy",
     "CreateConnectionRequestContentAuth0",
     "CreateConnectionRequestContentAuth0Oidc",
+    "CreateConnectionRequestContentAuth0OidcStrategy",
+    "CreateConnectionRequestContentAuth0Strategy",
     "CreateConnectionRequestContentAzureAd",
+    "CreateConnectionRequestContentAzureAdStrategy",
     "CreateConnectionRequestContentBaidu",
+    "CreateConnectionRequestContentBaiduStrategy",
     "CreateConnectionRequestContentBitbucket",
+    "CreateConnectionRequestContentBitbucketStrategy",
     "CreateConnectionRequestContentBitly",
+    "CreateConnectionRequestContentBitlyStrategy",
     "CreateConnectionRequestContentBox",
+    "CreateConnectionRequestContentBoxStrategy",
     "CreateConnectionRequestContentCustom",
+    "CreateConnectionRequestContentCustomStrategy",
     "CreateConnectionRequestContentDaccount",
+    "CreateConnectionRequestContentDaccountStrategy",
     "CreateConnectionRequestContentDropbox",
+    "CreateConnectionRequestContentDropboxStrategy",
     "CreateConnectionRequestContentDwolla",
+    "CreateConnectionRequestContentDwollaStrategy",
     "CreateConnectionRequestContentEmail",
+    "CreateConnectionRequestContentEmailStrategy",
     "CreateConnectionRequestContentEvernote",
     "CreateConnectionRequestContentEvernoteSandbox",
+    "CreateConnectionRequestContentEvernoteSandboxStrategy",
+    "CreateConnectionRequestContentEvernoteStrategy",
     "CreateConnectionRequestContentExact",
+    "CreateConnectionRequestContentExactStrategy",
     "CreateConnectionRequestContentFacebook",
+    "CreateConnectionRequestContentFacebookStrategy",
     "CreateConnectionRequestContentFitbit",
+    "CreateConnectionRequestContentFitbitStrategy",
     "CreateConnectionRequestContentFlickr",
+    "CreateConnectionRequestContentFlickrStrategy",
     "CreateConnectionRequestContentGitHub",
+    "CreateConnectionRequestContentGitHubStrategy",
     "CreateConnectionRequestContentGoogleApps",
+    "CreateConnectionRequestContentGoogleAppsStrategy",
     "CreateConnectionRequestContentGoogleOAuth2",
+    "CreateConnectionRequestContentGoogleOAuth2Strategy",
     "CreateConnectionRequestContentInstagram",
+    "CreateConnectionRequestContentInstagramStrategy",
     "CreateConnectionRequestContentIp",
+    "CreateConnectionRequestContentIpStrategy",
     "CreateConnectionRequestContentLine",
+    "CreateConnectionRequestContentLineStrategy",
     "CreateConnectionRequestContentLinkedin",
+    "CreateConnectionRequestContentLinkedinStrategy",
     "CreateConnectionRequestContentMiicard",
+    "CreateConnectionRequestContentMiicardStrategy",
     "CreateConnectionRequestContentOAuth1",
+    "CreateConnectionRequestContentOAuth1Strategy",
     "CreateConnectionRequestContentOAuth2",
+    "CreateConnectionRequestContentOAuth2Strategy",
     "CreateConnectionRequestContentOffice365",
+    "CreateConnectionRequestContentOffice365Strategy",
     "CreateConnectionRequestContentOidc",
+    "CreateConnectionRequestContentOidcStrategy",
     "CreateConnectionRequestContentOkta",
+    "CreateConnectionRequestContentOktaStrategy",
     "CreateConnectionRequestContentPaypal",
     "CreateConnectionRequestContentPaypalSandbox",
+    "CreateConnectionRequestContentPaypalSandboxStrategy",
+    "CreateConnectionRequestContentPaypalStrategy",
     "CreateConnectionRequestContentPingFederate",
+    "CreateConnectionRequestContentPingFederateStrategy",
     "CreateConnectionRequestContentPlanningCenter",
+    "CreateConnectionRequestContentPlanningCenterStrategy",
     "CreateConnectionRequestContentRenren",
+    "CreateConnectionRequestContentRenrenStrategy",
     "CreateConnectionRequestContentSalesforce",
     "CreateConnectionRequestContentSalesforceCommunity",
+    "CreateConnectionRequestContentSalesforceCommunityStrategy",
     "CreateConnectionRequestContentSalesforceSandbox",
+    "CreateConnectionRequestContentSalesforceSandboxStrategy",
+    "CreateConnectionRequestContentSalesforceStrategy",
     "CreateConnectionRequestContentSaml",
+    "CreateConnectionRequestContentSamlStrategy",
     "CreateConnectionRequestContentSharepoint",
+    "CreateConnectionRequestContentSharepointStrategy",
     "CreateConnectionRequestContentShop",
+    "CreateConnectionRequestContentShopStrategy",
     "CreateConnectionRequestContentShopify",
+    "CreateConnectionRequestContentShopifyStrategy",
     "CreateConnectionRequestContentSms",
+    "CreateConnectionRequestContentSmsStrategy",
     "CreateConnectionRequestContentSoundcloud",
-    "CreateConnectionRequestContentTheCity",
-    "CreateConnectionRequestContentTheCitySandbox",
+    "CreateConnectionRequestContentSoundcloudStrategy",
     "CreateConnectionRequestContentThirtySevenSignals",
+    "CreateConnectionRequestContentThirtySevenSignalsStrategy",
     "CreateConnectionRequestContentTwitter",
+    "CreateConnectionRequestContentTwitterStrategy",
     "CreateConnectionRequestContentUntappd",
+    "CreateConnectionRequestContentUntappdStrategy",
     "CreateConnectionRequestContentVkontakte",
+    "CreateConnectionRequestContentVkontakteStrategy",
     "CreateConnectionRequestContentWeibo",
+    "CreateConnectionRequestContentWeiboStrategy",
     "CreateConnectionRequestContentWindowsLive",
+    "CreateConnectionRequestContentWindowsLiveStrategy",
     "CreateConnectionRequestContentWordpress",
+    "CreateConnectionRequestContentWordpressStrategy",
     "CreateConnectionRequestContentYahoo",
+    "CreateConnectionRequestContentYahooStrategy",
     "CreateConnectionRequestContentYammer",
+    "CreateConnectionRequestContentYammerStrategy",
     "CreateConnectionRequestContentYandex",
+    "CreateConnectionRequestContentYandexStrategy",
     "CreateConnectionResponseContent",
     "CreateCustomDomainResponseContent",
     "CreateDirectoryProvisioningRequestContent",
@@ -4326,7 +5575,10 @@ __all__ = [
     "CreateFlowsVaultConnectionGoogleSheetsOauthCode",
     "CreateFlowsVaultConnectionGoogleSheetsUninitialized",
     "CreateFlowsVaultConnectionHttp",
+    "CreateFlowsVaultConnectionHttpApiKey",
+    "CreateFlowsVaultConnectionHttpBasicAuth",
     "CreateFlowsVaultConnectionHttpBearer",
+    "CreateFlowsVaultConnectionHttpOauthClientCredentials",
     "CreateFlowsVaultConnectionHttpUninitialized",
     "CreateFlowsVaultConnectionHubspot",
     "CreateFlowsVaultConnectionHubspotApiKey",
@@ -4432,17 +5684,18 @@ __all__ = [
     "CustomSigningKeyTypeEnum",
     "CustomSigningKeyUseEnum",
     "DailyStats",
+    "DefaultMethodEmailIdentifierEnum",
     "DefaultTokenQuota",
     "DeleteHookSecretRequestContent",
     "DeleteUserIdentityResponseContent",
     "DeleteUserIdentityResponseContentItem",
     "DeployActionResponseContent",
-    "DeployActionVersionRequestBodyParams",
     "DeployActionVersionRequestContent",
     "DeployActionVersionResponseContent",
     "DeviceCredential",
     "DeviceCredentialPublicKeyTypeEnum",
     "DeviceCredentialTypeEnum",
+    "DirectoryProvisioning",
     "DirectoryProvisioningMappingItem",
     "DomainCertificate",
     "DomainCertificateAuthorityEnum",
@@ -4510,31 +5763,53 @@ __all__ = [
     "FlowAction",
     "FlowActionActivecampaign",
     "FlowActionActivecampaignListContacts",
+    "FlowActionActivecampaignListContactsAction",
     "FlowActionActivecampaignListContactsParams",
+    "FlowActionActivecampaignListContactsType",
     "FlowActionActivecampaignUpsertContact",
+    "FlowActionActivecampaignUpsertContactAction",
     "FlowActionActivecampaignUpsertContactParams",
     "FlowActionActivecampaignUpsertContactParamsCustomFields",
+    "FlowActionActivecampaignUpsertContactType",
     "FlowActionAirtable",
     "FlowActionAirtableCreateRecord",
+    "FlowActionAirtableCreateRecordAction",
     "FlowActionAirtableCreateRecordParams",
     "FlowActionAirtableCreateRecordParamsFields",
+    "FlowActionAirtableCreateRecordType",
     "FlowActionAirtableListRecords",
+    "FlowActionAirtableListRecordsAction",
     "FlowActionAirtableListRecordsParams",
+    "FlowActionAirtableListRecordsType",
     "FlowActionAirtableUpdateRecord",
+    "FlowActionAirtableUpdateRecordAction",
     "FlowActionAirtableUpdateRecordParams",
     "FlowActionAirtableUpdateRecordParamsFields",
+    "FlowActionAirtableUpdateRecordType",
     "FlowActionAuth0",
     "FlowActionAuth0CreateUser",
+    "FlowActionAuth0CreateUserAction",
     "FlowActionAuth0CreateUserParams",
     "FlowActionAuth0CreateUserParamsPayload",
+    "FlowActionAuth0CreateUserType",
     "FlowActionAuth0GetUser",
+    "FlowActionAuth0GetUserAction",
     "FlowActionAuth0GetUserParams",
+    "FlowActionAuth0GetUserType",
+    "FlowActionAuth0MakeCall",
+    "FlowActionAuth0MakeCallAction",
+    "FlowActionAuth0MakeCallParams",
+    "FlowActionAuth0MakeCallParamsCustomVars",
+    "FlowActionAuth0MakeCallType",
     "FlowActionAuth0SendEmail",
+    "FlowActionAuth0SendEmailAction",
     "FlowActionAuth0SendEmailParams",
     "FlowActionAuth0SendEmailParamsFrom",
     "FlowActionAuth0SendEmailParamsFromEmail",
     "FlowActionAuth0SendEmailParamsTo",
+    "FlowActionAuth0SendEmailType",
     "FlowActionAuth0SendRequest",
+    "FlowActionAuth0SendRequestAction",
     "FlowActionAuth0SendRequestParams",
     "FlowActionAuth0SendRequestParamsCustomVars",
     "FlowActionAuth0SendRequestParamsHeaders",
@@ -4543,53 +5818,86 @@ __all__ = [
     "FlowActionAuth0SendRequestParamsPayloadObject",
     "FlowActionAuth0SendRequestParamsQueryParams",
     "FlowActionAuth0SendRequestParamsQueryParamsValue",
+    "FlowActionAuth0SendRequestType",
+    "FlowActionAuth0SendSms",
+    "FlowActionAuth0SendSmsAction",
+    "FlowActionAuth0SendSmsParams",
+    "FlowActionAuth0SendSmsParamsCustomVars",
+    "FlowActionAuth0SendSmsType",
     "FlowActionAuth0UpdateUser",
+    "FlowActionAuth0UpdateUserAction",
     "FlowActionAuth0UpdateUserParams",
     "FlowActionAuth0UpdateUserParamsChanges",
+    "FlowActionAuth0UpdateUserType",
     "FlowActionBigquery",
     "FlowActionBigqueryInsertRows",
+    "FlowActionBigqueryInsertRowsAction",
     "FlowActionBigqueryInsertRowsParams",
     "FlowActionBigqueryInsertRowsParamsData",
+    "FlowActionBigqueryInsertRowsType",
     "FlowActionClearbit",
     "FlowActionClearbitFindCompany",
+    "FlowActionClearbitFindCompanyAction",
     "FlowActionClearbitFindCompanyParams",
+    "FlowActionClearbitFindCompanyType",
     "FlowActionClearbitFindPerson",
+    "FlowActionClearbitFindPersonAction",
     "FlowActionClearbitFindPersonParams",
+    "FlowActionClearbitFindPersonType",
     "FlowActionEmail",
     "FlowActionEmailVerifyEmail",
+    "FlowActionEmailVerifyEmailAction",
     "FlowActionEmailVerifyEmailParams",
     "FlowActionEmailVerifyEmailParamsRules",
+    "FlowActionEmailVerifyEmailType",
     "FlowActionFlow",
     "FlowActionFlowBooleanCondition",
+    "FlowActionFlowBooleanConditionAction",
     "FlowActionFlowBooleanConditionParams",
+    "FlowActionFlowBooleanConditionType",
     "FlowActionFlowDelayFlow",
+    "FlowActionFlowDelayFlowAction",
     "FlowActionFlowDelayFlowParams",
     "FlowActionFlowDelayFlowParamsNumber",
     "FlowActionFlowDelayFlowParamsUnits",
+    "FlowActionFlowDelayFlowType",
     "FlowActionFlowDoNothing",
+    "FlowActionFlowDoNothingAction",
     "FlowActionFlowDoNothingParams",
+    "FlowActionFlowDoNothingType",
     "FlowActionFlowErrorMessage",
+    "FlowActionFlowErrorMessageAction",
     "FlowActionFlowErrorMessageParams",
+    "FlowActionFlowErrorMessageType",
     "FlowActionFlowMapValue",
+    "FlowActionFlowMapValueAction",
     "FlowActionFlowMapValueParams",
     "FlowActionFlowMapValueParamsCases",
     "FlowActionFlowMapValueParamsFallback",
     "FlowActionFlowMapValueParamsFallbackObject",
     "FlowActionFlowMapValueParamsInput",
+    "FlowActionFlowMapValueType",
     "FlowActionFlowReturnJson",
+    "FlowActionFlowReturnJsonAction",
     "FlowActionFlowReturnJsonParams",
     "FlowActionFlowReturnJsonParamsPayload",
     "FlowActionFlowReturnJsonParamsPayloadObject",
+    "FlowActionFlowReturnJsonType",
     "FlowActionFlowStoreVars",
+    "FlowActionFlowStoreVarsAction",
     "FlowActionFlowStoreVarsParams",
     "FlowActionFlowStoreVarsParamsVars",
+    "FlowActionFlowStoreVarsType",
     "FlowActionGoogleSheets",
     "FlowActionGoogleSheetsAddRow",
+    "FlowActionGoogleSheetsAddRowAction",
     "FlowActionGoogleSheetsAddRowParams",
     "FlowActionGoogleSheetsAddRowParamsSheetId",
     "FlowActionGoogleSheetsAddRowParamsValues",
+    "FlowActionGoogleSheetsAddRowType",
     "FlowActionHttp",
     "FlowActionHttpSendRequest",
+    "FlowActionHttpSendRequestAction",
     "FlowActionHttpSendRequestParams",
     "FlowActionHttpSendRequestParamsBasicAuth",
     "FlowActionHttpSendRequestParamsContentType",
@@ -4599,131 +5907,204 @@ __all__ = [
     "FlowActionHttpSendRequestParamsPayloadObject",
     "FlowActionHttpSendRequestParamsQueryParams",
     "FlowActionHttpSendRequestParamsQueryParamsValue",
+    "FlowActionHttpSendRequestType",
     "FlowActionHubspot",
     "FlowActionHubspotEnrollContact",
+    "FlowActionHubspotEnrollContactAction",
     "FlowActionHubspotEnrollContactParams",
     "FlowActionHubspotEnrollContactParamsWorkflowId",
+    "FlowActionHubspotEnrollContactType",
     "FlowActionHubspotGetContact",
+    "FlowActionHubspotGetContactAction",
     "FlowActionHubspotGetContactParams",
+    "FlowActionHubspotGetContactType",
     "FlowActionHubspotUpsertContact",
+    "FlowActionHubspotUpsertContactAction",
     "FlowActionHubspotUpsertContactParams",
     "FlowActionHubspotUpsertContactParamsProperty",
+    "FlowActionHubspotUpsertContactType",
     "FlowActionJson",
     "FlowActionJsonCreateJson",
+    "FlowActionJsonCreateJsonAction",
     "FlowActionJsonCreateJsonParams",
     "FlowActionJsonCreateJsonParamsObject",
+    "FlowActionJsonCreateJsonType",
     "FlowActionJsonParseJson",
+    "FlowActionJsonParseJsonAction",
     "FlowActionJsonParseJsonParams",
+    "FlowActionJsonParseJsonType",
     "FlowActionJsonSerializeJson",
+    "FlowActionJsonSerializeJsonAction",
     "FlowActionJsonSerializeJsonParams",
     "FlowActionJsonSerializeJsonParamsObject",
     "FlowActionJsonSerializeJsonParamsObjectObject",
+    "FlowActionJsonSerializeJsonType",
     "FlowActionJwt",
     "FlowActionJwtDecodeJwt",
+    "FlowActionJwtDecodeJwtAction",
     "FlowActionJwtDecodeJwtParams",
+    "FlowActionJwtDecodeJwtType",
     "FlowActionJwtSignJwt",
+    "FlowActionJwtSignJwtAction",
     "FlowActionJwtSignJwtParams",
     "FlowActionJwtSignJwtParamsPayload",
+    "FlowActionJwtSignJwtType",
     "FlowActionJwtVerifyJwt",
+    "FlowActionJwtVerifyJwtAction",
     "FlowActionJwtVerifyJwtParams",
+    "FlowActionJwtVerifyJwtType",
     "FlowActionMailchimp",
     "FlowActionMailchimpUpsertMember",
+    "FlowActionMailchimpUpsertMemberAction",
     "FlowActionMailchimpUpsertMemberParams",
     "FlowActionMailchimpUpsertMemberParamsMember",
     "FlowActionMailchimpUpsertMemberParamsMemberMergeFields",
+    "FlowActionMailchimpUpsertMemberType",
     "FlowActionMailjet",
     "FlowActionMailjetSendEmail",
+    "FlowActionMailjetSendEmailAction",
     "FlowActionMailjetSendEmailParams",
     "FlowActionMailjetSendEmailParamsContent",
     "FlowActionMailjetSendEmailParamsTemplateId",
+    "FlowActionMailjetSendEmailType",
     "FlowActionOtp",
     "FlowActionOtpGenerateCode",
+    "FlowActionOtpGenerateCodeAction",
     "FlowActionOtpGenerateCodeParams",
+    "FlowActionOtpGenerateCodeType",
     "FlowActionOtpVerifyCode",
+    "FlowActionOtpVerifyCodeAction",
     "FlowActionOtpVerifyCodeParams",
     "FlowActionOtpVerifyCodeParamsCode",
+    "FlowActionOtpVerifyCodeType",
     "FlowActionPipedrive",
     "FlowActionPipedriveAddDeal",
+    "FlowActionPipedriveAddDealAction",
     "FlowActionPipedriveAddDealParams",
     "FlowActionPipedriveAddDealParamsFields",
     "FlowActionPipedriveAddDealParamsOrganizationId",
     "FlowActionPipedriveAddDealParamsPersonId",
     "FlowActionPipedriveAddDealParamsStageId",
     "FlowActionPipedriveAddDealParamsUserId",
+    "FlowActionPipedriveAddDealType",
     "FlowActionPipedriveAddOrganization",
+    "FlowActionPipedriveAddOrganizationAction",
     "FlowActionPipedriveAddOrganizationParams",
     "FlowActionPipedriveAddOrganizationParamsFields",
     "FlowActionPipedriveAddOrganizationParamsOwnerId",
+    "FlowActionPipedriveAddOrganizationType",
     "FlowActionPipedriveAddPerson",
+    "FlowActionPipedriveAddPersonAction",
     "FlowActionPipedriveAddPersonParams",
     "FlowActionPipedriveAddPersonParamsFields",
     "FlowActionPipedriveAddPersonParamsOrganizationId",
     "FlowActionPipedriveAddPersonParamsOwnerId",
+    "FlowActionPipedriveAddPersonType",
     "FlowActionSalesforce",
     "FlowActionSalesforceCreateLead",
+    "FlowActionSalesforceCreateLeadAction",
     "FlowActionSalesforceCreateLeadParams",
     "FlowActionSalesforceCreateLeadParamsPayload",
+    "FlowActionSalesforceCreateLeadType",
     "FlowActionSalesforceGetLead",
+    "FlowActionSalesforceGetLeadAction",
     "FlowActionSalesforceGetLeadParams",
+    "FlowActionSalesforceGetLeadType",
     "FlowActionSalesforceSearchLeads",
+    "FlowActionSalesforceSearchLeadsAction",
     "FlowActionSalesforceSearchLeadsParams",
     "FlowActionSalesforceSearchLeadsParamsSearchField",
+    "FlowActionSalesforceSearchLeadsType",
     "FlowActionSalesforceUpdateLead",
+    "FlowActionSalesforceUpdateLeadAction",
     "FlowActionSalesforceUpdateLeadParams",
     "FlowActionSalesforceUpdateLeadParamsPayload",
+    "FlowActionSalesforceUpdateLeadType",
     "FlowActionSendgrid",
     "FlowActionSendgridSendEmail",
+    "FlowActionSendgridSendEmailAction",
     "FlowActionSendgridSendEmailParams",
     "FlowActionSendgridSendEmailParamsPerson",
+    "FlowActionSendgridSendEmailType",
     "FlowActionSlack",
     "FlowActionSlackPostMessage",
+    "FlowActionSlackPostMessageAction",
     "FlowActionSlackPostMessageParams",
     "FlowActionSlackPostMessageParamsAttachment",
     "FlowActionSlackPostMessageParamsAttachmentColor",
     "FlowActionSlackPostMessageParamsAttachmentField",
+    "FlowActionSlackPostMessageType",
     "FlowActionStripe",
     "FlowActionStripeAddTaxId",
+    "FlowActionStripeAddTaxIdAction",
     "FlowActionStripeAddTaxIdParams",
+    "FlowActionStripeAddTaxIdType",
     "FlowActionStripeAddress",
     "FlowActionStripeCreateCustomer",
+    "FlowActionStripeCreateCustomerAction",
     "FlowActionStripeCreateCustomerParams",
+    "FlowActionStripeCreateCustomerType",
     "FlowActionStripeCreatePortalSession",
+    "FlowActionStripeCreatePortalSessionAction",
     "FlowActionStripeCreatePortalSessionParams",
+    "FlowActionStripeCreatePortalSessionType",
     "FlowActionStripeDeleteTaxId",
+    "FlowActionStripeDeleteTaxIdAction",
     "FlowActionStripeDeleteTaxIdParams",
+    "FlowActionStripeDeleteTaxIdType",
     "FlowActionStripeFindCustomers",
+    "FlowActionStripeFindCustomersAction",
     "FlowActionStripeFindCustomersParams",
+    "FlowActionStripeFindCustomersType",
     "FlowActionStripeGetCustomer",
+    "FlowActionStripeGetCustomerAction",
     "FlowActionStripeGetCustomerParams",
+    "FlowActionStripeGetCustomerType",
     "FlowActionStripeMetadata",
     "FlowActionStripeTaxId",
     "FlowActionStripeUpdateCustomer",
+    "FlowActionStripeUpdateCustomerAction",
     "FlowActionStripeUpdateCustomerParams",
+    "FlowActionStripeUpdateCustomerType",
     "FlowActionTelegram",
     "FlowActionTelegramSendMessage",
+    "FlowActionTelegramSendMessageAction",
     "FlowActionTelegramSendMessageParams",
+    "FlowActionTelegramSendMessageType",
     "FlowActionTwilio",
     "FlowActionTwilioMakeCall",
+    "FlowActionTwilioMakeCallAction",
     "FlowActionTwilioMakeCallParams",
+    "FlowActionTwilioMakeCallType",
     "FlowActionTwilioSendSms",
+    "FlowActionTwilioSendSmsAction",
     "FlowActionTwilioSendSmsParams",
+    "FlowActionTwilioSendSmsType",
     "FlowActionWhatsapp",
     "FlowActionWhatsappSendMessage",
+    "FlowActionWhatsappSendMessageAction",
     "FlowActionWhatsappSendMessageParams",
     "FlowActionWhatsappSendMessageParamsPayload",
     "FlowActionWhatsappSendMessageParamsPayloadObject",
     "FlowActionWhatsappSendMessageParamsType",
+    "FlowActionWhatsappSendMessageType",
     "FlowActionXml",
     "FlowActionXmlParseXml",
+    "FlowActionXmlParseXmlAction",
     "FlowActionXmlParseXmlParams",
+    "FlowActionXmlParseXmlType",
     "FlowActionXmlSerializeXml",
+    "FlowActionXmlSerializeXmlAction",
     "FlowActionXmlSerializeXmlParams",
     "FlowActionXmlSerializeXmlParamsObject",
     "FlowActionXmlSerializeXmlParamsObjectObject",
+    "FlowActionXmlSerializeXmlType",
     "FlowActionZapier",
     "FlowActionZapierTriggerWebhook",
+    "FlowActionZapierTriggerWebhookAction",
     "FlowActionZapierTriggerWebhookParams",
     "FlowActionZapierTriggerWebhookParamsMethod",
+    "FlowActionZapierTriggerWebhookType",
     "FlowExecutionDebug",
     "FlowExecutionSummary",
     "FlowSummary",
@@ -4771,6 +6152,13 @@ __all__ = [
     "FlowsVaultConnectionAppIdTwilioEnum",
     "FlowsVaultConnectionAppIdWhatsappEnum",
     "FlowsVaultConnectionAppIdZapierEnum",
+    "FlowsVaultConnectionHttpApiKeySetup",
+    "FlowsVaultConnectionHttpApiKeySetupInEnum",
+    "FlowsVaultConnectionHttpBasicAuthSetup",
+    "FlowsVaultConnectionHttpOauthClientCredentialsSetup",
+    "FlowsVaultConnectionSetupTypeApiKeyEnum",
+    "FlowsVaultConnectionSetupTypeBasicAuthEnum",
+    "FlowsVaultConnectionSetupTypeOauthClientCredentialsEnum",
     "FlowsVaultConnectionSummary",
     "FormBlock",
     "FormBlockDivider",
@@ -4929,6 +6317,11 @@ __all__ = [
     "FormWidgetTypeRecaptchaConst",
     "FormsRequestParametersHydrateEnum",
     "GetActionExecutionResponseContent",
+    "GetActionModuleActionsResponseContent",
+    "GetActionModuleResponseContent",
+    "GetActionModuleVersionResponseContent",
+    "GetActionModuleVersionsResponseContent",
+    "GetActionModulesResponseContent",
     "GetActionResponseContent",
     "GetActionVersionResponseContent",
     "GetActiveUsersCountStatsResponseContent",
@@ -4941,9 +6334,8 @@ __all__ = [
     "GetBrandingThemeResponseContent",
     "GetBreachedPasswordDetectionSettingsResponseContent",
     "GetBruteForceSettingsResponseContent",
-    "GetBruteForceSettingsResponseContentMode",
-    "GetBruteForceSettingsResponseContentShieldsItem",
     "GetClientCredentialResponseContent",
+    "GetClientGrantResponseContent",
     "GetClientResponseContent",
     "GetConnectionEnabledClientsResponseContent",
     "GetConnectionProfileResponseContent",
@@ -4959,11 +6351,14 @@ __all__ = [
     "GetEncryptionKeyResponseContent",
     "GetEventStreamDeliveryHistoryResponseContent",
     "GetEventStreamResponseContent",
+    "GetFlowExecutionRequestParametersHydrateEnum",
     "GetFlowExecutionResponseContent",
     "GetFlowRequestParametersHydrateEnum",
     "GetFlowResponseContent",
     "GetFlowsVaultConnectionResponseContent",
     "GetFormResponseContent",
+    "GetGroupMembersResponseContent",
+    "GetGroupResponseContent",
     "GetGuardianEnrollmentResponseContent",
     "GetGuardianFactorDuoSettingsResponseContent",
     "GetGuardianFactorPhoneMessageTypesResponseContent",
@@ -4982,12 +6377,14 @@ __all__ = [
     "GetJobGenericErrorResponseContent",
     "GetJobImportUserError",
     "GetJobResponseContent",
+    "GetJobSummary",
     "GetJobUserError",
     "GetLogResponseContent",
     "GetLogStreamResponseContent",
     "GetNetworkAclsResponseContent",
     "GetOrganizationByNameResponseContent",
     "GetOrganizationConnectionResponseContent",
+    "GetOrganizationDiscoveryDomainByNameResponseContent",
     "GetOrganizationDiscoveryDomainResponseContent",
     "GetOrganizationInvitationResponseContent",
     "GetOrganizationResponseContent",
@@ -5015,9 +6412,13 @@ __all__ = [
     "GetUserAttributeProfileResponseContent",
     "GetUserAttributeProfileTemplateResponseContent",
     "GetUserAuthenticationMethodResponseContent",
+    "GetUserGroupsPaginatedResponseContent",
     "GetUserResponseContent",
     "GetVerifiableCredentialTemplateResponseContent",
     "Group",
+    "GroupMember",
+    "GroupMemberTypeEnum",
+    "GroupTypeEnum",
     "GuardianEnrollmentDate",
     "GuardianEnrollmentFactorEnum",
     "GuardianEnrollmentStatus",
@@ -5048,6 +6449,7 @@ __all__ = [
     "ListActionVersionsPaginatedResponseContent",
     "ListActionsPaginatedResponseContent",
     "ListAculsOffsetPaginatedResponseContent",
+    "ListAculsResponseContentItem",
     "ListBrandingPhoneProvidersResponseContent",
     "ListClientConnectionsResponseContent",
     "ListClientGrantOrganizationsPaginatedResponseContent",
@@ -5058,11 +6460,15 @@ __all__ = [
     "ListConnectionsCheckpointPaginatedResponseContent",
     "ListCustomDomainsResponseContent",
     "ListDeviceCredentialsOffsetPaginatedResponseContent",
+    "ListDirectoryProvisioningsResponseContent",
     "ListEncryptionKeyOffsetPaginatedResponseContent",
+    "ListEventStreamsResponseContent",
     "ListFlowExecutionsPaginatedResponseContent",
     "ListFlowsOffsetPaginatedResponseContent",
+    "ListFlowsRequestParametersHydrateEnum",
     "ListFlowsVaultConnectionsOffsetPaginatedResponseContent",
     "ListFormsOffsetPaginatedResponseContent",
+    "ListGroupsPaginatedResponseContent",
     "ListGuardianPoliciesResponseContent",
     "ListHooksOffsetPaginatedResponseContent",
     "ListLogOffsetPaginatedResponseContent",
@@ -5199,8 +6605,6 @@ __all__ = [
     "PhoneTemplateNotificationTypeEnum",
     "PostClientCredentialResponseContent",
     "PreferredAuthenticationMethodEnum",
-    "PrivateKeyJwt",
-    "PrivateKeyJwtCredentials",
     "PromptGroupNameEnum",
     "PromptLanguageEnum",
     "PublicKeyCredential",
@@ -5210,6 +6614,7 @@ __all__ = [
     "RefreshTokenDateObject",
     "RefreshTokenDevice",
     "RefreshTokenExpirationTypeEnum",
+    "RefreshTokenMetadata",
     "RefreshTokenResourceServer",
     "RefreshTokenResponseContent",
     "RefreshTokenRotationTypeEnum",
@@ -5221,6 +6626,7 @@ __all__ = [
     "ResourceServerConsentPolicyEnum",
     "ResourceServerProofOfPossession",
     "ResourceServerProofOfPossessionMechanismEnum",
+    "ResourceServerProofOfPossessionRequiredForEnum",
     "ResourceServerScope",
     "ResourceServerSubjectTypeAuthorization",
     "ResourceServerSubjectTypeAuthorizationClient",
@@ -5237,6 +6643,7 @@ __all__ = [
     "RevokedSigningKeysResponseContent",
     "Role",
     "RoleUser",
+    "RollbackActionModuleResponseContent",
     "RotateClientSecretResponseContent",
     "RotateConnectionKeysRequestContent",
     "RotateConnectionKeysSigningAlgEnum",
@@ -5289,11 +6696,8 @@ __all__ = [
     "SetGuardianFactorSmsTemplatesResponseContent",
     "SetGuardianFactorsProviderPhoneResponseContent",
     "SetGuardianFactorsProviderPhoneTwilioResponseContent",
-    "SetGuardianFactorsProviderPushNotificationApnsRequestContent",
     "SetGuardianFactorsProviderPushNotificationApnsResponseContent",
-    "SetGuardianFactorsProviderPushNotificationFcmRequestContent",
     "SetGuardianFactorsProviderPushNotificationFcmResponseContent",
-    "SetGuardianFactorsProviderPushNotificationFcmv1RequestContent",
     "SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent",
     "SetGuardianFactorsProviderPushNotificationResponseContent",
     "SetGuardianFactorsProviderPushNotificationSnsResponseContent",
@@ -5334,6 +6738,7 @@ __all__ = [
     "TenantSettingsPasswordPage",
     "TenantSettingsResourceParameterProfile",
     "TenantSettingsSessions",
+    "TenantSettingsSupportedLocalesEnum",
     "TestActionPayload",
     "TestActionResponseContent",
     "TestActionResultPayload",
@@ -5349,6 +6754,7 @@ __all__ = [
     "TwilioProviderDeliveryMethodEnum",
     "UniversalLoginExperienceEnum",
     "UpdateActionBindingsResponseContent",
+    "UpdateActionModuleResponseContent",
     "UpdateActionResponseContent",
     "UpdateAculResponseContent",
     "UpdateAttackProtectionCaptchaResponseContent",
@@ -5361,12 +6767,70 @@ __all__ = [
     "UpdateBrandingThemeResponseContent",
     "UpdateBreachedPasswordDetectionSettingsResponseContent",
     "UpdateBruteForceSettingsResponseContent",
-    "UpdateBruteForceSettingsResponseContentMode",
-    "UpdateBruteForceSettingsResponseContentShieldsItem",
     "UpdateClientGrantResponseContent",
     "UpdateClientResponseContent",
     "UpdateConnectionOptions",
     "UpdateConnectionProfileResponseContent",
+    "UpdateConnectionRequestContentAd",
+    "UpdateConnectionRequestContentAdfs",
+    "UpdateConnectionRequestContentAmazon",
+    "UpdateConnectionRequestContentAol",
+    "UpdateConnectionRequestContentApple",
+    "UpdateConnectionRequestContentAuth0",
+    "UpdateConnectionRequestContentAuth0Oidc",
+    "UpdateConnectionRequestContentAzureAd",
+    "UpdateConnectionRequestContentBaidu",
+    "UpdateConnectionRequestContentBitbucket",
+    "UpdateConnectionRequestContentBitly",
+    "UpdateConnectionRequestContentBox",
+    "UpdateConnectionRequestContentCustom",
+    "UpdateConnectionRequestContentDaccount",
+    "UpdateConnectionRequestContentDropbox",
+    "UpdateConnectionRequestContentDwolla",
+    "UpdateConnectionRequestContentEmail",
+    "UpdateConnectionRequestContentEvernote",
+    "UpdateConnectionRequestContentEvernoteSandbox",
+    "UpdateConnectionRequestContentExact",
+    "UpdateConnectionRequestContentFacebook",
+    "UpdateConnectionRequestContentFitbit",
+    "UpdateConnectionRequestContentFlickr",
+    "UpdateConnectionRequestContentGitHub",
+    "UpdateConnectionRequestContentGoogleApps",
+    "UpdateConnectionRequestContentGoogleOAuth2",
+    "UpdateConnectionRequestContentInstagram",
+    "UpdateConnectionRequestContentIp",
+    "UpdateConnectionRequestContentLine",
+    "UpdateConnectionRequestContentLinkedin",
+    "UpdateConnectionRequestContentMiicard",
+    "UpdateConnectionRequestContentOAuth1",
+    "UpdateConnectionRequestContentOAuth2",
+    "UpdateConnectionRequestContentOffice365",
+    "UpdateConnectionRequestContentOidc",
+    "UpdateConnectionRequestContentOkta",
+    "UpdateConnectionRequestContentPaypal",
+    "UpdateConnectionRequestContentPaypalSandbox",
+    "UpdateConnectionRequestContentPingFederate",
+    "UpdateConnectionRequestContentPlanningCenter",
+    "UpdateConnectionRequestContentRenren",
+    "UpdateConnectionRequestContentSalesforce",
+    "UpdateConnectionRequestContentSalesforceCommunity",
+    "UpdateConnectionRequestContentSalesforceSandbox",
+    "UpdateConnectionRequestContentSaml",
+    "UpdateConnectionRequestContentSharepoint",
+    "UpdateConnectionRequestContentShop",
+    "UpdateConnectionRequestContentShopify",
+    "UpdateConnectionRequestContentSms",
+    "UpdateConnectionRequestContentSoundcloud",
+    "UpdateConnectionRequestContentThirtySevenSignals",
+    "UpdateConnectionRequestContentTwitter",
+    "UpdateConnectionRequestContentUntappd",
+    "UpdateConnectionRequestContentVkontakte",
+    "UpdateConnectionRequestContentWeibo",
+    "UpdateConnectionRequestContentWindowsLive",
+    "UpdateConnectionRequestContentWordpress",
+    "UpdateConnectionRequestContentYahoo",
+    "UpdateConnectionRequestContentYammer",
+    "UpdateConnectionRequestContentYandex",
     "UpdateConnectionResponseContent",
     "UpdateCustomDomainResponseContent",
     "UpdateDirectoryProvisioningRequestContent",
@@ -5381,6 +6845,9 @@ __all__ = [
     "UpdateFlowsVaultConnectionSetup",
     "UpdateFormResponseContent",
     "UpdateGuardianFactorDuoSettingsResponseContent",
+    "UpdateGuardianFactorsProviderPushNotificationApnsResponseContent",
+    "UpdateGuardianFactorsProviderPushNotificationFcmResponseContent",
+    "UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent",
     "UpdateGuardianFactorsProviderPushNotificationSnsResponseContent",
     "UpdateHookResponseContent",
     "UpdateHookSecretRequestContent",
@@ -5390,6 +6857,7 @@ __all__ = [
     "UpdateOrganizationDiscoveryDomainResponseContent",
     "UpdateOrganizationResponseContent",
     "UpdatePhoneTemplateResponseContent",
+    "UpdateRefreshTokenResponseContent",
     "UpdateResourceServerResponseContent",
     "UpdateRiskAssessmentsSettingsNewDeviceResponseContent",
     "UpdateRiskAssessmentsSettingsResponseContent",
@@ -5455,4 +6923,6 @@ __all__ = [
     "VerificationMethodEnum",
     "VerifyCustomDomainResponseContent",
     "VerifyEmailTicketResponseContent",
+    "X509CertificateCredential",
+    "X509CertificateCredentialTypeEnum",
 ]

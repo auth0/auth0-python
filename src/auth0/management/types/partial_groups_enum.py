@@ -12,6 +12,7 @@ PartialGroupsEnum = typing.Union[
         "signup-id",
         "signup-password",
         "customized-consent",
+        "passkeys",
     ],
     typing.Any,
 ]

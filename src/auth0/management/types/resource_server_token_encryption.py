@@ -9,7 +9,7 @@ from .resource_server_token_encryption_key import ResourceServerTokenEncryptionK
 
 
 class ResourceServerTokenEncryption(UniversalBaseModel):
-    format: ResourceServerTokenEncryptionFormatEnum = "compact-nested-jwe"
+    format: ResourceServerTokenEncryptionFormatEnum
     encryption_key: ResourceServerTokenEncryptionKey
 
     if IS_PYDANTIC_V2:

@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_mailchimp_upsert_member_action import FlowActionMailchimpUpsertMemberAction
 from .flow_action_mailchimp_upsert_member_params import FlowActionMailchimpUpsertMemberParams
+from .flow_action_mailchimp_upsert_member_type import FlowActionMailchimpUpsertMemberType
 
 
 class FlowActionMailchimpUpsertMember(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["MAILCHIMP"] = "MAILCHIMP"
-    action: typing.Literal["UPSERT_MEMBER"] = "UPSERT_MEMBER"
+    type: FlowActionMailchimpUpsertMemberType
+    action: FlowActionMailchimpUpsertMemberAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionMailchimpUpsertMemberParams

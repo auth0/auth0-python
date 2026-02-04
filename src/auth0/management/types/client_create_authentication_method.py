@@ -4,9 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .client_authentication_method_self_signed_tls_client_auth import ClientAuthenticationMethodSelfSignedTlsClientAuth
-from .client_authentication_method_tls_client_auth import ClientAuthenticationMethodTlsClientAuth
-from .private_key_jwt import PrivateKeyJwt
+from .client_create_authentication_method_private_key_jwt import ClientCreateAuthenticationMethodPrivateKeyJwt
+from .client_create_authentication_method_tls_client_auth import ClientCreateAuthenticationMethodTlsClientAuth
+from .create_client_authentication_method_self_signed_tls_client_auth import (
+    CreateClientAuthenticationMethodSelfSignedTlsClientAuth,
+)
 
 
 class ClientCreateAuthenticationMethod(UniversalBaseModel):
@@ -14,9 +16,9 @@ class ClientCreateAuthenticationMethod(UniversalBaseModel):
     Defines client authentication methods.
     """
 
-    private_key_jwt: typing.Optional[PrivateKeyJwt] = None
-    tls_client_auth: typing.Optional[ClientAuthenticationMethodTlsClientAuth] = None
-    self_signed_tls_client_auth: typing.Optional[ClientAuthenticationMethodSelfSignedTlsClientAuth] = None
+    private_key_jwt: typing.Optional[ClientCreateAuthenticationMethodPrivateKeyJwt] = None
+    tls_client_auth: typing.Optional[ClientCreateAuthenticationMethodTlsClientAuth] = None
+    self_signed_tls_client_auth: typing.Optional[CreateClientAuthenticationMethodSelfSignedTlsClientAuth] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -9,7 +9,7 @@ from .connection_non_persistent_attrs import ConnectionNonPersistentAttrs
 
 class ConnectionOptionsCommon(UniversalBaseModel):
     """
-    Common attributes for connection options including non-persistent attributes and cross-app access
+    Common attributes for connection options including non-persistent attributes and Cross App Access
     """
 
     non_persistent_attrs: typing.Optional[ConnectionNonPersistentAttrs] = None

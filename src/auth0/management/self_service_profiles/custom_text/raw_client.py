@@ -16,6 +16,8 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.list_self_service_profile_custom_text_response_content import (
     ListSelfServiceProfileCustomTextResponseContent,
 )
+from ...types.self_service_profile_custom_text_language_enum import SelfServiceProfileCustomTextLanguageEnum
+from ...types.self_service_profile_custom_text_page_enum import SelfServiceProfileCustomTextPageEnum
 from ...types.set_self_service_profile_custom_text_request_content import SetSelfServiceProfileCustomTextRequestContent
 from ...types.set_self_service_profile_custom_text_response_content import (
     SetSelfServiceProfileCustomTextResponseContent,
@@ -30,7 +32,12 @@ class RawCustomTextClient:
         self._client_wrapper = client_wrapper
 
     def list(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        language: SelfServiceProfileCustomTextLanguageEnum,
+        page: SelfServiceProfileCustomTextPageEnum,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ListSelfServiceProfileCustomTextResponseContent]:
         """
         Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
@@ -39,6 +46,12 @@ class RawCustomTextClient:
         ----------
         id : str
             The id of the self-service profile.
+
+        language : SelfServiceProfileCustomTextLanguageEnum
+            The language of the custom text.
+
+        page : SelfServiceProfileCustomTextPageEnum
+            The page where the custom text is shown.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -49,7 +62,7 @@ class RawCustomTextClient:
             Retrieved custom text.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/en/get-started",
+            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/{jsonable_encoder(language)}/{jsonable_encoder(page)}",
             method="GET",
             request_options=request_options,
         )
@@ -115,6 +128,8 @@ class RawCustomTextClient:
     def set(
         self,
         id: str,
+        language: SelfServiceProfileCustomTextLanguageEnum,
+        page: SelfServiceProfileCustomTextPageEnum,
         *,
         request: SetSelfServiceProfileCustomTextRequestContent,
         request_options: typing.Optional[RequestOptions] = None,
@@ -127,6 +142,12 @@ class RawCustomTextClient:
         id : str
             The id of the self-service profile.
 
+        language : SelfServiceProfileCustomTextLanguageEnum
+            The language of the custom text.
+
+        page : SelfServiceProfileCustomTextPageEnum
+            The page where the custom text is shown.
+
         request : SetSelfServiceProfileCustomTextRequestContent
 
         request_options : typing.Optional[RequestOptions]
@@ -138,7 +159,7 @@ class RawCustomTextClient:
             Updated custom text.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/en/get-started",
+            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/{jsonable_encoder(language)}/{jsonable_encoder(page)}",
             method="PUT",
             json=request,
             headers={
@@ -212,7 +233,12 @@ class AsyncRawCustomTextClient:
         self._client_wrapper = client_wrapper
 
     async def list(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        language: SelfServiceProfileCustomTextLanguageEnum,
+        page: SelfServiceProfileCustomTextPageEnum,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ListSelfServiceProfileCustomTextResponseContent]:
         """
         Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
@@ -221,6 +247,12 @@ class AsyncRawCustomTextClient:
         ----------
         id : str
             The id of the self-service profile.
+
+        language : SelfServiceProfileCustomTextLanguageEnum
+            The language of the custom text.
+
+        page : SelfServiceProfileCustomTextPageEnum
+            The page where the custom text is shown.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -231,7 +263,7 @@ class AsyncRawCustomTextClient:
             Retrieved custom text.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/en/get-started",
+            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/{jsonable_encoder(language)}/{jsonable_encoder(page)}",
             method="GET",
             request_options=request_options,
         )
@@ -297,6 +329,8 @@ class AsyncRawCustomTextClient:
     async def set(
         self,
         id: str,
+        language: SelfServiceProfileCustomTextLanguageEnum,
+        page: SelfServiceProfileCustomTextPageEnum,
         *,
         request: SetSelfServiceProfileCustomTextRequestContent,
         request_options: typing.Optional[RequestOptions] = None,
@@ -309,6 +343,12 @@ class AsyncRawCustomTextClient:
         id : str
             The id of the self-service profile.
 
+        language : SelfServiceProfileCustomTextLanguageEnum
+            The language of the custom text.
+
+        page : SelfServiceProfileCustomTextPageEnum
+            The page where the custom text is shown.
+
         request : SetSelfServiceProfileCustomTextRequestContent
 
         request_options : typing.Optional[RequestOptions]
@@ -320,7 +360,7 @@ class AsyncRawCustomTextClient:
             Updated custom text.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/en/get-started",
+            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/{jsonable_encoder(language)}/{jsonable_encoder(page)}",
             method="PUT",
             json=request,
             headers={

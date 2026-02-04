@@ -2,4 +2,4 @@
 
 import typing
 
-FormComponentCategoryFieldConst = typing.Literal["FIELD"]
+FormComponentCategoryFieldConst = typing.Union[typing.Literal["FIELD"], typing.Any]

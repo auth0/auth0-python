@@ -2,6 +2,21 @@
 
 import typing
 
-from .deploy_action_version_request_body_params import DeployActionVersionRequestBodyParams
+import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
-DeployActionVersionRequestContent = typing.Optional[DeployActionVersionRequestBodyParams]
+
+class DeployActionVersionRequestContent(UniversalBaseModel):
+    update_draft: typing.Optional[bool] = pydantic.Field(default=False)
+    """
+    True if the draft of the action should be updated with the reverted version.
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

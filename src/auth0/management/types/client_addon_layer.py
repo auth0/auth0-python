@@ -13,17 +13,21 @@ class ClientAddonLayer(UniversalBaseModel):
     Layer addon configuration.
     """
 
-    provider_id: typing_extensions.Annotated[str, FieldMetadata(alias="providerId")] = pydantic.Field()
+    provider_id: typing_extensions.Annotated[str, FieldMetadata(alias="providerId")] = pydantic.Field(
+        alias="providerId"
+    )
     """
     Provider ID of your Layer account
     """
 
-    key_id: typing_extensions.Annotated[str, FieldMetadata(alias="keyId")] = pydantic.Field()
+    key_id: typing_extensions.Annotated[str, FieldMetadata(alias="keyId")] = pydantic.Field(alias="keyId")
     """
     Authentication Key identifier used to sign the Layer token.
     """
 
-    private_key: typing_extensions.Annotated[str, FieldMetadata(alias="privateKey")] = pydantic.Field()
+    private_key: typing_extensions.Annotated[str, FieldMetadata(alias="privateKey")] = pydantic.Field(
+        alias="privateKey"
+    )
     """
     Private key for signing the Layer token.
     """

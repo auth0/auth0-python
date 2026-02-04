@@ -13,6 +13,7 @@ from ..types.client_grant_organization_usage_enum import ClientGrantOrganization
 from ..types.client_grant_response_content import ClientGrantResponseContent
 from ..types.client_grant_subject_type_enum import ClientGrantSubjectTypeEnum
 from ..types.create_client_grant_response_content import CreateClientGrantResponseContent
+from ..types.get_client_grant_response_content import GetClientGrantResponseContent
 from ..types.list_client_grant_paginated_response_content import ListClientGrantPaginatedResponseContent
 from ..types.update_client_grant_response_content import UpdateClientGrantResponseContent
 from .raw_client import AsyncRawClientGrantsClient, RawClientGrantsClient
@@ -72,7 +73,7 @@ class ClientGrantsClient:
             Optional filter on allow_any_organization.
 
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
-            The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href="https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            The type of application access the client grant allows.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -123,6 +124,7 @@ class ClientGrantsClient:
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
         subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = OMIT,
         authorization_details_types: typing.Optional[typing.Sequence[str]] = OMIT,
+        allow_all_scopes: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientGrantResponseContent:
         """
@@ -147,7 +149,10 @@ class ClientGrantsClient:
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
 
         authorization_details_types : typing.Optional[typing.Sequence[str]]
-            Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            Types of authorization_details allowed for this client grant.
+
+        allow_all_scopes : typing.Optional[bool]
+            If enabled, all scopes configured on the resource server are allowed for this grant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -177,8 +182,41 @@ class ClientGrantsClient:
             scope=scope,
             subject_type=subject_type,
             authorization_details_types=authorization_details_types,
+            allow_all_scopes=allow_all_scopes,
             request_options=request_options,
         )
+        return _response.data
+
+    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetClientGrantResponseContent:
+        """
+        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        scopes associated with the application/API pair.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the client grant to retrieve.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetClientGrantResponseContent
+            Client grant successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.client_grants.get(
+            id="id",
+        )
+        """
+        _response = self._raw_client.get(id, request_options=request_options)
         return _response.data
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
@@ -219,6 +257,7 @@ class ClientGrantsClient:
         organization_usage: typing.Optional[ClientGrantOrganizationNullableUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         authorization_details_types: typing.Optional[typing.Sequence[str]] = OMIT,
+        allow_all_scopes: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientGrantResponseContent:
         """
@@ -238,7 +277,10 @@ class ClientGrantsClient:
             Controls allowing any organization to be used with this grant
 
         authorization_details_types : typing.Optional[typing.Sequence[str]]
-            Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            Types of authorization_details allowed for this client grant.
+
+        allow_all_scopes : typing.Optional[bool]
+            If enabled, all scopes configured on the resource server are allowed for this grant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -265,6 +307,7 @@ class ClientGrantsClient:
             organization_usage=organization_usage,
             allow_any_organization=allow_any_organization,
             authorization_details_types=authorization_details_types,
+            allow_all_scopes=allow_all_scopes,
             request_options=request_options,
         )
         return _response.data
@@ -327,7 +370,7 @@ class AsyncClientGrantsClient:
             Optional filter on allow_any_organization.
 
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
-            The type of application access the client grant allows. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href="https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            The type of application access the client grant allows.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -387,6 +430,7 @@ class AsyncClientGrantsClient:
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
         subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = OMIT,
         authorization_details_types: typing.Optional[typing.Sequence[str]] = OMIT,
+        allow_all_scopes: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientGrantResponseContent:
         """
@@ -411,7 +455,10 @@ class AsyncClientGrantsClient:
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
 
         authorization_details_types : typing.Optional[typing.Sequence[str]]
-            Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            Types of authorization_details allowed for this client grant.
+
+        allow_all_scopes : typing.Optional[bool]
+            If enabled, all scopes configured on the resource server are allowed for this grant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -449,8 +496,51 @@ class AsyncClientGrantsClient:
             scope=scope,
             subject_type=subject_type,
             authorization_details_types=authorization_details_types,
+            allow_all_scopes=allow_all_scopes,
             request_options=request_options,
         )
+        return _response.data
+
+    async def get(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetClientGrantResponseContent:
+        """
+        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        scopes associated with the application/API pair.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the client grant to retrieve.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetClientGrantResponseContent
+            Client grant successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.client_grants.get(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get(id, request_options=request_options)
         return _response.data
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
@@ -499,6 +589,7 @@ class AsyncClientGrantsClient:
         organization_usage: typing.Optional[ClientGrantOrganizationNullableUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         authorization_details_types: typing.Optional[typing.Sequence[str]] = OMIT,
+        allow_all_scopes: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientGrantResponseContent:
         """
@@ -518,7 +609,10 @@ class AsyncClientGrantsClient:
             Controls allowing any organization to be used with this grant
 
         authorization_details_types : typing.Optional[typing.Sequence[str]]
-            Types of authorization_details allowed for this client grant. Use of this field is subject to the applicable Free Trial terms in Okta’s <a href= "https://www.okta.com/legal/"> Master Subscription Agreement.</a>
+            Types of authorization_details allowed for this client grant.
+
+        allow_all_scopes : typing.Optional[bool]
+            If enabled, all scopes configured on the resource server are allowed for this grant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -553,6 +647,7 @@ class AsyncClientGrantsClient:
             organization_usage=organization_usage,
             allow_any_organization=allow_any_organization,
             authorization_details_types=authorization_details_types,
+            allow_all_scopes=allow_all_scopes,
             request_options=request_options,
         )
         return _response.data

@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeSocialConst = typing.Literal["SOCIAL"]
+FormFieldTypeSocialConst = typing.Union[typing.Literal["SOCIAL"], typing.Any]

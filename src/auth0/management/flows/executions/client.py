@@ -6,6 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from ...types.flow_execution_summary import FlowExecutionSummary
+from ...types.get_flow_execution_request_parameters_hydrate_enum import GetFlowExecutionRequestParametersHydrateEnum
 from ...types.get_flow_execution_response_content import GetFlowExecutionResponseContent
 from ...types.list_flow_executions_paginated_response_content import ListFlowExecutionsPaginatedResponseContent
 from .raw_client import AsyncRawExecutionsClient, RawExecutionsClient
@@ -80,7 +81,10 @@ class ExecutionsClient:
         execution_id: str,
         *,
         hydrate: typing.Optional[
-            typing.Union[typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]]
+            typing.Union[
+                GetFlowExecutionRequestParametersHydrateEnum,
+                typing.Sequence[GetFlowExecutionRequestParametersHydrateEnum],
+            ]
         ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetFlowExecutionResponseContent:
@@ -93,7 +97,7 @@ class ExecutionsClient:
         execution_id : str
             Flow execution id
 
-        hydrate : typing.Optional[typing.Union[typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]]]
+        hydrate : typing.Optional[typing.Union[GetFlowExecutionRequestParametersHydrateEnum, typing.Sequence[GetFlowExecutionRequestParametersHydrateEnum]]]
             Hydration param
 
         request_options : typing.Optional[RequestOptions]
@@ -232,7 +236,10 @@ class AsyncExecutionsClient:
         execution_id: str,
         *,
         hydrate: typing.Optional[
-            typing.Union[typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]]
+            typing.Union[
+                GetFlowExecutionRequestParametersHydrateEnum,
+                typing.Sequence[GetFlowExecutionRequestParametersHydrateEnum],
+            ]
         ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetFlowExecutionResponseContent:
@@ -245,7 +252,7 @@ class AsyncExecutionsClient:
         execution_id : str
             Flow execution id
 
-        hydrate : typing.Optional[typing.Union[typing.Literal["debug"], typing.Sequence[typing.Literal["debug"]]]]
+        hydrate : typing.Optional[typing.Union[GetFlowExecutionRequestParametersHydrateEnum, typing.Sequence[GetFlowExecutionRequestParametersHydrateEnum]]]
             Hydration param
 
         request_options : typing.Optional[RequestOptions]

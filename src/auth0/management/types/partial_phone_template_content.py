@@ -10,7 +10,9 @@ from .phone_template_body import PhoneTemplateBody
 
 
 class PartialPhoneTemplateContent(UniversalBaseModel):
-    from_: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="from")] = pydantic.Field(default=None)
+    from_: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="from")] = pydantic.Field(
+        alias="from", default=None
+    )
     """
     Default phone number to be used as 'from' when sending a phone notification
     """

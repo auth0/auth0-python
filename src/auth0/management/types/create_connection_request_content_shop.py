@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_shop import ConnectionOptionsShop
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_shop_strategy import CreateConnectionRequestContentShopStrategy
 
 
 class CreateConnectionRequestContentShop(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentShop(CreateConnectionCommon):
     Create a connection with strategy=shop
     """
 
-    strategy: typing.Literal["shop"] = "shop"
+    strategy: CreateConnectionRequestContentShopStrategy
     options: typing.Optional[ConnectionOptionsShop] = None
 
     if IS_PYDANTIC_V2:

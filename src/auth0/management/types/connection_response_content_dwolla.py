@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_dwolla import ConnectionOptionsDwolla
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_dwolla_strategy import ConnectionResponseContentDwollaStrategy
 
 
-class ConnectionResponseContentDwolla(ConnectionResponseCommon):
+class ConnectionResponseContentDwolla(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=dwolla
     """
 
-    strategy: typing.Literal["dwolla"] = "dwolla"
+    strategy: ConnectionResponseContentDwollaStrategy
     options: typing.Optional[ConnectionOptionsDwolla] = None
 
     if IS_PYDANTIC_V2:

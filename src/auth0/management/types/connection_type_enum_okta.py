@@ -2,4 +2,4 @@
 
 import typing
 
-ConnectionTypeEnumOkta = typing.Literal["back_channel"]
+ConnectionTypeEnumOkta = typing.Union[typing.Literal["back_channel"], typing.Any]

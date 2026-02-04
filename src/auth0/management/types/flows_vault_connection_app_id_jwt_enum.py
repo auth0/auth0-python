@@ -2,4 +2,4 @@
 
 import typing
 
-FlowsVaultConnectionAppIdJwtEnum = typing.Literal["JWT"]
+FlowsVaultConnectionAppIdJwtEnum = typing.Union[typing.Literal["JWT"], typing.Any]

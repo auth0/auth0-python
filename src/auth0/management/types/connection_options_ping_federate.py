@@ -2,4 +2,33 @@
 
 import typing
 
-ConnectionOptionsPingFederate = typing.Dict[str, typing.Any]
+import pydantic
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from ..core.serialization import FieldMetadata
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_options_common_saml import ConnectionOptionsCommonSaml
+from .connection_ping_federate_base_url import ConnectionPingFederateBaseUrl
+from .connection_signing_certificate_pem_ping_federate import ConnectionSigningCertificatePemPingFederate
+
+
+class ConnectionOptionsPingFederate(ConnectionOptionsCommonSaml, ConnectionOptionsCommon):
+    """
+    Options for the 'pingfederate' connection
+    """
+
+    ping_federate_base_url: typing_extensions.Annotated[
+        ConnectionPingFederateBaseUrl, FieldMetadata(alias="pingFederateBaseUrl")
+    ] = pydantic.Field(alias="pingFederateBaseUrl")
+    signing_cert: typing_extensions.Annotated[
+        typing.Optional[ConnectionSigningCertificatePemPingFederate], FieldMetadata(alias="signingCert")
+    ] = pydantic.Field(alias="signingCert", default=None)
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

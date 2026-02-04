@@ -14,7 +14,7 @@ from .flow_action_auth_0_send_request_params_custom_vars import FlowActionAuth0S
 class FlowActionAuth0SendEmailParams(UniversalBaseModel):
     from_: typing_extensions.Annotated[
         typing.Optional[FlowActionAuth0SendEmailParamsFrom], FieldMetadata(alias="from")
-    ] = None
+    ] = pydantic.Field(alias="from", default=None)
     to: FlowActionAuth0SendEmailParamsTo
     subject: str
     body: str

@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_xml_parse_xml_action import FlowActionXmlParseXmlAction
 from .flow_action_xml_parse_xml_params import FlowActionXmlParseXmlParams
+from .flow_action_xml_parse_xml_type import FlowActionXmlParseXmlType
 
 
 class FlowActionXmlParseXml(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["XML"] = "XML"
-    action: typing.Literal["PARSE_XML"] = "PARSE_XML"
+    type: FlowActionXmlParseXmlType
+    action: FlowActionXmlParseXmlAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionXmlParseXmlParams

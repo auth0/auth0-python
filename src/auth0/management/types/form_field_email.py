@@ -11,8 +11,8 @@ from .form_field_type_email_const import FormFieldTypeEmailConst
 
 class FormFieldEmail(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeEmailConst = "EMAIL"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeEmailConst
     config: typing.Optional[FormFieldEmailConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

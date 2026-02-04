@@ -7,6 +7,7 @@ from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
 from ...core.jsonable_encoder import jsonable_encoder
+from ...core.pagination import AsyncPager, SyncPager
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
@@ -18,10 +19,12 @@ from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.create_directory_provisioning_request_content import CreateDirectoryProvisioningRequestContent
 from ...types.create_directory_provisioning_response_content import CreateDirectoryProvisioningResponseContent
+from ...types.directory_provisioning import DirectoryProvisioning
 from ...types.get_directory_provisioning_default_mapping_response_content import (
     GetDirectoryProvisioningDefaultMappingResponseContent,
 )
 from ...types.get_directory_provisioning_response_content import GetDirectoryProvisioningResponseContent
+from ...types.list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
 from ...types.update_directory_provisioning_request_content import UpdateDirectoryProvisioningRequestContent
 from ...types.update_directory_provisioning_response_content import UpdateDirectoryProvisioningResponseContent
 
@@ -32,6 +35,108 @@ OMIT = typing.cast(typing.Any, ...)
 class RawDirectoryProvisioningClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def list(
+        self,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]:
+        """
+        Retrieve a list of directory provisioning configurations of a tenant.
+
+        Parameters
+        ----------
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]
+            The tenant's directory provisioning configuration. See <strong>Response Schemas</strong> for schema.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "connections-directory-provisionings",
+            method="GET",
+            params={
+                "from": from_,
+                "take": take,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    ListDirectoryProvisioningsResponseContent,
+                    parse_obj_as(
+                        type_=ListDirectoryProvisioningsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.directory_provisionings
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    from_=_parsed_next,
+                    take=take,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -538,6 +643,111 @@ class RawDirectoryProvisioningClient:
 class AsyncRawDirectoryProvisioningClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def list(
+        self,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]:
+        """
+        Retrieve a list of directory provisioning configurations of a tenant.
+
+        Parameters
+        ----------
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]
+            The tenant's directory provisioning configuration. See <strong>Response Schemas</strong> for schema.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "connections-directory-provisionings",
+            method="GET",
+            params={
+                "from": from_,
+                "take": take,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    ListDirectoryProvisioningsResponseContent,
+                    parse_obj_as(
+                        type_=ListDirectoryProvisioningsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.directory_provisionings
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        from_=_parsed_next,
+                        take=take,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None

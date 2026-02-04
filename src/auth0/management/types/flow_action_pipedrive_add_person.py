@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_pipedrive_add_person_action import FlowActionPipedriveAddPersonAction
 from .flow_action_pipedrive_add_person_params import FlowActionPipedriveAddPersonParams
+from .flow_action_pipedrive_add_person_type import FlowActionPipedriveAddPersonType
 
 
 class FlowActionPipedriveAddPerson(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["PIPEDRIVE"] = "PIPEDRIVE"
-    action: typing.Literal["ADD_PERSON"] = "ADD_PERSON"
+    type: FlowActionPipedriveAddPersonType
+    action: FlowActionPipedriveAddPersonAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionPipedriveAddPersonParams

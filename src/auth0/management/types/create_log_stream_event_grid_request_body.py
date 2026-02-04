@@ -18,9 +18,9 @@ class CreateLogStreamEventGridRequestBody(UniversalBaseModel):
     log stream name
     """
 
-    type: LogStreamEventGridEnum = "eventgrid"
+    type: LogStreamEventGridEnum
     is_priority: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isPriority")] = pydantic.Field(
-        default=None
+        alias="isPriority", default=None
     )
     """
     True for priority log streams, false for non-priority
@@ -34,7 +34,7 @@ class CreateLogStreamEventGridRequestBody(UniversalBaseModel):
     pii_config: typing.Optional[LogStreamPiiConfig] = None
     sink: LogStreamEventGridSink
     start_from: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="startFrom")] = pydantic.Field(
-        default="2021-03-01T19:57:29.532Z"
+        alias="startFrom", default="2021-03-01T19:57:29.532Z"
     )
     """
     The optional datetime (ISO 8601) to start streaming logs from

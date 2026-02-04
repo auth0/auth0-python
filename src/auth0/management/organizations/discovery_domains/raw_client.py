@@ -19,6 +19,9 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.create_organization_discovery_domain_response_content import (
     CreateOrganizationDiscoveryDomainResponseContent,
 )
+from ...types.get_organization_discovery_domain_by_name_response_content import (
+    GetOrganizationDiscoveryDomainByNameResponseContent,
+)
 from ...types.get_organization_discovery_domain_response_content import GetOrganizationDiscoveryDomainResponseContent
 from ...types.list_organization_discovery_domains_response_content import (
     ListOrganizationDiscoveryDomainsResponseContent,
@@ -161,10 +164,11 @@ class RawDiscoveryDomainsClient:
         *,
         domain: str,
         status: typing.Optional[OrganizationDiscoveryDomainStatus] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateOrganizationDiscoveryDomainResponseContent]:
         """
-        Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+        Create a new discovery domain for an organization.
 
         Parameters
         ----------
@@ -175,6 +179,9 @@ class RawDiscoveryDomainsClient:
             The domain name to associate with the organization e.g. acme.com.
 
         status : typing.Optional[OrganizationDiscoveryDomainStatus]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether this domain should be used for organization discovery.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -190,6 +197,7 @@ class RawDiscoveryDomainsClient:
             json={
                 "domain": domain,
                 "status": status,
+                "use_for_organization_discovery": use_for_organization_discovery,
             },
             headers={
                 "content-type": "application/json",
@@ -253,6 +261,103 @@ class RawDiscoveryDomainsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_by_name(
+        self, id: str, discovery_domain: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[GetOrganizationDiscoveryDomainByNameResponseContent]:
+        """
+        Retrieve details about a single organization discovery domain specified by domain name.
+
+        Parameters
+        ----------
+        id : str
+            ID of the organization.
+
+        discovery_domain : str
+            Domain name of the discovery domain.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetOrganizationDiscoveryDomainByNameResponseContent]
+            Organization discovery domain successfully retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"organizations/{jsonable_encoder(id)}/discovery-domains/name/{jsonable_encoder(discovery_domain)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetOrganizationDiscoveryDomainByNameResponseContent,
+                    parse_obj_as(
+                        type_=GetOrganizationDiscoveryDomainByNameResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -459,10 +564,11 @@ class RawDiscoveryDomainsClient:
         discovery_domain_id: str,
         *,
         status: typing.Optional[OrganizationDiscoveryDomainStatus] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateOrganizationDiscoveryDomainResponseContent]:
         """
-        Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+        Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
 
         Parameters
         ----------
@@ -473,6 +579,9 @@ class RawDiscoveryDomainsClient:
             ID of the discovery domain to update.
 
         status : typing.Optional[OrganizationDiscoveryDomainStatus]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether this domain should be used for organization discovery.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -487,6 +596,7 @@ class RawDiscoveryDomainsClient:
             method="PATCH",
             json={
                 "status": status,
+                "use_for_organization_discovery": use_for_organization_discovery,
             },
             headers={
                 "content-type": "application/json",
@@ -663,10 +773,11 @@ class AsyncRawDiscoveryDomainsClient:
         *,
         domain: str,
         status: typing.Optional[OrganizationDiscoveryDomainStatus] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateOrganizationDiscoveryDomainResponseContent]:
         """
-        Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+        Create a new discovery domain for an organization.
 
         Parameters
         ----------
@@ -677,6 +788,9 @@ class AsyncRawDiscoveryDomainsClient:
             The domain name to associate with the organization e.g. acme.com.
 
         status : typing.Optional[OrganizationDiscoveryDomainStatus]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether this domain should be used for organization discovery.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -692,6 +806,7 @@ class AsyncRawDiscoveryDomainsClient:
             json={
                 "domain": domain,
                 "status": status,
+                "use_for_organization_discovery": use_for_organization_discovery,
             },
             headers={
                 "content-type": "application/json",
@@ -755,6 +870,103 @@ class AsyncRawDiscoveryDomainsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_by_name(
+        self, id: str, discovery_domain: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[GetOrganizationDiscoveryDomainByNameResponseContent]:
+        """
+        Retrieve details about a single organization discovery domain specified by domain name.
+
+        Parameters
+        ----------
+        id : str
+            ID of the organization.
+
+        discovery_domain : str
+            Domain name of the discovery domain.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GetOrganizationDiscoveryDomainByNameResponseContent]
+            Organization discovery domain successfully retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"organizations/{jsonable_encoder(id)}/discovery-domains/name/{jsonable_encoder(discovery_domain)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetOrganizationDiscoveryDomainByNameResponseContent,
+                    parse_obj_as(
+                        type_=GetOrganizationDiscoveryDomainByNameResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -961,10 +1173,11 @@ class AsyncRawDiscoveryDomainsClient:
         discovery_domain_id: str,
         *,
         status: typing.Optional[OrganizationDiscoveryDomainStatus] = OMIT,
+        use_for_organization_discovery: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateOrganizationDiscoveryDomainResponseContent]:
         """
-        Update the verification status for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>.
+        Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
 
         Parameters
         ----------
@@ -975,6 +1188,9 @@ class AsyncRawDiscoveryDomainsClient:
             ID of the discovery domain to update.
 
         status : typing.Optional[OrganizationDiscoveryDomainStatus]
+
+        use_for_organization_discovery : typing.Optional[bool]
+            Indicates whether this domain should be used for organization discovery.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -989,6 +1205,7 @@ class AsyncRawDiscoveryDomainsClient:
             method="PATCH",
             json={
                 "status": status,
+                "use_for_organization_discovery": use_for_organization_discovery,
             },
             headers={
                 "content-type": "application/json",

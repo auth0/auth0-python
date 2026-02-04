@@ -39,8 +39,6 @@ class CustomDomainsClient:
     def list(
         self,
         *,
-        take: typing.Optional[int] = 50,
-        from_: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
@@ -52,12 +50,6 @@ class CustomDomainsClient:
 
         Parameters
         ----------
-        take : typing.Optional[int]
-            Number of results per page. Defaults to 50.
-
-        from_ : typing.Optional[str]
-            Optional Id from which to start selection.
-
         q : typing.Optional[str]
             Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
 
@@ -86,8 +78,6 @@ class CustomDomainsClient:
             token="YOUR_TOKEN",
         )
         client.custom_domains.list(
-            take=1,
-            from_="from",
             q="q",
             fields="fields",
             include_fields=True,
@@ -95,13 +85,7 @@ class CustomDomainsClient:
         )
         """
         _response = self._raw_client.list(
-            take=take,
-            from_=from_,
-            q=q,
-            fields=fields,
-            include_fields=include_fields,
-            sort=sort,
-            request_options=request_options,
+            q=q, fields=fields, include_fields=include_fields, sort=sort, request_options=request_options
         )
         return _response.data
 
@@ -114,6 +98,7 @@ class CustomDomainsClient:
         tls_policy: typing.Optional[CustomDomainTlsPolicyEnum] = OMIT,
         custom_client_ip_header: typing.Optional[CustomDomainCustomClientIpHeader] = OMIT,
         domain_metadata: typing.Optional[DomainMetadata] = OMIT,
+        relying_party_identifier: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCustomDomainResponseContent:
         """
@@ -147,6 +132,9 @@ class CustomDomainsClient:
 
         domain_metadata : typing.Optional[DomainMetadata]
 
+        relying_party_identifier : typing.Optional[str]
+            Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -174,6 +162,7 @@ class CustomDomainsClient:
             tls_policy=tls_policy,
             custom_client_ip_header=custom_client_ip_header,
             domain_metadata=domain_metadata,
+            relying_party_identifier=relying_party_identifier,
             request_options=request_options,
         )
         return _response.data
@@ -248,6 +237,7 @@ class CustomDomainsClient:
         tls_policy: typing.Optional[CustomDomainTlsPolicyEnum] = OMIT,
         custom_client_ip_header: typing.Optional[CustomDomainCustomClientIpHeader] = OMIT,
         domain_metadata: typing.Optional[DomainMetadata] = OMIT,
+        relying_party_identifier: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateCustomDomainResponseContent:
         """
@@ -287,6 +277,9 @@ class CustomDomainsClient:
 
         domain_metadata : typing.Optional[DomainMetadata]
 
+        relying_party_identifier : typing.Optional[str]
+            Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -311,6 +304,7 @@ class CustomDomainsClient:
             tls_policy=tls_policy,
             custom_client_ip_header=custom_client_ip_header,
             domain_metadata=domain_metadata,
+            relying_party_identifier=relying_party_identifier,
             request_options=request_options,
         )
         return _response.data
@@ -407,8 +401,6 @@ class AsyncCustomDomainsClient:
     async def list(
         self,
         *,
-        take: typing.Optional[int] = 50,
-        from_: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
@@ -420,12 +412,6 @@ class AsyncCustomDomainsClient:
 
         Parameters
         ----------
-        take : typing.Optional[int]
-            Number of results per page. Defaults to 50.
-
-        from_ : typing.Optional[str]
-            Optional Id from which to start selection.
-
         q : typing.Optional[str]
             Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
 
@@ -459,8 +445,6 @@ class AsyncCustomDomainsClient:
 
         async def main() -> None:
             await client.custom_domains.list(
-                take=1,
-                from_="from",
                 q="q",
                 fields="fields",
                 include_fields=True,
@@ -471,13 +455,7 @@ class AsyncCustomDomainsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            take=take,
-            from_=from_,
-            q=q,
-            fields=fields,
-            include_fields=include_fields,
-            sort=sort,
-            request_options=request_options,
+            q=q, fields=fields, include_fields=include_fields, sort=sort, request_options=request_options
         )
         return _response.data
 
@@ -490,6 +468,7 @@ class AsyncCustomDomainsClient:
         tls_policy: typing.Optional[CustomDomainTlsPolicyEnum] = OMIT,
         custom_client_ip_header: typing.Optional[CustomDomainCustomClientIpHeader] = OMIT,
         domain_metadata: typing.Optional[DomainMetadata] = OMIT,
+        relying_party_identifier: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCustomDomainResponseContent:
         """
@@ -522,6 +501,9 @@ class AsyncCustomDomainsClient:
         custom_client_ip_header : typing.Optional[CustomDomainCustomClientIpHeader]
 
         domain_metadata : typing.Optional[DomainMetadata]
+
+        relying_party_identifier : typing.Optional[str]
+            Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -558,6 +540,7 @@ class AsyncCustomDomainsClient:
             tls_policy=tls_policy,
             custom_client_ip_header=custom_client_ip_header,
             domain_metadata=domain_metadata,
+            relying_party_identifier=relying_party_identifier,
             request_options=request_options,
         )
         return _response.data
@@ -648,6 +631,7 @@ class AsyncCustomDomainsClient:
         tls_policy: typing.Optional[CustomDomainTlsPolicyEnum] = OMIT,
         custom_client_ip_header: typing.Optional[CustomDomainCustomClientIpHeader] = OMIT,
         domain_metadata: typing.Optional[DomainMetadata] = OMIT,
+        relying_party_identifier: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateCustomDomainResponseContent:
         """
@@ -687,6 +671,9 @@ class AsyncCustomDomainsClient:
 
         domain_metadata : typing.Optional[DomainMetadata]
 
+        relying_party_identifier : typing.Optional[str]
+            Relying Party ID (rpId) to be used for Passkeys on this custom domain. Set to null to remove the rpId and fall back to using the full domain.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -719,6 +706,7 @@ class AsyncCustomDomainsClient:
             tls_policy=tls_policy,
             custom_client_ip_header=custom_client_ip_header,
             domain_metadata=domain_metadata,
+            relying_party_identifier=relying_party_identifier,
             request_options=request_options,
         )
         return _response.data

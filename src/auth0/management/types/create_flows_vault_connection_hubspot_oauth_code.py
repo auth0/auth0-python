@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionHubspotOauthCode(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdHubspotEnum = "HUBSPOT"
+    app_id: FlowsVaultConnectionAppIdHubspotEnum
     setup: FlowsVaultConnectioSetupOauthCode
 
     if IS_PYDANTIC_V2:

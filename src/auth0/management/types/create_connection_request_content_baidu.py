@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_baidu import ConnectionOptionsBaidu
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_baidu_strategy import CreateConnectionRequestContentBaiduStrategy
 
 
 class CreateConnectionRequestContentBaidu(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentBaidu(CreateConnectionCommon):
     Create a connection with strategy=baidu
     """
 
-    strategy: typing.Literal["baidu"] = "baidu"
+    strategy: CreateConnectionRequestContentBaiduStrategy
     options: typing.Optional[ConnectionOptionsBaidu] = None
 
     if IS_PYDANTIC_V2:

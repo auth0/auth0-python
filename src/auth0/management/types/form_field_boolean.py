@@ -11,8 +11,8 @@ from .form_field_type_boolean_const import FormFieldTypeBooleanConst
 
 class FormFieldBoolean(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeBooleanConst = "BOOLEAN"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeBooleanConst
     config: FormFieldBooleanConfig
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

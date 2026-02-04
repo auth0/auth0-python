@@ -11,8 +11,8 @@ from .form_field_url_config import FormFieldUrlConfig
 
 class FormFieldUrl(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryFieldConst = "FIELD"
-    type: FormFieldTypeUrlConst = "URL"
+    category: FormComponentCategoryFieldConst
+    type: FormFieldTypeUrlConst
     config: typing.Optional[FormFieldUrlConfig] = None
     label: typing.Optional[str] = None
     hint: typing.Optional[str] = None

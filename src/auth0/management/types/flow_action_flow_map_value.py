@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_flow_map_value_action import FlowActionFlowMapValueAction
 from .flow_action_flow_map_value_params import FlowActionFlowMapValueParams
+from .flow_action_flow_map_value_type import FlowActionFlowMapValueType
 
 
 class FlowActionFlowMapValue(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["FLOW"] = "FLOW"
-    action: typing.Literal["MAP_VALUE"] = "MAP_VALUE"
+    type: FlowActionFlowMapValueType
+    action: FlowActionFlowMapValueAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionFlowMapValueParams

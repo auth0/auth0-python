@@ -2,4 +2,76 @@
 
 import typing
 
-ConnectionOptionsSaml = typing.Dict[str, typing.Any]
+import pydantic
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from ..core.serialization import FieldMetadata
+from .connection_debug_saml import ConnectionDebugSaml
+from .connection_destination_url_saml import ConnectionDestinationUrlSaml
+from .connection_fields_map_saml import ConnectionFieldsMapSaml
+from .connection_global_token_revocation_jwt_iss_saml import ConnectionGlobalTokenRevocationJwtIssSaml
+from .connection_global_token_revocation_jwt_sub_saml import ConnectionGlobalTokenRevocationJwtSubSaml
+from .connection_metadata_url_saml import ConnectionMetadataUrlSaml
+from .connection_metadata_xml_saml import ConnectionMetadataXmlSaml
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_options_common_saml import ConnectionOptionsCommonSaml
+from .connection_options_deflate_saml import ConnectionOptionsDeflateSaml
+from .connection_recipient_url_saml import ConnectionRecipientUrlSaml
+from .connection_request_template_saml import ConnectionRequestTemplateSaml
+from .connection_sign_out_endpoint_saml import ConnectionSignOutEndpointSaml
+from .connection_signing_cert_saml import ConnectionSigningCertSaml
+from .connection_signing_key_saml import ConnectionSigningKeySaml
+from .connection_user_id_attribute_saml import ConnectionUserIdAttributeSaml
+
+
+class ConnectionOptionsSaml(ConnectionOptionsCommonSaml, ConnectionOptionsCommon):
+    """
+    Options for the 'samlp' connection
+    """
+
+    debug: typing.Optional[ConnectionDebugSaml] = None
+    deflate: typing.Optional[ConnectionOptionsDeflateSaml] = None
+    destination_url: typing_extensions.Annotated[
+        typing.Optional[ConnectionDestinationUrlSaml], FieldMetadata(alias="destinationUrl")
+    ] = pydantic.Field(alias="destinationUrl", default=None)
+    disable_signout: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="disableSignout")] = (
+        pydantic.Field(alias="disableSignout", default=None)
+    )
+    """
+    When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).
+    """
+
+    fields_map: typing_extensions.Annotated[
+        typing.Optional[ConnectionFieldsMapSaml], FieldMetadata(alias="fieldsMap")
+    ] = pydantic.Field(alias="fieldsMap", default=None)
+    global_token_revocation_jwt_iss: typing.Optional[ConnectionGlobalTokenRevocationJwtIssSaml] = None
+    global_token_revocation_jwt_sub: typing.Optional[ConnectionGlobalTokenRevocationJwtSubSaml] = None
+    metadata_url: typing_extensions.Annotated[
+        typing.Optional[ConnectionMetadataUrlSaml], FieldMetadata(alias="metadataUrl")
+    ] = pydantic.Field(alias="metadataUrl", default=None)
+    metadata_xml: typing_extensions.Annotated[
+        typing.Optional[ConnectionMetadataXmlSaml], FieldMetadata(alias="metadataXml")
+    ] = pydantic.Field(alias="metadataXml", default=None)
+    recipient_url: typing_extensions.Annotated[
+        typing.Optional[ConnectionRecipientUrlSaml], FieldMetadata(alias="recipientUrl")
+    ] = pydantic.Field(alias="recipientUrl", default=None)
+    request_template: typing_extensions.Annotated[
+        typing.Optional[ConnectionRequestTemplateSaml], FieldMetadata(alias="requestTemplate")
+    ] = pydantic.Field(alias="requestTemplate", default=None)
+    signing_cert: typing_extensions.Annotated[
+        typing.Optional[ConnectionSigningCertSaml], FieldMetadata(alias="signingCert")
+    ] = pydantic.Field(alias="signingCert", default=None)
+    signing_key: typing.Optional[ConnectionSigningKeySaml] = None
+    sign_out_endpoint: typing_extensions.Annotated[
+        typing.Optional[ConnectionSignOutEndpointSaml], FieldMetadata(alias="signOutEndpoint")
+    ] = pydantic.Field(alias="signOutEndpoint", default=None)
+    user_id_attribute: typing.Optional[ConnectionUserIdAttributeSaml] = None
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

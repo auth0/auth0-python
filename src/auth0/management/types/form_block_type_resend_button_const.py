@@ -2,4 +2,4 @@
 
 import typing
 
-FormBlockTypeResendButtonConst = typing.Literal["RESEND_BUTTON"]
+FormBlockTypeResendButtonConst = typing.Union[typing.Literal["RESEND_BUTTON"], typing.Any]

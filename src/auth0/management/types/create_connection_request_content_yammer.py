@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_yammer import ConnectionOptionsYammer
 from .create_connection_common import CreateConnectionCommon
+from .create_connection_request_content_yammer_strategy import CreateConnectionRequestContentYammerStrategy
 
 
 class CreateConnectionRequestContentYammer(CreateConnectionCommon):
@@ -13,7 +14,7 @@ class CreateConnectionRequestContentYammer(CreateConnectionCommon):
     Create a connection with strategy=yammer
     """
 
-    strategy: typing.Literal["yammer"] = "yammer"
+    strategy: CreateConnectionRequestContentYammerStrategy
     options: typing.Optional[ConnectionOptionsYammer] = None
 
     if IS_PYDANTIC_V2:

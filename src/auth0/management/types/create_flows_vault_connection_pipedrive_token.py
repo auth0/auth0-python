@@ -14,7 +14,7 @@ class CreateFlowsVaultConnectionPipedriveToken(UniversalBaseModel):
     Flows Vault Connection name.
     """
 
-    app_id: FlowsVaultConnectionAppIdPipedriveEnum = "PIPEDRIVE"
+    app_id: FlowsVaultConnectionAppIdPipedriveEnum
     setup: FlowsVaultConnectioSetupToken
 
     if IS_PYDANTIC_V2:

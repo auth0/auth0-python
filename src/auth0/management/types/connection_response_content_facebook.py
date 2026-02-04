@@ -5,15 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_facebook import ConnectionOptionsFacebook
+from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
+from .connection_response_content_facebook_strategy import ConnectionResponseContentFacebookStrategy
 
 
-class ConnectionResponseContentFacebook(ConnectionResponseCommon):
+class ConnectionResponseContentFacebook(ConnectionPurposes, ConnectionResponseCommon):
     """
     Response for connections with strategy=facebook
     """
 
-    strategy: typing.Literal["facebook"] = "facebook"
+    strategy: ConnectionResponseContentFacebookStrategy
     options: typing.Optional[ConnectionOptionsFacebook] = None
 
     if IS_PYDANTIC_V2:

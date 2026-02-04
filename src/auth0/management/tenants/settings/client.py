@@ -16,11 +16,9 @@ from ...types.tenant_settings_mtls import TenantSettingsMtls
 from ...types.tenant_settings_password_page import TenantSettingsPasswordPage
 from ...types.tenant_settings_resource_parameter_profile import TenantSettingsResourceParameterProfile
 from ...types.tenant_settings_sessions import TenantSettingsSessions
+from ...types.tenant_settings_supported_locales_enum import TenantSettingsSupportedLocalesEnum
 from ...types.update_tenant_settings_response_content import UpdateTenantSettingsResponseContent
 from .raw_client import AsyncRawSettingsClient, RawSettingsClient
-from .types.update_tenant_settings_request_content_enabled_locales_item import (
-    UpdateTenantSettingsRequestContentEnabledLocalesItem,
-)
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -105,7 +103,7 @@ class SettingsClient:
         sandbox_version: typing.Optional[str] = "22",
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
-        enabled_locales: typing.Optional[typing.Sequence[UpdateTenantSettingsRequestContentEnabledLocalesItem]] = OMIT,
+        enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
         oidc_logout: typing.Optional[TenantOidcLogoutSettings] = OMIT,
@@ -117,6 +115,8 @@ class SettingsClient:
         authorization_response_iss_parameter_supported: typing.Optional[bool] = False,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
+        enable_ai_guide: typing.Optional[bool] = OMIT,
+        phone_consolidated_experience: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateTenantSettingsResponseContent:
         """
@@ -178,7 +178,7 @@ class SettingsClient:
         default_redirection_uri : typing.Optional[str]
             The default absolute redirection uri, must be https
 
-        enabled_locales : typing.Optional[typing.Sequence[UpdateTenantSettingsRequestContentEnabledLocalesItem]]
+        enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
 
         session_cookie : typing.Optional[SessionCookieSchema]
@@ -210,6 +210,12 @@ class SettingsClient:
             See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
 
         resource_parameter_profile : typing.Optional[TenantSettingsResourceParameterProfile]
+
+        enable_ai_guide : typing.Optional[bool]
+            Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+
+        phone_consolidated_experience : typing.Optional[bool]
+            Whether Phone Consolidated Experience is enabled for this tenant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -261,6 +267,8 @@ class SettingsClient:
             authorization_response_iss_parameter_supported=authorization_response_iss_parameter_supported,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             resource_parameter_profile=resource_parameter_profile,
+            enable_ai_guide=enable_ai_guide,
+            phone_consolidated_experience=phone_consolidated_experience,
             request_options=request_options,
         )
         return _response.data
@@ -355,7 +363,7 @@ class AsyncSettingsClient:
         sandbox_version: typing.Optional[str] = "22",
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
-        enabled_locales: typing.Optional[typing.Sequence[UpdateTenantSettingsRequestContentEnabledLocalesItem]] = OMIT,
+        enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
         oidc_logout: typing.Optional[TenantOidcLogoutSettings] = OMIT,
@@ -367,6 +375,8 @@ class AsyncSettingsClient:
         authorization_response_iss_parameter_supported: typing.Optional[bool] = False,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
+        enable_ai_guide: typing.Optional[bool] = OMIT,
+        phone_consolidated_experience: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateTenantSettingsResponseContent:
         """
@@ -428,7 +438,7 @@ class AsyncSettingsClient:
         default_redirection_uri : typing.Optional[str]
             The default absolute redirection uri, must be https
 
-        enabled_locales : typing.Optional[typing.Sequence[UpdateTenantSettingsRequestContentEnabledLocalesItem]]
+        enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
 
         session_cookie : typing.Optional[SessionCookieSchema]
@@ -460,6 +470,12 @@ class AsyncSettingsClient:
             See https://auth0.com/docs/secure/security-guidance/measures-against-app-impersonation for more information.
 
         resource_parameter_profile : typing.Optional[TenantSettingsResourceParameterProfile]
+
+        enable_ai_guide : typing.Optional[bool]
+            Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
+
+        phone_consolidated_experience : typing.Optional[bool]
+            Whether Phone Consolidated Experience is enabled for this tenant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -519,6 +535,8 @@ class AsyncSettingsClient:
             authorization_response_iss_parameter_supported=authorization_response_iss_parameter_supported,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             resource_parameter_profile=resource_parameter_profile,
+            enable_ai_guide=enable_ai_guide,
+            phone_consolidated_experience=phone_consolidated_experience,
             request_options=request_options,
         )
         return _response.data

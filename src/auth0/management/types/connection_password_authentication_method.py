@@ -4,6 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_api_behavior_enum import ConnectionApiBehaviorEnum
+from .connection_signup_behavior_enum import ConnectionSignupBehaviorEnum
 
 
 class ConnectionPasswordAuthenticationMethod(UniversalBaseModel):
@@ -15,6 +17,9 @@ class ConnectionPasswordAuthenticationMethod(UniversalBaseModel):
     """
     Determines whether passwords are enabled
     """
+
+    api_behavior: typing.Optional[ConnectionApiBehaviorEnum] = None
+    signup_behavior: typing.Optional[ConnectionSignupBehaviorEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

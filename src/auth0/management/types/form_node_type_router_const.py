@@ -2,4 +2,4 @@
 
 import typing
 
-FormNodeTypeRouterConst = typing.Literal["ROUTER"]
+FormNodeTypeRouterConst = typing.Union[typing.Literal["ROUTER"], typing.Any]

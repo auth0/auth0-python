@@ -4,14 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .flow_action_hubspot_upsert_contact_action import FlowActionHubspotUpsertContactAction
 from .flow_action_hubspot_upsert_contact_params import FlowActionHubspotUpsertContactParams
+from .flow_action_hubspot_upsert_contact_type import FlowActionHubspotUpsertContactType
 
 
 class FlowActionHubspotUpsertContact(UniversalBaseModel):
     id: str
     alias: typing.Optional[str] = None
-    type: typing.Literal["HUBSPOT"] = "HUBSPOT"
-    action: typing.Literal["UPSERT_CONTACT"] = "UPSERT_CONTACT"
+    type: FlowActionHubspotUpsertContactType
+    action: FlowActionHubspotUpsertContactAction
     allow_failure: typing.Optional[bool] = None
     mask_output: typing.Optional[bool] = None
     params: FlowActionHubspotUpsertContactParams

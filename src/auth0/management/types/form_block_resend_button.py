@@ -11,8 +11,8 @@ from .form_component_category_block_const import FormComponentCategoryBlockConst
 
 class FormBlockResendButton(UniversalBaseModel):
     id: str
-    category: FormComponentCategoryBlockConst = "BLOCK"
-    type: FormBlockTypeResendButtonConst = "RESEND_BUTTON"
+    category: FormComponentCategoryBlockConst
+    type: FormBlockTypeResendButtonConst
     config: FormBlockResendButtonConfig
 
     if IS_PYDANTIC_V2:

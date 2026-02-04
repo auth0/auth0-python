@@ -2,4 +2,4 @@
 
 import typing
 
-ClientDefaultOrganizationFlowsEnum = typing.Literal["client_credentials"]
+ClientDefaultOrganizationFlowsEnum = typing.Union[typing.Literal["client_credentials"], typing.Any]

@@ -2,4 +2,4 @@
 
 import typing
 
-FormFieldTypeCardsConst = typing.Literal["CARDS"]
+FormFieldTypeCardsConst = typing.Union[typing.Literal["CARDS"], typing.Any]
