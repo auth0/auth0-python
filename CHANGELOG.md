@@ -1,9 +1,9 @@
 # Change Log
 
-## [5.0.0b0](https://github.com/auth0/auth0-python/tree/5.0.0b0) (2025-12-18)
-[Full Changelog](https://github.com/auth0/auth0-python/compare/4.13.0...5.0.0b0)
+## [5.0.0](https://github.com/auth0/auth0-python/tree/5.0.0) (2026-02-04)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/4.13.0...5.0.0)
 
-⚠️ **BETA RELEASE** - This is a beta release with significant breaking changes. Please test thoroughly before upgrading production systems.
+📢 This is the official v5.0.0 release with significant improvements and breaking changes.
 
 **Breaking Changes**
 
@@ -36,7 +36,7 @@
 **Note**
 
 - Authentication API remains **fully backward compatible** - no changes required
-- See [v5_MIGRATION_GUIDE.md](https://github.com/auth0/auth0-python/blob/v5/v5_MIGRATION_GUIDE.md) for detailed upgrade instructions
+- See [v5_MIGRATION_GUIDE.md](https://github.com/auth0/auth0-python/blob/master/v5_MIGRATION_GUIDE.md) for detailed upgrade instructions
 
 
 ## [4.13.0](https://github.com/auth0/auth0-python/tree/4.13.0) (2025-09-17)
