@@ -20,6 +20,9 @@ tests/authentication/
 src/auth0/__init__.py
 src/auth0/management/__init__.py
 
+# Telemetry customization (Auth0 format with dynamic versioning)
+src/auth0/management/core/client_wrapper.py
+
 # Files edited to incorporate both APIs
 pyproject.toml
 poetry.lock
