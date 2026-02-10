@@ -17,7 +17,7 @@ class RefreshTokenResponseContent(UniversalBaseModel):
     The ID of the refresh token
     """
 
-    user_id: typing.Optional[str] = pydantic.Field(default="auth0|507f1f77bcf86cd799439020")
+    user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the user which can be used when interacting with other APIs.
     """

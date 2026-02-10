@@ -3,9 +3,10 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_options_client_id_twitter import ConnectionOptionsClientIdTwitter
 from .connection_options_client_secret_twitter import ConnectionOptionsClientSecretTwitter
+from .connection_options_common import ConnectionOptionsCommon
 from .connection_options_protocol_enum_twitter import ConnectionOptionsProtocolEnumTwitter
 from .connection_options_scope_twitter import ConnectionOptionsScopeTwitter
 from .connection_scope_array import ConnectionScopeArray
@@ -13,7 +14,7 @@ from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttri
 from .connection_upstream_params import ConnectionUpstreamParams
 
 
-class ConnectionOptionsTwitter(UniversalBaseModel):
+class ConnectionOptionsTwitter(ConnectionOptionsCommon):
     """
     Options for the 'twitter' connection
     """

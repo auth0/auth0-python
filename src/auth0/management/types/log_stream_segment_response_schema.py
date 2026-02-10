@@ -26,13 +26,11 @@ class LogStreamSegmentResponseSchema(UniversalBaseModel):
 
     status: typing.Optional[LogStreamStatusEnum] = None
     type: typing.Optional[LogStreamSegmentEnum] = None
-    is_priority: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isPriority")] = pydantic.Field(
-        alias="isPriority", default=None
-    )
-    """
-    True for priority log streams, false for non-priority
-    """
-
+    is_priority: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isPriority"),
+        pydantic.Field(alias="isPriority", description="True for priority log streams, false for non-priority"),
+    ] = None
     filters: typing.Optional[typing.List[LogStreamFilter]] = pydantic.Field(default=None)
     """
     Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.

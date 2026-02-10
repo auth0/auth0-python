@@ -24,207 +24,207 @@ class ConnectionOptionsFacebook(ConnectionOptionsCommon):
     upstream_params: typing.Optional[ConnectionUpstreamParamsFacebook] = None
     scope: typing.Optional[ConnectionScopeFacebook] = None
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
-    ads_management: typing.Optional[bool] = pydantic.Field(default=False)
+    ads_management: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to both read and manage ads for ad accounts you own or have been granted access to by the owner. By default, your app may only access ad accounts owned by admins of the app when in developer mode.
     """
 
-    ads_read: typing.Optional[bool] = pydantic.Field(default=False)
+    ads_read: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants access to the Ads Insights API to pull ads report information for ad accounts you own or have been granted access to by the owner of other ad accounts.
     """
 
-    allow_context_profile_field: typing.Optional[bool] = pydantic.Field(default=False)
+    allow_context_profile_field: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to a social context. Deprecated on April 30th, 2019.
     """
 
-    business_management: typing.Optional[bool] = pydantic.Field(default=False)
+    business_management: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to read and write with the Business Manager API.
     """
 
-    email: typing.Optional[bool] = pydantic.Field(default=False)
+    email: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to access a person's primary email address.
     """
 
-    groups_access_member_info: typing.Optional[bool] = pydantic.Field(default=False)
+    groups_access_member_info: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to publicly available group member information.
     """
 
-    leads_retrieval: typing.Optional[bool] = pydantic.Field(default=False)
+    leads_retrieval: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to retrieve all the information captured within a lead.
     """
 
-    manage_notifications: typing.Optional[bool] = pydantic.Field(default=False)
+    manage_notifications: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enables your app to read a person's notifications and mark them as read. This permission does not let you send notifications to a person. Deprecated in Graph API v2.3.
     """
 
-    manage_pages: typing.Optional[bool] = pydantic.Field(default=False)
+    manage_pages: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to retrieve Page Access Tokens for the Pages and Apps that the person administers. Apps need both manage_pages and publish_pages to be able to publish as a Page.
     """
 
-    pages_manage_cta: typing.Optional[bool] = pydantic.Field(default=False)
+    pages_manage_cta: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Allows the app to perform POST and DELETE operations on endpoints used for managing a Page's Call To Action buttons.
     """
 
-    pages_manage_instant_articles: typing.Optional[bool] = pydantic.Field(default=False)
+    pages_manage_instant_articles: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to manage Instant Articles on behalf of Facebook Pages administered by people using your app.
     """
 
-    pages_messaging: typing.Optional[bool] = pydantic.Field(default=False)
+    pages_messaging: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to send and receive messages through a Facebook Page.
     """
 
-    pages_messaging_phone_number: typing.Optional[bool] = pydantic.Field(default=False)
+    pages_messaging_phone_number: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to use the phone number messaging feature.
     """
 
-    pages_messaging_subscriptions: typing.Optional[bool] = pydantic.Field(default=False)
+    pages_messaging_subscriptions: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to send messages using Facebook Pages at any time after the first user interaction. Your app may only send advertising or promotional content through sponsored messages or within 24 hours of user interaction.
     """
 
-    pages_show_list: typing.Optional[bool] = pydantic.Field(default=False)
+    pages_show_list: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants access to show the list of the Pages that a person manages.
     """
 
-    public_profile: typing.Optional[bool] = pydantic.Field(default=True)
+    public_profile: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to a user's public profile information including id, first_name, last_name, middle_name, name, name_format, picture, and short_name. This is the most basic permission and is required by Facebook.
     """
 
-    publish_actions: typing.Optional[bool] = pydantic.Field(default=False)
+    publish_actions: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Allows your app to publish to the Open Graph using Built-in Actions, Achievements, Scores, or Custom Actions. Deprecated on August 1st, 2018.
     """
 
-    publish_pages: typing.Optional[bool] = pydantic.Field(default=False)
+    publish_pages: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to publish posts, comments, and like Pages managed by a person using your app. Your app must also have manage_pages to publish as a Page.
     """
 
-    publish_to_groups: typing.Optional[bool] = pydantic.Field(default=False)
+    publish_to_groups: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to post content into a group on behalf of a user who has granted the app this permission.
     """
 
-    publish_video: typing.Optional[bool] = pydantic.Field(default=False)
+    publish_video: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to publish live videos to the app User's timeline.
     """
 
-    read_audience_network_insights: typing.Optional[bool] = pydantic.Field(default=False)
+    read_audience_network_insights: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants read-only access to the Audience Network Insights data for Apps the person owns.
     """
 
-    read_insights: typing.Optional[bool] = pydantic.Field(default=False)
+    read_insights: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants read-only access to the Insights data for Pages, Apps, and web domains the person owns.
     """
 
-    read_mailbox: typing.Optional[bool] = pydantic.Field(default=False)
+    read_mailbox: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides the ability to read the messages in a person's Facebook Inbox through the inbox edge and the thread node. Deprecated in Graph API v2.3.
     """
 
-    read_page_mailboxes: typing.Optional[bool] = pydantic.Field(default=False)
+    read_page_mailboxes: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to read from the Page Inboxes of the Pages managed by a person. This permission is often used alongside the manage_pages permission.
     """
 
-    read_stream: typing.Optional[bool] = pydantic.Field(default=False)
+    read_stream: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to read the posts in a person's News Feed, or the posts on their Profile. Deprecated in Graph API v2.3.
     """
 
-    user_age_range: typing.Optional[bool] = pydantic.Field(default=False)
+    user_age_range: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to access a person's age range.
     """
 
-    user_birthday: typing.Optional[bool] = pydantic.Field(default=False)
+    user_birthday: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to access a person's birthday.
     """
 
-    user_events: typing.Optional[bool] = pydantic.Field(default=False)
+    user_events: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants read-only access to the Events a person is a host of or has RSVPed to. This permission is restricted to a limited set of partners and usage requires prior approval by Facebook.
     """
 
-    user_friends: typing.Optional[bool] = pydantic.Field(default=False)
+    user_friends: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to access a list of friends that also use said app. This permission is restricted to a limited set of partners and usage requires prior approval by Facebook.
     """
 
-    user_gender: typing.Optional[bool] = pydantic.Field(default=False)
+    user_gender: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to access a person's gender.
     """
 
-    user_groups: typing.Optional[bool] = pydantic.Field(default=False)
+    user_groups: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enables your app to read the Groups a person is a member of through the groups edge on the User object. Deprecated in Graph API v2.3.
     """
 
-    user_hometown: typing.Optional[bool] = pydantic.Field(default=False)
+    user_hometown: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to access a person's hometown location set in their User Profile.
     """
 
-    user_likes: typing.Optional[bool] = pydantic.Field(default=False)
+    user_likes: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to access the list of all Facebook Pages that a person has liked.
     """
 
-    user_link: typing.Optional[bool] = pydantic.Field(default=False)
+    user_link: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Grants permission to access the Facebook Profile URL of the user of your app.
     """
 
-    user_location: typing.Optional[bool] = pydantic.Field(default=False)
+    user_location: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to a person's current city through the location field on the User object. The current city is set by a person on their Profile.
     """
 
-    user_managed_groups: typing.Optional[bool] = pydantic.Field(default=False)
+    user_managed_groups: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enables your app to read the Groups a person is an admin of through the groups edge on the User object. Deprecated in Graph API v3.0.
     """
 
-    user_photos: typing.Optional[bool] = pydantic.Field(default=False)
+    user_photos: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to the photos a person has uploaded or been tagged in. This permission is restricted to a limited set of partners and usage requires prior approval by Facebook.
     """
 
-    user_posts: typing.Optional[bool] = pydantic.Field(default=False)
+    user_posts: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to the posts on a person's Timeline including their own posts, posts they are tagged in, and posts other people make on their Timeline. This permission is restricted to a limited set of partners and usage requires prior approval by Facebook.
     """
 
-    user_status: typing.Optional[bool] = pydantic.Field(default=False)
+    user_status: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to a person's statuses. These are posts on Facebook which don't include links, videos or photos. Deprecated in Graph API v2.3.
     """
 
-    user_tagged_places: typing.Optional[bool] = pydantic.Field(default=False)
+    user_tagged_places: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to the Places a person has been tagged at in photos, videos, statuses and links. This permission is restricted to a limited set of partners and usage requires prior approval by Facebook.
     """
 
-    user_videos: typing.Optional[bool] = pydantic.Field(default=False)
+    user_videos: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Provides access to the videos a person has uploaded or been tagged in. This permission is restricted to a limited set of partners and usage requires prior approval by Facebook.
     """

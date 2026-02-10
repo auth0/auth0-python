@@ -13,7 +13,7 @@ class ActionExecutionResult(UniversalBaseModel):
     Captures the results of a single action being executed.
     """
 
-    action_name: typing.Optional[str] = pydantic.Field(default="my-action")
+    action_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the action that was executed.
     """

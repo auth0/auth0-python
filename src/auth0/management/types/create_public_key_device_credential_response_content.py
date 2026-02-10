@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreatePublicKeyDeviceCredentialResponseContent(UniversalBaseModel):
-    id: str = pydantic.Field(default="dcr_0000000000000001")
+    id: str = pydantic.Field()
     """
     The credential's identifier
     """

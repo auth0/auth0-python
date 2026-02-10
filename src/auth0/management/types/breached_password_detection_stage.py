@@ -12,11 +12,15 @@ from .breached_password_detection_pre_user_registration_stage import BreachedPas
 
 class BreachedPasswordDetectionStage(UniversalBaseModel):
     pre_user_registration: typing_extensions.Annotated[
-        typing.Optional[BreachedPasswordDetectionPreUserRegistrationStage], FieldMetadata(alias="pre-user-registration")
-    ] = pydantic.Field(alias="pre-user-registration", default=None)
+        typing.Optional[BreachedPasswordDetectionPreUserRegistrationStage],
+        FieldMetadata(alias="pre-user-registration"),
+        pydantic.Field(alias="pre-user-registration"),
+    ] = None
     pre_change_password: typing_extensions.Annotated[
-        typing.Optional[BreachedPasswordDetectionPreChangePasswordStage], FieldMetadata(alias="pre-change-password")
-    ] = pydantic.Field(alias="pre-change-password", default=None)
+        typing.Optional[BreachedPasswordDetectionPreChangePasswordStage],
+        FieldMetadata(alias="pre-change-password"),
+        pydantic.Field(alias="pre-change-password"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

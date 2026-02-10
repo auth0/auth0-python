@@ -31,8 +31,10 @@ class UpdateAttackProtectionCaptchaResponseContent(UniversalBaseModel):
     friendly_captcha: typing.Optional[AttackProtectionCaptchaFriendlyCaptchaResponseContent] = None
     recaptcha_enterprise: typing.Optional[AttackProtectionCaptchaRecaptchaEnterpriseResponseContent] = None
     recaptcha_v_2: typing_extensions.Annotated[
-        typing.Optional[AttackProtectionCaptchaRecaptchaV2ResponseContent], FieldMetadata(alias="recaptcha_v2")
-    ] = pydantic.Field(alias="recaptcha_v2", default=None)
+        typing.Optional[AttackProtectionCaptchaRecaptchaV2ResponseContent],
+        FieldMetadata(alias="recaptcha_v2"),
+        pydantic.Field(alias="recaptcha_v2"),
+    ] = None
     simple_captcha: typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent] = None
 
     if IS_PYDANTIC_V2:

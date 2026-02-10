@@ -11,7 +11,7 @@ class ConnectionConnectedAccountsPurposeXaa(UniversalBaseModel):
     Configure the purpose of a connection to be used for connected accounts and Token Vault.
     """
 
-    cross_app_access: typing.Optional[bool] = False
+    cross_app_access: typing.Optional[bool] = None
     active: bool
 
     if IS_PYDANTIC_V2:

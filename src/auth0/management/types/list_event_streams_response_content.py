@@ -11,8 +11,10 @@ from .event_stream_response_content import EventStreamResponseContent
 
 class ListEventStreamsResponseContent(UniversalBaseModel):
     event_streams: typing_extensions.Annotated[
-        typing.Optional[typing.List[EventStreamResponseContent]], FieldMetadata(alias="eventStreams")
-    ] = pydantic.Field(alias="eventStreams", default=None)
+        typing.Optional[typing.List[EventStreamResponseContent]],
+        FieldMetadata(alias="eventStreams"),
+        pydantic.Field(alias="eventStreams"),
+    ] = None
     next: typing.Optional[str] = pydantic.Field(default=None)
     """
     Opaque identifier for use with the <i>from</i> query parameter for the next page of results.

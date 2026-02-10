@@ -13,21 +13,17 @@ class ConnectionKey(UniversalBaseModel):
     The key id of the signing key
     """
 
-    cert: str = pydantic.Field(
-        default="-----BEGIN CERTIFICATE-----\r\nMIIDDTCCA...YiA0TQhAt8=\r\n-----END CERTIFICATE-----"
-    )
+    cert: str = pydantic.Field()
     """
     The public certificate of the signing key
     """
 
-    pkcs: typing.Optional[str] = pydantic.Field(
-        default="-----BEGIN PKCS7-----\r\nMIIDPA....t8xAA==\r\n-----END PKCS7-----"
-    )
+    pkcs: typing.Optional[str] = pydantic.Field(default=None)
     """
     The public certificate of the signing key in pkcs7 format
     """
 
-    current: typing.Optional[bool] = pydantic.Field(default=True)
+    current: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True if the key is the the current key
     """
@@ -47,12 +43,12 @@ class ConnectionKey(UniversalBaseModel):
     The date and time when the key became the current key
     """
 
-    fingerprint: str = pydantic.Field(default="CC:FB:DD:D8:9A:B5:DE:1B:F0:CC:36:D2:99:59:21:12:03:DD:A8:25")
+    fingerprint: str = pydantic.Field()
     """
     The cert fingerprint
     """
 
-    thumbprint: str = pydantic.Field(default="CCFBDDD89AB5DE1BF0CC36D29959211203DDA825")
+    thumbprint: str = pydantic.Field()
     """
     The cert thumbprint
     """

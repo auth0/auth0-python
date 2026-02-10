@@ -8,28 +8,28 @@ from .device_credential_type_enum import DeviceCredentialTypeEnum
 
 
 class DeviceCredential(UniversalBaseModel):
-    id: typing.Optional[str] = pydantic.Field(default="dcr_0000000000000001")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of this device.
     """
 
-    device_name: typing.Optional[str] = pydantic.Field(default="iPhone Mobile Safari UI/WKWebView")
+    device_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     User agent for this device
     """
 
-    device_id: typing.Optional[str] = pydantic.Field(default="550e8400-e29b-41d4-a716-446655440000")
+    device_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Unique identifier for the device. NOTE: This field is generally not populated for refresh_tokens and rotating_refresh_tokens
     """
 
     type: typing.Optional[DeviceCredentialTypeEnum] = None
-    user_id: typing.Optional[str] = pydantic.Field(default="usr_5457edea1b8f33391a000004")
+    user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     user_id this credential is associated with.
     """
 
-    client_id: typing.Optional[str] = pydantic.Field(default="AaiyAPdpYdesoKnqjj8HJqRn4T5titww")
+    client_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     client_id of the client (application) this credential is for.
     """

@@ -10,29 +10,24 @@ from .log_stream_event_grid_region_enum import LogStreamEventGridRegionEnum
 
 
 class LogStreamEventGridSink(UniversalBaseModel):
-    azure_subscription_id: typing_extensions.Annotated[str, FieldMetadata(alias="azureSubscriptionId")] = (
-        pydantic.Field(alias="azureSubscriptionId")
-    )
-    """
-    Subscription ID
-    """
-
-    azure_region: typing_extensions.Annotated[LogStreamEventGridRegionEnum, FieldMetadata(alias="azureRegion")] = (
-        pydantic.Field(alias="azureRegion")
-    )
-    azure_resource_group: typing_extensions.Annotated[str, FieldMetadata(alias="azureResourceGroup")] = pydantic.Field(
-        alias="azureResourceGroup"
-    )
-    """
-    Resource Group
-    """
-
-    azure_partner_topic: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="azurePartnerTopic")] = (
-        pydantic.Field(alias="azurePartnerTopic", default=None)
-    )
-    """
-    Partner Topic
-    """
+    azure_subscription_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="azureSubscriptionId"),
+        pydantic.Field(alias="azureSubscriptionId", description="Subscription ID"),
+    ]
+    azure_region: typing_extensions.Annotated[
+        LogStreamEventGridRegionEnum, FieldMetadata(alias="azureRegion"), pydantic.Field(alias="azureRegion")
+    ]
+    azure_resource_group: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="azureResourceGroup"),
+        pydantic.Field(alias="azureResourceGroup", description="Resource Group"),
+    ]
+    azure_partner_topic: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="azurePartnerTopic"),
+        pydantic.Field(alias="azurePartnerTopic", description="Partner Topic"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -4,16 +4,108 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_client_id_windows_live import ConnectionClientIdWindowsLive
+from .connection_client_secret_windows_live import ConnectionClientSecretWindowsLive
+from .connection_freeform_scopes_windows_live import ConnectionFreeformScopesWindowsLive
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_scope_array_windows_live import ConnectionScopeArrayWindowsLive
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
 from .connection_strategy_version_enum_windows_live import ConnectionStrategyVersionEnumWindowsLive
+from .connection_upstream_params import ConnectionUpstreamParams
 
 
-class ConnectionOptionsWindowsLive(ConnectionOptionsOAuth2Common):
+class ConnectionOptionsWindowsLive(ConnectionOptionsCommon):
     """
     Options for the 'windowslive' connection
     """
 
+    client_id: typing.Optional[ConnectionClientIdWindowsLive] = None
+    client_secret: typing.Optional[ConnectionClientSecretWindowsLive] = None
+    freeform_scopes: typing.Optional[ConnectionFreeformScopesWindowsLive] = None
+    scope: typing.Optional[ConnectionScopeArrayWindowsLive] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     strategy_version: typing.Optional[ConnectionStrategyVersionEnumWindowsLive] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
+    applications: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests access to user's applications.
+    """
+
+    applications_create: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to create applications.
+    """
+
+    basic: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to user's basic profile information and contacts list.
+    """
+
+    birthday: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to user's birth day, month, and year.
+    """
+
+    calendars: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to user's calendars and events.
+    """
+
+    calendars_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read and write access to user's calendars and events.
+    """
+
+    contacts_birthday: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to contacts' birth day and birth month.
+    """
+
+    contacts_calendars: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to user's calendars and shared calendars/events from others.
+    """
+
+    contacts_create: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to create new contacts in user's address book.
+    """
+
+    contacts_photos: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to user's and shared albums, photos, videos, and audio.
+    """
+
+    contacts_skydrive: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to OneDrive files shared by other users.
+    """
+
+    directory_accessasuser_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to have the same access to information in the directory as the signed-in user.
+    """
+
+    directory_read_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read data in your organization's directory, such as users, groups, and apps.
+    """
+
+    directory_readwrite_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read and write data in your organization's directory, such as users and groups.
+    """
+
+    emails: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to personal, preferred, and business email addresses.
+    """
+
+    events_create: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to create events on user's default calendar.
+    """
+
     graph_calendars: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When enabled, requests permission to read the user's calendars.
@@ -114,14 +206,114 @@ class ConnectionOptionsWindowsLive(ConnectionOptionsOAuth2Common):
     When enabled, requests permission to read and write the user's profile.
     """
 
+    group_read_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read all group properties and memberships.
+    """
+
+    group_readwrite_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to create groups, read all group properties and memberships, update group properties and memberships, and delete groups.
+    """
+
+    mail_readwrite_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to create, read, update, and delete all mail in all mailboxes.
+    """
+
+    mail_send: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to send mail as users in the organization.
+    """
+
+    messenger: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests access to user's Windows Live Messenger data.
+    """
+
     offline_access: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When enabled, requests a refresh token for offline access.
     """
 
+    phone_numbers: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to personal, business, and mobile phone numbers.
+    """
+
+    photos: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to user's photos, videos, audio, and albums.
+    """
+
+    postal_addresses: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to personal and business postal addresses.
+    """
+
+    rolemanagement_read_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read the role-based access control (RBAC) settings for your company's directory.
+    """
+
+    rolemanagement_readwrite_directory: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read and write the role-based access control (RBAC) settings for your company's directory.
+    """
+
+    share: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests permission to share content with other users.
+    """
+
     signin: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    When enabled, requests the signin scope.
+    When enabled, provides single sign-in behavior for users already signed into their Microsoft account.
+    """
+
+    sites_read_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read documents and list items in all SharePoint site collections.
+    """
+
+    sites_readwrite_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to create, read, update, and delete documents and list items in all SharePoint site collections.
+    """
+
+    skydrive: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to user's files stored on OneDrive.
+    """
+
+    skydrive_update: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read and write access to user's OneDrive files.
+    """
+
+    team_readbasic_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read the names and descriptions of all teams.
+    """
+
+    team_readwrite_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read and write all teams' information and change team membership.
+    """
+
+    user_read_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read the full set of profile properties, reports, and managers of all users.
+    """
+
+    user_readbasic_all: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, allows the app to read a basic set of profile properties of all users in the directory.
+    """
+
+    work_profile: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests read access to employer and work position information.
     """
 
     if IS_PYDANTIC_V2:

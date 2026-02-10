@@ -12,7 +12,7 @@ from .user_metadata import UserMetadata
 
 
 class CreateOrganizationInvitationResponseContent(UniversalBaseModel):
-    id: typing.Optional[str] = pydantic.Field(default="uinv_0000000000000001")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the user invitation.
     """
@@ -24,9 +24,7 @@ class CreateOrganizationInvitationResponseContent(UniversalBaseModel):
 
     inviter: typing.Optional[OrganizationInvitationInviter] = None
     invitee: typing.Optional[OrganizationInvitationInvitee] = None
-    invitation_url: typing.Optional[str] = pydantic.Field(
-        default="https://mycompany.org/login?invitation=f81dWWYW6gzGGicxT8Ha0txBkGNcAcYr&organization=org_0000000000000001&organization_name=acme"
-    )
+    invitation_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The invitation url to be send to the invitee.
     """
@@ -41,12 +39,12 @@ class CreateOrganizationInvitationResponseContent(UniversalBaseModel):
     The ISO 8601 formatted timestamp representing the expiration time of the invitation.
     """
 
-    client_id: typing.Optional[str] = pydantic.Field(default="AaiyAPdpYdesoKnqjj8HJqRn4T5titww")
+    client_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Auth0 client ID. Used to resolve the application's login initiation endpoint.
     """
 
-    connection_id: typing.Optional[str] = pydantic.Field(default="con_0000000000000001")
+    connection_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the connection to force invitee to authenticate with.
     """

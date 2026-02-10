@@ -10,26 +10,22 @@ from .signing_keys_date import SigningKeysDate
 
 
 class GetSigningKeysResponseContent(UniversalBaseModel):
-    kid: str = pydantic.Field(default="21hi274Rp02112mgkUGma")
+    kid: str = pydantic.Field()
     """
     The key id of the signing key
     """
 
-    cert: str = pydantic.Field(
-        default="-----BEGIN CERTIFICATE-----\r\nMIIDDTCCA...YiA0TQhAt8=\r\n-----END CERTIFICATE-----"
-    )
+    cert: str = pydantic.Field()
     """
     The public certificate of the signing key
     """
 
-    pkcs_7: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pkcs7")] = pydantic.Field(
-        alias="pkcs7", default="-----BEGIN PKCS7-----\r\nMIIDPA....t8xAA==\r\n-----END PKCS7-----"
-    )
-    """
-    The public certificate of the signing key in pkcs7 format
-    """
-
-    current: typing.Optional[bool] = pydantic.Field(default=True)
+    pkcs_7: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="pkcs7"),
+        pydantic.Field(alias="pkcs7", description="The public certificate of the signing key in pkcs7 format"),
+    ] = None
+    current: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True if the key is the the current key
     """
@@ -46,12 +42,12 @@ class GetSigningKeysResponseContent(UniversalBaseModel):
 
     current_since: typing.Optional[SigningKeysDate] = None
     current_until: typing.Optional[SigningKeysDate] = None
-    fingerprint: str = pydantic.Field(default="CC:FB:DD:D8:9A:B5:DE:1B:F0:CC:36:D2:99:59:21:12:03:DD:A8:25")
+    fingerprint: str = pydantic.Field()
     """
     The cert fingerprint
     """
 
-    thumbprint: str = pydantic.Field(default="CCFBDDD89AB5DE1BF0CC36D29959211203DDA825")
+    thumbprint: str = pydantic.Field()
     """
     The cert thumbprint
     """

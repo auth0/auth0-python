@@ -12,7 +12,7 @@ class Identity(UniversalBaseModel):
     This must be provided to verify primary social, enterprise and passwordless email identities. Also, is needed to verify secondary identities.
     """
 
-    user_id: str = pydantic.Field(default="5457edea1b8f22891a000004")
+    user_id: str = pydantic.Field()
     """
     user_id of the identity to be verified.
     """

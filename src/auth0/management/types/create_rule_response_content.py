@@ -7,34 +7,32 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreateRuleResponseContent(UniversalBaseModel):
-    name: typing.Optional[str] = pydantic.Field(default="rule_1")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of this rule.
     """
 
-    id: typing.Optional[str] = pydantic.Field(default="con_0000000000000001")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of this rule.
     """
 
-    enabled: typing.Optional[bool] = pydantic.Field(default=True)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the rule is enabled (true), or disabled (false).
     """
 
-    script: typing.Optional[str] = pydantic.Field(
-        default="function (user, context, callback) {\n  callback(null, user, context);\n}"
-    )
+    script: typing.Optional[str] = pydantic.Field(default=None)
     """
     Code to be executed when this rule runs.
     """
 
-    order: typing.Optional[float] = pydantic.Field(default=1.0)
+    order: typing.Optional[float] = pydantic.Field(default=None)
     """
     Order that this rule should execute in relative to other rules. Lower-valued rules execute first.
     """
 
-    stage: typing.Optional[str] = pydantic.Field(default="login_success")
+    stage: typing.Optional[str] = pydantic.Field(default=None)
     """
     Execution stage of this rule. Can be `login_success`, `login_failure`, or `pre_authorize`.
     """

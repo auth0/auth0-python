@@ -11,12 +11,12 @@ class ClientMobileiOs(UniversalBaseModel):
     iOS native app configuration.
     """
 
-    team_id: typing.Optional[str] = pydantic.Field(default="")
+    team_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Identifier assigned to the Apple account that signs and uploads the app to the store.
     """
 
-    app_bundle_identifier: typing.Optional[str] = pydantic.Field(default="")
+    app_bundle_identifier: typing.Optional[str] = pydantic.Field(default=None)
     """
     Assigned by developer to the app as its unique identifier inside the store. Usually this is a reverse domain plus the app name, e.g. `com.you.MyApp`.
     """

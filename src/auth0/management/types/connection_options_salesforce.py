@@ -4,23 +4,31 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_client_id_salesforce import ConnectionClientIdSalesforce
+from .connection_client_secret_salesforce import ConnectionClientSecretSalesforce
+from .connection_freeform_scopes_salesforce import ConnectionFreeformScopesSalesforce
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_scope_salesforce import ConnectionScopeSalesforce
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_upstream_params import ConnectionUpstreamParams
 
 
-class ConnectionOptionsSalesforce(ConnectionOptionsOAuth2Common):
+class ConnectionOptionsSalesforce(ConnectionOptionsCommon):
     """
     Options for the salesforce family of connections (salesforce, salesforce-sandbox, salesforce-community)
     """
 
-    community_base_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The base URL of the Salesforce Community. Required for salesforce-community connections to specify which community site to authenticate against.
-    """
-
+    client_id: typing.Optional[ConnectionClientIdSalesforce] = None
+    client_secret: typing.Optional[ConnectionClientSecretSalesforce] = None
+    freeform_scopes: typing.Optional[ConnectionFreeformScopesSalesforce] = None
     profile: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    When enabled, requests the profile scope from Salesforce to access user profile information.
+    When enabled, requests the Salesforce profile scope to retrieve basic user information including user_id, organization_id, username, display_name, email, status, photos, and URLs.
     """
+
+    scope: typing.Optional[ConnectionScopeSalesforce] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

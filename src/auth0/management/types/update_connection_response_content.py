@@ -11,7 +11,7 @@ from .connections_metadata import ConnectionsMetadata
 
 
 class UpdateConnectionResponseContent(UniversalBaseModel):
-    name: typing.Optional[str] = pydantic.Field(default="My connection")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the connection
     """
@@ -22,12 +22,12 @@ class UpdateConnectionResponseContent(UniversalBaseModel):
     """
 
     options: typing.Optional[ConnectionOptions] = None
-    id: typing.Optional[str] = pydantic.Field(default="con_0000000000000001")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The connection's identifier
     """
 
-    strategy: typing.Optional[str] = pydantic.Field(default="auth0")
+    strategy: typing.Optional[str] = pydantic.Field(default=None)
     """
     The type of the connection, related to the identity provider
     """

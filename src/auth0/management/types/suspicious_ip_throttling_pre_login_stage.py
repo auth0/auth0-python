@@ -11,12 +11,12 @@ class SuspiciousIpThrottlingPreLoginStage(UniversalBaseModel):
     Configuration options that apply before every login attempt.
     """
 
-    max_attempts: typing.Optional[int] = pydantic.Field(default=100)
+    max_attempts: typing.Optional[int] = pydantic.Field(default=None)
     """
     Total number of attempts allowed per day.
     """
 
-    rate: typing.Optional[int] = pydantic.Field(default=864000)
+    rate: typing.Optional[int] = pydantic.Field(default=None)
     """
     Interval of time, given in milliseconds, at which new attempts are granted.
     """

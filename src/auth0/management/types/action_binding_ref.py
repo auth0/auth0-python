@@ -13,7 +13,7 @@ class ActionBindingRef(UniversalBaseModel):
     """
 
     type: typing.Optional[ActionBindingRefTypeEnum] = None
-    value: typing.Optional[str] = pydantic.Field(default="my-action")
+    value: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id or name of an action that is being bound to a trigger.
     """

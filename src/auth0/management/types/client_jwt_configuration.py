@@ -13,12 +13,12 @@ class ClientJwtConfiguration(UniversalBaseModel):
     Configuration related to JWTs for the client.
     """
 
-    lifetime_in_seconds: typing.Optional[int] = pydantic.Field(default=36000)
+    lifetime_in_seconds: typing.Optional[int] = pydantic.Field(default=None)
     """
     Number of seconds the JWT will be valid for (affects `exp` claim).
     """
 
-    secret_encoded: typing.Optional[bool] = pydantic.Field(default=True)
+    secret_encoded: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the client secret is base64 encoded (true) or unencoded (false).
     """

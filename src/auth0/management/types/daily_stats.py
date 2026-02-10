@@ -7,32 +7,32 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class DailyStats(UniversalBaseModel):
-    date: typing.Optional[str] = pydantic.Field(default="2014-01-01T00:00:00.000Z")
+    date: typing.Optional[str] = pydantic.Field(default=None)
     """
     Date these events occurred in ISO 8601 format.
     """
 
-    logins: typing.Optional[int] = pydantic.Field(default=100)
+    logins: typing.Optional[int] = pydantic.Field(default=None)
     """
     Number of logins on this date.
     """
 
-    signups: typing.Optional[int] = pydantic.Field(default=100)
+    signups: typing.Optional[int] = pydantic.Field(default=None)
     """
     Number of signups on this date.
     """
 
-    leaked_passwords: typing.Optional[int] = pydantic.Field(default=100)
+    leaked_passwords: typing.Optional[int] = pydantic.Field(default=None)
     """
     Number of breached-password detections on this date (subscription required).
     """
 
-    updated_at: typing.Optional[str] = pydantic.Field(default="2014-01-01T02:00:00.000Z")
+    updated_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     Date and time this stats entry was last updated in ISO 8601 format.
     """
 
-    created_at: typing.Optional[str] = pydantic.Field(default="2014-01-01T20:00:00.000Z")
+    created_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     Approximate date and time the first event occurred in ISO 8601 format.
     """

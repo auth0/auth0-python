@@ -22,7 +22,7 @@ class UserProfileData(UniversalBaseModel):
     Name of this user.
     """
 
-    username: typing.Optional[str] = pydantic.Field(default="johndoe")
+    username: typing.Optional[str] = pydantic.Field(default=None)
     """
     Username of this user.
     """

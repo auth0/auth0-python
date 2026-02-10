@@ -11,27 +11,27 @@ from .user_profile_data import UserProfileData
 
 
 class UserIdentity(UniversalBaseModel):
-    connection: str = pydantic.Field(default="twitter")
+    connection: str = pydantic.Field()
     """
     Connection name of this identity.
     """
 
     user_id: UserId
-    provider: str = pydantic.Field(default="twitter")
+    provider: str = pydantic.Field()
     """
     Type of identity provider.
     """
 
-    profile_data: typing_extensions.Annotated[typing.Optional[UserProfileData], FieldMetadata(alias="profileData")] = (
-        pydantic.Field(alias="profileData", default=None)
-    )
-    is_social: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isSocial")] = pydantic.Field(
-        alias="isSocial", default=None
-    )
-    """
-    Whether the identity provider is a social provider (true) or not (false).
-    """
-
+    profile_data: typing_extensions.Annotated[
+        typing.Optional[UserProfileData], FieldMetadata(alias="profileData"), pydantic.Field(alias="profileData")
+    ] = None
+    is_social: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isSocial"),
+        pydantic.Field(
+            alias="isSocial", description="Whether the identity provider is a social provider (true) or not (false)."
+        ),
+    ] = None
     access_token: typing.Optional[str] = pydantic.Field(default=None)
     """
     IDP access token returned if scope `read:user_idp_tokens` is defined.

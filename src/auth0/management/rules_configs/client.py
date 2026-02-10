@@ -56,7 +56,7 @@ class RulesConfigsClient:
         return _response.data
 
     def set(
-        self, key: str, *, value: str = "MY_RULES_CONFIG_VALUE", request_options: typing.Optional[RequestOptions] = None
+        self, key: str, *, value: str, request_options: typing.Optional[RequestOptions] = None
     ) -> SetRulesConfigResponseContent:
         """
         Sets a rules config variable.
@@ -175,7 +175,7 @@ class AsyncRulesConfigsClient:
         return _response.data
 
     async def set(
-        self, key: str, *, value: str = "MY_RULES_CONFIG_VALUE", request_options: typing.Optional[RequestOptions] = None
+        self, key: str, *, value: str, request_options: typing.Optional[RequestOptions] = None
     ) -> SetRulesConfigResponseContent:
         """
         Sets a rules config variable.

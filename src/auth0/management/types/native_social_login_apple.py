@@ -11,7 +11,7 @@ class NativeSocialLoginApple(UniversalBaseModel):
     Native Social Login support for the Apple connection
     """
 
-    enabled: typing.Optional[bool] = pydantic.Field(default=False)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Determine whether or not to allow signing in natively using an Apple authorization code
     """

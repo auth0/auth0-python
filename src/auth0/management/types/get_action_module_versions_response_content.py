@@ -13,6 +13,21 @@ class GetActionModuleVersionsResponseContent(UniversalBaseModel):
     A list of ActionsModuleVersion objects.
     """
 
+    total: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The total number of versions for this module.
+    """
+
+    page: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The page index of the returned results.
+    """
+
+    per_page: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The number of results requested per page.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

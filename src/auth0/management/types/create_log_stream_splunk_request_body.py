@@ -19,13 +19,11 @@ class CreateLogStreamSplunkRequestBody(UniversalBaseModel):
     """
 
     type: LogStreamSplunkEnum
-    is_priority: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isPriority")] = pydantic.Field(
-        alias="isPriority", default=None
-    )
-    """
-    True for priority log streams, false for non-priority
-    """
-
+    is_priority: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isPriority"),
+        pydantic.Field(alias="isPriority", description="True for priority log streams, false for non-priority"),
+    ] = None
     filters: typing.Optional[typing.List[LogStreamFilter]] = pydantic.Field(default=None)
     """
     Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.
@@ -33,12 +31,11 @@ class CreateLogStreamSplunkRequestBody(UniversalBaseModel):
 
     pii_config: typing.Optional[LogStreamPiiConfig] = None
     sink: LogStreamSplunkSink
-    start_from: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="startFrom")] = pydantic.Field(
-        alias="startFrom", default="2021-03-01T19:57:29.532Z"
-    )
-    """
-    The optional datetime (ISO 8601) to start streaming logs from
-    """
+    start_from: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="startFrom"),
+        pydantic.Field(alias="startFrom", description="The optional datetime (ISO 8601) to start streaming logs from"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

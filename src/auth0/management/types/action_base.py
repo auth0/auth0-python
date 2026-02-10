@@ -13,12 +13,12 @@ class ActionBase(UniversalBaseModel):
     The action to which this version belongs.
     """
 
-    id: typing.Optional[str] = pydantic.Field(default="910b1053-577f-4d81-a8c8-020e7319a38a")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique ID of the action.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default="my-action")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of an action.
     """
@@ -28,7 +28,7 @@ class ActionBase(UniversalBaseModel):
     The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.
     """
 
-    all_changes_deployed: typing.Optional[bool] = pydantic.Field(default=False)
+    all_changes_deployed: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True if all of an Action's contents have been deployed.
     """

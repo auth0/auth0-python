@@ -11,12 +11,12 @@ class IntegrationSemVer(UniversalBaseModel):
     Semver denotes the major.minor version of an integration release
     """
 
-    major: typing.Optional[int] = pydantic.Field(default=1)
+    major: typing.Optional[int] = pydantic.Field(default=None)
     """
     Major is the major number of a semver
     """
 
-    minor: typing.Optional[int] = pydantic.Field(default=1)
+    minor: typing.Optional[int] = pydantic.Field(default=None)
     """
     Minior is the minior number of a semver
     """

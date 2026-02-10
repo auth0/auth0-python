@@ -33,36 +33,35 @@ from .token_quota import TokenQuota
 
 
 class Client(UniversalBaseModel):
-    client_id: typing.Optional[str] = pydantic.Field(default="AaiyAPdpYdesoKnqjj8HJqRn4T5titww")
+    client_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of this client.
     """
 
-    tenant: typing.Optional[str] = pydantic.Field(default="")
+    tenant: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of the tenant this client belongs to.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default="My application")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of this client (min length: 1 character, does not allow `<` or `>`).
     """
 
-    description: typing.Optional[str] = pydantic.Field(default="")
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Free text description of this client (max length: 140 characters).
     """
 
-    global_: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="global")] = pydantic.Field(
-        alias="global", default=False
-    )
-    """
-    Whether this is your global 'All Applications' client representing legacy tenant settings (true) or a regular client (false).
-    """
-
-    client_secret: typing.Optional[str] = pydantic.Field(
-        default="MG_TNT2ver-SylNat-_VeMmd-4m0Waba0jr1troztBniSChEw0glxEmgEi2Kw40H"
-    )
+    global_: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="global"),
+        pydantic.Field(
+            alias="global",
+            description="Whether this is your global 'All Applications' client representing legacy tenant settings (true) or a regular client (false).",
+        ),
+    ] = None
+    client_secret: typing.Optional[str] = pydantic.Field(default=None)
     """
     Client secret (which you must not make public).
     """
@@ -73,12 +72,12 @@ class Client(UniversalBaseModel):
     URL of the logo to display for this client. Recommended size is 150x150 pixels.
     """
 
-    is_first_party: typing.Optional[bool] = pydantic.Field(default=False)
+    is_first_party: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether this client a first party client (true) or not (false).
     """
 
-    oidc_conformant: typing.Optional[bool] = pydantic.Field(default=False)
+    oidc_conformant: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether this client conforms to <a href='https://auth0.com/docs/api-auth/tutorials/adoption'>strict OIDC specifications</a> (true) or uses legacy features (false).
     """
@@ -123,12 +122,12 @@ class Client(UniversalBaseModel):
     jwt_configuration: typing.Optional[ClientJwtConfiguration] = None
     signing_keys: typing.Optional[ClientSigningKeys] = None
     encryption_key: typing.Optional[ClientEncryptionKey] = None
-    sso: typing.Optional[bool] = pydantic.Field(default=False)
+    sso: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Applies only to SSO clients and determines whether Auth0 will handle Single Sign On (true) or whether the Identity Provider will (false).
     """
 
-    sso_disabled: typing.Optional[bool] = pydantic.Field(default=False)
+    sso_disabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether Single Sign On is disabled (true) or enabled (true). Defaults to true.
     """
@@ -143,29 +142,29 @@ class Client(UniversalBaseModel):
     URL of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
     """
 
-    custom_login_page_on: typing.Optional[bool] = pydantic.Field(default=True)
+    custom_login_page_on: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether a custom login page is to be used (true) or the default provided login page (false).
     """
 
-    custom_login_page: typing.Optional[str] = pydantic.Field(default="")
+    custom_login_page: typing.Optional[str] = pydantic.Field(default=None)
     """
     The content (HTML, CSS, JS) of the custom login page.
     """
 
-    custom_login_page_preview: typing.Optional[str] = pydantic.Field(default="")
+    custom_login_page_preview: typing.Optional[str] = pydantic.Field(default=None)
     """
     The content (HTML, CSS, JS) of the custom login page. (Used on Previews)
     """
 
-    form_template: typing.Optional[str] = pydantic.Field(default="")
+    form_template: typing.Optional[str] = pydantic.Field(default=None)
     """
     HTML form template to be used for WS-Federation.
     """
 
     addons: typing.Optional[ClientAddons] = None
     token_endpoint_auth_method: typing.Optional[ClientTokenEndpointAuthMethodEnum] = None
-    is_token_endpoint_ip_header_trusted: typing.Optional[bool] = pydantic.Field(default=False)
+    is_token_endpoint_ip_header_trusted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If true, trust that the IP specified in the `auth0-forwarded-for` header is the end-user's IP for brute-force-protection on token endpoint.
     """
@@ -189,12 +188,12 @@ class Client(UniversalBaseModel):
     """
 
     client_authentication_methods: typing.Optional[ClientAuthenticationMethod] = None
-    require_pushed_authorization_requests: typing.Optional[bool] = pydantic.Field(default=False)
+    require_pushed_authorization_requests: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Makes the use of Pushed Authorization Requests mandatory for this client
     """
 
-    require_proof_of_possession: typing.Optional[bool] = pydantic.Field(default=False)
+    require_proof_of_possession: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Makes the use of Proof-of-Possession mandatory for this client
     """

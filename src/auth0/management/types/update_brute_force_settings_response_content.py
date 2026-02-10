@@ -26,7 +26,7 @@ class UpdateBruteForceSettingsResponseContent(UniversalBaseModel):
     """
 
     mode: typing.Optional[BruteForceProtectionModeEnum] = None
-    max_attempts: typing.Optional[int] = pydantic.Field(default=10)
+    max_attempts: typing.Optional[int] = pydantic.Field(default=None)
     """
     Maximum number of unsuccessful attempts.
     """

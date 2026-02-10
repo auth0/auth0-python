@@ -46,25 +46,27 @@ class ConnectionPropertiesOptions(UniversalBaseModel):
     """
 
     enabled_database_customization: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="enabledDatabaseCustomization")
-    ] = pydantic.Field(alias="enabledDatabaseCustomization", default=None)
-    """
-    Set to true to use a legacy user store
-    """
-
+        typing.Optional[bool],
+        FieldMetadata(alias="enabledDatabaseCustomization"),
+        pydantic.Field(alias="enabledDatabaseCustomization", description="Set to true to use a legacy user store"),
+    ] = None
     import_mode: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enable this if you have a legacy user store and you want to gradually migrate those users to the Auth0 user store
     """
 
     custom_scripts: typing_extensions.Annotated[
-        typing.Optional[ConnectionCustomScripts], FieldMetadata(alias="customScripts")
-    ] = pydantic.Field(alias="customScripts", default=None)
+        typing.Optional[ConnectionCustomScripts],
+        FieldMetadata(alias="customScripts"),
+        pydantic.Field(alias="customScripts"),
+    ] = None
     authentication_methods: typing.Optional[ConnectionAuthenticationMethods] = None
     passkey_options: typing.Optional[ConnectionPasskeyOptions] = None
     password_policy: typing_extensions.Annotated[
-        typing.Optional[ConnectionPasswordPolicyEnum], FieldMetadata(alias="passwordPolicy")
-    ] = pydantic.Field(alias="passwordPolicy", default=None)
+        typing.Optional[ConnectionPasswordPolicyEnum],
+        FieldMetadata(alias="passwordPolicy"),
+        pydantic.Field(alias="passwordPolicy"),
+    ] = None
     password_complexity_options: typing.Optional[ConnectionPasswordComplexityOptions] = None
     password_history: typing.Optional[ConnectionPasswordHistoryOptions] = None
     password_no_personal_info: typing.Optional[ConnectionPasswordNoPersonalInfoOptions] = None

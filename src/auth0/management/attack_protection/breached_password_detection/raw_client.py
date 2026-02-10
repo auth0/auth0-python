@@ -106,7 +106,7 @@ class RawBreachedPasswordDetectionClient:
     def update(
         self,
         *,
-        enabled: typing.Optional[bool] = True,
+        enabled: typing.Optional[bool] = OMIT,
         shields: typing.Optional[typing.Sequence[BreachedPasswordDetectionShieldsEnum]] = OMIT,
         admin_notification_frequency: typing.Optional[
             typing.Sequence[BreachedPasswordDetectionAdminNotificationFrequencyEnum]
@@ -297,7 +297,7 @@ class AsyncRawBreachedPasswordDetectionClient:
     async def update(
         self,
         *,
-        enabled: typing.Optional[bool] = True,
+        enabled: typing.Optional[bool] = OMIT,
         shields: typing.Optional[typing.Sequence[BreachedPasswordDetectionShieldsEnum]] = OMIT,
         admin_notification_frequency: typing.Optional[
             typing.Sequence[BreachedPasswordDetectionAdminNotificationFrequencyEnum]

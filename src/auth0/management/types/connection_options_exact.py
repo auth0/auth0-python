@@ -3,14 +3,34 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from ..core.serialization import FieldMetadata
+from .connection_base_url_exact import ConnectionBaseUrlExact
+from .connection_client_id_exact import ConnectionClientIdExact
+from .connection_client_secret_exact import ConnectionClientSecretExact
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_upstream_params import ConnectionUpstreamParams
 
 
-class ConnectionOptionsExact(ConnectionOptionsOAuth2Common):
+class ConnectionOptionsExact(ConnectionOptionsCommon):
     """
     Options for the 'exact' connection
     """
+
+    base_url: typing_extensions.Annotated[
+        typing.Optional[ConnectionBaseUrlExact], FieldMetadata(alias="baseUrl"), pydantic.Field(alias="baseUrl")
+    ] = None
+    client_id: typing.Optional[ConnectionClientIdExact] = None
+    client_secret: typing.Optional[ConnectionClientSecretExact] = None
+    profile: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Enables retrieval of basic profile attributes from Exact Online including name, username, picture, email, gender, and language.
+    """
+
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

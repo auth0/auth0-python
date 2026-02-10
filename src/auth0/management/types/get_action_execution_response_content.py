@@ -15,7 +15,7 @@ class GetActionExecutionResponseContent(UniversalBaseModel):
     The result of a specific execution of a trigger.
     """
 
-    id: typing.Optional[str] = pydantic.Field(default="c5b35bb1-c67d-40bb-9b0d-700b6fe33dd9")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID identifies this specific execution simulation. These IDs would resemble real executions in production.
     """

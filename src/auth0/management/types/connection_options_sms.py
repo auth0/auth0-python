@@ -33,9 +33,9 @@ class ConnectionOptionsSms(ConnectionOptionsCommon):
 
     disable_signup: typing.Optional[ConnectionDisableSignupSms] = None
     forward_req_info: typing.Optional[ConnectionForwardReqInfoSms] = None
-    from_: typing_extensions.Annotated[typing.Optional[ConnectionFromSms], FieldMetadata(alias="from")] = (
-        pydantic.Field(alias="from", default=None)
-    )
+    from_: typing_extensions.Annotated[
+        typing.Optional[ConnectionFromSms], FieldMetadata(alias="from"), pydantic.Field(alias="from")
+    ] = None
     gateway_authentication: typing.Optional[ConnectionGatewayAuthenticationSms] = None
     gateway_url: typing.Optional[ConnectionGatewayUrlSms] = None
     messaging_service_sid: typing.Optional[ConnectionMessagingServiceSidSms] = None
