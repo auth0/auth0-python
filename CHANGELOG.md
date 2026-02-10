@@ -1,5 +1,11 @@
 # Change Log
 
+## [5.1.0](https://github.com/auth0/auth0-python/tree/5.1.0) (2026-02-10)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.0.0...5.1.0)
+
+**Fixed**
+- fix: Remove placeholder defaults from optional parameters + additional updates     [\#778](https://github.com/auth0/auth0-python/pull/778) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [5.0.0](https://github.com/auth0/auth0-python/tree/5.0.0) (2026-02-04)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/4.13.0...5.0.0)
 
