@@ -20,8 +20,10 @@ class ConnectionOptionsEmail(ConnectionOptionsCommon):
     """
 
     auth_params: typing_extensions.Annotated[
-        typing.Optional[ConnectionAuthParamsEmail], FieldMetadata(alias="authParams")
-    ] = pydantic.Field(alias="authParams", default=None)
+        typing.Optional[ConnectionAuthParamsEmail],
+        FieldMetadata(alias="authParams"),
+        pydantic.Field(alias="authParams"),
+    ] = None
     brute_force_protection: ConnectionBruteForceProtection
     disable_signup: typing.Optional[ConnectionDisableSignup] = None
     email: ConnectionEmailEmail

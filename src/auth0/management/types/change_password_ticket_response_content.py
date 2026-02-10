@@ -7,9 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class ChangePasswordTicketResponseContent(UniversalBaseModel):
-    ticket: str = pydantic.Field(
-        default="https://login.auth0.com/lo/reset?client_id=nsaPS2p3cargoFy82WT7betaOPOt3qSh&tenant=mdocs&bewit=bmNlR01CcDNOUE1GeXVzODJXVDdyY1RUT1BPdDNxU2hcMTQzMDY2MjE4MVxuRTcxM0RSeUNlbEpzUUJmaFVaS3A1NEdJbWFzSUZMYzRTdEFtY2NMMXhZPVx7ImVtYWloojoiZGFtaWtww2NoQGhvdG1haWwuY29tIiwidGVuYW50IjoiZHNjaGVua2tjwWFuIiwiY2xpZW50X2lkIjoibmNlR01CcDNOUE1GeXVzODJXVDdyY1RUT1BPiiqxU2giLCJjb25uZWN0aW9uIjoiRGFtaWmsdiwicmVzdWx0VXJsIjoiIn0"
-    )
+    ticket: str = pydantic.Field()
     """
     URL representing the ticket.
     """

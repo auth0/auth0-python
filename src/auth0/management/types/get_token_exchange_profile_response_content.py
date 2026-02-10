@@ -14,7 +14,7 @@ class GetTokenExchangeProfileResponseContent(UniversalBaseModel):
     The unique ID of the token exchange profile.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default="Token Exchange Profile 1")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Friendly name of this profile.
     """

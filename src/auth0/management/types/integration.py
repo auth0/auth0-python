@@ -15,29 +15,29 @@ class Integration(UniversalBaseModel):
     publish. A partner may create one or many of these integrations.
     """
 
-    id: typing.Optional[str] = pydantic.Field(default="8e9fe2d0-a2fc-4c8c-9e35-dae5afadb70b")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     id is a system generated GUID. This same ID is designed to be federated in
     all the applicable localities.
     """
 
-    catalog_id: typing.Optional[str] = pydantic.Field(default="awesome-auth0-integration")
+    catalog_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     catalog_id refers to the ID in the marketplace catalog
     """
 
-    url_slug: typing.Optional[str] = pydantic.Field(default="awesome-auth0-integration-slug")
+    url_slug: typing.Optional[str] = pydantic.Field(default=None)
     """
     url_slug refers to the url_slug in the marketplace catalog
     """
 
-    partner_id: typing.Optional[str] = pydantic.Field(default="b8575c12-8d9d-4b5c-b28e-671fe9d39029")
+    partner_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     partner_id is the foreign key reference to the partner account this
     integration belongs to.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default="Example Auth0 integration")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     name is the integration name, which will be used for display purposes in
     the marketplace.
@@ -46,13 +46,13 @@ class Integration(UniversalBaseModel):
     characters. Can adjust this easily later.
     """
 
-    description: typing.Optional[str] = pydantic.Field(default="An awesome Auth0 integration")
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     description adds more text for the integration name -- also relevant for
     the marketplace listing.
     """
 
-    short_description: typing.Optional[str] = pydantic.Field(default="Awesome Auth0 integration")
+    short_description: typing.Optional[str] = pydantic.Field(default=None)
     """
     short_description is the brief description of the integration, which is used for display purposes in cards
     """

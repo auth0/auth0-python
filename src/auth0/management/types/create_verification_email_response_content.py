@@ -7,12 +7,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreateVerificationEmailResponseContent(UniversalBaseModel):
-    status: str = pydantic.Field(default="completed")
+    status: str = pydantic.Field()
     """
     Status of this job.
     """
 
-    type: str = pydantic.Field(default="verification_email")
+    type: str = pydantic.Field()
     """
     Type of job this is.
     """
@@ -22,7 +22,7 @@ class CreateVerificationEmailResponseContent(UniversalBaseModel):
     When this job was created.
     """
 
-    id: str = pydantic.Field(default="job_0000000000000001")
+    id: str = pydantic.Field()
     """
     ID of this job.
     """

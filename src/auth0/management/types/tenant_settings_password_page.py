@@ -11,12 +11,12 @@ class TenantSettingsPasswordPage(UniversalBaseModel):
     Change Password page customization.
     """
 
-    enabled: typing.Optional[bool] = pydantic.Field(default=False)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether to use the custom change password HTML (true) or the default Auth0 page (false). Default is to use the Auth0 page.
     """
 
-    html: typing.Optional[str] = pydantic.Field(default="")
+    html: typing.Optional[str] = pydantic.Field(default=None)
     """
     Custom change password HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> supported).
     """

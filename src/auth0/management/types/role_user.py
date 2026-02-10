@@ -22,7 +22,7 @@ class RoleUser(UniversalBaseModel):
     Name of this user.
     """
 
-    email: typing.Optional[str] = pydantic.Field(default="john.doe@gmail.com")
+    email: typing.Optional[str] = pydantic.Field(default=None)
     """
     Email address of this user.
     """

@@ -19,8 +19,10 @@ class ConnectionProfileStrategyOverrides(UniversalBaseModel):
     adfs: typing.Optional[ConnectionProfileStrategyOverride] = None
     waad: typing.Optional[ConnectionProfileStrategyOverride] = None
     google_apps: typing_extensions.Annotated[
-        typing.Optional[ConnectionProfileStrategyOverride], FieldMetadata(alias="google-apps")
-    ] = pydantic.Field(alias="google-apps", default=None)
+        typing.Optional[ConnectionProfileStrategyOverride],
+        FieldMetadata(alias="google-apps"),
+        pydantic.Field(alias="google-apps"),
+    ] = None
     okta: typing.Optional[ConnectionProfileStrategyOverride] = None
     oidc: typing.Optional[ConnectionProfileStrategyOverride] = None
     samlp: typing.Optional[ConnectionProfileStrategyOverride] = None

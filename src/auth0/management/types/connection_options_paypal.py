@@ -4,12 +4,42 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_client_id_paypal import ConnectionClientIdPaypal
+from .connection_client_secret_paypal import ConnectionClientSecretPaypal
+from .connection_freeform_scopes_paypal import ConnectionFreeformScopesPaypal
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_scope_paypal import ConnectionScopePaypal
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
 
 
-class ConnectionOptionsPaypal(ConnectionOptionsOAuth2Common):
+class ConnectionOptionsPaypal(ConnectionOptionsCommon):
     """
     Options for the 'paypal' and 'paypal-sandbox' connections
+    """
+
+    client_id: typing.Optional[ConnectionClientIdPaypal] = None
+    client_secret: typing.Optional[ConnectionClientSecretPaypal] = None
+    freeform_scopes: typing.Optional[ConnectionFreeformScopesPaypal] = None
+    scope: typing.Optional[ConnectionScopePaypal] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    address: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests the 'address' scope from PayPal to access the user's address information.
+    """
+
+    email: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests the 'email' scope from PayPal to access the user's email address.
+    """
+
+    phone: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests the 'phone' scope from PayPal to access the user's phone number.
+    """
+
+    profile: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests the 'profile' scope from PayPal to access basic profile information including first name, last name, date of birth, time zone, locale, and language. This scope is always enabled by the system.
     """
 
     if IS_PYDANTIC_V2:

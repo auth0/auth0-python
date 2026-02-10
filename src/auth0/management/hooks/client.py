@@ -115,10 +115,10 @@ class HooksClient:
     def create(
         self,
         *,
-        name: str = "my-hook",
-        script: str = "module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };",
+        name: str,
+        script: str,
         trigger_id: HookTriggerIdEnum,
-        enabled: typing.Optional[bool] = False,
+        enabled: typing.Optional[bool] = OMIT,
         dependencies: typing.Optional[HookDependencies] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateHookResponseContent:
@@ -242,11 +242,9 @@ class HooksClient:
         self,
         id: str,
         *,
-        name: typing.Optional[str] = "my-hook",
-        script: typing.Optional[
-            str
-        ] = "module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };",
-        enabled: typing.Optional[bool] = False,
+        name: typing.Optional[str] = OMIT,
+        script: typing.Optional[str] = OMIT,
+        enabled: typing.Optional[bool] = OMIT,
         dependencies: typing.Optional[HookDependencies] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateHookResponseContent:
@@ -404,10 +402,10 @@ class AsyncHooksClient:
     async def create(
         self,
         *,
-        name: str = "my-hook",
-        script: str = "module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };",
+        name: str,
+        script: str,
         trigger_id: HookTriggerIdEnum,
-        enabled: typing.Optional[bool] = False,
+        enabled: typing.Optional[bool] = OMIT,
         dependencies: typing.Optional[HookDependencies] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateHookResponseContent:
@@ -555,11 +553,9 @@ class AsyncHooksClient:
         self,
         id: str,
         *,
-        name: typing.Optional[str] = "my-hook",
-        script: typing.Optional[
-            str
-        ] = "module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };",
-        enabled: typing.Optional[bool] = False,
+        name: typing.Optional[str] = OMIT,
+        script: typing.Optional[str] = OMIT,
+        enabled: typing.Optional[bool] = OMIT,
         dependencies: typing.Optional[HookDependencies] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateHookResponseContent:

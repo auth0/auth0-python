@@ -10,9 +10,9 @@ from .flow_action_auth_0_make_call_params_custom_vars import FlowActionAuth0Make
 
 
 class FlowActionAuth0MakeCallParams(UniversalBaseModel):
-    from_: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="from")] = pydantic.Field(
-        alias="from", default=None
-    )
+    from_: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="from"), pydantic.Field(alias="from")
+    ] = None
     to: str
     message: str
     custom_vars: typing.Optional[FlowActionAuth0MakeCallParamsCustomVars] = None

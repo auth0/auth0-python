@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class OrganizationInvitationInvitee(UniversalBaseModel):
-    email: str = pydantic.Field(default="john.doe@gmail.com")
+    email: str = pydantic.Field()
     """
     The invitee's email.
     """

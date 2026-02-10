@@ -29,26 +29,36 @@ class ConnectionOptionsOAuth2(ConnectionOptionsCommon):
     """
 
     auth_params: typing_extensions.Annotated[
-        typing.Optional[ConnectionAuthParamsOAuth2], FieldMetadata(alias="authParams")
-    ] = pydantic.Field(alias="authParams", default=None)
+        typing.Optional[ConnectionAuthParamsOAuth2],
+        FieldMetadata(alias="authParams"),
+        pydantic.Field(alias="authParams"),
+    ] = None
     auth_params_map: typing_extensions.Annotated[
-        typing.Optional[ConnectionAuthParamsMap], FieldMetadata(alias="authParamsMap")
-    ] = pydantic.Field(alias="authParamsMap", default=None)
+        typing.Optional[ConnectionAuthParamsMap],
+        FieldMetadata(alias="authParamsMap"),
+        pydantic.Field(alias="authParamsMap"),
+    ] = None
     authorization_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionAuthorizationEndpointOAuth2], FieldMetadata(alias="authorizationURL")
-    ] = pydantic.Field(alias="authorizationURL", default=None)
+        typing.Optional[ConnectionAuthorizationEndpointOAuth2],
+        FieldMetadata(alias="authorizationURL"),
+        pydantic.Field(alias="authorizationURL"),
+    ] = None
     client_id: typing.Optional[ConnectionClientIdOAuth2] = None
     client_secret: typing.Optional[ConnectionClientSecretOAuth2] = None
     custom_headers: typing_extensions.Annotated[
-        typing.Optional[ConnectionCustomHeadersOAuth2], FieldMetadata(alias="customHeaders")
-    ] = pydantic.Field(alias="customHeaders", default=None)
-    fields_map: typing_extensions.Annotated[typing.Optional[ConnectionFieldsMap], FieldMetadata(alias="fieldsMap")] = (
-        pydantic.Field(alias="fieldsMap", default=None)
-    )
+        typing.Optional[ConnectionCustomHeadersOAuth2],
+        FieldMetadata(alias="customHeaders"),
+        pydantic.Field(alias="customHeaders"),
+    ] = None
+    fields_map: typing_extensions.Annotated[
+        typing.Optional[ConnectionFieldsMap], FieldMetadata(alias="fieldsMap"), pydantic.Field(alias="fieldsMap")
+    ] = None
     icon_url: typing.Optional[ConnectionIconUrl] = None
     logout_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionEndSessionEndpointOAuth2], FieldMetadata(alias="logoutUrl")
-    ] = pydantic.Field(alias="logoutUrl", default=None)
+        typing.Optional[ConnectionEndSessionEndpointOAuth2],
+        FieldMetadata(alias="logoutUrl"),
+        pydantic.Field(alias="logoutUrl"),
+    ] = None
     pkce_enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When true, enables Proof Key for Code Exchange (PKCE) for the authorization code flow. PKCE provides additional security by preventing authorization code interception attacks.
@@ -58,15 +68,19 @@ class ConnectionOptionsOAuth2(ConnectionOptionsCommon):
     scripts: typing.Optional[ConnectionScriptsOAuth2] = None
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     token_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionTokenEndpointOAuth2], FieldMetadata(alias="tokenURL")
-    ] = pydantic.Field(alias="tokenURL", default=None)
+        typing.Optional[ConnectionTokenEndpointOAuth2],
+        FieldMetadata(alias="tokenURL"),
+        pydantic.Field(alias="tokenURL"),
+    ] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     use_oauth_spec_scope: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="useOauthSpecScope")
-    ] = pydantic.Field(alias="useOauthSpecScope", default=None)
-    """
-    When true, uses space-delimited scopes (per OAuth 2.0 spec) instead of comma-delimited when calling the identity provider's authorization endpoint. Only relevant when using the connection_scope parameter. See https://auth0.com/docs/authenticate/identity-providers/adding-scopes-for-an-external-idp#pass-scopes-to-authorize-endpoint
-    """
+        typing.Optional[bool],
+        FieldMetadata(alias="useOauthSpecScope"),
+        pydantic.Field(
+            alias="useOauthSpecScope",
+            description="When true, uses space-delimited scopes (per OAuth 2.0 spec) instead of comma-delimited when calling the identity provider's authorization endpoint. Only relevant when using the connection_scope parameter. See https://auth0.com/docs/authenticate/identity-providers/adding-scopes-for-an-external-idp#pass-scopes-to-authorize-endpoint",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

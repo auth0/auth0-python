@@ -34,11 +34,12 @@ class ConnectionGatewayAuthentication(UniversalBaseModel):
     """
 
     secret_base_64_encoded: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="secret_base64_encoded")
-    ] = pydantic.Field(alias="secret_base64_encoded", default=None)
-    """
-    Set to true if the provided secret is base64 encoded.
-    """
+        typing.Optional[bool],
+        FieldMetadata(alias="secret_base64_encoded"),
+        pydantic.Field(
+            alias="secret_base64_encoded", description="Set to true if the provided secret is base64 encoded."
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

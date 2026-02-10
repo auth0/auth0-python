@@ -11,7 +11,7 @@ class TenantOidcLogoutSettings(UniversalBaseModel):
     Settings related to OIDC RP-initiated Logout
     """
 
-    rp_logout_end_session_endpoint_discovery: typing.Optional[bool] = pydantic.Field(default=True)
+    rp_logout_end_session_endpoint_discovery: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enable the end_session_endpoint URL in the .well-known discovery configuration
     """

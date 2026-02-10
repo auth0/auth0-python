@@ -146,10 +146,10 @@ class PhoneClient:
     def set_twilio_provider(
         self,
         *,
-        from_: typing.Optional[str] = "+1223323",
-        messaging_service_sid: typing.Optional[str] = "5dEkAiHLPCuQ1uJj4qNXcAnERFAL6cpq",
-        auth_token: typing.Optional[str] = "zw5Ku6z2sxhd0ZVXto5SDHX6KPDByJPU",
-        sid: typing.Optional[str] = "wywA2BH4VqTpfywiDuyDAYZL3xQjoO40",
+        from_: typing.Optional[str] = OMIT,
+        messaging_service_sid: typing.Optional[str] = OMIT,
+        auth_token: typing.Optional[str] = OMIT,
+        sid: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorsProviderPhoneTwilioResponseContent:
         """
@@ -287,8 +287,8 @@ class PhoneClient:
     def set_templates(
         self,
         *,
-        enrollment_message: str = "{{code}} is your verification code for {{tenant.friendly_name}}. Please enter this code to verify your enrollment.",
-        verification_message: str = "{{code}} is your verification code for {{tenant.friendly_name}}",
+        enrollment_message: str,
+        verification_message: str,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorPhoneTemplatesResponseContent:
         """
@@ -466,10 +466,10 @@ class AsyncPhoneClient:
     async def set_twilio_provider(
         self,
         *,
-        from_: typing.Optional[str] = "+1223323",
-        messaging_service_sid: typing.Optional[str] = "5dEkAiHLPCuQ1uJj4qNXcAnERFAL6cpq",
-        auth_token: typing.Optional[str] = "zw5Ku6z2sxhd0ZVXto5SDHX6KPDByJPU",
-        sid: typing.Optional[str] = "wywA2BH4VqTpfywiDuyDAYZL3xQjoO40",
+        from_: typing.Optional[str] = OMIT,
+        messaging_service_sid: typing.Optional[str] = OMIT,
+        auth_token: typing.Optional[str] = OMIT,
+        sid: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorsProviderPhoneTwilioResponseContent:
         """
@@ -639,8 +639,8 @@ class AsyncPhoneClient:
     async def set_templates(
         self,
         *,
-        enrollment_message: str = "{{code}} is your verification code for {{tenant.friendly_name}}. Please enter this code to verify your enrollment.",
-        verification_message: str = "{{code}} is your verification code for {{tenant.friendly_name}}",
+        enrollment_message: str,
+        verification_message: str,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorPhoneTemplatesResponseContent:
         """

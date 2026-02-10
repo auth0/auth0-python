@@ -11,7 +11,7 @@ class NativeSocialLoginGoogle(UniversalBaseModel):
     Native Social Login support for the google-oauth2 connection
     """
 
-    enabled: typing.Optional[bool] = pydantic.Field(default=False)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Determine whether or not to allow signing in natively using a Google ID token
     """

@@ -11,22 +11,22 @@ class GetJobSummary(UniversalBaseModel):
     Job execution summary.
     """
 
-    failed: typing.Optional[int] = pydantic.Field(default=0)
+    failed: typing.Optional[int] = pydantic.Field(default=None)
     """
     Number of failed operations.
     """
 
-    updated: typing.Optional[int] = pydantic.Field(default=0)
+    updated: typing.Optional[int] = pydantic.Field(default=None)
     """
     Number of updated records.
     """
 
-    inserted: typing.Optional[int] = pydantic.Field(default=0)
+    inserted: typing.Optional[int] = pydantic.Field(default=None)
     """
     Number of inserted records.
     """
 
-    total: typing.Optional[int] = pydantic.Field(default=0)
+    total: typing.Optional[int] = pydantic.Field(default=None)
     """
     Total number of operations.
     """

@@ -173,10 +173,10 @@ class RawHooksClient:
     def create(
         self,
         *,
-        name: str = "my-hook",
-        script: str = "module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };",
+        name: str,
+        script: str,
         trigger_id: HookTriggerIdEnum,
-        enabled: typing.Optional[bool] = False,
+        enabled: typing.Optional[bool] = OMIT,
         dependencies: typing.Optional[HookDependencies] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateHookResponseContent]:
@@ -469,11 +469,9 @@ class RawHooksClient:
         self,
         id: str,
         *,
-        name: typing.Optional[str] = "my-hook",
-        script: typing.Optional[
-            str
-        ] = "module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };",
-        enabled: typing.Optional[bool] = False,
+        name: typing.Optional[str] = OMIT,
+        script: typing.Optional[str] = OMIT,
+        enabled: typing.Optional[bool] = OMIT,
         dependencies: typing.Optional[HookDependencies] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateHookResponseContent]:
@@ -749,10 +747,10 @@ class AsyncRawHooksClient:
     async def create(
         self,
         *,
-        name: str = "my-hook",
-        script: str = "module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };",
+        name: str,
+        script: str,
         trigger_id: HookTriggerIdEnum,
-        enabled: typing.Optional[bool] = False,
+        enabled: typing.Optional[bool] = OMIT,
         dependencies: typing.Optional[HookDependencies] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateHookResponseContent]:
@@ -1047,11 +1045,9 @@ class AsyncRawHooksClient:
         self,
         id: str,
         *,
-        name: typing.Optional[str] = "my-hook",
-        script: typing.Optional[
-            str
-        ] = "module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };",
-        enabled: typing.Optional[bool] = False,
+        name: typing.Optional[str] = OMIT,
+        script: typing.Optional[str] = OMIT,
+        enabled: typing.Optional[bool] = OMIT,
         dependencies: typing.Optional[HookDependencies] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateHookResponseContent]:

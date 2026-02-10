@@ -27,10 +27,10 @@ class RawVerificationEmailClient:
     def create(
         self,
         *,
-        user_id: str = "google-oauth2|1234",
+        user_id: str,
         client_id: typing.Optional[str] = OMIT,
         identity: typing.Optional[Identity] = OMIT,
-        organization_id: typing.Optional[str] = "org_2eondWoxcMIpaLQc",
+        organization_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateVerificationEmailResponseContent]:
         """
@@ -143,10 +143,10 @@ class AsyncRawVerificationEmailClient:
     async def create(
         self,
         *,
-        user_id: str = "google-oauth2|1234",
+        user_id: str,
         client_id: typing.Optional[str] = OMIT,
         identity: typing.Optional[Identity] = OMIT,
-        organization_id: typing.Optional[str] = "org_2eondWoxcMIpaLQc",
+        organization_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateVerificationEmailResponseContent]:
         """

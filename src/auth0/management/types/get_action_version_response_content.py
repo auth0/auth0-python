@@ -15,17 +15,17 @@ from .action_version_dependency import ActionVersionDependency
 
 
 class GetActionVersionResponseContent(UniversalBaseModel):
-    id: typing.Optional[str] = pydantic.Field(default="12a3b9e6-06e6-4a29-96bf-90c82fe79a0d")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique id of an action version.
     """
 
-    action_id: typing.Optional[str] = pydantic.Field(default="910b1053-577f-4d81-a8c8-020e7319a38a")
+    action_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the action to which this version belongs.
     """
 
-    code: typing.Optional[str] = pydantic.Field(default="module.exports = () => {}")
+    code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The source code of this specific version of the action.
     """
@@ -35,12 +35,12 @@ class GetActionVersionResponseContent(UniversalBaseModel):
     The list of third party npm modules, and their versions, that this specific version depends on. 
     """
 
-    deployed: typing.Optional[bool] = pydantic.Field(default=True)
+    deployed: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates if this specific version is the currently one deployed.
     """
 
-    runtime: typing.Optional[str] = pydantic.Field(default="node22")
+    runtime: typing.Optional[str] = pydantic.Field(default=None)
     """
     The Node runtime. For example: `node22`
     """
@@ -51,7 +51,7 @@ class GetActionVersionResponseContent(UniversalBaseModel):
     """
 
     status: typing.Optional[ActionVersionBuildStatusEnum] = None
-    number: typing.Optional[float] = pydantic.Field(default=1.0)
+    number: typing.Optional[float] = pydantic.Field(default=None)
     """
     The index of this version in list of versions for the action.
     """

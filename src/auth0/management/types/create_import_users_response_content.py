@@ -7,12 +7,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreateImportUsersResponseContent(UniversalBaseModel):
-    status: str = pydantic.Field(default="pending")
+    status: str = pydantic.Field()
     """
     Status of this job.
     """
 
-    type: str = pydantic.Field(default="users_import")
+    type: str = pydantic.Field()
     """
     Type of job this is.
     """
@@ -22,12 +22,12 @@ class CreateImportUsersResponseContent(UniversalBaseModel):
     When this job was created.
     """
 
-    id: str = pydantic.Field(default="job_0000000000000001")
+    id: str = pydantic.Field()
     """
     ID of this job.
     """
 
-    connection_id: str = pydantic.Field(default="con_0000000000000001")
+    connection_id: str = pydantic.Field()
     """
     connection_id of the connection to which users will be imported.
     """

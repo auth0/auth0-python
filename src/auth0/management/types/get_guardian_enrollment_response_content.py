@@ -9,23 +9,23 @@ from .guardian_enrollment_status import GuardianEnrollmentStatus
 
 
 class GetGuardianEnrollmentResponseContent(UniversalBaseModel):
-    id: str = pydantic.Field(default="dev_0000000000000001")
+    id: str = pydantic.Field()
     """
     ID for this enrollment.
     """
 
     status: typing.Optional[GuardianEnrollmentStatus] = None
-    name: typing.Optional[str] = pydantic.Field(default="iPhone 7")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Device name (only for push notification).
     """
 
-    identifier: typing.Optional[str] = pydantic.Field(default="76dc-a90c-a88c-a90c-a88c-a88c-a90c")
+    identifier: typing.Optional[str] = pydantic.Field(default=None)
     """
     Device identifier. This is usually the phone identifier.
     """
 
-    phone_number: typing.Optional[str] = pydantic.Field(default="+1 999999999999")
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     Phone number.
     """

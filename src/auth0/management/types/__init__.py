@@ -285,6 +285,7 @@ if typing.TYPE_CHECKING:
     from .connection_authentication_purpose import ConnectionAuthenticationPurpose
     from .connection_authorization_endpoint import ConnectionAuthorizationEndpoint
     from .connection_authorization_endpoint_o_auth_2 import ConnectionAuthorizationEndpointOAuth2
+    from .connection_base_url_exact import ConnectionBaseUrlExact
     from .connection_brute_force_protection import ConnectionBruteForceProtection
     from .connection_calculated_thumbprint_saml import ConnectionCalculatedThumbprintSaml
     from .connection_certs_ad import ConnectionCertsAd
@@ -293,21 +294,36 @@ if typing.TYPE_CHECKING:
     from .connection_claims_parameter_supported import ConnectionClaimsParameterSupported
     from .connection_claims_supported import ConnectionClaimsSupported
     from .connection_client_id import ConnectionClientId
+    from .connection_client_id_amazon import ConnectionClientIdAmazon
     from .connection_client_id_azure_ad import ConnectionClientIdAzureAd
+    from .connection_client_id_bitbucket import ConnectionClientIdBitbucket
+    from .connection_client_id_exact import ConnectionClientIdExact
     from .connection_client_id_facebook import ConnectionClientIdFacebook
     from .connection_client_id_google_apps import ConnectionClientIdGoogleApps
     from .connection_client_id_google_o_auth_2 import ConnectionClientIdGoogleOAuth2
+    from .connection_client_id_line import ConnectionClientIdLine
     from .connection_client_id_o_auth_2 import ConnectionClientIdOAuth2
     from .connection_client_id_oidc import ConnectionClientIdOidc
+    from .connection_client_id_paypal import ConnectionClientIdPaypal
+    from .connection_client_id_salesforce import ConnectionClientIdSalesforce
+    from .connection_client_id_windows_live import ConnectionClientIdWindowsLive
     from .connection_client_protocol_saml import ConnectionClientProtocolSaml
     from .connection_client_secret import ConnectionClientSecret
+    from .connection_client_secret_amazon import ConnectionClientSecretAmazon
     from .connection_client_secret_azure_ad import ConnectionClientSecretAzureAd
+    from .connection_client_secret_bitbucket import ConnectionClientSecretBitbucket
+    from .connection_client_secret_exact import ConnectionClientSecretExact
     from .connection_client_secret_facebook import ConnectionClientSecretFacebook
     from .connection_client_secret_google_apps import ConnectionClientSecretGoogleApps
     from .connection_client_secret_google_o_auth_2 import ConnectionClientSecretGoogleOAuth2
+    from .connection_client_secret_line import ConnectionClientSecretLine
     from .connection_client_secret_o_auth_2 import ConnectionClientSecretOAuth2
     from .connection_client_secret_oidc import ConnectionClientSecretOidc
+    from .connection_client_secret_paypal import ConnectionClientSecretPaypal
+    from .connection_client_secret_salesforce import ConnectionClientSecretSalesforce
+    from .connection_client_secret_windows_live import ConnectionClientSecretWindowsLive
     from .connection_common import ConnectionCommon
+    from .connection_community_base_url_salesforce import ConnectionCommunityBaseUrlSalesforce
     from .connection_configuration import ConnectionConfiguration
     from .connection_connected_accounts_purpose import ConnectionConnectedAccountsPurpose
     from .connection_connected_accounts_purpose_xaa import ConnectionConnectedAccountsPurposeXaa
@@ -365,7 +381,11 @@ if typing.TYPE_CHECKING:
     from .connection_for_list import ConnectionForList
     from .connection_for_organization import ConnectionForOrganization
     from .connection_forward_req_info_sms import ConnectionForwardReqInfoSms
+    from .connection_freeform_scopes_amazon import ConnectionFreeformScopesAmazon
     from .connection_freeform_scopes_google_o_auth_2 import ConnectionFreeformScopesGoogleOAuth2
+    from .connection_freeform_scopes_paypal import ConnectionFreeformScopesPaypal
+    from .connection_freeform_scopes_salesforce import ConnectionFreeformScopesSalesforce
+    from .connection_freeform_scopes_windows_live import ConnectionFreeformScopesWindowsLive
     from .connection_from_sms import ConnectionFromSms
     from .connection_gateway_authentication import ConnectionGatewayAuthentication
     from .connection_gateway_authentication_audience_sms import ConnectionGatewayAuthenticationAudienceSms
@@ -476,6 +496,7 @@ if typing.TYPE_CHECKING:
     from .connection_options_protocol_enum_twitter import ConnectionOptionsProtocolEnumTwitter
     from .connection_options_renren import ConnectionOptionsRenren
     from .connection_options_salesforce import ConnectionOptionsSalesforce
+    from .connection_options_salesforce_community import ConnectionOptionsSalesforceCommunity
     from .connection_options_saml import ConnectionOptionsSaml
     from .connection_options_scope_github import ConnectionOptionsScopeGithub
     from .connection_options_scope_twitter import ConnectionOptionsScopeTwitter
@@ -507,6 +528,7 @@ if typing.TYPE_CHECKING:
     from .connection_ping_federate_base_url import ConnectionPingFederateBaseUrl
     from .connection_ping_federate_base_url_ping_federate import ConnectionPingFederateBaseUrlPingFederate
     from .connection_profile import ConnectionProfile
+    from .connection_profile_bitbucket import ConnectionProfileBitbucket
     from .connection_profile_config import ConnectionProfileConfig
     from .connection_profile_enabled_features import ConnectionProfileEnabledFeatures
     from .connection_profile_id import ConnectionProfileId
@@ -678,8 +700,10 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_yandex_strategy import ConnectionResponseContentYandexStrategy
     from .connection_response_modes_supported import ConnectionResponseModesSupported
     from .connection_response_types_supported import ConnectionResponseTypesSupported
+    from .connection_scope_amazon import ConnectionScopeAmazon
     from .connection_scope_array import ConnectionScopeArray
     from .connection_scope_array_facebook import ConnectionScopeArrayFacebook
+    from .connection_scope_array_windows_live import ConnectionScopeArrayWindowsLive
     from .connection_scope_azure_ad import ConnectionScopeAzureAd
     from .connection_scope_facebook import ConnectionScopeFacebook
     from .connection_scope_google_apps import ConnectionScopeGoogleApps
@@ -688,6 +712,8 @@ if typing.TYPE_CHECKING:
     from .connection_scope_item_google_apps import ConnectionScopeItemGoogleApps
     from .connection_scope_o_auth_2 import ConnectionScopeOAuth2
     from .connection_scope_oidc import ConnectionScopeOidc
+    from .connection_scope_paypal import ConnectionScopePaypal
+    from .connection_scope_salesforce import ConnectionScopeSalesforce
     from .connection_scopes_supported import ConnectionScopesSupported
     from .connection_scripts_o_auth_2 import ConnectionScriptsOAuth2
     from .connection_send_back_channel_nonce import ConnectionSendBackChannelNonce
@@ -2691,6 +2717,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionAuthenticationPurpose": ".connection_authentication_purpose",
     "ConnectionAuthorizationEndpoint": ".connection_authorization_endpoint",
     "ConnectionAuthorizationEndpointOAuth2": ".connection_authorization_endpoint_o_auth_2",
+    "ConnectionBaseUrlExact": ".connection_base_url_exact",
     "ConnectionBruteForceProtection": ".connection_brute_force_protection",
     "ConnectionCalculatedThumbprintSaml": ".connection_calculated_thumbprint_saml",
     "ConnectionCertsAd": ".connection_certs_ad",
@@ -2699,21 +2726,36 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClaimsParameterSupported": ".connection_claims_parameter_supported",
     "ConnectionClaimsSupported": ".connection_claims_supported",
     "ConnectionClientId": ".connection_client_id",
+    "ConnectionClientIdAmazon": ".connection_client_id_amazon",
     "ConnectionClientIdAzureAd": ".connection_client_id_azure_ad",
+    "ConnectionClientIdBitbucket": ".connection_client_id_bitbucket",
+    "ConnectionClientIdExact": ".connection_client_id_exact",
     "ConnectionClientIdFacebook": ".connection_client_id_facebook",
     "ConnectionClientIdGoogleApps": ".connection_client_id_google_apps",
     "ConnectionClientIdGoogleOAuth2": ".connection_client_id_google_o_auth_2",
+    "ConnectionClientIdLine": ".connection_client_id_line",
     "ConnectionClientIdOAuth2": ".connection_client_id_o_auth_2",
     "ConnectionClientIdOidc": ".connection_client_id_oidc",
+    "ConnectionClientIdPaypal": ".connection_client_id_paypal",
+    "ConnectionClientIdSalesforce": ".connection_client_id_salesforce",
+    "ConnectionClientIdWindowsLive": ".connection_client_id_windows_live",
     "ConnectionClientProtocolSaml": ".connection_client_protocol_saml",
     "ConnectionClientSecret": ".connection_client_secret",
+    "ConnectionClientSecretAmazon": ".connection_client_secret_amazon",
     "ConnectionClientSecretAzureAd": ".connection_client_secret_azure_ad",
+    "ConnectionClientSecretBitbucket": ".connection_client_secret_bitbucket",
+    "ConnectionClientSecretExact": ".connection_client_secret_exact",
     "ConnectionClientSecretFacebook": ".connection_client_secret_facebook",
     "ConnectionClientSecretGoogleApps": ".connection_client_secret_google_apps",
     "ConnectionClientSecretGoogleOAuth2": ".connection_client_secret_google_o_auth_2",
+    "ConnectionClientSecretLine": ".connection_client_secret_line",
     "ConnectionClientSecretOAuth2": ".connection_client_secret_o_auth_2",
     "ConnectionClientSecretOidc": ".connection_client_secret_oidc",
+    "ConnectionClientSecretPaypal": ".connection_client_secret_paypal",
+    "ConnectionClientSecretSalesforce": ".connection_client_secret_salesforce",
+    "ConnectionClientSecretWindowsLive": ".connection_client_secret_windows_live",
     "ConnectionCommon": ".connection_common",
+    "ConnectionCommunityBaseUrlSalesforce": ".connection_community_base_url_salesforce",
     "ConnectionConfiguration": ".connection_configuration",
     "ConnectionConnectedAccountsPurpose": ".connection_connected_accounts_purpose",
     "ConnectionConnectedAccountsPurposeXaa": ".connection_connected_accounts_purpose_xaa",
@@ -2771,7 +2813,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionForList": ".connection_for_list",
     "ConnectionForOrganization": ".connection_for_organization",
     "ConnectionForwardReqInfoSms": ".connection_forward_req_info_sms",
+    "ConnectionFreeformScopesAmazon": ".connection_freeform_scopes_amazon",
     "ConnectionFreeformScopesGoogleOAuth2": ".connection_freeform_scopes_google_o_auth_2",
+    "ConnectionFreeformScopesPaypal": ".connection_freeform_scopes_paypal",
+    "ConnectionFreeformScopesSalesforce": ".connection_freeform_scopes_salesforce",
+    "ConnectionFreeformScopesWindowsLive": ".connection_freeform_scopes_windows_live",
     "ConnectionFromSms": ".connection_from_sms",
     "ConnectionGatewayAuthentication": ".connection_gateway_authentication",
     "ConnectionGatewayAuthenticationAudienceSms": ".connection_gateway_authentication_audience_sms",
@@ -2880,6 +2926,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsProtocolEnumTwitter": ".connection_options_protocol_enum_twitter",
     "ConnectionOptionsRenren": ".connection_options_renren",
     "ConnectionOptionsSalesforce": ".connection_options_salesforce",
+    "ConnectionOptionsSalesforceCommunity": ".connection_options_salesforce_community",
     "ConnectionOptionsSaml": ".connection_options_saml",
     "ConnectionOptionsScopeGithub": ".connection_options_scope_github",
     "ConnectionOptionsScopeTwitter": ".connection_options_scope_twitter",
@@ -2911,6 +2958,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionPingFederateBaseUrl": ".connection_ping_federate_base_url",
     "ConnectionPingFederateBaseUrlPingFederate": ".connection_ping_federate_base_url_ping_federate",
     "ConnectionProfile": ".connection_profile",
+    "ConnectionProfileBitbucket": ".connection_profile_bitbucket",
     "ConnectionProfileConfig": ".connection_profile_config",
     "ConnectionProfileEnabledFeatures": ".connection_profile_enabled_features",
     "ConnectionProfileId": ".connection_profile_id",
@@ -3066,8 +3114,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentYandexStrategy": ".connection_response_content_yandex_strategy",
     "ConnectionResponseModesSupported": ".connection_response_modes_supported",
     "ConnectionResponseTypesSupported": ".connection_response_types_supported",
+    "ConnectionScopeAmazon": ".connection_scope_amazon",
     "ConnectionScopeArray": ".connection_scope_array",
     "ConnectionScopeArrayFacebook": ".connection_scope_array_facebook",
+    "ConnectionScopeArrayWindowsLive": ".connection_scope_array_windows_live",
     "ConnectionScopeAzureAd": ".connection_scope_azure_ad",
     "ConnectionScopeFacebook": ".connection_scope_facebook",
     "ConnectionScopeGoogleApps": ".connection_scope_google_apps",
@@ -3076,6 +3126,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionScopeItemGoogleApps": ".connection_scope_item_google_apps",
     "ConnectionScopeOAuth2": ".connection_scope_o_auth_2",
     "ConnectionScopeOidc": ".connection_scope_oidc",
+    "ConnectionScopePaypal": ".connection_scope_paypal",
+    "ConnectionScopeSalesforce": ".connection_scope_salesforce",
     "ConnectionScopesSupported": ".connection_scopes_supported",
     "ConnectionScriptsOAuth2": ".connection_scripts_o_auth_2",
     "ConnectionSendBackChannelNonce": ".connection_send_back_channel_nonce",
@@ -4941,6 +4993,7 @@ __all__ = [
     "ConnectionAuthenticationPurpose",
     "ConnectionAuthorizationEndpoint",
     "ConnectionAuthorizationEndpointOAuth2",
+    "ConnectionBaseUrlExact",
     "ConnectionBruteForceProtection",
     "ConnectionCalculatedThumbprintSaml",
     "ConnectionCertsAd",
@@ -4949,21 +5002,36 @@ __all__ = [
     "ConnectionClaimsParameterSupported",
     "ConnectionClaimsSupported",
     "ConnectionClientId",
+    "ConnectionClientIdAmazon",
     "ConnectionClientIdAzureAd",
+    "ConnectionClientIdBitbucket",
+    "ConnectionClientIdExact",
     "ConnectionClientIdFacebook",
     "ConnectionClientIdGoogleApps",
     "ConnectionClientIdGoogleOAuth2",
+    "ConnectionClientIdLine",
     "ConnectionClientIdOAuth2",
     "ConnectionClientIdOidc",
+    "ConnectionClientIdPaypal",
+    "ConnectionClientIdSalesforce",
+    "ConnectionClientIdWindowsLive",
     "ConnectionClientProtocolSaml",
     "ConnectionClientSecret",
+    "ConnectionClientSecretAmazon",
     "ConnectionClientSecretAzureAd",
+    "ConnectionClientSecretBitbucket",
+    "ConnectionClientSecretExact",
     "ConnectionClientSecretFacebook",
     "ConnectionClientSecretGoogleApps",
     "ConnectionClientSecretGoogleOAuth2",
+    "ConnectionClientSecretLine",
     "ConnectionClientSecretOAuth2",
     "ConnectionClientSecretOidc",
+    "ConnectionClientSecretPaypal",
+    "ConnectionClientSecretSalesforce",
+    "ConnectionClientSecretWindowsLive",
     "ConnectionCommon",
+    "ConnectionCommunityBaseUrlSalesforce",
     "ConnectionConfiguration",
     "ConnectionConnectedAccountsPurpose",
     "ConnectionConnectedAccountsPurposeXaa",
@@ -5021,7 +5089,11 @@ __all__ = [
     "ConnectionForList",
     "ConnectionForOrganization",
     "ConnectionForwardReqInfoSms",
+    "ConnectionFreeformScopesAmazon",
     "ConnectionFreeformScopesGoogleOAuth2",
+    "ConnectionFreeformScopesPaypal",
+    "ConnectionFreeformScopesSalesforce",
+    "ConnectionFreeformScopesWindowsLive",
     "ConnectionFromSms",
     "ConnectionGatewayAuthentication",
     "ConnectionGatewayAuthenticationAudienceSms",
@@ -5130,6 +5202,7 @@ __all__ = [
     "ConnectionOptionsProtocolEnumTwitter",
     "ConnectionOptionsRenren",
     "ConnectionOptionsSalesforce",
+    "ConnectionOptionsSalesforceCommunity",
     "ConnectionOptionsSaml",
     "ConnectionOptionsScopeGithub",
     "ConnectionOptionsScopeTwitter",
@@ -5161,6 +5234,7 @@ __all__ = [
     "ConnectionPingFederateBaseUrl",
     "ConnectionPingFederateBaseUrlPingFederate",
     "ConnectionProfile",
+    "ConnectionProfileBitbucket",
     "ConnectionProfileConfig",
     "ConnectionProfileEnabledFeatures",
     "ConnectionProfileId",
@@ -5316,8 +5390,10 @@ __all__ = [
     "ConnectionResponseContentYandexStrategy",
     "ConnectionResponseModesSupported",
     "ConnectionResponseTypesSupported",
+    "ConnectionScopeAmazon",
     "ConnectionScopeArray",
     "ConnectionScopeArrayFacebook",
+    "ConnectionScopeArrayWindowsLive",
     "ConnectionScopeAzureAd",
     "ConnectionScopeFacebook",
     "ConnectionScopeGoogleApps",
@@ -5326,6 +5402,8 @@ __all__ = [
     "ConnectionScopeItemGoogleApps",
     "ConnectionScopeOAuth2",
     "ConnectionScopeOidc",
+    "ConnectionScopePaypal",
+    "ConnectionScopeSalesforce",
     "ConnectionScopesSupported",
     "ConnectionScriptsOAuth2",
     "ConnectionSendBackChannelNonce",

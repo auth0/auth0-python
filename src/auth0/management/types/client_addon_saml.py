@@ -17,41 +17,45 @@ class ClientAddonSaml(UniversalBaseModel):
     mappings: typing.Optional[ClientAddonSamlMapping] = None
     audience: typing.Optional[str] = None
     recipient: typing.Optional[str] = None
-    create_upn_claim: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="createUpnClaim")] = (
-        pydantic.Field(alias="createUpnClaim", default=None)
-    )
+    create_upn_claim: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="createUpnClaim"), pydantic.Field(alias="createUpnClaim")
+    ] = None
     map_unknown_claims_as_is: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="mapUnknownClaimsAsIs")
-    ] = pydantic.Field(alias="mapUnknownClaimsAsIs", default=None)
+        typing.Optional[bool], FieldMetadata(alias="mapUnknownClaimsAsIs"), pydantic.Field(alias="mapUnknownClaimsAsIs")
+    ] = None
     passthrough_claims_with_no_mapping: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="passthroughClaimsWithNoMapping")
-    ] = pydantic.Field(alias="passthroughClaimsWithNoMapping", default=None)
-    map_identities: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="mapIdentities")] = (
-        pydantic.Field(alias="mapIdentities", default=None)
-    )
+        typing.Optional[bool],
+        FieldMetadata(alias="passthroughClaimsWithNoMapping"),
+        pydantic.Field(alias="passthroughClaimsWithNoMapping"),
+    ] = None
+    map_identities: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="mapIdentities"), pydantic.Field(alias="mapIdentities")
+    ] = None
     signature_algorithm: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="signatureAlgorithm")
-    ] = pydantic.Field(alias="signatureAlgorithm", default=None)
-    digest_algorithm: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="digestAlgorithm")] = (
-        pydantic.Field(alias="digestAlgorithm", default=None)
-    )
+        typing.Optional[str], FieldMetadata(alias="signatureAlgorithm"), pydantic.Field(alias="signatureAlgorithm")
+    ] = None
+    digest_algorithm: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="digestAlgorithm"), pydantic.Field(alias="digestAlgorithm")
+    ] = None
     issuer: typing.Optional[str] = None
     destination: typing.Optional[str] = None
-    lifetime_in_seconds: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="lifetimeInSeconds")] = (
-        pydantic.Field(alias="lifetimeInSeconds", default=None)
-    )
-    sign_response: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="signResponse")] = (
-        pydantic.Field(alias="signResponse", default=None)
-    )
+    lifetime_in_seconds: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="lifetimeInSeconds"), pydantic.Field(alias="lifetimeInSeconds")
+    ] = None
+    sign_response: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="signResponse"), pydantic.Field(alias="signResponse")
+    ] = None
     name_identifier_format: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="nameIdentifierFormat")
-    ] = pydantic.Field(alias="nameIdentifierFormat", default=None)
+        typing.Optional[str], FieldMetadata(alias="nameIdentifierFormat"), pydantic.Field(alias="nameIdentifierFormat")
+    ] = None
     name_identifier_probes: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="nameIdentifierProbes")
-    ] = pydantic.Field(alias="nameIdentifierProbes", default=None)
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="nameIdentifierProbes"),
+        pydantic.Field(alias="nameIdentifierProbes"),
+    ] = None
     authn_context_class_ref: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="authnContextClassRef")
-    ] = pydantic.Field(alias="authnContextClassRef", default=None)
+        typing.Optional[str], FieldMetadata(alias="authnContextClassRef"), pydantic.Field(alias="authnContextClassRef")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -8,12 +8,12 @@ from .guardian_factor_name_enum import GuardianFactorNameEnum
 
 
 class GuardianFactor(UniversalBaseModel):
-    enabled: bool = pydantic.Field(default=True)
+    enabled: bool = pydantic.Field()
     """
     Whether this factor is enabled (true) or disabled (false).
     """
 
-    trial_expired: typing.Optional[bool] = pydantic.Field(default=True)
+    trial_expired: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether trial limits have been exceeded.
     """

@@ -95,7 +95,7 @@ class RawRulesConfigsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set(
-        self, key: str, *, value: str = "MY_RULES_CONFIG_VALUE", request_options: typing.Optional[RequestOptions] = None
+        self, key: str, *, value: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[SetRulesConfigResponseContent]:
         """
         Sets a rules config variable.
@@ -315,7 +315,7 @@ class AsyncRawRulesConfigsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set(
-        self, key: str, *, value: str = "MY_RULES_CONFIG_VALUE", request_options: typing.Optional[RequestOptions] = None
+        self, key: str, *, value: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[SetRulesConfigResponseContent]:
         """
         Sets a rules config variable.

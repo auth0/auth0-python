@@ -4,13 +4,36 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_client_id_amazon import ConnectionClientIdAmazon
+from .connection_client_secret_amazon import ConnectionClientSecretAmazon
+from .connection_freeform_scopes_amazon import ConnectionFreeformScopesAmazon
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_scope_amazon import ConnectionScopeAmazon
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_upstream_params import ConnectionUpstreamParams
 
 
-class ConnectionOptionsAmazon(ConnectionOptionsOAuth2Common):
+class ConnectionOptionsAmazon(ConnectionOptionsCommon):
     """
     Options for the 'amazon' connection
     """
+
+    client_id: typing.Optional[ConnectionClientIdAmazon] = None
+    client_secret: typing.Optional[ConnectionClientSecretAmazon] = None
+    freeform_scopes: typing.Optional[ConnectionFreeformScopesAmazon] = None
+    postal_code: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests the user's postal code from Amazon during authentication. This adds the 'postal_code' scope to the authorization request.
+    """
+
+    profile: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When enabled, requests the user's basic profile information (name, email, user ID) from Amazon during authentication. This scope is always enabled for Amazon connections.
+    """
+
+    scope: typing.Optional[ConnectionScopeAmazon] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

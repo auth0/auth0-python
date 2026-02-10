@@ -11,18 +11,18 @@ from .public_key_credential_type_enum import PublicKeyCredentialTypeEnum
 
 class PublicKeyCredential(UniversalBaseModel):
     credential_type: PublicKeyCredentialTypeEnum
-    name: typing.Optional[str] = pydantic.Field(default="")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Friendly name for a credential.
     """
 
-    pem: str = pydantic.Field(default="-----BEGIN PUBLIC KEY-----\r\nMIIBIjANBg...\r\n-----END PUBLIC KEY-----\r\n")
+    pem: str = pydantic.Field()
     """
     PEM-formatted public key (SPKI and PKCS1) or X509 certificate. Must be JSON escaped.
     """
 
     alg: typing.Optional[PublicKeyCredentialAlgorithmEnum] = None
-    parse_expiry_from_cert: typing.Optional[bool] = pydantic.Field(default=False)
+    parse_expiry_from_cert: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Parse expiry from x509 certificate. If true, attempts to parse the expiry date from the provided PEM. Applies to `public_key` credential type.
     """

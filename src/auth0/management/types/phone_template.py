@@ -15,7 +15,7 @@ class PhoneTemplate(UniversalBaseModel):
     tenant: typing.Optional[str] = None
     content: PhoneTemplateContent
     type: PhoneTemplateNotificationTypeEnum
-    disabled: bool = pydantic.Field(default=False)
+    disabled: bool = pydantic.Field()
     """
     Whether the template is enabled (false) or disabled (true).
     """

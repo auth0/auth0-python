@@ -7,11 +7,11 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class UpdateGuardianFactorsProviderPushNotificationSnsResponseContent(UniversalBaseModel):
-    aws_access_key_id: typing.Optional[str] = "wywA2BH4VqTpfywiDuyDAYZL3xQjoO40"
-    aws_secret_access_key: typing.Optional[str] = "B1ER5JHDGJL3C4sVAKK7SBsq806R3IpL"
-    aws_region: typing.Optional[str] = "us-west-1"
+    aws_access_key_id: typing.Optional[str] = None
+    aws_secret_access_key: typing.Optional[str] = None
+    aws_region: typing.Optional[str] = None
     sns_apns_platform_application_arn: typing.Optional[str] = None
-    sns_gcm_platform_application_arn: typing.Optional[str] = "urn://yRMeBxgcCXh8MeTXPBAxhQnm6gP6f5nP"
+    sns_gcm_platform_application_arn: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

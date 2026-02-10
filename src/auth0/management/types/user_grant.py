@@ -14,13 +14,11 @@ class UserGrant(UniversalBaseModel):
     ID of the grant.
     """
 
-    client_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="clientID")] = pydantic.Field(
-        alias="clientID", default=None
-    )
-    """
-    ID of the client.
-    """
-
+    client_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="clientID"),
+        pydantic.Field(alias="clientID", description="ID of the client."),
+    ] = None
     user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the user.

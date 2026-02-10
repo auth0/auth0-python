@@ -30,30 +30,42 @@ class ConnectionOptionsCommonSaml(UniversalBaseModel):
 
     cert: typing.Optional[ConnectionSigningCertificateDerSaml] = None
     decryption_key: typing_extensions.Annotated[
-        typing.Optional[ConnectionDecryptionKeySaml], FieldMetadata(alias="decryptionKey")
-    ] = pydantic.Field(alias="decryptionKey", default=None)
+        typing.Optional[ConnectionDecryptionKeySaml],
+        FieldMetadata(alias="decryptionKey"),
+        pydantic.Field(alias="decryptionKey"),
+    ] = None
     digest_algorithm: typing_extensions.Annotated[
-        typing.Optional[ConnectionDigestAlgorithmSaml], FieldMetadata(alias="digestAlgorithm")
-    ] = pydantic.Field(alias="digestAlgorithm", default=None)
+        typing.Optional[ConnectionDigestAlgorithmSaml],
+        FieldMetadata(alias="digestAlgorithm"),
+        pydantic.Field(alias="digestAlgorithm"),
+    ] = None
     domain_aliases: typing.Optional[ConnectionDomainAliasesSaml] = None
-    entity_id: typing_extensions.Annotated[typing.Optional[ConnectionEntityIdSaml], FieldMetadata(alias="entityId")] = (
-        pydantic.Field(alias="entityId", default=None)
-    )
+    entity_id: typing_extensions.Annotated[
+        typing.Optional[ConnectionEntityIdSaml], FieldMetadata(alias="entityId"), pydantic.Field(alias="entityId")
+    ] = None
     icon_url: typing.Optional[ConnectionIconUrlSaml] = None
     idpinitiated: typing.Optional[ConnectionOptionsIdpinitiatedSaml] = None
     protocol_binding: typing_extensions.Annotated[
-        typing.Optional[ConnectionProtocolBindingSaml], FieldMetadata(alias="protocolBinding")
-    ] = pydantic.Field(alias="protocolBinding", default=None)
+        typing.Optional[ConnectionProtocolBindingSaml],
+        FieldMetadata(alias="protocolBinding"),
+        pydantic.Field(alias="protocolBinding"),
+    ] = None
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     sign_in_endpoint: typing_extensions.Annotated[
-        typing.Optional[ConnectionSignInEndpointSaml], FieldMetadata(alias="signInEndpoint")
-    ] = pydantic.Field(alias="signInEndpoint", default=None)
+        typing.Optional[ConnectionSignInEndpointSaml],
+        FieldMetadata(alias="signInEndpoint"),
+        pydantic.Field(alias="signInEndpoint"),
+    ] = None
     sign_saml_request: typing_extensions.Annotated[
-        typing.Optional[ConnectionSignSamlRequestSaml], FieldMetadata(alias="signSAMLRequest")
-    ] = pydantic.Field(alias="signSAMLRequest", default=None)
+        typing.Optional[ConnectionSignSamlRequestSaml],
+        FieldMetadata(alias="signSAMLRequest"),
+        pydantic.Field(alias="signSAMLRequest"),
+    ] = None
     signature_algorithm: typing_extensions.Annotated[
-        typing.Optional[ConnectionSignatureAlgorithmSaml], FieldMetadata(alias="signatureAlgorithm")
-    ] = pydantic.Field(alias="signatureAlgorithm", default=None)
+        typing.Optional[ConnectionSignatureAlgorithmSaml],
+        FieldMetadata(alias="signatureAlgorithm"),
+        pydantic.Field(alias="signatureAlgorithm"),
+    ] = None
     tenant_domain: typing.Optional[ConnectionTenantDomainSaml] = None
     thumbprints: typing.Optional[ConnectionThumbprintsSaml] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None

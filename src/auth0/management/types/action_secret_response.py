@@ -8,7 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class ActionSecretResponse(UniversalBaseModel):
-    name: typing.Optional[str] = pydantic.Field(default="mySecret")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the particular secret, e.g. API_KEY.
     """

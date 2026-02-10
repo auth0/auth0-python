@@ -23,13 +23,11 @@ class ClientAddonSalesforceApi(UniversalBaseModel):
     Name of the property in the user object that maps to a Salesforce username. e.g. `email`.
     """
 
-    community_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="communityName")] = (
-        pydantic.Field(alias="communityName", default=None)
-    )
-    """
-    Community name.
-    """
-
+    community_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="communityName"),
+        pydantic.Field(alias="communityName", description="Community name."),
+    ] = None
     community_url_section: typing.Optional[str] = pydantic.Field(default=None)
     """
     Community url section.

@@ -9,7 +9,7 @@ from .mdl_presentation_request import MdlPresentationRequest
 
 
 class UpdateVerifiableCredentialTemplateResponseContent(UniversalBaseModel):
-    id: typing.Optional[str] = pydantic.Field(default="vct_0000000000000001")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the template.
     """
@@ -19,12 +19,12 @@ class UpdateVerifiableCredentialTemplateResponseContent(UniversalBaseModel):
     The name of the template.
     """
 
-    type: typing.Optional[str] = pydantic.Field(default="mdl")
+    type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The type of the template.
     """
 
-    dialect: typing.Optional[str] = pydantic.Field(default="simplified/1.0")
+    dialect: typing.Optional[str] = pydantic.Field(default=None)
     """
     The dialect of the template.
     """

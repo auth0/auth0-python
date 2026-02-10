@@ -31,9 +31,9 @@ class UsersExportsClient:
     def create(
         self,
         *,
-        connection_id: typing.Optional[str] = "con_0000000000000001",
+        connection_id: typing.Optional[str] = OMIT,
         format: typing.Optional[JobFileFormatEnum] = OMIT,
-        limit: typing.Optional[int] = 5,
+        limit: typing.Optional[int] = OMIT,
         fields: typing.Optional[typing.Sequence[CreateExportUsersFields]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateExportUsersResponseContent:
@@ -94,9 +94,9 @@ class AsyncUsersExportsClient:
     async def create(
         self,
         *,
-        connection_id: typing.Optional[str] = "con_0000000000000001",
+        connection_id: typing.Optional[str] = OMIT,
         format: typing.Optional[JobFileFormatEnum] = OMIT,
-        limit: typing.Optional[int] = 5,
+        limit: typing.Optional[int] = OMIT,
         fields: typing.Optional[typing.Sequence[CreateExportUsersFields]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateExportUsersResponseContent:

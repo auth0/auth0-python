@@ -4,12 +4,33 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_client_id_line import ConnectionClientIdLine
+from .connection_client_secret_line import ConnectionClientSecretLine
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_scope_array import ConnectionScopeArray
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_upstream_params import ConnectionUpstreamParams
 
 
-class ConnectionOptionsLine(ConnectionOptionsOAuth2Common):
+class ConnectionOptionsLine(ConnectionOptionsCommon):
     """
     Options for the 'line' connection
+    """
+
+    client_id: typing.Optional[ConnectionClientIdLine] = None
+    client_secret: typing.Optional[ConnectionClientSecretLine] = None
+    freeform_scopes: typing.Optional[ConnectionScopeArray] = None
+    scope: typing.Optional[ConnectionScopeArray] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
+    email: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Permission to request the user's email address from LINE. When enabled, adds the 'email' scope to OAuth requests. Note: LINE requires special approval to access user email addresses.
+    """
+
+    profile: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Permission to request the user's basic profile information from LINE. When enabled, adds the 'profile' scope to OAuth requests. LINE requires this scope to retrieve user display name, profile picture, and status message.
     """
 
     if IS_PYDANTIC_V2:

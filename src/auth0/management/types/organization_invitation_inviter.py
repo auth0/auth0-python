@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class OrganizationInvitationInviter(UniversalBaseModel):
-    name: str = pydantic.Field(default="Jane Doe")
+    name: str = pydantic.Field()
     """
     The inviter's name.
     """

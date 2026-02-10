@@ -11,36 +11,29 @@ from .log_stream_http_content_format_enum import LogStreamHttpContentFormatEnum
 
 
 class LogStreamHttpSink(UniversalBaseModel):
-    http_authorization: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="httpAuthorization")] = (
-        pydantic.Field(alias="httpAuthorization", default=None)
-    )
-    """
-    HTTP Authorization header
-    """
-
+    http_authorization: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="httpAuthorization"),
+        pydantic.Field(alias="httpAuthorization", description="HTTP Authorization header"),
+    ] = None
     http_content_format: typing_extensions.Annotated[
-        typing.Optional[LogStreamHttpContentFormatEnum], FieldMetadata(alias="httpContentFormat")
-    ] = pydantic.Field(alias="httpContentFormat", default=None)
-    http_content_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="httpContentType")] = (
-        pydantic.Field(alias="httpContentType", default=None)
-    )
-    """
-    HTTP Content-Type header
-    """
-
-    http_endpoint: typing_extensions.Annotated[str, FieldMetadata(alias="httpEndpoint")] = pydantic.Field(
-        alias="httpEndpoint"
-    )
-    """
-    HTTP endpoint
-    """
-
+        typing.Optional[LogStreamHttpContentFormatEnum],
+        FieldMetadata(alias="httpContentFormat"),
+        pydantic.Field(alias="httpContentFormat"),
+    ] = None
+    http_content_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="httpContentType"),
+        pydantic.Field(alias="httpContentType", description="HTTP Content-Type header"),
+    ] = None
+    http_endpoint: typing_extensions.Annotated[
+        str, FieldMetadata(alias="httpEndpoint"), pydantic.Field(alias="httpEndpoint", description="HTTP endpoint")
+    ]
     http_custom_headers: typing_extensions.Annotated[
-        typing.Optional[typing.List[HttpCustomHeader]], FieldMetadata(alias="httpCustomHeaders")
-    ] = pydantic.Field(alias="httpCustomHeaders", default=None)
-    """
-    custom HTTP headers
-    """
+        typing.Optional[typing.List[HttpCustomHeader]],
+        FieldMetadata(alias="httpCustomHeaders"),
+        pydantic.Field(alias="httpCustomHeaders", description="custom HTTP headers"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

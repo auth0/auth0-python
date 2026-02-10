@@ -11,7 +11,7 @@ class TenantSettingsSessions(UniversalBaseModel):
     Sessions related settings for tenant
     """
 
-    oidc_logout_prompt_enabled: typing.Optional[bool] = pydantic.Field(default=True)
+    oidc_logout_prompt_enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether to bypass prompting logic (false) when performing OIDC Logout
     """

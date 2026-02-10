@@ -10,29 +10,24 @@ from .log_stream_mixpanel_region_enum import LogStreamMixpanelRegionEnum
 
 
 class LogStreamMixpanelSinkPatch(UniversalBaseModel):
-    mixpanel_region: typing_extensions.Annotated[LogStreamMixpanelRegionEnum, FieldMetadata(alias="mixpanelRegion")] = (
-        pydantic.Field(alias="mixpanelRegion")
-    )
-    mixpanel_project_id: typing_extensions.Annotated[str, FieldMetadata(alias="mixpanelProjectId")] = pydantic.Field(
-        alias="mixpanelProjectId"
-    )
-    """
-    Mixpanel Project Id
-    """
-
+    mixpanel_region: typing_extensions.Annotated[
+        LogStreamMixpanelRegionEnum, FieldMetadata(alias="mixpanelRegion"), pydantic.Field(alias="mixpanelRegion")
+    ]
+    mixpanel_project_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="mixpanelProjectId"),
+        pydantic.Field(alias="mixpanelProjectId", description="Mixpanel Project Id"),
+    ]
     mixpanel_service_account_username: typing_extensions.Annotated[
-        str, FieldMetadata(alias="mixpanelServiceAccountUsername")
-    ] = pydantic.Field(alias="mixpanelServiceAccountUsername")
-    """
-    Mixpanel Service Account Username
-    """
-
+        str,
+        FieldMetadata(alias="mixpanelServiceAccountUsername"),
+        pydantic.Field(alias="mixpanelServiceAccountUsername", description="Mixpanel Service Account Username"),
+    ]
     mixpanel_service_account_password: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="mixpanelServiceAccountPassword")
-    ] = pydantic.Field(alias="mixpanelServiceAccountPassword", default=None)
-    """
-    Mixpanel Service Account Password
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="mixpanelServiceAccountPassword"),
+        pydantic.Field(alias="mixpanelServiceAccountPassword", description="Mixpanel Service Account Password"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -10,7 +10,7 @@ from ..core.serialization import FieldMetadata
 
 class FlowActionTwilioMakeCallParams(UniversalBaseModel):
     connection_id: str
-    from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field(alias="from")
+    from_: typing_extensions.Annotated[str, FieldMetadata(alias="from"), pydantic.Field(alias="from")]
     to: str
     payload: str
 

@@ -15,12 +15,12 @@ from .integration import Integration
 
 
 class UpdateActionResponseContent(UniversalBaseModel):
-    id: typing.Optional[str] = pydantic.Field(default="910b1053-577f-4d81-a8c8-020e7319a38a")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique ID of the action.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default="my-action")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of an action.
     """
@@ -30,7 +30,7 @@ class UpdateActionResponseContent(UniversalBaseModel):
     The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.
     """
 
-    all_changes_deployed: typing.Optional[bool] = pydantic.Field(default=False)
+    all_changes_deployed: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True if all of an Action's contents have been deployed.
     """
@@ -45,7 +45,7 @@ class UpdateActionResponseContent(UniversalBaseModel):
     The time when this action was updated.
     """
 
-    code: typing.Optional[str] = pydantic.Field(default="module.exports = () => {}")
+    code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The source code of the action.
     """
@@ -55,7 +55,7 @@ class UpdateActionResponseContent(UniversalBaseModel):
     The list of third party npm modules, and their versions, that this action depends on.
     """
 
-    runtime: typing.Optional[str] = pydantic.Field(default="node22")
+    runtime: typing.Optional[str] = pydantic.Field(default=None)
     """
     The Node runtime. For example: `node22`, defaults to `node22`
     """
@@ -66,7 +66,7 @@ class UpdateActionResponseContent(UniversalBaseModel):
     """
 
     deployed_version: typing.Optional[ActionDeployedVersion] = None
-    installed_integration_id: typing.Optional[str] = pydantic.Field(default="7d2bc0c9-c0c2-433a-9f4e-86ef80270aad")
+    installed_integration_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     installed_integration_id is the fk reference to the InstalledIntegration entity.
     """
@@ -78,7 +78,7 @@ class UpdateActionResponseContent(UniversalBaseModel):
     The time when this action was built successfully.
     """
 
-    deploy: typing.Optional[bool] = pydantic.Field(default=False)
+    deploy: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True if the action should be deployed after creation.
     """

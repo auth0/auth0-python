@@ -18,11 +18,15 @@ class ConnectionOptionsPingFederate(ConnectionOptionsCommonSaml, ConnectionOptio
     """
 
     ping_federate_base_url: typing_extensions.Annotated[
-        ConnectionPingFederateBaseUrl, FieldMetadata(alias="pingFederateBaseUrl")
-    ] = pydantic.Field(alias="pingFederateBaseUrl")
+        ConnectionPingFederateBaseUrl,
+        FieldMetadata(alias="pingFederateBaseUrl"),
+        pydantic.Field(alias="pingFederateBaseUrl"),
+    ]
     signing_cert: typing_extensions.Annotated[
-        typing.Optional[ConnectionSigningCertificatePemPingFederate], FieldMetadata(alias="signingCert")
-    ] = pydantic.Field(alias="signingCert", default=None)
+        typing.Optional[ConnectionSigningCertificatePemPingFederate],
+        FieldMetadata(alias="signingCert"),
+        pydantic.Field(alias="signingCert"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

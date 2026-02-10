@@ -14,13 +14,13 @@ class ActionBinding(UniversalBaseModel):
     Binding is the associative entity joining a trigger, and an action together.
     """
 
-    id: typing.Optional[str] = pydantic.Field(default="4a881e22-0562-4178-bc91-b0f2b321dc13")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique ID of this binding.
     """
 
     trigger_id: typing.Optional[ActionTriggerTypeEnum] = None
-    display_name: typing.Optional[str] = pydantic.Field(default="my-action-1")
+    display_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the binding.
     """

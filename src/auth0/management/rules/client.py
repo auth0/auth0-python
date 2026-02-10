@@ -107,10 +107,10 @@ class RulesClient:
     def create(
         self,
         *,
-        name: str = "my-rule",
-        script: str = "function (user, context, callback) {\n  callback(null, user, context);\n}",
-        order: typing.Optional[float] = 2.0,
-        enabled: typing.Optional[bool] = True,
+        name: str,
+        script: str,
+        order: typing.Optional[float] = OMIT,
+        enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRuleResponseContent:
         """
@@ -239,10 +239,10 @@ class RulesClient:
         self,
         id: str,
         *,
-        script: typing.Optional[str] = "function (user, context, callback) {\n  callback(null, user, context);\n}",
-        name: typing.Optional[str] = "my-rule",
-        order: typing.Optional[float] = 2.0,
-        enabled: typing.Optional[bool] = True,
+        script: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        order: typing.Optional[float] = OMIT,
+        enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateRuleResponseContent:
         """
@@ -390,10 +390,10 @@ class AsyncRulesClient:
     async def create(
         self,
         *,
-        name: str = "my-rule",
-        script: str = "function (user, context, callback) {\n  callback(null, user, context);\n}",
-        order: typing.Optional[float] = 2.0,
-        enabled: typing.Optional[bool] = True,
+        name: str,
+        script: str,
+        order: typing.Optional[float] = OMIT,
+        enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRuleResponseContent:
         """
@@ -546,10 +546,10 @@ class AsyncRulesClient:
         self,
         id: str,
         *,
-        script: typing.Optional[str] = "function (user, context, callback) {\n  callback(null, user, context);\n}",
-        name: typing.Optional[str] = "my-rule",
-        order: typing.Optional[float] = 2.0,
-        enabled: typing.Optional[bool] = True,
+        script: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        order: typing.Optional[float] = OMIT,
+        enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateRuleResponseContent:
         """

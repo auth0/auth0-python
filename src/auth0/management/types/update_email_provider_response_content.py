@@ -9,12 +9,12 @@ from .email_provider_settings import EmailProviderSettings
 
 
 class UpdateEmailProviderResponseContent(UniversalBaseModel):
-    name: typing.Optional[str] = pydantic.Field(default="sendgrid")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of the email provider. Can be `mailgun`, `mandrill`, `sendgrid`, `ses`, `sparkpost`, `smtp`, `azure_cs`, `ms365`, or `custom`.
     """
 
-    enabled: typing.Optional[bool] = pydantic.Field(default=True)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the provider is enabled (true) or disabled (false).
     """

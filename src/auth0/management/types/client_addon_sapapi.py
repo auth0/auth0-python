@@ -18,38 +18,40 @@ class ClientAddonSapapi(UniversalBaseModel):
     If activated in the OAuth 2.0 client configuration (transaction SOAUTH2) the SAML attribute client_id must be set and equal the client_id form parameter of the access token request.
     """
 
-    username_attribute: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="usernameAttribute")] = (
-        pydantic.Field(alias="usernameAttribute", default=None)
-    )
-    """
-    Name of the property in the user object that maps to a SAP username. e.g. `email`.
-    """
-
-    token_endpoint_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="tokenEndpointUrl")] = (
-        pydantic.Field(alias="tokenEndpointUrl", default=None)
-    )
-    """
-    Your SAP OData server OAuth2 token endpoint URL.
-    """
-
+    username_attribute: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="usernameAttribute"),
+        pydantic.Field(
+            alias="usernameAttribute",
+            description="Name of the property in the user object that maps to a SAP username. e.g. `email`.",
+        ),
+    ] = None
+    token_endpoint_url: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="tokenEndpointUrl"),
+        pydantic.Field(alias="tokenEndpointUrl", description="Your SAP OData server OAuth2 token endpoint URL."),
+    ] = None
     scope: typing.Optional[str] = pydantic.Field(default=None)
     """
     Requested scope for SAP APIs.
     """
 
-    service_password: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="servicePassword")] = (
-        pydantic.Field(alias="servicePassword", default=None)
-    )
-    """
-    Service account password to use to authenticate API calls to the token endpoint.
-    """
-
+    service_password: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="servicePassword"),
+        pydantic.Field(
+            alias="servicePassword",
+            description="Service account password to use to authenticate API calls to the token endpoint.",
+        ),
+    ] = None
     name_identifier_format: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="nameIdentifierFormat")
-    ] = pydantic.Field(alias="nameIdentifierFormat", default=None)
-    """
-    NameID element of the Subject which can be used to express the user's identity. Defaults to `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified`.
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="nameIdentifierFormat"),
+        pydantic.Field(
+            alias="nameIdentifierFormat",
+            description="NameID element of the Subject which can be used to express the user's identity. Defaults to `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified`.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

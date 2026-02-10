@@ -11,7 +11,7 @@ class NativeSocialLoginFacebook(UniversalBaseModel):
     Native Social Login support for the Facebook connection
     """
 
-    enabled: typing.Optional[bool] = pydantic.Field(default=False)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Determine whether or not to allow signing in natively using Facebook
     """

@@ -10,28 +10,29 @@ from .user_profile_data import UserProfileData
 
 
 class DeleteUserIdentityResponseContentItem(UniversalBaseModel):
-    connection: str = pydantic.Field(default="Initial-Connection")
+    connection: str = pydantic.Field()
     """
     The name of the connection for the identity.
     """
 
-    user_id: str = pydantic.Field(default="5457edea1b8f22891a000004")
+    user_id: str = pydantic.Field()
     """
     The unique identifier for the user for the identity.
     """
 
-    provider: str = pydantic.Field(default="auth0")
+    provider: str = pydantic.Field()
     """
     The type of identity provider.
     """
 
-    is_social: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isSocial")] = pydantic.Field(
-        alias="isSocial", default=None
-    )
-    """
-    <code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise
-    """
-
+    is_social: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isSocial"),
+        pydantic.Field(
+            alias="isSocial",
+            description="<code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise",
+        ),
+    ] = None
     access_token: typing.Optional[str] = pydantic.Field(default=None)
     """
     IDP access token returned only if scope read:user_idp_tokens is defined
@@ -47,9 +48,9 @@ class DeleteUserIdentityResponseContentItem(UniversalBaseModel):
     IDP refresh token returned only if scope read:user_idp_tokens is defined.
     """
 
-    profile_data: typing_extensions.Annotated[typing.Optional[UserProfileData], FieldMetadata(alias="profileData")] = (
-        pydantic.Field(alias="profileData", default=None)
-    )
+    profile_data: typing_extensions.Annotated[
+        typing.Optional[UserProfileData], FieldMetadata(alias="profileData"), pydantic.Field(alias="profileData")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

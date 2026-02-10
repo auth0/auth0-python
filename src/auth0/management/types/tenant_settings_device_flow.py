@@ -13,7 +13,7 @@ class TenantSettingsDeviceFlow(UniversalBaseModel):
     """
 
     charset: typing.Optional[TenantSettingsDeviceFlowCharset] = None
-    mask: typing.Optional[str] = pydantic.Field(default="****-****")
+    mask: typing.Optional[str] = pydantic.Field(default=None)
     """
     Mask used to format a generated User Code into a friendly, readable format.
     """

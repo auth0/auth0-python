@@ -10,7 +10,7 @@ from .action_secret_request import ActionSecretRequest
 
 class ActionBindingWithRef(UniversalBaseModel):
     ref: ActionBindingRef
-    display_name: typing.Optional[str] = pydantic.Field(default="my-action-1")
+    display_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the binding.
     """

@@ -27,23 +27,26 @@ class ConnectionOptionsAd(ConnectionOptionsCommon):
     Options for the 'ad' connection
     """
 
-    agent_ip: typing_extensions.Annotated[typing.Optional[ConnectionAgentIpad], FieldMetadata(alias="agentIP")] = (
-        pydantic.Field(alias="agentIP", default=None)
-    )
+    agent_ip: typing_extensions.Annotated[
+        typing.Optional[ConnectionAgentIpad], FieldMetadata(alias="agentIP"), pydantic.Field(alias="agentIP")
+    ] = None
     agent_mode: typing_extensions.Annotated[
-        typing.Optional[ConnectionAgentModeAd], FieldMetadata(alias="agentMode")
-    ] = pydantic.Field(alias="agentMode", default=None)
+        typing.Optional[ConnectionAgentModeAd], FieldMetadata(alias="agentMode"), pydantic.Field(alias="agentMode")
+    ] = None
     agent_version: typing_extensions.Annotated[
-        typing.Optional[ConnectionAgentVersionAd], FieldMetadata(alias="agentVersion")
-    ] = pydantic.Field(alias="agentVersion", default=None)
+        typing.Optional[ConnectionAgentVersionAd],
+        FieldMetadata(alias="agentVersion"),
+        pydantic.Field(alias="agentVersion"),
+    ] = None
     brute_force_protection: typing.Optional[ConnectionBruteForceProtection] = None
-    cert_auth: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="certAuth")] = pydantic.Field(
-        alias="certAuth", default=None
-    )
-    """
-    Enables client SSL certificate authentication for the AD connector, requiring HTTPS on the sign-in endpoint
-    """
-
+    cert_auth: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="certAuth"),
+        pydantic.Field(
+            alias="certAuth",
+            description="Enables client SSL certificate authentication for the AD connector, requiring HTTPS on the sign-in endpoint",
+        ),
+    ] = None
     certs: typing.Optional[ConnectionCertsAd] = None
     disable_cache: typing.Optional[bool] = pydantic.Field(default=None)
     """
@@ -58,15 +61,17 @@ class ConnectionOptionsAd(ConnectionOptionsCommon):
     domain_aliases: typing.Optional[ConnectionDomainAliasesAd] = None
     icon_url: typing.Optional[ConnectionIconUrl] = None
     ips: typing.Optional[ConnectionIpsAd] = None
-    kerberos: typing.Optional[bool] = pydantic.Field(default=False)
+    kerberos: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enables Windows Integrated Authentication (Kerberos) for seamless SSO when users authenticate from within the corporate network IP ranges
     """
 
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     sign_in_endpoint: typing_extensions.Annotated[
-        typing.Optional[ConnectionSignInEndpointAd], FieldMetadata(alias="signInEndpoint")
-    ] = pydantic.Field(alias="signInEndpoint", default=None)
+        typing.Optional[ConnectionSignInEndpointAd],
+        FieldMetadata(alias="signInEndpoint"),
+        pydantic.Field(alias="signInEndpoint"),
+    ] = None
     tenant_domain: typing.Optional[ConnectionTenantDomainAd] = None
     thumbprints: typing.Optional[ConnectionThumbprintsAd] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None

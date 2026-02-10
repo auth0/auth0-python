@@ -9,12 +9,12 @@ from .x_509_certificate_credential_type_enum import X509CertificateCredentialTyp
 
 class X509CertificateCredential(UniversalBaseModel):
     credential_type: X509CertificateCredentialTypeEnum
-    name: typing.Optional[str] = pydantic.Field(default="")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Friendly name for a credential.
     """
 
-    pem: str = pydantic.Field(default="-----BEGIN CERTIFICATE-----\r\nMIIBIjANBg...\r\n-----END CERTIFICATE-----\r\n")
+    pem: str = pydantic.Field()
     """
     PEM-formatted X509 certificate. Must be JSON escaped.
     """

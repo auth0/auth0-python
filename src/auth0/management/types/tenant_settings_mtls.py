@@ -11,7 +11,7 @@ class TenantSettingsMtls(UniversalBaseModel):
     mTLS configuration.
     """
 
-    enable_endpoint_aliases: typing.Optional[bool] = pydantic.Field(default=False)
+    enable_endpoint_aliases: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If true, enables mTLS endpoint aliases
     """

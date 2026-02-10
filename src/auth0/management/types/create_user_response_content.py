@@ -11,32 +11,32 @@ from .user_metadata_schema import UserMetadataSchema
 
 
 class CreateUserResponseContent(UniversalBaseModel):
-    user_id: typing.Optional[str] = pydantic.Field(default="auth0|507f1f77bcf86cd799439020")
+    user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the user which can be used when interacting with other APIs.
     """
 
-    email: typing.Optional[str] = pydantic.Field(default="john.doe@gmail.com")
+    email: typing.Optional[str] = pydantic.Field(default=None)
     """
     Email address of this user.
     """
 
-    email_verified: typing.Optional[bool] = pydantic.Field(default=False)
+    email_verified: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether this email address is verified (true) or unverified (false).
     """
 
-    username: typing.Optional[str] = pydantic.Field(default="johndoe")
+    username: typing.Optional[str] = pydantic.Field(default=None)
     """
     Username of this user.
     """
 
-    phone_number: typing.Optional[str] = pydantic.Field(default="+199999999999999")
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     Phone number for this user. Follows the <a href="https://en.wikipedia.org/wiki/E.164">E.164 recommendation</a>.
     """
 
-    phone_verified: typing.Optional[bool] = pydantic.Field(default=False)
+    phone_verified: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether this phone number has been verified (true) or not (false).
     """

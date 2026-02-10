@@ -9,33 +9,22 @@ from ..core.serialization import FieldMetadata
 
 
 class LogStreamSplunkSink(UniversalBaseModel):
-    splunk_domain: typing_extensions.Annotated[str, FieldMetadata(alias="splunkDomain")] = pydantic.Field(
-        alias="splunkDomain"
-    )
-    """
-    Splunk URL Endpoint
-    """
-
-    splunk_port: typing_extensions.Annotated[str, FieldMetadata(alias="splunkPort")] = pydantic.Field(
-        alias="splunkPort"
-    )
-    """
-    Port
-    """
-
-    splunk_token: typing_extensions.Annotated[str, FieldMetadata(alias="splunkToken")] = pydantic.Field(
-        alias="splunkToken"
-    )
-    """
-    Splunk token
-    """
-
-    splunk_secure: typing_extensions.Annotated[bool, FieldMetadata(alias="splunkSecure")] = pydantic.Field(
-        alias="splunkSecure"
-    )
-    """
-    Verify TLS certificate
-    """
+    splunk_domain: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="splunkDomain"),
+        pydantic.Field(alias="splunkDomain", description="Splunk URL Endpoint"),
+    ]
+    splunk_port: typing_extensions.Annotated[
+        str, FieldMetadata(alias="splunkPort"), pydantic.Field(alias="splunkPort", description="Port")
+    ]
+    splunk_token: typing_extensions.Annotated[
+        str, FieldMetadata(alias="splunkToken"), pydantic.Field(alias="splunkToken", description="Splunk token")
+    ]
+    splunk_secure: typing_extensions.Annotated[
+        bool,
+        FieldMetadata(alias="splunkSecure"),
+        pydantic.Field(alias="splunkSecure", description="Verify TLS certificate"),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

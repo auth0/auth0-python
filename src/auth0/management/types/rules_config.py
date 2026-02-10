@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class RulesConfig(UniversalBaseModel):
-    key: typing.Optional[str] = pydantic.Field(default="MY_RULES_CONFIG_KEY")
+    key: typing.Optional[str] = pydantic.Field(default=None)
     """
     Key for a rules config variable.
     """

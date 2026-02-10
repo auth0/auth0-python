@@ -13,7 +13,7 @@ class SelfServiceProfileSsoTicketConnectionConfig(UniversalBaseModel):
     If provided, this will create a new connection for the SSO flow with the given configuration
     """
 
-    name: str = pydantic.Field(default="sso-generated-SAML-customer-12")
+    name: str = pydantic.Field()
     """
     The name of the connection that will be created as a part of the SSO flow.
     """

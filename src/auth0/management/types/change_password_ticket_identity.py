@@ -12,7 +12,7 @@ class ChangePasswordTicketIdentity(UniversalBaseModel):
     The user's identity. If you set this value, you must also send the user_id parameter.
     """
 
-    user_id: str = pydantic.Field(default="5457edea1b8f22891a000004")
+    user_id: str = pydantic.Field()
     """
     user_id of the identity.
     """

@@ -152,7 +152,7 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     When false, prevents storing the user's full name from Azure AD. When true (default), full name is persisted in the user profile.
     """
 
-    ext_nested_groups: typing.Optional[bool] = pydantic.Field(default=False)
+    ext_nested_groups: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When true, stores all groups the user is member of, including transitive group memberships (groups within groups). When false (default), only direct group memberships are included.
     """
@@ -229,12 +229,13 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     """
 
     ext_telephone_number: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="ext_telephoneNumber")
-    ] = pydantic.Field(alias="ext_telephoneNumber", default=None)
-    """
-    When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.
-    """
-
+        typing.Optional[bool],
+        FieldMetadata(alias="ext_telephoneNumber"),
+        pydantic.Field(
+            alias="ext_telephoneNumber",
+            description="When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.",
+        ),
+    ] = None
     ext_tenantid: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When false, prevents storing the user's Azure AD tenant ID. When true (default), tenant ID is persisted. Useful for identifying which Azure AD organization the user belongs to.
@@ -269,8 +270,8 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     should_trust_email_verified_connection: typing.Optional[ConnectionShouldTrustEmailVerifiedConnectionEnum] = None
     tenant_domain: typing.Optional[ConnectionTenantDomainAzureAdOne] = None
     tenant_id: typing_extensions.Annotated[
-        typing.Optional[ConnectionTenantIdAzureAd], FieldMetadata(alias="tenantId")
-    ] = pydantic.Field(alias="tenantId", default=None)
+        typing.Optional[ConnectionTenantIdAzureAd], FieldMetadata(alias="tenantId"), pydantic.Field(alias="tenantId")
+    ] = None
     thumbprints: typing.Optional[ConnectionThumbprints] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     use_wsfed: typing.Optional[bool] = pydantic.Field(default=None)
@@ -279,8 +280,10 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     """
 
     use_common_endpoint: typing_extensions.Annotated[
-        typing.Optional[ConnectionUseCommonEndpointAzureAd], FieldMetadata(alias="useCommonEndpoint")
-    ] = pydantic.Field(alias="useCommonEndpoint", default=None)
+        typing.Optional[ConnectionUseCommonEndpointAzureAd],
+        FieldMetadata(alias="useCommonEndpoint"),
+        pydantic.Field(alias="useCommonEndpoint"),
+    ] = None
     userid_attribute: typing.Optional[ConnectionUseridAttributeAzureAd] = None
     waad_protocol: typing.Optional[ConnectionWaadProtocol] = None
 

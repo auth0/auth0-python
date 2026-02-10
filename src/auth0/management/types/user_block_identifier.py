@@ -7,12 +7,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class UserBlockIdentifier(UniversalBaseModel):
-    identifier: typing.Optional[str] = pydantic.Field(default="john.doe@gmail.com")
+    identifier: typing.Optional[str] = pydantic.Field(default=None)
     """
     Identifier (should be any of an `email`, `username`, or `phone_number`)
     """
 
-    ip: typing.Optional[str] = pydantic.Field(default="10.0.0.1")
+    ip: typing.Optional[str] = pydantic.Field(default=None)
     """
     IP Address
     """

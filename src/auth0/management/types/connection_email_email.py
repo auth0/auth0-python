@@ -18,9 +18,9 @@ class ConnectionEmailEmail(UniversalBaseModel):
     """
 
     body: typing.Optional[ConnectionEmailBodyEmail] = None
-    from_: typing_extensions.Annotated[typing.Optional[ConnectionEmailFromEmail], FieldMetadata(alias="from")] = (
-        pydantic.Field(alias="from", default=None)
-    )
+    from_: typing_extensions.Annotated[
+        typing.Optional[ConnectionEmailFromEmail], FieldMetadata(alias="from"), pydantic.Field(alias="from")
+    ] = None
     subject: typing.Optional[ConnectionEmailSubjectEmail] = None
     syntax: typing.Optional[ConnectionEmailEmailSyntax] = pydantic.Field(default=None)
     """

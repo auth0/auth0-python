@@ -16,20 +16,14 @@ from .branding_theme_widget import BrandingThemeWidget
 class GetBrandingDefaultThemeResponseContent(UniversalBaseModel):
     borders: BrandingThemeBorders
     colors: BrandingThemeColors
-    display_name: typing_extensions.Annotated[str, FieldMetadata(alias="displayName")] = pydantic.Field(
-        alias="displayName"
-    )
-    """
-    Display Name
-    """
-
+    display_name: typing_extensions.Annotated[
+        str, FieldMetadata(alias="displayName"), pydantic.Field(alias="displayName", description="Display Name")
+    ]
     fonts: BrandingThemeFonts
     page_background: BrandingThemePageBackground
-    theme_id: typing_extensions.Annotated[str, FieldMetadata(alias="themeId")] = pydantic.Field(alias="themeId")
-    """
-    Theme Id
-    """
-
+    theme_id: typing_extensions.Annotated[
+        str, FieldMetadata(alias="themeId"), pydantic.Field(alias="themeId", description="Theme Id")
+    ]
     widget: BrandingThemeWidget
 
     if IS_PYDANTIC_V2:

@@ -9,26 +9,21 @@ from ..core.serialization import FieldMetadata
 
 
 class EmailProviderCredentialsSchemaClientId(UniversalBaseModel):
-    tenant_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="tenantId")] = pydantic.Field(
-        alias="tenantId", default=None
-    )
-    """
-    Microsoft 365 Tenant ID.
-    """
-
-    client_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="clientId")] = pydantic.Field(
-        alias="clientId", default=None
-    )
-    """
-    Microsoft 365 Client ID.
-    """
-
-    client_secret: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="clientSecret")] = (
-        pydantic.Field(alias="clientSecret", default=None)
-    )
-    """
-    Microsoft 365 Client Secret.
-    """
+    tenant_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="tenantId"),
+        pydantic.Field(alias="tenantId", description="Microsoft 365 Tenant ID."),
+    ] = None
+    client_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="clientId"),
+        pydantic.Field(alias="clientId", description="Microsoft 365 Client ID."),
+    ] = None
+    client_secret: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="clientSecret"),
+        pydantic.Field(alias="clientSecret", description="Microsoft 365 Client Secret."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

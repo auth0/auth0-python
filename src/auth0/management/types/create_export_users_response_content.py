@@ -9,12 +9,12 @@ from .job_file_format_enum import JobFileFormatEnum
 
 
 class CreateExportUsersResponseContent(UniversalBaseModel):
-    status: str = pydantic.Field(default="pending")
+    status: str = pydantic.Field()
     """
     Status of this job.
     """
 
-    type: str = pydantic.Field(default="users_export")
+    type: str = pydantic.Field()
     """
     Type of job this is.
     """
@@ -24,18 +24,18 @@ class CreateExportUsersResponseContent(UniversalBaseModel):
     When this job was created.
     """
 
-    id: str = pydantic.Field(default="job_0000000000000001")
+    id: str = pydantic.Field()
     """
     ID of this job.
     """
 
-    connection_id: typing.Optional[str] = pydantic.Field(default="con_0000000000000001")
+    connection_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     connection_id of the connection from which users will be exported.
     """
 
     format: typing.Optional[JobFileFormatEnum] = None
-    limit: typing.Optional[int] = pydantic.Field(default=5)
+    limit: typing.Optional[int] = pydantic.Field(default=None)
     """
     Limit the number of records.
     """

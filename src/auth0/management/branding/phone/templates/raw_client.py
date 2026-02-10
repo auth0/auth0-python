@@ -126,7 +126,7 @@ class RawTemplatesClient:
         self,
         *,
         type: typing.Optional[PhoneTemplateNotificationTypeEnum] = OMIT,
-        disabled: typing.Optional[bool] = False,
+        disabled: typing.Optional[bool] = OMIT,
         content: typing.Optional[PhoneTemplateContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreatePhoneTemplateResponseContent]:
@@ -411,7 +411,7 @@ class RawTemplatesClient:
         id: str,
         *,
         content: typing.Optional[PartialPhoneTemplateContent] = OMIT,
-        disabled: typing.Optional[bool] = False,
+        disabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdatePhoneTemplateResponseContent]:
         """
@@ -810,7 +810,7 @@ class AsyncRawTemplatesClient:
         self,
         *,
         type: typing.Optional[PhoneTemplateNotificationTypeEnum] = OMIT,
-        disabled: typing.Optional[bool] = False,
+        disabled: typing.Optional[bool] = OMIT,
         content: typing.Optional[PhoneTemplateContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreatePhoneTemplateResponseContent]:
@@ -1097,7 +1097,7 @@ class AsyncRawTemplatesClient:
         id: str,
         *,
         content: typing.Optional[PartialPhoneTemplateContent] = OMIT,
-        disabled: typing.Optional[bool] = False,
+        disabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdatePhoneTemplateResponseContent]:
         """

@@ -11,12 +11,12 @@ class SuspiciousIpThrottlingPreUserRegistrationStage(UniversalBaseModel):
     Configuration options that apply before every user registration attempt.
     """
 
-    max_attempts: typing.Optional[int] = pydantic.Field(default=50)
+    max_attempts: typing.Optional[int] = pydantic.Field(default=None)
     """
     Total number of attempts allowed.
     """
 
-    rate: typing.Optional[int] = pydantic.Field(default=1728000)
+    rate: typing.Optional[int] = pydantic.Field(default=None)
     """
     Interval of time, given in milliseconds, at which new attempts are granted.
     """
