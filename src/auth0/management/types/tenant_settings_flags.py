@@ -14,34 +14,36 @@ class TenantSettingsFlags(UniversalBaseModel):
     """
 
     change_pwd_flow_v_1: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="change_pwd_flow_v1")
-    ] = pydantic.Field(alias="change_pwd_flow_v1", default=False)
-    """
-    Whether to use the older v1 change password flow (true, not recommended except for backward compatibility) or the newer safer flow (false, recommended).
-    """
-
-    enable_apis_section: typing.Optional[bool] = pydantic.Field(default=False)
+        typing.Optional[bool],
+        FieldMetadata(alias="change_pwd_flow_v1"),
+        pydantic.Field(
+            alias="change_pwd_flow_v1",
+            description="Whether to use the older v1 change password flow (true, not recommended except for backward compatibility) or the newer safer flow (false, recommended).",
+        ),
+    ] = None
+    enable_apis_section: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the APIs section is enabled (true) or disabled (false).
     """
 
-    disable_impersonation: typing.Optional[bool] = pydantic.Field(default=False)
+    disable_impersonation: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the impersonation functionality has been disabled (true) or not (false). Read-only.
     """
 
-    enable_client_connections: typing.Optional[bool] = pydantic.Field(default=True)
+    enable_client_connections: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether all current connections should be enabled when a new client (application) is created (true, default) or not (false).
     """
 
-    enable_pipeline_2: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="enable_pipeline2")] = (
-        pydantic.Field(alias="enable_pipeline2", default=True)
-    )
-    """
-    Whether advanced API Authorization scenarios are enabled (true) or disabled (false).
-    """
-
+    enable_pipeline_2: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="enable_pipeline2"),
+        pydantic.Field(
+            alias="enable_pipeline2",
+            description="Whether advanced API Authorization scenarios are enabled (true) or disabled (false).",
+        ),
+    ] = None
     allow_legacy_delegation_grant_types: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If enabled, clients are able to add legacy delegation grants.
@@ -63,12 +65,13 @@ class TenantSettingsFlags(UniversalBaseModel):
     """
 
     enable_idtoken_api_2: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="enable_idtoken_api2")
-    ] = pydantic.Field(alias="enable_idtoken_api2", default=None)
-    """
-    Whether ID tokens can be used to authorize some types of requests to API v2 (true) not not (false).
-    """
-
+        typing.Optional[bool],
+        FieldMetadata(alias="enable_idtoken_api2"),
+        pydantic.Field(
+            alias="enable_idtoken_api2",
+            description="Whether ID tokens can be used to authorize some types of requests to API v2 (true) not not (false).",
+        ),
+    ] = None
     enable_public_signup_user_exists_error: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the public sign up process shows a user_exists error (true) or a generic error (false) if the user already exists.
@@ -144,22 +147,22 @@ class TenantSettingsFlags(UniversalBaseModel):
     This tenant signed up for the Auth4GenAI trail
     """
 
-    enable_dynamic_client_registration: typing.Optional[bool] = pydantic.Field(default=False)
+    enable_dynamic_client_registration: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether third-party developers can <a href="https://auth0.com/docs/api-auth/dynamic-client-registration">dynamically register</a> applications for your APIs (true) or not (false). This flag enables dynamic client registration.
     """
 
-    disable_management_api_sms_obfuscation: typing.Optional[bool] = pydantic.Field(default=True)
+    disable_management_api_sms_obfuscation: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If true, SMS phone numbers will not be obfuscated in Management API GET calls.
     """
 
-    trust_azure_adfs_email_verified_connection_property: typing.Optional[bool] = pydantic.Field(default=False)
+    trust_azure_adfs_email_verified_connection_property: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Changes email_verified behavior for Azure AD/ADFS connections when enabled. Sets email_verified to false otherwise.
     """
 
-    custom_domains_provisioning: typing.Optional[bool] = pydantic.Field(default=False)
+    custom_domains_provisioning: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If true, custom domains feature will be enabled for tenant.
     """

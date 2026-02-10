@@ -89,7 +89,7 @@ class TokenExchangeProfilesClient:
     def create(
         self,
         *,
-        name: str = "Token Exchange Profile 1",
+        name: str,
         subject_token_type: str,
         action_id: str,
         type: TokenExchangeProfileTypeEnum,
@@ -215,7 +215,7 @@ class TokenExchangeProfilesClient:
         self,
         id: str,
         *,
-        name: typing.Optional[str] = "Token Exchange Profile 1",
+        name: typing.Optional[str] = OMIT,
         subject_token_type: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
@@ -341,7 +341,7 @@ class AsyncTokenExchangeProfilesClient:
     async def create(
         self,
         *,
-        name: str = "Token Exchange Profile 1",
+        name: str,
         subject_token_type: str,
         action_id: str,
         type: TokenExchangeProfileTypeEnum,
@@ -491,7 +491,7 @@ class AsyncTokenExchangeProfilesClient:
         self,
         id: str,
         *,
-        name: typing.Optional[str] = "Token Exchange Profile 1",
+        name: typing.Optional[str] = OMIT,
         subject_token_type: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:

@@ -11,7 +11,7 @@ from .self_service_profile_user_attribute import SelfServiceProfileUserAttribute
 
 
 class SelfServiceProfile(UniversalBaseModel):
-    id: typing.Optional[str] = pydantic.Field(default="ssp_n7SNCL8seoyV1TuSTCnAeo")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique ID of the self-service Profile.
     """
@@ -46,7 +46,7 @@ class SelfServiceProfile(UniversalBaseModel):
         default=None
     )
     """
-    List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
+    List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
     """
 
     user_attribute_profile_id: typing.Optional[str] = pydantic.Field(default=None)

@@ -13,17 +13,19 @@ class ClientMobileAndroid(UniversalBaseModel):
     Android native app configuration.
     """
 
-    app_package_name: typing.Optional[str] = pydantic.Field(default="")
+    app_package_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     App package name found in AndroidManifest.xml.
     """
 
     sha_256_cert_fingerprints: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="sha256_cert_fingerprints")
-    ] = pydantic.Field(alias="sha256_cert_fingerprints", default=None)
-    """
-    SHA256 fingerprints of the app's signing certificate. Multiple fingerprints can be used to support different versions of your app, such as debug and production builds.
-    """
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="sha256_cert_fingerprints"),
+        pydantic.Field(
+            alias="sha256_cert_fingerprints",
+            description="SHA256 fingerprints of the app's signing certificate. Multiple fingerprints can be used to support different versions of your app, such as debug and production builds.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

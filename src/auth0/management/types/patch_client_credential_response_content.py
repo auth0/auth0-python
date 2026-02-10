@@ -12,17 +12,17 @@ from .client_credential_type_enum import ClientCredentialTypeEnum
 
 
 class PatchClientCredentialResponseContent(UniversalBaseModel):
-    id: typing.Optional[str] = pydantic.Field(default="cred_1m7sfABoNTTKYwTQ8qt6tX")
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the credential. Generated on creation.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default="")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name given to the credential by the user.
     """
 
-    kid: typing.Optional[str] = pydantic.Field(default="IZSSTECp...")
+    kid: typing.Optional[str] = pydantic.Field(default=None)
     """
     The key identifier of the credential, generated on creation.
     """
@@ -34,13 +34,11 @@ class PatchClientCredentialResponseContent(UniversalBaseModel):
     The X509 certificate's Subject Distinguished Name
     """
 
-    thumbprint_sha_256: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="thumbprint_sha256")] = (
-        pydantic.Field(alias="thumbprint_sha256", default=None)
-    )
-    """
-    The X509 certificate's SHA256 thumbprint
-    """
-
+    thumbprint_sha_256: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="thumbprint_sha256"),
+        pydantic.Field(alias="thumbprint_sha256", description="The X509 certificate's SHA256 thumbprint"),
+    ] = None
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The ISO 8601 formatted date the credential was created.

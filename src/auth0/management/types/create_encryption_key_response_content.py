@@ -31,7 +31,7 @@ class CreateEncryptionKeyResponseContent(UniversalBaseModel):
     Key update timestamp
     """
 
-    parent_kid: str = pydantic.Field()
+    parent_kid: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of parent wrapping key
     """

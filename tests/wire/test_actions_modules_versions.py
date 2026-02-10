@@ -5,8 +5,8 @@ def test_actions_modules_versions_list_() -> None:
     """Test list endpoint with WireMock"""
     test_id = "actions.modules.versions.list_.0"
     client = get_client(test_id)
-    client.actions.modules.versions.list(id="id")
-    verify_request_count(test_id, "GET", "/actions/modules/id/versions", None, 1)
+    client.actions.modules.versions.list(id="id", page=1, per_page=1)
+    verify_request_count(test_id, "GET", "/actions/modules/id/versions", {"page": "1", "per_page": "1"}, 1)
 
 
 def test_actions_modules_versions_create() -> None:

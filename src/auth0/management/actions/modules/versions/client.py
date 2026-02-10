@@ -3,7 +3,9 @@
 import typing
 
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ....core.pagination import AsyncPager, SyncPager
 from ....core.request_options import RequestOptions
+from ....types.action_module_version import ActionModuleVersion
 from ....types.create_action_module_version_response_content import CreateActionModuleVersionResponseContent
 from ....types.get_action_module_version_response_content import GetActionModuleVersionResponseContent
 from ....types.get_action_module_versions_response_content import GetActionModuleVersionsResponseContent
@@ -26,8 +28,13 @@ class VersionsClient:
         return self._raw_client
 
     def list(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetActionModuleVersionsResponseContent:
+        self,
+        id: str,
+        *,
+        page: typing.Optional[int] = 0,
+        per_page: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ActionModuleVersion, GetActionModuleVersionsResponseContent]:
         """
         List all published versions of a specific Actions Module.
 
@@ -36,12 +43,18 @@ class VersionsClient:
         id : str
             The unique ID of the module.
 
+        page : typing.Optional[int]
+            Use this field to request a specific page of the list results.
+
+        per_page : typing.Optional[int]
+            The maximum number of results to be returned by the server in a single response. 20 by default.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        GetActionModuleVersionsResponseContent
+        SyncPager[ActionModuleVersion, GetActionModuleVersionsResponseContent]
             The module versions were retrieved.
 
         Examples
@@ -51,12 +64,18 @@ class VersionsClient:
         client = Auth0(
             token="YOUR_TOKEN",
         )
-        client.actions.modules.versions.list(
+        response = client.actions.modules.versions.list(
             id="id",
+            page=1,
+            per_page=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(id, request_options=request_options)
-        return _response.data
+        return self._raw_client.list(id, page=page, per_page=per_page, request_options=request_options)
 
     def create(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -145,8 +164,13 @@ class AsyncVersionsClient:
         return self._raw_client
 
     async def list(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetActionModuleVersionsResponseContent:
+        self,
+        id: str,
+        *,
+        page: typing.Optional[int] = 0,
+        per_page: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ActionModuleVersion, GetActionModuleVersionsResponseContent]:
         """
         List all published versions of a specific Actions Module.
 
@@ -155,12 +179,18 @@ class AsyncVersionsClient:
         id : str
             The unique ID of the module.
 
+        page : typing.Optional[int]
+            Use this field to request a specific page of the list results.
+
+        per_page : typing.Optional[int]
+            The maximum number of results to be returned by the server in a single response. 20 by default.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        GetActionModuleVersionsResponseContent
+        AsyncPager[ActionModuleVersion, GetActionModuleVersionsResponseContent]
             The module versions were retrieved.
 
         Examples
@@ -175,15 +205,22 @@ class AsyncVersionsClient:
 
 
         async def main() -> None:
-            await client.actions.modules.versions.list(
+            response = await client.actions.modules.versions.list(
                 id="id",
+                page=1,
+                per_page=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(id, request_options=request_options)
-        return _response.data
+        return await self._raw_client.list(id, page=page, per_page=per_page, request_options=request_options)
 
     async def create(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None

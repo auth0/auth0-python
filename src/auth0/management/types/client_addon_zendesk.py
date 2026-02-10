@@ -13,12 +13,14 @@ class ClientAddonZendesk(UniversalBaseModel):
     Zendesk SSO configuration.
     """
 
-    account_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountName")] = (
-        pydantic.Field(alias="accountName", default=None)
-    )
-    """
-    Zendesk account name usually first segment in your Zendesk URL. e.g. `https://acme-org.zendesk.com` would be `acme-org`.
-    """
+    account_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="accountName"),
+        pydantic.Field(
+            alias="accountName",
+            description="Zendesk account name usually first segment in your Zendesk URL. e.g. `https://acme-org.zendesk.com` would be `acme-org`.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

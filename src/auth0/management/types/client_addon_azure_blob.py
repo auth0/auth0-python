@@ -13,46 +13,45 @@ class ClientAddonAzureBlob(UniversalBaseModel):
     Azure Blob Storage addon configuration.
     """
 
-    account_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountName")] = (
-        pydantic.Field(alias="accountName", default=None)
-    )
-    """
-    Your Azure storage account name. Usually first segment in your Azure storage URL. e.g. `https://acme-org.blob.core.windows.net` would be the account name `acme-org`.
-    """
-
-    storage_access_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="storageAccessKey")] = (
-        pydantic.Field(alias="storageAccessKey", default=None)
-    )
-    """
-    Access key associated with this storage account.
-    """
-
-    container_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="containerName")] = (
-        pydantic.Field(alias="containerName", default=None)
-    )
-    """
-    Container to request a token for. e.g. `my-container`.
-    """
-
-    blob_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="blobName")] = pydantic.Field(
-        alias="blobName", default=None
-    )
-    """
-    Entity to request a token for. e.g. `my-blob`. If blank the computed SAS will apply to the entire storage container.
-    """
-
+    account_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="accountName"),
+        pydantic.Field(
+            alias="accountName",
+            description="Your Azure storage account name. Usually first segment in your Azure storage URL. e.g. `https://acme-org.blob.core.windows.net` would be the account name `acme-org`.",
+        ),
+    ] = None
+    storage_access_key: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="storageAccessKey"),
+        pydantic.Field(alias="storageAccessKey", description="Access key associated with this storage account."),
+    ] = None
+    container_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="containerName"),
+        pydantic.Field(alias="containerName", description="Container to request a token for. e.g. `my-container`."),
+    ] = None
+    blob_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="blobName"),
+        pydantic.Field(
+            alias="blobName",
+            description="Entity to request a token for. e.g. `my-blob`. If blank the computed SAS will apply to the entire storage container.",
+        ),
+    ] = None
     expiration: typing.Optional[int] = pydantic.Field(default=None)
     """
     Expiration in minutes for the generated token (default of 5 minutes).
     """
 
-    signed_identifier: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="signedIdentifier")] = (
-        pydantic.Field(alias="signedIdentifier", default=None)
-    )
-    """
-    Shared access policy identifier defined in your storage account resource.
-    """
-
+    signed_identifier: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="signedIdentifier"),
+        pydantic.Field(
+            alias="signedIdentifier",
+            description="Shared access policy identifier defined in your storage account resource.",
+        ),
+    ] = None
     blob_read: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates if the issued token has permission to read the content, properties, metadata and block list. Use the blob as the source of a copy operation.

@@ -13,12 +13,12 @@ from .acul_rendering_mode_enum import AculRenderingModeEnum
 class UpdateAculResponseContent(UniversalBaseModel):
     rendering_mode: typing.Optional[AculRenderingModeEnum] = None
     context_configuration: typing.Optional[AculContextConfiguration] = None
-    default_head_tags_disabled: typing.Optional[bool] = pydantic.Field(default=False)
+    default_head_tags_disabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Override Universal Login default head tags
     """
 
-    use_page_template: typing.Optional[bool] = pydantic.Field(default=False)
+    use_page_template: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Use page template with ACUL
     """

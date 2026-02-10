@@ -32,39 +32,54 @@ class ConnectionOptionsSaml(ConnectionOptionsCommonSaml, ConnectionOptionsCommon
     debug: typing.Optional[ConnectionDebugSaml] = None
     deflate: typing.Optional[ConnectionOptionsDeflateSaml] = None
     destination_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionDestinationUrlSaml], FieldMetadata(alias="destinationUrl")
-    ] = pydantic.Field(alias="destinationUrl", default=None)
-    disable_signout: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="disableSignout")] = (
-        pydantic.Field(alias="disableSignout", default=None)
-    )
-    """
-    When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).
-    """
-
+        typing.Optional[ConnectionDestinationUrlSaml],
+        FieldMetadata(alias="destinationUrl"),
+        pydantic.Field(alias="destinationUrl"),
+    ] = None
+    disable_signout: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="disableSignout"),
+        pydantic.Field(
+            alias="disableSignout",
+            description="When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).",
+        ),
+    ] = None
     fields_map: typing_extensions.Annotated[
-        typing.Optional[ConnectionFieldsMapSaml], FieldMetadata(alias="fieldsMap")
-    ] = pydantic.Field(alias="fieldsMap", default=None)
+        typing.Optional[ConnectionFieldsMapSaml], FieldMetadata(alias="fieldsMap"), pydantic.Field(alias="fieldsMap")
+    ] = None
     global_token_revocation_jwt_iss: typing.Optional[ConnectionGlobalTokenRevocationJwtIssSaml] = None
     global_token_revocation_jwt_sub: typing.Optional[ConnectionGlobalTokenRevocationJwtSubSaml] = None
     metadata_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionMetadataUrlSaml], FieldMetadata(alias="metadataUrl")
-    ] = pydantic.Field(alias="metadataUrl", default=None)
+        typing.Optional[ConnectionMetadataUrlSaml],
+        FieldMetadata(alias="metadataUrl"),
+        pydantic.Field(alias="metadataUrl"),
+    ] = None
     metadata_xml: typing_extensions.Annotated[
-        typing.Optional[ConnectionMetadataXmlSaml], FieldMetadata(alias="metadataXml")
-    ] = pydantic.Field(alias="metadataXml", default=None)
+        typing.Optional[ConnectionMetadataXmlSaml],
+        FieldMetadata(alias="metadataXml"),
+        pydantic.Field(alias="metadataXml"),
+    ] = None
     recipient_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionRecipientUrlSaml], FieldMetadata(alias="recipientUrl")
-    ] = pydantic.Field(alias="recipientUrl", default=None)
+        typing.Optional[ConnectionRecipientUrlSaml],
+        FieldMetadata(alias="recipientUrl"),
+        pydantic.Field(alias="recipientUrl"),
+    ] = None
     request_template: typing_extensions.Annotated[
-        typing.Optional[ConnectionRequestTemplateSaml], FieldMetadata(alias="requestTemplate")
-    ] = pydantic.Field(alias="requestTemplate", default=None)
+        typing.Optional[ConnectionRequestTemplateSaml],
+        FieldMetadata(alias="requestTemplate"),
+        pydantic.Field(alias="requestTemplate"),
+    ] = None
     signing_cert: typing_extensions.Annotated[
-        typing.Optional[ConnectionSigningCertSaml], FieldMetadata(alias="signingCert")
-    ] = pydantic.Field(alias="signingCert", default=None)
+        typing.Optional[ConnectionSigningCertSaml],
+        FieldMetadata(alias="signingCert"),
+        pydantic.Field(alias="signingCert"),
+    ] = None
     signing_key: typing.Optional[ConnectionSigningKeySaml] = None
     sign_out_endpoint: typing_extensions.Annotated[
-        typing.Optional[ConnectionSignOutEndpointSaml], FieldMetadata(alias="signOutEndpoint")
-    ] = pydantic.Field(alias="signOutEndpoint", default=None)
+        typing.Optional[ConnectionSignOutEndpointSaml],
+        FieldMetadata(alias="signOutEndpoint"),
+        pydantic.Field(alias="signOutEndpoint"),
+    ] = None
     user_id_attribute: typing.Optional[ConnectionUserIdAttributeSaml] = None
 
     if IS_PYDANTIC_V2:

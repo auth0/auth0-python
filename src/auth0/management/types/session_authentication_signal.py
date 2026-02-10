@@ -3,9 +3,7 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 from .session_date import SessionDate
 
 
@@ -20,9 +18,7 @@ class SessionAuthenticationSignal(UniversalBaseModel):
     """
 
     timestamp: typing.Optional[SessionDate] = None
-    type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="^type$")] = pydantic.Field(
-        alias="^type$", default=None
-    )
+    type: typing.Optional[str] = pydantic.Field(default=None)
     """
     A specific MFA factor. Only present when "name" is set to "mfa"
     """

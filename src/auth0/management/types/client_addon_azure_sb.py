@@ -18,27 +18,23 @@ class ClientAddonAzureSb(UniversalBaseModel):
     Your Azure Service Bus namespace. Usually the first segment of your Service Bus URL (e.g. `https://acme-org.servicebus.windows.net` would be `acme-org`).
     """
 
-    sas_key_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="sasKeyName")] = pydantic.Field(
-        alias="sasKeyName", default=None
-    )
-    """
-    Your shared access policy name defined in your Service Bus entity.
-    """
-
-    sas_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="sasKey")] = pydantic.Field(
-        alias="sasKey", default=None
-    )
-    """
-    Primary Key associated with your shared access policy.
-    """
-
-    entity_path: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="entityPath")] = pydantic.Field(
-        alias="entityPath", default=None
-    )
-    """
-    Entity you want to request a token for. e.g. `my-queue`.'
-    """
-
+    sas_key_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="sasKeyName"),
+        pydantic.Field(
+            alias="sasKeyName", description="Your shared access policy name defined in your Service Bus entity."
+        ),
+    ] = None
+    sas_key: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="sasKey"),
+        pydantic.Field(alias="sasKey", description="Primary Key associated with your shared access policy."),
+    ] = None
+    entity_path: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="entityPath"),
+        pydantic.Field(alias="entityPath", description="Entity you want to request a token for. e.g. `my-queue`.'"),
+    ] = None
     expiration: typing.Optional[int] = pydantic.Field(default=None)
     """
     Optional expiration in minutes for the generated token. Defaults to 5 minutes.

@@ -34,7 +34,7 @@ class ConnectionOptionsGoogleApps(ConnectionOptionsCommon):
     admin_access_token: typing.Optional[ConnectionAdminAccessTokenGoogleApps] = None
     admin_access_token_expiresin: typing.Optional[ConnectionAdminAccessTokenExpiresInGoogleApps] = None
     admin_refresh_token: typing.Optional[ConnectionAdminRefreshTokenGoogleApps] = None
-    allow_setting_login_scopes: typing.Optional[bool] = pydantic.Field(default=False)
+    allow_setting_login_scopes: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When true, allows customization of OAuth scopes requested during user login. Custom scopes are appended to the mandatory email and profile scopes. When false or omitted, only the default email and profile scopes are used. This property is automatically enabled when Token Vault or Connected Accounts features are activated.
     """
@@ -44,14 +44,14 @@ class ConnectionOptionsGoogleApps(ConnectionOptionsCommon):
     client_secret: typing.Optional[ConnectionClientSecretGoogleApps] = None
     domain: typing.Optional[ConnectionDomainGoogleApps] = None
     domain_aliases: typing.Optional[ConnectionDomainAliases] = None
-    email: typing.Optional[bool] = pydantic.Field(default=True)
+    email: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the OAuth flow requests the `email` scope.
     """
 
     ext_agreed_terms: typing.Optional[ConnectionExtAgreedTermsGoogleApps] = None
     ext_groups: typing.Optional[ConnectionExtGroupsGoogleApps] = None
-    ext_groups_extended: typing.Optional[bool] = pydantic.Field(default=True)
+    ext_groups_extended: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Controls whether enriched group entries include `id`, `email`, `name` (true) or only the group name (false); can only be set when `ext_groups` is true.
     """
@@ -61,12 +61,12 @@ class ConnectionOptionsGoogleApps(ConnectionOptionsCommon):
     federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
     handle_login_from_social: typing.Optional[ConnectionHandleLoginFromSocialGoogleApps] = None
     icon_url: typing.Optional[ConnectionIconUrlGoogleApps] = None
-    map_user_id_to_id: typing.Optional[bool] = pydantic.Field(default=False)
+    map_user_id_to_id: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Determines how Auth0 generates the user_id for Google Workspace users. When false (default), the user's email address is used. When true, Google's stable numeric user ID is used instead, which persists even if the user's email changes. This setting can only be configured when creating the connection and cannot be changed afterward.
     """
 
-    profile: typing.Optional[bool] = pydantic.Field(default=True)
+    profile: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the OAuth flow requests the `profile` scope.
     """

@@ -9,24 +9,20 @@ from ..core.serialization import FieldMetadata
 
 
 class GetGuardianFactorsProviderPhoneTwilioResponseContent(UniversalBaseModel):
-    from_: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="from")] = pydantic.Field(
-        alias="from", default="+1223323"
-    )
-    """
-    From number
-    """
-
-    messaging_service_sid: typing.Optional[str] = pydantic.Field(default="5dEkAiHLPCuQ1uJj4qNXcAnERFAL6cpq")
+    from_: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="from"), pydantic.Field(alias="from", description="From number")
+    ] = None
+    messaging_service_sid: typing.Optional[str] = pydantic.Field(default=None)
     """
     Copilot SID
     """
 
-    auth_token: typing.Optional[str] = pydantic.Field(default="zw5Ku6z2sxhd0ZVXto5SDHX6KPDByJPU")
+    auth_token: typing.Optional[str] = pydantic.Field(default=None)
     """
     Twilio Authentication token
     """
 
-    sid: typing.Optional[str] = pydantic.Field(default="wywA2BH4VqTpfywiDuyDAYZL3xQjoO40")
+    sid: typing.Optional[str] = pydantic.Field(default=None)
     """
     Twilio SID
     """

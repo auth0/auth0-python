@@ -11,12 +11,12 @@ class TenantSettingsGuardianPage(UniversalBaseModel):
     Guardian page customization.
     """
 
-    enabled: typing.Optional[bool] = pydantic.Field(default=False)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether to use the custom Guardian HTML (true) or the default Auth0 page (false, default)
     """
 
-    html: typing.Optional[str] = pydantic.Field(default="")
+    html: typing.Optional[str] = pydantic.Field(default=None)
     """
      Custom Guardian HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> is supported).
     """

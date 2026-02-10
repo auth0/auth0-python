@@ -692,11 +692,11 @@ class RawPushNotificationClient:
     def set_sns_provider(
         self,
         *,
-        aws_access_key_id: typing.Optional[str] = "wywA2BH4VqTpfywiDuyDAYZL3xQjoO40",
-        aws_secret_access_key: typing.Optional[str] = "B1ER5JHDGJL3C4sVAKK7SBsq806R3IpL",
-        aws_region: typing.Optional[str] = "us-west-1",
+        aws_access_key_id: typing.Optional[str] = OMIT,
+        aws_secret_access_key: typing.Optional[str] = OMIT,
+        aws_region: typing.Optional[str] = OMIT,
         sns_apns_platform_application_arn: typing.Optional[str] = OMIT,
-        sns_gcm_platform_application_arn: typing.Optional[str] = "urn://yRMeBxgcCXh8MeTXPBAxhQnm6gP6f5nP",
+        sns_gcm_platform_application_arn: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetGuardianFactorsProviderPushNotificationSnsResponseContent]:
         """
@@ -789,11 +789,11 @@ class RawPushNotificationClient:
     def update_sns_provider(
         self,
         *,
-        aws_access_key_id: typing.Optional[str] = "wywA2BH4VqTpfywiDuyDAYZL3xQjoO40",
-        aws_secret_access_key: typing.Optional[str] = "B1ER5JHDGJL3C4sVAKK7SBsq806R3IpL",
-        aws_region: typing.Optional[str] = "us-west-1",
+        aws_access_key_id: typing.Optional[str] = OMIT,
+        aws_secret_access_key: typing.Optional[str] = OMIT,
+        aws_region: typing.Optional[str] = OMIT,
         sns_apns_platform_application_arn: typing.Optional[str] = OMIT,
-        sns_gcm_platform_application_arn: typing.Optional[str] = "urn://yRMeBxgcCXh8MeTXPBAxhQnm6gP6f5nP",
+        sns_gcm_platform_application_arn: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateGuardianFactorsProviderPushNotificationSnsResponseContent]:
         """
@@ -1675,11 +1675,11 @@ class AsyncRawPushNotificationClient:
     async def set_sns_provider(
         self,
         *,
-        aws_access_key_id: typing.Optional[str] = "wywA2BH4VqTpfywiDuyDAYZL3xQjoO40",
-        aws_secret_access_key: typing.Optional[str] = "B1ER5JHDGJL3C4sVAKK7SBsq806R3IpL",
-        aws_region: typing.Optional[str] = "us-west-1",
+        aws_access_key_id: typing.Optional[str] = OMIT,
+        aws_secret_access_key: typing.Optional[str] = OMIT,
+        aws_region: typing.Optional[str] = OMIT,
         sns_apns_platform_application_arn: typing.Optional[str] = OMIT,
-        sns_gcm_platform_application_arn: typing.Optional[str] = "urn://yRMeBxgcCXh8MeTXPBAxhQnm6gP6f5nP",
+        sns_gcm_platform_application_arn: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationSnsResponseContent]:
         """
@@ -1772,11 +1772,11 @@ class AsyncRawPushNotificationClient:
     async def update_sns_provider(
         self,
         *,
-        aws_access_key_id: typing.Optional[str] = "wywA2BH4VqTpfywiDuyDAYZL3xQjoO40",
-        aws_secret_access_key: typing.Optional[str] = "B1ER5JHDGJL3C4sVAKK7SBsq806R3IpL",
-        aws_region: typing.Optional[str] = "us-west-1",
+        aws_access_key_id: typing.Optional[str] = OMIT,
+        aws_secret_access_key: typing.Optional[str] = OMIT,
+        aws_region: typing.Optional[str] = OMIT,
         sns_apns_platform_application_arn: typing.Optional[str] = OMIT,
-        sns_gcm_platform_application_arn: typing.Optional[str] = "urn://yRMeBxgcCXh8MeTXPBAxhQnm6gP6f5nP",
+        sns_gcm_platform_application_arn: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationSnsResponseContent]:
         """

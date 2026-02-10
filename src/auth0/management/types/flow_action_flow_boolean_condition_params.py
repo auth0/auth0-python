@@ -12,9 +12,9 @@ from ..core.serialization import FieldMetadata
 
 class FlowActionFlowBooleanConditionParams(UniversalBaseModel):
     then: typing.Optional[typing.List["FlowAction"]] = None
-    else_: typing_extensions.Annotated[typing.Optional[typing.List["FlowAction"]], FieldMetadata(alias="else")] = (
-        pydantic.Field(alias="else", default=None)
-    )
+    else_: typing_extensions.Annotated[
+        typing.Optional[typing.List["FlowAction"]], FieldMetadata(alias="else"), pydantic.Field(alias="else")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

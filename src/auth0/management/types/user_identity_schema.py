@@ -22,13 +22,13 @@ class UserIdentitySchema(UniversalBaseModel):
     """
 
     provider: typing.Optional[UserIdentityProviderEnum] = None
-    is_social: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isSocial")] = pydantic.Field(
-        alias="isSocial", default=None
-    )
-    """
-    Whether this identity is from a social provider (true) or not (false).
-    """
-
+    is_social: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isSocial"),
+        pydantic.Field(
+            alias="isSocial", description="Whether this identity is from a social provider (true) or not (false)."
+        ),
+    ] = None
     access_token: typing.Optional[str] = pydantic.Field(default=None)
     """
     IDP access token returned only if scope read:user_idp_tokens is defined.
@@ -44,9 +44,9 @@ class UserIdentitySchema(UniversalBaseModel):
     IDP refresh token returned only if scope read:user_idp_tokens is defined.
     """
 
-    profile_data: typing_extensions.Annotated[typing.Optional[UserProfileData], FieldMetadata(alias="profileData")] = (
-        pydantic.Field(alias="profileData", default=None)
-    )
+    profile_data: typing_extensions.Annotated[
+        typing.Optional[UserProfileData], FieldMetadata(alias="profileData"), pydantic.Field(alias="profileData")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

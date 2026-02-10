@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class DeployActionVersionRequestContent(UniversalBaseModel):
-    update_draft: typing.Optional[bool] = pydantic.Field(default=False)
+    update_draft: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True if the draft of the action should be updated with the reverted version.
     """

@@ -7,16 +7,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class SetGuardianFactorSmsTemplatesResponseContent(UniversalBaseModel):
-    enrollment_message: str = pydantic.Field(
-        default="{{code}} is your verification code for {{tenant.friendly_name}}. Please enter this code to verify your enrollment."
-    )
+    enrollment_message: str = pydantic.Field()
     """
     Message sent to the user when they are invited to enroll with a phone number.
     """
 
-    verification_message: str = pydantic.Field(
-        default="{{code}} is your verification code for {{tenant.friendly_name}}"
-    )
+    verification_message: str = pydantic.Field()
     """
     Message sent to the user when they are prompted to verify their account.
     """

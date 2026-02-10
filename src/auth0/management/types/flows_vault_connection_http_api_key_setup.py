@@ -14,9 +14,9 @@ class FlowsVaultConnectionHttpApiKeySetup(UniversalBaseModel):
     type: FlowsVaultConnectionSetupTypeApiKeyEnum
     name: str
     value: str
-    in_: typing_extensions.Annotated[FlowsVaultConnectionHttpApiKeySetupInEnum, FieldMetadata(alias="in")] = (
-        pydantic.Field(alias="in")
-    )
+    in_: typing_extensions.Annotated[
+        FlowsVaultConnectionHttpApiKeySetupInEnum, FieldMetadata(alias="in"), pydantic.Field(alias="in")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

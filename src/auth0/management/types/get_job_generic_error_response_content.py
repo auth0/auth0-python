@@ -7,12 +7,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class GetJobGenericErrorResponseContent(UniversalBaseModel):
-    status: str = pydantic.Field(default="pending")
+    status: str = pydantic.Field()
     """
     Status of this job.
     """
 
-    type: str = pydantic.Field(default="users_import")
+    type: str = pydantic.Field()
     """
     Type of job this is.
     """
@@ -22,12 +22,12 @@ class GetJobGenericErrorResponseContent(UniversalBaseModel):
     When this job was created.
     """
 
-    id: str = pydantic.Field(default="job_0000000000000001")
+    id: str = pydantic.Field()
     """
     ID of this job.
     """
 
-    connection_id: typing.Optional[str] = pydantic.Field(default="con_0000000000000001")
+    connection_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     connection_id of the connection this job uses.
     """

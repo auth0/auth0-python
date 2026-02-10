@@ -29,23 +29,28 @@ class ConnectionOptionsAdfs(ConnectionOptionsCommon):
     """
 
     domain_aliases: typing.Optional[ConnectionDomainAliases] = None
-    entity_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="entityId")] = pydantic.Field(
-        alias="entityId", default=None
-    )
-    """
-    The entity identifier (Issuer) for the ADFS Service Provider. When not provided, defaults to 'urn:auth0:{tenant}:{connection}'.
-    """
-
+    entity_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="entityId"),
+        pydantic.Field(
+            alias="entityId",
+            description="The entity identifier (Issuer) for the ADFS Service Provider. When not provided, defaults to 'urn:auth0:{tenant}:{connection}'.",
+        ),
+    ] = None
     fed_metadata_xml: typing_extensions.Annotated[
-        typing.Optional[ConnectionMetadataXmlAdfs], FieldMetadata(alias="fedMetadataXml")
-    ] = pydantic.Field(alias="fedMetadataXml", default=None)
+        typing.Optional[ConnectionMetadataXmlAdfs],
+        FieldMetadata(alias="fedMetadataXml"),
+        pydantic.Field(alias="fedMetadataXml"),
+    ] = None
     icon_url: typing.Optional[ConnectionIconUrlAdfs] = None
     prev_thumbprints: typing.Optional[ConnectionThumbprints] = None
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     should_trust_email_verified_connection: typing.Optional[ConnectionShouldTrustEmailVerifiedConnectionEnum] = None
     sign_in_endpoint: typing_extensions.Annotated[
-        typing.Optional[ConnectionSignInEndpointAdfs], FieldMetadata(alias="signInEndpoint")
-    ] = pydantic.Field(alias="signInEndpoint", default=None)
+        typing.Optional[ConnectionSignInEndpointAdfs],
+        FieldMetadata(alias="signInEndpoint"),
+        pydantic.Field(alias="signInEndpoint"),
+    ] = None
     tenant_domain: typing.Optional[ConnectionTenantDomain] = None
     thumbprints: typing.Optional[ConnectionThumbprints] = None
     upstream_params: typing.Optional[ConnectionUpstreamParamsAdfs] = None

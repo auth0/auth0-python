@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreateGuardianEnrollmentTicketResponseContent(UniversalBaseModel):
-    ticket_id: typing.Optional[str] = pydantic.Field(default="u2x2-u2x2-u2x2-u2x2-u2x2-u2x2")
+    ticket_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The ticket_id used to identify the enrollment
     """

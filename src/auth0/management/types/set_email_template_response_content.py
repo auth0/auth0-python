@@ -16,44 +16,42 @@ class SetEmailTemplateResponseContent(UniversalBaseModel):
     Body of the email template.
     """
 
-    from_: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="from")] = pydantic.Field(
-        alias="from", default="sender@auth0.com"
-    )
-    """
-    Senders `from` email address.
-    """
-
-    result_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="resultUrl")] = pydantic.Field(
-        alias="resultUrl", default=None
-    )
-    """
-    URL to redirect the user to after a successful action.
-    """
-
+    from_: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="from"),
+        pydantic.Field(alias="from", description="Senders `from` email address."),
+    ] = None
+    result_url: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="resultUrl"),
+        pydantic.Field(alias="resultUrl", description="URL to redirect the user to after a successful action."),
+    ] = None
     subject: typing.Optional[str] = pydantic.Field(default=None)
     """
     Subject line of the email.
     """
 
-    syntax: typing.Optional[str] = pydantic.Field(default="liquid")
+    syntax: typing.Optional[str] = pydantic.Field(default=None)
     """
     Syntax of the template body.
     """
 
     url_lifetime_in_seconds: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="urlLifetimeInSeconds")
-    ] = pydantic.Field(alias="urlLifetimeInSeconds", default=None)
-    """
-    Lifetime in seconds that the link within the email will be valid for.
-    """
-
+        typing.Optional[float],
+        FieldMetadata(alias="urlLifetimeInSeconds"),
+        pydantic.Field(
+            alias="urlLifetimeInSeconds",
+            description="Lifetime in seconds that the link within the email will be valid for.",
+        ),
+    ] = None
     include_email_in_redirect: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="includeEmailInRedirect")
-    ] = pydantic.Field(alias="includeEmailInRedirect", default=None)
-    """
-    Whether the `reset_email` and `verify_email` templates should include the user's email address as the `email` parameter in the returnUrl (true) or whether no email address should be included in the redirect (false). Defaults to true.
-    """
-
+        typing.Optional[bool],
+        FieldMetadata(alias="includeEmailInRedirect"),
+        pydantic.Field(
+            alias="includeEmailInRedirect",
+            description="Whether the `reset_email` and `verify_email` templates should include the user's email address as the `email` parameter in the returnUrl (true) or whether no email address should be included in the redirect (false). Defaults to true.",
+        ),
+    ] = None
     enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the template is enabled (true) or disabled (false).

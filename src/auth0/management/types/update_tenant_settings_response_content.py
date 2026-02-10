@@ -21,12 +21,12 @@ from .tenant_settings_sessions import TenantSettingsSessions
 class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     change_password: typing.Optional[TenantSettingsPasswordPage] = None
     guardian_mfa_page: typing.Optional[TenantSettingsGuardianPage] = None
-    default_audience: typing.Optional[str] = pydantic.Field(default="")
+    default_audience: typing.Optional[str] = pydantic.Field(default=None)
     """
     Default audience for API authorization.
     """
 
-    default_directory: typing.Optional[str] = pydantic.Field(default="")
+    default_directory: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of connection used for password grants at the `/token`endpoint. The following connection types are supported: LDAP, AD, Database Connections, Passwordless, Windows Azure Active Directory, ADFS.
     """
@@ -35,22 +35,22 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     device_flow: typing.Optional[TenantSettingsDeviceFlow] = None
     default_token_quota: typing.Optional[DefaultTokenQuota] = None
     flags: typing.Optional[TenantSettingsFlags] = None
-    friendly_name: typing.Optional[str] = pydantic.Field(default="My Company")
+    friendly_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Friendly name for this tenant.
     """
 
-    picture_url: typing.Optional[str] = pydantic.Field(default="https://mycompany.org/logo.png")
+    picture_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     URL of logo to be shown for this tenant (recommended size: 150x150)
     """
 
-    support_email: typing.Optional[str] = pydantic.Field(default="support@mycompany.org")
+    support_email: typing.Optional[str] = pydantic.Field(default=None)
     """
     End-user support email address.
     """
 
-    support_url: typing.Optional[str] = pydantic.Field(default="https://mycompany.org/support")
+    support_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     End-user support URL.
     """
@@ -60,32 +60,32 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     URLs that are valid to redirect to after logout from Auth0.
     """
 
-    session_lifetime: typing.Optional[float] = pydantic.Field(default=168.0)
+    session_lifetime: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of hours a session will stay valid.
     """
 
-    idle_session_lifetime: typing.Optional[float] = pydantic.Field(default=72.0)
+    idle_session_lifetime: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of hours for which a session can be inactive before the user must log in again.
     """
 
-    ephemeral_session_lifetime: typing.Optional[float] = pydantic.Field(default=72.0)
+    ephemeral_session_lifetime: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of hours an ephemeral (non-persistent) session will stay valid.
     """
 
-    idle_ephemeral_session_lifetime: typing.Optional[float] = pydantic.Field(default=24.0)
+    idle_ephemeral_session_lifetime: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of hours for which an ephemeral (non-persistent) session can be inactive before the user must log in again.
     """
 
-    sandbox_version: typing.Optional[str] = pydantic.Field(default="22")
+    sandbox_version: typing.Optional[str] = pydantic.Field(default=None)
     """
     Selected sandbox version for the extensibility environment.
     """
 
-    legacy_sandbox_version: typing.Optional[str] = pydantic.Field(default="")
+    legacy_sandbox_version: typing.Optional[str] = pydantic.Field(default=None)
     """
     Selected sandbox version for rules and hooks extensibility.
     """
@@ -108,12 +108,12 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     session_cookie: typing.Optional[SessionCookieSchema] = None
     sessions: typing.Optional[TenantSettingsSessions] = None
     oidc_logout: typing.Optional[TenantOidcLogoutSettings] = None
-    allow_organization_name_in_authentication_api: typing.Optional[bool] = pydantic.Field(default=False)
+    allow_organization_name_in_authentication_api: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether to accept an organization name instead of an ID on auth endpoints
     """
 
-    customize_mfa_in_postlogin_action: typing.Optional[bool] = pydantic.Field(default=False)
+    customize_mfa_in_postlogin_action: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether to enable flexible factors for MFA in the PostLogin action
     """
@@ -124,12 +124,12 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     """
 
     mtls: typing.Optional[TenantSettingsMtls] = None
-    pushed_authorization_requests_supported: typing.Optional[bool] = pydantic.Field(default=False)
+    pushed_authorization_requests_supported: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enables the use of Pushed Authorization Requests
     """
 
-    authorization_response_iss_parameter_supported: typing.Optional[bool] = pydantic.Field(default=False)
+    authorization_response_iss_parameter_supported: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Supports iss parameter in authorization responses
     """

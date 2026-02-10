@@ -36,7 +36,7 @@ class IdentitiesClient:
         provider: typing.Optional[UserIdentityProviderEnum] = OMIT,
         connection_id: typing.Optional[str] = OMIT,
         user_id: typing.Optional[UserId] = OMIT,
-        link_with: typing.Optional[str] = "{SECONDARY_ACCOUNT_JWT}",
+        link_with: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[UserIdentity]:
         """
@@ -184,7 +184,7 @@ class AsyncIdentitiesClient:
         provider: typing.Optional[UserIdentityProviderEnum] = OMIT,
         connection_id: typing.Optional[str] = OMIT,
         user_id: typing.Optional[UserId] = OMIT,
-        link_with: typing.Optional[str] = "{SECONDARY_ACCOUNT_JWT}",
+        link_with: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[UserIdentity]:
         """

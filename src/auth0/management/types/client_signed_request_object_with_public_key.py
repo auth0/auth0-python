@@ -12,7 +12,7 @@ class ClientSignedRequestObjectWithPublicKey(UniversalBaseModel):
     JWT-secured Authorization Requests (JAR) settings.
     """
 
-    required: typing.Optional[bool] = pydantic.Field(default=False)
+    required: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether the JAR requests are mandatory
     """

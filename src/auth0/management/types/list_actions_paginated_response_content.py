@@ -8,17 +8,17 @@ from .action import Action
 
 
 class ListActionsPaginatedResponseContent(UniversalBaseModel):
-    total: typing.Optional[float] = pydantic.Field(default=1.0)
+    total: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total result count.
     """
 
-    page: typing.Optional[float] = pydantic.Field(default=0.0)
+    page: typing.Optional[float] = pydantic.Field(default=None)
     """
     Page index of the results being returned. First page is 0.
     """
 
-    per_page: typing.Optional[float] = pydantic.Field(default=20.0)
+    per_page: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of results per page.
     """

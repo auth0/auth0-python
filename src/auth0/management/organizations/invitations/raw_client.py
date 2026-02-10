@@ -184,13 +184,13 @@ class RawInvitationsClient:
         *,
         inviter: OrganizationInvitationInviter,
         invitee: OrganizationInvitationInvitee,
-        client_id: str = "AaiyAPdpYdesoKnqjj8HJqRn4T5titww",
-        connection_id: typing.Optional[str] = "con_0000000000000001",
+        client_id: str,
+        connection_id: typing.Optional[str] = OMIT,
         app_metadata: typing.Optional[AppMetadata] = OMIT,
         user_metadata: typing.Optional[UserMetadata] = OMIT,
         ttl_sec: typing.Optional[int] = OMIT,
         roles: typing.Optional[typing.Sequence[str]] = OMIT,
-        send_invitation_email: typing.Optional[bool] = True,
+        send_invitation_email: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateOrganizationInvitationResponseContent]:
         """
@@ -670,13 +670,13 @@ class AsyncRawInvitationsClient:
         *,
         inviter: OrganizationInvitationInviter,
         invitee: OrganizationInvitationInvitee,
-        client_id: str = "AaiyAPdpYdesoKnqjj8HJqRn4T5titww",
-        connection_id: typing.Optional[str] = "con_0000000000000001",
+        client_id: str,
+        connection_id: typing.Optional[str] = OMIT,
         app_metadata: typing.Optional[AppMetadata] = OMIT,
         user_metadata: typing.Optional[UserMetadata] = OMIT,
         ttl_sec: typing.Optional[int] = OMIT,
         roles: typing.Optional[typing.Sequence[str]] = OMIT,
-        send_invitation_email: typing.Optional[bool] = True,
+        send_invitation_email: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateOrganizationInvitationResponseContent]:
         """

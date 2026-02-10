@@ -4,13 +4,25 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_client_id_bitbucket import ConnectionClientIdBitbucket
+from .connection_client_secret_bitbucket import ConnectionClientSecretBitbucket
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_profile_bitbucket import ConnectionProfileBitbucket
+from .connection_scope_array import ConnectionScopeArray
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
 
 
-class ConnectionOptionsBitbucket(ConnectionOptionsOAuth2Common):
+class ConnectionOptionsBitbucket(ConnectionOptionsCommon):
     """
     Options for the 'bitbucket' connection
     """
+
+    client_id: typing.Optional[ConnectionClientIdBitbucket] = None
+    client_secret: typing.Optional[ConnectionClientSecretBitbucket] = None
+    freeform_scopes: typing.Optional[ConnectionScopeArray] = None
+    profile: typing.Optional[ConnectionProfileBitbucket] = None
+    scope: typing.Optional[ConnectionScopeArray] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

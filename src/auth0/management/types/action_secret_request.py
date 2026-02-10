@@ -7,12 +7,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class ActionSecretRequest(UniversalBaseModel):
-    name: typing.Optional[str] = pydantic.Field(default="mySecret")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the particular secret, e.g. API_KEY.
     """
 
-    value: typing.Optional[str] = pydantic.Field(default="mySecretValue")
+    value: typing.Optional[str] = pydantic.Field(default=None)
     """
     The value of the particular secret, e.g. secret123. A secret's value can only be set upon creation. A secret's value will never be returned by the API.
     """

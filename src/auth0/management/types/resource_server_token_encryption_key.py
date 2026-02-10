@@ -19,7 +19,7 @@ class ResourceServerTokenEncryptionKey(UniversalBaseModel):
     Key ID.
     """
 
-    pem: str = pydantic.Field(default="-----BEGIN PUBLIC KEY-----\r\nMIIBIjANBg...\r\n-----END PUBLIC KEY-----\r\n")
+    pem: str = pydantic.Field()
     """
     PEM-formatted public key. Must be JSON escaped.
     """

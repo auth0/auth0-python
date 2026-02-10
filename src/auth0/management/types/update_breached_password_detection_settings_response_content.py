@@ -13,7 +13,7 @@ from .breached_password_detection_stage import BreachedPasswordDetectionStage
 
 
 class UpdateBreachedPasswordDetectionSettingsResponseContent(UniversalBaseModel):
-    enabled: typing.Optional[bool] = pydantic.Field(default=True)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not breached password detection is active.
     """

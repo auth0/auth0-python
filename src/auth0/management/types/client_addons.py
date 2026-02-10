@@ -58,9 +58,9 @@ class ClientAddons(UniversalBaseModel):
     egnyte: typing.Optional[ClientAddonEgnyte] = None
     firebase: typing.Optional[ClientAddonFirebase] = None
     newrelic: typing.Optional[ClientAddonNewRelic] = None
-    office_365: typing_extensions.Annotated[typing.Optional[ClientAddonOffice365], FieldMetadata(alias="office365")] = (
-        pydantic.Field(alias="office365", default=None)
-    )
+    office_365: typing_extensions.Annotated[
+        typing.Optional[ClientAddonOffice365], FieldMetadata(alias="office365"), pydantic.Field(alias="office365")
+    ] = None
     salesforce: typing.Optional[ClientAddonSalesforce] = None
     salesforce_api: typing.Optional[ClientAddonSalesforceApi] = None
     salesforce_sandbox_api: typing.Optional[ClientAddonSalesforceSandboxApi] = None

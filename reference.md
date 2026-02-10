@@ -11969,7 +11969,7 @@ client.self_service_profiles.create(
 <dl>
 <dd>
 
-**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
+**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -12227,7 +12227,7 @@ client.self_service_profiles.update(
 <dl>
 <dd>
 
-**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
+**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -16427,7 +16427,7 @@ client.actions.triggers.list()
 </details>
 
 ## Actions Modules Versions
-<details><summary><code>client.actions.modules.versions.<a href="src/auth0/management/actions/modules/versions/client.py">list</a>(...) -&gt; AsyncHttpResponse[GetActionModuleVersionsResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.versions.<a href="src/auth0/management/actions/modules/versions/client.py">list</a>(...) -&gt; AsyncPager[ActionModuleVersion, GetActionModuleVersionsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -16459,9 +16459,16 @@ from auth0 import Auth0
 client = Auth0(
     token="YOUR_TOKEN",
 )
-client.actions.modules.versions.list(
+response = client.actions.modules.versions.list(
     id="id",
+    page=1,
+    per_page=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -16478,6 +16485,22 @@ client.actions.modules.versions.list(
 <dd>
 
 **id:** `str` — The unique ID of the module.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Use this field to request a specific page of the list results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**per_page:** `typing.Optional[int]` — The maximum number of results to be returned by the server in a single response. 20 by default.
     
 </dd>
 </dl>

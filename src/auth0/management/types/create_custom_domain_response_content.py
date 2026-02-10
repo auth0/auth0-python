@@ -12,22 +12,22 @@ from .domain_verification import DomainVerification
 
 
 class CreateCustomDomainResponseContent(UniversalBaseModel):
-    custom_domain_id: str = pydantic.Field(default="cd_0000000000000001")
+    custom_domain_id: str = pydantic.Field()
     """
     ID of the custom domain.
     """
 
-    domain: str = pydantic.Field(default="login.mycompany.com")
+    domain: str = pydantic.Field()
     """
     Domain name.
     """
 
-    primary: bool = pydantic.Field(default=False)
+    primary: bool = pydantic.Field()
     """
     Whether this is a primary domain (true) or not (false).
     """
 
-    is_default: typing.Optional[bool] = pydantic.Field(default=False)
+    is_default: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether this is the default custom domain (true) or not (false).
     """
@@ -40,7 +40,7 @@ class CreateCustomDomainResponseContent(UniversalBaseModel):
     The HTTP header to fetch the client's IP address
     """
 
-    tls_policy: typing.Optional[str] = pydantic.Field(default="recommended")
+    tls_policy: typing.Optional[str] = pydantic.Field(default=None)
     """
     The TLS version policy
     """

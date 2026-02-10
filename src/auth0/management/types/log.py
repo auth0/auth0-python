@@ -14,7 +14,7 @@ from .log_security_context import LogSecurityContext
 
 class Log(UniversalBaseModel):
     date: typing.Optional[LogDate] = None
-    type: typing.Optional[str] = pydantic.Field(default="sapi")
+    type: typing.Optional[str] = pydantic.Field(default=None)
     """
     Type of event.
     """
@@ -34,27 +34,27 @@ class Log(UniversalBaseModel):
     ID of the connection the event relates to.
     """
 
-    client_id: typing.Optional[str] = pydantic.Field(default="AaiyAPdpYdesoKnqjj8HJqRn4T5titww")
+    client_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the client (application).
     """
 
-    client_name: typing.Optional[str] = pydantic.Field(default="My application Name")
+    client_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of the client (application).
     """
 
-    ip: typing.Optional[str] = pydantic.Field(default="190.257.209.19")
+    ip: typing.Optional[str] = pydantic.Field(default=None)
     """
     IP address of the log event source.
     """
 
-    hostname: typing.Optional[str] = pydantic.Field(default="190.257.209.19")
+    hostname: typing.Optional[str] = pydantic.Field(default=None)
     """
     Hostname the event applies to.
     """
 
-    user_id: typing.Optional[str] = pydantic.Field(default="auth0|56c75c4e42b6359e98374bc2")
+    user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the user involved in the event.
     """
@@ -69,7 +69,7 @@ class Log(UniversalBaseModel):
     API audience the event applies to.
     """
 
-    scope: typing.Optional[str] = pydantic.Field(default="")
+    scope: typing.Optional[str] = pydantic.Field(default=None)
     """
     Scope permissions applied to the event.
     """
@@ -89,13 +89,14 @@ class Log(UniversalBaseModel):
     Unique ID of the event.
     """
 
-    is_mobile: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isMobile")] = pydantic.Field(
-        alias="isMobile", default=None
-    )
-    """
-    Whether the client was a mobile device (true) or desktop/laptop/server (false).
-    """
-
+    is_mobile: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isMobile"),
+        pydantic.Field(
+            alias="isMobile",
+            description="Whether the client was a mobile device (true) or desktop/laptop/server (false).",
+        ),
+    ] = None
     details: typing.Optional[LogDetails] = None
     user_agent: typing.Optional[str] = pydantic.Field(default=None)
     """

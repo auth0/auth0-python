@@ -5,7 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_common import ConnectionCommon
-from .connection_options_salesforce import ConnectionOptionsSalesforce
+from .connection_options_salesforce_community import ConnectionOptionsSalesforceCommunity
 
 
 class UpdateConnectionRequestContentSalesforceCommunity(ConnectionCommon):
@@ -13,7 +13,7 @@ class UpdateConnectionRequestContentSalesforceCommunity(ConnectionCommon):
     Update a connection with strategy=salesforce-community
     """
 
-    options: typing.Optional[ConnectionOptionsSalesforce] = None
+    options: typing.Optional[ConnectionOptionsSalesforceCommunity] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

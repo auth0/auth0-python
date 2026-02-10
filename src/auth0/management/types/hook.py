@@ -10,31 +10,27 @@ from .hook_dependencies import HookDependencies
 
 
 class Hook(UniversalBaseModel):
-    trigger_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="triggerId")] = pydantic.Field(
-        alias="triggerId", default=None
-    )
-    """
-    Trigger ID
-    """
-
-    id: typing.Optional[str] = pydantic.Field(default="00001")
+    trigger_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="triggerId"),
+        pydantic.Field(alias="triggerId", description="Trigger ID"),
+    ] = None
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of this hook.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default="hook")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of this hook.
     """
 
-    enabled: typing.Optional[bool] = pydantic.Field(default=True)
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether this hook will be executed (true) or ignored (false).
     """
 
-    script: typing.Optional[str] = pydantic.Field(
-        default="module.exports = function(client, scope, audience, context, cb) cb(null, access_token); };"
-    )
+    script: typing.Optional[str] = pydantic.Field(default=None)
     """
     Code to be executed when this hook runs.
     """

@@ -15,12 +15,12 @@ class UpdateOrganizationResponseContent(UniversalBaseModel):
     Organization identifier.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default="organization-1")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of this organization.
     """
 
-    display_name: typing.Optional[str] = pydantic.Field(default="Acme Users")
+    display_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Friendly name of this organization.
     """

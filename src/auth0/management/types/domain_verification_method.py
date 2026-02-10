@@ -9,12 +9,12 @@ from .domain_verification_method_name_enum import DomainVerificationMethodNameEn
 
 class DomainVerificationMethod(UniversalBaseModel):
     name: DomainVerificationMethodNameEnum
-    record: str = pydantic.Field(default="auth0-domain-verification=...")
+    record: str = pydantic.Field()
     """
     Value used to verify the domain.
     """
 
-    domain: typing.Optional[str] = pydantic.Field(default="_cf-custom-hostname.login.mycompany.com")
+    domain: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the txt record for verification
     """

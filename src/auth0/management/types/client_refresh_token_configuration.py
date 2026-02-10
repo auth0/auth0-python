@@ -16,7 +16,7 @@ class ClientRefreshTokenConfiguration(UniversalBaseModel):
 
     rotation_type: RefreshTokenRotationTypeEnum
     expiration_type: RefreshTokenExpirationTypeEnum
-    leeway: typing.Optional[int] = pydantic.Field(default=0)
+    leeway: typing.Optional[int] = pydantic.Field(default=None)
     """
     Period in seconds where the previous refresh token can be exchanged without triggering breach detection
     """
@@ -36,7 +36,7 @@ class ClientRefreshTokenConfiguration(UniversalBaseModel):
     Period (in seconds) for which refresh tokens will remain valid without use
     """
 
-    infinite_idle_token_lifetime: typing.Optional[bool] = pydantic.Field(default=False)
+    infinite_idle_token_lifetime: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Prevents tokens from expiring without use when `true` (takes precedence over `idle_token_lifetime` values)
     """

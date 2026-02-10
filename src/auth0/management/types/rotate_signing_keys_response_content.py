@@ -7,14 +7,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class RotateSigningKeysResponseContent(UniversalBaseModel):
-    cert: str = pydantic.Field(
-        default="-----BEGIN CERTIFICATE-----\r\nMIIDDTCCA...YiA0TQhAt8=\r\n-----END CERTIFICATE-----"
-    )
+    cert: str = pydantic.Field()
     """
     Next key certificate
     """
 
-    kid: str = pydantic.Field(default="21hi274Rp02112mgkUGma")
+    kid: str = pydantic.Field()
     """
     Next key id
     """

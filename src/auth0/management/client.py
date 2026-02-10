@@ -72,6 +72,9 @@ class Auth0:
 
 
 
+    tenant_domain : typing.Optional[str]
+        Server URL variable for 'tenantDomain'. Defaults to '{TENANT}.auth0.com'.
+
     token : typing.Union[str, typing.Callable[[], str]]
     headers : typing.Optional[typing.Dict[str, str]]
         Additional headers to send with every request.
@@ -99,6 +102,7 @@ class Auth0:
         *,
         base_url: typing.Optional[str] = None,
         environment: Auth0Environment = Auth0Environment.DEFAULT,
+        tenant_domain: typing.Optional[str] = None,
         token: typing.Union[str, typing.Callable[[], str]],
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
@@ -108,6 +112,9 @@ class Auth0:
         _defaulted_timeout = (
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
         )
+        if tenant_domain is not None:
+            _tenant_domain = tenant_domain if tenant_domain is not None else "{TENANT}.auth0.com"
+            base_url = "https://{tenantDomain}/api/v2".format(tenantDomain=_tenant_domain)
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             token=token,
@@ -526,6 +533,9 @@ class AsyncAuth0:
 
 
 
+    tenant_domain : typing.Optional[str]
+        Server URL variable for 'tenantDomain'. Defaults to '{TENANT}.auth0.com'.
+
     token : typing.Union[str, typing.Callable[[], str]]
     headers : typing.Optional[typing.Dict[str, str]]
         Additional headers to send with every request.
@@ -553,6 +563,7 @@ class AsyncAuth0:
         *,
         base_url: typing.Optional[str] = None,
         environment: Auth0Environment = Auth0Environment.DEFAULT,
+        tenant_domain: typing.Optional[str] = None,
         token: typing.Union[str, typing.Callable[[], str]],
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
@@ -562,6 +573,9 @@ class AsyncAuth0:
         _defaulted_timeout = (
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
         )
+        if tenant_domain is not None:
+            _tenant_domain = tenant_domain if tenant_domain is not None else "{TENANT}.auth0.com"
+            base_url = "https://{tenantDomain}/api/v2".format(tenantDomain=_tenant_domain)
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             token=token,

@@ -11,17 +11,17 @@ class TenantSettingsErrorPage(UniversalBaseModel):
     Error page customization.
     """
 
-    html: typing.Optional[str] = pydantic.Field(default="")
+    html: typing.Optional[str] = pydantic.Field(default=None)
     """
     Custom Error HTML (<a href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid syntax</a> is supported).
     """
 
-    show_log_link: typing.Optional[bool] = pydantic.Field(default=False)
+    show_log_link: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether to show the link to log as part of the default error page (true, default) or not to show the link (false).
     """
 
-    url: typing.Optional[str] = pydantic.Field(default="https://mycompany.org/error")
+    url: typing.Optional[str] = pydantic.Field(default=None)
     """
     URL to redirect to when an error occurs instead of showing the default error page.
     """

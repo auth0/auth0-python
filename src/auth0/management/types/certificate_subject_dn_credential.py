@@ -9,7 +9,7 @@ from .certificate_subject_dn_credential_type_enum import CertificateSubjectDnCre
 
 class CertificateSubjectDnCredential(UniversalBaseModel):
     credential_type: CertificateSubjectDnCredentialTypeEnum
-    name: typing.Optional[str] = pydantic.Field(default="")
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Friendly name for a credential.
     """
@@ -19,9 +19,7 @@ class CertificateSubjectDnCredential(UniversalBaseModel):
     Subject Distinguished Name. Mutually exclusive with `pem` property. Applies to `cert_subject_dn` credential type.
     """
 
-    pem: typing.Optional[str] = pydantic.Field(
-        default="-----BEGIN CERTIFICATE-----\r\nMIIBIjANBg...\r\n-----END CERTIFICATE-----\r\n"
-    )
+    pem: typing.Optional[str] = pydantic.Field(default=None)
     """
     PEM-formatted X509 certificate. Must be JSON escaped. Mutually exclusive with `subject_dn` property.
     """

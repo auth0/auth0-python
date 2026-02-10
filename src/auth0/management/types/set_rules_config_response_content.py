@@ -7,12 +7,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class SetRulesConfigResponseContent(UniversalBaseModel):
-    key: str = pydantic.Field(default="MY_RULES_CONFIG_KEY")
+    key: str = pydantic.Field()
     """
     Key for a rules config variable.
     """
 
-    value: str = pydantic.Field(default="MY_RULES_CONFIG_VALUE")
+    value: str = pydantic.Field()
     """
     Value for a rules config variable.
     """

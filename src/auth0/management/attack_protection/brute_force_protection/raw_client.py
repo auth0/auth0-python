@@ -101,7 +101,7 @@ class RawBruteForceProtectionClient:
         shields: typing.Optional[typing.Sequence[BruteForceProtectionShieldsEnum]] = OMIT,
         allowlist: typing.Optional[typing.Sequence[str]] = OMIT,
         mode: typing.Optional[BruteForceProtectionModeEnum] = OMIT,
-        max_attempts: typing.Optional[int] = 10,
+        max_attempts: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateBruteForceSettingsResponseContent]:
         """
@@ -288,7 +288,7 @@ class AsyncRawBruteForceProtectionClient:
         shields: typing.Optional[typing.Sequence[BruteForceProtectionShieldsEnum]] = OMIT,
         allowlist: typing.Optional[typing.Sequence[str]] = OMIT,
         mode: typing.Optional[BruteForceProtectionModeEnum] = OMIT,
-        max_attempts: typing.Optional[int] = 10,
+        max_attempts: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateBruteForceSettingsResponseContent]:
         """

@@ -12,31 +12,29 @@ from .domain_verification import DomainVerification
 
 
 class CustomDomain(UniversalBaseModel):
-    custom_domain_id: str = pydantic.Field(default="cd_0000000000000001")
+    custom_domain_id: str = pydantic.Field()
     """
     ID of the custom domain.
     """
 
-    domain: str = pydantic.Field(default="login.mycompany.com")
+    domain: str = pydantic.Field()
     """
     Domain name.
     """
 
-    primary: bool = pydantic.Field(default=False)
+    primary: bool = pydantic.Field()
     """
     Whether this is a primary domain (true) or not (false).
     """
 
-    is_default: typing.Optional[bool] = pydantic.Field(default=False)
+    is_default: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether this is the default custom domain (true) or not (false).
     """
 
     status: CustomDomainStatusFilterEnum
     type: CustomDomainTypeEnum
-    origin_domain_name: typing.Optional[str] = pydantic.Field(
-        default="mycompany_cd_0000000000000001.edge.tenants.auth0.com"
-    )
+    origin_domain_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Intermediate address.
     """
@@ -47,7 +45,7 @@ class CustomDomain(UniversalBaseModel):
     The HTTP header to fetch the client's IP address
     """
 
-    tls_policy: typing.Optional[str] = pydantic.Field(default="recommended")
+    tls_policy: typing.Optional[str] = pydantic.Field(default=None)
     """
     The TLS version policy
     """
