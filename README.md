@@ -30,7 +30,7 @@ The Auth0 Python library provides convenient access to the Auth0 APIs from Pytho
 
 ## Installation
 ```sh
-pip install auth0-python==5.0.0
+pip install auth0-python
 ```
 
 **Requirements:**

@@ -1,6 +1,6 @@
 # Change Log
 
-## [5.1.0](https://github.com/auth0/auth0-python/tree/5.1.0) (2026-02-10)
+## [5.1.0](https://github.com/auth0/auth0-python/tree/5.1.0) (2026-02-11)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.0.0...5.1.0)
 
 **Fixed**
