@@ -11,6 +11,7 @@ from .connection_claims_locales_supported import ConnectionClaimsLocalesSupporte
 from .connection_claims_parameter_supported import ConnectionClaimsParameterSupported
 from .connection_claims_supported import ConnectionClaimsSupported
 from .connection_display_values_supported import ConnectionDisplayValuesSupported
+from .connection_dpop_signing_alg_values_supported import ConnectionDpopSigningAlgValuesSupported
 from .connection_end_session_endpoint import ConnectionEndSessionEndpoint
 from .connection_grant_types_supported import ConnectionGrantTypesSupported
 from .connection_id_token_encryption_alg_values_supported import ConnectionIdTokenEncryptionAlgValuesSupported
@@ -60,6 +61,7 @@ class ConnectionOptionsOidcMetadata(UniversalBaseModel):
     claims_parameter_supported: typing.Optional[ConnectionClaimsParameterSupported] = None
     claims_supported: typing.Optional[ConnectionClaimsSupported] = None
     display_values_supported: typing.Optional[ConnectionDisplayValuesSupported] = None
+    dpop_signing_alg_values_supported: typing.Optional[ConnectionDpopSigningAlgValuesSupported] = None
     end_session_endpoint: typing.Optional[ConnectionEndSessionEndpoint] = None
     grant_types_supported: typing.Optional[ConnectionGrantTypesSupported] = None
     id_token_encryption_alg_values_supported: typing.Optional[ConnectionIdTokenEncryptionAlgValuesSupported] = None

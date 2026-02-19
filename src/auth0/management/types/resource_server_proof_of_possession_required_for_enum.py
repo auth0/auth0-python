@@ -3,5 +3,5 @@
 import typing
 
 ResourceServerProofOfPossessionRequiredForEnum = typing.Union[
-    typing.Literal["public_clients", "confidential_clients", "all_clients"], typing.Any
+    typing.Literal["public_clients", "all_clients"], typing.Any
 ]

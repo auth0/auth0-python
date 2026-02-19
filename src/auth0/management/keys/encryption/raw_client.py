@@ -90,7 +90,7 @@ class RawEncryptionClient:
                 _items = _parsed_response.keys
                 _has_next = True
                 _get_next = lambda: self.list(
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     include_totals=include_totals,
                     request_options=request_options,
@@ -730,7 +730,7 @@ class AsyncRawEncryptionClient:
 
                 async def _get_next():
                     return await self.list(
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         include_totals=include_totals,
                         request_options=request_options,

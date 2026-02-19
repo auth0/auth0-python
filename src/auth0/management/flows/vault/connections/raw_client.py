@@ -86,7 +86,7 @@ class RawConnectionsClient:
                 _items = _parsed_response.connections
                 _has_next = True
                 _get_next = lambda: self.list(
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     include_totals=include_totals,
                     request_options=request_options,
@@ -565,7 +565,7 @@ class AsyncRawConnectionsClient:
 
                 async def _get_next():
                     return await self.list(
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         include_totals=include_totals,
                         request_options=request_options,

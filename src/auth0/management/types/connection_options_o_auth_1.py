@@ -3,18 +3,49 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .connection_client_id import ConnectionClientId
-from .connection_client_secret import ConnectionClientSecret
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from ..core.serialization import FieldMetadata
+from .connection_access_token_urlo_auth_1 import ConnectionAccessTokenUrloAuth1
+from .connection_client_id_o_auth_1 import ConnectionClientIdOAuth1
+from .connection_client_secret_o_auth_1 import ConnectionClientSecretOAuth1
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_request_token_urlo_auth_1 import ConnectionRequestTokenUrloAuth1
+from .connection_scripts_o_auth_1 import ConnectionScriptsOAuth1
+from .connection_signature_method_o_auth_1 import ConnectionSignatureMethodOAuth1
+from .connection_upstream_params import ConnectionUpstreamParams
+from .connection_user_authorization_urlo_auth_1 import ConnectionUserAuthorizationUrloAuth1
 
 
-class ConnectionOptionsOAuth1(UniversalBaseModel):
+class ConnectionOptionsOAuth1(ConnectionOptionsCommon):
     """
     Options for the 'oauth1' connection
     """
 
-    client_id: typing.Optional[ConnectionClientId] = None
-    client_secret: typing.Optional[ConnectionClientSecret] = None
+    access_token_url: typing_extensions.Annotated[
+        typing.Optional[ConnectionAccessTokenUrloAuth1],
+        FieldMetadata(alias="accessTokenURL"),
+        pydantic.Field(alias="accessTokenURL"),
+    ] = None
+    client_id: typing.Optional[ConnectionClientIdOAuth1] = None
+    client_secret: typing.Optional[ConnectionClientSecretOAuth1] = None
+    request_token_url: typing_extensions.Annotated[
+        typing.Optional[ConnectionRequestTokenUrloAuth1],
+        FieldMetadata(alias="requestTokenURL"),
+        pydantic.Field(alias="requestTokenURL"),
+    ] = None
+    scripts: typing.Optional[ConnectionScriptsOAuth1] = None
+    signature_method: typing_extensions.Annotated[
+        typing.Optional[ConnectionSignatureMethodOAuth1],
+        FieldMetadata(alias="signatureMethod"),
+        pydantic.Field(alias="signatureMethod"),
+    ] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
+    user_authorization_url: typing_extensions.Annotated[
+        typing.Optional[ConnectionUserAuthorizationUrloAuth1],
+        FieldMetadata(alias="userAuthorizationURL"),
+        pydantic.Field(alias="userAuthorizationURL"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

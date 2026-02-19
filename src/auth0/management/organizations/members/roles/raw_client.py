@@ -94,7 +94,7 @@ class RawRolesClient:
                 _get_next = lambda: self.list(
                     id,
                     user_id,
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     include_totals=include_totals,
                     request_options=request_options,
@@ -423,7 +423,7 @@ class AsyncRawRolesClient:
                     return await self.list(
                         id,
                         user_id,
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         include_totals=include_totals,
                         request_options=request_options,
