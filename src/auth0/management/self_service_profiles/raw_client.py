@@ -94,7 +94,7 @@ class RawSelfServiceProfilesClient:
                 _items = _parsed_response.self_service_profiles
                 _has_next = True
                 _get_next = lambda: self.list(
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     include_totals=include_totals,
                     request_options=request_options,
@@ -174,7 +174,7 @@ class RawSelfServiceProfilesClient:
         branding : typing.Optional[SelfServiceProfileBrandingProperties]
 
         allowed_strategies : typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]
-            List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+            List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
 
         user_attributes : typing.Optional[typing.Sequence[SelfServiceProfileUserAttribute]]
             List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
@@ -511,7 +511,7 @@ class RawSelfServiceProfilesClient:
         branding : typing.Optional[SelfServiceProfileBranding]
 
         allowed_strategies : typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]
-            List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+            List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
 
         user_attributes : typing.Optional[SelfServiceProfileUserAttributes]
 
@@ -691,7 +691,7 @@ class AsyncRawSelfServiceProfilesClient:
 
                 async def _get_next():
                     return await self.list(
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         include_totals=include_totals,
                         request_options=request_options,
@@ -772,7 +772,7 @@ class AsyncRawSelfServiceProfilesClient:
         branding : typing.Optional[SelfServiceProfileBrandingProperties]
 
         allowed_strategies : typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]
-            List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+            List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
 
         user_attributes : typing.Optional[typing.Sequence[SelfServiceProfileUserAttribute]]
             List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
@@ -1111,7 +1111,7 @@ class AsyncRawSelfServiceProfilesClient:
         branding : typing.Optional[SelfServiceProfileBranding]
 
         allowed_strategies : typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]
-            List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+            List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
 
         user_attributes : typing.Optional[SelfServiceProfileUserAttributes]
 

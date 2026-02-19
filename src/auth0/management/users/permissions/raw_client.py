@@ -90,7 +90,7 @@ class RawPermissionsClient:
                 _get_next = lambda: self.list(
                     id,
                     per_page=per_page,
-                    page=page + len(_items or []),
+                    page=page + 1,
                     include_totals=include_totals,
                     request_options=request_options,
                 )
@@ -404,7 +404,7 @@ class AsyncRawPermissionsClient:
                     return await self.list(
                         id,
                         per_page=per_page,
-                        page=page + len(_items or []),
+                        page=page + 1,
                         include_totals=include_totals,
                         request_options=request_options,
                     )

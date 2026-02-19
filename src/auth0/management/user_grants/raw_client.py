@@ -91,7 +91,7 @@ class RawUserGrantsClient:
                 _has_next = True
                 _get_next = lambda: self.list(
                     per_page=per_page,
-                    page=page + len(_items or []),
+                    page=page + 1,
                     include_totals=include_totals,
                     user_id=user_id,
                     client_id=client_id,
@@ -343,7 +343,7 @@ class AsyncRawUserGrantsClient:
                 async def _get_next():
                     return await self.list(
                         per_page=per_page,
-                        page=page + len(_items or []),
+                        page=page + 1,
                         include_totals=include_totals,
                         user_id=user_id,
                         client_id=client_id,

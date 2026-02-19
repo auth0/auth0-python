@@ -2,4 +2,6 @@
 
 import typing
 
-ClientTokenExchangeTypeEnum = typing.Union[typing.Literal["custom_authentication"], typing.Any]
+ClientTokenExchangeTypeEnum = typing.Union[
+    typing.Literal["custom_authentication", "on_behalf_of_token_exchange"], typing.Any
+]

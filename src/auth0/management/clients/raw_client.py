@@ -185,7 +185,7 @@ class RawClientsClient:
                 _get_next = lambda: self.list(
                     fields=fields,
                     include_fields=include_fields,
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     include_totals=include_totals,
                     is_global=is_global,
@@ -949,7 +949,7 @@ class RawClientsClient:
             Ids of clients that will be allowed to perform delegation requests. Clients that will be allowed to make delegation request. By default, all your clients will be allowed. This field allows you to specify specific clients
 
         allowed_logout_urls : typing.Optional[typing.Sequence[str]]
-            URLs that are valid to redirect to after logout from Auth0.
+            URLs that are valid to redirect to after logout from Auth0
 
         jwt_configuration : typing.Optional[ClientJwtConfiguration]
 
@@ -1447,7 +1447,7 @@ class AsyncRawClientsClient:
                     return await self.list(
                         fields=fields,
                         include_fields=include_fields,
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         include_totals=include_totals,
                         is_global=is_global,
@@ -2214,7 +2214,7 @@ class AsyncRawClientsClient:
             Ids of clients that will be allowed to perform delegation requests. Clients that will be allowed to make delegation request. By default, all your clients will be allowed. This field allows you to specify specific clients
 
         allowed_logout_urls : typing.Optional[typing.Sequence[str]]
-            URLs that are valid to redirect to after logout from Auth0.
+            URLs that are valid to redirect to after logout from Auth0
 
         jwt_configuration : typing.Optional[ClientJwtConfiguration]
 

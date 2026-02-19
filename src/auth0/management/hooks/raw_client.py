@@ -101,7 +101,7 @@ class RawHooksClient:
                 _items = _parsed_response.hooks
                 _has_next = True
                 _get_next = lambda: self.list(
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     include_totals=include_totals,
                     enabled=enabled,
@@ -674,7 +674,7 @@ class AsyncRawHooksClient:
 
                 async def _get_next():
                     return await self.list(
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         include_totals=include_totals,
                         enabled=enabled,
