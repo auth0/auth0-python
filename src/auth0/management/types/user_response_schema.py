@@ -10,6 +10,17 @@ from .user_identity_schema import UserIdentitySchema
 from .user_metadata_schema import UserMetadataSchema
 
 
+StrBool = Annotated[
+    bool,
+    pydantic.BeforeValidator(
+        lambda x: bool(x) if isinstance(x, bool) else bool(x and str(x).strip())
+    ),  # Coerces input values (like "", "email_address") into a bool
+    pydantic.PlainSerializer(
+        lambda x: 1 if x else 0, return_type=int
+    ),  # Serializes bool to 0 or 1
+]
+
+
 class UserResponseSchema(UniversalBaseModel):
     user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
@@ -21,7 +32,7 @@ class UserResponseSchema(UniversalBaseModel):
     Email address of this user.
     """
 
-    email_verified: typing.Optional[bool] = pydantic.Field(default=None)
+    email_verified: typing.Optional[StrBool] = pydantic.Field(default=None)
     """
     Whether this email address is verified (true) or unverified (false).
     """
