@@ -198,6 +198,7 @@ class RawRefreshTokensClient:
             ID of the refresh token to update.
 
         refresh_token_metadata : typing.Optional[RefreshTokenMetadata]
+            Metadata associated with the refresh token. Pass null or {} to remove all metadata.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -468,6 +469,7 @@ class AsyncRawRefreshTokensClient:
             ID of the refresh token to update.
 
         refresh_token_metadata : typing.Optional[RefreshTokenMetadata]
+            Metadata associated with the refresh token. Pass null or {} to remove all metadata.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

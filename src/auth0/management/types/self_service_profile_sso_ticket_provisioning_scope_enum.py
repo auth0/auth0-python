@@ -3,5 +3,17 @@
 import typing
 
 SelfServiceProfileSsoTicketProvisioningScopeEnum = typing.Union[
-    typing.Literal["get:users", "post:users", "put:users", "patch:users", "delete:users"], typing.Any
+    typing.Literal[
+        "get:users",
+        "post:users",
+        "put:users",
+        "patch:users",
+        "delete:users",
+        "get:groups",
+        "post:groups",
+        "put:groups",
+        "patch:groups",
+        "delete:groups",
+    ],
+    typing.Any,
 ]

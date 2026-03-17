@@ -288,6 +288,7 @@ class ClientsClient:
         oidc_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
 
         oidc_backchannel_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
+            Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
 
         session_transfer : typing.Optional[ClientSessionTransferConfiguration]
 
@@ -677,6 +678,7 @@ class ClientsClient:
         oidc_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
 
         oidc_backchannel_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
+            Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
 
         session_transfer : typing.Optional[ClientSessionTransferConfiguration]
 
@@ -699,8 +701,10 @@ class ClientsClient:
             URLs that are valid to redirect to after logout from Auth0
 
         jwt_configuration : typing.Optional[ClientJwtConfiguration]
+            An object that holds settings related to how JWTs are created
 
         encryption_key : typing.Optional[ClientEncryptionKey]
+            The client's encryption key
 
         sso : typing.Optional[bool]
             <code>true</code> to use Auth0 instead of the IdP to do Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
@@ -745,6 +749,7 @@ class ClientsClient:
         client_metadata : typing.Optional[ClientMetadata]
 
         mobile : typing.Optional[ClientMobile]
+            Configuration related to native mobile apps
 
         initiate_login_uri : typing.Optional[str]
             Initiate login uri, must be https
@@ -1157,6 +1162,7 @@ class AsyncClientsClient:
         oidc_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
 
         oidc_backchannel_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
+            Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
 
         session_transfer : typing.Optional[ClientSessionTransferConfiguration]
 
@@ -1570,6 +1576,7 @@ class AsyncClientsClient:
         oidc_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
 
         oidc_backchannel_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
+            Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
 
         session_transfer : typing.Optional[ClientSessionTransferConfiguration]
 
@@ -1592,8 +1599,10 @@ class AsyncClientsClient:
             URLs that are valid to redirect to after logout from Auth0
 
         jwt_configuration : typing.Optional[ClientJwtConfiguration]
+            An object that holds settings related to how JWTs are created
 
         encryption_key : typing.Optional[ClientEncryptionKey]
+            The client's encryption key
 
         sso : typing.Optional[bool]
             <code>true</code> to use Auth0 instead of the IdP to do Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
@@ -1638,6 +1647,7 @@ class AsyncClientsClient:
         client_metadata : typing.Optional[ClientMetadata]
 
         mobile : typing.Optional[ClientMobile]
+            Configuration related to native mobile apps
 
         initiate_login_uri : typing.Optional[str]
             Initiate login uri, must be https

@@ -479,6 +479,7 @@ class RawCustomDomainsClient:
             The id of the custom domain to update
 
         tls_policy : typing.Optional[CustomDomainTlsPolicyEnum]
+            recommended includes TLS 1.2
 
         custom_client_ip_header : typing.Optional[CustomDomainCustomClientIpHeader]
 
@@ -1215,6 +1216,7 @@ class AsyncRawCustomDomainsClient:
             The id of the custom domain to update
 
         tls_policy : typing.Optional[CustomDomainTlsPolicyEnum]
+            recommended includes TLS 1.2
 
         custom_client_ip_header : typing.Optional[CustomDomainCustomClientIpHeader]
 

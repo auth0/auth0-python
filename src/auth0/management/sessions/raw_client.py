@@ -198,6 +198,7 @@ class RawSessionsClient:
             ID of the session to update.
 
         session_metadata : typing.Optional[SessionMetadata]
+            Metadata associated with the session. Pass null or {} to remove all session_metadata.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -552,6 +553,7 @@ class AsyncRawSessionsClient:
             ID of the session to update.
 
         session_metadata : typing.Optional[SessionMetadata]
+            Metadata associated with the session. Pass null or {} to remove all session_metadata.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

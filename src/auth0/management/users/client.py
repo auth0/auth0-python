@@ -548,8 +548,10 @@ class UsersClient:
             Whether this phone number has been verified (true) or not (false).
 
         user_metadata : typing.Optional[UserMetadata]
+            User metadata to which this user has read/write access.
 
         app_metadata : typing.Optional[AppMetadata]
+            User metadata to which this user has read-only access.
 
         given_name : typing.Optional[str]
             Given name/first name/forename of this user.
@@ -1376,8 +1378,10 @@ class AsyncUsersClient:
             Whether this phone number has been verified (true) or not (false).
 
         user_metadata : typing.Optional[UserMetadata]
+            User metadata to which this user has read/write access.
 
         app_metadata : typing.Optional[AppMetadata]
+            User metadata to which this user has read-only access.
 
         given_name : typing.Optional[str]
             Given name/first name/forename of this user.

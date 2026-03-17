@@ -2,6 +2,6 @@
 
 import typing
 
-RotateConnectionKeysSigningAlgEnum = typing.Union[
+PostConnectionKeysAlgEnum = typing.Union[
     typing.Literal["RS256", "RS384", "RS512", "PS256", "PS384", "ES256", "ES384"], typing.Any
 ]

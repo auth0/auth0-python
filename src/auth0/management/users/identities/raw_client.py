@@ -74,6 +74,7 @@ class RawIdentitiesClient:
             ID of the primary user account to link a second user account to.
 
         provider : typing.Optional[UserIdentityProviderEnum]
+            Identity provider of the secondary user account being linked.
 
         connection_id : typing.Optional[str]
             connection_id of the secondary user account being linked when more than one `auth0` database provider exists.
@@ -325,6 +326,7 @@ class AsyncRawIdentitiesClient:
             ID of the primary user account to link a second user account to.
 
         provider : typing.Optional[UserIdentityProviderEnum]
+            Identity provider of the secondary user account being linked.
 
         connection_id : typing.Optional[str]
             connection_id of the secondary user account being linked when more than one `auth0` database provider exists.

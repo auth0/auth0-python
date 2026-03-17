@@ -42,7 +42,11 @@ class SetUserAuthenticationMethodResponseContent(UniversalBaseModel):
     """
 
     authentication_methods: typing.Optional[typing.List[UserAuthenticationMethodProperties]] = None
-    preferred_authentication_method: typing.Optional[PreferredAuthenticationMethodEnum] = None
+    preferred_authentication_method: typing.Optional[PreferredAuthenticationMethodEnum] = pydantic.Field(default=None)
+    """
+    Preferred phone authentication method
+    """
+
     key_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Applies to webauthn authenticators only. The id of the credential.

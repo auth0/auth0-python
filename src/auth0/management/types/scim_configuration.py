@@ -8,7 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .scim_mapping_item import ScimMappingItem
 
 
-class UpdateScimConfigurationResponseContent(UniversalBaseModel):
+class ScimConfiguration(UniversalBaseModel):
     connection_id: str = pydantic.Field()
     """
     The connection's identifier
