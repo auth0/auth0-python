@@ -2344,7 +2344,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**allowed_logout_urls:** `typing.Optional[typing.Sequence[str]]` — URLs that are valid to redirect to after logout from Auth0.
+**allowed_logout_urls:** `typing.Optional[typing.Sequence[str]]` — URLs that are valid to redirect to after logout from Auth0
     
 </dd>
 </dl>
@@ -11969,7 +11969,7 @@ client.self_service_profiles.create(
 <dl>
 <dd>
 
-**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -12227,7 +12227,7 @@ client.self_service_profiles.update(
 <dl>
 <dd>
 
-**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>

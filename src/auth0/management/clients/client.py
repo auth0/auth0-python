@@ -696,7 +696,7 @@ class ClientsClient:
             Ids of clients that will be allowed to perform delegation requests. Clients that will be allowed to make delegation request. By default, all your clients will be allowed. This field allows you to specify specific clients
 
         allowed_logout_urls : typing.Optional[typing.Sequence[str]]
-            URLs that are valid to redirect to after logout from Auth0.
+            URLs that are valid to redirect to after logout from Auth0
 
         jwt_configuration : typing.Optional[ClientJwtConfiguration]
 
@@ -1589,7 +1589,7 @@ class AsyncClientsClient:
             Ids of clients that will be allowed to perform delegation requests. Clients that will be allowed to make delegation request. By default, all your clients will be allowed. This field allows you to specify specific clients
 
         allowed_logout_urls : typing.Optional[typing.Sequence[str]]
-            URLs that are valid to redirect to after logout from Auth0.
+            URLs that are valid to redirect to after logout from Auth0
 
         jwt_configuration : typing.Optional[ClientJwtConfiguration]
 

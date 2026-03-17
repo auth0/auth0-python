@@ -1215,6 +1215,7 @@ if typing.TYPE_CHECKING:
     from .client import AsyncAuth0, Auth0
     from .environment import Auth0Environment
     from .event_streams import EventStreamsCreateRequest
+    from .management_client import AsyncManagementClient, ManagementClient
     from .version import __version__
 _dynamic_imports: typing.Dict[str, str] = {
     "Action": ".types",
@@ -3340,6 +3341,8 @@ __all__ = [
     "LogStreamSumoEnum",
     "LogStreamSumoResponseSchema",
     "LogStreamSumoSink",
+    "ManagementClient",
+    "AsyncManagementClient",
     "MdlPresentationProperties",
     "MdlPresentationRequest",
     "MdlPresentationRequestProperties",

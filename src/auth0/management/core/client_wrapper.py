@@ -9,6 +9,7 @@ from json import dumps
 
 import httpx
 from .http_client import AsyncHttpClient, HttpClient
+from .logging import LogConfig, Logger
 
 
 class BaseClientWrapper:
@@ -70,6 +71,7 @@ class SyncClientWrapper(BaseClientWrapper):
         base_url: str,
         timeout: typing.Optional[float] = None,
         httpx_client: httpx.Client,
+        logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
         super().__init__(token=token, headers=headers, base_url=base_url, timeout=timeout)
         self.httpx_client = HttpClient(
@@ -77,6 +79,7 @@ class SyncClientWrapper(BaseClientWrapper):
             base_headers=self.get_headers,
             base_timeout=self.get_timeout,
             base_url=self.get_base_url,
+            logging_config=logging,
         )
 
 
@@ -90,6 +93,7 @@ class AsyncClientWrapper(BaseClientWrapper):
         timeout: typing.Optional[float] = None,
         async_token: typing.Optional[typing.Callable[[], typing.Awaitable[str]]] = None,
         httpx_client: httpx.AsyncClient,
+        logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
         super().__init__(token=token, headers=headers, base_url=base_url, timeout=timeout)
         self._async_token = async_token
@@ -99,6 +103,7 @@ class AsyncClientWrapper(BaseClientWrapper):
             base_timeout=self.get_timeout,
             base_url=self.get_base_url,
             async_base_headers=self.async_get_headers,
+            logging_config=logging,
         )
 
     async def async_get_headers(self) -> typing.Dict[str, str]:

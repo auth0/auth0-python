@@ -259,6 +259,7 @@ if typing.TYPE_CHECKING:
     from .client_token_exchange_type_enum import ClientTokenExchangeTypeEnum
     from .connected_account import ConnectedAccount
     from .connected_account_access_type_enum import ConnectedAccountAccessTypeEnum
+    from .connection_access_token_urlo_auth_1 import ConnectionAccessTokenUrloAuth1
     from .connection_acr_values_supported import ConnectionAcrValuesSupported
     from .connection_admin_access_token_expires_in_google_apps import ConnectionAdminAccessTokenExpiresInGoogleApps
     from .connection_admin_access_token_google_apps import ConnectionAdminAccessTokenGoogleApps
@@ -302,6 +303,7 @@ if typing.TYPE_CHECKING:
     from .connection_client_id_google_apps import ConnectionClientIdGoogleApps
     from .connection_client_id_google_o_auth_2 import ConnectionClientIdGoogleOAuth2
     from .connection_client_id_line import ConnectionClientIdLine
+    from .connection_client_id_o_auth_1 import ConnectionClientIdOAuth1
     from .connection_client_id_o_auth_2 import ConnectionClientIdOAuth2
     from .connection_client_id_oidc import ConnectionClientIdOidc
     from .connection_client_id_paypal import ConnectionClientIdPaypal
@@ -317,6 +319,7 @@ if typing.TYPE_CHECKING:
     from .connection_client_secret_google_apps import ConnectionClientSecretGoogleApps
     from .connection_client_secret_google_o_auth_2 import ConnectionClientSecretGoogleOAuth2
     from .connection_client_secret_line import ConnectionClientSecretLine
+    from .connection_client_secret_o_auth_1 import ConnectionClientSecretOAuth1
     from .connection_client_secret_o_auth_2 import ConnectionClientSecretOAuth2
     from .connection_client_secret_oidc import ConnectionClientSecretOidc
     from .connection_client_secret_paypal import ConnectionClientSecretPaypal
@@ -350,6 +353,8 @@ if typing.TYPE_CHECKING:
     from .connection_domain_aliases_saml import ConnectionDomainAliasesSaml
     from .connection_domain_google_apps import ConnectionDomainGoogleApps
     from .connection_domain_okta import ConnectionDomainOkta
+    from .connection_dpop_signing_alg_enum import ConnectionDpopSigningAlgEnum
+    from .connection_dpop_signing_alg_values_supported import ConnectionDpopSigningAlgValuesSupported
     from .connection_email_body_email import ConnectionEmailBodyEmail
     from .connection_email_email import ConnectionEmailEmail
     from .connection_email_email_syntax import ConnectionEmailEmailSyntax
@@ -568,6 +573,7 @@ if typing.TYPE_CHECKING:
     from .connection_request_object_signing_alg_values_supported import ConnectionRequestObjectSigningAlgValuesSupported
     from .connection_request_parameter_supported import ConnectionRequestParameterSupported
     from .connection_request_template_saml import ConnectionRequestTemplateSaml
+    from .connection_request_token_urlo_auth_1 import ConnectionRequestTokenUrloAuth1
     from .connection_request_uri_parameter_supported import ConnectionRequestUriParameterSupported
     from .connection_require_request_uri_registration import ConnectionRequireRequestUriRegistration
     from .connection_requires_username import ConnectionRequiresUsername
@@ -715,6 +721,7 @@ if typing.TYPE_CHECKING:
     from .connection_scope_paypal import ConnectionScopePaypal
     from .connection_scope_salesforce import ConnectionScopeSalesforce
     from .connection_scopes_supported import ConnectionScopesSupported
+    from .connection_scripts_o_auth_1 import ConnectionScriptsOAuth1
     from .connection_scripts_o_auth_2 import ConnectionScriptsOAuth2
     from .connection_send_back_channel_nonce import ConnectionSendBackChannelNonce
     from .connection_service_documentation import ConnectionServiceDocumentation
@@ -729,6 +736,7 @@ if typing.TYPE_CHECKING:
     from .connection_sign_saml_request_saml import ConnectionSignSamlRequestSaml
     from .connection_signature_algorithm_enum_saml import ConnectionSignatureAlgorithmEnumSaml
     from .connection_signature_algorithm_saml import ConnectionSignatureAlgorithmSaml
+    from .connection_signature_method_o_auth_1 import ConnectionSignatureMethodOAuth1
     from .connection_signing_cert_saml import ConnectionSigningCertSaml
     from .connection_signing_certificate_der_saml import ConnectionSigningCertificateDerSaml
     from .connection_signing_certificate_pem_ping_federate import ConnectionSigningCertificatePemPingFederate
@@ -780,6 +788,7 @@ if typing.TYPE_CHECKING:
     from .connection_upstream_params_facebook import ConnectionUpstreamParamsFacebook
     from .connection_upstream_value import ConnectionUpstreamValue
     from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
+    from .connection_user_authorization_urlo_auth_1 import ConnectionUserAuthorizationUrloAuth1
     from .connection_user_id_attribute_saml import ConnectionUserIdAttributeSaml
     from .connection_userid_attribute_azure_ad import ConnectionUseridAttributeAzureAd
     from .connection_userid_attribute_enum_azure_ad import ConnectionUseridAttributeEnumAzureAd
@@ -2691,6 +2700,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientTokenExchangeTypeEnum": ".client_token_exchange_type_enum",
     "ConnectedAccount": ".connected_account",
     "ConnectedAccountAccessTypeEnum": ".connected_account_access_type_enum",
+    "ConnectionAccessTokenUrloAuth1": ".connection_access_token_urlo_auth_1",
     "ConnectionAcrValuesSupported": ".connection_acr_values_supported",
     "ConnectionAdminAccessTokenExpiresInGoogleApps": ".connection_admin_access_token_expires_in_google_apps",
     "ConnectionAdminAccessTokenGoogleApps": ".connection_admin_access_token_google_apps",
@@ -2734,6 +2744,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientIdGoogleApps": ".connection_client_id_google_apps",
     "ConnectionClientIdGoogleOAuth2": ".connection_client_id_google_o_auth_2",
     "ConnectionClientIdLine": ".connection_client_id_line",
+    "ConnectionClientIdOAuth1": ".connection_client_id_o_auth_1",
     "ConnectionClientIdOAuth2": ".connection_client_id_o_auth_2",
     "ConnectionClientIdOidc": ".connection_client_id_oidc",
     "ConnectionClientIdPaypal": ".connection_client_id_paypal",
@@ -2749,6 +2760,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientSecretGoogleApps": ".connection_client_secret_google_apps",
     "ConnectionClientSecretGoogleOAuth2": ".connection_client_secret_google_o_auth_2",
     "ConnectionClientSecretLine": ".connection_client_secret_line",
+    "ConnectionClientSecretOAuth1": ".connection_client_secret_o_auth_1",
     "ConnectionClientSecretOAuth2": ".connection_client_secret_o_auth_2",
     "ConnectionClientSecretOidc": ".connection_client_secret_oidc",
     "ConnectionClientSecretPaypal": ".connection_client_secret_paypal",
@@ -2782,6 +2794,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionDomainAliasesSaml": ".connection_domain_aliases_saml",
     "ConnectionDomainGoogleApps": ".connection_domain_google_apps",
     "ConnectionDomainOkta": ".connection_domain_okta",
+    "ConnectionDpopSigningAlgEnum": ".connection_dpop_signing_alg_enum",
+    "ConnectionDpopSigningAlgValuesSupported": ".connection_dpop_signing_alg_values_supported",
     "ConnectionEmailBodyEmail": ".connection_email_body_email",
     "ConnectionEmailEmail": ".connection_email_email",
     "ConnectionEmailEmailSyntax": ".connection_email_email_syntax",
@@ -2988,6 +3002,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionRequestObjectSigningAlgValuesSupported": ".connection_request_object_signing_alg_values_supported",
     "ConnectionRequestParameterSupported": ".connection_request_parameter_supported",
     "ConnectionRequestTemplateSaml": ".connection_request_template_saml",
+    "ConnectionRequestTokenUrloAuth1": ".connection_request_token_urlo_auth_1",
     "ConnectionRequestUriParameterSupported": ".connection_request_uri_parameter_supported",
     "ConnectionRequireRequestUriRegistration": ".connection_require_request_uri_registration",
     "ConnectionRequiresUsername": ".connection_requires_username",
@@ -3129,6 +3144,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionScopePaypal": ".connection_scope_paypal",
     "ConnectionScopeSalesforce": ".connection_scope_salesforce",
     "ConnectionScopesSupported": ".connection_scopes_supported",
+    "ConnectionScriptsOAuth1": ".connection_scripts_o_auth_1",
     "ConnectionScriptsOAuth2": ".connection_scripts_o_auth_2",
     "ConnectionSendBackChannelNonce": ".connection_send_back_channel_nonce",
     "ConnectionServiceDocumentation": ".connection_service_documentation",
@@ -3143,6 +3159,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionSignSamlRequestSaml": ".connection_sign_saml_request_saml",
     "ConnectionSignatureAlgorithmEnumSaml": ".connection_signature_algorithm_enum_saml",
     "ConnectionSignatureAlgorithmSaml": ".connection_signature_algorithm_saml",
+    "ConnectionSignatureMethodOAuth1": ".connection_signature_method_o_auth_1",
     "ConnectionSigningCertSaml": ".connection_signing_cert_saml",
     "ConnectionSigningCertificateDerSaml": ".connection_signing_certificate_der_saml",
     "ConnectionSigningCertificatePemPingFederate": ".connection_signing_certificate_pem_ping_federate",
@@ -3192,6 +3209,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionUpstreamParamsFacebook": ".connection_upstream_params_facebook",
     "ConnectionUpstreamValue": ".connection_upstream_value",
     "ConnectionUseCommonEndpointAzureAd": ".connection_use_common_endpoint_azure_ad",
+    "ConnectionUserAuthorizationUrloAuth1": ".connection_user_authorization_urlo_auth_1",
     "ConnectionUserIdAttributeSaml": ".connection_user_id_attribute_saml",
     "ConnectionUseridAttributeAzureAd": ".connection_userid_attribute_azure_ad",
     "ConnectionUseridAttributeEnumAzureAd": ".connection_userid_attribute_enum_azure_ad",
@@ -4967,6 +4985,7 @@ __all__ = [
     "ClientTokenExchangeTypeEnum",
     "ConnectedAccount",
     "ConnectedAccountAccessTypeEnum",
+    "ConnectionAccessTokenUrloAuth1",
     "ConnectionAcrValuesSupported",
     "ConnectionAdminAccessTokenExpiresInGoogleApps",
     "ConnectionAdminAccessTokenGoogleApps",
@@ -5010,6 +5029,7 @@ __all__ = [
     "ConnectionClientIdGoogleApps",
     "ConnectionClientIdGoogleOAuth2",
     "ConnectionClientIdLine",
+    "ConnectionClientIdOAuth1",
     "ConnectionClientIdOAuth2",
     "ConnectionClientIdOidc",
     "ConnectionClientIdPaypal",
@@ -5025,6 +5045,7 @@ __all__ = [
     "ConnectionClientSecretGoogleApps",
     "ConnectionClientSecretGoogleOAuth2",
     "ConnectionClientSecretLine",
+    "ConnectionClientSecretOAuth1",
     "ConnectionClientSecretOAuth2",
     "ConnectionClientSecretOidc",
     "ConnectionClientSecretPaypal",
@@ -5058,6 +5079,8 @@ __all__ = [
     "ConnectionDomainAliasesSaml",
     "ConnectionDomainGoogleApps",
     "ConnectionDomainOkta",
+    "ConnectionDpopSigningAlgEnum",
+    "ConnectionDpopSigningAlgValuesSupported",
     "ConnectionEmailBodyEmail",
     "ConnectionEmailEmail",
     "ConnectionEmailEmailSyntax",
@@ -5264,6 +5287,7 @@ __all__ = [
     "ConnectionRequestObjectSigningAlgValuesSupported",
     "ConnectionRequestParameterSupported",
     "ConnectionRequestTemplateSaml",
+    "ConnectionRequestTokenUrloAuth1",
     "ConnectionRequestUriParameterSupported",
     "ConnectionRequireRequestUriRegistration",
     "ConnectionRequiresUsername",
@@ -5405,6 +5429,7 @@ __all__ = [
     "ConnectionScopePaypal",
     "ConnectionScopeSalesforce",
     "ConnectionScopesSupported",
+    "ConnectionScriptsOAuth1",
     "ConnectionScriptsOAuth2",
     "ConnectionSendBackChannelNonce",
     "ConnectionServiceDocumentation",
@@ -5419,6 +5444,7 @@ __all__ = [
     "ConnectionSignSamlRequestSaml",
     "ConnectionSignatureAlgorithmEnumSaml",
     "ConnectionSignatureAlgorithmSaml",
+    "ConnectionSignatureMethodOAuth1",
     "ConnectionSigningCertSaml",
     "ConnectionSigningCertificateDerSaml",
     "ConnectionSigningCertificatePemPingFederate",
@@ -5468,6 +5494,7 @@ __all__ = [
     "ConnectionUpstreamParamsFacebook",
     "ConnectionUpstreamValue",
     "ConnectionUseCommonEndpointAzureAd",
+    "ConnectionUserAuthorizationUrloAuth1",
     "ConnectionUserIdAttributeSaml",
     "ConnectionUseridAttributeAzureAd",
     "ConnectionUseridAttributeEnumAzureAd",

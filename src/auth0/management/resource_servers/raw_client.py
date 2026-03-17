@@ -105,7 +105,7 @@ class RawResourceServersClient:
                 _has_next = True
                 _get_next = lambda: self.list(
                     identifiers=identifiers,
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     include_totals=include_totals,
                     include_fields=include_fields,
@@ -771,7 +771,7 @@ class AsyncRawResourceServersClient:
                 async def _get_next():
                     return await self.list(
                         identifiers=identifiers,
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         include_totals=include_totals,
                         include_fields=include_fields,

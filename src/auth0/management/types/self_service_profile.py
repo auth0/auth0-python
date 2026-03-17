@@ -46,7 +46,7 @@ class SelfServiceProfile(UniversalBaseModel):
         default=None
     )
     """
-    List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `keycloak-samlp`, `pingfederate`]
+    List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     """
 
     user_attribute_profile_id: typing.Optional[str] = pydantic.Field(default=None)

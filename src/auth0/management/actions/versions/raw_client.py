@@ -84,7 +84,7 @@ class RawVersionsClient:
                 _has_next = True
                 _get_next = lambda: self.list(
                     action_id,
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     request_options=request_options,
                 )
@@ -396,7 +396,7 @@ class AsyncRawVersionsClient:
                 async def _get_next():
                     return await self.list(
                         action_id,
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         request_options=request_options,
                     )

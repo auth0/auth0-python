@@ -119,7 +119,7 @@ class RawRenderingClient:
                 _get_next = lambda: self.list(
                     fields=fields,
                     include_fields=include_fields,
-                    page=page + len(_items or []),
+                    page=page + 1,
                     per_page=per_page,
                     include_totals=include_totals,
                     prompt=prompt,
@@ -630,7 +630,7 @@ class AsyncRawRenderingClient:
                     return await self.list(
                         fields=fields,
                         include_fields=include_fields,
-                        page=page + len(_items or []),
+                        page=page + 1,
                         per_page=per_page,
                         include_totals=include_totals,
                         prompt=prompt,
