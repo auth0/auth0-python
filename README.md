@@ -315,6 +315,44 @@ client = Auth0(
 )
 ```
 
+### Custom Domains
+
+If your Auth0 tenant uses multiple custom domains, you can specify which custom domain to use via the `Auth0-Custom-Domain` header. The SDK enforces a whitelist, the header is only sent on supported endpoints.
+
+**Global (all whitelisted requests):**
+
+```python
+from auth0.management import ManagementClient
+
+client = ManagementClient(
+    domain="your-tenant.auth0.com",
+    token="YOUR_TOKEN",
+    custom_domain="login.mycompany.com",
+)
+```
+
+**Per-request override:**
+
+```python
+from auth0.management import ManagementClient, CustomDomainHeader
+
+client = ManagementClient(
+    domain="your-tenant.auth0.com",
+    token="YOUR_TOKEN",
+    custom_domain="login.mycompany.com",
+)
+
+# Override the global custom domain for this specific request
+client.users.create(
+    connection="Username-Password-Authentication",
+    email="user@example.com",
+    password="SecurePass123!",
+    request_options=CustomDomainHeader("other.mycompany.com"),
+)
+```
+
+If both a global `custom_domain` and a per-request `CustomDomainHeader` are provided, the per-request value takes precedence.
+
 ## Feedback
 
 ### Contributing

@@ -1,10 +1,59 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, Dict, Optional, Union
+import re
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Union
 
 import httpx
 from .client import AsyncAuth0, Auth0
 from .token_provider import TokenProvider
+
+CUSTOM_DOMAIN_HEADER = "Auth0-Custom-Domain"
+
+WHITELISTED_PATH_PATTERNS: List[re.Pattern[str]] = [
+    re.compile(r"^/api/v2/jobs/verification-email$"),
+    re.compile(r"^/api/v2/tickets/email-verification$"),
+    re.compile(r"^/api/v2/tickets/password-change$"),
+    re.compile(r"^/api/v2/organizations/[^/]+/invitations$"),
+    re.compile(r"^/api/v2/users$"),
+    re.compile(r"^/api/v2/users/[^/]+$"),
+    re.compile(r"^/api/v2/guardian/enrollments/ticket$"),
+    re.compile(r"^/api/v2/self-service-profiles/[^/]+/sso-ticket$"),
+]
+
+
+def _is_path_whitelisted(path: str) -> bool:
+    """Check if the given path is whitelisted for the custom domain header."""
+    return any(p.match(path) for p in WHITELISTED_PATH_PATTERNS)
+
+
+def _enforce_custom_domain_whitelist(request: httpx.Request) -> None:
+    """httpx event hook that strips Auth0-Custom-Domain on non-whitelisted paths."""
+    if CUSTOM_DOMAIN_HEADER in request.headers and not _is_path_whitelisted(
+        request.url.path
+    ):
+        del request.headers[CUSTOM_DOMAIN_HEADER]
+
+
+def CustomDomainHeader(domain: str) -> Dict[str, Any]:
+    """Create request options that set the Auth0-Custom-Domain header for a single request.
+
+    When both a global custom_domain (set at client init) and a per-request
+    custom_domain_header are provided, the per-request value takes precedence.
+    The header is only sent on whitelisted endpoints.
+
+    Usage::
+
+        from auth0.management import ManagementClient, CustomDomainHeader
+
+        client = ManagementClient(domain="tenant.auth0.com", token="TOKEN")
+        client.users.create(
+            connection="Username-Password-Authentication",
+            email="user@example.com",
+            password="...",
+            request_options=CustomDomainHeader("login.mycompany.com"),
+        )
+    """
+    return {"additional_headers": {CUSTOM_DOMAIN_HEADER: domain}}
 
 if TYPE_CHECKING:
     from .actions.client import ActionsClient, AsyncActionsClient
@@ -86,6 +135,10 @@ class ManagementClient:
         The API audience. Defaults to https://{domain}/api/v2/
     headers : Optional[Dict[str, str]]
         Additional headers to send with requests.
+    custom_domain : Optional[str]
+        A custom domain to send via the Auth0-Custom-Domain header.
+        The header is only sent on whitelisted endpoints. Use
+        ``CustomDomainHeader()`` for per-request overrides.
     timeout : Optional[float]
         Request timeout in seconds. Defaults to 60.
     httpx_client : Optional[httpx.Client]
@@ -106,6 +159,7 @@ class ManagementClient:
         client_secret: Optional[str] = None,
         audience: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
+        custom_domain: Optional[str] = None,
         timeout: Optional[float] = None,
         httpx_client: Optional[httpx.Client] = None,
     ):
@@ -127,6 +181,15 @@ class ManagementClient:
             resolved_token: Union[str, Callable[[], str]] = provider.get_token
         else:
             resolved_token = token  # type: ignore[assignment]
+
+        # Set up custom domain header with whitelist enforcement
+        if custom_domain is not None:
+            headers = {**(headers or {}), CUSTOM_DOMAIN_HEADER: custom_domain}
+            if httpx_client is None:
+                httpx_client = httpx.Client(timeout=timeout or 60, follow_redirects=True)
+            httpx_client.event_hooks.setdefault("request", []).append(
+                _enforce_custom_domain_whitelist
+            )
 
         # Create underlying client
         self._api = Auth0(
@@ -333,6 +396,10 @@ class AsyncManagementClient:
         The API audience. Defaults to https://{domain}/api/v2/
     headers : Optional[Dict[str, str]]
         Additional headers to send with requests.
+    custom_domain : Optional[str]
+        A custom domain to send via the Auth0-Custom-Domain header.
+        The header is only sent on whitelisted endpoints. Use
+        ``CustomDomainHeader()`` for per-request overrides.
     timeout : Optional[float]
         Request timeout in seconds. Defaults to 60.
     httpx_client : Optional[httpx.AsyncClient]
@@ -353,6 +420,7 @@ class AsyncManagementClient:
         client_secret: Optional[str] = None,
         audience: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
+        custom_domain: Optional[str] = None,
         timeout: Optional[float] = None,
         httpx_client: Optional[httpx.AsyncClient] = None,
     ):
@@ -377,6 +445,15 @@ class AsyncManagementClient:
             resolved_token: Union[str, Callable[[], str]] = provider.get_token
         else:
             resolved_token = token  # type: ignore[assignment]
+
+        # Set up custom domain header with whitelist enforcement
+        if custom_domain is not None:
+            headers = {**(headers or {}), CUSTOM_DOMAIN_HEADER: custom_domain}
+            if httpx_client is None:
+                httpx_client = httpx.AsyncClient(timeout=timeout or 60, follow_redirects=True)
+            httpx_client.event_hooks.setdefault("request", []).append(
+                _enforce_custom_domain_whitelist
+            )
 
         # Create underlying client
         self._api = AsyncAuth0(
