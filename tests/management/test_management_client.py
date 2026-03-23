@@ -1,9 +1,23 @@
 import time
 from unittest.mock import MagicMock, patch
 
+import httpx
 import pytest
 
-from auth0.management import AsyncManagementClient, AsyncTokenProvider, ManagementClient, TokenProvider
+from auth0.management import (
+    AsyncManagementClient,
+    AsyncTokenProvider,
+    CustomDomainHeader,
+    ManagementClient,
+    TokenProvider,
+)
+from auth0.management.management_client import (
+    CUSTOM_DOMAIN_HEADER as _CUSTOM_DOMAIN_HEADER,
+)
+from auth0.management.management_client import (
+    _enforce_custom_domain_whitelist,
+    _is_path_whitelisted,
+)
 
 
 class TestManagementClientInit:
@@ -337,6 +351,115 @@ class TestAsyncTokenProvider:
         assert provider._audience == "https://custom.api.com/"
 
 
+class TestCustomDomainHeader:
+    """Tests for Auth0-Custom-Domain header support."""
+
+    def test_init_with_custom_domain(self):
+        """Should set Auth0-Custom-Domain header when custom_domain is provided."""
+        client = ManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+            custom_domain="login.mycompany.com",
+        )
+        custom_headers = client._api._client_wrapper.get_custom_headers()
+        assert custom_headers is not None
+        assert custom_headers[_CUSTOM_DOMAIN_HEADER] == "login.mycompany.com"
+
+    def test_init_custom_domain_with_existing_headers(self):
+        """Should merge custom_domain with other custom headers."""
+        client = ManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+            headers={"X-Custom": "value"},
+            custom_domain="login.mycompany.com",
+        )
+        custom_headers = client._api._client_wrapper.get_custom_headers()
+        assert custom_headers is not None
+        assert custom_headers["X-Custom"] == "value"
+        assert custom_headers[_CUSTOM_DOMAIN_HEADER] == "login.mycompany.com"
+
+    def test_init_without_custom_domain(self):
+        """Should not set Auth0-Custom-Domain header when custom_domain is not provided."""
+        client = ManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+        )
+        custom_headers = client._api._client_wrapper.get_custom_headers()
+        assert custom_headers is None or _CUSTOM_DOMAIN_HEADER not in custom_headers
+
+    def test_custom_domain_header_helper(self):
+        """Should return correct request options dict."""
+        result = CustomDomainHeader("login.mycompany.com")
+        assert result == {
+            "additional_headers": {
+                _CUSTOM_DOMAIN_HEADER: "login.mycompany.com",
+            }
+        }
+
+    def test_async_init_with_custom_domain(self):
+        """Should set Auth0-Custom-Domain header on async client."""
+        client = AsyncManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+            custom_domain="login.mycompany.com",
+        )
+        custom_headers = client._api._client_wrapper.get_custom_headers()
+        assert custom_headers is not None
+        assert custom_headers[_CUSTOM_DOMAIN_HEADER] == "login.mycompany.com"
+
+    def test_whitelist_strips_header_on_non_whitelisted_path(self):
+        """Should strip Auth0-Custom-Domain header on non-whitelisted paths."""
+        request = httpx.Request(
+            "GET",
+            "https://test.auth0.com/api/v2/clients",
+            headers={_CUSTOM_DOMAIN_HEADER: "login.mycompany.com"},
+        )
+        _enforce_custom_domain_whitelist(request)
+        assert _CUSTOM_DOMAIN_HEADER not in request.headers
+
+    def test_whitelist_keeps_header_on_whitelisted_path(self):
+        """Should keep Auth0-Custom-Domain header on whitelisted paths."""
+        request = httpx.Request(
+            "POST",
+            "https://test.auth0.com/api/v2/users",
+            headers={_CUSTOM_DOMAIN_HEADER: "login.mycompany.com"},
+        )
+        _enforce_custom_domain_whitelist(request)
+        assert request.headers[_CUSTOM_DOMAIN_HEADER] == "login.mycompany.com"
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/api/v2/jobs/verification-email",
+            "/api/v2/tickets/email-verification",
+            "/api/v2/tickets/password-change",
+            "/api/v2/organizations/org_abc123/invitations",
+            "/api/v2/users",
+            "/api/v2/users/auth0|abc123",
+            "/api/v2/guardian/enrollments/ticket",
+            "/api/v2/self-service-profiles/ssp_abc123/sso-ticket",
+        ],
+    )
+    def test_whitelisted_paths_match(self, path):
+        """Should match all 8 whitelisted path patterns."""
+        assert _is_path_whitelisted(path) is True
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/api/v2/clients",
+            "/api/v2/connections",
+            "/api/v2/roles",
+            "/api/v2/users/auth0|abc123/roles",
+            "/api/v2/jobs/users-imports",
+            "/api/v2/tenants/settings",
+        ],
+    )
+    def test_non_whitelisted_paths_do_not_match(self, path):
+        """Should not match non-whitelisted paths."""
+        assert _is_path_whitelisted(path) is False
+
+
 class TestImports:
     """Tests for module imports."""
 
@@ -345,6 +468,7 @@ class TestImports:
         from auth0.management import (
             AsyncManagementClient,
             AsyncTokenProvider,
+            CustomDomainHeader,
             ManagementClient,
             TokenProvider,
         )
@@ -353,3 +477,4 @@ class TestImports:
         assert AsyncManagementClient is not None
         assert TokenProvider is not None
         assert AsyncTokenProvider is not None
+        assert CustomDomainHeader is not None
