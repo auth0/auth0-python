@@ -55,6 +55,11 @@ class UpdateConnectionOptions(UniversalBaseModel):
     Enable this if you have a legacy user store and you want to gradually migrate those users to the Auth0 user store
     """
 
+    configuration: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    Stores encrypted string only configurations for connections
+    """
+
     custom_scripts: typing_extensions.Annotated[
         typing.Optional[ConnectionCustomScripts],
         FieldMetadata(alias="customScripts"),

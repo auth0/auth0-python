@@ -468,7 +468,7 @@ class RawFlowsClient:
             json={
                 "name": name,
                 "actions": convert_and_respect_annotation_metadata(
-                    object_=actions, annotation=typing.Sequence[FlowAction], direction="write"
+                    object_=actions, annotation=typing.Optional[typing.Sequence[FlowAction]], direction="write"
                 ),
             },
             headers={
@@ -981,7 +981,7 @@ class AsyncRawFlowsClient:
             json={
                 "name": name,
                 "actions": convert_and_respect_annotation_metadata(
-                    object_=actions, annotation=typing.Sequence[FlowAction], direction="write"
+                    object_=actions, annotation=typing.Optional[typing.Sequence[FlowAction]], direction="write"
                 ),
             },
             headers={

@@ -33,7 +33,11 @@ class UserAttributeProfileUserAttributeAdditionalProperties(UniversalBaseModel):
         pydantic.Field(alias="auth0_mapping", description="Auth0 mapping for this attribute"),
     ]
     oidc_mapping: typing.Optional[UserAttributeProfileOidcMapping] = None
-    saml_mapping: typing.Optional[UserAttributeProfileSamlMapping] = None
+    saml_mapping: typing.Optional[UserAttributeProfileSamlMapping] = pydantic.Field(default=None)
+    """
+    SAML mapping for this attribute
+    """
+
     scim_mapping: typing.Optional[str] = pydantic.Field(default=None)
     """
     SCIM mapping for this attribute

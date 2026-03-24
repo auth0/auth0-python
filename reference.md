@@ -982,7 +982,6 @@ client = Auth0(
     token="YOUR_TOKEN",
 )
 client.client_grants.create(
-    client_id="client_id",
     audience="audience",
 )
 
@@ -1000,7 +999,7 @@ client.client_grants.create(
 <dl>
 <dd>
 
-**client_id:** `str` — ID of the client.
+**audience:** `str` — The audience (API identifier) of this client grant
     
 </dd>
 </dl>
@@ -1008,7 +1007,7 @@ client.client_grants.create(
 <dl>
 <dd>
 
-**audience:** `str` — The audience (API identifier) of this client grant
+**client_id:** `typing.Optional[str]` — ID of the client.
     
 </dd>
 </dl>
@@ -1487,7 +1486,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**q:** `typing.Optional[str]` — Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
+**q:** `typing.Optional[str]` — Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
     
 </dd>
 </dl>
@@ -1610,7 +1609,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**oidc_backchannel_logout:** `typing.Optional[ClientOidcBackchannelLogoutSettings]` 
+**oidc_backchannel_logout:** `typing.Optional[ClientOidcBackchannelLogoutSettings]` — Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
     
 </dd>
 </dl>
@@ -2288,7 +2287,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**oidc_backchannel_logout:** `typing.Optional[ClientOidcBackchannelLogoutSettings]` 
+**oidc_backchannel_logout:** `typing.Optional[ClientOidcBackchannelLogoutSettings]` — Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
     
 </dd>
 </dl>
@@ -2352,7 +2351,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**jwt_configuration:** `typing.Optional[ClientJwtConfiguration]` 
+**jwt_configuration:** `typing.Optional[ClientJwtConfiguration]` — An object that holds settings related to how JWTs are created
     
 </dd>
 </dl>
@@ -2360,7 +2359,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**encryption_key:** `typing.Optional[ClientEncryptionKey]` 
+**encryption_key:** `typing.Optional[ClientEncryptionKey]` — The client's encryption key
     
 </dd>
 </dl>
@@ -2496,7 +2495,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**mobile:** `typing.Optional[ClientMobile]` 
+**mobile:** `typing.Optional[ClientMobile]` — Configuration related to native mobile apps
     
 </dd>
 </dl>
@@ -4036,7 +4035,7 @@ client.custom_domains.list(
 <dl>
 <dd>
 
-**q:** `typing.Optional[str]` — Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+**q:** `typing.Optional[str]` — Query in <a href ="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query string syntax</a>.
     
 </dd>
 </dl>
@@ -4193,6 +4192,136 @@ client.custom_domains.create(
 <dd>
 
 **relying_party_identifier:** `typing.Optional[str]` — Relying Party ID (rpId) to be used for Passkeys on this custom domain. If not provided, the full domain will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">get_default</a>() -&gt; AsyncHttpResponse[GetDefaultDomainResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the tenant's default domain.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.custom_domains.get_default()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">set_default</a>(...) -&gt; AsyncHttpResponse[UpdateDefaultDomainResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Set the default custom domain for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.custom_domains.set_default(
+    domain="domain",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**domain:** `str` — The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.
     
 </dd>
 </dl>
@@ -4433,7 +4562,7 @@ client.custom_domains.update(
 <dl>
 <dd>
 
-**tls_policy:** `typing.Optional[CustomDomainTlsPolicyEnum]` 
+**tls_policy:** `typing.Optional[CustomDomainTlsPolicyEnum]` — recommended includes TLS 1.2
     
 </dd>
 </dl>
@@ -7312,7 +7441,7 @@ client.hooks.create(
 <dl>
 <dd>
 
-**trigger_id:** `HookTriggerIdEnum` 
+**trigger_id:** `HookTriggerIdEnum` — Execution stage of this rule. Can be `credentials-exchange`, `pre-user-registration`, `post-user-registration`, `post-change-password`, or `send-phone-message`.
     
 </dd>
 </dl>
@@ -10056,7 +10185,7 @@ client.refresh_tokens.update(
 <dl>
 <dd>
 
-**refresh_token_metadata:** `typing.Optional[RefreshTokenMetadata]` 
+**refresh_token_metadata:** `typing.Optional[RefreshTokenMetadata]` — Metadata associated with the refresh token. Pass null or {} to remove all metadata.
     
 </dd>
 </dl>
@@ -12462,7 +12591,7 @@ client.sessions.update(
 <dl>
 <dd>
 
-**session_metadata:** `typing.Optional[SessionMetadata]` 
+**session_metadata:** `typing.Optional[SessionMetadata]` — Metadata associated with the session. Pass null or {} to remove all session_metadata.
     
 </dd>
 </dl>
@@ -14506,7 +14635,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**q:** `typing.Optional[str]` — Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
+**q:** `typing.Optional[str]` — Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
     
 </dd>
 </dl>
@@ -15159,7 +15288,7 @@ client.users.update(
 <dl>
 <dd>
 
-**user_metadata:** `typing.Optional[UserMetadata]` 
+**user_metadata:** `typing.Optional[UserMetadata]` — User metadata to which this user has read/write access.
     
 </dd>
 </dl>
@@ -15167,7 +15296,7 @@ client.users.update(
 <dl>
 <dd>
 
-**app_metadata:** `typing.Optional[AppMetadata]` 
+**app_metadata:** `typing.Optional[AppMetadata]` — User metadata to which this user has read-only access.
     
 </dd>
 </dl>
@@ -19519,7 +19648,7 @@ client.branding.phone.templates.test(
 <dl>
 <dd>
 
-**delivery_method:** `typing.Optional[PhoneProviderDeliveryMethodEnum]` 
+**delivery_method:** `typing.Optional[PhoneProviderDeliveryMethodEnum]` — Medium to use to send the notification
     
 </dd>
 </dl>
@@ -19832,6 +19961,14 @@ client.clients.credentials.create(
 <dd>
 
 **expires_at:** `typing.Optional[dt.datetime]` — The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to `public_key` credential type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**kid:** `typing.Optional[str]` — Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}
     
 </dd>
 </dl>
@@ -20683,8 +20820,8 @@ client.connections.directory_provisioning.get_default_mapping(
 </dl>
 </details>
 
-## Connections Clients
-<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">get</a>(...) -&gt; AsyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]</code></summary>
+## Connections ScimConfiguration
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">list</a>(...) -&gt; AsyncPager[ScimConfiguration, ListScimConfigurationsResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -20696,9 +20833,7 @@ client.connections.directory_provisioning.get_default_mapping(
 <dl>
 <dd>
 
-Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
-
-<b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+Retrieve a list of SCIM configurations of a tenant.
 </dd>
 </dl>
 </dd>
@@ -20718,10 +20853,9 @@ from auth0 import Auth0
 client = Auth0(
     token="YOUR_TOKEN",
 )
-response = client.connections.clients.get(
-    id="id",
-    take=1,
+response = client.connections.scim_configuration.list(
     from_="from",
+    take=1,
 )
 for item in response:
     yield item
@@ -20743,7 +20877,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**id:** `str` — The id of the connection for which enabled clients are to be retrieved
+**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -20759,14 +20893,6 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -20779,227 +20905,6 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">update</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0 import Auth0, UpdateEnabledClientConnectionsRequestContentItem
-
-client = Auth0(
-    token="YOUR_TOKEN",
-)
-client.connections.clients.update(
-    id="id",
-    request=[
-        UpdateEnabledClientConnectionsRequestContentItem(
-            client_id="client_id",
-            status=True,
-        )
-    ],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The id of the connection to modify
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `UpdateEnabledClientConnectionsRequestContent` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Connections Keys
-<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">get</a>(...) -&gt; AsyncHttpResponse[typing.List[ConnectionKey]]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets the connection keys for the Okta or OIDC connection strategy.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0 import Auth0
-
-client = Auth0(
-    token="YOUR_TOKEN",
-)
-client.connections.keys.get(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — ID of the connection
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">rotate</a>(...) -&gt; AsyncHttpResponse[RotateConnectionsKeysResponseContent]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Rotates the connection keys for the Okta or OIDC connection strategies.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0 import Auth0, RotateConnectionKeysRequestContent
-
-client = Auth0(
-    token="YOUR_TOKEN",
-)
-client.connections.keys.rotate(
-    id="id",
-    request=RotateConnectionKeysRequestContent(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — ID of the connection
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `typing.Optional[RotateConnectionKeysRequestContent]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Connections ScimConfiguration
 <details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetScimConfigurationResponseContent]</code></summary>
 <dl>
 <dd>
@@ -21358,6 +21263,401 @@ client.connections.scim_configuration.get_default_mapping(
 <dd>
 
 **id:** `str` — The id of the connection to retrieve its default SCIM mapping
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Connections Clients
+<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">get</a>(...) -&gt; AsyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+
+<b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.connections.clients.get(
+    id="id",
+    take=1,
+    from_="from",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The id of the connection for which enabled clients are to be retrieved
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">update</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0, UpdateEnabledClientConnectionsRequestContentItem
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.clients.update(
+    id="id",
+    request=[
+        UpdateEnabledClientConnectionsRequestContentItem(
+            client_id="client_id",
+            status=True,
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The id of the connection to modify
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateEnabledClientConnectionsRequestContent` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Connections Keys
+<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">get</a>(...) -&gt; AsyncHttpResponse[typing.List[ConnectionKey]]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets the connection keys for the Okta or OIDC connection strategy.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.keys.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the connection
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">create</a>(...) -&gt; AsyncHttpResponse[PostConnectionsKeysResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0, PostConnectionKeysRequestContent
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.keys.create(
+    id="id",
+    request=PostConnectionKeysRequestContent(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the connection
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Optional[PostConnectionKeysRequestContent]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">rotate</a>(...) -&gt; AsyncHttpResponse[RotateConnectionsKeysResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Rotates the connection keys for the Okta or OIDC connection strategies.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0, RotateConnectionKeysRequestContent
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.connections.keys.rotate(
+    id="id",
+    request=RotateConnectionKeysRequestContent(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the connection
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Optional[RotateConnectionKeysRequestContent]` 
     
 </dd>
 </dl>
@@ -27725,6 +28025,7 @@ client.organizations.client_grants.delete(
 <dd>
 
 Retrieve list of all organization discovery domains associated with the specified organization.
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -27913,7 +28214,7 @@ client.organizations.discovery_domains.create(
 <dd>
 
 Retrieve details about a single organization discovery domain specified by domain name.
-
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -27992,7 +28293,8 @@ client.organizations.discovery_domains.get_by_name(
 <dl>
 <dd>
 
-Retrieve details about a single organization discovery domain specified by ID. 
+Retrieve details about a single organization discovery domain specified by ID.
+This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 </dd>
 </dl>
 </dd>
@@ -30076,7 +30378,7 @@ client.prompts.rendering.update(
 <dl>
 <dd>
 
-**rendering_mode:** `typing.Optional[AculRenderingModeEnum]` 
+**rendering_mode:** `typing.Optional[AculRenderingModeEnum]` — Rendering mode
     
 </dd>
 </dl>
@@ -31720,7 +32022,7 @@ client.tenants.settings.update()
 <dl>
 <dd>
 
-**device_flow:** `typing.Optional[TenantSettingsDeviceFlow]` 
+**device_flow:** `typing.Optional[TenantSettingsDeviceFlow]` — Device Flow configuration.
     
 </dd>
 </dl>
@@ -32623,7 +32925,7 @@ client.users.authentication_methods.update(
 <dl>
 <dd>
 
-**preferred_authentication_method:** `typing.Optional[PreferredAuthenticationMethodEnum]` 
+**preferred_authentication_method:** `typing.Optional[PreferredAuthenticationMethodEnum]` — Preferred phone authentication method
     
 </dd>
 </dl>
@@ -33213,7 +33515,7 @@ client.users.identities.link(
 <dl>
 <dd>
 
-**provider:** `typing.Optional[UserIdentityProviderEnum]` 
+**provider:** `typing.Optional[UserIdentityProviderEnum]` — Identity provider of the secondary user account being linked.
     
 </dd>
 </dl>

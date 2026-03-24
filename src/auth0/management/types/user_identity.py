@@ -16,7 +16,11 @@ class UserIdentity(UniversalBaseModel):
     Connection name of this identity.
     """
 
-    user_id: UserId
+    user_id: UserId = pydantic.Field()
+    """
+    user_id of this identity.
+    """
+
     provider: str = pydantic.Field()
     """
     Type of identity provider.

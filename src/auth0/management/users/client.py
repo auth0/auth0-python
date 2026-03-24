@@ -127,7 +127,7 @@ class UsersClient:
             Whether specified fields are to be included (true) or excluded (false).
 
         q : typing.Optional[str]
-            Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
+            Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
 
         search_engine : typing.Optional[SearchEngineVersionsEnum]
             The version of the search engine
@@ -548,8 +548,10 @@ class UsersClient:
             Whether this phone number has been verified (true) or not (false).
 
         user_metadata : typing.Optional[UserMetadata]
+            User metadata to which this user has read/write access.
 
         app_metadata : typing.Optional[AppMetadata]
+            User metadata to which this user has read-only access.
 
         given_name : typing.Optional[str]
             Given name/first name/forename of this user.
@@ -914,7 +916,7 @@ class AsyncUsersClient:
             Whether specified fields are to be included (true) or excluded (false).
 
         q : typing.Optional[str]
-            Query in <a target='_new' href ='http://www.lucenetutorial.com/lucene-query-syntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
+            Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Some query types cannot be used on metadata fields, for details see <a href='https://auth0.com/docs/users/search/v3/query-syntax#searchable-fields'>Searchable Fields</a>.
 
         search_engine : typing.Optional[SearchEngineVersionsEnum]
             The version of the search engine
@@ -1376,8 +1378,10 @@ class AsyncUsersClient:
             Whether this phone number has been verified (true) or not (false).
 
         user_metadata : typing.Optional[UserMetadata]
+            User metadata to which this user has read/write access.
 
         app_metadata : typing.Optional[AppMetadata]
+            User metadata to which this user has read-only access.
 
         given_name : typing.Optional[str]
             Given name/first name/forename of this user.

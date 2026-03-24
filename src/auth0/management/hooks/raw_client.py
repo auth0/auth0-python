@@ -192,6 +192,7 @@ class RawHooksClient:
             Code to be executed when this hook runs.
 
         trigger_id : HookTriggerIdEnum
+            Execution stage of this rule. Can be `credentials-exchange`, `pre-user-registration`, `post-user-registration`, `post-change-password`, or `send-phone-message`.
 
         enabled : typing.Optional[bool]
             Whether this hook will be executed (true) or ignored (false).
@@ -766,6 +767,7 @@ class AsyncRawHooksClient:
             Code to be executed when this hook runs.
 
         trigger_id : HookTriggerIdEnum
+            Execution stage of this rule. Can be `credentials-exchange`, `pre-user-registration`, `post-user-registration`, `post-change-password`, or `send-phone-message`.
 
         enabled : typing.Optional[bool]
             Whether this hook will be executed (true) or ignored (false).
