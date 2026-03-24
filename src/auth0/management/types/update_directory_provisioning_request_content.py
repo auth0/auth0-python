@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .directory_provisioning_mapping_item import DirectoryProvisioningMappingItem
+from .synchronize_groups_enum import SynchronizeGroupsEnum
 
 
 class UpdateDirectoryProvisioningRequestContent(UniversalBaseModel):
@@ -17,6 +18,8 @@ class UpdateDirectoryProvisioningRequestContent(UniversalBaseModel):
     """
     Whether periodic automatic synchronization is enabled
     """
+
+    synchronize_groups: typing.Optional[SynchronizeGroupsEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

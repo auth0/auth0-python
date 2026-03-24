@@ -78,6 +78,7 @@ class CredentialsClient:
         alg: typing.Optional[PublicKeyCredentialAlgorithmEnum] = OMIT,
         parse_expiry_from_cert: typing.Optional[bool] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
+        kid: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostClientCredentialResponseContent:
         """
@@ -139,6 +140,9 @@ class CredentialsClient:
         expires_at : typing.Optional[dt.datetime]
             The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to `public_key` credential type.
 
+        kid : typing.Optional[str]
+            Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -168,6 +172,7 @@ class CredentialsClient:
             alg=alg,
             parse_expiry_from_cert=parse_expiry_from_cert,
             expires_at=expires_at,
+            kid=kid,
             request_options=request_options,
         )
         return _response.data
@@ -364,6 +369,7 @@ class AsyncCredentialsClient:
         alg: typing.Optional[PublicKeyCredentialAlgorithmEnum] = OMIT,
         parse_expiry_from_cert: typing.Optional[bool] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
+        kid: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostClientCredentialResponseContent:
         """
@@ -425,6 +431,9 @@ class AsyncCredentialsClient:
         expires_at : typing.Optional[dt.datetime]
             The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to `public_key` credential type.
 
+        kid : typing.Optional[str]
+            Optional kid (Key ID), used to uniquely identify the credential. If not specified, a kid value will be auto-generated. The kid header parameter in JWTs sent by your client should match this value. Valid format is [0-9a-zA-Z-_]{10,64}
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -462,6 +471,7 @@ class AsyncCredentialsClient:
             alg=alg,
             parse_expiry_from_cert=parse_expiry_from_cert,
             expires_at=expires_at,
+            kid=kid,
             request_options=request_options,
         )
         return _response.data

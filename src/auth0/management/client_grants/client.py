@@ -117,8 +117,8 @@ class ClientGrantsClient:
     def create(
         self,
         *,
-        client_id: str,
         audience: str,
+        client_id: typing.Optional[str] = OMIT,
         organization_usage: typing.Optional[ClientGrantOrganizationUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -132,11 +132,11 @@ class ClientGrantsClient:
 
         Parameters
         ----------
-        client_id : str
-            ID of the client.
-
         audience : str
             The audience (API identifier) of this client grant
+
+        client_id : typing.Optional[str]
+            ID of the client.
 
         organization_usage : typing.Optional[ClientGrantOrganizationUsageEnum]
 
@@ -170,13 +170,12 @@ class ClientGrantsClient:
             token="YOUR_TOKEN",
         )
         client.client_grants.create(
-            client_id="client_id",
             audience="audience",
         )
         """
         _response = self._raw_client.create(
-            client_id=client_id,
             audience=audience,
+            client_id=client_id,
             organization_usage=organization_usage,
             allow_any_organization=allow_any_organization,
             scope=scope,
@@ -423,8 +422,8 @@ class AsyncClientGrantsClient:
     async def create(
         self,
         *,
-        client_id: str,
         audience: str,
+        client_id: typing.Optional[str] = OMIT,
         organization_usage: typing.Optional[ClientGrantOrganizationUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -438,11 +437,11 @@ class AsyncClientGrantsClient:
 
         Parameters
         ----------
-        client_id : str
-            ID of the client.
-
         audience : str
             The audience (API identifier) of this client grant
+
+        client_id : typing.Optional[str]
+            ID of the client.
 
         organization_usage : typing.Optional[ClientGrantOrganizationUsageEnum]
 
@@ -481,7 +480,6 @@ class AsyncClientGrantsClient:
 
         async def main() -> None:
             await client.client_grants.create(
-                client_id="client_id",
                 audience="audience",
             )
 
@@ -489,8 +487,8 @@ class AsyncClientGrantsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            client_id=client_id,
             audience=audience,
+            client_id=client_id,
             organization_usage=organization_usage,
             allow_any_organization=allow_any_organization,
             scope=scope,

@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .directory_provisioning_mapping_item import DirectoryProvisioningMappingItem
+from .synchronize_groups_enum import SynchronizeGroupsEnum
 
 
 class GetDirectoryProvisioningResponseContent(UniversalBaseModel):
@@ -34,6 +35,7 @@ class GetDirectoryProvisioningResponseContent(UniversalBaseModel):
     Whether periodic automatic synchronization is enabled
     """
 
+    synchronize_groups: typing.Optional[SynchronizeGroupsEnum] = None
     created_at: dt.datetime = pydantic.Field()
     """
     The timestamp at which the directory provisioning configuration was created
