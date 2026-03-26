@@ -2,10 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
+from .client_authentication import add_client_authentication
 from .rest import RestClient, RestClientOptions
 from .types import RequestData, TimeoutType
-
-from .client_authentication import add_client_authentication
 
 UNKNOWN_ERROR = "a0.sdk.internal.unknown"
 
@@ -22,6 +21,9 @@ class AuthenticationBase:
         telemetry (bool, optional): Enable or disable telemetry (defaults to True)
         timeout (float or tuple, optional): Change the requests connect and read timeout. Pass a tuple to specify both values separately or a float to set both to it. (defaults to 5.0 for both)
         protocol (str, optional): Useful for testing. (defaults to 'https')
+        client_info (dict, optional): Custom telemetry data for the Auth0-Client header.
+            When provided, overrides the default SDK telemetry. Useful for wrapper
+            SDKs that need to identify themselves. Ignored when telemetry is False.
     """
 
     def __init__(
@@ -34,6 +36,7 @@ class AuthenticationBase:
         telemetry: bool = True,
         timeout: TimeoutType = 5.0,
         protocol: str = "https",
+        client_info: dict[str, Any] | None = None,
     ) -> None:
         self.domain = domain
         self.client_id = client_id
@@ -43,7 +46,9 @@ class AuthenticationBase:
         self.protocol = protocol
         self.client = RestClient(
             None,
-            options=RestClientOptions(telemetry=telemetry, timeout=timeout, retries=0),
+            options=RestClientOptions(
+                telemetry=telemetry, timeout=timeout, retries=0, client_info=client_info
+            ),
         )
 
     def _add_client_authentication(self, payload: dict[str, Any]) -> dict[str, Any]:
