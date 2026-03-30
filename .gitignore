@@ -63,3 +63,6 @@ docs/build/
 
 # OS-specific files
 .DS_Store
+
+# AI tools
+.claude/
