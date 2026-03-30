@@ -152,8 +152,8 @@ class RawClientGrantsClient:
     def create(
         self,
         *,
-        client_id: str,
         audience: str,
+        client_id: typing.Optional[str] = OMIT,
         organization_usage: typing.Optional[ClientGrantOrganizationUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -167,11 +167,11 @@ class RawClientGrantsClient:
 
         Parameters
         ----------
-        client_id : str
-            ID of the client.
-
         audience : str
             The audience (API identifier) of this client grant
+
+        client_id : typing.Optional[str]
+            ID of the client.
 
         organization_usage : typing.Optional[ClientGrantOrganizationUsageEnum]
 
@@ -707,8 +707,8 @@ class AsyncRawClientGrantsClient:
     async def create(
         self,
         *,
-        client_id: str,
         audience: str,
+        client_id: typing.Optional[str] = OMIT,
         organization_usage: typing.Optional[ClientGrantOrganizationUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -722,11 +722,11 @@ class AsyncRawClientGrantsClient:
 
         Parameters
         ----------
-        client_id : str
-            ID of the client.
-
         audience : str
             The audience (API identifier) of this client grant
+
+        client_id : typing.Optional[str]
+            ID of the client.
 
         organization_usage : typing.Optional[ClientGrantOrganizationUsageEnum]
 

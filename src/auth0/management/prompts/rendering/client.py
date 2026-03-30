@@ -226,6 +226,7 @@ class RenderingClient:
             Name of the screen
 
         rendering_mode : typing.Optional[AculRenderingModeEnum]
+            Rendering mode
 
         context_configuration : typing.Optional[AculContextConfiguration]
 
@@ -502,6 +503,7 @@ class AsyncRenderingClient:
             Name of the screen
 
         rendering_mode : typing.Optional[AculRenderingModeEnum]
+            Rendering mode
 
         context_configuration : typing.Optional[AculContextConfiguration]
 

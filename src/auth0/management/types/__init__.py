@@ -269,6 +269,8 @@ if typing.TYPE_CHECKING:
     from .connection_agent_version_ad import ConnectionAgentVersionAd
     from .connection_allowed_audiences_google_o_auth_2 import ConnectionAllowedAudiencesGoogleOAuth2
     from .connection_api_behavior_enum import ConnectionApiBehaviorEnum
+    from .connection_api_enable_groups import ConnectionApiEnableGroups
+    from .connection_api_enable_groups_google_apps import ConnectionApiEnableGroupsGoogleApps
     from .connection_api_enable_users import ConnectionApiEnableUsers
     from .connection_api_enable_users_google_apps import ConnectionApiEnableUsersGoogleApps
     from .connection_app_domain_azure_ad import ConnectionAppDomainAzureAd
@@ -303,6 +305,7 @@ if typing.TYPE_CHECKING:
     from .connection_client_id_google_apps import ConnectionClientIdGoogleApps
     from .connection_client_id_google_o_auth_2 import ConnectionClientIdGoogleOAuth2
     from .connection_client_id_line import ConnectionClientIdLine
+    from .connection_client_id_linkedin import ConnectionClientIdLinkedin
     from .connection_client_id_o_auth_1 import ConnectionClientIdOAuth1
     from .connection_client_id_o_auth_2 import ConnectionClientIdOAuth2
     from .connection_client_id_oidc import ConnectionClientIdOidc
@@ -319,6 +322,7 @@ if typing.TYPE_CHECKING:
     from .connection_client_secret_google_apps import ConnectionClientSecretGoogleApps
     from .connection_client_secret_google_o_auth_2 import ConnectionClientSecretGoogleOAuth2
     from .connection_client_secret_line import ConnectionClientSecretLine
+    from .connection_client_secret_linkedin import ConnectionClientSecretLinkedin
     from .connection_client_secret_o_auth_1 import ConnectionClientSecretOAuth1
     from .connection_client_secret_o_auth_2 import ConnectionClientSecretOAuth2
     from .connection_client_secret_oidc import ConnectionClientSecretOidc
@@ -353,7 +357,6 @@ if typing.TYPE_CHECKING:
     from .connection_domain_aliases_saml import ConnectionDomainAliasesSaml
     from .connection_domain_google_apps import ConnectionDomainGoogleApps
     from .connection_domain_okta import ConnectionDomainOkta
-    from .connection_dpop_signing_alg_enum import ConnectionDpopSigningAlgEnum
     from .connection_dpop_signing_alg_values_supported import ConnectionDpopSigningAlgValuesSupported
     from .connection_email_body_email import ConnectionEmailBodyEmail
     from .connection_email_email import ConnectionEmailEmail
@@ -388,6 +391,7 @@ if typing.TYPE_CHECKING:
     from .connection_forward_req_info_sms import ConnectionForwardReqInfoSms
     from .connection_freeform_scopes_amazon import ConnectionFreeformScopesAmazon
     from .connection_freeform_scopes_google_o_auth_2 import ConnectionFreeformScopesGoogleOAuth2
+    from .connection_freeform_scopes_linkedin import ConnectionFreeformScopesLinkedin
     from .connection_freeform_scopes_paypal import ConnectionFreeformScopesPaypal
     from .connection_freeform_scopes_salesforce import ConnectionFreeformScopesSalesforce
     from .connection_freeform_scopes_windows_live import ConnectionFreeformScopesWindowsLive
@@ -486,7 +490,6 @@ if typing.TYPE_CHECKING:
     from .connection_options_ip import ConnectionOptionsIp
     from .connection_options_line import ConnectionOptionsLine
     from .connection_options_linkedin import ConnectionOptionsLinkedin
-    from .connection_options_miicard import ConnectionOptionsMiicard
     from .connection_options_o_auth_1 import ConnectionOptionsOAuth1
     from .connection_options_o_auth_1_common import ConnectionOptionsOAuth1Common
     from .connection_options_o_auth_2 import ConnectionOptionsOAuth2
@@ -499,7 +502,6 @@ if typing.TYPE_CHECKING:
     from .connection_options_ping_federate import ConnectionOptionsPingFederate
     from .connection_options_planning_center import ConnectionOptionsPlanningCenter
     from .connection_options_protocol_enum_twitter import ConnectionOptionsProtocolEnumTwitter
-    from .connection_options_renren import ConnectionOptionsRenren
     from .connection_options_salesforce import ConnectionOptionsSalesforce
     from .connection_options_salesforce_community import ConnectionOptionsSalesforceCommunity
     from .connection_options_saml import ConnectionOptionsSaml
@@ -638,8 +640,6 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_line_strategy import ConnectionResponseContentLineStrategy
     from .connection_response_content_linkedin import ConnectionResponseContentLinkedin
     from .connection_response_content_linkedin_strategy import ConnectionResponseContentLinkedinStrategy
-    from .connection_response_content_miicard import ConnectionResponseContentMiicard
-    from .connection_response_content_miicard_strategy import ConnectionResponseContentMiicardStrategy
     from .connection_response_content_o_auth_1 import ConnectionResponseContentOAuth1
     from .connection_response_content_o_auth_1_strategy import ConnectionResponseContentOAuth1Strategy
     from .connection_response_content_o_auth_2 import ConnectionResponseContentOAuth2
@@ -658,8 +658,6 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_ping_federate_strategy import ConnectionResponseContentPingFederateStrategy
     from .connection_response_content_planning_center import ConnectionResponseContentPlanningCenter
     from .connection_response_content_planning_center_strategy import ConnectionResponseContentPlanningCenterStrategy
-    from .connection_response_content_renren import ConnectionResponseContentRenren
-    from .connection_response_content_renren_strategy import ConnectionResponseContentRenrenStrategy
     from .connection_response_content_salesforce import ConnectionResponseContentSalesforce
     from .connection_response_content_salesforce_community import ConnectionResponseContentSalesforceCommunity
     from .connection_response_content_salesforce_community_strategy import (
@@ -716,6 +714,7 @@ if typing.TYPE_CHECKING:
     from .connection_scope_google_o_auth_2 import ConnectionScopeGoogleOAuth2
     from .connection_scope_item import ConnectionScopeItem
     from .connection_scope_item_google_apps import ConnectionScopeItemGoogleApps
+    from .connection_scope_linkedin import ConnectionScopeLinkedin
     from .connection_scope_o_auth_2 import ConnectionScopeOAuth2
     from .connection_scope_oidc import ConnectionScopeOidc
     from .connection_scope_paypal import ConnectionScopePaypal
@@ -881,8 +880,6 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_line_strategy import CreateConnectionRequestContentLineStrategy
     from .create_connection_request_content_linkedin import CreateConnectionRequestContentLinkedin
     from .create_connection_request_content_linkedin_strategy import CreateConnectionRequestContentLinkedinStrategy
-    from .create_connection_request_content_miicard import CreateConnectionRequestContentMiicard
-    from .create_connection_request_content_miicard_strategy import CreateConnectionRequestContentMiicardStrategy
     from .create_connection_request_content_o_auth_1 import CreateConnectionRequestContentOAuth1
     from .create_connection_request_content_o_auth_1_strategy import CreateConnectionRequestContentOAuth1Strategy
     from .create_connection_request_content_o_auth_2 import CreateConnectionRequestContentOAuth2
@@ -907,8 +904,6 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_planning_center_strategy import (
         CreateConnectionRequestContentPlanningCenterStrategy,
     )
-    from .create_connection_request_content_renren import CreateConnectionRequestContentRenren
-    from .create_connection_request_content_renren_strategy import CreateConnectionRequestContentRenrenStrategy
     from .create_connection_request_content_salesforce import CreateConnectionRequestContentSalesforce
     from .create_connection_request_content_salesforce_community import (
         CreateConnectionRequestContentSalesforceCommunity,
@@ -1803,6 +1798,9 @@ if typing.TYPE_CHECKING:
     from .get_custom_domain_response_content import GetCustomDomainResponseContent
     from .get_custom_signing_keys_response_content import GetCustomSigningKeysResponseContent
     from .get_custom_texts_by_language_response_content import GetCustomTextsByLanguageResponseContent
+    from .get_default_canonical_domain_response_content import GetDefaultCanonicalDomainResponseContent
+    from .get_default_custom_domain_response_content import GetDefaultCustomDomainResponseContent
+    from .get_default_domain_response_content import GetDefaultDomainResponseContent
     from .get_directory_provisioning_default_mapping_response_content import (
         GetDirectoryProvisioningDefaultMappingResponseContent,
     )
@@ -1982,6 +1980,7 @@ if typing.TYPE_CHECKING:
     from .list_role_users_paginated_response_content import ListRoleUsersPaginatedResponseContent
     from .list_roles_offset_paginated_response_content import ListRolesOffsetPaginatedResponseContent
     from .list_rules_offset_paginated_response_content import ListRulesOffsetPaginatedResponseContent
+    from .list_scim_configurations_response_content import ListScimConfigurationsResponseContent
     from .list_self_service_profile_custom_text_response_content import ListSelfServiceProfileCustomTextResponseContent
     from .list_self_service_profiles_paginated_response_content import ListSelfServiceProfilesPaginatedResponseContent
     from .list_token_exchange_profile_response_content import ListTokenExchangeProfileResponseContent
@@ -2109,6 +2108,10 @@ if typing.TYPE_CHECKING:
     from .phone_template_content import PhoneTemplateContent
     from .phone_template_notification_type_enum import PhoneTemplateNotificationTypeEnum
     from .post_client_credential_response_content import PostClientCredentialResponseContent
+    from .post_connection_keys_alg_enum import PostConnectionKeysAlgEnum
+    from .post_connection_keys_request_content import PostConnectionKeysRequestContent
+    from .post_connections_keys_response_content import PostConnectionsKeysResponseContent
+    from .post_connections_keys_response_content_item import PostConnectionsKeysResponseContentItem
     from .preferred_authentication_method_enum import PreferredAuthenticationMethodEnum
     from .prompt_group_name_enum import PromptGroupNameEnum
     from .prompt_language_enum import PromptLanguageEnum
@@ -2160,6 +2163,7 @@ if typing.TYPE_CHECKING:
     from .rotate_signing_keys_response_content import RotateSigningKeysResponseContent
     from .rule import Rule
     from .rules_config import RulesConfig
+    from .scim_configuration import ScimConfiguration
     from .scim_mapping_item import ScimMappingItem
     from .scim_token_item import ScimTokenItem
     from .screen_group_name_enum import ScreenGroupNameEnum
@@ -2261,6 +2265,8 @@ if typing.TYPE_CHECKING:
     from .suspicious_ip_throttling_pre_user_registration_stage import SuspiciousIpThrottlingPreUserRegistrationStage
     from .suspicious_ip_throttling_shields_enum import SuspiciousIpThrottlingShieldsEnum
     from .suspicious_ip_throttling_stage import SuspiciousIpThrottlingStage
+    from .synchronize_groups_ea_enum import SynchronizeGroupsEaEnum
+    from .synchronize_groups_enum import SynchronizeGroupsEnum
     from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
     from .tenant_settings_device_flow import TenantSettingsDeviceFlow
     from .tenant_settings_device_flow_charset import TenantSettingsDeviceFlowCharset
@@ -2336,7 +2342,6 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_ip import UpdateConnectionRequestContentIp
     from .update_connection_request_content_line import UpdateConnectionRequestContentLine
     from .update_connection_request_content_linkedin import UpdateConnectionRequestContentLinkedin
-    from .update_connection_request_content_miicard import UpdateConnectionRequestContentMiicard
     from .update_connection_request_content_o_auth_1 import UpdateConnectionRequestContentOAuth1
     from .update_connection_request_content_o_auth_2 import UpdateConnectionRequestContentOAuth2
     from .update_connection_request_content_office_365 import UpdateConnectionRequestContentOffice365
@@ -2346,7 +2351,6 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_paypal_sandbox import UpdateConnectionRequestContentPaypalSandbox
     from .update_connection_request_content_ping_federate import UpdateConnectionRequestContentPingFederate
     from .update_connection_request_content_planning_center import UpdateConnectionRequestContentPlanningCenter
-    from .update_connection_request_content_renren import UpdateConnectionRequestContentRenren
     from .update_connection_request_content_salesforce import UpdateConnectionRequestContentSalesforce
     from .update_connection_request_content_salesforce_community import (
         UpdateConnectionRequestContentSalesforceCommunity,
@@ -2370,6 +2374,9 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_yandex import UpdateConnectionRequestContentYandex
     from .update_connection_response_content import UpdateConnectionResponseContent
     from .update_custom_domain_response_content import UpdateCustomDomainResponseContent
+    from .update_default_canonical_domain_response_content import UpdateDefaultCanonicalDomainResponseContent
+    from .update_default_custom_domain_response_content import UpdateDefaultCustomDomainResponseContent
+    from .update_default_domain_response_content import UpdateDefaultDomainResponseContent
     from .update_directory_provisioning_request_content import UpdateDirectoryProvisioningRequestContent
     from .update_directory_provisioning_response_content import UpdateDirectoryProvisioningResponseContent
     from .update_email_provider_response_content import UpdateEmailProviderResponseContent
@@ -2710,6 +2717,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionAgentVersionAd": ".connection_agent_version_ad",
     "ConnectionAllowedAudiencesGoogleOAuth2": ".connection_allowed_audiences_google_o_auth_2",
     "ConnectionApiBehaviorEnum": ".connection_api_behavior_enum",
+    "ConnectionApiEnableGroups": ".connection_api_enable_groups",
+    "ConnectionApiEnableGroupsGoogleApps": ".connection_api_enable_groups_google_apps",
     "ConnectionApiEnableUsers": ".connection_api_enable_users",
     "ConnectionApiEnableUsersGoogleApps": ".connection_api_enable_users_google_apps",
     "ConnectionAppDomainAzureAd": ".connection_app_domain_azure_ad",
@@ -2744,6 +2753,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientIdGoogleApps": ".connection_client_id_google_apps",
     "ConnectionClientIdGoogleOAuth2": ".connection_client_id_google_o_auth_2",
     "ConnectionClientIdLine": ".connection_client_id_line",
+    "ConnectionClientIdLinkedin": ".connection_client_id_linkedin",
     "ConnectionClientIdOAuth1": ".connection_client_id_o_auth_1",
     "ConnectionClientIdOAuth2": ".connection_client_id_o_auth_2",
     "ConnectionClientIdOidc": ".connection_client_id_oidc",
@@ -2760,6 +2770,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientSecretGoogleApps": ".connection_client_secret_google_apps",
     "ConnectionClientSecretGoogleOAuth2": ".connection_client_secret_google_o_auth_2",
     "ConnectionClientSecretLine": ".connection_client_secret_line",
+    "ConnectionClientSecretLinkedin": ".connection_client_secret_linkedin",
     "ConnectionClientSecretOAuth1": ".connection_client_secret_o_auth_1",
     "ConnectionClientSecretOAuth2": ".connection_client_secret_o_auth_2",
     "ConnectionClientSecretOidc": ".connection_client_secret_oidc",
@@ -2794,7 +2805,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionDomainAliasesSaml": ".connection_domain_aliases_saml",
     "ConnectionDomainGoogleApps": ".connection_domain_google_apps",
     "ConnectionDomainOkta": ".connection_domain_okta",
-    "ConnectionDpopSigningAlgEnum": ".connection_dpop_signing_alg_enum",
     "ConnectionDpopSigningAlgValuesSupported": ".connection_dpop_signing_alg_values_supported",
     "ConnectionEmailBodyEmail": ".connection_email_body_email",
     "ConnectionEmailEmail": ".connection_email_email",
@@ -2829,6 +2839,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionForwardReqInfoSms": ".connection_forward_req_info_sms",
     "ConnectionFreeformScopesAmazon": ".connection_freeform_scopes_amazon",
     "ConnectionFreeformScopesGoogleOAuth2": ".connection_freeform_scopes_google_o_auth_2",
+    "ConnectionFreeformScopesLinkedin": ".connection_freeform_scopes_linkedin",
     "ConnectionFreeformScopesPaypal": ".connection_freeform_scopes_paypal",
     "ConnectionFreeformScopesSalesforce": ".connection_freeform_scopes_salesforce",
     "ConnectionFreeformScopesWindowsLive": ".connection_freeform_scopes_windows_live",
@@ -2925,7 +2936,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsIp": ".connection_options_ip",
     "ConnectionOptionsLine": ".connection_options_line",
     "ConnectionOptionsLinkedin": ".connection_options_linkedin",
-    "ConnectionOptionsMiicard": ".connection_options_miicard",
     "ConnectionOptionsOAuth1": ".connection_options_o_auth_1",
     "ConnectionOptionsOAuth1Common": ".connection_options_o_auth_1_common",
     "ConnectionOptionsOAuth2": ".connection_options_o_auth_2",
@@ -2938,7 +2948,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsPingFederate": ".connection_options_ping_federate",
     "ConnectionOptionsPlanningCenter": ".connection_options_planning_center",
     "ConnectionOptionsProtocolEnumTwitter": ".connection_options_protocol_enum_twitter",
-    "ConnectionOptionsRenren": ".connection_options_renren",
     "ConnectionOptionsSalesforce": ".connection_options_salesforce",
     "ConnectionOptionsSalesforceCommunity": ".connection_options_salesforce_community",
     "ConnectionOptionsSaml": ".connection_options_saml",
@@ -3067,8 +3076,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentLineStrategy": ".connection_response_content_line_strategy",
     "ConnectionResponseContentLinkedin": ".connection_response_content_linkedin",
     "ConnectionResponseContentLinkedinStrategy": ".connection_response_content_linkedin_strategy",
-    "ConnectionResponseContentMiicard": ".connection_response_content_miicard",
-    "ConnectionResponseContentMiicardStrategy": ".connection_response_content_miicard_strategy",
     "ConnectionResponseContentOAuth1": ".connection_response_content_o_auth_1",
     "ConnectionResponseContentOAuth1Strategy": ".connection_response_content_o_auth_1_strategy",
     "ConnectionResponseContentOAuth2": ".connection_response_content_o_auth_2",
@@ -3087,8 +3094,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentPingFederateStrategy": ".connection_response_content_ping_federate_strategy",
     "ConnectionResponseContentPlanningCenter": ".connection_response_content_planning_center",
     "ConnectionResponseContentPlanningCenterStrategy": ".connection_response_content_planning_center_strategy",
-    "ConnectionResponseContentRenren": ".connection_response_content_renren",
-    "ConnectionResponseContentRenrenStrategy": ".connection_response_content_renren_strategy",
     "ConnectionResponseContentSalesforce": ".connection_response_content_salesforce",
     "ConnectionResponseContentSalesforceCommunity": ".connection_response_content_salesforce_community",
     "ConnectionResponseContentSalesforceCommunityStrategy": ".connection_response_content_salesforce_community_strategy",
@@ -3139,6 +3144,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionScopeGoogleOAuth2": ".connection_scope_google_o_auth_2",
     "ConnectionScopeItem": ".connection_scope_item",
     "ConnectionScopeItemGoogleApps": ".connection_scope_item_google_apps",
+    "ConnectionScopeLinkedin": ".connection_scope_linkedin",
     "ConnectionScopeOAuth2": ".connection_scope_o_auth_2",
     "ConnectionScopeOidc": ".connection_scope_oidc",
     "ConnectionScopePaypal": ".connection_scope_paypal",
@@ -3294,8 +3300,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentLineStrategy": ".create_connection_request_content_line_strategy",
     "CreateConnectionRequestContentLinkedin": ".create_connection_request_content_linkedin",
     "CreateConnectionRequestContentLinkedinStrategy": ".create_connection_request_content_linkedin_strategy",
-    "CreateConnectionRequestContentMiicard": ".create_connection_request_content_miicard",
-    "CreateConnectionRequestContentMiicardStrategy": ".create_connection_request_content_miicard_strategy",
     "CreateConnectionRequestContentOAuth1": ".create_connection_request_content_o_auth_1",
     "CreateConnectionRequestContentOAuth1Strategy": ".create_connection_request_content_o_auth_1_strategy",
     "CreateConnectionRequestContentOAuth2": ".create_connection_request_content_o_auth_2",
@@ -3314,8 +3318,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentPingFederateStrategy": ".create_connection_request_content_ping_federate_strategy",
     "CreateConnectionRequestContentPlanningCenter": ".create_connection_request_content_planning_center",
     "CreateConnectionRequestContentPlanningCenterStrategy": ".create_connection_request_content_planning_center_strategy",
-    "CreateConnectionRequestContentRenren": ".create_connection_request_content_renren",
-    "CreateConnectionRequestContentRenrenStrategy": ".create_connection_request_content_renren_strategy",
     "CreateConnectionRequestContentSalesforce": ".create_connection_request_content_salesforce",
     "CreateConnectionRequestContentSalesforceCommunity": ".create_connection_request_content_salesforce_community",
     "CreateConnectionRequestContentSalesforceCommunityStrategy": ".create_connection_request_content_salesforce_community_strategy",
@@ -4164,6 +4166,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetCustomDomainResponseContent": ".get_custom_domain_response_content",
     "GetCustomSigningKeysResponseContent": ".get_custom_signing_keys_response_content",
     "GetCustomTextsByLanguageResponseContent": ".get_custom_texts_by_language_response_content",
+    "GetDefaultCanonicalDomainResponseContent": ".get_default_canonical_domain_response_content",
+    "GetDefaultCustomDomainResponseContent": ".get_default_custom_domain_response_content",
+    "GetDefaultDomainResponseContent": ".get_default_domain_response_content",
     "GetDirectoryProvisioningDefaultMappingResponseContent": ".get_directory_provisioning_default_mapping_response_content",
     "GetDirectoryProvisioningResponseContent": ".get_directory_provisioning_response_content",
     "GetEmailProviderResponseContent": ".get_email_provider_response_content",
@@ -4307,6 +4312,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListRoleUsersPaginatedResponseContent": ".list_role_users_paginated_response_content",
     "ListRolesOffsetPaginatedResponseContent": ".list_roles_offset_paginated_response_content",
     "ListRulesOffsetPaginatedResponseContent": ".list_rules_offset_paginated_response_content",
+    "ListScimConfigurationsResponseContent": ".list_scim_configurations_response_content",
     "ListSelfServiceProfileCustomTextResponseContent": ".list_self_service_profile_custom_text_response_content",
     "ListSelfServiceProfilesPaginatedResponseContent": ".list_self_service_profiles_paginated_response_content",
     "ListTokenExchangeProfileResponseContent": ".list_token_exchange_profile_response_content",
@@ -4424,6 +4430,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PhoneTemplateContent": ".phone_template_content",
     "PhoneTemplateNotificationTypeEnum": ".phone_template_notification_type_enum",
     "PostClientCredentialResponseContent": ".post_client_credential_response_content",
+    "PostConnectionKeysAlgEnum": ".post_connection_keys_alg_enum",
+    "PostConnectionKeysRequestContent": ".post_connection_keys_request_content",
+    "PostConnectionsKeysResponseContent": ".post_connections_keys_response_content",
+    "PostConnectionsKeysResponseContentItem": ".post_connections_keys_response_content_item",
     "PreferredAuthenticationMethodEnum": ".preferred_authentication_method_enum",
     "PromptGroupNameEnum": ".prompt_group_name_enum",
     "PromptLanguageEnum": ".prompt_language_enum",
@@ -4471,6 +4481,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RotateSigningKeysResponseContent": ".rotate_signing_keys_response_content",
     "Rule": ".rule",
     "RulesConfig": ".rules_config",
+    "ScimConfiguration": ".scim_configuration",
     "ScimMappingItem": ".scim_mapping_item",
     "ScimTokenItem": ".scim_token_item",
     "ScreenGroupNameEnum": ".screen_group_name_enum",
@@ -4548,6 +4559,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SuspiciousIpThrottlingPreUserRegistrationStage": ".suspicious_ip_throttling_pre_user_registration_stage",
     "SuspiciousIpThrottlingShieldsEnum": ".suspicious_ip_throttling_shields_enum",
     "SuspiciousIpThrottlingStage": ".suspicious_ip_throttling_stage",
+    "SynchronizeGroupsEaEnum": ".synchronize_groups_ea_enum",
+    "SynchronizeGroupsEnum": ".synchronize_groups_enum",
     "TenantOidcLogoutSettings": ".tenant_oidc_logout_settings",
     "TenantSettingsDeviceFlow": ".tenant_settings_device_flow",
     "TenantSettingsDeviceFlowCharset": ".tenant_settings_device_flow_charset",
@@ -4621,7 +4634,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentIp": ".update_connection_request_content_ip",
     "UpdateConnectionRequestContentLine": ".update_connection_request_content_line",
     "UpdateConnectionRequestContentLinkedin": ".update_connection_request_content_linkedin",
-    "UpdateConnectionRequestContentMiicard": ".update_connection_request_content_miicard",
     "UpdateConnectionRequestContentOAuth1": ".update_connection_request_content_o_auth_1",
     "UpdateConnectionRequestContentOAuth2": ".update_connection_request_content_o_auth_2",
     "UpdateConnectionRequestContentOffice365": ".update_connection_request_content_office_365",
@@ -4631,7 +4643,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentPaypalSandbox": ".update_connection_request_content_paypal_sandbox",
     "UpdateConnectionRequestContentPingFederate": ".update_connection_request_content_ping_federate",
     "UpdateConnectionRequestContentPlanningCenter": ".update_connection_request_content_planning_center",
-    "UpdateConnectionRequestContentRenren": ".update_connection_request_content_renren",
     "UpdateConnectionRequestContentSalesforce": ".update_connection_request_content_salesforce",
     "UpdateConnectionRequestContentSalesforceCommunity": ".update_connection_request_content_salesforce_community",
     "UpdateConnectionRequestContentSalesforceSandbox": ".update_connection_request_content_salesforce_sandbox",
@@ -4653,6 +4664,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentYandex": ".update_connection_request_content_yandex",
     "UpdateConnectionResponseContent": ".update_connection_response_content",
     "UpdateCustomDomainResponseContent": ".update_custom_domain_response_content",
+    "UpdateDefaultCanonicalDomainResponseContent": ".update_default_canonical_domain_response_content",
+    "UpdateDefaultCustomDomainResponseContent": ".update_default_custom_domain_response_content",
+    "UpdateDefaultDomainResponseContent": ".update_default_domain_response_content",
     "UpdateDirectoryProvisioningRequestContent": ".update_directory_provisioning_request_content",
     "UpdateDirectoryProvisioningResponseContent": ".update_directory_provisioning_response_content",
     "UpdateEmailProviderResponseContent": ".update_email_provider_response_content",
@@ -4995,6 +5009,8 @@ __all__ = [
     "ConnectionAgentVersionAd",
     "ConnectionAllowedAudiencesGoogleOAuth2",
     "ConnectionApiBehaviorEnum",
+    "ConnectionApiEnableGroups",
+    "ConnectionApiEnableGroupsGoogleApps",
     "ConnectionApiEnableUsers",
     "ConnectionApiEnableUsersGoogleApps",
     "ConnectionAppDomainAzureAd",
@@ -5029,6 +5045,7 @@ __all__ = [
     "ConnectionClientIdGoogleApps",
     "ConnectionClientIdGoogleOAuth2",
     "ConnectionClientIdLine",
+    "ConnectionClientIdLinkedin",
     "ConnectionClientIdOAuth1",
     "ConnectionClientIdOAuth2",
     "ConnectionClientIdOidc",
@@ -5045,6 +5062,7 @@ __all__ = [
     "ConnectionClientSecretGoogleApps",
     "ConnectionClientSecretGoogleOAuth2",
     "ConnectionClientSecretLine",
+    "ConnectionClientSecretLinkedin",
     "ConnectionClientSecretOAuth1",
     "ConnectionClientSecretOAuth2",
     "ConnectionClientSecretOidc",
@@ -5079,7 +5097,6 @@ __all__ = [
     "ConnectionDomainAliasesSaml",
     "ConnectionDomainGoogleApps",
     "ConnectionDomainOkta",
-    "ConnectionDpopSigningAlgEnum",
     "ConnectionDpopSigningAlgValuesSupported",
     "ConnectionEmailBodyEmail",
     "ConnectionEmailEmail",
@@ -5114,6 +5131,7 @@ __all__ = [
     "ConnectionForwardReqInfoSms",
     "ConnectionFreeformScopesAmazon",
     "ConnectionFreeformScopesGoogleOAuth2",
+    "ConnectionFreeformScopesLinkedin",
     "ConnectionFreeformScopesPaypal",
     "ConnectionFreeformScopesSalesforce",
     "ConnectionFreeformScopesWindowsLive",
@@ -5210,7 +5228,6 @@ __all__ = [
     "ConnectionOptionsIp",
     "ConnectionOptionsLine",
     "ConnectionOptionsLinkedin",
-    "ConnectionOptionsMiicard",
     "ConnectionOptionsOAuth1",
     "ConnectionOptionsOAuth1Common",
     "ConnectionOptionsOAuth2",
@@ -5223,7 +5240,6 @@ __all__ = [
     "ConnectionOptionsPingFederate",
     "ConnectionOptionsPlanningCenter",
     "ConnectionOptionsProtocolEnumTwitter",
-    "ConnectionOptionsRenren",
     "ConnectionOptionsSalesforce",
     "ConnectionOptionsSalesforceCommunity",
     "ConnectionOptionsSaml",
@@ -5352,8 +5368,6 @@ __all__ = [
     "ConnectionResponseContentLineStrategy",
     "ConnectionResponseContentLinkedin",
     "ConnectionResponseContentLinkedinStrategy",
-    "ConnectionResponseContentMiicard",
-    "ConnectionResponseContentMiicardStrategy",
     "ConnectionResponseContentOAuth1",
     "ConnectionResponseContentOAuth1Strategy",
     "ConnectionResponseContentOAuth2",
@@ -5372,8 +5386,6 @@ __all__ = [
     "ConnectionResponseContentPingFederateStrategy",
     "ConnectionResponseContentPlanningCenter",
     "ConnectionResponseContentPlanningCenterStrategy",
-    "ConnectionResponseContentRenren",
-    "ConnectionResponseContentRenrenStrategy",
     "ConnectionResponseContentSalesforce",
     "ConnectionResponseContentSalesforceCommunity",
     "ConnectionResponseContentSalesforceCommunityStrategy",
@@ -5424,6 +5436,7 @@ __all__ = [
     "ConnectionScopeGoogleOAuth2",
     "ConnectionScopeItem",
     "ConnectionScopeItemGoogleApps",
+    "ConnectionScopeLinkedin",
     "ConnectionScopeOAuth2",
     "ConnectionScopeOidc",
     "ConnectionScopePaypal",
@@ -5579,8 +5592,6 @@ __all__ = [
     "CreateConnectionRequestContentLineStrategy",
     "CreateConnectionRequestContentLinkedin",
     "CreateConnectionRequestContentLinkedinStrategy",
-    "CreateConnectionRequestContentMiicard",
-    "CreateConnectionRequestContentMiicardStrategy",
     "CreateConnectionRequestContentOAuth1",
     "CreateConnectionRequestContentOAuth1Strategy",
     "CreateConnectionRequestContentOAuth2",
@@ -5599,8 +5610,6 @@ __all__ = [
     "CreateConnectionRequestContentPingFederateStrategy",
     "CreateConnectionRequestContentPlanningCenter",
     "CreateConnectionRequestContentPlanningCenterStrategy",
-    "CreateConnectionRequestContentRenren",
-    "CreateConnectionRequestContentRenrenStrategy",
     "CreateConnectionRequestContentSalesforce",
     "CreateConnectionRequestContentSalesforceCommunity",
     "CreateConnectionRequestContentSalesforceCommunityStrategy",
@@ -6449,6 +6458,9 @@ __all__ = [
     "GetCustomDomainResponseContent",
     "GetCustomSigningKeysResponseContent",
     "GetCustomTextsByLanguageResponseContent",
+    "GetDefaultCanonicalDomainResponseContent",
+    "GetDefaultCustomDomainResponseContent",
+    "GetDefaultDomainResponseContent",
     "GetDirectoryProvisioningDefaultMappingResponseContent",
     "GetDirectoryProvisioningResponseContent",
     "GetEmailProviderResponseContent",
@@ -6592,6 +6604,7 @@ __all__ = [
     "ListRoleUsersPaginatedResponseContent",
     "ListRolesOffsetPaginatedResponseContent",
     "ListRulesOffsetPaginatedResponseContent",
+    "ListScimConfigurationsResponseContent",
     "ListSelfServiceProfileCustomTextResponseContent",
     "ListSelfServiceProfilesPaginatedResponseContent",
     "ListTokenExchangeProfileResponseContent",
@@ -6709,6 +6722,10 @@ __all__ = [
     "PhoneTemplateContent",
     "PhoneTemplateNotificationTypeEnum",
     "PostClientCredentialResponseContent",
+    "PostConnectionKeysAlgEnum",
+    "PostConnectionKeysRequestContent",
+    "PostConnectionsKeysResponseContent",
+    "PostConnectionsKeysResponseContentItem",
     "PreferredAuthenticationMethodEnum",
     "PromptGroupNameEnum",
     "PromptLanguageEnum",
@@ -6756,6 +6773,7 @@ __all__ = [
     "RotateSigningKeysResponseContent",
     "Rule",
     "RulesConfig",
+    "ScimConfiguration",
     "ScimMappingItem",
     "ScimTokenItem",
     "ScreenGroupNameEnum",
@@ -6833,6 +6851,8 @@ __all__ = [
     "SuspiciousIpThrottlingPreUserRegistrationStage",
     "SuspiciousIpThrottlingShieldsEnum",
     "SuspiciousIpThrottlingStage",
+    "SynchronizeGroupsEaEnum",
+    "SynchronizeGroupsEnum",
     "TenantOidcLogoutSettings",
     "TenantSettingsDeviceFlow",
     "TenantSettingsDeviceFlowCharset",
@@ -6906,7 +6926,6 @@ __all__ = [
     "UpdateConnectionRequestContentIp",
     "UpdateConnectionRequestContentLine",
     "UpdateConnectionRequestContentLinkedin",
-    "UpdateConnectionRequestContentMiicard",
     "UpdateConnectionRequestContentOAuth1",
     "UpdateConnectionRequestContentOAuth2",
     "UpdateConnectionRequestContentOffice365",
@@ -6916,7 +6935,6 @@ __all__ = [
     "UpdateConnectionRequestContentPaypalSandbox",
     "UpdateConnectionRequestContentPingFederate",
     "UpdateConnectionRequestContentPlanningCenter",
-    "UpdateConnectionRequestContentRenren",
     "UpdateConnectionRequestContentSalesforce",
     "UpdateConnectionRequestContentSalesforceCommunity",
     "UpdateConnectionRequestContentSalesforceSandbox",
@@ -6938,6 +6956,9 @@ __all__ = [
     "UpdateConnectionRequestContentYandex",
     "UpdateConnectionResponseContent",
     "UpdateCustomDomainResponseContent",
+    "UpdateDefaultCanonicalDomainResponseContent",
+    "UpdateDefaultCustomDomainResponseContent",
+    "UpdateDefaultDomainResponseContent",
     "UpdateDirectoryProvisioningRequestContent",
     "UpdateDirectoryProvisioningResponseContent",
     "UpdateEmailProviderResponseContent",

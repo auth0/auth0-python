@@ -427,6 +427,7 @@ class RawRenderingClient:
             Name of the screen
 
         rendering_mode : typing.Optional[AculRenderingModeEnum]
+            Rendering mode
 
         context_configuration : typing.Optional[AculContextConfiguration]
 
@@ -455,12 +456,14 @@ class RawRenderingClient:
             json={
                 "rendering_mode": rendering_mode,
                 "context_configuration": convert_and_respect_annotation_metadata(
-                    object_=context_configuration, annotation=AculContextConfiguration, direction="write"
+                    object_=context_configuration,
+                    annotation=typing.Optional[AculContextConfiguration],
+                    direction="write",
                 ),
                 "default_head_tags_disabled": default_head_tags_disabled,
                 "use_page_template": use_page_template,
                 "head_tags": convert_and_respect_annotation_metadata(
-                    object_=head_tags, annotation=typing.Sequence[AculHeadTag], direction="write"
+                    object_=head_tags, annotation=typing.Optional[typing.Sequence[AculHeadTag]], direction="write"
                 ),
                 "filters": convert_and_respect_annotation_metadata(
                     object_=filters, annotation=typing.Optional[AculFilters], direction="write"
@@ -939,6 +942,7 @@ class AsyncRawRenderingClient:
             Name of the screen
 
         rendering_mode : typing.Optional[AculRenderingModeEnum]
+            Rendering mode
 
         context_configuration : typing.Optional[AculContextConfiguration]
 
@@ -967,12 +971,14 @@ class AsyncRawRenderingClient:
             json={
                 "rendering_mode": rendering_mode,
                 "context_configuration": convert_and_respect_annotation_metadata(
-                    object_=context_configuration, annotation=AculContextConfiguration, direction="write"
+                    object_=context_configuration,
+                    annotation=typing.Optional[AculContextConfiguration],
+                    direction="write",
                 ),
                 "default_head_tags_disabled": default_head_tags_disabled,
                 "use_page_template": use_page_template,
                 "head_tags": convert_and_respect_annotation_metadata(
-                    object_=head_tags, annotation=typing.Sequence[AculHeadTag], direction="write"
+                    object_=head_tags, annotation=typing.Optional[typing.Sequence[AculHeadTag]], direction="write"
                 ),
                 "filters": convert_and_respect_annotation_metadata(
                     object_=filters, annotation=typing.Optional[AculFilters], direction="write"

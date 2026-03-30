@@ -709,6 +709,7 @@ class RawAuthenticationMethodsClient:
             A human-readable label to identify the authentication method.
 
         preferred_authentication_method : typing.Optional[PreferredAuthenticationMethodEnum]
+            Preferred phone authentication method
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1483,6 +1484,7 @@ class AsyncRawAuthenticationMethodsClient:
             A human-readable label to identify the authentication method.
 
         preferred_authentication_method : typing.Optional[PreferredAuthenticationMethodEnum]
+            Preferred phone authentication method
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

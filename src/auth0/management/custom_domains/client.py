@@ -11,9 +11,11 @@ from ..types.custom_domain_tls_policy_enum import CustomDomainTlsPolicyEnum
 from ..types.custom_domain_verification_method_enum import CustomDomainVerificationMethodEnum
 from ..types.domain_metadata import DomainMetadata
 from ..types.get_custom_domain_response_content import GetCustomDomainResponseContent
+from ..types.get_default_domain_response_content import GetDefaultDomainResponseContent
 from ..types.list_custom_domains_response_content import ListCustomDomainsResponseContent
 from ..types.test_custom_domain_response_content import TestCustomDomainResponseContent
 from ..types.update_custom_domain_response_content import UpdateCustomDomainResponseContent
+from ..types.update_default_domain_response_content import UpdateDefaultDomainResponseContent
 from ..types.verify_custom_domain_response_content import VerifyCustomDomainResponseContent
 from .raw_client import AsyncRawCustomDomainsClient, RawCustomDomainsClient
 
@@ -51,7 +53,7 @@ class CustomDomainsClient:
         Parameters
         ----------
         q : typing.Optional[str]
-            Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+            Query in <a href ="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query string syntax</a>.
 
         fields : typing.Optional[str]
             Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
@@ -167,6 +169,67 @@ class CustomDomainsClient:
         )
         return _response.data
 
+    def get_default(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetDefaultDomainResponseContent:
+        """
+        Retrieve the tenant's default domain.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetDefaultDomainResponseContent
+            Default domain successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.custom_domains.get_default()
+        """
+        _response = self._raw_client.get_default(request_options=request_options)
+        return _response.data
+
+    def set_default(
+        self, *, domain: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateDefaultDomainResponseContent:
+        """
+        Set the default custom domain for the tenant.
+
+        Parameters
+        ----------
+        domain : str
+            The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateDefaultDomainResponseContent
+            Default custom domain set successfully.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.custom_domains.set_default(
+            domain="domain",
+        )
+        """
+        _response = self._raw_client.set_default(domain=domain, request_options=request_options)
+        return _response.data
+
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetCustomDomainResponseContent:
@@ -272,6 +335,7 @@ class CustomDomainsClient:
             The id of the custom domain to update
 
         tls_policy : typing.Optional[CustomDomainTlsPolicyEnum]
+            recommended includes TLS 1.2
 
         custom_client_ip_header : typing.Optional[CustomDomainCustomClientIpHeader]
 
@@ -413,7 +477,7 @@ class AsyncCustomDomainsClient:
         Parameters
         ----------
         q : typing.Optional[str]
-            Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+            Query in <a href ="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query string syntax</a>.
 
         fields : typing.Optional[str]
             Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
@@ -545,6 +609,83 @@ class AsyncCustomDomainsClient:
         )
         return _response.data
 
+    async def get_default(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetDefaultDomainResponseContent:
+        """
+        Retrieve the tenant's default domain.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetDefaultDomainResponseContent
+            Default domain successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.custom_domains.get_default()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_default(request_options=request_options)
+        return _response.data
+
+    async def set_default(
+        self, *, domain: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateDefaultDomainResponseContent:
+        """
+        Set the default custom domain for the tenant.
+
+        Parameters
+        ----------
+        domain : str
+            The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateDefaultDomainResponseContent
+            Default custom domain set successfully.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.custom_domains.set_default(
+                domain="domain",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.set_default(domain=domain, request_options=request_options)
+        return _response.data
+
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetCustomDomainResponseContent:
@@ -666,6 +807,7 @@ class AsyncCustomDomainsClient:
             The id of the custom domain to update
 
         tls_policy : typing.Optional[CustomDomainTlsPolicyEnum]
+            recommended includes TLS 1.2
 
         custom_client_ip_header : typing.Optional[CustomDomainCustomClientIpHeader]
 

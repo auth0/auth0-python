@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_admin_access_token_expires_in_google_apps import ConnectionAdminAccessTokenExpiresInGoogleApps
 from .connection_admin_access_token_google_apps import ConnectionAdminAccessTokenGoogleApps
 from .connection_admin_refresh_token_google_apps import ConnectionAdminRefreshTokenGoogleApps
+from .connection_api_enable_groups_google_apps import ConnectionApiEnableGroupsGoogleApps
 from .connection_api_enable_users_google_apps import ConnectionApiEnableUsersGoogleApps
 from .connection_client_id_google_apps import ConnectionClientIdGoogleApps
 from .connection_client_secret_google_apps import ConnectionClientSecretGoogleApps
@@ -39,6 +40,7 @@ class ConnectionOptionsGoogleApps(ConnectionOptionsCommon):
     When true, allows customization of OAuth scopes requested during user login. Custom scopes are appended to the mandatory email and profile scopes. When false or omitted, only the default email and profile scopes are used. This property is automatically enabled when Token Vault or Connected Accounts features are activated.
     """
 
+    api_enable_groups: typing.Optional[ConnectionApiEnableGroupsGoogleApps] = None
     api_enable_users: typing.Optional[ConnectionApiEnableUsersGoogleApps] = None
     client_id: ConnectionClientIdGoogleApps
     client_secret: typing.Optional[ConnectionClientSecretGoogleApps] = None

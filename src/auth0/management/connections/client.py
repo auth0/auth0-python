@@ -38,9 +38,9 @@ class ConnectionsClient:
         self._raw_client = RawConnectionsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._directory_provisioning: typing.Optional[DirectoryProvisioningClient] = None
+        self._scim_configuration: typing.Optional[ScimConfigurationClient] = None
         self._clients: typing.Optional[ClientsClient] = None
         self._keys: typing.Optional[KeysClient] = None
-        self._scim_configuration: typing.Optional[ScimConfigurationClient] = None
         self._users: typing.Optional[UsersClient] = None
 
     @property
@@ -432,6 +432,14 @@ class ConnectionsClient:
         return self._directory_provisioning
 
     @property
+    def scim_configuration(self):
+        if self._scim_configuration is None:
+            from .scim_configuration.client import ScimConfigurationClient  # noqa: E402
+
+            self._scim_configuration = ScimConfigurationClient(client_wrapper=self._client_wrapper)
+        return self._scim_configuration
+
+    @property
     def clients(self):
         if self._clients is None:
             from .clients.client import ClientsClient  # noqa: E402
@@ -448,14 +456,6 @@ class ConnectionsClient:
         return self._keys
 
     @property
-    def scim_configuration(self):
-        if self._scim_configuration is None:
-            from .scim_configuration.client import ScimConfigurationClient  # noqa: E402
-
-            self._scim_configuration = ScimConfigurationClient(client_wrapper=self._client_wrapper)
-        return self._scim_configuration
-
-    @property
     def users(self):
         if self._users is None:
             from .users.client import UsersClient  # noqa: E402
@@ -469,9 +469,9 @@ class AsyncConnectionsClient:
         self._raw_client = AsyncRawConnectionsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._directory_provisioning: typing.Optional[AsyncDirectoryProvisioningClient] = None
+        self._scim_configuration: typing.Optional[AsyncScimConfigurationClient] = None
         self._clients: typing.Optional[AsyncClientsClient] = None
         self._keys: typing.Optional[AsyncKeysClient] = None
-        self._scim_configuration: typing.Optional[AsyncScimConfigurationClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
 
     @property
@@ -912,6 +912,14 @@ class AsyncConnectionsClient:
         return self._directory_provisioning
 
     @property
+    def scim_configuration(self):
+        if self._scim_configuration is None:
+            from .scim_configuration.client import AsyncScimConfigurationClient  # noqa: E402
+
+            self._scim_configuration = AsyncScimConfigurationClient(client_wrapper=self._client_wrapper)
+        return self._scim_configuration
+
+    @property
     def clients(self):
         if self._clients is None:
             from .clients.client import AsyncClientsClient  # noqa: E402
@@ -926,14 +934,6 @@ class AsyncConnectionsClient:
 
             self._keys = AsyncKeysClient(client_wrapper=self._client_wrapper)
         return self._keys
-
-    @property
-    def scim_configuration(self):
-        if self._scim_configuration is None:
-            from .scim_configuration.client import AsyncScimConfigurationClient  # noqa: E402
-
-            self._scim_configuration = AsyncScimConfigurationClient(client_wrapper=self._client_wrapper)
-        return self._scim_configuration
 
     @property
     def users(self):

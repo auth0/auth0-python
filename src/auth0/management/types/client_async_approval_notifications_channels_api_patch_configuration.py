@@ -4,4 +4,6 @@ import typing
 
 from .async_approval_notifications_channels_enum import AsyncApprovalNotificationsChannelsEnum
 
-ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration = typing.List[AsyncApprovalNotificationsChannelsEnum]
+ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration = typing.Optional[
+    typing.List[AsyncApprovalNotificationsChannelsEnum]
+]
