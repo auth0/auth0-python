@@ -4,8 +4,6 @@ import sys
 import unittest
 from unittest import mock
 
-import requests
-
 from auth0.authentication.base import AuthenticationBase
 from auth0.authentication.exceptions import Auth0Error, RateLimitError
 
@@ -41,6 +39,39 @@ class TestBase(unittest.TestCase):
         ab = AuthenticationBase("auth0.com", "cid", telemetry=False)
 
         self.assertEqual(ab.client.base_headers, {"Content-Type": "application/json"})
+
+    def test_telemetry_with_custom_client_info(self):
+        custom_info = {
+            "name": "auth0-ai-langchain",
+            "version": "1.0.0",
+            "env": {"python": "3.11.0"},
+        }
+        ab = AuthenticationBase("auth0.com", "cid", client_info=custom_info)
+        base_headers = ab.client.base_headers
+
+        auth0_client_bytes = base64.b64decode(base_headers["Auth0-Client"])
+        auth0_client = json.loads(auth0_client_bytes.decode("utf-8"))
+
+        self.assertEqual(auth0_client, custom_info)
+
+    def test_telemetry_disabled_ignores_client_info(self):
+        custom_info = {"name": "my-sdk", "version": "2.0.0"}
+        ab = AuthenticationBase(
+            "auth0.com", "cid", telemetry=False, client_info=custom_info
+        )
+
+        self.assertNotIn("Auth0-Client", ab.client.base_headers)
+        self.assertNotIn("User-Agent", ab.client.base_headers)
+
+    def test_custom_client_info_preserves_user_agent(self):
+        custom_info = {"name": "my-sdk", "version": "1.0.0"}
+        ab = AuthenticationBase("auth0.com", "cid", client_info=custom_info)
+        base_headers = ab.client.base_headers
+
+        python_version = "{}.{}.{}".format(
+            sys.version_info.major, sys.version_info.minor, sys.version_info.micro
+        )
+        self.assertEqual(base_headers["User-Agent"], f"Python/{python_version}")
 
     @mock.patch("requests.request")
     def test_post(self, mock_request):

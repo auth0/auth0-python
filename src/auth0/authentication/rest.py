@@ -10,7 +10,6 @@ from typing import TYPE_CHECKING, Any, Mapping
 from urllib.parse import urlencode
 
 import requests
-
 from .exceptions import Auth0Error, RateLimitError
 from .types import RequestData, TimeoutType
 
@@ -38,6 +37,13 @@ class RestClientOptions:
             times using an exponential backoff strategy, before
             raising a RateLimitError exception. 10 retries max.
             (defaults to 3)
+        client_info (dict, optional): Custom telemetry data to send
+            in the Auth0-Client header instead of the default SDK
+            info. Useful for wrapper SDKs that need to identify
+            themselves. When provided, this dict is JSON-encoded
+            and base64-encoded as the header value. Ignored when
+            telemetry is False.
+            (defaults to None)
     """
 
     def __init__(
@@ -45,10 +51,12 @@ class RestClientOptions:
         telemetry: bool = True,
         timeout: TimeoutType = 5.0,
         retries: int = 3,
+        client_info: dict[str, Any] | None = None,
     ) -> None:
         self.telemetry = telemetry
         self.timeout = timeout
         self.retries = retries
+        self.client_info = client_info
 
 
 class RestClient:
@@ -94,17 +102,20 @@ class RestClient:
 
         if options.telemetry:
             py_version = platform.python_version()
-            version = sys.modules["auth0"].__version__
 
-            auth0_client = dumps(
-                {
+            if options.client_info is not None:
+                auth0_client_dict = options.client_info
+            else:
+                version = sys.modules["auth0"].__version__
+                auth0_client_dict = {
                     "name": "auth0-python",
                     "version": version,
                     "env": {
                         "python": py_version,
                     },
                 }
-            ).encode("utf-8")
+
+            auth0_client = dumps(auth0_client_dict).encode("utf-8")
 
             self.base_headers.update(
                 {

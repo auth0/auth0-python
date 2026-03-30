@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, Dict, Optional, Union
+import base64
+from json import dumps
+from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Union
 
 import httpx
 from .client import AsyncAuth0, Auth0
@@ -86,6 +88,10 @@ class ManagementClient:
         The API audience. Defaults to https://{domain}/api/v2/
     headers : Optional[Dict[str, str]]
         Additional headers to send with requests.
+    client_info : Optional[Dict[str, Any]]
+        Custom telemetry data for the Auth0-Client header. When provided,
+        overrides the default SDK telemetry. Useful for wrapper SDKs that
+        need to identify themselves (e.g., ``{"name": "my-sdk", "version": "1.0.0"}``).
     timeout : Optional[float]
         Request timeout in seconds. Defaults to 60.
     httpx_client : Optional[httpx.Client]
@@ -106,6 +112,7 @@ class ManagementClient:
         client_secret: Optional[str] = None,
         audience: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
+        client_info: Optional[Dict[str, Any]] = None,
         timeout: Optional[float] = None,
         httpx_client: Optional[httpx.Client] = None,
     ):
@@ -127,6 +134,13 @@ class ManagementClient:
             resolved_token: Union[str, Callable[[], str]] = provider.get_token
         else:
             resolved_token = token  # type: ignore[assignment]
+
+        # Encode client_info into Auth0-Client header to override default telemetry
+        if client_info is not None:
+            encoded = base64.b64encode(
+                dumps(client_info).encode("utf-8")
+            ).decode()
+            headers = {**(headers or {}), "Auth0-Client": encoded}
 
         # Create underlying client
         self._api = Auth0(
@@ -333,6 +347,10 @@ class AsyncManagementClient:
         The API audience. Defaults to https://{domain}/api/v2/
     headers : Optional[Dict[str, str]]
         Additional headers to send with requests.
+    client_info : Optional[Dict[str, Any]]
+        Custom telemetry data for the Auth0-Client header. When provided,
+        overrides the default SDK telemetry. Useful for wrapper SDKs that
+        need to identify themselves (e.g., ``{"name": "my-sdk", "version": "1.0.0"}``).
     timeout : Optional[float]
         Request timeout in seconds. Defaults to 60.
     httpx_client : Optional[httpx.AsyncClient]
@@ -353,6 +371,7 @@ class AsyncManagementClient:
         client_secret: Optional[str] = None,
         audience: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
+        client_info: Optional[Dict[str, Any]] = None,
         timeout: Optional[float] = None,
         httpx_client: Optional[httpx.AsyncClient] = None,
     ):
@@ -377,6 +396,13 @@ class AsyncManagementClient:
             resolved_token: Union[str, Callable[[], str]] = provider.get_token
         else:
             resolved_token = token  # type: ignore[assignment]
+
+        # Encode client_info into Auth0-Client header to override default telemetry
+        if client_info is not None:
+            encoded = base64.b64encode(
+                dumps(client_info).encode("utf-8")
+            ).decode()
+            headers = {**(headers or {}), "Auth0-Client": encoded}
 
         # Create underlying client
         self._api = AsyncAuth0(
