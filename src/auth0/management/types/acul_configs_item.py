@@ -15,7 +15,11 @@ from .screen_group_name_enum import ScreenGroupNameEnum
 class AculConfigsItem(UniversalBaseModel):
     prompt: PromptGroupNameEnum
     screen: ScreenGroupNameEnum
-    rendering_mode: typing.Optional[AculRenderingModeEnum] = None
+    rendering_mode: typing.Optional[AculRenderingModeEnum] = pydantic.Field(default=None)
+    """
+    Rendering mode
+    """
+
     context_configuration: typing.Optional[AculContextConfiguration] = None
     default_head_tags_disabled: typing.Optional[bool] = pydantic.Field(default=None)
     """

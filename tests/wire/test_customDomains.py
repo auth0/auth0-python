@@ -19,6 +19,22 @@ def test_customDomains_create() -> None:
     verify_request_count(test_id, "POST", "/custom-domains", None, 1)
 
 
+def test_customDomains_get_default() -> None:
+    """Test getDefault endpoint with WireMock"""
+    test_id = "custom_domains.get_default.0"
+    client = get_client(test_id)
+    client.custom_domains.get_default()
+    verify_request_count(test_id, "GET", "/custom-domains/default", None, 1)
+
+
+def test_customDomains_set_default() -> None:
+    """Test setDefault endpoint with WireMock"""
+    test_id = "custom_domains.set_default.0"
+    client = get_client(test_id)
+    client.custom_domains.set_default(domain="domain")
+    verify_request_count(test_id, "PATCH", "/custom-domains/default", None, 1)
+
+
 def test_customDomains_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "custom_domains.get.0"

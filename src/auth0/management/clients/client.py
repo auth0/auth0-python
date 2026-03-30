@@ -151,7 +151,7 @@ class ClientsClient:
             Optional filter by a comma-separated list of application types.
 
         q : typing.Optional[str]
-            Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
+            Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -288,6 +288,7 @@ class ClientsClient:
         oidc_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
 
         oidc_backchannel_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
+            Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
 
         session_transfer : typing.Optional[ClientSessionTransferConfiguration]
 
@@ -677,6 +678,7 @@ class ClientsClient:
         oidc_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
 
         oidc_backchannel_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
+            Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
 
         session_transfer : typing.Optional[ClientSessionTransferConfiguration]
 
@@ -699,8 +701,10 @@ class ClientsClient:
             URLs that are valid to redirect to after logout from Auth0
 
         jwt_configuration : typing.Optional[ClientJwtConfiguration]
+            An object that holds settings related to how JWTs are created
 
         encryption_key : typing.Optional[ClientEncryptionKey]
+            The client's encryption key
 
         sso : typing.Optional[bool]
             <code>true</code> to use Auth0 instead of the IdP to do Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
@@ -745,6 +749,7 @@ class ClientsClient:
         client_metadata : typing.Optional[ClientMetadata]
 
         mobile : typing.Optional[ClientMobile]
+            Configuration related to native mobile apps
 
         initiate_login_uri : typing.Optional[str]
             Initiate login uri, must be https
@@ -1011,7 +1016,7 @@ class AsyncClientsClient:
             Optional filter by a comma-separated list of application types.
 
         q : typing.Optional[str]
-            Advanced Query in <a href="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
+            Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1157,6 +1162,7 @@ class AsyncClientsClient:
         oidc_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
 
         oidc_backchannel_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
+            Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
 
         session_transfer : typing.Optional[ClientSessionTransferConfiguration]
 
@@ -1570,6 +1576,7 @@ class AsyncClientsClient:
         oidc_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
 
         oidc_backchannel_logout : typing.Optional[ClientOidcBackchannelLogoutSettings]
+            Configuration for OIDC backchannel logout (deprecated, in favor of oidc_logout)
 
         session_transfer : typing.Optional[ClientSessionTransferConfiguration]
 
@@ -1592,8 +1599,10 @@ class AsyncClientsClient:
             URLs that are valid to redirect to after logout from Auth0
 
         jwt_configuration : typing.Optional[ClientJwtConfiguration]
+            An object that holds settings related to how JWTs are created
 
         encryption_key : typing.Optional[ClientEncryptionKey]
+            The client's encryption key
 
         sso : typing.Optional[bool]
             <code>true</code> to use Auth0 instead of the IdP to do Single Sign On, <code>false</code> otherwise (default: <code>false</code>)
@@ -1638,6 +1647,7 @@ class AsyncClientsClient:
         client_metadata : typing.Optional[ClientMetadata]
 
         mobile : typing.Optional[ClientMobile]
+            Configuration related to native mobile apps
 
         initiate_login_uri : typing.Optional[str]
             Initiate login uri, must be https

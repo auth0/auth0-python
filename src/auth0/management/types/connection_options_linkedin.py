@@ -4,29 +4,60 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from .connection_client_id_linkedin import ConnectionClientIdLinkedin
+from .connection_client_secret_linkedin import ConnectionClientSecretLinkedin
+from .connection_freeform_scopes_linkedin import ConnectionFreeformScopesLinkedin
+from .connection_options_common import ConnectionOptionsCommon
+from .connection_scope_linkedin import ConnectionScopeLinkedin
+from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
 from .connection_strategy_version_enum_linkedin import ConnectionStrategyVersionEnumLinkedin
+from .connection_upstream_params import ConnectionUpstreamParams
 
 
-class ConnectionOptionsLinkedin(ConnectionOptionsOAuth2Common):
+class ConnectionOptionsLinkedin(ConnectionOptionsCommon):
     """
     Options for the 'linkedin' connection
     """
 
-    strategy_version: typing.Optional[ConnectionStrategyVersionEnumLinkedin] = None
+    client_id: typing.Optional[ConnectionClientIdLinkedin] = None
+    client_secret: typing.Optional[ConnectionClientSecretLinkedin] = None
+    freeform_scopes: typing.Optional[ConnectionFreeformScopesLinkedin] = None
+    scope: typing.Optional[ConnectionScopeLinkedin] = None
+    set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
+    strategy_version: typing.Optional[ConnectionStrategyVersionEnumLinkedin] = pydantic.Field(default=None)
+    """
+    The strategy_version property determines which LinkedIn API version and OAuth scopes are used for authentication. Version 1 uses legacy scopes (r_basicprofile, r_fullprofile, r_network), Version 2 uses updated scopes (r_liteprofile, r_basicprofile), and Version 3 uses OpenID Connect scopes (profile, email, openid). If not specified, the connection defaults to Version 3.
+    """
+
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     basic_profile: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    When enabled, requests the basic_profile scope from LinkedIn to access basic profile information.
+    Request the LinkedIn lite profile scope (r_liteprofile) to retrieve member id, localized first/last name, and profile picture. Off by default.
     """
 
     email: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    When enabled, requests the email scope from LinkedIn to access the user's email address.
+    Request the email address scope (r_emailaddress) to return the member's primary email. Off by default.
+    """
+
+    full_profile: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Request the legacy full profile scope (r_fullprofile) for extended attributes. Deprecated by LinkedIn; use only if enabled for your app. Off by default.
+    """
+
+    network: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Request legacy network access (first-degree connections). Deprecated by LinkedIn and typically unavailable to new apps. Off by default.
+    """
+
+    openid: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Request OpenID Connect authentication support (openid scope). When enabled, the connection will request the 'openid' scope from LinkedIn, allowing the use of OpenID Connect flows for authentication and enabling the issuance of ID tokens. This is off by default and should only be enabled if your LinkedIn application is configured for OpenID Connect.
     """
 
     profile: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    When enabled, requests the profile scope from LinkedIn to access profile information.
+    Always-true flag that ensures the LinkedIn profile scope (r_basicprofile/r_liteprofile/profile) is requested.
     """
 
     if IS_PYDANTIC_V2:

@@ -177,6 +177,7 @@ class RawSettingsClient:
         change_password : typing.Optional[TenantSettingsPasswordPage]
 
         device_flow : typing.Optional[TenantSettingsDeviceFlow]
+            Device Flow configuration.
 
         guardian_mfa_page : typing.Optional[TenantSettingsGuardianPage]
 
@@ -545,6 +546,7 @@ class AsyncRawSettingsClient:
         change_password : typing.Optional[TenantSettingsPasswordPage]
 
         device_flow : typing.Optional[TenantSettingsDeviceFlow]
+            Device Flow configuration.
 
         guardian_mfa_page : typing.Optional[TenantSettingsGuardianPage]
 

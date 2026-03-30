@@ -5,6 +5,7 @@ from __future__ import annotations
 import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from ...types.create_scim_configuration_request_content import CreateScimConfigurationRequestContent
 from ...types.create_scim_configuration_response_content import CreateScimConfigurationResponseContent
@@ -12,6 +13,8 @@ from ...types.get_scim_configuration_default_mapping_response_content import (
     GetScimConfigurationDefaultMappingResponseContent,
 )
 from ...types.get_scim_configuration_response_content import GetScimConfigurationResponseContent
+from ...types.list_scim_configurations_response_content import ListScimConfigurationsResponseContent
+from ...types.scim_configuration import ScimConfiguration
 from ...types.scim_mapping_item import ScimMappingItem
 from ...types.update_scim_configuration_response_content import UpdateScimConfigurationResponseContent
 from .raw_client import AsyncRawScimConfigurationClient, RawScimConfigurationClient
@@ -38,6 +41,51 @@ class ScimConfigurationClient:
         RawScimConfigurationClient
         """
         return self._raw_client
+
+    def list(
+        self,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ScimConfiguration, ListScimConfigurationsResponseContent]:
+        """
+        Retrieve a list of SCIM configurations of a tenant.
+
+        Parameters
+        ----------
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ScimConfiguration, ListScimConfigurationsResponseContent]
+            The tenant's SCIM configurations. See <strong>Response Schema</strong> for schema.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.connections.scim_configuration.list(
+            from_="from",
+            take=1,
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.list(from_=from_, take=take, request_options=request_options)
 
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -248,6 +296,60 @@ class AsyncScimConfigurationClient:
         AsyncRawScimConfigurationClient
         """
         return self._raw_client
+
+    async def list(
+        self,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ScimConfiguration, ListScimConfigurationsResponseContent]:
+        """
+        Retrieve a list of SCIM configurations of a tenant.
+
+        Parameters
+        ----------
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ScimConfiguration, ListScimConfigurationsResponseContent]
+            The tenant's SCIM configurations. See <strong>Response Schema</strong> for schema.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.connections.scim_configuration.list(
+                from_="from",
+                take=1,
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.list(from_=from_, take=take, request_options=request_options)
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None

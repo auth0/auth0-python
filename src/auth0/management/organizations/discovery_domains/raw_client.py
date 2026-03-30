@@ -50,6 +50,7 @@ class RawDiscoveryDomainsClient:
     ) -> SyncPager[OrganizationDiscoveryDomain, ListOrganizationDiscoveryDomainsResponseContent]:
         """
         Retrieve list of all organization discovery domains associated with the specified organization.
+        This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 
         Parameters
         ----------
@@ -291,6 +292,7 @@ class RawDiscoveryDomainsClient:
     ) -> HttpResponse[GetOrganizationDiscoveryDomainByNameResponseContent]:
         """
         Retrieve details about a single organization discovery domain specified by domain name.
+        This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 
         Parameters
         ----------
@@ -388,6 +390,7 @@ class RawDiscoveryDomainsClient:
     ) -> HttpResponse[GetOrganizationDiscoveryDomainResponseContent]:
         """
         Retrieve details about a single organization discovery domain specified by ID.
+        This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 
         Parameters
         ----------
@@ -656,6 +659,7 @@ class AsyncRawDiscoveryDomainsClient:
     ) -> AsyncPager[OrganizationDiscoveryDomain, ListOrganizationDiscoveryDomainsResponseContent]:
         """
         Retrieve list of all organization discovery domains associated with the specified organization.
+        This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 
         Parameters
         ----------
@@ -900,6 +904,7 @@ class AsyncRawDiscoveryDomainsClient:
     ) -> AsyncHttpResponse[GetOrganizationDiscoveryDomainByNameResponseContent]:
         """
         Retrieve details about a single organization discovery domain specified by domain name.
+        This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 
         Parameters
         ----------
@@ -997,6 +1002,7 @@ class AsyncRawDiscoveryDomainsClient:
     ) -> AsyncHttpResponse[GetOrganizationDiscoveryDomainResponseContent]:
         """
         Retrieve details about a single organization discovery domain specified by ID.
+        This endpoint is subject to eventual consistency; newly created, updated, or deleted discovery domains may not immediately appear in the response.
 
         Parameters
         ----------
