@@ -1,5 +1,16 @@
 # Change Log
 
+## [5.2.0](https://github.com/auth0/auth0-python/tree/5.2.0) (2026-03-30)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.1.0...5.2.0)
+
+**Added**
+- chore: Update ruff, aiohttp, cryptography, urllib3, codecov-action; drop Python 3.8; replace Snyk with SCA scan [\#808](https://github.com/auth0/auth0-python/pull/808) ([kishore7snehil](https://github.com/kishore7snehil))
+- feat: Add default domain endpoints, connection key provisioning, tenant SCIM listing; remove MiiCard/Renren providers [\#801](https://github.com/auth0/auth0-python/pull/801) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Add client_info support for custom telemetry in Authentication and Management clients [\#802](https://github.com/auth0/auth0-python/pull/802) ([kishore7snehil](https://github.com/kishore7snehil))
+
+**Fixed**
+- feat+fix: Pagination fix, SDK logging, OAuth1/DPoP types [\#785](https://github.com/auth0/auth0-python/pull/785) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [5.1.0](https://github.com/auth0/auth0-python/tree/5.1.0) (2026-02-11)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.0.0...5.1.0)
 
