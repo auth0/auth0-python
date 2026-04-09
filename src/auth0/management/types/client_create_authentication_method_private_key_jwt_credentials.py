@@ -5,3 +5,6 @@ import typing
 from .public_key_credential import PublicKeyCredential
 
 ClientCreateAuthenticationMethodPrivateKeyJwtCredentials = typing.List[PublicKeyCredential]
+"""
+Fully defined credentials that will be enabled on the client for Private Key JWT authentication.
+"""

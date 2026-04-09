@@ -34,5 +34,8 @@ def test_eventStreams_deliveries_get_history() -> None:
     """Test getHistory endpoint with WireMock"""
     test_id = "event_streams.deliveries.get_history.0"
     client = get_client(test_id)
-    client.event_streams.deliveries.get_history(id="id", event_id="event_id")
+    client.event_streams.deliveries.get_history(
+        id="id",
+        event_id="event_id",
+    )
     verify_request_count(test_id, "GET", "/event-streams/id/deliveries/event_id", None, 1)

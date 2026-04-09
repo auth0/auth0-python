@@ -3,3 +3,6 @@
 import datetime as dt
 
 ConnectionAdminAccessTokenExpiresInGoogleApps = dt.datetime
+"""
+Expiration timestamp for the `admin_access_token` in ISO 8601 format. Auth0 uses this value to determine when to refresh the token.
+"""

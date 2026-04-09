@@ -1,5 +1,7 @@
 from .conftest import get_client, verify_request_count
 
+from auth0.management import CustomSigningKeyJwk
+
 
 def test_keys_customSigning_get() -> None:
     """Test get endpoint with WireMock"""
@@ -13,7 +15,13 @@ def test_keys_customSigning_set_() -> None:
     """Test set endpoint with WireMock"""
     test_id = "keys.custom_signing.set_.0"
     client = get_client(test_id)
-    client.keys.custom_signing.set(keys=[{"kty": "EC"}])
+    client.keys.custom_signing.set(
+        keys=[
+            CustomSigningKeyJwk(
+                kty="EC",
+            )
+        ],
+    )
     verify_request_count(test_id, "PUT", "/keys/custom-signing", None, 1)
 
 

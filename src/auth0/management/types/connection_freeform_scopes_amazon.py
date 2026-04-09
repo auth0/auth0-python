@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionFreeformScopesAmazon = ConnectionScopeArray
+"""
+Additional OAuth scopes to request from Amazon beyond the standard profile and postal_code scopes. These scopes must be valid Amazon Login scopes.
+"""

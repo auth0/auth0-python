@@ -5,8 +5,9 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
 from ...core.pagination import AsyncPager, SyncPager
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
@@ -17,6 +18,7 @@ from ...types.list_client_grant_organizations_paginated_response_content import 
     ListClientGrantOrganizationsPaginatedResponseContent,
 )
 from ...types.organization import Organization
+from pydantic import ValidationError
 
 
 class RawOrganizationsClient:
@@ -52,7 +54,7 @@ class RawOrganizationsClient:
             Organizations successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"client-grants/{jsonable_encoder(id)}/organizations",
+            f"client-grants/{encode_path_param(id)}/organizations",
             method="GET",
             params={
                 "from": from_,
@@ -126,6 +128,10 @@ class RawOrganizationsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -162,7 +168,7 @@ class AsyncRawOrganizationsClient:
             Organizations successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"client-grants/{jsonable_encoder(id)}/organizations",
+            f"client-grants/{encode_path_param(id)}/organizations",
             method="GET",
             params={
                 "from": from_,
@@ -239,4 +245,8 @@ class AsyncRawOrganizationsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

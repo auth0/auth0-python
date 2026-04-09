@@ -3,3 +3,6 @@
 import typing
 
 ConnectionSubjectTypesSupported = typing.List[str]
+"""
+A list of the Subject Identifier types that this OP supports. Valid types include pairwise and public
+"""

@@ -5,3 +5,6 @@ import typing
 from .acul_context_configuration_item import AculContextConfigurationItem
 
 AculContextConfiguration = typing.Optional[typing.List[AculContextConfigurationItem]]
+"""
+Context values to make available
+"""

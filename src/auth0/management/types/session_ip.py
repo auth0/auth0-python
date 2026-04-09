@@ -3,3 +3,6 @@
 import typing
 
 SessionIp = typing.Optional[str]
+"""
+First IP address associated with this session
+"""

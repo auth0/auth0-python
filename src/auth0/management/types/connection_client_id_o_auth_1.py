@@ -3,3 +3,6 @@
 from .connection_client_id import ConnectionClientId
 
 ConnectionClientIdOAuth1 = ConnectionClientId
+"""
+OAuth 1.0a client ID (consumer key) that identifies the client to the provider and is used to sign OAuth 1.0a requests.
+"""

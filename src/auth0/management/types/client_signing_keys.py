@@ -5,3 +5,6 @@ import typing
 from .client_signing_key import ClientSigningKey
 
 ClientSigningKeys = typing.Optional[typing.List[ClientSigningKey]]
+"""
+Signing certificates associated with this client.
+"""

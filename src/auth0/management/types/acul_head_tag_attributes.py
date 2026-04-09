@@ -3,3 +3,6 @@
 import typing
 
 AculHeadTagAttributes = typing.Dict[str, typing.Any]
+"""
+Attributes of the HTML tag. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes"> MDN documentation</a> for valid attributes.
+"""

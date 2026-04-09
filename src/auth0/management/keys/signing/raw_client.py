@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
@@ -18,6 +19,7 @@ from ...types.get_signing_keys_response_content import GetSigningKeysResponseCon
 from ...types.revoked_signing_keys_response_content import RevokedSigningKeysResponseContent
 from ...types.rotate_signing_keys_response_content import RotateSigningKeysResponseContent
 from ...types.signing_keys import SigningKeys
+from pydantic import ValidationError
 
 
 class RawSigningClient:
@@ -102,6 +104,10 @@ class RawSigningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def rotate(
@@ -171,6 +177,10 @@ class RawSigningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -193,7 +203,7 @@ class RawSigningClient:
             The signing keys were retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"keys/signing/{jsonable_encoder(kid)}",
+            f"keys/signing/{encode_path_param(kid)}",
             method="GET",
             request_options=request_options,
         )
@@ -254,6 +264,10 @@ class RawSigningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def revoke(
@@ -276,7 +290,7 @@ class RawSigningClient:
             Signing key revoked successfully.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"keys/signing/{jsonable_encoder(kid)}/revoke",
+            f"keys/signing/{encode_path_param(kid)}/revoke",
             method="PUT",
             request_options=request_options,
         )
@@ -337,6 +351,10 @@ class RawSigningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -422,6 +440,10 @@ class AsyncRawSigningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def rotate(
@@ -491,6 +513,10 @@ class AsyncRawSigningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -513,7 +539,7 @@ class AsyncRawSigningClient:
             The signing keys were retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"keys/signing/{jsonable_encoder(kid)}",
+            f"keys/signing/{encode_path_param(kid)}",
             method="GET",
             request_options=request_options,
         )
@@ -574,6 +600,10 @@ class AsyncRawSigningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def revoke(
@@ -596,7 +626,7 @@ class AsyncRawSigningClient:
             Signing key revoked successfully.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"keys/signing/{jsonable_encoder(kid)}/revoke",
+            f"keys/signing/{encode_path_param(kid)}/revoke",
             method="PUT",
             request_options=request_options,
         )
@@ -657,4 +687,8 @@ class AsyncRawSigningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

@@ -3,3 +3,6 @@
 import typing
 
 ConnectionOptionsIp = typing.Dict[str, typing.Any]
+"""
+Options for the 'ip' connection
+"""

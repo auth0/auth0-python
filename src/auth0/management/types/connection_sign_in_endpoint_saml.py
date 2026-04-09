@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback_2048 import ConnectionHttpsUrlWithHttpFallback2048
 
 ConnectionSignInEndpointSaml = ConnectionHttpsUrlWithHttpFallback2048
+"""
+Identity provider's SAML SingleSignOnService endpoint URL where Auth0 sends SAML authentication requests. This is the primary login URL for the SAML connection. Required unless using metadataUrl or metadataXml.
+"""

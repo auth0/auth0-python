@@ -5,3 +5,6 @@ import typing
 from .connection_upstream_additional_properties import ConnectionUpstreamAdditionalProperties
 
 ConnectionUpstreamParamsFacebook = typing.Dict[str, ConnectionUpstreamAdditionalProperties]
+"""
+Options for adding parameters in the request to the upstream IdP. See https://auth0.com/docs/authenticate/identity-providers/pass-parameters-to-idps
+"""

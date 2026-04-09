@@ -7,7 +7,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.conflict_error import ConflictError
@@ -18,6 +19,7 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.create_event_stream_redelivery_response_content import CreateEventStreamRedeliveryResponseContent
 from ...types.event_stream_delivery_status_enum import EventStreamDeliveryStatusEnum
 from ...types.event_stream_event_type_enum import EventStreamEventTypeEnum
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -64,7 +66,7 @@ class RawRedeliveriesClient:
             Redelivery request accepted.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"event-streams/{jsonable_encoder(id)}/redeliver",
+            f"event-streams/{encode_path_param(id)}/redeliver",
             method="POST",
             json={
                 "date_from": date_from,
@@ -146,6 +148,10 @@ class RawRedeliveriesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create_by_id(
@@ -168,7 +174,7 @@ class RawRedeliveriesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"event-streams/{jsonable_encoder(id)}/redeliver/{jsonable_encoder(event_id)}",
+            f"event-streams/{encode_path_param(id)}/redeliver/{encode_path_param(event_id)}",
             method="POST",
             request_options=request_options,
         )
@@ -233,6 +239,10 @@ class RawRedeliveriesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -277,7 +287,7 @@ class AsyncRawRedeliveriesClient:
             Redelivery request accepted.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"event-streams/{jsonable_encoder(id)}/redeliver",
+            f"event-streams/{encode_path_param(id)}/redeliver",
             method="POST",
             json={
                 "date_from": date_from,
@@ -359,6 +369,10 @@ class AsyncRawRedeliveriesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create_by_id(
@@ -381,7 +395,7 @@ class AsyncRawRedeliveriesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"event-streams/{jsonable_encoder(id)}/redeliver/{jsonable_encoder(event_id)}",
+            f"event-streams/{encode_path_param(id)}/redeliver/{encode_path_param(event_id)}",
             method="POST",
             request_options=request_options,
         )
@@ -446,4 +460,8 @@ class AsyncRawRedeliveriesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

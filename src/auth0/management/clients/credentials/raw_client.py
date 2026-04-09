@@ -7,7 +7,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
@@ -21,6 +22,7 @@ from ...types.get_client_credential_response_content import GetClientCredentialR
 from ...types.patch_client_credential_response_content import PatchClientCredentialResponseContent
 from ...types.post_client_credential_response_content import PostClientCredentialResponseContent
 from ...types.public_key_credential_algorithm_enum import PublicKeyCredentialAlgorithmEnum
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -52,7 +54,7 @@ class RawCredentialsClient:
             Credentials successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials",
+            f"clients/{encode_path_param(client_id)}/credentials",
             method="GET",
             request_options=request_options,
         )
@@ -113,6 +115,10 @@ class RawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -200,7 +206,7 @@ class RawCredentialsClient:
             Credential successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials",
+            f"clients/{encode_path_param(client_id)}/credentials",
             method="POST",
             json={
                 "credential_type": credential_type,
@@ -286,6 +292,10 @@ class RawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -313,7 +323,7 @@ class RawCredentialsClient:
             Credential successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials/{jsonable_encoder(credential_id)}",
+            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -374,6 +384,10 @@ class RawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(
@@ -398,7 +412,7 @@ class RawCredentialsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials/{jsonable_encoder(credential_id)}",
+            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -452,6 +466,10 @@ class RawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -485,7 +503,7 @@ class RawCredentialsClient:
             Credential successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials/{jsonable_encoder(credential_id)}",
+            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
             method="PATCH",
             json={
                 "expires_at": expires_at,
@@ -564,6 +582,10 @@ class RawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -593,7 +615,7 @@ class AsyncRawCredentialsClient:
             Credentials successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials",
+            f"clients/{encode_path_param(client_id)}/credentials",
             method="GET",
             request_options=request_options,
         )
@@ -654,6 +676,10 @@ class AsyncRawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -741,7 +767,7 @@ class AsyncRawCredentialsClient:
             Credential successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials",
+            f"clients/{encode_path_param(client_id)}/credentials",
             method="POST",
             json={
                 "credential_type": credential_type,
@@ -827,6 +853,10 @@ class AsyncRawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -854,7 +884,7 @@ class AsyncRawCredentialsClient:
             Credential successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials/{jsonable_encoder(credential_id)}",
+            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -915,6 +945,10 @@ class AsyncRawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -939,7 +973,7 @@ class AsyncRawCredentialsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials/{jsonable_encoder(credential_id)}",
+            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -993,6 +1027,10 @@ class AsyncRawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -1026,7 +1064,7 @@ class AsyncRawCredentialsClient:
             Credential successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(client_id)}/credentials/{jsonable_encoder(credential_id)}",
+            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
             method="PATCH",
             json={
                 "expires_at": expires_at,
@@ -1105,4 +1143,8 @@ class AsyncRawCredentialsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

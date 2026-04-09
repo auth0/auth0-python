@@ -13,5 +13,7 @@ def test_riskAssessments_settings_update() -> None:
     """Test update endpoint with WireMock"""
     test_id = "risk_assessments.settings.update.0"
     client = get_client(test_id)
-    client.risk_assessments.settings.update(enabled=True)
+    client.risk_assessments.settings.update(
+        enabled=True,
+    )
     verify_request_count(test_id, "PATCH", "/risk-assessments/settings", None, 1)

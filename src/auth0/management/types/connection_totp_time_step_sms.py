@@ -3,3 +3,6 @@
 from .connection_totp_time_step_passwordless import ConnectionTotpTimeStepPasswordless
 
 ConnectionTotpTimeStepSms = ConnectionTotpTimeStepPasswordless
+"""
+Code validity duration in seconds
+"""

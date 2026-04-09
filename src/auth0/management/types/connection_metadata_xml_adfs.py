@@ -3,3 +3,6 @@
 from .connection_metadata_xml import ConnectionMetadataXml
 
 ConnectionMetadataXmlAdfs = ConnectionMetadataXml
+"""
+Inline XML alternative to 'adfs_server'. Cannot be set together with 'adfs_server'.
+"""

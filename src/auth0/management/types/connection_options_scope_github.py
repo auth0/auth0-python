@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionOptionsScopeGithub = ConnectionScopeArray
+"""
+Scope options for GitHub connections.
+"""

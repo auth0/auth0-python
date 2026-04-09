@@ -5,3 +5,6 @@ import typing
 from .enabled_features_enum import EnabledFeaturesEnum
 
 ConnectionProfileStrategyOverridesEnabledFeatures = typing.List[EnabledFeaturesEnum]
+"""
+Enabled features for a connections profile strategy override.
+"""

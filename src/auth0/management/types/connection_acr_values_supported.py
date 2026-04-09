@@ -3,3 +3,6 @@
 import typing
 
 ConnectionAcrValuesSupported = typing.List[str]
+"""
+A list of the Authentication Context Class References that this OP supports
+"""

@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionScopeSalesforce = ConnectionScopeArray
+"""
+OAuth scopes to request from Salesforce. This is computed from enabled permission options and any additional freeform scopes.
+"""
