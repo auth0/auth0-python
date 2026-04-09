@@ -3,3 +3,6 @@
 import typing
 
 ConnectionOptions = typing.Dict[str, typing.Any]
+"""
+In order to return options in the response, the `read:connections_options` scope must be present
+"""

@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback_2048 import ConnectionHttpsUrlWithHttpFallback2048
 
 ConnectionMetadataUrlSaml = ConnectionHttpsUrlWithHttpFallback2048
+"""
+HTTPS URL to the identity provider's SAML metadata document. When provided, Auth0 automatically fetches and parses the metadata to extract signInEndpoint, signOutEndpoint, signingCert, signSAMLRequest, and protocolBinding. Use metadataUrl OR metadataXml, not both.
+"""

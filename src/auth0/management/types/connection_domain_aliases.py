@@ -5,3 +5,6 @@ import typing
 from .connection_domain_aliases_items_one import ConnectionDomainAliasesItemsOne
 
 ConnectionDomainAliases = typing.List[ConnectionDomainAliasesItemsOne]
+"""
+Email domains associated with this connection for Home Realm Discovery (HRD). When a user's email matches one of these domains, they are automatically routed to this connection during authentication.
+"""

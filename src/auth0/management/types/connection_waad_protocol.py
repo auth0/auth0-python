@@ -3,3 +3,6 @@
 from .connection_waad_protocol_enum_azure_ad import ConnectionWaadProtocolEnumAzureAd
 
 ConnectionWaadProtocol = ConnectionWaadProtocolEnumAzureAd
+"""
+The authentication protocol for Azure AD v1 endpoints. 'openid-connect' (default, recommended) uses modern OAuth 2.0/OIDC. 'ws-federation' is a legacy SAML-based protocol for older integrations. Only available with Azure AD v1 API.
+"""

@@ -3,3 +3,6 @@
 from .connection_totp_length_passwordless import ConnectionTotpLengthPasswordless
 
 ConnectionTotpLengthEmail = ConnectionTotpLengthPasswordless
+"""
+Length of the TOTP code
+"""

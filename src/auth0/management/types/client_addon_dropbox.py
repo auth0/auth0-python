@@ -3,3 +3,6 @@
 import typing
 
 ClientAddonDropbox = typing.Dict[str, typing.Any]
+"""
+Dropbox SSO indicator (no configuration settings needed for Dropbox SSO).
+"""

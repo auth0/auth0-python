@@ -3,3 +3,6 @@
 from .connection_totp_time_step_passwordless import ConnectionTotpTimeStepPasswordless
 
 ConnectionTotpTimeStepEmail = ConnectionTotpTimeStepPasswordless
+"""
+Time step for TOTP in seconds
+"""

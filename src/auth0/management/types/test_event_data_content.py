@@ -3,3 +3,6 @@
 import typing
 
 TestEventDataContent = typing.Dict[str, typing.Any]
+"""
+The raw payload of the test event.
+"""

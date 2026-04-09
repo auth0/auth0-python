@@ -5,3 +5,6 @@ import typing
 from .enabled_features_enum import EnabledFeaturesEnum
 
 ConnectionProfileEnabledFeatures = typing.List[EnabledFeaturesEnum]
+"""
+Enabled features for the connection profile.
+"""

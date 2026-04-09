@@ -5,3 +5,6 @@ import typing
 from .self_service_profile_user_attribute import SelfServiceProfileUserAttribute
 
 SelfServiceProfileUserAttributes = typing.Optional[typing.List[SelfServiceProfileUserAttribute]]
+"""
+List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
+"""

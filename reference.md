@@ -1,6 +1,6 @@
 # Reference
 ## Actions
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">list</a>(...) -&gt; AsyncPager[Action, ListActionsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0.management/actions/client.py">list</a>(...) -> ListActionsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -30,9 +30,10 @@ Retrieve all actions.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.actions.list(
+
+client.actions.list(
     trigger_id="post-login",
     action_name="actionName",
     deployed=True,
@@ -40,11 +41,6 @@ response = client.actions.list(
     per_page=1,
     installed=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -120,7 +116,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0.management/actions/client.py">create</a>(...) -> CreateActionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -147,11 +143,12 @@ Create an action. Once an action is created, it must be deployed, and then bound
 <dd>
 
 ```python
-from auth0 import ActionTrigger, Auth0
+from auth0 import Auth0, ActionTrigger
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.create(
     name="name",
     supported_triggers=[
@@ -183,7 +180,7 @@ client.actions.create(
 <dl>
 <dd>
 
-**supported_triggers:** `typing.Sequence[ActionTrigger]` — The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.
+**supported_triggers:** `typing.List[ActionTrigger]` — The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.
     
 </dd>
 </dl>
@@ -199,7 +196,7 @@ client.actions.create(
 <dl>
 <dd>
 
-**dependencies:** `typing.Optional[typing.Sequence[ActionVersionDependency]]` — The list of third party npm modules, and their versions, that this action depends on.
+**dependencies:** `typing.Optional[typing.List[ActionVersionDependency]]` — The list of third party npm modules, and their versions, that this action depends on.
     
 </dd>
 </dl>
@@ -215,7 +212,7 @@ client.actions.create(
 <dl>
 <dd>
 
-**secrets:** `typing.Optional[typing.Sequence[ActionSecretRequest]]` — The list of secrets that are included in an action or a version of an action.
+**secrets:** `typing.Optional[typing.List[ActionSecretRequest]]` — The list of secrets that are included in an action or a version of an action.
     
 </dd>
 </dl>
@@ -223,7 +220,7 @@ client.actions.create(
 <dl>
 <dd>
 
-**modules:** `typing.Optional[typing.Sequence[ActionModuleReference]]` — The list of action modules and their versions used by this action.
+**modules:** `typing.Optional[typing.List[ActionModuleReference]]` — The list of action modules and their versions used by this action.
     
 </dd>
 </dl>
@@ -251,7 +248,7 @@ client.actions.create(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0.management/actions/client.py">get</a>(...) -> GetActionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -281,8 +278,9 @@ Retrieve an action by its ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.get(
     id="id",
 )
@@ -321,7 +319,7 @@ client.actions.get(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0.management/actions/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -351,8 +349,9 @@ Deletes an action and all of its associated versions. An action must be unbound 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.delete(
     id="id",
     force=True,
@@ -400,7 +399,7 @@ client.actions.delete(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0.management/actions/client.py">update</a>(...) -> UpdateActionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -430,8 +429,9 @@ Update an existing action. If this action is currently bound to a trigger, updat
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.update(
     id="id",
 )
@@ -466,7 +466,7 @@ client.actions.update(
 <dl>
 <dd>
 
-**supported_triggers:** `typing.Optional[typing.Sequence[ActionTrigger]]` — The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.
+**supported_triggers:** `typing.Optional[typing.List[ActionTrigger]]` — The list of triggers that this action supports. At this time, an action can only target a single trigger at a time.
     
 </dd>
 </dl>
@@ -482,7 +482,7 @@ client.actions.update(
 <dl>
 <dd>
 
-**dependencies:** `typing.Optional[typing.Sequence[ActionVersionDependency]]` — The list of third party npm modules, and their versions, that this action depends on.
+**dependencies:** `typing.Optional[typing.List[ActionVersionDependency]]` — The list of third party npm modules, and their versions, that this action depends on.
     
 </dd>
 </dl>
@@ -498,7 +498,7 @@ client.actions.update(
 <dl>
 <dd>
 
-**secrets:** `typing.Optional[typing.Sequence[ActionSecretRequest]]` — The list of secrets that are included in an action or a version of an action.
+**secrets:** `typing.Optional[typing.List[ActionSecretRequest]]` — The list of secrets that are included in an action or a version of an action.
     
 </dd>
 </dl>
@@ -506,7 +506,7 @@ client.actions.update(
 <dl>
 <dd>
 
-**modules:** `typing.Optional[typing.Sequence[ActionModuleReference]]` — The list of action modules and their versions used by this action.
+**modules:** `typing.Optional[typing.List[ActionModuleReference]]` — The list of action modules and their versions used by this action.
     
 </dd>
 </dl>
@@ -526,7 +526,7 @@ client.actions.update(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">deploy</a>(...) -&gt; AsyncHttpResponse[DeployActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0.management/actions/client.py">deploy</a>(...) -> DeployActionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -556,8 +556,9 @@ Deploy an action. Deploying an action will create a new immutable version of the
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.deploy(
     id="id",
 )
@@ -596,7 +597,7 @@ client.actions.deploy(
 </dl>
 </details>
 
-<details><summary><code>client.actions.<a href="src/auth0/management/actions/client.py">test</a>(...) -&gt; AsyncHttpResponse[TestActionResponseContent]</code></summary>
+<details><summary><code>client.actions.<a href="src/auth0.management/actions/client.py">test</a>(...) -> TestActionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -626,11 +627,14 @@ Test an action. After updating an action, it can be tested prior to being deploy
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.test(
     id="id",
-    payload={"key": "value"},
+    payload={
+        "key": "value"
+    },
 )
 
 ```
@@ -676,7 +680,7 @@ client.actions.test(
 </details>
 
 ## Branding
-<details><summary><code>client.branding.<a href="src/auth0/management/branding/client.py">get</a>() -&gt; AsyncHttpResponse[GetBrandingResponseContent]</code></summary>
+<details><summary><code>client.branding.<a href="src/auth0.management/branding/client.py">get</a>() -> GetBrandingResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -706,8 +710,9 @@ Retrieve branding settings.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.get()
 
 ```
@@ -736,7 +741,7 @@ client.branding.get()
 </dl>
 </details>
 
-<details><summary><code>client.branding.<a href="src/auth0/management/branding/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBrandingResponseContent]</code></summary>
+<details><summary><code>client.branding.<a href="src/auth0.management/branding/client.py">update</a>(...) -> UpdateBrandingResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -766,8 +771,9 @@ Update branding settings.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.update()
 
 ```
@@ -829,7 +835,7 @@ client.branding.update()
 </details>
 
 ## ClientGrants
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">list</a>(...) -&gt; AsyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0.management/client_grants/client.py">list</a>(...) -> ListClientGrantPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -859,9 +865,10 @@ Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/appl
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.client_grants.list(
+
+client.client_grants.list(
     from_="from",
     take=1,
     audience="audience",
@@ -869,11 +876,6 @@ response = client.client_grants.list(
     allow_any_organization=True,
     subject_type="client",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -889,7 +891,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -949,7 +951,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateClientGrantResponseContent]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0.management/client_grants/client.py">create</a>(...) -> CreateClientGrantResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -979,8 +981,9 @@ Create a client grant for a machine-to-machine login flow. To learn more, read <
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.client_grants.create(
     audience="audience",
 )
@@ -1031,7 +1034,7 @@ client.client_grants.create(
 <dl>
 <dd>
 
-**scope:** `typing.Optional[typing.Sequence[str]]` — Scopes allowed for this client grant.
+**scope:** `typing.Optional[typing.List[str]]` — Scopes allowed for this client grant.
     
 </dd>
 </dl>
@@ -1047,7 +1050,7 @@ client.client_grants.create(
 <dl>
 <dd>
 
-**authorization_details_types:** `typing.Optional[typing.Sequence[str]]` — Types of authorization_details allowed for this client grant.
+**authorization_details_types:** `typing.Optional[typing.List[str]]` — Types of authorization_details allowed for this client grant.
     
 </dd>
 </dl>
@@ -1075,7 +1078,7 @@ client.client_grants.create(
 </dl>
 </details>
 
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetClientGrantResponseContent]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0.management/client_grants/client.py">get</a>(...) -> GetClientGrantResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1106,8 +1109,9 @@ scopes associated with the application/API pair.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.client_grants.get(
     id="id",
 )
@@ -1146,7 +1150,7 @@ client.client_grants.get(
 </dl>
 </details>
 
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0.management/client_grants/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1176,8 +1180,9 @@ Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-au
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.client_grants.delete(
     id="id",
 )
@@ -1216,7 +1221,7 @@ client.client_grants.delete(
 </dl>
 </details>
 
-<details><summary><code>client.client_grants.<a href="src/auth0/management/client_grants/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateClientGrantResponseContent]</code></summary>
+<details><summary><code>client.client_grants.<a href="src/auth0.management/client_grants/client.py">update</a>(...) -> UpdateClientGrantResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1246,8 +1251,9 @@ Update a client grant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.client_grants.update(
     id="id",
 )
@@ -1274,7 +1280,7 @@ client.client_grants.update(
 <dl>
 <dd>
 
-**scope:** `typing.Optional[typing.Sequence[str]]` — Scopes allowed for this client grant.
+**scope:** `typing.Optional[typing.List[str]]` — Scopes allowed for this client grant.
     
 </dd>
 </dl>
@@ -1298,7 +1304,7 @@ client.client_grants.update(
 <dl>
 <dd>
 
-**authorization_details_types:** `typing.Optional[typing.Sequence[str]]` — Types of authorization_details allowed for this client grant.
+**authorization_details_types:** `typing.Optional[typing.List[str]]` — Types of authorization_details allowed for this client grant.
     
 </dd>
 </dl>
@@ -1327,7 +1333,7 @@ client.client_grants.update(
 </details>
 
 ## Clients
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">list</a>(...) -&gt; AsyncPager[Client, ListClientsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">list</a>(...) -> ListClientsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1389,9 +1395,10 @@ For more information, read <a href="https://www.auth0.com/docs/get-started/appli
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.clients.list(
+
+client.clients.list(
     fields="fields",
     include_fields=True,
     page=1,
@@ -1403,11 +1410,6 @@ response = client.clients.list(
     external_client_id="external_client_id",
     q="q",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -1515,7 +1517,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateClientResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">create</a>(...) -> CreateClientResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1558,8 +1560,9 @@ These credentials will be automatically enabled for Private Key JWT authenticati
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.create(
     name="name",
 )
@@ -1602,7 +1605,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**callbacks:** `typing.Optional[typing.Sequence[str]]` — Comma-separated list of URLs whitelisted for Auth0 to use as a callback to the client after authentication.
+**callbacks:** `typing.Optional[typing.List[str]]` — Comma-separated list of URLs whitelisted for Auth0 to use as a callback to the client after authentication.
     
 </dd>
 </dl>
@@ -1634,7 +1637,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**allowed_origins:** `typing.Optional[typing.Sequence[str]]` — Comma-separated list of URLs allowed to make requests from JavaScript to Auth0 API (typically used with CORS). By default, all your callback URLs will be allowed. This field allows you to enter other origins if necessary. You can also use wildcards at the subdomain level (e.g., https://*.contoso.com). Query strings and hash information are not taken into account when validating these URLs.
+**allowed_origins:** `typing.Optional[typing.List[str]]` — Comma-separated list of URLs allowed to make requests from JavaScript to Auth0 API (typically used with CORS). By default, all your callback URLs will be allowed. This field allows you to enter other origins if necessary. You can also use wildcards at the subdomain level (e.g., https://*.contoso.com). Query strings and hash information are not taken into account when validating these URLs.
     
 </dd>
 </dl>
@@ -1642,7 +1645,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**web_origins:** `typing.Optional[typing.Sequence[str]]` — Comma-separated list of allowed origins for use with <a href='https://auth0.com/docs/cross-origin-authentication'>Cross-Origin Authentication</a>, <a href='https://auth0.com/docs/flows/concepts/device-auth'>Device Flow</a>, and <a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'>web message response mode</a>.
+**web_origins:** `typing.Optional[typing.List[str]]` — Comma-separated list of allowed origins for use with <a href='https://auth0.com/docs/cross-origin-authentication'>Cross-Origin Authentication</a>, <a href='https://auth0.com/docs/flows/concepts/device-auth'>Device Flow</a>, and <a href='https://auth0.com/docs/protocols/oauth2#how-response-mode-works'>web message response mode</a>.
     
 </dd>
 </dl>
@@ -1650,7 +1653,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**client_aliases:** `typing.Optional[typing.Sequence[str]]` — List of audiences/realms for SAML protocol. Used by the wsfed addon.
+**client_aliases:** `typing.Optional[typing.List[str]]` — List of audiences/realms for SAML protocol. Used by the wsfed addon.
     
 </dd>
 </dl>
@@ -1658,7 +1661,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**allowed_clients:** `typing.Optional[typing.Sequence[str]]` — List of allow clients and API ids that are allowed to make delegation requests. Empty means all all your clients are allowed.
+**allowed_clients:** `typing.Optional[typing.List[str]]` — List of allow clients and API ids that are allowed to make delegation requests. Empty means all all your clients are allowed.
     
 </dd>
 </dl>
@@ -1666,7 +1669,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**allowed_logout_urls:** `typing.Optional[typing.Sequence[str]]` — Comma-separated list of URLs that are valid to redirect to after logout from Auth0. Wildcards are allowed for subdomains.
+**allowed_logout_urls:** `typing.Optional[typing.List[str]]` — Comma-separated list of URLs that are valid to redirect to after logout from Auth0. Wildcards are allowed for subdomains.
     
 </dd>
 </dl>
@@ -1674,7 +1677,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**grant_types:** `typing.Optional[typing.Sequence[str]]` — List of grant types supported for this application. Can include `authorization_code`, `implicit`, `refresh_token`, `client_credentials`, `password`, `http://auth0.com/oauth/grant-type/password-realm`, `http://auth0.com/oauth/grant-type/mfa-oob`, `http://auth0.com/oauth/grant-type/mfa-otp`, `http://auth0.com/oauth/grant-type/mfa-recovery-code`, `urn:openid:params:grant-type:ciba`, `urn:ietf:params:oauth:grant-type:device_code`, and `urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token`.
+**grant_types:** `typing.Optional[typing.List[str]]` — List of grant types supported for this application. Can include `authorization_code`, `implicit`, `refresh_token`, `client_credentials`, `password`, `http://auth0.com/oauth/grant-type/password-realm`, `http://auth0.com/oauth/grant-type/mfa-oob`, `http://auth0.com/oauth/grant-type/mfa-otp`, `http://auth0.com/oauth/grant-type/mfa-recovery-code`, `urn:openid:params:grant-type:ciba`, `urn:ietf:params:oauth:grant-type:device_code`, and `urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token`.
     
 </dd>
 </dl>
@@ -1874,7 +1877,7 @@ client.clients.create(
 <dl>
 <dd>
 
-**organization_discovery_methods:** `typing.Optional[typing.Sequence[ClientOrganizationDiscoveryEnum]]` — Defines the available methods for organization discovery during the `pre_login_prompt`. Users can discover their organization either by `email`, `organization_name` or both.
+**organization_discovery_methods:** `typing.Optional[typing.List[ClientOrganizationDiscoveryEnum]]` — Defines the available methods for organization discovery during the `pre_login_prompt`. Users can discover their organization either by `email`, `organization_name` or both.
     
 </dd>
 </dl>
@@ -1994,7 +1997,7 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">preview_cimd_metadata</a>(...) -&gt; AsyncHttpResponse[PreviewCimdMetadataResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">preview_cimd_metadata</a>(...) -> PreviewCimdMetadataResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -2028,8 +2031,9 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.preview_cimd_metadata(
     external_client_id="external_client_id",
 )
@@ -2068,7 +2072,7 @@ client.clients.preview_cimd_metadata(
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">register_cimd_client</a>(...) -&gt; AsyncHttpResponse[RegisterCimdClientResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">register_cimd_client</a>(...) -> RegisterCimdClientResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -2101,8 +2105,9 @@ client.clients.preview_cimd_metadata(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.register_cimd_client(
     external_client_id="external_client_id",
 )
@@ -2141,7 +2146,7 @@ client.clients.register_cimd_client(
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetClientResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">get</a>(...) -> GetClientResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -2201,8 +2206,9 @@ For more information, read <a href="https://www.auth0.com/docs/get-started/appli
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.get(
     id="id",
     fields="fields",
@@ -2259,7 +2265,7 @@ client.clients.get(
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2289,8 +2295,9 @@ Delete a client and related configuration (rules, connections, etc).
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.delete(
     id="id",
 )
@@ -2329,7 +2336,7 @@ client.clients.delete(
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateClientResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">update</a>(...) -> UpdateClientResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -2367,8 +2374,9 @@ Notes:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.update(
     id="id",
 )
@@ -2427,7 +2435,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**callbacks:** `typing.Optional[typing.Sequence[str]]` — A set of URLs that are valid to call back from Auth0 when authenticating users
+**callbacks:** `typing.Optional[typing.List[str]]` — A set of URLs that are valid to call back from Auth0 when authenticating users
     
 </dd>
 </dl>
@@ -2459,7 +2467,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**allowed_origins:** `typing.Optional[typing.Sequence[str]]` — A set of URLs that represents valid origins for CORS
+**allowed_origins:** `typing.Optional[typing.List[str]]` — A set of URLs that represents valid origins for CORS
     
 </dd>
 </dl>
@@ -2467,7 +2475,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**web_origins:** `typing.Optional[typing.Sequence[str]]` — A set of URLs that represents valid web origins for use with web message response mode
+**web_origins:** `typing.Optional[typing.List[str]]` — A set of URLs that represents valid web origins for use with web message response mode
     
 </dd>
 </dl>
@@ -2475,7 +2483,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**grant_types:** `typing.Optional[typing.Sequence[str]]` — A set of grant types that the client is authorized to use. Can include `authorization_code`, `implicit`, `refresh_token`, `client_credentials`, `password`, `http://auth0.com/oauth/grant-type/password-realm`, `http://auth0.com/oauth/grant-type/mfa-oob`, `http://auth0.com/oauth/grant-type/mfa-otp`, `http://auth0.com/oauth/grant-type/mfa-recovery-code`, `urn:openid:params:grant-type:ciba`, `urn:ietf:params:oauth:grant-type:device_code`, and `urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token`.
+**grant_types:** `typing.Optional[typing.List[str]]` — A set of grant types that the client is authorized to use. Can include `authorization_code`, `implicit`, `refresh_token`, `client_credentials`, `password`, `http://auth0.com/oauth/grant-type/password-realm`, `http://auth0.com/oauth/grant-type/mfa-oob`, `http://auth0.com/oauth/grant-type/mfa-otp`, `http://auth0.com/oauth/grant-type/mfa-recovery-code`, `urn:openid:params:grant-type:ciba`, `urn:ietf:params:oauth:grant-type:device_code`, and `urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token`.
     
 </dd>
 </dl>
@@ -2483,7 +2491,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**client_aliases:** `typing.Optional[typing.Sequence[str]]` — List of audiences for SAML protocol
+**client_aliases:** `typing.Optional[typing.List[str]]` — List of audiences for SAML protocol
     
 </dd>
 </dl>
@@ -2491,7 +2499,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**allowed_clients:** `typing.Optional[typing.Sequence[str]]` — Ids of clients that will be allowed to perform delegation requests. Clients that will be allowed to make delegation request. By default, all your clients will be allowed. This field allows you to specify specific clients
+**allowed_clients:** `typing.Optional[typing.List[str]]` — Ids of clients that will be allowed to perform delegation requests. Clients that will be allowed to make delegation request. By default, all your clients will be allowed. This field allows you to specify specific clients
     
 </dd>
 </dl>
@@ -2499,7 +2507,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**allowed_logout_urls:** `typing.Optional[typing.Sequence[str]]` — URLs that are valid to redirect to after logout from Auth0
+**allowed_logout_urls:** `typing.Optional[typing.List[str]]` — URLs that are valid to redirect to after logout from Auth0
     
 </dd>
 </dl>
@@ -2707,7 +2715,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**organization_discovery_methods:** `typing.Optional[typing.Sequence[ClientOrganizationDiscoveryEnum]]` — Defines the available methods for organization discovery during the `pre_login_prompt`. Users can discover their organization either by `email`, `organization_name` or both.
+**organization_discovery_methods:** `typing.Optional[typing.List[ClientOrganizationDiscoveryEnum]]` — Defines the available methods for organization discovery during the `pre_login_prompt`. Users can discover their organization either by `email`, `organization_name` or both.
     
 </dd>
 </dl>
@@ -2811,7 +2819,7 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 </dl>
 </details>
 
-<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">rotate_secret</a>(...) -&gt; AsyncHttpResponse[RotateClientSecretResponseContent]</code></summary>
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">rotate_secret</a>(...) -> RotateClientSecretResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -2845,8 +2853,9 @@ For more information, read <a href="https://www.auth0.com/docs/get-started/appli
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.rotate_secret(
     id="id",
 )
@@ -2886,7 +2895,7 @@ client.clients.rotate_secret(
 </details>
 
 ## ConnectionProfiles
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">list</a>(...) -&gt; AsyncPager[ConnectionProfile, ListConnectionProfilesPaginatedResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0.management/connection_profiles/client.py">list</a>(...) -> ListConnectionProfilesPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -2916,17 +2925,13 @@ Retrieve a list of Connection Profiles. This endpoint supports Checkpoint pagina
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.connection_profiles.list(
+
+client.connection_profiles.list(
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -2942,7 +2947,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -2970,7 +2975,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateConnectionProfileResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0.management/connection_profiles/client.py">create</a>(...) -> CreateConnectionProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3000,8 +3005,9 @@ Create a Connection Profile.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connection_profiles.create(
     name="name",
 )
@@ -3080,7 +3086,7 @@ client.connection_profiles.create(
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">list_templates</a>() -&gt; AsyncHttpResponse[ListConnectionProfileTemplateResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0.management/connection_profiles/client.py">list_templates</a>() -> ListConnectionProfileTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3110,8 +3116,9 @@ Retrieve a list of Connection Profile Templates.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connection_profiles.list_templates()
 
 ```
@@ -3140,7 +3147,7 @@ client.connection_profiles.list_templates()
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">get_template</a>(...) -&gt; AsyncHttpResponse[GetConnectionProfileTemplateResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0.management/connection_profiles/client.py">get_template</a>(...) -> GetConnectionProfileTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3170,8 +3177,9 @@ Retrieve a Connection Profile Template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connection_profiles.get_template(
     id="id",
 )
@@ -3210,7 +3218,7 @@ client.connection_profiles.get_template(
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetConnectionProfileResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0.management/connection_profiles/client.py">get</a>(...) -> GetConnectionProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3240,8 +3248,9 @@ Retrieve details about a single Connection Profile specified by ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connection_profiles.get(
     id="id",
 )
@@ -3280,7 +3289,7 @@ client.connection_profiles.get(
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0.management/connection_profiles/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3310,8 +3319,9 @@ Delete a single Connection Profile specified by ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connection_profiles.delete(
     id="id",
 )
@@ -3350,7 +3360,7 @@ client.connection_profiles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.connection_profiles.<a href="src/auth0/management/connection_profiles/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateConnectionProfileResponseContent]</code></summary>
+<details><summary><code>client.connection_profiles.<a href="src/auth0.management/connection_profiles/client.py">update</a>(...) -> UpdateConnectionProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3380,8 +3390,9 @@ Update the details of a specific Connection Profile.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connection_profiles.update(
     id="id",
 )
@@ -3469,7 +3480,7 @@ client.connection_profiles.update(
 </details>
 
 ## Connections
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">list</a>(...) -&gt; AsyncPager[ConnectionForList, ListConnectionsCheckpointPaginatedResponseContent]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0.management/connections/client.py">list</a>(...) -> ListConnectionsCheckpointPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3517,20 +3528,16 @@ To search by checkpoint, use the following parameters:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.connections.list(
+
+client.connections.list(
     from_="from",
     take=1,
     name="name",
     fields="fields",
     include_fields=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -3546,7 +3553,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -3562,11 +3569,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**strategy:** `typing.Optional[
-    typing.Union[
-        ConnectionStrategyEnum, typing.Sequence[ConnectionStrategyEnum]
-    ]
-]` — Provide strategies to only retrieve connections with such strategies
+**strategy:** `typing.Optional[typing.Union[typing.Optional[ConnectionStrategyEnum], typing.Sequence[typing.Optional[ConnectionStrategyEnum]]]]` — Provide strategies to only retrieve connections with such strategies
     
 </dd>
 </dl>
@@ -3610,7 +3613,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateConnectionResponseContent]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0.management/connections/client.py">create</a>(...) -> CreateConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3642,8 +3645,9 @@ Creates a new connection according to the JSON object received in <code>body</co
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.create(
     name="name",
     strategy="ad",
@@ -3695,7 +3699,7 @@ client.connections.create(
 <dl>
 <dd>
 
-**enabled_clients:** `typing.Optional[typing.Sequence[str]]` — Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+**enabled_clients:** `typing.Optional[typing.List[str]]` — Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
     
 </dd>
 </dl>
@@ -3719,7 +3723,7 @@ client.connections.create(
 <dl>
 <dd>
 
-**realms:** `typing.Optional[typing.Sequence[str]]` — Defines the realms for which the connection will be used (ie: email domains). If the array is empty or the property is not specified, the connection name will be added as realm.
+**realms:** `typing.Optional[typing.List[str]]` — Defines the realms for which the connection will be used (ie: email domains). If the array is empty or the property is not specified, the connection name will be added as realm.
     
 </dd>
 </dl>
@@ -3763,7 +3767,7 @@ client.connections.create(
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetConnectionResponseContent]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0.management/connections/client.py">get</a>(...) -> GetConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3793,8 +3797,9 @@ Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/id
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.get(
     id="id",
     fields="fields",
@@ -3851,7 +3856,7 @@ client.connections.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0.management/connections/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3883,8 +3888,9 @@ Removes a specific <a href="https://auth0.com/docs/authenticate/identity-provide
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.delete(
     id="id",
 )
@@ -3923,7 +3929,7 @@ client.connections.delete(
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateConnectionResponseContent]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0.management/connections/client.py">update</a>(...) -> UpdateConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -3955,8 +3961,9 @@ Update details for a specific <a href="https://auth0.com/docs/authenticate/ident
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.update(
     id="id",
 )
@@ -3999,7 +4006,7 @@ client.connections.update(
 <dl>
 <dd>
 
-**enabled_clients:** `typing.Optional[typing.Sequence[str]]` — DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable or disable the connection for any clients.
+**enabled_clients:** `typing.Optional[typing.List[str]]` — DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable or disable the connection for any clients.
     
 </dd>
 </dl>
@@ -4023,7 +4030,7 @@ client.connections.update(
 <dl>
 <dd>
 
-**realms:** `typing.Optional[typing.Sequence[str]]` — Defines the realms for which the connection will be used (ie: email domains). If the array is empty or the property is not specified, the connection name will be added as realm.
+**realms:** `typing.Optional[typing.List[str]]` — Defines the realms for which the connection will be used (ie: email domains). If the array is empty or the property is not specified, the connection name will be added as realm.
     
 </dd>
 </dl>
@@ -4067,7 +4074,7 @@ client.connections.update(
 </dl>
 </details>
 
-<details><summary><code>client.connections.<a href="src/auth0/management/connections/client.py">check_status</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.<a href="src/auth0.management/connections/client.py">check_status</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4097,8 +4104,9 @@ Retrieves the status of an ad/ldap connection referenced by its <code>ID</code>.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.check_status(
     id="id",
 )
@@ -4138,7 +4146,7 @@ client.connections.check_status(
 </details>
 
 ## CustomDomains
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListCustomDomainsResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">list</a>(...) -> ListCustomDomainsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4168,8 +4176,9 @@ Retrieve details on <a href="https://auth0.com/docs/custom-domains">custom domai
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.list(
     q="q",
     fields="fields",
@@ -4235,7 +4244,7 @@ client.custom_domains.list(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">create</a>(...) -> CreateCustomDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4278,8 +4287,9 @@ TLS Policies:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.create(
     domain="domain",
     type="auth0_managed_certs",
@@ -4367,7 +4377,7 @@ client.custom_domains.create(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">get_default</a>() -&gt; AsyncHttpResponse[GetDefaultDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">get_default</a>() -> GetDefaultDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4397,8 +4407,9 @@ Retrieve the tenant's default domain.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.get_default()
 
 ```
@@ -4427,7 +4438,7 @@ client.custom_domains.get_default()
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">set_default</a>(...) -&gt; AsyncHttpResponse[UpdateDefaultDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">set_default</a>(...) -> UpdateDefaultDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4457,8 +4468,9 @@ Set the default custom domain for the tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.set_default(
     domain="domain",
 )
@@ -4497,7 +4509,7 @@ client.custom_domains.set_default(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">get</a>(...) -> GetCustomDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4527,8 +4539,9 @@ Retrieve a custom domain configuration and status.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.get(
     id="id",
 )
@@ -4567,7 +4580,7 @@ client.custom_domains.get(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4597,8 +4610,9 @@ Delete a custom domain and stop serving requests for it.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.delete(
     id="id",
 )
@@ -4637,7 +4651,7 @@ client.custom_domains.delete(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">update</a>(...) -> UpdateCustomDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4690,8 +4704,9 @@ Some considerations:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.update(
     id="id",
 )
@@ -4762,7 +4777,7 @@ client.custom_domains.update(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">test</a>(...) -&gt; AsyncHttpResponse[TestCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">test</a>(...) -> TestCustomDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4792,8 +4807,9 @@ Run the test process on a custom domain.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.test(
     id="id",
 )
@@ -4832,7 +4848,7 @@ client.custom_domains.test(
 </dl>
 </details>
 
-<details><summary><code>client.custom_domains.<a href="src/auth0/management/custom_domains/client.py">verify</a>(...) -&gt; AsyncHttpResponse[VerifyCustomDomainResponseContent]</code></summary>
+<details><summary><code>client.custom_domains.<a href="src/auth0.management/custom_domains/client.py">verify</a>(...) -> VerifyCustomDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4869,8 +4885,9 @@ For <code>self_managed_certs</code>, when the custom domain is verified for the 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.custom_domains.verify(
     id="id",
 )
@@ -4910,9 +4927,7 @@ client.custom_domains.verify(
 </details>
 
 ## DeviceCredentials
-<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">list</a>(...) -&gt; AsyncPager[
-    DeviceCredential, ListDeviceCredentialsOffsetPaginatedResponseContent
-]</code></summary>
+<details><summary><code>client.device_credentials.<a href="src/auth0.management/device_credentials/client.py">list</a>(...) -> ListDeviceCredentialsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -4942,9 +4957,10 @@ Retrieve device credential information (<code>public_key</code>, <code>refresh_t
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.device_credentials.list(
+
+client.device_credentials.list(
     page=1,
     per_page=1,
     include_totals=True,
@@ -4954,11 +4970,6 @@ response = client.device_credentials.list(
     client_id="client_id",
     type="public_key",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -5050,7 +5061,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">create_public_key</a>(...) -&gt; AsyncHttpResponse[CreatePublicKeyDeviceCredentialResponseContent]</code></summary>
+<details><summary><code>client.device_credentials.<a href="src/auth0.management/device_credentials/client.py">create_public_key</a>(...) -> CreatePublicKeyDeviceCredentialResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5082,8 +5093,9 @@ When refresh token rotation is enabled, the endpoint becomes consistent. For mor
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.device_credentials.create_public_key(
     device_name="device_name",
     type="public_key",
@@ -5157,7 +5169,7 @@ client.device_credentials.create_public_key(
 </dl>
 </details>
 
-<details><summary><code>client.device_credentials.<a href="src/auth0/management/device_credentials/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.device_credentials.<a href="src/auth0.management/device_credentials/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5187,8 +5199,9 @@ Permanently delete a device credential (such as a refresh token or public key) w
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.device_credentials.delete(
     id="id",
 )
@@ -5228,7 +5241,7 @@ client.device_credentials.delete(
 </details>
 
 ## EmailTemplates
-<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEmailTemplateResponseContent]</code></summary>
+<details><summary><code>client.email_templates.<a href="src/auth0.management/email_templates/client.py">create</a>(...) -> CreateEmailTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5258,8 +5271,9 @@ Create an email template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.email_templates.create(
     template="verify_email",
 )
@@ -5294,7 +5308,7 @@ client.email_templates.create(
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Senders `from` email address.
+**from:** `typing.Optional[str]` — Senders `from` email address.
     
 </dd>
 </dl>
@@ -5362,7 +5376,7 @@ client.email_templates.create(
 </dl>
 </details>
 
-<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetEmailTemplateResponseContent]</code></summary>
+<details><summary><code>client.email_templates.<a href="src/auth0.management/email_templates/client.py">get</a>(...) -> GetEmailTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5392,8 +5406,9 @@ Retrieve an email template by pre-defined name. These names are `verify_email`, 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.email_templates.get(
     template_name="verify_email",
 )
@@ -5432,7 +5447,7 @@ client.email_templates.get(
 </dl>
 </details>
 
-<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetEmailTemplateResponseContent]</code></summary>
+<details><summary><code>client.email_templates.<a href="src/auth0.management/email_templates/client.py">set</a>(...) -> SetEmailTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5462,8 +5477,9 @@ Update an email template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.email_templates.set(
     template_name="verify_email",
     template="verify_email",
@@ -5507,7 +5523,7 @@ client.email_templates.set(
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Senders `from` email address.
+**from:** `typing.Optional[str]` — Senders `from` email address.
     
 </dd>
 </dl>
@@ -5575,7 +5591,7 @@ client.email_templates.set(
 </dl>
 </details>
 
-<details><summary><code>client.email_templates.<a href="src/auth0/management/email_templates/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateEmailTemplateResponseContent]</code></summary>
+<details><summary><code>client.email_templates.<a href="src/auth0.management/email_templates/client.py">update</a>(...) -> UpdateEmailTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5605,8 +5621,9 @@ Modify an email template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.email_templates.update(
     template_name="verify_email",
 )
@@ -5649,7 +5666,7 @@ client.email_templates.update(
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Senders `from` email address.
+**from:** `typing.Optional[str]` — Senders `from` email address.
     
 </dd>
 </dl>
@@ -5718,7 +5735,7 @@ client.email_templates.update(
 </details>
 
 ## EventStreams
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">list</a>(...) -&gt; AsyncPager[EventStreamResponseContent, ListEventStreamsResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0.management/event_streams/client.py">list</a>(...) -> ListEventStreamsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5734,17 +5751,13 @@ client.email_templates.update(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.event_streams.list(
+
+client.event_streams.list(
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -5760,7 +5773,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -5788,7 +5801,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEventStreamResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0.management/event_streams/client.py">create</a>(...) -> CreateEventStreamResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5801,17 +5814,12 @@ for page in response.iter_pages():
 <dd>
 
 ```python
-from auth0 import (
-    Auth0,
-    CreateEventStreamWebHookRequestContent,
-    EventStreamWebhookBasicAuth,
-    EventStreamWebhookConfiguration,
-    EventStreamWebhookDestination,
-)
+from auth0 import Auth0, CreateEventStreamWebHookRequestContent, EventStreamWebhookDestination, EventStreamWebhookConfiguration, EventStreamWebhookBasicAuth
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.create(
     request=CreateEventStreamWebHookRequestContent(
         destination=EventStreamWebhookDestination(
@@ -5861,7 +5869,7 @@ client.event_streams.create(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetEventStreamResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0.management/event_streams/client.py">get</a>(...) -> GetEventStreamResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5877,8 +5885,9 @@ client.event_streams.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.get(
     id="id",
 )
@@ -5917,7 +5926,7 @@ client.event_streams.get(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0.management/event_streams/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5933,8 +5942,9 @@ client.event_streams.get(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.delete(
     id="id",
 )
@@ -5973,7 +5983,7 @@ client.event_streams.delete(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateEventStreamResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0.management/event_streams/client.py">update</a>(...) -> UpdateEventStreamResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -5989,8 +5999,9 @@ client.event_streams.delete(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.update(
     id="id",
 )
@@ -6025,7 +6036,7 @@ client.event_streams.update(
 <dl>
 <dd>
 
-**subscriptions:** `typing.Optional[typing.Sequence[EventStreamSubscription]]` — List of event types subscribed to in this stream.
+**subscriptions:** `typing.Optional[typing.List[EventStreamSubscription]]` — List of event types subscribed to in this stream.
     
 </dd>
 </dl>
@@ -6061,7 +6072,7 @@ client.event_streams.update(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.<a href="src/auth0/management/event_streams/client.py">test</a>(...) -&gt; AsyncHttpResponse[CreateEventStreamTestEventResponseContent]</code></summary>
+<details><summary><code>client.event_streams.<a href="src/auth0.management/event_streams/client.py">test</a>(...) -> CreateEventStreamTestEventResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6077,8 +6088,9 @@ client.event_streams.update(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.test(
     id="id",
     event_type="user.created",
@@ -6135,7 +6147,7 @@ client.event_streams.test(
 </details>
 
 ## Flows
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">list</a>(...) -&gt; AsyncPager[FlowSummary, ListFlowsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0.management/flows/client.py">list</a>(...) -> ListFlowsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6151,19 +6163,15 @@ client.event_streams.test(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.flows.list(
+
+client.flows.list(
     page=1,
     per_page=1,
     include_totals=True,
     synchronous=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -6203,12 +6211,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**hydrate:** `typing.Optional[
-    typing.Union[
-        ListFlowsRequestParametersHydrateEnum,
-        typing.Sequence[ListFlowsRequestParametersHydrateEnum],
-    ]
-]` — hydration param
+**hydrate:** `typing.Optional[typing.Union[typing.Optional[ListFlowsRequestParametersHydrateEnum], typing.Sequence[typing.Optional[ListFlowsRequestParametersHydrateEnum]]]]` — hydration param
     
 </dd>
 </dl>
@@ -6236,7 +6239,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateFlowResponseContent]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0.management/flows/client.py">create</a>(...) -> CreateFlowResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6252,8 +6255,9 @@ for page in response.iter_pages():
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.create(
     name="name",
 )
@@ -6280,7 +6284,7 @@ client.flows.create(
 <dl>
 <dd>
 
-**actions:** `typing.Optional[typing.Sequence[FlowAction]]` 
+**actions:** `typing.Optional[typing.List[FlowAction]]` 
     
 </dd>
 </dl>
@@ -6300,7 +6304,7 @@ client.flows.create(
 </dl>
 </details>
 
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetFlowResponseContent]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0.management/flows/client.py">get</a>(...) -> GetFlowResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6316,8 +6320,9 @@ client.flows.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.get(
     id="id",
 )
@@ -6344,12 +6349,7 @@ client.flows.get(
 <dl>
 <dd>
 
-**hydrate:** `typing.Optional[
-    typing.Union[
-        GetFlowRequestParametersHydrateEnum,
-        typing.Sequence[GetFlowRequestParametersHydrateEnum],
-    ]
-]` — hydration param
+**hydrate:** `typing.Optional[typing.Union[typing.Optional[GetFlowRequestParametersHydrateEnum], typing.Sequence[typing.Optional[GetFlowRequestParametersHydrateEnum]]]]` — hydration param
     
 </dd>
 </dl>
@@ -6369,7 +6369,7 @@ client.flows.get(
 </dl>
 </details>
 
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0.management/flows/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6385,8 +6385,9 @@ client.flows.get(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.delete(
     id="id",
 )
@@ -6425,7 +6426,7 @@ client.flows.delete(
 </dl>
 </details>
 
-<details><summary><code>client.flows.<a href="src/auth0/management/flows/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateFlowResponseContent]</code></summary>
+<details><summary><code>client.flows.<a href="src/auth0.management/flows/client.py">update</a>(...) -> UpdateFlowResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6441,8 +6442,9 @@ client.flows.delete(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.update(
     id="id",
 )
@@ -6477,7 +6479,7 @@ client.flows.update(
 <dl>
 <dd>
 
-**actions:** `typing.Optional[typing.Sequence[FlowAction]]` 
+**actions:** `typing.Optional[typing.List[FlowAction]]` 
     
 </dd>
 </dl>
@@ -6498,7 +6500,7 @@ client.flows.update(
 </details>
 
 ## Forms
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">list</a>(...) -&gt; AsyncPager[FormSummary, ListFormsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0.management/forms/client.py">list</a>(...) -> ListFormsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6514,18 +6516,14 @@ client.flows.update(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.forms.list(
+
+client.forms.list(
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -6565,12 +6563,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**hydrate:** `typing.Optional[
-    typing.Union[
-        FormsRequestParametersHydrateEnum,
-        typing.Sequence[FormsRequestParametersHydrateEnum],
-    ]
-]` — Query parameter to hydrate the response with additional data
+**hydrate:** `typing.Optional[typing.Union[typing.Optional[FormsRequestParametersHydrateEnum], typing.Sequence[typing.Optional[FormsRequestParametersHydrateEnum]]]]` — Query parameter to hydrate the response with additional data
     
 </dd>
 </dl>
@@ -6590,7 +6583,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateFormResponseContent]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0.management/forms/client.py">create</a>(...) -> CreateFormResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6606,8 +6599,9 @@ for page in response.iter_pages():
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.forms.create(
     name="name",
 )
@@ -6702,7 +6696,7 @@ client.forms.create(
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetFormResponseContent]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0.management/forms/client.py">get</a>(...) -> GetFormResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6718,8 +6712,9 @@ client.forms.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.forms.get(
     id="id",
 )
@@ -6746,12 +6741,7 @@ client.forms.get(
 <dl>
 <dd>
 
-**hydrate:** `typing.Optional[
-    typing.Union[
-        FormsRequestParametersHydrateEnum,
-        typing.Sequence[FormsRequestParametersHydrateEnum],
-    ]
-]` — Query parameter to hydrate the response with additional data
+**hydrate:** `typing.Optional[typing.Union[typing.Optional[FormsRequestParametersHydrateEnum], typing.Sequence[typing.Optional[FormsRequestParametersHydrateEnum]]]]` — Query parameter to hydrate the response with additional data
     
 </dd>
 </dl>
@@ -6771,7 +6761,7 @@ client.forms.get(
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0.management/forms/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6787,8 +6777,9 @@ client.forms.get(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.forms.delete(
     id="id",
 )
@@ -6827,7 +6818,7 @@ client.forms.delete(
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="src/auth0/management/forms/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateFormResponseContent]</code></summary>
+<details><summary><code>client.forms.<a href="src/auth0.management/forms/client.py">update</a>(...) -> UpdateFormResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6843,8 +6834,9 @@ client.forms.delete(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.forms.update(
     id="id",
 )
@@ -6948,7 +6940,7 @@ client.forms.update(
 </details>
 
 ## UserGrants
-<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">list</a>(...) -&gt; AsyncPager[UserGrant, ListUserGrantsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.user_grants.<a href="src/auth0.management/user_grants/client.py">list</a>(...) -> ListUserGrantsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -6978,9 +6970,10 @@ Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">g
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.user_grants.list(
+
+client.user_grants.list(
     per_page=1,
     page=1,
     include_totals=True,
@@ -6988,11 +6981,6 @@ response = client.user_grants.list(
     client_id="client_id",
     audience="audience",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -7068,7 +7056,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">delete_by_user_id</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_grants.<a href="src/auth0.management/user_grants/client.py">delete_by_user_id</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -7098,8 +7086,9 @@ Delete a grant associated with your account.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_grants.delete_by_user_id(
     user_id="user_id",
 )
@@ -7138,7 +7127,7 @@ client.user_grants.delete_by_user_id(
 </dl>
 </details>
 
-<details><summary><code>client.user_grants.<a href="src/auth0/management/user_grants/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_grants.<a href="src/auth0.management/user_grants/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -7168,8 +7157,9 @@ Delete a grant associated with your account.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_grants.delete(
     id="id",
 )
@@ -7209,7 +7199,7 @@ client.user_grants.delete(
 </details>
 
 ## Groups
-<details><summary><code>client.groups.<a href="src/auth0/management/groups/client.py">list</a>(...) -&gt; AsyncPager[Group, ListGroupsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.groups.<a href="src/auth0.management/groups/client.py">list</a>(...) -> ListGroupsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -7239,9 +7229,10 @@ List all groups in your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.groups.list(
+
+client.groups.list(
     connection_id="connection_id",
     name="name",
     external_id="external_id",
@@ -7250,11 +7241,6 @@ response = client.groups.list(
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -7310,7 +7296,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -7338,7 +7324,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="src/auth0/management/groups/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetGroupResponseContent]</code></summary>
+<details><summary><code>client.groups.<a href="src/auth0.management/groups/client.py">get</a>(...) -> GetGroupResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -7368,8 +7354,9 @@ Retrieve a group by its ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.groups.get(
     id="id",
 )
@@ -7408,7 +7395,7 @@ client.groups.get(
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="src/auth0/management/groups/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.groups.<a href="src/auth0.management/groups/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -7438,8 +7425,9 @@ Delete a group by its ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.groups.delete(
     id="id",
 )
@@ -7479,7 +7467,7 @@ client.groups.delete(
 </details>
 
 ## Hooks
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">list</a>(...) -&gt; AsyncPager[Hook, ListHooksOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0.management/hooks/client.py">list</a>(...) -> ListHooksOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -7509,9 +7497,10 @@ Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.hooks.list(
+
+client.hooks.list(
     page=1,
     per_page=1,
     include_totals=True,
@@ -7519,11 +7508,6 @@ response = client.hooks.list(
     fields="fields",
     trigger_id="credentials-exchange",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -7599,7 +7583,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateHookResponseContent]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0.management/hooks/client.py">create</a>(...) -> CreateHookResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -7629,8 +7613,9 @@ Create a new hook.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.hooks.create(
     name="name",
     script="script",
@@ -7703,7 +7688,7 @@ client.hooks.create(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetHookResponseContent]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0.management/hooks/client.py">get</a>(...) -> GetHookResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -7733,8 +7718,9 @@ Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.hooks.get(
     id="id",
     fields="fields",
@@ -7782,7 +7768,7 @@ client.hooks.get(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0.management/hooks/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -7812,8 +7798,9 @@ Delete a hook.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.hooks.delete(
     id="id",
 )
@@ -7852,7 +7839,7 @@ client.hooks.delete(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateHookResponseContent]</code></summary>
+<details><summary><code>client.hooks.<a href="src/auth0.management/hooks/client.py">update</a>(...) -> UpdateHookResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -7882,8 +7869,9 @@ Update an existing hook.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.hooks.update(
     id="id",
 )
@@ -7955,7 +7943,7 @@ client.hooks.update(
 </details>
 
 ## Jobs
-<details><summary><code>client.jobs.<a href="src/auth0/management/jobs/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetJobResponseContent]</code></summary>
+<details><summary><code>client.jobs.<a href="src/auth0.management/jobs/client.py">get</a>(...) -> GetJobResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -7985,8 +7973,9 @@ Retrieves a job. Useful to check its status.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.jobs.get(
     id="id",
 )
@@ -8026,7 +8015,7 @@ client.jobs.get(
 </details>
 
 ## LogStreams
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">list</a>() -&gt; AsyncHttpResponse[typing.List[LogStreamResponseSchema]]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0.management/log_streams/client.py">list</a>() -> typing.List[LogStreamResponseSchema]</code></summary>
 <dl>
 <dd>
 
@@ -8121,8 +8110,9 @@ Retrieve details on <a href="https://auth0.com/docs/logs/streams">log streams</a
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.log_streams.list()
 
 ```
@@ -8151,7 +8141,7 @@ client.log_streams.list()
 </dl>
 </details>
 
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateLogStreamResponseContent]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0.management/log_streams/client.py">create</a>(...) -> CreateLogStreamResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -8306,8 +8296,9 @@ Response: <pre><code>{
 from auth0 import Auth0, CreateLogStreamHttpRequestBody, LogStreamHttpSink
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.log_streams.create(
     request=CreateLogStreamHttpRequestBody(
         type="http",
@@ -8351,7 +8342,7 @@ client.log_streams.create(
 </dl>
 </details>
 
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetLogStreamResponseContent]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0.management/log_streams/client.py">get</a>(...) -> GetLogStreamResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -8482,8 +8473,9 @@ Retrieve a log stream configuration and status.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.log_streams.get(
     id="id",
 )
@@ -8522,7 +8514,7 @@ client.log_streams.get(
 </dl>
 </details>
 
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0.management/log_streams/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -8552,8 +8544,9 @@ Delete a log stream.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.log_streams.delete(
     id="id",
 )
@@ -8592,7 +8585,7 @@ client.log_streams.delete(
 </dl>
 </details>
 
-<details><summary><code>client.log_streams.<a href="src/auth0/management/log_streams/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateLogStreamResponseContent]</code></summary>
+<details><summary><code>client.log_streams.<a href="src/auth0.management/log_streams/client.py">update</a>(...) -> UpdateLogStreamResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -8656,8 +8649,9 @@ Update a log stream.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.log_streams.update(
     id="id",
 )
@@ -8708,7 +8702,7 @@ client.log_streams.update(
 <dl>
 <dd>
 
-**filters:** `typing.Optional[typing.Sequence[LogStreamFilter]]` — Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.
+**filters:** `typing.Optional[typing.List[LogStreamFilter]]` — Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.
     
 </dd>
 </dl>
@@ -8745,7 +8739,7 @@ client.log_streams.update(
 </details>
 
 ## Logs
-<details><summary><code>client.logs.<a href="src/auth0/management/logs/client.py">list</a>(...) -&gt; AsyncPager[Log, ListLogOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.logs.<a href="src/auth0.management/logs/client.py">list</a>(...) -> ListLogOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -8803,9 +8797,10 @@ Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#li
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.logs.list(
+
+client.logs.list(
     page=1,
     per_page=1,
     sort="sort",
@@ -8814,11 +8809,6 @@ response = client.logs.list(
     include_totals=True,
     search="search",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -8906,7 +8896,7 @@ Values specified without quotes are matched using a case insensitive 'starts wit
 </dl>
 </details>
 
-<details><summary><code>client.logs.<a href="src/auth0/management/logs/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetLogResponseContent]</code></summary>
+<details><summary><code>client.logs.<a href="src/auth0.management/logs/client.py">get</a>(...) -> GetLogResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -8936,8 +8926,9 @@ Retrieve an individual log event.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.logs.get(
     id="id",
 )
@@ -8977,9 +8968,7 @@ client.logs.get(
 </details>
 
 ## NetworkAcls
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">list</a>(...) -&gt; AsyncPager[
-    NetworkAclsResponseContent, ListNetworkAclsOffsetPaginatedResponseContent
-]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0.management/network_acls/client.py">list</a>(...) -> ListNetworkAclsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9009,18 +8998,14 @@ Get all access control list entries for your client.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.network_acls.list(
+
+client.network_acls.list(
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -9072,7 +9057,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">create</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0.management/network_acls/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -9099,11 +9084,12 @@ Create a new access control list for your client.
 <dd>
 
 ```python
-from auth0 import Auth0, NetworkAclAction, NetworkAclRule
+from auth0 import Auth0, NetworkAclRule, NetworkAclAction
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.network_acls.create(
     description="description",
     active=True,
@@ -9171,7 +9157,7 @@ client.network_acls.create(
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetNetworkAclsResponseContent]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0.management/network_acls/client.py">get</a>(...) -> GetNetworkAclsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9201,8 +9187,9 @@ Get a specific access control list entry for your client.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.network_acls.get(
     id="id",
 )
@@ -9241,7 +9228,7 @@ client.network_acls.get(
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetNetworkAclsResponseContent]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0.management/network_acls/client.py">set</a>(...) -> SetNetworkAclsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9268,11 +9255,12 @@ Update existing access control list for your client.
 <dd>
 
 ```python
-from auth0 import Auth0, NetworkAclAction, NetworkAclRule
+from auth0 import Auth0, NetworkAclRule, NetworkAclAction
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.network_acls.set(
     id="id",
     description="description",
@@ -9349,7 +9337,7 @@ client.network_acls.set(
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0.management/network_acls/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -9379,8 +9367,9 @@ Delete existing access control list for your client.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.network_acls.delete(
     id="id",
 )
@@ -9419,7 +9408,7 @@ client.network_acls.delete(
 </dl>
 </details>
 
-<details><summary><code>client.network_acls.<a href="src/auth0/management/network_acls/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateNetworkAclResponseContent]</code></summary>
+<details><summary><code>client.network_acls.<a href="src/auth0.management/network_acls/client.py">update</a>(...) -> UpdateNetworkAclResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9449,8 +9438,9 @@ Update existing access control list for your client.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.network_acls.update(
     id="id",
 )
@@ -9522,7 +9512,7 @@ client.network_acls.update(
 </details>
 
 ## Organizations
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">list</a>(...) -&gt; AsyncPager[Organization, ListOrganizationsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0.management/organizations/client.py">list</a>(...) -> ListOrganizationsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9570,18 +9560,14 @@ To search by checkpoint, use the following parameters:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.organizations.list(
+
+client.organizations.list(
     from_="from",
     take=1,
     sort="sort",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -9597,7 +9583,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -9633,7 +9619,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateOrganizationResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0.management/organizations/client.py">create</a>(...) -> CreateOrganizationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9663,8 +9649,9 @@ Create a new Organization within your tenant.  To learn more about Organization 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.create(
     name="name",
 )
@@ -9715,7 +9702,7 @@ client.organizations.create(
 <dl>
 <dd>
 
-**enabled_connections:** `typing.Optional[typing.Sequence[ConnectionForOrganization]]` — Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
+**enabled_connections:** `typing.Optional[typing.List[ConnectionForOrganization]]` — Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
     
 </dd>
 </dl>
@@ -9743,7 +9730,7 @@ client.organizations.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">get_by_name</a>(...) -&gt; AsyncHttpResponse[GetOrganizationByNameResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0.management/organizations/client.py">get_by_name</a>(...) -> GetOrganizationByNameResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9773,8 +9760,9 @@ Retrieve details about a single Organization specified by name.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.get_by_name(
     name="name",
 )
@@ -9813,7 +9801,7 @@ client.organizations.get_by_name(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0.management/organizations/client.py">get</a>(...) -> GetOrganizationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9843,8 +9831,9 @@ Retrieve details about a single Organization specified by ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.get(
     id="id",
 )
@@ -9883,7 +9872,7 @@ client.organizations.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0.management/organizations/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -9915,8 +9904,9 @@ Remove an Organization from your tenant.  This action cannot be undone.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.delete(
     id="id",
 )
@@ -9955,7 +9945,7 @@ client.organizations.delete(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.<a href="src/auth0/management/organizations/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateOrganizationResponseContent]</code></summary>
+<details><summary><code>client.organizations.<a href="src/auth0.management/organizations/client.py">update</a>(...) -> UpdateOrganizationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -9985,8 +9975,9 @@ Update the details of a specific <a href="https://auth0.com/docs/manage-users/or
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.update(
     id="id",
 )
@@ -10066,7 +10057,7 @@ client.organizations.update(
 </details>
 
 ## Prompts
-<details><summary><code>client.prompts.<a href="src/auth0/management/prompts/client.py">get_settings</a>() -&gt; AsyncHttpResponse[GetSettingsResponseContent]</code></summary>
+<details><summary><code>client.prompts.<a href="src/auth0.management/prompts/client.py">get_settings</a>() -> GetSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -10096,8 +10087,9 @@ Retrieve details of the Universal Login configuration of your tenant. This inclu
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.get_settings()
 
 ```
@@ -10126,7 +10118,7 @@ client.prompts.get_settings()
 </dl>
 </details>
 
-<details><summary><code>client.prompts.<a href="src/auth0/management/prompts/client.py">update_settings</a>(...) -&gt; AsyncHttpResponse[UpdateSettingsResponseContent]</code></summary>
+<details><summary><code>client.prompts.<a href="src/auth0.management/prompts/client.py">update_settings</a>(...) -> UpdateSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -10156,8 +10148,9 @@ Update the Universal Login configuration of your tenant. This includes the <a hr
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.update_settings()
 
 ```
@@ -10211,9 +10204,7 @@ client.prompts.update_settings()
 </details>
 
 ## RefreshTokens
-<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">list</a>(...) -&gt; AsyncPager[
-    RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent
-]</code></summary>
+<details><summary><code>client.refresh_tokens.<a href="src/auth0.management/refresh_tokens/client.py">list</a>(...) -> GetRefreshTokensPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -10243,9 +10234,10 @@ Retrieve a paginated list of refresh tokens for a specific user, with optional f
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.refresh_tokens.list(
+
+client.refresh_tokens.list(
     user_id="user_id",
     client_id="client_id",
     from_="from",
@@ -10253,11 +10245,6 @@ response = client.refresh_tokens.list(
     fields="fields",
     include_fields=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -10289,7 +10276,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
+**from:** `typing.Optional[str]` — An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
     
 </dd>
 </dl>
@@ -10333,7 +10320,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetRefreshTokenResponseContent]</code></summary>
+<details><summary><code>client.refresh_tokens.<a href="src/auth0.management/refresh_tokens/client.py">get</a>(...) -> GetRefreshTokenResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -10363,8 +10350,9 @@ Retrieve refresh token information.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.refresh_tokens.get(
     id="id",
 )
@@ -10403,7 +10391,7 @@ client.refresh_tokens.get(
 </dl>
 </details>
 
-<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.refresh_tokens.<a href="src/auth0.management/refresh_tokens/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -10433,8 +10421,9 @@ Delete a refresh token by its ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.refresh_tokens.delete(
     id="id",
 )
@@ -10473,7 +10462,7 @@ client.refresh_tokens.delete(
 </dl>
 </details>
 
-<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRefreshTokenResponseContent]</code></summary>
+<details><summary><code>client.refresh_tokens.<a href="src/auth0.management/refresh_tokens/client.py">update</a>(...) -> UpdateRefreshTokenResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -10503,8 +10492,9 @@ Update a refresh token by its ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.refresh_tokens.update(
     id="id",
 )
@@ -10552,7 +10542,7 @@ client.refresh_tokens.update(
 </details>
 
 ## ResourceServers
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">list</a>(...) -&gt; AsyncPager[ResourceServer, ListResourceServerOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0.management/resource_servers/client.py">list</a>(...) -> ListResourceServerOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -10582,19 +10572,15 @@ Retrieve details of all APIs associated with your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.resource_servers.list(
+
+client.resource_servers.list(
     page=1,
     per_page=1,
     include_totals=True,
     include_fields=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -10610,7 +10596,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**identifiers:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — An optional filter on the resource server identifier. Must be URL encoded and may be specified multiple times (max 10).<br /><b>e.g.</b> <i>../resource-servers?identifiers=id1&identifiers=id2</i>
+**identifiers:** `typing.Optional[typing.Union[typing.Optional[str], typing.Sequence[typing.Optional[str]]]]` — An optional filter on the resource server identifier. Must be URL encoded and may be specified multiple times (max 10).<br /><b>e.g.</b> <i>../resource-servers?identifiers=id1&identifiers=id2</i>
     
 </dd>
 </dl>
@@ -10662,7 +10648,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateResourceServerResponseContent]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0.management/resource_servers/client.py">create</a>(...) -> CreateResourceServerResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -10692,8 +10678,9 @@ Create a new API associated with your tenant. Note that all new APIs must be reg
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.resource_servers.create(
     identifier="identifier",
 )
@@ -10728,7 +10715,7 @@ client.resource_servers.create(
 <dl>
 <dd>
 
-**scopes:** `typing.Optional[typing.Sequence[ResourceServerScope]]` — List of permissions (scopes) that this API uses.
+**scopes:** `typing.Optional[typing.List[ResourceServerScope]]` — List of permissions (scopes) that this API uses.
     
 </dd>
 </dl>
@@ -10816,7 +10803,7 @@ client.resource_servers.create(
 <dl>
 <dd>
 
-**authorization_details:** `typing.Optional[typing.Sequence[typing.Any]]` 
+**authorization_details:** `typing.Optional[typing.List[typing.Any]]` 
     
 </dd>
 </dl>
@@ -10852,7 +10839,7 @@ client.resource_servers.create(
 </dl>
 </details>
 
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetResourceServerResponseContent]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0.management/resource_servers/client.py">get</a>(...) -> GetResourceServerResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -10882,8 +10869,9 @@ Retrieve <a href="https://auth0.com/docs/apis">API</a> details with the given ID
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.resource_servers.get(
     id="id",
     include_fields=True,
@@ -10931,7 +10919,7 @@ client.resource_servers.get(
 </dl>
 </details>
 
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0.management/resource_servers/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -10961,8 +10949,9 @@ Delete an existing API by ID. For more information, read <a href="https://www.au
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.resource_servers.delete(
     id="id",
 )
@@ -11001,7 +10990,7 @@ client.resource_servers.delete(
 </dl>
 </details>
 
-<details><summary><code>client.resource_servers.<a href="src/auth0/management/resource_servers/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateResourceServerResponseContent]</code></summary>
+<details><summary><code>client.resource_servers.<a href="src/auth0.management/resource_servers/client.py">update</a>(...) -> UpdateResourceServerResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -11031,8 +11020,9 @@ Change an existing API setting by resource server ID. For more information, read
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.resource_servers.update(
     id="id",
 )
@@ -11067,7 +11057,7 @@ client.resource_servers.update(
 <dl>
 <dd>
 
-**scopes:** `typing.Optional[typing.Sequence[ResourceServerScope]]` — List of permissions (scopes) that this API uses.
+**scopes:** `typing.Optional[typing.List[ResourceServerScope]]` — List of permissions (scopes) that this API uses.
     
 </dd>
 </dl>
@@ -11155,7 +11145,7 @@ client.resource_servers.update(
 <dl>
 <dd>
 
-**authorization_details:** `typing.Optional[typing.Sequence[typing.Any]]` 
+**authorization_details:** `typing.Optional[typing.List[typing.Any]]` 
     
 </dd>
 </dl>
@@ -11192,7 +11182,7 @@ client.resource_servers.update(
 </details>
 
 ## Roles
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">list</a>(...) -&gt; AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0.management/roles/client.py">list</a>(...) -> ListRolesOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -11224,19 +11214,15 @@ Retrieve detailed list of user roles created in your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.roles.list(
+
+client.roles.list(
     per_page=1,
     page=1,
     include_totals=True,
     name_filter="name_filter",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -11296,7 +11282,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateRoleResponseContent]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0.management/roles/client.py">create</a>(...) -> CreateRoleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -11328,8 +11314,9 @@ Create a user role for <a href="https://auth0.com/docs/manage-users/access-contr
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.roles.create(
     name="name",
 )
@@ -11376,7 +11363,7 @@ client.roles.create(
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetRoleResponseContent]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0.management/roles/client.py">get</a>(...) -> GetRoleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -11406,8 +11393,9 @@ Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/a
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.roles.get(
     id="id",
 )
@@ -11446,7 +11434,7 @@ client.roles.get(
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0.management/roles/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -11476,8 +11464,9 @@ Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rb
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.roles.delete(
     id="id",
 )
@@ -11516,7 +11505,7 @@ client.roles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.roles.<a href="src/auth0/management/roles/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRoleResponseContent]</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0.management/roles/client.py">update</a>(...) -> UpdateRoleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -11546,8 +11535,9 @@ Modify the details of a specific <a href="https://auth0.com/docs/manage-users/ac
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.roles.update(
     id="id",
 )
@@ -11603,7 +11593,7 @@ client.roles.update(
 </details>
 
 ## Rules
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">list</a>(...) -&gt; AsyncPager[Rule, ListRulesOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0.management/rules/client.py">list</a>(...) -> ListRulesOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -11633,9 +11623,10 @@ Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Ac
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.rules.list(
+
+client.rules.list(
     page=1,
     per_page=1,
     include_totals=True,
@@ -11643,11 +11634,6 @@ response = client.rules.list(
     fields="fields",
     include_fields=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -11723,7 +11709,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateRuleResponseContent]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0.management/rules/client.py">create</a>(...) -> CreateRuleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -11755,8 +11741,9 @@ Note: Changing a rule's stage of execution from the default <code>login_success<
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.rules.create(
     name="name",
     script="script",
@@ -11820,7 +11807,7 @@ client.rules.create(
 </dl>
 </details>
 
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetRuleResponseContent]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0.management/rules/client.py">get</a>(...) -> GetRuleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -11850,8 +11837,9 @@ Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.rules.get(
     id="id",
     fields="fields",
@@ -11908,7 +11896,7 @@ client.rules.get(
 </dl>
 </details>
 
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0.management/rules/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -11938,8 +11926,9 @@ Delete a rule.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.rules.delete(
     id="id",
 )
@@ -11978,7 +11967,7 @@ client.rules.delete(
 </dl>
 </details>
 
-<details><summary><code>client.rules.<a href="src/auth0/management/rules/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRuleResponseContent]</code></summary>
+<details><summary><code>client.rules.<a href="src/auth0.management/rules/client.py">update</a>(...) -> UpdateRuleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12008,8 +11997,9 @@ Update an existing rule.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.rules.update(
     id="id",
 )
@@ -12081,7 +12071,7 @@ client.rules.update(
 </details>
 
 ## RulesConfigs
-<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">list</a>() -&gt; AsyncHttpResponse[typing.List[RulesConfig]]</code></summary>
+<details><summary><code>client.rules_configs.<a href="src/auth0.management/rules_configs/client.py">list</a>() -> typing.List[RulesConfig]</code></summary>
 <dl>
 <dd>
 
@@ -12113,8 +12103,9 @@ Retrieve rules config variable keys.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.rules_configs.list()
 
 ```
@@ -12143,7 +12134,7 @@ client.rules_configs.list()
 </dl>
 </details>
 
-<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetRulesConfigResponseContent]</code></summary>
+<details><summary><code>client.rules_configs.<a href="src/auth0.management/rules_configs/client.py">set</a>(...) -> SetRulesConfigResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12173,8 +12164,9 @@ Sets a rules config variable.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.rules_configs.set(
     key="key",
     value="value",
@@ -12222,7 +12214,7 @@ client.rules_configs.set(
 </dl>
 </details>
 
-<details><summary><code>client.rules_configs.<a href="src/auth0/management/rules_configs/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.rules_configs.<a href="src/auth0.management/rules_configs/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -12252,8 +12244,9 @@ Delete a rules config variable identified by its key.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.rules_configs.delete(
     key="key",
 )
@@ -12293,7 +12286,7 @@ client.rules_configs.delete(
 </details>
 
 ## SelfServiceProfiles
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">list</a>(...) -&gt; AsyncPager[SelfServiceProfile, ListSelfServiceProfilesPaginatedResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0.management/self_service_profiles/client.py">list</a>(...) -> ListSelfServiceProfilesPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12323,18 +12316,14 @@ Retrieves self-service profiles.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.self_service_profiles.list(
+
+client.self_service_profiles.list(
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -12386,7 +12375,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateSelfServiceProfileResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0.management/self_service_profiles/client.py">create</a>(...) -> CreateSelfServiceProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12416,8 +12405,9 @@ Creates a self-service profile.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.self_service_profiles.create(
     name="name",
 )
@@ -12460,7 +12450,7 @@ client.self_service_profiles.create(
 <dl>
 <dd>
 
-**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
+**allowed_strategies:** `typing.Optional[typing.List[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -12468,7 +12458,7 @@ client.self_service_profiles.create(
 <dl>
 <dd>
 
-**user_attributes:** `typing.Optional[typing.Sequence[SelfServiceProfileUserAttribute]]` — List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
+**user_attributes:** `typing.Optional[typing.List[SelfServiceProfileUserAttribute]]` — List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
     
 </dd>
 </dl>
@@ -12496,7 +12486,7 @@ client.self_service_profiles.create(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetSelfServiceProfileResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0.management/self_service_profiles/client.py">get</a>(...) -> GetSelfServiceProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12526,8 +12516,9 @@ Retrieves a self-service profile by Id.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.self_service_profiles.get(
     id="id",
 )
@@ -12566,7 +12557,7 @@ client.self_service_profiles.get(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0.management/self_service_profiles/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -12596,8 +12587,9 @@ Deletes a self-service profile by Id.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.self_service_profiles.delete(
     id="id",
 )
@@ -12636,7 +12628,7 @@ client.self_service_profiles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.<a href="src/auth0/management/self_service_profiles/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateSelfServiceProfileResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.<a href="src/auth0.management/self_service_profiles/client.py">update</a>(...) -> UpdateSelfServiceProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12666,8 +12658,9 @@ Updates a self-service profile.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.self_service_profiles.update(
     id="id",
 )
@@ -12718,7 +12711,7 @@ client.self_service_profiles.update(
 <dl>
 <dd>
 
-**allowed_strategies:** `typing.Optional[typing.Sequence[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
+**allowed_strategies:** `typing.Optional[typing.List[SelfServiceProfileAllowedStrategyEnum]]` — List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     
 </dd>
 </dl>
@@ -12755,7 +12748,7 @@ client.self_service_profiles.update(
 </details>
 
 ## Sessions
-<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetSessionResponseContent]</code></summary>
+<details><summary><code>client.sessions.<a href="src/auth0.management/sessions/client.py">get</a>(...) -> GetSessionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12785,8 +12778,9 @@ Retrieve session information.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.sessions.get(
     id="id",
 )
@@ -12825,7 +12819,7 @@ client.sessions.get(
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.sessions.<a href="src/auth0.management/sessions/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -12855,8 +12849,9 @@ Delete a session by ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.sessions.delete(
     id="id",
 )
@@ -12895,7 +12890,7 @@ client.sessions.delete(
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateSessionResponseContent]</code></summary>
+<details><summary><code>client.sessions.<a href="src/auth0.management/sessions/client.py">update</a>(...) -> UpdateSessionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12925,8 +12920,9 @@ Update session information.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.sessions.update(
     id="id",
 )
@@ -12973,7 +12969,7 @@ client.sessions.update(
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/auth0/management/sessions/client.py">revoke</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.sessions.<a href="src/auth0.management/sessions/client.py">revoke</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -13003,8 +12999,9 @@ Revokes a session by ID and all associated refresh tokens.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.sessions.revoke(
     id="id",
 )
@@ -13044,7 +13041,7 @@ client.sessions.revoke(
 </details>
 
 ## Stats
-<details><summary><code>client.stats.<a href="src/auth0/management/stats/client.py">get_active_users_count</a>() -&gt; AsyncHttpResponse[GetActiveUsersCountStatsResponseContent]</code></summary>
+<details><summary><code>client.stats.<a href="src/auth0.management/stats/client.py">get_active_users_count</a>() -> GetActiveUsersCountStatsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -13074,8 +13071,9 @@ Retrieve the number of active users that logged in during the last 30 days.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.stats.get_active_users_count()
 
 ```
@@ -13104,7 +13102,7 @@ client.stats.get_active_users_count()
 </dl>
 </details>
 
-<details><summary><code>client.stats.<a href="src/auth0/management/stats/client.py">get_daily</a>(...) -&gt; AsyncHttpResponse[typing.List[DailyStats]]</code></summary>
+<details><summary><code>client.stats.<a href="src/auth0.management/stats/client.py">get_daily</a>(...) -> typing.List[DailyStats]</code></summary>
 <dl>
 <dd>
 
@@ -13134,8 +13132,9 @@ Retrieve the number of logins, signups and breached-password detections (subscri
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.stats.get_daily(
     from_="from",
     to="to",
@@ -13155,7 +13154,7 @@ client.stats.get_daily(
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional first day of the date range (inclusive) in YYYYMMDD format.
+**from:** `typing.Optional[str]` — Optional first day of the date range (inclusive) in YYYYMMDD format.
     
 </dd>
 </dl>
@@ -13184,7 +13183,7 @@ client.stats.get_daily(
 </details>
 
 ## SupplementalSignals
-<details><summary><code>client.supplemental_signals.<a href="src/auth0/management/supplemental_signals/client.py">get</a>() -&gt; AsyncHttpResponse[GetSupplementalSignalsResponseContent]</code></summary>
+<details><summary><code>client.supplemental_signals.<a href="src/auth0.management/supplemental_signals/client.py">get</a>() -> GetSupplementalSignalsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -13214,8 +13213,9 @@ Get the supplemental signals configuration for a tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.supplemental_signals.get()
 
 ```
@@ -13244,7 +13244,7 @@ client.supplemental_signals.get()
 </dl>
 </details>
 
-<details><summary><code>client.supplemental_signals.<a href="src/auth0/management/supplemental_signals/client.py">patch</a>(...) -&gt; AsyncHttpResponse[PatchSupplementalSignalsResponseContent]</code></summary>
+<details><summary><code>client.supplemental_signals.<a href="src/auth0.management/supplemental_signals/client.py">patch</a>(...) -> PatchSupplementalSignalsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -13274,8 +13274,9 @@ Update the supplemental signals configuration for a tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.supplemental_signals.patch(
     akamai_enabled=True,
 )
@@ -13315,7 +13316,7 @@ client.supplemental_signals.patch(
 </details>
 
 ## Tickets
-<details><summary><code>client.tickets.<a href="src/auth0/management/tickets/client.py">verify_email</a>(...) -&gt; AsyncHttpResponse[VerifyEmailTicketResponseContent]</code></summary>
+<details><summary><code>client.tickets.<a href="src/auth0.management/tickets/client.py">verify_email</a>(...) -> VerifyEmailTicketResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -13345,8 +13346,9 @@ Create an email verification ticket for a given user. An email verification tick
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.tickets.verify_email(
     user_id="user_id",
 )
@@ -13433,7 +13435,7 @@ client.tickets.verify_email(
 </dl>
 </details>
 
-<details><summary><code>client.tickets.<a href="src/auth0/management/tickets/client.py">change_password</a>(...) -&gt; AsyncHttpResponse[ChangePasswordTicketResponseContent]</code></summary>
+<details><summary><code>client.tickets.<a href="src/auth0.management/tickets/client.py">change_password</a>(...) -> ChangePasswordTicketResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -13465,8 +13467,9 @@ Note: This endpoint does not verify the given user’s identity. If you call thi
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.tickets.change_password()
 
 ```
@@ -13576,9 +13579,7 @@ client.tickets.change_password()
 </details>
 
 ## TokenExchangeProfiles
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">list</a>(...) -&gt; AsyncPager[
-    TokenExchangeProfileResponseContent, ListTokenExchangeProfileResponseContent
-]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0.management/token_exchange_profiles/client.py">list</a>(...) -> ListTokenExchangeProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -13618,17 +13619,13 @@ This endpoint supports Checkpoint pagination. To search by checkpoint, use the f
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.token_exchange_profiles.list(
+
+client.token_exchange_profiles.list(
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -13644,7 +13641,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -13672,7 +13669,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateTokenExchangeProfileResponseContent]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0.management/token_exchange_profiles/client.py">create</a>(...) -> CreateTokenExchangeProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -13704,8 +13701,9 @@ By using this feature, you agree to the applicable Free Trial terms in <a href="
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.token_exchange_profiles.create(
     name="name",
     subject_token_type="subject_token_type",
@@ -13771,7 +13769,7 @@ client.token_exchange_profiles.create(
 </dl>
 </details>
 
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetTokenExchangeProfileResponseContent]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0.management/token_exchange_profiles/client.py">get</a>(...) -> GetTokenExchangeProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -13803,8 +13801,9 @@ By using this feature, you agree to the applicable Free Trial terms in <a href="
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.token_exchange_profiles.get(
     id="id",
 )
@@ -13843,7 +13842,7 @@ client.token_exchange_profiles.get(
 </dl>
 </details>
 
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0.management/token_exchange_profiles/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -13876,8 +13875,9 @@ By using this feature, you agree to the applicable Free Trial terms in <a href="
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.token_exchange_profiles.delete(
     id="id",
 )
@@ -13916,7 +13916,7 @@ client.token_exchange_profiles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.token_exchange_profiles.<a href="src/auth0/management/token_exchange_profiles/client.py">update</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.token_exchange_profiles.<a href="src/auth0.management/token_exchange_profiles/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -13949,8 +13949,9 @@ By using this feature, you agree to the applicable Free Trial terms in <a href="
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.token_exchange_profiles.update(
     id="id",
 )
@@ -14006,9 +14007,7 @@ client.token_exchange_profiles.update(
 </details>
 
 ## UserAttributeProfiles
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">list</a>(...) -&gt; AsyncPager[
-    UserAttributeProfile, ListUserAttributeProfilesPaginatedResponseContent
-]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0.management/user_attribute_profiles/client.py">list</a>(...) -> ListUserAttributeProfilesPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14038,17 +14037,13 @@ Retrieve a list of User Attribute Profiles. This endpoint supports Checkpoint pa
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.user_attribute_profiles.list(
+
+client.user_attribute_profiles.list(
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -14064,7 +14059,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -14092,7 +14087,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateUserAttributeProfileResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0.management/user_attribute_profiles/client.py">create</a>(...) -> CreateUserAttributeProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14122,8 +14117,9 @@ Retrieve details about a single User Attribute Profile specified by ID.
 from auth0 import Auth0, UserAttributeProfileUserAttributeAdditionalProperties
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_attribute_profiles.create(
     name="name",
     user_attributes={
@@ -14186,7 +14182,7 @@ client.user_attribute_profiles.create(
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">list_templates</a>() -&gt; AsyncHttpResponse[ListUserAttributeProfileTemplateResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0.management/user_attribute_profiles/client.py">list_templates</a>() -> ListUserAttributeProfileTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14216,8 +14212,9 @@ Retrieve a list of User Attribute Profile Templates.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_attribute_profiles.list_templates()
 
 ```
@@ -14246,7 +14243,7 @@ client.user_attribute_profiles.list_templates()
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">get_template</a>(...) -&gt; AsyncHttpResponse[GetUserAttributeProfileTemplateResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0.management/user_attribute_profiles/client.py">get_template</a>(...) -> GetUserAttributeProfileTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14276,8 +14273,9 @@ Retrieve a User Attribute Profile Template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_attribute_profiles.get_template(
     id="id",
 )
@@ -14316,7 +14314,7 @@ client.user_attribute_profiles.get_template(
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetUserAttributeProfileResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0.management/user_attribute_profiles/client.py">get</a>(...) -> GetUserAttributeProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14346,8 +14344,9 @@ Retrieve details about a single User Attribute Profile specified by ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_attribute_profiles.get(
     id="id",
 )
@@ -14386,7 +14385,7 @@ client.user_attribute_profiles.get(
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0.management/user_attribute_profiles/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -14416,8 +14415,9 @@ Delete a single User Attribute Profile specified by ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_attribute_profiles.delete(
     id="id",
 )
@@ -14456,7 +14456,7 @@ client.user_attribute_profiles.delete(
 </dl>
 </details>
 
-<details><summary><code>client.user_attribute_profiles.<a href="src/auth0/management/user_attribute_profiles/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateUserAttributeProfileResponseContent]</code></summary>
+<details><summary><code>client.user_attribute_profiles.<a href="src/auth0.management/user_attribute_profiles/client.py">update</a>(...) -> UpdateUserAttributeProfileResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14486,8 +14486,9 @@ Update the details of a specific User attribute profile, such as name, user_id a
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_attribute_profiles.update(
     id="id",
 )
@@ -14551,7 +14552,7 @@ client.user_attribute_profiles.update(
 </details>
 
 ## UserBlocks
-<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">list_by_identifier</a>(...) -&gt; AsyncHttpResponse[ListUserBlocksByIdentifierResponseContent]</code></summary>
+<details><summary><code>client.user_blocks.<a href="src/auth0.management/user_blocks/client.py">list_by_identifier</a>(...) -> ListUserBlocksByIdentifierResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14581,8 +14582,9 @@ Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_blocks.list_by_identifier(
     identifier="identifier",
     consider_brute_force_enablement=True,
@@ -14635,7 +14637,7 @@ client.user_blocks.list_by_identifier(
 </dl>
 </details>
 
-<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">delete_by_identifier</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_blocks.<a href="src/auth0.management/user_blocks/client.py">delete_by_identifier</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -14667,8 +14669,9 @@ Note: This endpoint does not unblock users that were <a href="https://auth0.com/
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_blocks.delete_by_identifier(
     identifier="identifier",
 )
@@ -14707,7 +14710,7 @@ client.user_blocks.delete_by_identifier(
 </dl>
 </details>
 
-<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListUserBlocksResponseContent]</code></summary>
+<details><summary><code>client.user_blocks.<a href="src/auth0.management/user_blocks/client.py">list</a>(...) -> ListUserBlocksResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14737,8 +14740,9 @@ Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_blocks.list(
     id="id",
     consider_brute_force_enablement=True,
@@ -14791,7 +14795,7 @@ client.user_blocks.list(
 </dl>
 </details>
 
-<details><summary><code>client.user_blocks.<a href="src/auth0/management/user_blocks/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user_blocks.<a href="src/auth0.management/user_blocks/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -14823,8 +14827,9 @@ Note: This endpoint does not unblock users that were <a href="https://auth0.com/
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.user_blocks.delete(
     id="id",
 )
@@ -14864,7 +14869,7 @@ client.user_blocks.delete(
 </details>
 
 ## Users
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">list</a>(...) -&gt; AsyncPager[UserResponseSchema, ListUsersOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">list</a>(...) -> ListUsersOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -14907,9 +14912,10 @@ Auth0 limits the number of users you can return. If you exceed this threshold, p
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.list(
+
+client.users.list(
     page=1,
     per_page=1,
     include_totals=True,
@@ -14921,11 +14927,6 @@ response = client.users.list(
     search_engine="v1",
     primary_order=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -15033,7 +15034,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateUserResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">create</a>(...) -> CreateUserResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -15065,8 +15066,9 @@ Note: <code>connection</code> is required but other parameters such as <code>ema
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.create(
     connection="connection",
 )
@@ -15233,7 +15235,7 @@ client.users.create(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">list_users_by_email</a>(...) -&gt; AsyncHttpResponse[typing.List[UserResponseSchema]]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">list_users_by_email</a>(...) -> typing.List[UserResponseSchema]</code></summary>
 <dl>
 <dd>
 
@@ -15267,8 +15269,9 @@ Therefore, when using this endpoint, make sure that you are searching for users 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.list_users_by_email(
     fields="fields",
     include_fields=True,
@@ -15325,7 +15328,7 @@ client.users.list_users_by_email(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetUserResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">get</a>(...) -> GetUserResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -15355,8 +15358,9 @@ Retrieve user details. A list of fields to include or exclude may also be specif
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.get(
     id="id",
     fields="fields",
@@ -15413,7 +15417,7 @@ client.users.get(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -15443,8 +15447,9 @@ Delete a user by user ID. This action cannot be undone. For Auth0 Dashboard inst
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.delete(
     id="id",
 )
@@ -15483,7 +15488,7 @@ client.users.delete(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateUserResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">update</a>(...) -> UpdateUserResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -15582,8 +15587,9 @@ The modified object ends up with the following <code>user_metadata</code> proper
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.update(
     id="id",
 )
@@ -15766,7 +15772,7 @@ client.users.update(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">regenerate_recovery_code</a>(...) -&gt; AsyncHttpResponse[RegenerateUsersRecoveryCodeResponseContent]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">regenerate_recovery_code</a>(...) -> RegenerateUsersRecoveryCodeResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -15796,8 +15802,9 @@ Remove an existing multi-factor authentication (MFA) <a href="https://auth0.com/
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.regenerate_recovery_code(
     id="id",
 )
@@ -15836,7 +15843,7 @@ client.users.regenerate_recovery_code(
 </dl>
 </details>
 
-<details><summary><code>client.users.<a href="src/auth0/management/users/client.py">revoke_access</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">revoke_access</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -15866,8 +15873,9 @@ Revokes selected resources related to a user (sessions, refresh tokens, ...).
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.revoke_access(
     id="id",
 )
@@ -15923,7 +15931,7 @@ client.users.revoke_access(
 </details>
 
 ## Actions Versions
-<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">list</a>(...) -&gt; AsyncPager[ActionVersion, ListActionVersionsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.actions.versions.<a href="src/auth0.management/actions/versions/client.py">list</a>(...) -> ListActionVersionsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -15953,18 +15961,14 @@ Retrieve all of an action's versions. An action version is created whenever an a
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.actions.versions.list(
+
+client.actions.versions.list(
     action_id="actionId",
     page=1,
     per_page=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -16016,7 +16020,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionVersionResponseContent]</code></summary>
+<details><summary><code>client.actions.versions.<a href="src/auth0.management/actions/versions/client.py">get</a>(...) -> GetActionVersionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16046,8 +16050,9 @@ Retrieve a specific version of an action. An action version is created whenever 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.versions.get(
     action_id="actionId",
     id="id",
@@ -16095,7 +16100,7 @@ client.actions.versions.get(
 </dl>
 </details>
 
-<details><summary><code>client.actions.versions.<a href="src/auth0/management/actions/versions/client.py">deploy</a>(...) -&gt; AsyncHttpResponse[DeployActionVersionResponseContent]</code></summary>
+<details><summary><code>client.actions.versions.<a href="src/auth0.management/actions/versions/client.py">deploy</a>(...) -> DeployActionVersionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16125,8 +16130,9 @@ Performs the equivalent of a roll-back of an action to an earlier, specified ver
 from auth0 import Auth0, DeployActionVersionRequestContent
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.versions.deploy(
     action_id="actionId",
     id="id",
@@ -16184,7 +16190,7 @@ client.actions.versions.deploy(
 </details>
 
 ## Actions Executions
-<details><summary><code>client.actions.executions.<a href="src/auth0/management/actions/executions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionExecutionResponseContent]</code></summary>
+<details><summary><code>client.actions.executions.<a href="src/auth0.management/actions/executions/client.py">get</a>(...) -> GetActionExecutionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16214,8 +16220,9 @@ Retrieve information about a specific execution of a trigger. Relevant execution
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.executions.get(
     id="id",
 )
@@ -16255,7 +16262,7 @@ client.actions.executions.get(
 </details>
 
 ## Actions Modules
-<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">list</a>(...) -&gt; AsyncPager[ActionModuleListItem, GetActionModulesResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.<a href="src/auth0.management/actions/modules/client.py">list</a>(...) -> GetActionModulesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16285,17 +16292,13 @@ Retrieve a paginated list of all Actions Modules with optional filtering and tot
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.actions.modules.list(
+
+client.actions.modules.list(
     page=1,
     per_page=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -16339,7 +16342,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateActionModuleResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.<a href="src/auth0.management/actions/modules/client.py">create</a>(...) -> CreateActionModuleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16369,8 +16372,9 @@ Create a new Actions Module for reusable code across actions.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.modules.create(
     name="name",
     code="code",
@@ -16406,7 +16410,7 @@ client.actions.modules.create(
 <dl>
 <dd>
 
-**secrets:** `typing.Optional[typing.Sequence[ActionModuleSecretRequest]]` — The secrets to associate with the action module.
+**secrets:** `typing.Optional[typing.List[ActionModuleSecretRequest]]` — The secrets to associate with the action module.
     
 </dd>
 </dl>
@@ -16414,7 +16418,7 @@ client.actions.modules.create(
 <dl>
 <dd>
 
-**dependencies:** `typing.Optional[typing.Sequence[ActionModuleDependencyRequest]]` — The npm dependencies of the action module.
+**dependencies:** `typing.Optional[typing.List[ActionModuleDependencyRequest]]` — The npm dependencies of the action module.
     
 </dd>
 </dl>
@@ -16450,7 +16454,7 @@ client.actions.modules.create(
 </dl>
 </details>
 
-<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionModuleResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.<a href="src/auth0.management/actions/modules/client.py">get</a>(...) -> GetActionModuleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16480,8 +16484,9 @@ Retrieve details of a specific Actions Module by its unique identifier.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.modules.get(
     id="id",
 )
@@ -16520,7 +16525,7 @@ client.actions.modules.get(
 </dl>
 </details>
 
-<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.actions.modules.<a href="src/auth0.management/actions/modules/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -16550,8 +16555,9 @@ Permanently delete an Actions Module. This will fail if the module is still in u
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.modules.delete(
     id="id",
 )
@@ -16590,7 +16596,7 @@ client.actions.modules.delete(
 </dl>
 </details>
 
-<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateActionModuleResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.<a href="src/auth0.management/actions/modules/client.py">update</a>(...) -> UpdateActionModuleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16620,8 +16626,9 @@ Update properties of an existing Actions Module, such as code, dependencies, or 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.modules.update(
     id="id",
 )
@@ -16656,7 +16663,7 @@ client.actions.modules.update(
 <dl>
 <dd>
 
-**secrets:** `typing.Optional[typing.Sequence[ActionModuleSecretRequest]]` — The secrets to associate with the action module.
+**secrets:** `typing.Optional[typing.List[ActionModuleSecretRequest]]` — The secrets to associate with the action module.
     
 </dd>
 </dl>
@@ -16664,7 +16671,7 @@ client.actions.modules.update(
 <dl>
 <dd>
 
-**dependencies:** `typing.Optional[typing.Sequence[ActionModuleDependencyRequest]]` — The npm dependencies of the action module.
+**dependencies:** `typing.Optional[typing.List[ActionModuleDependencyRequest]]` — The npm dependencies of the action module.
     
 </dd>
 </dl>
@@ -16684,7 +16691,7 @@ client.actions.modules.update(
 </dl>
 </details>
 
-<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">list_actions</a>(...) -&gt; AsyncPager[ActionModuleAction, GetActionModuleActionsResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.<a href="src/auth0.management/actions/modules/client.py">list_actions</a>(...) -> GetActionModuleActionsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16714,18 +16721,14 @@ Lists all actions that are using a specific Actions Module, showing which deploy
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.actions.modules.list_actions(
+
+client.actions.modules.list_actions(
     id="id",
     page=1,
     per_page=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -16777,7 +16780,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.modules.<a href="src/auth0/management/actions/modules/client.py">rollback</a>(...) -&gt; AsyncHttpResponse[RollbackActionModuleResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.<a href="src/auth0.management/actions/modules/client.py">rollback</a>(...) -> RollbackActionModuleResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16807,8 +16810,9 @@ Rolls back an Actions Module's draft to a previously created version. This actio
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.modules.rollback(
     id="id",
     module_version_id="module_version_id",
@@ -16857,7 +16861,7 @@ client.actions.modules.rollback(
 </details>
 
 ## Actions Triggers
-<details><summary><code>client.actions.triggers.<a href="src/auth0/management/actions/triggers/client.py">list</a>() -&gt; AsyncHttpResponse[ListActionTriggersResponseContent]</code></summary>
+<details><summary><code>client.actions.triggers.<a href="src/auth0.management/actions/triggers/client.py">list</a>() -> ListActionTriggersResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16887,8 +16891,9 @@ Retrieve the set of triggers currently available within actions. A trigger is an
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.triggers.list()
 
 ```
@@ -16918,7 +16923,7 @@ client.actions.triggers.list()
 </details>
 
 ## Actions Modules Versions
-<details><summary><code>client.actions.modules.versions.<a href="src/auth0/management/actions/modules/versions/client.py">list</a>(...) -&gt; AsyncPager[ActionModuleVersion, GetActionModuleVersionsResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.versions.<a href="src/auth0.management/actions/modules/versions/client.py">list</a>(...) -> GetActionModuleVersionsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -16948,18 +16953,14 @@ List all published versions of a specific Actions Module.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.actions.modules.versions.list(
+
+client.actions.modules.versions.list(
     id="id",
     page=1,
     per_page=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -17011,7 +17012,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.modules.versions.<a href="src/auth0/management/actions/modules/versions/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateActionModuleVersionResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.versions.<a href="src/auth0.management/actions/modules/versions/client.py">create</a>(...) -> CreateActionModuleVersionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17041,8 +17042,9 @@ Creates a new immutable version of an Actions Module from the current draft vers
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.modules.versions.create(
     id="id",
 )
@@ -17081,7 +17083,7 @@ client.actions.modules.versions.create(
 </dl>
 </details>
 
-<details><summary><code>client.actions.modules.versions.<a href="src/auth0/management/actions/modules/versions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetActionModuleVersionResponseContent]</code></summary>
+<details><summary><code>client.actions.modules.versions.<a href="src/auth0.management/actions/modules/versions/client.py">get</a>(...) -> GetActionModuleVersionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17111,8 +17113,9 @@ Retrieve the details of a specific, immutable version of an Actions Module.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.modules.versions.get(
     id="id",
     version_id="versionId",
@@ -17161,7 +17164,7 @@ client.actions.modules.versions.get(
 </details>
 
 ## Actions Triggers Bindings
-<details><summary><code>client.actions.triggers.bindings.<a href="src/auth0/management/actions/triggers/bindings/client.py">list</a>(...) -&gt; AsyncPager[ActionBinding, ListActionBindingsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.actions.triggers.bindings.<a href="src/auth0.management/actions/triggers/bindings/client.py">list</a>(...) -> ListActionBindingsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17191,18 +17194,14 @@ Retrieve the actions that are bound to a trigger. Once an action is created and 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.actions.triggers.bindings.list(
+
+client.actions.triggers.bindings.list(
     trigger_id="post-login",
     page=1,
     per_page=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -17254,7 +17253,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.actions.triggers.bindings.<a href="src/auth0/management/actions/triggers/bindings/client.py">update_many</a>(...) -&gt; AsyncHttpResponse[UpdateActionBindingsResponseContent]</code></summary>
+<details><summary><code>client.actions.triggers.bindings.<a href="src/auth0.management/actions/triggers/bindings/client.py">update_many</a>(...) -> UpdateActionBindingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17284,8 +17283,9 @@ Update the actions that are bound (i.e. attached) to a trigger. Once an action i
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.actions.triggers.bindings.update_many(
     trigger_id="post-login",
 )
@@ -17312,7 +17312,7 @@ client.actions.triggers.bindings.update_many(
 <dl>
 <dd>
 
-**bindings:** `typing.Optional[typing.Sequence[ActionBindingWithRef]]` — The actions that will be bound to this trigger. The order in which they are included will be the order in which they are executed.
+**bindings:** `typing.Optional[typing.List[ActionBindingWithRef]]` — The actions that will be bound to this trigger. The order in which they are included will be the order in which they are executed.
     
 </dd>
 </dl>
@@ -17333,7 +17333,7 @@ client.actions.triggers.bindings.update_many(
 </details>
 
 ## Anomaly Blocks
-<details><summary><code>client.anomaly.blocks.<a href="src/auth0/management/anomaly/blocks/client.py">check_ip</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.anomaly.blocks.<a href="src/auth0.management/anomaly/blocks/client.py">check_ip</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -17363,8 +17363,9 @@ Check if the given IP address is blocked via the <a href="https://auth0.com/docs
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.anomaly.blocks.check_ip(
     id="id",
 )
@@ -17403,7 +17404,7 @@ client.anomaly.blocks.check_ip(
 </dl>
 </details>
 
-<details><summary><code>client.anomaly.blocks.<a href="src/auth0/management/anomaly/blocks/client.py">unblock_ip</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.anomaly.blocks.<a href="src/auth0.management/anomaly/blocks/client.py">unblock_ip</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -17433,8 +17434,9 @@ Remove a block imposed by <a href="https://auth0.com/docs/configure/attack-prote
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.anomaly.blocks.unblock_ip(
     id="id",
 )
@@ -17474,7 +17476,7 @@ client.anomaly.blocks.unblock_ip(
 </details>
 
 ## AttackProtection BotDetection
-<details><summary><code>client.attack_protection.bot_detection.<a href="src/auth0/management/attack_protection/bot_detection/client.py">get</a>() -&gt; AsyncHttpResponse[GetBotDetectionSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.bot_detection.<a href="src/auth0.management/attack_protection/bot_detection/client.py">get</a>() -> GetBotDetectionSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17504,8 +17506,9 @@ Get the Bot Detection configuration of your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.bot_detection.get()
 
 ```
@@ -17534,7 +17537,7 @@ client.attack_protection.bot_detection.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.bot_detection.<a href="src/auth0/management/attack_protection/bot_detection/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBotDetectionSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.bot_detection.<a href="src/auth0.management/attack_protection/bot_detection/client.py">update</a>(...) -> UpdateBotDetectionSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17564,8 +17567,9 @@ Update the Bot Detection configuration of your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.bot_detection.update()
 
 ```
@@ -17643,7 +17647,7 @@ client.attack_protection.bot_detection.update()
 </details>
 
 ## AttackProtection BreachedPasswordDetection
-<details><summary><code>client.attack_protection.breached_password_detection.<a href="src/auth0/management/attack_protection/breached_password_detection/client.py">get</a>() -&gt; AsyncHttpResponse[GetBreachedPasswordDetectionSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.breached_password_detection.<a href="src/auth0.management/attack_protection/breached_password_detection/client.py">get</a>() -> GetBreachedPasswordDetectionSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17673,8 +17677,9 @@ Retrieve details of the Breached Password Detection configuration of your tenant
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.breached_password_detection.get()
 
 ```
@@ -17703,7 +17708,7 @@ client.attack_protection.breached_password_detection.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.breached_password_detection.<a href="src/auth0/management/attack_protection/breached_password_detection/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBreachedPasswordDetectionSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.breached_password_detection.<a href="src/auth0.management/attack_protection/breached_password_detection/client.py">update</a>(...) -> UpdateBreachedPasswordDetectionSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17733,8 +17738,9 @@ Update details of the Breached Password Detection configuration of your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.breached_password_detection.update()
 
 ```
@@ -17759,7 +17765,7 @@ client.attack_protection.breached_password_detection.update()
 <dl>
 <dd>
 
-**shields:** `typing.Optional[typing.Sequence[BreachedPasswordDetectionShieldsEnum]]` 
+**shields:** `typing.Optional[typing.List[BreachedPasswordDetectionShieldsEnum]]` 
 
 Action to take when a breached password is detected during a login.
       Possible values: <code>block</code>, <code>user_notification</code>, <code>admin_notification</code>.
@@ -17770,9 +17776,7 @@ Action to take when a breached password is detected during a login.
 <dl>
 <dd>
 
-**admin_notification_frequency:** `typing.Optional[
-    typing.Sequence[BreachedPasswordDetectionAdminNotificationFrequencyEnum]
-]` 
+**admin_notification_frequency:** `typing.Optional[typing.List[BreachedPasswordDetectionAdminNotificationFrequencyEnum]]` 
 
 When "admin_notification" is enabled, determines how often email notifications are sent.
         Possible values: <code>immediately</code>, <code>daily</code>, <code>weekly</code>, <code>monthly</code>.
@@ -17812,7 +17816,7 @@ When "admin_notification" is enabled, determines how often email notifications a
 </details>
 
 ## AttackProtection BruteForceProtection
-<details><summary><code>client.attack_protection.brute_force_protection.<a href="src/auth0/management/attack_protection/brute_force_protection/client.py">get</a>() -&gt; AsyncHttpResponse[GetBruteForceSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.brute_force_protection.<a href="src/auth0.management/attack_protection/brute_force_protection/client.py">get</a>() -> GetBruteForceSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17842,8 +17846,9 @@ Retrieve details of the Brute-force Protection configuration of your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.brute_force_protection.get()
 
 ```
@@ -17872,7 +17877,7 @@ client.attack_protection.brute_force_protection.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.brute_force_protection.<a href="src/auth0/management/attack_protection/brute_force_protection/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBruteForceSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.brute_force_protection.<a href="src/auth0.management/attack_protection/brute_force_protection/client.py">update</a>(...) -> UpdateBruteForceSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -17902,8 +17907,9 @@ Update the Brute-force Protection configuration of your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.brute_force_protection.update()
 
 ```
@@ -17928,7 +17934,7 @@ client.attack_protection.brute_force_protection.update()
 <dl>
 <dd>
 
-**shields:** `typing.Optional[typing.Sequence[BruteForceProtectionShieldsEnum]]` 
+**shields:** `typing.Optional[typing.List[BruteForceProtectionShieldsEnum]]` 
 
 Action to take when a brute force protection threshold is violated.
         Possible values: <code>block</code>, <code>user_notification</code>.
@@ -17939,7 +17945,7 @@ Action to take when a brute force protection threshold is violated.
 <dl>
 <dd>
 
-**allowlist:** `typing.Optional[typing.Sequence[str]]` — List of trusted IP addresses that will not have attack protection enforced against them.
+**allowlist:** `typing.Optional[typing.List[str]]` — List of trusted IP addresses that will not have attack protection enforced against them.
     
 </dd>
 </dl>
@@ -17976,7 +17982,7 @@ Action to take when a brute force protection threshold is violated.
 </details>
 
 ## AttackProtection Captcha
-<details><summary><code>client.attack_protection.captcha.<a href="src/auth0/management/attack_protection/captcha/client.py">get</a>() -&gt; AsyncHttpResponse[GetAttackProtectionCaptchaResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.captcha.<a href="src/auth0.management/attack_protection/captcha/client.py">get</a>() -> GetAttackProtectionCaptchaResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18006,8 +18012,9 @@ Get the CAPTCHA configuration for your client.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.captcha.get()
 
 ```
@@ -18036,7 +18043,7 @@ client.attack_protection.captcha.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.captcha.<a href="src/auth0/management/attack_protection/captcha/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateAttackProtectionCaptchaResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.captcha.<a href="src/auth0.management/attack_protection/captcha/client.py">update</a>(...) -> UpdateAttackProtectionCaptchaResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18066,8 +18073,9 @@ Update existing CAPTCHA configuration for your client.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.captcha.update()
 
 ```
@@ -18161,7 +18169,7 @@ client.attack_protection.captcha.update()
 </details>
 
 ## AttackProtection SuspiciousIpThrottling
-<details><summary><code>client.attack_protection.suspicious_ip_throttling.<a href="src/auth0/management/attack_protection/suspicious_ip_throttling/client.py">get</a>() -&gt; AsyncHttpResponse[GetSuspiciousIpThrottlingSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.suspicious_ip_throttling.<a href="src/auth0.management/attack_protection/suspicious_ip_throttling/client.py">get</a>() -> GetSuspiciousIpThrottlingSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18191,8 +18199,9 @@ Retrieve details of the Suspicious IP Throttling configuration of your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.suspicious_ip_throttling.get()
 
 ```
@@ -18221,7 +18230,7 @@ client.attack_protection.suspicious_ip_throttling.get()
 </dl>
 </details>
 
-<details><summary><code>client.attack_protection.suspicious_ip_throttling.<a href="src/auth0/management/attack_protection/suspicious_ip_throttling/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateSuspiciousIpThrottlingSettingsResponseContent]</code></summary>
+<details><summary><code>client.attack_protection.suspicious_ip_throttling.<a href="src/auth0.management/attack_protection/suspicious_ip_throttling/client.py">update</a>(...) -> UpdateSuspiciousIpThrottlingSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18251,8 +18260,9 @@ Update the details of the Suspicious IP Throttling configuration of your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.attack_protection.suspicious_ip_throttling.update()
 
 ```
@@ -18277,7 +18287,7 @@ client.attack_protection.suspicious_ip_throttling.update()
 <dl>
 <dd>
 
-**shields:** `typing.Optional[typing.Sequence[SuspiciousIpThrottlingShieldsEnum]]` 
+**shields:** `typing.Optional[typing.List[SuspiciousIpThrottlingShieldsEnum]]` 
 
 Action to take when a suspicious IP throttling threshold is violated.
           Possible values: <code>block</code>, <code>admin_notification</code>.
@@ -18317,7 +18327,7 @@ Action to take when a suspicious IP throttling threshold is violated.
 </details>
 
 ## Branding Templates
-<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">get_universal_login</a>() -&gt; AsyncHttpResponse[GetUniversalLoginTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.templates.<a href="src/auth0.management/branding/templates/client.py">get_universal_login</a>() -> GetUniversalLoginTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18333,8 +18343,9 @@ Action to take when a suspicious IP throttling threshold is violated.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.templates.get_universal_login()
 
 ```
@@ -18363,7 +18374,7 @@ client.branding.templates.get_universal_login()
 </dl>
 </details>
 
-<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">update_universal_login</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.templates.<a href="src/auth0.management/branding/templates/client.py">update_universal_login</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -18416,8 +18427,9 @@ Update the Universal Login branding template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.templates.update_universal_login(
     request="string",
 )
@@ -18456,7 +18468,7 @@ client.branding.templates.update_universal_login(
 </dl>
 </details>
 
-<details><summary><code>client.branding.templates.<a href="src/auth0/management/branding/templates/client.py">delete_universal_login</a>() -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.templates.<a href="src/auth0.management/branding/templates/client.py">delete_universal_login</a>()</code></summary>
 <dl>
 <dd>
 
@@ -18472,8 +18484,9 @@ client.branding.templates.update_universal_login(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.templates.delete_universal_login()
 
 ```
@@ -18503,7 +18516,7 @@ client.branding.templates.delete_universal_login()
 </details>
 
 ## Branding Themes
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateBrandingThemeResponseContent]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0.management/branding/themes/client.py">create</a>(...) -> CreateBrandingThemeResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18530,24 +18543,12 @@ Create branding theme.
 <dd>
 
 ```python
-from auth0 import (
-    Auth0,
-    BrandingThemeBorders,
-    BrandingThemeColors,
-    BrandingThemeFontBodyText,
-    BrandingThemeFontButtonsText,
-    BrandingThemeFontInputLabels,
-    BrandingThemeFontLinks,
-    BrandingThemeFonts,
-    BrandingThemeFontSubtitle,
-    BrandingThemeFontTitle,
-    BrandingThemePageBackground,
-    BrandingThemeWidget,
-)
+from auth0 import Auth0, BrandingThemeBorders, BrandingThemeColors, BrandingThemeFonts, BrandingThemeFontBodyText, BrandingThemeFontButtonsText, BrandingThemeFontInputLabels, BrandingThemeFontLinks, BrandingThemeFontSubtitle, BrandingThemeFontTitle, BrandingThemePageBackground, BrandingThemeWidget
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.themes.create(
     borders=BrandingThemeBorders(
         button_border_radius=1.1,
@@ -18695,7 +18696,7 @@ client.branding.themes.create(
 </dl>
 </details>
 
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">get_default</a>() -&gt; AsyncHttpResponse[GetBrandingDefaultThemeResponseContent]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0.management/branding/themes/client.py">get_default</a>() -> GetBrandingDefaultThemeResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18725,8 +18726,9 @@ Retrieve default branding theme.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.themes.get_default()
 
 ```
@@ -18755,7 +18757,7 @@ client.branding.themes.get_default()
 </dl>
 </details>
 
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetBrandingThemeResponseContent]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0.management/branding/themes/client.py">get</a>(...) -> GetBrandingThemeResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18785,8 +18787,9 @@ Retrieve branding theme.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.themes.get(
     theme_id="themeId",
 )
@@ -18825,7 +18828,7 @@ client.branding.themes.get(
 </dl>
 </details>
 
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0.management/branding/themes/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -18855,8 +18858,9 @@ Delete branding theme.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.themes.delete(
     theme_id="themeId",
 )
@@ -18895,7 +18899,7 @@ client.branding.themes.delete(
 </dl>
 </details>
 
-<details><summary><code>client.branding.themes.<a href="src/auth0/management/branding/themes/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBrandingThemeResponseContent]</code></summary>
+<details><summary><code>client.branding.themes.<a href="src/auth0.management/branding/themes/client.py">update</a>(...) -> UpdateBrandingThemeResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -18922,24 +18926,12 @@ Update branding theme.
 <dd>
 
 ```python
-from auth0 import (
-    Auth0,
-    BrandingThemeBorders,
-    BrandingThemeColors,
-    BrandingThemeFontBodyText,
-    BrandingThemeFontButtonsText,
-    BrandingThemeFontInputLabels,
-    BrandingThemeFontLinks,
-    BrandingThemeFonts,
-    BrandingThemeFontSubtitle,
-    BrandingThemeFontTitle,
-    BrandingThemePageBackground,
-    BrandingThemeWidget,
-)
+from auth0 import Auth0, BrandingThemeBorders, BrandingThemeColors, BrandingThemeFonts, BrandingThemeFontBodyText, BrandingThemeFontButtonsText, BrandingThemeFontInputLabels, BrandingThemeFontLinks, BrandingThemeFontSubtitle, BrandingThemeFontTitle, BrandingThemePageBackground, BrandingThemeWidget
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.themes.update(
     theme_id="themeId",
     borders=BrandingThemeBorders(
@@ -19097,7 +19089,7 @@ client.branding.themes.update(
 </details>
 
 ## Branding Phone Providers
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListBrandingPhoneProvidersResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0.management/branding/phone/providers/client.py">list</a>(...) -> ListBrandingPhoneProvidersResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19127,8 +19119,9 @@ Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/conf
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.providers.list(
     disabled=True,
 )
@@ -19167,7 +19160,7 @@ client.branding.phone.providers.list(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateBrandingPhoneProviderResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0.management/branding/phone/providers/client.py">create</a>(...) -> CreateBrandingPhoneProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19198,8 +19191,9 @@ The <code>credentials</code> object requires different properties depending on t
 from auth0 import Auth0, TwilioProviderCredentials
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.providers.create(
     name="twilio",
     credentials=TwilioProviderCredentials(
@@ -19265,7 +19259,7 @@ client.branding.phone.providers.create(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetBrandingPhoneProviderResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0.management/branding/phone/providers/client.py">get</a>(...) -> GetBrandingPhoneProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19295,8 +19289,9 @@ Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phon
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.providers.get(
     id="id",
 )
@@ -19335,7 +19330,7 @@ client.branding.phone.providers.get(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0.management/branding/phone/providers/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -19365,8 +19360,9 @@ Delete the configured phone provider.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.providers.delete(
     id="id",
 )
@@ -19405,7 +19401,7 @@ client.branding.phone.providers.delete(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateBrandingPhoneProviderResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0.management/branding/phone/providers/client.py">update</a>(...) -> UpdateBrandingPhoneProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19436,8 +19432,9 @@ The <code>credentials</code> object requires different properties depending on t
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.providers.update(
     id="id",
 )
@@ -19508,7 +19505,7 @@ client.branding.phone.providers.update(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.providers.<a href="src/auth0/management/branding/phone/providers/client.py">test</a>(...) -&gt; AsyncHttpResponse[CreatePhoneProviderSendTestResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.providers.<a href="src/auth0.management/branding/phone/providers/client.py">test</a>(...) -> CreatePhoneProviderSendTestResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19524,8 +19521,9 @@ client.branding.phone.providers.update(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.providers.test(
     id="id",
     to="to",
@@ -19582,7 +19580,7 @@ client.branding.phone.providers.test(
 </details>
 
 ## Branding Phone Templates
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListPhoneTemplatesResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0.management/branding/phone/templates/client.py">list</a>(...) -> ListPhoneTemplatesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19598,8 +19596,9 @@ client.branding.phone.providers.test(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.templates.list(
     disabled=True,
 )
@@ -19638,7 +19637,7 @@ client.branding.phone.templates.list(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreatePhoneTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0.management/branding/phone/templates/client.py">create</a>(...) -> CreatePhoneTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19654,8 +19653,9 @@ client.branding.phone.templates.list(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.templates.create()
 
 ```
@@ -19708,7 +19708,7 @@ client.branding.phone.templates.create()
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetPhoneTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0.management/branding/phone/templates/client.py">get</a>(...) -> GetPhoneTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19724,8 +19724,9 @@ client.branding.phone.templates.create()
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.templates.get(
     id="id",
 )
@@ -19764,7 +19765,7 @@ client.branding.phone.templates.get(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0.management/branding/phone/templates/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -19780,8 +19781,9 @@ client.branding.phone.templates.get(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.templates.delete(
     id="id",
 )
@@ -19820,7 +19822,7 @@ client.branding.phone.templates.delete(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdatePhoneTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0.management/branding/phone/templates/client.py">update</a>(...) -> UpdatePhoneTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19836,8 +19838,9 @@ client.branding.phone.templates.delete(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.templates.update(
     id="id",
 )
@@ -19892,7 +19895,7 @@ client.branding.phone.templates.update(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">reset</a>(...) -&gt; AsyncHttpResponse[ResetPhoneTemplateResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0.management/branding/phone/templates/client.py">reset</a>(...) -> ResetPhoneTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19908,8 +19911,9 @@ client.branding.phone.templates.update(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.templates.reset(
     id="id",
     request={"key": "value"},
@@ -19957,7 +19961,7 @@ client.branding.phone.templates.reset(
 </dl>
 </details>
 
-<details><summary><code>client.branding.phone.templates.<a href="src/auth0/management/branding/phone/templates/client.py">test</a>(...) -&gt; AsyncHttpResponse[CreatePhoneTemplateTestNotificationResponseContent]</code></summary>
+<details><summary><code>client.branding.phone.templates.<a href="src/auth0.management/branding/phone/templates/client.py">test</a>(...) -> CreatePhoneTemplateTestNotificationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -19973,8 +19977,9 @@ client.branding.phone.templates.reset(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.branding.phone.templates.test(
     id="id",
     to="to",
@@ -20031,7 +20036,7 @@ client.branding.phone.templates.test(
 </details>
 
 ## ClientGrants Organizations
-<details><summary><code>client.client_grants.organizations.<a href="src/auth0/management/client_grants/organizations/client.py">list</a>(...) -&gt; AsyncPager[Organization, ListClientGrantOrganizationsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.client_grants.organizations.<a href="src/auth0.management/client_grants/organizations/client.py">list</a>(...) -> ListClientGrantOrganizationsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -20047,18 +20052,14 @@ client.branding.phone.templates.test(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.client_grants.organizations.list(
+
+client.client_grants.organizations.list(
     id="id",
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -20082,7 +20083,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -20111,7 +20112,7 @@ for page in response.iter_pages():
 </details>
 
 ## Clients Credentials
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">list</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientCredential]]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0.management/clients/credentials/client.py">list</a>(...) -> typing.List[ClientCredential]</code></summary>
 <dl>
 <dd>
 
@@ -20143,8 +20144,9 @@ Get the details of a client credential.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.credentials.list(
     client_id="client_id",
 )
@@ -20183,7 +20185,7 @@ client.clients.credentials.list(
 </dl>
 </details>
 
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">create</a>(...) -&gt; AsyncHttpResponse[PostClientCredentialResponseContent]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0.management/clients/credentials/client.py">create</a>(...) -> PostClientCredentialResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -20245,8 +20247,9 @@ The credential will be created but not yet enabled for use until you set the cor
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.credentials.create(
     client_id="client_id",
     credential_type="public_key",
@@ -20322,7 +20325,7 @@ client.clients.credentials.create(
 <dl>
 <dd>
 
-**expires_at:** `typing.Optional[dt.datetime]` — The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to `public_key` credential type.
+**expires_at:** `typing.Optional[datetime.datetime]` — The ISO 8601 formatted date representing the expiration of the credential. If not specified (not recommended), the credential never expires. Applies to `public_key` credential type.
     
 </dd>
 </dl>
@@ -20350,7 +20353,7 @@ client.clients.credentials.create(
 </dl>
 </details>
 
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetClientCredentialResponseContent]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0.management/clients/credentials/client.py">get</a>(...) -> GetClientCredentialResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -20382,8 +20385,9 @@ Get the details of a client credential.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.credentials.get(
     client_id="client_id",
     credential_id="credential_id",
@@ -20431,7 +20435,7 @@ client.clients.credentials.get(
 </dl>
 </details>
 
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0.management/clients/credentials/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -20461,8 +20465,9 @@ Delete a client credential you previously created. May be enabled or disabled. F
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.credentials.delete(
     client_id="client_id",
     credential_id="credential_id",
@@ -20510,7 +20515,7 @@ client.clients.credentials.delete(
 </dl>
 </details>
 
-<details><summary><code>client.clients.credentials.<a href="src/auth0/management/clients/credentials/client.py">update</a>(...) -&gt; AsyncHttpResponse[PatchClientCredentialResponseContent]</code></summary>
+<details><summary><code>client.clients.credentials.<a href="src/auth0.management/clients/credentials/client.py">update</a>(...) -> PatchClientCredentialResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -20540,8 +20545,9 @@ Change a client credential you previously created. May be enabled or disabled. F
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.clients.credentials.update(
     client_id="client_id",
     credential_id="credential_id",
@@ -20577,7 +20583,7 @@ client.clients.credentials.update(
 <dl>
 <dd>
 
-**expires_at:** `typing.Optional[dt.datetime]` — The ISO 8601 formatted date representing the expiration of the credential.
+**expires_at:** `typing.Optional[datetime.datetime]` — The ISO 8601 formatted date representing the expiration of the credential.
     
 </dd>
 </dl>
@@ -20598,7 +20604,7 @@ client.clients.credentials.update(
 </details>
 
 ## Clients Connections
-<details><summary><code>client.clients.connections.<a href="src/auth0/management/clients/connections/client.py">get</a>(...) -&gt; AsyncPager[ConnectionForList, ListClientConnectionsResponseContent]</code></summary>
+<details><summary><code>client.clients.connections.<a href="src/auth0.management/clients/connections/client.py">get</a>(...) -> ListClientConnectionsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -20636,20 +20642,16 @@ Retrieve all connections that are enabled for the specified <a href="https://www
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.clients.connections.get(
+
+client.clients.connections.get(
     id="id",
     from_="from",
     take=1,
     fields="fields",
     include_fields=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -20673,11 +20675,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**strategy:** `typing.Optional[
-    typing.Union[
-        ConnectionStrategyEnum, typing.Sequence[ConnectionStrategyEnum]
-    ]
-]` — Provide strategies to only retrieve connections with such strategies
+**strategy:** `typing.Optional[typing.Union[typing.Optional[ConnectionStrategyEnum], typing.Sequence[typing.Optional[ConnectionStrategyEnum]]]]` — Provide strategies to only retrieve connections with such strategies
     
 </dd>
 </dl>
@@ -20685,7 +20683,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -20730,7 +20728,7 @@ for page in response.iter_pages():
 </details>
 
 ## Connections DirectoryProvisioning
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">list</a>(...) -&gt; AsyncPager[DirectoryProvisioning, ListDirectoryProvisioningsResponseContent]</code></summary>
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0.management/connections/directory_provisioning/client.py">list</a>(...) -> ListDirectoryProvisioningsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -20760,17 +20758,13 @@ Retrieve a list of directory provisioning configurations of a tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.connections.directory_provisioning.list(
+
+client.connections.directory_provisioning.list(
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -20786,7 +20780,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -20814,7 +20808,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetDirectoryProvisioningResponseContent]</code></summary>
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0.management/connections/directory_provisioning/client.py">get</a>(...) -> GetDirectoryProvisioningResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -20844,8 +20838,9 @@ Retrieve the directory provisioning configuration of a connection.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.directory_provisioning.get(
     id="id",
 )
@@ -20884,7 +20879,7 @@ client.connections.directory_provisioning.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateDirectoryProvisioningResponseContent]</code></summary>
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0.management/connections/directory_provisioning/client.py">create</a>(...) -> CreateDirectoryProvisioningResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -20914,8 +20909,9 @@ Create a directory provisioning configuration for a connection.
 from auth0 import Auth0, CreateDirectoryProvisioningRequestContent
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.directory_provisioning.create(
     id="id",
     request=CreateDirectoryProvisioningRequestContent(),
@@ -20963,7 +20959,7 @@ client.connections.directory_provisioning.create(
 </dl>
 </details>
 
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0.management/connections/directory_provisioning/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -20993,8 +20989,9 @@ Delete the directory provisioning configuration of a connection.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.directory_provisioning.delete(
     id="id",
 )
@@ -21033,7 +21030,7 @@ client.connections.directory_provisioning.delete(
 </dl>
 </details>
 
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateDirectoryProvisioningResponseContent]</code></summary>
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0.management/connections/directory_provisioning/client.py">update</a>(...) -> UpdateDirectoryProvisioningResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21063,8 +21060,9 @@ Update the directory provisioning configuration of a connection.
 from auth0 import Auth0, UpdateDirectoryProvisioningRequestContent
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.directory_provisioning.update(
     id="id",
     request=UpdateDirectoryProvisioningRequestContent(),
@@ -21112,7 +21110,7 @@ client.connections.directory_provisioning.update(
 </dl>
 </details>
 
-<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0/management/connections/directory_provisioning/client.py">get_default_mapping</a>(...) -&gt; AsyncHttpResponse[GetDirectoryProvisioningDefaultMappingResponseContent]</code></summary>
+<details><summary><code>client.connections.directory_provisioning.<a href="src/auth0.management/connections/directory_provisioning/client.py">get_default_mapping</a>(...) -> GetDirectoryProvisioningDefaultMappingResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21142,8 +21140,9 @@ Retrieve the directory provisioning default attribute mapping of a connection.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.directory_provisioning.get_default_mapping(
     id="id",
 )
@@ -21183,7 +21182,7 @@ client.connections.directory_provisioning.get_default_mapping(
 </details>
 
 ## Connections ScimConfiguration
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">list</a>(...) -&gt; AsyncPager[ScimConfiguration, ListScimConfigurationsResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0.management/connections/scim_configuration/client.py">list</a>(...) -> ListScimConfigurationsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21213,17 +21212,13 @@ Retrieve a list of SCIM configurations of a tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.connections.scim_configuration.list(
+
+client.connections.scim_configuration.list(
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -21239,7 +21234,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -21267,7 +21262,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetScimConfigurationResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0.management/connections/scim_configuration/client.py">get</a>(...) -> GetScimConfigurationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21297,8 +21292,9 @@ Retrieves a scim configuration by its <code>connectionId</code>.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.scim_configuration.get(
     id="id",
 )
@@ -21337,7 +21333,7 @@ client.connections.scim_configuration.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateScimConfigurationResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0.management/connections/scim_configuration/client.py">create</a>(...) -> CreateScimConfigurationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21367,8 +21363,9 @@ Create a scim configuration for a connection.
 from auth0 import Auth0, CreateScimConfigurationRequestContent
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.scim_configuration.create(
     id="id",
     request=CreateScimConfigurationRequestContent(),
@@ -21416,7 +21413,7 @@ client.connections.scim_configuration.create(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0.management/connections/scim_configuration/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -21446,8 +21443,9 @@ Deletes a scim configuration by its <code>connectionId</code>.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.scim_configuration.delete(
     id="id",
 )
@@ -21486,7 +21484,7 @@ client.connections.scim_configuration.delete(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateScimConfigurationResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0.management/connections/scim_configuration/client.py">update</a>(...) -> UpdateScimConfigurationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21516,12 +21514,15 @@ Update a scim configuration by its <code>connectionId</code>.
 from auth0 import Auth0, ScimMappingItem
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.scim_configuration.update(
     id="id",
     user_id_attribute="user_id_attribute",
-    mapping=[ScimMappingItem()],
+    mapping=[
+        ScimMappingItem()
+    ],
 )
 
 ```
@@ -21554,7 +21555,7 @@ client.connections.scim_configuration.update(
 <dl>
 <dd>
 
-**mapping:** `typing.Sequence[ScimMappingItem]` — The mapping between auth0 and SCIM
+**mapping:** `typing.List[ScimMappingItem]` — The mapping between auth0 and SCIM
     
 </dd>
 </dl>
@@ -21574,7 +21575,7 @@ client.connections.scim_configuration.update(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.<a href="src/auth0/management/connections/scim_configuration/client.py">get_default_mapping</a>(...) -&gt; AsyncHttpResponse[GetScimConfigurationDefaultMappingResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.<a href="src/auth0.management/connections/scim_configuration/client.py">get_default_mapping</a>(...) -> GetScimConfigurationDefaultMappingResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21604,8 +21605,9 @@ Retrieves a scim configuration's default mapping by its <code>connectionId</code
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.scim_configuration.get_default_mapping(
     id="id",
 )
@@ -21645,7 +21647,7 @@ client.connections.scim_configuration.get_default_mapping(
 </details>
 
 ## Connections Clients
-<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">get</a>(...) -&gt; AsyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]</code></summary>
+<details><summary><code>client.connections.clients.<a href="src/auth0.management/connections/clients/client.py">get</a>(...) -> GetConnectionEnabledClientsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21677,18 +21679,14 @@ Retrieve all clients that have the specified <a href="https://auth0.com/docs/aut
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.connections.clients.get(
+
+client.connections.clients.get(
     id="id",
     take=1,
     from_="from",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -21720,7 +21718,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -21740,7 +21738,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.connections.clients.<a href="src/auth0/management/connections/clients/client.py">update</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.clients.<a href="src/auth0.management/connections/clients/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -21756,8 +21754,9 @@ for page in response.iter_pages():
 from auth0 import Auth0, UpdateEnabledClientConnectionsRequestContentItem
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.clients.update(
     id="id",
     request=[
@@ -21811,7 +21810,7 @@ client.connections.clients.update(
 </details>
 
 ## Connections Keys
-<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">get</a>(...) -&gt; AsyncHttpResponse[typing.List[ConnectionKey]]</code></summary>
+<details><summary><code>client.connections.keys.<a href="src/auth0.management/connections/keys/client.py">get</a>(...) -> typing.List[ConnectionKey]</code></summary>
 <dl>
 <dd>
 
@@ -21841,8 +21840,9 @@ Gets the connection keys for the Okta or OIDC connection strategy.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.keys.get(
     id="id",
 )
@@ -21881,7 +21881,7 @@ client.connections.keys.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">create</a>(...) -&gt; AsyncHttpResponse[PostConnectionsKeysResponseContent]</code></summary>
+<details><summary><code>client.connections.keys.<a href="src/auth0.management/connections/keys/client.py">create</a>(...) -> PostConnectionsKeysResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21911,8 +21911,9 @@ Provision initial connection keys for Okta or OIDC connection strategies. This e
 from auth0 import Auth0, PostConnectionKeysRequestContent
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.keys.create(
     id="id",
     request=PostConnectionKeysRequestContent(),
@@ -21960,7 +21961,7 @@ client.connections.keys.create(
 </dl>
 </details>
 
-<details><summary><code>client.connections.keys.<a href="src/auth0/management/connections/keys/client.py">rotate</a>(...) -&gt; AsyncHttpResponse[RotateConnectionsKeysResponseContent]</code></summary>
+<details><summary><code>client.connections.keys.<a href="src/auth0.management/connections/keys/client.py">rotate</a>(...) -> RotateConnectionsKeysResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -21990,8 +21991,9 @@ Rotates the connection keys for the Okta or OIDC connection strategies.
 from auth0 import Auth0, RotateConnectionKeysRequestContent
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.keys.rotate(
     id="id",
     request=RotateConnectionKeysRequestContent(),
@@ -22040,7 +22042,7 @@ client.connections.keys.rotate(
 </details>
 
 ## Connections Users
-<details><summary><code>client.connections.users.<a href="src/auth0/management/connections/users/client.py">delete_by_email</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.users.<a href="src/auth0.management/connections/users/client.py">delete_by_email</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -22070,8 +22072,9 @@ Deletes a specified connection user by its email (you cannot delete all users fr
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.users.delete_by_email(
     id="id",
     email="email",
@@ -22120,7 +22123,7 @@ client.connections.users.delete_by_email(
 </details>
 
 ## Connections DirectoryProvisioning Synchronizations
-<details><summary><code>client.connections.directory_provisioning.synchronizations.<a href="src/auth0/management/connections/directory_provisioning/synchronizations/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateDirectorySynchronizationResponseContent]</code></summary>
+<details><summary><code>client.connections.directory_provisioning.synchronizations.<a href="src/auth0.management/connections/directory_provisioning/synchronizations/client.py">create</a>(...) -> CreateDirectorySynchronizationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -22150,8 +22153,9 @@ Request an on-demand synchronization of the directory.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.directory_provisioning.synchronizations.create(
     id="id",
 )
@@ -22191,7 +22195,7 @@ client.connections.directory_provisioning.synchronizations.create(
 </details>
 
 ## Connections ScimConfiguration Tokens
-<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetScimTokensResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0.management/connections/scim_configuration/tokens/client.py">get</a>(...) -> GetScimTokensResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -22221,8 +22225,9 @@ Retrieves all scim tokens by its connection <code>id</code>.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.scim_configuration.tokens.get(
     id="id",
 )
@@ -22261,7 +22266,7 @@ client.connections.scim_configuration.tokens.get(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateScimTokenResponseContent]</code></summary>
+<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0.management/connections/scim_configuration/tokens/client.py">create</a>(...) -> CreateScimTokenResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -22291,8 +22296,9 @@ Create a scim token for a scim client.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.scim_configuration.tokens.create(
     id="id",
 )
@@ -22319,7 +22325,7 @@ client.connections.scim_configuration.tokens.create(
 <dl>
 <dd>
 
-**scopes:** `typing.Optional[typing.Sequence[str]]` — The scopes of the scim token
+**scopes:** `typing.Optional[typing.List[str]]` — The scopes of the scim token
     
 </dd>
 </dl>
@@ -22347,7 +22353,7 @@ client.connections.scim_configuration.tokens.create(
 </dl>
 </details>
 
-<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0/management/connections/scim_configuration/tokens/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.connections.scim_configuration.tokens.<a href="src/auth0.management/connections/scim_configuration/tokens/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -22377,8 +22383,9 @@ Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.connections.scim_configuration.tokens.delete(
     id="id",
     token_id="tokenId",
@@ -22427,7 +22434,7 @@ client.connections.scim_configuration.tokens.delete(
 </details>
 
 ## Emails Provider
-<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetEmailProviderResponseContent]</code></summary>
+<details><summary><code>client.emails.provider.<a href="src/auth0.management/emails/provider/client.py">get</a>(...) -> GetEmailProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -22457,8 +22464,9 @@ Retrieve details of the <a href="https://auth0.com/docs/customize/email/smtp-ema
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.emails.provider.get(
     fields="fields",
     include_fields=True,
@@ -22506,7 +22514,7 @@ client.emails.provider.get(
 </dl>
 </details>
 
-<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEmailProviderResponseContent]</code></summary>
+<details><summary><code>client.emails.provider.<a href="src/auth0.management/emails/provider/client.py">create</a>(...) -> CreateEmailProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -22577,8 +22585,9 @@ options, which will be used when sending an email:
 from auth0 import Auth0, EmailProviderCredentialsSchemaZero
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.emails.provider.create(
     name="mailgun",
     credentials=EmailProviderCredentialsSchemaZero(
@@ -22652,7 +22661,7 @@ client.emails.provider.create(
 </dl>
 </details>
 
-<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">delete</a>() -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.emails.provider.<a href="src/auth0.management/emails/provider/client.py">delete</a>()</code></summary>
 <dl>
 <dd>
 
@@ -22682,8 +22691,9 @@ Delete the email provider.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.emails.provider.delete()
 
 ```
@@ -22712,7 +22722,7 @@ client.emails.provider.delete()
 </dl>
 </details>
 
-<details><summary><code>client.emails.provider.<a href="src/auth0/management/emails/provider/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateEmailProviderResponseContent]</code></summary>
+<details><summary><code>client.emails.provider.<a href="src/auth0.management/emails/provider/client.py">update</a>(...) -> UpdateEmailProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -22781,8 +22791,9 @@ options, which will be used when sending an email:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.emails.provider.update()
 
 ```
@@ -22852,7 +22863,7 @@ client.emails.provider.update()
 </details>
 
 ## EventStreams Deliveries
-<details><summary><code>client.event_streams.deliveries.<a href="src/auth0/management/event_streams/deliveries/client.py">list</a>(...) -&gt; AsyncHttpResponse[typing.List[EventStreamDelivery]]</code></summary>
+<details><summary><code>client.event_streams.deliveries.<a href="src/auth0.management/event_streams/deliveries/client.py">list</a>(...) -> typing.List[EventStreamDelivery]</code></summary>
 <dl>
 <dd>
 
@@ -22868,8 +22879,9 @@ client.emails.provider.update()
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.deliveries.list(
     id="id",
     statuses="statuses",
@@ -22934,7 +22946,7 @@ client.event_streams.deliveries.list(
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -22962,7 +22974,7 @@ client.event_streams.deliveries.list(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.deliveries.<a href="src/auth0/management/event_streams/deliveries/client.py">get_history</a>(...) -&gt; AsyncHttpResponse[GetEventStreamDeliveryHistoryResponseContent]</code></summary>
+<details><summary><code>client.event_streams.deliveries.<a href="src/auth0.management/event_streams/deliveries/client.py">get_history</a>(...) -> GetEventStreamDeliveryHistoryResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -22978,8 +22990,9 @@ client.event_streams.deliveries.list(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.deliveries.get_history(
     id="id",
     event_id="event_id",
@@ -23028,7 +23041,7 @@ client.event_streams.deliveries.get_history(
 </details>
 
 ## EventStreams Redeliveries
-<details><summary><code>client.event_streams.redeliveries.<a href="src/auth0/management/event_streams/redeliveries/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEventStreamRedeliveryResponseContent]</code></summary>
+<details><summary><code>client.event_streams.redeliveries.<a href="src/auth0.management/event_streams/redeliveries/client.py">create</a>(...) -> CreateEventStreamRedeliveryResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23044,8 +23057,9 @@ client.event_streams.deliveries.get_history(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.redeliveries.create(
     id="id",
 )
@@ -23072,7 +23086,7 @@ client.event_streams.redeliveries.create(
 <dl>
 <dd>
 
-**date_from:** `typing.Optional[dt.datetime]` — An RFC-3339 date-time for redelivery start, inclusive. Does not allow sub-second precision.
+**date_from:** `typing.Optional[datetime.datetime]` — An RFC-3339 date-time for redelivery start, inclusive. Does not allow sub-second precision.
     
 </dd>
 </dl>
@@ -23080,7 +23094,7 @@ client.event_streams.redeliveries.create(
 <dl>
 <dd>
 
-**date_to:** `typing.Optional[dt.datetime]` — An RFC-3339 date-time for redelivery end, exclusive. Does not allow sub-second precision.
+**date_to:** `typing.Optional[datetime.datetime]` — An RFC-3339 date-time for redelivery end, exclusive. Does not allow sub-second precision.
     
 </dd>
 </dl>
@@ -23088,7 +23102,7 @@ client.event_streams.redeliveries.create(
 <dl>
 <dd>
 
-**statuses:** `typing.Optional[typing.Sequence[EventStreamDeliveryStatusEnum]]` — Filter by status
+**statuses:** `typing.Optional[typing.List[EventStreamDeliveryStatusEnum]]` — Filter by status
     
 </dd>
 </dl>
@@ -23096,7 +23110,7 @@ client.event_streams.redeliveries.create(
 <dl>
 <dd>
 
-**event_types:** `typing.Optional[typing.Sequence[EventStreamEventTypeEnum]]` — Filter by event type
+**event_types:** `typing.Optional[typing.List[EventStreamEventTypeEnum]]` — Filter by event type
     
 </dd>
 </dl>
@@ -23116,7 +23130,7 @@ client.event_streams.redeliveries.create(
 </dl>
 </details>
 
-<details><summary><code>client.event_streams.redeliveries.<a href="src/auth0/management/event_streams/redeliveries/client.py">create_by_id</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.event_streams.redeliveries.<a href="src/auth0.management/event_streams/redeliveries/client.py">create_by_id</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -23132,8 +23146,9 @@ client.event_streams.redeliveries.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.event_streams.redeliveries.create_by_id(
     id="id",
     event_id="event_id",
@@ -23182,7 +23197,7 @@ client.event_streams.redeliveries.create_by_id(
 </details>
 
 ## Flows Executions
-<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">list</a>(...) -&gt; AsyncPager[FlowExecutionSummary, ListFlowExecutionsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.flows.executions.<a href="src/auth0.management/flows/executions/client.py">list</a>(...) -> ListFlowExecutionsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23198,18 +23213,14 @@ client.event_streams.redeliveries.create_by_id(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.flows.executions.list(
+
+client.flows.executions.list(
     flow_id="flow_id",
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -23233,7 +23244,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -23261,7 +23272,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetFlowExecutionResponseContent]</code></summary>
+<details><summary><code>client.flows.executions.<a href="src/auth0.management/flows/executions/client.py">get</a>(...) -> GetFlowExecutionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23277,8 +23288,9 @@ for page in response.iter_pages():
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.executions.get(
     flow_id="flow_id",
     execution_id="execution_id",
@@ -23314,12 +23326,7 @@ client.flows.executions.get(
 <dl>
 <dd>
 
-**hydrate:** `typing.Optional[
-    typing.Union[
-        GetFlowExecutionRequestParametersHydrateEnum,
-        typing.Sequence[GetFlowExecutionRequestParametersHydrateEnum],
-    ]
-]` — Hydration param
+**hydrate:** `typing.Optional[typing.Union[typing.Optional[GetFlowExecutionRequestParametersHydrateEnum], typing.Sequence[typing.Optional[GetFlowExecutionRequestParametersHydrateEnum]]]]` — Hydration param
     
 </dd>
 </dl>
@@ -23339,7 +23346,7 @@ client.flows.executions.get(
 </dl>
 </details>
 
-<details><summary><code>client.flows.executions.<a href="src/auth0/management/flows/executions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.flows.executions.<a href="src/auth0.management/flows/executions/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -23355,8 +23362,9 @@ client.flows.executions.get(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.executions.delete(
     flow_id="flow_id",
     execution_id="execution_id",
@@ -23405,10 +23413,7 @@ client.flows.executions.delete(
 </details>
 
 ## Flows Vault Connections
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">list</a>(...) -&gt; AsyncPager[
-    FlowsVaultConnectionSummary,
-    ListFlowsVaultConnectionsOffsetPaginatedResponseContent,
-]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0.management/flows/vault/connections/client.py">list</a>(...) -> ListFlowsVaultConnectionsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23424,18 +23429,14 @@ client.flows.executions.delete(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.flows.vault.connections.list(
+
+client.flows.vault.connections.list(
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -23487,7 +23488,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateFlowsVaultConnectionResponseContent]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0.management/flows/vault/connections/client.py">create</a>(...) -> CreateFlowsVaultConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23500,15 +23501,12 @@ for page in response.iter_pages():
 <dd>
 
 ```python
-from auth0 import (
-    Auth0,
-    CreateFlowsVaultConnectionActivecampaignApiKey,
-    FlowsVaultConnectioSetupApiKeyWithBaseUrl,
-)
+from auth0 import Auth0, CreateFlowsVaultConnectionActivecampaignApiKey, FlowsVaultConnectioSetupApiKeyWithBaseUrl
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.vault.connections.create(
     request=CreateFlowsVaultConnectionActivecampaignApiKey(
         name="name",
@@ -23555,7 +23553,7 @@ client.flows.vault.connections.create(
 </dl>
 </details>
 
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetFlowsVaultConnectionResponseContent]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0.management/flows/vault/connections/client.py">get</a>(...) -> GetFlowsVaultConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23571,8 +23569,9 @@ client.flows.vault.connections.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.vault.connections.get(
     id="id",
 )
@@ -23611,7 +23610,7 @@ client.flows.vault.connections.get(
 </dl>
 </details>
 
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0.management/flows/vault/connections/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -23627,8 +23626,9 @@ client.flows.vault.connections.get(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.vault.connections.delete(
     id="id",
 )
@@ -23667,7 +23667,7 @@ client.flows.vault.connections.delete(
 </dl>
 </details>
 
-<details><summary><code>client.flows.vault.connections.<a href="src/auth0/management/flows/vault/connections/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateFlowsVaultConnectionResponseContent]</code></summary>
+<details><summary><code>client.flows.vault.connections.<a href="src/auth0.management/flows/vault/connections/client.py">update</a>(...) -> UpdateFlowsVaultConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23683,8 +23683,9 @@ client.flows.vault.connections.delete(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.flows.vault.connections.update(
     id="id",
 )
@@ -23740,7 +23741,7 @@ client.flows.vault.connections.update(
 </details>
 
 ## Groups Members
-<details><summary><code>client.groups.members.<a href="src/auth0/management/groups/members/client.py">get</a>(...) -&gt; AsyncPager[GroupMember, GetGroupMembersResponseContent]</code></summary>
+<details><summary><code>client.groups.members.<a href="src/auth0.management/groups/members/client.py">get</a>(...) -> GetGroupMembersResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23770,20 +23771,16 @@ List all users that are a member of this group.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.groups.members.get(
+
+client.groups.members.get(
     id="id",
     fields="fields",
     include_fields=True,
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -23823,7 +23820,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -23852,7 +23849,7 @@ for page in response.iter_pages():
 </details>
 
 ## Guardian Enrollments
-<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">create_ticket</a>(...) -&gt; AsyncHttpResponse[CreateGuardianEnrollmentTicketResponseContent]</code></summary>
+<details><summary><code>client.guardian.enrollments.<a href="src/auth0.management/guardian/enrollments/client.py">create_ticket</a>(...) -> CreateGuardianEnrollmentTicketResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23885,8 +23882,9 @@ Note: Users cannot enroll in Email as a factor through custom enrollment tickets
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.enrollments.create_ticket(
     user_id="user_id",
 )
@@ -23965,7 +23963,7 @@ client.guardian.enrollments.create_ticket(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetGuardianEnrollmentResponseContent]</code></summary>
+<details><summary><code>client.guardian.enrollments.<a href="src/auth0.management/guardian/enrollments/client.py">get</a>(...) -> GetGuardianEnrollmentResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -23995,8 +23993,9 @@ Retrieve details, such as status and type, for a specific multi-factor authentic
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.enrollments.get(
     id="id",
 )
@@ -24035,7 +24034,7 @@ client.guardian.enrollments.get(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.enrollments.<a href="src/auth0/management/guardian/enrollments/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.guardian.enrollments.<a href="src/auth0.management/guardian/enrollments/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -24065,8 +24064,9 @@ Remove a specific multi-factor authentication (MFA) enrollment from a user's acc
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.enrollments.delete(
     id="id",
 )
@@ -24106,7 +24106,7 @@ client.guardian.enrollments.delete(
 </details>
 
 ## Guardian Factors
-<details><summary><code>client.guardian.factors.<a href="src/auth0/management/guardian/factors/client.py">list</a>() -&gt; AsyncHttpResponse[typing.List[GuardianFactor]]</code></summary>
+<details><summary><code>client.guardian.factors.<a href="src/auth0.management/guardian/factors/client.py">list</a>() -> typing.List[GuardianFactor]</code></summary>
 <dl>
 <dd>
 
@@ -24136,8 +24136,9 @@ Retrieve details of all <a href="https://auth0.com/docs/secure/multi-factor-auth
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.list()
 
 ```
@@ -24166,7 +24167,7 @@ client.guardian.factors.list()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.<a href="src/auth0/management/guardian/factors/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.<a href="src/auth0.management/guardian/factors/client.py">set</a>(...) -> SetGuardianFactorResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24196,8 +24197,9 @@ Update the status (i.e., enabled or disabled) of a specific multi-factor authent
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.set(
     name="push-notification",
     enabled=True,
@@ -24246,7 +24248,7 @@ client.guardian.factors.set(
 </details>
 
 ## Guardian Policies
-<details><summary><code>client.guardian.policies.<a href="src/auth0/management/guardian/policies/client.py">list</a>() -&gt; AsyncHttpResponse[ListGuardianPoliciesResponseContent]</code></summary>
+<details><summary><code>client.guardian.policies.<a href="src/auth0.management/guardian/policies/client.py">list</a>() -> ListGuardianPoliciesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24284,8 +24286,9 @@ The following policies are supported:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.policies.list()
 
 ```
@@ -24314,7 +24317,7 @@ client.guardian.policies.list()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.policies.<a href="src/auth0/management/guardian/policies/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetGuardianPoliciesResponseContent]</code></summary>
+<details><summary><code>client.guardian.policies.<a href="src/auth0.management/guardian/policies/client.py">set</a>(...) -> SetGuardianPoliciesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24352,10 +24355,13 @@ The following policies are supported:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.policies.set(
-    request=["all-applications"],
+    request=[
+        "all-applications"
+    ],
 )
 
 ```
@@ -24393,7 +24399,7 @@ client.guardian.policies.set(
 </details>
 
 ## Guardian Factors Phone
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_message_types</a>() -&gt; AsyncHttpResponse[GetGuardianFactorPhoneMessageTypesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">get_message_types</a>() -> GetGuardianFactorPhoneMessageTypesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24423,8 +24429,9 @@ Retrieve list of <a href="https://auth0.com/docs/secure/multi-factor-authenticat
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.phone.get_message_types()
 
 ```
@@ -24453,7 +24460,7 @@ client.guardian.factors.phone.get_message_types()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_message_types</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorPhoneMessageTypesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">set_message_types</a>(...) -> SetGuardianFactorPhoneMessageTypesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24483,10 +24490,13 @@ Replace the list of <a href="https://auth0.com/docs/secure/multi-factor-authenti
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.phone.set_message_types(
-    message_types=["sms"],
+    message_types=[
+        "sms"
+    ],
 )
 
 ```
@@ -24503,7 +24513,7 @@ client.guardian.factors.phone.set_message_types(
 <dl>
 <dd>
 
-**message_types:** `typing.Sequence[GuardianFactorPhoneFactorMessageTypeEnum]` — The list of phone factors to enable on the tenant. Can include `sms` and `voice`.
+**message_types:** `typing.List[GuardianFactorPhoneFactorMessageTypeEnum]` — The list of phone factors to enable on the tenant. Can include `sms` and `voice`.
     
 </dd>
 </dl>
@@ -24523,7 +24533,7 @@ client.guardian.factors.phone.set_message_types(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_twilio_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderPhoneTwilioResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">get_twilio_provider</a>() -> GetGuardianFactorsProviderPhoneTwilioResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24553,8 +24563,9 @@ Retrieve configuration details for a Twilio phone provider that has been set up 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.phone.get_twilio_provider()
 
 ```
@@ -24583,7 +24594,7 @@ client.guardian.factors.phone.get_twilio_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_twilio_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPhoneTwilioResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">set_twilio_provider</a>(...) -> SetGuardianFactorsProviderPhoneTwilioResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24613,8 +24624,9 @@ Update the configuration of a Twilio phone provider that has been set up in your
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.phone.set_twilio_provider()
 
 ```
@@ -24631,7 +24643,7 @@ client.guardian.factors.phone.set_twilio_provider()
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — From number
+**from:** `typing.Optional[str]` — From number
     
 </dd>
 </dl>
@@ -24675,7 +24687,7 @@ client.guardian.factors.phone.set_twilio_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_selected_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderPhoneResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">get_selected_provider</a>() -> GetGuardianFactorsProviderPhoneResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24705,8 +24717,9 @@ Retrieve details of the multi-factor authentication phone provider configured fo
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.phone.get_selected_provider()
 
 ```
@@ -24735,7 +24748,7 @@ client.guardian.factors.phone.get_selected_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPhoneResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">set_provider</a>(...) -> SetGuardianFactorsProviderPhoneResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24751,8 +24764,9 @@ client.guardian.factors.phone.get_selected_provider()
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.phone.set_provider(
     provider="auth0",
 )
@@ -24791,7 +24805,7 @@ client.guardian.factors.phone.set_provider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">get_templates</a>() -&gt; AsyncHttpResponse[GetGuardianFactorPhoneTemplatesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">get_templates</a>() -> GetGuardianFactorPhoneTemplatesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24821,8 +24835,9 @@ Retrieve details of the multi-factor authentication enrollment and verification 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.phone.get_templates()
 
 ```
@@ -24851,7 +24866,7 @@ client.guardian.factors.phone.get_templates()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.phone.<a href="src/auth0/management/guardian/factors/phone/client.py">set_templates</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorPhoneTemplatesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">set_templates</a>(...) -> SetGuardianFactorPhoneTemplatesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24881,8 +24896,9 @@ Customize the messages sent to complete phone enrollment and verification (subsc
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.phone.set_templates(
     enrollment_message="enrollment_message",
     verification_message="verification_message",
@@ -24931,7 +24947,7 @@ client.guardian.factors.phone.set_templates(
 </details>
 
 ## Guardian Factors PushNotification
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_apns_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderApnsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">get_apns_provider</a>() -> GetGuardianFactorsProviderApnsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -24961,8 +24977,9 @@ Retrieve configuration details for the multi-factor authentication APNS provider
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.get_apns_provider()
 
 ```
@@ -24991,7 +25008,7 @@ client.guardian.factors.push_notification.get_apns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_apns_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">set_apns_provider</a>(...) -> SetGuardianFactorsProviderPushNotificationApnsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25021,8 +25038,9 @@ Overwrite all configuration details of the multi-factor authentication APNS prov
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.set_apns_provider()
 
 ```
@@ -25075,9 +25093,7 @@ client.guardian.factors.push_notification.set_apns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_apns_provider</a>(...) -&gt; AsyncHttpResponse[
-    UpdateGuardianFactorsProviderPushNotificationApnsResponseContent
-]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">update_apns_provider</a>(...) -> UpdateGuardianFactorsProviderPushNotificationApnsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25107,8 +25123,9 @@ Modify configuration details of the multi-factor authentication APNS provider as
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.update_apns_provider()
 
 ```
@@ -25161,7 +25178,7 @@ client.guardian.factors.push_notification.update_apns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_fcm_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationFcmResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">set_fcm_provider</a>(...) -> SetGuardianFactorsProviderPushNotificationFcmResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25191,8 +25208,9 @@ Overwrite all configuration details of the multi-factor authentication FCM provi
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.set_fcm_provider()
 
 ```
@@ -25229,9 +25247,7 @@ client.guardian.factors.push_notification.set_fcm_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_fcm_provider</a>(...) -&gt; AsyncHttpResponse[
-    UpdateGuardianFactorsProviderPushNotificationFcmResponseContent
-]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">update_fcm_provider</a>(...) -> UpdateGuardianFactorsProviderPushNotificationFcmResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25261,8 +25277,9 @@ Modify configuration details of the multi-factor authentication FCM provider ass
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.update_fcm_provider()
 
 ```
@@ -25299,9 +25316,7 @@ client.guardian.factors.push_notification.update_fcm_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_fcmv_1_provider</a>(...) -&gt; AsyncHttpResponse[
-    SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent
-]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">set_fcmv_1_provider</a>(...) -> SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25331,8 +25346,9 @@ Overwrite all configuration details of the multi-factor authentication FCMV1 pro
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.set_fcmv_1_provider()
 
 ```
@@ -25369,9 +25385,7 @@ client.guardian.factors.push_notification.set_fcmv_1_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_fcmv_1_provider</a>(...) -&gt; AsyncHttpResponse[
-    UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent
-]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">update_fcmv_1_provider</a>(...) -> UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25401,8 +25415,9 @@ Modify configuration details of the multi-factor authentication FCMV1 provider a
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.update_fcmv_1_provider()
 
 ```
@@ -25439,7 +25454,7 @@ client.guardian.factors.push_notification.update_fcmv_1_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_sns_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderSnsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">get_sns_provider</a>() -> GetGuardianFactorsProviderSnsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25469,8 +25484,9 @@ Retrieve configuration details for an AWS SNS push notification provider that ha
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.get_sns_provider()
 
 ```
@@ -25499,7 +25515,7 @@ client.guardian.factors.push_notification.get_sns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_sns_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationSnsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">set_sns_provider</a>(...) -> SetGuardianFactorsProviderPushNotificationSnsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25529,8 +25545,9 @@ Configure the <a href="https://auth0.com/docs/multifactor-authentication/develop
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.set_sns_provider()
 
 ```
@@ -25599,9 +25616,7 @@ client.guardian.factors.push_notification.set_sns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">update_sns_provider</a>(...) -&gt; AsyncHttpResponse[
-    UpdateGuardianFactorsProviderPushNotificationSnsResponseContent
-]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">update_sns_provider</a>(...) -> UpdateGuardianFactorsProviderPushNotificationSnsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25631,8 +25646,9 @@ Configure the <a href="https://auth0.com/docs/multifactor-authentication/develop
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.update_sns_provider()
 
 ```
@@ -25701,7 +25717,7 @@ client.guardian.factors.push_notification.update_sns_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">get_selected_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderPushNotificationResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">get_selected_provider</a>() -> GetGuardianFactorsProviderPushNotificationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25731,8 +25747,9 @@ Modify the push notification provider configured for your tenant. For more infor
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.get_selected_provider()
 
 ```
@@ -25761,7 +25778,7 @@ client.guardian.factors.push_notification.get_selected_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0/management/guardian/factors/push_notification/client.py">set_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">set_provider</a>(...) -> SetGuardianFactorsProviderPushNotificationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25791,8 +25808,9 @@ Modify the push notification provider configured for your tenant. For more infor
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.push_notification.set_provider(
     provider="guardian",
 )
@@ -25832,7 +25850,7 @@ client.guardian.factors.push_notification.set_provider(
 </details>
 
 ## Guardian Factors Sms
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_twilio_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderSmsTwilioResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0.management/guardian/factors/sms/client.py">get_twilio_provider</a>() -> GetGuardianFactorsProviderSmsTwilioResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25864,8 +25882,9 @@ Retrieve the <a href="https://auth0.com/docs/multifactor-authentication/twilio-c
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.sms.get_twilio_provider()
 
 ```
@@ -25894,7 +25913,7 @@ client.guardian.factors.sms.get_twilio_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_twilio_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderSmsTwilioResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0.management/guardian/factors/sms/client.py">set_twilio_provider</a>(...) -> SetGuardianFactorsProviderSmsTwilioResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -25926,8 +25945,9 @@ This endpoint has been deprecated. To complete this action, use the <a href="htt
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.sms.set_twilio_provider()
 
 ```
@@ -25944,7 +25964,7 @@ client.guardian.factors.sms.set_twilio_provider()
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — From number
+**from:** `typing.Optional[str]` — From number
     
 </dd>
 </dl>
@@ -25988,7 +26008,7 @@ client.guardian.factors.sms.set_twilio_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_selected_provider</a>() -&gt; AsyncHttpResponse[GetGuardianFactorsProviderSmsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0.management/guardian/factors/sms/client.py">get_selected_provider</a>() -> GetGuardianFactorsProviderSmsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26020,8 +26040,9 @@ This endpoint has been deprecated. To complete this action, use the <a href="htt
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.sms.get_selected_provider()
 
 ```
@@ -26050,7 +26071,7 @@ client.guardian.factors.sms.get_selected_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_provider</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorsProviderSmsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0.management/guardian/factors/sms/client.py">set_provider</a>(...) -> SetGuardianFactorsProviderSmsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26082,8 +26103,9 @@ This endpoint has been deprecated. To complete this action, use the <a href="htt
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.sms.set_provider(
     provider="auth0",
 )
@@ -26122,7 +26144,7 @@ client.guardian.factors.sms.set_provider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">get_templates</a>() -&gt; AsyncHttpResponse[GetGuardianFactorSmsTemplatesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0.management/guardian/factors/sms/client.py">get_templates</a>() -> GetGuardianFactorSmsTemplatesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26154,8 +26176,9 @@ This endpoint has been deprecated. To complete this action, use the <a href="htt
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.sms.get_templates()
 
 ```
@@ -26184,7 +26207,7 @@ client.guardian.factors.sms.get_templates()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0/management/guardian/factors/sms/client.py">set_templates</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorSmsTemplatesResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0.management/guardian/factors/sms/client.py">set_templates</a>(...) -> SetGuardianFactorSmsTemplatesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26216,8 +26239,9 @@ This endpoint has been deprecated. To complete this action, use the <a href="htt
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.sms.set_templates(
     enrollment_message="enrollment_message",
     verification_message="verification_message",
@@ -26266,7 +26290,7 @@ client.guardian.factors.sms.set_templates(
 </details>
 
 ## Guardian Factors Duo Settings
-<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">get</a>() -&gt; AsyncHttpResponse[GetGuardianFactorDuoSettingsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0.management/guardian/factors/duo/settings/client.py">get</a>() -> GetGuardianFactorDuoSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26296,8 +26320,9 @@ Retrieves the DUO account and factor configuration.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.duo.settings.get()
 
 ```
@@ -26326,7 +26351,7 @@ client.guardian.factors.duo.settings.get()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetGuardianFactorDuoSettingsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0.management/guardian/factors/duo/settings/client.py">set</a>(...) -> SetGuardianFactorDuoSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26356,8 +26381,9 @@ Set the DUO account configuration and other properties specific to this factor.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.duo.settings.set()
 
 ```
@@ -26410,7 +26436,7 @@ client.guardian.factors.duo.settings.set()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0/management/guardian/factors/duo/settings/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateGuardianFactorDuoSettingsResponseContent]</code></summary>
+<details><summary><code>client.guardian.factors.duo.settings.<a href="src/auth0.management/guardian/factors/duo/settings/client.py">update</a>(...) -> UpdateGuardianFactorDuoSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26426,8 +26452,9 @@ client.guardian.factors.duo.settings.set()
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.guardian.factors.duo.settings.update()
 
 ```
@@ -26481,7 +26508,7 @@ client.guardian.factors.duo.settings.update()
 </details>
 
 ## Hooks Secrets
-<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetHookSecretResponseContent]</code></summary>
+<details><summary><code>client.hooks.secrets.<a href="src/auth0.management/hooks/secrets/client.py">get</a>(...) -> GetHookSecretResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26511,8 +26538,9 @@ Retrieve a hook's secrets by the ID of the hook.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.hooks.secrets.get(
     id="id",
 )
@@ -26551,7 +26579,7 @@ client.hooks.secrets.get(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">create</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.hooks.secrets.<a href="src/auth0.management/hooks/secrets/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -26581,11 +26609,14 @@ Add one or more secrets to an existing hook. Accepts an object of key-value pair
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.hooks.secrets.create(
     id="id",
-    request={"key": "value"},
+    request={
+        "key": "value"
+    },
 )
 
 ```
@@ -26630,7 +26661,7 @@ client.hooks.secrets.create(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.hooks.secrets.<a href="src/auth0.management/hooks/secrets/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -26660,11 +26691,14 @@ Delete one or more existing secrets for a given hook. Accepts an array of secret
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.hooks.secrets.delete(
     id="id",
-    request=["string"],
+    request=[
+        "string"
+    ],
 )
 
 ```
@@ -26709,7 +26743,7 @@ client.hooks.secrets.delete(
 </dl>
 </details>
 
-<details><summary><code>client.hooks.secrets.<a href="src/auth0/management/hooks/secrets/client.py">update</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.hooks.secrets.<a href="src/auth0.management/hooks/secrets/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -26739,11 +26773,14 @@ Update one or more existing secrets for an existing hook. Accepts an object of k
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.hooks.secrets.update(
     id="id",
-    request={"key": "value"},
+    request={
+        "key": "value"
+    },
 )
 
 ```
@@ -26789,7 +26826,7 @@ client.hooks.secrets.update(
 </details>
 
 ## Jobs UsersExports
-<details><summary><code>client.jobs.users_exports.<a href="src/auth0/management/jobs/users_exports/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateExportUsersResponseContent]</code></summary>
+<details><summary><code>client.jobs.users_exports.<a href="src/auth0.management/jobs/users_exports/client.py">create</a>(...) -> CreateExportUsersResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26819,8 +26856,9 @@ Export all users to a file via a long-running job.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.jobs.users_exports.create()
 
 ```
@@ -26861,7 +26899,7 @@ client.jobs.users_exports.create()
 <dl>
 <dd>
 
-**fields:** `typing.Optional[typing.Sequence[CreateExportUsersFields]]` — List of fields to be included in the CSV. Defaults to a predefined set of fields.
+**fields:** `typing.Optional[typing.List[CreateExportUsersFields]]` — List of fields to be included in the CSV. Defaults to a predefined set of fields.
     
 </dd>
 </dl>
@@ -26882,7 +26920,7 @@ client.jobs.users_exports.create()
 </details>
 
 ## Jobs UsersImports
-<details><summary><code>client.jobs.users_imports.<a href="src/auth0/management/jobs/users_imports/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateImportUsersResponseContent]</code></summary>
+<details><summary><code>client.jobs.users_imports.<a href="src/auth0.management/jobs/users_imports/client.py">create</a>(...) -> CreateImportUsersResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26912,9 +26950,11 @@ Import users from a <a href="https://auth0.com/docs/users/references/bulk-import
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.jobs.users_imports.create(
+    users="example_users",
     connection_id="connection_id",
 )
 
@@ -26932,9 +26972,7 @@ client.jobs.users_imports.create(
 <dl>
 <dd>
 
-**users:** `from __future__ import annotations
-
-core.File` — See core.File for more documentation
+**users:** `core.File` 
     
 </dd>
 </dl>
@@ -26987,7 +27025,7 @@ core.File` — See core.File for more documentation
 </details>
 
 ## Jobs VerificationEmail
-<details><summary><code>client.jobs.verification_email.<a href="src/auth0/management/jobs/verification_email/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateVerificationEmailResponseContent]</code></summary>
+<details><summary><code>client.jobs.verification_email.<a href="src/auth0.management/jobs/verification_email/client.py">create</a>(...) -> CreateVerificationEmailResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27019,8 +27057,9 @@ Note: You must have the `Status` toggle enabled for the verification email templ
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.jobs.verification_email.create(
     user_id="user_id",
 )
@@ -27084,7 +27123,7 @@ client.jobs.verification_email.create(
 </details>
 
 ## Jobs Errors
-<details><summary><code>client.jobs.errors.<a href="src/auth0/management/jobs/errors/client.py">get</a>(...) -&gt; AsyncHttpResponse[ErrorsGetResponse]</code></summary>
+<details><summary><code>client.jobs.errors.<a href="src/auth0.management/jobs/errors/client.py">get</a>(...) -> ErrorsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -27114,8 +27153,9 @@ Retrieve error details of a failed job.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.jobs.errors.get(
     id="id",
 )
@@ -27155,7 +27195,7 @@ client.jobs.errors.get(
 </details>
 
 ## Keys CustomSigning
-<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">get</a>() -&gt; AsyncHttpResponse[GetCustomSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.custom_signing.<a href="src/auth0.management/keys/custom_signing/client.py">get</a>() -> GetCustomSigningKeysResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27185,8 +27225,9 @@ Get entire jwks representation of custom signing keys.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.custom_signing.get()
 
 ```
@@ -27215,7 +27256,7 @@ client.keys.custom_signing.get()
 </dl>
 </details>
 
-<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetCustomSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.custom_signing.<a href="src/auth0.management/keys/custom_signing/client.py">set</a>(...) -> SetCustomSigningKeysResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27245,8 +27286,9 @@ Create or replace entire jwks representation of custom signing keys.
 from auth0 import Auth0, CustomSigningKeyJwk
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.custom_signing.set(
     keys=[
         CustomSigningKeyJwk(
@@ -27269,7 +27311,7 @@ client.keys.custom_signing.set(
 <dl>
 <dd>
 
-**keys:** `typing.Sequence[CustomSigningKeyJwk]` — An array of custom public signing keys.
+**keys:** `typing.List[CustomSigningKeyJwk]` — An array of custom public signing keys.
     
 </dd>
 </dl>
@@ -27289,7 +27331,7 @@ client.keys.custom_signing.set(
 </dl>
 </details>
 
-<details><summary><code>client.keys.custom_signing.<a href="src/auth0/management/keys/custom_signing/client.py">delete</a>() -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.keys.custom_signing.<a href="src/auth0.management/keys/custom_signing/client.py">delete</a>()</code></summary>
 <dl>
 <dd>
 
@@ -27319,8 +27361,9 @@ Delete entire jwks representation of custom signing keys.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.custom_signing.delete()
 
 ```
@@ -27350,7 +27393,7 @@ client.keys.custom_signing.delete()
 </details>
 
 ## Keys Encryption
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">list</a>(...) -&gt; AsyncPager[EncryptionKey, ListEncryptionKeyOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0.management/keys/encryption/client.py">list</a>(...) -> ListEncryptionKeyOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27380,18 +27423,14 @@ Retrieve details of all the encryption keys associated with your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.keys.encryption.list(
+
+client.keys.encryption.list(
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -27443,7 +27482,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateEncryptionKeyResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0.management/keys/encryption/client.py">create</a>(...) -> CreateEncryptionKeyResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27473,8 +27512,9 @@ Create the new, pre-activated encryption key, without the key material.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.encryption.create(
     type="customer-provided-root-key",
 )
@@ -27513,7 +27553,7 @@ client.keys.encryption.create(
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">rekey</a>() -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0.management/keys/encryption/client.py">rekey</a>()</code></summary>
 <dl>
 <dd>
 
@@ -27543,8 +27583,9 @@ Perform rekeying operation on the key hierarchy.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.encryption.rekey()
 
 ```
@@ -27573,7 +27614,7 @@ client.keys.encryption.rekey()
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetEncryptionKeyResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0.management/keys/encryption/client.py">get</a>(...) -> GetEncryptionKeyResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27603,8 +27644,9 @@ Retrieve details of the encryption key with the given ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.encryption.get(
     kid="kid",
 )
@@ -27643,7 +27685,7 @@ client.keys.encryption.get(
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">import_</a>(...) -&gt; AsyncHttpResponse[ImportEncryptionKeyResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0.management/keys/encryption/client.py">import</a>(...) -> ImportEncryptionKeyResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27673,8 +27715,9 @@ Import wrapped key material and activate encryption key.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.encryption.import_(
     kid="kid",
     wrapped_key="wrapped_key",
@@ -27722,7 +27765,7 @@ client.keys.encryption.import_(
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0.management/keys/encryption/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -27752,8 +27795,9 @@ Delete the custom provided encryption key with the given ID and move back to usi
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.encryption.delete(
     kid="kid",
 )
@@ -27792,7 +27836,7 @@ client.keys.encryption.delete(
 </dl>
 </details>
 
-<details><summary><code>client.keys.encryption.<a href="src/auth0/management/keys/encryption/client.py">create_public_wrapping_key</a>(...) -&gt; AsyncHttpResponse[CreateEncryptionKeyPublicWrappingResponseContent]</code></summary>
+<details><summary><code>client.keys.encryption.<a href="src/auth0.management/keys/encryption/client.py">create_public_wrapping_key</a>(...) -> CreateEncryptionKeyPublicWrappingResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27822,8 +27866,9 @@ Create the public wrapping key to wrap your own encryption key material.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.encryption.create_public_wrapping_key(
     kid="kid",
 )
@@ -27863,7 +27908,7 @@ client.keys.encryption.create_public_wrapping_key(
 </details>
 
 ## Keys Signing
-<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">list</a>() -&gt; AsyncHttpResponse[typing.List[SigningKeys]]</code></summary>
+<details><summary><code>client.keys.signing.<a href="src/auth0.management/keys/signing/client.py">list</a>() -> typing.List[SigningKeys]</code></summary>
 <dl>
 <dd>
 
@@ -27893,8 +27938,9 @@ Retrieve details of all the application signing keys associated with your tenant
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.signing.list()
 
 ```
@@ -27923,7 +27969,7 @@ client.keys.signing.list()
 </dl>
 </details>
 
-<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">rotate</a>() -&gt; AsyncHttpResponse[RotateSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.signing.<a href="src/auth0.management/keys/signing/client.py">rotate</a>() -> RotateSigningKeysResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -27953,8 +27999,9 @@ Rotate the application signing key of your tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.signing.rotate()
 
 ```
@@ -27983,7 +28030,7 @@ client.keys.signing.rotate()
 </dl>
 </details>
 
-<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.signing.<a href="src/auth0.management/keys/signing/client.py">get</a>(...) -> GetSigningKeysResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28013,8 +28060,9 @@ Retrieve details of the application signing key with the given ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.signing.get(
     kid="kid",
 )
@@ -28053,7 +28101,7 @@ client.keys.signing.get(
 </dl>
 </details>
 
-<details><summary><code>client.keys.signing.<a href="src/auth0/management/keys/signing/client.py">revoke</a>(...) -&gt; AsyncHttpResponse[RevokedSigningKeysResponseContent]</code></summary>
+<details><summary><code>client.keys.signing.<a href="src/auth0.management/keys/signing/client.py">revoke</a>(...) -> RevokedSigningKeysResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28083,8 +28131,9 @@ Revoke the application signing key with the given ID.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.keys.signing.revoke(
     kid="kid",
 )
@@ -28124,10 +28173,7 @@ client.keys.signing.revoke(
 </details>
 
 ## Organizations ClientGrants
-<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">list</a>(...) -&gt; AsyncPager[
-    OrganizationClientGrant,
-    ListOrganizationClientGrantsOffsetPaginatedResponseContent,
-]</code></summary>
+<details><summary><code>client.organizations.client_grants.<a href="src/auth0.management/organizations/client_grants/client.py">list</a>(...) -> ListOrganizationClientGrantsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28143,9 +28189,10 @@ client.keys.signing.revoke(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.organizations.client_grants.list(
+
+client.organizations.client_grants.list(
     id="id",
     audience="audience",
     client_id="client_id",
@@ -28153,11 +28200,6 @@ response = client.organizations.client_grants.list(
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -28197,7 +28239,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**grant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Optional filter on the ID of the client grant. Must be URL encoded and may be specified multiple times (max 10).<br /><b>e.g.</b> <i>../client-grants?grant_ids=id1&grant_ids=id2</i>
+**grant_ids:** `typing.Optional[typing.Union[typing.Optional[str], typing.Sequence[typing.Optional[str]]]]` — Optional filter on the ID of the client grant. Must be URL encoded and may be specified multiple times (max 10).<br /><b>e.g.</b> <i>../client-grants?grant_ids=id1&grant_ids=id2</i>
     
 </dd>
 </dl>
@@ -28241,7 +28283,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">create</a>(...) -&gt; AsyncHttpResponse[AssociateOrganizationClientGrantResponseContent]</code></summary>
+<details><summary><code>client.organizations.client_grants.<a href="src/auth0.management/organizations/client_grants/client.py">create</a>(...) -> AssociateOrganizationClientGrantResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28257,8 +28299,9 @@ for page in response.iter_pages():
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.client_grants.create(
     id="id",
     grant_id="grant_id",
@@ -28306,7 +28349,7 @@ client.organizations.client_grants.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.client_grants.<a href="src/auth0/management/organizations/client_grants/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.client_grants.<a href="src/auth0.management/organizations/client_grants/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -28322,8 +28365,9 @@ client.organizations.client_grants.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.client_grants.delete(
     id="id",
     grant_id="grant_id",
@@ -28372,10 +28416,7 @@ client.organizations.client_grants.delete(
 </details>
 
 ## Organizations Connections
-<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">list</a>(...) -&gt; AsyncPager[
-    OrganizationAllConnectionPost,
-    ListOrganizationAllConnectionsOffsetPaginatedResponseContent,
-]</code></summary>
+<details><summary><code>client.organizations.connections.<a href="src/auth0.management/organizations/connections/client.py">list</a>(...) -> ListOrganizationAllConnectionsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28391,20 +28432,16 @@ client.organizations.client_grants.delete(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.organizations.connections.list(
+
+client.organizations.connections.list(
     id="id",
     page=1,
     per_page=1,
     include_totals=True,
     is_enabled=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -28472,7 +28509,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateOrganizationAllConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.connections.<a href="src/auth0.management/organizations/connections/client.py">create</a>(...) -> CreateOrganizationAllConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28488,8 +28525,9 @@ for page in response.iter_pages():
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.connections.create(
     id="id",
     connection_id="connection_id",
@@ -28585,7 +28623,7 @@ client.organizations.connections.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationAllConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.connections.<a href="src/auth0.management/organizations/connections/client.py">get</a>(...) -> GetOrganizationAllConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28601,8 +28639,9 @@ client.organizations.connections.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.connections.get(
     id="id",
     connection_id="connection_id",
@@ -28650,7 +28689,7 @@ client.organizations.connections.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.connections.<a href="src/auth0.management/organizations/connections/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -28666,8 +28705,9 @@ client.organizations.connections.get(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.connections.delete(
     id="id",
     connection_id="connection_id",
@@ -28715,7 +28755,7 @@ client.organizations.connections.delete(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateOrganizationAllConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.connections.<a href="src/auth0.management/organizations/connections/client.py">update</a>(...) -> UpdateOrganizationAllConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28731,8 +28771,9 @@ client.organizations.connections.delete(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.connections.update(
     id="id",
     connection_id="connection_id",
@@ -28829,9 +28870,7 @@ client.organizations.connections.update(
 </details>
 
 ## Organizations DiscoveryDomains
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">list</a>(...) -&gt; AsyncPager[
-    OrganizationDiscoveryDomain, ListOrganizationDiscoveryDomainsResponseContent
-]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0.management/organizations/discovery_domains/client.py">list</a>(...) -> ListOrganizationDiscoveryDomainsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28862,18 +28901,14 @@ This endpoint is subject to eventual consistency; newly created, updated, or del
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.organizations.discovery_domains.list(
+
+client.organizations.discovery_domains.list(
     id="id",
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -28897,7 +28932,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -28925,7 +28960,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateOrganizationDiscoveryDomainResponseContent]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0.management/organizations/discovery_domains/client.py">create</a>(...) -> CreateOrganizationDiscoveryDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -28955,8 +28990,9 @@ Create a new discovery domain for an organization.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.discovery_domains.create(
     id="id",
     domain="domain",
@@ -29020,7 +29056,7 @@ client.organizations.discovery_domains.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">get_by_name</a>(...) -&gt; AsyncHttpResponse[GetOrganizationDiscoveryDomainByNameResponseContent]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0.management/organizations/discovery_domains/client.py">get_by_name</a>(...) -> GetOrganizationDiscoveryDomainByNameResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29051,8 +29087,9 @@ This endpoint is subject to eventual consistency; newly created, updated, or del
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.discovery_domains.get_by_name(
     id="id",
     discovery_domain="discovery_domain",
@@ -29100,7 +29137,7 @@ client.organizations.discovery_domains.get_by_name(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationDiscoveryDomainResponseContent]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0.management/organizations/discovery_domains/client.py">get</a>(...) -> GetOrganizationDiscoveryDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29131,8 +29168,9 @@ This endpoint is subject to eventual consistency; newly created, updated, or del
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.discovery_domains.get(
     id="id",
     discovery_domain_id="discovery_domain_id",
@@ -29180,7 +29218,7 @@ client.organizations.discovery_domains.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0.management/organizations/discovery_domains/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -29210,8 +29248,9 @@ Remove a discovery domain from an organization. This action cannot be undone.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.discovery_domains.delete(
     id="id",
     discovery_domain_id="discovery_domain_id",
@@ -29259,7 +29298,7 @@ client.organizations.discovery_domains.delete(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0/management/organizations/discovery_domains/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateOrganizationDiscoveryDomainResponseContent]</code></summary>
+<details><summary><code>client.organizations.discovery_domains.<a href="src/auth0.management/organizations/discovery_domains/client.py">update</a>(...) -> UpdateOrganizationDiscoveryDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29289,8 +29328,9 @@ Update the verification status and/or use_for_organization_discovery for an orga
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.discovery_domains.update(
     id="id",
     discovery_domain_id="discovery_domain_id",
@@ -29355,10 +29395,7 @@ client.organizations.discovery_domains.update(
 </details>
 
 ## Organizations EnabledConnections
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">list</a>(...) -&gt; AsyncPager[
-    OrganizationConnection,
-    ListOrganizationConnectionsOffsetPaginatedResponseContent,
-]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0.management/organizations/enabled_connections/client.py">list</a>(...) -> ListOrganizationConnectionsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29388,19 +29425,15 @@ Retrieve details about a specific connection currently enabled for an Organizati
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.organizations.enabled_connections.list(
+
+client.organizations.enabled_connections.list(
     id="id",
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -29460,7 +29493,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">add</a>(...) -&gt; AsyncHttpResponse[AddOrganizationConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0.management/organizations/enabled_connections/client.py">add</a>(...) -> AddOrganizationConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29492,8 +29525,9 @@ Enable a specific connection for a given Organization. To enable a connection, i
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.enabled_connections.add(
     id="id",
     connection_id="connection_id",
@@ -29565,7 +29599,7 @@ client.organizations.enabled_connections.add(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0.management/organizations/enabled_connections/client.py">get</a>(...) -> GetOrganizationConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29595,8 +29629,9 @@ Retrieve details about a specific connection currently enabled for an Organizati
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.enabled_connections.get(
     id="id",
     connection_id="connectionId",
@@ -29644,7 +29679,7 @@ client.organizations.enabled_connections.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0.management/organizations/enabled_connections/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -29676,8 +29711,9 @@ Disable a specific connection for an Organization. Once disabled, Organization m
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.enabled_connections.delete(
     id="id",
     connection_id="connectionId",
@@ -29725,7 +29761,7 @@ client.organizations.enabled_connections.delete(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0/management/organizations/enabled_connections/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateOrganizationConnectionResponseContent]</code></summary>
+<details><summary><code>client.organizations.enabled_connections.<a href="src/auth0.management/organizations/enabled_connections/client.py">update</a>(...) -> UpdateOrganizationConnectionResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29755,8 +29791,9 @@ Modify the details of a specific connection currently enabled for an Organizatio
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.enabled_connections.update(
     id="id",
     connection_id="connectionId",
@@ -29829,10 +29866,7 @@ client.organizations.enabled_connections.update(
 </details>
 
 ## Organizations Invitations
-<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">list</a>(...) -&gt; AsyncPager[
-    OrganizationInvitation,
-    ListOrganizationInvitationsOffsetPaginatedResponseContent,
-]</code></summary>
+<details><summary><code>client.organizations.invitations.<a href="src/auth0.management/organizations/invitations/client.py">list</a>(...) -> ListOrganizationInvitationsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29862,9 +29896,10 @@ Retrieve a detailed list of invitations sent to users for a specific Organizatio
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.organizations.invitations.list(
+
+client.organizations.invitations.list(
     id="id",
     page=1,
     per_page=1,
@@ -29873,11 +29908,6 @@ response = client.organizations.invitations.list(
     include_fields=True,
     sort="sort",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -29961,7 +29991,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateOrganizationInvitationResponseContent]</code></summary>
+<details><summary><code>client.organizations.invitations.<a href="src/auth0.management/organizations/invitations/client.py">create</a>(...) -> CreateOrganizationInvitationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -29988,15 +30018,12 @@ Create a user invitation for a specific Organization. Upon creation, the listed 
 <dd>
 
 ```python
-from auth0 import (
-    Auth0,
-    OrganizationInvitationInvitee,
-    OrganizationInvitationInviter,
-)
+from auth0 import Auth0, OrganizationInvitationInviter, OrganizationInvitationInvitee
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.invitations.create(
     id="id",
     inviter=OrganizationInvitationInviter(
@@ -30086,7 +30113,7 @@ client.organizations.invitations.create(
 <dl>
 <dd>
 
-**roles:** `typing.Optional[typing.Sequence[str]]` — List of roles IDs to associated with the user.
+**roles:** `typing.Optional[typing.List[str]]` — List of roles IDs to associated with the user.
     
 </dd>
 </dl>
@@ -30114,7 +30141,7 @@ client.organizations.invitations.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationInvitationResponseContent]</code></summary>
+<details><summary><code>client.organizations.invitations.<a href="src/auth0.management/organizations/invitations/client.py">get</a>(...) -> GetOrganizationInvitationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -30130,8 +30157,9 @@ client.organizations.invitations.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.invitations.get(
     id="id",
     invitation_id="invitation_id",
@@ -30197,7 +30225,7 @@ client.organizations.invitations.get(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.invitations.<a href="src/auth0/management/organizations/invitations/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.invitations.<a href="src/auth0.management/organizations/invitations/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -30213,8 +30241,9 @@ client.organizations.invitations.get(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.invitations.delete(
     id="id",
     invitation_id="invitation_id",
@@ -30263,7 +30292,7 @@ client.organizations.invitations.delete(
 </details>
 
 ## Organizations Members
-<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">list</a>(...) -&gt; AsyncPager[OrganizationMember, ListOrganizationMembersPaginatedResponseContent]</code></summary>
+<details><summary><code>client.organizations.members.<a href="src/auth0.management/organizations/members/client.py">list</a>(...) -> ListOrganizationMembersPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -30314,20 +30343,16 @@ To search by checkpoint, use the following parameters: - from: Optional id from 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.organizations.members.list(
+
+client.organizations.members.list(
     id="id",
     from_="from",
     take=1,
     fields="fields",
     include_fields=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -30351,7 +30376,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -30395,7 +30420,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">create</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.members.<a href="src/auth0.management/organizations/members/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -30427,11 +30452,14 @@ To add a user to an Organization through this action, the user must already exis
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.members.create(
     id="id",
-    members=["members"],
+    members=[
+        "members"
+    ],
 )
 
 ```
@@ -30456,7 +30484,7 @@ client.organizations.members.create(
 <dl>
 <dd>
 
-**members:** `typing.Sequence[str]` — List of user IDs to add to the organization as members.
+**members:** `typing.List[str]` — List of user IDs to add to the organization as members.
     
 </dd>
 </dl>
@@ -30476,7 +30504,7 @@ client.organizations.members.create(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.members.<a href="src/auth0/management/organizations/members/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.members.<a href="src/auth0.management/organizations/members/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -30492,11 +30520,14 @@ client.organizations.members.create(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.members.delete(
     id="id",
-    members=["members"],
+    members=[
+        "members"
+    ],
 )
 
 ```
@@ -30521,7 +30552,7 @@ client.organizations.members.delete(
 <dl>
 <dd>
 
-**members:** `typing.Sequence[str]` — List of user IDs to remove from the organization.
+**members:** `typing.List[str]` — List of user IDs to remove from the organization.
     
 </dd>
 </dl>
@@ -30542,7 +30573,7 @@ client.organizations.members.delete(
 </details>
 
 ## Organizations Members Roles
-<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">list</a>(...) -&gt; AsyncPager[Role, ListOrganizationMemberRolesOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.organizations.members.roles.<a href="src/auth0.management/organizations/members/roles/client.py">list</a>(...) -> ListOrganizationMemberRolesOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -30574,20 +30605,16 @@ Users can be members of multiple Organizations with unique roles assigned for ea
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.organizations.members.roles.list(
+
+client.organizations.members.roles.list(
     id="id",
     user_id="user_id",
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -30655,7 +30682,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">assign</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.members.roles.<a href="src/auth0.management/organizations/members/roles/client.py">assign</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -30687,12 +30714,15 @@ Users can be members of multiple Organizations with unique roles assigned for ea
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.members.roles.assign(
     id="id",
     user_id="user_id",
-    roles=["roles"],
+    roles=[
+        "roles"
+    ],
 )
 
 ```
@@ -30725,7 +30755,7 @@ client.organizations.members.roles.assign(
 <dl>
 <dd>
 
-**roles:** `typing.Sequence[str]` — List of roles IDs to associated with the user.
+**roles:** `typing.List[str]` — List of roles IDs to associated with the user.
     
 </dd>
 </dl>
@@ -30745,7 +30775,7 @@ client.organizations.members.roles.assign(
 </dl>
 </details>
 
-<details><summary><code>client.organizations.members.roles.<a href="src/auth0/management/organizations/members/roles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.organizations.members.roles.<a href="src/auth0.management/organizations/members/roles/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -30777,12 +30807,15 @@ Users can be members of multiple Organizations with unique roles assigned for ea
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.organizations.members.roles.delete(
     id="id",
     user_id="user_id",
-    roles=["roles"],
+    roles=[
+        "roles"
+    ],
 )
 
 ```
@@ -30815,7 +30848,7 @@ client.organizations.members.roles.delete(
 <dl>
 <dd>
 
-**roles:** `typing.Sequence[str]` — List of roles IDs associated with the organization member to remove.
+**roles:** `typing.List[str]` — List of roles IDs associated with the organization member to remove.
     
 </dd>
 </dl>
@@ -30836,9 +30869,7 @@ client.organizations.members.roles.delete(
 </details>
 
 ## Prompts Rendering
-<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">list</a>(...) -&gt; AsyncPager[
-    ListAculsResponseContentItem, ListAculsOffsetPaginatedResponseContent
-]</code></summary>
+<details><summary><code>client.prompts.rendering.<a href="src/auth0.management/prompts/rendering/client.py">list</a>(...) -> ListAculsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -30868,9 +30899,10 @@ Get render setting configurations for all screens.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.prompts.rendering.list(
+
+client.prompts.rendering.list(
     fields="fields",
     include_fields=True,
     page=1,
@@ -30880,11 +30912,6 @@ response = client.prompts.rendering.list(
     screen="screen",
     rendering_mode="advanced",
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -30976,7 +31003,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">bulk_update</a>(...) -&gt; AsyncHttpResponse[BulkUpdateAculResponseContent]</code></summary>
+<details><summary><code>client.prompts.rendering.<a href="src/auth0.management/prompts/rendering/client.py">bulk_update</a>(...) -> BulkUpdateAculResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31003,11 +31030,12 @@ Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-
 <dd>
 
 ```python
-from auth0 import AculConfigsItem, Auth0
+from auth0 import Auth0, AculConfigsItem
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.rendering.bulk_update(
     configs=[
         AculConfigsItem(
@@ -31051,7 +31079,7 @@ client.prompts.rendering.bulk_update(
 </dl>
 </details>
 
-<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetAculResponseContent]</code></summary>
+<details><summary><code>client.prompts.rendering.<a href="src/auth0.management/prompts/rendering/client.py">get</a>(...) -> GetAculResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31081,8 +31109,9 @@ Get render settings for a screen.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.rendering.get(
     prompt="login",
     screen="login",
@@ -31130,7 +31159,7 @@ client.prompts.rendering.get(
 </dl>
 </details>
 
-<details><summary><code>client.prompts.rendering.<a href="src/auth0/management/prompts/rendering/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateAculResponseContent]</code></summary>
+<details><summary><code>client.prompts.rendering.<a href="src/auth0.management/prompts/rendering/client.py">update</a>(...) -> UpdateAculResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31160,8 +31189,9 @@ Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.rendering.update(
     prompt="login",
     screen="login",
@@ -31229,7 +31259,7 @@ client.prompts.rendering.update(
 <dl>
 <dd>
 
-**head_tags:** `typing.Optional[typing.Sequence[AculHeadTag]]` — An array of head tags
+**head_tags:** `typing.Optional[typing.List[AculHeadTag]]` — An array of head tags
     
 </dd>
 </dl>
@@ -31258,7 +31288,7 @@ client.prompts.rendering.update(
 </details>
 
 ## Prompts CustomText
-<details><summary><code>client.prompts.custom_text.<a href="src/auth0/management/prompts/custom_text/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetCustomTextsByLanguageResponseContent]</code></summary>
+<details><summary><code>client.prompts.custom_text.<a href="src/auth0.management/prompts/custom_text/client.py">get</a>(...) -> GetCustomTextsByLanguageResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31288,8 +31318,9 @@ Retrieve custom text for a specific prompt and language.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.custom_text.get(
     prompt="login",
     language="am",
@@ -31337,7 +31368,7 @@ client.prompts.custom_text.get(
 </dl>
 </details>
 
-<details><summary><code>client.prompts.custom_text.<a href="src/auth0/management/prompts/custom_text/client.py">set</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.prompts.custom_text.<a href="src/auth0.management/prompts/custom_text/client.py">set</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -31367,12 +31398,15 @@ Set custom text for a specific prompt. Existing texts will be overwritten.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.custom_text.set(
     prompt="login",
     language="am",
-    request={"key": "value"},
+    request={
+        "key": "value"
+    },
 )
 
 ```
@@ -31426,7 +31460,7 @@ client.prompts.custom_text.set(
 </details>
 
 ## Prompts Partials
-<details><summary><code>client.prompts.partials.<a href="src/auth0/management/prompts/partials/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetPartialsResponseContent]</code></summary>
+<details><summary><code>client.prompts.partials.<a href="src/auth0.management/prompts/partials/client.py">get</a>(...) -> GetPartialsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31456,8 +31490,9 @@ Get template partials for a prompt
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.partials.get(
     prompt="login",
 )
@@ -31496,7 +31531,7 @@ client.prompts.partials.get(
 </dl>
 </details>
 
-<details><summary><code>client.prompts.partials.<a href="src/auth0/management/prompts/partials/client.py">set</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.prompts.partials.<a href="src/auth0.management/prompts/partials/client.py">set</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -31526,11 +31561,14 @@ Set template partials for a prompt
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.prompts.partials.set(
     prompt="login",
-    request={"key": "value"},
+    request={
+        "key": "value"
+    },
 )
 
 ```
@@ -31576,7 +31614,7 @@ client.prompts.partials.set(
 </details>
 
 ## RiskAssessments Settings
-<details><summary><code>client.risk_assessments.settings.<a href="src/auth0/management/risk_assessments/settings/client.py">get</a>() -&gt; AsyncHttpResponse[GetRiskAssessmentsSettingsResponseContent]</code></summary>
+<details><summary><code>client.risk_assessments.settings.<a href="src/auth0.management/risk_assessments/settings/client.py">get</a>() -> GetRiskAssessmentsSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31606,8 +31644,9 @@ Gets the tenant settings for risk assessments
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.risk_assessments.settings.get()
 
 ```
@@ -31636,7 +31675,7 @@ client.risk_assessments.settings.get()
 </dl>
 </details>
 
-<details><summary><code>client.risk_assessments.settings.<a href="src/auth0/management/risk_assessments/settings/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRiskAssessmentsSettingsResponseContent]</code></summary>
+<details><summary><code>client.risk_assessments.settings.<a href="src/auth0.management/risk_assessments/settings/client.py">update</a>(...) -> UpdateRiskAssessmentsSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31666,8 +31705,9 @@ Updates the tenant settings for risk assessments
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.risk_assessments.settings.update(
     enabled=True,
 )
@@ -31707,7 +31747,7 @@ client.risk_assessments.settings.update(
 </details>
 
 ## RiskAssessments Settings NewDevice
-<details><summary><code>client.risk_assessments.settings.new_device.<a href="src/auth0/management/risk_assessments/settings/new_device/client.py">get</a>() -&gt; AsyncHttpResponse[GetRiskAssessmentsSettingsNewDeviceResponseContent]</code></summary>
+<details><summary><code>client.risk_assessments.settings.new_device.<a href="src/auth0.management/risk_assessments/settings/new_device/client.py">get</a>() -> GetRiskAssessmentsSettingsNewDeviceResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31737,8 +31777,9 @@ Gets the risk assessment settings for the new device assessor
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.risk_assessments.settings.new_device.get()
 
 ```
@@ -31767,7 +31808,7 @@ client.risk_assessments.settings.new_device.get()
 </dl>
 </details>
 
-<details><summary><code>client.risk_assessments.settings.new_device.<a href="src/auth0/management/risk_assessments/settings/new_device/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateRiskAssessmentsSettingsNewDeviceResponseContent]</code></summary>
+<details><summary><code>client.risk_assessments.settings.new_device.<a href="src/auth0.management/risk_assessments/settings/new_device/client.py">update</a>(...) -> UpdateRiskAssessmentsSettingsNewDeviceResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31797,8 +31838,9 @@ Updates the risk assessment settings for the new device assessor
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.risk_assessments.settings.new_device.update(
     remember_for=1,
 )
@@ -31838,10 +31880,7 @@ client.risk_assessments.settings.new_device.update(
 </details>
 
 ## Roles Permissions
-<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">list</a>(...) -&gt; AsyncPager[
-    PermissionsResponsePayload,
-    ListRolePermissionsOffsetPaginatedResponseContent,
-]</code></summary>
+<details><summary><code>client.roles.permissions.<a href="src/auth0.management/roles/permissions/client.py">list</a>(...) -> ListRolePermissionsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -31871,19 +31910,15 @@ Retrieve detailed list (name, description, resource server) of permissions grant
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.roles.permissions.list(
+
+client.roles.permissions.list(
     id="id",
     per_page=1,
     page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -31943,7 +31978,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">add</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.roles.permissions.<a href="src/auth0.management/roles/permissions/client.py">add</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -31973,8 +32008,9 @@ Add one or more <a href="https://auth0.com/docs/manage-users/access-control/conf
 from auth0 import Auth0, PermissionRequestPayload
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.roles.permissions.add(
     id="id",
     permissions=[
@@ -32007,7 +32043,7 @@ client.roles.permissions.add(
 <dl>
 <dd>
 
-**permissions:** `typing.Sequence[PermissionRequestPayload]` — array of resource_server_identifier, permission_name pairs.
+**permissions:** `typing.List[PermissionRequestPayload]` — array of resource_server_identifier, permission_name pairs.
     
 </dd>
 </dl>
@@ -32027,7 +32063,7 @@ client.roles.permissions.add(
 </dl>
 </details>
 
-<details><summary><code>client.roles.permissions.<a href="src/auth0/management/roles/permissions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.roles.permissions.<a href="src/auth0.management/roles/permissions/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -32057,8 +32093,9 @@ Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/c
 from auth0 import Auth0, PermissionRequestPayload
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.roles.permissions.delete(
     id="id",
     permissions=[
@@ -32091,7 +32128,7 @@ client.roles.permissions.delete(
 <dl>
 <dd>
 
-**permissions:** `typing.Sequence[PermissionRequestPayload]` — array of resource_server_identifier, permission_name pairs.
+**permissions:** `typing.List[PermissionRequestPayload]` — array of resource_server_identifier, permission_name pairs.
     
 </dd>
 </dl>
@@ -32112,7 +32149,7 @@ client.roles.permissions.delete(
 </details>
 
 ## Roles Users
-<details><summary><code>client.roles.users.<a href="src/auth0/management/roles/users/client.py">list</a>(...) -&gt; AsyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]</code></summary>
+<details><summary><code>client.roles.users.<a href="src/auth0.management/roles/users/client.py">list</a>(...) -> ListRoleUsersPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -32160,18 +32197,14 @@ To search by checkpoint, use the following parameters:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.roles.users.list(
+
+client.roles.users.list(
     id="id",
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -32195,7 +32228,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -32223,7 +32256,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.roles.users.<a href="src/auth0/management/roles/users/client.py">assign</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.roles.users.<a href="src/auth0.management/roles/users/client.py">assign</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -32255,11 +32288,14 @@ Assign one or more users to an existing user role. To learn more, review <a href
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.roles.users.assign(
     id="id",
-    users=["users"],
+    users=[
+        "users"
+    ],
 )
 
 ```
@@ -32284,7 +32320,7 @@ client.roles.users.assign(
 <dl>
 <dd>
 
-**users:** `typing.Sequence[str]` — user_id's of the users to assign the role to.
+**users:** `typing.List[str]` — user_id's of the users to assign the role to.
     
 </dd>
 </dl>
@@ -32305,7 +32341,7 @@ client.roles.users.assign(
 </details>
 
 ## SelfServiceProfiles CustomText
-<details><summary><code>client.self_service_profiles.custom_text.<a href="src/auth0/management/self_service_profiles/custom_text/client.py">list</a>(...) -&gt; AsyncHttpResponse[ListSelfServiceProfileCustomTextResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.custom_text.<a href="src/auth0.management/self_service_profiles/custom_text/client.py">list</a>(...) -> ListSelfServiceProfileCustomTextResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -32335,8 +32371,9 @@ Retrieves text customizations for a given self-service profile, language and Sel
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.self_service_profiles.custom_text.list(
     id="id",
     language="en",
@@ -32393,7 +32430,7 @@ client.self_service_profiles.custom_text.list(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.custom_text.<a href="src/auth0/management/self_service_profiles/custom_text/client.py">set</a>(...) -&gt; AsyncHttpResponse[SetSelfServiceProfileCustomTextResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.custom_text.<a href="src/auth0.management/self_service_profiles/custom_text/client.py">set</a>(...) -> SetSelfServiceProfileCustomTextResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -32423,13 +32460,16 @@ Updates text customizations for a given self-service profile, language and Self 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.self_service_profiles.custom_text.set(
     id="id",
     language="en",
     page="get-started",
-    request={"key": "value"},
+    request={
+        "key": "value"
+    },
 )
 
 ```
@@ -32491,7 +32531,7 @@ client.self_service_profiles.custom_text.set(
 </details>
 
 ## SelfServiceProfiles SsoTicket
-<details><summary><code>client.self_service_profiles.sso_ticket.<a href="src/auth0/management/self_service_profiles/sso_ticket/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]</code></summary>
+<details><summary><code>client.self_service_profiles.sso_ticket.<a href="src/auth0.management/self_service_profiles/sso_ticket/client.py">create</a>(...) -> CreateSelfServiceProfileSsoTicketResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -32521,8 +32561,9 @@ Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.self_service_profiles.sso_ticket.create(
     id="id",
 )
@@ -32565,7 +32606,7 @@ client.self_service_profiles.sso_ticket.create(
 <dl>
 <dd>
 
-**enabled_clients:** `typing.Optional[typing.Sequence[str]]` — List of client_ids that the connection will be enabled for.
+**enabled_clients:** `typing.Optional[typing.List[str]]` — List of client_ids that the connection will be enabled for.
     
 </dd>
 </dl>
@@ -32573,7 +32614,7 @@ client.self_service_profiles.sso_ticket.create(
 <dl>
 <dd>
 
-**enabled_organizations:** `typing.Optional[typing.Sequence[SelfServiceProfileSsoTicketEnabledOrganization]]` — List of organizations that the connection will be enabled for.
+**enabled_organizations:** `typing.Optional[typing.List[SelfServiceProfileSsoTicketEnabledOrganization]]` — List of organizations that the connection will be enabled for.
     
 </dd>
 </dl>
@@ -32625,7 +32666,7 @@ client.self_service_profiles.sso_ticket.create(
 </dl>
 </details>
 
-<details><summary><code>client.self_service_profiles.sso_ticket.<a href="src/auth0/management/self_service_profiles/sso_ticket/client.py">revoke</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.self_service_profiles.sso_ticket.<a href="src/auth0.management/self_service_profiles/sso_ticket/client.py">revoke</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -32656,8 +32697,9 @@ Clients should treat these `202` responses as an acknowledgment that the request
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.self_service_profiles.sso_ticket.revoke(
     profile_id="profileId",
     id="id",
@@ -32706,7 +32748,7 @@ client.self_service_profiles.sso_ticket.revoke(
 </details>
 
 ## Tenants Settings
-<details><summary><code>client.tenants.settings.<a href="src/auth0/management/tenants/settings/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetTenantSettingsResponseContent]</code></summary>
+<details><summary><code>client.tenants.settings.<a href="src/auth0.management/tenants/settings/client.py">get</a>(...) -> GetTenantSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -32736,8 +32778,9 @@ Retrieve tenant settings. A list of fields to include or exclude may also be spe
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.tenants.settings.get(
     fields="fields",
     include_fields=True,
@@ -32785,7 +32828,7 @@ client.tenants.settings.get(
 </dl>
 </details>
 
-<details><summary><code>client.tenants.settings.<a href="src/auth0/management/tenants/settings/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateTenantSettingsResponseContent]</code></summary>
+<details><summary><code>client.tenants.settings.<a href="src/auth0.management/tenants/settings/client.py">update</a>(...) -> UpdateTenantSettingsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -32815,8 +32858,9 @@ Update settings for a tenant.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.tenants.settings.update()
 
 ```
@@ -32929,7 +32973,7 @@ client.tenants.settings.update()
 <dl>
 <dd>
 
-**allowed_logout_urls:** `typing.Optional[typing.Sequence[str]]` — URLs that are valid to redirect to after logout from Auth0.
+**allowed_logout_urls:** `typing.Optional[typing.List[str]]` — URLs that are valid to redirect to after logout from Auth0.
     
 </dd>
 </dl>
@@ -32993,7 +33037,7 @@ client.tenants.settings.update()
 <dl>
 <dd>
 
-**enabled_locales:** `typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]` — Supported locales for the user interface
+**enabled_locales:** `typing.Optional[typing.List[TenantSettingsSupportedLocalesEnum]]` — Supported locales for the user interface
     
 </dd>
 </dl>
@@ -33041,7 +33085,7 @@ client.tenants.settings.update()
 <dl>
 <dd>
 
-**acr_values_supported:** `typing.Optional[typing.Sequence[str]]` — Supported ACR values
+**acr_values_supported:** `typing.Optional[typing.List[str]]` — Supported ACR values
     
 </dd>
 </dl>
@@ -33122,10 +33166,7 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 </details>
 
 ## Users AuthenticationMethods
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">list</a>(...) -&gt; AsyncPager[
-    UserAuthenticationMethod,
-    ListUserAuthenticationMethodsOffsetPaginatedResponseContent,
-]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0.management/users/authentication_methods/client.py">list</a>(...) -> ListUserAuthenticationMethodsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -33155,19 +33196,15 @@ Retrieve detailed list of authentication methods associated with a specified use
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.authentication_methods.list(
+
+client.users.authentication_methods.list(
     id="id",
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -33227,7 +33264,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateUserAuthenticationMethodResponseContent]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0.management/users/authentication_methods/client.py">create</a>(...) -> CreateUserAuthenticationMethodResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -33257,8 +33294,9 @@ Create an authentication method. Authentication methods created via this endpoin
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.authentication_methods.create(
     id="id",
     type="phone",
@@ -33370,7 +33408,7 @@ client.users.authentication_methods.create(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">set</a>(...) -&gt; AsyncHttpResponse[typing.List[SetUserAuthenticationMethodResponseContent]]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0.management/users/authentication_methods/client.py">set</a>(...) -> typing.List[SetUserAuthenticationMethodResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -33402,8 +33440,9 @@ Replace the specified user <a href="https://auth0.com/docs/secure/multi-factor-a
 from auth0 import Auth0, SetUserAuthenticationMethods
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.authentication_methods.set(
     id="id",
     request=[
@@ -33455,7 +33494,7 @@ client.users.authentication_methods.set(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">delete_all</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0.management/users/authentication_methods/client.py">delete_all</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -33485,8 +33524,9 @@ Remove all authentication methods (i.e., enrolled MFA factors) from the specifie
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.authentication_methods.delete_all(
     id="id",
 )
@@ -33525,7 +33565,7 @@ client.users.authentication_methods.delete_all(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetUserAuthenticationMethodResponseContent]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0.management/users/authentication_methods/client.py">get</a>(...) -> GetUserAuthenticationMethodResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -33541,8 +33581,9 @@ client.users.authentication_methods.delete_all(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.authentication_methods.get(
     id="id",
     authentication_method_id="authentication_method_id",
@@ -33590,7 +33631,7 @@ client.users.authentication_methods.get(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0.management/users/authentication_methods/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -33620,8 +33661,9 @@ Remove the authentication method with the given ID from the specified user. For 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.authentication_methods.delete(
     id="id",
     authentication_method_id="authentication_method_id",
@@ -33669,7 +33711,7 @@ client.users.authentication_methods.delete(
 </dl>
 </details>
 
-<details><summary><code>client.users.authentication_methods.<a href="src/auth0/management/users/authentication_methods/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateUserAuthenticationMethodResponseContent]</code></summary>
+<details><summary><code>client.users.authentication_methods.<a href="src/auth0.management/users/authentication_methods/client.py">update</a>(...) -> UpdateUserAuthenticationMethodResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -33699,8 +33741,9 @@ Modify the authentication method with the given ID from the specified user. For 
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.authentication_methods.update(
     id="id",
     authentication_method_id="authentication_method_id",
@@ -33765,7 +33808,7 @@ client.users.authentication_methods.update(
 </details>
 
 ## Users Authenticators
-<details><summary><code>client.users.authenticators.<a href="src/auth0/management/users/authenticators/client.py">delete_all</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.authenticators.<a href="src/auth0.management/users/authenticators/client.py">delete_all</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -33795,8 +33838,9 @@ Remove all authenticators registered to a given user ID, such as OTP, email, pho
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.authenticators.delete_all(
     id="id",
 )
@@ -33836,7 +33880,7 @@ client.users.authenticators.delete_all(
 </details>
 
 ## Users ConnectedAccounts
-<details><summary><code>client.users.connected_accounts.<a href="src/auth0/management/users/connected_accounts/client.py">list</a>(...) -&gt; AsyncPager[ConnectedAccount, ListUserConnectedAccountsResponseContent]</code></summary>
+<details><summary><code>client.users.connected_accounts.<a href="src/auth0.management/users/connected_accounts/client.py">list</a>(...) -> ListUserConnectedAccountsResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -33866,18 +33910,14 @@ Retrieve all connected accounts associated with the user.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.connected_accounts.list(
+
+client.users.connected_accounts.list(
     id="id",
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -33901,7 +33941,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -33930,7 +33970,7 @@ for page in response.iter_pages():
 </details>
 
 ## Users Enrollments
-<details><summary><code>client.users.enrollments.<a href="src/auth0/management/users/enrollments/client.py">get</a>(...) -&gt; AsyncHttpResponse[typing.List[UsersEnrollment]]</code></summary>
+<details><summary><code>client.users.enrollments.<a href="src/auth0.management/users/enrollments/client.py">get</a>(...) -> typing.List[UsersEnrollment]</code></summary>
 <dl>
 <dd>
 
@@ -33960,8 +34000,9 @@ Retrieve the first <a href="https://auth0.com/docs/secure/multi-factor-authentic
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.enrollments.get(
     id="id",
 )
@@ -34001,7 +34042,7 @@ client.users.enrollments.get(
 </details>
 
 ## Users FederatedConnectionsTokensets
-<details><summary><code>client.users.federated_connections_tokensets.<a href="src/auth0/management/users/federated_connections_tokensets/client.py">list</a>(...) -&gt; AsyncHttpResponse[typing.List[FederatedConnectionTokenSet]]</code></summary>
+<details><summary><code>client.users.federated_connections_tokensets.<a href="src/auth0.management/users/federated_connections_tokensets/client.py">list</a>(...) -> typing.List[FederatedConnectionTokenSet]</code></summary>
 <dl>
 <dd>
 
@@ -34031,8 +34072,9 @@ List active federated connections tokensets for a provided user
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.federated_connections_tokensets.list(
     id="id",
 )
@@ -34071,7 +34113,7 @@ client.users.federated_connections_tokensets.list(
 </dl>
 </details>
 
-<details><summary><code>client.users.federated_connections_tokensets.<a href="src/auth0/management/users/federated_connections_tokensets/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.federated_connections_tokensets.<a href="src/auth0.management/users/federated_connections_tokensets/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -34087,8 +34129,9 @@ client.users.federated_connections_tokensets.list(
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.federated_connections_tokensets.delete(
     id="id",
     tokenset_id="tokenset_id",
@@ -34137,7 +34180,7 @@ client.users.federated_connections_tokensets.delete(
 </details>
 
 ## Users Groups
-<details><summary><code>client.users.groups.<a href="src/auth0/management/users/groups/client.py">get</a>(...) -&gt; AsyncPager[UserGroupsResponseSchema, GetUserGroupsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.groups.<a href="src/auth0.management/users/groups/client.py">get</a>(...) -> GetUserGroupsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -34167,20 +34210,16 @@ List all groups to which this user belongs.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.groups.get(
+
+client.users.groups.get(
     id="id",
     fields="fields",
     include_fields=True,
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -34220,7 +34259,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -34249,7 +34288,7 @@ for page in response.iter_pages():
 </details>
 
 ## Users Identities
-<details><summary><code>client.users.identities.<a href="src/auth0/management/users/identities/client.py">link</a>(...) -&gt; AsyncHttpResponse[typing.List[UserIdentity]]</code></summary>
+<details><summary><code>client.users.identities.<a href="src/auth0.management/users/identities/client.py">link</a>(...) -> typing.List[UserIdentity]</code></summary>
 <dl>
 <dd>
 
@@ -34306,8 +34345,9 @@ Note: There are two ways of invoking the endpoint:
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.identities.link(
     id="id",
 )
@@ -34378,7 +34418,7 @@ client.users.identities.link(
 </dl>
 </details>
 
-<details><summary><code>client.users.identities.<a href="src/auth0/management/users/identities/client.py">delete</a>(...) -&gt; AsyncHttpResponse[DeleteUserIdentityResponseContent]</code></summary>
+<details><summary><code>client.users.identities.<a href="src/auth0.management/users/identities/client.py">delete</a>(...) -> DeleteUserIdentityResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -34410,8 +34450,9 @@ Unlinking the secondary account removes it from the identities array of the targ
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.identities.delete(
     id="id",
     provider="ad",
@@ -34469,7 +34510,7 @@ client.users.identities.delete(
 </details>
 
 ## Users Logs
-<details><summary><code>client.users.logs.<a href="src/auth0/management/users/logs/client.py">list</a>(...) -&gt; AsyncPager[Log, UserListLogOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.logs.<a href="src/auth0.management/users/logs/client.py">list</a>(...) -> UserListLogOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -34505,20 +34546,16 @@ Auth0 <a href="https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api#li
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.logs.list(
+
+client.users.logs.list(
     id="id",
     page=1,
     per_page=1,
     sort="sort",
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -34587,7 +34624,7 @@ for page in response.iter_pages():
 </details>
 
 ## Users Multifactor
-<details><summary><code>client.users.multifactor.<a href="src/auth0/management/users/multifactor/client.py">invalidate_remember_browser</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.multifactor.<a href="src/auth0.management/users/multifactor/client.py">invalidate_remember_browser</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -34617,8 +34654,9 @@ Invalidate all remembered browsers across all <a href="https://auth0.com/docs/mu
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.multifactor.invalidate_remember_browser(
     id="id",
 )
@@ -34657,7 +34695,7 @@ client.users.multifactor.invalidate_remember_browser(
 </dl>
 </details>
 
-<details><summary><code>client.users.multifactor.<a href="src/auth0/management/users/multifactor/client.py">delete_provider</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.multifactor.<a href="src/auth0.management/users/multifactor/client.py">delete_provider</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -34687,8 +34725,9 @@ Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.multifactor.delete_provider(
     id="id",
     provider="duo",
@@ -34737,7 +34776,7 @@ client.users.multifactor.delete_provider(
 </details>
 
 ## Users Organizations
-<details><summary><code>client.users.organizations.<a href="src/auth0/management/users/organizations/client.py">list</a>(...) -&gt; AsyncPager[Organization, ListUserOrganizationsOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.organizations.<a href="src/auth0.management/users/organizations/client.py">list</a>(...) -> ListUserOrganizationsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -34767,19 +34806,15 @@ Retrieve list of the specified user's current Organization memberships. User mus
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.organizations.list(
+
+client.users.organizations.list(
     id="id",
     page=1,
     per_page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -34840,9 +34875,7 @@ for page in response.iter_pages():
 </details>
 
 ## Users Permissions
-<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">list</a>(...) -&gt; AsyncPager[
-    UserPermissionSchema, ListUserPermissionsOffsetPaginatedResponseContent
-]</code></summary>
+<details><summary><code>client.users.permissions.<a href="src/auth0.management/users/permissions/client.py">list</a>(...) -> ListUserPermissionsOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -34872,19 +34905,15 @@ Retrieve all permissions associated with the user.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.permissions.list(
+
+client.users.permissions.list(
     id="id",
     per_page=1,
     page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -34944,7 +34973,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">create</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.permissions.<a href="src/auth0.management/users/permissions/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -34974,8 +35003,9 @@ Assign permissions to a user.
 from auth0 import Auth0, PermissionRequestPayload
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.permissions.create(
     id="id",
     permissions=[
@@ -35008,7 +35038,7 @@ client.users.permissions.create(
 <dl>
 <dd>
 
-**permissions:** `typing.Sequence[PermissionRequestPayload]` — List of permissions to add to this user.
+**permissions:** `typing.List[PermissionRequestPayload]` — List of permissions to add to this user.
     
 </dd>
 </dl>
@@ -35028,7 +35058,7 @@ client.users.permissions.create(
 </dl>
 </details>
 
-<details><summary><code>client.users.permissions.<a href="src/auth0/management/users/permissions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.permissions.<a href="src/auth0.management/users/permissions/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -35058,8 +35088,9 @@ Remove permissions from a user.
 from auth0 import Auth0, PermissionRequestPayload
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.permissions.delete(
     id="id",
     permissions=[
@@ -35092,7 +35123,7 @@ client.users.permissions.delete(
 <dl>
 <dd>
 
-**permissions:** `typing.Sequence[PermissionRequestPayload]` — List of permissions to remove from this user.
+**permissions:** `typing.List[PermissionRequestPayload]` — List of permissions to remove from this user.
     
 </dd>
 </dl>
@@ -35113,7 +35144,7 @@ client.users.permissions.delete(
 </details>
 
 ## Users RiskAssessments
-<details><summary><code>client.users.risk_assessments.<a href="src/auth0/management/users/risk_assessments/client.py">clear</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.risk_assessments.<a href="src/auth0.management/users/risk_assessments/client.py">clear</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -35143,12 +35174,15 @@ Clear risk assessment assessors for a specific user
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.risk_assessments.clear(
     id="id",
     connection="connection",
-    assessors=["new-device"],
+    assessors=[
+        "new-device"
+    ],
 )
 
 ```
@@ -35181,7 +35215,7 @@ client.users.risk_assessments.clear(
 <dl>
 <dd>
 
-**assessors:** `typing.Sequence[AssessorsTypeEnum]` — List of assessors to clear.
+**assessors:** `typing.List[AssessorsTypeEnum]` — List of assessors to clear.
     
 </dd>
 </dl>
@@ -35202,7 +35236,7 @@ client.users.risk_assessments.clear(
 </details>
 
 ## Users Roles
-<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">list</a>(...) -&gt; AsyncPager[Role, ListUserRolesOffsetPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.roles.<a href="src/auth0.management/users/roles/client.py">list</a>(...) -> ListUserRolesOffsetPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -35234,19 +35268,15 @@ Retrieve detailed list of all user roles currently assigned to a user.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.roles.list(
+
+client.users.roles.list(
     id="id",
     per_page=1,
     page=1,
     include_totals=True,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -35306,7 +35336,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">assign</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.roles.<a href="src/auth0.management/users/roles/client.py">assign</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -35338,11 +35368,14 @@ Assign one or more existing user roles to a user. For more information, review <
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.roles.assign(
     id="id",
-    roles=["roles"],
+    roles=[
+        "roles"
+    ],
 )
 
 ```
@@ -35367,7 +35400,7 @@ client.users.roles.assign(
 <dl>
 <dd>
 
-**roles:** `typing.Sequence[str]` — List of roles IDs to associated with the user.
+**roles:** `typing.List[str]` — List of roles IDs to associated with the user.
     
 </dd>
 </dl>
@@ -35387,7 +35420,7 @@ client.users.roles.assign(
 </dl>
 </details>
 
-<details><summary><code>client.users.roles.<a href="src/auth0/management/users/roles/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.roles.<a href="src/auth0.management/users/roles/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -35419,11 +35452,14 @@ Remove one or more specified user roles assigned to a user.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.roles.delete(
     id="id",
-    roles=["roles"],
+    roles=[
+        "roles"
+    ],
 )
 
 ```
@@ -35448,7 +35484,7 @@ client.users.roles.delete(
 <dl>
 <dd>
 
-**roles:** `typing.Sequence[str]` — List of roles IDs to remove from the user.
+**roles:** `typing.List[str]` — List of roles IDs to remove from the user.
     
 </dd>
 </dl>
@@ -35469,9 +35505,7 @@ client.users.roles.delete(
 </details>
 
 ## Users RefreshToken
-<details><summary><code>client.users.refresh_token.<a href="src/auth0/management/users/refresh_token/client.py">list</a>(...) -&gt; AsyncPager[
-    RefreshTokenResponseContent, ListRefreshTokensPaginatedResponseContent
-]</code></summary>
+<details><summary><code>client.users.refresh_token.<a href="src/auth0.management/users/refresh_token/client.py">list</a>(...) -> ListRefreshTokensPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -35501,18 +35535,14 @@ Retrieve details for a user's refresh tokens.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.refresh_token.list(
+
+client.users.refresh_token.list(
     user_id="user_id",
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -35536,7 +35566,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — An optional cursor from which to start the selection (exclusive).
+**from:** `typing.Optional[str]` — An optional cursor from which to start the selection (exclusive).
     
 </dd>
 </dl>
@@ -35564,7 +35594,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.refresh_token.<a href="src/auth0/management/users/refresh_token/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.refresh_token.<a href="src/auth0.management/users/refresh_token/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -35594,8 +35624,9 @@ Delete all refresh tokens for a user.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.refresh_token.delete(
     user_id="user_id",
 )
@@ -35635,7 +35666,7 @@ client.users.refresh_token.delete(
 </details>
 
 ## Users Sessions
-<details><summary><code>client.users.sessions.<a href="src/auth0/management/users/sessions/client.py">list</a>(...) -&gt; AsyncPager[SessionResponseContent, ListUserSessionsPaginatedResponseContent]</code></summary>
+<details><summary><code>client.users.sessions.<a href="src/auth0.management/users/sessions/client.py">list</a>(...) -> ListUserSessionsPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -35665,18 +35696,14 @@ Retrieve details for a user's sessions.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.users.sessions.list(
+
+client.users.sessions.list(
     user_id="user_id",
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -35700,7 +35727,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — An optional cursor from which to start the selection (exclusive).
+**from:** `typing.Optional[str]` — An optional cursor from which to start the selection (exclusive).
     
 </dd>
 </dl>
@@ -35728,7 +35755,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.users.sessions.<a href="src/auth0/management/users/sessions/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.users.sessions.<a href="src/auth0.management/users/sessions/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -35758,8 +35785,9 @@ Delete all sessions for a user.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.users.sessions.delete(
     user_id="user_id",
 )
@@ -35799,10 +35827,7 @@ client.users.sessions.delete(
 </details>
 
 ## VerifiableCredentials Verification Templates
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">list</a>(...) -&gt; AsyncPager[
-    VerifiableCredentialTemplateResponse,
-    ListVerifiableCredentialTemplatesPaginatedResponseContent,
-]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0.management/verifiable_credentials/verification/templates/client.py">list</a>(...) -> ListVerifiableCredentialTemplatesPaginatedResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -35832,17 +35857,13 @@ List a verifiable credential templates.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
-response = client.verifiable_credentials.verification.templates.list(
+
+client.verifiable_credentials.verification.templates.list(
     from_="from",
     take=1,
 )
-for item in response:
-    yield item
-# alternatively, you can paginate page-by-page
-for page in response.iter_pages():
-    yield page
 
 ```
 </dd>
@@ -35858,7 +35879,7 @@ for page in response.iter_pages():
 <dl>
 <dd>
 
-**from_:** `typing.Optional[str]` — Optional Id from which to start selection.
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
     
 </dd>
 </dl>
@@ -35886,7 +35907,7 @@ for page in response.iter_pages():
 </dl>
 </details>
 
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateVerifiableCredentialTemplateResponseContent]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0.management/verifiable_credentials/verification/templates/client.py">create</a>(...) -> CreateVerifiableCredentialTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -35913,16 +35934,12 @@ Create a verifiable credential template.
 <dd>
 
 ```python
-from auth0 import (
-    Auth0,
-    MdlPresentationProperties,
-    MdlPresentationRequest,
-    MdlPresentationRequestProperties,
-)
+from auth0 import Auth0, MdlPresentationRequest, MdlPresentationRequestProperties, MdlPresentationProperties
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.verifiable_credentials.verification.templates.create(
     name="name",
     type="type",
@@ -36009,7 +36026,7 @@ client.verifiable_credentials.verification.templates.create(
 </dl>
 </details>
 
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetVerifiableCredentialTemplateResponseContent]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0.management/verifiable_credentials/verification/templates/client.py">get</a>(...) -> GetVerifiableCredentialTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -36039,8 +36056,9 @@ Get a verifiable credential template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.verifiable_credentials.verification.templates.get(
     id="id",
 )
@@ -36079,7 +36097,7 @@ client.verifiable_credentials.verification.templates.get(
 </dl>
 </details>
 
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0.management/verifiable_credentials/verification/templates/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -36109,8 +36127,9 @@ Delete a verifiable credential template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.verifiable_credentials.verification.templates.delete(
     id="id",
 )
@@ -36149,7 +36168,7 @@ client.verifiable_credentials.verification.templates.delete(
 </dl>
 </details>
 
-<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0/management/verifiable_credentials/verification/templates/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateVerifiableCredentialTemplateResponseContent]</code></summary>
+<details><summary><code>client.verifiable_credentials.verification.templates.<a href="src/auth0.management/verifiable_credentials/verification/templates/client.py">update</a>(...) -> UpdateVerifiableCredentialTemplateResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -36179,8 +36198,9 @@ Update a verifiable credential template.
 from auth0 import Auth0
 
 client = Auth0(
-    token="YOUR_TOKEN",
+    token="<token>",
 )
+
 client.verifiable_credentials.verification.templates.update(
     id="id",
 )

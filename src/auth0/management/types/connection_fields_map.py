@@ -3,3 +3,6 @@
 import typing
 
 ConnectionFieldsMap = typing.Dict[str, str]
+"""
+Mapping of user profile fields returned from the OAuth2 provider to Auth0 user attributes
+"""

@@ -3,3 +3,6 @@
 import typing
 
 GetHookSecretResponseContent = typing.Dict[str, str]
+"""
+Hashmap of key-value pairs where the value must be a string.
+"""

@@ -13,5 +13,8 @@ def test_guardian_factors_set_() -> None:
     """Test set endpoint with WireMock"""
     test_id = "guardian.factors.set_.0"
     client = get_client(test_id)
-    client.guardian.factors.set(name="push-notification", enabled=True)
+    client.guardian.factors.set(
+        name="push-notification",
+        enabled=True,
+    )
     verify_request_count(test_id, "PUT", "/guardian/factors/push-notification", None, 1)

@@ -3,3 +3,6 @@
 import typing
 
 ConnectionRealms = typing.List[str]
+"""
+Defines the realms for which the connection will be used (ie: email domains). If the array is empty or the property is not specified, the connection name will be added as realm.
+"""

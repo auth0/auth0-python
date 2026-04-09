@@ -3,3 +3,6 @@
 import typing
 
 ConnectionResponseModesSupported = typing.List[str]
+"""
+A list of the OAuth 2.0 response_mode values that this OP supports. If omitted, the default for Dynamic OpenID Providers is ["query", "fragment"]
+"""

@@ -5,3 +5,6 @@ import typing
 from .credential_id import CredentialId
 
 ClientAuthenticationMethodPrivateKeyJwtCredentials = typing.List[CredentialId]
+"""
+A list of unique and previously created credential IDs enabled on the client for Private Key JWT authentication.
+"""
