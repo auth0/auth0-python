@@ -7,3 +7,6 @@ from .user_attribute_profile_user_attribute_additional_properties import (
 )
 
 UserAttributeProfileUserAttributes = typing.Dict[str, UserAttributeProfileUserAttributeAdditionalProperties]
+"""
+User attributes configuration map. Keys are attribute names, values are the mapping configuration for each attribute.
+"""

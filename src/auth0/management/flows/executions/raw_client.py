@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
 from ...core.pagination import AsyncPager, SyncPager
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
@@ -18,6 +19,7 @@ from ...types.flow_execution_summary import FlowExecutionSummary
 from ...types.get_flow_execution_request_parameters_hydrate_enum import GetFlowExecutionRequestParametersHydrateEnum
 from ...types.get_flow_execution_response_content import GetFlowExecutionResponseContent
 from ...types.list_flow_executions_paginated_response_content import ListFlowExecutionsPaginatedResponseContent
+from pydantic import ValidationError
 
 
 class RawExecutionsClient:
@@ -53,7 +55,7 @@ class RawExecutionsClient:
             Flow executions successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"flows/{jsonable_encoder(flow_id)}/executions",
+            f"flows/{encode_path_param(flow_id)}/executions",
             method="GET",
             params={
                 "from": from_,
@@ -127,6 +129,10 @@ class RawExecutionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -163,7 +169,7 @@ class RawExecutionsClient:
             Flow execution successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"flows/{jsonable_encoder(flow_id)}/executions/{jsonable_encoder(execution_id)}",
+            f"flows/{encode_path_param(flow_id)}/executions/{encode_path_param(execution_id)}",
             method="GET",
             params={
                 "hydrate": hydrate,
@@ -227,6 +233,10 @@ class RawExecutionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(
@@ -249,7 +259,7 @@ class RawExecutionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"flows/{jsonable_encoder(flow_id)}/executions/{jsonable_encoder(execution_id)}",
+            f"flows/{encode_path_param(flow_id)}/executions/{encode_path_param(execution_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -303,6 +313,10 @@ class RawExecutionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -339,7 +353,7 @@ class AsyncRawExecutionsClient:
             Flow executions successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"flows/{jsonable_encoder(flow_id)}/executions",
+            f"flows/{encode_path_param(flow_id)}/executions",
             method="GET",
             params={
                 "from": from_,
@@ -416,6 +430,10 @@ class AsyncRawExecutionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -452,7 +470,7 @@ class AsyncRawExecutionsClient:
             Flow execution successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"flows/{jsonable_encoder(flow_id)}/executions/{jsonable_encoder(execution_id)}",
+            f"flows/{encode_path_param(flow_id)}/executions/{encode_path_param(execution_id)}",
             method="GET",
             params={
                 "hydrate": hydrate,
@@ -516,6 +534,10 @@ class AsyncRawExecutionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -538,7 +560,7 @@ class AsyncRawExecutionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"flows/{jsonable_encoder(flow_id)}/executions/{jsonable_encoder(execution_id)}",
+            f"flows/{encode_path_param(flow_id)}/executions/{encode_path_param(execution_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -592,4 +614,8 @@ class AsyncRawExecutionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

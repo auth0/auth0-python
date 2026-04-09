@@ -3,3 +3,6 @@
 from .connection_client_id import ConnectionClientId
 
 ConnectionClientIdPaypal = ConnectionClientId
+"""
+OAuth 2.0 client identifier issued by PayPal during application registration. This value identifies your Auth0 connection to PayPal. Leave empty to use Auth0 Dev Keys.
+"""

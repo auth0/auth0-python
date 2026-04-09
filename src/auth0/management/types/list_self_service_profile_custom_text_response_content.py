@@ -3,3 +3,6 @@
 import typing
 
 ListSelfServiceProfileCustomTextResponseContent = typing.Dict[str, str]
+"""
+The list of custom text keys and values.
+"""

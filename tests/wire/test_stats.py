@@ -13,5 +13,8 @@ def test_stats_get_daily() -> None:
     """Test getDaily endpoint with WireMock"""
     test_id = "stats.get_daily.0"
     client = get_client(test_id)
-    client.stats.get_daily(from_="from", to="to")
+    client.stats.get_daily(
+        from_="from",
+        to="to",
+    )
     verify_request_count(test_id, "GET", "/stats/daily", {"from": "from", "to": "to"}, 1)

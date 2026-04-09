@@ -3,3 +3,6 @@
 from .connection_protocol_binding_enum_saml import ConnectionProtocolBindingEnumSaml
 
 ConnectionProtocolBindingSaml = ConnectionProtocolBindingEnumSaml
+"""
+SAML protocol binding mechanism for sending authentication requests to the identity provider.
+"""

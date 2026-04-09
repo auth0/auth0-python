@@ -5,3 +5,6 @@ import typing
 from .bot_detection_ip_address_or_cidr_block import BotDetectionIpAddressOrCidrBlock
 
 BotDetectionAllowlist = typing.List[BotDetectionIpAddressOrCidrBlock]
+"""
+List of IP addresses or CIDR blocks to allowlist
+"""

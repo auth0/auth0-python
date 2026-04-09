@@ -3,3 +3,6 @@
 from .connection_ext_is_suspended import ConnectionExtIsSuspended
 
 ConnectionExtIsSuspendedGoogleApps = ConnectionExtIsSuspended
+"""
+Fetches the Google Directory suspended flag for the signing-in user.
+"""

@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback_2048 import ConnectionHttpsUrlWithHttpFallback2048
 
 ConnectionSignInEndpointAdfs = ConnectionHttpsUrlWithHttpFallback2048
+"""
+Passive Requestor (WS-Fed) sign-in endpoint discovered from metadata or provided explicitly.
+"""

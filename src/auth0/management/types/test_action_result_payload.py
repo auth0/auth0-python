@@ -3,3 +3,6 @@
 import typing
 
 TestActionResultPayload = typing.Dict[str, typing.Any]
+"""
+The resulting payload after an action was executed.
+"""

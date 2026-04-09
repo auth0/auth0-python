@@ -3,3 +3,6 @@
 import typing
 
 ConnectionCertsAd = typing.List[str]
+"""
+Array of X.509 certificates in PEM format used for validating SAML signatures from the AD identity provider (managed by the AD Connector agent).
+"""

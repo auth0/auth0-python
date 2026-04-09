@@ -3,3 +3,6 @@
 import typing
 
 GetCustomTextsByLanguageResponseContent = typing.Dict[str, typing.Any]
+"""
+An object containing custom dictionaries for a group of screens.
+"""

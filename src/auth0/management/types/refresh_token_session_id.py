@@ -3,3 +3,6 @@
 import typing
 
 RefreshTokenSessionId = typing.Optional[str]
+"""
+ID of the authenticated session used to obtain this refresh-token
+"""

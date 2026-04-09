@@ -13,7 +13,9 @@ def test_branding_templates_update_universal_login() -> None:
     """Test updateUniversalLogin endpoint with WireMock"""
     test_id = "branding.templates.update_universal_login.0"
     client = get_client(test_id)
-    client.branding.templates.update_universal_login(request="string")
+    client.branding.templates.update_universal_login(
+        request="string",
+    )
     verify_request_count(test_id, "PUT", "/branding/templates/universal-login", None, 1)
 
 

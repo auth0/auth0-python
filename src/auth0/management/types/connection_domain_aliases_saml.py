@@ -5,3 +5,6 @@ import typing
 from .connection_domain_aliases_items_one import ConnectionDomainAliasesItemsOne
 
 ConnectionDomainAliasesSaml = typing.List[ConnectionDomainAliasesItemsOne]
+"""
+Domain aliases for the connection
+"""
