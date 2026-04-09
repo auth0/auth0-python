@@ -1215,7 +1215,7 @@ if typing.TYPE_CHECKING:
     from .client import AsyncAuth0, Auth0
     from .environment import Auth0Environment
     from .event_streams import EventStreamsCreateRequest
-    from .management_client import AsyncManagementClient, ManagementClient
+    from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
     from .version import __version__
 _dynamic_imports: typing.Dict[str, str] = {
     "Action": ".types",
@@ -1458,6 +1458,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatedAuthenticationMethodTypeEnum": ".types",
     "CreatedUserAuthenticationMethodTypeEnum": ".types",
     "CredentialId": ".types",
+    "CustomDomainHeader": ".management_client",
     "CustomDomain": ".types",
     "CustomDomainCustomClientIpHeader": ".types",
     "CustomDomainCustomClientIpHeaderEnum": ".types",
@@ -2690,6 +2691,7 @@ __all__ = [
     "CreatedUserAuthenticationMethodTypeEnum",
     "CredentialId",
     "CustomDomain",
+    "CustomDomainHeader",
     "CustomDomainCustomClientIpHeader",
     "CustomDomainCustomClientIpHeaderEnum",
     "CustomDomainProvisioningTypeEnum",
