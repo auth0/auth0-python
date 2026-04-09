@@ -15,7 +15,7 @@ from .connection_should_trust_email_verified_connection_enum import ConnectionSh
 from .connection_sign_in_endpoint_adfs import ConnectionSignInEndpointAdfs
 from .connection_tenant_domain import ConnectionTenantDomain
 from .connection_thumbprints import ConnectionThumbprints
-from .connection_upstream_params_adfs import ConnectionUpstreamParamsAdfs
+from .connection_upstream_params import ConnectionUpstreamParams
 
 
 class ConnectionOptionsAdfs(ConnectionOptionsCommon):
@@ -53,7 +53,7 @@ class ConnectionOptionsAdfs(ConnectionOptionsCommon):
     ] = None
     tenant_domain: typing.Optional[ConnectionTenantDomain] = None
     thumbprints: typing.Optional[ConnectionThumbprints] = None
-    upstream_params: typing.Optional[ConnectionUpstreamParamsAdfs] = None
+    upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     user_id_attribute: typing.Optional[str] = pydantic.Field(default=None)
     """
     Custom ADFS claim to use as the unique user identifier. When provided, this attribute is prepended to the default user_id mapping list with highest priority. Accepts a string (single ADFS claim name).

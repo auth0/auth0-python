@@ -170,6 +170,7 @@ class RawResourceServersClient:
         signing_alg: typing.Optional[SigningAlgorithmEnum] = OMIT,
         signing_secret: typing.Optional[str] = OMIT,
         allow_offline_access: typing.Optional[bool] = OMIT,
+        allow_online_access: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
@@ -202,6 +203,9 @@ class RawResourceServersClient:
 
         allow_offline_access : typing.Optional[bool]
             Whether refresh tokens can be issued for this API (true) or not (false).
+
+        allow_online_access : typing.Optional[bool]
+            Whether Online Refresh Tokens can be issued for this API (true) or not (false).
 
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
@@ -244,6 +248,7 @@ class RawResourceServersClient:
                 "signing_alg": signing_alg,
                 "signing_secret": signing_secret,
                 "allow_offline_access": allow_offline_access,
+                "allow_online_access": allow_online_access,
                 "token_lifetime": token_lifetime,
                 "token_dialect": token_dialect,
                 "skip_consent_for_verifiable_first_party_clients": skip_consent_for_verifiable_first_party_clients,
@@ -529,6 +534,7 @@ class RawResourceServersClient:
         signing_secret: typing.Optional[str] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
         allow_offline_access: typing.Optional[bool] = OMIT,
+        allow_online_access: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
@@ -563,6 +569,9 @@ class RawResourceServersClient:
 
         allow_offline_access : typing.Optional[bool]
             Whether refresh tokens can be issued for this API (true) or not (false).
+
+        allow_online_access : typing.Optional[bool]
+            Whether Online Refresh Tokens can be issued for this API (true) or not (false).
 
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
@@ -602,6 +611,7 @@ class RawResourceServersClient:
                 "signing_secret": signing_secret,
                 "skip_consent_for_verifiable_first_party_clients": skip_consent_for_verifiable_first_party_clients,
                 "allow_offline_access": allow_offline_access,
+                "allow_online_access": allow_online_access,
                 "token_lifetime": token_lifetime,
                 "token_dialect": token_dialect,
                 "enforce_policies": enforce_policies,
@@ -837,6 +847,7 @@ class AsyncRawResourceServersClient:
         signing_alg: typing.Optional[SigningAlgorithmEnum] = OMIT,
         signing_secret: typing.Optional[str] = OMIT,
         allow_offline_access: typing.Optional[bool] = OMIT,
+        allow_online_access: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
@@ -869,6 +880,9 @@ class AsyncRawResourceServersClient:
 
         allow_offline_access : typing.Optional[bool]
             Whether refresh tokens can be issued for this API (true) or not (false).
+
+        allow_online_access : typing.Optional[bool]
+            Whether Online Refresh Tokens can be issued for this API (true) or not (false).
 
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
@@ -911,6 +925,7 @@ class AsyncRawResourceServersClient:
                 "signing_alg": signing_alg,
                 "signing_secret": signing_secret,
                 "allow_offline_access": allow_offline_access,
+                "allow_online_access": allow_online_access,
                 "token_lifetime": token_lifetime,
                 "token_dialect": token_dialect,
                 "skip_consent_for_verifiable_first_party_clients": skip_consent_for_verifiable_first_party_clients,
@@ -1198,6 +1213,7 @@ class AsyncRawResourceServersClient:
         signing_secret: typing.Optional[str] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
         allow_offline_access: typing.Optional[bool] = OMIT,
+        allow_online_access: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
@@ -1232,6 +1248,9 @@ class AsyncRawResourceServersClient:
 
         allow_offline_access : typing.Optional[bool]
             Whether refresh tokens can be issued for this API (true) or not (false).
+
+        allow_online_access : typing.Optional[bool]
+            Whether Online Refresh Tokens can be issued for this API (true) or not (false).
 
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
@@ -1271,6 +1290,7 @@ class AsyncRawResourceServersClient:
                 "signing_secret": signing_secret,
                 "skip_consent_for_verifiable_first_party_clients": skip_consent_for_verifiable_first_party_clients,
                 "allow_offline_access": allow_offline_access,
+                "allow_online_access": allow_online_access,
                 "token_lifetime": token_lifetime,
                 "token_dialect": token_dialect,
                 "enforce_policies": enforce_policies,

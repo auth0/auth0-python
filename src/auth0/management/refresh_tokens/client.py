@@ -3,9 +3,12 @@
 import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.get_refresh_token_response_content import GetRefreshTokenResponseContent
+from ..types.get_refresh_tokens_paginated_response_content import GetRefreshTokensPaginatedResponseContent
 from ..types.refresh_token_metadata import RefreshTokenMetadata
+from ..types.refresh_token_response_content import RefreshTokenResponseContent
 from ..types.update_refresh_token_response_content import UpdateRefreshTokenResponseContent
 from .raw_client import AsyncRawRefreshTokensClient, RawRefreshTokensClient
 
@@ -27,6 +30,79 @@ class RefreshTokensClient:
         RawRefreshTokensClient
         """
         return self._raw_client
+
+    def list(
+        self,
+        *,
+        user_id: str,
+        client_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent]:
+        """
+        Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+
+        Parameters
+        ----------
+        user_id : str
+            ID of the user whose refresh tokens to retrieve. Required.
+
+        client_id : typing.Optional[str]
+            Filter results by client ID. Only valid when user_id is provided.
+
+        from_ : typing.Optional[str]
+            An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+
+        include_fields : typing.Optional[bool]
+            Whether specified fields are to be included (true) or excluded (false).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent]
+            The refresh tokens were retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.refresh_tokens.list(
+            user_id="user_id",
+            client_id="client_id",
+            from_="from",
+            take=1,
+            fields="fields",
+            include_fields=True,
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.list(
+            user_id=user_id,
+            client_id=client_id,
+            from_=from_,
+            take=take,
+            fields=fields,
+            include_fields=include_fields,
+            request_options=request_options,
+        )
 
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -148,6 +224,88 @@ class AsyncRefreshTokensClient:
         AsyncRawRefreshTokensClient
         """
         return self._raw_client
+
+    async def list(
+        self,
+        *,
+        user_id: str,
+        client_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent]:
+        """
+        Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+
+        Parameters
+        ----------
+        user_id : str
+            ID of the user whose refresh tokens to retrieve. Required.
+
+        client_id : typing.Optional[str]
+            Filter results by client ID. Only valid when user_id is provided.
+
+        from_ : typing.Optional[str]
+            An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+
+        include_fields : typing.Optional[bool]
+            Whether specified fields are to be included (true) or excluded (false).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent]
+            The refresh tokens were retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.refresh_tokens.list(
+                user_id="user_id",
+                client_id="client_id",
+                from_="from",
+                take=1,
+                fields="fields",
+                include_fields=True,
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.list(
+            user_id=user_id,
+            client_id=client_id,
+            from_=from_,
+            take=take,
+            fields=fields,
+            include_fields=include_fields,
+            request_options=request_options,
+        )
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None

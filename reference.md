@@ -33,7 +33,7 @@ client = Auth0(
     token="YOUR_TOKEN",
 )
 response = client.actions.list(
-    trigger_id="triggerId",
+    trigger_id="post-login",
     action_name="actionName",
     deployed=True,
     page=1,
@@ -156,7 +156,7 @@ client.actions.create(
     name="name",
     supported_triggers=[
         ActionTrigger(
-            id="id",
+            id="post-login",
         )
     ],
 )
@@ -1400,6 +1400,7 @@ response = client.clients.list(
     is_global=True,
     is_first_party=True,
     app_type="app_type",
+    external_client_id="external_client_id",
     q="q",
 )
 for item in response:
@@ -1479,6 +1480,14 @@ for page in response.iter_pages():
 <dd>
 
 **app_type:** `typing.Optional[str]` — Optional filter by a comma-separated list of application types.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_client_id:** `typing.Optional[str]` — Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
     
 </dd>
 </dl>
@@ -1966,6 +1975,153 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **async_approval_notification_channels:** `typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">preview_cimd_metadata</a>(...) -&gt; AsyncHttpResponse[PreviewCimdMetadataResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+      Fetches and validates a Client ID Metadata Document without creating a client.
+      Returns the raw metadata and how it would be mapped to Auth0 client fields.
+      This endpoint is useful for testing metadata URIs before creating CIMD clients.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.clients.preview_cimd_metadata(
+    external_client_id="external_client_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**external_client_id:** `str` — URL to the Client ID Metadata Document
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.<a href="src/auth0/management/clients/client.py">register_cimd_client</a>(...) -&gt; AsyncHttpResponse[RegisterCimdClientResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+      Idempotent registration for Client ID Metadata Document (CIMD) clients.
+      Uses external_client_id as the unique identifier for upsert operations.
+      **Create:** Returns 201 when a new client is created (requires \
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.clients.register_cimd_client(
+    external_client_id="external_client_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**external_client_id:** `str` — URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
     
 </dd>
 </dl>
@@ -3539,7 +3695,7 @@ client.connections.create(
 <dl>
 <dd>
 
-**enabled_clients:** `typing.Optional[typing.Sequence[str]]` — DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+**enabled_clients:** `typing.Optional[typing.Sequence[str]]` — Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
     
 </dd>
 </dl>
@@ -7252,6 +7408,76 @@ client.groups.get(
 </dl>
 </details>
 
+<details><summary><code>client.groups.<a href="src/auth0/management/groups/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a group by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.groups.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Unique identifier for the group (service-generated).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hooks
 <details><summary><code>client.hooks.<a href="src/auth0/management/hooks/client.py">list</a>(...) -&gt; AsyncPager[Hook, ListHooksOffsetPaginatedResponseContent]</code></summary>
 <dl>
@@ -8881,7 +9107,6 @@ client = Auth0(
 client.network_acls.create(
     description="description",
     active=True,
-    priority=1.1,
     rule=NetworkAclRule(
         action=NetworkAclAction(),
         scope="management",
@@ -8918,7 +9143,7 @@ client.network_acls.create(
 <dl>
 <dd>
 
-**priority:** `float` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
+**rule:** `NetworkAclRule` 
     
 </dd>
 </dl>
@@ -8926,7 +9151,7 @@ client.network_acls.create(
 <dl>
 <dd>
 
-**rule:** `NetworkAclRule` 
+**priority:** `typing.Optional[float]` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
     
 </dd>
 </dl>
@@ -9052,7 +9277,6 @@ client.network_acls.set(
     id="id",
     description="description",
     active=True,
-    priority=1.1,
     rule=NetworkAclRule(
         action=NetworkAclAction(),
         scope="management",
@@ -9097,7 +9321,7 @@ client.network_acls.set(
 <dl>
 <dd>
 
-**priority:** `float` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
+**rule:** `NetworkAclRule` 
     
 </dd>
 </dl>
@@ -9105,7 +9329,7 @@ client.network_acls.set(
 <dl>
 <dd>
 
-**rule:** `NetworkAclRule` 
+**priority:** `typing.Optional[float]` — Indicates the order in which the ACL will be evaluated relative to other ACL rules.
     
 </dd>
 </dl>
@@ -9987,6 +10211,128 @@ client.prompts.update_settings()
 </details>
 
 ## RefreshTokens
+<details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">list</a>(...) -&gt; AsyncPager[
+    RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent
+]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.refresh_tokens.list(
+    user_id="user_id",
+    client_id="client_id",
+    from_="from",
+    take=1,
+    fields="fields",
+    include_fields=True,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` — ID of the user whose refresh tokens to retrieve. Required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_id:** `typing.Optional[str]` — Filter results by client ID. Only valid when user_id is provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_:** `typing.Optional[str]` — An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[str]` — Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_fields:** `typing.Optional[bool]` — Whether specified fields are to be included (true) or excluded (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.refresh_tokens.<a href="src/auth0/management/refresh_tokens/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetRefreshTokenResponseContent]</code></summary>
 <dl>
 <dd>
@@ -10414,6 +10760,14 @@ client.resource_servers.create(
 <dl>
 <dd>
 
+**allow_online_access:** `typing.Optional[bool]` — Whether Online Refresh Tokens can be issued for this API (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **token_lifetime:** `typing.Optional[int]` — Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
     
 </dd>
@@ -10746,6 +11100,14 @@ client.resource_servers.update(
 <dd>
 
 **allow_offline_access:** `typing.Optional[bool]` — Whether refresh tokens can be issued for this API (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allow_online_access:** `typing.Optional[bool]` — Whether Online Refresh Tokens can be issued for this API (true) or not (false).
     
 </dd>
 </dl>
@@ -16832,7 +17194,7 @@ client = Auth0(
     token="YOUR_TOKEN",
 )
 response = client.actions.triggers.bindings.list(
-    trigger_id="triggerId",
+    trigger_id="post-login",
     page=1,
     per_page=1,
 )
@@ -16925,7 +17287,7 @@ client = Auth0(
     token="YOUR_TOKEN",
 )
 client.actions.triggers.bindings.update_many(
-    trigger_id="triggerId",
+    trigger_id="post-login",
 )
 
 ```
@@ -27990,6 +28352,463 @@ client.organizations.client_grants.delete(
 <dd>
 
 **grant_id:** `str` — The Client Grant ID to remove from the organization
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Organizations Connections
+<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">list</a>(...) -&gt; AsyncPager[
+    OrganizationAllConnectionPost,
+    ListOrganizationAllConnectionsOffsetPaginatedResponseContent,
+]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+response = client.organizations.connections.list(
+    id="id",
+    page=1,
+    per_page=1,
+    include_totals=True,
+    is_enabled=True,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Page index of the results to return. First page is 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**per_page:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_totals:** `typing.Optional[bool]` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_enabled:** `typing.Optional[bool]` — Filter connections by enabled status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">create</a>(...) -&gt; AsyncHttpResponse[CreateOrganizationAllConnectionResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.organizations.connections.create(
+    id="id",
+    connection_id="connection_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection_id:** `str` — Connection identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization_connection_name:** `typing.Optional[str]` — Name of the connection in the scope of this organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assign_membership_on_login:** `typing.Optional[bool]` — When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_as_button:** `typing.Optional[bool]` — Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_signup_enabled:** `typing.Optional[bool]` — Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization_access_level:** `typing.Optional[OrganizationAccessLevelEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_enabled:** `typing.Optional[bool]` — Whether the connection is enabled for the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">get</a>(...) -&gt; AsyncHttpResponse[GetOrganizationAllConnectionResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.organizations.connections.get(
+    id="id",
+    connection_id="connection_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection_id:** `str` — Connection identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">delete</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.organizations.connections.delete(
+    id="id",
+    connection_id="connection_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection_id:** `str` — Connection identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.connections.<a href="src/auth0/management/organizations/connections/client.py">update</a>(...) -&gt; AsyncHttpResponse[UpdateOrganizationAllConnectionResponseContent]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0 import Auth0
+
+client = Auth0(
+    token="YOUR_TOKEN",
+)
+client.organizations.connections.update(
+    id="id",
+    connection_id="connection_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Organization identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection_id:** `str` — Connection identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization_connection_name:** `typing.Optional[str]` — Name of the connection in the scope of this organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assign_membership_on_login:** `typing.Optional[bool]` — When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_as_button:** `typing.Optional[bool]` — Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_signup_enabled:** `typing.Optional[bool]` — Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization_access_level:** `typing.Optional[OrganizationAccessLevelEnumWithNull]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_enabled:** `typing.Optional[bool]` — Whether the connection is enabled for the organization.
     
 </dd>
 </dl>

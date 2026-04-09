@@ -14,6 +14,7 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
+from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
@@ -55,6 +56,8 @@ from ..types.express_configuration_or_null import ExpressConfigurationOrNull
 from ..types.get_client_response_content import GetClientResponseContent
 from ..types.list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
 from ..types.native_social_login import NativeSocialLogin
+from ..types.preview_cimd_metadata_response_content import PreviewCimdMetadataResponseContent
+from ..types.register_cimd_client_response_content import RegisterCimdClientResponseContent
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
 from ..types.update_client_response_content import UpdateClientResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
@@ -78,6 +81,7 @@ class RawClientsClient:
         is_global: typing.Optional[bool] = None,
         is_first_party: typing.Optional[bool] = None,
         app_type: typing.Optional[str] = None,
+        external_client_id: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Client, ListClientsOffsetPaginatedResponseContent]:
@@ -142,6 +146,9 @@ class RawClientsClient:
         app_type : typing.Optional[str]
             Optional filter by a comma-separated list of application types.
 
+        external_client_id : typing.Optional[str]
+            Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
 
@@ -167,6 +174,7 @@ class RawClientsClient:
                 "is_global": is_global,
                 "is_first_party": is_first_party,
                 "app_type": app_type,
+                "external_client_id": external_client_id,
                 "q": q,
             },
             request_options=request_options,
@@ -191,6 +199,7 @@ class RawClientsClient:
                     is_global=is_global,
                     is_first_party=is_first_party,
                     app_type=app_type,
+                    external_client_id=external_client_id,
                     q=q,
                     request_options=request_options,
                 )
@@ -613,6 +622,215 @@ class RawClientsClient:
                 )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def preview_cimd_metadata(
+        self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[PreviewCimdMetadataResponseContent]:
+        """
+
+              Fetches and validates a Client ID Metadata Document without creating a client.
+              Returns the raw metadata and how it would be mapped to Auth0 client fields.
+              This endpoint is useful for testing metadata URIs before creating CIMD clients.
+
+
+        Parameters
+        ----------
+        external_client_id : str
+            URL to the Client ID Metadata Document
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PreviewCimdMetadataResponseContent]
+            Metadata successfully fetched and validated, or retrieval error returned with errors array.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "clients/cimd/preview",
+            method="POST",
+            json={
+                "external_client_id": external_client_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PreviewCimdMetadataResponseContent,
+                    parse_obj_as(
+                        type_=PreviewCimdMetadataResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def register_cimd_client(
+        self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[RegisterCimdClientResponseContent]:
+        """
+        
+              Idempotent registration for Client ID Metadata Document (CIMD) clients.
+              Uses external_client_id as the unique identifier for upsert operations.
+              **Create:** Returns 201 when a new client is created (requires \\
+        
+        Parameters
+        ----------
+        external_client_id : str
+            URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
+        
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+        
+        Returns
+        -------
+        HttpResponse[RegisterCimdClientResponseContent]
+            CIMD client successfully updated (idempotent).
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "clients/cimd/register",
+            method="POST",
+            json={
+                "external_client_id": external_client_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RegisterCimdClientResponseContent,
+                    parse_obj_as(
+                        type_=RegisterCimdClientResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1343,6 +1561,7 @@ class AsyncRawClientsClient:
         is_global: typing.Optional[bool] = None,
         is_first_party: typing.Optional[bool] = None,
         app_type: typing.Optional[str] = None,
+        external_client_id: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Client, ListClientsOffsetPaginatedResponseContent]:
@@ -1407,6 +1626,9 @@ class AsyncRawClientsClient:
         app_type : typing.Optional[str]
             Optional filter by a comma-separated list of application types.
 
+        external_client_id : typing.Optional[str]
+            Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
 
@@ -1432,6 +1654,7 @@ class AsyncRawClientsClient:
                 "is_global": is_global,
                 "is_first_party": is_first_party,
                 "app_type": app_type,
+                "external_client_id": external_client_id,
                 "q": q,
             },
             request_options=request_options,
@@ -1458,6 +1681,7 @@ class AsyncRawClientsClient:
                         is_global=is_global,
                         is_first_party=is_first_party,
                         app_type=app_type,
+                        external_client_id=external_client_id,
                         q=q,
                         request_options=request_options,
                     )
@@ -1881,6 +2105,215 @@ class AsyncRawClientsClient:
                 )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def preview_cimd_metadata(
+        self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[PreviewCimdMetadataResponseContent]:
+        """
+
+              Fetches and validates a Client ID Metadata Document without creating a client.
+              Returns the raw metadata and how it would be mapped to Auth0 client fields.
+              This endpoint is useful for testing metadata URIs before creating CIMD clients.
+
+
+        Parameters
+        ----------
+        external_client_id : str
+            URL to the Client ID Metadata Document
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PreviewCimdMetadataResponseContent]
+            Metadata successfully fetched and validated, or retrieval error returned with errors array.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "clients/cimd/preview",
+            method="POST",
+            json={
+                "external_client_id": external_client_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PreviewCimdMetadataResponseContent,
+                    parse_obj_as(
+                        type_=PreviewCimdMetadataResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def register_cimd_client(
+        self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[RegisterCimdClientResponseContent]:
+        """
+        
+              Idempotent registration for Client ID Metadata Document (CIMD) clients.
+              Uses external_client_id as the unique identifier for upsert operations.
+              **Create:** Returns 201 when a new client is created (requires \\
+        
+        Parameters
+        ----------
+        external_client_id : str
+            URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
+        
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+        
+        Returns
+        -------
+        AsyncHttpResponse[RegisterCimdClientResponseContent]
+            CIMD client successfully updated (idempotent).
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "clients/cimd/register",
+            method="POST",
+            json={
+                "external_client_id": external_client_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RegisterCimdClientResponseContent,
+                    parse_obj_as(
+                        type_=RegisterCimdClientResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

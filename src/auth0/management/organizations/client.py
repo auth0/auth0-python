@@ -22,6 +22,7 @@ from .raw_client import AsyncRawOrganizationsClient, RawOrganizationsClient
 
 if typing.TYPE_CHECKING:
     from .client_grants.client import AsyncClientGrantsClient, ClientGrantsClient
+    from .connections.client import AsyncConnectionsClient, ConnectionsClient
     from .discovery_domains.client import AsyncDiscoveryDomainsClient, DiscoveryDomainsClient
     from .enabled_connections.client import AsyncEnabledConnectionsClient, EnabledConnectionsClient
     from .invitations.client import AsyncInvitationsClient, InvitationsClient
@@ -35,6 +36,7 @@ class OrganizationsClient:
         self._raw_client = RawOrganizationsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._client_grants: typing.Optional[ClientGrantsClient] = None
+        self._connections: typing.Optional[ConnectionsClient] = None
         self._discovery_domains: typing.Optional[DiscoveryDomainsClient] = None
         self._enabled_connections: typing.Optional[EnabledConnectionsClient] = None
         self._invitations: typing.Optional[InvitationsClient] = None
@@ -348,6 +350,14 @@ class OrganizationsClient:
         return self._client_grants
 
     @property
+    def connections(self):
+        if self._connections is None:
+            from .connections.client import ConnectionsClient  # noqa: E402
+
+            self._connections = ConnectionsClient(client_wrapper=self._client_wrapper)
+        return self._connections
+
+    @property
     def discovery_domains(self):
         if self._discovery_domains is None:
             from .discovery_domains.client import DiscoveryDomainsClient  # noqa: E402
@@ -385,6 +395,7 @@ class AsyncOrganizationsClient:
         self._raw_client = AsyncRawOrganizationsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._client_grants: typing.Optional[AsyncClientGrantsClient] = None
+        self._connections: typing.Optional[AsyncConnectionsClient] = None
         self._discovery_domains: typing.Optional[AsyncDiscoveryDomainsClient] = None
         self._enabled_connections: typing.Optional[AsyncEnabledConnectionsClient] = None
         self._invitations: typing.Optional[AsyncInvitationsClient] = None
@@ -745,6 +756,14 @@ class AsyncOrganizationsClient:
 
             self._client_grants = AsyncClientGrantsClient(client_wrapper=self._client_wrapper)
         return self._client_grants
+
+    @property
+    def connections(self):
+        if self._connections is None:
+            from .connections.client import AsyncConnectionsClient  # noqa: E402
+
+            self._connections = AsyncConnectionsClient(client_wrapper=self._client_wrapper)
+        return self._connections
 
     @property
     def discovery_domains(self):

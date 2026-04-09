@@ -19,11 +19,11 @@ from .connection_scope_oidc import ConnectionScopeOidc
 from .connection_send_back_channel_nonce import ConnectionSendBackChannelNonce
 from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
 from .connection_tenant_domain import ConnectionTenantDomain
+from .connection_token_endpoint import ConnectionTokenEndpoint
 from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointAuthMethodEnum
 from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
-from .connection_token_endpoint_oidc import ConnectionTokenEndpointOidc
 from .connection_upstream_params import ConnectionUpstreamParams
-from .connection_userinfo_endpoint_oidc import ConnectionUserinfoEndpointOidc
+from .connection_userinfo_endpoint import ConnectionUserinfoEndpoint
 
 
 class ConnectionOptionsCommonOidc(UniversalBaseModel):
@@ -46,11 +46,11 @@ class ConnectionOptionsCommonOidc(UniversalBaseModel):
     send_back_channel_nonce: typing.Optional[ConnectionSendBackChannelNonce] = None
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     tenant_domain: typing.Optional[ConnectionTenantDomain] = None
-    token_endpoint: typing.Optional[ConnectionTokenEndpointOidc] = None
+    token_endpoint: typing.Optional[ConnectionTokenEndpoint] = None
     token_endpoint_auth_method: typing.Optional[ConnectionTokenEndpointAuthMethodEnum] = None
     token_endpoint_auth_signing_alg: typing.Optional[ConnectionTokenEndpointAuthSigningAlgEnum] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
-    userinfo_endpoint: typing.Optional[ConnectionUserinfoEndpointOidc] = None
+    userinfo_endpoint: typing.Optional[ConnectionUserinfoEndpoint] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

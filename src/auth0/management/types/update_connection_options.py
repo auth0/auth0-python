@@ -17,6 +17,7 @@ from .connection_password_complexity_options import ConnectionPasswordComplexity
 from .connection_password_dictionary_options import ConnectionPasswordDictionaryOptions
 from .connection_password_history_options import ConnectionPasswordHistoryOptions
 from .connection_password_no_personal_info_options import ConnectionPasswordNoPersonalInfoOptions
+from .connection_password_options import ConnectionPasswordOptions
 from .connection_password_policy_enum import ConnectionPasswordPolicyEnum
 from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
 from .connection_upstream_params import ConnectionUpstreamParams
@@ -89,6 +90,7 @@ class UpdateConnectionOptions(UniversalBaseModel):
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     gateway_authentication: typing.Optional[ConnectionGatewayAuthentication] = None
     federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
+    password_options: typing.Optional[ConnectionPasswordOptions] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

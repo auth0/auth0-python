@@ -15,6 +15,8 @@ from .client_authentication_method import ClientAuthenticationMethod
 from .client_compliance_level_enum import ClientComplianceLevelEnum
 from .client_default_organization import ClientDefaultOrganization
 from .client_encryption_key import ClientEncryptionKey
+from .client_external_metadata_created_by_enum import ClientExternalMetadataCreatedByEnum
+from .client_external_metadata_type_enum import ClientExternalMetadataTypeEnum
 from .client_jwt_configuration import ClientJwtConfiguration
 from .client_metadata import ClientMetadata
 from .client_mobile import ClientMobile
@@ -223,6 +225,17 @@ class Client(UniversalBaseModel):
     async_approval_notification_channels: typing.Optional[
         ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
     ] = None
+    external_metadata_type: typing.Optional[ClientExternalMetadataTypeEnum] = None
+    external_metadata_created_by: typing.Optional[ClientExternalMetadataCreatedByEnum] = None
+    external_client_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    An alternate client identifier to be used during authorization flows. Only supports CIMD-based client identifiers.
+    """
+
+    jwks_uri: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    URL for the JSON Web Key Set (JWKS) containing the public keys used for private_key_jwt authentication. Only present for CIMD clients using private_key_jwt authentication.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -50,6 +50,11 @@ class GetResourceServerResponseContent(UniversalBaseModel):
     Whether refresh tokens can be issued for this API (true) or not (false).
     """
 
+    allow_online_access: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether Online Refresh Tokens can be issued for this API (true) or not (false).
+    """
+
     skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether to skip user consent for applications flagged as first party (true) or not (false).

@@ -24,6 +24,7 @@ from .connection_password_complexity_options import ConnectionPasswordComplexity
 from .connection_password_dictionary_options import ConnectionPasswordDictionaryOptions
 from .connection_password_history_options import ConnectionPasswordHistoryOptions
 from .connection_password_no_personal_info_options import ConnectionPasswordNoPersonalInfoOptions
+from .connection_password_options import ConnectionPasswordOptions
 from .connection_password_policy_enum import ConnectionPasswordPolicyEnum
 from .connection_realm_fallback import ConnectionRealmFallback
 from .connection_requires_username import ConnectionRequiresUsername
@@ -64,6 +65,7 @@ class ConnectionOptionsAuth0(ConnectionOptionsCommon):
     password_dictionary: typing.Optional[ConnectionPasswordDictionaryOptions] = None
     password_history: typing.Optional[ConnectionPasswordHistoryOptions] = None
     password_no_personal_info: typing.Optional[ConnectionPasswordNoPersonalInfoOptions] = None
+    password_options: typing.Optional[ConnectionPasswordOptions] = None
     precedence: typing.Optional[ConnectionIdentifierPrecedence] = None
     realm_fallback: typing.Optional[ConnectionRealmFallback] = None
     requires_username: typing.Optional[ConnectionRequiresUsername] = None

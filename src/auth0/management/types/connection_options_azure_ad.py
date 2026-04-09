@@ -54,7 +54,7 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     Includes basic user profile information from Azure AD (name, email, given_name, family_name). Always enabled and required - represents the minimum profile data retrieved during authentication.
     """
 
-    client_id: typing.Optional[ConnectionClientIdAzureAd] = None
+    client_id: ConnectionClientIdAzureAd
     client_secret: typing.Optional[ConnectionClientSecretAzureAd] = None
     domain_aliases: typing.Optional[ConnectionDomainAliasesAzureAd] = None
     ext_access_token: typing.Optional[bool] = pydantic.Field(default=None)
