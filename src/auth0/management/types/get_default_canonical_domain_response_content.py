@@ -3,13 +3,13 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class ConnectionOptionsMiicard(ConnectionOptionsOAuth2Common):
+class GetDefaultCanonicalDomainResponseContent(UniversalBaseModel):
+    domain: str = pydantic.Field()
     """
-    Options for the 'miicard' connection
+    Domain name.
     """
 
     if IS_PYDANTIC_V2:

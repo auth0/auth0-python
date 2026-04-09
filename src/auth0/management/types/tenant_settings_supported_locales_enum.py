@@ -84,6 +84,7 @@ TenantSettingsSupportedLocalesEnum = typing.Union[
         "zgh",
         "zh-CN",
         "zh-HK",
+        "zh-MO",
         "zh-TW",
     ],
     typing.Any,

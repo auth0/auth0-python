@@ -15,7 +15,7 @@ A guide to migrating the Auth0 Python SDK from v4 to v5.
 
 ### Python versions
 
-v5 supports Python 3.8 and above.
+v5 supports Python 3.9 and above.
 
 ### Authentication API
 

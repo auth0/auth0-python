@@ -3,17 +3,12 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_common import ConnectionCommon
-from .connection_options_miicard import ConnectionOptionsMiicard
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .post_connection_keys_alg_enum import PostConnectionKeysAlgEnum
 
 
-class UpdateConnectionRequestContentMiicard(ConnectionCommon):
-    """
-    Update a connection with strategy=miicard
-    """
-
-    options: typing.Optional[ConnectionOptionsMiicard] = None
+class PostConnectionKeysRequestContent(UniversalBaseModel):
+    signing_alg: typing.Optional[PostConnectionKeysAlgEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

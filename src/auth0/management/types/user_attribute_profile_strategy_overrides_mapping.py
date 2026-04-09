@@ -9,7 +9,11 @@ from .user_attribute_profile_saml_mapping import UserAttributeProfileSamlMapping
 
 
 class UserAttributeProfileStrategyOverridesMapping(UniversalBaseModel):
-    oidc_mapping: typing.Optional[UserAttributeProfileOidcMapping] = None
+    oidc_mapping: typing.Optional[UserAttributeProfileOidcMapping] = pydantic.Field(default=None)
+    """
+    OIDC mapping override for this strategy
+    """
+
     saml_mapping: typing.Optional[UserAttributeProfileSamlMapping] = None
     scim_mapping: typing.Optional[str] = pydantic.Field(default=None)
     """

@@ -260,6 +260,7 @@ class TemplatesClient:
             Destination of the testing phone notification
 
         delivery_method : typing.Optional[PhoneProviderDeliveryMethodEnum]
+            Medium to use to send the notification
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -572,6 +573,7 @@ class AsyncTemplatesClient:
             Destination of the testing phone notification
 
         delivery_method : typing.Optional[PhoneProviderDeliveryMethodEnum]
+            Medium to use to send the notification
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

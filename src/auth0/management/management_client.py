@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import base64
 import re
+from json import dumps
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Union
 
 import httpx
@@ -139,6 +141,10 @@ class ManagementClient:
         A custom domain to send via the Auth0-Custom-Domain header.
         The header is only sent on whitelisted endpoints. Use
         ``CustomDomainHeader()`` for per-request overrides.
+    client_info : Optional[Dict[str, Any]]
+        Custom telemetry data for the Auth0-Client header. When provided,
+        overrides the default SDK telemetry. Useful for wrapper SDKs that
+        need to identify themselves (e.g., ``{"name": "my-sdk", "version": "1.0.0"}``).
     timeout : Optional[float]
         Request timeout in seconds. Defaults to 60.
     httpx_client : Optional[httpx.Client]
@@ -160,6 +166,7 @@ class ManagementClient:
         audience: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
         custom_domain: Optional[str] = None,
+        client_info: Optional[Dict[str, Any]] = None,
         timeout: Optional[float] = None,
         httpx_client: Optional[httpx.Client] = None,
     ):
@@ -190,6 +197,13 @@ class ManagementClient:
             httpx_client.event_hooks.setdefault("request", []).append(
                 _enforce_custom_domain_whitelist
             )
+
+        # Encode client_info into Auth0-Client header to override default telemetry
+        if client_info is not None:
+            encoded = base64.b64encode(
+                dumps(client_info).encode("utf-8")
+            ).decode()
+            headers = {**(headers or {}), "Auth0-Client": encoded}
 
         # Create underlying client
         self._api = Auth0(
@@ -400,6 +414,10 @@ class AsyncManagementClient:
         A custom domain to send via the Auth0-Custom-Domain header.
         The header is only sent on whitelisted endpoints. Use
         ``CustomDomainHeader()`` for per-request overrides.
+    client_info : Optional[Dict[str, Any]]
+        Custom telemetry data for the Auth0-Client header. When provided,
+        overrides the default SDK telemetry. Useful for wrapper SDKs that
+        need to identify themselves (e.g., ``{"name": "my-sdk", "version": "1.0.0"}``).
     timeout : Optional[float]
         Request timeout in seconds. Defaults to 60.
     httpx_client : Optional[httpx.AsyncClient]
@@ -421,6 +439,7 @@ class AsyncManagementClient:
         audience: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
         custom_domain: Optional[str] = None,
+        client_info: Optional[Dict[str, Any]] = None,
         timeout: Optional[float] = None,
         httpx_client: Optional[httpx.AsyncClient] = None,
     ):
@@ -454,6 +473,13 @@ class AsyncManagementClient:
             httpx_client.event_hooks.setdefault("request", []).append(
                 _enforce_custom_domain_whitelist
             )
+
+        # Encode client_info into Auth0-Client header to override default telemetry
+        if client_info is not None:
+            encoded = base64.b64encode(
+                dumps(client_info).encode("utf-8")
+            ).decode()
+            headers = {**(headers or {}), "Auth0-Client": encoded}
 
         # Create underlying client
         self._api = AsyncAuth0(

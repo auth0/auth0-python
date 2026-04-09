@@ -34,7 +34,7 @@ pip install auth0-python
 ```
 
 **Requirements:**
-- Python ≥3.8 (Python 3.7 support has been dropped)
+- Python ≥3.9 (Python 3.8 support has been dropped)
 
 ## Reference
 

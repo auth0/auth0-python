@@ -1,3 +1,5 @@
+import base64
+import json
 import time
 from unittest.mock import MagicMock, patch
 
@@ -91,6 +93,53 @@ class TestManagementClientInit:
             headers={"X-Custom-Header": "custom-value"},
         )
         assert client._api is not None
+
+    def test_init_with_custom_client_info(self):
+        """Should encode client_info as Auth0-Client header."""
+        custom_info = {
+            "name": "auth0-ai-langchain",
+            "version": "1.0.0",
+            "env": {"python": "3.11.0"},
+        }
+        client = ManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+            client_info=custom_info,
+        )
+        # Verify the header was set on the underlying client wrapper
+        custom_headers = client._api._client_wrapper.get_custom_headers()
+        assert custom_headers is not None
+        encoded_header = custom_headers.get("Auth0-Client")
+        assert encoded_header is not None
+        decoded = json.loads(base64.b64decode(encoded_header).decode("utf-8"))
+        assert decoded == custom_info
+
+    def test_init_with_client_info_and_custom_headers(self):
+        """Should merge client_info with custom headers."""
+        custom_info = {"name": "my-sdk", "version": "2.0.0"}
+        client = ManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+            headers={"X-Custom": "value"},
+            client_info=custom_info,
+        )
+        custom_headers = client._api._client_wrapper.get_custom_headers()
+        assert custom_headers is not None
+        assert custom_headers.get("X-Custom") == "value"
+        assert "Auth0-Client" in custom_headers
+
+    def test_init_without_client_info_uses_default_telemetry(self):
+        """Should use default auth0-python telemetry when client_info is not provided."""
+        client = ManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+        )
+        # get_headers() includes the default Auth0-Client telemetry
+        headers = client._api._client_wrapper.get_headers()
+        encoded = headers.get("Auth0-Client")
+        assert encoded is not None
+        decoded = json.loads(base64.b64decode(encoded).decode("utf-8"))
+        assert decoded["name"] == "auth0-python"
 
 
 class TestManagementClientProperties:
@@ -186,6 +235,25 @@ class TestAsyncManagementClientInit:
         """Should raise ValueError when no auth is provided."""
         with pytest.raises(ValueError):
             AsyncManagementClient(domain="test.auth0.com")
+
+    def test_init_with_custom_client_info(self):
+        """Should encode client_info as Auth0-Client header."""
+        custom_info = {
+            "name": "auth0-ai-langchain",
+            "version": "1.0.0",
+            "env": {"python": "3.11.0"},
+        }
+        client = AsyncManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+            client_info=custom_info,
+        )
+        custom_headers = client._api._client_wrapper.get_custom_headers()
+        assert custom_headers is not None
+        encoded_header = custom_headers.get("Auth0-Client")
+        assert encoded_header is not None
+        decoded = json.loads(base64.b64decode(encoded_header).decode("utf-8"))
+        assert decoded == custom_info
 
 
 class TestTokenProvider:

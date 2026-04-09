@@ -22,9 +22,11 @@ from ..types.custom_domain_tls_policy_enum import CustomDomainTlsPolicyEnum
 from ..types.custom_domain_verification_method_enum import CustomDomainVerificationMethodEnum
 from ..types.domain_metadata import DomainMetadata
 from ..types.get_custom_domain_response_content import GetCustomDomainResponseContent
+from ..types.get_default_domain_response_content import GetDefaultDomainResponseContent
 from ..types.list_custom_domains_response_content import ListCustomDomainsResponseContent
 from ..types.test_custom_domain_response_content import TestCustomDomainResponseContent
 from ..types.update_custom_domain_response_content import UpdateCustomDomainResponseContent
+from ..types.update_default_domain_response_content import UpdateDefaultDomainResponseContent
 from ..types.verify_custom_domain_response_content import VerifyCustomDomainResponseContent
 
 # this is used as the default value for optional parameters
@@ -50,7 +52,7 @@ class RawCustomDomainsClient:
         Parameters
         ----------
         q : typing.Optional[str]
-            Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+            Query in <a href ="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query string syntax</a>.
 
         fields : typing.Optional[str]
             Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
@@ -256,6 +258,143 @@ class RawCustomDomainsClient:
                 )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_default(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[GetDefaultDomainResponseContent]:
+        """
+        Retrieve the tenant's default domain.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetDefaultDomainResponseContent]
+            Default domain successfully retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "custom-domains/default",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetDefaultDomainResponseContent,
+                    parse_obj_as(
+                        type_=GetDefaultDomainResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def set_default(
+        self, *, domain: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[UpdateDefaultDomainResponseContent]:
+        """
+        Set the default custom domain for the tenant.
+
+        Parameters
+        ----------
+        domain : str
+            The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[UpdateDefaultDomainResponseContent]
+            Default custom domain set successfully.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "custom-domains/default",
+            method="PATCH",
+            json={
+                "domain": domain,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateDefaultDomainResponseContent,
+                    parse_obj_as(
+                        type_=UpdateDefaultDomainResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -479,6 +618,7 @@ class RawCustomDomainsClient:
             The id of the custom domain to update
 
         tls_policy : typing.Optional[CustomDomainTlsPolicyEnum]
+            recommended includes TLS 1.2
 
         custom_client_ip_header : typing.Optional[CustomDomainCustomClientIpHeader]
 
@@ -784,7 +924,7 @@ class AsyncRawCustomDomainsClient:
         Parameters
         ----------
         q : typing.Optional[str]
-            Query in <a href ="http://www.lucenetutorial.com/lucene-query-syntax.html">Lucene query string syntax</a>.
+            Query in <a href ="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query string syntax</a>.
 
         fields : typing.Optional[str]
             Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
@@ -990,6 +1130,143 @@ class AsyncRawCustomDomainsClient:
                 )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_default(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[GetDefaultDomainResponseContent]:
+        """
+        Retrieve the tenant's default domain.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GetDefaultDomainResponseContent]
+            Default domain successfully retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "custom-domains/default",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetDefaultDomainResponseContent,
+                    parse_obj_as(
+                        type_=GetDefaultDomainResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def set_default(
+        self, *, domain: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[UpdateDefaultDomainResponseContent]:
+        """
+        Set the default custom domain for the tenant.
+
+        Parameters
+        ----------
+        domain : str
+            The domain to set as the default custom domain. Must be a verified custom domain or the canonical domain.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[UpdateDefaultDomainResponseContent]
+            Default custom domain set successfully.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "custom-domains/default",
+            method="PATCH",
+            json={
+                "domain": domain,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateDefaultDomainResponseContent,
+                    parse_obj_as(
+                        type_=UpdateDefaultDomainResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1215,6 +1492,7 @@ class AsyncRawCustomDomainsClient:
             The id of the custom domain to update
 
         tls_policy : typing.Optional[CustomDomainTlsPolicyEnum]
+            recommended includes TLS 1.2
 
         custom_client_ip_header : typing.Optional[CustomDomainCustomClientIpHeader]
 

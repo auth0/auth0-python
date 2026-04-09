@@ -23,7 +23,11 @@ class DeviceCredential(UniversalBaseModel):
     Unique identifier for the device. NOTE: This field is generally not populated for refresh_tokens and rotating_refresh_tokens
     """
 
-    type: typing.Optional[DeviceCredentialTypeEnum] = None
+    type: typing.Optional[DeviceCredentialTypeEnum] = pydantic.Field(default=None)
+    """
+    Type of credential. Can be `public_key`, `refresh_token`, or `rotating_refresh_token`.
+    """
+
     user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     user_id this credential is associated with.

@@ -33,7 +33,7 @@ def test_clientGrants_create() -> None:
     """Test create endpoint with WireMock"""
     test_id = "client_grants.create.0"
     client = get_client(test_id)
-    client.client_grants.create(client_id="client_id", audience="audience")
+    client.client_grants.create(audience="audience")
     verify_request_count(test_id, "POST", "/client-grants", None, 1)
 
 

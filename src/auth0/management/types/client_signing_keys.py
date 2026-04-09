@@ -4,4 +4,4 @@ import typing
 
 from .client_signing_key import ClientSigningKey
 
-ClientSigningKeys = typing.List[ClientSigningKey]
+ClientSigningKeys = typing.Optional[typing.List[ClientSigningKey]]

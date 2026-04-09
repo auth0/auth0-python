@@ -19,7 +19,7 @@ class GetGroupResponseContent(UniversalBaseModel):
 
     name: str = pydantic.Field()
     """
-    Name of the group. Must be unique within its scope (connection, organization, or tenant). Must contain between 1 and 128 printable ASCII characters.
+    Name of the group. Must be unique within its connection. Must contain between 1 and 128 printable ASCII characters.
     """
 
     external_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -32,17 +32,11 @@ class GetGroupResponseContent(UniversalBaseModel):
     Identifier for the connection this group belongs to (if a connection group).
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Identifier for the organization this group belongs to (if an organization group).
-    """
-
     tenant_name: str = pydantic.Field()
     """
     Identifier for the tenant this group belongs to.
     """
 
-    description: typing.Optional[str] = None
     created_at: dt.datetime = pydantic.Field()
     """
     Timestamp of when the group was created.

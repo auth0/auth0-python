@@ -5,6 +5,8 @@ import typing
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.connection_key import ConnectionKey
+from ...types.post_connection_keys_request_content import PostConnectionKeysRequestContent
+from ...types.post_connections_keys_response_content import PostConnectionsKeysResponseContent
 from ...types.rotate_connection_keys_request_content import RotateConnectionKeysRequestContent
 from ...types.rotate_connections_keys_response_content import RotateConnectionsKeysResponseContent
 from .raw_client import AsyncRawKeysClient, RawKeysClient
@@ -57,6 +59,46 @@ class KeysClient:
         )
         """
         _response = self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
+    def create(
+        self,
+        id: str,
+        *,
+        request: typing.Optional[PostConnectionKeysRequestContent] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PostConnectionsKeysResponseContent:
+        """
+        Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+
+        Parameters
+        ----------
+        id : str
+            ID of the connection
+
+        request : typing.Optional[PostConnectionKeysRequestContent]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PostConnectionsKeysResponseContent
+            Connection keys successfully created.
+
+        Examples
+        --------
+        from auth0 import Auth0, PostConnectionKeysRequestContent
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.connections.keys.create(
+            id="id",
+            request=PostConnectionKeysRequestContent(),
+        )
+        """
+        _response = self._raw_client.create(id, request=request, request_options=request_options)
         return _response.data
 
     def rotate(
@@ -154,6 +196,54 @@ class AsyncKeysClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
+    async def create(
+        self,
+        id: str,
+        *,
+        request: typing.Optional[PostConnectionKeysRequestContent] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PostConnectionsKeysResponseContent:
+        """
+        Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+
+        Parameters
+        ----------
+        id : str
+            ID of the connection
+
+        request : typing.Optional[PostConnectionKeysRequestContent]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PostConnectionsKeysResponseContent
+            Connection keys successfully created.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0, PostConnectionKeysRequestContent
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.connections.keys.create(
+                id="id",
+                request=PostConnectionKeysRequestContent(),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create(id, request=request, request_options=request_options)
         return _response.data
 
     async def rotate(
