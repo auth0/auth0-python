@@ -1,5 +1,12 @@
 # Change Log
 
+## [5.3.0](https://github.com/auth0/auth0-python/tree/5.3.0) (2026-04-09)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.2.0...5.3.0)
+
+**Added**
+- feat: Add CIMD support, organization connections, group deletion, refresh token listing; remove AOL/Flickr/Yammer providers [\#816](https://github.com/auth0/auth0-python/pull/816) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat:Add `Auth0-Custom-Domain` header support for Multiple Custom Domains (MCD) [\#799](https://github.com/auth0/auth0-python/pull/799) ([kishore7snehil](https://github.com/kishore7snehil))
+
 ## [5.2.0](https://github.com/auth0/auth0-python/tree/5.2.0) (2026-03-30)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.1.0...5.2.0)
 
