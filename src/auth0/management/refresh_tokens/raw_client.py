@@ -7,6 +7,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
+from ..core.pagination import AsyncPager, SyncPager
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
@@ -15,7 +16,9 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.get_refresh_token_response_content import GetRefreshTokenResponseContent
+from ..types.get_refresh_tokens_paginated_response_content import GetRefreshTokensPaginatedResponseContent
 from ..types.refresh_token_metadata import RefreshTokenMetadata
+from ..types.refresh_token_response_content import RefreshTokenResponseContent
 from ..types.update_refresh_token_response_content import UpdateRefreshTokenResponseContent
 
 # this is used as the default value for optional parameters
@@ -25,6 +28,143 @@ OMIT = typing.cast(typing.Any, ...)
 class RawRefreshTokensClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def list(
+        self,
+        *,
+        user_id: str,
+        client_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent]:
+        """
+        Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+
+        Parameters
+        ----------
+        user_id : str
+            ID of the user whose refresh tokens to retrieve. Required.
+
+        client_id : typing.Optional[str]
+            Filter results by client ID. Only valid when user_id is provided.
+
+        from_ : typing.Optional[str]
+            An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+
+        include_fields : typing.Optional[bool]
+            Whether specified fields are to be included (true) or excluded (false).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent]
+            The refresh tokens were retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "refresh-tokens",
+            method="GET",
+            params={
+                "user_id": user_id,
+                "client_id": client_id,
+                "from": from_,
+                "take": take,
+                "fields": fields,
+                "include_fields": include_fields,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    GetRefreshTokensPaginatedResponseContent,
+                    parse_obj_as(
+                        type_=GetRefreshTokensPaginatedResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.refresh_tokens
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    user_id=user_id,
+                    client_id=client_id,
+                    from_=_parsed_next,
+                    take=take,
+                    fields=fields,
+                    include_fields=include_fields,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -294,6 +434,146 @@ class RawRefreshTokensClient:
 class AsyncRawRefreshTokensClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def list(
+        self,
+        *,
+        user_id: str,
+        client_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent]:
+        """
+        Retrieve a paginated list of refresh tokens for a specific user, with optional filtering by client ID. Results are sorted by credential_id ascending.
+
+        Parameters
+        ----------
+        user_id : str
+            ID of the user whose refresh tokens to retrieve. Required.
+
+        client_id : typing.Optional[str]
+            Filter results by client ID. Only valid when user_id is provided.
+
+        from_ : typing.Optional[str]
+            An opaque cursor from which to start the selection (exclusive). Expires after 24 hours. Obtained from the next property of a previous response.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+
+        include_fields : typing.Optional[bool]
+            Whether specified fields are to be included (true) or excluded (false).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[RefreshTokenResponseContent, GetRefreshTokensPaginatedResponseContent]
+            The refresh tokens were retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "refresh-tokens",
+            method="GET",
+            params={
+                "user_id": user_id,
+                "client_id": client_id,
+                "from": from_,
+                "take": take,
+                "fields": fields,
+                "include_fields": include_fields,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    GetRefreshTokensPaginatedResponseContent,
+                    parse_obj_as(
+                        type_=GetRefreshTokensPaginatedResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.refresh_tokens
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        user_id=user_id,
+                        client_id=client_id,
+                        from_=_parsed_next,
+                        take=take,
+                        fields=fields,
+                        include_fields=include_fields,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None

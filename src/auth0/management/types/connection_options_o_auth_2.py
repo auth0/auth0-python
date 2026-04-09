@@ -8,18 +8,18 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from .connection_auth_params_map import ConnectionAuthParamsMap
 from .connection_auth_params_o_auth_2 import ConnectionAuthParamsOAuth2
-from .connection_authorization_endpoint_o_auth_2 import ConnectionAuthorizationEndpointOAuth2
+from .connection_authorization_endpoint import ConnectionAuthorizationEndpoint
 from .connection_client_id_o_auth_2 import ConnectionClientIdOAuth2
 from .connection_client_secret_o_auth_2 import ConnectionClientSecretOAuth2
 from .connection_custom_headers_o_auth_2 import ConnectionCustomHeadersOAuth2
-from .connection_end_session_endpoint_o_auth_2 import ConnectionEndSessionEndpointOAuth2
+from .connection_end_session_endpoint import ConnectionEndSessionEndpoint
 from .connection_fields_map import ConnectionFieldsMap
 from .connection_icon_url import ConnectionIconUrl
 from .connection_options_common import ConnectionOptionsCommon
 from .connection_scope_o_auth_2 import ConnectionScopeOAuth2
 from .connection_scripts_o_auth_2 import ConnectionScriptsOAuth2
 from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
-from .connection_token_endpoint_o_auth_2 import ConnectionTokenEndpointOAuth2
+from .connection_token_endpoint import ConnectionTokenEndpoint
 from .connection_upstream_params import ConnectionUpstreamParams
 
 
@@ -39,7 +39,7 @@ class ConnectionOptionsOAuth2(ConnectionOptionsCommon):
         pydantic.Field(alias="authParamsMap"),
     ] = None
     authorization_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionAuthorizationEndpointOAuth2],
+        typing.Optional[ConnectionAuthorizationEndpoint],
         FieldMetadata(alias="authorizationURL"),
         pydantic.Field(alias="authorizationURL"),
     ] = None
@@ -55,7 +55,7 @@ class ConnectionOptionsOAuth2(ConnectionOptionsCommon):
     ] = None
     icon_url: typing.Optional[ConnectionIconUrl] = None
     logout_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionEndSessionEndpointOAuth2],
+        typing.Optional[ConnectionEndSessionEndpoint],
         FieldMetadata(alias="logoutUrl"),
         pydantic.Field(alias="logoutUrl"),
     ] = None
@@ -68,9 +68,7 @@ class ConnectionOptionsOAuth2(ConnectionOptionsCommon):
     scripts: typing.Optional[ConnectionScriptsOAuth2] = None
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     token_url: typing_extensions.Annotated[
-        typing.Optional[ConnectionTokenEndpointOAuth2],
-        FieldMetadata(alias="tokenURL"),
-        pydantic.Field(alias="tokenURL"),
+        typing.Optional[ConnectionTokenEndpoint], FieldMetadata(alias="tokenURL"), pydantic.Field(alias="tokenURL")
     ] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     use_oauth_spec_scope: typing_extensions.Annotated[

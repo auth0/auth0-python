@@ -45,6 +45,8 @@ from ..types.express_configuration_or_null import ExpressConfigurationOrNull
 from ..types.get_client_response_content import GetClientResponseContent
 from ..types.list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
 from ..types.native_social_login import NativeSocialLogin
+from ..types.preview_cimd_metadata_response_content import PreviewCimdMetadataResponseContent
+from ..types.register_cimd_client_response_content import RegisterCimdClientResponseContent
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
 from ..types.update_client_response_content import UpdateClientResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
@@ -86,6 +88,7 @@ class ClientsClient:
         is_global: typing.Optional[bool] = None,
         is_first_party: typing.Optional[bool] = None,
         app_type: typing.Optional[str] = None,
+        external_client_id: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Client, ListClientsOffsetPaginatedResponseContent]:
@@ -150,6 +153,9 @@ class ClientsClient:
         app_type : typing.Optional[str]
             Optional filter by a comma-separated list of application types.
 
+        external_client_id : typing.Optional[str]
+            Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
 
@@ -177,6 +183,7 @@ class ClientsClient:
             is_global=True,
             is_first_party=True,
             app_type="app_type",
+            external_client_id="external_client_id",
             q="q",
         )
         for item in response:
@@ -194,6 +201,7 @@ class ClientsClient:
             is_global=is_global,
             is_first_party=is_first_party,
             app_type=app_type,
+            external_client_id=external_client_id,
             q=q,
             request_options=request_options,
         )
@@ -475,6 +483,83 @@ class ClientsClient:
             express_configuration=express_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             request_options=request_options,
+        )
+        return _response.data
+
+    def preview_cimd_metadata(
+        self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> PreviewCimdMetadataResponseContent:
+        """
+
+              Fetches and validates a Client ID Metadata Document without creating a client.
+              Returns the raw metadata and how it would be mapped to Auth0 client fields.
+              This endpoint is useful for testing metadata URIs before creating CIMD clients.
+
+
+        Parameters
+        ----------
+        external_client_id : str
+            URL to the Client ID Metadata Document
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PreviewCimdMetadataResponseContent
+            Metadata successfully fetched and validated, or retrieval error returned with errors array.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.clients.preview_cimd_metadata(
+            external_client_id="external_client_id",
+        )
+        """
+        _response = self._raw_client.preview_cimd_metadata(
+            external_client_id=external_client_id, request_options=request_options
+        )
+        return _response.data
+
+    def register_cimd_client(
+        self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> RegisterCimdClientResponseContent:
+        """
+        
+              Idempotent registration for Client ID Metadata Document (CIMD) clients.
+              Uses external_client_id as the unique identifier for upsert operations.
+              **Create:** Returns 201 when a new client is created (requires \\
+        
+        Parameters
+        ----------
+        external_client_id : str
+            URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
+        
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+        
+        Returns
+        -------
+        RegisterCimdClientResponseContent
+            CIMD client successfully updated (idempotent).
+        
+        Examples
+        --------
+        from auth0 import Auth0
+        
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.clients.register_cimd_client(
+            external_client_id="external_client_id",
+        )
+        """
+        _response = self._raw_client.register_cimd_client(
+            external_client_id=external_client_id, request_options=request_options
         )
         return _response.data
 
@@ -951,6 +1036,7 @@ class AsyncClientsClient:
         is_global: typing.Optional[bool] = None,
         is_first_party: typing.Optional[bool] = None,
         app_type: typing.Optional[str] = None,
+        external_client_id: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Client, ListClientsOffsetPaginatedResponseContent]:
@@ -1015,6 +1101,9 @@ class AsyncClientsClient:
         app_type : typing.Optional[str]
             Optional filter by a comma-separated list of application types.
 
+        external_client_id : typing.Optional[str]
+            Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
 
@@ -1047,6 +1136,7 @@ class AsyncClientsClient:
                 is_global=True,
                 is_first_party=True,
                 app_type="app_type",
+                external_client_id="external_client_id",
                 q="q",
             )
             async for item in response:
@@ -1068,6 +1158,7 @@ class AsyncClientsClient:
             is_global=is_global,
             is_first_party=is_first_party,
             app_type=app_type,
+            external_client_id=external_client_id,
             q=q,
             request_options=request_options,
         )
@@ -1357,6 +1448,99 @@ class AsyncClientsClient:
             express_configuration=express_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             request_options=request_options,
+        )
+        return _response.data
+
+    async def preview_cimd_metadata(
+        self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> PreviewCimdMetadataResponseContent:
+        """
+
+              Fetches and validates a Client ID Metadata Document without creating a client.
+              Returns the raw metadata and how it would be mapped to Auth0 client fields.
+              This endpoint is useful for testing metadata URIs before creating CIMD clients.
+
+
+        Parameters
+        ----------
+        external_client_id : str
+            URL to the Client ID Metadata Document
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PreviewCimdMetadataResponseContent
+            Metadata successfully fetched and validated, or retrieval error returned with errors array.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.clients.preview_cimd_metadata(
+                external_client_id="external_client_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.preview_cimd_metadata(
+            external_client_id=external_client_id, request_options=request_options
+        )
+        return _response.data
+
+    async def register_cimd_client(
+        self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> RegisterCimdClientResponseContent:
+        """
+        
+              Idempotent registration for Client ID Metadata Document (CIMD) clients.
+              Uses external_client_id as the unique identifier for upsert operations.
+              **Create:** Returns 201 when a new client is created (requires \\
+        
+        Parameters
+        ----------
+        external_client_id : str
+            URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
+        
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+        
+        Returns
+        -------
+        RegisterCimdClientResponseContent
+            CIMD client successfully updated (idempotent).
+        
+        Examples
+        --------
+        import asyncio
+        
+        from auth0 import AsyncAuth0
+        
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+        
+        
+        async def main() -> None:
+            await client.clients.register_cimd_client(
+                external_client_id="external_client_id",
+            )
+        
+        
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.register_cimd_client(
+            external_client_id=external_client_id, request_options=request_options
         )
         return _response.data
 

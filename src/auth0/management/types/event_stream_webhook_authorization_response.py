@@ -4,5 +4,8 @@ import typing
 
 from .event_stream_webhook_basic_auth import EventStreamWebhookBasicAuth
 from .event_stream_webhook_bearer_auth import EventStreamWebhookBearerAuth
+from .event_stream_webhook_custom_header_auth import EventStreamWebhookCustomHeaderAuth
 
-EventStreamWebhookAuthorizationResponse = typing.Union[EventStreamWebhookBasicAuth, EventStreamWebhookBearerAuth]
+EventStreamWebhookAuthorizationResponse = typing.Union[
+    EventStreamWebhookBasicAuth, EventStreamWebhookBearerAuth, EventStreamWebhookCustomHeaderAuth
+]

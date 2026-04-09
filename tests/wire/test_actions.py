@@ -6,14 +6,14 @@ def test_actions_list_() -> None:
     test_id = "actions.list_.0"
     client = get_client(test_id)
     client.actions.list(
-        trigger_id="triggerId", action_name="actionName", deployed=True, page=1, per_page=1, installed=True
+        trigger_id="post-login", action_name="actionName", deployed=True, page=1, per_page=1, installed=True
     )
     verify_request_count(
         test_id,
         "GET",
         "/actions/actions",
         {
-            "triggerId": "triggerId",
+            "triggerId": "post-login",
             "actionName": "actionName",
             "deployed": "true",
             "page": "1",
@@ -28,7 +28,7 @@ def test_actions_create() -> None:
     """Test create endpoint with WireMock"""
     test_id = "actions.create.0"
     client = get_client(test_id)
-    client.actions.create(name="name", supported_triggers=[{"id": "id"}])
+    client.actions.create(name="name", supported_triggers=[{"id": "post-login"}])
     verify_request_count(test_id, "POST", "/actions/actions", None, 1)
 
 

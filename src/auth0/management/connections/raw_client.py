@@ -218,7 +218,7 @@ class RawConnectionsClient:
         options : typing.Optional[ConnectionPropertiesOptions]
 
         enabled_clients : typing.Optional[typing.Sequence[str]]
-            DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+            Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
 
         is_domain_connection : typing.Optional[bool]
             <code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)
@@ -958,7 +958,7 @@ class AsyncRawConnectionsClient:
         options : typing.Optional[ConnectionPropertiesOptions]
 
         enabled_clients : typing.Optional[typing.Sequence[str]]
-            DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+            Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
 
         is_domain_connection : typing.Optional[bool]
             <code>true</code> promotes to a domain-level connection so that third-party applications can use it. <code>false</code> does not promote the connection, so only first-party applications with the connection enabled can use it. (Defaults to <code>false</code>.)

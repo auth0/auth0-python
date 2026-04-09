@@ -101,7 +101,7 @@ class ActionsClient:
             token="YOUR_TOKEN",
         )
         response = client.actions.list(
-            trigger_id="triggerId",
+            trigger_id="post-login",
             action_name="actionName",
             deployed=True,
             page=1,
@@ -185,7 +185,7 @@ class ActionsClient:
             name="name",
             supported_triggers=[
                 ActionTrigger(
-                    id="id",
+                    id="post-login",
                 )
             ],
         )
@@ -521,7 +521,7 @@ class AsyncActionsClient:
 
         async def main() -> None:
             response = await client.actions.list(
-                trigger_id="triggerId",
+                trigger_id="post-login",
                 action_name="actionName",
                 deployed=True,
                 page=1,
@@ -614,7 +614,7 @@ class AsyncActionsClient:
                 name="name",
                 supported_triggers=[
                     ActionTrigger(
-                        id="id",
+                        id="post-login",
                     )
                 ],
             )

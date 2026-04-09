@@ -143,6 +143,36 @@ class GroupsClient:
         _response = self._raw_client.get(id, request_options=request_options)
         return _response.data
 
+    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Delete a group by its ID.
+
+        Parameters
+        ----------
+        id : str
+            Unique identifier for the group (service-generated).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.groups.delete(
+            id="id",
+        )
+        """
+        _response = self._raw_client.delete(id, request_options=request_options)
+        return _response.data
+
     @property
     def members(self):
         if self._members is None:
@@ -294,6 +324,44 @@ class AsyncGroupsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
+    async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Delete a group by its ID.
+
+        Parameters
+        ----------
+        id : str
+            Unique identifier for the group (service-generated).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.groups.delete(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete(id, request_options=request_options)
         return _response.data
 
     @property

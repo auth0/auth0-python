@@ -37,3 +37,11 @@ def test_groups_get() -> None:
     client = get_client(test_id)
     client.groups.get(id="id")
     verify_request_count(test_id, "GET", "/groups/id", None, 1)
+
+
+def test_groups_delete() -> None:
+    """Test delete endpoint with WireMock"""
+    test_id = "groups.delete.0"
+    client = get_client(test_id)
+    client.groups.delete(id="id")
+    verify_request_count(test_id, "DELETE", "/groups/id", None, 1)

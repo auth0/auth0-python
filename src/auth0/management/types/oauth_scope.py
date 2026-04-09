@@ -103,6 +103,7 @@ OauthScope = typing.Union[
         "delete:grants",
         "read:group_members",
         "read:groups",
+        "delete:groups",
         "create:guardian_enrollment_tickets",
         "read:guardian_enrollments",
         "delete:guardian_enrollments",

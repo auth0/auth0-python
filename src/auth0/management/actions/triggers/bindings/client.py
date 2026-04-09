@@ -69,7 +69,7 @@ class BindingsClient:
             token="YOUR_TOKEN",
         )
         response = client.actions.triggers.bindings.list(
-            trigger_id="triggerId",
+            trigger_id="post-login",
             page=1,
             per_page=1,
         )
@@ -115,7 +115,7 @@ class BindingsClient:
             token="YOUR_TOKEN",
         )
         client.actions.triggers.bindings.update_many(
-            trigger_id="triggerId",
+            trigger_id="post-login",
         )
         """
         _response = self._raw_client.update_many(trigger_id, bindings=bindings, request_options=request_options)
@@ -180,7 +180,7 @@ class AsyncBindingsClient:
 
         async def main() -> None:
             response = await client.actions.triggers.bindings.list(
-                trigger_id="triggerId",
+                trigger_id="post-login",
                 page=1,
                 per_page=1,
             )
@@ -235,7 +235,7 @@ class AsyncBindingsClient:
 
         async def main() -> None:
             await client.actions.triggers.bindings.update_many(
-                trigger_id="triggerId",
+                trigger_id="post-login",
             )
 
 

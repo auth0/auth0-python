@@ -148,6 +148,13 @@ if typing.TYPE_CHECKING:
     from .certificate_subject_dn_credential_type_enum import CertificateSubjectDnCredentialTypeEnum
     from .change_password_ticket_identity import ChangePasswordTicketIdentity
     from .change_password_ticket_response_content import ChangePasswordTicketResponseContent
+    from .cimd_mapped_client_authentication_methods import CimdMappedClientAuthenticationMethods
+    from .cimd_mapped_client_authentication_methods_private_key_jwt import (
+        CimdMappedClientAuthenticationMethodsPrivateKeyJwt,
+    )
+    from .cimd_mapped_client_fields import CimdMappedClientFields
+    from .cimd_mapped_private_key_jwt_credential import CimdMappedPrivateKeyJwtCredential
+    from .cimd_validation_result import CimdValidationResult
     from .client import Client
     from .client_addon_aws import ClientAddonAws
     from .client_addon_azure_blob import ClientAddonAzureBlob
@@ -220,6 +227,8 @@ if typing.TYPE_CHECKING:
     from .client_default_organization import ClientDefaultOrganization
     from .client_default_organization_flows_enum import ClientDefaultOrganizationFlowsEnum
     from .client_encryption_key import ClientEncryptionKey
+    from .client_external_metadata_created_by_enum import ClientExternalMetadataCreatedByEnum
+    from .client_external_metadata_type_enum import ClientExternalMetadataTypeEnum
     from .client_grant_allow_any_organization_enum import ClientGrantAllowAnyOrganizationEnum
     from .client_grant_organization_nullable_usage_enum import ClientGrantOrganizationNullableUsageEnum
     from .client_grant_organization_usage_enum import ClientGrantOrganizationUsageEnum
@@ -287,7 +296,6 @@ if typing.TYPE_CHECKING:
     from .connection_authentication_methods import ConnectionAuthenticationMethods
     from .connection_authentication_purpose import ConnectionAuthenticationPurpose
     from .connection_authorization_endpoint import ConnectionAuthorizationEndpoint
-    from .connection_authorization_endpoint_o_auth_2 import ConnectionAuthorizationEndpointOAuth2
     from .connection_base_url_exact import ConnectionBaseUrlExact
     from .connection_brute_force_protection import ConnectionBruteForceProtection
     from .connection_calculated_thumbprint_saml import ConnectionCalculatedThumbprintSaml
@@ -369,7 +377,6 @@ if typing.TYPE_CHECKING:
     from .connection_enabled_clients import ConnectionEnabledClients
     from .connection_enabled_database_customization import ConnectionEnabledDatabaseCustomization
     from .connection_end_session_endpoint import ConnectionEndSessionEndpoint
-    from .connection_end_session_endpoint_o_auth_2 import ConnectionEndSessionEndpointOAuth2
     from .connection_entity_id_saml import ConnectionEntityIdSaml
     from .connection_ext_admin import ConnectionExtAdmin
     from .connection_ext_agreed_terms import ConnectionExtAgreedTerms
@@ -451,7 +458,6 @@ if typing.TYPE_CHECKING:
     from .connection_options_ad import ConnectionOptionsAd
     from .connection_options_adfs import ConnectionOptionsAdfs
     from .connection_options_amazon import ConnectionOptionsAmazon
-    from .connection_options_aol import ConnectionOptionsAol
     from .connection_options_apple import ConnectionOptionsApple
     from .connection_options_auth_0 import ConnectionOptionsAuth0
     from .connection_options_auth_0_oidc import ConnectionOptionsAuth0Oidc
@@ -477,7 +483,6 @@ if typing.TYPE_CHECKING:
     from .connection_options_exact import ConnectionOptionsExact
     from .connection_options_facebook import ConnectionOptionsFacebook
     from .connection_options_fitbit import ConnectionOptionsFitbit
-    from .connection_options_flickr import ConnectionOptionsFlickr
     from .connection_options_freeform_scopes_github import ConnectionOptionsFreeformScopesGithub
     from .connection_options_git_hub import ConnectionOptionsGitHub
     from .connection_options_google_apps import ConnectionOptionsGoogleApps
@@ -520,7 +525,6 @@ if typing.TYPE_CHECKING:
     from .connection_options_windows_live import ConnectionOptionsWindowsLive
     from .connection_options_wordpress import ConnectionOptionsWordpress
     from .connection_options_yahoo import ConnectionOptionsYahoo
-    from .connection_options_yammer import ConnectionOptionsYammer
     from .connection_options_yandex import ConnectionOptionsYandex
     from .connection_passkey_authentication_method import ConnectionPasskeyAuthenticationMethod
     from .connection_passkey_challenge_ui_enum import ConnectionPasskeyChallengeUiEnum
@@ -530,6 +534,11 @@ if typing.TYPE_CHECKING:
     from .connection_password_dictionary_options import ConnectionPasswordDictionaryOptions
     from .connection_password_history_options import ConnectionPasswordHistoryOptions
     from .connection_password_no_personal_info_options import ConnectionPasswordNoPersonalInfoOptions
+    from .connection_password_options import ConnectionPasswordOptions
+    from .connection_password_options_complexity import ConnectionPasswordOptionsComplexity
+    from .connection_password_options_dictionary import ConnectionPasswordOptionsDictionary
+    from .connection_password_options_history import ConnectionPasswordOptionsHistory
+    from .connection_password_options_profile_data import ConnectionPasswordOptionsProfileData
     from .connection_password_policy_enum import ConnectionPasswordPolicyEnum
     from .connection_phone_otp_authentication_method import ConnectionPhoneOtpAuthenticationMethod
     from .connection_ping_federate_base_url import ConnectionPingFederateBaseUrl
@@ -586,8 +595,6 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_adfs_strategy import ConnectionResponseContentAdfsStrategy
     from .connection_response_content_amazon import ConnectionResponseContentAmazon
     from .connection_response_content_amazon_strategy import ConnectionResponseContentAmazonStrategy
-    from .connection_response_content_aol import ConnectionResponseContentAol
-    from .connection_response_content_aol_strategy import ConnectionResponseContentAolStrategy
     from .connection_response_content_apple import ConnectionResponseContentApple
     from .connection_response_content_apple_strategy import ConnectionResponseContentAppleStrategy
     from .connection_response_content_auth_0 import ConnectionResponseContentAuth0
@@ -624,8 +631,6 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_facebook_strategy import ConnectionResponseContentFacebookStrategy
     from .connection_response_content_fitbit import ConnectionResponseContentFitbit
     from .connection_response_content_fitbit_strategy import ConnectionResponseContentFitbitStrategy
-    from .connection_response_content_flickr import ConnectionResponseContentFlickr
-    from .connection_response_content_flickr_strategy import ConnectionResponseContentFlickrStrategy
     from .connection_response_content_git_hub import ConnectionResponseContentGitHub
     from .connection_response_content_git_hub_strategy import ConnectionResponseContentGitHubStrategy
     from .connection_response_content_google_apps import ConnectionResponseContentGoogleApps
@@ -698,8 +703,6 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_wordpress_strategy import ConnectionResponseContentWordpressStrategy
     from .connection_response_content_yahoo import ConnectionResponseContentYahoo
     from .connection_response_content_yahoo_strategy import ConnectionResponseContentYahooStrategy
-    from .connection_response_content_yammer import ConnectionResponseContentYammer
-    from .connection_response_content_yammer_strategy import ConnectionResponseContentYammerStrategy
     from .connection_response_content_yandex import ConnectionResponseContentYandex
     from .connection_response_content_yandex_strategy import ConnectionResponseContentYandexStrategy
     from .connection_response_modes_supported import ConnectionResponseModesSupported
@@ -764,8 +767,6 @@ if typing.TYPE_CHECKING:
     from .connection_token_endpoint_auth_signing_alg_values_supported import (
         ConnectionTokenEndpointAuthSigningAlgValuesSupported,
     )
-    from .connection_token_endpoint_o_auth_2 import ConnectionTokenEndpointOAuth2
-    from .connection_token_endpoint_oidc import ConnectionTokenEndpointOidc
     from .connection_totp_email import ConnectionTotpEmail
     from .connection_totp_length_email import ConnectionTotpLengthEmail
     from .connection_totp_length_passwordless import ConnectionTotpLengthPasswordless
@@ -783,7 +784,6 @@ if typing.TYPE_CHECKING:
     from .connection_upstream_alias import ConnectionUpstreamAlias
     from .connection_upstream_alias_enum import ConnectionUpstreamAliasEnum
     from .connection_upstream_params import ConnectionUpstreamParams
-    from .connection_upstream_params_adfs import ConnectionUpstreamParamsAdfs
     from .connection_upstream_params_facebook import ConnectionUpstreamParamsFacebook
     from .connection_upstream_value import ConnectionUpstreamValue
     from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
@@ -794,7 +794,6 @@ if typing.TYPE_CHECKING:
     from .connection_userinfo_encryption_alg_values_supported import ConnectionUserinfoEncryptionAlgValuesSupported
     from .connection_userinfo_encryption_enc_values_supported import ConnectionUserinfoEncryptionEncValuesSupported
     from .connection_userinfo_endpoint import ConnectionUserinfoEndpoint
-    from .connection_userinfo_endpoint_oidc import ConnectionUserinfoEndpointOidc
     from .connection_userinfo_signing_alg_values_supported import ConnectionUserinfoSigningAlgValuesSupported
     from .connection_username_validation_options import ConnectionUsernameValidationOptions
     from .connection_validation_options import ConnectionValidationOptions
@@ -822,8 +821,6 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_adfs_strategy import CreateConnectionRequestContentAdfsStrategy
     from .create_connection_request_content_amazon import CreateConnectionRequestContentAmazon
     from .create_connection_request_content_amazon_strategy import CreateConnectionRequestContentAmazonStrategy
-    from .create_connection_request_content_aol import CreateConnectionRequestContentAol
-    from .create_connection_request_content_aol_strategy import CreateConnectionRequestContentAolStrategy
     from .create_connection_request_content_apple import CreateConnectionRequestContentApple
     from .create_connection_request_content_apple_strategy import CreateConnectionRequestContentAppleStrategy
     from .create_connection_request_content_auth_0 import CreateConnectionRequestContentAuth0
@@ -862,8 +859,6 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_facebook_strategy import CreateConnectionRequestContentFacebookStrategy
     from .create_connection_request_content_fitbit import CreateConnectionRequestContentFitbit
     from .create_connection_request_content_fitbit_strategy import CreateConnectionRequestContentFitbitStrategy
-    from .create_connection_request_content_flickr import CreateConnectionRequestContentFlickr
-    from .create_connection_request_content_flickr_strategy import CreateConnectionRequestContentFlickrStrategy
     from .create_connection_request_content_git_hub import CreateConnectionRequestContentGitHub
     from .create_connection_request_content_git_hub_strategy import CreateConnectionRequestContentGitHubStrategy
     from .create_connection_request_content_google_apps import CreateConnectionRequestContentGoogleApps
@@ -948,8 +943,6 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_wordpress_strategy import CreateConnectionRequestContentWordpressStrategy
     from .create_connection_request_content_yahoo import CreateConnectionRequestContentYahoo
     from .create_connection_request_content_yahoo_strategy import CreateConnectionRequestContentYahooStrategy
-    from .create_connection_request_content_yammer import CreateConnectionRequestContentYammer
-    from .create_connection_request_content_yammer_strategy import CreateConnectionRequestContentYammerStrategy
     from .create_connection_request_content_yandex import CreateConnectionRequestContentYandex
     from .create_connection_request_content_yandex_strategy import CreateConnectionRequestContentYandexStrategy
     from .create_connection_response_content import CreateConnectionResponseContent
@@ -1067,6 +1060,7 @@ if typing.TYPE_CHECKING:
     from .create_log_stream_segment_request_body import CreateLogStreamSegmentRequestBody
     from .create_log_stream_splunk_request_body import CreateLogStreamSplunkRequestBody
     from .create_log_stream_sumo_request_body import CreateLogStreamSumoRequestBody
+    from .create_organization_all_connection_response_content import CreateOrganizationAllConnectionResponseContent
     from .create_organization_discovery_domain_response_content import CreateOrganizationDiscoveryDomainResponseContent
     from .create_organization_invitation_response_content import CreateOrganizationInvitationResponseContent
     from .create_organization_response_content import CreateOrganizationResponseContent
@@ -1187,6 +1181,8 @@ if typing.TYPE_CHECKING:
     from .event_stream_webhook_bearer_auth import EventStreamWebhookBearerAuth
     from .event_stream_webhook_bearer_auth_method_enum import EventStreamWebhookBearerAuthMethodEnum
     from .event_stream_webhook_configuration import EventStreamWebhookConfiguration
+    from .event_stream_webhook_custom_header_auth import EventStreamWebhookCustomHeaderAuth
+    from .event_stream_webhook_custom_header_auth_method_enum import EventStreamWebhookCustomHeaderAuthMethodEnum
     from .event_stream_webhook_destination import EventStreamWebhookDestination
     from .event_stream_webhook_destination_type_enum import EventStreamWebhookDestinationTypeEnum
     from .event_stream_webhook_response_content import EventStreamWebhookResponseContent
@@ -1849,6 +1845,7 @@ if typing.TYPE_CHECKING:
     from .get_log_response_content import GetLogResponseContent
     from .get_log_stream_response_content import GetLogStreamResponseContent
     from .get_network_acls_response_content import GetNetworkAclsResponseContent
+    from .get_organization_all_connection_response_content import GetOrganizationAllConnectionResponseContent
     from .get_organization_by_name_response_content import GetOrganizationByNameResponseContent
     from .get_organization_connection_response_content import GetOrganizationConnectionResponseContent
     from .get_organization_discovery_domain_by_name_response_content import (
@@ -1860,6 +1857,7 @@ if typing.TYPE_CHECKING:
     from .get_partials_response_content import GetPartialsResponseContent
     from .get_phone_template_response_content import GetPhoneTemplateResponseContent
     from .get_refresh_token_response_content import GetRefreshTokenResponseContent
+    from .get_refresh_tokens_paginated_response_content import GetRefreshTokensPaginatedResponseContent
     from .get_resource_server_response_content import GetResourceServerResponseContent
     from .get_risk_assessments_settings_new_device_response_content import (
         GetRiskAssessmentsSettingsNewDeviceResponseContent,
@@ -1956,6 +1954,9 @@ if typing.TYPE_CHECKING:
     from .list_hooks_offset_paginated_response_content import ListHooksOffsetPaginatedResponseContent
     from .list_log_offset_paginated_response_content import ListLogOffsetPaginatedResponseContent
     from .list_network_acls_offset_paginated_response_content import ListNetworkAclsOffsetPaginatedResponseContent
+    from .list_organization_all_connections_offset_paginated_response_content import (
+        ListOrganizationAllConnectionsOffsetPaginatedResponseContent,
+    )
     from .list_organization_client_grants_offset_paginated_response_content import (
         ListOrganizationClientGrantsOffsetPaginatedResponseContent,
     )
@@ -2068,6 +2069,8 @@ if typing.TYPE_CHECKING:
     from .network_acl_action_log_enum import NetworkAclActionLogEnum
     from .network_acl_action_redirect_enum import NetworkAclActionRedirectEnum
     from .network_acl_match import NetworkAclMatch
+    from .network_acl_match_connecting_ipv_4_cidr import NetworkAclMatchConnectingIpv4Cidr
+    from .network_acl_match_connecting_ipv_6_cidr import NetworkAclMatchConnectingIpv6Cidr
     from .network_acl_match_ipv_4_cidr import NetworkAclMatchIpv4Cidr
     from .network_acl_match_ipv_6_cidr import NetworkAclMatchIpv6Cidr
     from .network_acl_rule import NetworkAclRule
@@ -2075,6 +2078,9 @@ if typing.TYPE_CHECKING:
     from .network_acls_response_content import NetworkAclsResponseContent
     from .oauth_scope import OauthScope
     from .organization import Organization
+    from .organization_access_level_enum import OrganizationAccessLevelEnum
+    from .organization_access_level_enum_with_null import OrganizationAccessLevelEnumWithNull
+    from .organization_all_connection_post import OrganizationAllConnectionPost
     from .organization_branding import OrganizationBranding
     from .organization_branding_colors import OrganizationBrandingColors
     from .organization_client_grant import OrganizationClientGrant
@@ -2092,6 +2098,12 @@ if typing.TYPE_CHECKING:
     from .organization_usage_enum import OrganizationUsageEnum
     from .partial_groups_enum import PartialGroupsEnum
     from .partial_phone_template_content import PartialPhoneTemplateContent
+    from .password_character_type_enum import PasswordCharacterTypeEnum
+    from .password_character_type_rule_policy_enum import PasswordCharacterTypeRulePolicyEnum
+    from .password_default_dictionaries_enum import PasswordDefaultDictionariesEnum
+    from .password_identical_characters_policy_enum import PasswordIdenticalCharactersPolicyEnum
+    from .password_max_length_exceeded_policy_enum import PasswordMaxLengthExceededPolicyEnum
+    from .password_sequential_characters_policy_enum import PasswordSequentialCharactersPolicyEnum
     from .patch_client_credential_response_content import PatchClientCredentialResponseContent
     from .patch_supplemental_signals_response_content import PatchSupplementalSignalsResponseContent
     from .permission_request_payload import PermissionRequestPayload
@@ -2113,6 +2125,7 @@ if typing.TYPE_CHECKING:
     from .post_connections_keys_response_content import PostConnectionsKeysResponseContent
     from .post_connections_keys_response_content_item import PostConnectionsKeysResponseContentItem
     from .preferred_authentication_method_enum import PreferredAuthenticationMethodEnum
+    from .preview_cimd_metadata_response_content import PreviewCimdMetadataResponseContent
     from .prompt_group_name_enum import PromptGroupNameEnum
     from .prompt_language_enum import PromptLanguageEnum
     from .public_key_credential import PublicKeyCredential
@@ -2128,6 +2141,7 @@ if typing.TYPE_CHECKING:
     from .refresh_token_rotation_type_enum import RefreshTokenRotationTypeEnum
     from .refresh_token_session_id import RefreshTokenSessionId
     from .regenerate_users_recovery_code_response_content import RegenerateUsersRecoveryCodeResponseContent
+    from .register_cimd_client_response_content import RegisterCimdClientResponseContent
     from .reset_phone_template_request_content import ResetPhoneTemplateRequestContent
     from .reset_phone_template_response_content import ResetPhoneTemplateResponseContent
     from .resource_server import ResourceServer
@@ -2265,7 +2279,6 @@ if typing.TYPE_CHECKING:
     from .suspicious_ip_throttling_pre_user_registration_stage import SuspiciousIpThrottlingPreUserRegistrationStage
     from .suspicious_ip_throttling_shields_enum import SuspiciousIpThrottlingShieldsEnum
     from .suspicious_ip_throttling_stage import SuspiciousIpThrottlingStage
-    from .synchronize_groups_ea_enum import SynchronizeGroupsEaEnum
     from .synchronize_groups_enum import SynchronizeGroupsEnum
     from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
     from .tenant_settings_device_flow import TenantSettingsDeviceFlow
@@ -2315,7 +2328,6 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_ad import UpdateConnectionRequestContentAd
     from .update_connection_request_content_adfs import UpdateConnectionRequestContentAdfs
     from .update_connection_request_content_amazon import UpdateConnectionRequestContentAmazon
-    from .update_connection_request_content_aol import UpdateConnectionRequestContentAol
     from .update_connection_request_content_apple import UpdateConnectionRequestContentApple
     from .update_connection_request_content_auth_0 import UpdateConnectionRequestContentAuth0
     from .update_connection_request_content_auth_0_oidc import UpdateConnectionRequestContentAuth0Oidc
@@ -2334,7 +2346,6 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_exact import UpdateConnectionRequestContentExact
     from .update_connection_request_content_facebook import UpdateConnectionRequestContentFacebook
     from .update_connection_request_content_fitbit import UpdateConnectionRequestContentFitbit
-    from .update_connection_request_content_flickr import UpdateConnectionRequestContentFlickr
     from .update_connection_request_content_git_hub import UpdateConnectionRequestContentGitHub
     from .update_connection_request_content_google_apps import UpdateConnectionRequestContentGoogleApps
     from .update_connection_request_content_google_o_auth_2 import UpdateConnectionRequestContentGoogleOAuth2
@@ -2370,7 +2381,6 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_windows_live import UpdateConnectionRequestContentWindowsLive
     from .update_connection_request_content_wordpress import UpdateConnectionRequestContentWordpress
     from .update_connection_request_content_yahoo import UpdateConnectionRequestContentYahoo
-    from .update_connection_request_content_yammer import UpdateConnectionRequestContentYammer
     from .update_connection_request_content_yandex import UpdateConnectionRequestContentYandex
     from .update_connection_response_content import UpdateConnectionResponseContent
     from .update_custom_domain_response_content import UpdateCustomDomainResponseContent
@@ -2405,6 +2415,7 @@ if typing.TYPE_CHECKING:
     from .update_hook_secret_request_content import UpdateHookSecretRequestContent
     from .update_log_stream_response_content import UpdateLogStreamResponseContent
     from .update_network_acl_response_content import UpdateNetworkAclResponseContent
+    from .update_organization_all_connection_response_content import UpdateOrganizationAllConnectionResponseContent
     from .update_organization_connection_response_content import UpdateOrganizationConnectionResponseContent
     from .update_organization_discovery_domain_response_content import UpdateOrganizationDiscoveryDomainResponseContent
     from .update_organization_response_content import UpdateOrganizationResponseContent
@@ -2614,6 +2625,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CertificateSubjectDnCredentialTypeEnum": ".certificate_subject_dn_credential_type_enum",
     "ChangePasswordTicketIdentity": ".change_password_ticket_identity",
     "ChangePasswordTicketResponseContent": ".change_password_ticket_response_content",
+    "CimdMappedClientAuthenticationMethods": ".cimd_mapped_client_authentication_methods",
+    "CimdMappedClientAuthenticationMethodsPrivateKeyJwt": ".cimd_mapped_client_authentication_methods_private_key_jwt",
+    "CimdMappedClientFields": ".cimd_mapped_client_fields",
+    "CimdMappedPrivateKeyJwtCredential": ".cimd_mapped_private_key_jwt_credential",
+    "CimdValidationResult": ".cimd_validation_result",
     "Client": ".client",
     "ClientAddonAws": ".client_addon_aws",
     "ClientAddonAzureBlob": ".client_addon_azure_blob",
@@ -2670,6 +2686,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientDefaultOrganization": ".client_default_organization",
     "ClientDefaultOrganizationFlowsEnum": ".client_default_organization_flows_enum",
     "ClientEncryptionKey": ".client_encryption_key",
+    "ClientExternalMetadataCreatedByEnum": ".client_external_metadata_created_by_enum",
+    "ClientExternalMetadataTypeEnum": ".client_external_metadata_type_enum",
     "ClientGrantAllowAnyOrganizationEnum": ".client_grant_allow_any_organization_enum",
     "ClientGrantOrganizationNullableUsageEnum": ".client_grant_organization_nullable_usage_enum",
     "ClientGrantOrganizationUsageEnum": ".client_grant_organization_usage_enum",
@@ -2735,7 +2753,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionAuthenticationMethods": ".connection_authentication_methods",
     "ConnectionAuthenticationPurpose": ".connection_authentication_purpose",
     "ConnectionAuthorizationEndpoint": ".connection_authorization_endpoint",
-    "ConnectionAuthorizationEndpointOAuth2": ".connection_authorization_endpoint_o_auth_2",
     "ConnectionBaseUrlExact": ".connection_base_url_exact",
     "ConnectionBruteForceProtection": ".connection_brute_force_protection",
     "ConnectionCalculatedThumbprintSaml": ".connection_calculated_thumbprint_saml",
@@ -2817,7 +2834,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionEnabledClients": ".connection_enabled_clients",
     "ConnectionEnabledDatabaseCustomization": ".connection_enabled_database_customization",
     "ConnectionEndSessionEndpoint": ".connection_end_session_endpoint",
-    "ConnectionEndSessionEndpointOAuth2": ".connection_end_session_endpoint_o_auth_2",
     "ConnectionEntityIdSaml": ".connection_entity_id_saml",
     "ConnectionExtAdmin": ".connection_ext_admin",
     "ConnectionExtAgreedTerms": ".connection_ext_agreed_terms",
@@ -2899,7 +2915,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsAd": ".connection_options_ad",
     "ConnectionOptionsAdfs": ".connection_options_adfs",
     "ConnectionOptionsAmazon": ".connection_options_amazon",
-    "ConnectionOptionsAol": ".connection_options_aol",
     "ConnectionOptionsApple": ".connection_options_apple",
     "ConnectionOptionsAuth0": ".connection_options_auth_0",
     "ConnectionOptionsAuth0Oidc": ".connection_options_auth_0_oidc",
@@ -2925,7 +2940,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsExact": ".connection_options_exact",
     "ConnectionOptionsFacebook": ".connection_options_facebook",
     "ConnectionOptionsFitbit": ".connection_options_fitbit",
-    "ConnectionOptionsFlickr": ".connection_options_flickr",
     "ConnectionOptionsFreeformScopesGithub": ".connection_options_freeform_scopes_github",
     "ConnectionOptionsGitHub": ".connection_options_git_hub",
     "ConnectionOptionsGoogleApps": ".connection_options_google_apps",
@@ -2966,7 +2980,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsWindowsLive": ".connection_options_windows_live",
     "ConnectionOptionsWordpress": ".connection_options_wordpress",
     "ConnectionOptionsYahoo": ".connection_options_yahoo",
-    "ConnectionOptionsYammer": ".connection_options_yammer",
     "ConnectionOptionsYandex": ".connection_options_yandex",
     "ConnectionPasskeyAuthenticationMethod": ".connection_passkey_authentication_method",
     "ConnectionPasskeyChallengeUiEnum": ".connection_passkey_challenge_ui_enum",
@@ -2976,6 +2989,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionPasswordDictionaryOptions": ".connection_password_dictionary_options",
     "ConnectionPasswordHistoryOptions": ".connection_password_history_options",
     "ConnectionPasswordNoPersonalInfoOptions": ".connection_password_no_personal_info_options",
+    "ConnectionPasswordOptions": ".connection_password_options",
+    "ConnectionPasswordOptionsComplexity": ".connection_password_options_complexity",
+    "ConnectionPasswordOptionsDictionary": ".connection_password_options_dictionary",
+    "ConnectionPasswordOptionsHistory": ".connection_password_options_history",
+    "ConnectionPasswordOptionsProfileData": ".connection_password_options_profile_data",
     "ConnectionPasswordPolicyEnum": ".connection_password_policy_enum",
     "ConnectionPhoneOtpAuthenticationMethod": ".connection_phone_otp_authentication_method",
     "ConnectionPingFederateBaseUrl": ".connection_ping_federate_base_url",
@@ -3022,8 +3040,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentAdfsStrategy": ".connection_response_content_adfs_strategy",
     "ConnectionResponseContentAmazon": ".connection_response_content_amazon",
     "ConnectionResponseContentAmazonStrategy": ".connection_response_content_amazon_strategy",
-    "ConnectionResponseContentAol": ".connection_response_content_aol",
-    "ConnectionResponseContentAolStrategy": ".connection_response_content_aol_strategy",
     "ConnectionResponseContentApple": ".connection_response_content_apple",
     "ConnectionResponseContentAppleStrategy": ".connection_response_content_apple_strategy",
     "ConnectionResponseContentAuth0": ".connection_response_content_auth_0",
@@ -3060,8 +3076,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentFacebookStrategy": ".connection_response_content_facebook_strategy",
     "ConnectionResponseContentFitbit": ".connection_response_content_fitbit",
     "ConnectionResponseContentFitbitStrategy": ".connection_response_content_fitbit_strategy",
-    "ConnectionResponseContentFlickr": ".connection_response_content_flickr",
-    "ConnectionResponseContentFlickrStrategy": ".connection_response_content_flickr_strategy",
     "ConnectionResponseContentGitHub": ".connection_response_content_git_hub",
     "ConnectionResponseContentGitHubStrategy": ".connection_response_content_git_hub_strategy",
     "ConnectionResponseContentGoogleApps": ".connection_response_content_google_apps",
@@ -3128,8 +3142,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentWordpressStrategy": ".connection_response_content_wordpress_strategy",
     "ConnectionResponseContentYahoo": ".connection_response_content_yahoo",
     "ConnectionResponseContentYahooStrategy": ".connection_response_content_yahoo_strategy",
-    "ConnectionResponseContentYammer": ".connection_response_content_yammer",
-    "ConnectionResponseContentYammerStrategy": ".connection_response_content_yammer_strategy",
     "ConnectionResponseContentYandex": ".connection_response_content_yandex",
     "ConnectionResponseContentYandexStrategy": ".connection_response_content_yandex_strategy",
     "ConnectionResponseModesSupported": ".connection_response_modes_supported",
@@ -3192,8 +3204,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionTokenEndpointAuthMethodsSupported": ".connection_token_endpoint_auth_methods_supported",
     "ConnectionTokenEndpointAuthSigningAlgEnum": ".connection_token_endpoint_auth_signing_alg_enum",
     "ConnectionTokenEndpointAuthSigningAlgValuesSupported": ".connection_token_endpoint_auth_signing_alg_values_supported",
-    "ConnectionTokenEndpointOAuth2": ".connection_token_endpoint_o_auth_2",
-    "ConnectionTokenEndpointOidc": ".connection_token_endpoint_oidc",
     "ConnectionTotpEmail": ".connection_totp_email",
     "ConnectionTotpLengthEmail": ".connection_totp_length_email",
     "ConnectionTotpLengthPasswordless": ".connection_totp_length_passwordless",
@@ -3211,7 +3221,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionUpstreamAlias": ".connection_upstream_alias",
     "ConnectionUpstreamAliasEnum": ".connection_upstream_alias_enum",
     "ConnectionUpstreamParams": ".connection_upstream_params",
-    "ConnectionUpstreamParamsAdfs": ".connection_upstream_params_adfs",
     "ConnectionUpstreamParamsFacebook": ".connection_upstream_params_facebook",
     "ConnectionUpstreamValue": ".connection_upstream_value",
     "ConnectionUseCommonEndpointAzureAd": ".connection_use_common_endpoint_azure_ad",
@@ -3222,7 +3231,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionUserinfoEncryptionAlgValuesSupported": ".connection_userinfo_encryption_alg_values_supported",
     "ConnectionUserinfoEncryptionEncValuesSupported": ".connection_userinfo_encryption_enc_values_supported",
     "ConnectionUserinfoEndpoint": ".connection_userinfo_endpoint",
-    "ConnectionUserinfoEndpointOidc": ".connection_userinfo_endpoint_oidc",
     "ConnectionUserinfoSigningAlgValuesSupported": ".connection_userinfo_signing_alg_values_supported",
     "ConnectionUsernameValidationOptions": ".connection_username_validation_options",
     "ConnectionValidationOptions": ".connection_validation_options",
@@ -3246,8 +3254,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentAdfsStrategy": ".create_connection_request_content_adfs_strategy",
     "CreateConnectionRequestContentAmazon": ".create_connection_request_content_amazon",
     "CreateConnectionRequestContentAmazonStrategy": ".create_connection_request_content_amazon_strategy",
-    "CreateConnectionRequestContentAol": ".create_connection_request_content_aol",
-    "CreateConnectionRequestContentAolStrategy": ".create_connection_request_content_aol_strategy",
     "CreateConnectionRequestContentApple": ".create_connection_request_content_apple",
     "CreateConnectionRequestContentAppleStrategy": ".create_connection_request_content_apple_strategy",
     "CreateConnectionRequestContentAuth0": ".create_connection_request_content_auth_0",
@@ -3284,8 +3290,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentFacebookStrategy": ".create_connection_request_content_facebook_strategy",
     "CreateConnectionRequestContentFitbit": ".create_connection_request_content_fitbit",
     "CreateConnectionRequestContentFitbitStrategy": ".create_connection_request_content_fitbit_strategy",
-    "CreateConnectionRequestContentFlickr": ".create_connection_request_content_flickr",
-    "CreateConnectionRequestContentFlickrStrategy": ".create_connection_request_content_flickr_strategy",
     "CreateConnectionRequestContentGitHub": ".create_connection_request_content_git_hub",
     "CreateConnectionRequestContentGitHubStrategy": ".create_connection_request_content_git_hub_strategy",
     "CreateConnectionRequestContentGoogleApps": ".create_connection_request_content_google_apps",
@@ -3352,8 +3356,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentWordpressStrategy": ".create_connection_request_content_wordpress_strategy",
     "CreateConnectionRequestContentYahoo": ".create_connection_request_content_yahoo",
     "CreateConnectionRequestContentYahooStrategy": ".create_connection_request_content_yahoo_strategy",
-    "CreateConnectionRequestContentYammer": ".create_connection_request_content_yammer",
-    "CreateConnectionRequestContentYammerStrategy": ".create_connection_request_content_yammer_strategy",
     "CreateConnectionRequestContentYandex": ".create_connection_request_content_yandex",
     "CreateConnectionRequestContentYandexStrategy": ".create_connection_request_content_yandex_strategy",
     "CreateConnectionResponseContent": ".create_connection_response_content",
@@ -3463,6 +3465,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateLogStreamSegmentRequestBody": ".create_log_stream_segment_request_body",
     "CreateLogStreamSplunkRequestBody": ".create_log_stream_splunk_request_body",
     "CreateLogStreamSumoRequestBody": ".create_log_stream_sumo_request_body",
+    "CreateOrganizationAllConnectionResponseContent": ".create_organization_all_connection_response_content",
     "CreateOrganizationDiscoveryDomainResponseContent": ".create_organization_discovery_domain_response_content",
     "CreateOrganizationInvitationResponseContent": ".create_organization_invitation_response_content",
     "CreateOrganizationResponseContent": ".create_organization_response_content",
@@ -3575,6 +3578,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamWebhookBearerAuth": ".event_stream_webhook_bearer_auth",
     "EventStreamWebhookBearerAuthMethodEnum": ".event_stream_webhook_bearer_auth_method_enum",
     "EventStreamWebhookConfiguration": ".event_stream_webhook_configuration",
+    "EventStreamWebhookCustomHeaderAuth": ".event_stream_webhook_custom_header_auth",
+    "EventStreamWebhookCustomHeaderAuthMethodEnum": ".event_stream_webhook_custom_header_auth_method_enum",
     "EventStreamWebhookDestination": ".event_stream_webhook_destination",
     "EventStreamWebhookDestinationTypeEnum": ".event_stream_webhook_destination_type_enum",
     "EventStreamWebhookResponseContent": ".event_stream_webhook_response_content",
@@ -4207,6 +4212,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetLogResponseContent": ".get_log_response_content",
     "GetLogStreamResponseContent": ".get_log_stream_response_content",
     "GetNetworkAclsResponseContent": ".get_network_acls_response_content",
+    "GetOrganizationAllConnectionResponseContent": ".get_organization_all_connection_response_content",
     "GetOrganizationByNameResponseContent": ".get_organization_by_name_response_content",
     "GetOrganizationConnectionResponseContent": ".get_organization_connection_response_content",
     "GetOrganizationDiscoveryDomainByNameResponseContent": ".get_organization_discovery_domain_by_name_response_content",
@@ -4216,6 +4222,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetPartialsResponseContent": ".get_partials_response_content",
     "GetPhoneTemplateResponseContent": ".get_phone_template_response_content",
     "GetRefreshTokenResponseContent": ".get_refresh_token_response_content",
+    "GetRefreshTokensPaginatedResponseContent": ".get_refresh_tokens_paginated_response_content",
     "GetResourceServerResponseContent": ".get_resource_server_response_content",
     "GetRiskAssessmentsSettingsNewDeviceResponseContent": ".get_risk_assessments_settings_new_device_response_content",
     "GetRiskAssessmentsSettingsResponseContent": ".get_risk_assessments_settings_response_content",
@@ -4298,6 +4305,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListHooksOffsetPaginatedResponseContent": ".list_hooks_offset_paginated_response_content",
     "ListLogOffsetPaginatedResponseContent": ".list_log_offset_paginated_response_content",
     "ListNetworkAclsOffsetPaginatedResponseContent": ".list_network_acls_offset_paginated_response_content",
+    "ListOrganizationAllConnectionsOffsetPaginatedResponseContent": ".list_organization_all_connections_offset_paginated_response_content",
     "ListOrganizationClientGrantsOffsetPaginatedResponseContent": ".list_organization_client_grants_offset_paginated_response_content",
     "ListOrganizationConnectionsOffsetPaginatedResponseContent": ".list_organization_connections_offset_paginated_response_content",
     "ListOrganizationDiscoveryDomainsResponseContent": ".list_organization_discovery_domains_response_content",
@@ -4390,6 +4398,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NetworkAclActionLogEnum": ".network_acl_action_log_enum",
     "NetworkAclActionRedirectEnum": ".network_acl_action_redirect_enum",
     "NetworkAclMatch": ".network_acl_match",
+    "NetworkAclMatchConnectingIpv4Cidr": ".network_acl_match_connecting_ipv_4_cidr",
+    "NetworkAclMatchConnectingIpv6Cidr": ".network_acl_match_connecting_ipv_6_cidr",
     "NetworkAclMatchIpv4Cidr": ".network_acl_match_ipv_4_cidr",
     "NetworkAclMatchIpv6Cidr": ".network_acl_match_ipv_6_cidr",
     "NetworkAclRule": ".network_acl_rule",
@@ -4397,6 +4407,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NetworkAclsResponseContent": ".network_acls_response_content",
     "OauthScope": ".oauth_scope",
     "Organization": ".organization",
+    "OrganizationAccessLevelEnum": ".organization_access_level_enum",
+    "OrganizationAccessLevelEnumWithNull": ".organization_access_level_enum_with_null",
+    "OrganizationAllConnectionPost": ".organization_all_connection_post",
     "OrganizationBranding": ".organization_branding",
     "OrganizationBrandingColors": ".organization_branding_colors",
     "OrganizationClientGrant": ".organization_client_grant",
@@ -4414,6 +4427,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationUsageEnum": ".organization_usage_enum",
     "PartialGroupsEnum": ".partial_groups_enum",
     "PartialPhoneTemplateContent": ".partial_phone_template_content",
+    "PasswordCharacterTypeEnum": ".password_character_type_enum",
+    "PasswordCharacterTypeRulePolicyEnum": ".password_character_type_rule_policy_enum",
+    "PasswordDefaultDictionariesEnum": ".password_default_dictionaries_enum",
+    "PasswordIdenticalCharactersPolicyEnum": ".password_identical_characters_policy_enum",
+    "PasswordMaxLengthExceededPolicyEnum": ".password_max_length_exceeded_policy_enum",
+    "PasswordSequentialCharactersPolicyEnum": ".password_sequential_characters_policy_enum",
     "PatchClientCredentialResponseContent": ".patch_client_credential_response_content",
     "PatchSupplementalSignalsResponseContent": ".patch_supplemental_signals_response_content",
     "PermissionRequestPayload": ".permission_request_payload",
@@ -4435,6 +4454,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostConnectionsKeysResponseContent": ".post_connections_keys_response_content",
     "PostConnectionsKeysResponseContentItem": ".post_connections_keys_response_content_item",
     "PreferredAuthenticationMethodEnum": ".preferred_authentication_method_enum",
+    "PreviewCimdMetadataResponseContent": ".preview_cimd_metadata_response_content",
     "PromptGroupNameEnum": ".prompt_group_name_enum",
     "PromptLanguageEnum": ".prompt_language_enum",
     "PublicKeyCredential": ".public_key_credential",
@@ -4450,6 +4470,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RefreshTokenRotationTypeEnum": ".refresh_token_rotation_type_enum",
     "RefreshTokenSessionId": ".refresh_token_session_id",
     "RegenerateUsersRecoveryCodeResponseContent": ".regenerate_users_recovery_code_response_content",
+    "RegisterCimdClientResponseContent": ".register_cimd_client_response_content",
     "ResetPhoneTemplateRequestContent": ".reset_phone_template_request_content",
     "ResetPhoneTemplateResponseContent": ".reset_phone_template_response_content",
     "ResourceServer": ".resource_server",
@@ -4559,7 +4580,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SuspiciousIpThrottlingPreUserRegistrationStage": ".suspicious_ip_throttling_pre_user_registration_stage",
     "SuspiciousIpThrottlingShieldsEnum": ".suspicious_ip_throttling_shields_enum",
     "SuspiciousIpThrottlingStage": ".suspicious_ip_throttling_stage",
-    "SynchronizeGroupsEaEnum": ".synchronize_groups_ea_enum",
     "SynchronizeGroupsEnum": ".synchronize_groups_enum",
     "TenantOidcLogoutSettings": ".tenant_oidc_logout_settings",
     "TenantSettingsDeviceFlow": ".tenant_settings_device_flow",
@@ -4607,7 +4627,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentAd": ".update_connection_request_content_ad",
     "UpdateConnectionRequestContentAdfs": ".update_connection_request_content_adfs",
     "UpdateConnectionRequestContentAmazon": ".update_connection_request_content_amazon",
-    "UpdateConnectionRequestContentAol": ".update_connection_request_content_aol",
     "UpdateConnectionRequestContentApple": ".update_connection_request_content_apple",
     "UpdateConnectionRequestContentAuth0": ".update_connection_request_content_auth_0",
     "UpdateConnectionRequestContentAuth0Oidc": ".update_connection_request_content_auth_0_oidc",
@@ -4626,7 +4645,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentExact": ".update_connection_request_content_exact",
     "UpdateConnectionRequestContentFacebook": ".update_connection_request_content_facebook",
     "UpdateConnectionRequestContentFitbit": ".update_connection_request_content_fitbit",
-    "UpdateConnectionRequestContentFlickr": ".update_connection_request_content_flickr",
     "UpdateConnectionRequestContentGitHub": ".update_connection_request_content_git_hub",
     "UpdateConnectionRequestContentGoogleApps": ".update_connection_request_content_google_apps",
     "UpdateConnectionRequestContentGoogleOAuth2": ".update_connection_request_content_google_o_auth_2",
@@ -4660,7 +4678,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentWindowsLive": ".update_connection_request_content_windows_live",
     "UpdateConnectionRequestContentWordpress": ".update_connection_request_content_wordpress",
     "UpdateConnectionRequestContentYahoo": ".update_connection_request_content_yahoo",
-    "UpdateConnectionRequestContentYammer": ".update_connection_request_content_yammer",
     "UpdateConnectionRequestContentYandex": ".update_connection_request_content_yandex",
     "UpdateConnectionResponseContent": ".update_connection_response_content",
     "UpdateCustomDomainResponseContent": ".update_custom_domain_response_content",
@@ -4687,6 +4704,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateHookSecretRequestContent": ".update_hook_secret_request_content",
     "UpdateLogStreamResponseContent": ".update_log_stream_response_content",
     "UpdateNetworkAclResponseContent": ".update_network_acl_response_content",
+    "UpdateOrganizationAllConnectionResponseContent": ".update_organization_all_connection_response_content",
     "UpdateOrganizationConnectionResponseContent": ".update_organization_connection_response_content",
     "UpdateOrganizationDiscoveryDomainResponseContent": ".update_organization_discovery_domain_response_content",
     "UpdateOrganizationResponseContent": ".update_organization_response_content",
@@ -4906,6 +4924,11 @@ __all__ = [
     "CertificateSubjectDnCredentialTypeEnum",
     "ChangePasswordTicketIdentity",
     "ChangePasswordTicketResponseContent",
+    "CimdMappedClientAuthenticationMethods",
+    "CimdMappedClientAuthenticationMethodsPrivateKeyJwt",
+    "CimdMappedClientFields",
+    "CimdMappedPrivateKeyJwtCredential",
+    "CimdValidationResult",
     "Client",
     "ClientAddonAws",
     "ClientAddonAzureBlob",
@@ -4962,6 +4985,8 @@ __all__ = [
     "ClientDefaultOrganization",
     "ClientDefaultOrganizationFlowsEnum",
     "ClientEncryptionKey",
+    "ClientExternalMetadataCreatedByEnum",
+    "ClientExternalMetadataTypeEnum",
     "ClientGrantAllowAnyOrganizationEnum",
     "ClientGrantOrganizationNullableUsageEnum",
     "ClientGrantOrganizationUsageEnum",
@@ -5027,7 +5052,6 @@ __all__ = [
     "ConnectionAuthenticationMethods",
     "ConnectionAuthenticationPurpose",
     "ConnectionAuthorizationEndpoint",
-    "ConnectionAuthorizationEndpointOAuth2",
     "ConnectionBaseUrlExact",
     "ConnectionBruteForceProtection",
     "ConnectionCalculatedThumbprintSaml",
@@ -5109,7 +5133,6 @@ __all__ = [
     "ConnectionEnabledClients",
     "ConnectionEnabledDatabaseCustomization",
     "ConnectionEndSessionEndpoint",
-    "ConnectionEndSessionEndpointOAuth2",
     "ConnectionEntityIdSaml",
     "ConnectionExtAdmin",
     "ConnectionExtAgreedTerms",
@@ -5191,7 +5214,6 @@ __all__ = [
     "ConnectionOptionsAd",
     "ConnectionOptionsAdfs",
     "ConnectionOptionsAmazon",
-    "ConnectionOptionsAol",
     "ConnectionOptionsApple",
     "ConnectionOptionsAuth0",
     "ConnectionOptionsAuth0Oidc",
@@ -5217,7 +5239,6 @@ __all__ = [
     "ConnectionOptionsExact",
     "ConnectionOptionsFacebook",
     "ConnectionOptionsFitbit",
-    "ConnectionOptionsFlickr",
     "ConnectionOptionsFreeformScopesGithub",
     "ConnectionOptionsGitHub",
     "ConnectionOptionsGoogleApps",
@@ -5258,7 +5279,6 @@ __all__ = [
     "ConnectionOptionsWindowsLive",
     "ConnectionOptionsWordpress",
     "ConnectionOptionsYahoo",
-    "ConnectionOptionsYammer",
     "ConnectionOptionsYandex",
     "ConnectionPasskeyAuthenticationMethod",
     "ConnectionPasskeyChallengeUiEnum",
@@ -5268,6 +5288,11 @@ __all__ = [
     "ConnectionPasswordDictionaryOptions",
     "ConnectionPasswordHistoryOptions",
     "ConnectionPasswordNoPersonalInfoOptions",
+    "ConnectionPasswordOptions",
+    "ConnectionPasswordOptionsComplexity",
+    "ConnectionPasswordOptionsDictionary",
+    "ConnectionPasswordOptionsHistory",
+    "ConnectionPasswordOptionsProfileData",
     "ConnectionPasswordPolicyEnum",
     "ConnectionPhoneOtpAuthenticationMethod",
     "ConnectionPingFederateBaseUrl",
@@ -5314,8 +5339,6 @@ __all__ = [
     "ConnectionResponseContentAdfsStrategy",
     "ConnectionResponseContentAmazon",
     "ConnectionResponseContentAmazonStrategy",
-    "ConnectionResponseContentAol",
-    "ConnectionResponseContentAolStrategy",
     "ConnectionResponseContentApple",
     "ConnectionResponseContentAppleStrategy",
     "ConnectionResponseContentAuth0",
@@ -5352,8 +5375,6 @@ __all__ = [
     "ConnectionResponseContentFacebookStrategy",
     "ConnectionResponseContentFitbit",
     "ConnectionResponseContentFitbitStrategy",
-    "ConnectionResponseContentFlickr",
-    "ConnectionResponseContentFlickrStrategy",
     "ConnectionResponseContentGitHub",
     "ConnectionResponseContentGitHubStrategy",
     "ConnectionResponseContentGoogleApps",
@@ -5420,8 +5441,6 @@ __all__ = [
     "ConnectionResponseContentWordpressStrategy",
     "ConnectionResponseContentYahoo",
     "ConnectionResponseContentYahooStrategy",
-    "ConnectionResponseContentYammer",
-    "ConnectionResponseContentYammerStrategy",
     "ConnectionResponseContentYandex",
     "ConnectionResponseContentYandexStrategy",
     "ConnectionResponseModesSupported",
@@ -5484,8 +5503,6 @@ __all__ = [
     "ConnectionTokenEndpointAuthMethodsSupported",
     "ConnectionTokenEndpointAuthSigningAlgEnum",
     "ConnectionTokenEndpointAuthSigningAlgValuesSupported",
-    "ConnectionTokenEndpointOAuth2",
-    "ConnectionTokenEndpointOidc",
     "ConnectionTotpEmail",
     "ConnectionTotpLengthEmail",
     "ConnectionTotpLengthPasswordless",
@@ -5503,7 +5520,6 @@ __all__ = [
     "ConnectionUpstreamAlias",
     "ConnectionUpstreamAliasEnum",
     "ConnectionUpstreamParams",
-    "ConnectionUpstreamParamsAdfs",
     "ConnectionUpstreamParamsFacebook",
     "ConnectionUpstreamValue",
     "ConnectionUseCommonEndpointAzureAd",
@@ -5514,7 +5530,6 @@ __all__ = [
     "ConnectionUserinfoEncryptionAlgValuesSupported",
     "ConnectionUserinfoEncryptionEncValuesSupported",
     "ConnectionUserinfoEndpoint",
-    "ConnectionUserinfoEndpointOidc",
     "ConnectionUserinfoSigningAlgValuesSupported",
     "ConnectionUsernameValidationOptions",
     "ConnectionValidationOptions",
@@ -5538,8 +5553,6 @@ __all__ = [
     "CreateConnectionRequestContentAdfsStrategy",
     "CreateConnectionRequestContentAmazon",
     "CreateConnectionRequestContentAmazonStrategy",
-    "CreateConnectionRequestContentAol",
-    "CreateConnectionRequestContentAolStrategy",
     "CreateConnectionRequestContentApple",
     "CreateConnectionRequestContentAppleStrategy",
     "CreateConnectionRequestContentAuth0",
@@ -5576,8 +5589,6 @@ __all__ = [
     "CreateConnectionRequestContentFacebookStrategy",
     "CreateConnectionRequestContentFitbit",
     "CreateConnectionRequestContentFitbitStrategy",
-    "CreateConnectionRequestContentFlickr",
-    "CreateConnectionRequestContentFlickrStrategy",
     "CreateConnectionRequestContentGitHub",
     "CreateConnectionRequestContentGitHubStrategy",
     "CreateConnectionRequestContentGoogleApps",
@@ -5644,8 +5655,6 @@ __all__ = [
     "CreateConnectionRequestContentWordpressStrategy",
     "CreateConnectionRequestContentYahoo",
     "CreateConnectionRequestContentYahooStrategy",
-    "CreateConnectionRequestContentYammer",
-    "CreateConnectionRequestContentYammerStrategy",
     "CreateConnectionRequestContentYandex",
     "CreateConnectionRequestContentYandexStrategy",
     "CreateConnectionResponseContent",
@@ -5755,6 +5764,7 @@ __all__ = [
     "CreateLogStreamSegmentRequestBody",
     "CreateLogStreamSplunkRequestBody",
     "CreateLogStreamSumoRequestBody",
+    "CreateOrganizationAllConnectionResponseContent",
     "CreateOrganizationDiscoveryDomainResponseContent",
     "CreateOrganizationInvitationResponseContent",
     "CreateOrganizationResponseContent",
@@ -5867,6 +5877,8 @@ __all__ = [
     "EventStreamWebhookBearerAuth",
     "EventStreamWebhookBearerAuthMethodEnum",
     "EventStreamWebhookConfiguration",
+    "EventStreamWebhookCustomHeaderAuth",
+    "EventStreamWebhookCustomHeaderAuthMethodEnum",
     "EventStreamWebhookDestination",
     "EventStreamWebhookDestinationTypeEnum",
     "EventStreamWebhookResponseContent",
@@ -6499,6 +6511,7 @@ __all__ = [
     "GetLogResponseContent",
     "GetLogStreamResponseContent",
     "GetNetworkAclsResponseContent",
+    "GetOrganizationAllConnectionResponseContent",
     "GetOrganizationByNameResponseContent",
     "GetOrganizationConnectionResponseContent",
     "GetOrganizationDiscoveryDomainByNameResponseContent",
@@ -6508,6 +6521,7 @@ __all__ = [
     "GetPartialsResponseContent",
     "GetPhoneTemplateResponseContent",
     "GetRefreshTokenResponseContent",
+    "GetRefreshTokensPaginatedResponseContent",
     "GetResourceServerResponseContent",
     "GetRiskAssessmentsSettingsNewDeviceResponseContent",
     "GetRiskAssessmentsSettingsResponseContent",
@@ -6590,6 +6604,7 @@ __all__ = [
     "ListHooksOffsetPaginatedResponseContent",
     "ListLogOffsetPaginatedResponseContent",
     "ListNetworkAclsOffsetPaginatedResponseContent",
+    "ListOrganizationAllConnectionsOffsetPaginatedResponseContent",
     "ListOrganizationClientGrantsOffsetPaginatedResponseContent",
     "ListOrganizationConnectionsOffsetPaginatedResponseContent",
     "ListOrganizationDiscoveryDomainsResponseContent",
@@ -6682,6 +6697,8 @@ __all__ = [
     "NetworkAclActionLogEnum",
     "NetworkAclActionRedirectEnum",
     "NetworkAclMatch",
+    "NetworkAclMatchConnectingIpv4Cidr",
+    "NetworkAclMatchConnectingIpv6Cidr",
     "NetworkAclMatchIpv4Cidr",
     "NetworkAclMatchIpv6Cidr",
     "NetworkAclRule",
@@ -6689,6 +6706,9 @@ __all__ = [
     "NetworkAclsResponseContent",
     "OauthScope",
     "Organization",
+    "OrganizationAccessLevelEnum",
+    "OrganizationAccessLevelEnumWithNull",
+    "OrganizationAllConnectionPost",
     "OrganizationBranding",
     "OrganizationBrandingColors",
     "OrganizationClientGrant",
@@ -6706,6 +6726,12 @@ __all__ = [
     "OrganizationUsageEnum",
     "PartialGroupsEnum",
     "PartialPhoneTemplateContent",
+    "PasswordCharacterTypeEnum",
+    "PasswordCharacterTypeRulePolicyEnum",
+    "PasswordDefaultDictionariesEnum",
+    "PasswordIdenticalCharactersPolicyEnum",
+    "PasswordMaxLengthExceededPolicyEnum",
+    "PasswordSequentialCharactersPolicyEnum",
     "PatchClientCredentialResponseContent",
     "PatchSupplementalSignalsResponseContent",
     "PermissionRequestPayload",
@@ -6727,6 +6753,7 @@ __all__ = [
     "PostConnectionsKeysResponseContent",
     "PostConnectionsKeysResponseContentItem",
     "PreferredAuthenticationMethodEnum",
+    "PreviewCimdMetadataResponseContent",
     "PromptGroupNameEnum",
     "PromptLanguageEnum",
     "PublicKeyCredential",
@@ -6742,6 +6769,7 @@ __all__ = [
     "RefreshTokenRotationTypeEnum",
     "RefreshTokenSessionId",
     "RegenerateUsersRecoveryCodeResponseContent",
+    "RegisterCimdClientResponseContent",
     "ResetPhoneTemplateRequestContent",
     "ResetPhoneTemplateResponseContent",
     "ResourceServer",
@@ -6851,7 +6879,6 @@ __all__ = [
     "SuspiciousIpThrottlingPreUserRegistrationStage",
     "SuspiciousIpThrottlingShieldsEnum",
     "SuspiciousIpThrottlingStage",
-    "SynchronizeGroupsEaEnum",
     "SynchronizeGroupsEnum",
     "TenantOidcLogoutSettings",
     "TenantSettingsDeviceFlow",
@@ -6899,7 +6926,6 @@ __all__ = [
     "UpdateConnectionRequestContentAd",
     "UpdateConnectionRequestContentAdfs",
     "UpdateConnectionRequestContentAmazon",
-    "UpdateConnectionRequestContentAol",
     "UpdateConnectionRequestContentApple",
     "UpdateConnectionRequestContentAuth0",
     "UpdateConnectionRequestContentAuth0Oidc",
@@ -6918,7 +6944,6 @@ __all__ = [
     "UpdateConnectionRequestContentExact",
     "UpdateConnectionRequestContentFacebook",
     "UpdateConnectionRequestContentFitbit",
-    "UpdateConnectionRequestContentFlickr",
     "UpdateConnectionRequestContentGitHub",
     "UpdateConnectionRequestContentGoogleApps",
     "UpdateConnectionRequestContentGoogleOAuth2",
@@ -6952,7 +6977,6 @@ __all__ = [
     "UpdateConnectionRequestContentWindowsLive",
     "UpdateConnectionRequestContentWordpress",
     "UpdateConnectionRequestContentYahoo",
-    "UpdateConnectionRequestContentYammer",
     "UpdateConnectionRequestContentYandex",
     "UpdateConnectionResponseContent",
     "UpdateCustomDomainResponseContent",
@@ -6979,6 +7003,7 @@ __all__ = [
     "UpdateHookSecretRequestContent",
     "UpdateLogStreamResponseContent",
     "UpdateNetworkAclResponseContent",
+    "UpdateOrganizationAllConnectionResponseContent",
     "UpdateOrganizationConnectionResponseContent",
     "UpdateOrganizationDiscoveryDomainResponseContent",
     "UpdateOrganizationResponseContent",

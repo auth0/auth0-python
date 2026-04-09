@@ -147,8 +147,8 @@ class RawNetworkAclsClient:
         *,
         description: str,
         active: bool,
-        priority: float,
         rule: NetworkAclRule,
+        priority: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
@@ -161,10 +161,10 @@ class RawNetworkAclsClient:
         active : bool
             Indicates whether or not this access control list is actively being used
 
-        priority : float
-            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
-
         rule : NetworkAclRule
+
+        priority : typing.Optional[float]
+            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -353,8 +353,8 @@ class RawNetworkAclsClient:
         *,
         description: str,
         active: bool,
-        priority: float,
         rule: NetworkAclRule,
+        priority: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetNetworkAclsResponseContent]:
         """
@@ -370,10 +370,10 @@ class RawNetworkAclsClient:
         active : bool
             Indicates whether or not this access control list is actively being used
 
-        priority : float
-            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
-
         rule : NetworkAclRule
+
+        priority : typing.Optional[float]
+            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -799,8 +799,8 @@ class AsyncRawNetworkAclsClient:
         *,
         description: str,
         active: bool,
-        priority: float,
         rule: NetworkAclRule,
+        priority: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
@@ -813,10 +813,10 @@ class AsyncRawNetworkAclsClient:
         active : bool
             Indicates whether or not this access control list is actively being used
 
-        priority : float
-            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
-
         rule : NetworkAclRule
+
+        priority : typing.Optional[float]
+            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1005,8 +1005,8 @@ class AsyncRawNetworkAclsClient:
         *,
         description: str,
         active: bool,
-        priority: float,
         rule: NetworkAclRule,
+        priority: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetNetworkAclsResponseContent]:
         """
@@ -1022,10 +1022,10 @@ class AsyncRawNetworkAclsClient:
         active : bool
             Indicates whether or not this access control list is actively being used
 
-        priority : float
-            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
-
         rule : NetworkAclRule
+
+        priority : typing.Optional[float]
+            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

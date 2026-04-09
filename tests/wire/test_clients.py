@@ -14,6 +14,7 @@ def test_clients_list_() -> None:
         is_global=True,
         is_first_party=True,
         app_type="app_type",
+        external_client_id="external_client_id",
         q="q",
     )
     verify_request_count(
@@ -29,6 +30,7 @@ def test_clients_list_() -> None:
             "is_global": "true",
             "is_first_party": "true",
             "app_type": "app_type",
+            "external_client_id": "external_client_id",
             "q": "q",
         },
         1,
@@ -41,6 +43,22 @@ def test_clients_create() -> None:
     client = get_client(test_id)
     client.clients.create(name="name")
     verify_request_count(test_id, "POST", "/clients", None, 1)
+
+
+def test_clients_preview_cimd_metadata() -> None:
+    """Test previewCimdMetadata endpoint with WireMock"""
+    test_id = "clients.preview_cimd_metadata.0"
+    client = get_client(test_id)
+    client.clients.preview_cimd_metadata(external_client_id="external_client_id")
+    verify_request_count(test_id, "POST", "/clients/cimd/preview", None, 1)
+
+
+def test_clients_register_cimd_client() -> None:
+    """Test registerCimdClient endpoint with WireMock"""
+    test_id = "clients.register_cimd_client.0"
+    client = get_client(test_id)
+    client.clients.register_cimd_client(external_client_id="external_client_id")
+    verify_request_count(test_id, "POST", "/clients/cimd/register", None, 1)
 
 
 def test_clients_get() -> None:

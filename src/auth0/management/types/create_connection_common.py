@@ -3,13 +3,23 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_common import ConnectionCommon
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_display_name import ConnectionDisplayName
+from .connection_is_domain_connection import ConnectionIsDomainConnection
 from .connection_name import ConnectionName
+from .connections_metadata import ConnectionsMetadata
 
 
-class CreateConnectionCommon(ConnectionCommon):
-    name: typing.Optional[ConnectionName] = None
+class CreateConnectionCommon(UniversalBaseModel):
+    name: ConnectionName
+    enabled_clients: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+    """
+
+    display_name: typing.Optional[ConnectionDisplayName] = None
+    is_domain_connection: typing.Optional[ConnectionIsDomainConnection] = None
+    metadata: typing.Optional[ConnectionsMetadata] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

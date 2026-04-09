@@ -89,8 +89,8 @@ class NetworkAclsClient:
         *,
         description: str,
         active: bool,
-        priority: float,
         rule: NetworkAclRule,
+        priority: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -103,10 +103,10 @@ class NetworkAclsClient:
         active : bool
             Indicates whether or not this access control list is actively being used
 
-        priority : float
-            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
-
         rule : NetworkAclRule
+
+        priority : typing.Optional[float]
+            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -125,7 +125,6 @@ class NetworkAclsClient:
         client.network_acls.create(
             description="description",
             active=True,
-            priority=1.1,
             rule=NetworkAclRule(
                 action=NetworkAclAction(),
                 scope="management",
@@ -133,7 +132,7 @@ class NetworkAclsClient:
         )
         """
         _response = self._raw_client.create(
-            description=description, active=active, priority=priority, rule=rule, request_options=request_options
+            description=description, active=active, rule=rule, priority=priority, request_options=request_options
         )
         return _response.data
 
@@ -174,8 +173,8 @@ class NetworkAclsClient:
         *,
         description: str,
         active: bool,
-        priority: float,
         rule: NetworkAclRule,
+        priority: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetNetworkAclsResponseContent:
         """
@@ -191,10 +190,10 @@ class NetworkAclsClient:
         active : bool
             Indicates whether or not this access control list is actively being used
 
-        priority : float
-            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
-
         rule : NetworkAclRule
+
+        priority : typing.Optional[float]
+            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -215,7 +214,6 @@ class NetworkAclsClient:
             id="id",
             description="description",
             active=True,
-            priority=1.1,
             rule=NetworkAclRule(
                 action=NetworkAclAction(),
                 scope="management",
@@ -223,7 +221,7 @@ class NetworkAclsClient:
         )
         """
         _response = self._raw_client.set(
-            id, description=description, active=active, priority=priority, rule=rule, request_options=request_options
+            id, description=description, active=active, rule=rule, priority=priority, request_options=request_options
         )
         return _response.data
 
@@ -391,8 +389,8 @@ class AsyncNetworkAclsClient:
         *,
         description: str,
         active: bool,
-        priority: float,
         rule: NetworkAclRule,
+        priority: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -405,10 +403,10 @@ class AsyncNetworkAclsClient:
         active : bool
             Indicates whether or not this access control list is actively being used
 
-        priority : float
-            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
-
         rule : NetworkAclRule
+
+        priority : typing.Optional[float]
+            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -432,7 +430,6 @@ class AsyncNetworkAclsClient:
             await client.network_acls.create(
                 description="description",
                 active=True,
-                priority=1.1,
                 rule=NetworkAclRule(
                     action=NetworkAclAction(),
                     scope="management",
@@ -443,7 +440,7 @@ class AsyncNetworkAclsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            description=description, active=active, priority=priority, rule=rule, request_options=request_options
+            description=description, active=active, rule=rule, priority=priority, request_options=request_options
         )
         return _response.data
 
@@ -494,8 +491,8 @@ class AsyncNetworkAclsClient:
         *,
         description: str,
         active: bool,
-        priority: float,
         rule: NetworkAclRule,
+        priority: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetNetworkAclsResponseContent:
         """
@@ -511,10 +508,10 @@ class AsyncNetworkAclsClient:
         active : bool
             Indicates whether or not this access control list is actively being used
 
-        priority : float
-            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
-
         rule : NetworkAclRule
+
+        priority : typing.Optional[float]
+            Indicates the order in which the ACL will be evaluated relative to other ACL rules.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -540,7 +537,6 @@ class AsyncNetworkAclsClient:
                 id="id",
                 description="description",
                 active=True,
-                priority=1.1,
                 rule=NetworkAclRule(
                     action=NetworkAclAction(),
                     scope="management",
@@ -551,7 +547,7 @@ class AsyncNetworkAclsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.set(
-            id, description=description, active=active, priority=priority, rule=rule, request_options=request_options
+            id, description=description, active=active, rule=rule, priority=priority, request_options=request_options
         )
         return _response.data
 
