@@ -41,3 +41,6 @@ LICENSE
 
 # GitHub workflows and configuration
 .github/
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes
