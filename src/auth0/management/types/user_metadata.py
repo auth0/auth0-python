@@ -3,3 +3,6 @@
 import typing
 
 UserMetadata = typing.Dict[str, typing.Any]
+"""
+Data related to the user that does not affect the application's core functionality.
+"""

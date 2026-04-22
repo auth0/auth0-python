@@ -13,5 +13,7 @@ def test_guardian_policies_set_() -> None:
     """Test set endpoint with WireMock"""
     test_id = "guardian.policies.set_.0"
     client = get_client(test_id)
-    client.guardian.policies.set(request=["all-applications"])
+    client.guardian.policies.set(
+        request=["all-applications"],
+    )
     verify_request_count(test_id, "PUT", "/guardian/policies", None, 1)

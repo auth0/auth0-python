@@ -3,3 +3,6 @@
 import typing
 
 ConnectionDomainAliasesAzureAd = typing.List[str]
+"""
+Alternative domain names associated with this Azure AD tenant. Allows users from multiple verified domains to authenticate through this connection. Can be an array of domain strings.
+"""

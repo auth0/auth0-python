@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.pagination import AsyncPager, SyncPager
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
@@ -20,6 +21,7 @@ from ..types.get_refresh_tokens_paginated_response_content import GetRefreshToke
 from ..types.refresh_token_metadata import RefreshTokenMetadata
 from ..types.refresh_token_response_content import RefreshTokenResponseContent
 from ..types.update_refresh_token_response_content import UpdateRefreshTokenResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -164,6 +166,10 @@ class RawRefreshTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -186,7 +192,7 @@ class RawRefreshTokensClient:
             The refresh token was retrieved
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{jsonable_encoder(id)}",
+            f"refresh-tokens/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -247,6 +253,10 @@ class RawRefreshTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -266,7 +276,7 @@ class RawRefreshTokensClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{jsonable_encoder(id)}",
+            f"refresh-tokens/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -320,6 +330,10 @@ class RawRefreshTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -349,7 +363,7 @@ class RawRefreshTokensClient:
             Refresh token successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{jsonable_encoder(id)}",
+            f"refresh-tokens/{encode_path_param(id)}",
             method="PATCH",
             json={
                 "refresh_token_metadata": refresh_token_metadata,
@@ -428,6 +442,10 @@ class RawRefreshTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -573,6 +591,10 @@ class AsyncRawRefreshTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -595,7 +617,7 @@ class AsyncRawRefreshTokensClient:
             The refresh token was retrieved
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{jsonable_encoder(id)}",
+            f"refresh-tokens/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -656,6 +678,10 @@ class AsyncRawRefreshTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -677,7 +703,7 @@ class AsyncRawRefreshTokensClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{jsonable_encoder(id)}",
+            f"refresh-tokens/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -731,6 +757,10 @@ class AsyncRawRefreshTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -760,7 +790,7 @@ class AsyncRawRefreshTokensClient:
             Refresh token successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{jsonable_encoder(id)}",
+            f"refresh-tokens/{encode_path_param(id)}",
             method="PATCH",
             json={
                 "refresh_token_metadata": refresh_token_metadata,
@@ -839,4 +869,8 @@ class AsyncRawRefreshTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

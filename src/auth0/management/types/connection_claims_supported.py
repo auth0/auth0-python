@@ -3,3 +3,6 @@
 import typing
 
 ConnectionClaimsSupported = typing.List[str]
+"""
+JSON array containing a list of the Claim Names of the Claims that the OpenID Provider MAY be able to supply values for. Note that for privacy or other reasons, this might not be an exhaustive list.
+"""

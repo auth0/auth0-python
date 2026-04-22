@@ -15,6 +15,8 @@ from ...types.get_directory_provisioning_default_mapping_response_content import
 )
 from ...types.get_directory_provisioning_response_content import GetDirectoryProvisioningResponseContent
 from ...types.list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
+from ...types.list_synchronized_groups_response_content import ListSynchronizedGroupsResponseContent
+from ...types.synchronized_group_payload import SynchronizedGroupPayload
 from ...types.update_directory_provisioning_request_content import UpdateDirectoryProvisioningRequestContent
 from ...types.update_directory_provisioning_response_content import UpdateDirectoryProvisioningResponseContent
 from .raw_client import AsyncRawDirectoryProvisioningClient, RawDirectoryProvisioningClient
@@ -261,6 +263,100 @@ class DirectoryProvisioningClient:
         )
         """
         _response = self._raw_client.get_default_mapping(id, request_options=request_options)
+        return _response.data
+
+    def list_synchronized_groups(
+        self,
+        id: str,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]:
+        """
+        Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to list synchronized groups for.
+
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]
+            The connection's synchronized groups. See <strong>Response Schemas</strong> for schema.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.connections.directory_provisioning.list_synchronized_groups(
+            id="id",
+            from_="from",
+            take=1,
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.list_synchronized_groups(id, from_=from_, take=take, request_options=request_options)
+
+    def set(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupPayload],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Create or replace the selected groups for a connection directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to create or replace synchronized groups for
+
+        groups : typing.Sequence[SynchronizedGroupPayload]
+            Array of Google Workspace Directory group objects to synchronize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from auth0 import Auth0, SynchronizedGroupPayload
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.connections.directory_provisioning.set(
+            id="id",
+            groups=[
+                SynchronizedGroupPayload(
+                    id="id",
+                )
+            ],
+        )
+        """
+        _response = self._raw_client.set(id, groups=groups, request_options=request_options)
         return _response.data
 
     @property
@@ -557,6 +653,119 @@ class AsyncDirectoryProvisioningClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_default_mapping(id, request_options=request_options)
+        return _response.data
+
+    async def list_synchronized_groups(
+        self,
+        id: str,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]:
+        """
+        Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to list synchronized groups for.
+
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]
+            The connection's synchronized groups. See <strong>Response Schemas</strong> for schema.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.connections.directory_provisioning.list_synchronized_groups(
+                id="id",
+                from_="from",
+                take=1,
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.list_synchronized_groups(
+            id, from_=from_, take=take, request_options=request_options
+        )
+
+    async def set(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupPayload],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Create or replace the selected groups for a connection directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to create or replace synchronized groups for
+
+        groups : typing.Sequence[SynchronizedGroupPayload]
+            Array of Google Workspace Directory group objects to synchronize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0, SynchronizedGroupPayload
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.connections.directory_provisioning.set(
+                id="id",
+                groups=[
+                    SynchronizedGroupPayload(
+                        id="id",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.set(id, groups=groups, request_options=request_options)
         return _response.data
 
     @property

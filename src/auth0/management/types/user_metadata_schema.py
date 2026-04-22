@@ -3,3 +3,6 @@
 import typing
 
 UserMetadataSchema = typing.Dict[str, typing.Any]
+"""
+User metadata to which this user has read/write access.
+"""

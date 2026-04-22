@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import jsonable_encoder
+from ....core.jsonable_encoder import encode_path_param
+from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
 from ....errors.bad_request_error import BadRequestError
@@ -14,6 +15,7 @@ from ....errors.conflict_error import ConflictError
 from ....errors.not_found_error import NotFoundError
 from ....types.create_scim_token_response_content import CreateScimTokenResponseContent
 from ....types.get_scim_tokens_response_content import GetScimTokensResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,7 +45,7 @@ class RawTokensClient:
             The connection's SCIM tokens were retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration/tokens",
+            f"connections/{encode_path_param(id)}/scim-configuration/tokens",
             method="GET",
             request_options=request_options,
         )
@@ -82,6 +84,10 @@ class RawTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -115,7 +121,7 @@ class RawTokensClient:
             The connection's SCIM token was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration/tokens",
+            f"connections/{encode_path_param(id)}/scim-configuration/tokens",
             method="POST",
             json={
                 "scopes": scopes,
@@ -173,6 +179,10 @@ class RawTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(
@@ -197,7 +207,7 @@ class RawTokensClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration/tokens/{jsonable_encoder(token_id)}",
+            f"connections/{encode_path_param(id)}/scim-configuration/tokens/{encode_path_param(token_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -229,6 +239,10 @@ class RawTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -256,7 +270,7 @@ class AsyncRawTokensClient:
             The connection's SCIM tokens were retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration/tokens",
+            f"connections/{encode_path_param(id)}/scim-configuration/tokens",
             method="GET",
             request_options=request_options,
         )
@@ -295,6 +309,10 @@ class AsyncRawTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -328,7 +346,7 @@ class AsyncRawTokensClient:
             The connection's SCIM token was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration/tokens",
+            f"connections/{encode_path_param(id)}/scim-configuration/tokens",
             method="POST",
             json={
                 "scopes": scopes,
@@ -386,6 +404,10 @@ class AsyncRawTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -410,7 +432,7 @@ class AsyncRawTokensClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration/tokens/{jsonable_encoder(token_id)}",
+            f"connections/{encode_path_param(id)}/scim-configuration/tokens/{encode_path_param(token_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -442,4 +464,8 @@ class AsyncRawTokensClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

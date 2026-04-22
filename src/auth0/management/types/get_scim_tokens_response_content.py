@@ -5,3 +5,6 @@ import typing
 from .scim_token_item import ScimTokenItem
 
 GetScimTokensResponseContent = typing.List[ScimTokenItem]
+"""
+The list of scim tokens for scim clients
+"""

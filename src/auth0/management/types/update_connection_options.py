@@ -78,6 +78,7 @@ class UpdateConnectionOptions(UniversalBaseModel):
     password_no_personal_info: typing.Optional[ConnectionPasswordNoPersonalInfoOptions] = None
     password_dictionary: typing.Optional[ConnectionPasswordDictionaryOptions] = None
     api_enable_users: typing.Optional[bool] = None
+    api_enable_groups: typing.Optional[bool] = None
     basic_profile: typing.Optional[bool] = None
     ext_admin: typing.Optional[bool] = None
     ext_is_suspended: typing.Optional[bool] = None

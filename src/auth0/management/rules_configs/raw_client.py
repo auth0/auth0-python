@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.forbidden_error import ForbiddenError
@@ -14,6 +15,7 @@ from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.rules_config import RulesConfig
 from ..types.set_rules_config_response_content import SetRulesConfigResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -92,6 +94,10 @@ class RawRulesConfigsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set(
@@ -117,7 +123,7 @@ class RawRulesConfigsClient:
             Rules config variable successfully set.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"rules-configs/{jsonable_encoder(key)}",
+            f"rules-configs/{encode_path_param(key)}",
             method="PUT",
             json={
                 "value": value,
@@ -174,6 +180,10 @@ class RawRulesConfigsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(self, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -193,7 +203,7 @@ class RawRulesConfigsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"rules-configs/{jsonable_encoder(key)}",
+            f"rules-configs/{encode_path_param(key)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -236,6 +246,10 @@ class RawRulesConfigsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -312,6 +326,10 @@ class AsyncRawRulesConfigsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set(
@@ -337,7 +355,7 @@ class AsyncRawRulesConfigsClient:
             Rules config variable successfully set.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"rules-configs/{jsonable_encoder(key)}",
+            f"rules-configs/{encode_path_param(key)}",
             method="PUT",
             json={
                 "value": value,
@@ -394,6 +412,10 @@ class AsyncRawRulesConfigsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -415,7 +437,7 @@ class AsyncRawRulesConfigsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"rules-configs/{jsonable_encoder(key)}",
+            f"rules-configs/{encode_path_param(key)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -458,4 +480,8 @@ class AsyncRawRulesConfigsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

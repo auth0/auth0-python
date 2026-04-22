@@ -3,3 +3,6 @@
 from .connection_identity_api_enum_azure_ad import ConnectionIdentityApiEnumAzureAd
 
 ConnectionIdentityApiAzureAd = ConnectionIdentityApiEnumAzureAd
+"""
+The Azure AD endpoint version for authentication. 'microsoft-identity-platform-v2.0' (recommended, default) supports modern OAuth 2.0 features. 'azure-active-directory-v1.0' is the legacy endpoint with protocol limitations. Selection affects available features.
+"""

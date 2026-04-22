@@ -5,3 +5,6 @@ import typing
 from .connection_scope_item_google_apps import ConnectionScopeItemGoogleApps
 
 ConnectionScopeGoogleApps = typing.List[ConnectionScopeItemGoogleApps]
+"""
+Additional OAuth scopes requested beyond the default `email profile` scopes; ignored unless `allow_setting_login_scopes` is true.
+"""

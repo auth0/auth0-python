@@ -3,3 +3,6 @@
 import typing
 
 AculClientMetadata = typing.Dict[str, typing.Any]
+"""
+Client metadata key/value pairs
+"""

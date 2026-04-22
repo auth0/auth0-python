@@ -9,6 +9,9 @@ from ...types.get_tenant_settings_response_content import GetTenantSettingsRespo
 from ...types.session_cookie_schema import SessionCookieSchema
 from ...types.tenant_oidc_logout_settings import TenantOidcLogoutSettings
 from ...types.tenant_settings_device_flow import TenantSettingsDeviceFlow
+from ...types.tenant_settings_dynamic_client_registration_security_mode import (
+    TenantSettingsDynamicClientRegistrationSecurityMode,
+)
 from ...types.tenant_settings_error_page import TenantSettingsErrorPage
 from ...types.tenant_settings_flags import TenantSettingsFlags
 from ...types.tenant_settings_guardian_page import TenantSettingsGuardianPage
@@ -115,8 +118,12 @@ class SettingsClient:
         authorization_response_iss_parameter_supported: typing.Optional[bool] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
+        client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
+        dynamic_client_registration_security_mode: typing.Optional[
+            TenantSettingsDynamicClientRegistrationSecurityMode
+        ] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateTenantSettingsResponseContent:
         """
@@ -212,11 +219,16 @@ class SettingsClient:
 
         resource_parameter_profile : typing.Optional[TenantSettingsResourceParameterProfile]
 
+        client_id_metadata_document_supported : typing.Optional[bool]
+            Whether the authorization server supports retrieving client metadata from a client_id URL.
+
         enable_ai_guide : typing.Optional[bool]
             Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
 
         phone_consolidated_experience : typing.Optional[bool]
             Whether Phone Consolidated Experience is enabled for this tenant.
+
+        dynamic_client_registration_security_mode : typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -268,8 +280,10 @@ class SettingsClient:
             authorization_response_iss_parameter_supported=authorization_response_iss_parameter_supported,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             resource_parameter_profile=resource_parameter_profile,
+            client_id_metadata_document_supported=client_id_metadata_document_supported,
             enable_ai_guide=enable_ai_guide,
             phone_consolidated_experience=phone_consolidated_experience,
+            dynamic_client_registration_security_mode=dynamic_client_registration_security_mode,
             request_options=request_options,
         )
         return _response.data
@@ -376,8 +390,12 @@ class AsyncSettingsClient:
         authorization_response_iss_parameter_supported: typing.Optional[bool] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
+        client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
+        dynamic_client_registration_security_mode: typing.Optional[
+            TenantSettingsDynamicClientRegistrationSecurityMode
+        ] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateTenantSettingsResponseContent:
         """
@@ -473,11 +491,16 @@ class AsyncSettingsClient:
 
         resource_parameter_profile : typing.Optional[TenantSettingsResourceParameterProfile]
 
+        client_id_metadata_document_supported : typing.Optional[bool]
+            Whether the authorization server supports retrieving client metadata from a client_id URL.
+
         enable_ai_guide : typing.Optional[bool]
             Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
 
         phone_consolidated_experience : typing.Optional[bool]
             Whether Phone Consolidated Experience is enabled for this tenant.
+
+        dynamic_client_registration_security_mode : typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -537,8 +560,10 @@ class AsyncSettingsClient:
             authorization_response_iss_parameter_supported=authorization_response_iss_parameter_supported,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             resource_parameter_profile=resource_parameter_profile,
+            client_id_metadata_document_supported=client_id_metadata_document_supported,
             enable_ai_guide=enable_ai_guide,
             phone_consolidated_experience=phone_consolidated_experience,
+            dynamic_client_registration_security_mode=dynamic_client_registration_security_mode,
             request_options=request_options,
         )
         return _response.data

@@ -3,3 +3,6 @@
 import typing
 
 UserAttributeProfileSamlMapping = typing.List[str]
+"""
+SAML mapping override for this strategy
+"""

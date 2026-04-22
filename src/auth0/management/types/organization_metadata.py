@@ -3,3 +3,6 @@
 import typing
 
 OrganizationMetadata = typing.Dict[str, typing.Optional[str]]
+"""
+Metadata associated with the organization, in the form of an object with string values (max 255 chars). Maximum of 25 metadata properties allowed.
+"""

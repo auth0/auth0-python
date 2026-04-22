@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.pagination import AsyncPager, SyncPager
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
@@ -17,6 +18,7 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.client_grant_allow_any_organization_enum import ClientGrantAllowAnyOrganizationEnum
+from ..types.client_grant_default_for_enum import ClientGrantDefaultForEnum
 from ..types.client_grant_organization_nullable_usage_enum import ClientGrantOrganizationNullableUsageEnum
 from ..types.client_grant_organization_usage_enum import ClientGrantOrganizationUsageEnum
 from ..types.client_grant_response_content import ClientGrantResponseContent
@@ -25,6 +27,7 @@ from ..types.create_client_grant_response_content import CreateClientGrantRespon
 from ..types.get_client_grant_response_content import GetClientGrantResponseContent
 from ..types.list_client_grant_paginated_response_content import ListClientGrantPaginatedResponseContent
 from ..types.update_client_grant_response_content import UpdateClientGrantResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,6 +46,7 @@ class RawClientGrantsClient:
         client_id: typing.Optional[str] = None,
         allow_any_organization: typing.Optional[ClientGrantAllowAnyOrganizationEnum] = None,
         subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = None,
+        default_for: typing.Optional[ClientGrantDefaultForEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
@@ -68,6 +72,9 @@ class RawClientGrantsClient:
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
             The type of application access the client grant allows.
 
+        default_for : typing.Optional[ClientGrantDefaultForEnum]
+            Applies this client grant as the default for all clients in the specified group. The only accepted value is `third_party_clients`, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with `client_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -86,6 +93,7 @@ class RawClientGrantsClient:
                 "client_id": client_id,
                 "allow_any_organization": allow_any_organization,
                 "subject_type": subject_type,
+                "default_for": default_for,
             },
             request_options=request_options,
         )
@@ -108,6 +116,7 @@ class RawClientGrantsClient:
                     client_id=client_id,
                     allow_any_organization=allow_any_organization,
                     subject_type=subject_type,
+                    default_for=default_for,
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -147,6 +156,10 @@ class RawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -154,6 +167,7 @@ class RawClientGrantsClient:
         *,
         audience: str,
         client_id: typing.Optional[str] = OMIT,
+        default_for: typing.Optional[ClientGrantDefaultForEnum] = OMIT,
         organization_usage: typing.Optional[ClientGrantOrganizationUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -172,6 +186,8 @@ class RawClientGrantsClient:
 
         client_id : typing.Optional[str]
             ID of the client.
+
+        default_for : typing.Optional[ClientGrantDefaultForEnum]
 
         organization_usage : typing.Optional[ClientGrantOrganizationUsageEnum]
 
@@ -203,6 +219,7 @@ class RawClientGrantsClient:
             json={
                 "client_id": client_id,
                 "audience": audience,
+                "default_for": default_for,
                 "organization_usage": organization_usage,
                 "allow_any_organization": allow_any_organization,
                 "scope": scope,
@@ -295,6 +312,10 @@ class RawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -318,7 +339,7 @@ class RawClientGrantsClient:
             Client grant successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"client-grants/{jsonable_encoder(id)}",
+            f"client-grants/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -379,6 +400,10 @@ class RawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -398,7 +423,7 @@ class RawClientGrantsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"client-grants/{jsonable_encoder(id)}",
+            f"client-grants/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -452,6 +477,10 @@ class RawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -496,7 +525,7 @@ class RawClientGrantsClient:
             Client grant successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"client-grants/{jsonable_encoder(id)}",
+            f"client-grants/{encode_path_param(id)}",
             method="PATCH",
             json={
                 "scope": scope,
@@ -579,6 +608,10 @@ class RawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -595,6 +628,7 @@ class AsyncRawClientGrantsClient:
         client_id: typing.Optional[str] = None,
         allow_any_organization: typing.Optional[ClientGrantAllowAnyOrganizationEnum] = None,
         subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = None,
+        default_for: typing.Optional[ClientGrantDefaultForEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
@@ -620,6 +654,9 @@ class AsyncRawClientGrantsClient:
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
             The type of application access the client grant allows.
 
+        default_for : typing.Optional[ClientGrantDefaultForEnum]
+            Applies this client grant as the default for all clients in the specified group. The only accepted value is `third_party_clients`, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with `client_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -638,6 +675,7 @@ class AsyncRawClientGrantsClient:
                 "client_id": client_id,
                 "allow_any_organization": allow_any_organization,
                 "subject_type": subject_type,
+                "default_for": default_for,
             },
             request_options=request_options,
         )
@@ -662,6 +700,7 @@ class AsyncRawClientGrantsClient:
                         client_id=client_id,
                         allow_any_organization=allow_any_organization,
                         subject_type=subject_type,
+                        default_for=default_for,
                         request_options=request_options,
                     )
 
@@ -702,6 +741,10 @@ class AsyncRawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -709,6 +752,7 @@ class AsyncRawClientGrantsClient:
         *,
         audience: str,
         client_id: typing.Optional[str] = OMIT,
+        default_for: typing.Optional[ClientGrantDefaultForEnum] = OMIT,
         organization_usage: typing.Optional[ClientGrantOrganizationUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -727,6 +771,8 @@ class AsyncRawClientGrantsClient:
 
         client_id : typing.Optional[str]
             ID of the client.
+
+        default_for : typing.Optional[ClientGrantDefaultForEnum]
 
         organization_usage : typing.Optional[ClientGrantOrganizationUsageEnum]
 
@@ -758,6 +804,7 @@ class AsyncRawClientGrantsClient:
             json={
                 "client_id": client_id,
                 "audience": audience,
+                "default_for": default_for,
                 "organization_usage": organization_usage,
                 "allow_any_organization": allow_any_organization,
                 "scope": scope,
@@ -850,6 +897,10 @@ class AsyncRawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -873,7 +924,7 @@ class AsyncRawClientGrantsClient:
             Client grant successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"client-grants/{jsonable_encoder(id)}",
+            f"client-grants/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -934,6 +985,10 @@ class AsyncRawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -955,7 +1010,7 @@ class AsyncRawClientGrantsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"client-grants/{jsonable_encoder(id)}",
+            f"client-grants/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1009,6 +1064,10 @@ class AsyncRawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -1053,7 +1112,7 @@ class AsyncRawClientGrantsClient:
             Client grant successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"client-grants/{jsonable_encoder(id)}",
+            f"client-grants/{encode_path_param(id)}",
             method="PATCH",
             json={
                 "scope": scope,
@@ -1136,4 +1195,8 @@ class AsyncRawClientGrantsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

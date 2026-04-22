@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback import ConnectionHttpsUrlWithHttpFallback
 
 ConnectionCommunityBaseUrlSalesforce = ConnectionHttpsUrlWithHttpFallback
+"""
+The base URL of your Salesforce Community (Experience Cloud) site. When specified, authentication flows will use this Community URL instead of the standard Salesforce login page, enabling users to authenticate through your branded Community portal.
+"""

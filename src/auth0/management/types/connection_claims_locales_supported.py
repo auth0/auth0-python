@@ -3,3 +3,6 @@
 import typing
 
 ConnectionClaimsLocalesSupported = typing.List[str]
+"""
+Languages and scripts supported for values in Claims being returned, represented as a JSON array of BCP47 [RFC5646] language tag values. Not all languages and scripts are necessarily supported for all Claim values.
+"""

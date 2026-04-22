@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .client_grant_default_for_enum import ClientGrantDefaultForEnum
 from .client_grant_organization_usage_enum import ClientGrantOrganizationUsageEnum
 from .client_grant_subject_type_enum import ClientGrantSubjectTypeEnum
 
@@ -35,6 +36,7 @@ class ClientGrantResponseContent(UniversalBaseModel):
     If enabled, any organization can be used with this grant. If disabled (default), the grant must be explicitly assigned to the desired organizations.
     """
 
+    default_for: typing.Optional[ClientGrantDefaultForEnum] = None
     is_system: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If enabled, this grant is a special grant created by Auth0. It cannot be modified or deleted directly.

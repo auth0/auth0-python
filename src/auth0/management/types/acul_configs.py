@@ -5,3 +5,6 @@ import typing
 from .acul_configs_item import AculConfigsItem
 
 AculConfigs = typing.List[AculConfigsItem]
+"""
+Array of screen configurations to update
+"""

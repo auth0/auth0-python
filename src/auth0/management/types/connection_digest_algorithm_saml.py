@@ -3,3 +3,6 @@
 from .connection_digest_algorithm_enum_saml import ConnectionDigestAlgorithmEnumSaml
 
 ConnectionDigestAlgorithmSaml = ConnectionDigestAlgorithmEnumSaml
+"""
+Algorithm used for computing digest values when signing SAML requests and logout requests. Defaults to 'sha256'.
+"""

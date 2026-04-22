@@ -3,3 +3,6 @@
 import typing
 
 RefreshTokenMetadata = typing.Optional[typing.Dict[str, typing.Any]]
+"""
+Metadata associated with the refresh token, in the form of an object with string values (max 255 chars). Maximum of 25 metadata properties allowed.
+"""

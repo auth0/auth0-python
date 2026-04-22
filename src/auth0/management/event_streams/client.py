@@ -283,7 +283,7 @@ class EventStreamsClient:
         )
         client.event_streams.test(
             id="id",
-            event_type="user.created",
+            event_type="group.created",
         )
         """
         _response = self._raw_client.test(id, event_type=event_type, data=data, request_options=request_options)
@@ -609,7 +609,7 @@ class AsyncEventStreamsClient:
         async def main() -> None:
             await client.event_streams.test(
                 id="id",
-                event_type="user.created",
+                event_type="group.created",
             )
 
 

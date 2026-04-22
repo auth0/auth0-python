@@ -21,7 +21,9 @@ def test_keys_signing_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "keys.signing.get.0"
     client = get_client(test_id)
-    client.keys.signing.get(kid="kid")
+    client.keys.signing.get(
+        kid="kid",
+    )
     verify_request_count(test_id, "GET", "/keys/signing/kid", None, 1)
 
 
@@ -29,5 +31,7 @@ def test_keys_signing_revoke() -> None:
     """Test revoke endpoint with WireMock"""
     test_id = "keys.signing.revoke.0"
     client = get_client(test_id)
-    client.keys.signing.revoke(kid="kid")
+    client.keys.signing.revoke(
+        kid="kid",
+    )
     verify_request_count(test_id, "PUT", "/keys/signing/kid/revoke", None, 1)

@@ -3,3 +3,6 @@
 import typing
 
 ConnectionAuthParamsMap = typing.Dict[str, str]
+"""
+Maps parameter names from Auth0's /authorize endpoint to the identity provider's authorization endpoint parameters. For example, mapping 'audience' to 'resource' transforms the parameter name during authorization requests. Applied after authParams merging. See https://auth0.com/docs/authenticate/identity-providers/social-identity-providers/oauth2#pass-dynamic-parameters
+"""

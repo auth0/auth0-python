@@ -3,3 +3,6 @@
 from .connection_client_secret import ConnectionClientSecret
 
 ConnectionClientSecretFacebook = ConnectionClientSecret
+"""
+Your Facebook App Secret. You can find this in your [Facebook Developers Console](https://developers.facebook.com/apps) under the App Settings section.
+"""

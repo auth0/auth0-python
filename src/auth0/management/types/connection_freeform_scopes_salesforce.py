@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionFreeformScopesSalesforce = ConnectionScopeArray
+"""
+Additional OAuth scopes to request from Salesforce beyond the standard profile permissions. Enter valid scopes from the Salesforce documentation. Invalid scopes may cause authentication errors.
+"""

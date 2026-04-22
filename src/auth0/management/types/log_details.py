@@ -3,3 +3,6 @@
 import typing
 
 LogDetails = typing.Dict[str, typing.Any]
+"""
+Additional useful details about this event (structure is dependent upon event type).
+"""
