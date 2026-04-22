@@ -3,3 +3,6 @@
 import typing
 
 ConnectionScopeAzureAd = typing.List[str]
+"""
+OAuth 2.0 scopes to request from Azure AD during authentication. Each scope represents a permission (e.g., 'User.Read', 'Group.Read.All'). Only applies with Microsoft Identity Platform v2.0. See Microsoft Graph permissions reference for available scopes.
+"""

@@ -3,3 +3,6 @@
 from .connection_userid_attribute_enum_azure_ad import ConnectionUseridAttributeEnumAzureAd
 
 ConnectionUseridAttributeAzureAd = ConnectionUseridAttributeEnumAzureAd
+"""
+The Azure AD claim to use as the unique user identifier. 'oid' (Object ID) is recommended for single-tenant connections and required for SCIM. 'sub' (Subject) is required for multi-tenant/common endpoint. Only applies with OpenID Connect protocol.
+"""

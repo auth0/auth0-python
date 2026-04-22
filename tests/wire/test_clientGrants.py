@@ -12,6 +12,7 @@ def test_clientGrants_list_() -> None:
         client_id="client_id",
         allow_any_organization=True,
         subject_type="client",
+        default_for="third_party_clients",
     )
     verify_request_count(
         test_id,
@@ -24,6 +25,7 @@ def test_clientGrants_list_() -> None:
             "client_id": "client_id",
             "allow_any_organization": "true",
             "subject_type": "client",
+            "default_for": "third_party_clients",
         },
         1,
     )
@@ -33,7 +35,9 @@ def test_clientGrants_create() -> None:
     """Test create endpoint with WireMock"""
     test_id = "client_grants.create.0"
     client = get_client(test_id)
-    client.client_grants.create(audience="audience")
+    client.client_grants.create(
+        audience="audience",
+    )
     verify_request_count(test_id, "POST", "/client-grants", None, 1)
 
 
@@ -41,7 +45,9 @@ def test_clientGrants_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "client_grants.get.0"
     client = get_client(test_id)
-    client.client_grants.get(id="id")
+    client.client_grants.get(
+        id="id",
+    )
     verify_request_count(test_id, "GET", "/client-grants/id", None, 1)
 
 
@@ -49,7 +55,9 @@ def test_clientGrants_delete() -> None:
     """Test delete endpoint with WireMock"""
     test_id = "client_grants.delete.0"
     client = get_client(test_id)
-    client.client_grants.delete(id="id")
+    client.client_grants.delete(
+        id="id",
+    )
     verify_request_count(test_id, "DELETE", "/client-grants/id", None, 1)
 
 
@@ -57,5 +65,7 @@ def test_clientGrants_update() -> None:
     """Test update endpoint with WireMock"""
     test_id = "client_grants.update.0"
     client = get_client(test_id)
-    client.client_grants.update(id="id")
+    client.client_grants.update(
+        id="id",
+    )
     verify_request_count(test_id, "PATCH", "/client-grants/id", None, 1)

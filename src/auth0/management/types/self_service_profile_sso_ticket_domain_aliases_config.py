@@ -13,6 +13,10 @@ class SelfServiceProfileSsoTicketDomainAliasesConfig(UniversalBaseModel):
     """
 
     domain_verification: SelfServiceProfileSsoTicketDomainVerificationEnum
+    pending_domains: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    List of domains that will be submitted for verification during the self-service SSO flow.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

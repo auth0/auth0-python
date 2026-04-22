@@ -230,6 +230,7 @@ if typing.TYPE_CHECKING:
     from .client_external_metadata_created_by_enum import ClientExternalMetadataCreatedByEnum
     from .client_external_metadata_type_enum import ClientExternalMetadataTypeEnum
     from .client_grant_allow_any_organization_enum import ClientGrantAllowAnyOrganizationEnum
+    from .client_grant_default_for_enum import ClientGrantDefaultForEnum
     from .client_grant_organization_nullable_usage_enum import ClientGrantOrganizationNullableUsageEnum
     from .client_grant_organization_usage_enum import ClientGrantOrganizationUsageEnum
     from .client_grant_response_content import ClientGrantResponseContent
@@ -240,6 +241,13 @@ if typing.TYPE_CHECKING:
     from .client_mobile import ClientMobile
     from .client_mobile_android import ClientMobileAndroid
     from .client_mobilei_os import ClientMobileiOs
+    from .client_my_organization_configuration_allowed_strategies_enum import (
+        ClientMyOrganizationConfigurationAllowedStrategiesEnum,
+    )
+    from .client_my_organization_deletion_behavior_enum import ClientMyOrganizationDeletionBehaviorEnum
+    from .client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
+    from .client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
+    from .client_my_organization_response_configuration import ClientMyOrganizationResponseConfiguration
     from .client_oidc_backchannel_logout_initiators import ClientOidcBackchannelLogoutInitiators
     from .client_oidc_backchannel_logout_initiators_enum import ClientOidcBackchannelLogoutInitiatorsEnum
     from .client_oidc_backchannel_logout_initiators_mode_enum import ClientOidcBackchannelLogoutInitiatorsModeEnum
@@ -250,17 +258,21 @@ if typing.TYPE_CHECKING:
     from .client_organization_require_behavior_patch_enum import ClientOrganizationRequireBehaviorPatchEnum
     from .client_organization_usage_enum import ClientOrganizationUsageEnum
     from .client_organization_usage_patch_enum import ClientOrganizationUsagePatchEnum
+    from .client_redirection_policy_enum import ClientRedirectionPolicyEnum
     from .client_refresh_token_configuration import ClientRefreshTokenConfiguration
     from .client_refresh_token_policy import ClientRefreshTokenPolicy
     from .client_session_transfer_allowed_authentication_methods_enum import (
         ClientSessionTransferAllowedAuthenticationMethodsEnum,
     )
     from .client_session_transfer_configuration import ClientSessionTransferConfiguration
+    from .client_session_transfer_delegation_configuration import ClientSessionTransferDelegationConfiguration
+    from .client_session_transfer_delegation_device_binding_enum import ClientSessionTransferDelegationDeviceBindingEnum
     from .client_session_transfer_device_binding_enum import ClientSessionTransferDeviceBindingEnum
     from .client_signed_request_object_with_credential_id import ClientSignedRequestObjectWithCredentialId
     from .client_signed_request_object_with_public_key import ClientSignedRequestObjectWithPublicKey
     from .client_signing_key import ClientSigningKey
     from .client_signing_keys import ClientSigningKeys
+    from .client_third_party_security_mode_enum import ClientThirdPartySecurityModeEnum
     from .client_token_endpoint_auth_method_enum import ClientTokenEndpointAuthMethodEnum
     from .client_token_endpoint_auth_method_or_null_enum import ClientTokenEndpointAuthMethodOrNullEnum
     from .client_token_exchange_configuration import ClientTokenExchangeConfiguration
@@ -365,6 +377,7 @@ if typing.TYPE_CHECKING:
     from .connection_domain_aliases_saml import ConnectionDomainAliasesSaml
     from .connection_domain_google_apps import ConnectionDomainGoogleApps
     from .connection_domain_okta import ConnectionDomainOkta
+    from .connection_dpop_signing_alg_enum import ConnectionDpopSigningAlgEnum
     from .connection_dpop_signing_alg_values_supported import ConnectionDpopSigningAlgValuesSupported
     from .connection_email_body_email import ConnectionEmailBodyEmail
     from .connection_email_email import ConnectionEmailEmail
@@ -1984,6 +1997,7 @@ if typing.TYPE_CHECKING:
     from .list_scim_configurations_response_content import ListScimConfigurationsResponseContent
     from .list_self_service_profile_custom_text_response_content import ListSelfServiceProfileCustomTextResponseContent
     from .list_self_service_profiles_paginated_response_content import ListSelfServiceProfilesPaginatedResponseContent
+    from .list_synchronized_groups_response_content import ListSynchronizedGroupsResponseContent
     from .list_token_exchange_profile_response_content import ListTokenExchangeProfileResponseContent
     from .list_user_attribute_profile_template_response_content import ListUserAttributeProfileTemplateResponseContent
     from .list_user_attribute_profiles_paginated_response_content import (
@@ -2196,6 +2210,7 @@ if typing.TYPE_CHECKING:
     from .self_service_profile_sso_ticket_domain_verification_enum import (
         SelfServiceProfileSsoTicketDomainVerificationEnum,
     )
+    from .self_service_profile_sso_ticket_enabled_features import SelfServiceProfileSsoTicketEnabledFeatures
     from .self_service_profile_sso_ticket_enabled_organization import SelfServiceProfileSsoTicketEnabledOrganization
     from .self_service_profile_sso_ticket_google_workspace_config import (
         SelfServiceProfileSsoTicketGoogleWorkspaceConfig,
@@ -2280,9 +2295,13 @@ if typing.TYPE_CHECKING:
     from .suspicious_ip_throttling_shields_enum import SuspiciousIpThrottlingShieldsEnum
     from .suspicious_ip_throttling_stage import SuspiciousIpThrottlingStage
     from .synchronize_groups_enum import SynchronizeGroupsEnum
+    from .synchronized_group_payload import SynchronizedGroupPayload
     from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
     from .tenant_settings_device_flow import TenantSettingsDeviceFlow
     from .tenant_settings_device_flow_charset import TenantSettingsDeviceFlowCharset
+    from .tenant_settings_dynamic_client_registration_security_mode import (
+        TenantSettingsDynamicClientRegistrationSecurityMode,
+    )
     from .tenant_settings_error_page import TenantSettingsErrorPage
     from .tenant_settings_flags import TenantSettingsFlags
     from .tenant_settings_guardian_page import TenantSettingsGuardianPage
@@ -2689,6 +2708,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientExternalMetadataCreatedByEnum": ".client_external_metadata_created_by_enum",
     "ClientExternalMetadataTypeEnum": ".client_external_metadata_type_enum",
     "ClientGrantAllowAnyOrganizationEnum": ".client_grant_allow_any_organization_enum",
+    "ClientGrantDefaultForEnum": ".client_grant_default_for_enum",
     "ClientGrantOrganizationNullableUsageEnum": ".client_grant_organization_nullable_usage_enum",
     "ClientGrantOrganizationUsageEnum": ".client_grant_organization_usage_enum",
     "ClientGrantResponseContent": ".client_grant_response_content",
@@ -2699,6 +2719,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientMobile": ".client_mobile",
     "ClientMobileAndroid": ".client_mobile_android",
     "ClientMobileiOs": ".client_mobilei_os",
+    "ClientMyOrganizationConfigurationAllowedStrategiesEnum": ".client_my_organization_configuration_allowed_strategies_enum",
+    "ClientMyOrganizationDeletionBehaviorEnum": ".client_my_organization_deletion_behavior_enum",
+    "ClientMyOrganizationPatchConfiguration": ".client_my_organization_patch_configuration",
+    "ClientMyOrganizationPostConfiguration": ".client_my_organization_post_configuration",
+    "ClientMyOrganizationResponseConfiguration": ".client_my_organization_response_configuration",
     "ClientOidcBackchannelLogoutInitiators": ".client_oidc_backchannel_logout_initiators",
     "ClientOidcBackchannelLogoutInitiatorsEnum": ".client_oidc_backchannel_logout_initiators_enum",
     "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".client_oidc_backchannel_logout_initiators_mode_enum",
@@ -2709,15 +2734,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientOrganizationRequireBehaviorPatchEnum": ".client_organization_require_behavior_patch_enum",
     "ClientOrganizationUsageEnum": ".client_organization_usage_enum",
     "ClientOrganizationUsagePatchEnum": ".client_organization_usage_patch_enum",
+    "ClientRedirectionPolicyEnum": ".client_redirection_policy_enum",
     "ClientRefreshTokenConfiguration": ".client_refresh_token_configuration",
     "ClientRefreshTokenPolicy": ".client_refresh_token_policy",
     "ClientSessionTransferAllowedAuthenticationMethodsEnum": ".client_session_transfer_allowed_authentication_methods_enum",
     "ClientSessionTransferConfiguration": ".client_session_transfer_configuration",
+    "ClientSessionTransferDelegationConfiguration": ".client_session_transfer_delegation_configuration",
+    "ClientSessionTransferDelegationDeviceBindingEnum": ".client_session_transfer_delegation_device_binding_enum",
     "ClientSessionTransferDeviceBindingEnum": ".client_session_transfer_device_binding_enum",
     "ClientSignedRequestObjectWithCredentialId": ".client_signed_request_object_with_credential_id",
     "ClientSignedRequestObjectWithPublicKey": ".client_signed_request_object_with_public_key",
     "ClientSigningKey": ".client_signing_key",
     "ClientSigningKeys": ".client_signing_keys",
+    "ClientThirdPartySecurityModeEnum": ".client_third_party_security_mode_enum",
     "ClientTokenEndpointAuthMethodEnum": ".client_token_endpoint_auth_method_enum",
     "ClientTokenEndpointAuthMethodOrNullEnum": ".client_token_endpoint_auth_method_or_null_enum",
     "ClientTokenExchangeConfiguration": ".client_token_exchange_configuration",
@@ -2822,6 +2851,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionDomainAliasesSaml": ".connection_domain_aliases_saml",
     "ConnectionDomainGoogleApps": ".connection_domain_google_apps",
     "ConnectionDomainOkta": ".connection_domain_okta",
+    "ConnectionDpopSigningAlgEnum": ".connection_dpop_signing_alg_enum",
     "ConnectionDpopSigningAlgValuesSupported": ".connection_dpop_signing_alg_values_supported",
     "ConnectionEmailBodyEmail": ".connection_email_body_email",
     "ConnectionEmailEmail": ".connection_email_email",
@@ -4323,6 +4353,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListScimConfigurationsResponseContent": ".list_scim_configurations_response_content",
     "ListSelfServiceProfileCustomTextResponseContent": ".list_self_service_profile_custom_text_response_content",
     "ListSelfServiceProfilesPaginatedResponseContent": ".list_self_service_profiles_paginated_response_content",
+    "ListSynchronizedGroupsResponseContent": ".list_synchronized_groups_response_content",
     "ListTokenExchangeProfileResponseContent": ".list_token_exchange_profile_response_content",
     "ListUserAttributeProfileTemplateResponseContent": ".list_user_attribute_profile_template_response_content",
     "ListUserAttributeProfilesPaginatedResponseContent": ".list_user_attribute_profiles_paginated_response_content",
@@ -4519,6 +4550,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SelfServiceProfileSsoTicketConnectionOptions": ".self_service_profile_sso_ticket_connection_options",
     "SelfServiceProfileSsoTicketDomainAliasesConfig": ".self_service_profile_sso_ticket_domain_aliases_config",
     "SelfServiceProfileSsoTicketDomainVerificationEnum": ".self_service_profile_sso_ticket_domain_verification_enum",
+    "SelfServiceProfileSsoTicketEnabledFeatures": ".self_service_profile_sso_ticket_enabled_features",
     "SelfServiceProfileSsoTicketEnabledOrganization": ".self_service_profile_sso_ticket_enabled_organization",
     "SelfServiceProfileSsoTicketGoogleWorkspaceConfig": ".self_service_profile_sso_ticket_google_workspace_config",
     "SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum": ".self_service_profile_sso_ticket_idp_initiated_client_protocol_enum",
@@ -4581,9 +4613,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SuspiciousIpThrottlingShieldsEnum": ".suspicious_ip_throttling_shields_enum",
     "SuspiciousIpThrottlingStage": ".suspicious_ip_throttling_stage",
     "SynchronizeGroupsEnum": ".synchronize_groups_enum",
+    "SynchronizedGroupPayload": ".synchronized_group_payload",
     "TenantOidcLogoutSettings": ".tenant_oidc_logout_settings",
     "TenantSettingsDeviceFlow": ".tenant_settings_device_flow",
     "TenantSettingsDeviceFlowCharset": ".tenant_settings_device_flow_charset",
+    "TenantSettingsDynamicClientRegistrationSecurityMode": ".tenant_settings_dynamic_client_registration_security_mode",
     "TenantSettingsErrorPage": ".tenant_settings_error_page",
     "TenantSettingsFlags": ".tenant_settings_flags",
     "TenantSettingsGuardianPage": ".tenant_settings_guardian_page",
@@ -4988,6 +5022,7 @@ __all__ = [
     "ClientExternalMetadataCreatedByEnum",
     "ClientExternalMetadataTypeEnum",
     "ClientGrantAllowAnyOrganizationEnum",
+    "ClientGrantDefaultForEnum",
     "ClientGrantOrganizationNullableUsageEnum",
     "ClientGrantOrganizationUsageEnum",
     "ClientGrantResponseContent",
@@ -4998,6 +5033,11 @@ __all__ = [
     "ClientMobile",
     "ClientMobileAndroid",
     "ClientMobileiOs",
+    "ClientMyOrganizationConfigurationAllowedStrategiesEnum",
+    "ClientMyOrganizationDeletionBehaviorEnum",
+    "ClientMyOrganizationPatchConfiguration",
+    "ClientMyOrganizationPostConfiguration",
+    "ClientMyOrganizationResponseConfiguration",
     "ClientOidcBackchannelLogoutInitiators",
     "ClientOidcBackchannelLogoutInitiatorsEnum",
     "ClientOidcBackchannelLogoutInitiatorsModeEnum",
@@ -5008,15 +5048,19 @@ __all__ = [
     "ClientOrganizationRequireBehaviorPatchEnum",
     "ClientOrganizationUsageEnum",
     "ClientOrganizationUsagePatchEnum",
+    "ClientRedirectionPolicyEnum",
     "ClientRefreshTokenConfiguration",
     "ClientRefreshTokenPolicy",
     "ClientSessionTransferAllowedAuthenticationMethodsEnum",
     "ClientSessionTransferConfiguration",
+    "ClientSessionTransferDelegationConfiguration",
+    "ClientSessionTransferDelegationDeviceBindingEnum",
     "ClientSessionTransferDeviceBindingEnum",
     "ClientSignedRequestObjectWithCredentialId",
     "ClientSignedRequestObjectWithPublicKey",
     "ClientSigningKey",
     "ClientSigningKeys",
+    "ClientThirdPartySecurityModeEnum",
     "ClientTokenEndpointAuthMethodEnum",
     "ClientTokenEndpointAuthMethodOrNullEnum",
     "ClientTokenExchangeConfiguration",
@@ -5121,6 +5165,7 @@ __all__ = [
     "ConnectionDomainAliasesSaml",
     "ConnectionDomainGoogleApps",
     "ConnectionDomainOkta",
+    "ConnectionDpopSigningAlgEnum",
     "ConnectionDpopSigningAlgValuesSupported",
     "ConnectionEmailBodyEmail",
     "ConnectionEmailEmail",
@@ -6622,6 +6667,7 @@ __all__ = [
     "ListScimConfigurationsResponseContent",
     "ListSelfServiceProfileCustomTextResponseContent",
     "ListSelfServiceProfilesPaginatedResponseContent",
+    "ListSynchronizedGroupsResponseContent",
     "ListTokenExchangeProfileResponseContent",
     "ListUserAttributeProfileTemplateResponseContent",
     "ListUserAttributeProfilesPaginatedResponseContent",
@@ -6818,6 +6864,7 @@ __all__ = [
     "SelfServiceProfileSsoTicketConnectionOptions",
     "SelfServiceProfileSsoTicketDomainAliasesConfig",
     "SelfServiceProfileSsoTicketDomainVerificationEnum",
+    "SelfServiceProfileSsoTicketEnabledFeatures",
     "SelfServiceProfileSsoTicketEnabledOrganization",
     "SelfServiceProfileSsoTicketGoogleWorkspaceConfig",
     "SelfServiceProfileSsoTicketIdpInitiatedClientProtocolEnum",
@@ -6880,9 +6927,11 @@ __all__ = [
     "SuspiciousIpThrottlingShieldsEnum",
     "SuspiciousIpThrottlingStage",
     "SynchronizeGroupsEnum",
+    "SynchronizedGroupPayload",
     "TenantOidcLogoutSettings",
     "TenantSettingsDeviceFlow",
     "TenantSettingsDeviceFlowCharset",
+    "TenantSettingsDynamicClientRegistrationSecurityMode",
     "TenantSettingsErrorPage",
     "TenantSettingsFlags",
     "TenantSettingsGuardianPage",

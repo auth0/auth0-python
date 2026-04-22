@@ -5,3 +5,6 @@ import typing
 from .connection_auth_params_additional_properties_o_auth_2 import ConnectionAuthParamsAdditionalPropertiesOAuth2
 
 ConnectionAuthParamsOAuth2 = typing.Dict[str, ConnectionAuthParamsAdditionalPropertiesOAuth2]
+"""
+Additional static parameters included in every authorization request to the identity provider. These parameters are merged with runtime parameters before the authorization redirect. Keys and values are passed as-is to the identity provider's authorization endpoint. See https://auth0.com/docs/authenticate/identity-providers/social-identity-providers/oauth2#pass-static-parameters
+"""

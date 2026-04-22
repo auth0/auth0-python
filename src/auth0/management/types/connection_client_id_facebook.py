@@ -3,3 +3,6 @@
 from .connection_client_id import ConnectionClientId
 
 ConnectionClientIdFacebook = ConnectionClientId
+"""
+Your Facebook App ID. You can find this in your [Facebook Developers Console](https://developers.facebook.com/apps) under the App Settings section.
+"""

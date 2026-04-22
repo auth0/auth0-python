@@ -3,3 +3,6 @@
 import typing
 
 ConnectionCustomHeadersOAuth2 = typing.Dict[str, str]
+"""
+Custom HTTP headers sent with token exchange requests to the identity provider's token endpoint. Provided as key-value pairs (e.g., {'X-Custom-Header': 'value'}). Auth0's User-Agent header is always included by default.
+"""

@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback_255 import ConnectionHttpsUrlWithHttpFallback255
 
 ConnectionGatewayUrlSms = ConnectionHttpsUrlWithHttpFallback255
+"""
+The URL of your SMS gateway. Auth0 must be able to reach this URL for it to use your gateway to send messages on your behalf.
+"""

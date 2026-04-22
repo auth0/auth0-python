@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback_2048 import ConnectionHttpsUrlWithHttpFallback2048
 
 ConnectionSignOutEndpointSaml = ConnectionHttpsUrlWithHttpFallback2048
+"""
+Identity provider's SAML SingleLogoutService endpoint URL where Auth0 sends logout requests for federated sign-out. When not provided, defaults to signInEndpoint. Only used if disableSignout is false.
+"""

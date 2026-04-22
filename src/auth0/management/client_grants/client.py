@@ -8,6 +8,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.client_grant_allow_any_organization_enum import ClientGrantAllowAnyOrganizationEnum
+from ..types.client_grant_default_for_enum import ClientGrantDefaultForEnum
 from ..types.client_grant_organization_nullable_usage_enum import ClientGrantOrganizationNullableUsageEnum
 from ..types.client_grant_organization_usage_enum import ClientGrantOrganizationUsageEnum
 from ..types.client_grant_response_content import ClientGrantResponseContent
@@ -50,6 +51,7 @@ class ClientGrantsClient:
         client_id: typing.Optional[str] = None,
         allow_any_organization: typing.Optional[ClientGrantAllowAnyOrganizationEnum] = None,
         subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = None,
+        default_for: typing.Optional[ClientGrantDefaultForEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
@@ -75,6 +77,9 @@ class ClientGrantsClient:
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
             The type of application access the client grant allows.
 
+        default_for : typing.Optional[ClientGrantDefaultForEnum]
+            Applies this client grant as the default for all clients in the specified group. The only accepted value is `third_party_clients`, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with `client_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -97,6 +102,7 @@ class ClientGrantsClient:
             client_id="client_id",
             allow_any_organization=True,
             subject_type="client",
+            default_for="third_party_clients",
         )
         for item in response:
             yield item
@@ -111,6 +117,7 @@ class ClientGrantsClient:
             client_id=client_id,
             allow_any_organization=allow_any_organization,
             subject_type=subject_type,
+            default_for=default_for,
             request_options=request_options,
         )
 
@@ -119,6 +126,7 @@ class ClientGrantsClient:
         *,
         audience: str,
         client_id: typing.Optional[str] = OMIT,
+        default_for: typing.Optional[ClientGrantDefaultForEnum] = OMIT,
         organization_usage: typing.Optional[ClientGrantOrganizationUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -137,6 +145,8 @@ class ClientGrantsClient:
 
         client_id : typing.Optional[str]
             ID of the client.
+
+        default_for : typing.Optional[ClientGrantDefaultForEnum]
 
         organization_usage : typing.Optional[ClientGrantOrganizationUsageEnum]
 
@@ -176,6 +186,7 @@ class ClientGrantsClient:
         _response = self._raw_client.create(
             audience=audience,
             client_id=client_id,
+            default_for=default_for,
             organization_usage=organization_usage,
             allow_any_organization=allow_any_organization,
             scope=scope,
@@ -346,6 +357,7 @@ class AsyncClientGrantsClient:
         client_id: typing.Optional[str] = None,
         allow_any_organization: typing.Optional[ClientGrantAllowAnyOrganizationEnum] = None,
         subject_type: typing.Optional[ClientGrantSubjectTypeEnum] = None,
+        default_for: typing.Optional[ClientGrantDefaultForEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
@@ -370,6 +382,9 @@ class AsyncClientGrantsClient:
 
         subject_type : typing.Optional[ClientGrantSubjectTypeEnum]
             The type of application access the client grant allows.
+
+        default_for : typing.Optional[ClientGrantDefaultForEnum]
+            Applies this client grant as the default for all clients in the specified group. The only accepted value is `third_party_clients`, which applies the grant to all third-party clients. Per-client grants for the same audience take precedence. Mutually exclusive with `client_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -398,6 +413,7 @@ class AsyncClientGrantsClient:
                 client_id="client_id",
                 allow_any_organization=True,
                 subject_type="client",
+                default_for="third_party_clients",
             )
             async for item in response:
                 yield item
@@ -416,6 +432,7 @@ class AsyncClientGrantsClient:
             client_id=client_id,
             allow_any_organization=allow_any_organization,
             subject_type=subject_type,
+            default_for=default_for,
             request_options=request_options,
         )
 
@@ -424,6 +441,7 @@ class AsyncClientGrantsClient:
         *,
         audience: str,
         client_id: typing.Optional[str] = OMIT,
+        default_for: typing.Optional[ClientGrantDefaultForEnum] = OMIT,
         organization_usage: typing.Optional[ClientGrantOrganizationUsageEnum] = OMIT,
         allow_any_organization: typing.Optional[bool] = OMIT,
         scope: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -442,6 +460,8 @@ class AsyncClientGrantsClient:
 
         client_id : typing.Optional[str]
             ID of the client.
+
+        default_for : typing.Optional[ClientGrantDefaultForEnum]
 
         organization_usage : typing.Optional[ClientGrantOrganizationUsageEnum]
 
@@ -489,6 +509,7 @@ class AsyncClientGrantsClient:
         _response = await self._raw_client.create(
             audience=audience,
             client_id=client_id,
+            default_for=default_for,
             organization_usage=organization_usage,
             allow_any_organization=allow_any_organization,
             scope=scope,

@@ -3,3 +3,6 @@
 import typing
 
 ConnectionNonPersistentAttrs = typing.List[str]
+"""
+An array of user fields that should not be stored in the Auth0 database (https://auth0.com/docs/security/data-security/denylist)
+"""

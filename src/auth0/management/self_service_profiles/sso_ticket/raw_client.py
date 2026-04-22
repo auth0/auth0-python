@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
@@ -21,8 +22,10 @@ from ...types.self_service_profile_sso_ticket_connection_config import SelfServi
 from ...types.self_service_profile_sso_ticket_domain_aliases_config import (
     SelfServiceProfileSsoTicketDomainAliasesConfig,
 )
+from ...types.self_service_profile_sso_ticket_enabled_features import SelfServiceProfileSsoTicketEnabledFeatures
 from ...types.self_service_profile_sso_ticket_enabled_organization import SelfServiceProfileSsoTicketEnabledOrganization
 from ...types.self_service_profile_sso_ticket_provisioning_config import SelfServiceProfileSsoTicketProvisioningConfig
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,6 +47,7 @@ class RawSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
         """
@@ -75,6 +79,8 @@ class RawSsoTicketClient:
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
+        enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -84,7 +90,7 @@ class RawSsoTicketClient:
             SSO Access Ticket successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/sso-ticket",
+            f"self-service-profiles/{encode_path_param(id)}/sso-ticket",
             method="POST",
             json={
                 "connection_id": connection_id,
@@ -109,6 +115,9 @@ class RawSsoTicketClient:
                     direction="write",
                 ),
                 "use_for_organization_discovery": use_for_organization_discovery,
+                "enabled_features": convert_and_respect_annotation_metadata(
+                    object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -173,6 +182,10 @@ class RawSsoTicketClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def revoke(
@@ -198,7 +211,7 @@ class RawSsoTicketClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(profile_id)}/sso-ticket/{jsonable_encoder(id)}/revoke",
+            f"self-service-profiles/{encode_path_param(profile_id)}/sso-ticket/{encode_path_param(id)}/revoke",
             method="POST",
             request_options=request_options,
         )
@@ -241,6 +254,10 @@ class RawSsoTicketClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -260,6 +277,7 @@ class AsyncRawSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
         """
@@ -291,6 +309,8 @@ class AsyncRawSsoTicketClient:
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
+        enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -300,7 +320,7 @@ class AsyncRawSsoTicketClient:
             SSO Access Ticket successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/sso-ticket",
+            f"self-service-profiles/{encode_path_param(id)}/sso-ticket",
             method="POST",
             json={
                 "connection_id": connection_id,
@@ -325,6 +345,9 @@ class AsyncRawSsoTicketClient:
                     direction="write",
                 ),
                 "use_for_organization_discovery": use_for_organization_discovery,
+                "enabled_features": convert_and_respect_annotation_metadata(
+                    object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -389,6 +412,10 @@ class AsyncRawSsoTicketClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def revoke(
@@ -414,7 +441,7 @@ class AsyncRawSsoTicketClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(profile_id)}/sso-ticket/{jsonable_encoder(id)}/revoke",
+            f"self-service-profiles/{encode_path_param(profile_id)}/sso-ticket/{encode_path_param(id)}/revoke",
             method="POST",
             request_options=request_options,
         )
@@ -457,4 +484,8 @@ class AsyncRawSsoTicketClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import jsonable_encoder
+from ....core.jsonable_encoder import encode_path_param
 from ....core.pagination import AsyncPager, SyncPager
+from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
 from ....errors.bad_request_error import BadRequestError
@@ -21,6 +22,7 @@ from ....types.action_module_version import ActionModuleVersion
 from ....types.create_action_module_version_response_content import CreateActionModuleVersionResponseContent
 from ....types.get_action_module_version_response_content import GetActionModuleVersionResponseContent
 from ....types.get_action_module_versions_response_content import GetActionModuleVersionsResponseContent
+from pydantic import ValidationError
 
 
 class RawVersionsClient:
@@ -60,7 +62,7 @@ class RawVersionsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/modules/{jsonable_encoder(id)}/versions",
+            f"actions/modules/{encode_path_param(id)}/versions",
             method="GET",
             params={
                 "page": page,
@@ -144,6 +146,10 @@ class RawVersionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -166,7 +172,7 @@ class RawVersionsClient:
             The action module version was created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/modules/{jsonable_encoder(id)}/versions",
+            f"actions/modules/{encode_path_param(id)}/versions",
             method="POST",
             request_options=request_options,
         )
@@ -249,6 +255,10 @@ class RawVersionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -274,7 +284,7 @@ class RawVersionsClient:
             The module version was retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/modules/{jsonable_encoder(id)}/versions/{jsonable_encoder(version_id)}",
+            f"actions/modules/{encode_path_param(id)}/versions/{encode_path_param(version_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -346,6 +356,10 @@ class RawVersionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -386,7 +400,7 @@ class AsyncRawVersionsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/modules/{jsonable_encoder(id)}/versions",
+            f"actions/modules/{encode_path_param(id)}/versions",
             method="GET",
             params={
                 "page": page,
@@ -473,6 +487,10 @@ class AsyncRawVersionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -495,7 +513,7 @@ class AsyncRawVersionsClient:
             The action module version was created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/modules/{jsonable_encoder(id)}/versions",
+            f"actions/modules/{encode_path_param(id)}/versions",
             method="POST",
             request_options=request_options,
         )
@@ -578,6 +596,10 @@ class AsyncRawVersionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -603,7 +625,7 @@ class AsyncRawVersionsClient:
             The module version was retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/modules/{jsonable_encoder(id)}/versions/{jsonable_encoder(version_id)}",
+            f"actions/modules/{encode_path_param(id)}/versions/{encode_path_param(version_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -675,4 +697,8 @@ class AsyncRawVersionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

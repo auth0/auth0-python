@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
 from ...core.pagination import AsyncPager, SyncPager
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
@@ -26,6 +27,7 @@ from ...types.list_scim_configurations_response_content import ListScimConfigura
 from ...types.scim_configuration import ScimConfiguration
 from ...types.scim_mapping_item import ScimMappingItem
 from ...types.update_scim_configuration_response_content import UpdateScimConfigurationResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -135,6 +137,10 @@ class RawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -157,7 +163,7 @@ class RawScimConfigurationClient:
             The connection's SCIM configuration was retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration",
+            f"connections/{encode_path_param(id)}/scim-configuration",
             method="GET",
             request_options=request_options,
         )
@@ -196,6 +202,10 @@ class RawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -224,7 +234,7 @@ class RawScimConfigurationClient:
             The connection's SCIM configuration was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration",
+            f"connections/{encode_path_param(id)}/scim-configuration",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[CreateScimConfigurationRequestContent], direction="write"
@@ -270,6 +280,10 @@ class RawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -289,7 +303,7 @@ class RawScimConfigurationClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration",
+            f"connections/{encode_path_param(id)}/scim-configuration",
             method="DELETE",
             request_options=request_options,
         )
@@ -321,6 +335,10 @@ class RawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -354,7 +372,7 @@ class RawScimConfigurationClient:
             The connection's SCIM configuration was updated. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration",
+            f"connections/{encode_path_param(id)}/scim-configuration",
             method="PATCH",
             json={
                 "user_id_attribute": user_id_attribute,
@@ -403,6 +421,10 @@ class RawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_default_mapping(
@@ -425,7 +447,7 @@ class RawScimConfigurationClient:
             The connection's default SCIM mapping was retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration/default-mapping",
+            f"connections/{encode_path_param(id)}/scim-configuration/default-mapping",
             method="GET",
             request_options=request_options,
         )
@@ -464,6 +486,10 @@ class RawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -574,6 +600,10 @@ class AsyncRawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -596,7 +626,7 @@ class AsyncRawScimConfigurationClient:
             The connection's SCIM configuration was retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration",
+            f"connections/{encode_path_param(id)}/scim-configuration",
             method="GET",
             request_options=request_options,
         )
@@ -635,6 +665,10 @@ class AsyncRawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -663,7 +697,7 @@ class AsyncRawScimConfigurationClient:
             The connection's SCIM configuration was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration",
+            f"connections/{encode_path_param(id)}/scim-configuration",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[CreateScimConfigurationRequestContent], direction="write"
@@ -709,6 +743,10 @@ class AsyncRawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -730,7 +768,7 @@ class AsyncRawScimConfigurationClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration",
+            f"connections/{encode_path_param(id)}/scim-configuration",
             method="DELETE",
             request_options=request_options,
         )
@@ -762,6 +800,10 @@ class AsyncRawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -795,7 +837,7 @@ class AsyncRawScimConfigurationClient:
             The connection's SCIM configuration was updated. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration",
+            f"connections/{encode_path_param(id)}/scim-configuration",
             method="PATCH",
             json={
                 "user_id_attribute": user_id_attribute,
@@ -844,6 +886,10 @@ class AsyncRawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_default_mapping(
@@ -866,7 +912,7 @@ class AsyncRawScimConfigurationClient:
             The connection's default SCIM mapping was retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/scim-configuration/default-mapping",
+            f"connections/{encode_path_param(id)}/scim-configuration/default-mapping",
             method="GET",
             request_options=request_options,
         )
@@ -905,4 +951,8 @@ class AsyncRawScimConfigurationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

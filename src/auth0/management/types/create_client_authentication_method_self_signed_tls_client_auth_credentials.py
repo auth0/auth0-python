@@ -5,3 +5,6 @@ import typing
 from .x_509_certificate_credential import X509CertificateCredential
 
 CreateClientAuthenticationMethodSelfSignedTlsClientAuthCredentials = typing.List[X509CertificateCredential]
+"""
+Fully defined credentials that will be enabled on the client for mTLS authentication utilizing self-signed certificate.
+"""
