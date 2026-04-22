@@ -16,7 +16,7 @@ class UserIdentitySchema(UniversalBaseModel):
     Name of the connection containing this identity.
     """
 
-    user_id: typing.Optional[str] = pydantic.Field(default=None)
+    user_id: typing.Optional[typing.Union[str, int]] = pydantic.Field(default=None)
     """
     Unique identifier of the user user for this identity.
     """
