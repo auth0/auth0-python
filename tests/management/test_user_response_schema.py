@@ -1,4 +1,3 @@
-import pytest
 
 from auth0.management.types.user_response_schema import UserResponseSchema
 

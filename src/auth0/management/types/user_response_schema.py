@@ -10,7 +10,6 @@ from .user_date_schema import UserDateSchema
 from .user_identity_schema import UserIdentitySchema
 from .user_metadata_schema import UserMetadataSchema
 
-
 StrBool = Annotated[
     bool,
     pydantic.BeforeValidator(
