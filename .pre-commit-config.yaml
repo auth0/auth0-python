@@ -1,16 +1,21 @@
 ---
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.1  # Ruff Version
+  - repo: local
     hooks:
       - id: ruff
+        name: ruff
+        entry: ruff check --force-exclude
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: check-merge-conflict
-  - repo: https://github.com/gitguardian/ggshield
-    rev: v1.48.0  # GGShield Version
+  - repo: local
     hooks:
       - id: ggshield
-        language_version: python3
+        name: ggshield
+        entry: ggshield secret scan pre-commit
+        language: system
         stages: [pre-commit]

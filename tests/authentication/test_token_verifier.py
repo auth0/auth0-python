@@ -5,6 +5,7 @@ from unittest.mock import MagicMock, patch
 
 import jwt
 
+from auth0.authentication.exceptions import TokenValidationError
 from auth0.authentication.token_verifier import (
     AsymmetricSignatureVerifier,
     JwksFetcher,
@@ -12,7 +13,6 @@ from auth0.authentication.token_verifier import (
     SymmetricSignatureVerifier,
     TokenVerifier,
 )
-from auth0.authentication.exceptions import TokenValidationError
 
 RSA_PUB_KEY_1_PEM = b"""-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuGbXWiK3dQTyCbX5xdE4\nyCuYp0AF2d15Qq1JSXT/lx8CEcXb9RbDddl8jGDv+spi5qPa8qEHiK7FwV2KpRE9\n83wGPnYsAm9BxLFb4YrLYcDFOIGULuk2FtrPS512Qea1bXASuvYXEpQNpGbnTGVs\nWXI9C+yjHztqyL2h8P6mlThPY9E9ue2fCqdgixfTFIF9Dm4SLHbphUS2iw7w1JgT\n69s7of9+I9l5lsJ9cozf1rxrXX4V1u/SotUuNB3Fp8oB4C1fLBEhSlMcUJirz1E8\nAziMCxS+VrRPDM+zfvpIJg3JljAh3PJHDiLu902v9w+Iplu1WyoB2aPfitxEhRN0\nYwIDAQAB\n-----END PUBLIC KEY-----\n"""
 RSA_PUB_KEY_2_PEM = b"""-----BEGIN PUBLIC KEY-----\nMDowDQYJKoZIhvcNAQEBBQADKQAwJgIfAI7TBUCn8e1hj/fNpb5dqMf8Jj6Ja6qN\npqyeOGYEzAIDAQAB\n-----END PUBLIC KEY-----\n"""

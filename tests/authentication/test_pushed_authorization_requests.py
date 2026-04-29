@@ -1,5 +1,5 @@
-import unittest
 import json
+import unittest
 from unittest import mock
 
 from auth0.authentication.pushed_authorization_requests import PushedAuthorizationRequests

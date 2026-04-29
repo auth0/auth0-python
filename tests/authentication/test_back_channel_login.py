@@ -1,12 +1,13 @@
 
+import json
 import unittest
 from unittest import mock
-import json
 
 import requests
-from auth0.authentication.exceptions import Auth0Error, RateLimitError
 
 from auth0.authentication.back_channel_login import BackChannelLogin
+from auth0.authentication.exceptions import Auth0Error
+
 
 class TestBackChannelLogin(unittest.TestCase):
     @mock.patch("auth0.authentication.rest.RestClient.post")

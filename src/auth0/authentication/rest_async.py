@@ -4,11 +4,9 @@ import asyncio
 from typing import Any
 
 import aiohttp
-
 from .exceptions import RateLimitError
-from .types import RequestData
-
 from .rest import EmptyResponse, JsonResponse, PlainResponse, Response, RestClient
+from .types import RequestData
 
 
 def _clean_params(params: dict[Any, Any] | None) -> dict[Any, Any] | None:

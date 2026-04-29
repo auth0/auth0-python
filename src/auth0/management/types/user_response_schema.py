@@ -54,7 +54,9 @@ class UserResponseSchema(UniversalBaseModel):
 
     created_at: typing.Optional[UserDateSchema] = None
     updated_at: typing.Optional[UserDateSchema] = None
-    identities: typing.Optional[typing.List[UserIdentitySchema]] = pydantic.Field(default=None)
+    identities: typing.Optional[typing.List[UserIdentitySchema]] = pydantic.Field(
+        default=None
+    )
     """
     Array of user identity objects when accounts are linked.
     """

@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING, Any, ClassVar
 
 import jwt
 import requests
-
 from .exceptions import TokenValidationError
 
 if TYPE_CHECKING:

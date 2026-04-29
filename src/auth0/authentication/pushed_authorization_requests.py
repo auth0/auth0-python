@@ -3,7 +3,6 @@ from typing import Any
 from .base import AuthenticationBase
 
 
-
 class PushedAuthorizationRequests(AuthenticationBase):
     """Pushed Authorization Request (PAR) endpoint"""
 

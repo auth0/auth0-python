@@ -1,8 +1,7 @@
-from typing import Any, Optional, Union, List, Dict
+import json
+from typing import Any, Dict, List, Optional, Union
 
 from .base import AuthenticationBase
-
-import json
 
 
 class BackChannelLogin(AuthenticationBase):

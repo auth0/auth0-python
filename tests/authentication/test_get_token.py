@@ -1,9 +1,9 @@
 import unittest
-import requests
 from fnmatch import fnmatch
 from unittest import mock
 from unittest.mock import ANY
 
+import requests
 from cryptography.hazmat.primitives import asymmetric, serialization
 
 from auth0.authentication.exceptions import RateLimitError
