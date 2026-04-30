@@ -15,7 +15,7 @@ from ...types.attack_protection_update_captcha_hcaptcha import AttackProtectionU
 from ...types.attack_protection_update_captcha_recaptcha_enterprise import (
     AttackProtectionUpdateCaptchaRecaptchaEnterprise,
 )
-from ...types.attack_protection_update_captcha_recaptcha_v_2 import AttackProtectionUpdateCaptchaRecaptchaV2
+from ...types.attack_protection_update_captcha_recaptcha_v2 import AttackProtectionUpdateCaptchaRecaptchaV2
 from ...types.get_attack_protection_captcha_response_content import GetAttackProtectionCaptchaResponseContent
 from ...types.update_attack_protection_captcha_response_content import UpdateAttackProtectionCaptchaResponseContent
 from .raw_client import AsyncRawCaptchaClient, RawCaptchaClient
@@ -76,7 +76,7 @@ class CaptchaClient:
         hcaptcha: typing.Optional[AttackProtectionUpdateCaptchaHcaptcha] = OMIT,
         friendly_captcha: typing.Optional[AttackProtectionUpdateCaptchaFriendlyCaptcha] = OMIT,
         recaptcha_enterprise: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaEnterprise] = OMIT,
-        recaptcha_v_2: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2] = OMIT,
+        recaptcha_v2: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2] = OMIT,
         simple_captcha: typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateAttackProtectionCaptchaResponseContent:
@@ -97,7 +97,7 @@ class CaptchaClient:
 
         recaptcha_enterprise : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaEnterprise]
 
-        recaptcha_v_2 : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]
+        recaptcha_v2 : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]
 
         simple_captcha : typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent]
 
@@ -125,7 +125,7 @@ class CaptchaClient:
             hcaptcha=hcaptcha,
             friendly_captcha=friendly_captcha,
             recaptcha_enterprise=recaptcha_enterprise,
-            recaptcha_v_2=recaptcha_v_2,
+            recaptcha_v2=recaptcha_v2,
             simple_captcha=simple_captcha,
             request_options=request_options,
         )
@@ -192,7 +192,7 @@ class AsyncCaptchaClient:
         hcaptcha: typing.Optional[AttackProtectionUpdateCaptchaHcaptcha] = OMIT,
         friendly_captcha: typing.Optional[AttackProtectionUpdateCaptchaFriendlyCaptcha] = OMIT,
         recaptcha_enterprise: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaEnterprise] = OMIT,
-        recaptcha_v_2: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2] = OMIT,
+        recaptcha_v2: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2] = OMIT,
         simple_captcha: typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateAttackProtectionCaptchaResponseContent:
@@ -213,7 +213,7 @@ class AsyncCaptchaClient:
 
         recaptcha_enterprise : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaEnterprise]
 
-        recaptcha_v_2 : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]
+        recaptcha_v2 : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]
 
         simple_captcha : typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent]
 
@@ -249,7 +249,7 @@ class AsyncCaptchaClient:
             hcaptcha=hcaptcha,
             friendly_captcha=friendly_captcha,
             recaptcha_enterprise=recaptcha_enterprise,
-            recaptcha_v_2=recaptcha_v_2,
+            recaptcha_v2=recaptcha_v2,
             simple_captcha=simple_captcha,
             request_options=request_options,
         )

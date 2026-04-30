@@ -9,12 +9,8 @@ from ..core.serialization import FieldMetadata
 
 
 class FlowActionStripeAddress(UniversalBaseModel):
-    line_1: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="line1"), pydantic.Field(alias="line1")
-    ] = None
-    line_2: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="line2"), pydantic.Field(alias="line2")
-    ] = None
+    line1: typing.Optional[str] = None
+    line2: typing.Optional[str] = None
     postal_code: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="postalCode"), pydantic.Field(alias="postalCode")
     ] = None

@@ -43,7 +43,7 @@ class CustomTextClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListSelfServiceProfileCustomTextResponseContent:
         """
-        Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+        Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 
         Parameters
         ----------
@@ -90,7 +90,7 @@ class CustomTextClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetSelfServiceProfileCustomTextResponseContent:
         """
-        Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+        Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 
         Parameters
         ----------
@@ -155,7 +155,7 @@ class AsyncCustomTextClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListSelfServiceProfileCustomTextResponseContent:
         """
-        Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+        Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 
         Parameters
         ----------
@@ -210,7 +210,7 @@ class AsyncCustomTextClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetSelfServiceProfileCustomTextResponseContent:
         """
-        Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+        Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 
         Parameters
         ----------

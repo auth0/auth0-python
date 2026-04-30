@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
 from ...core.pagination import AsyncPager, SyncPager
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
@@ -28,6 +29,7 @@ from ...types.set_user_authentication_method_response_content import SetUserAuth
 from ...types.set_user_authentication_methods_request_content import SetUserAuthenticationMethodsRequestContent
 from ...types.update_user_authentication_method_response_content import UpdateUserAuthenticationMethodResponseContent
 from ...types.user_authentication_method import UserAuthenticationMethod
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -74,7 +76,7 @@ class RawAuthenticationMethodsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods",
+            f"users/{encode_path_param(id)}/authentication-methods",
             method="GET",
             params={
                 "page": page,
@@ -160,6 +162,10 @@ class RawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -219,7 +225,7 @@ class RawAuthenticationMethodsClient:
             Authentication method created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods",
+            f"users/{encode_path_param(id)}/authentication-methods",
             method="POST",
             json={
                 "type": type,
@@ -317,6 +323,10 @@ class RawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set(
@@ -347,7 +357,7 @@ class RawAuthenticationMethodsClient:
             All authentication methods successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods",
+            f"users/{encode_path_param(id)}/authentication-methods",
             method="PUT",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=SetUserAuthenticationMethodsRequestContent, direction="write"
@@ -426,6 +436,10 @@ class RawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete_all(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -445,7 +459,7 @@ class RawAuthenticationMethodsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods",
+            f"users/{encode_path_param(id)}/authentication-methods",
             method="DELETE",
             request_options=request_options,
         )
@@ -499,6 +513,10 @@ class RawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -522,7 +540,7 @@ class RawAuthenticationMethodsClient:
             Authentication method retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods/{jsonable_encoder(authentication_method_id)}",
+            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -594,6 +612,10 @@ class RawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(
@@ -618,7 +640,7 @@ class RawAuthenticationMethodsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods/{jsonable_encoder(authentication_method_id)}",
+            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -683,6 +705,10 @@ class RawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -720,7 +746,7 @@ class RawAuthenticationMethodsClient:
             Authentication method updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods/{jsonable_encoder(authentication_method_id)}",
+            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -800,6 +826,10 @@ class RawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -844,7 +874,7 @@ class AsyncRawAuthenticationMethodsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods",
+            f"users/{encode_path_param(id)}/authentication-methods",
             method="GET",
             params={
                 "page": page,
@@ -933,6 +963,10 @@ class AsyncRawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -992,7 +1026,7 @@ class AsyncRawAuthenticationMethodsClient:
             Authentication method created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods",
+            f"users/{encode_path_param(id)}/authentication-methods",
             method="POST",
             json={
                 "type": type,
@@ -1090,6 +1124,10 @@ class AsyncRawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set(
@@ -1120,7 +1158,7 @@ class AsyncRawAuthenticationMethodsClient:
             All authentication methods successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods",
+            f"users/{encode_path_param(id)}/authentication-methods",
             method="PUT",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=SetUserAuthenticationMethodsRequestContent, direction="write"
@@ -1199,6 +1237,10 @@ class AsyncRawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete_all(
@@ -1220,7 +1262,7 @@ class AsyncRawAuthenticationMethodsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods",
+            f"users/{encode_path_param(id)}/authentication-methods",
             method="DELETE",
             request_options=request_options,
         )
@@ -1274,6 +1316,10 @@ class AsyncRawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -1297,7 +1343,7 @@ class AsyncRawAuthenticationMethodsClient:
             Authentication method retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods/{jsonable_encoder(authentication_method_id)}",
+            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1369,6 +1415,10 @@ class AsyncRawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -1393,7 +1443,7 @@ class AsyncRawAuthenticationMethodsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods/{jsonable_encoder(authentication_method_id)}",
+            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1458,6 +1508,10 @@ class AsyncRawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -1495,7 +1549,7 @@ class AsyncRawAuthenticationMethodsClient:
             Authentication method updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/authentication-methods/{jsonable_encoder(authentication_method_id)}",
+            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -1575,4 +1629,8 @@ class AsyncRawAuthenticationMethodsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

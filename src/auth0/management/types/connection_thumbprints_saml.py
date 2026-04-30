@@ -2,6 +2,9 @@
 
 import typing
 
-from .connection_sha_1_thumbprint import ConnectionSha1Thumbprint
+from .connection_sha1thumbprint import ConnectionSha1Thumbprint
 
 ConnectionThumbprintsSaml = typing.List[ConnectionSha1Thumbprint]
+"""
+SHA-1 thumbprints (fingerprints) of the identity provider's signing certificates. Automatically computed from signingCert during connection creation. Each thumbprint must be a 40-character hexadecimal string.
+"""

@@ -5,3 +5,6 @@ import typing
 from .delete_user_identity_response_content_item import DeleteUserIdentityResponseContentItem
 
 DeleteUserIdentityResponseContent = typing.List[DeleteUserIdentityResponseContentItem]
+"""
+An array of objects with information about the user's identities.
+"""

@@ -3,17 +3,15 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 
 
 class ScimMappingItem(UniversalBaseModel):
-    auth_0: typing_extensions.Annotated[
-        typing.Optional[str],
-        FieldMetadata(alias="auth0"),
-        pydantic.Field(alias="auth0", description="The field location in the auth0 schema"),
-    ] = None
+    auth0: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The field location in the auth0 schema
+    """
+
     scim: typing.Optional[str] = pydantic.Field(default=None)
     """
     The field location in the SCIM schema

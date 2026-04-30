@@ -6,6 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
+from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
 from ....errors.bad_request_error import BadRequestError
@@ -25,7 +26,7 @@ from ....types.set_guardian_factors_provider_push_notification_apns_response_con
 from ....types.set_guardian_factors_provider_push_notification_fcm_response_content import (
     SetGuardianFactorsProviderPushNotificationFcmResponseContent,
 )
-from ....types.set_guardian_factors_provider_push_notification_fcmv_1_response_content import (
+from ....types.set_guardian_factors_provider_push_notification_fcmv1response_content import (
     SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
 )
 from ....types.set_guardian_factors_provider_push_notification_response_content import (
@@ -40,12 +41,13 @@ from ....types.update_guardian_factors_provider_push_notification_apns_response_
 from ....types.update_guardian_factors_provider_push_notification_fcm_response_content import (
     UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
 )
-from ....types.update_guardian_factors_provider_push_notification_fcmv_1_response_content import (
+from ....types.update_guardian_factors_provider_push_notification_fcmv1response_content import (
     UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
 )
 from ....types.update_guardian_factors_provider_push_notification_sns_response_content import (
     UpdateGuardianFactorsProviderPushNotificationSnsResponseContent,
 )
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -122,6 +124,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set_apns_provider(
@@ -129,7 +135,7 @@ class RawPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p_12: typing.Optional[str] = OMIT,
+        p12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
@@ -141,7 +147,7 @@ class RawPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p_12 : typing.Optional[str]
+        p12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -157,7 +163,7 @@ class RawPushNotificationClient:
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
-                "p12": p_12,
+                "p12": p12,
             },
             headers={
                 "content-type": "application/json",
@@ -211,6 +217,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update_apns_provider(
@@ -218,7 +228,7 @@ class RawPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p_12: typing.Optional[str] = OMIT,
+        p12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
@@ -230,7 +240,7 @@ class RawPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p_12 : typing.Optional[str]
+        p12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -246,7 +256,7 @@ class RawPushNotificationClient:
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
-                "p12": p_12,
+                "p12": p12,
             },
             headers={
                 "content-type": "application/json",
@@ -300,6 +310,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set_fcm_provider(
@@ -378,6 +392,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update_fcm_provider(
@@ -456,9 +474,13 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def set_fcmv_1_provider(
+    def set_fcmv1provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -537,9 +559,13 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def update_fcmv_1_provider(
+    def update_fcmv1provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -618,6 +644,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_sns_provider(
@@ -687,6 +717,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set_sns_provider(
@@ -784,6 +818,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update_sns_provider(
@@ -881,6 +919,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_selected_provider(
@@ -950,6 +992,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set_provider(
@@ -1031,6 +1077,10 @@ class RawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -1105,6 +1155,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set_apns_provider(
@@ -1112,7 +1166,7 @@ class AsyncRawPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p_12: typing.Optional[str] = OMIT,
+        p12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
@@ -1124,7 +1178,7 @@ class AsyncRawPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p_12 : typing.Optional[str]
+        p12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1140,7 +1194,7 @@ class AsyncRawPushNotificationClient:
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
-                "p12": p_12,
+                "p12": p12,
             },
             headers={
                 "content-type": "application/json",
@@ -1194,6 +1248,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update_apns_provider(
@@ -1201,7 +1259,7 @@ class AsyncRawPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p_12: typing.Optional[str] = OMIT,
+        p12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
@@ -1213,7 +1271,7 @@ class AsyncRawPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p_12 : typing.Optional[str]
+        p12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1229,7 +1287,7 @@ class AsyncRawPushNotificationClient:
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
-                "p12": p_12,
+                "p12": p12,
             },
             headers={
                 "content-type": "application/json",
@@ -1283,6 +1341,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set_fcm_provider(
@@ -1361,6 +1423,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update_fcm_provider(
@@ -1439,9 +1505,13 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def set_fcmv_1_provider(
+    async def set_fcmv1provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -1520,9 +1590,13 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def update_fcmv_1_provider(
+    async def update_fcmv1provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -1601,6 +1675,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_sns_provider(
@@ -1670,6 +1748,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set_sns_provider(
@@ -1767,6 +1849,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update_sns_provider(
@@ -1864,6 +1950,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_selected_provider(
@@ -1933,6 +2023,10 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set_provider(
@@ -2014,4 +2108,8 @@ class AsyncRawPushNotificationClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

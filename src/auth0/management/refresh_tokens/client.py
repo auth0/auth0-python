@@ -104,6 +104,49 @@ class RefreshTokensClient:
             request_options=request_options,
         )
 
+    def revoke(
+        self,
+        *,
+        ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        client_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+
+        Parameters
+        ----------
+        ids : typing.Optional[typing.Sequence[str]]
+            Array of refresh token IDs to revoke. Limited to 100 at a time.
+
+        user_id : typing.Optional[str]
+            Revoke all refresh tokens for this user.
+
+        client_id : typing.Optional[str]
+            Revoke all refresh tokens for this client.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.refresh_tokens.revoke()
+        """
+        _response = self._raw_client.revoke(
+            ids=ids, user_id=user_id, client_id=client_id, request_options=request_options
+        )
+        return _response.data
+
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetRefreshTokenResponseContent:
@@ -306,6 +349,57 @@ class AsyncRefreshTokensClient:
             include_fields=include_fields,
             request_options=request_options,
         )
+
+    async def revoke(
+        self,
+        *,
+        ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        client_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+
+        Parameters
+        ----------
+        ids : typing.Optional[typing.Sequence[str]]
+            Array of refresh token IDs to revoke. Limited to 100 at a time.
+
+        user_id : typing.Optional[str]
+            Revoke all refresh tokens for this user.
+
+        client_id : typing.Optional[str]
+            Revoke all refresh tokens for this client.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.refresh_tokens.revoke()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.revoke(
+            ids=ids, user_id=user_id, client_id=client_id, request_options=request_options
+        )
+        return _response.data
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None

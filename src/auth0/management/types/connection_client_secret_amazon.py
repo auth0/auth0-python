@@ -3,3 +3,6 @@
 from .connection_client_secret import ConnectionClientSecret
 
 ConnectionClientSecretAmazon = ConnectionClientSecret
+"""
+OAuth 2.0 client secret obtained from Amazon Developer Console during Login with Amazon application registration. Used to authenticate your application when exchanging authorization codes for tokens.
+"""

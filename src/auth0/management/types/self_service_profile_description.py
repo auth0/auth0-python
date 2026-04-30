@@ -3,3 +3,6 @@
 import typing
 
 SelfServiceProfileDescription = typing.Optional[str]
+"""
+The description of the self-service Profile.
+"""

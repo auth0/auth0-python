@@ -41,7 +41,9 @@ def test_users_create() -> None:
     """Test create endpoint with WireMock"""
     test_id = "users.create.0"
     client = get_client(test_id)
-    client.users.create(connection="connection")
+    client.users.create(
+        connection="connection",
+    )
     verify_request_count(test_id, "POST", "/users", None, 1)
 
 
@@ -49,7 +51,11 @@ def test_users_list_users_by_email() -> None:
     """Test listUsersByEmail endpoint with WireMock"""
     test_id = "users.list_users_by_email.0"
     client = get_client(test_id)
-    client.users.list_users_by_email(fields="fields", include_fields=True, email="email")
+    client.users.list_users_by_email(
+        fields="fields",
+        include_fields=True,
+        email="email",
+    )
     verify_request_count(
         test_id, "GET", "/users-by-email", {"fields": "fields", "include_fields": "true", "email": "email"}, 1
     )
@@ -59,7 +65,11 @@ def test_users_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "users.get.0"
     client = get_client(test_id)
-    client.users.get(id="id", fields="fields", include_fields=True)
+    client.users.get(
+        id="id",
+        fields="fields",
+        include_fields=True,
+    )
     verify_request_count(test_id, "GET", "/users/id", {"fields": "fields", "include_fields": "true"}, 1)
 
 
@@ -67,7 +77,9 @@ def test_users_delete() -> None:
     """Test delete endpoint with WireMock"""
     test_id = "users.delete.0"
     client = get_client(test_id)
-    client.users.delete(id="id")
+    client.users.delete(
+        id="id",
+    )
     verify_request_count(test_id, "DELETE", "/users/id", None, 1)
 
 
@@ -75,7 +87,9 @@ def test_users_update() -> None:
     """Test update endpoint with WireMock"""
     test_id = "users.update.0"
     client = get_client(test_id)
-    client.users.update(id="id")
+    client.users.update(
+        id="id",
+    )
     verify_request_count(test_id, "PATCH", "/users/id", None, 1)
 
 
@@ -83,7 +97,9 @@ def test_users_regenerate_recovery_code() -> None:
     """Test regenerateRecoveryCode endpoint with WireMock"""
     test_id = "users.regenerate_recovery_code.0"
     client = get_client(test_id)
-    client.users.regenerate_recovery_code(id="id")
+    client.users.regenerate_recovery_code(
+        id="id",
+    )
     verify_request_count(test_id, "POST", "/users/id/recovery-code-regeneration", None, 1)
 
 
@@ -91,5 +107,7 @@ def test_users_revoke_access() -> None:
     """Test revokeAccess endpoint with WireMock"""
     test_id = "users.revoke_access.0"
     client = get_client(test_id)
-    client.users.revoke_access(id="id")
+    client.users.revoke_access(
+        id="id",
+    )
     verify_request_count(test_id, "POST", "/users/id/revoke-access", None, 1)

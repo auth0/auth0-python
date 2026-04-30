@@ -3,3 +3,6 @@
 from .connection_metadata_xml import ConnectionMetadataXml
 
 ConnectionMetadataXmlSaml = ConnectionMetadataXml
+"""
+SAML metadata XML document from the identity provider. When provided, automatically parsed to extract signInEndpoint, signOutEndpoint, signingCert, signSAMLRequest, and protocolBinding. Deleted after parsing to avoid persisting large documents. Not persisted to database - deleted after parsing metadata. Use metadataUrl OR metadataXml, not both.
+"""

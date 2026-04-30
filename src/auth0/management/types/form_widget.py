@@ -2,7 +2,7 @@
 
 import typing
 
-from .form_widget_auth_0_verifiable_credentials import FormWidgetAuth0VerifiableCredentials
+from .form_widget_auth0verifiable_credentials import FormWidgetAuth0VerifiableCredentials
 from .form_widget_g_maps_address import FormWidgetGMapsAddress
 from .form_widget_recaptcha import FormWidgetRecaptcha
 

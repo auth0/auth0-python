@@ -11,7 +11,7 @@ from .email_provider_settings import EmailProviderSettings
 class GetEmailProviderResponseContent(UniversalBaseModel):
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Name of the email provider. Can be `mailgun`, `mandrill`, `sendgrid`, `ses`, `sparkpost`, `smtp`, `azure_cs`, `ms365`, or `custom`.
+    Name of the email provider. Can be `mailgun`, `mandrill`, `sendgrid`, `resend`, `ses`, `sparkpost`, `smtp`, `azure_cs`, `ms365`, or `custom`.
     """
 
     enabled: typing.Optional[bool] = pydantic.Field(default=None)

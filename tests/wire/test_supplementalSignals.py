@@ -13,5 +13,7 @@ def test_supplementalSignals_patch() -> None:
     """Test patch endpoint with WireMock"""
     test_id = "supplemental_signals.patch.0"
     client = get_client(test_id)
-    client.supplemental_signals.patch(akamai_enabled=True)
+    client.supplemental_signals.patch(
+        akamai_enabled=True,
+    )
     verify_request_count(test_id, "PATCH", "/supplemental-signals", None, 1)

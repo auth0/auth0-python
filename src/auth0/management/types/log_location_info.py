@@ -3,9 +3,7 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 
 
 class LogLocationInfo(UniversalBaseModel):
@@ -18,14 +16,11 @@ class LogLocationInfo(UniversalBaseModel):
     Two-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-2 ISO 3166-1</a> country code.
     """
 
-    country_code_3: typing_extensions.Annotated[
-        typing.Optional[str],
-        FieldMetadata(alias="country_code3"),
-        pydantic.Field(
-            alias="country_code3",
-            description='Three-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-3 ISO 3166-1</a> country code.',
-        ),
-    ] = None
+    country_code3: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Three-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-3 ISO 3166-1</a> country code.
+    """
+
     country_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Full country name in English.

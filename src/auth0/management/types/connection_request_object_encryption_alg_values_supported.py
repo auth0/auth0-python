@@ -3,3 +3,6 @@
 import typing
 
 ConnectionRequestObjectEncryptionAlgValuesSupported = typing.List[str]
+"""
+JSON array containing a list of the JWE encryption algorithms (alg values) supported by the OP for Request Objects. These algorithms are used both when the Request Object is passed by value and when it is passed by reference.
+"""

@@ -5,3 +5,6 @@ import typing
 from .credential_id import CredentialId
 
 ClientAuthenticationMethodSelfSignedTlsClientAuthCredentials = typing.List[CredentialId]
+"""
+A list of unique and previously created credential IDs enabled on the client for mTLS authentication utilizing self-signed certificate.
+"""

@@ -3,3 +3,6 @@
 import typing
 
 FlowExecutionDebug = typing.Dict[str, typing.Any]
+"""
+Flow execution debug.
+"""

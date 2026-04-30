@@ -3,3 +3,6 @@
 import typing
 
 ConnectionsMetadata = typing.Dict[str, typing.Optional[str]]
+"""
+Metadata associated with the connection in the form of an object with string values (max 255 chars).  Maximum of 10 metadata properties allowed.
+"""

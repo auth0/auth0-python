@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionScopeAmazon = ConnectionScopeArray
+"""
+OAuth 2.0 scopes that will be requested from Amazon during authorization. This is automatically populated based on the profile and postal_code settings, plus any freeform_scopes.
+"""

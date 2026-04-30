@@ -3,3 +3,6 @@
 from .connection_ext_agreed_terms import ConnectionExtAgreedTerms
 
 ConnectionExtAgreedTermsGoogleApps = ConnectionExtAgreedTerms
+"""
+Fetches the `agreedToTerms` flag from the Google Directory profile.
+"""

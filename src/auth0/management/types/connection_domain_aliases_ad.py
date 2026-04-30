@@ -3,3 +3,6 @@
 import typing
 
 ConnectionDomainAliasesAd = typing.List[str]
+"""
+List of domain names that can be used with identifier-first authentication flow to route users to this AD connection; each domain must be a valid DNS name up to 256 characters
+"""

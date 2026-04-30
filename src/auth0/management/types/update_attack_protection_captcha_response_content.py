@@ -3,9 +3,7 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 from .attack_protection_captcha_arkose_response_content import AttackProtectionCaptchaArkoseResponseContent
 from .attack_protection_captcha_auth_challenge_response_content import (
     AttackProtectionCaptchaAuthChallengeResponseContent,
@@ -17,7 +15,7 @@ from .attack_protection_captcha_hcaptcha_response_content import AttackProtectio
 from .attack_protection_captcha_recaptcha_enterprise_response_content import (
     AttackProtectionCaptchaRecaptchaEnterpriseResponseContent,
 )
-from .attack_protection_captcha_recaptcha_v_2_response_content import AttackProtectionCaptchaRecaptchaV2ResponseContent
+from .attack_protection_captcha_recaptcha_v2response_content import AttackProtectionCaptchaRecaptchaV2ResponseContent
 from .attack_protection_captcha_simple_captcha_response_content import (
     AttackProtectionCaptchaSimpleCaptchaResponseContent,
 )
@@ -30,11 +28,7 @@ class UpdateAttackProtectionCaptchaResponseContent(UniversalBaseModel):
     hcaptcha: typing.Optional[AttackProtectionCaptchaHcaptchaResponseContent] = None
     friendly_captcha: typing.Optional[AttackProtectionCaptchaFriendlyCaptchaResponseContent] = None
     recaptcha_enterprise: typing.Optional[AttackProtectionCaptchaRecaptchaEnterpriseResponseContent] = None
-    recaptcha_v_2: typing_extensions.Annotated[
-        typing.Optional[AttackProtectionCaptchaRecaptchaV2ResponseContent],
-        FieldMetadata(alias="recaptcha_v2"),
-        pydantic.Field(alias="recaptcha_v2"),
-    ] = None
+    recaptcha_v2: typing.Optional[AttackProtectionCaptchaRecaptchaV2ResponseContent] = None
     simple_captcha: typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent] = None
 
     if IS_PYDANTIC_V2:

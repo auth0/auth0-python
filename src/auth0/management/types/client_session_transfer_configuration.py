@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_session_transfer_allowed_authentication_methods_enum import (
     ClientSessionTransferAllowedAuthenticationMethodsEnum,
 )
+from .client_session_transfer_delegation_configuration import ClientSessionTransferDelegationConfiguration
 from .client_session_transfer_device_binding_enum import ClientSessionTransferDeviceBindingEnum
 
 
@@ -42,6 +43,8 @@ class ClientSessionTransferConfiguration(UniversalBaseModel):
     """
     Indicates whether Refresh Tokens created during a Native to Web session are tied to that session's lifetime. This determines if such refresh tokens should be automatically revoked when their corresponding sessions are. Usually configured in the web application. Default value is `true`, applicable only in Native to Web SSO context.
     """
+
+    delegation: typing.Optional[ClientSessionTransferDelegationConfiguration] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
