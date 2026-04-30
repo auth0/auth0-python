@@ -18,7 +18,7 @@ class ClientMobileAndroid(UniversalBaseModel):
     App package name found in AndroidManifest.xml.
     """
 
-    sha_256_cert_fingerprints: typing_extensions.Annotated[
+    sha256cert_fingerprints: typing_extensions.Annotated[
         typing.Optional[typing.List[str]],
         FieldMetadata(alias="sha256_cert_fingerprints"),
         pydantic.Field(

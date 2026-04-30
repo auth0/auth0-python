@@ -3,3 +3,6 @@
 import typing
 
 ClientAddonConcur = typing.Dict[str, typing.Any]
+"""
+Concur SSO indicator (no configuration settings needed for Concur SSO).
+"""

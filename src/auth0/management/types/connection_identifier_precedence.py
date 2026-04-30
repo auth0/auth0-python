@@ -5,3 +5,6 @@ import typing
 from .connection_identifier_precedence_enum import ConnectionIdentifierPrecedenceEnum
 
 ConnectionIdentifierPrecedence = typing.List[ConnectionIdentifierPrecedenceEnum]
+"""
+Order of precedence for attribute types. If the property is not specified, the default precedence of attributes will be used.
+"""

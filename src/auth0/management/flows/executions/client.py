@@ -118,6 +118,7 @@ class ExecutionsClient:
         client.flows.executions.get(
             flow_id="flow_id",
             execution_id="execution_id",
+            hydrate=["debug"],
         )
         """
         _response = self._raw_client.get(flow_id, execution_id, hydrate=hydrate, request_options=request_options)
@@ -278,6 +279,7 @@ class AsyncExecutionsClient:
             await client.flows.executions.get(
                 flow_id="flow_id",
                 execution_id="execution_id",
+                hydrate=["debug"],
             )
 
 

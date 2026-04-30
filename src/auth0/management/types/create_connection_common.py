@@ -11,7 +11,7 @@ from .connections_metadata import ConnectionsMetadata
 
 
 class CreateConnectionCommon(UniversalBaseModel):
-    name: ConnectionName
+    name: typing.Optional[ConnectionName] = None
     enabled_clients: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     Use of this property is NOT RECOMMENDED. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.

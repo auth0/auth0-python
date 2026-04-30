@@ -3,3 +3,6 @@
 from .connection_tenant_domain import ConnectionTenantDomain
 
 ConnectionTenantDomainGoogleApps = ConnectionTenantDomain
+"""
+The Google Workspace primary domain used to identify the organization during authentication.
+"""

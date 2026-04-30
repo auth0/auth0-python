@@ -25,9 +25,8 @@ except (TypeError, ValueError):
 
 
 def _get_wiremock_base_url() -> str:
-    """Returns the WireMock base URL using the dynamically assigned port."""
-    port = os.environ.get("WIREMOCK_PORT", "8080")
-    return f"http://localhost:{port}"
+    """Returns the WireMock base URL from the WIREMOCK_URL environment variable."""
+    return os.environ.get("WIREMOCK_URL", "http://localhost:8080")
 
 
 def get_client(test_id: str) -> Auth0:
@@ -61,7 +60,7 @@ def verify_request_count(
     test_id: str,
     method: str,
     url_path: str,
-    query_params: Optional[Dict[str, str]],
+    query_params: Optional[Dict[str, Any]],
     expected: int,
 ) -> None:
     """Verifies the number of requests made to WireMock filtered by test ID for concurrency safety."""
@@ -72,7 +71,12 @@ def verify_request_count(
         "headers": {"X-Test-Id": {"equalTo": test_id}},
     }
     if query_params:
-        query_parameters = {k: {"equalTo": v} for k, v in query_params.items()}
+        query_parameters = {}
+        for k, v in query_params.items():
+            if isinstance(v, list):
+                query_parameters[k] = {"hasExactly": [{"equalTo": item} for item in v]}
+            else:
+                query_parameters[k] = {"equalTo": v}
         request_body["queryParameters"] = query_parameters
     response = httpx.post(f"{wiremock_admin_url}/requests/find", json=request_body)
     assert response.status_code == 200, "Failed to query WireMock requests"

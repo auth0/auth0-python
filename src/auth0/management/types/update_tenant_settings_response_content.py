@@ -9,6 +9,9 @@ from .session_cookie_schema import SessionCookieSchema
 from .supported_locales import SupportedLocales
 from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
 from .tenant_settings_device_flow import TenantSettingsDeviceFlow
+from .tenant_settings_dynamic_client_registration_security_mode import (
+    TenantSettingsDynamicClientRegistrationSecurityMode,
+)
 from .tenant_settings_error_page import TenantSettingsErrorPage
 from .tenant_settings_flags import TenantSettingsFlags
 from .tenant_settings_guardian_page import TenantSettingsGuardianPage
@@ -142,6 +145,11 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     """
 
     resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = None
+    client_id_metadata_document_supported: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the authorization server supports retrieving client metadata from a client_id URL.
+    """
+
     phone_consolidated_experience: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether Phone Consolidated Experience is enabled for this tenant.
@@ -151,6 +159,10 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     """
     Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
     """
+
+    dynamic_client_registration_security_mode: typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode] = (
+        None
+    )
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

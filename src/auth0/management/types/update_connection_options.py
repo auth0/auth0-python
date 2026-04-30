@@ -6,11 +6,13 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .connection_assertion_decryption_settings import ConnectionAssertionDecryptionSettings
 from .connection_attributes import ConnectionAttributes
 from .connection_authentication_methods import ConnectionAuthenticationMethods
 from .connection_custom_scripts import ConnectionCustomScripts
 from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
 from .connection_gateway_authentication import ConnectionGatewayAuthentication
+from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
 from .connection_identifier_precedence_enum import ConnectionIdentifierPrecedenceEnum
 from .connection_passkey_options import ConnectionPasskeyOptions
 from .connection_password_complexity_options import ConnectionPasswordComplexityOptions
@@ -20,6 +22,9 @@ from .connection_password_no_personal_info_options import ConnectionPasswordNoPe
 from .connection_password_options import ConnectionPasswordOptions
 from .connection_password_policy_enum import ConnectionPasswordPolicyEnum
 from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointAuthMethodEnum
+from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
+from .connection_token_endpoint_jwtca_aud_format_enum_oidc import ConnectionTokenEndpointJwtcaAudFormatEnumOidc
 from .connection_upstream_params import ConnectionUpstreamParams
 from .connection_validation_options import ConnectionValidationOptions
 
@@ -78,6 +83,7 @@ class UpdateConnectionOptions(UniversalBaseModel):
     password_no_personal_info: typing.Optional[ConnectionPasswordNoPersonalInfoOptions] = None
     password_dictionary: typing.Optional[ConnectionPasswordDictionaryOptions] = None
     api_enable_users: typing.Optional[bool] = None
+    api_enable_groups: typing.Optional[bool] = None
     basic_profile: typing.Optional[bool] = None
     ext_admin: typing.Optional[bool] = None
     ext_is_suspended: typing.Optional[bool] = None
@@ -91,6 +97,11 @@ class UpdateConnectionOptions(UniversalBaseModel):
     gateway_authentication: typing.Optional[ConnectionGatewayAuthentication] = None
     federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
     password_options: typing.Optional[ConnectionPasswordOptions] = None
+    assertion_decryption_settings: typing.Optional[ConnectionAssertionDecryptionSettings] = None
+    id_token_signed_response_algs: typing.Optional[ConnectionIdTokenSignedResponseAlgs] = None
+    token_endpoint_auth_method: typing.Optional[ConnectionTokenEndpointAuthMethodEnum] = None
+    token_endpoint_auth_signing_alg: typing.Optional[ConnectionTokenEndpointAuthSigningAlgEnum] = None
+    token_endpoint_jwtca_aud_format: typing.Optional[ConnectionTokenEndpointJwtcaAudFormatEnumOidc] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

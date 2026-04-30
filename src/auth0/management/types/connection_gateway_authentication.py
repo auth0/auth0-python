@@ -33,7 +33,7 @@ class ConnectionGatewayAuthentication(UniversalBaseModel):
     The secret to be used for signing tokens.
     """
 
-    secret_base_64_encoded: typing_extensions.Annotated[
+    secret_base64encoded: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="secret_base64_encoded"),
         pydantic.Field(

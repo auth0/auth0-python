@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionScopeLinkedin = ConnectionScopeArray
+"""
+Scopes to request from LinkedIn during OAuth. Use standard scopes such as r_liteprofile and r_emailaddress; legacy or partner scopes (e.g., r_basicprofile, r_fullprofile, rw_company_admin) may require LinkedIn approval and may not be available to new apps.
+"""

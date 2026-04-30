@@ -3,3 +3,6 @@
 import typing
 
 ConnectionResponseTypesSupported = typing.List[str]
+"""
+A list of the OAuth 2.0 response_type values that this OP supports. Dynamic OpenID Providers MUST support the code, id_token, and the token id_token Response Type values
+"""

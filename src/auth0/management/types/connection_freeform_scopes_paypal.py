@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionFreeformScopesPaypal = ConnectionScopeArray
+"""
+Additional OAuth scopes to request from PayPal beyond the standard attribute scopes. Enter valid PayPal scopes from their documentation. Invalid scopes may cause authentication errors.
+"""

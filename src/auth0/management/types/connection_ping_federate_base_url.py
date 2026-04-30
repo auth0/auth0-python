@@ -3,3 +3,6 @@
 from .connection_ping_federate_base_url_ping_federate import ConnectionPingFederateBaseUrlPingFederate
 
 ConnectionPingFederateBaseUrl = ConnectionPingFederateBaseUrlPingFederate
+"""
+URL provided by PingFederate which returns information used for creating the connection
+"""

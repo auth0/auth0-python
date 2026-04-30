@@ -11,6 +11,7 @@ from ...types.self_service_profile_sso_ticket_connection_config import SelfServi
 from ...types.self_service_profile_sso_ticket_domain_aliases_config import (
     SelfServiceProfileSsoTicketDomainAliasesConfig,
 )
+from ...types.self_service_profile_sso_ticket_enabled_features import SelfServiceProfileSsoTicketEnabledFeatures
 from ...types.self_service_profile_sso_ticket_enabled_organization import SelfServiceProfileSsoTicketEnabledOrganization
 from ...types.self_service_profile_sso_ticket_provisioning_config import SelfServiceProfileSsoTicketProvisioningConfig
 from .raw_client import AsyncRawSsoTicketClient, RawSsoTicketClient
@@ -46,10 +47,11 @@ class SsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateSelfServiceProfileSsoTicketResponseContent:
         """
-        Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+        Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
 
         Parameters
         ----------
@@ -57,7 +59,7 @@ class SsoTicketClient:
             The id of the self-service profile to retrieve
 
         connection_id : typing.Optional[str]
-            If provided, this will allow editing of the provided connection during the SSO Flow
+            If provided, this will allow editing of the provided connection during the Self-Service Enterprise Configuration flow
 
         connection_config : typing.Optional[SelfServiceProfileSsoTicketConnectionConfig]
 
@@ -77,13 +79,15 @@ class SsoTicketClient:
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
+        enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         CreateSelfServiceProfileSsoTicketResponseContent
-            SSO Access Ticket successfully created.
+            Self-Service Enterprise Configuration Access Ticket successfully created.
 
         Examples
         --------
@@ -106,13 +110,14 @@ class SsoTicketClient:
             domain_aliases_config=domain_aliases_config,
             provisioning_config=provisioning_config,
             use_for_organization_discovery=use_for_organization_discovery,
+            enabled_features=enabled_features,
             request_options=request_options,
         )
         return _response.data
 
     def revoke(self, profile_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Revokes an SSO access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service SSO session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
+        Revokes a Self-Service Enterprise Configuration access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service Enterprise Configuration session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
         Clients should treat these `202` responses as an acknowledgment that the request has been accepted and is in progress, even if the ticket was not found.
 
         Parameters
@@ -173,10 +178,11 @@ class AsyncSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateSelfServiceProfileSsoTicketResponseContent:
         """
-        Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+        Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
 
         Parameters
         ----------
@@ -184,7 +190,7 @@ class AsyncSsoTicketClient:
             The id of the self-service profile to retrieve
 
         connection_id : typing.Optional[str]
-            If provided, this will allow editing of the provided connection during the SSO Flow
+            If provided, this will allow editing of the provided connection during the Self-Service Enterprise Configuration flow
 
         connection_config : typing.Optional[SelfServiceProfileSsoTicketConnectionConfig]
 
@@ -204,13 +210,15 @@ class AsyncSsoTicketClient:
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
+        enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         CreateSelfServiceProfileSsoTicketResponseContent
-            SSO Access Ticket successfully created.
+            Self-Service Enterprise Configuration Access Ticket successfully created.
 
         Examples
         --------
@@ -241,6 +249,7 @@ class AsyncSsoTicketClient:
             domain_aliases_config=domain_aliases_config,
             provisioning_config=provisioning_config,
             use_for_organization_discovery=use_for_organization_discovery,
+            enabled_features=enabled_features,
             request_options=request_options,
         )
         return _response.data
@@ -249,7 +258,7 @@ class AsyncSsoTicketClient:
         self, profile_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Revokes an SSO access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service SSO session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
+        Revokes a Self-Service Enterprise Configuration access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service Enterprise Configuration session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
         Clients should treat these `202` responses as an acknowledgment that the request has been accepted and is in progress, even if the ticket was not found.
 
         Parameters

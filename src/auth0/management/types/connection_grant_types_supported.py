@@ -3,3 +3,6 @@
 import typing
 
 ConnectionGrantTypesSupported = typing.List[str]
+"""
+A list of the OAuth 2.0 Grant Type values that this OP supports. Dynamic OpenID Providers MUST support the authorization_code and implicit Grant Type values and MAY support other Grant Types. If omitted, the default value is ["authorization_code", "implicit"].
+"""

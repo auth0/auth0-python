@@ -3,3 +3,6 @@
 import typing
 
 ClientAddonWsFed = typing.Dict[str, typing.Any]
+"""
+WS-Fed (WIF) addon indicator. Actual configuration is stored in `callback` and `client_aliases` properties on the client.
+"""

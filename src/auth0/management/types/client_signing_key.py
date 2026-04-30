@@ -3,17 +3,15 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 
 
 class ClientSigningKey(UniversalBaseModel):
-    pkcs_7: typing_extensions.Annotated[
-        typing.Optional[str],
-        FieldMetadata(alias="pkcs7"),
-        pydantic.Field(alias="pkcs7", description="Signing certificate public key and chain in PKCS#7 (.P7B) format."),
-    ] = None
+    pkcs7: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Signing certificate public key and chain in PKCS#7 (.P7B) format.
+    """
+
     cert: typing.Optional[str] = pydantic.Field(default=None)
     """
     Signing certificate public key in X.509 (.CER) format.

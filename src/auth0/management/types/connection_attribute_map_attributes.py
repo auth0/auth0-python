@@ -3,3 +3,6 @@
 import typing
 
 ConnectionAttributeMapAttributes = typing.Dict[str, typing.Any]
+"""
+Object containing mapping details for incoming claims
+"""

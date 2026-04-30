@@ -3,3 +3,6 @@
 import typing
 
 EmailSpecificProviderSettingsWithAdditionalProperties = typing.Optional[typing.Dict[str, typing.Any]]
+"""
+Specific provider setting
+"""

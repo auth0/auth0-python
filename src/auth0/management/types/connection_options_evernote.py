@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_options_o_auth_1_common import ConnectionOptionsOAuth1Common
+from .connection_options_o_auth1common import ConnectionOptionsOAuth1Common
 
 
 class ConnectionOptionsEvernote(ConnectionOptionsOAuth1Common):

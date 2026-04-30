@@ -5,3 +5,6 @@ from .connection_options_idp_initiated_client_protocol_enum_saml import (
 )
 
 ConnectionClientProtocolSaml = ConnectionOptionsIdpInitiatedClientProtocolEnumSaml
+"""
+The response protocol used to communicate with the default application.
+"""

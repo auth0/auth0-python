@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .resource_server_authorization_policy import ResourceServerAuthorizationPolicy
 from .resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
 from .resource_server_proof_of_possession import ResourceServerProofOfPossession
 from .resource_server_scope import ResourceServerScope
@@ -81,6 +82,7 @@ class ResourceServer(UniversalBaseModel):
     authorization_details: typing.Optional[typing.List[typing.Any]] = None
     proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = None
     subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = None
+    authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = None
     client_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The client ID of the client that this resource server is linked to

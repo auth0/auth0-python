@@ -3,9 +3,7 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 
 
 class TenantSettingsFlags(UniversalBaseModel):
@@ -13,14 +11,11 @@ class TenantSettingsFlags(UniversalBaseModel):
     Flags used to change the behavior of this tenant.
     """
 
-    change_pwd_flow_v_1: typing_extensions.Annotated[
-        typing.Optional[bool],
-        FieldMetadata(alias="change_pwd_flow_v1"),
-        pydantic.Field(
-            alias="change_pwd_flow_v1",
-            description="Whether to use the older v1 change password flow (true, not recommended except for backward compatibility) or the newer safer flow (false, recommended).",
-        ),
-    ] = None
+    change_pwd_flow_v1: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether to use the older v1 change password flow (true, not recommended except for backward compatibility) or the newer safer flow (false, recommended).
+    """
+
     enable_apis_section: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the APIs section is enabled (true) or disabled (false).
@@ -36,14 +31,11 @@ class TenantSettingsFlags(UniversalBaseModel):
     Whether all current connections should be enabled when a new client (application) is created (true, default) or not (false).
     """
 
-    enable_pipeline_2: typing_extensions.Annotated[
-        typing.Optional[bool],
-        FieldMetadata(alias="enable_pipeline2"),
-        pydantic.Field(
-            alias="enable_pipeline2",
-            description="Whether advanced API Authorization scenarios are enabled (true) or disabled (false).",
-        ),
-    ] = None
+    enable_pipeline2: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether advanced API Authorization scenarios are enabled (true) or disabled (false).
+    """
+
     allow_legacy_delegation_grant_types: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If enabled, clients are able to add legacy delegation grants.
@@ -64,14 +56,11 @@ class TenantSettingsFlags(UniversalBaseModel):
     Whether ID tokens and the userinfo endpoint includes a complete user profile (true) or only OpenID Connect claims (false).
     """
 
-    enable_idtoken_api_2: typing_extensions.Annotated[
-        typing.Optional[bool],
-        FieldMetadata(alias="enable_idtoken_api2"),
-        pydantic.Field(
-            alias="enable_idtoken_api2",
-            description="Whether ID tokens can be used to authorize some types of requests to API v2 (true) not not (false).",
-        ),
-    ] = None
+    enable_idtoken_api2: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether ID tokens can be used to authorize some types of requests to API v2 (true) not not (false).
+    """
+
     enable_public_signup_user_exists_error: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the public sign up process shows a user_exists error (true) or a generic error (false) if the user already exists.

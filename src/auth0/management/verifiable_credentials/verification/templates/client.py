@@ -46,7 +46,7 @@ class TemplatesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[VerifiableCredentialTemplateResponse, ListVerifiableCredentialTemplatesPaginatedResponseContent]:
         """
-        List a verifiable credential templates.
+        List verifiable credential templates.
 
         Parameters
         ----------
@@ -136,8 +136,8 @@ class TemplatesClient:
             type="type",
             dialect="dialect",
             presentation=MdlPresentationRequest(
-                org_iso_18013_5_1_m_dl=MdlPresentationRequestProperties(
-                    org_iso_18013_5_1=MdlPresentationProperties(),
+                org_iso1801351m_dl=MdlPresentationRequestProperties(
+                    org_iso1801351=MdlPresentationProperties(),
                 ),
             ),
             well_known_trusted_issuers="well_known_trusted_issuers",
@@ -304,7 +304,7 @@ class AsyncTemplatesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[VerifiableCredentialTemplateResponse, ListVerifiableCredentialTemplatesPaginatedResponseContent]:
         """
-        List a verifiable credential templates.
+        List verifiable credential templates.
 
         Parameters
         ----------
@@ -408,8 +408,8 @@ class AsyncTemplatesClient:
                 type="type",
                 dialect="dialect",
                 presentation=MdlPresentationRequest(
-                    org_iso_18013_5_1_m_dl=MdlPresentationRequestProperties(
-                        org_iso_18013_5_1=MdlPresentationProperties(),
+                    org_iso1801351m_dl=MdlPresentationRequestProperties(
+                        org_iso1801351=MdlPresentationProperties(),
                     ),
                 ),
                 well_known_trusted_issuers="well_known_trusted_issuers",

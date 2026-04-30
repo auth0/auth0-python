@@ -5,3 +5,6 @@ import typing
 from .connection_id_token_signed_response_alg_enum import ConnectionIdTokenSignedResponseAlgEnum
 
 ConnectionIdTokenSignedResponseAlgs = typing.Optional[typing.List[ConnectionIdTokenSignedResponseAlgEnum]]
+"""
+List of algorithms allowed to verify the ID tokens.
+"""

@@ -3,3 +3,6 @@
 import typing
 
 ConnectionClaimTypesSupported = typing.List[str]
+"""
+JSON array containing a list of the Claim Types that the OpenID Provider supports. These Claim Types are described in Section 5.6 of OpenID Connect Core 1.0 [OpenID.Core]. If omitted, the implementation supports only normal Claims.
+"""
