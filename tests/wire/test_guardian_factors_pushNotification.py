@@ -41,17 +41,17 @@ def test_guardian_factors_pushNotification_update_fcm_provider() -> None:
     verify_request_count(test_id, "PATCH", "/guardian/factors/push-notification/providers/fcm", None, 1)
 
 
-def test_guardian_factors_pushNotification_set_fcmv1provider() -> None:
+def test_guardian_factors_pushNotification_set_fcmv_1_provider() -> None:
     """Test setFcmv1Provider endpoint with WireMock"""
-    test_id = "guardian.factors.push_notification.set_fcmv1provider.0"
+    test_id = "guardian.factors.push_notification.set_fcmv_1_provider.0"
     client = get_client(test_id)
     client.guardian.factors.push_notification.set_fcmv_1_provider()
     verify_request_count(test_id, "PUT", "/guardian/factors/push-notification/providers/fcmv1", None, 1)
 
 
-def test_guardian_factors_pushNotification_update_fcmv1provider() -> None:
+def test_guardian_factors_pushNotification_update_fcmv_1_provider() -> None:
     """Test updateFcmv1Provider endpoint with WireMock"""
-    test_id = "guardian.factors.push_notification.update_fcmv1provider.0"
+    test_id = "guardian.factors.push_notification.update_fcmv_1_provider.0"
     client = get_client(test_id)
     client.guardian.factors.push_notification.update_fcmv_1_provider()
     verify_request_count(test_id, "PATCH", "/guardian/factors/push-notification/providers/fcmv1", None, 1)

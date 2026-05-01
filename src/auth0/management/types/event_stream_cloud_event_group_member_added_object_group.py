@@ -2,9 +2,15 @@
 
 import typing
 
-from .event_stream_cloud_event_group_member_added_object_group0 import EventStreamCloudEventGroupMemberAddedObjectGroup0
-from .event_stream_cloud_event_group_member_added_object_group1 import EventStreamCloudEventGroupMemberAddedObjectGroup1
-from .event_stream_cloud_event_group_member_added_object_group2 import EventStreamCloudEventGroupMemberAddedObjectGroup2
+from .event_stream_cloud_event_group_member_added_object_group_0 import (
+    EventStreamCloudEventGroupMemberAddedObjectGroup0,
+)
+from .event_stream_cloud_event_group_member_added_object_group_1 import (
+    EventStreamCloudEventGroupMemberAddedObjectGroup1,
+)
+from .event_stream_cloud_event_group_member_added_object_group_2 import (
+    EventStreamCloudEventGroupMemberAddedObjectGroup2,
+)
 
 EventStreamCloudEventGroupMemberAddedObjectGroup = typing.Union[
     EventStreamCloudEventGroupMemberAddedObjectGroup0,

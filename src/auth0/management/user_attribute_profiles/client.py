@@ -127,7 +127,7 @@ class UserAttributeProfilesClient:
                     description="description",
                     label="label",
                     profile_required=True,
-                    auth0mapping="auth0_mapping",
+                    auth_0_mapping="auth0_mapping",
                 )
             },
         )
@@ -427,7 +427,7 @@ class AsyncUserAttributeProfilesClient:
                         description="description",
                         label="label",
                         profile_required=True,
-                        auth0mapping="auth0_mapping",
+                        auth_0_mapping="auth0_mapping",
                     )
                 },
             )

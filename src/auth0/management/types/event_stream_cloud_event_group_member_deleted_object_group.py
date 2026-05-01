@@ -2,13 +2,13 @@
 
 import typing
 
-from .event_stream_cloud_event_group_member_deleted_object_group0 import (
+from .event_stream_cloud_event_group_member_deleted_object_group_0 import (
     EventStreamCloudEventGroupMemberDeletedObjectGroup0,
 )
-from .event_stream_cloud_event_group_member_deleted_object_group1 import (
+from .event_stream_cloud_event_group_member_deleted_object_group_1 import (
     EventStreamCloudEventGroupMemberDeletedObjectGroup1,
 )
-from .event_stream_cloud_event_group_member_deleted_object_group2 import (
+from .event_stream_cloud_event_group_member_deleted_object_group_2 import (
     EventStreamCloudEventGroupMemberDeletedObjectGroup2,
 )
 

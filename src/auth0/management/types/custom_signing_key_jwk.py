@@ -52,22 +52,20 @@ class CustomSigningKeyJwk(UniversalBaseModel):
     Y coordinate
     """
 
-    x5u: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    X.509 URL
-    """
-
-    x5c: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
-    """
-    X.509 certificate chain
-    """
-
-    x5t: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    X.509 certificate SHA-1 thumbprint
-    """
-
-    x5t_s256: typing_extensions.Annotated[
+    x_5_u: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="x5u"), pydantic.Field(alias="x5u", description="X.509 URL")
+    ] = None
+    x_5_c: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="x5c"),
+        pydantic.Field(alias="x5c", description="X.509 certificate chain"),
+    ] = None
+    x_5_t: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="x5t"),
+        pydantic.Field(alias="x5t", description="X.509 certificate SHA-1 thumbprint"),
+    ] = None
+    x_5_t_s_256: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="x5t#S256"),
         pydantic.Field(alias="x5t#S256", description="X.509 certificate SHA-256 thumbprint"),

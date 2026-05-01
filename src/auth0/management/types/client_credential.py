@@ -4,7 +4,9 @@ import datetime as dt
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .client_credential_algorithm_enum import ClientCredentialAlgorithmEnum
 from .client_credential_type_enum import ClientCredentialTypeEnum
 
@@ -32,11 +34,11 @@ class ClientCredential(UniversalBaseModel):
     The X509 certificate's Subject Distinguished Name
     """
 
-    thumbprint_sha256: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The X509 certificate's SHA256 thumbprint
-    """
-
+    thumbprint_sha_256: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="thumbprint_sha256"),
+        pydantic.Field(alias="thumbprint_sha256", description="The X509 certificate's SHA256 thumbprint"),
+    ] = None
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The ISO 8601 formatted date the credential was created.

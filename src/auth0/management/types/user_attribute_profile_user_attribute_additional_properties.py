@@ -27,7 +27,7 @@ class UserAttributeProfileUserAttributeAdditionalProperties(UniversalBaseModel):
     Whether this attribute is required in the profile
     """
 
-    auth0mapping: typing_extensions.Annotated[
+    auth_0_mapping: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="auth0_mapping"),
         pydantic.Field(alias="auth0_mapping", description="Auth0 mapping for this attribute"),

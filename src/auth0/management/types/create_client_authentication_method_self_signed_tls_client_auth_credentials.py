@@ -2,7 +2,7 @@
 
 import typing
 
-from .x509certificate_credential import X509CertificateCredential
+from .x_509_certificate_credential import X509CertificateCredential
 
 CreateClientAuthenticationMethodSelfSignedTlsClientAuthCredentials = typing.List[X509CertificateCredential]
 """

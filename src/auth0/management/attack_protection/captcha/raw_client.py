@@ -25,7 +25,7 @@ from ...types.attack_protection_update_captcha_hcaptcha import AttackProtectionU
 from ...types.attack_protection_update_captcha_recaptcha_enterprise import (
     AttackProtectionUpdateCaptchaRecaptchaEnterprise,
 )
-from ...types.attack_protection_update_captcha_recaptcha_v2 import AttackProtectionUpdateCaptchaRecaptchaV2
+from ...types.attack_protection_update_captcha_recaptcha_v_2 import AttackProtectionUpdateCaptchaRecaptchaV2
 from ...types.get_attack_protection_captcha_response_content import GetAttackProtectionCaptchaResponseContent
 from ...types.update_attack_protection_captcha_response_content import UpdateAttackProtectionCaptchaResponseContent
 from pydantic import ValidationError
@@ -131,7 +131,7 @@ class RawCaptchaClient:
         hcaptcha: typing.Optional[AttackProtectionUpdateCaptchaHcaptcha] = OMIT,
         friendly_captcha: typing.Optional[AttackProtectionUpdateCaptchaFriendlyCaptcha] = OMIT,
         recaptcha_enterprise: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaEnterprise] = OMIT,
-        recaptcha_v2: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2] = OMIT,
+        recaptcha_v_2: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2] = OMIT,
         simple_captcha: typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateAttackProtectionCaptchaResponseContent]:
@@ -152,7 +152,7 @@ class RawCaptchaClient:
 
         recaptcha_enterprise : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaEnterprise]
 
-        recaptcha_v2 : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]
+        recaptcha_v_2 : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]
 
         simple_captcha : typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent]
 
@@ -187,7 +187,7 @@ class RawCaptchaClient:
                     direction="write",
                 ),
                 "recaptcha_v2": convert_and_respect_annotation_metadata(
-                    object_=recaptcha_v2, annotation=AttackProtectionUpdateCaptchaRecaptchaV2, direction="write"
+                    object_=recaptcha_v_2, annotation=AttackProtectionUpdateCaptchaRecaptchaV2, direction="write"
                 ),
                 "simple_captcha": simple_captcha,
             },
@@ -358,7 +358,7 @@ class AsyncRawCaptchaClient:
         hcaptcha: typing.Optional[AttackProtectionUpdateCaptchaHcaptcha] = OMIT,
         friendly_captcha: typing.Optional[AttackProtectionUpdateCaptchaFriendlyCaptcha] = OMIT,
         recaptcha_enterprise: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaEnterprise] = OMIT,
-        recaptcha_v2: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2] = OMIT,
+        recaptcha_v_2: typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2] = OMIT,
         simple_captcha: typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateAttackProtectionCaptchaResponseContent]:
@@ -379,7 +379,7 @@ class AsyncRawCaptchaClient:
 
         recaptcha_enterprise : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaEnterprise]
 
-        recaptcha_v2 : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]
+        recaptcha_v_2 : typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]
 
         simple_captcha : typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent]
 
@@ -414,7 +414,7 @@ class AsyncRawCaptchaClient:
                     direction="write",
                 ),
                 "recaptcha_v2": convert_and_respect_annotation_metadata(
-                    object_=recaptcha_v2, annotation=AttackProtectionUpdateCaptchaRecaptchaV2, direction="write"
+                    object_=recaptcha_v_2, annotation=AttackProtectionUpdateCaptchaRecaptchaV2, direction="write"
                 ),
                 "simple_captcha": simple_captcha,
             },

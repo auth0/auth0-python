@@ -26,7 +26,7 @@ from ....types.set_guardian_factors_provider_push_notification_apns_response_con
 from ....types.set_guardian_factors_provider_push_notification_fcm_response_content import (
     SetGuardianFactorsProviderPushNotificationFcmResponseContent,
 )
-from ....types.set_guardian_factors_provider_push_notification_fcmv1response_content import (
+from ....types.set_guardian_factors_provider_push_notification_fcmv_1_response_content import (
     SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
 )
 from ....types.set_guardian_factors_provider_push_notification_response_content import (
@@ -41,7 +41,7 @@ from ....types.update_guardian_factors_provider_push_notification_apns_response_
 from ....types.update_guardian_factors_provider_push_notification_fcm_response_content import (
     UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
 )
-from ....types.update_guardian_factors_provider_push_notification_fcmv1response_content import (
+from ....types.update_guardian_factors_provider_push_notification_fcmv_1_response_content import (
     UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
 )
 from ....types.update_guardian_factors_provider_push_notification_sns_response_content import (
@@ -135,7 +135,7 @@ class RawPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p12: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
@@ -147,7 +147,7 @@ class RawPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p12 : typing.Optional[str]
+        p_12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -163,7 +163,7 @@ class RawPushNotificationClient:
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
-                "p12": p12,
+                "p12": p_12,
             },
             headers={
                 "content-type": "application/json",
@@ -228,7 +228,7 @@ class RawPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p12: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
@@ -240,7 +240,7 @@ class RawPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p12 : typing.Optional[str]
+        p_12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -256,7 +256,7 @@ class RawPushNotificationClient:
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
-                "p12": p12,
+                "p12": p_12,
             },
             headers={
                 "content-type": "application/json",
@@ -480,7 +480,7 @@ class RawPushNotificationClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def set_fcmv1provider(
+    def set_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -565,7 +565,7 @@ class RawPushNotificationClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def update_fcmv1provider(
+    def update_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -1166,7 +1166,7 @@ class AsyncRawPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p12: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
@@ -1178,7 +1178,7 @@ class AsyncRawPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p12 : typing.Optional[str]
+        p_12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1194,7 +1194,7 @@ class AsyncRawPushNotificationClient:
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
-                "p12": p12,
+                "p12": p_12,
             },
             headers={
                 "content-type": "application/json",
@@ -1259,7 +1259,7 @@ class AsyncRawPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p12: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateGuardianFactorsProviderPushNotificationApnsResponseContent]:
         """
@@ -1271,7 +1271,7 @@ class AsyncRawPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p12 : typing.Optional[str]
+        p_12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1287,7 +1287,7 @@ class AsyncRawPushNotificationClient:
             json={
                 "sandbox": sandbox,
                 "bundle_id": bundle_id,
-                "p12": p12,
+                "p12": p_12,
             },
             headers={
                 "content-type": "application/json",
@@ -1511,7 +1511,7 @@ class AsyncRawPushNotificationClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def set_fcmv1provider(
+    async def set_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -1596,7 +1596,7 @@ class AsyncRawPushNotificationClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def update_fcmv1provider(
+    async def update_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,

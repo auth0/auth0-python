@@ -2,10 +2,10 @@
 
 import typing
 
-from .event_stream_cloud_event_group_member_deleted_object_member0 import (
+from .event_stream_cloud_event_group_member_deleted_object_member_0 import (
     EventStreamCloudEventGroupMemberDeletedObjectMember0,
 )
-from .event_stream_cloud_event_group_member_deleted_object_member1 import (
+from .event_stream_cloud_event_group_member_deleted_object_member_1 import (
     EventStreamCloudEventGroupMemberDeletedObjectMember1,
 )
 
