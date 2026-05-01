@@ -2,7 +2,7 @@
 
 import typing
 
-from .connection_sha1thumbprint import ConnectionSha1Thumbprint
+from .connection_sha_1_thumbprint import ConnectionSha1Thumbprint
 
 ConnectionThumbprintsSaml = typing.List[ConnectionSha1Thumbprint]
 """

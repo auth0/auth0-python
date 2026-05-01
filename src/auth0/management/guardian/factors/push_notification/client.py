@@ -18,7 +18,7 @@ from ....types.set_guardian_factors_provider_push_notification_apns_response_con
 from ....types.set_guardian_factors_provider_push_notification_fcm_response_content import (
     SetGuardianFactorsProviderPushNotificationFcmResponseContent,
 )
-from ....types.set_guardian_factors_provider_push_notification_fcmv1response_content import (
+from ....types.set_guardian_factors_provider_push_notification_fcmv_1_response_content import (
     SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
 )
 from ....types.set_guardian_factors_provider_push_notification_response_content import (
@@ -33,7 +33,7 @@ from ....types.update_guardian_factors_provider_push_notification_apns_response_
 from ....types.update_guardian_factors_provider_push_notification_fcm_response_content import (
     UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
 )
-from ....types.update_guardian_factors_provider_push_notification_fcmv1response_content import (
+from ....types.update_guardian_factors_provider_push_notification_fcmv_1_response_content import (
     UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
 )
 from ....types.update_guardian_factors_provider_push_notification_sns_response_content import (
@@ -93,7 +93,7 @@ class PushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p12: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorsProviderPushNotificationApnsResponseContent:
         """
@@ -105,7 +105,7 @@ class PushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p12 : typing.Optional[str]
+        p_12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -125,7 +125,7 @@ class PushNotificationClient:
         client.guardian.factors.push_notification.set_apns_provider()
         """
         _response = self._raw_client.set_apns_provider(
-            sandbox=sandbox, bundle_id=bundle_id, p12=p12, request_options=request_options
+            sandbox=sandbox, bundle_id=bundle_id, p_12=p_12, request_options=request_options
         )
         return _response.data
 
@@ -134,7 +134,7 @@ class PushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p12: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateGuardianFactorsProviderPushNotificationApnsResponseContent:
         """
@@ -146,7 +146,7 @@ class PushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p12 : typing.Optional[str]
+        p_12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -166,7 +166,7 @@ class PushNotificationClient:
         client.guardian.factors.push_notification.update_apns_provider()
         """
         _response = self._raw_client.update_apns_provider(
-            sandbox=sandbox, bundle_id=bundle_id, p12=p12, request_options=request_options
+            sandbox=sandbox, bundle_id=bundle_id, p_12=p_12, request_options=request_options
         )
         return _response.data
 
@@ -230,7 +230,7 @@ class PushNotificationClient:
         _response = self._raw_client.update_fcm_provider(server_key=server_key, request_options=request_options)
         return _response.data
 
-    def set_fcmv1provider(
+    def set_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -258,14 +258,14 @@ class PushNotificationClient:
         client = Auth0(
             token="YOUR_TOKEN",
         )
-        client.guardian.factors.push_notification.set_fcmv1provider()
+        client.guardian.factors.push_notification.set_fcmv_1_provider()
         """
-        _response = self._raw_client.set_fcmv1provider(
+        _response = self._raw_client.set_fcmv_1_provider(
             server_credentials=server_credentials, request_options=request_options
         )
         return _response.data
 
-    def update_fcmv1provider(
+    def update_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -293,9 +293,9 @@ class PushNotificationClient:
         client = Auth0(
             token="YOUR_TOKEN",
         )
-        client.guardian.factors.push_notification.update_fcmv1provider()
+        client.guardian.factors.push_notification.update_fcmv_1_provider()
         """
-        _response = self._raw_client.update_fcmv1provider(
+        _response = self._raw_client.update_fcmv_1_provider(
             server_credentials=server_credentials, request_options=request_options
         )
         return _response.data
@@ -552,7 +552,7 @@ class AsyncPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p12: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetGuardianFactorsProviderPushNotificationApnsResponseContent:
         """
@@ -564,7 +564,7 @@ class AsyncPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p12 : typing.Optional[str]
+        p_12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -592,7 +592,7 @@ class AsyncPushNotificationClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.set_apns_provider(
-            sandbox=sandbox, bundle_id=bundle_id, p12=p12, request_options=request_options
+            sandbox=sandbox, bundle_id=bundle_id, p_12=p_12, request_options=request_options
         )
         return _response.data
 
@@ -601,7 +601,7 @@ class AsyncPushNotificationClient:
         *,
         sandbox: typing.Optional[bool] = OMIT,
         bundle_id: typing.Optional[str] = OMIT,
-        p12: typing.Optional[str] = OMIT,
+        p_12: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateGuardianFactorsProviderPushNotificationApnsResponseContent:
         """
@@ -613,7 +613,7 @@ class AsyncPushNotificationClient:
 
         bundle_id : typing.Optional[str]
 
-        p12 : typing.Optional[str]
+        p_12 : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -641,7 +641,7 @@ class AsyncPushNotificationClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update_apns_provider(
-            sandbox=sandbox, bundle_id=bundle_id, p12=p12, request_options=request_options
+            sandbox=sandbox, bundle_id=bundle_id, p_12=p_12, request_options=request_options
         )
         return _response.data
 
@@ -721,7 +721,7 @@ class AsyncPushNotificationClient:
         _response = await self._raw_client.update_fcm_provider(server_key=server_key, request_options=request_options)
         return _response.data
 
-    async def set_fcmv1provider(
+    async def set_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -754,17 +754,17 @@ class AsyncPushNotificationClient:
 
 
         async def main() -> None:
-            await client.guardian.factors.push_notification.set_fcmv1provider()
+            await client.guardian.factors.push_notification.set_fcmv_1_provider()
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.set_fcmv1provider(
+        _response = await self._raw_client.set_fcmv_1_provider(
             server_credentials=server_credentials, request_options=request_options
         )
         return _response.data
 
-    async def update_fcmv1provider(
+    async def update_fcmv_1_provider(
         self,
         *,
         server_credentials: typing.Optional[str] = OMIT,
@@ -797,12 +797,12 @@ class AsyncPushNotificationClient:
 
 
         async def main() -> None:
-            await client.guardian.factors.push_notification.update_fcmv1provider()
+            await client.guardian.factors.push_notification.update_fcmv_1_provider()
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.update_fcmv1provider(
+        _response = await self._raw_client.update_fcmv_1_provider(
             server_credentials=server_credentials, request_options=request_options
         )
         return _response.data

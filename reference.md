@@ -18978,7 +18978,7 @@ client.attack_protection.captcha.update()
 <dl>
 <dd>
 
-**recaptcha_v2:** `typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]` 
+**recaptcha_v_2:** `typing.Optional[AttackProtectionUpdateCaptchaRecaptchaV2]` 
     
 </dd>
 </dl>
@@ -26266,7 +26266,7 @@ client.guardian.factors.push_notification.set_apns_provider()
 <dl>
 <dd>
 
-**p12:** `typing.Optional[str]` 
+**p_12:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -26353,7 +26353,7 @@ client.guardian.factors.push_notification.update_apns_provider()
 <dl>
 <dd>
 
-**p12:** `typing.Optional[str]` 
+**p_12:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -26515,7 +26515,7 @@ client.guardian.factors.push_notification.update_fcm_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">set_fcmv1provider</a>(...) -> SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">set_fcmv_1_provider</a>(...) -> SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -26586,7 +26586,7 @@ client.guardian.factors.push_notification.set_fcmv_1_provider()
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">update_fcmv1provider</a>(...) -> UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent</code></summary>
+<details><summary><code>client.guardian.factors.push_notification.<a href="src/auth0.management/guardian/factors/push_notification/client.py">update_fcmv_1_provider</a>(...) -> UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent</code></summary>
 <dl>
 <dd>
 

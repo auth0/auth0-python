@@ -3,15 +3,17 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 
 
 class DirectoryProvisioningMappingItem(UniversalBaseModel):
-    auth0: str = pydantic.Field()
-    """
-    The field location in the Auth0 schema
-    """
-
+    auth_0: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="auth0"),
+        pydantic.Field(alias="auth0", description="The field location in the Auth0 schema"),
+    ]
     idp: str = pydantic.Field()
     """
     The field location in the IDP schema

@@ -2,13 +2,13 @@
 
 import typing
 
-from .event_stream_cloud_event_group_role_assigned_object_group0 import (
+from .event_stream_cloud_event_group_role_assigned_object_group_0 import (
     EventStreamCloudEventGroupRoleAssignedObjectGroup0,
 )
-from .event_stream_cloud_event_group_role_assigned_object_group1 import (
+from .event_stream_cloud_event_group_role_assigned_object_group_1 import (
     EventStreamCloudEventGroupRoleAssignedObjectGroup1,
 )
-from .event_stream_cloud_event_group_role_assigned_object_group2 import (
+from .event_stream_cloud_event_group_role_assigned_object_group_2 import (
     EventStreamCloudEventGroupRoleAssignedObjectGroup2,
 )
 

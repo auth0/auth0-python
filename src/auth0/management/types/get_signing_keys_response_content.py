@@ -3,7 +3,9 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .signing_keys_date import SigningKeysDate
 
 
@@ -18,11 +20,11 @@ class GetSigningKeysResponseContent(UniversalBaseModel):
     The public certificate of the signing key
     """
 
-    pkcs7: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The public certificate of the signing key in pkcs7 format
-    """
-
+    pkcs_7: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="pkcs7"),
+        pydantic.Field(alias="pkcs7", description="The public certificate of the signing key in pkcs7 format"),
+    ] = None
     current: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True if the key is the the current key

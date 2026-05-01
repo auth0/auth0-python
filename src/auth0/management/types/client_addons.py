@@ -3,7 +3,9 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .client_addon_aws import ClientAddonAws
 from .client_addon_azure_blob import ClientAddonAzureBlob
 from .client_addon_azure_sb import ClientAddonAzureSb
@@ -18,7 +20,7 @@ from .client_addon_layer import ClientAddonLayer
 from .client_addon_mscrm import ClientAddonMscrm
 from .client_addon_new_relic import ClientAddonNewRelic
 from .client_addon_oag import ClientAddonOag
-from .client_addon_office365 import ClientAddonOffice365
+from .client_addon_office_365 import ClientAddonOffice365
 from .client_addon_rms import ClientAddonRms
 from .client_addon_salesforce import ClientAddonSalesforce
 from .client_addon_salesforce_api import ClientAddonSalesforceApi
@@ -56,7 +58,9 @@ class ClientAddons(UniversalBaseModel):
     egnyte: typing.Optional[ClientAddonEgnyte] = None
     firebase: typing.Optional[ClientAddonFirebase] = None
     newrelic: typing.Optional[ClientAddonNewRelic] = None
-    office365: typing.Optional[ClientAddonOffice365] = None
+    office_365: typing_extensions.Annotated[
+        typing.Optional[ClientAddonOffice365], FieldMetadata(alias="office365"), pydantic.Field(alias="office365")
+    ] = None
     salesforce: typing.Optional[ClientAddonSalesforce] = None
     salesforce_api: typing.Optional[ClientAddonSalesforceApi] = None
     salesforce_sandbox_api: typing.Optional[ClientAddonSalesforceSandboxApi] = None

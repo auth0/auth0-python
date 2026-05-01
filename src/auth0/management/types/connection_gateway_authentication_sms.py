@@ -23,7 +23,7 @@ class ConnectionGatewayAuthenticationSms(UniversalBaseModel):
     The secret used to sign the JSON Web Token sent to the SMS gateway
     """
 
-    secret_base64encoded: typing_extensions.Annotated[
+    secret_base_64_encoded: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="secret_base64_encoded"),
         pydantic.Field(alias="secret_base64_encoded", description="Set to true if the secret is base64-url-encoded"),

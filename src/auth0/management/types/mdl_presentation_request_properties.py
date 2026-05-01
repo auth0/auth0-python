@@ -10,7 +10,7 @@ from .mdl_presentation_properties import MdlPresentationProperties
 
 
 class MdlPresentationRequestProperties(UniversalBaseModel):
-    org_iso1801351: typing_extensions.Annotated[
+    org_iso_18013_5_1: typing_extensions.Annotated[
         MdlPresentationProperties, FieldMetadata(alias="org.iso.18013.5.1"), pydantic.Field(alias="org.iso.18013.5.1")
     ]
 

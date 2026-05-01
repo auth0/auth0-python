@@ -4,8 +4,10 @@ import datetime as dt
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .event_stream_cloud_event_a0purpose_enum import EventStreamCloudEventA0PurposeEnum
+from ..core.serialization import FieldMetadata
+from .event_stream_cloud_event_a_0_purpose_enum import EventStreamCloudEventA0PurposeEnum
 from .event_stream_cloud_event_org_deleted_cloud_event_type_enum import (
     EventStreamCloudEventOrgDeletedCloudEventTypeEnum,
 )
@@ -39,17 +41,23 @@ class EventStreamCloudEventOrgDeletedCloudEvent(UniversalBaseModel):
     """
 
     data: EventStreamCloudEventOrgDeletedData
-    a0tenant: str = pydantic.Field()
-    """
-    The auth0 tenant ID to which the event is associated.
-    """
-
-    a0stream: str = pydantic.Field()
-    """
-    The auth0 event stream ID of the stream the event was delivered on.
-    """
-
-    a0purpose: typing.Optional[EventStreamCloudEventA0PurposeEnum] = None
+    a_0_tenant: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="a0tenant"),
+        pydantic.Field(alias="a0tenant", description="The auth0 tenant ID to which the event is associated."),
+    ]
+    a_0_stream: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="a0stream"),
+        pydantic.Field(
+            alias="a0stream", description="The auth0 event stream ID of the stream the event was delivered on."
+        ),
+    ]
+    a_0_purpose: typing_extensions.Annotated[
+        typing.Optional[EventStreamCloudEventA0PurposeEnum],
+        FieldMetadata(alias="a0purpose"),
+        pydantic.Field(alias="a0purpose"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

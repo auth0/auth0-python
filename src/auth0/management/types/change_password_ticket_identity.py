@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .identity_provider_only_auth0enum import IdentityProviderOnlyAuth0Enum
+from .identity_provider_only_auth_0_enum import IdentityProviderOnlyAuth0Enum
 
 
 class ChangePasswordTicketIdentity(UniversalBaseModel):

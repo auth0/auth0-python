@@ -2,9 +2,15 @@
 
 import typing
 
-from .event_stream_cloud_event_group_role_deleted_object_group0 import EventStreamCloudEventGroupRoleDeletedObjectGroup0
-from .event_stream_cloud_event_group_role_deleted_object_group1 import EventStreamCloudEventGroupRoleDeletedObjectGroup1
-from .event_stream_cloud_event_group_role_deleted_object_group2 import EventStreamCloudEventGroupRoleDeletedObjectGroup2
+from .event_stream_cloud_event_group_role_deleted_object_group_0 import (
+    EventStreamCloudEventGroupRoleDeletedObjectGroup0,
+)
+from .event_stream_cloud_event_group_role_deleted_object_group_1 import (
+    EventStreamCloudEventGroupRoleDeletedObjectGroup1,
+)
+from .event_stream_cloud_event_group_role_deleted_object_group_2 import (
+    EventStreamCloudEventGroupRoleDeletedObjectGroup2,
+)
 
 EventStreamCloudEventGroupRoleDeletedObjectGroup = typing.Union[
     EventStreamCloudEventGroupRoleDeletedObjectGroup0,

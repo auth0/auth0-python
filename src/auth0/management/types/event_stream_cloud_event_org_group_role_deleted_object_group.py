@@ -2,13 +2,13 @@
 
 import typing
 
-from .event_stream_cloud_event_org_group_role_deleted_object_group0 import (
+from .event_stream_cloud_event_org_group_role_deleted_object_group_0 import (
     EventStreamCloudEventOrgGroupRoleDeletedObjectGroup0,
 )
-from .event_stream_cloud_event_org_group_role_deleted_object_group1 import (
+from .event_stream_cloud_event_org_group_role_deleted_object_group_1 import (
     EventStreamCloudEventOrgGroupRoleDeletedObjectGroup1,
 )
-from .event_stream_cloud_event_org_group_role_deleted_object_group2 import (
+from .event_stream_cloud_event_org_group_role_deleted_object_group_2 import (
     EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2,
 )
 

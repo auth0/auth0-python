@@ -6,7 +6,7 @@ import typing
 
 from .flow_action_activecampaign import FlowActionActivecampaign
 from .flow_action_airtable import FlowActionAirtable
-from .flow_action_auth0 import FlowActionAuth0
+from .flow_action_auth_0 import FlowActionAuth0
 from .flow_action_bigquery import FlowActionBigquery
 from .flow_action_clearbit import FlowActionClearbit
 from .flow_action_email import FlowActionEmail

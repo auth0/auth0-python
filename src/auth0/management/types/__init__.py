@@ -77,7 +77,7 @@ if typing.TYPE_CHECKING:
     from .attack_protection_captcha_recaptcha_enterprise_response_content import (
         AttackProtectionCaptchaRecaptchaEnterpriseResponseContent,
     )
-    from .attack_protection_captcha_recaptcha_v2response_content import (
+    from .attack_protection_captcha_recaptcha_v_2_response_content import (
         AttackProtectionCaptchaRecaptchaV2ResponseContent,
     )
     from .attack_protection_captcha_simple_captcha_response_content import (
@@ -87,7 +87,7 @@ if typing.TYPE_CHECKING:
     from .attack_protection_update_captcha_friendly_captcha import AttackProtectionUpdateCaptchaFriendlyCaptcha
     from .attack_protection_update_captcha_hcaptcha import AttackProtectionUpdateCaptchaHcaptcha
     from .attack_protection_update_captcha_recaptcha_enterprise import AttackProtectionUpdateCaptchaRecaptchaEnterprise
-    from .attack_protection_update_captcha_recaptcha_v2 import AttackProtectionUpdateCaptchaRecaptchaV2
+    from .attack_protection_update_captcha_recaptcha_v_2 import AttackProtectionUpdateCaptchaRecaptchaV2
     from .authentication_method_type_enum import AuthenticationMethodTypeEnum
     from .authentication_type_enum import AuthenticationTypeEnum
     from .bot_detection_allowlist import BotDetectionAllowlist
@@ -97,9 +97,9 @@ if typing.TYPE_CHECKING:
     )
     from .bot_detection_challenge_policy_passwordless_flow_enum import BotDetectionChallengePolicyPasswordlessFlowEnum
     from .bot_detection_cidr_block import BotDetectionCidrBlock
-    from .bot_detection_i_pv4 import BotDetectionIPv4
-    from .bot_detection_i_pv6 import BotDetectionIPv6
-    from .bot_detection_i_pv6cidr_block import BotDetectionIPv6CidrBlock
+    from .bot_detection_i_pv_4 import BotDetectionIPv4
+    from .bot_detection_i_pv_6 import BotDetectionIPv6
+    from .bot_detection_i_pv_6_cidr_block import BotDetectionIPv6CidrBlock
     from .bot_detection_ip_address_or_cidr_block import BotDetectionIpAddressOrCidrBlock
     from .bot_detection_level_enum import BotDetectionLevelEnum
     from .bot_detection_monitoring_mode_enabled import BotDetectionMonitoringModeEnabled
@@ -175,7 +175,7 @@ if typing.TYPE_CHECKING:
     from .client_addon_mscrm import ClientAddonMscrm
     from .client_addon_new_relic import ClientAddonNewRelic
     from .client_addon_oag import ClientAddonOag
-    from .client_addon_office365 import ClientAddonOffice365
+    from .client_addon_office_365 import ClientAddonOffice365
     from .client_addon_rms import ClientAddonRms
     from .client_addon_salesforce import ClientAddonSalesforce
     from .client_addon_salesforce_api import ClientAddonSalesforceApi
@@ -285,7 +285,7 @@ if typing.TYPE_CHECKING:
     from .client_token_exchange_type_enum import ClientTokenExchangeTypeEnum
     from .connected_account import ConnectedAccount
     from .connected_account_access_type_enum import ConnectedAccountAccessTypeEnum
-    from .connection_access_token_urlo_auth1 import ConnectionAccessTokenUrloAuth1
+    from .connection_access_token_urlo_auth_1 import ConnectionAccessTokenUrloAuth1
     from .connection_acr_values_supported import ConnectionAcrValuesSupported
     from .connection_admin_access_token_expires_in_google_apps import ConnectionAdminAccessTokenExpiresInGoogleApps
     from .connection_admin_access_token_google_apps import ConnectionAdminAccessTokenGoogleApps
@@ -293,7 +293,7 @@ if typing.TYPE_CHECKING:
     from .connection_agent_ipad import ConnectionAgentIpad
     from .connection_agent_mode_ad import ConnectionAgentModeAd
     from .connection_agent_version_ad import ConnectionAgentVersionAd
-    from .connection_allowed_audiences_google_o_auth2 import ConnectionAllowedAudiencesGoogleOAuth2
+    from .connection_allowed_audiences_google_o_auth_2 import ConnectionAllowedAudiencesGoogleOAuth2
     from .connection_api_behavior_enum import ConnectionApiBehaviorEnum
     from .connection_api_enable_groups import ConnectionApiEnableGroups
     from .connection_api_enable_groups_google_apps import ConnectionApiEnableGroupsGoogleApps
@@ -310,10 +310,10 @@ if typing.TYPE_CHECKING:
     from .connection_attribute_map_okta import ConnectionAttributeMapOkta
     from .connection_attribute_map_userinfo_scope import ConnectionAttributeMapUserinfoScope
     from .connection_attributes import ConnectionAttributes
-    from .connection_auth_params_additional_properties_o_auth2 import ConnectionAuthParamsAdditionalPropertiesOAuth2
+    from .connection_auth_params_additional_properties_o_auth_2 import ConnectionAuthParamsAdditionalPropertiesOAuth2
     from .connection_auth_params_email import ConnectionAuthParamsEmail
     from .connection_auth_params_map import ConnectionAuthParamsMap
-    from .connection_auth_params_o_auth2 import ConnectionAuthParamsOAuth2
+    from .connection_auth_params_o_auth_2 import ConnectionAuthParamsOAuth2
     from .connection_authentication_methods import ConnectionAuthenticationMethods
     from .connection_authentication_purpose import ConnectionAuthenticationPurpose
     from .connection_authorization_endpoint import ConnectionAuthorizationEndpoint
@@ -332,11 +332,11 @@ if typing.TYPE_CHECKING:
     from .connection_client_id_exact import ConnectionClientIdExact
     from .connection_client_id_facebook import ConnectionClientIdFacebook
     from .connection_client_id_google_apps import ConnectionClientIdGoogleApps
-    from .connection_client_id_google_o_auth2 import ConnectionClientIdGoogleOAuth2
+    from .connection_client_id_google_o_auth_2 import ConnectionClientIdGoogleOAuth2
     from .connection_client_id_line import ConnectionClientIdLine
     from .connection_client_id_linkedin import ConnectionClientIdLinkedin
-    from .connection_client_id_o_auth1 import ConnectionClientIdOAuth1
-    from .connection_client_id_o_auth2 import ConnectionClientIdOAuth2
+    from .connection_client_id_o_auth_1 import ConnectionClientIdOAuth1
+    from .connection_client_id_o_auth_2 import ConnectionClientIdOAuth2
     from .connection_client_id_oidc import ConnectionClientIdOidc
     from .connection_client_id_paypal import ConnectionClientIdPaypal
     from .connection_client_id_salesforce import ConnectionClientIdSalesforce
@@ -349,11 +349,11 @@ if typing.TYPE_CHECKING:
     from .connection_client_secret_exact import ConnectionClientSecretExact
     from .connection_client_secret_facebook import ConnectionClientSecretFacebook
     from .connection_client_secret_google_apps import ConnectionClientSecretGoogleApps
-    from .connection_client_secret_google_o_auth2 import ConnectionClientSecretGoogleOAuth2
+    from .connection_client_secret_google_o_auth_2 import ConnectionClientSecretGoogleOAuth2
     from .connection_client_secret_line import ConnectionClientSecretLine
     from .connection_client_secret_linkedin import ConnectionClientSecretLinkedin
-    from .connection_client_secret_o_auth1 import ConnectionClientSecretOAuth1
-    from .connection_client_secret_o_auth2 import ConnectionClientSecretOAuth2
+    from .connection_client_secret_o_auth_1 import ConnectionClientSecretOAuth1
+    from .connection_client_secret_o_auth_2 import ConnectionClientSecretOAuth2
     from .connection_client_secret_oidc import ConnectionClientSecretOidc
     from .connection_client_secret_paypal import ConnectionClientSecretPaypal
     from .connection_client_secret_salesforce import ConnectionClientSecretSalesforce
@@ -365,7 +365,7 @@ if typing.TYPE_CHECKING:
     from .connection_connected_accounts_purpose_xaa import ConnectionConnectedAccountsPurposeXaa
     from .connection_connection_settings import ConnectionConnectionSettings
     from .connection_connection_settings_pkce_enum import ConnectionConnectionSettingsPkceEnum
-    from .connection_custom_headers_o_auth2 import ConnectionCustomHeadersOAuth2
+    from .connection_custom_headers_o_auth_2 import ConnectionCustomHeadersOAuth2
     from .connection_custom_scripts import ConnectionCustomScripts
     from .connection_debug_saml import ConnectionDebugSaml
     from .connection_decryption_key_saml import ConnectionDecryptionKeySaml
@@ -419,7 +419,7 @@ if typing.TYPE_CHECKING:
     from .connection_for_organization import ConnectionForOrganization
     from .connection_forward_req_info_sms import ConnectionForwardReqInfoSms
     from .connection_freeform_scopes_amazon import ConnectionFreeformScopesAmazon
-    from .connection_freeform_scopes_google_o_auth2 import ConnectionFreeformScopesGoogleOAuth2
+    from .connection_freeform_scopes_google_o_auth_2 import ConnectionFreeformScopesGoogleOAuth2
     from .connection_freeform_scopes_linkedin import ConnectionFreeformScopesLinkedin
     from .connection_freeform_scopes_paypal import ConnectionFreeformScopesPaypal
     from .connection_freeform_scopes_salesforce import ConnectionFreeformScopesSalesforce
@@ -436,13 +436,13 @@ if typing.TYPE_CHECKING:
     from .connection_grant_types_supported import ConnectionGrantTypesSupported
     from .connection_handle_login_from_social_google_apps import ConnectionHandleLoginFromSocialGoogleApps
     from .connection_https_url_with_http_fallback import ConnectionHttpsUrlWithHttpFallback
-    from .connection_https_url_with_http_fallback2048 import ConnectionHttpsUrlWithHttpFallback2048
-    from .connection_https_url_with_http_fallback255 import ConnectionHttpsUrlWithHttpFallback255
+    from .connection_https_url_with_http_fallback_2048 import ConnectionHttpsUrlWithHttpFallback2048
+    from .connection_https_url_with_http_fallback_255 import ConnectionHttpsUrlWithHttpFallback255
     from .connection_icon_url import ConnectionIconUrl
     from .connection_icon_url_adfs import ConnectionIconUrlAdfs
     from .connection_icon_url_azure_ad import ConnectionIconUrlAzureAd
     from .connection_icon_url_google_apps import ConnectionIconUrlGoogleApps
-    from .connection_icon_url_google_o_auth2 import ConnectionIconUrlGoogleOAuth2
+    from .connection_icon_url_google_o_auth_2 import ConnectionIconUrlGoogleOAuth2
     from .connection_icon_url_saml import ConnectionIconUrlSaml
     from .connection_id import ConnectionId
     from .connection_id_token_encryption_alg_values_supported import ConnectionIdTokenEncryptionAlgValuesSupported
@@ -481,8 +481,8 @@ if typing.TYPE_CHECKING:
     from .connection_options_adfs import ConnectionOptionsAdfs
     from .connection_options_amazon import ConnectionOptionsAmazon
     from .connection_options_apple import ConnectionOptionsApple
-    from .connection_options_auth0 import ConnectionOptionsAuth0
-    from .connection_options_auth0oidc import ConnectionOptionsAuth0Oidc
+    from .connection_options_auth_0 import ConnectionOptionsAuth0
+    from .connection_options_auth_0_oidc import ConnectionOptionsAuth0Oidc
     from .connection_options_azure_ad import ConnectionOptionsAzureAd
     from .connection_options_baidu import ConnectionOptionsBaidu
     from .connection_options_bitbucket import ConnectionOptionsBitbucket
@@ -508,7 +508,7 @@ if typing.TYPE_CHECKING:
     from .connection_options_freeform_scopes_github import ConnectionOptionsFreeformScopesGithub
     from .connection_options_git_hub import ConnectionOptionsGitHub
     from .connection_options_google_apps import ConnectionOptionsGoogleApps
-    from .connection_options_google_o_auth2 import ConnectionOptionsGoogleOAuth2
+    from .connection_options_google_o_auth_2 import ConnectionOptionsGoogleOAuth2
     from .connection_options_idp_initiated_client_protocol_enum_saml import (
         ConnectionOptionsIdpInitiatedClientProtocolEnumSaml,
     )
@@ -517,11 +517,11 @@ if typing.TYPE_CHECKING:
     from .connection_options_ip import ConnectionOptionsIp
     from .connection_options_line import ConnectionOptionsLine
     from .connection_options_linkedin import ConnectionOptionsLinkedin
-    from .connection_options_o_auth1 import ConnectionOptionsOAuth1
-    from .connection_options_o_auth1common import ConnectionOptionsOAuth1Common
-    from .connection_options_o_auth2 import ConnectionOptionsOAuth2
-    from .connection_options_o_auth2common import ConnectionOptionsOAuth2Common
-    from .connection_options_office365 import ConnectionOptionsOffice365
+    from .connection_options_o_auth_1 import ConnectionOptionsOAuth1
+    from .connection_options_o_auth_1_common import ConnectionOptionsOAuth1Common
+    from .connection_options_o_auth_2 import ConnectionOptionsOAuth2
+    from .connection_options_o_auth_2_common import ConnectionOptionsOAuth2Common
+    from .connection_options_office_365 import ConnectionOptionsOffice365
     from .connection_options_oidc import ConnectionOptionsOidc
     from .connection_options_oidc_metadata import ConnectionOptionsOidcMetadata
     from .connection_options_okta import ConnectionOptionsOkta
@@ -606,7 +606,7 @@ if typing.TYPE_CHECKING:
     from .connection_request_object_signing_alg_values_supported import ConnectionRequestObjectSigningAlgValuesSupported
     from .connection_request_parameter_supported import ConnectionRequestParameterSupported
     from .connection_request_template_saml import ConnectionRequestTemplateSaml
-    from .connection_request_token_urlo_auth1 import ConnectionRequestTokenUrloAuth1
+    from .connection_request_token_urlo_auth_1 import ConnectionRequestTokenUrloAuth1
     from .connection_request_uri_parameter_supported import ConnectionRequestUriParameterSupported
     from .connection_require_request_uri_registration import ConnectionRequireRequestUriRegistration
     from .connection_requires_username import ConnectionRequiresUsername
@@ -619,10 +619,10 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_amazon_strategy import ConnectionResponseContentAmazonStrategy
     from .connection_response_content_apple import ConnectionResponseContentApple
     from .connection_response_content_apple_strategy import ConnectionResponseContentAppleStrategy
-    from .connection_response_content_auth0 import ConnectionResponseContentAuth0
-    from .connection_response_content_auth0oidc import ConnectionResponseContentAuth0Oidc
-    from .connection_response_content_auth0oidc_strategy import ConnectionResponseContentAuth0OidcStrategy
-    from .connection_response_content_auth0strategy import ConnectionResponseContentAuth0Strategy
+    from .connection_response_content_auth_0 import ConnectionResponseContentAuth0
+    from .connection_response_content_auth_0_oidc import ConnectionResponseContentAuth0Oidc
+    from .connection_response_content_auth_0_oidc_strategy import ConnectionResponseContentAuth0OidcStrategy
+    from .connection_response_content_auth_0_strategy import ConnectionResponseContentAuth0Strategy
     from .connection_response_content_azure_ad import ConnectionResponseContentAzureAd
     from .connection_response_content_azure_ad_strategy import ConnectionResponseContentAzureAdStrategy
     from .connection_response_content_baidu import ConnectionResponseContentBaidu
@@ -657,8 +657,8 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_git_hub_strategy import ConnectionResponseContentGitHubStrategy
     from .connection_response_content_google_apps import ConnectionResponseContentGoogleApps
     from .connection_response_content_google_apps_strategy import ConnectionResponseContentGoogleAppsStrategy
-    from .connection_response_content_google_o_auth2 import ConnectionResponseContentGoogleOAuth2
-    from .connection_response_content_google_o_auth2strategy import ConnectionResponseContentGoogleOAuth2Strategy
+    from .connection_response_content_google_o_auth_2 import ConnectionResponseContentGoogleOAuth2
+    from .connection_response_content_google_o_auth_2_strategy import ConnectionResponseContentGoogleOAuth2Strategy
     from .connection_response_content_instagram import ConnectionResponseContentInstagram
     from .connection_response_content_instagram_strategy import ConnectionResponseContentInstagramStrategy
     from .connection_response_content_ip import ConnectionResponseContentIp
@@ -667,12 +667,12 @@ if typing.TYPE_CHECKING:
     from .connection_response_content_line_strategy import ConnectionResponseContentLineStrategy
     from .connection_response_content_linkedin import ConnectionResponseContentLinkedin
     from .connection_response_content_linkedin_strategy import ConnectionResponseContentLinkedinStrategy
-    from .connection_response_content_o_auth1 import ConnectionResponseContentOAuth1
-    from .connection_response_content_o_auth1strategy import ConnectionResponseContentOAuth1Strategy
-    from .connection_response_content_o_auth2 import ConnectionResponseContentOAuth2
-    from .connection_response_content_o_auth2strategy import ConnectionResponseContentOAuth2Strategy
-    from .connection_response_content_office365 import ConnectionResponseContentOffice365
-    from .connection_response_content_office365strategy import ConnectionResponseContentOffice365Strategy
+    from .connection_response_content_o_auth_1 import ConnectionResponseContentOAuth1
+    from .connection_response_content_o_auth_1_strategy import ConnectionResponseContentOAuth1Strategy
+    from .connection_response_content_o_auth_2 import ConnectionResponseContentOAuth2
+    from .connection_response_content_o_auth_2_strategy import ConnectionResponseContentOAuth2Strategy
+    from .connection_response_content_office_365 import ConnectionResponseContentOffice365
+    from .connection_response_content_office_365_strategy import ConnectionResponseContentOffice365Strategy
     from .connection_response_content_oidc import ConnectionResponseContentOidc
     from .connection_response_content_oidc_strategy import ConnectionResponseContentOidcStrategy
     from .connection_response_content_okta import ConnectionResponseContentOkta
@@ -736,21 +736,21 @@ if typing.TYPE_CHECKING:
     from .connection_scope_azure_ad import ConnectionScopeAzureAd
     from .connection_scope_facebook import ConnectionScopeFacebook
     from .connection_scope_google_apps import ConnectionScopeGoogleApps
-    from .connection_scope_google_o_auth2 import ConnectionScopeGoogleOAuth2
+    from .connection_scope_google_o_auth_2 import ConnectionScopeGoogleOAuth2
     from .connection_scope_item import ConnectionScopeItem
     from .connection_scope_item_google_apps import ConnectionScopeItemGoogleApps
     from .connection_scope_linkedin import ConnectionScopeLinkedin
-    from .connection_scope_o_auth2 import ConnectionScopeOAuth2
+    from .connection_scope_o_auth_2 import ConnectionScopeOAuth2
     from .connection_scope_oidc import ConnectionScopeOidc
     from .connection_scope_paypal import ConnectionScopePaypal
     from .connection_scope_salesforce import ConnectionScopeSalesforce
     from .connection_scopes_supported import ConnectionScopesSupported
-    from .connection_scripts_o_auth1 import ConnectionScriptsOAuth1
-    from .connection_scripts_o_auth2 import ConnectionScriptsOAuth2
+    from .connection_scripts_o_auth_1 import ConnectionScriptsOAuth1
+    from .connection_scripts_o_auth_2 import ConnectionScriptsOAuth2
     from .connection_send_back_channel_nonce import ConnectionSendBackChannelNonce
     from .connection_service_documentation import ConnectionServiceDocumentation
     from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
-    from .connection_sha1thumbprint import ConnectionSha1Thumbprint
+    from .connection_sha_1_thumbprint import ConnectionSha1Thumbprint
     from .connection_should_trust_email_verified_connection_enum import ConnectionShouldTrustEmailVerifiedConnectionEnum
     from .connection_show_as_button import ConnectionShowAsButton
     from .connection_sign_in_endpoint_ad import ConnectionSignInEndpointAd
@@ -760,7 +760,7 @@ if typing.TYPE_CHECKING:
     from .connection_sign_saml_request_saml import ConnectionSignSamlRequestSaml
     from .connection_signature_algorithm_enum_saml import ConnectionSignatureAlgorithmEnumSaml
     from .connection_signature_algorithm_saml import ConnectionSignatureAlgorithmSaml
-    from .connection_signature_method_o_auth1 import ConnectionSignatureMethodOAuth1
+    from .connection_signature_method_o_auth_1 import ConnectionSignatureMethodOAuth1
     from .connection_signing_cert_saml import ConnectionSigningCertSaml
     from .connection_signing_certificate_der_saml import ConnectionSigningCertificateDerSaml
     from .connection_signing_certificate_pem_ping_federate import ConnectionSigningCertificatePemPingFederate
@@ -810,7 +810,7 @@ if typing.TYPE_CHECKING:
     from .connection_upstream_params_facebook import ConnectionUpstreamParamsFacebook
     from .connection_upstream_value import ConnectionUpstreamValue
     from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
-    from .connection_user_authorization_urlo_auth1 import ConnectionUserAuthorizationUrloAuth1
+    from .connection_user_authorization_urlo_auth_1 import ConnectionUserAuthorizationUrloAuth1
     from .connection_user_id_attribute_saml import ConnectionUserIdAttributeSaml
     from .connection_userid_attribute_azure_ad import ConnectionUseridAttributeAzureAd
     from .connection_userid_attribute_enum_azure_ad import ConnectionUseridAttributeEnumAzureAd
@@ -846,10 +846,10 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_amazon_strategy import CreateConnectionRequestContentAmazonStrategy
     from .create_connection_request_content_apple import CreateConnectionRequestContentApple
     from .create_connection_request_content_apple_strategy import CreateConnectionRequestContentAppleStrategy
-    from .create_connection_request_content_auth0 import CreateConnectionRequestContentAuth0
-    from .create_connection_request_content_auth0oidc import CreateConnectionRequestContentAuth0Oidc
-    from .create_connection_request_content_auth0oidc_strategy import CreateConnectionRequestContentAuth0OidcStrategy
-    from .create_connection_request_content_auth0strategy import CreateConnectionRequestContentAuth0Strategy
+    from .create_connection_request_content_auth_0 import CreateConnectionRequestContentAuth0
+    from .create_connection_request_content_auth_0_oidc import CreateConnectionRequestContentAuth0Oidc
+    from .create_connection_request_content_auth_0_oidc_strategy import CreateConnectionRequestContentAuth0OidcStrategy
+    from .create_connection_request_content_auth_0_strategy import CreateConnectionRequestContentAuth0Strategy
     from .create_connection_request_content_azure_ad import CreateConnectionRequestContentAzureAd
     from .create_connection_request_content_azure_ad_strategy import CreateConnectionRequestContentAzureAdStrategy
     from .create_connection_request_content_baidu import CreateConnectionRequestContentBaidu
@@ -886,8 +886,8 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_git_hub_strategy import CreateConnectionRequestContentGitHubStrategy
     from .create_connection_request_content_google_apps import CreateConnectionRequestContentGoogleApps
     from .create_connection_request_content_google_apps_strategy import CreateConnectionRequestContentGoogleAppsStrategy
-    from .create_connection_request_content_google_o_auth2 import CreateConnectionRequestContentGoogleOAuth2
-    from .create_connection_request_content_google_o_auth2strategy import (
+    from .create_connection_request_content_google_o_auth_2 import CreateConnectionRequestContentGoogleOAuth2
+    from .create_connection_request_content_google_o_auth_2_strategy import (
         CreateConnectionRequestContentGoogleOAuth2Strategy,
     )
     from .create_connection_request_content_instagram import CreateConnectionRequestContentInstagram
@@ -898,12 +898,12 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_line_strategy import CreateConnectionRequestContentLineStrategy
     from .create_connection_request_content_linkedin import CreateConnectionRequestContentLinkedin
     from .create_connection_request_content_linkedin_strategy import CreateConnectionRequestContentLinkedinStrategy
-    from .create_connection_request_content_o_auth1 import CreateConnectionRequestContentOAuth1
-    from .create_connection_request_content_o_auth1strategy import CreateConnectionRequestContentOAuth1Strategy
-    from .create_connection_request_content_o_auth2 import CreateConnectionRequestContentOAuth2
-    from .create_connection_request_content_o_auth2strategy import CreateConnectionRequestContentOAuth2Strategy
-    from .create_connection_request_content_office365 import CreateConnectionRequestContentOffice365
-    from .create_connection_request_content_office365strategy import CreateConnectionRequestContentOffice365Strategy
+    from .create_connection_request_content_o_auth_1 import CreateConnectionRequestContentOAuth1
+    from .create_connection_request_content_o_auth_1_strategy import CreateConnectionRequestContentOAuth1Strategy
+    from .create_connection_request_content_o_auth_2 import CreateConnectionRequestContentOAuth2
+    from .create_connection_request_content_o_auth_2_strategy import CreateConnectionRequestContentOAuth2Strategy
+    from .create_connection_request_content_office_365 import CreateConnectionRequestContentOffice365
+    from .create_connection_request_content_office_365_strategy import CreateConnectionRequestContentOffice365Strategy
     from .create_connection_request_content_oidc import CreateConnectionRequestContentOidc
     from .create_connection_request_content_oidc_strategy import CreateConnectionRequestContentOidcStrategy
     from .create_connection_request_content_okta import CreateConnectionRequestContentOkta
@@ -995,9 +995,9 @@ if typing.TYPE_CHECKING:
     from .create_flows_vault_connection_airtable import CreateFlowsVaultConnectionAirtable
     from .create_flows_vault_connection_airtable_api_key import CreateFlowsVaultConnectionAirtableApiKey
     from .create_flows_vault_connection_airtable_uninitialized import CreateFlowsVaultConnectionAirtableUninitialized
-    from .create_flows_vault_connection_auth0 import CreateFlowsVaultConnectionAuth0
-    from .create_flows_vault_connection_auth0oauth_app import CreateFlowsVaultConnectionAuth0OauthApp
-    from .create_flows_vault_connection_auth0uninitialized import CreateFlowsVaultConnectionAuth0Uninitialized
+    from .create_flows_vault_connection_auth_0 import CreateFlowsVaultConnectionAuth0
+    from .create_flows_vault_connection_auth_0_oauth_app import CreateFlowsVaultConnectionAuth0OauthApp
+    from .create_flows_vault_connection_auth_0_uninitialized import CreateFlowsVaultConnectionAuth0Uninitialized
     from .create_flows_vault_connection_bigquery import CreateFlowsVaultConnectionBigquery
     from .create_flows_vault_connection_bigquery_jwt import CreateFlowsVaultConnectionBigqueryJwt
     from .create_flows_vault_connection_bigquery_uninitialized import CreateFlowsVaultConnectionBigqueryUninitialized
@@ -1183,7 +1183,7 @@ if typing.TYPE_CHECKING:
     from .event_stream_action_destination_type_enum import EventStreamActionDestinationTypeEnum
     from .event_stream_action_response_content import EventStreamActionResponseContent
     from .event_stream_cloud_event import EventStreamCloudEvent
-    from .event_stream_cloud_event_a0purpose_enum import EventStreamCloudEventA0PurposeEnum
+    from .event_stream_cloud_event_a_0_purpose_enum import EventStreamCloudEventA0PurposeEnum
     from .event_stream_cloud_event_context import EventStreamCloudEventContext
     from .event_stream_cloud_event_context_client import EventStreamCloudEventContextClient
     from .event_stream_cloud_event_context_client_metadata import EventStreamCloudEventContextClientMetadata
@@ -1202,16 +1202,16 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_group_created_data import EventStreamCloudEventGroupCreatedData
     from .event_stream_cloud_event_group_created_object import EventStreamCloudEventGroupCreatedObject
-    from .event_stream_cloud_event_group_created_object0 import EventStreamCloudEventGroupCreatedObject0
-    from .event_stream_cloud_event_group_created_object0type_enum import (
+    from .event_stream_cloud_event_group_created_object_0 import EventStreamCloudEventGroupCreatedObject0
+    from .event_stream_cloud_event_group_created_object_0_type_enum import (
         EventStreamCloudEventGroupCreatedObject0TypeEnum,
     )
-    from .event_stream_cloud_event_group_created_object1 import EventStreamCloudEventGroupCreatedObject1
-    from .event_stream_cloud_event_group_created_object1type_enum import (
+    from .event_stream_cloud_event_group_created_object_1 import EventStreamCloudEventGroupCreatedObject1
+    from .event_stream_cloud_event_group_created_object_1_type_enum import (
         EventStreamCloudEventGroupCreatedObject1TypeEnum,
     )
-    from .event_stream_cloud_event_group_created_object2 import EventStreamCloudEventGroupCreatedObject2
-    from .event_stream_cloud_event_group_created_object2type_enum import (
+    from .event_stream_cloud_event_group_created_object_2 import EventStreamCloudEventGroupCreatedObject2
+    from .event_stream_cloud_event_group_created_object_2_type_enum import (
         EventStreamCloudEventGroupCreatedObject2TypeEnum,
     )
     from .event_stream_cloud_event_group_created_type_enum import EventStreamCloudEventGroupCreatedTypeEnum
@@ -1222,16 +1222,16 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_group_deleted_data import EventStreamCloudEventGroupDeletedData
     from .event_stream_cloud_event_group_deleted_object import EventStreamCloudEventGroupDeletedObject
-    from .event_stream_cloud_event_group_deleted_object0 import EventStreamCloudEventGroupDeletedObject0
-    from .event_stream_cloud_event_group_deleted_object0type_enum import (
+    from .event_stream_cloud_event_group_deleted_object_0 import EventStreamCloudEventGroupDeletedObject0
+    from .event_stream_cloud_event_group_deleted_object_0_type_enum import (
         EventStreamCloudEventGroupDeletedObject0TypeEnum,
     )
-    from .event_stream_cloud_event_group_deleted_object1 import EventStreamCloudEventGroupDeletedObject1
-    from .event_stream_cloud_event_group_deleted_object1type_enum import (
+    from .event_stream_cloud_event_group_deleted_object_1 import EventStreamCloudEventGroupDeletedObject1
+    from .event_stream_cloud_event_group_deleted_object_1_type_enum import (
         EventStreamCloudEventGroupDeletedObject1TypeEnum,
     )
-    from .event_stream_cloud_event_group_deleted_object2 import EventStreamCloudEventGroupDeletedObject2
-    from .event_stream_cloud_event_group_deleted_object2type_enum import (
+    from .event_stream_cloud_event_group_deleted_object_2 import EventStreamCloudEventGroupDeletedObject2
+    from .event_stream_cloud_event_group_deleted_object_2_type_enum import (
         EventStreamCloudEventGroupDeletedObject2TypeEnum,
     )
     from .event_stream_cloud_event_group_deleted_type_enum import EventStreamCloudEventGroupDeletedTypeEnum
@@ -1245,37 +1245,37 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_member_added_object_group import (
         EventStreamCloudEventGroupMemberAddedObjectGroup,
     )
-    from .event_stream_cloud_event_group_member_added_object_group0 import (
+    from .event_stream_cloud_event_group_member_added_object_group_0 import (
         EventStreamCloudEventGroupMemberAddedObjectGroup0,
     )
-    from .event_stream_cloud_event_group_member_added_object_group0type_enum import (
+    from .event_stream_cloud_event_group_member_added_object_group_0_type_enum import (
         EventStreamCloudEventGroupMemberAddedObjectGroup0TypeEnum,
     )
-    from .event_stream_cloud_event_group_member_added_object_group1 import (
+    from .event_stream_cloud_event_group_member_added_object_group_1 import (
         EventStreamCloudEventGroupMemberAddedObjectGroup1,
     )
-    from .event_stream_cloud_event_group_member_added_object_group1type_enum import (
+    from .event_stream_cloud_event_group_member_added_object_group_1_type_enum import (
         EventStreamCloudEventGroupMemberAddedObjectGroup1TypeEnum,
     )
-    from .event_stream_cloud_event_group_member_added_object_group2 import (
+    from .event_stream_cloud_event_group_member_added_object_group_2 import (
         EventStreamCloudEventGroupMemberAddedObjectGroup2,
     )
-    from .event_stream_cloud_event_group_member_added_object_group2type_enum import (
+    from .event_stream_cloud_event_group_member_added_object_group_2_type_enum import (
         EventStreamCloudEventGroupMemberAddedObjectGroup2TypeEnum,
     )
     from .event_stream_cloud_event_group_member_added_object_member import (
         EventStreamCloudEventGroupMemberAddedObjectMember,
     )
-    from .event_stream_cloud_event_group_member_added_object_member0 import (
+    from .event_stream_cloud_event_group_member_added_object_member_0 import (
         EventStreamCloudEventGroupMemberAddedObjectMember0,
     )
-    from .event_stream_cloud_event_group_member_added_object_member0member_type_enum import (
+    from .event_stream_cloud_event_group_member_added_object_member_0_member_type_enum import (
         EventStreamCloudEventGroupMemberAddedObjectMember0MemberTypeEnum,
     )
-    from .event_stream_cloud_event_group_member_added_object_member1 import (
+    from .event_stream_cloud_event_group_member_added_object_member_1 import (
         EventStreamCloudEventGroupMemberAddedObjectMember1,
     )
-    from .event_stream_cloud_event_group_member_added_object_member1member_type_enum import (
+    from .event_stream_cloud_event_group_member_added_object_member_1_member_type_enum import (
         EventStreamCloudEventGroupMemberAddedObjectMember1MemberTypeEnum,
     )
     from .event_stream_cloud_event_group_member_added_type_enum import EventStreamCloudEventGroupMemberAddedTypeEnum
@@ -1291,37 +1291,37 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_member_deleted_object_group import (
         EventStreamCloudEventGroupMemberDeletedObjectGroup,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_group0 import (
+    from .event_stream_cloud_event_group_member_deleted_object_group_0 import (
         EventStreamCloudEventGroupMemberDeletedObjectGroup0,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_group0type_enum import (
+    from .event_stream_cloud_event_group_member_deleted_object_group_0_type_enum import (
         EventStreamCloudEventGroupMemberDeletedObjectGroup0TypeEnum,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_group1 import (
+    from .event_stream_cloud_event_group_member_deleted_object_group_1 import (
         EventStreamCloudEventGroupMemberDeletedObjectGroup1,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_group1type_enum import (
+    from .event_stream_cloud_event_group_member_deleted_object_group_1_type_enum import (
         EventStreamCloudEventGroupMemberDeletedObjectGroup1TypeEnum,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_group2 import (
+    from .event_stream_cloud_event_group_member_deleted_object_group_2 import (
         EventStreamCloudEventGroupMemberDeletedObjectGroup2,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_group2type_enum import (
+    from .event_stream_cloud_event_group_member_deleted_object_group_2_type_enum import (
         EventStreamCloudEventGroupMemberDeletedObjectGroup2TypeEnum,
     )
     from .event_stream_cloud_event_group_member_deleted_object_member import (
         EventStreamCloudEventGroupMemberDeletedObjectMember,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_member0 import (
+    from .event_stream_cloud_event_group_member_deleted_object_member_0 import (
         EventStreamCloudEventGroupMemberDeletedObjectMember0,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_member0member_type_enum import (
+    from .event_stream_cloud_event_group_member_deleted_object_member_0_member_type_enum import (
         EventStreamCloudEventGroupMemberDeletedObjectMember0MemberTypeEnum,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_member1 import (
+    from .event_stream_cloud_event_group_member_deleted_object_member_1 import (
         EventStreamCloudEventGroupMemberDeletedObjectMember1,
     )
-    from .event_stream_cloud_event_group_member_deleted_object_member1member_type_enum import (
+    from .event_stream_cloud_event_group_member_deleted_object_member_1_member_type_enum import (
         EventStreamCloudEventGroupMemberDeletedObjectMember1MemberTypeEnum,
     )
     from .event_stream_cloud_event_group_member_deleted_type_enum import EventStreamCloudEventGroupMemberDeletedTypeEnum
@@ -1337,22 +1337,22 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_role_assigned_object_group import (
         EventStreamCloudEventGroupRoleAssignedObjectGroup,
     )
-    from .event_stream_cloud_event_group_role_assigned_object_group0 import (
+    from .event_stream_cloud_event_group_role_assigned_object_group_0 import (
         EventStreamCloudEventGroupRoleAssignedObjectGroup0,
     )
-    from .event_stream_cloud_event_group_role_assigned_object_group0type_enum import (
+    from .event_stream_cloud_event_group_role_assigned_object_group_0_type_enum import (
         EventStreamCloudEventGroupRoleAssignedObjectGroup0TypeEnum,
     )
-    from .event_stream_cloud_event_group_role_assigned_object_group1 import (
+    from .event_stream_cloud_event_group_role_assigned_object_group_1 import (
         EventStreamCloudEventGroupRoleAssignedObjectGroup1,
     )
-    from .event_stream_cloud_event_group_role_assigned_object_group1type_enum import (
+    from .event_stream_cloud_event_group_role_assigned_object_group_1_type_enum import (
         EventStreamCloudEventGroupRoleAssignedObjectGroup1TypeEnum,
     )
-    from .event_stream_cloud_event_group_role_assigned_object_group2 import (
+    from .event_stream_cloud_event_group_role_assigned_object_group_2 import (
         EventStreamCloudEventGroupRoleAssignedObjectGroup2,
     )
-    from .event_stream_cloud_event_group_role_assigned_object_group2type_enum import (
+    from .event_stream_cloud_event_group_role_assigned_object_group_2_type_enum import (
         EventStreamCloudEventGroupRoleAssignedObjectGroup2TypeEnum,
     )
     from .event_stream_cloud_event_group_role_assigned_object_role import (
@@ -1369,22 +1369,22 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_role_deleted_object_group import (
         EventStreamCloudEventGroupRoleDeletedObjectGroup,
     )
-    from .event_stream_cloud_event_group_role_deleted_object_group0 import (
+    from .event_stream_cloud_event_group_role_deleted_object_group_0 import (
         EventStreamCloudEventGroupRoleDeletedObjectGroup0,
     )
-    from .event_stream_cloud_event_group_role_deleted_object_group0type_enum import (
+    from .event_stream_cloud_event_group_role_deleted_object_group_0_type_enum import (
         EventStreamCloudEventGroupRoleDeletedObjectGroup0TypeEnum,
     )
-    from .event_stream_cloud_event_group_role_deleted_object_group1 import (
+    from .event_stream_cloud_event_group_role_deleted_object_group_1 import (
         EventStreamCloudEventGroupRoleDeletedObjectGroup1,
     )
-    from .event_stream_cloud_event_group_role_deleted_object_group1type_enum import (
+    from .event_stream_cloud_event_group_role_deleted_object_group_1_type_enum import (
         EventStreamCloudEventGroupRoleDeletedObjectGroup1TypeEnum,
     )
-    from .event_stream_cloud_event_group_role_deleted_object_group2 import (
+    from .event_stream_cloud_event_group_role_deleted_object_group_2 import (
         EventStreamCloudEventGroupRoleDeletedObjectGroup2,
     )
-    from .event_stream_cloud_event_group_role_deleted_object_group2type_enum import (
+    from .event_stream_cloud_event_group_role_deleted_object_group_2_type_enum import (
         EventStreamCloudEventGroupRoleDeletedObjectGroup2TypeEnum,
     )
     from .event_stream_cloud_event_group_role_deleted_object_role import EventStreamCloudEventGroupRoleDeletedObjectRole
@@ -1396,16 +1396,16 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_group_updated_data import EventStreamCloudEventGroupUpdatedData
     from .event_stream_cloud_event_group_updated_object import EventStreamCloudEventGroupUpdatedObject
-    from .event_stream_cloud_event_group_updated_object0 import EventStreamCloudEventGroupUpdatedObject0
-    from .event_stream_cloud_event_group_updated_object0type_enum import (
+    from .event_stream_cloud_event_group_updated_object_0 import EventStreamCloudEventGroupUpdatedObject0
+    from .event_stream_cloud_event_group_updated_object_0_type_enum import (
         EventStreamCloudEventGroupUpdatedObject0TypeEnum,
     )
-    from .event_stream_cloud_event_group_updated_object1 import EventStreamCloudEventGroupUpdatedObject1
-    from .event_stream_cloud_event_group_updated_object1type_enum import (
+    from .event_stream_cloud_event_group_updated_object_1 import EventStreamCloudEventGroupUpdatedObject1
+    from .event_stream_cloud_event_group_updated_object_1_type_enum import (
         EventStreamCloudEventGroupUpdatedObject1TypeEnum,
     )
-    from .event_stream_cloud_event_group_updated_object2 import EventStreamCloudEventGroupUpdatedObject2
-    from .event_stream_cloud_event_group_updated_object2type_enum import (
+    from .event_stream_cloud_event_group_updated_object_2 import EventStreamCloudEventGroupUpdatedObject2
+    from .event_stream_cloud_event_group_updated_object_2_type_enum import (
         EventStreamCloudEventGroupUpdatedObject2TypeEnum,
     )
     from .event_stream_cloud_event_group_updated_type_enum import EventStreamCloudEventGroupUpdatedTypeEnum
@@ -1497,22 +1497,22 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_group_role_assigned_object_group import (
         EventStreamCloudEventOrgGroupRoleAssignedObjectGroup,
     )
-    from .event_stream_cloud_event_org_group_role_assigned_object_group0 import (
+    from .event_stream_cloud_event_org_group_role_assigned_object_group_0 import (
         EventStreamCloudEventOrgGroupRoleAssignedObjectGroup0,
     )
-    from .event_stream_cloud_event_org_group_role_assigned_object_group0type_enum import (
+    from .event_stream_cloud_event_org_group_role_assigned_object_group_0_type_enum import (
         EventStreamCloudEventOrgGroupRoleAssignedObjectGroup0TypeEnum,
     )
-    from .event_stream_cloud_event_org_group_role_assigned_object_group1 import (
+    from .event_stream_cloud_event_org_group_role_assigned_object_group_1 import (
         EventStreamCloudEventOrgGroupRoleAssignedObjectGroup1,
     )
-    from .event_stream_cloud_event_org_group_role_assigned_object_group1type_enum import (
+    from .event_stream_cloud_event_org_group_role_assigned_object_group_1_type_enum import (
         EventStreamCloudEventOrgGroupRoleAssignedObjectGroup1TypeEnum,
     )
-    from .event_stream_cloud_event_org_group_role_assigned_object_group2 import (
+    from .event_stream_cloud_event_org_group_role_assigned_object_group_2 import (
         EventStreamCloudEventOrgGroupRoleAssignedObjectGroup2,
     )
-    from .event_stream_cloud_event_org_group_role_assigned_object_group2type_enum import (
+    from .event_stream_cloud_event_org_group_role_assigned_object_group_2_type_enum import (
         EventStreamCloudEventOrgGroupRoleAssignedObjectGroup2TypeEnum,
     )
     from .event_stream_cloud_event_org_group_role_assigned_object_organization import (
@@ -1536,22 +1536,22 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_group_role_deleted_object_group import (
         EventStreamCloudEventOrgGroupRoleDeletedObjectGroup,
     )
-    from .event_stream_cloud_event_org_group_role_deleted_object_group0 import (
+    from .event_stream_cloud_event_org_group_role_deleted_object_group_0 import (
         EventStreamCloudEventOrgGroupRoleDeletedObjectGroup0,
     )
-    from .event_stream_cloud_event_org_group_role_deleted_object_group0type_enum import (
+    from .event_stream_cloud_event_org_group_role_deleted_object_group_0_type_enum import (
         EventStreamCloudEventOrgGroupRoleDeletedObjectGroup0TypeEnum,
     )
-    from .event_stream_cloud_event_org_group_role_deleted_object_group1 import (
+    from .event_stream_cloud_event_org_group_role_deleted_object_group_1 import (
         EventStreamCloudEventOrgGroupRoleDeletedObjectGroup1,
     )
-    from .event_stream_cloud_event_org_group_role_deleted_object_group1type_enum import (
+    from .event_stream_cloud_event_org_group_role_deleted_object_group_1_type_enum import (
         EventStreamCloudEventOrgGroupRoleDeletedObjectGroup1TypeEnum,
     )
-    from .event_stream_cloud_event_org_group_role_deleted_object_group2 import (
+    from .event_stream_cloud_event_org_group_role_deleted_object_group_2 import (
         EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2,
     )
-    from .event_stream_cloud_event_org_group_role_deleted_object_group2type_enum import (
+    from .event_stream_cloud_event_org_group_role_deleted_object_group_2_type_enum import (
         EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2TypeEnum,
     )
     from .event_stream_cloud_event_org_group_role_deleted_object_organization import (
@@ -2007,51 +2007,51 @@ if typing.TYPE_CHECKING:
     from .flow_action_airtable_update_record_params import FlowActionAirtableUpdateRecordParams
     from .flow_action_airtable_update_record_params_fields import FlowActionAirtableUpdateRecordParamsFields
     from .flow_action_airtable_update_record_type import FlowActionAirtableUpdateRecordType
-    from .flow_action_auth0 import FlowActionAuth0
-    from .flow_action_auth0create_user import FlowActionAuth0CreateUser
-    from .flow_action_auth0create_user_action import FlowActionAuth0CreateUserAction
-    from .flow_action_auth0create_user_params import FlowActionAuth0CreateUserParams
-    from .flow_action_auth0create_user_params_payload import FlowActionAuth0CreateUserParamsPayload
-    from .flow_action_auth0create_user_type import FlowActionAuth0CreateUserType
-    from .flow_action_auth0get_user import FlowActionAuth0GetUser
-    from .flow_action_auth0get_user_action import FlowActionAuth0GetUserAction
-    from .flow_action_auth0get_user_params import FlowActionAuth0GetUserParams
-    from .flow_action_auth0get_user_type import FlowActionAuth0GetUserType
-    from .flow_action_auth0make_call import FlowActionAuth0MakeCall
-    from .flow_action_auth0make_call_action import FlowActionAuth0MakeCallAction
-    from .flow_action_auth0make_call_params import FlowActionAuth0MakeCallParams
-    from .flow_action_auth0make_call_params_custom_vars import FlowActionAuth0MakeCallParamsCustomVars
-    from .flow_action_auth0make_call_type import FlowActionAuth0MakeCallType
-    from .flow_action_auth0send_email import FlowActionAuth0SendEmail
-    from .flow_action_auth0send_email_action import FlowActionAuth0SendEmailAction
-    from .flow_action_auth0send_email_params import FlowActionAuth0SendEmailParams
-    from .flow_action_auth0send_email_params_from import FlowActionAuth0SendEmailParamsFrom
-    from .flow_action_auth0send_email_params_from_email import FlowActionAuth0SendEmailParamsFromEmail
-    from .flow_action_auth0send_email_params_to import FlowActionAuth0SendEmailParamsTo
-    from .flow_action_auth0send_email_type import FlowActionAuth0SendEmailType
-    from .flow_action_auth0send_request import FlowActionAuth0SendRequest
-    from .flow_action_auth0send_request_action import FlowActionAuth0SendRequestAction
-    from .flow_action_auth0send_request_params import FlowActionAuth0SendRequestParams
-    from .flow_action_auth0send_request_params_custom_vars import FlowActionAuth0SendRequestParamsCustomVars
-    from .flow_action_auth0send_request_params_headers import FlowActionAuth0SendRequestParamsHeaders
-    from .flow_action_auth0send_request_params_method import FlowActionAuth0SendRequestParamsMethod
-    from .flow_action_auth0send_request_params_payload import FlowActionAuth0SendRequestParamsPayload
-    from .flow_action_auth0send_request_params_payload_object import FlowActionAuth0SendRequestParamsPayloadObject
-    from .flow_action_auth0send_request_params_query_params import FlowActionAuth0SendRequestParamsQueryParams
-    from .flow_action_auth0send_request_params_query_params_value import (
+    from .flow_action_auth_0 import FlowActionAuth0
+    from .flow_action_auth_0_create_user import FlowActionAuth0CreateUser
+    from .flow_action_auth_0_create_user_action import FlowActionAuth0CreateUserAction
+    from .flow_action_auth_0_create_user_params import FlowActionAuth0CreateUserParams
+    from .flow_action_auth_0_create_user_params_payload import FlowActionAuth0CreateUserParamsPayload
+    from .flow_action_auth_0_create_user_type import FlowActionAuth0CreateUserType
+    from .flow_action_auth_0_get_user import FlowActionAuth0GetUser
+    from .flow_action_auth_0_get_user_action import FlowActionAuth0GetUserAction
+    from .flow_action_auth_0_get_user_params import FlowActionAuth0GetUserParams
+    from .flow_action_auth_0_get_user_type import FlowActionAuth0GetUserType
+    from .flow_action_auth_0_make_call import FlowActionAuth0MakeCall
+    from .flow_action_auth_0_make_call_action import FlowActionAuth0MakeCallAction
+    from .flow_action_auth_0_make_call_params import FlowActionAuth0MakeCallParams
+    from .flow_action_auth_0_make_call_params_custom_vars import FlowActionAuth0MakeCallParamsCustomVars
+    from .flow_action_auth_0_make_call_type import FlowActionAuth0MakeCallType
+    from .flow_action_auth_0_send_email import FlowActionAuth0SendEmail
+    from .flow_action_auth_0_send_email_action import FlowActionAuth0SendEmailAction
+    from .flow_action_auth_0_send_email_params import FlowActionAuth0SendEmailParams
+    from .flow_action_auth_0_send_email_params_from import FlowActionAuth0SendEmailParamsFrom
+    from .flow_action_auth_0_send_email_params_from_email import FlowActionAuth0SendEmailParamsFromEmail
+    from .flow_action_auth_0_send_email_params_to import FlowActionAuth0SendEmailParamsTo
+    from .flow_action_auth_0_send_email_type import FlowActionAuth0SendEmailType
+    from .flow_action_auth_0_send_request import FlowActionAuth0SendRequest
+    from .flow_action_auth_0_send_request_action import FlowActionAuth0SendRequestAction
+    from .flow_action_auth_0_send_request_params import FlowActionAuth0SendRequestParams
+    from .flow_action_auth_0_send_request_params_custom_vars import FlowActionAuth0SendRequestParamsCustomVars
+    from .flow_action_auth_0_send_request_params_headers import FlowActionAuth0SendRequestParamsHeaders
+    from .flow_action_auth_0_send_request_params_method import FlowActionAuth0SendRequestParamsMethod
+    from .flow_action_auth_0_send_request_params_payload import FlowActionAuth0SendRequestParamsPayload
+    from .flow_action_auth_0_send_request_params_payload_object import FlowActionAuth0SendRequestParamsPayloadObject
+    from .flow_action_auth_0_send_request_params_query_params import FlowActionAuth0SendRequestParamsQueryParams
+    from .flow_action_auth_0_send_request_params_query_params_value import (
         FlowActionAuth0SendRequestParamsQueryParamsValue,
     )
-    from .flow_action_auth0send_request_type import FlowActionAuth0SendRequestType
-    from .flow_action_auth0send_sms import FlowActionAuth0SendSms
-    from .flow_action_auth0send_sms_action import FlowActionAuth0SendSmsAction
-    from .flow_action_auth0send_sms_params import FlowActionAuth0SendSmsParams
-    from .flow_action_auth0send_sms_params_custom_vars import FlowActionAuth0SendSmsParamsCustomVars
-    from .flow_action_auth0send_sms_type import FlowActionAuth0SendSmsType
-    from .flow_action_auth0update_user import FlowActionAuth0UpdateUser
-    from .flow_action_auth0update_user_action import FlowActionAuth0UpdateUserAction
-    from .flow_action_auth0update_user_params import FlowActionAuth0UpdateUserParams
-    from .flow_action_auth0update_user_params_changes import FlowActionAuth0UpdateUserParamsChanges
-    from .flow_action_auth0update_user_type import FlowActionAuth0UpdateUserType
+    from .flow_action_auth_0_send_request_type import FlowActionAuth0SendRequestType
+    from .flow_action_auth_0_send_sms import FlowActionAuth0SendSms
+    from .flow_action_auth_0_send_sms_action import FlowActionAuth0SendSmsAction
+    from .flow_action_auth_0_send_sms_params import FlowActionAuth0SendSmsParams
+    from .flow_action_auth_0_send_sms_params_custom_vars import FlowActionAuth0SendSmsParamsCustomVars
+    from .flow_action_auth_0_send_sms_type import FlowActionAuth0SendSmsType
+    from .flow_action_auth_0_update_user import FlowActionAuth0UpdateUser
+    from .flow_action_auth_0_update_user_action import FlowActionAuth0UpdateUserAction
+    from .flow_action_auth_0_update_user_params import FlowActionAuth0UpdateUserParams
+    from .flow_action_auth_0_update_user_params_changes import FlowActionAuth0UpdateUserParamsChanges
+    from .flow_action_auth_0_update_user_type import FlowActionAuth0UpdateUserType
     from .flow_action_bigquery import FlowActionBigquery
     from .flow_action_bigquery_insert_rows import FlowActionBigqueryInsertRows
     from .flow_action_bigquery_insert_rows_action import FlowActionBigqueryInsertRowsAction
@@ -2364,7 +2364,7 @@ if typing.TYPE_CHECKING:
     from .flows_vault_connectio_setup_webhook import FlowsVaultConnectioSetupWebhook
     from .flows_vault_connection_app_id_activecampaign_enum import FlowsVaultConnectionAppIdActivecampaignEnum
     from .flows_vault_connection_app_id_airtable_enum import FlowsVaultConnectionAppIdAirtableEnum
-    from .flows_vault_connection_app_id_auth0enum import FlowsVaultConnectionAppIdAuth0Enum
+    from .flows_vault_connection_app_id_auth_0_enum import FlowsVaultConnectionAppIdAuth0Enum
     from .flows_vault_connection_app_id_bigquery_enum import FlowsVaultConnectionAppIdBigqueryEnum
     from .flows_vault_connection_app_id_clearbit_enum import FlowsVaultConnectionAppIdClearbitEnum
     from .flows_vault_connection_app_id_docusign_enum import FlowsVaultConnectionAppIdDocusignEnum
@@ -2543,13 +2543,13 @@ if typing.TYPE_CHECKING:
     from .form_translations import FormTranslations
     from .form_translations_nullable import FormTranslationsNullable
     from .form_widget import FormWidget
-    from .form_widget_auth0verifiable_credentials import FormWidgetAuth0VerifiableCredentials
-    from .form_widget_auth0verifiable_credentials_config import FormWidgetAuth0VerifiableCredentialsConfig
+    from .form_widget_auth_0_verifiable_credentials import FormWidgetAuth0VerifiableCredentials
+    from .form_widget_auth_0_verifiable_credentials_config import FormWidgetAuth0VerifiableCredentialsConfig
     from .form_widget_g_maps_address import FormWidgetGMapsAddress
     from .form_widget_g_maps_address_config import FormWidgetGMapsAddressConfig
     from .form_widget_recaptcha import FormWidgetRecaptcha
     from .form_widget_recaptcha_config import FormWidgetRecaptchaConfig
-    from .form_widget_type_auth0verifiable_credentials_const import FormWidgetTypeAuth0VerifiableCredentialsConst
+    from .form_widget_type_auth_0_verifiable_credentials_const import FormWidgetTypeAuth0VerifiableCredentialsConst
     from .form_widget_type_g_maps_address_const import FormWidgetTypeGMapsAddressConst
     from .form_widget_type_recaptcha_const import FormWidgetTypeRecaptchaConst
     from .forms_request_parameters_hydrate_enum import FormsRequestParametersHydrateEnum
@@ -2695,7 +2695,7 @@ if typing.TYPE_CHECKING:
     from .http_custom_header import HttpCustomHeader
     from .identity import Identity
     from .identity_provider_enum import IdentityProviderEnum
-    from .identity_provider_only_auth0enum import IdentityProviderOnlyAuth0Enum
+    from .identity_provider_only_auth_0_enum import IdentityProviderOnlyAuth0Enum
     from .import_encryption_key_response_content import ImportEncryptionKeyResponseContent
     from .integration import Integration
     from .integration_feature_type_enum import IntegrationFeatureTypeEnum
@@ -2859,10 +2859,10 @@ if typing.TYPE_CHECKING:
     from .network_acl_action_log_enum import NetworkAclActionLogEnum
     from .network_acl_action_redirect_enum import NetworkAclActionRedirectEnum
     from .network_acl_match import NetworkAclMatch
-    from .network_acl_match_connecting_ipv4cidr import NetworkAclMatchConnectingIpv4Cidr
-    from .network_acl_match_connecting_ipv6cidr import NetworkAclMatchConnectingIpv6Cidr
-    from .network_acl_match_ipv4cidr import NetworkAclMatchIpv4Cidr
-    from .network_acl_match_ipv6cidr import NetworkAclMatchIpv6Cidr
+    from .network_acl_match_connecting_ipv_4_cidr import NetworkAclMatchConnectingIpv4Cidr
+    from .network_acl_match_connecting_ipv_6_cidr import NetworkAclMatchConnectingIpv6Cidr
+    from .network_acl_match_ipv_4_cidr import NetworkAclMatchIpv4Cidr
+    from .network_acl_match_ipv_6_cidr import NetworkAclMatchIpv6Cidr
     from .network_acl_rule import NetworkAclRule
     from .network_acl_rule_scope_enum import NetworkAclRuleScopeEnum
     from .network_acls_response_content import NetworkAclsResponseContent
@@ -3033,7 +3033,7 @@ if typing.TYPE_CHECKING:
     from .set_guardian_factors_provider_push_notification_fcm_response_content import (
         SetGuardianFactorsProviderPushNotificationFcmResponseContent,
     )
-    from .set_guardian_factors_provider_push_notification_fcmv1response_content import (
+    from .set_guardian_factors_provider_push_notification_fcmv_1_response_content import (
         SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
     )
     from .set_guardian_factors_provider_push_notification_response_content import (
@@ -3130,8 +3130,8 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_adfs import UpdateConnectionRequestContentAdfs
     from .update_connection_request_content_amazon import UpdateConnectionRequestContentAmazon
     from .update_connection_request_content_apple import UpdateConnectionRequestContentApple
-    from .update_connection_request_content_auth0 import UpdateConnectionRequestContentAuth0
-    from .update_connection_request_content_auth0oidc import UpdateConnectionRequestContentAuth0Oidc
+    from .update_connection_request_content_auth_0 import UpdateConnectionRequestContentAuth0
+    from .update_connection_request_content_auth_0_oidc import UpdateConnectionRequestContentAuth0Oidc
     from .update_connection_request_content_azure_ad import UpdateConnectionRequestContentAzureAd
     from .update_connection_request_content_baidu import UpdateConnectionRequestContentBaidu
     from .update_connection_request_content_bitbucket import UpdateConnectionRequestContentBitbucket
@@ -3149,14 +3149,14 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_fitbit import UpdateConnectionRequestContentFitbit
     from .update_connection_request_content_git_hub import UpdateConnectionRequestContentGitHub
     from .update_connection_request_content_google_apps import UpdateConnectionRequestContentGoogleApps
-    from .update_connection_request_content_google_o_auth2 import UpdateConnectionRequestContentGoogleOAuth2
+    from .update_connection_request_content_google_o_auth_2 import UpdateConnectionRequestContentGoogleOAuth2
     from .update_connection_request_content_instagram import UpdateConnectionRequestContentInstagram
     from .update_connection_request_content_ip import UpdateConnectionRequestContentIp
     from .update_connection_request_content_line import UpdateConnectionRequestContentLine
     from .update_connection_request_content_linkedin import UpdateConnectionRequestContentLinkedin
-    from .update_connection_request_content_o_auth1 import UpdateConnectionRequestContentOAuth1
-    from .update_connection_request_content_o_auth2 import UpdateConnectionRequestContentOAuth2
-    from .update_connection_request_content_office365 import UpdateConnectionRequestContentOffice365
+    from .update_connection_request_content_o_auth_1 import UpdateConnectionRequestContentOAuth1
+    from .update_connection_request_content_o_auth_2 import UpdateConnectionRequestContentOAuth2
+    from .update_connection_request_content_office_365 import UpdateConnectionRequestContentOffice365
     from .update_connection_request_content_oidc import UpdateConnectionRequestContentOidc
     from .update_connection_request_content_okta import UpdateConnectionRequestContentOkta
     from .update_connection_request_content_paypal import UpdateConnectionRequestContentPaypal
@@ -3206,7 +3206,7 @@ if typing.TYPE_CHECKING:
     from .update_guardian_factors_provider_push_notification_fcm_response_content import (
         UpdateGuardianFactorsProviderPushNotificationFcmResponseContent,
     )
-    from .update_guardian_factors_provider_push_notification_fcmv1response_content import (
+    from .update_guardian_factors_provider_push_notification_fcmv_1_response_content import (
         UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent,
     )
     from .update_guardian_factors_provider_push_notification_sns_response_content import (
@@ -3301,8 +3301,8 @@ if typing.TYPE_CHECKING:
     from .verification_method_enum import VerificationMethodEnum
     from .verify_custom_domain_response_content import VerifyCustomDomainResponseContent
     from .verify_email_ticket_response_content import VerifyEmailTicketResponseContent
-    from .x509certificate_credential import X509CertificateCredential
-    from .x509certificate_credential_type_enum import X509CertificateCredentialTypeEnum
+    from .x_509_certificate_credential import X509CertificateCredential
+    from .x_509_certificate_credential_type_enum import X509CertificateCredentialTypeEnum
 _dynamic_imports: typing.Dict[str, str] = {
     "Action": ".action",
     "ActionBase": ".action_base",
@@ -3369,13 +3369,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AttackProtectionCaptchaHcaptchaResponseContent": ".attack_protection_captcha_hcaptcha_response_content",
     "AttackProtectionCaptchaProviderId": ".attack_protection_captcha_provider_id",
     "AttackProtectionCaptchaRecaptchaEnterpriseResponseContent": ".attack_protection_captcha_recaptcha_enterprise_response_content",
-    "AttackProtectionCaptchaRecaptchaV2ResponseContent": ".attack_protection_captcha_recaptcha_v2response_content",
+    "AttackProtectionCaptchaRecaptchaV2ResponseContent": ".attack_protection_captcha_recaptcha_v_2_response_content",
     "AttackProtectionCaptchaSimpleCaptchaResponseContent": ".attack_protection_captcha_simple_captcha_response_content",
     "AttackProtectionUpdateCaptchaArkose": ".attack_protection_update_captcha_arkose",
     "AttackProtectionUpdateCaptchaFriendlyCaptcha": ".attack_protection_update_captcha_friendly_captcha",
     "AttackProtectionUpdateCaptchaHcaptcha": ".attack_protection_update_captcha_hcaptcha",
     "AttackProtectionUpdateCaptchaRecaptchaEnterprise": ".attack_protection_update_captcha_recaptcha_enterprise",
-    "AttackProtectionUpdateCaptchaRecaptchaV2": ".attack_protection_update_captcha_recaptcha_v2",
+    "AttackProtectionUpdateCaptchaRecaptchaV2": ".attack_protection_update_captcha_recaptcha_v_2",
     "AuthenticationMethodTypeEnum": ".authentication_method_type_enum",
     "AuthenticationTypeEnum": ".authentication_type_enum",
     "BotDetectionAllowlist": ".bot_detection_allowlist",
@@ -3383,9 +3383,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BotDetectionChallengePolicyPasswordResetFlowEnum": ".bot_detection_challenge_policy_password_reset_flow_enum",
     "BotDetectionChallengePolicyPasswordlessFlowEnum": ".bot_detection_challenge_policy_passwordless_flow_enum",
     "BotDetectionCidrBlock": ".bot_detection_cidr_block",
-    "BotDetectionIPv4": ".bot_detection_i_pv4",
-    "BotDetectionIPv6": ".bot_detection_i_pv6",
-    "BotDetectionIPv6CidrBlock": ".bot_detection_i_pv6cidr_block",
+    "BotDetectionIPv4": ".bot_detection_i_pv_4",
+    "BotDetectionIPv6": ".bot_detection_i_pv_6",
+    "BotDetectionIPv6CidrBlock": ".bot_detection_i_pv_6_cidr_block",
     "BotDetectionIpAddressOrCidrBlock": ".bot_detection_ip_address_or_cidr_block",
     "BotDetectionLevelEnum": ".bot_detection_level_enum",
     "BotDetectionMonitoringModeEnabled": ".bot_detection_monitoring_mode_enabled",
@@ -3451,7 +3451,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientAddonMscrm": ".client_addon_mscrm",
     "ClientAddonNewRelic": ".client_addon_new_relic",
     "ClientAddonOag": ".client_addon_oag",
-    "ClientAddonOffice365": ".client_addon_office365",
+    "ClientAddonOffice365": ".client_addon_office_365",
     "ClientAddonRms": ".client_addon_rms",
     "ClientAddonSalesforce": ".client_addon_salesforce",
     "ClientAddonSalesforceApi": ".client_addon_salesforce_api",
@@ -3541,7 +3541,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientTokenExchangeTypeEnum": ".client_token_exchange_type_enum",
     "ConnectedAccount": ".connected_account",
     "ConnectedAccountAccessTypeEnum": ".connected_account_access_type_enum",
-    "ConnectionAccessTokenUrloAuth1": ".connection_access_token_urlo_auth1",
+    "ConnectionAccessTokenUrloAuth1": ".connection_access_token_urlo_auth_1",
     "ConnectionAcrValuesSupported": ".connection_acr_values_supported",
     "ConnectionAdminAccessTokenExpiresInGoogleApps": ".connection_admin_access_token_expires_in_google_apps",
     "ConnectionAdminAccessTokenGoogleApps": ".connection_admin_access_token_google_apps",
@@ -3549,7 +3549,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionAgentIpad": ".connection_agent_ipad",
     "ConnectionAgentModeAd": ".connection_agent_mode_ad",
     "ConnectionAgentVersionAd": ".connection_agent_version_ad",
-    "ConnectionAllowedAudiencesGoogleOAuth2": ".connection_allowed_audiences_google_o_auth2",
+    "ConnectionAllowedAudiencesGoogleOAuth2": ".connection_allowed_audiences_google_o_auth_2",
     "ConnectionApiBehaviorEnum": ".connection_api_behavior_enum",
     "ConnectionApiEnableGroups": ".connection_api_enable_groups",
     "ConnectionApiEnableGroupsGoogleApps": ".connection_api_enable_groups_google_apps",
@@ -3564,10 +3564,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionAttributeMapOkta": ".connection_attribute_map_okta",
     "ConnectionAttributeMapUserinfoScope": ".connection_attribute_map_userinfo_scope",
     "ConnectionAttributes": ".connection_attributes",
-    "ConnectionAuthParamsAdditionalPropertiesOAuth2": ".connection_auth_params_additional_properties_o_auth2",
+    "ConnectionAuthParamsAdditionalPropertiesOAuth2": ".connection_auth_params_additional_properties_o_auth_2",
     "ConnectionAuthParamsEmail": ".connection_auth_params_email",
     "ConnectionAuthParamsMap": ".connection_auth_params_map",
-    "ConnectionAuthParamsOAuth2": ".connection_auth_params_o_auth2",
+    "ConnectionAuthParamsOAuth2": ".connection_auth_params_o_auth_2",
     "ConnectionAuthenticationMethods": ".connection_authentication_methods",
     "ConnectionAuthenticationPurpose": ".connection_authentication_purpose",
     "ConnectionAuthorizationEndpoint": ".connection_authorization_endpoint",
@@ -3586,11 +3586,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientIdExact": ".connection_client_id_exact",
     "ConnectionClientIdFacebook": ".connection_client_id_facebook",
     "ConnectionClientIdGoogleApps": ".connection_client_id_google_apps",
-    "ConnectionClientIdGoogleOAuth2": ".connection_client_id_google_o_auth2",
+    "ConnectionClientIdGoogleOAuth2": ".connection_client_id_google_o_auth_2",
     "ConnectionClientIdLine": ".connection_client_id_line",
     "ConnectionClientIdLinkedin": ".connection_client_id_linkedin",
-    "ConnectionClientIdOAuth1": ".connection_client_id_o_auth1",
-    "ConnectionClientIdOAuth2": ".connection_client_id_o_auth2",
+    "ConnectionClientIdOAuth1": ".connection_client_id_o_auth_1",
+    "ConnectionClientIdOAuth2": ".connection_client_id_o_auth_2",
     "ConnectionClientIdOidc": ".connection_client_id_oidc",
     "ConnectionClientIdPaypal": ".connection_client_id_paypal",
     "ConnectionClientIdSalesforce": ".connection_client_id_salesforce",
@@ -3603,11 +3603,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientSecretExact": ".connection_client_secret_exact",
     "ConnectionClientSecretFacebook": ".connection_client_secret_facebook",
     "ConnectionClientSecretGoogleApps": ".connection_client_secret_google_apps",
-    "ConnectionClientSecretGoogleOAuth2": ".connection_client_secret_google_o_auth2",
+    "ConnectionClientSecretGoogleOAuth2": ".connection_client_secret_google_o_auth_2",
     "ConnectionClientSecretLine": ".connection_client_secret_line",
     "ConnectionClientSecretLinkedin": ".connection_client_secret_linkedin",
-    "ConnectionClientSecretOAuth1": ".connection_client_secret_o_auth1",
-    "ConnectionClientSecretOAuth2": ".connection_client_secret_o_auth2",
+    "ConnectionClientSecretOAuth1": ".connection_client_secret_o_auth_1",
+    "ConnectionClientSecretOAuth2": ".connection_client_secret_o_auth_2",
     "ConnectionClientSecretOidc": ".connection_client_secret_oidc",
     "ConnectionClientSecretPaypal": ".connection_client_secret_paypal",
     "ConnectionClientSecretSalesforce": ".connection_client_secret_salesforce",
@@ -3619,7 +3619,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionConnectedAccountsPurposeXaa": ".connection_connected_accounts_purpose_xaa",
     "ConnectionConnectionSettings": ".connection_connection_settings",
     "ConnectionConnectionSettingsPkceEnum": ".connection_connection_settings_pkce_enum",
-    "ConnectionCustomHeadersOAuth2": ".connection_custom_headers_o_auth2",
+    "ConnectionCustomHeadersOAuth2": ".connection_custom_headers_o_auth_2",
     "ConnectionCustomScripts": ".connection_custom_scripts",
     "ConnectionDebugSaml": ".connection_debug_saml",
     "ConnectionDecryptionKeySaml": ".connection_decryption_key_saml",
@@ -3673,7 +3673,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionForOrganization": ".connection_for_organization",
     "ConnectionForwardReqInfoSms": ".connection_forward_req_info_sms",
     "ConnectionFreeformScopesAmazon": ".connection_freeform_scopes_amazon",
-    "ConnectionFreeformScopesGoogleOAuth2": ".connection_freeform_scopes_google_o_auth2",
+    "ConnectionFreeformScopesGoogleOAuth2": ".connection_freeform_scopes_google_o_auth_2",
     "ConnectionFreeformScopesLinkedin": ".connection_freeform_scopes_linkedin",
     "ConnectionFreeformScopesPaypal": ".connection_freeform_scopes_paypal",
     "ConnectionFreeformScopesSalesforce": ".connection_freeform_scopes_salesforce",
@@ -3690,13 +3690,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionGrantTypesSupported": ".connection_grant_types_supported",
     "ConnectionHandleLoginFromSocialGoogleApps": ".connection_handle_login_from_social_google_apps",
     "ConnectionHttpsUrlWithHttpFallback": ".connection_https_url_with_http_fallback",
-    "ConnectionHttpsUrlWithHttpFallback2048": ".connection_https_url_with_http_fallback2048",
-    "ConnectionHttpsUrlWithHttpFallback255": ".connection_https_url_with_http_fallback255",
+    "ConnectionHttpsUrlWithHttpFallback2048": ".connection_https_url_with_http_fallback_2048",
+    "ConnectionHttpsUrlWithHttpFallback255": ".connection_https_url_with_http_fallback_255",
     "ConnectionIconUrl": ".connection_icon_url",
     "ConnectionIconUrlAdfs": ".connection_icon_url_adfs",
     "ConnectionIconUrlAzureAd": ".connection_icon_url_azure_ad",
     "ConnectionIconUrlGoogleApps": ".connection_icon_url_google_apps",
-    "ConnectionIconUrlGoogleOAuth2": ".connection_icon_url_google_o_auth2",
+    "ConnectionIconUrlGoogleOAuth2": ".connection_icon_url_google_o_auth_2",
     "ConnectionIconUrlSaml": ".connection_icon_url_saml",
     "ConnectionId": ".connection_id",
     "ConnectionIdTokenEncryptionAlgValuesSupported": ".connection_id_token_encryption_alg_values_supported",
@@ -3735,8 +3735,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsAdfs": ".connection_options_adfs",
     "ConnectionOptionsAmazon": ".connection_options_amazon",
     "ConnectionOptionsApple": ".connection_options_apple",
-    "ConnectionOptionsAuth0": ".connection_options_auth0",
-    "ConnectionOptionsAuth0Oidc": ".connection_options_auth0oidc",
+    "ConnectionOptionsAuth0": ".connection_options_auth_0",
+    "ConnectionOptionsAuth0Oidc": ".connection_options_auth_0_oidc",
     "ConnectionOptionsAzureAd": ".connection_options_azure_ad",
     "ConnectionOptionsBaidu": ".connection_options_baidu",
     "ConnectionOptionsBitbucket": ".connection_options_bitbucket",
@@ -3762,18 +3762,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsFreeformScopesGithub": ".connection_options_freeform_scopes_github",
     "ConnectionOptionsGitHub": ".connection_options_git_hub",
     "ConnectionOptionsGoogleApps": ".connection_options_google_apps",
-    "ConnectionOptionsGoogleOAuth2": ".connection_options_google_o_auth2",
+    "ConnectionOptionsGoogleOAuth2": ".connection_options_google_o_auth_2",
     "ConnectionOptionsIdpInitiatedClientProtocolEnumSaml": ".connection_options_idp_initiated_client_protocol_enum_saml",
     "ConnectionOptionsIdpinitiatedSaml": ".connection_options_idpinitiated_saml",
     "ConnectionOptionsInstagram": ".connection_options_instagram",
     "ConnectionOptionsIp": ".connection_options_ip",
     "ConnectionOptionsLine": ".connection_options_line",
     "ConnectionOptionsLinkedin": ".connection_options_linkedin",
-    "ConnectionOptionsOAuth1": ".connection_options_o_auth1",
-    "ConnectionOptionsOAuth1Common": ".connection_options_o_auth1common",
-    "ConnectionOptionsOAuth2": ".connection_options_o_auth2",
-    "ConnectionOptionsOAuth2Common": ".connection_options_o_auth2common",
-    "ConnectionOptionsOffice365": ".connection_options_office365",
+    "ConnectionOptionsOAuth1": ".connection_options_o_auth_1",
+    "ConnectionOptionsOAuth1Common": ".connection_options_o_auth_1_common",
+    "ConnectionOptionsOAuth2": ".connection_options_o_auth_2",
+    "ConnectionOptionsOAuth2Common": ".connection_options_o_auth_2_common",
+    "ConnectionOptionsOffice365": ".connection_options_office_365",
     "ConnectionOptionsOidc": ".connection_options_oidc",
     "ConnectionOptionsOidcMetadata": ".connection_options_oidc_metadata",
     "ConnectionOptionsOkta": ".connection_options_okta",
@@ -3848,7 +3848,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionRequestObjectSigningAlgValuesSupported": ".connection_request_object_signing_alg_values_supported",
     "ConnectionRequestParameterSupported": ".connection_request_parameter_supported",
     "ConnectionRequestTemplateSaml": ".connection_request_template_saml",
-    "ConnectionRequestTokenUrloAuth1": ".connection_request_token_urlo_auth1",
+    "ConnectionRequestTokenUrloAuth1": ".connection_request_token_urlo_auth_1",
     "ConnectionRequestUriParameterSupported": ".connection_request_uri_parameter_supported",
     "ConnectionRequireRequestUriRegistration": ".connection_require_request_uri_registration",
     "ConnectionRequiresUsername": ".connection_requires_username",
@@ -3861,10 +3861,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentAmazonStrategy": ".connection_response_content_amazon_strategy",
     "ConnectionResponseContentApple": ".connection_response_content_apple",
     "ConnectionResponseContentAppleStrategy": ".connection_response_content_apple_strategy",
-    "ConnectionResponseContentAuth0": ".connection_response_content_auth0",
-    "ConnectionResponseContentAuth0Oidc": ".connection_response_content_auth0oidc",
-    "ConnectionResponseContentAuth0OidcStrategy": ".connection_response_content_auth0oidc_strategy",
-    "ConnectionResponseContentAuth0Strategy": ".connection_response_content_auth0strategy",
+    "ConnectionResponseContentAuth0": ".connection_response_content_auth_0",
+    "ConnectionResponseContentAuth0Oidc": ".connection_response_content_auth_0_oidc",
+    "ConnectionResponseContentAuth0OidcStrategy": ".connection_response_content_auth_0_oidc_strategy",
+    "ConnectionResponseContentAuth0Strategy": ".connection_response_content_auth_0_strategy",
     "ConnectionResponseContentAzureAd": ".connection_response_content_azure_ad",
     "ConnectionResponseContentAzureAdStrategy": ".connection_response_content_azure_ad_strategy",
     "ConnectionResponseContentBaidu": ".connection_response_content_baidu",
@@ -3899,8 +3899,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentGitHubStrategy": ".connection_response_content_git_hub_strategy",
     "ConnectionResponseContentGoogleApps": ".connection_response_content_google_apps",
     "ConnectionResponseContentGoogleAppsStrategy": ".connection_response_content_google_apps_strategy",
-    "ConnectionResponseContentGoogleOAuth2": ".connection_response_content_google_o_auth2",
-    "ConnectionResponseContentGoogleOAuth2Strategy": ".connection_response_content_google_o_auth2strategy",
+    "ConnectionResponseContentGoogleOAuth2": ".connection_response_content_google_o_auth_2",
+    "ConnectionResponseContentGoogleOAuth2Strategy": ".connection_response_content_google_o_auth_2_strategy",
     "ConnectionResponseContentInstagram": ".connection_response_content_instagram",
     "ConnectionResponseContentInstagramStrategy": ".connection_response_content_instagram_strategy",
     "ConnectionResponseContentIp": ".connection_response_content_ip",
@@ -3909,12 +3909,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionResponseContentLineStrategy": ".connection_response_content_line_strategy",
     "ConnectionResponseContentLinkedin": ".connection_response_content_linkedin",
     "ConnectionResponseContentLinkedinStrategy": ".connection_response_content_linkedin_strategy",
-    "ConnectionResponseContentOAuth1": ".connection_response_content_o_auth1",
-    "ConnectionResponseContentOAuth1Strategy": ".connection_response_content_o_auth1strategy",
-    "ConnectionResponseContentOAuth2": ".connection_response_content_o_auth2",
-    "ConnectionResponseContentOAuth2Strategy": ".connection_response_content_o_auth2strategy",
-    "ConnectionResponseContentOffice365": ".connection_response_content_office365",
-    "ConnectionResponseContentOffice365Strategy": ".connection_response_content_office365strategy",
+    "ConnectionResponseContentOAuth1": ".connection_response_content_o_auth_1",
+    "ConnectionResponseContentOAuth1Strategy": ".connection_response_content_o_auth_1_strategy",
+    "ConnectionResponseContentOAuth2": ".connection_response_content_o_auth_2",
+    "ConnectionResponseContentOAuth2Strategy": ".connection_response_content_o_auth_2_strategy",
+    "ConnectionResponseContentOffice365": ".connection_response_content_office_365",
+    "ConnectionResponseContentOffice365Strategy": ".connection_response_content_office_365_strategy",
     "ConnectionResponseContentOidc": ".connection_response_content_oidc",
     "ConnectionResponseContentOidcStrategy": ".connection_response_content_oidc_strategy",
     "ConnectionResponseContentOkta": ".connection_response_content_okta",
@@ -3972,21 +3972,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionScopeAzureAd": ".connection_scope_azure_ad",
     "ConnectionScopeFacebook": ".connection_scope_facebook",
     "ConnectionScopeGoogleApps": ".connection_scope_google_apps",
-    "ConnectionScopeGoogleOAuth2": ".connection_scope_google_o_auth2",
+    "ConnectionScopeGoogleOAuth2": ".connection_scope_google_o_auth_2",
     "ConnectionScopeItem": ".connection_scope_item",
     "ConnectionScopeItemGoogleApps": ".connection_scope_item_google_apps",
     "ConnectionScopeLinkedin": ".connection_scope_linkedin",
-    "ConnectionScopeOAuth2": ".connection_scope_o_auth2",
+    "ConnectionScopeOAuth2": ".connection_scope_o_auth_2",
     "ConnectionScopeOidc": ".connection_scope_oidc",
     "ConnectionScopePaypal": ".connection_scope_paypal",
     "ConnectionScopeSalesforce": ".connection_scope_salesforce",
     "ConnectionScopesSupported": ".connection_scopes_supported",
-    "ConnectionScriptsOAuth1": ".connection_scripts_o_auth1",
-    "ConnectionScriptsOAuth2": ".connection_scripts_o_auth2",
+    "ConnectionScriptsOAuth1": ".connection_scripts_o_auth_1",
+    "ConnectionScriptsOAuth2": ".connection_scripts_o_auth_2",
     "ConnectionSendBackChannelNonce": ".connection_send_back_channel_nonce",
     "ConnectionServiceDocumentation": ".connection_service_documentation",
     "ConnectionSetUserRootAttributesEnum": ".connection_set_user_root_attributes_enum",
-    "ConnectionSha1Thumbprint": ".connection_sha1thumbprint",
+    "ConnectionSha1Thumbprint": ".connection_sha_1_thumbprint",
     "ConnectionShouldTrustEmailVerifiedConnectionEnum": ".connection_should_trust_email_verified_connection_enum",
     "ConnectionShowAsButton": ".connection_show_as_button",
     "ConnectionSignInEndpointAd": ".connection_sign_in_endpoint_ad",
@@ -3996,7 +3996,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionSignSamlRequestSaml": ".connection_sign_saml_request_saml",
     "ConnectionSignatureAlgorithmEnumSaml": ".connection_signature_algorithm_enum_saml",
     "ConnectionSignatureAlgorithmSaml": ".connection_signature_algorithm_saml",
-    "ConnectionSignatureMethodOAuth1": ".connection_signature_method_o_auth1",
+    "ConnectionSignatureMethodOAuth1": ".connection_signature_method_o_auth_1",
     "ConnectionSigningCertSaml": ".connection_signing_cert_saml",
     "ConnectionSigningCertificateDerSaml": ".connection_signing_certificate_der_saml",
     "ConnectionSigningCertificatePemPingFederate": ".connection_signing_certificate_pem_ping_federate",
@@ -4044,7 +4044,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionUpstreamParamsFacebook": ".connection_upstream_params_facebook",
     "ConnectionUpstreamValue": ".connection_upstream_value",
     "ConnectionUseCommonEndpointAzureAd": ".connection_use_common_endpoint_azure_ad",
-    "ConnectionUserAuthorizationUrloAuth1": ".connection_user_authorization_urlo_auth1",
+    "ConnectionUserAuthorizationUrloAuth1": ".connection_user_authorization_urlo_auth_1",
     "ConnectionUserIdAttributeSaml": ".connection_user_id_attribute_saml",
     "ConnectionUseridAttributeAzureAd": ".connection_userid_attribute_azure_ad",
     "ConnectionUseridAttributeEnumAzureAd": ".connection_userid_attribute_enum_azure_ad",
@@ -4076,10 +4076,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentAmazonStrategy": ".create_connection_request_content_amazon_strategy",
     "CreateConnectionRequestContentApple": ".create_connection_request_content_apple",
     "CreateConnectionRequestContentAppleStrategy": ".create_connection_request_content_apple_strategy",
-    "CreateConnectionRequestContentAuth0": ".create_connection_request_content_auth0",
-    "CreateConnectionRequestContentAuth0Oidc": ".create_connection_request_content_auth0oidc",
-    "CreateConnectionRequestContentAuth0OidcStrategy": ".create_connection_request_content_auth0oidc_strategy",
-    "CreateConnectionRequestContentAuth0Strategy": ".create_connection_request_content_auth0strategy",
+    "CreateConnectionRequestContentAuth0": ".create_connection_request_content_auth_0",
+    "CreateConnectionRequestContentAuth0Oidc": ".create_connection_request_content_auth_0_oidc",
+    "CreateConnectionRequestContentAuth0OidcStrategy": ".create_connection_request_content_auth_0_oidc_strategy",
+    "CreateConnectionRequestContentAuth0Strategy": ".create_connection_request_content_auth_0_strategy",
     "CreateConnectionRequestContentAzureAd": ".create_connection_request_content_azure_ad",
     "CreateConnectionRequestContentAzureAdStrategy": ".create_connection_request_content_azure_ad_strategy",
     "CreateConnectionRequestContentBaidu": ".create_connection_request_content_baidu",
@@ -4114,8 +4114,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentGitHubStrategy": ".create_connection_request_content_git_hub_strategy",
     "CreateConnectionRequestContentGoogleApps": ".create_connection_request_content_google_apps",
     "CreateConnectionRequestContentGoogleAppsStrategy": ".create_connection_request_content_google_apps_strategy",
-    "CreateConnectionRequestContentGoogleOAuth2": ".create_connection_request_content_google_o_auth2",
-    "CreateConnectionRequestContentGoogleOAuth2Strategy": ".create_connection_request_content_google_o_auth2strategy",
+    "CreateConnectionRequestContentGoogleOAuth2": ".create_connection_request_content_google_o_auth_2",
+    "CreateConnectionRequestContentGoogleOAuth2Strategy": ".create_connection_request_content_google_o_auth_2_strategy",
     "CreateConnectionRequestContentInstagram": ".create_connection_request_content_instagram",
     "CreateConnectionRequestContentInstagramStrategy": ".create_connection_request_content_instagram_strategy",
     "CreateConnectionRequestContentIp": ".create_connection_request_content_ip",
@@ -4124,12 +4124,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentLineStrategy": ".create_connection_request_content_line_strategy",
     "CreateConnectionRequestContentLinkedin": ".create_connection_request_content_linkedin",
     "CreateConnectionRequestContentLinkedinStrategy": ".create_connection_request_content_linkedin_strategy",
-    "CreateConnectionRequestContentOAuth1": ".create_connection_request_content_o_auth1",
-    "CreateConnectionRequestContentOAuth1Strategy": ".create_connection_request_content_o_auth1strategy",
-    "CreateConnectionRequestContentOAuth2": ".create_connection_request_content_o_auth2",
-    "CreateConnectionRequestContentOAuth2Strategy": ".create_connection_request_content_o_auth2strategy",
-    "CreateConnectionRequestContentOffice365": ".create_connection_request_content_office365",
-    "CreateConnectionRequestContentOffice365Strategy": ".create_connection_request_content_office365strategy",
+    "CreateConnectionRequestContentOAuth1": ".create_connection_request_content_o_auth_1",
+    "CreateConnectionRequestContentOAuth1Strategy": ".create_connection_request_content_o_auth_1_strategy",
+    "CreateConnectionRequestContentOAuth2": ".create_connection_request_content_o_auth_2",
+    "CreateConnectionRequestContentOAuth2Strategy": ".create_connection_request_content_o_auth_2_strategy",
+    "CreateConnectionRequestContentOffice365": ".create_connection_request_content_office_365",
+    "CreateConnectionRequestContentOffice365Strategy": ".create_connection_request_content_office_365_strategy",
     "CreateConnectionRequestContentOidc": ".create_connection_request_content_oidc",
     "CreateConnectionRequestContentOidcStrategy": ".create_connection_request_content_oidc_strategy",
     "CreateConnectionRequestContentOkta": ".create_connection_request_content_okta",
@@ -4203,9 +4203,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateFlowsVaultConnectionAirtable": ".create_flows_vault_connection_airtable",
     "CreateFlowsVaultConnectionAirtableApiKey": ".create_flows_vault_connection_airtable_api_key",
     "CreateFlowsVaultConnectionAirtableUninitialized": ".create_flows_vault_connection_airtable_uninitialized",
-    "CreateFlowsVaultConnectionAuth0": ".create_flows_vault_connection_auth0",
-    "CreateFlowsVaultConnectionAuth0OauthApp": ".create_flows_vault_connection_auth0oauth_app",
-    "CreateFlowsVaultConnectionAuth0Uninitialized": ".create_flows_vault_connection_auth0uninitialized",
+    "CreateFlowsVaultConnectionAuth0": ".create_flows_vault_connection_auth_0",
+    "CreateFlowsVaultConnectionAuth0OauthApp": ".create_flows_vault_connection_auth_0_oauth_app",
+    "CreateFlowsVaultConnectionAuth0Uninitialized": ".create_flows_vault_connection_auth_0_uninitialized",
     "CreateFlowsVaultConnectionBigquery": ".create_flows_vault_connection_bigquery",
     "CreateFlowsVaultConnectionBigqueryJwt": ".create_flows_vault_connection_bigquery_jwt",
     "CreateFlowsVaultConnectionBigqueryUninitialized": ".create_flows_vault_connection_bigquery_uninitialized",
@@ -4377,7 +4377,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamActionDestinationTypeEnum": ".event_stream_action_destination_type_enum",
     "EventStreamActionResponseContent": ".event_stream_action_response_content",
     "EventStreamCloudEvent": ".event_stream_cloud_event",
-    "EventStreamCloudEventA0PurposeEnum": ".event_stream_cloud_event_a0purpose_enum",
+    "EventStreamCloudEventA0PurposeEnum": ".event_stream_cloud_event_a_0_purpose_enum",
     "EventStreamCloudEventContext": ".event_stream_cloud_event_context",
     "EventStreamCloudEventContextClient": ".event_stream_cloud_event_context_client",
     "EventStreamCloudEventContextClientMetadata": ".event_stream_cloud_event_context_client_metadata",
@@ -4394,24 +4394,24 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupCreatedCloudEventTypeEnum": ".event_stream_cloud_event_group_created_cloud_event_type_enum",
     "EventStreamCloudEventGroupCreatedData": ".event_stream_cloud_event_group_created_data",
     "EventStreamCloudEventGroupCreatedObject": ".event_stream_cloud_event_group_created_object",
-    "EventStreamCloudEventGroupCreatedObject0": ".event_stream_cloud_event_group_created_object0",
-    "EventStreamCloudEventGroupCreatedObject0TypeEnum": ".event_stream_cloud_event_group_created_object0type_enum",
-    "EventStreamCloudEventGroupCreatedObject1": ".event_stream_cloud_event_group_created_object1",
-    "EventStreamCloudEventGroupCreatedObject1TypeEnum": ".event_stream_cloud_event_group_created_object1type_enum",
-    "EventStreamCloudEventGroupCreatedObject2": ".event_stream_cloud_event_group_created_object2",
-    "EventStreamCloudEventGroupCreatedObject2TypeEnum": ".event_stream_cloud_event_group_created_object2type_enum",
+    "EventStreamCloudEventGroupCreatedObject0": ".event_stream_cloud_event_group_created_object_0",
+    "EventStreamCloudEventGroupCreatedObject0TypeEnum": ".event_stream_cloud_event_group_created_object_0_type_enum",
+    "EventStreamCloudEventGroupCreatedObject1": ".event_stream_cloud_event_group_created_object_1",
+    "EventStreamCloudEventGroupCreatedObject1TypeEnum": ".event_stream_cloud_event_group_created_object_1_type_enum",
+    "EventStreamCloudEventGroupCreatedObject2": ".event_stream_cloud_event_group_created_object_2",
+    "EventStreamCloudEventGroupCreatedObject2TypeEnum": ".event_stream_cloud_event_group_created_object_2_type_enum",
     "EventStreamCloudEventGroupCreatedTypeEnum": ".event_stream_cloud_event_group_created_type_enum",
     "EventStreamCloudEventGroupDeleted": ".event_stream_cloud_event_group_deleted",
     "EventStreamCloudEventGroupDeletedCloudEvent": ".event_stream_cloud_event_group_deleted_cloud_event",
     "EventStreamCloudEventGroupDeletedCloudEventTypeEnum": ".event_stream_cloud_event_group_deleted_cloud_event_type_enum",
     "EventStreamCloudEventGroupDeletedData": ".event_stream_cloud_event_group_deleted_data",
     "EventStreamCloudEventGroupDeletedObject": ".event_stream_cloud_event_group_deleted_object",
-    "EventStreamCloudEventGroupDeletedObject0": ".event_stream_cloud_event_group_deleted_object0",
-    "EventStreamCloudEventGroupDeletedObject0TypeEnum": ".event_stream_cloud_event_group_deleted_object0type_enum",
-    "EventStreamCloudEventGroupDeletedObject1": ".event_stream_cloud_event_group_deleted_object1",
-    "EventStreamCloudEventGroupDeletedObject1TypeEnum": ".event_stream_cloud_event_group_deleted_object1type_enum",
-    "EventStreamCloudEventGroupDeletedObject2": ".event_stream_cloud_event_group_deleted_object2",
-    "EventStreamCloudEventGroupDeletedObject2TypeEnum": ".event_stream_cloud_event_group_deleted_object2type_enum",
+    "EventStreamCloudEventGroupDeletedObject0": ".event_stream_cloud_event_group_deleted_object_0",
+    "EventStreamCloudEventGroupDeletedObject0TypeEnum": ".event_stream_cloud_event_group_deleted_object_0_type_enum",
+    "EventStreamCloudEventGroupDeletedObject1": ".event_stream_cloud_event_group_deleted_object_1",
+    "EventStreamCloudEventGroupDeletedObject1TypeEnum": ".event_stream_cloud_event_group_deleted_object_1_type_enum",
+    "EventStreamCloudEventGroupDeletedObject2": ".event_stream_cloud_event_group_deleted_object_2",
+    "EventStreamCloudEventGroupDeletedObject2TypeEnum": ".event_stream_cloud_event_group_deleted_object_2_type_enum",
     "EventStreamCloudEventGroupDeletedTypeEnum": ".event_stream_cloud_event_group_deleted_type_enum",
     "EventStreamCloudEventGroupMemberAdded": ".event_stream_cloud_event_group_member_added",
     "EventStreamCloudEventGroupMemberAddedCloudEvent": ".event_stream_cloud_event_group_member_added_cloud_event",
@@ -4419,17 +4419,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupMemberAddedData": ".event_stream_cloud_event_group_member_added_data",
     "EventStreamCloudEventGroupMemberAddedObject": ".event_stream_cloud_event_group_member_added_object",
     "EventStreamCloudEventGroupMemberAddedObjectGroup": ".event_stream_cloud_event_group_member_added_object_group",
-    "EventStreamCloudEventGroupMemberAddedObjectGroup0": ".event_stream_cloud_event_group_member_added_object_group0",
-    "EventStreamCloudEventGroupMemberAddedObjectGroup0TypeEnum": ".event_stream_cloud_event_group_member_added_object_group0type_enum",
-    "EventStreamCloudEventGroupMemberAddedObjectGroup1": ".event_stream_cloud_event_group_member_added_object_group1",
-    "EventStreamCloudEventGroupMemberAddedObjectGroup1TypeEnum": ".event_stream_cloud_event_group_member_added_object_group1type_enum",
-    "EventStreamCloudEventGroupMemberAddedObjectGroup2": ".event_stream_cloud_event_group_member_added_object_group2",
-    "EventStreamCloudEventGroupMemberAddedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_member_added_object_group2type_enum",
+    "EventStreamCloudEventGroupMemberAddedObjectGroup0": ".event_stream_cloud_event_group_member_added_object_group_0",
+    "EventStreamCloudEventGroupMemberAddedObjectGroup0TypeEnum": ".event_stream_cloud_event_group_member_added_object_group_0_type_enum",
+    "EventStreamCloudEventGroupMemberAddedObjectGroup1": ".event_stream_cloud_event_group_member_added_object_group_1",
+    "EventStreamCloudEventGroupMemberAddedObjectGroup1TypeEnum": ".event_stream_cloud_event_group_member_added_object_group_1_type_enum",
+    "EventStreamCloudEventGroupMemberAddedObjectGroup2": ".event_stream_cloud_event_group_member_added_object_group_2",
+    "EventStreamCloudEventGroupMemberAddedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_member_added_object_group_2_type_enum",
     "EventStreamCloudEventGroupMemberAddedObjectMember": ".event_stream_cloud_event_group_member_added_object_member",
-    "EventStreamCloudEventGroupMemberAddedObjectMember0": ".event_stream_cloud_event_group_member_added_object_member0",
-    "EventStreamCloudEventGroupMemberAddedObjectMember0MemberTypeEnum": ".event_stream_cloud_event_group_member_added_object_member0member_type_enum",
-    "EventStreamCloudEventGroupMemberAddedObjectMember1": ".event_stream_cloud_event_group_member_added_object_member1",
-    "EventStreamCloudEventGroupMemberAddedObjectMember1MemberTypeEnum": ".event_stream_cloud_event_group_member_added_object_member1member_type_enum",
+    "EventStreamCloudEventGroupMemberAddedObjectMember0": ".event_stream_cloud_event_group_member_added_object_member_0",
+    "EventStreamCloudEventGroupMemberAddedObjectMember0MemberTypeEnum": ".event_stream_cloud_event_group_member_added_object_member_0_member_type_enum",
+    "EventStreamCloudEventGroupMemberAddedObjectMember1": ".event_stream_cloud_event_group_member_added_object_member_1",
+    "EventStreamCloudEventGroupMemberAddedObjectMember1MemberTypeEnum": ".event_stream_cloud_event_group_member_added_object_member_1_member_type_enum",
     "EventStreamCloudEventGroupMemberAddedTypeEnum": ".event_stream_cloud_event_group_member_added_type_enum",
     "EventStreamCloudEventGroupMemberDeleted": ".event_stream_cloud_event_group_member_deleted",
     "EventStreamCloudEventGroupMemberDeletedCloudEvent": ".event_stream_cloud_event_group_member_deleted_cloud_event",
@@ -4437,17 +4437,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupMemberDeletedData": ".event_stream_cloud_event_group_member_deleted_data",
     "EventStreamCloudEventGroupMemberDeletedObject": ".event_stream_cloud_event_group_member_deleted_object",
     "EventStreamCloudEventGroupMemberDeletedObjectGroup": ".event_stream_cloud_event_group_member_deleted_object_group",
-    "EventStreamCloudEventGroupMemberDeletedObjectGroup0": ".event_stream_cloud_event_group_member_deleted_object_group0",
-    "EventStreamCloudEventGroupMemberDeletedObjectGroup0TypeEnum": ".event_stream_cloud_event_group_member_deleted_object_group0type_enum",
-    "EventStreamCloudEventGroupMemberDeletedObjectGroup1": ".event_stream_cloud_event_group_member_deleted_object_group1",
-    "EventStreamCloudEventGroupMemberDeletedObjectGroup1TypeEnum": ".event_stream_cloud_event_group_member_deleted_object_group1type_enum",
-    "EventStreamCloudEventGroupMemberDeletedObjectGroup2": ".event_stream_cloud_event_group_member_deleted_object_group2",
-    "EventStreamCloudEventGroupMemberDeletedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_member_deleted_object_group2type_enum",
+    "EventStreamCloudEventGroupMemberDeletedObjectGroup0": ".event_stream_cloud_event_group_member_deleted_object_group_0",
+    "EventStreamCloudEventGroupMemberDeletedObjectGroup0TypeEnum": ".event_stream_cloud_event_group_member_deleted_object_group_0_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedObjectGroup1": ".event_stream_cloud_event_group_member_deleted_object_group_1",
+    "EventStreamCloudEventGroupMemberDeletedObjectGroup1TypeEnum": ".event_stream_cloud_event_group_member_deleted_object_group_1_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedObjectGroup2": ".event_stream_cloud_event_group_member_deleted_object_group_2",
+    "EventStreamCloudEventGroupMemberDeletedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_member_deleted_object_group_2_type_enum",
     "EventStreamCloudEventGroupMemberDeletedObjectMember": ".event_stream_cloud_event_group_member_deleted_object_member",
-    "EventStreamCloudEventGroupMemberDeletedObjectMember0": ".event_stream_cloud_event_group_member_deleted_object_member0",
-    "EventStreamCloudEventGroupMemberDeletedObjectMember0MemberTypeEnum": ".event_stream_cloud_event_group_member_deleted_object_member0member_type_enum",
-    "EventStreamCloudEventGroupMemberDeletedObjectMember1": ".event_stream_cloud_event_group_member_deleted_object_member1",
-    "EventStreamCloudEventGroupMemberDeletedObjectMember1MemberTypeEnum": ".event_stream_cloud_event_group_member_deleted_object_member1member_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedObjectMember0": ".event_stream_cloud_event_group_member_deleted_object_member_0",
+    "EventStreamCloudEventGroupMemberDeletedObjectMember0MemberTypeEnum": ".event_stream_cloud_event_group_member_deleted_object_member_0_member_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedObjectMember1": ".event_stream_cloud_event_group_member_deleted_object_member_1",
+    "EventStreamCloudEventGroupMemberDeletedObjectMember1MemberTypeEnum": ".event_stream_cloud_event_group_member_deleted_object_member_1_member_type_enum",
     "EventStreamCloudEventGroupMemberDeletedTypeEnum": ".event_stream_cloud_event_group_member_deleted_type_enum",
     "EventStreamCloudEventGroupRoleAssigned": ".event_stream_cloud_event_group_role_assigned",
     "EventStreamCloudEventGroupRoleAssignedCloudEvent": ".event_stream_cloud_event_group_role_assigned_cloud_event",
@@ -4455,12 +4455,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupRoleAssignedData": ".event_stream_cloud_event_group_role_assigned_data",
     "EventStreamCloudEventGroupRoleAssignedObject": ".event_stream_cloud_event_group_role_assigned_object",
     "EventStreamCloudEventGroupRoleAssignedObjectGroup": ".event_stream_cloud_event_group_role_assigned_object_group",
-    "EventStreamCloudEventGroupRoleAssignedObjectGroup0": ".event_stream_cloud_event_group_role_assigned_object_group0",
-    "EventStreamCloudEventGroupRoleAssignedObjectGroup0TypeEnum": ".event_stream_cloud_event_group_role_assigned_object_group0type_enum",
-    "EventStreamCloudEventGroupRoleAssignedObjectGroup1": ".event_stream_cloud_event_group_role_assigned_object_group1",
-    "EventStreamCloudEventGroupRoleAssignedObjectGroup1TypeEnum": ".event_stream_cloud_event_group_role_assigned_object_group1type_enum",
-    "EventStreamCloudEventGroupRoleAssignedObjectGroup2": ".event_stream_cloud_event_group_role_assigned_object_group2",
-    "EventStreamCloudEventGroupRoleAssignedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_role_assigned_object_group2type_enum",
+    "EventStreamCloudEventGroupRoleAssignedObjectGroup0": ".event_stream_cloud_event_group_role_assigned_object_group_0",
+    "EventStreamCloudEventGroupRoleAssignedObjectGroup0TypeEnum": ".event_stream_cloud_event_group_role_assigned_object_group_0_type_enum",
+    "EventStreamCloudEventGroupRoleAssignedObjectGroup1": ".event_stream_cloud_event_group_role_assigned_object_group_1",
+    "EventStreamCloudEventGroupRoleAssignedObjectGroup1TypeEnum": ".event_stream_cloud_event_group_role_assigned_object_group_1_type_enum",
+    "EventStreamCloudEventGroupRoleAssignedObjectGroup2": ".event_stream_cloud_event_group_role_assigned_object_group_2",
+    "EventStreamCloudEventGroupRoleAssignedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_role_assigned_object_group_2_type_enum",
     "EventStreamCloudEventGroupRoleAssignedObjectRole": ".event_stream_cloud_event_group_role_assigned_object_role",
     "EventStreamCloudEventGroupRoleAssignedTypeEnum": ".event_stream_cloud_event_group_role_assigned_type_enum",
     "EventStreamCloudEventGroupRoleDeleted": ".event_stream_cloud_event_group_role_deleted",
@@ -4469,12 +4469,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupRoleDeletedData": ".event_stream_cloud_event_group_role_deleted_data",
     "EventStreamCloudEventGroupRoleDeletedObject": ".event_stream_cloud_event_group_role_deleted_object",
     "EventStreamCloudEventGroupRoleDeletedObjectGroup": ".event_stream_cloud_event_group_role_deleted_object_group",
-    "EventStreamCloudEventGroupRoleDeletedObjectGroup0": ".event_stream_cloud_event_group_role_deleted_object_group0",
-    "EventStreamCloudEventGroupRoleDeletedObjectGroup0TypeEnum": ".event_stream_cloud_event_group_role_deleted_object_group0type_enum",
-    "EventStreamCloudEventGroupRoleDeletedObjectGroup1": ".event_stream_cloud_event_group_role_deleted_object_group1",
-    "EventStreamCloudEventGroupRoleDeletedObjectGroup1TypeEnum": ".event_stream_cloud_event_group_role_deleted_object_group1type_enum",
-    "EventStreamCloudEventGroupRoleDeletedObjectGroup2": ".event_stream_cloud_event_group_role_deleted_object_group2",
-    "EventStreamCloudEventGroupRoleDeletedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_role_deleted_object_group2type_enum",
+    "EventStreamCloudEventGroupRoleDeletedObjectGroup0": ".event_stream_cloud_event_group_role_deleted_object_group_0",
+    "EventStreamCloudEventGroupRoleDeletedObjectGroup0TypeEnum": ".event_stream_cloud_event_group_role_deleted_object_group_0_type_enum",
+    "EventStreamCloudEventGroupRoleDeletedObjectGroup1": ".event_stream_cloud_event_group_role_deleted_object_group_1",
+    "EventStreamCloudEventGroupRoleDeletedObjectGroup1TypeEnum": ".event_stream_cloud_event_group_role_deleted_object_group_1_type_enum",
+    "EventStreamCloudEventGroupRoleDeletedObjectGroup2": ".event_stream_cloud_event_group_role_deleted_object_group_2",
+    "EventStreamCloudEventGroupRoleDeletedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_role_deleted_object_group_2_type_enum",
     "EventStreamCloudEventGroupRoleDeletedObjectRole": ".event_stream_cloud_event_group_role_deleted_object_role",
     "EventStreamCloudEventGroupRoleDeletedTypeEnum": ".event_stream_cloud_event_group_role_deleted_type_enum",
     "EventStreamCloudEventGroupUpdated": ".event_stream_cloud_event_group_updated",
@@ -4482,12 +4482,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupUpdatedCloudEventTypeEnum": ".event_stream_cloud_event_group_updated_cloud_event_type_enum",
     "EventStreamCloudEventGroupUpdatedData": ".event_stream_cloud_event_group_updated_data",
     "EventStreamCloudEventGroupUpdatedObject": ".event_stream_cloud_event_group_updated_object",
-    "EventStreamCloudEventGroupUpdatedObject0": ".event_stream_cloud_event_group_updated_object0",
-    "EventStreamCloudEventGroupUpdatedObject0TypeEnum": ".event_stream_cloud_event_group_updated_object0type_enum",
-    "EventStreamCloudEventGroupUpdatedObject1": ".event_stream_cloud_event_group_updated_object1",
-    "EventStreamCloudEventGroupUpdatedObject1TypeEnum": ".event_stream_cloud_event_group_updated_object1type_enum",
-    "EventStreamCloudEventGroupUpdatedObject2": ".event_stream_cloud_event_group_updated_object2",
-    "EventStreamCloudEventGroupUpdatedObject2TypeEnum": ".event_stream_cloud_event_group_updated_object2type_enum",
+    "EventStreamCloudEventGroupUpdatedObject0": ".event_stream_cloud_event_group_updated_object_0",
+    "EventStreamCloudEventGroupUpdatedObject0TypeEnum": ".event_stream_cloud_event_group_updated_object_0_type_enum",
+    "EventStreamCloudEventGroupUpdatedObject1": ".event_stream_cloud_event_group_updated_object_1",
+    "EventStreamCloudEventGroupUpdatedObject1TypeEnum": ".event_stream_cloud_event_group_updated_object_1_type_enum",
+    "EventStreamCloudEventGroupUpdatedObject2": ".event_stream_cloud_event_group_updated_object_2",
+    "EventStreamCloudEventGroupUpdatedObject2TypeEnum": ".event_stream_cloud_event_group_updated_object_2_type_enum",
     "EventStreamCloudEventGroupUpdatedTypeEnum": ".event_stream_cloud_event_group_updated_type_enum",
     "EventStreamCloudEventOffsetOnlyMessage": ".event_stream_cloud_event_offset_only_message",
     "EventStreamCloudEventOffsetOnlyMessageTypeEnum": ".event_stream_cloud_event_offset_only_message_type_enum",
@@ -4537,12 +4537,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgGroupRoleAssignedData": ".event_stream_cloud_event_org_group_role_assigned_data",
     "EventStreamCloudEventOrgGroupRoleAssignedObject": ".event_stream_cloud_event_org_group_role_assigned_object",
     "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup": ".event_stream_cloud_event_org_group_role_assigned_object_group",
-    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup0": ".event_stream_cloud_event_org_group_role_assigned_object_group0",
-    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup0TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_object_group0type_enum",
-    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup1": ".event_stream_cloud_event_org_group_role_assigned_object_group1",
-    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup1TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_object_group1type_enum",
-    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup2": ".event_stream_cloud_event_org_group_role_assigned_object_group2",
-    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup2TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_object_group2type_enum",
+    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup0": ".event_stream_cloud_event_org_group_role_assigned_object_group_0",
+    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup0TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_object_group_0_type_enum",
+    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup1": ".event_stream_cloud_event_org_group_role_assigned_object_group_1",
+    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup1TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_object_group_1_type_enum",
+    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup2": ".event_stream_cloud_event_org_group_role_assigned_object_group_2",
+    "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup2TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_object_group_2_type_enum",
     "EventStreamCloudEventOrgGroupRoleAssignedObjectOrganization": ".event_stream_cloud_event_org_group_role_assigned_object_organization",
     "EventStreamCloudEventOrgGroupRoleAssignedObjectRole": ".event_stream_cloud_event_org_group_role_assigned_object_role",
     "EventStreamCloudEventOrgGroupRoleAssignedTypeEnum": ".event_stream_cloud_event_org_group_role_assigned_type_enum",
@@ -4552,12 +4552,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgGroupRoleDeletedData": ".event_stream_cloud_event_org_group_role_deleted_data",
     "EventStreamCloudEventOrgGroupRoleDeletedObject": ".event_stream_cloud_event_org_group_role_deleted_object",
     "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup": ".event_stream_cloud_event_org_group_role_deleted_object_group",
-    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup0": ".event_stream_cloud_event_org_group_role_deleted_object_group0",
-    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup0TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_object_group0type_enum",
-    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup1": ".event_stream_cloud_event_org_group_role_deleted_object_group1",
-    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup1TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_object_group1type_enum",
-    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2": ".event_stream_cloud_event_org_group_role_deleted_object_group2",
-    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_object_group2type_enum",
+    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup0": ".event_stream_cloud_event_org_group_role_deleted_object_group_0",
+    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup0TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_object_group_0_type_enum",
+    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup1": ".event_stream_cloud_event_org_group_role_deleted_object_group_1",
+    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup1TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_object_group_1_type_enum",
+    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2": ".event_stream_cloud_event_org_group_role_deleted_object_group_2",
+    "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_object_group_2_type_enum",
     "EventStreamCloudEventOrgGroupRoleDeletedObjectOrganization": ".event_stream_cloud_event_org_group_role_deleted_object_organization",
     "EventStreamCloudEventOrgGroupRoleDeletedObjectRole": ".event_stream_cloud_event_org_group_role_deleted_object_role",
     "EventStreamCloudEventOrgGroupRoleDeletedTypeEnum": ".event_stream_cloud_event_org_group_role_deleted_type_enum",
@@ -4789,49 +4789,49 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FlowActionAirtableUpdateRecordParams": ".flow_action_airtable_update_record_params",
     "FlowActionAirtableUpdateRecordParamsFields": ".flow_action_airtable_update_record_params_fields",
     "FlowActionAirtableUpdateRecordType": ".flow_action_airtable_update_record_type",
-    "FlowActionAuth0": ".flow_action_auth0",
-    "FlowActionAuth0CreateUser": ".flow_action_auth0create_user",
-    "FlowActionAuth0CreateUserAction": ".flow_action_auth0create_user_action",
-    "FlowActionAuth0CreateUserParams": ".flow_action_auth0create_user_params",
-    "FlowActionAuth0CreateUserParamsPayload": ".flow_action_auth0create_user_params_payload",
-    "FlowActionAuth0CreateUserType": ".flow_action_auth0create_user_type",
-    "FlowActionAuth0GetUser": ".flow_action_auth0get_user",
-    "FlowActionAuth0GetUserAction": ".flow_action_auth0get_user_action",
-    "FlowActionAuth0GetUserParams": ".flow_action_auth0get_user_params",
-    "FlowActionAuth0GetUserType": ".flow_action_auth0get_user_type",
-    "FlowActionAuth0MakeCall": ".flow_action_auth0make_call",
-    "FlowActionAuth0MakeCallAction": ".flow_action_auth0make_call_action",
-    "FlowActionAuth0MakeCallParams": ".flow_action_auth0make_call_params",
-    "FlowActionAuth0MakeCallParamsCustomVars": ".flow_action_auth0make_call_params_custom_vars",
-    "FlowActionAuth0MakeCallType": ".flow_action_auth0make_call_type",
-    "FlowActionAuth0SendEmail": ".flow_action_auth0send_email",
-    "FlowActionAuth0SendEmailAction": ".flow_action_auth0send_email_action",
-    "FlowActionAuth0SendEmailParams": ".flow_action_auth0send_email_params",
-    "FlowActionAuth0SendEmailParamsFrom": ".flow_action_auth0send_email_params_from",
-    "FlowActionAuth0SendEmailParamsFromEmail": ".flow_action_auth0send_email_params_from_email",
-    "FlowActionAuth0SendEmailParamsTo": ".flow_action_auth0send_email_params_to",
-    "FlowActionAuth0SendEmailType": ".flow_action_auth0send_email_type",
-    "FlowActionAuth0SendRequest": ".flow_action_auth0send_request",
-    "FlowActionAuth0SendRequestAction": ".flow_action_auth0send_request_action",
-    "FlowActionAuth0SendRequestParams": ".flow_action_auth0send_request_params",
-    "FlowActionAuth0SendRequestParamsCustomVars": ".flow_action_auth0send_request_params_custom_vars",
-    "FlowActionAuth0SendRequestParamsHeaders": ".flow_action_auth0send_request_params_headers",
-    "FlowActionAuth0SendRequestParamsMethod": ".flow_action_auth0send_request_params_method",
-    "FlowActionAuth0SendRequestParamsPayload": ".flow_action_auth0send_request_params_payload",
-    "FlowActionAuth0SendRequestParamsPayloadObject": ".flow_action_auth0send_request_params_payload_object",
-    "FlowActionAuth0SendRequestParamsQueryParams": ".flow_action_auth0send_request_params_query_params",
-    "FlowActionAuth0SendRequestParamsQueryParamsValue": ".flow_action_auth0send_request_params_query_params_value",
-    "FlowActionAuth0SendRequestType": ".flow_action_auth0send_request_type",
-    "FlowActionAuth0SendSms": ".flow_action_auth0send_sms",
-    "FlowActionAuth0SendSmsAction": ".flow_action_auth0send_sms_action",
-    "FlowActionAuth0SendSmsParams": ".flow_action_auth0send_sms_params",
-    "FlowActionAuth0SendSmsParamsCustomVars": ".flow_action_auth0send_sms_params_custom_vars",
-    "FlowActionAuth0SendSmsType": ".flow_action_auth0send_sms_type",
-    "FlowActionAuth0UpdateUser": ".flow_action_auth0update_user",
-    "FlowActionAuth0UpdateUserAction": ".flow_action_auth0update_user_action",
-    "FlowActionAuth0UpdateUserParams": ".flow_action_auth0update_user_params",
-    "FlowActionAuth0UpdateUserParamsChanges": ".flow_action_auth0update_user_params_changes",
-    "FlowActionAuth0UpdateUserType": ".flow_action_auth0update_user_type",
+    "FlowActionAuth0": ".flow_action_auth_0",
+    "FlowActionAuth0CreateUser": ".flow_action_auth_0_create_user",
+    "FlowActionAuth0CreateUserAction": ".flow_action_auth_0_create_user_action",
+    "FlowActionAuth0CreateUserParams": ".flow_action_auth_0_create_user_params",
+    "FlowActionAuth0CreateUserParamsPayload": ".flow_action_auth_0_create_user_params_payload",
+    "FlowActionAuth0CreateUserType": ".flow_action_auth_0_create_user_type",
+    "FlowActionAuth0GetUser": ".flow_action_auth_0_get_user",
+    "FlowActionAuth0GetUserAction": ".flow_action_auth_0_get_user_action",
+    "FlowActionAuth0GetUserParams": ".flow_action_auth_0_get_user_params",
+    "FlowActionAuth0GetUserType": ".flow_action_auth_0_get_user_type",
+    "FlowActionAuth0MakeCall": ".flow_action_auth_0_make_call",
+    "FlowActionAuth0MakeCallAction": ".flow_action_auth_0_make_call_action",
+    "FlowActionAuth0MakeCallParams": ".flow_action_auth_0_make_call_params",
+    "FlowActionAuth0MakeCallParamsCustomVars": ".flow_action_auth_0_make_call_params_custom_vars",
+    "FlowActionAuth0MakeCallType": ".flow_action_auth_0_make_call_type",
+    "FlowActionAuth0SendEmail": ".flow_action_auth_0_send_email",
+    "FlowActionAuth0SendEmailAction": ".flow_action_auth_0_send_email_action",
+    "FlowActionAuth0SendEmailParams": ".flow_action_auth_0_send_email_params",
+    "FlowActionAuth0SendEmailParamsFrom": ".flow_action_auth_0_send_email_params_from",
+    "FlowActionAuth0SendEmailParamsFromEmail": ".flow_action_auth_0_send_email_params_from_email",
+    "FlowActionAuth0SendEmailParamsTo": ".flow_action_auth_0_send_email_params_to",
+    "FlowActionAuth0SendEmailType": ".flow_action_auth_0_send_email_type",
+    "FlowActionAuth0SendRequest": ".flow_action_auth_0_send_request",
+    "FlowActionAuth0SendRequestAction": ".flow_action_auth_0_send_request_action",
+    "FlowActionAuth0SendRequestParams": ".flow_action_auth_0_send_request_params",
+    "FlowActionAuth0SendRequestParamsCustomVars": ".flow_action_auth_0_send_request_params_custom_vars",
+    "FlowActionAuth0SendRequestParamsHeaders": ".flow_action_auth_0_send_request_params_headers",
+    "FlowActionAuth0SendRequestParamsMethod": ".flow_action_auth_0_send_request_params_method",
+    "FlowActionAuth0SendRequestParamsPayload": ".flow_action_auth_0_send_request_params_payload",
+    "FlowActionAuth0SendRequestParamsPayloadObject": ".flow_action_auth_0_send_request_params_payload_object",
+    "FlowActionAuth0SendRequestParamsQueryParams": ".flow_action_auth_0_send_request_params_query_params",
+    "FlowActionAuth0SendRequestParamsQueryParamsValue": ".flow_action_auth_0_send_request_params_query_params_value",
+    "FlowActionAuth0SendRequestType": ".flow_action_auth_0_send_request_type",
+    "FlowActionAuth0SendSms": ".flow_action_auth_0_send_sms",
+    "FlowActionAuth0SendSmsAction": ".flow_action_auth_0_send_sms_action",
+    "FlowActionAuth0SendSmsParams": ".flow_action_auth_0_send_sms_params",
+    "FlowActionAuth0SendSmsParamsCustomVars": ".flow_action_auth_0_send_sms_params_custom_vars",
+    "FlowActionAuth0SendSmsType": ".flow_action_auth_0_send_sms_type",
+    "FlowActionAuth0UpdateUser": ".flow_action_auth_0_update_user",
+    "FlowActionAuth0UpdateUserAction": ".flow_action_auth_0_update_user_action",
+    "FlowActionAuth0UpdateUserParams": ".flow_action_auth_0_update_user_params",
+    "FlowActionAuth0UpdateUserParamsChanges": ".flow_action_auth_0_update_user_params_changes",
+    "FlowActionAuth0UpdateUserType": ".flow_action_auth_0_update_user_type",
     "FlowActionBigquery": ".flow_action_bigquery",
     "FlowActionBigqueryInsertRows": ".flow_action_bigquery_insert_rows",
     "FlowActionBigqueryInsertRowsAction": ".flow_action_bigquery_insert_rows_action",
@@ -5136,7 +5136,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FlowsVaultConnectioSetupWebhook": ".flows_vault_connectio_setup_webhook",
     "FlowsVaultConnectionAppIdActivecampaignEnum": ".flows_vault_connection_app_id_activecampaign_enum",
     "FlowsVaultConnectionAppIdAirtableEnum": ".flows_vault_connection_app_id_airtable_enum",
-    "FlowsVaultConnectionAppIdAuth0Enum": ".flows_vault_connection_app_id_auth0enum",
+    "FlowsVaultConnectionAppIdAuth0Enum": ".flows_vault_connection_app_id_auth_0_enum",
     "FlowsVaultConnectionAppIdBigqueryEnum": ".flows_vault_connection_app_id_bigquery_enum",
     "FlowsVaultConnectionAppIdClearbitEnum": ".flows_vault_connection_app_id_clearbit_enum",
     "FlowsVaultConnectionAppIdDocusignEnum": ".flows_vault_connection_app_id_docusign_enum",
@@ -5309,13 +5309,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FormTranslations": ".form_translations",
     "FormTranslationsNullable": ".form_translations_nullable",
     "FormWidget": ".form_widget",
-    "FormWidgetAuth0VerifiableCredentials": ".form_widget_auth0verifiable_credentials",
-    "FormWidgetAuth0VerifiableCredentialsConfig": ".form_widget_auth0verifiable_credentials_config",
+    "FormWidgetAuth0VerifiableCredentials": ".form_widget_auth_0_verifiable_credentials",
+    "FormWidgetAuth0VerifiableCredentialsConfig": ".form_widget_auth_0_verifiable_credentials_config",
     "FormWidgetGMapsAddress": ".form_widget_g_maps_address",
     "FormWidgetGMapsAddressConfig": ".form_widget_g_maps_address_config",
     "FormWidgetRecaptcha": ".form_widget_recaptcha",
     "FormWidgetRecaptchaConfig": ".form_widget_recaptcha_config",
-    "FormWidgetTypeAuth0VerifiableCredentialsConst": ".form_widget_type_auth0verifiable_credentials_const",
+    "FormWidgetTypeAuth0VerifiableCredentialsConst": ".form_widget_type_auth_0_verifiable_credentials_const",
     "FormWidgetTypeGMapsAddressConst": ".form_widget_type_g_maps_address_const",
     "FormWidgetTypeRecaptchaConst": ".form_widget_type_recaptcha_const",
     "FormsRequestParametersHydrateEnum": ".forms_request_parameters_hydrate_enum",
@@ -5441,7 +5441,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "HttpCustomHeader": ".http_custom_header",
     "Identity": ".identity",
     "IdentityProviderEnum": ".identity_provider_enum",
-    "IdentityProviderOnlyAuth0Enum": ".identity_provider_only_auth0enum",
+    "IdentityProviderOnlyAuth0Enum": ".identity_provider_only_auth_0_enum",
     "ImportEncryptionKeyResponseContent": ".import_encryption_key_response_content",
     "Integration": ".integration",
     "IntegrationFeatureTypeEnum": ".integration_feature_type_enum",
@@ -5575,10 +5575,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NetworkAclActionLogEnum": ".network_acl_action_log_enum",
     "NetworkAclActionRedirectEnum": ".network_acl_action_redirect_enum",
     "NetworkAclMatch": ".network_acl_match",
-    "NetworkAclMatchConnectingIpv4Cidr": ".network_acl_match_connecting_ipv4cidr",
-    "NetworkAclMatchConnectingIpv6Cidr": ".network_acl_match_connecting_ipv6cidr",
-    "NetworkAclMatchIpv4Cidr": ".network_acl_match_ipv4cidr",
-    "NetworkAclMatchIpv6Cidr": ".network_acl_match_ipv6cidr",
+    "NetworkAclMatchConnectingIpv4Cidr": ".network_acl_match_connecting_ipv_4_cidr",
+    "NetworkAclMatchConnectingIpv6Cidr": ".network_acl_match_connecting_ipv_6_cidr",
+    "NetworkAclMatchIpv4Cidr": ".network_acl_match_ipv_4_cidr",
+    "NetworkAclMatchIpv6Cidr": ".network_acl_match_ipv_6_cidr",
     "NetworkAclRule": ".network_acl_rule",
     "NetworkAclRuleScopeEnum": ".network_acl_rule_scope_enum",
     "NetworkAclsResponseContent": ".network_acls_response_content",
@@ -5729,7 +5729,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SetGuardianFactorsProviderPhoneTwilioResponseContent": ".set_guardian_factors_provider_phone_twilio_response_content",
     "SetGuardianFactorsProviderPushNotificationApnsResponseContent": ".set_guardian_factors_provider_push_notification_apns_response_content",
     "SetGuardianFactorsProviderPushNotificationFcmResponseContent": ".set_guardian_factors_provider_push_notification_fcm_response_content",
-    "SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent": ".set_guardian_factors_provider_push_notification_fcmv1response_content",
+    "SetGuardianFactorsProviderPushNotificationFcmv1ResponseContent": ".set_guardian_factors_provider_push_notification_fcmv_1_response_content",
     "SetGuardianFactorsProviderPushNotificationResponseContent": ".set_guardian_factors_provider_push_notification_response_content",
     "SetGuardianFactorsProviderPushNotificationSnsResponseContent": ".set_guardian_factors_provider_push_notification_sns_response_content",
     "SetGuardianFactorsProviderSmsResponseContent": ".set_guardian_factors_provider_sms_response_content",
@@ -5814,8 +5814,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentAdfs": ".update_connection_request_content_adfs",
     "UpdateConnectionRequestContentAmazon": ".update_connection_request_content_amazon",
     "UpdateConnectionRequestContentApple": ".update_connection_request_content_apple",
-    "UpdateConnectionRequestContentAuth0": ".update_connection_request_content_auth0",
-    "UpdateConnectionRequestContentAuth0Oidc": ".update_connection_request_content_auth0oidc",
+    "UpdateConnectionRequestContentAuth0": ".update_connection_request_content_auth_0",
+    "UpdateConnectionRequestContentAuth0Oidc": ".update_connection_request_content_auth_0_oidc",
     "UpdateConnectionRequestContentAzureAd": ".update_connection_request_content_azure_ad",
     "UpdateConnectionRequestContentBaidu": ".update_connection_request_content_baidu",
     "UpdateConnectionRequestContentBitbucket": ".update_connection_request_content_bitbucket",
@@ -5833,14 +5833,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentFitbit": ".update_connection_request_content_fitbit",
     "UpdateConnectionRequestContentGitHub": ".update_connection_request_content_git_hub",
     "UpdateConnectionRequestContentGoogleApps": ".update_connection_request_content_google_apps",
-    "UpdateConnectionRequestContentGoogleOAuth2": ".update_connection_request_content_google_o_auth2",
+    "UpdateConnectionRequestContentGoogleOAuth2": ".update_connection_request_content_google_o_auth_2",
     "UpdateConnectionRequestContentInstagram": ".update_connection_request_content_instagram",
     "UpdateConnectionRequestContentIp": ".update_connection_request_content_ip",
     "UpdateConnectionRequestContentLine": ".update_connection_request_content_line",
     "UpdateConnectionRequestContentLinkedin": ".update_connection_request_content_linkedin",
-    "UpdateConnectionRequestContentOAuth1": ".update_connection_request_content_o_auth1",
-    "UpdateConnectionRequestContentOAuth2": ".update_connection_request_content_o_auth2",
-    "UpdateConnectionRequestContentOffice365": ".update_connection_request_content_office365",
+    "UpdateConnectionRequestContentOAuth1": ".update_connection_request_content_o_auth_1",
+    "UpdateConnectionRequestContentOAuth2": ".update_connection_request_content_o_auth_2",
+    "UpdateConnectionRequestContentOffice365": ".update_connection_request_content_office_365",
     "UpdateConnectionRequestContentOidc": ".update_connection_request_content_oidc",
     "UpdateConnectionRequestContentOkta": ".update_connection_request_content_okta",
     "UpdateConnectionRequestContentPaypal": ".update_connection_request_content_paypal",
@@ -5884,7 +5884,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateGuardianFactorDuoSettingsResponseContent": ".update_guardian_factor_duo_settings_response_content",
     "UpdateGuardianFactorsProviderPushNotificationApnsResponseContent": ".update_guardian_factors_provider_push_notification_apns_response_content",
     "UpdateGuardianFactorsProviderPushNotificationFcmResponseContent": ".update_guardian_factors_provider_push_notification_fcm_response_content",
-    "UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent": ".update_guardian_factors_provider_push_notification_fcmv1response_content",
+    "UpdateGuardianFactorsProviderPushNotificationFcmv1ResponseContent": ".update_guardian_factors_provider_push_notification_fcmv_1_response_content",
     "UpdateGuardianFactorsProviderPushNotificationSnsResponseContent": ".update_guardian_factors_provider_push_notification_sns_response_content",
     "UpdateHookResponseContent": ".update_hook_response_content",
     "UpdateHookSecretRequestContent": ".update_hook_secret_request_content",
@@ -5961,8 +5961,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VerificationMethodEnum": ".verification_method_enum",
     "VerifyCustomDomainResponseContent": ".verify_custom_domain_response_content",
     "VerifyEmailTicketResponseContent": ".verify_email_ticket_response_content",
-    "X509CertificateCredential": ".x509certificate_credential",
-    "X509CertificateCredentialTypeEnum": ".x509certificate_credential_type_enum",
+    "X509CertificateCredential": ".x_509_certificate_credential",
+    "X509CertificateCredentialTypeEnum": ".x_509_certificate_credential_type_enum",
 }
 
 
