@@ -1,5 +1,17 @@
 # Change Log
 
+## [5.4.0](https://github.com/auth0/auth0-python/tree/5.4.0) (2026-05-04)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.3.0...5.4.0)
+
+**Added**
+- chore: Add events module, async token support, and connection retry resilience [\#835](https://github.com/auth0/auth0-python/pull/835) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Changed**
+- [fern-replay] Initialize Replay for SDK customizations [\#833](https://github.com/auth0/auth0-python/pull/833) ([fern-api[bot]](https://github.com/apps/fern-api), [developerkunal](https://github.com/developerkunal))
+
+**Fixed**
+- fix: Add top-level `py.typed` marker to resolve IDE import errors [\#829](https://github.com/auth0/auth0-python/pull/829) ([kishore7snehil](https://github.com/kishore7snehil))
+
 ## [5.3.0](https://github.com/auth0/auth0-python/tree/5.3.0) (2026-04-09)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.2.0...5.3.0)
 
