@@ -3,3 +3,6 @@
 import typing
 
 UserAttributeProfileUserIdSamlMapping = typing.List[str]
+"""
+SAML mapping for user ID
+"""

@@ -39,6 +39,7 @@ class GroupsClient:
         connection_id: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         external_id: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
         from_: typing.Optional[str] = None,
@@ -58,6 +59,9 @@ class GroupsClient:
 
         external_id : typing.Optional[str]
             Filter groups by external ID.
+
+        search : typing.Optional[str]
+            Search for groups by name or external ID.
 
         fields : typing.Optional[str]
             A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
@@ -90,6 +94,7 @@ class GroupsClient:
             connection_id="connection_id",
             name="name",
             external_id="external_id",
+            search="search",
             fields="fields",
             include_fields=True,
             from_="from",
@@ -105,6 +110,7 @@ class GroupsClient:
             connection_id=connection_id,
             name=name,
             external_id=external_id,
+            search=search,
             fields=fields,
             include_fields=include_fields,
             from_=from_,
@@ -205,6 +211,7 @@ class AsyncGroupsClient:
         connection_id: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         external_id: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
         from_: typing.Optional[str] = None,
@@ -224,6 +231,9 @@ class AsyncGroupsClient:
 
         external_id : typing.Optional[str]
             Filter groups by external ID.
+
+        search : typing.Optional[str]
+            Search for groups by name or external ID.
 
         fields : typing.Optional[str]
             A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
@@ -261,6 +271,7 @@ class AsyncGroupsClient:
                 connection_id="connection_id",
                 name="name",
                 external_id="external_id",
+                search="search",
                 fields="fields",
                 include_fields=True,
                 from_="from",
@@ -280,6 +291,7 @@ class AsyncGroupsClient:
             connection_id=connection_id,
             name=name,
             external_id=external_id,
+            search=search,
             fields=fields,
             include_fields=include_fields,
             from_=from_,

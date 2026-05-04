@@ -3,3 +3,6 @@
 import typing
 
 ClientAddonBox = typing.Dict[str, typing.Any]
+"""
+Box SSO indicator (no configuration settings needed for Box SSO).
+"""

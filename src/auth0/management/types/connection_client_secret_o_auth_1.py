@@ -3,3 +3,6 @@
 from .connection_client_secret import ConnectionClientSecret
 
 ConnectionClientSecretOAuth1 = ConnectionClientSecret
+"""
+OAuth 1.0a client secret paired with the consumer key to sign request-token and access-token requests for this connection. Treat as a sensitive credential and supply the exact secret issued by the upstream provider.
+"""

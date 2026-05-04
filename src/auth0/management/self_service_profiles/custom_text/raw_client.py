@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.forbidden_error import ForbiddenError
@@ -22,6 +23,7 @@ from ...types.set_self_service_profile_custom_text_request_content import SetSel
 from ...types.set_self_service_profile_custom_text_response_content import (
     SetSelfServiceProfileCustomTextResponseContent,
 )
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,7 +42,7 @@ class RawCustomTextClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ListSelfServiceProfileCustomTextResponseContent]:
         """
-        Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+        Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 
         Parameters
         ----------
@@ -62,7 +64,7 @@ class RawCustomTextClient:
             Retrieved custom text.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/{jsonable_encoder(language)}/{jsonable_encoder(page)}",
+            f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
             method="GET",
             request_options=request_options,
         )
@@ -123,6 +125,10 @@ class RawCustomTextClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set(
@@ -135,7 +141,7 @@ class RawCustomTextClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetSelfServiceProfileCustomTextResponseContent]:
         """
-        Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+        Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 
         Parameters
         ----------
@@ -159,7 +165,7 @@ class RawCustomTextClient:
             Updated custom text.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/{jsonable_encoder(language)}/{jsonable_encoder(page)}",
+            f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
             method="PUT",
             json=request,
             headers={
@@ -225,6 +231,10 @@ class RawCustomTextClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -241,7 +251,7 @@ class AsyncRawCustomTextClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ListSelfServiceProfileCustomTextResponseContent]:
         """
-        Retrieves text customizations for a given self-service profile, language and Self Service SSO Flow page.
+        Retrieves text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 
         Parameters
         ----------
@@ -263,7 +273,7 @@ class AsyncRawCustomTextClient:
             Retrieved custom text.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/{jsonable_encoder(language)}/{jsonable_encoder(page)}",
+            f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
             method="GET",
             request_options=request_options,
         )
@@ -324,6 +334,10 @@ class AsyncRawCustomTextClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set(
@@ -336,7 +350,7 @@ class AsyncRawCustomTextClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetSelfServiceProfileCustomTextResponseContent]:
         """
-        Updates text customizations for a given self-service profile, language and Self Service SSO Flow page.
+        Updates text customizations for a given self-service profile, language and Self-Service Enterprise Configuration flow page.
 
         Parameters
         ----------
@@ -360,7 +374,7 @@ class AsyncRawCustomTextClient:
             Updated custom text.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/custom-text/{jsonable_encoder(language)}/{jsonable_encoder(page)}",
+            f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
             method="PUT",
             json=request,
             headers={
@@ -426,4 +440,8 @@ class AsyncRawCustomTextClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

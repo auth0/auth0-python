@@ -3,3 +3,6 @@
 from .connection_totp_length_passwordless import ConnectionTotpLengthPasswordless
 
 ConnectionTotpLengthSms = ConnectionTotpLengthPasswordless
+"""
+Number of digits in the verification code
+"""

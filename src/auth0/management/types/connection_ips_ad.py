@@ -3,3 +3,6 @@
 import typing
 
 ConnectionIpsAd = typing.List[str]
+"""
+Array of IP address ranges in CIDR notation used to determine if authentication requests originate from the corporate network for Kerberos or certificate authentication.
+"""

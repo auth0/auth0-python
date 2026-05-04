@@ -10,12 +10,12 @@ from .self_service_profile_sso_ticket_connection_options import SelfServiceProfi
 
 class SelfServiceProfileSsoTicketConnectionConfig(UniversalBaseModel):
     """
-    If provided, this will create a new connection for the SSO flow with the given configuration
+    If provided, this will create a new connection for the Self-Service Enterprise Configuration flow with the given configuration
     """
 
     name: str = pydantic.Field()
     """
-    The name of the connection that will be created as a part of the SSO flow.
+    The name of the connection that will be created as a part of the Self-Service Enterprise Configuration flow.
     """
 
     display_name: typing.Optional[str] = pydantic.Field(default=None)

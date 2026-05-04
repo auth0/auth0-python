@@ -3,3 +3,6 @@
 import typing
 
 ConnectionIdTokenSigningAlgValuesSupported = typing.List[str]
+"""
+A list of the JWS signing algorithms (alg values) supported by the OP for the ID Token to encode the Claims in a JWT. The algorithm RS256 MUST be included. The value none MAY be supported, but MUST NOT be used unless the Response Type used returns no ID Token from the Authorization Endpoint (such as when using the Authorization Code Flow). https://datatracker.ietf.org/doc/html/rfc7518
+"""

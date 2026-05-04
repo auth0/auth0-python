@@ -3,3 +3,6 @@
 from .connection_client_id import ConnectionClientId
 
 ConnectionClientIdGoogleApps = ConnectionClientId
+"""
+Your Google OAuth 2.0 client ID. You can find this in your [Google Cloud Console](https://console.cloud.google.com/apis/credentials) under the OAuth 2.0 Client IDs section.
+"""

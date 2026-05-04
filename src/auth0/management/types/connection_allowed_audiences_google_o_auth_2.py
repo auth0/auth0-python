@@ -3,3 +3,6 @@
 import typing
 
 ConnectionAllowedAudiencesGoogleOAuth2 = typing.List[str]
+"""
+List of allowed audiences in the ID token for Google Native Social Login
+"""

@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
 from ...core.pagination import AsyncPager, SyncPager
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
@@ -25,8 +26,11 @@ from ...types.get_directory_provisioning_default_mapping_response_content import
 )
 from ...types.get_directory_provisioning_response_content import GetDirectoryProvisioningResponseContent
 from ...types.list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
+from ...types.list_synchronized_groups_response_content import ListSynchronizedGroupsResponseContent
+from ...types.synchronized_group_payload import SynchronizedGroupPayload
 from ...types.update_directory_provisioning_request_content import UpdateDirectoryProvisioningRequestContent
 from ...types.update_directory_provisioning_response_content import UpdateDirectoryProvisioningResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -136,6 +140,10 @@ class RawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -158,7 +166,7 @@ class RawDirectoryProvisioningClient:
             The connection's directory provisioning configuration. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning",
+            f"connections/{encode_path_param(id)}/directory-provisioning",
             method="GET",
             request_options=request_options,
         )
@@ -230,6 +238,10 @@ class RawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -258,7 +270,7 @@ class RawDirectoryProvisioningClient:
             The connection's directory provisioning configuration was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning",
+            f"connections/{encode_path_param(id)}/directory-provisioning",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request,
@@ -350,6 +362,10 @@ class RawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -369,7 +385,7 @@ class RawDirectoryProvisioningClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning",
+            f"connections/{encode_path_param(id)}/directory-provisioning",
             method="DELETE",
             request_options=request_options,
         )
@@ -434,6 +450,10 @@ class RawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -462,7 +482,7 @@ class RawDirectoryProvisioningClient:
             The connection's directory provisioning configuration was updated. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning",
+            f"connections/{encode_path_param(id)}/directory-provisioning",
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request,
@@ -543,6 +563,10 @@ class RawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_default_mapping(
@@ -565,7 +589,7 @@ class RawDirectoryProvisioningClient:
             The connection's directory provisioning default mapping. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning/default-mapping",
+            f"connections/{encode_path_param(id)}/directory-provisioning/default-mapping",
             method="GET",
             request_options=request_options,
         )
@@ -637,6 +661,249 @@ class RawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_synchronized_groups(
+        self,
+        id: str,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]:
+        """
+        Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to list synchronized groups for.
+
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]
+            The connection's synchronized groups. See <strong>Response Schemas</strong> for schema.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"connections/{encode_path_param(id)}/directory-provisioning/synchronized-groups",
+            method="GET",
+            params={
+                "from": from_,
+                "take": take,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    ListSynchronizedGroupsResponseContent,
+                    parse_obj_as(
+                        type_=ListSynchronizedGroupsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.groups
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list_synchronized_groups(
+                    id,
+                    from_=_parsed_next,
+                    take=take,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def set(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupPayload],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[None]:
+        """
+        Create or replace the selected groups for a connection directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to create or replace synchronized groups for
+
+        groups : typing.Sequence[SynchronizedGroupPayload]
+            Array of Google Workspace Directory group objects to synchronize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[None]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"connections/{encode_path_param(id)}/directory-provisioning/synchronized-groups",
+            method="PUT",
+            json={
+                "groups": convert_and_respect_annotation_metadata(
+                    object_=groups, annotation=typing.Sequence[SynchronizedGroupPayload], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return HttpResponse(response=_response, data=None)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -747,6 +1014,10 @@ class AsyncRawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -769,7 +1040,7 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's directory provisioning configuration. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning",
+            f"connections/{encode_path_param(id)}/directory-provisioning",
             method="GET",
             request_options=request_options,
         )
@@ -841,6 +1112,10 @@ class AsyncRawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -869,7 +1144,7 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's directory provisioning configuration was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning",
+            f"connections/{encode_path_param(id)}/directory-provisioning",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request,
@@ -961,6 +1236,10 @@ class AsyncRawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -982,7 +1261,7 @@ class AsyncRawDirectoryProvisioningClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning",
+            f"connections/{encode_path_param(id)}/directory-provisioning",
             method="DELETE",
             request_options=request_options,
         )
@@ -1047,6 +1326,10 @@ class AsyncRawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -1075,7 +1358,7 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's directory provisioning configuration was updated. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning",
+            f"connections/{encode_path_param(id)}/directory-provisioning",
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request,
@@ -1156,6 +1439,10 @@ class AsyncRawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_default_mapping(
@@ -1178,7 +1465,7 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's directory provisioning default mapping. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{jsonable_encoder(id)}/directory-provisioning/default-mapping",
+            f"connections/{encode_path_param(id)}/directory-provisioning/default-mapping",
             method="GET",
             request_options=request_options,
         )
@@ -1250,4 +1537,250 @@ class AsyncRawDirectoryProvisioningClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_synchronized_groups(
+        self,
+        id: str,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]:
+        """
+        Retrieve the configured synchronized groups for a connection directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to list synchronized groups for.
+
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]
+            The connection's synchronized groups. See <strong>Response Schemas</strong> for schema.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"connections/{encode_path_param(id)}/directory-provisioning/synchronized-groups",
+            method="GET",
+            params={
+                "from": from_,
+                "take": take,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    ListSynchronizedGroupsResponseContent,
+                    parse_obj_as(
+                        type_=ListSynchronizedGroupsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.groups
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list_synchronized_groups(
+                        id,
+                        from_=_parsed_next,
+                        take=take,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def set(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupPayload],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[None]:
+        """
+        Create or replace the selected groups for a connection directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to create or replace synchronized groups for
+
+        groups : typing.Sequence[SynchronizedGroupPayload]
+            Array of Google Workspace Directory group objects to synchronize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[None]
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"connections/{encode_path_param(id)}/directory-provisioning/synchronized-groups",
+            method="PUT",
+            json={
+                "groups": convert_and_respect_annotation_metadata(
+                    object_=groups, annotation=typing.Sequence[SynchronizedGroupPayload], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return AsyncHttpResponse(response=_response, data=None)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

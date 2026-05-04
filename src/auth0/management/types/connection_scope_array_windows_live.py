@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionScopeArrayWindowsLive = ConnectionScopeArray
+"""
+Array of custom OAuth 2.0 scopes to request during authentication.
+"""

@@ -5,3 +5,6 @@ import typing
 from .connection_upstream_additional_properties import ConnectionUpstreamAdditionalProperties
 
 ConnectionUpstreamParams = typing.Optional[typing.Dict[str, typing.Optional[ConnectionUpstreamAdditionalProperties]]]
+"""
+Options for adding parameters in the request to the upstream IdP
+"""

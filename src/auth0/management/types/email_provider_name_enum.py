@@ -3,6 +3,8 @@
 import typing
 
 EmailProviderNameEnum = typing.Union[
-    typing.Literal["mailgun", "mandrill", "sendgrid", "ses", "sparkpost", "smtp", "azure_cs", "ms365", "custom"],
+    typing.Literal[
+        "mailgun", "mandrill", "sendgrid", "resend", "ses", "sparkpost", "smtp", "azure_cs", "ms365", "custom"
+    ],
     typing.Any,
 ]

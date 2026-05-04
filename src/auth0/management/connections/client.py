@@ -124,6 +124,7 @@ class ConnectionsClient:
         response = client.connections.list(
             from_="from",
             take=1,
+            strategy=["ad"],
             name="name",
             fields="fields",
             include_fields=True,
@@ -560,6 +561,7 @@ class AsyncConnectionsClient:
             response = await client.connections.list(
                 from_="from",
                 take=1,
+                strategy=["ad"],
                 name="name",
                 fields="fields",
                 include_fields=True,

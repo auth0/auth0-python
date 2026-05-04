@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback import ConnectionHttpsUrlWithHttpFallback
 
 ConnectionPingFederateBaseUrlPingFederate = ConnectionHttpsUrlWithHttpFallback
+"""
+PingFederate base URL constrained to HTTP/HTTPS with length bounds
+"""

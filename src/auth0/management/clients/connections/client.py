@@ -85,6 +85,7 @@ class ConnectionsClient:
         )
         response = client.clients.connections.get(
             id="id",
+            strategy=["ad"],
             from_="from",
             take=1,
             fields="fields",
@@ -186,6 +187,7 @@ class AsyncConnectionsClient:
         async def main() -> None:
             response = await client.clients.connections.get(
                 id="id",
+                strategy=["ad"],
                 from_="from",
                 take=1,
                 fields="fields",

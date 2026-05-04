@@ -10,7 +10,7 @@ from .create_connection_common import CreateConnectionCommon
 
 
 class ConnectionResponseCommon(CreateConnectionCommon):
-    id: ConnectionId
+    id: typing.Optional[ConnectionId] = None
     realms: typing.Optional[ConnectionRealms] = None
 
     if IS_PYDANTIC_V2:

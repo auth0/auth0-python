@@ -24,16 +24,20 @@ from ..types.client_encryption_key import ClientEncryptionKey
 from ..types.client_jwt_configuration import ClientJwtConfiguration
 from ..types.client_metadata import ClientMetadata
 from ..types.client_mobile import ClientMobile
+from ..types.client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
+from ..types.client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
 from ..types.client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
 from ..types.client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
 from ..types.client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
 from ..types.client_organization_require_behavior_patch_enum import ClientOrganizationRequireBehaviorPatchEnum
 from ..types.client_organization_usage_enum import ClientOrganizationUsageEnum
 from ..types.client_organization_usage_patch_enum import ClientOrganizationUsagePatchEnum
+from ..types.client_redirection_policy_enum import ClientRedirectionPolicyEnum
 from ..types.client_refresh_token_configuration import ClientRefreshTokenConfiguration
 from ..types.client_session_transfer_configuration import ClientSessionTransferConfiguration
 from ..types.client_signed_request_object_with_credential_id import ClientSignedRequestObjectWithCredentialId
 from ..types.client_signed_request_object_with_public_key import ClientSignedRequestObjectWithPublicKey
+from ..types.client_third_party_security_mode_enum import ClientThirdPartySecurityModeEnum
 from ..types.client_token_endpoint_auth_method_enum import ClientTokenEndpointAuthMethodEnum
 from ..types.client_token_endpoint_auth_method_or_null_enum import ClientTokenEndpointAuthMethodOrNullEnum
 from ..types.client_token_exchange_configuration import ClientTokenExchangeConfiguration
@@ -257,7 +261,10 @@ class ClientsClient:
         par_request_expiry: typing.Optional[int] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
+        third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
+        redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
@@ -408,7 +415,13 @@ class ClientsClient:
         resource_server_identifier : typing.Optional[str]
             The identifier of the resource server that this client is linked to.
 
+        third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
+
+        redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
+
         express_configuration : typing.Optional[ExpressConfiguration]
+
+        my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
@@ -480,7 +493,10 @@ class ClientsClient:
             par_request_expiry=par_request_expiry,
             token_quota=token_quota,
             resource_server_identifier=resource_server_identifier,
+            third_party_security_mode=third_party_security_mode,
+            redirection_policy=redirection_policy,
             express_configuration=express_configuration,
+            my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             request_options=request_options,
         )
@@ -724,9 +740,12 @@ class ClientsClient:
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
         ] = OMIT,
+        third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
+        redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientResponseContent:
         """
@@ -876,7 +895,13 @@ class ClientsClient:
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
 
+        my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
+
+        third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
+
+        redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -948,7 +973,10 @@ class ClientsClient:
             token_exchange=token_exchange,
             par_request_expiry=par_request_expiry,
             express_configuration=express_configuration,
+            my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
+            third_party_security_mode=third_party_security_mode,
+            redirection_policy=redirection_policy,
             request_options=request_options,
         )
         return _response.data
@@ -1214,7 +1242,10 @@ class AsyncClientsClient:
         par_request_expiry: typing.Optional[int] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
+        third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
+        redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
@@ -1365,7 +1396,13 @@ class AsyncClientsClient:
         resource_server_identifier : typing.Optional[str]
             The identifier of the resource server that this client is linked to.
 
+        third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
+
+        redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
+
         express_configuration : typing.Optional[ExpressConfiguration]
+
+        my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
@@ -1445,7 +1482,10 @@ class AsyncClientsClient:
             par_request_expiry=par_request_expiry,
             token_quota=token_quota,
             resource_server_identifier=resource_server_identifier,
+            third_party_security_mode=third_party_security_mode,
+            redirection_policy=redirection_policy,
             express_configuration=express_configuration,
+            my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             request_options=request_options,
         )
@@ -1721,9 +1761,12 @@ class AsyncClientsClient:
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
         ] = OMIT,
+        third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
+        redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientResponseContent:
         """
@@ -1873,7 +1916,13 @@ class AsyncClientsClient:
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
 
+        my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
+
+        third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
+
+        redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1953,7 +2002,10 @@ class AsyncClientsClient:
             token_exchange=token_exchange,
             par_request_expiry=par_request_expiry,
             express_configuration=express_configuration,
+            my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
+            third_party_security_mode=third_party_security_mode,
+            redirection_policy=redirection_policy,
             request_options=request_options,
         )
         return _response.data

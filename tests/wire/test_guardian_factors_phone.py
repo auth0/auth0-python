@@ -13,7 +13,9 @@ def test_guardian_factors_phone_set_message_types() -> None:
     """Test setMessageTypes endpoint with WireMock"""
     test_id = "guardian.factors.phone.set_message_types.0"
     client = get_client(test_id)
-    client.guardian.factors.phone.set_message_types(message_types=["sms"])
+    client.guardian.factors.phone.set_message_types(
+        message_types=["sms"],
+    )
     verify_request_count(test_id, "PUT", "/guardian/factors/phone/message-types", None, 1)
 
 
@@ -45,7 +47,9 @@ def test_guardian_factors_phone_set_provider() -> None:
     """Test setProvider endpoint with WireMock"""
     test_id = "guardian.factors.phone.set_provider.0"
     client = get_client(test_id)
-    client.guardian.factors.phone.set_provider(provider="auth0")
+    client.guardian.factors.phone.set_provider(
+        provider="auth0",
+    )
     verify_request_count(test_id, "PUT", "/guardian/factors/phone/selected-provider", None, 1)
 
 
@@ -62,6 +66,7 @@ def test_guardian_factors_phone_set_templates() -> None:
     test_id = "guardian.factors.phone.set_templates.0"
     client = get_client(test_id)
     client.guardian.factors.phone.set_templates(
-        enrollment_message="enrollment_message", verification_message="verification_message"
+        enrollment_message="enrollment_message",
+        verification_message="verification_message",
     )
     verify_request_count(test_id, "PUT", "/guardian/factors/phone/templates", None, 1)

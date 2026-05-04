@@ -6,6 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
@@ -16,6 +17,7 @@ from ...types.brute_force_protection_mode_enum import BruteForceProtectionModeEn
 from ...types.brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
 from ...types.get_brute_force_settings_response_content import GetBruteForceSettingsResponseContent
 from ...types.update_brute_force_settings_response_content import UpdateBruteForceSettingsResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -92,6 +94,10 @@ class RawBruteForceProtectionClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -205,6 +211,10 @@ class RawBruteForceProtectionClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -279,6 +289,10 @@ class AsyncRawBruteForceProtectionClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -392,4 +406,8 @@ class AsyncRawBruteForceProtectionClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

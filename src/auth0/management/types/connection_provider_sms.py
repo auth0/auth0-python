@@ -3,3 +3,6 @@
 from .connection_provider_enum_sms import ConnectionProviderEnumSms
 
 ConnectionProviderSms = ConnectionProviderEnumSms
+"""
+SMS provider. Set to 'sms_gateway' to use a custom SMS gateway instead of Twilio.
+"""
