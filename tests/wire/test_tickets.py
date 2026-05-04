@@ -5,7 +5,9 @@ def test_tickets_verify_email() -> None:
     """Test verifyEmail endpoint with WireMock"""
     test_id = "tickets.verify_email.0"
     client = get_client(test_id)
-    client.tickets.verify_email(user_id="user_id")
+    client.tickets.verify_email(
+        user_id="user_id",
+    )
     verify_request_count(test_id, "POST", "/tickets/email-verification", None, 1)
 
 

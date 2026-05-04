@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback_255 import ConnectionHttpsUrlWithHttpFallback255
 
 ConnectionRequestTokenUrloAuth1 = ConnectionHttpsUrlWithHttpFallback255
+"""
+The URL of the OAuth 1.0a request-token endpoint. This endpoint is used to obtain a temporary request token during the OAuth 1.0a authentication flow.
+"""

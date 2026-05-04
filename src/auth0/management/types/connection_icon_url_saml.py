@@ -3,3 +3,6 @@
 from .connection_icon_url import ConnectionIconUrl
 
 ConnectionIconUrlSaml = ConnectionIconUrl
+"""
+URL for the connection icon displayed in Auth0 login pages. Accepts HTTPS URLs. Used for visual branding in authentication flows.
+"""

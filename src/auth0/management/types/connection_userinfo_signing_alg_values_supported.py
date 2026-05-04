@@ -3,3 +3,6 @@
 import typing
 
 ConnectionUserinfoSigningAlgValuesSupported = typing.List[str]
+"""
+JSON array containing a list of the JWS [JWS] signing algorithms (alg values) [JWA] supported by the UserInfo Endpoint to encode the Claims in a JWT [JWT]. The value none MAY be included.
+"""

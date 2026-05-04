@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback_255 import ConnectionHttpsUrlWithHttpFallback255
 
 ConnectionSignInEndpointAd = ConnectionHttpsUrlWithHttpFallback255
+"""
+The sign-in endpoint type for the AD-LDAP connector agent (managed by the AD Connector agent).
+"""

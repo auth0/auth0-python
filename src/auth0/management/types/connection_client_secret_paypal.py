@@ -3,3 +3,6 @@
 from .connection_client_secret import ConnectionClientSecret
 
 ConnectionClientSecretPaypal = ConnectionClientSecret
+"""
+OAuth 2.0 client secret issued by PayPal during application registration. Leave empty to use Auth0 Dev Keys.
+"""

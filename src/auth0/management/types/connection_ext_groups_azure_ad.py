@@ -3,3 +3,6 @@
 from .connection_ext_groups import ConnectionExtGroups
 
 ConnectionExtGroupsAzureAd = ConnectionExtGroups
+"""
+When enabled (true), retrieves and stores Azure AD security group memberships for the user. Requires Microsoft Graph API permissions (Directory.Read.All). Allows configuring max_groups_to_retrieve.
+"""

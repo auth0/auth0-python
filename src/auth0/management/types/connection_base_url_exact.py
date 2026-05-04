@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback import ConnectionHttpsUrlWithHttpFallback
 
 ConnectionBaseUrlExact = ConnectionHttpsUrlWithHttpFallback
+"""
+Base URL override for the Exact Online API endpoint used for OAuth2 authorization and API requests. Defaults to https://start.exactonline.nl.
+"""

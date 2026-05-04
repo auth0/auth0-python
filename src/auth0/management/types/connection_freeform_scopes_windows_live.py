@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionFreeformScopesWindowsLive = ConnectionScopeArray
+"""
+Custom OAuth scopes not predefined in the standard scope list.
+"""

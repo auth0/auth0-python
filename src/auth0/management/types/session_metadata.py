@@ -3,3 +3,6 @@
 import typing
 
 SessionMetadata = typing.Optional[typing.Dict[str, typing.Any]]
+"""
+Metadata associated with the session, in the form of an object with string values (max 255 chars). Maximum of 25 metadata properties allowed.
+"""

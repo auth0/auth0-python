@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionScopePaypal = ConnectionScopeArray
+"""
+OAuth 2.0 scopes requested from PayPal during authorization. Built automatically from the enabled attribute flags (profile, email, address, phone) plus any freeform_scopes. Always includes 'openid' as the base scope.
+"""

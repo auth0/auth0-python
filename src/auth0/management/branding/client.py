@@ -9,6 +9,7 @@ from ..core.request_options import RequestOptions
 from ..types.get_branding_response_content import GetBrandingResponseContent
 from ..types.update_branding_colors import UpdateBrandingColors
 from ..types.update_branding_font import UpdateBrandingFont
+from ..types.update_branding_identifiers import UpdateBrandingIdentifiers
 from ..types.update_branding_response_content import UpdateBrandingResponseContent
 from .raw_client import AsyncRawBrandingClient, RawBrandingClient
 
@@ -71,6 +72,7 @@ class BrandingClient:
         colors: typing.Optional[UpdateBrandingColors] = OMIT,
         favicon_url: typing.Optional[str] = OMIT,
         logo_url: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[UpdateBrandingIdentifiers] = OMIT,
         font: typing.Optional[UpdateBrandingFont] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBrandingResponseContent:
@@ -86,6 +88,8 @@ class BrandingClient:
 
         logo_url : typing.Optional[str]
             URL for the logo. Must use HTTPS.
+
+        identifiers : typing.Optional[UpdateBrandingIdentifiers]
 
         font : typing.Optional[UpdateBrandingFont]
 
@@ -107,7 +111,12 @@ class BrandingClient:
         client.branding.update()
         """
         _response = self._raw_client.update(
-            colors=colors, favicon_url=favicon_url, logo_url=logo_url, font=font, request_options=request_options
+            colors=colors,
+            favicon_url=favicon_url,
+            logo_url=logo_url,
+            identifiers=identifiers,
+            font=font,
+            request_options=request_options,
         )
         return _response.data
 
@@ -195,6 +204,7 @@ class AsyncBrandingClient:
         colors: typing.Optional[UpdateBrandingColors] = OMIT,
         favicon_url: typing.Optional[str] = OMIT,
         logo_url: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[UpdateBrandingIdentifiers] = OMIT,
         font: typing.Optional[UpdateBrandingFont] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBrandingResponseContent:
@@ -210,6 +220,8 @@ class AsyncBrandingClient:
 
         logo_url : typing.Optional[str]
             URL for the logo. Must use HTTPS.
+
+        identifiers : typing.Optional[UpdateBrandingIdentifiers]
 
         font : typing.Optional[UpdateBrandingFont]
 
@@ -239,7 +251,12 @@ class AsyncBrandingClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            colors=colors, favicon_url=favicon_url, logo_url=logo_url, font=font, request_options=request_options
+            colors=colors,
+            favicon_url=favicon_url,
+            logo_url=logo_url,
+            identifiers=identifiers,
+            font=font,
+            request_options=request_options,
         )
         return _response.data
 

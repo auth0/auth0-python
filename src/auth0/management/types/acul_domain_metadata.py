@@ -3,3 +3,6 @@
 import typing
 
 AculDomainMetadata = typing.Dict[str, typing.Any]
+"""
+Domain metadata key/value pairs
+"""

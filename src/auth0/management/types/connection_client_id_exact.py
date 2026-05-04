@@ -3,3 +3,6 @@
 from .connection_client_id import ConnectionClientId
 
 ConnectionClientIdExact = ConnectionClientId
+"""
+OAuth2.0 client identifier for the Exact Online connection, obtained when registering your application in the Exact App Center.
+"""

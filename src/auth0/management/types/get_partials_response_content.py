@@ -3,3 +3,6 @@
 import typing
 
 GetPartialsResponseContent = typing.Dict[str, typing.Any]
+"""
+An object containing template partials for a group of screens.
+"""

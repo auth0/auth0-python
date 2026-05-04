@@ -6,6 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
@@ -18,6 +19,9 @@ from ...types.get_tenant_settings_response_content import GetTenantSettingsRespo
 from ...types.session_cookie_schema import SessionCookieSchema
 from ...types.tenant_oidc_logout_settings import TenantOidcLogoutSettings
 from ...types.tenant_settings_device_flow import TenantSettingsDeviceFlow
+from ...types.tenant_settings_dynamic_client_registration_security_mode import (
+    TenantSettingsDynamicClientRegistrationSecurityMode,
+)
 from ...types.tenant_settings_error_page import TenantSettingsErrorPage
 from ...types.tenant_settings_flags import TenantSettingsFlags
 from ...types.tenant_settings_guardian_page import TenantSettingsGuardianPage
@@ -27,6 +31,7 @@ from ...types.tenant_settings_resource_parameter_profile import TenantSettingsRe
 from ...types.tenant_settings_sessions import TenantSettingsSessions
 from ...types.tenant_settings_supported_locales_enum import TenantSettingsSupportedLocalesEnum
 from ...types.update_tenant_settings_response_content import UpdateTenantSettingsResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -128,6 +133,10 @@ class RawSettingsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -165,8 +174,12 @@ class RawSettingsClient:
         authorization_response_iss_parameter_supported: typing.Optional[bool] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
+        client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
+        dynamic_client_registration_security_mode: typing.Optional[
+            TenantSettingsDynamicClientRegistrationSecurityMode
+        ] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateTenantSettingsResponseContent]:
         """
@@ -262,11 +275,16 @@ class RawSettingsClient:
 
         resource_parameter_profile : typing.Optional[TenantSettingsResourceParameterProfile]
 
+        client_id_metadata_document_supported : typing.Optional[bool]
+            Whether the authorization server supports retrieving client metadata from a client_id URL.
+
         enable_ai_guide : typing.Optional[bool]
             Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
 
         phone_consolidated_experience : typing.Optional[bool]
             Whether Phone Consolidated Experience is enabled for this tenant.
+
+        dynamic_client_registration_security_mode : typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -332,8 +350,10 @@ class RawSettingsClient:
                 "authorization_response_iss_parameter_supported": authorization_response_iss_parameter_supported,
                 "skip_non_verifiable_callback_uri_confirmation_prompt": skip_non_verifiable_callback_uri_confirmation_prompt,
                 "resource_parameter_profile": resource_parameter_profile,
+                "client_id_metadata_document_supported": client_id_metadata_document_supported,
                 "enable_ai_guide": enable_ai_guide,
                 "phone_consolidated_experience": phone_consolidated_experience,
+                "dynamic_client_registration_security_mode": dynamic_client_registration_security_mode,
             },
             headers={
                 "content-type": "application/json",
@@ -398,6 +418,10 @@ class RawSettingsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -497,6 +521,10 @@ class AsyncRawSettingsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -534,8 +562,12 @@ class AsyncRawSettingsClient:
         authorization_response_iss_parameter_supported: typing.Optional[bool] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
+        client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
+        dynamic_client_registration_security_mode: typing.Optional[
+            TenantSettingsDynamicClientRegistrationSecurityMode
+        ] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateTenantSettingsResponseContent]:
         """
@@ -631,11 +663,16 @@ class AsyncRawSettingsClient:
 
         resource_parameter_profile : typing.Optional[TenantSettingsResourceParameterProfile]
 
+        client_id_metadata_document_supported : typing.Optional[bool]
+            Whether the authorization server supports retrieving client metadata from a client_id URL.
+
         enable_ai_guide : typing.Optional[bool]
             Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
 
         phone_consolidated_experience : typing.Optional[bool]
             Whether Phone Consolidated Experience is enabled for this tenant.
+
+        dynamic_client_registration_security_mode : typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -701,8 +738,10 @@ class AsyncRawSettingsClient:
                 "authorization_response_iss_parameter_supported": authorization_response_iss_parameter_supported,
                 "skip_non_verifiable_callback_uri_confirmation_prompt": skip_non_verifiable_callback_uri_confirmation_prompt,
                 "resource_parameter_profile": resource_parameter_profile,
+                "client_id_metadata_document_supported": client_id_metadata_document_supported,
                 "enable_ai_guide": enable_ai_guide,
                 "phone_consolidated_experience": phone_consolidated_experience,
+                "dynamic_client_registration_security_mode": dynamic_client_registration_security_mode,
             },
             headers={
                 "content-type": "application/json",
@@ -767,4 +806,8 @@ class AsyncRawSettingsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

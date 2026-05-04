@@ -3,3 +3,6 @@
 from .connection_client_secret import ConnectionClientSecret
 
 ConnectionClientSecretExact = ConnectionClientSecret
+"""
+OAuth2.0 client secret for the Exact Online connection, obtained when registering your application in the Exact App Center.
+"""

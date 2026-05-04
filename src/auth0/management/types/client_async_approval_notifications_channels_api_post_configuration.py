@@ -5,3 +5,6 @@ import typing
 from .async_approval_notifications_channels_enum import AsyncApprovalNotificationsChannelsEnum
 
 ClientAsyncApprovalNotificationsChannelsApiPostConfiguration = typing.List[AsyncApprovalNotificationsChannelsEnum]
+"""
+Array of notification channels for contacting the user when their approval is required. Valid values are `guardian-push`, `email`.
+"""

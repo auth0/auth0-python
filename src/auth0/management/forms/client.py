@@ -91,6 +91,7 @@ class FormsClient:
             page=1,
             per_page=1,
             include_totals=True,
+            hydrate=["flow_count"],
         )
         for item in response:
             yield item
@@ -205,6 +206,7 @@ class FormsClient:
         )
         client.forms.get(
             id="id",
+            hydrate=["flow_count"],
         )
         """
         _response = self._raw_client.get(id, hydrate=hydrate, request_options=request_options)
@@ -373,6 +375,7 @@ class AsyncFormsClient:
                 page=1,
                 per_page=1,
                 include_totals=True,
+                hydrate=["flow_count"],
             )
             async for item in response:
                 yield item
@@ -504,6 +507,7 @@ class AsyncFormsClient:
         async def main() -> None:
             await client.forms.get(
                 id="id",
+                hydrate=["flow_count"],
             )
 
 

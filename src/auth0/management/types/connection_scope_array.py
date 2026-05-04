@@ -5,3 +5,6 @@ import typing
 from .connection_scope_item import ConnectionScopeItem
 
 ConnectionScopeArray = typing.List[ConnectionScopeItem]
+"""
+Array of custom OAuth 2.0 scopes to request during authentication.
+"""

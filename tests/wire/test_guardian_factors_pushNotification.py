@@ -93,5 +93,7 @@ def test_guardian_factors_pushNotification_set_provider() -> None:
     """Test setProvider endpoint with WireMock"""
     test_id = "guardian.factors.push_notification.set_provider.0"
     client = get_client(test_id)
-    client.guardian.factors.push_notification.set_provider(provider="guardian")
+    client.guardian.factors.push_notification.set_provider(
+        provider="guardian",
+    )
     verify_request_count(test_id, "PUT", "/guardian/factors/push-notification/selected-provider", None, 1)

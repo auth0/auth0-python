@@ -3,3 +3,6 @@
 import typing
 
 DomainMetadata = typing.Dict[str, typing.Optional[str]]
+"""
+Domain metadata associated with the custom domain, in the form of an object with string values (max 255 chars). Maximum of 10 domain metadata properties allowed.
+"""
