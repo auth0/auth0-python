@@ -3,3 +3,6 @@
 import typing
 
 LogDateObject = typing.Dict[str, typing.Any]
+"""
+Date when the event occurred in ISO 8601 format.
+"""

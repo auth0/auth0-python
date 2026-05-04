@@ -3,3 +3,6 @@
 import typing
 
 AculOrganizationMetadata = typing.Dict[str, typing.Any]
+"""
+Organization metadata key/value pairs
+"""

@@ -3,3 +3,6 @@
 import typing
 
 ConnectionUserinfoEncryptionEncValuesSupported = typing.List[str]
+"""
+JSON array containing a list of the JWE encryption algorithms (enc values) [JWA] supported by the UserInfo Endpoint to encode the Claims in a JWT [JWT].
+"""

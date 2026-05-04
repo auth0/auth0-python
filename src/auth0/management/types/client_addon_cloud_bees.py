@@ -3,3 +3,6 @@
 import typing
 
 ClientAddonCloudBees = typing.Dict[str, typing.Any]
+"""
+CloudBees SSO indicator (no configuration settings needed for CloudBees SSO).
+"""

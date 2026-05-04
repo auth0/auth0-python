@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionScopeGoogleOAuth2 = ConnectionScopeArray
+"""
+Array of OAuth 2.0 scopes requested during Google authentication.
+"""

@@ -3,3 +3,6 @@
 import typing
 
 ConnectionConfiguration = typing.Dict[str, str]
+"""
+A hash of configuration key/value pairs.
+"""

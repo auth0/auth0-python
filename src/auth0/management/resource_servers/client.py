@@ -11,6 +11,7 @@ from ..types.list_resource_server_offset_paginated_response_content import (
     ListResourceServerOffsetPaginatedResponseContent,
 )
 from ..types.resource_server import ResourceServer
+from ..types.resource_server_authorization_policy import ResourceServerAuthorizationPolicy
 from ..types.resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
 from ..types.resource_server_proof_of_possession import ResourceServerProofOfPossession
 from ..types.resource_server_scope import ResourceServerScope
@@ -86,6 +87,7 @@ class ResourceServersClient:
             token="YOUR_TOKEN",
         )
         response = client.resource_servers.list(
+            identifiers=["identifiers"],
             page=1,
             per_page=1,
             include_totals=True,
@@ -125,6 +127,7 @@ class ResourceServersClient:
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
+        authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateResourceServerResponseContent:
         """
@@ -173,6 +176,8 @@ class ResourceServersClient:
 
         subject_type_authorization : typing.Optional[ResourceServerSubjectTypeAuthorization]
 
+        authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -209,6 +214,7 @@ class ResourceServersClient:
             authorization_details=authorization_details,
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
+            authorization_policy=authorization_policy,
             request_options=request_options,
         )
         return _response.data
@@ -303,6 +309,7 @@ class ResourceServersClient:
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
+        authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateResourceServerResponseContent:
         """
@@ -351,6 +358,8 @@ class ResourceServersClient:
 
         subject_type_authorization : typing.Optional[ResourceServerSubjectTypeAuthorization]
 
+        authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -387,6 +396,7 @@ class ResourceServersClient:
             authorization_details=authorization_details,
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
+            authorization_policy=authorization_policy,
             request_options=request_options,
         )
         return _response.data
@@ -458,6 +468,7 @@ class AsyncResourceServersClient:
 
         async def main() -> None:
             response = await client.resource_servers.list(
+                identifiers=["identifiers"],
                 page=1,
                 per_page=1,
                 include_totals=True,
@@ -501,6 +512,7 @@ class AsyncResourceServersClient:
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
+        authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateResourceServerResponseContent:
         """
@@ -549,6 +561,8 @@ class AsyncResourceServersClient:
 
         subject_type_authorization : typing.Optional[ResourceServerSubjectTypeAuthorization]
 
+        authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -593,6 +607,7 @@ class AsyncResourceServersClient:
             authorization_details=authorization_details,
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
+            authorization_policy=authorization_policy,
             request_options=request_options,
         )
         return _response.data
@@ -703,6 +718,7 @@ class AsyncResourceServersClient:
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
+        authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateResourceServerResponseContent:
         """
@@ -751,6 +767,8 @@ class AsyncResourceServersClient:
 
         subject_type_authorization : typing.Optional[ResourceServerSubjectTypeAuthorization]
 
+        authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -795,6 +813,7 @@ class AsyncResourceServersClient:
             authorization_details=authorization_details,
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
+            authorization_policy=authorization_policy,
             request_options=request_options,
         )
         return _response.data

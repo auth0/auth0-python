@@ -3,3 +3,6 @@
 import typing
 
 RefreshTokenDateObject = typing.Dict[str, typing.Any]
+"""
+The date and time when the refresh token was created
+"""

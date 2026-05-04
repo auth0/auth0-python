@@ -3,3 +3,6 @@
 import typing
 
 ConnectionUiLocalesSupported = typing.List[str]
+"""
+Languages and scripts supported for the user interface, represented as a JSON array of BCP47 [RFC5646] language tag values.
+"""

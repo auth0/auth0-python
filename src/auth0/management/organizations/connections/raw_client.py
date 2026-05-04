@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
 from ...core.pagination import AsyncPager, SyncPager
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
@@ -25,6 +26,7 @@ from ...types.organization_access_level_enum import OrganizationAccessLevelEnum
 from ...types.organization_access_level_enum_with_null import OrganizationAccessLevelEnumWithNull
 from ...types.organization_all_connection_post import OrganizationAllConnectionPost
 from ...types.update_organization_all_connection_response_content import UpdateOrganizationAllConnectionResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -73,7 +75,7 @@ class RawConnectionsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections",
+            f"organizations/{encode_path_param(id)}/connections",
             method="GET",
             params={
                 "page": page,
@@ -150,6 +152,10 @@ class RawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -200,7 +206,7 @@ class RawConnectionsClient:
             Connection successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections",
+            f"organizations/{encode_path_param(id)}/connections",
             method="POST",
             json={
                 "organization_connection_name": organization_connection_name,
@@ -285,6 +291,10 @@ class RawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -308,7 +318,7 @@ class RawConnectionsClient:
             Connection successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections/{jsonable_encoder(connection_id)}",
+            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -369,6 +379,10 @@ class RawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(
@@ -391,7 +405,7 @@ class RawConnectionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections/{jsonable_encoder(connection_id)}",
+            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -434,6 +448,10 @@ class RawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -484,7 +502,7 @@ class RawConnectionsClient:
             Connection successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections/{jsonable_encoder(connection_id)}",
+            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
             method="PATCH",
             json={
                 "organization_connection_name": organization_connection_name,
@@ -557,6 +575,10 @@ class RawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -603,7 +625,7 @@ class AsyncRawConnectionsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections",
+            f"organizations/{encode_path_param(id)}/connections",
             method="GET",
             params={
                 "page": page,
@@ -683,6 +705,10 @@ class AsyncRawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -733,7 +759,7 @@ class AsyncRawConnectionsClient:
             Connection successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections",
+            f"organizations/{encode_path_param(id)}/connections",
             method="POST",
             json={
                 "organization_connection_name": organization_connection_name,
@@ -818,6 +844,10 @@ class AsyncRawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -841,7 +871,7 @@ class AsyncRawConnectionsClient:
             Connection successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections/{jsonable_encoder(connection_id)}",
+            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -902,6 +932,10 @@ class AsyncRawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -924,7 +958,7 @@ class AsyncRawConnectionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections/{jsonable_encoder(connection_id)}",
+            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -967,6 +1001,10 @@ class AsyncRawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -1017,7 +1055,7 @@ class AsyncRawConnectionsClient:
             Connection successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/connections/{jsonable_encoder(connection_id)}",
+            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
             method="PATCH",
             json={
                 "organization_connection_name": organization_connection_name,
@@ -1090,4 +1128,8 @@ class AsyncRawConnectionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

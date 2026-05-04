@@ -3,3 +3,6 @@
 from .connection_api_enable_users import ConnectionApiEnableUsers
 
 ConnectionApiEnableUsersGoogleApps = ConnectionApiEnableUsers
+"""
+Enables integration with the Google Workspace Admin SDK Directory API. When true, Auth0 can retrieve extended user attributes (admin status, suspension status, group memberships) and supports inbound directory provisioning (SCIM). Defaults to true. 
+"""

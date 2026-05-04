@@ -14,9 +14,6 @@ from .network_acl_match_ipv_6_cidr import NetworkAclMatchIpv6Cidr
 
 class NetworkAclMatch(UniversalBaseModel):
     asns: typing.Optional[typing.List[int]] = None
-    auth_0_managed: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="auth0_managed"), pydantic.Field(alias="auth0_managed")
-    ] = None
     geo_country_codes: typing.Optional[typing.List[str]] = None
     geo_subdivision_codes: typing.Optional[typing.List[str]] = None
     ipv_4_cidrs: typing_extensions.Annotated[

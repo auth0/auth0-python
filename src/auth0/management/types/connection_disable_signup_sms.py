@@ -3,3 +3,6 @@
 from .connection_disable_signup import ConnectionDisableSignup
 
 ConnectionDisableSignupSms = ConnectionDisableSignup
+"""
+Controls whether new user signups are allowed via SMS authentication
+"""

@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .connection_assertion_decryption_settings import ConnectionAssertionDecryptionSettings
 from .connection_decryption_key_saml import ConnectionDecryptionKeySaml
 from .connection_digest_algorithm_saml import ConnectionDigestAlgorithmSaml
 from .connection_domain_aliases_saml import ConnectionDomainAliasesSaml
@@ -28,6 +29,7 @@ class ConnectionOptionsCommonSaml(UniversalBaseModel):
     Common options for SAML-based enterprise connections (shared by samlp and pingfederate).
     """
 
+    assertion_decryption_settings: typing.Optional[ConnectionAssertionDecryptionSettings] = None
     cert: typing.Optional[ConnectionSigningCertificateDerSaml] = None
     decryption_key: typing_extensions.Annotated[
         typing.Optional[ConnectionDecryptionKeySaml],

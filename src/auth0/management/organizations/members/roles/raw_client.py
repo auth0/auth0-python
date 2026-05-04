@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import jsonable_encoder
+from ....core.jsonable_encoder import encode_path_param
 from ....core.pagination import AsyncPager, SyncPager
+from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
 from ....errors.bad_request_error import BadRequestError
@@ -19,6 +20,7 @@ from ....types.list_organization_member_roles_offset_paginated_response_content 
     ListOrganizationMemberRolesOffsetPaginatedResponseContent,
 )
 from ....types.role import Role
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -71,7 +73,7 @@ class RawRolesClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/members/{jsonable_encoder(user_id)}/roles",
+            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
             method="GET",
             params={
                 "page": page,
@@ -147,6 +149,10 @@ class RawRolesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def assign(
@@ -181,7 +187,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/members/{jsonable_encoder(user_id)}/roles",
+            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
             method="POST",
             json={
                 "roles": roles,
@@ -253,6 +259,10 @@ class RawRolesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(
@@ -287,7 +297,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/members/{jsonable_encoder(user_id)}/roles",
+            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
             method="DELETE",
             json={
                 "roles": roles,
@@ -348,6 +358,10 @@ class RawRolesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -398,7 +412,7 @@ class AsyncRawRolesClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/members/{jsonable_encoder(user_id)}/roles",
+            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
             method="GET",
             params={
                 "page": page,
@@ -477,6 +491,10 @@ class AsyncRawRolesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def assign(
@@ -511,7 +529,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/members/{jsonable_encoder(user_id)}/roles",
+            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
             method="POST",
             json={
                 "roles": roles,
@@ -583,6 +601,10 @@ class AsyncRawRolesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -617,7 +639,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{jsonable_encoder(id)}/members/{jsonable_encoder(user_id)}/roles",
+            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
             method="DELETE",
             json={
                 "roles": roles,
@@ -678,4 +700,8 @@ class AsyncRawRolesClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

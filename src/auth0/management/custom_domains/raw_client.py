@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
@@ -28,6 +29,7 @@ from ..types.test_custom_domain_response_content import TestCustomDomainResponse
 from ..types.update_custom_domain_response_content import UpdateCustomDomainResponseContent
 from ..types.update_default_domain_response_content import UpdateDefaultDomainResponseContent
 from ..types.verify_custom_domain_response_content import VerifyCustomDomainResponseContent
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -128,6 +130,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -270,6 +276,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_default(
@@ -339,6 +349,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def set_default(
@@ -407,6 +421,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -429,7 +447,7 @@ class RawCustomDomainsClient:
             Custom domain successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}",
+            f"custom-domains/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -501,6 +519,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -520,7 +542,7 @@ class RawCustomDomainsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}",
+            f"custom-domains/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -574,6 +596,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -636,7 +662,7 @@ class RawCustomDomainsClient:
             Custom domain updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}",
+            f"custom-domains/{encode_path_param(id)}",
             method="PATCH",
             json={
                 "tls_policy": tls_policy,
@@ -707,6 +733,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def test(
@@ -729,7 +759,7 @@ class RawCustomDomainsClient:
             Custom domain test successfully completed.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}/test",
+            f"custom-domains/{encode_path_param(id)}/test",
             method="POST",
             request_options=request_options,
         )
@@ -801,6 +831,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def verify(
@@ -830,7 +864,7 @@ class RawCustomDomainsClient:
             Custom domain successfully verified.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}/verify",
+            f"custom-domains/{encode_path_param(id)}/verify",
             method="POST",
             request_options=request_options,
         )
@@ -902,6 +936,10 @@ class RawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -1000,6 +1038,10 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -1142,6 +1184,10 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_default(
@@ -1211,6 +1257,10 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def set_default(
@@ -1279,6 +1329,10 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -1301,7 +1355,7 @@ class AsyncRawCustomDomainsClient:
             Custom domain successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}",
+            f"custom-domains/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1373,6 +1427,10 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -1394,7 +1452,7 @@ class AsyncRawCustomDomainsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}",
+            f"custom-domains/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1448,6 +1506,10 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -1510,7 +1572,7 @@ class AsyncRawCustomDomainsClient:
             Custom domain updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}",
+            f"custom-domains/{encode_path_param(id)}",
             method="PATCH",
             json={
                 "tls_policy": tls_policy,
@@ -1581,6 +1643,10 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def test(
@@ -1603,7 +1669,7 @@ class AsyncRawCustomDomainsClient:
             Custom domain test successfully completed.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}/test",
+            f"custom-domains/{encode_path_param(id)}/test",
             method="POST",
             request_options=request_options,
         )
@@ -1675,6 +1741,10 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def verify(
@@ -1704,7 +1774,7 @@ class AsyncRawCustomDomainsClient:
             Custom domain successfully verified.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"custom-domains/{jsonable_encoder(id)}/verify",
+            f"custom-domains/{encode_path_param(id)}/verify",
             method="POST",
             request_options=request_options,
         )
@@ -1776,4 +1846,8 @@ class AsyncRawCustomDomainsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

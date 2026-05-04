@@ -3,3 +3,6 @@
 from .connection_ext_admin import ConnectionExtAdmin
 
 ConnectionExtIsAdminGoogleApps = ConnectionExtAdmin
+"""
+Fetches the Google Directory admin flag for the signing-in user.
+"""

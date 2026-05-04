@@ -3,3 +3,6 @@
 from .connection_ext_groups import ConnectionExtGroups
 
 ConnectionExtGroupsGoogleApps = ConnectionExtGroups
+"""
+Enables enrichment with Google group memberships (required for `ext_groups_extended`).
+"""

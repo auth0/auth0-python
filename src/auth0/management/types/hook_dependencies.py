@@ -3,3 +3,6 @@
 import typing
 
 HookDependencies = typing.Dict[str, str]
+"""
+Dependencies of this hook used by webtask server.
+"""

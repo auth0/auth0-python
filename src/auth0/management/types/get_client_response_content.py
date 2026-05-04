@@ -20,14 +20,17 @@ from .client_external_metadata_type_enum import ClientExternalMetadataTypeEnum
 from .client_jwt_configuration import ClientJwtConfiguration
 from .client_metadata import ClientMetadata
 from .client_mobile import ClientMobile
+from .client_my_organization_response_configuration import ClientMyOrganizationResponseConfiguration
 from .client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
 from .client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
 from .client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
 from .client_organization_usage_enum import ClientOrganizationUsageEnum
+from .client_redirection_policy_enum import ClientRedirectionPolicyEnum
 from .client_refresh_token_configuration import ClientRefreshTokenConfiguration
 from .client_session_transfer_configuration import ClientSessionTransferConfiguration
 from .client_signed_request_object_with_credential_id import ClientSignedRequestObjectWithCredentialId
 from .client_signing_keys import ClientSigningKeys
+from .client_third_party_security_mode_enum import ClientThirdPartySecurityModeEnum
 from .client_token_endpoint_auth_method_enum import ClientTokenEndpointAuthMethodEnum
 from .client_token_exchange_configuration import ClientTokenExchangeConfiguration
 from .express_configuration import ExpressConfiguration
@@ -217,6 +220,9 @@ class GetClientResponseContent(UniversalBaseModel):
 
     token_quota: typing.Optional[TokenQuota] = None
     express_configuration: typing.Optional[ExpressConfiguration] = None
+    my_organization_configuration: typing.Optional[ClientMyOrganizationResponseConfiguration] = None
+    third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = None
+    redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = None
     resource_server_identifier: typing.Optional[str] = pydantic.Field(default=None)
     """
     The identifier of the resource server that this client is linked to.

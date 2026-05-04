@@ -16,9 +16,8 @@ CHANGELOG.md
 src/auth0/authentication/
 tests/authentication/
 
-# Root auth0 __init__.pys
+# Root auth0 __init__.py
 src/auth0/__init__.py
-src/auth0/management/__init__.py
 
 # Telemetry customization (Auth0 format with dynamic versioning)
 src/auth0/management/core/client_wrapper.py
@@ -41,3 +40,6 @@ LICENSE
 
 # GitHub workflows and configuration
 .github/
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes

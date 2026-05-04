@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionOptionsFreeformScopesGithub = ConnectionScopeArray
+"""
+Array of custom OAuth 2.0 scopes to request from GitHub during authentication. Use this to request scopes not covered by the predefined scope options.
+"""

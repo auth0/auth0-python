@@ -5,3 +5,6 @@ import typing
 from .connection_sha_1_thumbprint import ConnectionSha1Thumbprint
 
 ConnectionThumbprintsAd = typing.List[ConnectionSha1Thumbprint]
+"""
+Array of certificate SHA-1 thumbprints for validating signatures. Managed by Auth0 when using the AD Connector agent.
+"""

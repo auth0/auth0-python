@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.pagination import AsyncPager, SyncPager
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
@@ -18,6 +19,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.get_group_response_content import GetGroupResponseContent
 from ..types.group import Group
 from ..types.list_groups_paginated_response_content import ListGroupsPaginatedResponseContent
+from pydantic import ValidationError
 
 
 class RawGroupsClient:
@@ -30,6 +32,7 @@ class RawGroupsClient:
         connection_id: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         external_id: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
         from_: typing.Optional[str] = None,
@@ -49,6 +52,9 @@ class RawGroupsClient:
 
         external_id : typing.Optional[str]
             Filter groups by external ID.
+
+        search : typing.Optional[str]
+            Search for groups by name or external ID.
 
         fields : typing.Optional[str]
             A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
@@ -77,6 +83,7 @@ class RawGroupsClient:
                 "connection_id": connection_id,
                 "name": name,
                 "external_id": external_id,
+                "search": search,
                 "fields": fields,
                 "include_fields": include_fields,
                 "from": from_,
@@ -100,6 +107,7 @@ class RawGroupsClient:
                     connection_id=connection_id,
                     name=name,
                     external_id=external_id,
+                    search=search,
                     fields=fields,
                     include_fields=include_fields,
                     from_=_parsed_next,
@@ -154,6 +162,10 @@ class RawGroupsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -176,7 +188,7 @@ class RawGroupsClient:
             Group successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"groups/{jsonable_encoder(id)}",
+            f"groups/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -248,6 +260,10 @@ class RawGroupsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -267,7 +283,7 @@ class RawGroupsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"groups/{jsonable_encoder(id)}",
+            f"groups/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -321,6 +337,10 @@ class RawGroupsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -334,6 +354,7 @@ class AsyncRawGroupsClient:
         connection_id: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         external_id: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
         from_: typing.Optional[str] = None,
@@ -353,6 +374,9 @@ class AsyncRawGroupsClient:
 
         external_id : typing.Optional[str]
             Filter groups by external ID.
+
+        search : typing.Optional[str]
+            Search for groups by name or external ID.
 
         fields : typing.Optional[str]
             A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields
@@ -381,6 +405,7 @@ class AsyncRawGroupsClient:
                 "connection_id": connection_id,
                 "name": name,
                 "external_id": external_id,
+                "search": search,
                 "fields": fields,
                 "include_fields": include_fields,
                 "from": from_,
@@ -406,6 +431,7 @@ class AsyncRawGroupsClient:
                         connection_id=connection_id,
                         name=name,
                         external_id=external_id,
+                        search=search,
                         fields=fields,
                         include_fields=include_fields,
                         from_=_parsed_next,
@@ -461,6 +487,10 @@ class AsyncRawGroupsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -483,7 +513,7 @@ class AsyncRawGroupsClient:
             Group successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"groups/{jsonable_encoder(id)}",
+            f"groups/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -555,6 +585,10 @@ class AsyncRawGroupsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -576,7 +610,7 @@ class AsyncRawGroupsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"groups/{jsonable_encoder(id)}",
+            f"groups/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -630,4 +664,8 @@ class AsyncRawGroupsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

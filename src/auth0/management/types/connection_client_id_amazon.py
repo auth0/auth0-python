@@ -3,3 +3,6 @@
 from .connection_client_id import ConnectionClientId
 
 ConnectionClientIdAmazon = ConnectionClientId
+"""
+OAuth 2.0 client identifier obtained from Amazon Developer Console during Login with Amazon application registration. When not provided, Auth0 development keys are used for testing purposes.
+"""

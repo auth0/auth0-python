@@ -3,3 +3,6 @@
 from .connection_signature_algorithm_enum_saml import ConnectionSignatureAlgorithmEnumSaml
 
 ConnectionSignatureAlgorithmSaml = ConnectionSignatureAlgorithmEnumSaml
+"""
+Algorithm used to sign SAML authentication requests and logout requests using the connection's signing key. Common values: 'rsa-sha256' (RSA signature with SHA-256 digest) or 'rsa-sha1'. Defaults to 'rsa-sha256'.
+"""

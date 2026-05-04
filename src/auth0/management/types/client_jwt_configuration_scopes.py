@@ -3,3 +3,6 @@
 import typing
 
 ClientJwtConfigurationScopes = typing.Dict[str, typing.Any]
+"""
+Configuration related to id token claims for the client.
+"""

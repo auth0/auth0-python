@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
@@ -21,8 +22,10 @@ from ...types.self_service_profile_sso_ticket_connection_config import SelfServi
 from ...types.self_service_profile_sso_ticket_domain_aliases_config import (
     SelfServiceProfileSsoTicketDomainAliasesConfig,
 )
+from ...types.self_service_profile_sso_ticket_enabled_features import SelfServiceProfileSsoTicketEnabledFeatures
 from ...types.self_service_profile_sso_ticket_enabled_organization import SelfServiceProfileSsoTicketEnabledOrganization
 from ...types.self_service_profile_sso_ticket_provisioning_config import SelfServiceProfileSsoTicketProvisioningConfig
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,10 +47,11 @@ class RawSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
         """
-        Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+        Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
 
         Parameters
         ----------
@@ -55,7 +59,7 @@ class RawSsoTicketClient:
             The id of the self-service profile to retrieve
 
         connection_id : typing.Optional[str]
-            If provided, this will allow editing of the provided connection during the SSO Flow
+            If provided, this will allow editing of the provided connection during the Self-Service Enterprise Configuration flow
 
         connection_config : typing.Optional[SelfServiceProfileSsoTicketConnectionConfig]
 
@@ -75,16 +79,18 @@ class RawSsoTicketClient:
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
+        enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         HttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]
-            SSO Access Ticket successfully created.
+            Self-Service Enterprise Configuration Access Ticket successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/sso-ticket",
+            f"self-service-profiles/{encode_path_param(id)}/sso-ticket",
             method="POST",
             json={
                 "connection_id": connection_id,
@@ -109,6 +115,9 @@ class RawSsoTicketClient:
                     direction="write",
                 ),
                 "use_for_organization_discovery": use_for_organization_discovery,
+                "enabled_features": convert_and_respect_annotation_metadata(
+                    object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -173,13 +182,17 @@ class RawSsoTicketClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def revoke(
         self, profile_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Revokes an SSO access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service SSO session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
+        Revokes a Self-Service Enterprise Configuration access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service Enterprise Configuration session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
         Clients should treat these `202` responses as an acknowledgment that the request has been accepted and is in progress, even if the ticket was not found.
 
         Parameters
@@ -198,7 +211,7 @@ class RawSsoTicketClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(profile_id)}/sso-ticket/{jsonable_encoder(id)}/revoke",
+            f"self-service-profiles/{encode_path_param(profile_id)}/sso-ticket/{encode_path_param(id)}/revoke",
             method="POST",
             request_options=request_options,
         )
@@ -241,6 +254,10 @@ class RawSsoTicketClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -260,10 +277,11 @@ class AsyncRawSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
         """
-        Creates an SSO access ticket to initiate the Self Service SSO Flow using a self-service profile.
+        Creates an access ticket to initiate the Self-Service Enterprise Configuration flow using a self-service profile.
 
         Parameters
         ----------
@@ -271,7 +289,7 @@ class AsyncRawSsoTicketClient:
             The id of the self-service profile to retrieve
 
         connection_id : typing.Optional[str]
-            If provided, this will allow editing of the provided connection during the SSO Flow
+            If provided, this will allow editing of the provided connection during the Self-Service Enterprise Configuration flow
 
         connection_config : typing.Optional[SelfServiceProfileSsoTicketConnectionConfig]
 
@@ -291,16 +309,18 @@ class AsyncRawSsoTicketClient:
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
+        enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]
-            SSO Access Ticket successfully created.
+            Self-Service Enterprise Configuration Access Ticket successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(id)}/sso-ticket",
+            f"self-service-profiles/{encode_path_param(id)}/sso-ticket",
             method="POST",
             json={
                 "connection_id": connection_id,
@@ -325,6 +345,9 @@ class AsyncRawSsoTicketClient:
                     direction="write",
                 ),
                 "use_for_organization_discovery": use_for_organization_discovery,
+                "enabled_features": convert_and_respect_annotation_metadata(
+                    object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -389,13 +412,17 @@ class AsyncRawSsoTicketClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def revoke(
         self, profile_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Revokes an SSO access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service SSO session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
+        Revokes a Self-Service Enterprise Configuration access ticket and invalidates associated sessions. The ticket will no longer be accepted to initiate a Self-Service Enterprise Configuration session. If any users have already started a session through this ticket, their session will be terminated. Clients should expect a `202 Accepted` response upon successful processing, indicating that the request has been acknowledged and that the revocation is underway but may not be fully completed at the time of response. If the specified ticket does not exist, a `202 Accepted` response is also returned, signaling that no further action is required.
         Clients should treat these `202` responses as an acknowledgment that the request has been accepted and is in progress, even if the ticket was not found.
 
         Parameters
@@ -414,7 +441,7 @@ class AsyncRawSsoTicketClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{jsonable_encoder(profile_id)}/sso-ticket/{jsonable_encoder(id)}/revoke",
+            f"self-service-profiles/{encode_path_param(profile_id)}/sso-ticket/{encode_path_param(id)}/revoke",
             method="POST",
             request_options=request_options,
         )
@@ -457,4 +484,8 @@ class AsyncRawSsoTicketClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

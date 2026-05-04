@@ -3,3 +3,6 @@
 import typing
 
 ConnectionOptionsCustom = typing.Dict[str, typing.Any]
+"""
+Options for 'custom' connections
+"""

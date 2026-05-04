@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.pagination import AsyncPager, SyncPager
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
@@ -35,16 +36,20 @@ from ..types.client_encryption_key import ClientEncryptionKey
 from ..types.client_jwt_configuration import ClientJwtConfiguration
 from ..types.client_metadata import ClientMetadata
 from ..types.client_mobile import ClientMobile
+from ..types.client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
+from ..types.client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
 from ..types.client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
 from ..types.client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
 from ..types.client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
 from ..types.client_organization_require_behavior_patch_enum import ClientOrganizationRequireBehaviorPatchEnum
 from ..types.client_organization_usage_enum import ClientOrganizationUsageEnum
 from ..types.client_organization_usage_patch_enum import ClientOrganizationUsagePatchEnum
+from ..types.client_redirection_policy_enum import ClientRedirectionPolicyEnum
 from ..types.client_refresh_token_configuration import ClientRefreshTokenConfiguration
 from ..types.client_session_transfer_configuration import ClientSessionTransferConfiguration
 from ..types.client_signed_request_object_with_credential_id import ClientSignedRequestObjectWithCredentialId
 from ..types.client_signed_request_object_with_public_key import ClientSignedRequestObjectWithPublicKey
+from ..types.client_third_party_security_mode_enum import ClientThirdPartySecurityModeEnum
 from ..types.client_token_endpoint_auth_method_enum import ClientTokenEndpointAuthMethodEnum
 from ..types.client_token_endpoint_auth_method_or_null_enum import ClientTokenEndpointAuthMethodOrNullEnum
 from ..types.client_token_exchange_configuration import ClientTokenExchangeConfiguration
@@ -61,6 +66,7 @@ from ..types.register_cimd_client_response_content import RegisterCimdClientResp
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
 from ..types.update_client_response_content import UpdateClientResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -251,6 +257,10 @@ class RawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -304,7 +314,10 @@ class RawClientsClient:
         par_request_expiry: typing.Optional[int] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
+        third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
+        redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
@@ -455,7 +468,13 @@ class RawClientsClient:
         resource_server_identifier : typing.Optional[str]
             The identifier of the resource server that this client is linked to.
 
+        third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
+
+        redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
+
         express_configuration : typing.Optional[ExpressConfiguration]
+
+        my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
@@ -555,8 +574,15 @@ class RawClientsClient:
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
                 "resource_server_identifier": resource_server_identifier,
+                "third_party_security_mode": third_party_security_mode,
+                "redirection_policy": redirection_policy,
                 "express_configuration": convert_and_respect_annotation_metadata(
                     object_=express_configuration, annotation=ExpressConfiguration, direction="write"
+                ),
+                "my_organization_configuration": convert_and_respect_annotation_metadata(
+                    object_=my_organization_configuration,
+                    annotation=ClientMyOrganizationPostConfiguration,
+                    direction="write",
                 ),
                 "async_approval_notification_channels": async_approval_notification_channels,
             },
@@ -634,6 +660,10 @@ class RawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def preview_cimd_metadata(
@@ -739,6 +769,10 @@ class RawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def register_cimd_client(
@@ -843,6 +877,10 @@ class RawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -906,7 +944,7 @@ class RawClientsClient:
             Client successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(id)}",
+            f"clients/{encode_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -982,6 +1020,10 @@ class RawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
@@ -1001,7 +1043,7 @@ class RawClientsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(id)}",
+            f"clients/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1055,6 +1097,10 @@ class RawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -1110,9 +1156,12 @@ class RawClientsClient:
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
         ] = OMIT,
+        third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
+        redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateClientResponseContent]:
         """
@@ -1262,7 +1311,13 @@ class RawClientsClient:
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
 
+        my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
+
+        third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
+
+        redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1273,7 +1328,7 @@ class RawClientsClient:
             Client successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(id)}",
+            f"clients/{encode_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -1369,7 +1424,14 @@ class RawClientsClient:
                     annotation=typing.Optional[ExpressConfigurationOrNull],
                     direction="write",
                 ),
+                "my_organization_configuration": convert_and_respect_annotation_metadata(
+                    object_=my_organization_configuration,
+                    annotation=typing.Optional[ClientMyOrganizationPatchConfiguration],
+                    direction="write",
+                ),
                 "async_approval_notification_channels": async_approval_notification_channels,
+                "third_party_security_mode": third_party_security_mode,
+                "redirection_policy": redirection_policy,
             },
             headers={
                 "content-type": "application/json",
@@ -1445,6 +1507,10 @@ class RawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def rotate_secret(
@@ -1471,7 +1537,7 @@ class RawClientsClient:
             Secret successfully rotated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(id)}/rotate-secret",
+            f"clients/{encode_path_param(id)}/rotate-secret",
             method="POST",
             request_options=request_options,
         )
@@ -1543,6 +1609,10 @@ class RawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -1734,6 +1804,10 @@ class AsyncRawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -1787,7 +1861,10 @@ class AsyncRawClientsClient:
         par_request_expiry: typing.Optional[int] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
+        third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
+        redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
@@ -1938,7 +2015,13 @@ class AsyncRawClientsClient:
         resource_server_identifier : typing.Optional[str]
             The identifier of the resource server that this client is linked to.
 
+        third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
+
+        redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
+
         express_configuration : typing.Optional[ExpressConfiguration]
+
+        my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
@@ -2038,8 +2121,15 @@ class AsyncRawClientsClient:
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
                 "resource_server_identifier": resource_server_identifier,
+                "third_party_security_mode": third_party_security_mode,
+                "redirection_policy": redirection_policy,
                 "express_configuration": convert_and_respect_annotation_metadata(
                     object_=express_configuration, annotation=ExpressConfiguration, direction="write"
+                ),
+                "my_organization_configuration": convert_and_respect_annotation_metadata(
+                    object_=my_organization_configuration,
+                    annotation=ClientMyOrganizationPostConfiguration,
+                    direction="write",
                 ),
                 "async_approval_notification_channels": async_approval_notification_channels,
             },
@@ -2117,6 +2207,10 @@ class AsyncRawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def preview_cimd_metadata(
@@ -2222,6 +2316,10 @@ class AsyncRawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def register_cimd_client(
@@ -2326,6 +2424,10 @@ class AsyncRawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -2389,7 +2491,7 @@ class AsyncRawClientsClient:
             Client successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(id)}",
+            f"clients/{encode_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -2465,6 +2567,10 @@ class AsyncRawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -2486,7 +2592,7 @@ class AsyncRawClientsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(id)}",
+            f"clients/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -2540,6 +2646,10 @@ class AsyncRawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -2595,9 +2705,12 @@ class AsyncRawClientsClient:
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
         ] = OMIT,
+        third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
+        redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateClientResponseContent]:
         """
@@ -2747,7 +2860,13 @@ class AsyncRawClientsClient:
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
 
+        my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
+
+        third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
+
+        redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2758,7 +2877,7 @@ class AsyncRawClientsClient:
             Client successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(id)}",
+            f"clients/{encode_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -2854,7 +2973,14 @@ class AsyncRawClientsClient:
                     annotation=typing.Optional[ExpressConfigurationOrNull],
                     direction="write",
                 ),
+                "my_organization_configuration": convert_and_respect_annotation_metadata(
+                    object_=my_organization_configuration,
+                    annotation=typing.Optional[ClientMyOrganizationPatchConfiguration],
+                    direction="write",
+                ),
                 "async_approval_notification_channels": async_approval_notification_channels,
+                "third_party_security_mode": third_party_security_mode,
+                "redirection_policy": redirection_policy,
             },
             headers={
                 "content-type": "application/json",
@@ -2930,6 +3056,10 @@ class AsyncRawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def rotate_secret(
@@ -2956,7 +3086,7 @@ class AsyncRawClientsClient:
             Secret successfully rotated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{jsonable_encoder(id)}/rotate-secret",
+            f"clients/{encode_path_param(id)}/rotate-secret",
             method="POST",
             request_options=request_options,
         )
@@ -3028,4 +3158,8 @@ class AsyncRawClientsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

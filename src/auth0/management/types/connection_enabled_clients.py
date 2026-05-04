@@ -3,3 +3,6 @@
 import typing
 
 ConnectionEnabledClients = typing.List[str]
+"""
+DEPRECATED property. Use the PATCH /v2/connections/{id}/clients endpoint to enable the connection for a set of clients.
+"""
