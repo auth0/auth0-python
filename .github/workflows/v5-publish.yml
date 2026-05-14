@@ -1,0 +1,109 @@
+name: Publish Release (v5)
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        type: choice
+        required: true
+        options:
+          - testpypi
+          - pypi
+        default: 'testpypi'
+  pull_request:
+    branches:
+      - v5
+
+permissions:
+  contents: write
+  id-token: write 
+
+jobs:
+  publish-pypi:
+    name: "PyPI"
+    runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'testpypi' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - id: get_version
+        name: Get version from pyproject.toml
+        run: |
+          VERSION=$(grep '^version = ' pyproject.toml | sed 's/version = "\(.*\)"/\1/')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - id: get_prerelease
+        name: Determine if pre-release
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          if [[ "$VERSION" =~ (a|alpha|b|beta|rc)[0-9]* ]]; then
+            echo "prerelease=true" >> $GITHUB_OUTPUT
+            echo "Pre-release: true"
+          else
+            echo "prerelease=false" >> $GITHUB_OUTPUT
+            echo "Stable release"
+          fi
+
+      - name: Create GitHub Release
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'pypi'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          release_name: v${{ steps.get_version.outputs.version }}
+          body: |
+            See [v5_MIGRATION_GUIDE.md](https://github.com/${{ github.repository }}/blob/main/v5_MIGRATION_GUIDE.md) for migration instructions.
+          draft: false
+          prerelease: ${{ steps.get_prerelease.outputs.prerelease }}
+
+      - name: Configure Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+
+      - name: Configure dependencies
+        run: |
+          pip install --user --upgrade pip
+          pip install --user pipx
+          pipx ensurepath
+          pipx install poetry
+          poetry config virtualenvs.in-project true
+          poetry install
+
+      - name: Build release
+        run: |
+          poetry build
+          ls -lh dist/
+          echo "Build successful! Artifacts created:"
+          ls -lh dist/
+
+      - name: Publish to Test PyPI
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'testpypi'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
+          print-hash: true
+
+      - name: Publish to PyPI
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'pypi'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          print-hash: true
+
+      - name: Summary
+        run: |
+          echo "### Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Version: ${{ steps.get_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Environment: ${{ github.event.inputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Pre-release: ${{ steps.get_prerelease.outputs.prerelease }}" >> $GITHUB_STEP_SUMMARY

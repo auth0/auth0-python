@@ -85,6 +85,8 @@ client = ManagementClient(
 
 For async usage:
 
+Alternatively, you can use the `Auth0` client directly with a full base URL:
+
 ```python
 import asyncio
 from auth0.management import AsyncManagementClient
