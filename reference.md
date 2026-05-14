@@ -10953,6 +10953,14 @@ client.refresh_tokens.revoke()
 <dl>
 <dd>
 
+**audience:** `typing.Optional[str]` — Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -11413,6 +11421,14 @@ client.resource_servers.create(
 <dl>
 <dd>
 
+**allow_online_access_with_ephemeral_sessions:** `typing.Optional[bool]` — Whether Online Refresh Tokens can be issued even when sessions are configured as ephemeral (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **token_lifetime:** `typing.Optional[int]` — Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
     
 </dd>
@@ -11770,6 +11786,14 @@ client.resource_servers.update(
 <dd>
 
 **allow_online_access:** `typing.Optional[bool]` — Whether Online Refresh Tokens can be issued for this API (true) or not (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allow_online_access_with_ephemeral_sessions:** `typing.Optional[bool]` — Whether Online Refresh Tokens can be issued even when sessions are configured as ephemeral (true) or not (false).
     
 </dd>
 </dl>
@@ -14222,7 +14246,7 @@ client.tickets.change_password()
 <dl>
 <dd>
 
-**result_url:** `typing.Optional[str]` — URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.
+**result_url:** `typing.Optional[str]` — URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using organization_id. May be specified together with client_id when the tenant has a custom password reset page enabled and a password-reset-post-challenge Action bound.
     
 </dd>
 </dl>
@@ -34782,7 +34806,7 @@ client.users.authentication_methods.create(
 <dl>
 <dd>
 
-**key_id:** `typing.Optional[str]` — Applies to webauthn authentication methods only. The id of the credential.
+**key_id:** `typing.Optional[str]` — Applies to webauthn/passkey authentication methods only. The id of the credential.
     
 </dd>
 </dl>
@@ -34790,7 +34814,15 @@ client.users.authentication_methods.create(
 <dl>
 <dd>
 
-**public_key:** `typing.Optional[str]` — Applies to webauthn authentication methods only. The public key, which is encoded as base64.
+**public_key:** `typing.Optional[str]` — Applies to webauthn/passkey authentication methods only. The public key, which is encoded as base64.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**aaguid:** `typing.Optional[str]` — Applies to passkeys only. Authenticator Attestation Globally Unique Identifier
     
 </dd>
 </dl>
@@ -34799,6 +34831,54 @@ client.users.authentication_methods.create(
 <dd>
 
 **relying_party_identifier:** `typing.Optional[str]` — Applies to webauthn authentication methods only. The relying party identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**credential_device_type:** `typing.Optional[CredentialDeviceTypeEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**credential_backed_up:** `typing.Optional[bool]` — Applies to passkeys only. Whether the credential was backed up.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_user_id:** `typing.Optional[str]` — Applies to passkeys only. The ID of the user identity linked with the authentication method.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_agent:** `typing.Optional[str]` — Applies to passkeys only. The user-agent of the browser used to create the passkey.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_handle:** `typing.Optional[str]` — Applies to passkeys only. The user handle of the user identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transports:** `typing.Optional[typing.List[str]]` — Applies to passkeys only. The transports used by clients to communicate with the authenticator.
     
 </dd>
 </dl>
