@@ -73,6 +73,10 @@ jobs:
       - id: get_version
         uses: ./.github/actions/get-version
 
+      # Get the version from the branch name
+      - id: get_version
+        uses: ./.github/actions/get-version
+
       # Get the prerelease flag from the branch name
       - id: get_prerelease
         uses: ./.github/actions/get-prerelease
