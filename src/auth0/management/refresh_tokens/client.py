@@ -110,6 +110,7 @@ class RefreshTokensClient:
         ids: typing.Optional[typing.Sequence[str]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         client_id: typing.Optional[str] = OMIT,
+        audience: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -125,6 +126,9 @@ class RefreshTokensClient:
 
         client_id : typing.Optional[str]
             Revoke all refresh tokens for this client.
+
+        audience : typing.Optional[str]
+            Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -143,7 +147,7 @@ class RefreshTokensClient:
         client.refresh_tokens.revoke()
         """
         _response = self._raw_client.revoke(
-            ids=ids, user_id=user_id, client_id=client_id, request_options=request_options
+            ids=ids, user_id=user_id, client_id=client_id, audience=audience, request_options=request_options
         )
         return _response.data
 
@@ -356,6 +360,7 @@ class AsyncRefreshTokensClient:
         ids: typing.Optional[typing.Sequence[str]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         client_id: typing.Optional[str] = OMIT,
+        audience: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -371,6 +376,9 @@ class AsyncRefreshTokensClient:
 
         client_id : typing.Optional[str]
             Revoke all refresh tokens for this client.
+
+        audience : typing.Optional[str]
+            Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -397,7 +405,7 @@ class AsyncRefreshTokensClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.revoke(
-            ids=ids, user_id=user_id, client_id=client_id, request_options=request_options
+            ids=ids, user_id=user_id, client_id=client_id, audience=audience, request_options=request_options
         )
         return _response.data
 

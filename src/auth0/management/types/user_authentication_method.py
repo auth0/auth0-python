@@ -89,6 +89,16 @@ class UserAuthenticationMethod(UniversalBaseModel):
     Applies to passkeys only. The user-agent of the browser used to create the passkey.
     """
 
+    user_handle: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Applies to passkeys only. The user handle of the user identity.
+    """
+
+    transports: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Applies to passkeys only. The transports used by clients to communicate with the authenticator.
+    """
+
     aaguid: typing.Optional[str] = pydantic.Field(default=None)
     """
     Applies to passkey authentication methods only. Authenticator Attestation Globally Unique Identifier.
