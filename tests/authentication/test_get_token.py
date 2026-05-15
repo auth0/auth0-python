@@ -6,6 +6,7 @@ from unittest.mock import ANY
 
 from cryptography.hazmat.primitives import asymmetric, serialization
 
+from ...exceptions import RateLimitError
 from auth0.authentication.exceptions import RateLimitError
 from auth0.authentication.get_token import GetToken
 
