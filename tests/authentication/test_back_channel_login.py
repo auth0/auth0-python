@@ -50,6 +50,23 @@ class TestBackChannelLogin(unittest.TestCase):
         self.assertEqual(context.exception.status_code, 400)
         self.assertEqual(context.exception.message, 'foo')
 
+    @mock.patch("requests.request")
+    def test_server_error(self, mock_requests_request):
+        response = requests.Response()
+        response.status_code = 400
+        response._content = b'{"error":"foo"}'
+        mock_requests_request.return_value = response
+
+        g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
+        with self.assertRaises(Auth0Error) as context:
+            g.back_channel_login(
+                binding_message="msg",
+                login_hint="hint",
+                scope="openid"
+            )
+        self.assertEqual(context.exception.status_code, 400)
+        self.assertEqual(context.exception.message, 'foo')
+
     @mock.patch("auth0.authentication.rest.RestClient.post")
     def test_should_require_binding_message(self, mock_post):
         g = BackChannelLogin("my.domain.com", "cid", client_secret="clsec")
