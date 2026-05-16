@@ -178,6 +178,7 @@ class RawRefreshTokensClient:
         ids: typing.Optional[typing.Sequence[str]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         client_id: typing.Optional[str] = OMIT,
+        audience: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
@@ -194,6 +195,9 @@ class RawRefreshTokensClient:
         client_id : typing.Optional[str]
             Revoke all refresh tokens for this client.
 
+        audience : typing.Optional[str]
+            Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -208,6 +212,7 @@ class RawRefreshTokensClient:
                 "ids": ids,
                 "user_id": user_id,
                 "client_id": client_id,
+                "audience": audience,
             },
             headers={
                 "content-type": "application/json",
@@ -713,6 +718,7 @@ class AsyncRawRefreshTokensClient:
         ids: typing.Optional[typing.Sequence[str]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         client_id: typing.Optional[str] = OMIT,
+        audience: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
@@ -729,6 +735,9 @@ class AsyncRawRefreshTokensClient:
         client_id : typing.Optional[str]
             Revoke all refresh tokens for this client.
 
+        audience : typing.Optional[str]
+            Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -743,6 +752,7 @@ class AsyncRawRefreshTokensClient:
                 "ids": ids,
                 "user_id": user_id,
                 "client_id": client_id,
+                "audience": audience,
             },
             headers={
                 "content-type": "application/json",

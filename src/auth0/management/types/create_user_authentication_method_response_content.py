@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .created_user_authentication_method_type_enum import CreatedUserAuthenticationMethodTypeEnum
+from .credential_device_type_enum import CredentialDeviceTypeEnum
 from .preferred_authentication_method_enum import PreferredAuthenticationMethodEnum
 from .user_authentication_method_properties import UserAuthenticationMethodProperties
 
@@ -65,6 +66,32 @@ class CreateUserAuthenticationMethodResponseContent(UniversalBaseModel):
     relying_party_identifier: typing.Optional[str] = pydantic.Field(default=None)
     """
     Applies to webauthn authenticators only. The relying party identifier.
+    """
+
+    credential_device_type: typing.Optional[CredentialDeviceTypeEnum] = None
+    credential_backed_up: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Applies to passkeys only. Whether the credential was backed up.
+    """
+
+    identity_user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Applies to passkeys only. The ID of the user identity linked with the authentication method.
+    """
+
+    user_agent: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Applies to passkeys only. The user-agent of the browser used to create the passkey.
+    """
+
+    user_handle: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Applies to passkeys only. The user handle of the user identity.
+    """
+
+    transports: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Applies to passkeys only. The transports used by clients to communicate with the authenticator.
     """
 
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
