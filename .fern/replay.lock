@@ -6,21 +6,20 @@ generations:
     timestamp: 2026-04-28T17:41:46.911Z
     cli_version: unknown
     generator_versions: {}
-  - commit_sha: b61c6fa84f61d6c77d9f4ab0fa6c2bf512c8680d
-    tree_hash: 063654dc375085f1a8bea81c0b92c9f5a2416241
-    timestamp: 2026-05-01T07:46:03.366Z
+  - commit_sha: ffe61f6a098cb25a875019a37f2615045b97344e
+    tree_hash: d03a986a5da90661589bd53a6afdd5725588658c
+    timestamp: 2026-04-29T20:01:22+05:30
     cli_version: unknown
-    generator_versions:
-      fernapi/fern-python-sdk: 5.9.1
-    base_branch_head: 6e9c9a600c40b731e00bbf7f4e4285fe7758c0b5
-current_generation: b61c6fa84f61d6c77d9f4ab0fa6c2bf512c8680d
+    generator_versions: {}
+    base_branch_head: de316f0260ef1fa7c3626cbe771b167fd119439c
+current_generation: ffe61f6a098cb25a875019a37f2615045b97344e
 patches:
   - id: patch-4894603d
     content_hash: sha256:07bdd182f3a0fcf3bb41c2edeae2ae065fc98ce0dcae83201bde3e2140f9882d
     original_commit: 4894603d03409962bc60a34712de8abffe919e2c
     original_message: "chore: Restore custom wiring in management/__init__.py"
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: b61c6fa84f61d6c77d9f4ab0fa6c2bf512c8680d
+    base_generation: ffe61f6a098cb25a875019a37f2615045b97344e
     files:
       - src/auth0/management/__init__.py
     patch_content: |
