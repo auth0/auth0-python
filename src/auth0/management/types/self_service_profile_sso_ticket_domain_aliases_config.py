@@ -9,10 +9,14 @@ from .self_service_profile_sso_ticket_domain_verification_enum import SelfServic
 
 class SelfServiceProfileSsoTicketDomainAliasesConfig(UniversalBaseModel):
     """
-    Configuration for the setup of the connection’s domain_aliases in the self-service SSO flow.
+    Configuration for the setup of the connection’s domain_aliases in the Self-Service Enterprise Configuration flow.
     """
 
     domain_verification: SelfServiceProfileSsoTicketDomainVerificationEnum
+    pending_domains: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    List of domains that will be submitted for verification during the Self-Service Enterprise Configuration flow.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

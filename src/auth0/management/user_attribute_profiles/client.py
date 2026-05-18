@@ -95,7 +95,7 @@ class UserAttributeProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateUserAttributeProfileResponseContent:
         """
-        Retrieve details about a single User Attribute Profile specified by ID.
+        Create a User Attribute Profile
 
         Parameters
         ----------
@@ -387,7 +387,7 @@ class AsyncUserAttributeProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateUserAttributeProfileResponseContent:
         """
-        Retrieve details about a single User Attribute Profile specified by ID.
+        Create a User Attribute Profile
 
         Parameters
         ----------

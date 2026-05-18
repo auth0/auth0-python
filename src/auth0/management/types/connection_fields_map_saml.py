@@ -5,3 +5,6 @@ import typing
 from .connection_fields_map_saml_value import ConnectionFieldsMapSamlValue
 
 ConnectionFieldsMapSaml = typing.Dict[str, ConnectionFieldsMapSamlValue]
+"""
+Maps SAML assertion attributes from the identity provider to Auth0 user profile attributes. Format: { 'auth0_field': 'saml_attribute' } or { 'auth0_field': ['saml_attr1', 'saml_attr2'] } for fallback options. Merged with default mappings for email, name, given_name, family_name, and groups.
+"""

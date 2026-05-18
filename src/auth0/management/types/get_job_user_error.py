@@ -3,3 +3,6 @@
 import typing
 
 GetJobUserError = typing.Dict[str, typing.Any]
+"""
+User, as provided in the import file
+"""

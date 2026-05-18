@@ -5,3 +5,6 @@ import typing
 from .certificate_subject_dn_credential import CertificateSubjectDnCredential
 
 ClientCreateAuthenticationMethodTlsClientAuthCredentials = typing.List[CertificateSubjectDnCredential]
+"""
+Fully defined credentials that will be enabled on the client for CA-based mTLS authentication.
+"""

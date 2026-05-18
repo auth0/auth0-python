@@ -3,3 +3,6 @@
 import typing
 
 ConnectionIdTokenEncryptionAlgValuesSupported = typing.List[str]
+"""
+JSON array containing a list of the JWE encryption algorithms (alg values) supported by the OP for the ID Token to encode the Claims in a JWT
+"""

@@ -5,3 +5,6 @@ import typing
 from .suspicious_ip_throttling_allowlist_item import SuspiciousIpThrottlingAllowlistItem
 
 SuspiciousIpThrottlingAllowlist = typing.List[SuspiciousIpThrottlingAllowlistItem]
+"""
+List of trusted IP addresses that will not have attack protection enforced against them.
+"""

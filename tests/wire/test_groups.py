@@ -9,6 +9,7 @@ def test_groups_list_() -> None:
         connection_id="connection_id",
         name="name",
         external_id="external_id",
+        search="search",
         fields="fields",
         include_fields=True,
         from_="from",
@@ -22,6 +23,7 @@ def test_groups_list_() -> None:
             "connection_id": "connection_id",
             "name": "name",
             "external_id": "external_id",
+            "search": "search",
             "fields": "fields",
             "include_fields": "true",
             "from": "from",
@@ -35,7 +37,9 @@ def test_groups_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "groups.get.0"
     client = get_client(test_id)
-    client.groups.get(id="id")
+    client.groups.get(
+        id="id",
+    )
     verify_request_count(test_id, "GET", "/groups/id", None, 1)
 
 
@@ -43,5 +47,7 @@ def test_groups_delete() -> None:
     """Test delete endpoint with WireMock"""
     test_id = "groups.delete.0"
     client = get_client(test_id)
-    client.groups.delete(id="id")
+    client.groups.delete(
+        id="id",
+    )
     verify_request_count(test_id, "DELETE", "/groups/id", None, 1)

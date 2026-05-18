@@ -3,3 +3,6 @@
 import typing
 
 DeleteHookSecretRequestContent = typing.List[str]
+"""
+Array of secret names to delete.
+"""

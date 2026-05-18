@@ -23,6 +23,7 @@ if typing.TYPE_CHECKING:
     from .email_templates.client import AsyncEmailTemplatesClient, EmailTemplatesClient
     from .emails.client import AsyncEmailsClient, EmailsClient
     from .event_streams.client import AsyncEventStreamsClient, EventStreamsClient
+    from .events.client import AsyncEventsClient, EventsClient
     from .flows.client import AsyncFlowsClient, FlowsClient
     from .forms.client import AsyncFormsClient, FormsClient
     from .groups.client import AsyncGroupsClient, GroupsClient
@@ -83,6 +84,9 @@ class Auth0:
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
+    max_retries : typing.Optional[int]
+        The default maximum number of retries for failed requests. Defaults to 2. Per-request `max_retries` in `request_options` takes precedence over this value.
+
     follow_redirects : typing.Optional[bool]
         Whether the default httpx client follows redirects or not, this is irrelevant if a custom httpx client is passed in.
 
@@ -110,6 +114,7 @@ class Auth0:
         token: typing.Union[str, typing.Callable[[], str]],
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
+        max_retries: typing.Optional[int] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
@@ -117,6 +122,7 @@ class Auth0:
         _defaulted_timeout = (
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
         )
+        _defaulted_max_retries = max_retries if max_retries is not None else 2
         if tenant_domain is not None:
             _tenant_domain = tenant_domain if tenant_domain is not None else "{TENANT}.auth0.com"
             base_url = "https://{tenantDomain}/api/v2".format(tenantDomain=_tenant_domain)
@@ -130,6 +136,7 @@ class Auth0:
             if follow_redirects is not None
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
+            max_retries=_defaulted_max_retries,
             logging=logging,
         )
         self._actions: typing.Optional[ActionsClient] = None
@@ -142,6 +149,7 @@ class Auth0:
         self._device_credentials: typing.Optional[DeviceCredentialsClient] = None
         self._email_templates: typing.Optional[EmailTemplatesClient] = None
         self._event_streams: typing.Optional[EventStreamsClient] = None
+        self._events: typing.Optional[EventsClient] = None
         self._flows: typing.Optional[FlowsClient] = None
         self._forms: typing.Optional[FormsClient] = None
         self._user_grants: typing.Optional[UserGrantsClient] = None
@@ -255,6 +263,14 @@ class Auth0:
 
             self._event_streams = EventStreamsClient(client_wrapper=self._client_wrapper)
         return self._event_streams
+
+    @property
+    def events(self):
+        if self._events is None:
+            from .events.client import EventsClient  # noqa: E402
+
+            self._events = EventsClient(client_wrapper=self._client_wrapper)
+        return self._events
 
     @property
     def flows(self):
@@ -521,6 +537,24 @@ class Auth0:
         return self._verifiable_credentials
 
 
+def _make_default_async_client(
+    timeout: typing.Optional[float],
+    follow_redirects: typing.Optional[bool],
+) -> httpx.AsyncClient:
+    try:
+        import httpx_aiohttp  # type: ignore[import-not-found]
+    except ImportError:
+        pass
+    else:
+        if follow_redirects is not None:
+            return httpx_aiohttp.HttpxAiohttpClient(timeout=timeout, follow_redirects=follow_redirects)
+        return httpx_aiohttp.HttpxAiohttpClient(timeout=timeout)
+
+    if follow_redirects is not None:
+        return httpx.AsyncClient(timeout=timeout, follow_redirects=follow_redirects)
+    return httpx.AsyncClient(timeout=timeout)
+
+
 class AsyncAuth0:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
@@ -546,8 +580,14 @@ class AsyncAuth0:
     headers : typing.Optional[typing.Dict[str, str]]
         Additional headers to send with every request.
 
+    async_token : typing.Optional[typing.Callable[[], typing.Awaitable[str]]]
+        An async callable that returns a bearer token. Use this when token acquisition involves async I/O (e.g., refreshing tokens via an async HTTP client). When provided, this is used instead of the synchronous token for async requests.
+
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
+
+    max_retries : typing.Optional[int]
+        The default maximum number of retries for failed requests. Defaults to 2. Per-request `max_retries` in `request_options` takes precedence over this value.
 
     follow_redirects : typing.Optional[bool]
         Whether the default httpx client follows redirects or not, this is irrelevant if a custom httpx client is passed in.
@@ -575,7 +615,9 @@ class AsyncAuth0:
         tenant_domain: typing.Optional[str] = None,
         token: typing.Union[str, typing.Callable[[], str]],
         headers: typing.Optional[typing.Dict[str, str]] = None,
+        async_token: typing.Optional[typing.Callable[[], typing.Awaitable[str]]] = None,
         timeout: typing.Optional[float] = None,
+        max_retries: typing.Optional[int] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
@@ -583,6 +625,7 @@ class AsyncAuth0:
         _defaulted_timeout = (
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
         )
+        _defaulted_max_retries = max_retries if max_retries is not None else 2
         if tenant_domain is not None:
             _tenant_domain = tenant_domain if tenant_domain is not None else "{TENANT}.auth0.com"
             base_url = "https://{tenantDomain}/api/v2".format(tenantDomain=_tenant_domain)
@@ -590,12 +633,12 @@ class AsyncAuth0:
             base_url=_get_base_url(base_url=base_url, environment=environment),
             token=token,
             headers=headers,
+            async_token=async_token,
             httpx_client=httpx_client
             if httpx_client is not None
-            else httpx.AsyncClient(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
-            if follow_redirects is not None
-            else httpx.AsyncClient(timeout=_defaulted_timeout),
+            else _make_default_async_client(timeout=_defaulted_timeout, follow_redirects=follow_redirects),
             timeout=_defaulted_timeout,
+            max_retries=_defaulted_max_retries,
             logging=logging,
         )
         self._actions: typing.Optional[AsyncActionsClient] = None
@@ -608,6 +651,7 @@ class AsyncAuth0:
         self._device_credentials: typing.Optional[AsyncDeviceCredentialsClient] = None
         self._email_templates: typing.Optional[AsyncEmailTemplatesClient] = None
         self._event_streams: typing.Optional[AsyncEventStreamsClient] = None
+        self._events: typing.Optional[AsyncEventsClient] = None
         self._flows: typing.Optional[AsyncFlowsClient] = None
         self._forms: typing.Optional[AsyncFormsClient] = None
         self._user_grants: typing.Optional[AsyncUserGrantsClient] = None
@@ -721,6 +765,14 @@ class AsyncAuth0:
 
             self._event_streams = AsyncEventStreamsClient(client_wrapper=self._client_wrapper)
         return self._event_streams
+
+    @property
+    def events(self):
+        if self._events is None:
+            from .events.client import AsyncEventsClient  # noqa: E402
+
+            self._events = AsyncEventsClient(client_wrapper=self._client_wrapper)
+        return self._events
 
     @property
     def flows(self):

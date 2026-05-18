@@ -6,8 +6,9 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
 from ...core.pagination import AsyncPager, SyncPager
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
@@ -21,6 +22,7 @@ from ...types.list_user_permissions_offset_paginated_response_content import (
 )
 from ...types.permission_request_payload import PermissionRequestPayload
 from ...types.user_permission_schema import UserPermissionSchema
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -67,7 +69,7 @@ class RawPermissionsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/permissions",
+            f"users/{encode_path_param(id)}/permissions",
             method="GET",
             params={
                 "per_page": per_page,
@@ -153,6 +155,10 @@ class RawPermissionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
@@ -181,7 +187,7 @@ class RawPermissionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/permissions",
+            f"users/{encode_path_param(id)}/permissions",
             method="POST",
             json={
                 "permissions": convert_and_respect_annotation_metadata(
@@ -244,6 +250,10 @@ class RawPermissionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete(
@@ -272,7 +282,7 @@ class RawPermissionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/permissions",
+            f"users/{encode_path_param(id)}/permissions",
             method="DELETE",
             json={
                 "permissions": convert_and_respect_annotation_metadata(
@@ -335,6 +345,10 @@ class RawPermissionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -379,7 +393,7 @@ class AsyncRawPermissionsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/permissions",
+            f"users/{encode_path_param(id)}/permissions",
             method="GET",
             params={
                 "per_page": per_page,
@@ -468,6 +482,10 @@ class AsyncRawPermissionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
@@ -496,7 +514,7 @@ class AsyncRawPermissionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/permissions",
+            f"users/{encode_path_param(id)}/permissions",
             method="POST",
             json={
                 "permissions": convert_and_respect_annotation_metadata(
@@ -559,6 +577,10 @@ class AsyncRawPermissionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete(
@@ -587,7 +609,7 @@ class AsyncRawPermissionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/permissions",
+            f"users/{encode_path_param(id)}/permissions",
             method="DELETE",
             json={
                 "permissions": convert_and_respect_annotation_metadata(
@@ -650,4 +672,8 @@ class AsyncRawPermissionsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

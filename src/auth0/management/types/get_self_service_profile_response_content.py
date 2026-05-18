@@ -28,7 +28,7 @@ class GetSelfServiceProfileResponseContent(UniversalBaseModel):
 
     user_attributes: typing.Optional[typing.List[SelfServiceProfileUserAttribute]] = pydantic.Field(default=None)
     """
-    List of attributes to be mapped that will be shown to the user during the SS-SSO flow.
+    List of attributes to be mapped that will be shown to the user during the Self-Service Enterprise Configuration flow.
     """
 
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
@@ -46,7 +46,7 @@ class GetSelfServiceProfileResponseContent(UniversalBaseModel):
         default=None
     )
     """
-    List of IdP strategies that will be shown to users during the Self-Service SSO flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
+    List of IdP strategies that will be shown to users during the Self-Service Enterprise Configuration flow. Possible values: [`oidc`, `samlp`, `waad`, `google-apps`, `adfs`, `okta`, `auth0-samlp`, `okta-samlp`, `keycloak-samlp`, `pingfederate`]
     """
 
     user_attribute_profile_id: typing.Optional[str] = pydantic.Field(default=None)

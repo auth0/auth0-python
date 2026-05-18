@@ -3,3 +3,6 @@
 from .connection_api_enable_groups import ConnectionApiEnableGroups
 
 ConnectionApiEnableGroupsGoogleApps = ConnectionApiEnableGroups
+"""
+Enables integration with the Google Workspace Admin SDK Directory API for groups. When true, Auth0 can synchronize groups & group memberships and supports inbound directory provisioning for groups. Defaults to false.
+"""

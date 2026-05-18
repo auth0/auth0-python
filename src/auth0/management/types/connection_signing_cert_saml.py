@@ -3,3 +3,6 @@
 from .connection_signing_certificate_pem_saml import ConnectionSigningCertificatePemSaml
 
 ConnectionSigningCertSaml = ConnectionSigningCertificatePemSaml
+"""
+Base64-encoded X.509 certificate from the identity provider used to validate signatures in SAML responses and assertions. The certificate is decoded and used for cryptographic signature verification.
+"""

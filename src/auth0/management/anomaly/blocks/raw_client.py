@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import jsonable_encoder
+from ...core.jsonable_encoder import encode_path_param
+from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
@@ -15,6 +16,7 @@ from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.anomaly_ip_format import AnomalyIpFormat
+from pydantic import ValidationError
 
 
 class RawBlocksClient:
@@ -40,7 +42,7 @@ class RawBlocksClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"anomaly/blocks/ips/{jsonable_encoder(id)}",
+            f"anomaly/blocks/ips/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -105,6 +107,10 @@ class RawBlocksClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def unblock_ip(
@@ -126,7 +132,7 @@ class RawBlocksClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"anomaly/blocks/ips/{jsonable_encoder(id)}",
+            f"anomaly/blocks/ips/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -180,6 +186,10 @@ class RawBlocksClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -206,7 +216,7 @@ class AsyncRawBlocksClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"anomaly/blocks/ips/{jsonable_encoder(id)}",
+            f"anomaly/blocks/ips/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -271,6 +281,10 @@ class AsyncRawBlocksClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def unblock_ip(
@@ -292,7 +306,7 @@ class AsyncRawBlocksClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"anomaly/blocks/ips/{jsonable_encoder(id)}",
+            f"anomaly/blocks/ips/{encode_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -346,4 +360,8 @@ class AsyncRawBlocksClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

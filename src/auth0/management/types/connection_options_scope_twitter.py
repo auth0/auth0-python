@@ -3,3 +3,6 @@
 from .connection_scope_array import ConnectionScopeArray
 
 ConnectionOptionsScopeTwitter = ConnectionScopeArray
+"""
+Array of OAuth 2.0 scopes to request from Twitter during authentication. Use this to request scopes not covered by the predefined scope options.
+"""

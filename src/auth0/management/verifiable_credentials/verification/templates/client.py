@@ -46,7 +46,7 @@ class TemplatesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[VerifiableCredentialTemplateResponse, ListVerifiableCredentialTemplatesPaginatedResponseContent]:
         """
-        List a verifiable credential templates.
+        List verifiable credential templates.
 
         Parameters
         ----------
@@ -304,7 +304,7 @@ class AsyncTemplatesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[VerifiableCredentialTemplateResponse, ListVerifiableCredentialTemplatesPaginatedResponseContent]:
         """
-        List a verifiable credential templates.
+        List verifiable credential templates.
 
         Parameters
         ----------

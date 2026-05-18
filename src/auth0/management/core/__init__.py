@@ -8,13 +8,14 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .api_error import ApiError
     from .client_wrapper import AsyncClientWrapper, BaseClientWrapper, SyncClientWrapper
-    from .datetime_utils import serialize_datetime
+    from .datetime_utils import Rfc2822DateTime, parse_rfc2822_datetime, serialize_datetime
     from .file import File, convert_file_dict_to_httpx_tuples, with_content_type
     from .http_client import AsyncHttpClient, HttpClient
     from .http_response import AsyncHttpResponse, HttpResponse
-    from .jsonable_encoder import jsonable_encoder
+    from .jsonable_encoder import encode_path_param, jsonable_encoder
     from .logging import ConsoleLogger, ILogger, LogConfig, LogLevel, Logger, create_logger
     from .pagination import AsyncPager, SyncPager
+    from .parse_error import ParsingError
     from .pydantic_utilities import (
         IS_PYDANTIC_V2,
         UniversalBaseModel,
@@ -45,7 +46,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LogConfig": ".logging",
     "LogLevel": ".logging",
     "Logger": ".logging",
+    "ParsingError": ".parse_error",
     "RequestOptions": ".request_options",
+    "Rfc2822DateTime": ".datetime_utils",
     "SyncClientWrapper": ".client_wrapper",
     "SyncPager": ".pagination",
     "UniversalBaseModel": ".pydantic_utilities",
@@ -53,9 +56,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "convert_and_respect_annotation_metadata": ".serialization",
     "convert_file_dict_to_httpx_tuples": ".file",
     "create_logger": ".logging",
+    "encode_path_param": ".jsonable_encoder",
     "encode_query": ".query_encoder",
     "jsonable_encoder": ".jsonable_encoder",
     "parse_obj_as": ".pydantic_utilities",
+    "parse_rfc2822_datetime": ".datetime_utils",
     "remove_none_from_dict": ".remove_none_from_dict",
     "serialize_datetime": ".datetime_utils",
     "universal_field_validator": ".pydantic_utilities",
@@ -103,7 +108,9 @@ __all__ = [
     "LogConfig",
     "LogLevel",
     "Logger",
+    "ParsingError",
     "RequestOptions",
+    "Rfc2822DateTime",
     "SyncClientWrapper",
     "SyncPager",
     "UniversalBaseModel",
@@ -111,9 +118,11 @@ __all__ = [
     "convert_and_respect_annotation_metadata",
     "convert_file_dict_to_httpx_tuples",
     "create_logger",
+    "encode_path_param",
     "encode_query",
     "jsonable_encoder",
     "parse_obj_as",
+    "parse_rfc2822_datetime",
     "remove_none_from_dict",
     "serialize_datetime",
     "universal_field_validator",

@@ -2,4 +2,4 @@
 
 import typing
 
-SynchronizeGroupsEnum = typing.Union[typing.Literal["all", "off"], typing.Any]
+SynchronizeGroupsEnum = typing.Union[typing.Literal["all", "off", "selected"], typing.Any]

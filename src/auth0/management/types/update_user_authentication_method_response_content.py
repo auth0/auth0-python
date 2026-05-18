@@ -63,6 +63,11 @@ class UpdateUserAuthenticationMethodResponseContent(UniversalBaseModel):
     Applies to webauthn authentication methods only. The relying party identifier.
     """
 
+    confirmed: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the authentication method has been confirmed.
+    """
+
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     Authentication method creation date

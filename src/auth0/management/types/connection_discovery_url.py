@@ -3,3 +3,6 @@
 from .connection_https_url_with_http_fallback_255 import ConnectionHttpsUrlWithHttpFallback255
 
 ConnectionDiscoveryUrl = ConnectionHttpsUrlWithHttpFallback255
+"""
+URL of the identity provider's OIDC Discovery endpoint (/.well-known/openid-configuration). When provided and oidc_metadata is empty, Auth0 automatically retrieves the provider's configuration including endpoints and supported features.
+"""

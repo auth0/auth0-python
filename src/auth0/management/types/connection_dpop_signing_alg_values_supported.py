@@ -3,3 +3,6 @@
 import typing
 
 ConnectionDpopSigningAlgValuesSupported = typing.List[str]
+"""
+JSON array containing a list of the JWS signing algorithms (alg values) supported for DPoP proof JWT signing.
+"""
