@@ -2,4 +2,4 @@
 
 import typing
 
-ConnectionDpopSigningAlgEnum = typing.Union[typing.Literal["ES256", "Ed25519"], typing.Any]
+ConnectionDpopSigningAlgEnum = typing.Union[typing.Literal["ES256", "ES384", "ES512", "Ed25519"], typing.Any]

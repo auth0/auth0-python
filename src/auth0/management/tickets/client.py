@@ -120,7 +120,7 @@ class TicketsClient:
         Parameters
         ----------
         result_url : typing.Optional[str]
-            URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.
+            URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using organization_id. May be specified together with client_id when the tenant has a custom password reset page enabled and a password-reset-post-challenge Action bound.
 
         user_id : typing.Optional[str]
             user_id of for whom the ticket should be created.
@@ -295,7 +295,7 @@ class AsyncTicketsClient:
         Parameters
         ----------
         result_url : typing.Optional[str]
-            URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using client_id or organization_id.
+            URL the user will be redirected to in the classic Universal Login experience once the ticket is used. Cannot be specified when using organization_id. May be specified together with client_id when the tenant has a custom password reset page enabled and a password-reset-post-challenge Action bound.
 
         user_id : typing.Optional[str]
             user_id of for whom the ticket should be created.

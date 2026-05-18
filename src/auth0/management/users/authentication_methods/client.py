@@ -7,6 +7,7 @@ from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from ...types.create_user_authentication_method_response_content import CreateUserAuthenticationMethodResponseContent
 from ...types.created_user_authentication_method_type_enum import CreatedUserAuthenticationMethodTypeEnum
+from ...types.credential_device_type_enum import CredentialDeviceTypeEnum
 from ...types.get_user_authentication_method_response_content import GetUserAuthenticationMethodResponseContent
 from ...types.list_user_authentication_methods_offset_paginated_response_content import (
     ListUserAuthenticationMethodsOffsetPaginatedResponseContent,
@@ -106,7 +107,14 @@ class AuthenticationMethodsClient:
         preferred_authentication_method: typing.Optional[PreferredAuthenticationMethodEnum] = OMIT,
         key_id: typing.Optional[str] = OMIT,
         public_key: typing.Optional[str] = OMIT,
+        aaguid: typing.Optional[str] = OMIT,
         relying_party_identifier: typing.Optional[str] = OMIT,
+        credential_device_type: typing.Optional[CredentialDeviceTypeEnum] = OMIT,
+        credential_backed_up: typing.Optional[bool] = OMIT,
+        identity_user_id: typing.Optional[str] = OMIT,
+        user_agent: typing.Optional[str] = OMIT,
+        user_handle: typing.Optional[str] = OMIT,
+        transports: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateUserAuthenticationMethodResponseContent:
         """
@@ -134,13 +142,33 @@ class AuthenticationMethodsClient:
         preferred_authentication_method : typing.Optional[PreferredAuthenticationMethodEnum]
 
         key_id : typing.Optional[str]
-            Applies to webauthn authentication methods only. The id of the credential.
+            Applies to webauthn/passkey authentication methods only. The id of the credential.
 
         public_key : typing.Optional[str]
-            Applies to webauthn authentication methods only. The public key, which is encoded as base64.
+            Applies to webauthn/passkey authentication methods only. The public key, which is encoded as base64.
+
+        aaguid : typing.Optional[str]
+            Applies to passkeys only. Authenticator Attestation Globally Unique Identifier
 
         relying_party_identifier : typing.Optional[str]
             Applies to webauthn authentication methods only. The relying party identifier.
+
+        credential_device_type : typing.Optional[CredentialDeviceTypeEnum]
+
+        credential_backed_up : typing.Optional[bool]
+            Applies to passkeys only. Whether the credential was backed up.
+
+        identity_user_id : typing.Optional[str]
+            Applies to passkeys only. The ID of the user identity linked with the authentication method.
+
+        user_agent : typing.Optional[str]
+            Applies to passkeys only. The user-agent of the browser used to create the passkey.
+
+        user_handle : typing.Optional[str]
+            Applies to passkeys only. The user handle of the user identity.
+
+        transports : typing.Optional[typing.Sequence[str]]
+            Applies to passkeys only. The transports used by clients to communicate with the authenticator.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -172,7 +200,14 @@ class AuthenticationMethodsClient:
             preferred_authentication_method=preferred_authentication_method,
             key_id=key_id,
             public_key=public_key,
+            aaguid=aaguid,
             relying_party_identifier=relying_party_identifier,
+            credential_device_type=credential_device_type,
+            credential_backed_up=credential_backed_up,
+            identity_user_id=identity_user_id,
+            user_agent=user_agent,
+            user_handle=user_handle,
+            transports=transports,
             request_options=request_options,
         )
         return _response.data
@@ -473,7 +508,14 @@ class AsyncAuthenticationMethodsClient:
         preferred_authentication_method: typing.Optional[PreferredAuthenticationMethodEnum] = OMIT,
         key_id: typing.Optional[str] = OMIT,
         public_key: typing.Optional[str] = OMIT,
+        aaguid: typing.Optional[str] = OMIT,
         relying_party_identifier: typing.Optional[str] = OMIT,
+        credential_device_type: typing.Optional[CredentialDeviceTypeEnum] = OMIT,
+        credential_backed_up: typing.Optional[bool] = OMIT,
+        identity_user_id: typing.Optional[str] = OMIT,
+        user_agent: typing.Optional[str] = OMIT,
+        user_handle: typing.Optional[str] = OMIT,
+        transports: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateUserAuthenticationMethodResponseContent:
         """
@@ -501,13 +543,33 @@ class AsyncAuthenticationMethodsClient:
         preferred_authentication_method : typing.Optional[PreferredAuthenticationMethodEnum]
 
         key_id : typing.Optional[str]
-            Applies to webauthn authentication methods only. The id of the credential.
+            Applies to webauthn/passkey authentication methods only. The id of the credential.
 
         public_key : typing.Optional[str]
-            Applies to webauthn authentication methods only. The public key, which is encoded as base64.
+            Applies to webauthn/passkey authentication methods only. The public key, which is encoded as base64.
+
+        aaguid : typing.Optional[str]
+            Applies to passkeys only. Authenticator Attestation Globally Unique Identifier
 
         relying_party_identifier : typing.Optional[str]
             Applies to webauthn authentication methods only. The relying party identifier.
+
+        credential_device_type : typing.Optional[CredentialDeviceTypeEnum]
+
+        credential_backed_up : typing.Optional[bool]
+            Applies to passkeys only. Whether the credential was backed up.
+
+        identity_user_id : typing.Optional[str]
+            Applies to passkeys only. The ID of the user identity linked with the authentication method.
+
+        user_agent : typing.Optional[str]
+            Applies to passkeys only. The user-agent of the browser used to create the passkey.
+
+        user_handle : typing.Optional[str]
+            Applies to passkeys only. The user handle of the user identity.
+
+        transports : typing.Optional[typing.Sequence[str]]
+            Applies to passkeys only. The transports used by clients to communicate with the authenticator.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -547,7 +609,14 @@ class AsyncAuthenticationMethodsClient:
             preferred_authentication_method=preferred_authentication_method,
             key_id=key_id,
             public_key=public_key,
+            aaguid=aaguid,
             relying_party_identifier=relying_party_identifier,
+            credential_device_type=credential_device_type,
+            credential_backed_up=credential_backed_up,
+            identity_user_id=identity_user_id,
+            user_agent=user_agent,
+            user_handle=user_handle,
+            transports=transports,
             request_options=request_options,
         )
         return _response.data
