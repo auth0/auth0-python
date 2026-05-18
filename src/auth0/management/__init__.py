@@ -2741,6 +2741,8 @@ if typing.TYPE_CHECKING:
     from .environment import Auth0Environment
     from .event_streams import EventStreamsCreateRequest
     from .version import __version__
+    from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
+    from .token_provider import AsyncTokenProvider, TokenProvider
 _dynamic_imports: typing.Dict[str, str] = {
     "Action": ".types",
     "ActionBase": ".types",
@@ -3759,6 +3761,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CredentialDeviceTypeEnum": ".types",
     "CredentialId": ".types",
     "CustomDomain": ".types",
+    "CustomDomainHeader": ".management_client",
     "CustomDomainCustomClientIpHeader": ".types",
     "CustomDomainCustomClientIpHeaderEnum": ".types",
     "CustomDomainProvisioningTypeEnum": ".types",
@@ -5016,6 +5019,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LogStreamSumoEnum": ".types",
     "LogStreamSumoResponseSchema": ".types",
     "LogStreamSumoSink": ".types",
+    "ManagementClient": ".management_client",
     "MdlPresentationProperties": ".types",
     "MdlPresentationRequest": ".types",
     "MdlPresentationRequestProperties": ".types",
@@ -5242,6 +5246,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TokenQuota": ".types",
     "TokenQuotaClientCredentials": ".types",
     "TokenQuotaConfiguration": ".types",
+    "TokenProvider": ".token_provider",
     "TooManyRequestsError": ".errors",
     "TooManyRequestsSchema": ".types",
     "TooManyRequestsSchemaError": ".types",
@@ -7995,6 +8000,7 @@ __all__ = [
     "TestEventDataContent",
     "TokenExchangeProfileResponseContent",
     "TokenExchangeProfileTypeEnum",
+    "TokenProvider",
     "TokenQuota",
     "TokenQuotaClientCredentials",
     "TokenQuotaConfiguration",
