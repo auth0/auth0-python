@@ -19,22 +19,28 @@ generations:
     generator_versions:
       fernapi/fern-python-sdk: 5.12.10
     base_branch_head: 3b19ca9899d758100ca38524af2cb079832fdc56
-current_generation: c1c18146c845e6c7916d0490f7ef02807f9bfebf
+  - commit_sha: 812b8ca16fc2740001f9839ce5c88f85fed87c6e
+    tree_hash: 24be5645b7a89574a130a72ceec1f410c757ae6c
+    timestamp: 2026-05-19T12:25:04.138Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.12.10
+current_generation: 812b8ca16fc2740001f9839ce5c88f85fed87c6e
 patches:
   - id: patch-4894603d
-    content_hash: sha256:2ca56f02c24fc60f076b081eb5d06f4848d08c24003b591d61421d753128b106
+    content_hash: sha256:85d8e392938ef0338e526c1cc9abe95cc3b51986f1145d7b25ceef95605d282c
     original_commit: 4894603d03409962bc60a34712de8abffe919e2c
     original_message: "chore: Restore custom wiring in management/__init__.py"
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: c1c18146c845e6c7916d0490f7ef02807f9bfebf
+    base_generation: 812b8ca16fc2740001f9839ce5c88f85fed87c6e
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index 2822ff3..e537579 100644
+      index 46338c3..4fd6baf 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -2741,6 +2741,8 @@ if typing.TYPE_CHECKING:
+      @@ -2743,6 +2743,8 @@ if typing.TYPE_CHECKING:
            from .environment import Auth0Environment
            from .event_streams import EventStreamsCreateRequest
            from .version import __version__
@@ -43,7 +49,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -2801,6 +2803,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -2803,6 +2805,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "AssociateOrganizationClientGrantResponseContent": ".types",
            "AsyncApprovalNotificationsChannelsEnum": ".types",
            "AsyncAuth0": ".client",
@@ -52,18 +58,15 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent": ".types",
            "AttackProtectionCaptchaAuthChallengeRequest": ".types",
            "AttackProtectionCaptchaAuthChallengeResponseContent": ".types",
-      @@ -3756,9 +3760,9 @@ _dynamic_imports: typing.Dict[str, str] = {
-           "CreateVerificationEmailResponseContent": ".types",
-           "CreatedAuthenticationMethodTypeEnum": ".types",
-           "CreatedUserAuthenticationMethodTypeEnum": ".types",
-      -    "CredentialDeviceTypeEnum": ".types",
+      @@ -3761,6 +3765,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+           "CredentialDeviceTypeEnum": ".types",
            "CredentialId": ".types",
            "CustomDomain": ".types",
       +    "CustomDomainHeader": ".management_client",
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainProvisioningTypeEnum": ".types",
-      @@ -5016,6 +5020,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5020,6 +5025,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "LogStreamSumoEnum": ".types",
            "LogStreamSumoResponseSchema": ".types",
            "LogStreamSumoSink": ".types",
@@ -71,18 +74,15 @@ patches:
            "MdlPresentationProperties": ".types",
            "MdlPresentationRequest": ".types",
            "MdlPresentationRequestProperties": ".types",
-      @@ -5242,9 +5247,9 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5246,6 +5252,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "TokenQuota": ".types",
            "TokenQuotaClientCredentials": ".types",
            "TokenQuotaConfiguration": ".types",
       +    "TokenProvider": ".token_provider",
            "TooManyRequestsError": ".errors",
            "TooManyRequestsSchema": ".types",
-      -    "TooManyRequestsSchemaError": ".types",
-           "TwilioProviderConfiguration": ".types",
-           "TwilioProviderCredentials": ".types",
-           "TwilioProviderDeliveryMethodEnum": ".types",
-      @@ -5557,6 +5562,8 @@ __all__ = [
+           "TooManyRequestsSchemaError": ".types",
+      @@ -5561,6 +5568,8 @@ __all__ = [
            "AssociateOrganizationClientGrantResponseContent",
            "AsyncApprovalNotificationsChannelsEnum",
            "AsyncAuth0",
@@ -91,18 +91,15 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent",
            "AttackProtectionCaptchaAuthChallengeRequest",
            "AttackProtectionCaptchaAuthChallengeResponseContent",
-      @@ -7769,9 +7776,9 @@ __all__ = [
-           "LogStreamSplunkResponseSchema",
-           "LogStreamSplunkSink",
-           "LogStreamStatusEnum",
-      -    "LogStreamSumoEnum",
+      @@ -7778,6 +7787,7 @@ __all__ = [
+           "LogStreamSumoEnum",
            "LogStreamSumoResponseSchema",
            "LogStreamSumoSink",
       +    "ManagementClient",
            "MdlPresentationProperties",
            "MdlPresentationRequest",
            "MdlPresentationRequestProperties",
-      @@ -7995,6 +8002,7 @@ __all__ = [
+      @@ -8001,6 +8011,7 @@ __all__ = [
            "TestEventDataContent",
            "TokenExchangeProfileResponseContent",
            "TokenExchangeProfileTypeEnum",
@@ -1582,6 +1579,8 @@ patches:
                 ExpressConfiguration,
                 ExpressConfigurationOrNull,
                 ExtensibilityEmailProviderCredentials,
+                FedCmLogin,
+                FedCmLoginGoogle,
                 FederatedConnectionTokenSet,
                 FlowAction,
                 FlowActionActivecampaign,
@@ -4331,6 +4330,8 @@ patches:
             "ExpressConfiguration": ".types",
             "ExpressConfigurationOrNull": ".types",
             "ExtensibilityEmailProviderCredentials": ".types",
+            "FedCmLogin": ".types",
+            "FedCmLoginGoogle": ".types",
             "FederatedConnectionTokenSet": ".types",
             "FlowAction": ".types",
             "FlowActionActivecampaign": ".types",
@@ -7091,6 +7092,8 @@ patches:
             "ExpressConfiguration",
             "ExpressConfigurationOrNull",
             "ExtensibilityEmailProviderCredentials",
+            "FedCmLogin",
+            "FedCmLoginGoogle",
             "FederatedConnectionTokenSet",
             "FlowAction",
             "FlowActionActivecampaign",
@@ -8360,7 +8363,7 @@ patches:
     original_commit: f182694f50720cacb568ff5c7a1894b0dd972373
     original_message: "fix: Add top-level `py.typed` marker to resolve IDE import errors (#829)"
     original_author: Snehil Kishore <snehil.kishore@okta.com>
-    base_generation: c1c18146c845e6c7916d0490f7ef02807f9bfebf
+    base_generation: 812b8ca16fc2740001f9839ce5c88f85fed87c6e
     files:
       - src/auth0/py.typed
     patch_content: |+
@@ -8419,7 +8422,7 @@ patches:
     original_commit: 1026b4d84790f1037f99df904ddf58d68f944224
     original_message: Release 5.4.0 (#838)
     original_author: Snehil Kishore <snehil.kishore@okta.com>
-    base_generation: c1c18146c845e6c7916d0490f7ef02807f9bfebf
+    base_generation: 812b8ca16fc2740001f9839ce5c88f85fed87c6e
     files:
       - .version
       - CHANGELOG.md
