@@ -19,12 +19,6 @@ tests/authentication/
 # Root auth0 __init__.py and py.typed marker
 src/auth0/__init__.py
 src/auth0/py.typed
-<<<<<<< ours
-=======
-
-# Telemetry customization (Auth0 format with dynamic versioning)
-src/auth0/management/core/client_wrapper.py
->>>>>>> theirs
 
 # Files edited to incorporate both APIs
 pyproject.toml
