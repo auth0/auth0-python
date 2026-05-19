@@ -58,6 +58,7 @@ from ..types.create_client_response_content import CreateClientResponseContent
 from ..types.create_token_quota import CreateTokenQuota
 from ..types.express_configuration import ExpressConfiguration
 from ..types.express_configuration_or_null import ExpressConfigurationOrNull
+from ..types.fed_cm_login import FedCmLogin
 from ..types.get_client_response_content import GetClientResponseContent
 from ..types.list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
 from ..types.native_social_login import NativeSocialLogin
@@ -299,6 +300,7 @@ class RawClientsClient:
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
         native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
+        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsageEnum] = OMIT,
@@ -430,6 +432,8 @@ class RawClientsClient:
 
         native_social_login : typing.Optional[NativeSocialLogin]
 
+        fedcm_login : typing.Optional[FedCmLogin]
+
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
         default_organization : typing.Optional[ClientDefaultOrganization]
@@ -540,6 +544,9 @@ class RawClientsClient:
                 "initiate_login_uri": initiate_login_uri,
                 "native_social_login": convert_and_respect_annotation_metadata(
                     object_=native_social_login, annotation=NativeSocialLogin, direction="write"
+                ),
+                "fedcm_login": convert_and_respect_annotation_metadata(
+                    object_=fedcm_login, annotation=FedCmLogin, direction="write"
                 ),
                 "refresh_token": convert_and_respect_annotation_metadata(
                     object_=refresh_token,
@@ -1151,6 +1158,7 @@ class RawClientsClient:
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
         native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
+        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsagePatchEnum] = OMIT,
@@ -1285,6 +1293,8 @@ class RawClientsClient:
 
         native_social_login : typing.Optional[NativeSocialLogin]
 
+        fedcm_login : typing.Optional[FedCmLogin]
+
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
         default_organization : typing.Optional[ClientDefaultOrganization]
@@ -1394,6 +1404,9 @@ class RawClientsClient:
                 "initiate_login_uri": initiate_login_uri,
                 "native_social_login": convert_and_respect_annotation_metadata(
                     object_=native_social_login, annotation=NativeSocialLogin, direction="write"
+                ),
+                "fedcm_login": convert_and_respect_annotation_metadata(
+                    object_=fedcm_login, annotation=FedCmLogin, direction="write"
                 ),
                 "refresh_token": convert_and_respect_annotation_metadata(
                     object_=refresh_token,
@@ -1855,6 +1868,7 @@ class AsyncRawClientsClient:
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
         native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
+        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsageEnum] = OMIT,
@@ -1986,6 +2000,8 @@ class AsyncRawClientsClient:
 
         native_social_login : typing.Optional[NativeSocialLogin]
 
+        fedcm_login : typing.Optional[FedCmLogin]
+
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
         default_organization : typing.Optional[ClientDefaultOrganization]
@@ -2096,6 +2112,9 @@ class AsyncRawClientsClient:
                 "initiate_login_uri": initiate_login_uri,
                 "native_social_login": convert_and_respect_annotation_metadata(
                     object_=native_social_login, annotation=NativeSocialLogin, direction="write"
+                ),
+                "fedcm_login": convert_and_respect_annotation_metadata(
+                    object_=fedcm_login, annotation=FedCmLogin, direction="write"
                 ),
                 "refresh_token": convert_and_respect_annotation_metadata(
                     object_=refresh_token,
@@ -2709,6 +2728,7 @@ class AsyncRawClientsClient:
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
         native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
+        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsagePatchEnum] = OMIT,
@@ -2843,6 +2863,8 @@ class AsyncRawClientsClient:
 
         native_social_login : typing.Optional[NativeSocialLogin]
 
+        fedcm_login : typing.Optional[FedCmLogin]
+
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
         default_organization : typing.Optional[ClientDefaultOrganization]
@@ -2952,6 +2974,9 @@ class AsyncRawClientsClient:
                 "initiate_login_uri": initiate_login_uri,
                 "native_social_login": convert_and_respect_annotation_metadata(
                     object_=native_social_login, annotation=NativeSocialLogin, direction="write"
+                ),
+                "fedcm_login": convert_and_respect_annotation_metadata(
+                    object_=fedcm_login, annotation=FedCmLogin, direction="write"
                 ),
                 "refresh_token": convert_and_respect_annotation_metadata(
                     object_=refresh_token,

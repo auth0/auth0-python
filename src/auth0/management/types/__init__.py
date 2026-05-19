@@ -1981,6 +1981,8 @@ if typing.TYPE_CHECKING:
     from .express_configuration import ExpressConfiguration
     from .express_configuration_or_null import ExpressConfigurationOrNull
     from .extensibility_email_provider_credentials import ExtensibilityEmailProviderCredentials
+    from .fed_cm_login import FedCmLogin
+    from .fed_cm_login_google import FedCmLoginGoogle
     from .federated_connection_token_set import FederatedConnectionTokenSet
     from .flow_action import FlowAction
     from .flow_action_activecampaign import FlowActionActivecampaign
@@ -4774,6 +4776,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExpressConfiguration": ".express_configuration",
     "ExpressConfigurationOrNull": ".express_configuration_or_null",
     "ExtensibilityEmailProviderCredentials": ".extensibility_email_provider_credentials",
+    "FedCmLogin": ".fed_cm_login",
+    "FedCmLoginGoogle": ".fed_cm_login_google",
     "FederatedConnectionTokenSet": ".federated_connection_token_set",
     "FlowAction": ".flow_action",
     "FlowActionActivecampaign": ".flow_action_activecampaign",
@@ -7467,6 +7471,8 @@ __all__ = [
     "ExpressConfiguration",
     "ExpressConfigurationOrNull",
     "ExtensibilityEmailProviderCredentials",
+    "FedCmLogin",
+    "FedCmLoginGoogle",
     "FederatedConnectionTokenSet",
     "FlowAction",
     "FlowActionActivecampaign",

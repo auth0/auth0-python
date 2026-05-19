@@ -1902,6 +1902,14 @@ client.clients.create(
 <dl>
 <dd>
 
+**fedcm_login:** `typing.Optional[FedCmLogin]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **refresh_token:** `typing.Optional[ClientRefreshTokenConfiguration]` 
     
 </dd>
@@ -2776,6 +2784,14 @@ client.clients.update(
 <dd>
 
 **native_social_login:** `typing.Optional[NativeSocialLogin]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fedcm_login:** `typing.Optional[FedCmLogin]` 
     
 </dd>
 </dl>
