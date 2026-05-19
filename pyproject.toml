@@ -14,10 +14,10 @@ classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Operating System :: OS Independent",
     "Operating System :: POSIX",
     "Operating System :: MacOS",
@@ -35,7 +35,7 @@ Repository = 'https://github.com/auth0/auth0-python'
 Homepage = 'https://auth0.com'
 
 [tool.poetry.dependencies]
-python = ">=3.9.2,<4.0"
+python = ">=3.10"
 httpx = ">=0.21.2"
 pydantic = ">= 1.9.2"
 pydantic-core = ">=2.18.2"
