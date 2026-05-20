@@ -46,6 +46,7 @@ from ..types.create_client_response_content import CreateClientResponseContent
 from ..types.create_token_quota import CreateTokenQuota
 from ..types.express_configuration import ExpressConfiguration
 from ..types.express_configuration_or_null import ExpressConfigurationOrNull
+from ..types.fed_cm_login import FedCmLogin
 from ..types.get_client_response_content import GetClientResponseContent
 from ..types.list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
 from ..types.native_social_login import NativeSocialLogin
@@ -246,6 +247,7 @@ class ClientsClient:
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
         native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
+        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsageEnum] = OMIT,
@@ -377,6 +379,8 @@ class ClientsClient:
 
         native_social_login : typing.Optional[NativeSocialLogin]
 
+        fedcm_login : typing.Optional[FedCmLogin]
+
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
         default_organization : typing.Optional[ClientDefaultOrganization]
@@ -478,6 +482,7 @@ class ClientsClient:
             mobile=mobile,
             initiate_login_uri=initiate_login_uri,
             native_social_login=native_social_login,
+            fedcm_login=fedcm_login,
             refresh_token=refresh_token,
             default_organization=default_organization,
             organization_usage=organization_usage,
@@ -545,28 +550,37 @@ class ClientsClient:
         self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> RegisterCimdClientResponseContent:
         """
-        
-              Idempotent registration for Client ID Metadata Document (CIMD) clients.
-              Uses external_client_id as the unique identifier for upsert operations.
-              **Create:** Returns 201 when a new client is created (requires \\
-        
+        Idempotent registration for Client ID Metadata Document (CIMD) clients.
+        Uses external_client_id as the unique identifier for upsert operations.
+
+        <strong>Create:</strong> Returns 201 when a new client is created (requires <code>create:clients</code> scope).
+        <strong>Update:</strong> Returns 200 when an existing client is updated (requires <code>update:clients</code> scope).
+
+        This endpoint automatically:
+        <ul>
+          <li>Fetches and validates the metadata document</li>
+          <li>Maps CIMD fields to Auth0 client configuration</li>
+          <li>Creates/rotates credentials from the JWKS</li>
+          <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
+        </ul>
+
         Parameters
         ----------
         external_client_id : str
             URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
-        
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
-        
+
         Returns
         -------
         RegisterCimdClientResponseContent
             CIMD client successfully updated (idempotent).
-        
+
         Examples
         --------
         from auth0 import Auth0
-        
+
         client = Auth0(
             token="YOUR_TOKEN",
         )
@@ -726,6 +740,7 @@ class ClientsClient:
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
         native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
+        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsagePatchEnum] = OMIT,
@@ -860,6 +875,8 @@ class ClientsClient:
 
         native_social_login : typing.Optional[NativeSocialLogin]
 
+        fedcm_login : typing.Optional[FedCmLogin]
+
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
         default_organization : typing.Optional[ClientDefaultOrganization]
@@ -959,6 +976,7 @@ class ClientsClient:
             mobile=mobile,
             initiate_login_uri=initiate_login_uri,
             native_social_login=native_social_login,
+            fedcm_login=fedcm_login,
             refresh_token=refresh_token,
             default_organization=default_organization,
             organization_usage=organization_usage,
@@ -1227,6 +1245,7 @@ class AsyncClientsClient:
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
         native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
+        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsageEnum] = OMIT,
@@ -1358,6 +1377,8 @@ class AsyncClientsClient:
 
         native_social_login : typing.Optional[NativeSocialLogin]
 
+        fedcm_login : typing.Optional[FedCmLogin]
+
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
         default_organization : typing.Optional[ClientDefaultOrganization]
@@ -1467,6 +1488,7 @@ class AsyncClientsClient:
             mobile=mobile,
             initiate_login_uri=initiate_login_uri,
             native_social_login=native_social_login,
+            fedcm_login=fedcm_login,
             refresh_token=refresh_token,
             default_organization=default_organization,
             organization_usage=organization_usage,
@@ -1542,41 +1564,50 @@ class AsyncClientsClient:
         self, *, external_client_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> RegisterCimdClientResponseContent:
         """
-        
-              Idempotent registration for Client ID Metadata Document (CIMD) clients.
-              Uses external_client_id as the unique identifier for upsert operations.
-              **Create:** Returns 201 when a new client is created (requires \\
-        
+        Idempotent registration for Client ID Metadata Document (CIMD) clients.
+        Uses external_client_id as the unique identifier for upsert operations.
+
+        <strong>Create:</strong> Returns 201 when a new client is created (requires <code>create:clients</code> scope).
+        <strong>Update:</strong> Returns 200 when an existing client is updated (requires <code>update:clients</code> scope).
+
+        This endpoint automatically:
+        <ul>
+          <li>Fetches and validates the metadata document</li>
+          <li>Maps CIMD fields to Auth0 client configuration</li>
+          <li>Creates/rotates credentials from the JWKS</li>
+          <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
+        </ul>
+
         Parameters
         ----------
         external_client_id : str
             URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
-        
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
-        
+
         Returns
         -------
         RegisterCimdClientResponseContent
             CIMD client successfully updated (idempotent).
-        
+
         Examples
         --------
         import asyncio
-        
+
         from auth0 import AsyncAuth0
-        
+
         client = AsyncAuth0(
             token="YOUR_TOKEN",
         )
-        
-        
+
+
         async def main() -> None:
             await client.clients.register_cimd_client(
                 external_client_id="external_client_id",
             )
-        
-        
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.register_cimd_client(
@@ -1747,6 +1778,7 @@ class AsyncClientsClient:
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
         native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
+        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsagePatchEnum] = OMIT,
@@ -1881,6 +1913,8 @@ class AsyncClientsClient:
 
         native_social_login : typing.Optional[NativeSocialLogin]
 
+        fedcm_login : typing.Optional[FedCmLogin]
+
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
         default_organization : typing.Optional[ClientDefaultOrganization]
@@ -1988,6 +2022,7 @@ class AsyncClientsClient:
             mobile=mobile,
             initiate_login_uri=initiate_login_uri,
             native_social_login=native_social_login,
+            fedcm_login=fedcm_login,
             refresh_token=refresh_token,
             default_organization=default_organization,
             organization_usage=organization_usage,

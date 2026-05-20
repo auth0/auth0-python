@@ -90,6 +90,8 @@ if typing.TYPE_CHECKING:
     from .attack_protection_update_captcha_recaptcha_v_2 import AttackProtectionUpdateCaptchaRecaptchaV2
     from .authentication_method_type_enum import AuthenticationMethodTypeEnum
     from .authentication_type_enum import AuthenticationTypeEnum
+    from .bad_request_schema import BadRequestSchema
+    from .bad_request_schema_error import BadRequestSchemaError
     from .bot_detection_allowlist import BotDetectionAllowlist
     from .bot_detection_challenge_policy_password_flow_enum import BotDetectionChallengePolicyPasswordFlowEnum
     from .bot_detection_challenge_policy_password_reset_flow_enum import (
@@ -1114,6 +1116,7 @@ if typing.TYPE_CHECKING:
     from .create_verification_email_response_content import CreateVerificationEmailResponseContent
     from .created_authentication_method_type_enum import CreatedAuthenticationMethodTypeEnum
     from .created_user_authentication_method_type_enum import CreatedUserAuthenticationMethodTypeEnum
+    from .credential_device_type_enum import CredentialDeviceTypeEnum
     from .credential_id import CredentialId
     from .custom_domain import CustomDomain
     from .custom_domain_custom_client_ip_header import CustomDomainCustomClientIpHeader
@@ -1978,6 +1981,8 @@ if typing.TYPE_CHECKING:
     from .express_configuration import ExpressConfiguration
     from .express_configuration_or_null import ExpressConfigurationOrNull
     from .extensibility_email_provider_credentials import ExtensibilityEmailProviderCredentials
+    from .fed_cm_login import FedCmLogin
+    from .fed_cm_login_google import FedCmLoginGoogle
     from .federated_connection_token_set import FederatedConnectionTokenSet
     from .flow_action import FlowAction
     from .flow_action_activecampaign import FlowActionActivecampaign
@@ -2395,6 +2400,8 @@ if typing.TYPE_CHECKING:
         FlowsVaultConnectionSetupTypeOauthClientCredentialsEnum,
     )
     from .flows_vault_connection_summary import FlowsVaultConnectionSummary
+    from .forbidden_schema import ForbiddenSchema
+    from .forbidden_schema_error import ForbiddenSchemaError
     from .form_block import FormBlock
     from .form_block_divider import FormBlockDivider
     from .form_block_divider_config import FormBlockDividerConfig
@@ -3097,9 +3104,13 @@ if typing.TYPE_CHECKING:
     from .token_quota import TokenQuota
     from .token_quota_client_credentials import TokenQuotaClientCredentials
     from .token_quota_configuration import TokenQuotaConfiguration
+    from .too_many_requests_schema import TooManyRequestsSchema
+    from .too_many_requests_schema_error import TooManyRequestsSchemaError
     from .twilio_provider_configuration import TwilioProviderConfiguration
     from .twilio_provider_credentials import TwilioProviderCredentials
     from .twilio_provider_delivery_method_enum import TwilioProviderDeliveryMethodEnum
+    from .unauthorized_schema import UnauthorizedSchema
+    from .unauthorized_schema_error import UnauthorizedSchemaError
     from .universal_login_experience_enum import UniversalLoginExperienceEnum
     from .update_action_bindings_response_content import UpdateActionBindingsResponseContent
     from .update_action_module_response_content import UpdateActionModuleResponseContent
@@ -3378,6 +3389,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AttackProtectionUpdateCaptchaRecaptchaV2": ".attack_protection_update_captcha_recaptcha_v_2",
     "AuthenticationMethodTypeEnum": ".authentication_method_type_enum",
     "AuthenticationTypeEnum": ".authentication_type_enum",
+    "BadRequestSchema": ".bad_request_schema",
+    "BadRequestSchemaError": ".bad_request_schema_error",
     "BotDetectionAllowlist": ".bot_detection_allowlist",
     "BotDetectionChallengePolicyPasswordFlowEnum": ".bot_detection_challenge_policy_password_flow_enum",
     "BotDetectionChallengePolicyPasswordResetFlowEnum": ".bot_detection_challenge_policy_password_reset_flow_enum",
@@ -4310,6 +4323,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationEmailResponseContent": ".create_verification_email_response_content",
     "CreatedAuthenticationMethodTypeEnum": ".created_authentication_method_type_enum",
     "CreatedUserAuthenticationMethodTypeEnum": ".created_user_authentication_method_type_enum",
+    "CredentialDeviceTypeEnum": ".credential_device_type_enum",
     "CredentialId": ".credential_id",
     "CustomDomain": ".custom_domain",
     "CustomDomainCustomClientIpHeader": ".custom_domain_custom_client_ip_header",
@@ -4762,6 +4776,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExpressConfiguration": ".express_configuration",
     "ExpressConfigurationOrNull": ".express_configuration_or_null",
     "ExtensibilityEmailProviderCredentials": ".extensibility_email_provider_credentials",
+    "FedCmLogin": ".fed_cm_login",
+    "FedCmLoginGoogle": ".fed_cm_login_google",
     "FederatedConnectionTokenSet": ".federated_connection_token_set",
     "FlowAction": ".flow_action",
     "FlowActionActivecampaign": ".flow_action_activecampaign",
@@ -5163,6 +5179,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FlowsVaultConnectionSetupTypeBasicAuthEnum": ".flows_vault_connection_setup_type_basic_auth_enum",
     "FlowsVaultConnectionSetupTypeOauthClientCredentialsEnum": ".flows_vault_connection_setup_type_oauth_client_credentials_enum",
     "FlowsVaultConnectionSummary": ".flows_vault_connection_summary",
+    "ForbiddenSchema": ".forbidden_schema",
+    "ForbiddenSchemaError": ".forbidden_schema_error",
     "FormBlock": ".form_block",
     "FormBlockDivider": ".form_block_divider",
     "FormBlockDividerConfig": ".form_block_divider_config",
@@ -5783,9 +5801,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TokenQuota": ".token_quota",
     "TokenQuotaClientCredentials": ".token_quota_client_credentials",
     "TokenQuotaConfiguration": ".token_quota_configuration",
+    "TooManyRequestsSchema": ".too_many_requests_schema",
+    "TooManyRequestsSchemaError": ".too_many_requests_schema_error",
     "TwilioProviderConfiguration": ".twilio_provider_configuration",
     "TwilioProviderCredentials": ".twilio_provider_credentials",
     "TwilioProviderDeliveryMethodEnum": ".twilio_provider_delivery_method_enum",
+    "UnauthorizedSchema": ".unauthorized_schema",
+    "UnauthorizedSchemaError": ".unauthorized_schema_error",
     "UniversalLoginExperienceEnum": ".universal_login_experience_enum",
     "UpdateActionBindingsResponseContent": ".update_action_bindings_response_content",
     "UpdateActionModuleResponseContent": ".update_action_module_response_content",
@@ -6062,6 +6084,8 @@ __all__ = [
     "AttackProtectionUpdateCaptchaRecaptchaV2",
     "AuthenticationMethodTypeEnum",
     "AuthenticationTypeEnum",
+    "BadRequestSchema",
+    "BadRequestSchemaError",
     "BotDetectionAllowlist",
     "BotDetectionChallengePolicyPasswordFlowEnum",
     "BotDetectionChallengePolicyPasswordResetFlowEnum",
@@ -6994,6 +7018,7 @@ __all__ = [
     "CreateVerificationEmailResponseContent",
     "CreatedAuthenticationMethodTypeEnum",
     "CreatedUserAuthenticationMethodTypeEnum",
+    "CredentialDeviceTypeEnum",
     "CredentialId",
     "CustomDomain",
     "CustomDomainCustomClientIpHeader",
@@ -7446,6 +7471,8 @@ __all__ = [
     "ExpressConfiguration",
     "ExpressConfigurationOrNull",
     "ExtensibilityEmailProviderCredentials",
+    "FedCmLogin",
+    "FedCmLoginGoogle",
     "FederatedConnectionTokenSet",
     "FlowAction",
     "FlowActionActivecampaign",
@@ -7847,6 +7874,8 @@ __all__ = [
     "FlowsVaultConnectionSetupTypeBasicAuthEnum",
     "FlowsVaultConnectionSetupTypeOauthClientCredentialsEnum",
     "FlowsVaultConnectionSummary",
+    "ForbiddenSchema",
+    "ForbiddenSchemaError",
     "FormBlock",
     "FormBlockDivider",
     "FormBlockDividerConfig",
@@ -8467,9 +8496,13 @@ __all__ = [
     "TokenQuota",
     "TokenQuotaClientCredentials",
     "TokenQuotaConfiguration",
+    "TooManyRequestsSchema",
+    "TooManyRequestsSchemaError",
     "TwilioProviderConfiguration",
     "TwilioProviderCredentials",
     "TwilioProviderDeliveryMethodEnum",
+    "UnauthorizedSchema",
+    "UnauthorizedSchemaError",
     "UniversalLoginExperienceEnum",
     "UpdateActionBindingsResponseContent",
     "UpdateActionModuleResponseContent",

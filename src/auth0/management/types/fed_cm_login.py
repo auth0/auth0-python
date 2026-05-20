@@ -3,15 +3,16 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_id import ConnectionId
-from .connection_realms import ConnectionRealms
-from .create_connection_common import CreateConnectionCommon
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .fed_cm_login_google import FedCmLoginGoogle
 
 
-class ConnectionResponseCommon(CreateConnectionCommon):
-    id: ConnectionId
-    realms: typing.Optional[ConnectionRealms] = None
+class FedCmLogin(UniversalBaseModel):
+    """
+    Configure FedCM login settings for New Universal Login
+    """
+
+    google: typing.Optional[FedCmLoginGoogle] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

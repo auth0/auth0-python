@@ -3,15 +3,18 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .connection_id import ConnectionId
-from .connection_realms import ConnectionRealms
-from .create_connection_common import CreateConnectionCommon
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class ConnectionResponseCommon(CreateConnectionCommon):
-    id: ConnectionId
-    realms: typing.Optional[ConnectionRealms] = None
+class FedCmLoginGoogle(UniversalBaseModel):
+    """
+    Google FedCM configuration for this client
+    """
+
+    is_enabled: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When true, shows the Google FedCM prompt on New Universal Login for this client
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
