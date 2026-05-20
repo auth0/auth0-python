@@ -1,5 +1,21 @@
 # Change Log
 
+## [5.5.0](https://github.com/auth0/auth0-python/tree/5.5.0) (2026-05-20)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.4.0...5.5.0)
+
+**⚠️ Breaking: Python 3.9 support dropped**
+- Python 3.9 reached end-of-life in October 2025. This release requires **Python >=3.10**. Users on Python 3.9 should remain on v5.4.0 until they upgrade their Python version. [\#843](https://github.com/auth0/auth0-python/pull/843) ([developerkunal](https://github.com/developerkunal))
+
+**Added**
+- feat: configurable max_retries parameter to Auth0 and AsyncAuth0 clients (defaults to 2 with exponential backoff) [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: New error types: BadRequestSchema, ForbiddenSchema, UnauthorizedSchema, TooManyRequestsSchema [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: New types: FedCmLogin, FedCmLoginGoogle, CredentialDeviceTypeEnum [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Extended user_authentication_method and resource_server response types with additional fields [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Expanded clients, refresh_tokens, resource_servers, tickets, and users/authentication_methods endpoint parameters
+
+**Changed**
+- Updated connection types with additional validation fields [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [5.4.0](https://github.com/auth0/auth0-python/tree/5.4.0) (2026-05-04)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.3.0...5.4.0)
 
