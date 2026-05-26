@@ -1095,6 +1095,7 @@ if typing.TYPE_CHECKING:
         CreatePhoneTemplateTestNotificationResponseContent,
     )
     from .create_public_key_device_credential_response_content import CreatePublicKeyDeviceCredentialResponseContent
+    from .create_rate_limit_policy_response_content import CreateRateLimitPolicyResponseContent
     from .create_resource_server_response_content import CreateResourceServerResponseContent
     from .create_role_response_content import CreateRoleResponseContent
     from .create_rule_response_content import CreateRuleResponseContent
@@ -2652,6 +2653,7 @@ if typing.TYPE_CHECKING:
     from .get_organization_response_content import GetOrganizationResponseContent
     from .get_partials_response_content import GetPartialsResponseContent
     from .get_phone_template_response_content import GetPhoneTemplateResponseContent
+    from .get_rate_limit_policy_response_content import GetRateLimitPolicyResponseContent
     from .get_refresh_token_response_content import GetRefreshTokenResponseContent
     from .get_refresh_tokens_paginated_response_content import GetRefreshTokensPaginatedResponseContent
     from .get_resource_server_response_content import GetResourceServerResponseContent
@@ -2745,6 +2747,7 @@ if typing.TYPE_CHECKING:
         ListFlowsVaultConnectionsOffsetPaginatedResponseContent,
     )
     from .list_forms_offset_paginated_response_content import ListFormsOffsetPaginatedResponseContent
+    from .list_group_roles_response_content import ListGroupRolesResponseContent
     from .list_groups_paginated_response_content import ListGroupsPaginatedResponseContent
     from .list_guardian_policies_response_content import ListGuardianPoliciesResponseContent
     from .list_hooks_offset_paginated_response_content import ListHooksOffsetPaginatedResponseContent
@@ -2769,6 +2772,7 @@ if typing.TYPE_CHECKING:
     from .list_organization_members_paginated_response_content import ListOrganizationMembersPaginatedResponseContent
     from .list_organizations_paginated_response_content import ListOrganizationsPaginatedResponseContent
     from .list_phone_templates_response_content import ListPhoneTemplatesResponseContent
+    from .list_rate_limit_policies_paginated_response_content import ListRateLimitPoliciesPaginatedResponseContent
     from .list_refresh_tokens_paginated_response_content import ListRefreshTokensPaginatedResponseContent
     from .list_resource_server_offset_paginated_response_content import ListResourceServerOffsetPaginatedResponseContent
     from .list_role_permissions_offset_paginated_response_content import (
@@ -2902,6 +2906,25 @@ if typing.TYPE_CHECKING:
     from .password_max_length_exceeded_policy_enum import PasswordMaxLengthExceededPolicyEnum
     from .password_sequential_characters_policy_enum import PasswordSequentialCharactersPolicyEnum
     from .patch_client_credential_response_content import PatchClientCredentialResponseContent
+    from .patch_rate_limit_policy_configuration_request_content import PatchRateLimitPolicyConfigurationRequestContent
+    from .patch_rate_limit_policy_configuration_request_content_action import (
+        PatchRateLimitPolicyConfigurationRequestContentAction,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_action_action import (
+        PatchRateLimitPolicyConfigurationRequestContentActionAction,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_one import (
+        PatchRateLimitPolicyConfigurationRequestContentOne,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_one_action import (
+        PatchRateLimitPolicyConfigurationRequestContentOneAction,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_zero import (
+        PatchRateLimitPolicyConfigurationRequestContentZero,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_zero_action import (
+        PatchRateLimitPolicyConfigurationRequestContentZeroAction,
+    )
     from .patch_supplemental_signals_response_content import PatchSupplementalSignalsResponseContent
     from .permission_request_payload import PermissionRequestPayload
     from .permissions_response_payload import PermissionsResponsePayload
@@ -2928,6 +2951,16 @@ if typing.TYPE_CHECKING:
     from .public_key_credential import PublicKeyCredential
     from .public_key_credential_algorithm_enum import PublicKeyCredentialAlgorithmEnum
     from .public_key_credential_type_enum import PublicKeyCredentialTypeEnum
+    from .rate_limit_policy import RateLimitPolicy
+    from .rate_limit_policy_configuration import RateLimitPolicyConfiguration
+    from .rate_limit_policy_configuration_action import RateLimitPolicyConfigurationAction
+    from .rate_limit_policy_configuration_action_action import RateLimitPolicyConfigurationActionAction
+    from .rate_limit_policy_configuration_one import RateLimitPolicyConfigurationOne
+    from .rate_limit_policy_configuration_one_action import RateLimitPolicyConfigurationOneAction
+    from .rate_limit_policy_configuration_zero import RateLimitPolicyConfigurationZero
+    from .rate_limit_policy_configuration_zero_action import RateLimitPolicyConfigurationZeroAction
+    from .rate_limit_policy_consumer_enum import RateLimitPolicyConsumerEnum
+    from .rate_limit_policy_resource_enum import RateLimitPolicyResourceEnum
     from .refresh_token_date import RefreshTokenDate
     from .refresh_token_date_object import RefreshTokenDateObject
     from .refresh_token_device import RefreshTokenDevice
@@ -3232,6 +3265,7 @@ if typing.TYPE_CHECKING:
     from .update_organization_discovery_domain_response_content import UpdateOrganizationDiscoveryDomainResponseContent
     from .update_organization_response_content import UpdateOrganizationResponseContent
     from .update_phone_template_response_content import UpdatePhoneTemplateResponseContent
+    from .update_rate_limit_policy_response_content import UpdateRateLimitPolicyResponseContent
     from .update_refresh_token_response_content import UpdateRefreshTokenResponseContent
     from .update_resource_server_response_content import UpdateResourceServerResponseContent
     from .update_risk_assessments_settings_new_device_response_content import (
@@ -4306,6 +4340,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePhoneTemplateResponseContent": ".create_phone_template_response_content",
     "CreatePhoneTemplateTestNotificationResponseContent": ".create_phone_template_test_notification_response_content",
     "CreatePublicKeyDeviceCredentialResponseContent": ".create_public_key_device_credential_response_content",
+    "CreateRateLimitPolicyResponseContent": ".create_rate_limit_policy_response_content",
     "CreateResourceServerResponseContent": ".create_resource_server_response_content",
     "CreateRoleResponseContent": ".create_role_response_content",
     "CreateRuleResponseContent": ".create_rule_response_content",
@@ -5415,6 +5450,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetOrganizationResponseContent": ".get_organization_response_content",
     "GetPartialsResponseContent": ".get_partials_response_content",
     "GetPhoneTemplateResponseContent": ".get_phone_template_response_content",
+    "GetRateLimitPolicyResponseContent": ".get_rate_limit_policy_response_content",
     "GetRefreshTokenResponseContent": ".get_refresh_token_response_content",
     "GetRefreshTokensPaginatedResponseContent": ".get_refresh_tokens_paginated_response_content",
     "GetResourceServerResponseContent": ".get_resource_server_response_content",
@@ -5494,6 +5530,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListFlowsRequestParametersHydrateEnum": ".list_flows_request_parameters_hydrate_enum",
     "ListFlowsVaultConnectionsOffsetPaginatedResponseContent": ".list_flows_vault_connections_offset_paginated_response_content",
     "ListFormsOffsetPaginatedResponseContent": ".list_forms_offset_paginated_response_content",
+    "ListGroupRolesResponseContent": ".list_group_roles_response_content",
     "ListGroupsPaginatedResponseContent": ".list_groups_paginated_response_content",
     "ListGuardianPoliciesResponseContent": ".list_guardian_policies_response_content",
     "ListHooksOffsetPaginatedResponseContent": ".list_hooks_offset_paginated_response_content",
@@ -5508,6 +5545,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListOrganizationMembersPaginatedResponseContent": ".list_organization_members_paginated_response_content",
     "ListOrganizationsPaginatedResponseContent": ".list_organizations_paginated_response_content",
     "ListPhoneTemplatesResponseContent": ".list_phone_templates_response_content",
+    "ListRateLimitPoliciesPaginatedResponseContent": ".list_rate_limit_policies_paginated_response_content",
     "ListRefreshTokensPaginatedResponseContent": ".list_refresh_tokens_paginated_response_content",
     "ListResourceServerOffsetPaginatedResponseContent": ".list_resource_server_offset_paginated_response_content",
     "ListRolePermissionsOffsetPaginatedResponseContent": ".list_role_permissions_offset_paginated_response_content",
@@ -5629,6 +5667,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PasswordMaxLengthExceededPolicyEnum": ".password_max_length_exceeded_policy_enum",
     "PasswordSequentialCharactersPolicyEnum": ".password_sequential_characters_policy_enum",
     "PatchClientCredentialResponseContent": ".patch_client_credential_response_content",
+    "PatchRateLimitPolicyConfigurationRequestContent": ".patch_rate_limit_policy_configuration_request_content",
+    "PatchRateLimitPolicyConfigurationRequestContentAction": ".patch_rate_limit_policy_configuration_request_content_action",
+    "PatchRateLimitPolicyConfigurationRequestContentActionAction": ".patch_rate_limit_policy_configuration_request_content_action_action",
+    "PatchRateLimitPolicyConfigurationRequestContentOne": ".patch_rate_limit_policy_configuration_request_content_one",
+    "PatchRateLimitPolicyConfigurationRequestContentOneAction": ".patch_rate_limit_policy_configuration_request_content_one_action",
+    "PatchRateLimitPolicyConfigurationRequestContentZero": ".patch_rate_limit_policy_configuration_request_content_zero",
+    "PatchRateLimitPolicyConfigurationRequestContentZeroAction": ".patch_rate_limit_policy_configuration_request_content_zero_action",
     "PatchSupplementalSignalsResponseContent": ".patch_supplemental_signals_response_content",
     "PermissionRequestPayload": ".permission_request_payload",
     "PermissionsResponsePayload": ".permissions_response_payload",
@@ -5655,6 +5700,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PublicKeyCredential": ".public_key_credential",
     "PublicKeyCredentialAlgorithmEnum": ".public_key_credential_algorithm_enum",
     "PublicKeyCredentialTypeEnum": ".public_key_credential_type_enum",
+    "RateLimitPolicy": ".rate_limit_policy",
+    "RateLimitPolicyConfiguration": ".rate_limit_policy_configuration",
+    "RateLimitPolicyConfigurationAction": ".rate_limit_policy_configuration_action",
+    "RateLimitPolicyConfigurationActionAction": ".rate_limit_policy_configuration_action_action",
+    "RateLimitPolicyConfigurationOne": ".rate_limit_policy_configuration_one",
+    "RateLimitPolicyConfigurationOneAction": ".rate_limit_policy_configuration_one_action",
+    "RateLimitPolicyConfigurationZero": ".rate_limit_policy_configuration_zero",
+    "RateLimitPolicyConfigurationZeroAction": ".rate_limit_policy_configuration_zero_action",
+    "RateLimitPolicyConsumerEnum": ".rate_limit_policy_consumer_enum",
+    "RateLimitPolicyResourceEnum": ".rate_limit_policy_resource_enum",
     "RefreshTokenDate": ".refresh_token_date",
     "RefreshTokenDateObject": ".refresh_token_date_object",
     "RefreshTokenDevice": ".refresh_token_device",
@@ -5917,6 +5972,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateOrganizationDiscoveryDomainResponseContent": ".update_organization_discovery_domain_response_content",
     "UpdateOrganizationResponseContent": ".update_organization_response_content",
     "UpdatePhoneTemplateResponseContent": ".update_phone_template_response_content",
+    "UpdateRateLimitPolicyResponseContent": ".update_rate_limit_policy_response_content",
     "UpdateRefreshTokenResponseContent": ".update_refresh_token_response_content",
     "UpdateResourceServerResponseContent": ".update_resource_server_response_content",
     "UpdateRiskAssessmentsSettingsNewDeviceResponseContent": ".update_risk_assessments_settings_new_device_response_content",
@@ -7001,6 +7057,7 @@ __all__ = [
     "CreatePhoneTemplateResponseContent",
     "CreatePhoneTemplateTestNotificationResponseContent",
     "CreatePublicKeyDeviceCredentialResponseContent",
+    "CreateRateLimitPolicyResponseContent",
     "CreateResourceServerResponseContent",
     "CreateRoleResponseContent",
     "CreateRuleResponseContent",
@@ -8110,6 +8167,7 @@ __all__ = [
     "GetOrganizationResponseContent",
     "GetPartialsResponseContent",
     "GetPhoneTemplateResponseContent",
+    "GetRateLimitPolicyResponseContent",
     "GetRefreshTokenResponseContent",
     "GetRefreshTokensPaginatedResponseContent",
     "GetResourceServerResponseContent",
@@ -8189,6 +8247,7 @@ __all__ = [
     "ListFlowsRequestParametersHydrateEnum",
     "ListFlowsVaultConnectionsOffsetPaginatedResponseContent",
     "ListFormsOffsetPaginatedResponseContent",
+    "ListGroupRolesResponseContent",
     "ListGroupsPaginatedResponseContent",
     "ListGuardianPoliciesResponseContent",
     "ListHooksOffsetPaginatedResponseContent",
@@ -8203,6 +8262,7 @@ __all__ = [
     "ListOrganizationMembersPaginatedResponseContent",
     "ListOrganizationsPaginatedResponseContent",
     "ListPhoneTemplatesResponseContent",
+    "ListRateLimitPoliciesPaginatedResponseContent",
     "ListRefreshTokensPaginatedResponseContent",
     "ListResourceServerOffsetPaginatedResponseContent",
     "ListRolePermissionsOffsetPaginatedResponseContent",
@@ -8324,6 +8384,13 @@ __all__ = [
     "PasswordMaxLengthExceededPolicyEnum",
     "PasswordSequentialCharactersPolicyEnum",
     "PatchClientCredentialResponseContent",
+    "PatchRateLimitPolicyConfigurationRequestContent",
+    "PatchRateLimitPolicyConfigurationRequestContentAction",
+    "PatchRateLimitPolicyConfigurationRequestContentActionAction",
+    "PatchRateLimitPolicyConfigurationRequestContentOne",
+    "PatchRateLimitPolicyConfigurationRequestContentOneAction",
+    "PatchRateLimitPolicyConfigurationRequestContentZero",
+    "PatchRateLimitPolicyConfigurationRequestContentZeroAction",
     "PatchSupplementalSignalsResponseContent",
     "PermissionRequestPayload",
     "PermissionsResponsePayload",
@@ -8350,6 +8417,16 @@ __all__ = [
     "PublicKeyCredential",
     "PublicKeyCredentialAlgorithmEnum",
     "PublicKeyCredentialTypeEnum",
+    "RateLimitPolicy",
+    "RateLimitPolicyConfiguration",
+    "RateLimitPolicyConfigurationAction",
+    "RateLimitPolicyConfigurationActionAction",
+    "RateLimitPolicyConfigurationOne",
+    "RateLimitPolicyConfigurationOneAction",
+    "RateLimitPolicyConfigurationZero",
+    "RateLimitPolicyConfigurationZeroAction",
+    "RateLimitPolicyConsumerEnum",
+    "RateLimitPolicyResourceEnum",
     "RefreshTokenDate",
     "RefreshTokenDateObject",
     "RefreshTokenDevice",
@@ -8612,6 +8689,7 @@ __all__ = [
     "UpdateOrganizationDiscoveryDomainResponseContent",
     "UpdateOrganizationResponseContent",
     "UpdatePhoneTemplateResponseContent",
+    "UpdateRateLimitPolicyResponseContent",
     "UpdateRefreshTokenResponseContent",
     "UpdateResourceServerResponseContent",
     "UpdateRiskAssessmentsSettingsNewDeviceResponseContent",

@@ -565,9 +565,6 @@ class RawTemplatesClient:
             f"branding/phone/templates/{encode_path_param(id)}/reset",
             method="PATCH",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1280,9 +1277,6 @@ class AsyncRawTemplatesClient:
             f"branding/phone/templates/{encode_path_param(id)}/reset",
             method="PATCH",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

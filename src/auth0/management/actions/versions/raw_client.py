@@ -280,9 +280,6 @@ class RawVersionsClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[DeployActionVersionRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -605,9 +602,6 @@ class AsyncRawVersionsClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[DeployActionVersionRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

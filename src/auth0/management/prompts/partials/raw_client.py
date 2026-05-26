@@ -154,9 +154,6 @@ class RawPartialsClient:
             f"prompts/{encode_path_param(prompt)}/partials",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -347,9 +344,6 @@ class AsyncRawPartialsClient:
             f"prompts/{encode_path_param(prompt)}/partials",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

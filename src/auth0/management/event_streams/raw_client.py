@@ -166,9 +166,6 @@ class RawEventStreamsClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=EventStreamsCreateRequest, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -747,9 +744,6 @@ class AsyncRawEventStreamsClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=EventStreamsCreateRequest, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

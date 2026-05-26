@@ -51,7 +51,7 @@ class RolesClient:
         """
         Retrieve detailed list of user roles created in your tenant.
 
-        <b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
+        **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 
         Parameters
         ----------
@@ -110,9 +110,9 @@ class RolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRoleResponseContent:
         """
-        Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+        Create a user role for [Role-Based Access Control](https://auth0.com/docs/manage-users/access-control/rbac).
 
-        <b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
+        **Note**: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
 
         Parameters
         ----------
@@ -146,7 +146,7 @@ class RolesClient:
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetRoleResponseContent:
         """
-        Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Retrieve details about a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -177,7 +177,7 @@ class RolesClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+        Delete a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
 
         Parameters
         ----------
@@ -214,7 +214,7 @@ class RolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateRoleResponseContent:
         """
-        Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Modify the details of a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -296,7 +296,7 @@ class AsyncRolesClient:
         """
         Retrieve detailed list of user roles created in your tenant.
 
-        <b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
+        **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 
         Parameters
         ----------
@@ -364,9 +364,9 @@ class AsyncRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRoleResponseContent:
         """
-        Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+        Create a user role for [Role-Based Access Control](https://auth0.com/docs/manage-users/access-control/rbac).
 
-        <b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
+        **Note**: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
 
         Parameters
         ----------
@@ -408,7 +408,7 @@ class AsyncRolesClient:
 
     async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetRoleResponseContent:
         """
-        Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Retrieve details about a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -447,7 +447,7 @@ class AsyncRolesClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+        Delete a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
 
         Parameters
         ----------
@@ -492,7 +492,7 @@ class AsyncRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateRoleResponseContent:
         """
-        Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Modify the details of a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------

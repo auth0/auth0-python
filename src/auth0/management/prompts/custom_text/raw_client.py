@@ -166,9 +166,6 @@ class RawCustomTextClient:
             f"prompts/{encode_path_param(prompt)}/custom-text/{encode_path_param(language)}",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -370,9 +367,6 @@ class AsyncRawCustomTextClient:
             f"prompts/{encode_path_param(prompt)}/custom-text/{encode_path_param(language)}",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

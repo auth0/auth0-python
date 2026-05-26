@@ -29,15 +29,14 @@ class RawPoliciesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ListGuardianPoliciesResponseContent]:
         """
-        Retrieve the <a href="https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa">multi-factor authentication (MFA) policies</a> configured for your tenant.
+        Retrieve the [multi-factor authentication (MFA) policies](https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa) configured for your tenant.
 
         The following policies are supported:
-        <ul>
-        <li><code>all-applications</code> policy prompts with MFA for all logins.</li>
-        <li><code>confidence-score</code> policy prompts with MFA only for low confidence logins.</li>
-        </ul>
 
-        <b>Note</b>: The <code>confidence-score</code> policy is part of the <a href="https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa">Adaptive MFA feature</a>. Adaptive MFA requires an add-on for the Enterprise plan; review <a href="https://auth0.com/pricing">Auth0 Pricing</a> for more details.
+        - `all-applications` policy prompts with MFA for all logins.
+        - `confidence-score` policy prompts with MFA only for low confidence logins.
+
+        **Note**: The `confidence-score` policy is part of the [Adaptive MFA feature](https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa). Adaptive MFA requires an add-on for the Enterprise plan; review [Auth0 Pricing](https://auth0.com/pricing) for more details.
 
         Parameters
         ----------
@@ -110,15 +109,14 @@ class RawPoliciesClient:
         self, *, request: SetGuardianPoliciesRequestContent, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[SetGuardianPoliciesResponseContent]:
         """
-        Set <a href="https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa">multi-factor authentication (MFA) policies</a> for your tenant.
+        Set [multi-factor authentication (MFA) policies](https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa) for your tenant.
 
         The following policies are supported:
-        <ul>
-        <li><code>all-applications</code> policy prompts with MFA for all logins.</li>
-        <li><code>confidence-score</code> policy prompts with MFA only for low confidence logins.</li>
-        </ul>
 
-        <b>Note</b>: The <code>confidence-score</code> policy is part of the <a href="https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa">Adaptive MFA feature</a>. Adaptive MFA requires an add-on for the Enterprise plan; review <a href="https://auth0.com/pricing">Auth0 Pricing</a> for more details.
+        - `all-applications` policy prompts with MFA for all logins.
+        - `confidence-score` policy prompts with MFA only for low confidence logins.
+
+        **Note**: The `confidence-score` policy is part of the [Adaptive MFA feature](https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa). Adaptive MFA requires an add-on for the Enterprise plan; review [Auth0 Pricing](https://auth0.com/pricing) for more details.
 
         Parameters
         ----------
@@ -136,9 +134,6 @@ class RawPoliciesClient:
             "guardian/policies",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -203,15 +198,14 @@ class AsyncRawPoliciesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ListGuardianPoliciesResponseContent]:
         """
-        Retrieve the <a href="https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa">multi-factor authentication (MFA) policies</a> configured for your tenant.
+        Retrieve the [multi-factor authentication (MFA) policies](https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa) configured for your tenant.
 
         The following policies are supported:
-        <ul>
-        <li><code>all-applications</code> policy prompts with MFA for all logins.</li>
-        <li><code>confidence-score</code> policy prompts with MFA only for low confidence logins.</li>
-        </ul>
 
-        <b>Note</b>: The <code>confidence-score</code> policy is part of the <a href="https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa">Adaptive MFA feature</a>. Adaptive MFA requires an add-on for the Enterprise plan; review <a href="https://auth0.com/pricing">Auth0 Pricing</a> for more details.
+        - `all-applications` policy prompts with MFA for all logins.
+        - `confidence-score` policy prompts with MFA only for low confidence logins.
+
+        **Note**: The `confidence-score` policy is part of the [Adaptive MFA feature](https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa). Adaptive MFA requires an add-on for the Enterprise plan; review [Auth0 Pricing](https://auth0.com/pricing) for more details.
 
         Parameters
         ----------
@@ -284,15 +278,14 @@ class AsyncRawPoliciesClient:
         self, *, request: SetGuardianPoliciesRequestContent, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[SetGuardianPoliciesResponseContent]:
         """
-        Set <a href="https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa">multi-factor authentication (MFA) policies</a> for your tenant.
+        Set [multi-factor authentication (MFA) policies](https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa) for your tenant.
 
         The following policies are supported:
-        <ul>
-        <li><code>all-applications</code> policy prompts with MFA for all logins.</li>
-        <li><code>confidence-score</code> policy prompts with MFA only for low confidence logins.</li>
-        </ul>
 
-        <b>Note</b>: The <code>confidence-score</code> policy is part of the <a href="https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa">Adaptive MFA feature</a>. Adaptive MFA requires an add-on for the Enterprise plan; review <a href="https://auth0.com/pricing">Auth0 Pricing</a> for more details.
+        - `all-applications` policy prompts with MFA for all logins.
+        - `confidence-score` policy prompts with MFA only for low confidence logins.
+
+        **Note**: The `confidence-score` policy is part of the [Adaptive MFA feature](https://auth0.com/docs/secure/multi-factor-authentication/adaptive-mfa). Adaptive MFA requires an add-on for the Enterprise plan; review [Auth0 Pricing](https://auth0.com/pricing) for more details.
 
         Parameters
         ----------
@@ -310,9 +303,6 @@ class AsyncRawPoliciesClient:
             "guardian/policies",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

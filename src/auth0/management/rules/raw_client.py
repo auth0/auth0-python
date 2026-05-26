@@ -44,7 +44,7 @@ class RawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Rule, ListRulesOffsetPaginatedResponseContent]:
         """
-        Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
+        Retrieve a filtered list of [rules](https://auth0.com/docs/rules). Accepts a list of fields to include or exclude.
 
         Parameters
         ----------
@@ -184,9 +184,9 @@ class RawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateRuleResponseContent]:
         """
-        Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+        Create a [new rule](https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api).
 
-        Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.
+        Note: Changing a rule's stage of execution from the default `login_success` can change the rule's function signature to have user omitted.
 
         Parameters
         ----------
@@ -308,7 +308,7 @@ class RawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[GetRuleResponseContent]:
         """
-        Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
+        Retrieve [rule](https://auth0.com/docs/rules) details. Accepts a list of fields to include or exclude in the result.
 
         Parameters
         ----------
@@ -644,7 +644,7 @@ class AsyncRawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Rule, ListRulesOffsetPaginatedResponseContent]:
         """
-        Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
+        Retrieve a filtered list of [rules](https://auth0.com/docs/rules). Accepts a list of fields to include or exclude.
 
         Parameters
         ----------
@@ -787,9 +787,9 @@ class AsyncRawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateRuleResponseContent]:
         """
-        Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+        Create a [new rule](https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api).
 
-        Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.
+        Note: Changing a rule's stage of execution from the default `login_success` can change the rule's function signature to have user omitted.
 
         Parameters
         ----------
@@ -911,7 +911,7 @@ class AsyncRawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[GetRuleResponseContent]:
         """
-        Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
+        Retrieve [rule](https://auth0.com/docs/rules) details. Accepts a list of fields to include or exclude in the result.
 
         Parameters
         ----------

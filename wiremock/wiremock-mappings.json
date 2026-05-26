@@ -3813,6 +3813,194 @@
       }
     },
     {
+      "id": "ffa760a3-13f2-4a02-8c0b-0a50833659d1",
+      "name": "Get rate limit policies - default",
+      "request": {
+        "urlPathTemplate": "/rate-limit-policies",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "queryParameters": {
+          "resource": {
+            "equalTo": "oauth_authentication_api"
+          },
+          "consumer": {
+            "equalTo": "client"
+          },
+          "consumer_selector": {
+            "equalTo": "consumer_selector"
+          },
+          "take": {
+            "equalTo": "1"
+          },
+          "from": {
+            "equalTo": "from"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"rate_limit_policies\": [\n    {\n      \"id\": \"id\",\n      \"resource\": \"oauth_authentication_api\",\n      \"consumer\": \"client\",\n      \"consumer_selector\": \"consumer_selector\",\n      \"configuration\": {\n        \"action\": \"allow\"\n      },\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ffa760a3-13f2-4a02-8c0b-0a50833659d1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "8d96433a-d9e1-4c04-b3c7-6a38e20fb85f",
+      "name": "Create a rate limit policy - default",
+      "request": {
+        "urlPathTemplate": "/rate-limit-policies",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"id\": \"id\",\n  \"resource\": \"oauth_authentication_api\",\n  \"consumer\": \"client\",\n  \"consumer_selector\": \"consumer_selector\",\n  \"configuration\": {\n    \"action\": \"allow\"\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8d96433a-d9e1-4c04-b3c7-6a38e20fb85f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "252162e3-2c11-4b7f-aa9a-b9f245700110",
+      "name": "Get a rate limit policy - default",
+      "request": {
+        "urlPathTemplate": "/rate-limit-policies/{id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"resource\": \"oauth_authentication_api\",\n  \"consumer\": \"client\",\n  \"consumer_selector\": \"consumer_selector\",\n  \"configuration\": {\n    \"action\": \"allow\"\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "252162e3-2c11-4b7f-aa9a-b9f245700110",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8827be53-c433-4722-9aef-6c36aedd8e8f",
+      "name": "Delete a rate limit policy - default",
+      "request": {
+        "urlPathTemplate": "/rate-limit-policies/{id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8827be53-c433-4722-9aef-6c36aedd8e8f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "067fc71d-f738-4be0-bbd8-7b63d5cef466",
+      "name": "Update a rate limit policy - default",
+      "request": {
+        "urlPathTemplate": "/rate-limit-policies/{id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"resource\": \"oauth_authentication_api\",\n  \"consumer\": \"client\",\n  \"consumer_selector\": \"consumer_selector\",\n  \"configuration\": {\n    \"action\": \"allow\"\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "067fc71d-f738-4be0-bbd8-7b63d5cef466",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "1be8f43f-0f7e-4335-879a-b48d21ecfac6",
       "name": "Get refresh tokens - default",
       "request": {
@@ -5836,7 +6024,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"length\": 1.1,\n  \"total\": 1.1,\n  \"users\": [\n    {\n      \"user_id\": \"user_id\",\n      \"email\": \"email\",\n      \"email_verified\": true,\n      \"username\": \"username\",\n      \"phone_number\": \"phone_number\",\n      \"phone_verified\": true,\n      \"created_at\": \"created_at\",\n      \"updated_at\": \"updated_at\",\n      \"identities\": [\n        {}\n      ],\n      \"app_metadata\": {\n        \"key\": \"value\"\n      },\n      \"user_metadata\": {\n        \"key\": \"value\"\n      },\n      \"picture\": \"picture\",\n      \"name\": \"name\",\n      \"nickname\": \"nickname\",\n      \"multifactor\": [\n        \"multifactor\"\n      ],\n      \"last_ip\": \"last_ip\",\n      \"last_login\": \"last_login\",\n      \"logins_count\": 1,\n      \"blocked\": true,\n      \"given_name\": \"given_name\",\n      \"family_name\": \"family_name\"\n    }\n  ]\n}",
+        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"length\": 1.1,\n  \"total\": 1.1,\n  \"users\": [\n    {\n      \"user_id\": \"user_id\",\n      \"email\": \"email\",\n      \"email_verified\": true,\n      \"username\": \"username\",\n      \"phone_number\": \"phone_number\",\n      \"phone_verified\": true,\n      \"created_at\": \"created_at\",\n      \"updated_at\": \"updated_at\",\n      \"identities\": [\n        {}\n      ],\n      \"app_metadata\": {\n        \"key\": \"value\"\n      },\n      \"user_metadata\": {\n        \"key\": \"value\"\n      },\n      \"picture\": \"picture\",\n      \"name\": \"name\",\n      \"nickname\": \"nickname\",\n      \"multifactor\": [\n        \"multifactor\"\n      ],\n      \"multifactor_last_modified\": \"multifactor_last_modified\",\n      \"last_ip\": \"last_ip\",\n      \"last_login\": \"last_login\",\n      \"last_password_reset\": \"last_password_reset\",\n      \"logins_count\": 1,\n      \"blocked\": true,\n      \"given_name\": \"given_name\",\n      \"family_name\": \"family_name\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -5868,7 +6056,7 @@
       },
       "response": {
         "status": 201,
-        "body": "{\n  \"user_id\": \"user_id\",\n  \"email\": \"email\",\n  \"email_verified\": true,\n  \"username\": \"username\",\n  \"phone_number\": \"phone_number\",\n  \"phone_verified\": true,\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\",\n  \"identities\": [\n    {\n      \"connection\": \"connection\",\n      \"user_id\": \"user_id\",\n      \"provider\": \"ad\",\n      \"isSocial\": true,\n      \"access_token\": \"access_token\",\n      \"access_token_secret\": \"access_token_secret\",\n      \"refresh_token\": \"refresh_token\"\n    }\n  ],\n  \"app_metadata\": {\n    \"key\": \"value\"\n  },\n  \"user_metadata\": {\n    \"key\": \"value\"\n  },\n  \"picture\": \"picture\",\n  \"name\": \"name\",\n  \"nickname\": \"nickname\",\n  \"multifactor\": [\n    \"multifactor\"\n  ],\n  \"last_ip\": \"last_ip\",\n  \"last_login\": \"last_login\",\n  \"logins_count\": 1,\n  \"blocked\": true,\n  \"given_name\": \"given_name\",\n  \"family_name\": \"family_name\"\n}",
+        "body": "{\n  \"user_id\": \"user_id\",\n  \"email\": \"email\",\n  \"email_verified\": true,\n  \"username\": \"username\",\n  \"phone_number\": \"phone_number\",\n  \"phone_verified\": true,\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\",\n  \"identities\": [\n    {\n      \"connection\": \"connection\",\n      \"user_id\": \"user_id\",\n      \"provider\": \"ad\",\n      \"isSocial\": true,\n      \"access_token\": \"access_token\",\n      \"access_token_secret\": \"access_token_secret\",\n      \"refresh_token\": \"refresh_token\"\n    }\n  ],\n  \"app_metadata\": {\n    \"key\": \"value\"\n  },\n  \"user_metadata\": {\n    \"key\": \"value\"\n  },\n  \"picture\": \"picture\",\n  \"name\": \"name\",\n  \"nickname\": \"nickname\",\n  \"multifactor\": [\n    \"multifactor\"\n  ],\n  \"multifactor_last_modified\": \"multifactor_last_modified\",\n  \"last_ip\": \"last_ip\",\n  \"last_login\": \"last_login\",\n  \"last_password_reset\": \"last_password_reset\",\n  \"logins_count\": 1,\n  \"blocked\": true,\n  \"given_name\": \"given_name\",\n  \"family_name\": \"family_name\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -5910,7 +6098,7 @@
       },
       "response": {
         "status": 200,
-        "body": "[\n  {\n    \"user_id\": \"user_id\",\n    \"email\": \"email\",\n    \"email_verified\": true,\n    \"username\": \"username\",\n    \"phone_number\": \"phone_number\",\n    \"phone_verified\": true,\n    \"created_at\": \"created_at\",\n    \"updated_at\": \"updated_at\",\n    \"identities\": [\n      {}\n    ],\n    \"app_metadata\": {\n      \"key\": \"value\"\n    },\n    \"user_metadata\": {\n      \"key\": \"value\"\n    },\n    \"picture\": \"picture\",\n    \"name\": \"name\",\n    \"nickname\": \"nickname\",\n    \"multifactor\": [\n      \"multifactor\"\n    ],\n    \"last_ip\": \"last_ip\",\n    \"last_login\": \"last_login\",\n    \"logins_count\": 1,\n    \"blocked\": true,\n    \"given_name\": \"given_name\",\n    \"family_name\": \"family_name\"\n  }\n]",
+        "body": "[\n  {\n    \"user_id\": \"user_id\",\n    \"email\": \"email\",\n    \"email_verified\": true,\n    \"username\": \"username\",\n    \"phone_number\": \"phone_number\",\n    \"phone_verified\": true,\n    \"created_at\": \"created_at\",\n    \"updated_at\": \"updated_at\",\n    \"identities\": [\n      {}\n    ],\n    \"app_metadata\": {\n      \"key\": \"value\"\n    },\n    \"user_metadata\": {\n      \"key\": \"value\"\n    },\n    \"picture\": \"picture\",\n    \"name\": \"name\",\n    \"nickname\": \"nickname\",\n    \"multifactor\": [\n      \"multifactor\"\n    ],\n    \"multifactor_last_modified\": \"multifactor_last_modified\",\n    \"last_ip\": \"last_ip\",\n    \"last_login\": \"last_login\",\n    \"last_password_reset\": \"last_password_reset\",\n    \"logins_count\": 1,\n    \"blocked\": true,\n    \"given_name\": \"given_name\",\n    \"family_name\": \"family_name\"\n  }\n]",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -5955,7 +6143,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"user_id\": \"user_id\",\n  \"email\": \"email\",\n  \"email_verified\": true,\n  \"username\": \"username\",\n  \"phone_number\": \"phone_number\",\n  \"phone_verified\": true,\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\",\n  \"identities\": [\n    {\n      \"connection\": \"connection\",\n      \"user_id\": \"user_id\",\n      \"provider\": \"ad\",\n      \"isSocial\": true,\n      \"access_token\": \"access_token\",\n      \"access_token_secret\": \"access_token_secret\",\n      \"refresh_token\": \"refresh_token\"\n    }\n  ],\n  \"app_metadata\": {\n    \"key\": \"value\"\n  },\n  \"user_metadata\": {\n    \"key\": \"value\"\n  },\n  \"picture\": \"picture\",\n  \"name\": \"name\",\n  \"nickname\": \"nickname\",\n  \"multifactor\": [\n    \"multifactor\"\n  ],\n  \"last_ip\": \"last_ip\",\n  \"last_login\": \"last_login\",\n  \"logins_count\": 1,\n  \"blocked\": true,\n  \"given_name\": \"given_name\",\n  \"family_name\": \"family_name\"\n}",
+        "body": "{\n  \"user_id\": \"user_id\",\n  \"email\": \"email\",\n  \"email_verified\": true,\n  \"username\": \"username\",\n  \"phone_number\": \"phone_number\",\n  \"phone_verified\": true,\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\",\n  \"identities\": [\n    {\n      \"connection\": \"connection\",\n      \"user_id\": \"user_id\",\n      \"provider\": \"ad\",\n      \"isSocial\": true,\n      \"access_token\": \"access_token\",\n      \"access_token_secret\": \"access_token_secret\",\n      \"refresh_token\": \"refresh_token\"\n    }\n  ],\n  \"app_metadata\": {\n    \"key\": \"value\"\n  },\n  \"user_metadata\": {\n    \"key\": \"value\"\n  },\n  \"picture\": \"picture\",\n  \"name\": \"name\",\n  \"nickname\": \"nickname\",\n  \"multifactor\": [\n    \"multifactor\"\n  ],\n  \"multifactor_last_modified\": \"multifactor_last_modified\",\n  \"last_ip\": \"last_ip\",\n  \"last_login\": \"last_login\",\n  \"last_password_reset\": \"last_password_reset\",\n  \"logins_count\": 1,\n  \"blocked\": true,\n  \"given_name\": \"given_name\",\n  \"family_name\": \"family_name\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -6027,7 +6215,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"user_id\": \"user_id\",\n  \"email\": \"email\",\n  \"email_verified\": true,\n  \"username\": \"username\",\n  \"phone_number\": \"phone_number\",\n  \"phone_verified\": true,\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\",\n  \"identities\": [\n    {\n      \"connection\": \"connection\",\n      \"user_id\": \"user_id\",\n      \"provider\": \"ad\",\n      \"isSocial\": true,\n      \"access_token\": \"access_token\",\n      \"access_token_secret\": \"access_token_secret\",\n      \"refresh_token\": \"refresh_token\"\n    }\n  ],\n  \"app_metadata\": {\n    \"key\": \"value\"\n  },\n  \"user_metadata\": {\n    \"key\": \"value\"\n  },\n  \"picture\": \"picture\",\n  \"name\": \"name\",\n  \"nickname\": \"nickname\",\n  \"multifactor\": [\n    \"multifactor\"\n  ],\n  \"last_ip\": \"last_ip\",\n  \"last_login\": \"last_login\",\n  \"logins_count\": 1,\n  \"blocked\": true,\n  \"given_name\": \"given_name\",\n  \"family_name\": \"family_name\"\n}",
+        "body": "{\n  \"user_id\": \"user_id\",\n  \"email\": \"email\",\n  \"email_verified\": true,\n  \"username\": \"username\",\n  \"phone_number\": \"phone_number\",\n  \"phone_verified\": true,\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\",\n  \"identities\": [\n    {\n      \"connection\": \"connection\",\n      \"user_id\": \"user_id\",\n      \"provider\": \"ad\",\n      \"isSocial\": true,\n      \"access_token\": \"access_token\",\n      \"access_token_secret\": \"access_token_secret\",\n      \"refresh_token\": \"refresh_token\"\n    }\n  ],\n  \"app_metadata\": {\n    \"key\": \"value\"\n  },\n  \"user_metadata\": {\n    \"key\": \"value\"\n  },\n  \"picture\": \"picture\",\n  \"name\": \"name\",\n  \"nickname\": \"nickname\",\n  \"multifactor\": [\n    \"multifactor\"\n  ],\n  \"multifactor_last_modified\": \"multifactor_last_modified\",\n  \"last_ip\": \"last_ip\",\n  \"last_login\": \"last_login\",\n  \"last_password_reset\": \"last_password_reset\",\n  \"logins_count\": 1,\n  \"blocked\": true,\n  \"given_name\": \"given_name\",\n  \"family_name\": \"family_name\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -9717,6 +9905,122 @@
         }
       },
       "uuid": "a79f7c93-ff7f-4b2e-8d07-41cdddf27eeb",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a6180ede-b842-44df-ae1d-d9243c735673",
+      "name": "Get a group's roles - default",
+      "request": {
+        "urlPathTemplate": "/groups/{id}/roles",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a6180ede-b842-44df-ae1d-d9243c735673",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "89bf9bc1-fdef-4324-af0b-ae27bc06a0b7",
+      "name": "Assign roles to a group - default",
+      "request": {
+        "urlPathTemplate": "/groups/{id}/roles",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "89bf9bc1-fdef-4324-af0b-ae27bc06a0b7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8524f74e-b4e7-406d-847c-49ff4fda5446",
+      "name": "Remove roles from a group - default",
+      "request": {
+        "urlPathTemplate": "/groups/{id}/roles",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8524f74e-b4e7-406d-847c-49ff4fda5446",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -15075,6 +15379,6 @@
     }
   ],
   "meta": {
-    "total": 406
+    "total": 414
   }
 }

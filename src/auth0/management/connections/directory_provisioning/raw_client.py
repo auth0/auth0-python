@@ -277,9 +277,6 @@ class RawDirectoryProvisioningClient:
                 annotation=typing.Optional[CreateDirectoryProvisioningRequestContent],
                 direction="write",
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -489,9 +486,6 @@ class RawDirectoryProvisioningClient:
                 annotation=typing.Optional[UpdateDirectoryProvisioningRequestContent],
                 direction="write",
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1151,9 +1145,6 @@ class AsyncRawDirectoryProvisioningClient:
                 annotation=typing.Optional[CreateDirectoryProvisioningRequestContent],
                 direction="write",
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1365,9 +1356,6 @@ class AsyncRawDirectoryProvisioningClient:
                 annotation=typing.Optional[UpdateDirectoryProvisioningRequestContent],
                 direction="write",
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

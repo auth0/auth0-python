@@ -198,7 +198,7 @@ class RawRenderingClient:
         self, *, configs: AculConfigs, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[BulkUpdateAculResponseContent]:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -430,7 +430,7 @@ class RawRenderingClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateAculResponseContent]:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -729,7 +729,7 @@ class AsyncRawRenderingClient:
         self, *, configs: AculConfigs, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[BulkUpdateAculResponseContent]:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -961,7 +961,7 @@ class AsyncRawRenderingClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateAculResponseContent]:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------

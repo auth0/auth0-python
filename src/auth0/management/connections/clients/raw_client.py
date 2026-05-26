@@ -39,9 +39,9 @@ class RawClientsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]:
         """
-        Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+        Retrieve all clients that have the specified [connection](https://auth0.com/docs/authenticate/identity-providers) enabled.
 
-        <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+        **Note**: The first time you call this endpoint, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no further results are remaining.
 
         Parameters
         ----------
@@ -182,9 +182,6 @@ class RawClientsClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateEnabledClientConnectionsRequestContent, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -269,9 +266,9 @@ class AsyncRawClientsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]:
         """
-        Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+        Retrieve all clients that have the specified [connection](https://auth0.com/docs/authenticate/identity-providers) enabled.
 
-        <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+        **Note**: The first time you call this endpoint, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no further results are remaining.
 
         Parameters
         ----------
@@ -415,9 +412,6 @@ class AsyncRawClientsClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateEnabledClientConnectionsRequestContent, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

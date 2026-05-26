@@ -397,9 +397,6 @@ class RawAuthenticationMethodsClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=SetUserAuthenticationMethodsRequestContent, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1232,9 +1229,6 @@ class AsyncRawAuthenticationMethodsClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=SetUserAuthenticationMethodsRequestContent, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
