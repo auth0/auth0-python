@@ -31,22 +31,28 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.12.10
-current_generation: a6b05e768329fac22fd4da6fbe711006e23029f8
+  - commit_sha: 15127abb8ab299907925c41e89122d50dbe138d5
+    tree_hash: 30ecce30237e3fb542f943c41737d2126c647e77
+    timestamp: 2026-05-26T15:18:29.669Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.14.3
+current_generation: 15127abb8ab299907925c41e89122d50dbe138d5
 patches:
   - id: patch-4894603d
-    content_hash: sha256:09d8cd6f9f5c2aee1d72f67be687d870c9145144262b28f81513c64915494584
+    content_hash: sha256:2c5caf4188d616dc6d0a85d59c179069d6a73a541af915ce9b8c3340c97afd31
     original_commit: 4894603d03409962bc60a34712de8abffe919e2c
     original_message: "chore: Restore custom wiring in management/__init__.py"
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: a6b05e768329fac22fd4da6fbe711006e23029f8
+    base_generation: 15127abb8ab299907925c41e89122d50dbe138d5
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index 71b8e8c..ecd00f0 100644
+      index a48ff10..46ef694 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -2766,6 +2766,8 @@ if typing.TYPE_CHECKING:
+      @@ -2783,6 +2783,8 @@ if typing.TYPE_CHECKING:
            from .environment import Auth0Environment
            from .event_streams import EventStreamsCreateRequest
            from .version import __version__
@@ -55,7 +61,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -2826,6 +2828,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -2843,6 +2845,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "AssociateOrganizationClientGrantResponseContent": ".types",
            "AsyncApprovalNotificationsChannelsEnum": ".types",
            "AsyncAuth0": ".client",
@@ -64,7 +70,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent": ".types",
            "AttackProtectionCaptchaAuthChallengeRequest": ".types",
            "AttackProtectionCaptchaAuthChallengeResponseContent": ".types",
-      @@ -3785,6 +3789,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -3802,6 +3806,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CredentialDeviceTypeEnum": ".types",
            "CredentialId": ".types",
            "CustomDomain": ".types",
@@ -72,7 +78,7 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainProvisioningTypeEnum": ".types",
-      @@ -5047,6 +5052,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5073,6 +5078,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "LogStreamSumoEnum": ".types",
            "LogStreamSumoResponseSchema": ".types",
            "LogStreamSumoSink": ".types",
@@ -80,7 +86,7 @@ patches:
            "MdlPresentationProperties": ".types",
            "MdlPresentationRequest": ".types",
            "MdlPresentationRequestProperties": ".types",
-      @@ -5290,6 +5296,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5318,6 +5324,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "TokenQuota": ".types",
            "TokenQuotaClientCredentials": ".types",
            "TokenQuotaConfiguration": ".types",
@@ -88,7 +94,7 @@ patches:
            "TooManyRequestsError": ".errors",
            "TooManyRequestsSchema": ".types",
            "TooManyRequestsSchemaError": ".types",
-      @@ -5607,6 +5614,8 @@ __all__ = [
+      @@ -5641,6 +5648,8 @@ __all__ = [
            "AssociateOrganizationClientGrantResponseContent",
            "AsyncApprovalNotificationsChannelsEnum",
            "AsyncAuth0",
@@ -97,7 +103,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent",
            "AttackProtectionCaptchaAuthChallengeRequest",
            "AttackProtectionCaptchaAuthChallengeResponseContent",
-      @@ -7828,6 +7837,7 @@ __all__ = [
+      @@ -7871,6 +7880,7 @@ __all__ = [
            "LogStreamSumoEnum",
            "LogStreamSumoResponseSchema",
            "LogStreamSumoSink",
@@ -105,7 +111,7 @@ patches:
            "MdlPresentationProperties",
            "MdlPresentationRequest",
            "MdlPresentationRequestProperties",
-      @@ -8068,6 +8078,7 @@ __all__ = [
+      @@ -8113,6 +8123,7 @@ __all__ = [
            "TestEventDataContent",
            "TokenExchangeProfileResponseContent",
            "TokenExchangeProfileTypeEnum",
@@ -2315,7 +2321,11 @@ patches:
                 ListOrganizationClientGrantsOffsetPaginatedResponseContent,
                 ListOrganizationConnectionsOffsetPaginatedResponseContent,
                 ListOrganizationDiscoveryDomainsResponseContent,
+                ListOrganizationGroupRolesResponseContent,
+                ListOrganizationGroupsResponseContent,
                 ListOrganizationInvitationsOffsetPaginatedResponseContent,
+                ListOrganizationMemberEffectiveRolesResponseContent,
+                ListOrganizationMemberRoleSourceGroupsResponseContent,
                 ListOrganizationMemberRolesOffsetPaginatedResponseContent,
                 ListOrganizationMembersPaginatedResponseContent,
                 ListOrganizationsPaginatedResponseContent,
@@ -2323,6 +2333,7 @@ patches:
                 ListRateLimitPoliciesPaginatedResponseContent,
                 ListRefreshTokensPaginatedResponseContent,
                 ListResourceServerOffsetPaginatedResponseContent,
+                ListRoleGroupsResponseContent,
                 ListRolePermissionsOffsetPaginatedResponseContent,
                 ListRoleUsersPaginatedResponseContent,
                 ListRolesOffsetPaginatedResponseContent,
@@ -2338,9 +2349,13 @@ patches:
                 ListUserBlocksByIdentifierResponseContent,
                 ListUserBlocksResponseContent,
                 ListUserConnectedAccountsResponseContent,
+                ListUserEffectivePermissionRoleSourcesResponseContent,
+                ListUserEffectivePermissionsResponseContent,
+                ListUserEffectiveRolesResponseContent,
                 ListUserGrantsOffsetPaginatedResponseContent,
                 ListUserOrganizationsOffsetPaginatedResponseContent,
                 ListUserPermissionsOffsetPaginatedResponseContent,
+                ListUserRoleSourceGroupsResponseContent,
                 ListUserRolesOffsetPaginatedResponseContent,
                 ListUserSessionsPaginatedResponseContent,
                 ListUsersOffsetPaginatedResponseContent,
@@ -2430,6 +2445,8 @@ patches:
                 OrganizationInvitationInvitee,
                 OrganizationInvitationInviter,
                 OrganizationMember,
+                OrganizationMemberEffectiveRole,
+                OrganizationMemberEffectiveRoleSource,
                 OrganizationMemberRole,
                 OrganizationMetadata,
                 OrganizationUsageEnum,
@@ -2791,6 +2808,12 @@ patches:
                 UserAuthenticationMethodPropertiesEnum,
                 UserBlockIdentifier,
                 UserDateSchema,
+                UserEffectivePermissionResponseContent,
+                UserEffectivePermissionRoleSourceEnum,
+                UserEffectivePermissionRoleSourceResponseContent,
+                UserEffectivePermissionSourceEnum,
+                UserEffectiveRole,
+                UserEffectiveRoleSource,
                 UserEnrollmentAuthMethodEnum,
                 UserEnrollmentStatusEnum,
                 UserGrant,
@@ -5092,7 +5115,11 @@ patches:
             "ListOrganizationClientGrantsOffsetPaginatedResponseContent": ".types",
             "ListOrganizationConnectionsOffsetPaginatedResponseContent": ".types",
             "ListOrganizationDiscoveryDomainsResponseContent": ".types",
+            "ListOrganizationGroupRolesResponseContent": ".types",
+            "ListOrganizationGroupsResponseContent": ".types",
             "ListOrganizationInvitationsOffsetPaginatedResponseContent": ".types",
+            "ListOrganizationMemberEffectiveRolesResponseContent": ".types",
+            "ListOrganizationMemberRoleSourceGroupsResponseContent": ".types",
             "ListOrganizationMemberRolesOffsetPaginatedResponseContent": ".types",
             "ListOrganizationMembersPaginatedResponseContent": ".types",
             "ListOrganizationsPaginatedResponseContent": ".types",
@@ -5100,6 +5127,7 @@ patches:
             "ListRateLimitPoliciesPaginatedResponseContent": ".types",
             "ListRefreshTokensPaginatedResponseContent": ".types",
             "ListResourceServerOffsetPaginatedResponseContent": ".types",
+            "ListRoleGroupsResponseContent": ".types",
             "ListRolePermissionsOffsetPaginatedResponseContent": ".types",
             "ListRoleUsersPaginatedResponseContent": ".types",
             "ListRolesOffsetPaginatedResponseContent": ".types",
@@ -5115,9 +5143,13 @@ patches:
             "ListUserBlocksByIdentifierResponseContent": ".types",
             "ListUserBlocksResponseContent": ".types",
             "ListUserConnectedAccountsResponseContent": ".types",
+            "ListUserEffectivePermissionRoleSourcesResponseContent": ".types",
+            "ListUserEffectivePermissionsResponseContent": ".types",
+            "ListUserEffectiveRolesResponseContent": ".types",
             "ListUserGrantsOffsetPaginatedResponseContent": ".types",
             "ListUserOrganizationsOffsetPaginatedResponseContent": ".types",
             "ListUserPermissionsOffsetPaginatedResponseContent": ".types",
+            "ListUserRoleSourceGroupsResponseContent": ".types",
             "ListUserRolesOffsetPaginatedResponseContent": ".types",
             "ListUserSessionsPaginatedResponseContent": ".types",
             "ListUsersOffsetPaginatedResponseContent": ".types",
@@ -5209,6 +5241,8 @@ patches:
             "OrganizationInvitationInvitee": ".types",
             "OrganizationInvitationInviter": ".types",
             "OrganizationMember": ".types",
+            "OrganizationMemberEffectiveRole": ".types",
+            "OrganizationMemberEffectiveRoleSource": ".types",
             "OrganizationMemberRole": ".types",
             "OrganizationMetadata": ".types",
             "OrganizationUsageEnum": ".types",
@@ -5576,6 +5610,12 @@ patches:
             "UserAuthenticationMethodPropertiesEnum": ".types",
             "UserBlockIdentifier": ".types",
             "UserDateSchema": ".types",
+            "UserEffectivePermissionResponseContent": ".types",
+            "UserEffectivePermissionRoleSourceEnum": ".types",
+            "UserEffectivePermissionRoleSourceResponseContent": ".types",
+            "UserEffectivePermissionSourceEnum": ".types",
+            "UserEffectiveRole": ".types",
+            "UserEffectiveRoleSource": ".types",
             "UserEnrollmentAuthMethodEnum": ".types",
             "UserEnrollmentStatusEnum": ".types",
             "UserGrant": ".types",
@@ -7877,7 +7917,11 @@ patches:
             "ListOrganizationClientGrantsOffsetPaginatedResponseContent",
             "ListOrganizationConnectionsOffsetPaginatedResponseContent",
             "ListOrganizationDiscoveryDomainsResponseContent",
+            "ListOrganizationGroupRolesResponseContent",
+            "ListOrganizationGroupsResponseContent",
             "ListOrganizationInvitationsOffsetPaginatedResponseContent",
+            "ListOrganizationMemberEffectiveRolesResponseContent",
+            "ListOrganizationMemberRoleSourceGroupsResponseContent",
             "ListOrganizationMemberRolesOffsetPaginatedResponseContent",
             "ListOrganizationMembersPaginatedResponseContent",
             "ListOrganizationsPaginatedResponseContent",
@@ -7885,6 +7929,7 @@ patches:
             "ListRateLimitPoliciesPaginatedResponseContent",
             "ListRefreshTokensPaginatedResponseContent",
             "ListResourceServerOffsetPaginatedResponseContent",
+            "ListRoleGroupsResponseContent",
             "ListRolePermissionsOffsetPaginatedResponseContent",
             "ListRoleUsersPaginatedResponseContent",
             "ListRolesOffsetPaginatedResponseContent",
@@ -7900,9 +7945,13 @@ patches:
             "ListUserBlocksByIdentifierResponseContent",
             "ListUserBlocksResponseContent",
             "ListUserConnectedAccountsResponseContent",
+            "ListUserEffectivePermissionRoleSourcesResponseContent",
+            "ListUserEffectivePermissionsResponseContent",
+            "ListUserEffectiveRolesResponseContent",
             "ListUserGrantsOffsetPaginatedResponseContent",
             "ListUserOrganizationsOffsetPaginatedResponseContent",
             "ListUserPermissionsOffsetPaginatedResponseContent",
+            "ListUserRoleSourceGroupsResponseContent",
             "ListUserRolesOffsetPaginatedResponseContent",
             "ListUserSessionsPaginatedResponseContent",
             "ListUsersOffsetPaginatedResponseContent",
@@ -7994,6 +8043,8 @@ patches:
             "OrganizationInvitationInvitee",
             "OrganizationInvitationInviter",
             "OrganizationMember",
+            "OrganizationMemberEffectiveRole",
+            "OrganizationMemberEffectiveRoleSource",
             "OrganizationMemberRole",
             "OrganizationMetadata",
             "OrganizationUsageEnum",
@@ -8361,6 +8412,12 @@ patches:
             "UserAuthenticationMethodPropertiesEnum",
             "UserBlockIdentifier",
             "UserDateSchema",
+            "UserEffectivePermissionResponseContent",
+            "UserEffectivePermissionRoleSourceEnum",
+            "UserEffectivePermissionRoleSourceResponseContent",
+            "UserEffectivePermissionSourceEnum",
+            "UserEffectiveRole",
+            "UserEffectiveRoleSource",
             "UserEnrollmentAuthMethodEnum",
             "UserEnrollmentStatusEnum",
             "UserGrant",
@@ -8434,3 +8491,183 @@ patches:
             "verifiable_credentials",
         ]
     user_owned: true
+  - id: patch-7271f157
+    content_hash: sha256:e5f014e7f8c379a0b7c3815222df83e115d542c5c9685b2a9d16285e1d18f800
+    original_commit: 7271f15759cfb545c9ef82b5a4f519ffe0a89db2
+    original_message: Revert wrapper file to preserve Auth0 telemetry customizations
+    original_author: Kunal Dawar <kunal.dawar@okta.com>
+    base_generation: 15127abb8ab299907925c41e89122d50dbe138d5
+    files:
+      - src/auth0/management/core/client_wrapper.py
+    patch_content: |
+      diff --git a/src/auth0/management/core/client_wrapper.py b/src/auth0/management/core/client_wrapper.py
+      index cad2e31..60ebc5a 100644
+      --- a/src/auth0/management/core/client_wrapper.py
+      +++ b/src/auth0/management/core/client_wrapper.py
+      @@ -1,6 +1,11 @@
+       # This file was auto-generated by Fern from our API Definition.
+      +# Modified by Auth0 to use Auth0 telemetry format with dynamic versioning
+       
+      +import base64
+      +import platform
+      +import sys
+       import typing
+      +from json import dumps
+       
+       import httpx
+       from .http_client import AsyncHttpClient, HttpClient
+      @@ -26,15 +31,18 @@ class BaseClientWrapper:
+               self._logging = logging
+       
+           def get_headers(self) -> typing.Dict[str, str]:
+      -        import platform
+      +        py_version = platform.python_version()
+      +        version = sys.modules["auth0"].__version__
+      +
+      +        auth0_client = dumps({
+      +            "name": "auth0-python",
+      +            "version": version,
+      +            "env": {"python": py_version}
+      +        }).encode("utf-8")
+       
+               headers: typing.Dict[str, str] = {
+      -            "User-Agent": "auth0-python/5.5.0",
+      -            "X-Fern-Language": "Python",
+      -            "X-Fern-Runtime": f"python/{platform.python_version()}",
+      -            "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
+      -            "X-Fern-SDK-Name": "auth0-python",
+      -            "X-Fern-SDK-Version": "5.5.0",
+      +            "User-Agent": f"Python/{py_version}",
+      +            "Auth0-Client": base64.b64encode(auth0_client).decode(),
+                   **(self.get_custom_headers() or {}),
+               }
+               headers["Authorization"] = f"Bearer {self._get_token()}"
+    theirs_snapshot:
+      src/auth0/management/core/client_wrapper.py: |
+        # This file was auto-generated by Fern from our API Definition.
+        # Modified by Auth0 to use Auth0 telemetry format with dynamic versioning
+
+        import base64
+        import platform
+        import sys
+        import typing
+        from json import dumps
+
+        import httpx
+        from .http_client import AsyncHttpClient, HttpClient
+        from .logging import LogConfig, Logger
+
+
+        class BaseClientWrapper:
+            def __init__(
+                self,
+                *,
+                token: typing.Union[str, typing.Callable[[], str]],
+                headers: typing.Optional[typing.Dict[str, str]] = None,
+                base_url: str,
+                timeout: typing.Optional[float] = None,
+                max_retries: int = 2,
+                logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
+            ):
+                self._token = token
+                self._headers = headers
+                self._base_url = base_url
+                self._timeout = timeout
+                self._max_retries = max_retries
+                self._logging = logging
+
+            def get_headers(self) -> typing.Dict[str, str]:
+                py_version = platform.python_version()
+                version = sys.modules["auth0"].__version__
+
+                auth0_client = dumps({
+                    "name": "auth0-python",
+                    "version": version,
+                    "env": {"python": py_version}
+                }).encode("utf-8")
+
+                headers: typing.Dict[str, str] = {
+                    "User-Agent": f"Python/{py_version}",
+                    "Auth0-Client": base64.b64encode(auth0_client).decode(),
+                    **(self.get_custom_headers() or {}),
+                }
+                headers["Authorization"] = f"Bearer {self._get_token()}"
+                return headers
+
+            def _get_token(self) -> str:
+                if isinstance(self._token, str):
+                    return self._token
+                else:
+                    return self._token()
+
+            def get_custom_headers(self) -> typing.Optional[typing.Dict[str, str]]:
+                return self._headers
+
+            def get_base_url(self) -> str:
+                return self._base_url
+
+            def get_timeout(self) -> typing.Optional[float]:
+                return self._timeout
+
+            def get_max_retries(self) -> int:
+                return self._max_retries
+
+
+        class SyncClientWrapper(BaseClientWrapper):
+            def __init__(
+                self,
+                *,
+                token: typing.Union[str, typing.Callable[[], str]],
+                headers: typing.Optional[typing.Dict[str, str]] = None,
+                base_url: str,
+                timeout: typing.Optional[float] = None,
+                max_retries: int = 2,
+                logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
+                httpx_client: httpx.Client,
+            ):
+                super().__init__(
+                    token=token, headers=headers, base_url=base_url, timeout=timeout, max_retries=max_retries, logging=logging
+                )
+                self.httpx_client = HttpClient(
+                    httpx_client=httpx_client,
+                    base_headers=self.get_headers,
+                    base_timeout=self.get_timeout,
+                    base_url=self.get_base_url,
+                    base_max_retries=self.get_max_retries(),
+                    logging_config=self._logging,
+                )
+
+
+        class AsyncClientWrapper(BaseClientWrapper):
+            def __init__(
+                self,
+                *,
+                token: typing.Union[str, typing.Callable[[], str]],
+                headers: typing.Optional[typing.Dict[str, str]] = None,
+                base_url: str,
+                timeout: typing.Optional[float] = None,
+                max_retries: int = 2,
+                logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
+                async_token: typing.Optional[typing.Callable[[], typing.Awaitable[str]]] = None,
+                httpx_client: httpx.AsyncClient,
+            ):
+                super().__init__(
+                    token=token, headers=headers, base_url=base_url, timeout=timeout, max_retries=max_retries, logging=logging
+                )
+                self._async_token = async_token
+                self.httpx_client = AsyncHttpClient(
+                    httpx_client=httpx_client,
+                    base_headers=self.get_headers,
+                    base_timeout=self.get_timeout,
+                    base_url=self.get_base_url,
+                    base_max_retries=self.get_max_retries(),
+                    async_base_headers=self.async_get_headers,
+                    logging_config=self._logging,
+                )
+
+            async def async_get_headers(self) -> typing.Dict[str, str]:
+                headers = self.get_headers()
+                if self._async_token is not None:
+                    token = await self._async_token()
+                    headers["Authorization"] = f"Bearer {token}"
+                return headers
