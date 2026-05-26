@@ -25,6 +25,7 @@ if typing.TYPE_CHECKING:
     from .connections.client import AsyncConnectionsClient, ConnectionsClient
     from .discovery_domains.client import AsyncDiscoveryDomainsClient, DiscoveryDomainsClient
     from .enabled_connections.client import AsyncEnabledConnectionsClient, EnabledConnectionsClient
+    from .groups.client import AsyncGroupsClient, GroupsClient
     from .invitations.client import AsyncInvitationsClient, InvitationsClient
     from .members.client import AsyncMembersClient, MembersClient
 # this is used as the default value for optional parameters
@@ -41,6 +42,7 @@ class OrganizationsClient:
         self._enabled_connections: typing.Optional[EnabledConnectionsClient] = None
         self._invitations: typing.Optional[InvitationsClient] = None
         self._members: typing.Optional[MembersClient] = None
+        self._groups: typing.Optional[GroupsClient] = None
 
     @property
     def with_raw_response(self) -> RawOrganizationsClient:
@@ -389,6 +391,14 @@ class OrganizationsClient:
             self._members = MembersClient(client_wrapper=self._client_wrapper)
         return self._members
 
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import GroupsClient  # noqa: E402
+
+            self._groups = GroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
+
 
 class AsyncOrganizationsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -400,6 +410,7 @@ class AsyncOrganizationsClient:
         self._enabled_connections: typing.Optional[AsyncEnabledConnectionsClient] = None
         self._invitations: typing.Optional[AsyncInvitationsClient] = None
         self._members: typing.Optional[AsyncMembersClient] = None
+        self._groups: typing.Optional[AsyncGroupsClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawOrganizationsClient:
@@ -796,3 +807,11 @@ class AsyncOrganizationsClient:
 
             self._members = AsyncMembersClient(client_wrapper=self._client_wrapper)
         return self._members
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import AsyncGroupsClient  # noqa: E402
+
+            self._groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups

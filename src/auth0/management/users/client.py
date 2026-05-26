@@ -22,6 +22,8 @@ if typing.TYPE_CHECKING:
     from .authentication_methods.client import AsyncAuthenticationMethodsClient, AuthenticationMethodsClient
     from .authenticators.client import AsyncAuthenticatorsClient, AuthenticatorsClient
     from .connected_accounts.client import AsyncConnectedAccountsClient, ConnectedAccountsClient
+    from .effective_permissions.client import AsyncEffectivePermissionsClient, EffectivePermissionsClient
+    from .effective_roles.client import AsyncEffectiveRolesClient, EffectiveRolesClient
     from .enrollments.client import AsyncEnrollmentsClient, EnrollmentsClient
     from .federated_connections_tokensets.client import (
         AsyncFederatedConnectionsTokensetsClient,
@@ -48,6 +50,8 @@ class UsersClient:
         self._authentication_methods: typing.Optional[AuthenticationMethodsClient] = None
         self._authenticators: typing.Optional[AuthenticatorsClient] = None
         self._connected_accounts: typing.Optional[ConnectedAccountsClient] = None
+        self._effective_permissions: typing.Optional[EffectivePermissionsClient] = None
+        self._effective_roles: typing.Optional[EffectiveRolesClient] = None
         self._enrollments: typing.Optional[EnrollmentsClient] = None
         self._federated_connections_tokensets: typing.Optional[FederatedConnectionsTokensetsClient] = None
         self._groups: typing.Optional[GroupsClient] = None
@@ -757,6 +761,22 @@ class UsersClient:
         return self._connected_accounts
 
     @property
+    def effective_permissions(self):
+        if self._effective_permissions is None:
+            from .effective_permissions.client import EffectivePermissionsClient  # noqa: E402
+
+            self._effective_permissions = EffectivePermissionsClient(client_wrapper=self._client_wrapper)
+        return self._effective_permissions
+
+    @property
+    def effective_roles(self):
+        if self._effective_roles is None:
+            from .effective_roles.client import EffectiveRolesClient  # noqa: E402
+
+            self._effective_roles = EffectiveRolesClient(client_wrapper=self._client_wrapper)
+        return self._effective_roles
+
+    @property
     def enrollments(self):
         if self._enrollments is None:
             from .enrollments.client import EnrollmentsClient  # noqa: E402
@@ -862,6 +882,8 @@ class AsyncUsersClient:
         self._authentication_methods: typing.Optional[AsyncAuthenticationMethodsClient] = None
         self._authenticators: typing.Optional[AsyncAuthenticatorsClient] = None
         self._connected_accounts: typing.Optional[AsyncConnectedAccountsClient] = None
+        self._effective_permissions: typing.Optional[AsyncEffectivePermissionsClient] = None
+        self._effective_roles: typing.Optional[AsyncEffectiveRolesClient] = None
         self._enrollments: typing.Optional[AsyncEnrollmentsClient] = None
         self._federated_connections_tokensets: typing.Optional[AsyncFederatedConnectionsTokensetsClient] = None
         self._groups: typing.Optional[AsyncGroupsClient] = None
@@ -1634,6 +1656,22 @@ class AsyncUsersClient:
 
             self._connected_accounts = AsyncConnectedAccountsClient(client_wrapper=self._client_wrapper)
         return self._connected_accounts
+
+    @property
+    def effective_permissions(self):
+        if self._effective_permissions is None:
+            from .effective_permissions.client import AsyncEffectivePermissionsClient  # noqa: E402
+
+            self._effective_permissions = AsyncEffectivePermissionsClient(client_wrapper=self._client_wrapper)
+        return self._effective_permissions
+
+    @property
+    def effective_roles(self):
+        if self._effective_roles is None:
+            from .effective_roles.client import AsyncEffectiveRolesClient  # noqa: E402
+
+            self._effective_roles = AsyncEffectiveRolesClient(client_wrapper=self._client_wrapper)
+        return self._effective_roles
 
     @property
     def enrollments(self):
