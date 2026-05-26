@@ -25,22 +25,28 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.12.10
-current_generation: 812b8ca16fc2740001f9839ce5c88f85fed87c6e
+  - commit_sha: a6b05e768329fac22fd4da6fbe711006e23029f8
+    tree_hash: 7d5c57084d9ebef687bb0c3446e81432b93dddf0
+    timestamp: 2026-05-26T04:54:34.809Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.12.10
+current_generation: a6b05e768329fac22fd4da6fbe711006e23029f8
 patches:
   - id: patch-4894603d
-    content_hash: sha256:85d8e392938ef0338e526c1cc9abe95cc3b51986f1145d7b25ceef95605d282c
+    content_hash: sha256:09d8cd6f9f5c2aee1d72f67be687d870c9145144262b28f81513c64915494584
     original_commit: 4894603d03409962bc60a34712de8abffe919e2c
     original_message: "chore: Restore custom wiring in management/__init__.py"
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 812b8ca16fc2740001f9839ce5c88f85fed87c6e
+    base_generation: a6b05e768329fac22fd4da6fbe711006e23029f8
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index 46338c3..4fd6baf 100644
+      index 71b8e8c..ecd00f0 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -2743,6 +2743,8 @@ if typing.TYPE_CHECKING:
+      @@ -2766,6 +2766,8 @@ if typing.TYPE_CHECKING:
            from .environment import Auth0Environment
            from .event_streams import EventStreamsCreateRequest
            from .version import __version__
@@ -49,7 +55,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -2803,6 +2805,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -2826,6 +2828,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "AssociateOrganizationClientGrantResponseContent": ".types",
            "AsyncApprovalNotificationsChannelsEnum": ".types",
            "AsyncAuth0": ".client",
@@ -58,7 +64,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent": ".types",
            "AttackProtectionCaptchaAuthChallengeRequest": ".types",
            "AttackProtectionCaptchaAuthChallengeResponseContent": ".types",
-      @@ -3761,6 +3765,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -3785,6 +3789,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CredentialDeviceTypeEnum": ".types",
            "CredentialId": ".types",
            "CustomDomain": ".types",
@@ -66,7 +72,7 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainProvisioningTypeEnum": ".types",
-      @@ -5020,6 +5025,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5047,6 +5052,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "LogStreamSumoEnum": ".types",
            "LogStreamSumoResponseSchema": ".types",
            "LogStreamSumoSink": ".types",
@@ -74,7 +80,7 @@ patches:
            "MdlPresentationProperties": ".types",
            "MdlPresentationRequest": ".types",
            "MdlPresentationRequestProperties": ".types",
-      @@ -5246,6 +5252,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5290,6 +5296,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "TokenQuota": ".types",
            "TokenQuotaClientCredentials": ".types",
            "TokenQuotaConfiguration": ".types",
@@ -82,7 +88,7 @@ patches:
            "TooManyRequestsError": ".errors",
            "TooManyRequestsSchema": ".types",
            "TooManyRequestsSchemaError": ".types",
-      @@ -5561,6 +5568,8 @@ __all__ = [
+      @@ -5607,6 +5614,8 @@ __all__ = [
            "AssociateOrganizationClientGrantResponseContent",
            "AsyncApprovalNotificationsChannelsEnum",
            "AsyncAuth0",
@@ -91,7 +97,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent",
            "AttackProtectionCaptchaAuthChallengeRequest",
            "AttackProtectionCaptchaAuthChallengeResponseContent",
-      @@ -7778,6 +7787,7 @@ __all__ = [
+      @@ -7828,6 +7837,7 @@ __all__ = [
            "LogStreamSumoEnum",
            "LogStreamSumoResponseSchema",
            "LogStreamSumoSink",
@@ -99,7 +105,7 @@ patches:
            "MdlPresentationProperties",
            "MdlPresentationRequest",
            "MdlPresentationRequestProperties",
-      @@ -8001,6 +8011,7 @@ __all__ = [
+      @@ -8068,6 +8078,7 @@ __all__ = [
            "TestEventDataContent",
            "TokenExchangeProfileResponseContent",
            "TokenExchangeProfileTypeEnum",
@@ -1109,6 +1115,7 @@ patches:
                 CreatePhoneTemplateResponseContent,
                 CreatePhoneTemplateTestNotificationResponseContent,
                 CreatePublicKeyDeviceCredentialResponseContent,
+                CreateRateLimitPolicyResponseContent,
                 CreateResourceServerResponseContent,
                 CreateRoleResponseContent,
                 CreateRuleResponseContent,
@@ -2218,6 +2225,7 @@ patches:
                 GetOrganizationResponseContent,
                 GetPartialsResponseContent,
                 GetPhoneTemplateResponseContent,
+                GetRateLimitPolicyResponseContent,
                 GetRefreshTokenResponseContent,
                 GetRefreshTokensPaginatedResponseContent,
                 GetResourceServerResponseContent,
@@ -2297,6 +2305,7 @@ patches:
                 ListFlowsRequestParametersHydrateEnum,
                 ListFlowsVaultConnectionsOffsetPaginatedResponseContent,
                 ListFormsOffsetPaginatedResponseContent,
+                ListGroupRolesResponseContent,
                 ListGroupsPaginatedResponseContent,
                 ListGuardianPoliciesResponseContent,
                 ListHooksOffsetPaginatedResponseContent,
@@ -2311,6 +2320,7 @@ patches:
                 ListOrganizationMembersPaginatedResponseContent,
                 ListOrganizationsPaginatedResponseContent,
                 ListPhoneTemplatesResponseContent,
+                ListRateLimitPoliciesPaginatedResponseContent,
                 ListRefreshTokensPaginatedResponseContent,
                 ListResourceServerOffsetPaginatedResponseContent,
                 ListRolePermissionsOffsetPaginatedResponseContent,
@@ -2432,6 +2442,13 @@ patches:
                 PasswordMaxLengthExceededPolicyEnum,
                 PasswordSequentialCharactersPolicyEnum,
                 PatchClientCredentialResponseContent,
+                PatchRateLimitPolicyConfigurationRequestContent,
+                PatchRateLimitPolicyConfigurationRequestContentAction,
+                PatchRateLimitPolicyConfigurationRequestContentActionAction,
+                PatchRateLimitPolicyConfigurationRequestContentOne,
+                PatchRateLimitPolicyConfigurationRequestContentOneAction,
+                PatchRateLimitPolicyConfigurationRequestContentZero,
+                PatchRateLimitPolicyConfigurationRequestContentZeroAction,
                 PatchSupplementalSignalsResponseContent,
                 PermissionRequestPayload,
                 PermissionsResponsePayload,
@@ -2458,6 +2475,16 @@ patches:
                 PublicKeyCredential,
                 PublicKeyCredentialAlgorithmEnum,
                 PublicKeyCredentialTypeEnum,
+                RateLimitPolicy,
+                RateLimitPolicyConfiguration,
+                RateLimitPolicyConfigurationAction,
+                RateLimitPolicyConfigurationActionAction,
+                RateLimitPolicyConfigurationOne,
+                RateLimitPolicyConfigurationOneAction,
+                RateLimitPolicyConfigurationZero,
+                RateLimitPolicyConfigurationZeroAction,
+                RateLimitPolicyConsumerEnum,
+                RateLimitPolicyResourceEnum,
                 RefreshTokenDate,
                 RefreshTokenDateObject,
                 RefreshTokenDevice,
@@ -2720,6 +2747,7 @@ patches:
                 UpdateOrganizationDiscoveryDomainResponseContent,
                 UpdateOrganizationResponseContent,
                 UpdatePhoneTemplateResponseContent,
+                UpdateRateLimitPolicyResponseContent,
                 UpdateRefreshTokenResponseContent,
                 UpdateResourceServerResponseContent,
                 UpdateRiskAssessmentsSettingsNewDeviceResponseContent,
@@ -2830,6 +2858,7 @@ patches:
                 network_acls,
                 organizations,
                 prompts,
+                rate_limit_policies,
                 refresh_tokens,
                 resource_servers,
                 risk_assessments,
@@ -3856,6 +3885,7 @@ patches:
             "CreatePhoneTemplateResponseContent": ".types",
             "CreatePhoneTemplateTestNotificationResponseContent": ".types",
             "CreatePublicKeyDeviceCredentialResponseContent": ".types",
+            "CreateRateLimitPolicyResponseContent": ".types",
             "CreateResourceServerResponseContent": ".types",
             "CreateRoleResponseContent": ".types",
             "CreateRuleResponseContent": ".types",
@@ -4970,6 +5000,7 @@ patches:
             "GetOrganizationResponseContent": ".types",
             "GetPartialsResponseContent": ".types",
             "GetPhoneTemplateResponseContent": ".types",
+            "GetRateLimitPolicyResponseContent": ".types",
             "GetRefreshTokenResponseContent": ".types",
             "GetRefreshTokensPaginatedResponseContent": ".types",
             "GetResourceServerResponseContent": ".types",
@@ -5051,6 +5082,7 @@ patches:
             "ListFlowsRequestParametersHydrateEnum": ".types",
             "ListFlowsVaultConnectionsOffsetPaginatedResponseContent": ".types",
             "ListFormsOffsetPaginatedResponseContent": ".types",
+            "ListGroupRolesResponseContent": ".types",
             "ListGroupsPaginatedResponseContent": ".types",
             "ListGuardianPoliciesResponseContent": ".types",
             "ListHooksOffsetPaginatedResponseContent": ".types",
@@ -5065,6 +5097,7 @@ patches:
             "ListOrganizationMembersPaginatedResponseContent": ".types",
             "ListOrganizationsPaginatedResponseContent": ".types",
             "ListPhoneTemplatesResponseContent": ".types",
+            "ListRateLimitPoliciesPaginatedResponseContent": ".types",
             "ListRefreshTokensPaginatedResponseContent": ".types",
             "ListResourceServerOffsetPaginatedResponseContent": ".types",
             "ListRolePermissionsOffsetPaginatedResponseContent": ".types",
@@ -5188,6 +5221,13 @@ patches:
             "PasswordMaxLengthExceededPolicyEnum": ".types",
             "PasswordSequentialCharactersPolicyEnum": ".types",
             "PatchClientCredentialResponseContent": ".types",
+            "PatchRateLimitPolicyConfigurationRequestContent": ".types",
+            "PatchRateLimitPolicyConfigurationRequestContentAction": ".types",
+            "PatchRateLimitPolicyConfigurationRequestContentActionAction": ".types",
+            "PatchRateLimitPolicyConfigurationRequestContentOne": ".types",
+            "PatchRateLimitPolicyConfigurationRequestContentOneAction": ".types",
+            "PatchRateLimitPolicyConfigurationRequestContentZero": ".types",
+            "PatchRateLimitPolicyConfigurationRequestContentZeroAction": ".types",
             "PatchSupplementalSignalsResponseContent": ".types",
             "PaymentRequiredError": ".errors",
             "PermissionRequestPayload": ".types",
@@ -5216,6 +5256,16 @@ patches:
             "PublicKeyCredential": ".types",
             "PublicKeyCredentialAlgorithmEnum": ".types",
             "PublicKeyCredentialTypeEnum": ".types",
+            "RateLimitPolicy": ".types",
+            "RateLimitPolicyConfiguration": ".types",
+            "RateLimitPolicyConfigurationAction": ".types",
+            "RateLimitPolicyConfigurationActionAction": ".types",
+            "RateLimitPolicyConfigurationOne": ".types",
+            "RateLimitPolicyConfigurationOneAction": ".types",
+            "RateLimitPolicyConfigurationZero": ".types",
+            "RateLimitPolicyConfigurationZeroAction": ".types",
+            "RateLimitPolicyConsumerEnum": ".types",
+            "RateLimitPolicyResourceEnum": ".types",
             "RefreshTokenDate": ".types",
             "RefreshTokenDateObject": ".types",
             "RefreshTokenDevice": ".types",
@@ -5482,6 +5532,7 @@ patches:
             "UpdateOrganizationDiscoveryDomainResponseContent": ".types",
             "UpdateOrganizationResponseContent": ".types",
             "UpdatePhoneTemplateResponseContent": ".types",
+            "UpdateRateLimitPolicyResponseContent": ".types",
             "UpdateRefreshTokenResponseContent": ".types",
             "UpdateResourceServerResponseContent": ".types",
             "UpdateRiskAssessmentsSettingsNewDeviceResponseContent": ".types",
@@ -5577,6 +5628,7 @@ patches:
             "network_acls": ".network_acls",
             "organizations": ".organizations",
             "prompts": ".prompts",
+            "rate_limit_policies": ".rate_limit_policies",
             "refresh_tokens": ".refresh_tokens",
             "resource_servers": ".resource_servers",
             "risk_assessments": ".risk_assessments",
@@ -6619,6 +6671,7 @@ patches:
             "CreatePhoneTemplateResponseContent",
             "CreatePhoneTemplateTestNotificationResponseContent",
             "CreatePublicKeyDeviceCredentialResponseContent",
+            "CreateRateLimitPolicyResponseContent",
             "CreateResourceServerResponseContent",
             "CreateRoleResponseContent",
             "CreateRuleResponseContent",
@@ -7732,6 +7785,7 @@ patches:
             "GetOrganizationResponseContent",
             "GetPartialsResponseContent",
             "GetPhoneTemplateResponseContent",
+            "GetRateLimitPolicyResponseContent",
             "GetRefreshTokenResponseContent",
             "GetRefreshTokensPaginatedResponseContent",
             "GetResourceServerResponseContent",
@@ -7813,6 +7867,7 @@ patches:
             "ListFlowsRequestParametersHydrateEnum",
             "ListFlowsVaultConnectionsOffsetPaginatedResponseContent",
             "ListFormsOffsetPaginatedResponseContent",
+            "ListGroupRolesResponseContent",
             "ListGroupsPaginatedResponseContent",
             "ListGuardianPoliciesResponseContent",
             "ListHooksOffsetPaginatedResponseContent",
@@ -7827,6 +7882,7 @@ patches:
             "ListOrganizationMembersPaginatedResponseContent",
             "ListOrganizationsPaginatedResponseContent",
             "ListPhoneTemplatesResponseContent",
+            "ListRateLimitPoliciesPaginatedResponseContent",
             "ListRefreshTokensPaginatedResponseContent",
             "ListResourceServerOffsetPaginatedResponseContent",
             "ListRolePermissionsOffsetPaginatedResponseContent",
@@ -7950,6 +8006,13 @@ patches:
             "PasswordMaxLengthExceededPolicyEnum",
             "PasswordSequentialCharactersPolicyEnum",
             "PatchClientCredentialResponseContent",
+            "PatchRateLimitPolicyConfigurationRequestContent",
+            "PatchRateLimitPolicyConfigurationRequestContentAction",
+            "PatchRateLimitPolicyConfigurationRequestContentActionAction",
+            "PatchRateLimitPolicyConfigurationRequestContentOne",
+            "PatchRateLimitPolicyConfigurationRequestContentOneAction",
+            "PatchRateLimitPolicyConfigurationRequestContentZero",
+            "PatchRateLimitPolicyConfigurationRequestContentZeroAction",
             "PatchSupplementalSignalsResponseContent",
             "PaymentRequiredError",
             "PermissionRequestPayload",
@@ -7978,6 +8041,16 @@ patches:
             "PublicKeyCredential",
             "PublicKeyCredentialAlgorithmEnum",
             "PublicKeyCredentialTypeEnum",
+            "RateLimitPolicy",
+            "RateLimitPolicyConfiguration",
+            "RateLimitPolicyConfigurationAction",
+            "RateLimitPolicyConfigurationActionAction",
+            "RateLimitPolicyConfigurationOne",
+            "RateLimitPolicyConfigurationOneAction",
+            "RateLimitPolicyConfigurationZero",
+            "RateLimitPolicyConfigurationZeroAction",
+            "RateLimitPolicyConsumerEnum",
+            "RateLimitPolicyResourceEnum",
             "RefreshTokenDate",
             "RefreshTokenDateObject",
             "RefreshTokenDevice",
@@ -8244,6 +8317,7 @@ patches:
             "UpdateOrganizationDiscoveryDomainResponseContent",
             "UpdateOrganizationResponseContent",
             "UpdatePhoneTemplateResponseContent",
+            "UpdateRateLimitPolicyResponseContent",
             "UpdateRefreshTokenResponseContent",
             "UpdateResourceServerResponseContent",
             "UpdateRiskAssessmentsSettingsNewDeviceResponseContent",
@@ -8339,6 +8413,7 @@ patches:
             "network_acls",
             "organizations",
             "prompts",
+            "rate_limit_policies",
             "refresh_tokens",
             "resource_servers",
             "risk_assessments",
@@ -8358,3 +8433,4 @@ patches:
             "users",
             "verifiable_credentials",
         ]
+    user_owned: true
