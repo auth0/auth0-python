@@ -2763,8 +2763,16 @@ if typing.TYPE_CHECKING:
         ListOrganizationConnectionsOffsetPaginatedResponseContent,
     )
     from .list_organization_discovery_domains_response_content import ListOrganizationDiscoveryDomainsResponseContent
+    from .list_organization_group_roles_response_content import ListOrganizationGroupRolesResponseContent
+    from .list_organization_groups_response_content import ListOrganizationGroupsResponseContent
     from .list_organization_invitations_offset_paginated_response_content import (
         ListOrganizationInvitationsOffsetPaginatedResponseContent,
+    )
+    from .list_organization_member_effective_roles_response_content import (
+        ListOrganizationMemberEffectiveRolesResponseContent,
+    )
+    from .list_organization_member_role_source_groups_response_content import (
+        ListOrganizationMemberRoleSourceGroupsResponseContent,
     )
     from .list_organization_member_roles_offset_paginated_response_content import (
         ListOrganizationMemberRolesOffsetPaginatedResponseContent,
@@ -2775,6 +2783,7 @@ if typing.TYPE_CHECKING:
     from .list_rate_limit_policies_paginated_response_content import ListRateLimitPoliciesPaginatedResponseContent
     from .list_refresh_tokens_paginated_response_content import ListRefreshTokensPaginatedResponseContent
     from .list_resource_server_offset_paginated_response_content import ListResourceServerOffsetPaginatedResponseContent
+    from .list_role_groups_response_content import ListRoleGroupsResponseContent
     from .list_role_permissions_offset_paginated_response_content import (
         ListRolePermissionsOffsetPaginatedResponseContent,
     )
@@ -2796,6 +2805,11 @@ if typing.TYPE_CHECKING:
     from .list_user_blocks_by_identifier_response_content import ListUserBlocksByIdentifierResponseContent
     from .list_user_blocks_response_content import ListUserBlocksResponseContent
     from .list_user_connected_accounts_response_content import ListUserConnectedAccountsResponseContent
+    from .list_user_effective_permission_role_sources_response_content import (
+        ListUserEffectivePermissionRoleSourcesResponseContent,
+    )
+    from .list_user_effective_permissions_response_content import ListUserEffectivePermissionsResponseContent
+    from .list_user_effective_roles_response_content import ListUserEffectiveRolesResponseContent
     from .list_user_grants_offset_paginated_response_content import ListUserGrantsOffsetPaginatedResponseContent
     from .list_user_organizations_offset_paginated_response_content import (
         ListUserOrganizationsOffsetPaginatedResponseContent,
@@ -2803,6 +2817,7 @@ if typing.TYPE_CHECKING:
     from .list_user_permissions_offset_paginated_response_content import (
         ListUserPermissionsOffsetPaginatedResponseContent,
     )
+    from .list_user_role_source_groups_response_content import ListUserRoleSourceGroupsResponseContent
     from .list_user_roles_offset_paginated_response_content import ListUserRolesOffsetPaginatedResponseContent
     from .list_user_sessions_paginated_response_content import ListUserSessionsPaginatedResponseContent
     from .list_users_offset_paginated_response_content import ListUsersOffsetPaginatedResponseContent
@@ -2894,6 +2909,8 @@ if typing.TYPE_CHECKING:
     from .organization_invitation_invitee import OrganizationInvitationInvitee
     from .organization_invitation_inviter import OrganizationInvitationInviter
     from .organization_member import OrganizationMember
+    from .organization_member_effective_role import OrganizationMemberEffectiveRole
+    from .organization_member_effective_role_source import OrganizationMemberEffectiveRoleSource
     from .organization_member_role import OrganizationMemberRole
     from .organization_metadata import OrganizationMetadata
     from .organization_usage_enum import OrganizationUsageEnum
@@ -3323,6 +3340,12 @@ if typing.TYPE_CHECKING:
     from .user_authentication_method_properties_enum import UserAuthenticationMethodPropertiesEnum
     from .user_block_identifier import UserBlockIdentifier
     from .user_date_schema import UserDateSchema
+    from .user_effective_permission_response_content import UserEffectivePermissionResponseContent
+    from .user_effective_permission_role_source_enum import UserEffectivePermissionRoleSourceEnum
+    from .user_effective_permission_role_source_response_content import UserEffectivePermissionRoleSourceResponseContent
+    from .user_effective_permission_source_enum import UserEffectivePermissionSourceEnum
+    from .user_effective_role import UserEffectiveRole
+    from .user_effective_role_source import UserEffectiveRoleSource
     from .user_enrollment_auth_method_enum import UserEnrollmentAuthMethodEnum
     from .user_enrollment_status_enum import UserEnrollmentStatusEnum
     from .user_grant import UserGrant
@@ -5540,7 +5563,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListOrganizationClientGrantsOffsetPaginatedResponseContent": ".list_organization_client_grants_offset_paginated_response_content",
     "ListOrganizationConnectionsOffsetPaginatedResponseContent": ".list_organization_connections_offset_paginated_response_content",
     "ListOrganizationDiscoveryDomainsResponseContent": ".list_organization_discovery_domains_response_content",
+    "ListOrganizationGroupRolesResponseContent": ".list_organization_group_roles_response_content",
+    "ListOrganizationGroupsResponseContent": ".list_organization_groups_response_content",
     "ListOrganizationInvitationsOffsetPaginatedResponseContent": ".list_organization_invitations_offset_paginated_response_content",
+    "ListOrganizationMemberEffectiveRolesResponseContent": ".list_organization_member_effective_roles_response_content",
+    "ListOrganizationMemberRoleSourceGroupsResponseContent": ".list_organization_member_role_source_groups_response_content",
     "ListOrganizationMemberRolesOffsetPaginatedResponseContent": ".list_organization_member_roles_offset_paginated_response_content",
     "ListOrganizationMembersPaginatedResponseContent": ".list_organization_members_paginated_response_content",
     "ListOrganizationsPaginatedResponseContent": ".list_organizations_paginated_response_content",
@@ -5548,6 +5575,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListRateLimitPoliciesPaginatedResponseContent": ".list_rate_limit_policies_paginated_response_content",
     "ListRefreshTokensPaginatedResponseContent": ".list_refresh_tokens_paginated_response_content",
     "ListResourceServerOffsetPaginatedResponseContent": ".list_resource_server_offset_paginated_response_content",
+    "ListRoleGroupsResponseContent": ".list_role_groups_response_content",
     "ListRolePermissionsOffsetPaginatedResponseContent": ".list_role_permissions_offset_paginated_response_content",
     "ListRoleUsersPaginatedResponseContent": ".list_role_users_paginated_response_content",
     "ListRolesOffsetPaginatedResponseContent": ".list_roles_offset_paginated_response_content",
@@ -5563,9 +5591,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListUserBlocksByIdentifierResponseContent": ".list_user_blocks_by_identifier_response_content",
     "ListUserBlocksResponseContent": ".list_user_blocks_response_content",
     "ListUserConnectedAccountsResponseContent": ".list_user_connected_accounts_response_content",
+    "ListUserEffectivePermissionRoleSourcesResponseContent": ".list_user_effective_permission_role_sources_response_content",
+    "ListUserEffectivePermissionsResponseContent": ".list_user_effective_permissions_response_content",
+    "ListUserEffectiveRolesResponseContent": ".list_user_effective_roles_response_content",
     "ListUserGrantsOffsetPaginatedResponseContent": ".list_user_grants_offset_paginated_response_content",
     "ListUserOrganizationsOffsetPaginatedResponseContent": ".list_user_organizations_offset_paginated_response_content",
     "ListUserPermissionsOffsetPaginatedResponseContent": ".list_user_permissions_offset_paginated_response_content",
+    "ListUserRoleSourceGroupsResponseContent": ".list_user_role_source_groups_response_content",
     "ListUserRolesOffsetPaginatedResponseContent": ".list_user_roles_offset_paginated_response_content",
     "ListUserSessionsPaginatedResponseContent": ".list_user_sessions_paginated_response_content",
     "ListUsersOffsetPaginatedResponseContent": ".list_users_offset_paginated_response_content",
@@ -5655,6 +5687,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationInvitationInvitee": ".organization_invitation_invitee",
     "OrganizationInvitationInviter": ".organization_invitation_inviter",
     "OrganizationMember": ".organization_member",
+    "OrganizationMemberEffectiveRole": ".organization_member_effective_role",
+    "OrganizationMemberEffectiveRoleSource": ".organization_member_effective_role_source",
     "OrganizationMemberRole": ".organization_member_role",
     "OrganizationMetadata": ".organization_metadata",
     "OrganizationUsageEnum": ".organization_usage_enum",
@@ -6016,6 +6050,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserAuthenticationMethodPropertiesEnum": ".user_authentication_method_properties_enum",
     "UserBlockIdentifier": ".user_block_identifier",
     "UserDateSchema": ".user_date_schema",
+    "UserEffectivePermissionResponseContent": ".user_effective_permission_response_content",
+    "UserEffectivePermissionRoleSourceEnum": ".user_effective_permission_role_source_enum",
+    "UserEffectivePermissionRoleSourceResponseContent": ".user_effective_permission_role_source_response_content",
+    "UserEffectivePermissionSourceEnum": ".user_effective_permission_source_enum",
+    "UserEffectiveRole": ".user_effective_role",
+    "UserEffectiveRoleSource": ".user_effective_role_source",
     "UserEnrollmentAuthMethodEnum": ".user_enrollment_auth_method_enum",
     "UserEnrollmentStatusEnum": ".user_enrollment_status_enum",
     "UserGrant": ".user_grant",
@@ -8257,7 +8297,11 @@ __all__ = [
     "ListOrganizationClientGrantsOffsetPaginatedResponseContent",
     "ListOrganizationConnectionsOffsetPaginatedResponseContent",
     "ListOrganizationDiscoveryDomainsResponseContent",
+    "ListOrganizationGroupRolesResponseContent",
+    "ListOrganizationGroupsResponseContent",
     "ListOrganizationInvitationsOffsetPaginatedResponseContent",
+    "ListOrganizationMemberEffectiveRolesResponseContent",
+    "ListOrganizationMemberRoleSourceGroupsResponseContent",
     "ListOrganizationMemberRolesOffsetPaginatedResponseContent",
     "ListOrganizationMembersPaginatedResponseContent",
     "ListOrganizationsPaginatedResponseContent",
@@ -8265,6 +8309,7 @@ __all__ = [
     "ListRateLimitPoliciesPaginatedResponseContent",
     "ListRefreshTokensPaginatedResponseContent",
     "ListResourceServerOffsetPaginatedResponseContent",
+    "ListRoleGroupsResponseContent",
     "ListRolePermissionsOffsetPaginatedResponseContent",
     "ListRoleUsersPaginatedResponseContent",
     "ListRolesOffsetPaginatedResponseContent",
@@ -8280,9 +8325,13 @@ __all__ = [
     "ListUserBlocksByIdentifierResponseContent",
     "ListUserBlocksResponseContent",
     "ListUserConnectedAccountsResponseContent",
+    "ListUserEffectivePermissionRoleSourcesResponseContent",
+    "ListUserEffectivePermissionsResponseContent",
+    "ListUserEffectiveRolesResponseContent",
     "ListUserGrantsOffsetPaginatedResponseContent",
     "ListUserOrganizationsOffsetPaginatedResponseContent",
     "ListUserPermissionsOffsetPaginatedResponseContent",
+    "ListUserRoleSourceGroupsResponseContent",
     "ListUserRolesOffsetPaginatedResponseContent",
     "ListUserSessionsPaginatedResponseContent",
     "ListUsersOffsetPaginatedResponseContent",
@@ -8372,6 +8421,8 @@ __all__ = [
     "OrganizationInvitationInvitee",
     "OrganizationInvitationInviter",
     "OrganizationMember",
+    "OrganizationMemberEffectiveRole",
+    "OrganizationMemberEffectiveRoleSource",
     "OrganizationMemberRole",
     "OrganizationMetadata",
     "OrganizationUsageEnum",
@@ -8733,6 +8784,12 @@ __all__ = [
     "UserAuthenticationMethodPropertiesEnum",
     "UserBlockIdentifier",
     "UserDateSchema",
+    "UserEffectivePermissionResponseContent",
+    "UserEffectivePermissionRoleSourceEnum",
+    "UserEffectivePermissionRoleSourceResponseContent",
+    "UserEffectivePermissionSourceEnum",
+    "UserEffectiveRole",
+    "UserEffectiveRoleSource",
     "UserEnrollmentAuthMethodEnum",
     "UserEnrollmentStatusEnum",
     "UserGrant",

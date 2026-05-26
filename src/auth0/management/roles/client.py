@@ -15,6 +15,7 @@ from ..types.update_role_response_content import UpdateRoleResponseContent
 from .raw_client import AsyncRawRolesClient, RawRolesClient
 
 if typing.TYPE_CHECKING:
+    from .groups.client import AsyncGroupsClient, GroupsClient
     from .permissions.client import AsyncPermissionsClient, PermissionsClient
     from .users.client import AsyncUsersClient, UsersClient
 # this is used as the default value for optional parameters
@@ -25,6 +26,7 @@ class RolesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawRolesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._groups: typing.Optional[GroupsClient] = None
         self._permissions: typing.Optional[PermissionsClient] = None
         self._users: typing.Optional[UsersClient] = None
 
@@ -250,6 +252,14 @@ class RolesClient:
         return _response.data
 
     @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import GroupsClient  # noqa: E402
+
+            self._groups = GroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
+
+    @property
     def permissions(self):
         if self._permissions is None:
             from .permissions.client import PermissionsClient  # noqa: E402
@@ -270,6 +280,7 @@ class AsyncRolesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawRolesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._groups: typing.Optional[AsyncGroupsClient] = None
         self._permissions: typing.Optional[AsyncPermissionsClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
 
@@ -536,6 +547,14 @@ class AsyncRolesClient:
             id, name=name, description=description, request_options=request_options
         )
         return _response.data
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import AsyncGroupsClient  # noqa: E402
+
+            self._groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
 
     @property
     def permissions(self):

@@ -13002,6 +13002,222 @@
       }
     },
     {
+      "id": "c4da691c-ffe9-48de-9227-f8ce48855cda",
+      "name": "Lists the groups that are assigned to the organization. - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{organization_id}/groups",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "organization_id": {
+            "equalTo": "organization_id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"groups\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"external_id\": \"external_id\",\n      \"connection_id\": \"connection_id\",\n      \"tenant_name\": \"tenant_name\",\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c4da691c-ffe9-48de-9227-f8ce48855cda",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "25999a58-81d7-488c-9a80-5967b5f1e6ae",
+      "name": "Lists the roles assigned to a group in the context of an organization. - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{organization_id}/groups/{group_id}/roles",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "organization_id": {
+            "equalTo": "organization_id"
+          },
+          "group_id": {
+            "equalTo": "group_id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "25999a58-81d7-488c-9a80-5967b5f1e6ae",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "5f66622b-f0dc-4cab-8cb9-c5dd4f868ef6",
+      "name": "Assigns roles to a group in an organization context. - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{organization_id}/groups/{group_id}/roles",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "organization_id": {
+            "equalTo": "organization_id"
+          },
+          "group_id": {
+            "equalTo": "group_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5f66622b-f0dc-4cab-8cb9-c5dd4f868ef6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f3a06a3e-a047-4c64-ad21-52cf3943c125",
+      "name": "Removes roles assigned to a group in an organization context. - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{organization_id}/groups/{group_id}/roles",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "organization_id": {
+            "equalTo": "organization_id"
+          },
+          "group_id": {
+            "equalTo": "group_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f3a06a3e-a047-4c64-ad21-52cf3943c125",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "5927f1a7-b918-4d94-b4f5-66e48d50773d",
+      "name": "List organization member effective roles. - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{id}/members/{user_id}/effective-roles",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          },
+          "user_id": {
+            "equalTo": "user_id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"sources\": [\n        \"direct\"\n      ]\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5927f1a7-b918-4d94-b4f5-66e48d50773d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "2c099b94-dfed-4bf8-b370-25ceade844b1",
       "name": "Get user roles assigned to an Organization member - default",
       "request": {
@@ -13118,6 +13334,56 @@
         }
       },
       "uuid": "245dc825-fc94-49ca-9547-a4b30ac4485a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "730f9e46-6a5a-455f-94ce-2b274a2c74f9",
+      "name": "List organization member role group sources. - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{id}/members/{user_id}/effective-roles/sources/groups",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          },
+          "user_id": {
+            "equalTo": "user_id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          },
+          "role_id": {
+            "equalTo": "role_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"groups\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"external_id\": \"external_id\",\n      \"connection_id\": \"connection_id\",\n      \"tenant_name\": \"tenant_name\",\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "730f9e46-6a5a-455f-94ce-2b274a2c74f9",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -13561,6 +13827,122 @@
         }
       },
       "uuid": "07a0ab5c-d2e9-4e3d-899b-3f9a833c3813",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "25c64235-59ca-41e7-a5b7-7431295591d4",
+      "name": "Get a role's groups - default",
+      "request": {
+        "urlPathTemplate": "/roles/{id}/groups",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"groups\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"external_id\": \"external_id\",\n      \"connection_id\": \"connection_id\",\n      \"tenant_name\": \"tenant_name\",\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "25c64235-59ca-41e7-a5b7-7431295591d4",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1b19f0e9-b733-4cf4-99e5-7536043c1d8b",
+      "name": "Assign groups to a role - default",
+      "request": {
+        "urlPathTemplate": "/roles/{id}/groups",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1b19f0e9-b733-4cf4-99e5-7536043c1d8b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e7233c54-c20d-4709-baea-47148eb72066",
+      "name": "Remove groups from a role - default",
+      "request": {
+        "urlPathTemplate": "/roles/{id}/groups",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e7233c54-c20d-4709-baea-47148eb72066",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -14342,6 +14724,97 @@
         }
       },
       "uuid": "0f4d4b1f-e7f1-42bd-8a14-64c2e7348b16",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "275c2e74-3552-46aa-bd98-e7945f609962",
+      "name": "Lists the permissions assigned to a user directly or through roles or groups. - default",
+      "request": {
+        "urlPathTemplate": "/users/{id}/effective-permissions",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          },
+          "resource_server_identifier": {
+            "equalTo": "resource_server_identifier"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"permissions\": [\n    {\n      \"resource_server_identifier\": \"resource_server_identifier\",\n      \"permission_name\": \"permission_name\",\n      \"resource_server_name\": \"resource_server_name\",\n      \"description\": \"description\",\n      \"sources\": [\n        \"direct\"\n      ]\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "275c2e74-3552-46aa-bd98-e7945f609962",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "0a1118c7-87a0-4e15-a026-c26ae69fc942",
+      "name": "Lists the roles for a user with sources: directly assigned or through group membership. - default",
+      "request": {
+        "urlPathTemplate": "/users/{id}/effective-roles",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"sources\": [\n        \"direct\"\n      ]\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "0a1118c7-87a0-4e15-a026-c26ae69fc942",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -15199,6 +15672,103 @@
       }
     },
     {
+      "id": "bb869da8-6539-45f5-82b2-96dba9672d2b",
+      "name": "Lists the roles which grant the user a given permission (whether directly or through groups). - default",
+      "request": {
+        "urlPathTemplate": "/users/{id}/effective-permissions/sources/effective-roles",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          },
+          "resource_server_identifier": {
+            "equalTo": "resource_server_identifier"
+          },
+          "permission_name": {
+            "equalTo": "permission_name"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"sources\": [\n        \"direct\"\n      ]\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bb869da8-6539-45f5-82b2-96dba9672d2b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "6d4f49b1-9731-4224-af65-0673be60a0c1",
+      "name": "Get a user's role source groups - default",
+      "request": {
+        "urlPathTemplate": "/users/{id}/effective-roles/sources/groups",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        },
+        "queryParameters": {
+          "role_id": {
+            "equalTo": "role_id"
+          },
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"groups\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"external_id\": \"external_id\",\n      \"connection_id\": \"connection_id\",\n      \"tenant_name\": \"tenant_name\",\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6d4f49b1-9731-4224-af65-0673be60a0c1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "e370a2a2-5b39-4ba1-ac2b-4b5be9ef38f2",
       "name": "List verifiable credential templates for a tenant. - default",
       "request": {
@@ -15379,6 +15949,6 @@
     }
   ],
   "meta": {
-    "total": 414
+    "total": 427
   }
 }
