@@ -1,5 +1,26 @@
 # Change Log
 
+## [5.6.0](https://github.com/auth0/auth0-python/tree/5.6.0) (2026-05-28)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.5.0...5.6.0)
+
+**Added**
+- feat: rate_limit_policies client with full CRUD: list, create, get, update, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Response Types: RateLimitPolicyConfigurationZero (allow), RateLimitPolicyConfigurationOne (block/log + limit), RateLimitPolicyConfigurationAction (redirect + limit + redirect_uri), RateLimitPolicy [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: OAuth scopes: create:rate_limit_policies, read:rate_limit_policies, update:rate_limit_policies, delete:rate_limit_policies [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for groups.roles — list, create, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for roles.groups — get, create, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for users.effective_roles / users.effective_roles.sources.groups  [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for users.effective_permissions / users.effective_permissions.sources.roles  [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for organizations.groups — list [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for organizations.groups.roles — list, create, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for organizations.members.effective_roles / organizations.members.effective_roles.sources.groups [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Types for SCIM Groups: effective role/permission response types, org-member effective role types, paginated list wrappers, source enum discriminators [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: OAuth scopes: create/read/delete:group_roles, read:organization_groups, create/read/delete:organization_group_roles, read:organization_member_effective_roles, read:organization_member_role_source_groups, read:user_effective_roles, read:user_role_source_groups, read:user_effective_permissions, read:user_permission_source_roles [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Changed**
+* ConnectionPropertiesOptions — dpop_signing_alg field added (write path for POST /api/v2/connections) [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+* UpdateConnectionOptions — dpop_signing_alg field added (write path for PATCH /api/v2/connections/{id}) [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [5.5.0](https://github.com/auth0/auth0-python/tree/5.5.0) (2026-05-20)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.4.0...5.5.0)
 
