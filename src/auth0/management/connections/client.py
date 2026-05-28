@@ -66,25 +66,23 @@ class ConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ConnectionForList, ListConnectionsCheckpointPaginatedResponseContent]:
         """
-        Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
+        Retrieves detailed list of all [connections](https://auth0.com/docs/authenticate/identity-providers) that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 connections.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
@@ -162,9 +160,9 @@ class ConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateConnectionResponseContent:
         """
-        Creates a new connection according to the JSON object received in <code>body</code>.
+        Creates a new connection according to the JSON object received in `body`.
 
-        <b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
+        **Note:** If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
 
         Parameters
         ----------
@@ -241,7 +239,7 @@ class ConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetConnectionResponseContent:
         """
-        Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> along with options that can be used for identity provider configuration.
+        Retrieve details for a specified [connection](https://auth0.com/docs/authenticate/identity-providers) along with options that can be used for identity provider configuration.
 
         Parameters
         ----------
@@ -282,9 +280,9 @@ class ConnectionsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+        Removes a specific [connection](https://auth0.com/docs/authenticate/identity-providers) from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
 
-        <b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.
+        **Note:** If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent [create connection](https://auth0.com/docs/api/management/v2/connections/post-connections) requests, if they use an identical connection name.
 
         Parameters
         ----------
@@ -328,9 +326,9 @@ class ConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateConnectionResponseContent:
         """
-        Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
+        Update details for a specific [connection](https://auth0.com/docs/authenticate/identity-providers), including option properties for identity provider configuration.
 
-        <b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.
+        **Note**: If you use the `options` parameter, the entire `options` object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.
 
         Parameters
         ----------
@@ -396,7 +394,7 @@ class ConnectionsClient:
 
     def check_status(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Retrieves the status of an ad/ldap connection referenced by its <code>ID</code>. <code>200 OK</code> http status code response is returned  when the connection is online, otherwise a <code>404</code> status code is returned along with an error message
+        Retrieves the status of an ad/ldap connection referenced by its `ID`. `200 OK` http status code response is returned  when the connection is online, otherwise a `404` status code is returned along with an error message
 
         Parameters
         ----------
@@ -498,25 +496,23 @@ class AsyncConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ConnectionForList, ListConnectionsCheckpointPaginatedResponseContent]:
         """
-        Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
+        Retrieves detailed list of all [connections](https://auth0.com/docs/authenticate/identity-providers) that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 connections.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
@@ -603,9 +599,9 @@ class AsyncConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateConnectionResponseContent:
         """
-        Creates a new connection according to the JSON object received in <code>body</code>.
+        Creates a new connection according to the JSON object received in `body`.
 
-        <b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
+        **Note:** If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
 
         Parameters
         ----------
@@ -690,7 +686,7 @@ class AsyncConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetConnectionResponseContent:
         """
-        Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> along with options that can be used for identity provider configuration.
+        Retrieve details for a specified [connection](https://auth0.com/docs/authenticate/identity-providers) along with options that can be used for identity provider configuration.
 
         Parameters
         ----------
@@ -739,9 +735,9 @@ class AsyncConnectionsClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+        Removes a specific [connection](https://auth0.com/docs/authenticate/identity-providers) from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
 
-        <b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.
+        **Note:** If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent [create connection](https://auth0.com/docs/api/management/v2/connections/post-connections) requests, if they use an identical connection name.
 
         Parameters
         ----------
@@ -793,9 +789,9 @@ class AsyncConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateConnectionResponseContent:
         """
-        Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
+        Update details for a specific [connection](https://auth0.com/docs/authenticate/identity-providers), including option properties for identity provider configuration.
 
-        <b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.
+        **Note**: If you use the `options` parameter, the entire `options` object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.
 
         Parameters
         ----------
@@ -869,7 +865,7 @@ class AsyncConnectionsClient:
 
     async def check_status(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Retrieves the status of an ad/ldap connection referenced by its <code>ID</code>. <code>200 OK</code> http status code response is returned  when the connection is online, otherwise a <code>404</code> status code is returned along with an error message
+        Retrieves the status of an ad/ldap connection referenced by its `ID`. `200 OK` http status code response is returned  when the connection is online, otherwise a `404` status code is returned along with an error message
 
         Parameters
         ----------

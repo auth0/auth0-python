@@ -36,6 +36,7 @@ if typing.TYPE_CHECKING:
     from .network_acls.client import AsyncNetworkAclsClient, NetworkAclsClient
     from .organizations.client import AsyncOrganizationsClient, OrganizationsClient
     from .prompts.client import AsyncPromptsClient, PromptsClient
+    from .rate_limit_policies.client import AsyncRateLimitPoliciesClient, RateLimitPoliciesClient
     from .refresh_tokens.client import AsyncRefreshTokensClient, RefreshTokensClient
     from .resource_servers.client import AsyncResourceServersClient, ResourceServersClient
     from .risk_assessments.client import AsyncRiskAssessmentsClient, RiskAssessmentsClient
@@ -161,6 +162,7 @@ class Auth0:
         self._network_acls: typing.Optional[NetworkAclsClient] = None
         self._organizations: typing.Optional[OrganizationsClient] = None
         self._prompts: typing.Optional[PromptsClient] = None
+        self._rate_limit_policies: typing.Optional[RateLimitPoliciesClient] = None
         self._refresh_tokens: typing.Optional[RefreshTokensClient] = None
         self._resource_servers: typing.Optional[ResourceServersClient] = None
         self._roles: typing.Optional[RolesClient] = None
@@ -359,6 +361,14 @@ class Auth0:
 
             self._prompts = PromptsClient(client_wrapper=self._client_wrapper)
         return self._prompts
+
+    @property
+    def rate_limit_policies(self):
+        if self._rate_limit_policies is None:
+            from .rate_limit_policies.client import RateLimitPoliciesClient  # noqa: E402
+
+            self._rate_limit_policies = RateLimitPoliciesClient(client_wrapper=self._client_wrapper)
+        return self._rate_limit_policies
 
     @property
     def refresh_tokens(self):
@@ -663,6 +673,7 @@ class AsyncAuth0:
         self._network_acls: typing.Optional[AsyncNetworkAclsClient] = None
         self._organizations: typing.Optional[AsyncOrganizationsClient] = None
         self._prompts: typing.Optional[AsyncPromptsClient] = None
+        self._rate_limit_policies: typing.Optional[AsyncRateLimitPoliciesClient] = None
         self._refresh_tokens: typing.Optional[AsyncRefreshTokensClient] = None
         self._resource_servers: typing.Optional[AsyncResourceServersClient] = None
         self._roles: typing.Optional[AsyncRolesClient] = None
@@ -861,6 +872,14 @@ class AsyncAuth0:
 
             self._prompts = AsyncPromptsClient(client_wrapper=self._client_wrapper)
         return self._prompts
+
+    @property
+    def rate_limit_policies(self):
+        if self._rate_limit_policies is None:
+            from .rate_limit_policies.client import AsyncRateLimitPoliciesClient  # noqa: E402
+
+            self._rate_limit_policies = AsyncRateLimitPoliciesClient(client_wrapper=self._client_wrapper)
+        return self._rate_limit_policies
 
     @property
     def refresh_tokens(self):

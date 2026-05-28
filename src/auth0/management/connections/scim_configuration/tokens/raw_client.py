@@ -29,7 +29,7 @@ class RawTokensClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetScimTokensResponseContent]:
         """
-        Retrieves all scim tokens by its connection <code>id</code>.
+        Retrieves all scim tokens by its connection `id`.
 
         Parameters
         ----------
@@ -189,7 +189,7 @@ class RawTokensClient:
         self, id: str, token_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
+        Deletes a scim token by its connection `id` and `tokenId`.
 
         Parameters
         ----------
@@ -254,7 +254,7 @@ class AsyncRawTokensClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetScimTokensResponseContent]:
         """
-        Retrieves all scim tokens by its connection <code>id</code>.
+        Retrieves all scim tokens by its connection `id`.
 
         Parameters
         ----------
@@ -414,7 +414,7 @@ class AsyncRawTokensClient:
         self, id: str, token_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
+        Deletes a scim token by its connection `id` and `tokenId`.
 
         Parameters
         ----------

@@ -158,7 +158,7 @@ class RawUserAttributeProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateUserAttributeProfileResponseContent]:
         """
-        Create a User Attribute Profile
+        Create a User Attribute Profile.
 
         Parameters
         ----------
@@ -816,7 +816,7 @@ class AsyncRawUserAttributeProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateUserAttributeProfileResponseContent]:
         """
-        Create a User Attribute Profile
+        Create a User Attribute Profile.
 
         Parameters
         ----------

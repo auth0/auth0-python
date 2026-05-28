@@ -14,6 +14,7 @@ from ...types.organization_member import OrganizationMember
 from .raw_client import AsyncRawMembersClient, RawMembersClient
 
 if typing.TYPE_CHECKING:
+    from .effective_roles.client import AsyncEffectiveRolesClient, EffectiveRolesClient
     from .roles.client import AsyncRolesClient, RolesClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -23,6 +24,7 @@ class MembersClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawMembersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._effective_roles: typing.Optional[EffectiveRolesClient] = None
         self._roles: typing.Optional[RolesClient] = None
 
     @property
@@ -192,6 +194,14 @@ class MembersClient:
         return _response.data
 
     @property
+    def effective_roles(self):
+        if self._effective_roles is None:
+            from .effective_roles.client import EffectiveRolesClient  # noqa: E402
+
+            self._effective_roles = EffectiveRolesClient(client_wrapper=self._client_wrapper)
+        return self._effective_roles
+
+    @property
     def roles(self):
         if self._roles is None:
             from .roles.client import RolesClient  # noqa: E402
@@ -204,6 +214,7 @@ class AsyncMembersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawMembersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._effective_roles: typing.Optional[AsyncEffectiveRolesClient] = None
         self._roles: typing.Optional[AsyncRolesClient] = None
 
     @property
@@ -396,6 +407,14 @@ class AsyncMembersClient:
         """
         _response = await self._raw_client.delete(id, members=members, request_options=request_options)
         return _response.data
+
+    @property
+    def effective_roles(self):
+        if self._effective_roles is None:
+            from .effective_roles.client import AsyncEffectiveRolesClient  # noqa: E402
+
+            self._effective_roles = AsyncEffectiveRolesClient(client_wrapper=self._client_wrapper)
+        return self._effective_roles
 
     @property
     def roles(self):

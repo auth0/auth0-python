@@ -161,9 +161,6 @@ class RawKeysClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[PostConnectionKeysRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -283,9 +280,6 @@ class RawKeysClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[RotateConnectionKeysRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -497,9 +491,6 @@ class AsyncRawKeysClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[PostConnectionKeysRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -619,9 +610,6 @@ class AsyncRawKeysClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[RotateConnectionKeysRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

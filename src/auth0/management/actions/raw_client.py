@@ -519,7 +519,7 @@ class RawActionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateActionResponseContent]:
         """
-        Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
+        Update an existing action. If this action is currently bound to a trigger, updating it will **not** affect any user flows until the action is deployed.
 
         Parameters
         ----------
@@ -1325,7 +1325,7 @@ class AsyncRawActionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateActionResponseContent]:
         """
-        Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
+        Update an existing action. If this action is currently bound to a trigger, updating it will **not** affect any user flows until the action is deployed.
 
         Parameters
         ----------

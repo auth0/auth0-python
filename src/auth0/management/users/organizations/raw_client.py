@@ -34,7 +34,7 @@ class RawOrganizationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Organization, ListUserOrganizationsOffsetPaginatedResponseContent]:
         """
-        Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+        Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review [Auth0 Organizations](https://auth0.com/docs/manage-users/organizations).
 
         Parameters
         ----------
@@ -146,7 +146,7 @@ class AsyncRawOrganizationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Organization, ListUserOrganizationsOffsetPaginatedResponseContent]:
         """
-        Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+        Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review [Auth0 Organizations](https://auth0.com/docs/manage-users/organizations).
 
         Parameters
         ----------

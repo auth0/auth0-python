@@ -70,12 +70,14 @@ class UpdateUserResponseContent(UniversalBaseModel):
     List of multi-factor authentication providers with which this user has enrolled.
     """
 
+    multifactor_last_modified: typing.Optional[UserDateSchema] = None
     last_ip: typing.Optional[str] = pydantic.Field(default=None)
     """
     Last IP address from which this user logged in.
     """
 
     last_login: typing.Optional[UserDateSchema] = None
+    last_password_reset: typing.Optional[UserDateSchema] = None
     logins_count: typing.Optional[int] = pydantic.Field(default=None)
     """
     Total number of logins this user has performed.

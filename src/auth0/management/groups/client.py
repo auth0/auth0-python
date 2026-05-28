@@ -14,6 +14,7 @@ from .raw_client import AsyncRawGroupsClient, RawGroupsClient
 
 if typing.TYPE_CHECKING:
     from .members.client import AsyncMembersClient, MembersClient
+    from .roles.client import AsyncRolesClient, RolesClient
 
 
 class GroupsClient:
@@ -21,6 +22,7 @@ class GroupsClient:
         self._raw_client = RawGroupsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._members: typing.Optional[MembersClient] = None
+        self._roles: typing.Optional[RolesClient] = None
 
     @property
     def with_raw_response(self) -> RawGroupsClient:
@@ -187,12 +189,21 @@ class GroupsClient:
             self._members = MembersClient(client_wrapper=self._client_wrapper)
         return self._members
 
+    @property
+    def roles(self):
+        if self._roles is None:
+            from .roles.client import RolesClient  # noqa: E402
+
+            self._roles = RolesClient(client_wrapper=self._client_wrapper)
+        return self._roles
+
 
 class AsyncGroupsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawGroupsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._members: typing.Optional[AsyncMembersClient] = None
+        self._roles: typing.Optional[AsyncRolesClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawGroupsClient:
@@ -383,3 +394,11 @@ class AsyncGroupsClient:
 
             self._members = AsyncMembersClient(client_wrapper=self._client_wrapper)
         return self._members
+
+    @property
+    def roles(self):
+        if self._roles is None:
+            from .roles.client import AsyncRolesClient  # noqa: E402
+
+            self._roles = AsyncRolesClient(client_wrapper=self._client_wrapper)
+        return self._roles

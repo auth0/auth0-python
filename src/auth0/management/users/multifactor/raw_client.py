@@ -27,7 +27,7 @@ class RawMultifactorClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
+        Invalidate all remembered browsers across all [authentication factors](https://auth0.com/docs/multifactor-authentication) for a user.
 
         Parameters
         ----------
@@ -95,7 +95,7 @@ class RawMultifactorClient:
         self, id: str, provider: UserMultifactorProviderEnum, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+        Remove a [multifactor](https://auth0.com/docs/multifactor-authentication) authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
 
         Parameters
         ----------
@@ -193,7 +193,7 @@ class AsyncRawMultifactorClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
+        Invalidate all remembered browsers across all [authentication factors](https://auth0.com/docs/multifactor-authentication) for a user.
 
         Parameters
         ----------
@@ -261,7 +261,7 @@ class AsyncRawMultifactorClient:
         self, id: str, provider: UserMultifactorProviderEnum, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+        Remove a [multifactor](https://auth0.com/docs/multifactor-authentication) authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
 
         Parameters
         ----------

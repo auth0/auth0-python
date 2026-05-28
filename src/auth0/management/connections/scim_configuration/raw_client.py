@@ -147,7 +147,7 @@ class RawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetScimConfigurationResponseContent]:
         """
-        Retrieves a scim configuration by its <code>connectionId</code>.
+        Retrieves a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -239,9 +239,6 @@ class RawScimConfigurationClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[CreateScimConfigurationRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -288,7 +285,7 @@ class RawScimConfigurationClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        Deletes a scim configuration by its <code>connectionId</code>.
+        Deletes a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -350,7 +347,7 @@ class RawScimConfigurationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateScimConfigurationResponseContent]:
         """
-        Update a scim configuration by its <code>connectionId</code>.
+        Update a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -431,7 +428,7 @@ class RawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetScimConfigurationDefaultMappingResponseContent]:
         """
-        Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
+        Retrieves a scim configuration's default mapping by its `connectionId`.
 
         Parameters
         ----------
@@ -610,7 +607,7 @@ class AsyncRawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetScimConfigurationResponseContent]:
         """
-        Retrieves a scim configuration by its <code>connectionId</code>.
+        Retrieves a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -702,9 +699,6 @@ class AsyncRawScimConfigurationClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[CreateScimConfigurationRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -753,7 +747,7 @@ class AsyncRawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Deletes a scim configuration by its <code>connectionId</code>.
+        Deletes a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -815,7 +809,7 @@ class AsyncRawScimConfigurationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateScimConfigurationResponseContent]:
         """
-        Update a scim configuration by its <code>connectionId</code>.
+        Update a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -896,7 +890,7 @@ class AsyncRawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetScimConfigurationDefaultMappingResponseContent]:
         """
-        Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
+        Retrieves a scim configuration's default mapping by its `connectionId`.
 
         Parameters
         ----------

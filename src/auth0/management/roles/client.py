@@ -15,6 +15,7 @@ from ..types.update_role_response_content import UpdateRoleResponseContent
 from .raw_client import AsyncRawRolesClient, RawRolesClient
 
 if typing.TYPE_CHECKING:
+    from .groups.client import AsyncGroupsClient, GroupsClient
     from .permissions.client import AsyncPermissionsClient, PermissionsClient
     from .users.client import AsyncUsersClient, UsersClient
 # this is used as the default value for optional parameters
@@ -25,6 +26,7 @@ class RolesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawRolesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._groups: typing.Optional[GroupsClient] = None
         self._permissions: typing.Optional[PermissionsClient] = None
         self._users: typing.Optional[UsersClient] = None
 
@@ -51,7 +53,7 @@ class RolesClient:
         """
         Retrieve detailed list of user roles created in your tenant.
 
-        <b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
+        **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 
         Parameters
         ----------
@@ -110,9 +112,9 @@ class RolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRoleResponseContent:
         """
-        Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+        Create a user role for [Role-Based Access Control](https://auth0.com/docs/manage-users/access-control/rbac).
 
-        <b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
+        **Note**: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
 
         Parameters
         ----------
@@ -146,7 +148,7 @@ class RolesClient:
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetRoleResponseContent:
         """
-        Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Retrieve details about a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -177,7 +179,7 @@ class RolesClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+        Delete a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
 
         Parameters
         ----------
@@ -214,7 +216,7 @@ class RolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateRoleResponseContent:
         """
-        Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Modify the details of a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -250,6 +252,14 @@ class RolesClient:
         return _response.data
 
     @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import GroupsClient  # noqa: E402
+
+            self._groups = GroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
+
+    @property
     def permissions(self):
         if self._permissions is None:
             from .permissions.client import PermissionsClient  # noqa: E402
@@ -270,6 +280,7 @@ class AsyncRolesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawRolesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._groups: typing.Optional[AsyncGroupsClient] = None
         self._permissions: typing.Optional[AsyncPermissionsClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
 
@@ -296,7 +307,7 @@ class AsyncRolesClient:
         """
         Retrieve detailed list of user roles created in your tenant.
 
-        <b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
+        **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 
         Parameters
         ----------
@@ -364,9 +375,9 @@ class AsyncRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRoleResponseContent:
         """
-        Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+        Create a user role for [Role-Based Access Control](https://auth0.com/docs/manage-users/access-control/rbac).
 
-        <b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
+        **Note**: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
 
         Parameters
         ----------
@@ -408,7 +419,7 @@ class AsyncRolesClient:
 
     async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetRoleResponseContent:
         """
-        Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Retrieve details about a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -447,7 +458,7 @@ class AsyncRolesClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+        Delete a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
 
         Parameters
         ----------
@@ -492,7 +503,7 @@ class AsyncRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateRoleResponseContent:
         """
-        Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Modify the details of a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -536,6 +547,14 @@ class AsyncRolesClient:
             id, name=name, description=description, request_options=request_options
         )
         return _response.data
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import AsyncGroupsClient  # noqa: E402
+
+            self._groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
 
     @property
     def permissions(self):

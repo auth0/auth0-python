@@ -168,9 +168,6 @@ class RawCustomTextClient:
             f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -377,9 +374,6 @@ class AsyncRawCustomTextClient:
             f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

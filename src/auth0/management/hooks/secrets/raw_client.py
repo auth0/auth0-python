@@ -156,9 +156,6 @@ class RawSecretsClient:
             f"hooks/{encode_path_param(id)}/secrets",
             method="POST",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -257,9 +254,6 @@ class RawSecretsClient:
             f"hooks/{encode_path_param(id)}/secrets",
             method="DELETE",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -347,9 +341,6 @@ class RawSecretsClient:
             f"hooks/{encode_path_param(id)}/secrets",
             method="PATCH",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -562,9 +553,6 @@ class AsyncRawSecretsClient:
             f"hooks/{encode_path_param(id)}/secrets",
             method="POST",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -663,9 +651,6 @@ class AsyncRawSecretsClient:
             f"hooks/{encode_path_param(id)}/secrets",
             method="DELETE",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -753,9 +738,6 @@ class AsyncRawSecretsClient:
             f"hooks/{encode_path_param(id)}/secrets",
             method="PATCH",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
