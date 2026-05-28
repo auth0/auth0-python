@@ -6,7 +6,7 @@
 **Added**
 - feat: rate_limit_policies client with full CRUD: list, create, get, update, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
 - feat: Response Types: RateLimitPolicyConfigurationZero (allow), RateLimitPolicyConfigurationOne (block/log + limit), RateLimitPolicyConfigurationAction (redirect + limit + redirect_uri), RateLimitPolicy [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
-- feat: OAuth scopes: create:rate_limit_policies, read:rate_limit_policies, update:rate_limit_policies, delete:rate_limit_policies
+- feat: OAuth scopes: create:rate_limit_policies, read:rate_limit_policies, update:rate_limit_policies, delete:rate_limit_policies [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
 - feat: Support for groups.roles — list, create, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
 - feat: Support for roles.groups — get, create, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
 - feat: Support for users.effective_roles / users.effective_roles.sources.groups  [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
