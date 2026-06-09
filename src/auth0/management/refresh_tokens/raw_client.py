@@ -182,7 +182,7 @@ class RawRefreshTokensClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
-        Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+        Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
 
         Parameters
         ----------
@@ -193,7 +193,7 @@ class RawRefreshTokensClient:
             Revoke all refresh tokens for this user.
 
         client_id : typing.Optional[str]
-            Revoke all refresh tokens for this client.
+            Revoke refresh tokens for this client. Must be paired with `user_id`; optionally narrowed further with `audience`.
 
         audience : typing.Optional[str]
             Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
@@ -722,7 +722,7 @@ class AsyncRawRefreshTokensClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
-        Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+        Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
 
         Parameters
         ----------
@@ -733,7 +733,7 @@ class AsyncRawRefreshTokensClient:
             Revoke all refresh tokens for this user.
 
         client_id : typing.Optional[str]
-            Revoke all refresh tokens for this client.
+            Revoke refresh tokens for this client. Must be paired with `user_id`; optionally narrowed further with `audience`.
 
         audience : typing.Optional[str]
             Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.

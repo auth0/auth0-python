@@ -37,7 +37,7 @@ class RolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Role, ListGroupRolesResponseContent]:
         """
-        Lists the <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> assigned to a group.
+        Lists the [roles](https://auth0.com/docs/manage-users/access-control/rbac) assigned to a group.
 
         Parameters
         ----------
@@ -82,7 +82,7 @@ class RolesClient:
         self, id: str, *, roles: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a specified group.
+        Assign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) to a specified group.
 
         Parameters
         ----------
@@ -118,7 +118,7 @@ class RolesClient:
         self, id: str, *, roles: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Unassign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a specified group.
+        Unassign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) from a specified group.
 
         Parameters
         ----------
@@ -175,7 +175,7 @@ class AsyncRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Role, ListGroupRolesResponseContent]:
         """
-        Lists the <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> assigned to a group.
+        Lists the [roles](https://auth0.com/docs/manage-users/access-control/rbac) assigned to a group.
 
         Parameters
         ----------
@@ -229,7 +229,7 @@ class AsyncRolesClient:
         self, id: str, *, roles: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a specified group.
+        Assign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) to a specified group.
 
         Parameters
         ----------
@@ -273,7 +273,7 @@ class AsyncRolesClient:
         self, id: str, *, roles: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Unassign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a specified group.
+        Unassign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) from a specified group.
 
         Parameters
         ----------

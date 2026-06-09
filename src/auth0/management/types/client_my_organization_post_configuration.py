@@ -31,6 +31,10 @@ class ClientMyOrganizationPostConfiguration(UniversalBaseModel):
     """
 
     connection_deletion_behavior: ClientMyOrganizationDeletionBehaviorEnum
+    invitation_landing_client_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The client ID this client uses while creating invitations through My Organization API.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

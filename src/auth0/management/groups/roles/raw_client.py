@@ -37,7 +37,7 @@ class RawRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Role, ListGroupRolesResponseContent]:
         """
-        Lists the <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> assigned to a group.
+        Lists the [roles](https://auth0.com/docs/manage-users/access-control/rbac) assigned to a group.
 
         Parameters
         ----------
@@ -119,6 +119,17 @@ class RawRolesClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -143,7 +154,7 @@ class RawRolesClient:
         self, id: str, *, roles: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a specified group.
+        Assign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) to a specified group.
 
         Parameters
         ----------
@@ -243,7 +254,7 @@ class RawRolesClient:
         self, id: str, *, roles: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Unassign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a specified group.
+        Unassign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) from a specified group.
 
         Parameters
         ----------
@@ -308,6 +319,17 @@ class RawRolesClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -342,7 +364,7 @@ class AsyncRawRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Role, ListGroupRolesResponseContent]:
         """
-        Lists the <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> assigned to a group.
+        Lists the [roles](https://auth0.com/docs/manage-users/access-control/rbac) assigned to a group.
 
         Parameters
         ----------
@@ -427,6 +449,17 @@ class AsyncRawRolesClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -451,7 +484,7 @@ class AsyncRawRolesClient:
         self, id: str, *, roles: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a specified group.
+        Assign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) to a specified group.
 
         Parameters
         ----------
@@ -551,7 +584,7 @@ class AsyncRawRolesClient:
         self, id: str, *, roles: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Unassign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a specified group.
+        Unassign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) from a specified group.
 
         Parameters
         ----------
@@ -607,6 +640,17 @@ class AsyncRawRolesClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

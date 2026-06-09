@@ -92,6 +92,7 @@ ScreenGroupNameEnum = typing.Union[
         "async-approval-error",
         "async-approval-accepted",
         "async-approval-denied",
+        "confirmation",
         "async-approval-wrong-user",
     ],
     typing.Any,

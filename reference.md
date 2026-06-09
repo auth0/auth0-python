@@ -832,14 +832,6 @@ client.branding.update()
 <dl>
 <dd>
 
-**identifiers:** `typing.Optional[UpdateBrandingIdentifiers]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **font:** `typing.Optional[UpdateBrandingFont]` 
     
 </dd>
@@ -873,7 +865,7 @@ client.branding.update()
 <dl>
 <dd>
 
-Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+Retrieve a list of [client grants](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the scopes associated with the application/API pair.
 </dd>
 </dl>
 </dd>
@@ -1000,7 +992,7 @@ client.client_grants.list(
 <dl>
 <dd>
 
-Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
+Create a client grant for a machine-to-machine login flow. To learn more, read [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow).
 </dd>
 </dl>
 </dd>
@@ -1137,7 +1129,7 @@ client.client_grants.create(
 <dl>
 <dd>
 
-Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+Retrieve a single [client grant](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the
 scopes associated with the application/API pair.
 </dd>
 </dl>
@@ -1211,7 +1203,7 @@ client.client_grants.get(
 <dl>
 <dd>
 
-Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
+Delete the [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) from your machine-to-machine application.
 </dd>
 </dl>
 </dd>
@@ -1399,38 +1391,30 @@ client.client_grants.update(
 <dd>
 
 Retrieve clients (applications and SSO integrations) matching provided filters. A list of fields to include or exclude may also be specified.
-For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
+For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
 
-<ul>
-  <li>
-    The following can be retrieved with any scope:
-    <code>client_id</code>, <code>app_type</code>, <code>name</code>, and <code>description</code>.
-  </li>
-  <li>
-    The following properties can only be retrieved with the <code>read:clients</code> or
-    <code>read:client_keys</code> scope:
-    <code>callbacks</code>, <code>oidc_logout</code>, <code>allowed_origins</code>,
-    <code>web_origins</code>, <code>tenant</code>, <code>global</code>, <code>config_route</code>,
-    <code>callback_url_template</code>, <code>jwt_configuration</code>,
-    <code>jwt_configuration.lifetime_in_seconds</code>, <code>jwt_configuration.secret_encoded</code>,
-    <code>jwt_configuration.scopes</code>, <code>jwt_configuration.alg</code>, <code>api_type</code>,
-    <code>logo_uri</code>, <code>allowed_clients</code>, <code>owners</code>, <code>custom_login_page</code>,
-    <code>custom_login_page_off</code>, <code>sso</code>, <code>addons</code>, <code>form_template</code>,
-    <code>custom_login_page_codeview</code>, <code>resource_servers</code>, <code>client_metadata</code>,
-    <code>mobile</code>, <code>mobile.android</code>, <code>mobile.ios</code>, <code>allowed_logout_urls</code>,
-    <code>token_endpoint_auth_method</code>, <code>is_first_party</code>, <code>oidc_conformant</code>,
-    <code>is_token_endpoint_ip_header_trusted</code>, <code>initiate_login_uri</code>, <code>grant_types</code>,
-    <code>refresh_token</code>, <code>refresh_token.rotation_type</code>, <code>refresh_token.expiration_type</code>,
-    <code>refresh_token.leeway</code>, <code>refresh_token.token_lifetime</code>, <code>refresh_token.policies</code>, <code>organization_usage</code>,
-    <code>organization_require_behavior</code>.
-  </li>
-  <li>
-    The following properties can only be retrieved with the
-    <code>read:client_keys</code> or <code>read:client_credentials</code> scope:
-    <code>encryption_key</code>, <code>encryption_key.pub</code>, <code>encryption_key.cert</code>,
-    <code>client_secret</code>, <code>client_authentication_methods</code> and <code>signing_key</code>.
-  </li>
-</ul>
+- The following can be retrieved with any scope:
+    `client_id`, `app_type`, `name`, and `description`.
+- The following properties can only be retrieved with the `read:clients` or
+    `read:client_keys` scope:
+    `callbacks`, `oidc_logout`, `allowed_origins`,
+    `web_origins`, `tenant`, `global`, `config_route`,
+    `callback_url_template`, `jwt_configuration`,
+    `jwt_configuration.lifetime_in_seconds`, `jwt_configuration.secret_encoded`,
+    `jwt_configuration.scopes`, `jwt_configuration.alg`, `api_type`,
+    `logo_uri`, `allowed_clients`, `owners`, `custom_login_page`,
+    `custom_login_page_off`, `sso`, `addons`, `form_template`,
+    `custom_login_page_codeview`, `resource_servers`, `client_metadata`,
+    `mobile`, `mobile.android`, `mobile.ios`, `allowed_logout_urls`,
+    `token_endpoint_auth_method`, `is_first_party`, `oidc_conformant`,
+    `is_token_endpoint_ip_header_trusted`, `initiate_login_uri`, `grant_types`,
+    `refresh_token`, `refresh_token.rotation_type`, `refresh_token.expiration_type`,
+    `refresh_token.leeway`, `refresh_token.token_lifetime`, `refresh_token.policies`, `organization_usage`,
+    `organization_require_behavior`.
+- The following properties can only be retrieved with the
+    `read:client_keys` or `read:client_credentials` scope:
+    `encryption_key`, `encryption_key.pub`, `encryption_key.cert`,
+    `client_secret`, `client_authentication_methods` and `signing_key`.
 </dd>
 </dl>
 </dd>
@@ -1584,20 +1568,20 @@ client.clients.list(
 <dl>
 <dd>
 
-Create a new client (application or SSO integration). For more information, read <a href="https://www.auth0.com/docs/get-started/auth0-overview/create-applications">Create Applications</a>
-<a href="https://www.auth0.com/docs/authenticate/single-sign-on/api-endpoints-for-single-sign-on>">API Endpoints for Single Sign-On</a>. 
+Create a new client (application or SSO integration). For more information, read [Create Applications](https://www.auth0.com/docs/get-started/auth0-overview/create-applications)
+[API Endpoints for Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on/api-endpoints-for-single-sign-on).
 
 Notes: 
 - We recommend leaving the `client_secret` parameter unspecified to allow the generation of a safe secret.
-- The <code>client_authentication_methods</code> and <code>token_endpoint_auth_method</code> properties are mutually exclusive. Use 
-<code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method. Otherwise, use <code>token_endpoint_auth_method</code>
+- The `client_authentication_methods` and `token_endpoint_auth_method` properties are mutually exclusive. Use 
+`client_authentication_methods` to configure the client with Private Key JWT authentication method. Otherwise, use `token_endpoint_auth_method`
 to configure the client with client secret (basic or post) or with no authentication method (none).
-- When using <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method, specify fully defined credentials. 
+- When using `client_authentication_methods` to configure the client with Private Key JWT authentication method, specify fully defined credentials. 
 These credentials will be automatically enabled for Private Key JWT authentication on the client. 
-- To configure <code>client_authentication_methods</code>, the <code>create:client_credentials</code> scope is required.
-- To configure <code>client_authentication_methods</code>, the property <code>jwt_configuration.alg</code> must be set to RS256.
+- To configure `client_authentication_methods`, the `create:client_credentials` scope is required.
+- To configure `client_authentication_methods`, the property `jwt_configuration.alg` must be set to RS256.
 
-<div class="alert alert-warning">SSO Integrations created via this endpoint will accept login requests and share user profile information.</div>
+SSO Integrations created via this endpoint will accept login requests and share user profile information.
 </dd>
 </dl>
 </dd>
@@ -2178,16 +2162,14 @@ client.clients.preview_cimd_metadata(
 Idempotent registration for Client ID Metadata Document (CIMD) clients.
 Uses external_client_id as the unique identifier for upsert operations.
 
-<strong>Create:</strong> Returns 201 when a new client is created (requires <code>create:clients</code> scope).
-<strong>Update:</strong> Returns 200 when an existing client is updated (requires <code>update:clients</code> scope).
+**Create:** Returns 201 when a new client is created (requires `create:clients` scope).
+**Update:** Returns 200 when an existing client is updated (requires `update:clients` scope).
 
 This endpoint automatically:
-<ul>
-  <li>Fetches and validates the metadata document</li>
-  <li>Maps CIMD fields to Auth0 client configuration</li>
-  <li>Creates/rotates credentials from the JWKS</li>
-  <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
-</ul>
+- Fetches and validates the metadata document
+- Maps CIMD fields to Auth0 client configuration
+- Creates/rotates credentials from the JWKS
+- Enforces CIMD security policies (HTTPS-only, no shared secrets)
 </dd>
 </dl>
 </dd>
@@ -2261,36 +2243,29 @@ client.clients.register_cimd_client(
 <dd>
 
 Retrieve client details by ID. Clients are SSO connections or Applications linked with your Auth0 tenant. A list of fields to include or exclude may also be specified. 
-For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
-<ul>
-  <li>
-    The following properties can be retrieved with any of the scopes:
-    <code>client_id</code>, <code>app_type</code>, <code>name</code>, and <code>description</code>.
-  </li>
-  <li>
-    The following properties can only be retrieved with the <code>read:clients</code> or
-    <code>read:client_keys</code> scopes:
-    <code>callbacks</code>, <code>oidc_logout</code>, <code>allowed_origins</code>,
-    <code>web_origins</code>, <code>tenant</code>, <code>global</code>, <code>config_route</code>,
-    <code>callback_url_template</code>, <code>jwt_configuration</code>,
-    <code>jwt_configuration.lifetime_in_seconds</code>, <code>jwt_configuration.secret_encoded</code>,
-    <code>jwt_configuration.scopes</code>, <code>jwt_configuration.alg</code>, <code>api_type</code>,
-    <code>logo_uri</code>, <code>allowed_clients</code>, <code>owners</code>, <code>custom_login_page</code>,
-    <code>custom_login_page_off</code>, <code>sso</code>, <code>addons</code>, <code>form_template</code>,
-    <code>custom_login_page_codeview</code>, <code>resource_servers</code>, <code>client_metadata</code>,
-    <code>mobile</code>, <code>mobile.android</code>, <code>mobile.ios</code>, <code>allowed_logout_urls</code>,
-    <code>token_endpoint_auth_method</code>, <code>is_first_party</code>, <code>oidc_conformant</code>,
-    <code>is_token_endpoint_ip_header_trusted</code>, <code>initiate_login_uri</code>, <code>grant_types</code>,
-    <code>refresh_token</code>, <code>refresh_token.rotation_type</code>, <code>refresh_token.expiration_type</code>,
-    <code>refresh_token.leeway</code>, <code>refresh_token.token_lifetime</code>, <code>refresh_token.policies</code>, <code>organization_usage</code>,
-    <code>organization_require_behavior</code>.
-  </li>
-  <li>
-    The following properties can only be retrieved with the <code>read:client_keys</code> or <code>read:client_credentials</code> scopes:
-    <code>encryption_key</code>, <code>encryption_key.pub</code>, <code>encryption_key.cert</code>,
-    <code>client_secret</code>, <code>client_authentication_methods</code> and <code>signing_key</code>.
-  </li>
-</ul>
+For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
+
+- The following properties can be retrieved with any of the scopes:
+    `client_id`, `app_type`, `name`, and `description`.
+- The following properties can only be retrieved with the `read:clients` or
+    `read:client_keys` scopes:
+    `callbacks`, `oidc_logout`, `allowed_origins`,
+    `web_origins`, `tenant`, `global`, `config_route`,
+    `callback_url_template`, `jwt_configuration`,
+    `jwt_configuration.lifetime_in_seconds`, `jwt_configuration.secret_encoded`,
+    `jwt_configuration.scopes`, `jwt_configuration.alg`, `api_type`,
+    `logo_uri`, `allowed_clients`, `owners`, `custom_login_page`,
+    `custom_login_page_off`, `sso`, `addons`, `form_template`,
+    `custom_login_page_codeview`, `resource_servers`, `client_metadata`,
+    `mobile`, `mobile.android`, `mobile.ios`, `allowed_logout_urls`,
+    `token_endpoint_auth_method`, `is_first_party`, `oidc_conformant`,
+    `is_token_endpoint_ip_header_trusted`, `initiate_login_uri`, `grant_types`,
+    `refresh_token`, `refresh_token.rotation_type`, `refresh_token.expiration_type`,
+    `refresh_token.leeway`, `refresh_token.token_lifetime`, `refresh_token.policies`, `organization_usage`,
+    `organization_require_behavior`.
+- The following properties can only be retrieved with the `read:client_keys` or `read:client_credentials` scopes:
+    `encryption_key`, `encryption_key.pub`, `encryption_key.cert`,
+    `client_secret`, `client_authentication_methods` and `signing_key`.
 </dd>
 </dl>
 </dd>
@@ -2454,15 +2429,15 @@ client.clients.delete(
 <dl>
 <dd>
 
-Updates a client's settings. For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
+Updates a client's settings. For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
 
 Notes:
 - The `client_secret` and `signing_key` attributes can only be updated with the `update:client_keys` scope.
-- The <code>client_authentication_methods</code> and <code>token_endpoint_auth_method</code> properties are mutually exclusive. Use <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method. Otherwise, use <code>token_endpoint_auth_method</code> to configure the client with client secret (basic or post) or with no authentication method (none).
-- When using <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method, only specify the credential IDs that were generated when creating the credentials on the client.
-- To configure <code>client_authentication_methods</code>, the <code>update:client_credentials</code> scope is required.
-- To configure <code>client_authentication_methods</code>, the property <code>jwt_configuration.alg</code> must be set to RS256.
-- To change a client's <code>is_first_party</code> property to <code>false</code>, the <code>organization_usage</code> and <code>organization_require_behavior</code> properties must be unset.
+- The `client_authentication_methods` and `token_endpoint_auth_method` properties are mutually exclusive. Use `client_authentication_methods` to configure the client with Private Key JWT authentication method. Otherwise, use `token_endpoint_auth_method` to configure the client with client secret (basic or post) or with no authentication method (none).
+- When using `client_authentication_methods` to configure the client with Private Key JWT authentication method, only specify the credential IDs that were generated when creating the credentials on the client.
+- To configure `client_authentication_methods`, the `update:client_credentials` scope is required.
+- To configure `client_authentication_methods`, the property `jwt_configuration.alg` must be set to RS256.
+- To change a client's `is_first_party` property to `false`, the `organization_usage` and `organization_require_behavior` properties must be unset.
 </dd>
 </dl>
 </dd>
@@ -2975,7 +2950,7 @@ Rotate a client secret.
 
 This endpoint cannot be used with clients configured with Private Key JWT authentication method (client_authentication_methods configured with private_key_jwt). The generated secret is NOT base64 encoded.
 
-For more information, read <a href="https://www.auth0.com/docs/get-started/applications/rotate-client-secret">Rotate Client Secrets</a>.
+For more information, read [Rotate Client Secrets](https://www.auth0.com/docs/get-started/applications/rotate-client-secret).
 </dd>
 </dl>
 </dd>
@@ -5133,7 +5108,7 @@ client.custom_domains.verify(
 <dl>
 <dd>
 
-Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
+Retrieve device credential information (`public_key`, `refresh_token`, or `rotating_refresh_token`) associated with a specific user.
 </dd>
 </dl>
 </dd>
@@ -5269,9 +5244,9 @@ client.device_credentials.list(
 <dl>
 <dd>
 
-Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
+Create a device credential public key to manage refresh token rotation for a given `user_id`. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
 
-When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.
+When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read [Signing Keys](https://auth0.com/docs/get-started/tenant-settings/signing-keys).
 </dd>
 </dl>
 </dd>
@@ -7298,7 +7273,7 @@ client.forms.update(
 <dl>
 <dd>
 
-Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account. 
+Retrieve the [grants](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) associated with your account.
 </dd>
 </dl>
 </dd>
@@ -7416,7 +7391,7 @@ client.user_grants.list(
 <dl>
 <dd>
 
-Delete a grant associated with your account. 
+Delete a grant associated with your account.
 </dd>
 </dl>
 </dd>
@@ -7489,7 +7464,7 @@ client.user_grants.delete_by_user_id(
 <dl>
 <dd>
 
-Delete a grant associated with your account. 
+Delete a grant associated with your account.
 </dd>
 </dl>
 </dd>
@@ -10094,22 +10069,20 @@ client.network_acls.update(
 Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
 
 This endpoint supports two types of pagination:
-<ul>
-<li>Offset pagination</li>
-<li>Checkpoint pagination</li>
-</ul>
+
+- Offset pagination
+- Checkpoint pagination
 
 Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
 
-<h2>Checkpoint Pagination</h2>
+**Checkpoint Pagination**
 
 To search by checkpoint, use the following parameters:
-<ul>
-<li><code>from</code>: Optional id from which to start selection.</li>
-<li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-</ul>
 
-<b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+- `from`: Optional id from which to start selection.
+- `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+**Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 </dd>
 </dl>
 </dd>
@@ -10200,7 +10173,7 @@ client.organizations.list(
 <dl>
 <dd>
 
-Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
+Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review [Create Your First Organization](https://auth0.com/docs/manage-users/organizations/create-first-organization).
 </dd>
 </dl>
 </dd>
@@ -10386,7 +10359,7 @@ client.organizations.get_by_name(
 <dl>
 <dd>
 
-Retrieve details about a single Organization specified by ID. 
+Retrieve details about a single Organization specified by ID.
 </dd>
 </dl>
 </dd>
@@ -10461,7 +10434,7 @@ client.organizations.get(
 
 Remove an Organization from your tenant.  This action cannot be undone. 
 
-<b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.
+**Note**: Members are automatically disassociated from an Organization when it is deleted. However, this action does **not** delete these users from your tenant.
 </dd>
 </dl>
 </dd>
@@ -10534,7 +10507,7 @@ client.organizations.delete(
 <dl>
 <dd>
 
-Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
+Update the details of a specific [Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations), such as name and display name, branding options, and metadata.
 </dd>
 </dl>
 </dd>
@@ -11289,7 +11262,7 @@ client.refresh_tokens.list(
 <dl>
 <dd>
 
-Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
 </dd>
 </dl>
 </dd>
@@ -11344,7 +11317,7 @@ client.refresh_tokens.revoke()
 <dl>
 <dd>
 
-**client_id:** `typing.Optional[str]` — Revoke all refresh tokens for this client.
+**client_id:** `typing.Optional[str]` — Revoke refresh tokens for this client. Must be paired with `user_id`; optionally narrowed further with `audience`.
     
 </dd>
 </dl>
@@ -14752,15 +14725,14 @@ client.tickets.change_password()
 
 Retrieve a list of all Token Exchange Profiles available in your tenant.
 
-By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
 This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:
-<ul>
-<li><code>from</code>: Optional id from which to start selection.</li>
-<li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-</ul>
 
-<b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+- `from`: Optional id from which to start selection.
+- `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+**Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 </dd>
 </dl>
 </dd>
@@ -14844,7 +14816,7 @@ client.token_exchange_profiles.list(
 
 Create a new Token Exchange Profile within your tenant.
 
-By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 </dd>
 </dl>
 </dd>
@@ -14946,7 +14918,7 @@ client.token_exchange_profiles.create(
 
 Retrieve details about a single Token Exchange Profile specified by ID.
 
-By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 </dd>
 </dl>
 </dd>
@@ -15021,8 +14993,7 @@ client.token_exchange_profiles.get(
 
 Delete a Token Exchange Profile within your tenant.
 
-By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
-
+By using this feature, you agree to the applicable Free Trial terms in [Okta's Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user's subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 </dd>
 </dl>
 </dd>
@@ -15097,8 +15068,7 @@ client.token_exchange_profiles.delete(
 
 Update a Token Exchange Profile within your tenant.
 
-By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
-
+By using this feature, you agree to the applicable Free Trial terms in [Okta's Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user's subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 </dd>
 </dl>
 </dd>
@@ -15747,7 +15717,7 @@ client.user_attribute_profiles.update(
 <dl>
 <dd>
 
-Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
+Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for a user with the given identifier (username, phone number, or email).
 </dd>
 </dl>
 </dd>
@@ -15834,9 +15804,9 @@ client.user_blocks.list_by_identifier(
 <dl>
 <dd>
 
-Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given identifier (username, phone number, or email).
 
-Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 </dd>
 </dl>
 </dd>
@@ -15909,7 +15879,7 @@ client.user_blocks.delete_by_identifier(
 <dl>
 <dd>
 
-Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 </dd>
 </dl>
 </dd>
@@ -15996,9 +15966,9 @@ client.user_blocks.list(
 <dl>
 <dd>
 
-Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
-Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 </dd>
 </dl>
 </dd>
@@ -20407,7 +20377,7 @@ client.branding.themes.update(
 <dl>
 <dd>
 
-Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
+Retrieve a list of [phone providers](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details set for a Tenant. A list of fields to include or exclude may also be specified.
 </dd>
 </dl>
 </dd>
@@ -20480,8 +20450,8 @@ client.branding.phone.providers.list(
 <dl>
 <dd>
 
-Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+Create a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 </dd>
 </dl>
 </dd>
@@ -20581,7 +20551,7 @@ client.branding.phone.providers.create(
 <dl>
 <dd>
 
-Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
+Retrieve [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details. A list of fields to include or exclude may also be specified.
 </dd>
 </dl>
 </dd>
@@ -20727,8 +20697,8 @@ client.branding.phone.providers.delete(
 <dl>
 <dd>
 
-Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+Update a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 </dd>
 </dl>
 </dd>
@@ -21460,7 +21430,7 @@ client.client_grants.organizations.list(
 
 Get the details of a client credential.
 
-<b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.
+**Important**: To enable credentials to be used for a client authentication method, set the `client_authentication_methods` property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the `signed_request_object` property on the client.
 </dd>
 </dl>
 </dd>
@@ -21535,37 +21505,61 @@ client.clients.credentials.list(
 
 Create a client credential associated to your application. Credentials can be used to configure Private Key JWT and mTLS authentication methods, as well as for JWT-secured Authorization requests.
 
-<h5>Public Key</h5>Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.
+**Public Key**
 
-Sample: <pre><code>{
+Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.
+
+Sample: 
+
+```json
+{
   "credential_type": "public_key",
   "name": "string",
   "pem": "string",
   "alg": "RS256",
   "parse_expiry_from_cert": false,
   "expires_at": "2022-12-31T23:59:59Z"
-}</code></pre>
-<h5>Certificate (CA-signed & self-signed)</h5>Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.
+}
+```
 
-CA-signed Certificate Sample (pem): <pre><code>{
+**Certificate (CA-signed & self-signed)**
+
+Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.
+
+CA-signed Certificate Sample (pem): 
+
+```json
+{
   "credential_type": "x509_cert",
   "name": "string",
   "pem": "string"
-}</code></pre>CA-signed Certificate Sample (subject_dn): <pre><code>{
+}
+```
+
+CA-signed Certificate Sample (subject_dn): 
+
+```json
+{
   "credential_type": "cert_subject_dn",
   "name": "string",
   "subject_dn": "string"
-}</code></pre>Self-signed Certificate Sample: <pre><code>{
+}
+```
+
+Self-signed Certificate Sample: 
+
+```json
+{
   "credential_type": "cert_subject_dn",
   "name": "string",
   "pem": "string"
-}</code></pre>
+}
+```
 
 The credential will be created but not yet enabled for use until you set the corresponding properties in the client:
-<ul>
-  <li>To enable the credential for Private Key JWT or mTLS authentication methods, set the <code>client_authentication_methods</code> property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-private-key-jwt">Configure Private Key JWT Authentication</a> and <a href="https://auth0.com/docs/get-started/applications/configure-mtls">Configure mTLS Authentication</a></li>
-  <li>To enable the credential for JWT-secured Authorization requests, set the <code>signed_request_object</code>property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-jar">Configure JWT-secured Authorization Requests (JAR)</a></li>
-</ul>
+
+- To enable the credential for Private Key JWT or mTLS authentication methods, set the `client_authentication_methods` property on the client. For more information, read [Configure Private Key JWT Authentication](https://auth0.com/docs/get-started/applications/configure-private-key-jwt) and [Configure mTLS Authentication](https://auth0.com/docs/get-started/applications/configure-mtls)
+- To enable the credential for JWT-secured Authorization requests, set the `signed_request_object`property on the client. For more information, read [Configure JWT-secured Authorization Requests (JAR)](https://auth0.com/docs/get-started/applications/configure-jar)
 </dd>
 </dl>
 </dd>
@@ -21705,7 +21699,7 @@ client.clients.credentials.create(
 
 Get the details of a client credential.
 
-<b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.
+**Important**: To enable credentials to be used for a client authentication method, set the `client_authentication_methods` property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the `signed_request_object` property on the client.
 </dd>
 </dl>
 </dd>
@@ -21960,15 +21954,10 @@ client.clients.credentials.update(
 <dl>
 <dd>
 
-Retrieve all connections that are enabled for the specified <a href="https://www.auth0.com/docs/get-started/applications"> Application</a>, using checkpoint pagination. A list of fields to include or exclude for each connection may also be specified.
-<ul>
-  <li>
-    This endpoint requires the <code>read:connections</code> scope and any one of <code>read:clients</code> or <code>read:client_summary</code>.
-  </li>
-  <li>
-    <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
-  </li>
-</ul>
+Retrieve all connections that are enabled for the specified [Application](https://www.auth0.com/docs/get-started/applications), using checkpoint pagination. A list of fields to include or exclude for each connection may also be specified.
+
+- This endpoint requires the `read:connections` scope and any one of `read:clients` or `read:client_summary`.
+- **Note**: The first time you call this endpoint, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no further results are remaining.
 </dd>
 </dl>
 </dd>
@@ -24016,7 +24005,7 @@ client.connections.scim_configuration.tokens.delete(
 <dl>
 <dd>
 
-Retrieve details of the <a href="https://auth0.com/docs/customize/email/smtp-email-providers">email provider configuration</a> in your tenant. A list of fields to include or exclude may also be specified.
+Retrieve details of the [email provider configuration](https://auth0.com/docs/customize/email/smtp-email-providers) in your tenant. A list of fields to include or exclude may also be specified.
 </dd>
 </dl>
 </dd>
@@ -24098,48 +24087,31 @@ client.emails.provider.get(
 <dl>
 <dd>
 
-Create an <a href="https://auth0.com/docs/email/providers">email provider</a>. The <code>credentials</code> object
-requires different properties depending on the email provider (which is specified using the <code>name</code> property):
-<ul>
-  <li><code>mandrill</code> requires <code>api_key</code></li>
-  <li><code>sendgrid</code> requires <code>api_key</code></li>
-  <li>
-    <code>sparkpost</code> requires <code>api_key</code>. Optionally, set <code>region</code> to <code>eu</code> to use
-    the SparkPost service hosted in Western Europe; set to <code>null</code> to use the SparkPost service hosted in
-    North America. <code>eu</code> or <code>null</code> are the only valid values for <code>region</code>.
-  </li>
-  <li>
-    <code>mailgun</code> requires <code>api_key</code> and <code>domain</code>. Optionally, set <code>region</code> to
-    <code>eu</code> to use the Mailgun service hosted in Europe; set to <code>null</code> otherwise. <code>eu</code> or
-    <code>null</code> are the only valid values for <code>region</code>.
-  </li>
-  <li><code>ses</code> requires <code>accessKeyId</code>, <code>secretAccessKey</code>, and <code>region</code></li>
-  <li>
-    <code>smtp</code> requires <code>smtp_host</code>, <code>smtp_port</code>, <code>smtp_user</code>, and
-    <code>smtp_pass</code>
-  </li>
-</ul>
-Depending on the type of provider it is possible to specify <code>settings</code> object with different configuration
+Create an [email provider](https://auth0.com/docs/email/providers). The `credentials` object
+requires different properties depending on the email provider (which is specified using the `name` property):
+
+- `mandrill` requires `api_key`
+- `sendgrid` requires `api_key`
+- `sparkpost` requires `api_key`. Optionally, set `region` to `eu` to use
+    the SparkPost service hosted in Western Europe; set to `null` to use the SparkPost service hosted in
+    North America. `eu` or `null` are the only valid values for `region`.
+- `mailgun` requires `api_key` and `domain`. Optionally, set `region` to
+    `eu` to use the Mailgun service hosted in Europe; set to `null` otherwise. `eu` or
+    `null` are the only valid values for `region`.
+- `ses` requires `accessKeyId`, `secretAccessKey`, and `region`
+- `smtp` requires `smtp_host`, `smtp_port`, `smtp_user`, and
+    `smtp_pass`
+
+Depending on the type of provider it is possible to specify `settings` object with different configuration
 options, which will be used when sending an email:
-<ul>
-  <li>
-    <code>smtp</code> provider, <code>settings</code> may contain <code>headers</code> object.
-    <ul>
-      <li>
-        When using AWS SES SMTP host, you may provide a name of configuration set in
-        <code>X-SES-Configuration-Set</code> header. Value must be a string.
-      </li>
-      <li>
-        When using Sparkpost host, you may provide value for
-        <code>X-MSYS_API</code> header. Value must be an object.
-      </li>
-    </ul>
-  </li>
-  <li>
-    for <code>ses</code> provider, <code>settings</code> may contain <code>message</code> object, where you can provide
-    a name of configuration set in <code>configuration_set_name</code> property. Value must be a string.
-  </li>
-</ul>
+
+- `smtp` provider, `settings` may contain `headers` object.
+    - When using AWS SES SMTP host, you may provide a name of configuration set in
+      `X-SES-Configuration-Set` header. Value must be a string.
+    - When using Sparkpost host, you may provide value for
+      `X-MSYS_API` header. Value must be an object.
+- For `ses` provider, `settings` may contain `message` object, where you can provide
+  a name of configuration set in `configuration_set_name` property. Value must be a string.
 </dd>
 </dl>
 </dd>
@@ -24310,46 +24282,32 @@ client.emails.provider.delete()
 <dl>
 <dd>
 
-Update an <a href="https://auth0.com/docs/email/providers">email provider</a>. The <code>credentials</code> object
-requires different properties depending on the email provider (which is specified using the <code>name</code> property):
-<ul>
-  <li><code>mandrill</code> requires <code>api_key</code></li>
-  <li><code>sendgrid</code> requires <code>api_key</code></li>
-  <li>
-    <code>sparkpost</code> requires <code>api_key</code>. Optionally, set <code>region</code> to <code>eu</code> to use
-    the SparkPost service hosted in Western Europe; set to <code>null</code> to use the SparkPost service hosted in
-    North America. <code>eu</code> or <code>null</code> are the only valid values for <code>region</code>.
-  </li>
-  <li>
-    <code>mailgun</code> requires <code>api_key</code> and <code>domain</code>. Optionally, set <code>region</code> to
-    <code>eu</code> to use the Mailgun service hosted in Europe; set to <code>null</code> otherwise. <code>eu</code> or
-    <code>null</code> are the only valid values for <code>region</code>.
-  </li>
-  <li><code>ses</code> requires <code>accessKeyId</code>, <code>secretAccessKey</code>, and <code>region</code></li>
-  <li>
-    <code>smtp</code> requires <code>smtp_host</code>, <code>smtp_port</code>, <code>smtp_user</code>, and
-    <code>smtp_pass</code>
-  </li>
-</ul>
-Depending on the type of provider it is possible to specify <code>settings</code> object with different configuration
+Update an [email provider](https://auth0.com/docs/email/providers). The `credentials` object
+requires different properties depending on the email provider (which is specified using the `name` property):
+
+- `mandrill` requires `api_key`
+- `sendgrid` requires `api_key`
+- `sparkpost` requires `api_key`. Optionally, set `region` to `eu` to use
+    the SparkPost service hosted in Western Europe; set to `null` to use the SparkPost service hosted in
+    North America. `eu` or `null` are the only valid values for `region`.
+- `mailgun` requires `api_key` and `domain`. Optionally, set `region` to
+    `eu` to use the Mailgun service hosted in Europe; set to `null` otherwise. `eu` or
+    `null` are the only valid values for `region`.
+- `ses` requires `accessKeyId`, `secretAccessKey`, and `region`
+- `smtp` requires `smtp_host`, `smtp_port`, `smtp_user`, and
+    `smtp_pass`
+
+Depending on the type of provider it is possible to specify `settings` object with different configuration
 options, which will be used when sending an email:
-<ul>
-  <li>
-    <code>smtp</code> provider, <code>settings</code> may contain <code>headers</code> object.
-    <ul>
-      <li>
-        When using AWS SES SMTP host, you may provide a name of configuration set in
-        <code>X-SES-Configuration-Set</code> header. Value must be a string.
-      </li>
-      <li>
-        When using Sparkpost host, you may provide value for
-        <code>X-MSYS_API</code> header. Value must be an object.
-      </li>
-    </ul>
-    for <code>ses</code> provider, <code>settings</code> may contain <code>message</code> object, where you can provide
-    a name of configuration set in <code>configuration_set_name</code> property. Value must be a string.
-  </li>
-</ul>
+
+- `smtp` provider, `settings` may contain `headers` object.
+    - When using AWS SES SMTP host, you may provide a name of configuration set in
+      `X-SES-Configuration-Set` header. Value must be a string.
+    - When using Sparkpost host, you may provide value for
+      `X-MSYS_API` header. Value must be an object.
+
+  For `ses` provider, `settings` may contain `message` object, where you can provide
+  a name of configuration set in `configuration_set_name` property. Value must be a string.
 </dd>
 </dl>
 </dd>
@@ -25468,7 +25426,7 @@ client.groups.members.get(
 <dl>
 <dd>
 
-Lists the <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> assigned to a group.
+Lists the [roles](https://auth0.com/docs/manage-users/access-control/rbac) assigned to a group.
 </dd>
 </dl>
 </dd>
@@ -25559,7 +25517,7 @@ client.groups.roles.list(
 <dl>
 <dd>
 
-Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a specified group.
+Assign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) to a specified group.
 </dd>
 </dl>
 </dd>
@@ -25643,7 +25601,7 @@ client.groups.roles.create(
 <dl>
 <dd>
 
-Unassign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a specified group.
+Unassign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) from a specified group.
 </dd>
 </dl>
 </dd>
@@ -31235,7 +31193,7 @@ client.organizations.discovery_domains.get(
 <dl>
 <dd>
 
-Remove a discovery domain from an organization. This action cannot be undone. 
+Remove a discovery domain from an organization. This action cannot be undone.
 </dd>
 </dl>
 </dd>
@@ -31317,7 +31275,7 @@ client.organizations.discovery_domains.delete(
 <dl>
 <dd>
 
-Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The <code>status</code> field must be either <code>pending</code> or <code>verified</code>. The <code>use_for_organization_discovery</code> field can be <code>true</code> or <code>false</code> (default: <code>true</code>).
+Update the verification status and/or use_for_organization_discovery for an organization discovery domain. The `status` field must be either `pending` or `verified`. The `use_for_organization_discovery` field can be `true` or `false` (default: `true`).
 </dd>
 </dl>
 </dd>
@@ -31518,7 +31476,7 @@ client.organizations.enabled_connections.list(
 
 Enable a specific connection for a given Organization. To enable a connection, it must already exist within your tenant; connections cannot be created through this action.
 
-<a href="https://auth0.com/docs/authenticate/identity-providers">Connections</a> represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.
+[Connections](https://auth0.com/docs/authenticate/identity-providers) represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.
 </dd>
 </dl>
 </dd>
@@ -31708,7 +31666,7 @@ client.organizations.enabled_connections.get(
 
 Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate. 
 
-<b>Note</b>: This action does not remove the connection from your tenant.
+**Note**: This action does not remove the connection from your tenant.
 </dd>
 </dl>
 </dd>
@@ -31897,7 +31855,7 @@ client.organizations.enabled_connections.update(
 <dl>
 <dd>
 
-Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>. 
+Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review [Invite Organization Members](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members).
 </dd>
 </dl>
 </dd>
@@ -32024,7 +31982,7 @@ client.organizations.invitations.list(
 <dl>
 <dd>
 
-Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>. 
+Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review [Invite Organization Members](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members).
 </dd>
 </dl>
 </dd>
@@ -32334,14 +32292,8 @@ client.organizations.invitations.delete(
 List organization members.
 This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
-<ul>
-  <li>
-    Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-  </li>
-  <li>
-    Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-  </li>
-</ul>
+- Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
+- Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token.
 
 This endpoint supports two types of pagination:
 
@@ -32350,9 +32302,9 @@ This endpoint supports two types of pagination:
 
 Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.
 
-<h2>Checkpoint Pagination</h2>
+**Checkpoint Pagination**
 
-To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.
+To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the `from` parameter. If there are more results, a `next` value will be included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, this indicates there are no more pages remaining.
 </dd>
 </dl>
 </dd>
@@ -32461,9 +32413,9 @@ client.organizations.members.list(
 <dl>
 <dd>
 
-Set one or more existing users as members of a specific <a href="https://auth0.com/docs/manage-users/organizations">Organization</a>.
+Set one or more existing users as members of a specific [Organization](https://auth0.com/docs/manage-users/organizations).
 
-To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">invite them to create an account</a>, manually create them through the Auth0 Dashboard, or use the Management API.
+To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can [invite them to create an account](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members), manually create them through the Auth0 Dashboard, or use the Management API.
 </dd>
 </dl>
 </dd>
@@ -33209,7 +33161,7 @@ client.organizations.members.roles.list(
 <dl>
 <dd>
 
-Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a user to determine their access for a specific Organization.
+Assign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) to a user to determine their access for a specific Organization.
 
 Users can be members of multiple Organizations with unique roles assigned for each membership. This action assigns roles to a user only for the specified Organization. Roles cannot be assigned to a user across multiple Organizations in the same call.
 </dd>
@@ -33304,7 +33256,7 @@ client.organizations.members.roles.assign(
 <dl>
 <dd>
 
-Remove one or more Organization-specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a given user.
+Remove one or more Organization-specific [roles](https://auth0.com/docs/manage-users/access-control/rbac) from a given user.
 
 Users can be members of multiple Organizations with unique roles assigned for each membership. This action removes roles from a user in relation to the specified Organization. Roles assigned to the user within a different Organization cannot be managed in the same call.
 </dd>
@@ -35930,7 +35882,23 @@ client.tenants.settings.update()
 <dl>
 <dd>
 
+**session_lifetime_in_minutes:** `typing.Optional[int]` — Number of minutes a session will stay valid. Cannot be specified together with `session_lifetime`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **idle_session_lifetime:** `typing.Optional[int]` — Number of hours for which a session can be inactive before the user must log in again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idle_session_lifetime_in_minutes:** `typing.Optional[int]` — Number of minutes a session can be inactive before the user must log in again. Cannot be specified together with `idle_session_lifetime`.
     
 </dd>
 </dl>
@@ -35947,6 +35915,22 @@ client.tenants.settings.update()
 <dd>
 
 **idle_ephemeral_session_lifetime:** `typing.Optional[int]` — Number of hours for which an ephemeral (non-persistent) session can be inactive before the user must log in again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ephemeral_session_lifetime_in_minutes:** `typing.Optional[int]` — Number of minutes an ephemeral (non-persistent) session will stay valid. Cannot be specified together with `ephemeral_session_lifetime`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idle_ephemeral_session_lifetime_in_minutes:** `typing.Optional[int]` — Number of minutes an ephemeral (non-persistent) session can be inactive before the user must log in again. Cannot be specified together with `idle_ephemeral_session_lifetime`.
     
 </dd>
 </dl>
@@ -35979,6 +35963,14 @@ client.tenants.settings.update()
 <dd>
 
 **enabled_locales:** `typing.Optional[typing.List[TenantSettingsSupportedLocalesEnum]]` — Supported locales for the user interface
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**security_headers:** `typing.Optional[TenantSettingsNullableSecurityHeaders]` 
     
 </dd>
 </dl>
@@ -36102,7 +36094,23 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**include_session_metadata_in_tenant_logs:** `typing.Optional[bool]` — Whether session metadata is included in specific tenant logs (slo, oidc_backchannel_logout_failed, oidc_backchannel_logout_succeeded).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **dynamic_client_registration_security_mode:** `typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country_codes:** `typing.Optional[TenantSettingsCountryCodes]` 
     
 </dd>
 </dl>

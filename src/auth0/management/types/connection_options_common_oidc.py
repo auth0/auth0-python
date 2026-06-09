@@ -12,6 +12,7 @@ from .connection_domain_aliases import ConnectionDomainAliases
 from .connection_dpop_signing_alg_enum import ConnectionDpopSigningAlgEnum
 from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
 from .connection_icon_url import ConnectionIconUrl
+from .connection_id_token_session_expiry_supported import ConnectionIdTokenSessionExpirySupported
 from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
 from .connection_issuer import ConnectionIssuer
 from .connection_jwks_uri import ConnectionJwksUri
@@ -41,6 +42,7 @@ class ConnectionOptionsCommonOidc(UniversalBaseModel):
     dpop_signing_alg: typing.Optional[ConnectionDpopSigningAlgEnum] = None
     federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
     icon_url: typing.Optional[ConnectionIconUrl] = None
+    id_token_session_expiry_supported: typing.Optional[ConnectionIdTokenSessionExpirySupported] = None
     id_token_signed_response_algs: typing.Optional[ConnectionIdTokenSignedResponseAlgs] = None
     issuer: typing.Optional[ConnectionIssuer] = None
     jwks_uri: typing.Optional[ConnectionJwksUri] = None

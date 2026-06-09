@@ -47,7 +47,7 @@ class DeviceCredentialsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DeviceCredential, ListDeviceCredentialsOffsetPaginatedResponseContent]:
         """
-        Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
+        Retrieve device credential information (`public_key`, `refresh_token`, or `rotating_refresh_token`) associated with a specific user.
 
         Parameters
         ----------
@@ -129,9 +129,9 @@ class DeviceCredentialsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreatePublicKeyDeviceCredentialResponseContent:
         """
-        Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
+        Create a device credential public key to manage refresh token rotation for a given `user_id`. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
 
-        When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.
+        When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read [Signing Keys](https://auth0.com/docs/get-started/tenant-settings/signing-keys).
 
         Parameters
         ----------
@@ -241,7 +241,7 @@ class AsyncDeviceCredentialsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DeviceCredential, ListDeviceCredentialsOffsetPaginatedResponseContent]:
         """
-        Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
+        Retrieve device credential information (`public_key`, `refresh_token`, or `rotating_refresh_token`) associated with a specific user.
 
         Parameters
         ----------
@@ -332,9 +332,9 @@ class AsyncDeviceCredentialsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreatePublicKeyDeviceCredentialResponseContent:
         """
-        Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
+        Create a device credential public key to manage refresh token rotation for a given `user_id`. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
 
-        When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.
+        When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read [Signing Keys](https://auth0.com/docs/get-started/tenant-settings/signing-keys).
 
         Parameters
         ----------

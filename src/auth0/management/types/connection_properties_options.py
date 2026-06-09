@@ -13,6 +13,7 @@ from .connection_custom_scripts import ConnectionCustomScripts
 from .connection_dpop_signing_alg_enum import ConnectionDpopSigningAlgEnum
 from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
 from .connection_gateway_authentication import ConnectionGatewayAuthentication
+from .connection_id_token_session_expiry_supported import ConnectionIdTokenSessionExpirySupported
 from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
 from .connection_identifier_precedence_enum import ConnectionIdentifierPrecedenceEnum
 from .connection_passkey_options import ConnectionPasskeyOptions
@@ -104,6 +105,7 @@ class ConnectionPropertiesOptions(UniversalBaseModel):
     token_endpoint_auth_method: typing.Optional[ConnectionTokenEndpointAuthMethodEnum] = None
     token_endpoint_auth_signing_alg: typing.Optional[ConnectionTokenEndpointAuthSigningAlgEnum] = None
     token_endpoint_jwtca_aud_format: typing.Optional[ConnectionTokenEndpointJwtcaAudFormatEnumOidc] = None
+    id_token_session_expiry_supported: typing.Optional[ConnectionIdTokenSessionExpirySupported] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
