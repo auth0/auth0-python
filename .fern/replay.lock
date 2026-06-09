@@ -37,22 +37,28 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.14.3
-current_generation: 15127abb8ab299907925c41e89122d50dbe138d5
+  - commit_sha: 37e2dc1df848770f503b919fe905d3259e046cfd
+    tree_hash: 6fed7a877e08cfbe542991d28cb3afdd90ccaefa
+    timestamp: 2026-06-09T04:56:00.721Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.14.3
+current_generation: 37e2dc1df848770f503b919fe905d3259e046cfd
 patches:
   - id: patch-4894603d
-    content_hash: sha256:2c5caf4188d616dc6d0a85d59c179069d6a73a541af915ce9b8c3340c97afd31
+    content_hash: sha256:1e1d0c5ec0a0ef9039b8ae4d3484e5468180bb5af2012392406259e0ab6a589f
     original_commit: 4894603d03409962bc60a34712de8abffe919e2c
     original_message: "chore: Restore custom wiring in management/__init__.py"
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 15127abb8ab299907925c41e89122d50dbe138d5
+    base_generation: 37e2dc1df848770f503b919fe905d3259e046cfd
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index a48ff10..46ef694 100644
+      index 46d8ec2b..e96cb4b5 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -2783,6 +2783,8 @@ if typing.TYPE_CHECKING:
+      @@ -2794,6 +2794,8 @@ if typing.TYPE_CHECKING:
            from .environment import Auth0Environment
            from .event_streams import EventStreamsCreateRequest
            from .version import __version__
@@ -61,7 +67,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -2843,6 +2845,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -2854,6 +2856,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "AssociateOrganizationClientGrantResponseContent": ".types",
            "AsyncApprovalNotificationsChannelsEnum": ".types",
            "AsyncAuth0": ".client",
@@ -70,15 +76,15 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent": ".types",
            "AttackProtectionCaptchaAuthChallengeRequest": ".types",
            "AttackProtectionCaptchaAuthChallengeResponseContent": ".types",
-      @@ -3802,6 +3806,7 @@ _dynamic_imports: typing.Dict[str, str] = {
-           "CredentialDeviceTypeEnum": ".types",
-           "CredentialId": ".types",
+      @@ -3822,6 +3826,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+           "CspReportingEndpoints": ".types",
+           "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
       +    "CustomDomainHeader": ".management_client",
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainProvisioningTypeEnum": ".types",
-      @@ -5073,6 +5078,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5093,6 +5098,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "LogStreamSumoEnum": ".types",
            "LogStreamSumoResponseSchema": ".types",
            "LogStreamSumoSink": ".types",
@@ -86,7 +92,7 @@ patches:
            "MdlPresentationProperties": ".types",
            "MdlPresentationRequest": ".types",
            "MdlPresentationRequestProperties": ".types",
-      @@ -5318,6 +5324,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5343,6 +5349,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "TokenQuota": ".types",
            "TokenQuotaClientCredentials": ".types",
            "TokenQuotaConfiguration": ".types",
@@ -94,7 +100,7 @@ patches:
            "TooManyRequestsError": ".errors",
            "TooManyRequestsSchema": ".types",
            "TooManyRequestsSchemaError": ".types",
-      @@ -5641,6 +5648,8 @@ __all__ = [
+      @@ -5663,6 +5670,8 @@ __all__ = [
            "AssociateOrganizationClientGrantResponseContent",
            "AsyncApprovalNotificationsChannelsEnum",
            "AsyncAuth0",
@@ -103,7 +109,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent",
            "AttackProtectionCaptchaAuthChallengeRequest",
            "AttackProtectionCaptchaAuthChallengeResponseContent",
-      @@ -7871,6 +7880,7 @@ __all__ = [
+      @@ -7902,6 +7911,7 @@ __all__ = [
            "LogStreamSumoEnum",
            "LogStreamSumoResponseSchema",
            "LogStreamSumoSink",
@@ -111,7 +117,7 @@ patches:
            "MdlPresentationProperties",
            "MdlPresentationRequest",
            "MdlPresentationRequestProperties",
-      @@ -8113,6 +8123,7 @@ __all__ = [
+      @@ -8149,6 +8159,7 @@ __all__ = [
            "TestEventDataContent",
            "TokenExchangeProfileResponseContent",
            "TokenExchangeProfileTypeEnum",
@@ -219,12 +225,7 @@ patches:
                 BotDetectionMonitoringModeEnabled,
                 BrandingColors,
                 BrandingFont,
-                BrandingIdentifiers,
-                BrandingLoginDisplayEnum,
                 BrandingPageBackground,
-                BrandingPhoneDisplay,
-                BrandingPhoneFormattingEnum,
-                BrandingPhoneMaskingEnum,
                 BrandingThemeBorders,
                 BrandingThemeBordersButtonsStyleEnum,
                 BrandingThemeBordersInputsStyleEnum,
@@ -529,6 +530,7 @@ patches:
                 ConnectionId,
                 ConnectionIdTokenEncryptionAlgValuesSupported,
                 ConnectionIdTokenEncryptionEncValuesSupported,
+                ConnectionIdTokenSessionExpirySupported,
                 ConnectionIdTokenSignedResponseAlgEnum,
                 ConnectionIdTokenSignedResponseAlgs,
                 ConnectionIdTokenSigningAlgValuesSupported,
@@ -885,6 +887,7 @@ patches:
                 ConnectionWaadProtocol,
                 ConnectionWaadProtocolEnumAzureAd,
                 ConnectionsMetadata,
+                ContentSecurityPolicyConfig,
                 CreateActionModuleResponseContent,
                 CreateActionModuleVersionResponseContent,
                 CreateActionResponseContent,
@@ -1141,6 +1144,18 @@ patches:
                 CreatedUserAuthenticationMethodTypeEnum,
                 CredentialDeviceTypeEnum,
                 CredentialId,
+                CspDirectives,
+                CspFlag,
+                CspFlags,
+                CspPolicies,
+                CspPolicy,
+                CspPolicyMode,
+                CspPolicyReporting,
+                CspReportTo,
+                CspReportToEndpoint,
+                CspReportToEndpoints,
+                CspReportingEndpoints,
+                CspReportingInfrastructure,
                 CustomDomain,
                 CustomDomainCustomClientIpHeader,
                 CustomDomainCustomClientIpHeaderEnum,
@@ -2627,6 +2642,10 @@ patches:
                 SynchronizeGroupsEnum,
                 SynchronizedGroupPayload,
                 TenantOidcLogoutSettings,
+                TenantSettingsCountryCodes,
+                TenantSettingsCountryCodesMode,
+                TenantSettingsCountryCodesModeResponse,
+                TenantSettingsCountryCodesResponse,
                 TenantSettingsDeviceFlow,
                 TenantSettingsDeviceFlowCharset,
                 TenantSettingsDynamicClientRegistrationSecurityMode,
@@ -2634,6 +2653,7 @@ patches:
                 TenantSettingsFlags,
                 TenantSettingsGuardianPage,
                 TenantSettingsMtls,
+                TenantSettingsNullableSecurityHeaders,
                 TenantSettingsPasswordPage,
                 TenantSettingsResourceParameterProfile,
                 TenantSettingsSessions,
@@ -2664,12 +2684,7 @@ patches:
                 UpdateBotDetectionSettingsResponseContent,
                 UpdateBrandingColors,
                 UpdateBrandingFont,
-                UpdateBrandingIdentifiers,
-                UpdateBrandingLoginDisplayEnum,
                 UpdateBrandingPageBackground,
-                UpdateBrandingPhoneDisplay,
-                UpdateBrandingPhoneFormattingEnum,
-                UpdateBrandingPhoneMaskingEnum,
                 UpdateBrandingPhoneProviderResponseContent,
                 UpdateBrandingResponseContent,
                 UpdateBrandingThemeResponseContent,
@@ -2839,6 +2854,8 @@ patches:
                 VerifyEmailTicketResponseContent,
                 X509CertificateCredential,
                 X509CertificateCredentialTypeEnum,
+                XssProtectionConfig,
+                XssProtectionMode,
             )
             from .errors import (
                 BadRequestError,
@@ -3004,12 +3021,7 @@ patches:
             "BotDetectionMonitoringModeEnabled": ".types",
             "BrandingColors": ".types",
             "BrandingFont": ".types",
-            "BrandingIdentifiers": ".types",
-            "BrandingLoginDisplayEnum": ".types",
             "BrandingPageBackground": ".types",
-            "BrandingPhoneDisplay": ".types",
-            "BrandingPhoneFormattingEnum": ".types",
-            "BrandingPhoneMaskingEnum": ".types",
             "BrandingThemeBorders": ".types",
             "BrandingThemeBordersButtonsStyleEnum": ".types",
             "BrandingThemeBordersInputsStyleEnum": ".types",
@@ -3315,6 +3327,7 @@ patches:
             "ConnectionId": ".types",
             "ConnectionIdTokenEncryptionAlgValuesSupported": ".types",
             "ConnectionIdTokenEncryptionEncValuesSupported": ".types",
+            "ConnectionIdTokenSessionExpirySupported": ".types",
             "ConnectionIdTokenSignedResponseAlgEnum": ".types",
             "ConnectionIdTokenSignedResponseAlgs": ".types",
             "ConnectionIdTokenSigningAlgValuesSupported": ".types",
@@ -3671,6 +3684,7 @@ patches:
             "ConnectionWaadProtocol": ".types",
             "ConnectionWaadProtocolEnumAzureAd": ".types",
             "ConnectionsMetadata": ".types",
+            "ContentSecurityPolicyConfig": ".types",
             "ContentTooLargeError": ".errors",
             "CreateActionModuleResponseContent": ".types",
             "CreateActionModuleVersionResponseContent": ".types",
@@ -3928,6 +3942,18 @@ patches:
             "CreatedUserAuthenticationMethodTypeEnum": ".types",
             "CredentialDeviceTypeEnum": ".types",
             "CredentialId": ".types",
+            "CspDirectives": ".types",
+            "CspFlag": ".types",
+            "CspFlags": ".types",
+            "CspPolicies": ".types",
+            "CspPolicy": ".types",
+            "CspPolicyMode": ".types",
+            "CspPolicyReporting": ".types",
+            "CspReportTo": ".types",
+            "CspReportToEndpoint": ".types",
+            "CspReportToEndpoints": ".types",
+            "CspReportingEndpoints": ".types",
+            "CspReportingInfrastructure": ".types",
             "CustomDomain": ".types",
             "CustomDomainHeader": ".management_client",
             "CustomDomainCustomClientIpHeader": ".types",
@@ -5426,6 +5452,10 @@ patches:
             "SynchronizeGroupsEnum": ".types",
             "SynchronizedGroupPayload": ".types",
             "TenantOidcLogoutSettings": ".types",
+            "TenantSettingsCountryCodes": ".types",
+            "TenantSettingsCountryCodesMode": ".types",
+            "TenantSettingsCountryCodesModeResponse": ".types",
+            "TenantSettingsCountryCodesResponse": ".types",
             "TenantSettingsDeviceFlow": ".types",
             "TenantSettingsDeviceFlowCharset": ".types",
             "TenantSettingsDynamicClientRegistrationSecurityMode": ".types",
@@ -5433,6 +5463,7 @@ patches:
             "TenantSettingsFlags": ".types",
             "TenantSettingsGuardianPage": ".types",
             "TenantSettingsMtls": ".types",
+            "TenantSettingsNullableSecurityHeaders": ".types",
             "TenantSettingsPasswordPage": ".types",
             "TenantSettingsResourceParameterProfile": ".types",
             "TenantSettingsSessions": ".types",
@@ -5466,12 +5497,7 @@ patches:
             "UpdateBotDetectionSettingsResponseContent": ".types",
             "UpdateBrandingColors": ".types",
             "UpdateBrandingFont": ".types",
-            "UpdateBrandingIdentifiers": ".types",
-            "UpdateBrandingLoginDisplayEnum": ".types",
             "UpdateBrandingPageBackground": ".types",
-            "UpdateBrandingPhoneDisplay": ".types",
-            "UpdateBrandingPhoneFormattingEnum": ".types",
-            "UpdateBrandingPhoneMaskingEnum": ".types",
             "UpdateBrandingPhoneProviderResponseContent": ".types",
             "UpdateBrandingResponseContent": ".types",
             "UpdateBrandingThemeResponseContent": ".types",
@@ -5641,6 +5667,8 @@ patches:
             "VerifyEmailTicketResponseContent": ".types",
             "X509CertificateCredential": ".types",
             "X509CertificateCredentialTypeEnum": ".types",
+            "XssProtectionConfig": ".types",
+            "XssProtectionMode": ".types",
             "__version__": ".version",
             "actions": ".actions",
             "anomaly": ".anomaly",
@@ -5807,12 +5835,7 @@ patches:
             "BotDetectionMonitoringModeEnabled",
             "BrandingColors",
             "BrandingFont",
-            "BrandingIdentifiers",
-            "BrandingLoginDisplayEnum",
             "BrandingPageBackground",
-            "BrandingPhoneDisplay",
-            "BrandingPhoneFormattingEnum",
-            "BrandingPhoneMaskingEnum",
             "BrandingThemeBorders",
             "BrandingThemeBordersButtonsStyleEnum",
             "BrandingThemeBordersInputsStyleEnum",
@@ -6118,6 +6141,7 @@ patches:
             "ConnectionId",
             "ConnectionIdTokenEncryptionAlgValuesSupported",
             "ConnectionIdTokenEncryptionEncValuesSupported",
+            "ConnectionIdTokenSessionExpirySupported",
             "ConnectionIdTokenSignedResponseAlgEnum",
             "ConnectionIdTokenSignedResponseAlgs",
             "ConnectionIdTokenSigningAlgValuesSupported",
@@ -6474,6 +6498,7 @@ patches:
             "ConnectionWaadProtocol",
             "ConnectionWaadProtocolEnumAzureAd",
             "ConnectionsMetadata",
+            "ContentSecurityPolicyConfig",
             "ContentTooLargeError",
             "CreateActionModuleResponseContent",
             "CreateActionModuleVersionResponseContent",
@@ -6731,6 +6756,18 @@ patches:
             "CreatedUserAuthenticationMethodTypeEnum",
             "CredentialDeviceTypeEnum",
             "CredentialId",
+            "CspDirectives",
+            "CspFlag",
+            "CspFlags",
+            "CspPolicies",
+            "CspPolicy",
+            "CspPolicyMode",
+            "CspPolicyReporting",
+            "CspReportTo",
+            "CspReportToEndpoint",
+            "CspReportToEndpoints",
+            "CspReportingEndpoints",
+            "CspReportingInfrastructure",
             "CustomDomain",
             "CustomDomainCustomClientIpHeader",
             "CustomDomainCustomClientIpHeaderEnum",
@@ -8228,6 +8265,10 @@ patches:
             "SynchronizeGroupsEnum",
             "SynchronizedGroupPayload",
             "TenantOidcLogoutSettings",
+            "TenantSettingsCountryCodes",
+            "TenantSettingsCountryCodesMode",
+            "TenantSettingsCountryCodesModeResponse",
+            "TenantSettingsCountryCodesResponse",
             "TenantSettingsDeviceFlow",
             "TenantSettingsDeviceFlowCharset",
             "TenantSettingsDynamicClientRegistrationSecurityMode",
@@ -8235,6 +8276,7 @@ patches:
             "TenantSettingsFlags",
             "TenantSettingsGuardianPage",
             "TenantSettingsMtls",
+            "TenantSettingsNullableSecurityHeaders",
             "TenantSettingsPasswordPage",
             "TenantSettingsResourceParameterProfile",
             "TenantSettingsSessions",
@@ -8268,12 +8310,7 @@ patches:
             "UpdateBotDetectionSettingsResponseContent",
             "UpdateBrandingColors",
             "UpdateBrandingFont",
-            "UpdateBrandingIdentifiers",
-            "UpdateBrandingLoginDisplayEnum",
             "UpdateBrandingPageBackground",
-            "UpdateBrandingPhoneDisplay",
-            "UpdateBrandingPhoneFormattingEnum",
-            "UpdateBrandingPhoneMaskingEnum",
             "UpdateBrandingPhoneProviderResponseContent",
             "UpdateBrandingResponseContent",
             "UpdateBrandingThemeResponseContent",
@@ -8443,6 +8480,8 @@ patches:
             "VerifyEmailTicketResponseContent",
             "X509CertificateCredential",
             "X509CertificateCredentialTypeEnum",
+            "XssProtectionConfig",
+            "XssProtectionMode",
             "__version__",
             "actions",
             "anomaly",
@@ -8671,3 +8710,4 @@ patches:
                     token = await self._async_token()
                     headers["Authorization"] = f"Bearer {token}"
                 return headers
+    status: unresolved
