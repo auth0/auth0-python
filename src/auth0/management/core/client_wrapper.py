@@ -41,12 +41,8 @@ class BaseClientWrapper:
         }).encode("utf-8")
 
         headers: typing.Dict[str, str] = {
-            "User-Agent": "auth0-python/5.6.0",
-            "X-Fern-Language": "Python",
-            "X-Fern-Runtime": f"python/{platform.python_version()}",
-            "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
-            "X-Fern-SDK-Name": "auth0-python",
-            "X-Fern-SDK-Version": "5.6.0",
+            "User-Agent": f"Python/{py_version}",
+            "Auth0-Client": base64.b64encode(auth0_client).decode(),
             **(self.get_custom_headers() or {}),
         }
         headers["Authorization"] = f"Bearer {self._get_token()}"

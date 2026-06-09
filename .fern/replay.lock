@@ -37,20 +37,20 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.14.3
-  - commit_sha: 37e2dc1df848770f503b919fe905d3259e046cfd
+  - commit_sha: bf4df4483c8f8211870c074c6e5725aabf31d339
     tree_hash: 6fed7a877e08cfbe542991d28cb3afdd90ccaefa
     timestamp: 2026-06-09T04:56:00.721Z
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.14.3
-current_generation: 37e2dc1df848770f503b919fe905d3259e046cfd
+current_generation: bf4df4483c8f8211870c074c6e5725aabf31d339
 patches:
   - id: patch-4894603d
     content_hash: sha256:1e1d0c5ec0a0ef9039b8ae4d3484e5468180bb5af2012392406259e0ab6a589f
     original_commit: 4894603d03409962bc60a34712de8abffe919e2c
     original_message: "chore: Restore custom wiring in management/__init__.py"
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 37e2dc1df848770f503b919fe905d3259e046cfd
+    base_generation: bf4df4483c8f8211870c074c6e5725aabf31d339
     files:
       - src/auth0/management/__init__.py
     patch_content: |
@@ -8531,16 +8531,16 @@ patches:
         ]
     user_owned: true
   - id: patch-7271f157
-    content_hash: sha256:e5f014e7f8c379a0b7c3815222df83e115d542c5c9685b2a9d16285e1d18f800
+    content_hash: sha256:cd98dd1948587cf3396a2eacf46626176784bd00996eb660374161bfef686e93
     original_commit: 7271f15759cfb545c9ef82b5a4f519ffe0a89db2
     original_message: Revert wrapper file to preserve Auth0 telemetry customizations
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 15127abb8ab299907925c41e89122d50dbe138d5
+    base_generation: bf4df4483c8f8211870c074c6e5725aabf31d339
     files:
       - src/auth0/management/core/client_wrapper.py
     patch_content: |
       diff --git a/src/auth0/management/core/client_wrapper.py b/src/auth0/management/core/client_wrapper.py
-      index cad2e31..60ebc5a 100644
+      index b1aed4b..60ebc5a 100644
       --- a/src/auth0/management/core/client_wrapper.py
       +++ b/src/auth0/management/core/client_wrapper.py
       @@ -1,6 +1,11 @@
@@ -8570,12 +8570,12 @@ patches:
       +        }).encode("utf-8")
        
                headers: typing.Dict[str, str] = {
-      -            "User-Agent": "auth0-python/5.5.0",
+      -            "User-Agent": "auth0-python/5.6.0",
       -            "X-Fern-Language": "Python",
       -            "X-Fern-Runtime": f"python/{platform.python_version()}",
       -            "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
       -            "X-Fern-SDK-Name": "auth0-python",
-      -            "X-Fern-SDK-Version": "5.5.0",
+      -            "X-Fern-SDK-Version": "5.6.0",
       +            "User-Agent": f"Python/{py_version}",
       +            "Auth0-Client": base64.b64encode(auth0_client).decode(),
                    **(self.get_custom_headers() or {}),
@@ -8710,4 +8710,3 @@ patches:
                     token = await self._async_token()
                     headers["Authorization"] = f"Bearer {token}"
                 return headers
-    status: unresolved
