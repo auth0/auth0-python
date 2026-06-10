@@ -4,22 +4,25 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .branding_login_display_enum import BrandingLoginDisplayEnum
-from .branding_phone_display import BrandingPhoneDisplay
+from .csp_report_to_endpoints import CspReportToEndpoints
 
 
-class BrandingIdentifiers(UniversalBaseModel):
+class CspReportTo(UniversalBaseModel):
     """
-    Identifier input display settings.
-    """
-
-    login_display: typing.Optional[BrandingLoginDisplayEnum] = None
-    otp_autocomplete: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether OTP autocomplete (autocomplete="one-time-code") is enabled.
+    Report-To header configuration.
     """
 
-    phone_display: typing.Optional[BrandingPhoneDisplay] = None
+    group: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Reporting group identifier.
+    """
+
+    max_age: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Maximum age in seconds for the Report-To header.
+    """
+
+    endpoints: typing.Optional[CspReportToEndpoints] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

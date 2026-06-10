@@ -21,6 +21,7 @@ AculContextEnum = typing.Union[
         "untrusted_data.authorization_params.ui_locales",
         "user.organizations",
         "transaction.custom_domain.domain",
+        "experiment",
     ],
     typing.Any,
 ]

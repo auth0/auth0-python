@@ -50,7 +50,7 @@ class RawClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+        Retrieve a list of [client grants](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the scopes associated with the application/API pair.
 
         Parameters
         ----------
@@ -177,7 +177,7 @@ class RawClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateClientGrantResponseContent]:
         """
-        Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
+        Create a client grant for a machine-to-machine login flow. To learn more, read [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow).
 
         Parameters
         ----------
@@ -322,7 +322,7 @@ class RawClientGrantsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetClientGrantResponseContent]:
         """
-        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        Retrieve a single [client grant](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the
         scopes associated with the application/API pair.
 
         Parameters
@@ -408,7 +408,7 @@ class RawClientGrantsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
+        Delete the [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) from your machine-to-machine application.
 
         Parameters
         ----------
@@ -632,7 +632,7 @@ class AsyncRawClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+        Retrieve a list of [client grants](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the scopes associated with the application/API pair.
 
         Parameters
         ----------
@@ -762,7 +762,7 @@ class AsyncRawClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateClientGrantResponseContent]:
         """
-        Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
+        Create a client grant for a machine-to-machine login flow. To learn more, read [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow).
 
         Parameters
         ----------
@@ -907,7 +907,7 @@ class AsyncRawClientGrantsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetClientGrantResponseContent]:
         """
-        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        Retrieve a single [client grant](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the
         scopes associated with the application/API pair.
 
         Parameters
@@ -995,7 +995,7 @@ class AsyncRawClientGrantsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
+        Delete the [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) from your machine-to-machine application.
 
         Parameters
         ----------

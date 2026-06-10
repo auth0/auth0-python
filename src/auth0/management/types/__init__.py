@@ -107,12 +107,7 @@ if typing.TYPE_CHECKING:
     from .bot_detection_monitoring_mode_enabled import BotDetectionMonitoringModeEnabled
     from .branding_colors import BrandingColors
     from .branding_font import BrandingFont
-    from .branding_identifiers import BrandingIdentifiers
-    from .branding_login_display_enum import BrandingLoginDisplayEnum
     from .branding_page_background import BrandingPageBackground
-    from .branding_phone_display import BrandingPhoneDisplay
-    from .branding_phone_formatting_enum import BrandingPhoneFormattingEnum
-    from .branding_phone_masking_enum import BrandingPhoneMaskingEnum
     from .branding_theme_borders import BrandingThemeBorders
     from .branding_theme_borders_buttons_style_enum import BrandingThemeBordersButtonsStyleEnum
     from .branding_theme_borders_inputs_style_enum import BrandingThemeBordersInputsStyleEnum
@@ -449,6 +444,7 @@ if typing.TYPE_CHECKING:
     from .connection_id import ConnectionId
     from .connection_id_token_encryption_alg_values_supported import ConnectionIdTokenEncryptionAlgValuesSupported
     from .connection_id_token_encryption_enc_values_supported import ConnectionIdTokenEncryptionEncValuesSupported
+    from .connection_id_token_session_expiry_supported import ConnectionIdTokenSessionExpirySupported
     from .connection_id_token_signed_response_alg_enum import ConnectionIdTokenSignedResponseAlgEnum
     from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
     from .connection_id_token_signing_alg_values_supported import ConnectionIdTokenSigningAlgValuesSupported
@@ -825,6 +821,7 @@ if typing.TYPE_CHECKING:
     from .connection_waad_protocol import ConnectionWaadProtocol
     from .connection_waad_protocol_enum_azure_ad import ConnectionWaadProtocolEnumAzureAd
     from .connections_metadata import ConnectionsMetadata
+    from .content_security_policy_config import ContentSecurityPolicyConfig
     from .create_action_module_response_content import CreateActionModuleResponseContent
     from .create_action_module_version_response_content import CreateActionModuleVersionResponseContent
     from .create_action_response_content import CreateActionResponseContent
@@ -1119,6 +1116,18 @@ if typing.TYPE_CHECKING:
     from .created_user_authentication_method_type_enum import CreatedUserAuthenticationMethodTypeEnum
     from .credential_device_type_enum import CredentialDeviceTypeEnum
     from .credential_id import CredentialId
+    from .csp_directives import CspDirectives
+    from .csp_flag import CspFlag
+    from .csp_flags import CspFlags
+    from .csp_policies import CspPolicies
+    from .csp_policy import CspPolicy
+    from .csp_policy_mode import CspPolicyMode
+    from .csp_policy_reporting import CspPolicyReporting
+    from .csp_report_to import CspReportTo
+    from .csp_report_to_endpoint import CspReportToEndpoint
+    from .csp_report_to_endpoints import CspReportToEndpoints
+    from .csp_reporting_endpoints import CspReportingEndpoints
+    from .csp_reporting_infrastructure import CspReportingInfrastructure
     from .custom_domain import CustomDomain
     from .custom_domain_custom_client_ip_header import CustomDomainCustomClientIpHeader
     from .custom_domain_custom_client_ip_header_enum import CustomDomainCustomClientIpHeaderEnum
@@ -3131,6 +3140,10 @@ if typing.TYPE_CHECKING:
     from .synchronize_groups_enum import SynchronizeGroupsEnum
     from .synchronized_group_payload import SynchronizedGroupPayload
     from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
+    from .tenant_settings_country_codes import TenantSettingsCountryCodes
+    from .tenant_settings_country_codes_mode import TenantSettingsCountryCodesMode
+    from .tenant_settings_country_codes_mode_response import TenantSettingsCountryCodesModeResponse
+    from .tenant_settings_country_codes_response import TenantSettingsCountryCodesResponse
     from .tenant_settings_device_flow import TenantSettingsDeviceFlow
     from .tenant_settings_device_flow_charset import TenantSettingsDeviceFlowCharset
     from .tenant_settings_dynamic_client_registration_security_mode import (
@@ -3140,6 +3153,7 @@ if typing.TYPE_CHECKING:
     from .tenant_settings_flags import TenantSettingsFlags
     from .tenant_settings_guardian_page import TenantSettingsGuardianPage
     from .tenant_settings_mtls import TenantSettingsMtls
+    from .tenant_settings_nullable_security_headers import TenantSettingsNullableSecurityHeaders
     from .tenant_settings_password_page import TenantSettingsPasswordPage
     from .tenant_settings_resource_parameter_profile import TenantSettingsResourceParameterProfile
     from .tenant_settings_sessions import TenantSettingsSessions
@@ -3170,12 +3184,7 @@ if typing.TYPE_CHECKING:
     from .update_bot_detection_settings_response_content import UpdateBotDetectionSettingsResponseContent
     from .update_branding_colors import UpdateBrandingColors
     from .update_branding_font import UpdateBrandingFont
-    from .update_branding_identifiers import UpdateBrandingIdentifiers
-    from .update_branding_login_display_enum import UpdateBrandingLoginDisplayEnum
     from .update_branding_page_background import UpdateBrandingPageBackground
-    from .update_branding_phone_display import UpdateBrandingPhoneDisplay
-    from .update_branding_phone_formatting_enum import UpdateBrandingPhoneFormattingEnum
-    from .update_branding_phone_masking_enum import UpdateBrandingPhoneMaskingEnum
     from .update_branding_phone_provider_response_content import UpdateBrandingPhoneProviderResponseContent
     from .update_branding_response_content import UpdateBrandingResponseContent
     from .update_branding_theme_response_content import UpdateBrandingThemeResponseContent
@@ -3371,6 +3380,8 @@ if typing.TYPE_CHECKING:
     from .verify_email_ticket_response_content import VerifyEmailTicketResponseContent
     from .x_509_certificate_credential import X509CertificateCredential
     from .x_509_certificate_credential_type_enum import X509CertificateCredentialTypeEnum
+    from .xss_protection_config import XssProtectionConfig
+    from .xss_protection_mode import XssProtectionMode
 _dynamic_imports: typing.Dict[str, str] = {
     "Action": ".action",
     "ActionBase": ".action_base",
@@ -3461,12 +3472,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BotDetectionMonitoringModeEnabled": ".bot_detection_monitoring_mode_enabled",
     "BrandingColors": ".branding_colors",
     "BrandingFont": ".branding_font",
-    "BrandingIdentifiers": ".branding_identifiers",
-    "BrandingLoginDisplayEnum": ".branding_login_display_enum",
     "BrandingPageBackground": ".branding_page_background",
-    "BrandingPhoneDisplay": ".branding_phone_display",
-    "BrandingPhoneFormattingEnum": ".branding_phone_formatting_enum",
-    "BrandingPhoneMaskingEnum": ".branding_phone_masking_enum",
     "BrandingThemeBorders": ".branding_theme_borders",
     "BrandingThemeBordersButtonsStyleEnum": ".branding_theme_borders_buttons_style_enum",
     "BrandingThemeBordersInputsStyleEnum": ".branding_theme_borders_inputs_style_enum",
@@ -3771,6 +3777,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionId": ".connection_id",
     "ConnectionIdTokenEncryptionAlgValuesSupported": ".connection_id_token_encryption_alg_values_supported",
     "ConnectionIdTokenEncryptionEncValuesSupported": ".connection_id_token_encryption_enc_values_supported",
+    "ConnectionIdTokenSessionExpirySupported": ".connection_id_token_session_expiry_supported",
     "ConnectionIdTokenSignedResponseAlgEnum": ".connection_id_token_signed_response_alg_enum",
     "ConnectionIdTokenSignedResponseAlgs": ".connection_id_token_signed_response_algs",
     "ConnectionIdTokenSigningAlgValuesSupported": ".connection_id_token_signing_alg_values_supported",
@@ -4127,6 +4134,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionWaadProtocol": ".connection_waad_protocol",
     "ConnectionWaadProtocolEnumAzureAd": ".connection_waad_protocol_enum_azure_ad",
     "ConnectionsMetadata": ".connections_metadata",
+    "ContentSecurityPolicyConfig": ".content_security_policy_config",
     "CreateActionModuleResponseContent": ".create_action_module_response_content",
     "CreateActionModuleVersionResponseContent": ".create_action_module_version_response_content",
     "CreateActionResponseContent": ".create_action_response_content",
@@ -4383,6 +4391,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatedUserAuthenticationMethodTypeEnum": ".created_user_authentication_method_type_enum",
     "CredentialDeviceTypeEnum": ".credential_device_type_enum",
     "CredentialId": ".credential_id",
+    "CspDirectives": ".csp_directives",
+    "CspFlag": ".csp_flag",
+    "CspFlags": ".csp_flags",
+    "CspPolicies": ".csp_policies",
+    "CspPolicy": ".csp_policy",
+    "CspPolicyMode": ".csp_policy_mode",
+    "CspPolicyReporting": ".csp_policy_reporting",
+    "CspReportTo": ".csp_report_to",
+    "CspReportToEndpoint": ".csp_report_to_endpoint",
+    "CspReportToEndpoints": ".csp_report_to_endpoints",
+    "CspReportingEndpoints": ".csp_reporting_endpoints",
+    "CspReportingInfrastructure": ".csp_reporting_infrastructure",
     "CustomDomain": ".custom_domain",
     "CustomDomainCustomClientIpHeader": ".custom_domain_custom_client_ip_header",
     "CustomDomainCustomClientIpHeaderEnum": ".custom_domain_custom_client_ip_header_enum",
@@ -5869,6 +5889,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SynchronizeGroupsEnum": ".synchronize_groups_enum",
     "SynchronizedGroupPayload": ".synchronized_group_payload",
     "TenantOidcLogoutSettings": ".tenant_oidc_logout_settings",
+    "TenantSettingsCountryCodes": ".tenant_settings_country_codes",
+    "TenantSettingsCountryCodesMode": ".tenant_settings_country_codes_mode",
+    "TenantSettingsCountryCodesModeResponse": ".tenant_settings_country_codes_mode_response",
+    "TenantSettingsCountryCodesResponse": ".tenant_settings_country_codes_response",
     "TenantSettingsDeviceFlow": ".tenant_settings_device_flow",
     "TenantSettingsDeviceFlowCharset": ".tenant_settings_device_flow_charset",
     "TenantSettingsDynamicClientRegistrationSecurityMode": ".tenant_settings_dynamic_client_registration_security_mode",
@@ -5876,6 +5900,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TenantSettingsFlags": ".tenant_settings_flags",
     "TenantSettingsGuardianPage": ".tenant_settings_guardian_page",
     "TenantSettingsMtls": ".tenant_settings_mtls",
+    "TenantSettingsNullableSecurityHeaders": ".tenant_settings_nullable_security_headers",
     "TenantSettingsPasswordPage": ".tenant_settings_password_page",
     "TenantSettingsResourceParameterProfile": ".tenant_settings_resource_parameter_profile",
     "TenantSettingsSessions": ".tenant_settings_sessions",
@@ -5906,12 +5931,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateBotDetectionSettingsResponseContent": ".update_bot_detection_settings_response_content",
     "UpdateBrandingColors": ".update_branding_colors",
     "UpdateBrandingFont": ".update_branding_font",
-    "UpdateBrandingIdentifiers": ".update_branding_identifiers",
-    "UpdateBrandingLoginDisplayEnum": ".update_branding_login_display_enum",
     "UpdateBrandingPageBackground": ".update_branding_page_background",
-    "UpdateBrandingPhoneDisplay": ".update_branding_phone_display",
-    "UpdateBrandingPhoneFormattingEnum": ".update_branding_phone_formatting_enum",
-    "UpdateBrandingPhoneMaskingEnum": ".update_branding_phone_masking_enum",
     "UpdateBrandingPhoneProviderResponseContent": ".update_branding_phone_provider_response_content",
     "UpdateBrandingResponseContent": ".update_branding_response_content",
     "UpdateBrandingThemeResponseContent": ".update_branding_theme_response_content",
@@ -6081,6 +6101,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VerifyEmailTicketResponseContent": ".verify_email_ticket_response_content",
     "X509CertificateCredential": ".x_509_certificate_credential",
     "X509CertificateCredentialTypeEnum": ".x_509_certificate_credential_type_enum",
+    "XssProtectionConfig": ".xss_protection_config",
+    "XssProtectionMode": ".xss_protection_mode",
 }
 
 
@@ -6195,12 +6217,7 @@ __all__ = [
     "BotDetectionMonitoringModeEnabled",
     "BrandingColors",
     "BrandingFont",
-    "BrandingIdentifiers",
-    "BrandingLoginDisplayEnum",
     "BrandingPageBackground",
-    "BrandingPhoneDisplay",
-    "BrandingPhoneFormattingEnum",
-    "BrandingPhoneMaskingEnum",
     "BrandingThemeBorders",
     "BrandingThemeBordersButtonsStyleEnum",
     "BrandingThemeBordersInputsStyleEnum",
@@ -6505,6 +6522,7 @@ __all__ = [
     "ConnectionId",
     "ConnectionIdTokenEncryptionAlgValuesSupported",
     "ConnectionIdTokenEncryptionEncValuesSupported",
+    "ConnectionIdTokenSessionExpirySupported",
     "ConnectionIdTokenSignedResponseAlgEnum",
     "ConnectionIdTokenSignedResponseAlgs",
     "ConnectionIdTokenSigningAlgValuesSupported",
@@ -6861,6 +6879,7 @@ __all__ = [
     "ConnectionWaadProtocol",
     "ConnectionWaadProtocolEnumAzureAd",
     "ConnectionsMetadata",
+    "ContentSecurityPolicyConfig",
     "CreateActionModuleResponseContent",
     "CreateActionModuleVersionResponseContent",
     "CreateActionResponseContent",
@@ -7117,6 +7136,18 @@ __all__ = [
     "CreatedUserAuthenticationMethodTypeEnum",
     "CredentialDeviceTypeEnum",
     "CredentialId",
+    "CspDirectives",
+    "CspFlag",
+    "CspFlags",
+    "CspPolicies",
+    "CspPolicy",
+    "CspPolicyMode",
+    "CspPolicyReporting",
+    "CspReportTo",
+    "CspReportToEndpoint",
+    "CspReportToEndpoints",
+    "CspReportingEndpoints",
+    "CspReportingInfrastructure",
     "CustomDomain",
     "CustomDomainCustomClientIpHeader",
     "CustomDomainCustomClientIpHeaderEnum",
@@ -8603,6 +8634,10 @@ __all__ = [
     "SynchronizeGroupsEnum",
     "SynchronizedGroupPayload",
     "TenantOidcLogoutSettings",
+    "TenantSettingsCountryCodes",
+    "TenantSettingsCountryCodesMode",
+    "TenantSettingsCountryCodesModeResponse",
+    "TenantSettingsCountryCodesResponse",
     "TenantSettingsDeviceFlow",
     "TenantSettingsDeviceFlowCharset",
     "TenantSettingsDynamicClientRegistrationSecurityMode",
@@ -8610,6 +8645,7 @@ __all__ = [
     "TenantSettingsFlags",
     "TenantSettingsGuardianPage",
     "TenantSettingsMtls",
+    "TenantSettingsNullableSecurityHeaders",
     "TenantSettingsPasswordPage",
     "TenantSettingsResourceParameterProfile",
     "TenantSettingsSessions",
@@ -8640,12 +8676,7 @@ __all__ = [
     "UpdateBotDetectionSettingsResponseContent",
     "UpdateBrandingColors",
     "UpdateBrandingFont",
-    "UpdateBrandingIdentifiers",
-    "UpdateBrandingLoginDisplayEnum",
     "UpdateBrandingPageBackground",
-    "UpdateBrandingPhoneDisplay",
-    "UpdateBrandingPhoneFormattingEnum",
-    "UpdateBrandingPhoneMaskingEnum",
     "UpdateBrandingPhoneProviderResponseContent",
     "UpdateBrandingResponseContent",
     "UpdateBrandingThemeResponseContent",
@@ -8815,4 +8846,6 @@ __all__ = [
     "VerifyEmailTicketResponseContent",
     "X509CertificateCredential",
     "X509CertificateCredentialTypeEnum",
+    "XssProtectionConfig",
+    "XssProtectionMode",
 ]

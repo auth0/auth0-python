@@ -4,17 +4,17 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .update_branding_phone_formatting_enum import UpdateBrandingPhoneFormattingEnum
-from .update_branding_phone_masking_enum import UpdateBrandingPhoneMaskingEnum
+from .csp_report_to import CspReportTo
+from .csp_reporting_endpoints import CspReportingEndpoints
 
 
-class UpdateBrandingPhoneDisplay(UniversalBaseModel):
+class CspReportingInfrastructure(UniversalBaseModel):
     """
-    Phone number display settings.
+    Global reporting infrastructure configuration.
     """
 
-    masking: UpdateBrandingPhoneMaskingEnum
-    formatting: UpdateBrandingPhoneFormattingEnum
+    report_to: typing.Optional[CspReportTo] = None
+    reporting_endpoints: typing.Optional[CspReportingEndpoints] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

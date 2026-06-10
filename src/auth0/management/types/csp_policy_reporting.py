@@ -4,17 +4,22 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .branding_phone_formatting_enum import BrandingPhoneFormattingEnum
-from .branding_phone_masking_enum import BrandingPhoneMaskingEnum
 
 
-class BrandingPhoneDisplay(UniversalBaseModel):
+class CspPolicyReporting(UniversalBaseModel):
     """
-    Phone number display settings.
+    Per-policy reporting configuration.
     """
 
-    masking: typing.Optional[BrandingPhoneMaskingEnum] = None
-    formatting: typing.Optional[BrandingPhoneFormattingEnum] = None
+    report_uri: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    HTTPS endpoint for CSP violation reports.
+    """
+
+    report_to_group: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Report-To group name for modern reporting.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

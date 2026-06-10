@@ -17,7 +17,7 @@ class PatchRateLimitPolicyConfigurationRequestContentAction(UniversalBaseModel):
 
     limit: int = pydantic.Field()
     """
-    The maximum number of requests allowed in a single refresh window.
+    The maximum number of requests allowed per second.
     """
 
     redirect_uri: str = pydantic.Field()

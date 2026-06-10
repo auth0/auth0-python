@@ -17,7 +17,7 @@ class PatchRateLimitPolicyConfigurationRequestContentOne(UniversalBaseModel):
 
     limit: int = pydantic.Field()
     """
-    The maximum number of requests allowed in a single refresh window.
+    The maximum number of requests allowed per second.
     """
 
     if IS_PYDANTIC_V2:

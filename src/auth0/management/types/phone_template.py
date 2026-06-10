@@ -9,7 +9,7 @@ from .phone_template_notification_type_enum import PhoneTemplateNotificationType
 
 
 class PhoneTemplate(UniversalBaseModel):
-    id: str
+    id: typing.Optional[str] = None
     channel: typing.Optional[str] = None
     customizable: typing.Optional[bool] = None
     tenant: typing.Optional[str] = None
