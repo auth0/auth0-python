@@ -1,5 +1,22 @@
 # Change Log
 
+## [5.7.0](https://github.com/auth0/auth0-python/tree/5.7.0) (2026-06-10)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.6.0...5.7.0)
+
+⚠️ **Breaking Changes**
+- `identifiers` parameter removed from `branding.update()`; `identifiers` field removed from `GetBrandingResponseContent` and `UpdateBrandingResponseContent`. The following types are no longer exported from auth0.management.types: `BrandingIdentifiers`, `UpdateBrandingIdentifiers`, `BrandingPhoneDisplay`, `UpdateBrandingPhoneDisplay`, `BrandingLoginDisplayEnum`, `BrandingPhoneFormattingEnum`, `BrandingPhoneMaskingEnum`, `UpdateBrandingLoginDisplayEnum`, `UpdateBrandingPhoneFormattingEnum`, `UpdateBrandingPhoneMaskingEnum`. These settings now live exclusively on the theme resource (`PATCH /api/v2/branding/themes/{id}`) [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- `id` was a required `str` on `PhoneTemplate`, `GetPhoneTemplateResponseContent`, `CreatePhoneTemplateResponseContent`, `UpdatePhoneTemplateResponseContent`, and `ResetPhoneTemplateResponseContent`. It is now `Optional[str]`. Code that accesses `.id` without a `None` check will require updating [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Added**
+- feat: `security_headers` (`TenantSettingsNullableSecurityHeaders`, CSP + XSS protection config), `country_codes` (`TenantSettingsCountryCodesResponse`, phone identifier allow/deny list), and `include_session_metadata_in_tenant_logs` (`bool`) added to `GetTenantSettingsResponseContent` and `UpdateTenantSettingsResponseContent` [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: `id_token_session_expiry_supported` (`ConnectionIdTokenSessionExpirySupported`) added to `ConnectionOptionsCommonOidc` and `UpdateConnectionOptions` [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: new `invitation_landing_client_id` Optional field added to `ClientMyOrganizationPostConfiguration`, `ClientMyOrganizationPatchConfiguration`, and `ClientMyOrganizationResponseConfiguration` - available on `POST /clients`, `PATCH /clients/{id}`, `GET /clients`, and `GET /clients/{id}` [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Fixed**
+- fix: `GET /client-grants/{id}/organizations` — added `404` handling; raises `NotFoundError` when the grant does not exist (was previously an unhandled parse error) [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- fix: `PATCH /token-exchange-profiles/{id}` — added `409` handling; raises `ConflictError` when a profile with the same `subject_token_type` already exists (was previously an unhandled parse error) [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+
 ## [5.6.0](https://github.com/auth0/auth0-python/tree/5.6.0) (2026-05-28)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.5.0...5.6.0)
 
