@@ -6,12 +6,20 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from . import bot_detection, breached_password_detection, brute_force_protection, captcha, suspicious_ip_throttling
+    from . import (
+        bot_detection,
+        breached_password_detection,
+        brute_force_protection,
+        captcha,
+        phone_provider_protection,
+        suspicious_ip_throttling,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
     "bot_detection": ".bot_detection",
     "breached_password_detection": ".breached_password_detection",
     "brute_force_protection": ".brute_force_protection",
     "captcha": ".captcha",
+    "phone_provider_protection": ".phone_provider_protection",
     "suspicious_ip_throttling": ".suspicious_ip_throttling",
 }
 
@@ -42,5 +50,6 @@ __all__ = [
     "breached_password_detection",
     "brute_force_protection",
     "captcha",
+    "phone_provider_protection",
     "suspicious_ip_throttling",
 ]

@@ -26,6 +26,7 @@ from ..types.connection_properties_options import ConnectionPropertiesOptions
 from ..types.connection_strategy_enum import ConnectionStrategyEnum
 from ..types.connections_metadata import ConnectionsMetadata
 from ..types.create_connection_response_content import CreateConnectionResponseContent
+from ..types.cross_app_access_requesting_app import CrossAppAccessRequestingApp
 from ..types.get_connection_response_content import GetConnectionResponseContent
 from ..types.list_connections_checkpoint_paginated_response_content import (
     ListConnectionsCheckpointPaginatedResponseContent,
@@ -202,6 +203,7 @@ class RawConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateConnectionResponseContent]:
         """
@@ -239,6 +241,8 @@ class RawConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -267,6 +271,9 @@ class RawConnectionsClient:
                 ),
                 "connected_accounts": convert_and_respect_annotation_metadata(
                     object_=connected_accounts, annotation=ConnectionConnectedAccountsPurpose, direction="write"
+                ),
+                "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
                 ),
             },
             headers={
@@ -554,6 +561,7 @@ class RawConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateConnectionResponseContent]:
         """
@@ -589,6 +597,8 @@ class RawConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -615,6 +625,9 @@ class RawConnectionsClient:
                 ),
                 "connected_accounts": convert_and_respect_annotation_metadata(
                     object_=connected_accounts, annotation=ConnectionConnectedAccountsPurpose, direction="write"
+                ),
+                "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
                 ),
             },
             headers={
@@ -964,6 +977,7 @@ class AsyncRawConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateConnectionResponseContent]:
         """
@@ -1001,6 +1015,8 @@ class AsyncRawConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1029,6 +1045,9 @@ class AsyncRawConnectionsClient:
                 ),
                 "connected_accounts": convert_and_respect_annotation_metadata(
                     object_=connected_accounts, annotation=ConnectionConnectedAccountsPurpose, direction="write"
+                ),
+                "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
                 ),
             },
             headers={
@@ -1318,6 +1337,7 @@ class AsyncRawConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateConnectionResponseContent]:
         """
@@ -1353,6 +1373,8 @@ class AsyncRawConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1379,6 +1401,9 @@ class AsyncRawConnectionsClient:
                 ),
                 "connected_accounts": convert_and_respect_annotation_metadata(
                     object_=connected_accounts, annotation=ConnectionConnectedAccountsPurpose, direction="write"
+                ),
+                "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
                 ),
             },
             headers={

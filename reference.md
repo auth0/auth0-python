@@ -1966,6 +1966,14 @@ client.clients.create(
 <dl>
 <dd>
 
+**token_vault_privileged_access:** `typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **compliance_level:** `typing.Optional[ClientComplianceLevelEnum]` 
     
 </dd>
@@ -2758,7 +2766,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**native_social_login:** `typing.Optional[NativeSocialLogin]` 
+**native_social_login:** `typing.Optional[NativeSocialLoginPatch]` 
     
 </dd>
 </dl>
@@ -2766,7 +2774,7 @@ client.clients.update(
 <dl>
 <dd>
 
-**fedcm_login:** `typing.Optional[FedCmLogin]` 
+**fedcm_login:** `typing.Optional[FedCmLoginPatch]` 
     
 </dd>
 </dl>
@@ -2839,6 +2847,14 @@ client.clients.update(
 <dd>
 
 **signed_request_object:** `typing.Optional[ClientSignedRequestObjectWithCredentialId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**token_vault_privileged_access:** `typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId]` 
     
 </dd>
 </dl>
@@ -3891,6 +3907,14 @@ client.connections.create(
 <dl>
 <dd>
 
+**cross_app_access_requesting_app:** `typing.Optional[CrossAppAccessRequestingApp]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -4197,6 +4221,14 @@ client.connections.update(
 <dd>
 
 **connected_accounts:** `typing.Optional[ConnectionConnectedAccountsPurpose]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cross_app_access_requesting_app:** `typing.Optional[CrossAppAccessRequestingApp]` 
     
 </dd>
 </dl>
@@ -5565,7 +5597,7 @@ client.email_templates.create(
 <dl>
 <dd>
 
-Retrieve an email template by pre-defined name. These names are `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, and `async_approval`. The names `change_password`, and `password_reset` are also supported for legacy scenarios.
+Retrieve an email template by pre-defined name. These names are `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, and `async_approval`. The names `change_password`, and `password_reset` are also supported for legacy scenarios.
 </dd>
 </dl>
 </dd>
@@ -5606,7 +5638,7 @@ client.email_templates.get(
 <dl>
 <dd>
 
-**template_name:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+**template_name:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
     
 </dd>
 </dl>
@@ -5680,7 +5712,7 @@ client.email_templates.set(
 <dl>
 <dd>
 
-**template_name:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+**template_name:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
     
 </dd>
 </dl>
@@ -5825,7 +5857,7 @@ client.email_templates.update(
 <dl>
 <dd>
 
-**template_name:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+**template_name:** `EmailTemplateNameEnum` — Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
     
 </dd>
 </dl>
@@ -19405,6 +19437,143 @@ client.attack_protection.captcha.update()
 <dd>
 
 **simple_captcha:** `typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## AttackProtection PhoneProviderProtection
+<details><summary><code>client.attack_protection.phone_provider_protection.<a href="src/auth0.management/attack_protection/phone_provider_protection/client.py">get</a>() -> GetPhoneProviderProtectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the phone provider protection configuration for a tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.attack_protection.phone_provider_protection.get()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attack_protection.phone_provider_protection.<a href="src/auth0.management/attack_protection/phone_provider_protection/client.py">patch</a>(...) -> PatchPhoneProviderProtectionResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the phone provider protection configuration for a tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.attack_protection.phone_provider_protection.patch(
+    type="exponential",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**type:** `PhoneProviderProtectionBackoffStrategyEnum` 
     
 </dd>
 </dl>
@@ -37633,7 +37802,7 @@ client.users.identities.link(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[UserId]` 
+**user_id:** `typing.Optional[UserId]` — user_id of the secondary user account being linked.
     
 </dd>
 </dl>

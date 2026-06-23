@@ -10,6 +10,7 @@ from .connection_options_oidc import ConnectionOptionsOidc
 from .connection_show_as_button import ConnectionShowAsButton
 from .create_connection_common import CreateConnectionCommon
 from .create_connection_request_content_oidc_strategy import CreateConnectionRequestContentOidcStrategy
+from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
 
 
 class CreateConnectionRequestContentOidc(CreateConnectionCommon):
@@ -20,6 +21,7 @@ class CreateConnectionRequestContentOidc(CreateConnectionCommon):
     strategy: CreateConnectionRequestContentOidcStrategy
     authentication: typing.Optional[ConnectionAuthenticationPurpose] = None
     connected_accounts: typing.Optional[ConnectionConnectedAccountsPurposeXaa] = None
+    cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = None
     options: typing.Optional[ConnectionOptionsOidc] = None
     show_as_button: typing.Optional[ConnectionShowAsButton] = None
 

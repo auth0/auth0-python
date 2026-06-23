@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .user_id import UserId
 from .user_identity_provider_enum import UserIdentityProviderEnum
 from .user_profile_data import UserProfileData
 
@@ -16,11 +17,7 @@ class UserIdentitySchema(UniversalBaseModel):
     Name of the connection containing this identity.
     """
 
-    user_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Unique identifier of the user user for this identity.
-    """
-
+    user_id: typing.Optional[UserId] = None
     provider: typing.Optional[UserIdentityProviderEnum] = None
     is_social: typing_extensions.Annotated[
         typing.Optional[bool],

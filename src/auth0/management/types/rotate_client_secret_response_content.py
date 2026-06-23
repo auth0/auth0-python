@@ -33,7 +33,10 @@ from .client_signing_keys import ClientSigningKeys
 from .client_third_party_security_mode_enum import ClientThirdPartySecurityModeEnum
 from .client_token_endpoint_auth_method_enum import ClientTokenEndpointAuthMethodEnum
 from .client_token_exchange_configuration import ClientTokenExchangeConfiguration
+from .client_token_vault_privileged_access_with_credential_id import ClientTokenVaultPrivilegedAccessWithCredentialId
 from .express_configuration import ExpressConfiguration
+from .fed_cm_login import FedCmLogin
+from .native_social_login import NativeSocialLogin
 from .token_quota import TokenQuota
 
 
@@ -181,6 +184,8 @@ class RotateClientSecretResponseContent(UniversalBaseModel):
     Initiate login uri, must be https
     """
 
+    native_social_login: typing.Optional[NativeSocialLogin] = None
+    fedcm_login: typing.Optional[FedCmLogin] = None
     refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = None
     default_organization: typing.Optional[ClientDefaultOrganization] = None
     organization_usage: typing.Optional[ClientOrganizationUsageEnum] = None
@@ -204,6 +209,7 @@ class RotateClientSecretResponseContent(UniversalBaseModel):
     """
 
     signed_request_object: typing.Optional[ClientSignedRequestObjectWithCredentialId] = None
+    token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId] = None
     compliance_level: typing.Optional[ClientComplianceLevelEnum] = None
     skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = pydantic.Field(default=None)
     """
