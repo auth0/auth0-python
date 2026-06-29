@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .user_id import UserId
 from .user_profile_data import UserProfileData
 
 
@@ -15,7 +16,7 @@ class DeleteUserIdentityResponseContentItem(UniversalBaseModel):
     The name of the connection for the identity.
     """
 
-    user_id: str = pydantic.Field()
+    user_id: UserId = pydantic.Field()
     """
     The unique identifier for the user for the identity.
     """

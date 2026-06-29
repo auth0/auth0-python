@@ -42,14 +42,20 @@ from ..types.client_token_endpoint_auth_method_enum import ClientTokenEndpointAu
 from ..types.client_token_endpoint_auth_method_or_null_enum import ClientTokenEndpointAuthMethodOrNullEnum
 from ..types.client_token_exchange_configuration import ClientTokenExchangeConfiguration
 from ..types.client_token_exchange_configuration_or_null import ClientTokenExchangeConfigurationOrNull
+from ..types.client_token_vault_privileged_access_with_credential_id import (
+    ClientTokenVaultPrivilegedAccessWithCredentialId,
+)
+from ..types.client_token_vault_privileged_access_with_public_key import ClientTokenVaultPrivilegedAccessWithPublicKey
 from ..types.create_client_response_content import CreateClientResponseContent
 from ..types.create_token_quota import CreateTokenQuota
 from ..types.express_configuration import ExpressConfiguration
 from ..types.express_configuration_or_null import ExpressConfigurationOrNull
 from ..types.fed_cm_login import FedCmLogin
+from ..types.fed_cm_login_patch import FedCmLoginPatch
 from ..types.get_client_response_content import GetClientResponseContent
 from ..types.list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
 from ..types.native_social_login import NativeSocialLogin
+from ..types.native_social_login_patch import NativeSocialLoginPatch
 from ..types.preview_cimd_metadata_response_content import PreviewCimdMetadataResponseContent
 from ..types.register_cimd_client_response_content import RegisterCimdClientResponseContent
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
@@ -249,6 +255,7 @@ class ClientsClient:
         require_pushed_authorization_requests: typing.Optional[bool] = OMIT,
         require_proof_of_possession: typing.Optional[bool] = OMIT,
         signed_request_object: typing.Optional[ClientSignedRequestObjectWithPublicKey] = OMIT,
+        token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey] = OMIT,
         compliance_level: typing.Optional[ClientComplianceLevelEnum] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         token_exchange: typing.Optional[ClientTokenExchangeConfiguration] = OMIT,
@@ -394,6 +401,8 @@ class ClientsClient:
 
         signed_request_object : typing.Optional[ClientSignedRequestObjectWithPublicKey]
 
+        token_vault_privileged_access : typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey]
+
         compliance_level : typing.Optional[ClientComplianceLevelEnum]
 
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
@@ -484,6 +493,7 @@ class ClientsClient:
             require_pushed_authorization_requests=require_pushed_authorization_requests,
             require_proof_of_possession=require_proof_of_possession,
             signed_request_object=signed_request_object,
+            token_vault_privileged_access=token_vault_privileged_access,
             compliance_level=compliance_level,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             token_exchange=token_exchange,
@@ -722,8 +732,8 @@ class ClientsClient:
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
-        native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
-        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
+        native_social_login: typing.Optional[NativeSocialLoginPatch] = OMIT,
+        fedcm_login: typing.Optional[FedCmLoginPatch] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsagePatchEnum] = OMIT,
@@ -733,6 +743,7 @@ class ClientsClient:
         require_pushed_authorization_requests: typing.Optional[bool] = OMIT,
         require_proof_of_possession: typing.Optional[bool] = OMIT,
         signed_request_object: typing.Optional[ClientSignedRequestObjectWithCredentialId] = OMIT,
+        token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId] = OMIT,
         compliance_level: typing.Optional[ClientComplianceLevelEnum] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
@@ -856,9 +867,9 @@ class ClientsClient:
         initiate_login_uri : typing.Optional[str]
             Initiate login uri, must be https
 
-        native_social_login : typing.Optional[NativeSocialLogin]
+        native_social_login : typing.Optional[NativeSocialLoginPatch]
 
-        fedcm_login : typing.Optional[FedCmLogin]
+        fedcm_login : typing.Optional[FedCmLoginPatch]
 
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
@@ -880,6 +891,8 @@ class ClientsClient:
             Makes the use of Proof-of-Possession mandatory for this client
 
         signed_request_object : typing.Optional[ClientSignedRequestObjectWithCredentialId]
+
+        token_vault_privileged_access : typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId]
 
         compliance_level : typing.Optional[ClientComplianceLevelEnum]
 
@@ -969,6 +982,7 @@ class ClientsClient:
             require_pushed_authorization_requests=require_pushed_authorization_requests,
             require_proof_of_possession=require_proof_of_possession,
             signed_request_object=signed_request_object,
+            token_vault_privileged_access=token_vault_privileged_access,
             compliance_level=compliance_level,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             token_exchange=token_exchange,
@@ -1230,6 +1244,7 @@ class AsyncClientsClient:
         require_pushed_authorization_requests: typing.Optional[bool] = OMIT,
         require_proof_of_possession: typing.Optional[bool] = OMIT,
         signed_request_object: typing.Optional[ClientSignedRequestObjectWithPublicKey] = OMIT,
+        token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey] = OMIT,
         compliance_level: typing.Optional[ClientComplianceLevelEnum] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         token_exchange: typing.Optional[ClientTokenExchangeConfiguration] = OMIT,
@@ -1375,6 +1390,8 @@ class AsyncClientsClient:
 
         signed_request_object : typing.Optional[ClientSignedRequestObjectWithPublicKey]
 
+        token_vault_privileged_access : typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey]
+
         compliance_level : typing.Optional[ClientComplianceLevelEnum]
 
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
@@ -1473,6 +1490,7 @@ class AsyncClientsClient:
             require_pushed_authorization_requests=require_pushed_authorization_requests,
             require_proof_of_possession=require_proof_of_possession,
             signed_request_object=signed_request_object,
+            token_vault_privileged_access=token_vault_privileged_access,
             compliance_level=compliance_level,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             token_exchange=token_exchange,
@@ -1743,8 +1761,8 @@ class AsyncClientsClient:
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
-        native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
-        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
+        native_social_login: typing.Optional[NativeSocialLoginPatch] = OMIT,
+        fedcm_login: typing.Optional[FedCmLoginPatch] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsagePatchEnum] = OMIT,
@@ -1754,6 +1772,7 @@ class AsyncClientsClient:
         require_pushed_authorization_requests: typing.Optional[bool] = OMIT,
         require_proof_of_possession: typing.Optional[bool] = OMIT,
         signed_request_object: typing.Optional[ClientSignedRequestObjectWithCredentialId] = OMIT,
+        token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId] = OMIT,
         compliance_level: typing.Optional[ClientComplianceLevelEnum] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
@@ -1877,9 +1896,9 @@ class AsyncClientsClient:
         initiate_login_uri : typing.Optional[str]
             Initiate login uri, must be https
 
-        native_social_login : typing.Optional[NativeSocialLogin]
+        native_social_login : typing.Optional[NativeSocialLoginPatch]
 
-        fedcm_login : typing.Optional[FedCmLogin]
+        fedcm_login : typing.Optional[FedCmLoginPatch]
 
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
@@ -1901,6 +1920,8 @@ class AsyncClientsClient:
             Makes the use of Proof-of-Possession mandatory for this client
 
         signed_request_object : typing.Optional[ClientSignedRequestObjectWithCredentialId]
+
+        token_vault_privileged_access : typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId]
 
         compliance_level : typing.Optional[ClientComplianceLevelEnum]
 
@@ -1998,6 +2019,7 @@ class AsyncClientsClient:
             require_pushed_authorization_requests=require_pushed_authorization_requests,
             require_proof_of_possession=require_proof_of_possession,
             signed_request_object=signed_request_object,
+            token_vault_privileged_access=token_vault_privileged_access,
             compliance_level=compliance_level,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             token_exchange=token_exchange,

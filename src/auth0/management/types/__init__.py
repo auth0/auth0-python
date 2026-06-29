@@ -280,6 +280,10 @@ if typing.TYPE_CHECKING:
     from .client_token_exchange_configuration import ClientTokenExchangeConfiguration
     from .client_token_exchange_configuration_or_null import ClientTokenExchangeConfigurationOrNull
     from .client_token_exchange_type_enum import ClientTokenExchangeTypeEnum
+    from .client_token_vault_privileged_access_with_credential_id import (
+        ClientTokenVaultPrivilegedAccessWithCredentialId,
+    )
+    from .client_token_vault_privileged_access_with_public_key import ClientTokenVaultPrivilegedAccessWithPublicKey
     from .connected_account import ConnectedAccount
     from .connected_account_access_type_enum import ConnectedAccountAccessTypeEnum
     from .connection_access_token_urlo_auth_1 import ConnectionAccessTokenUrloAuth1
@@ -1116,6 +1120,7 @@ if typing.TYPE_CHECKING:
     from .created_user_authentication_method_type_enum import CreatedUserAuthenticationMethodTypeEnum
     from .credential_device_type_enum import CredentialDeviceTypeEnum
     from .credential_id import CredentialId
+    from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
     from .csp_directives import CspDirectives
     from .csp_flag import CspFlag
     from .csp_flags import CspFlags
@@ -1993,6 +1998,8 @@ if typing.TYPE_CHECKING:
     from .extensibility_email_provider_credentials import ExtensibilityEmailProviderCredentials
     from .fed_cm_login import FedCmLogin
     from .fed_cm_login_google import FedCmLoginGoogle
+    from .fed_cm_login_google_patch import FedCmLoginGooglePatch
+    from .fed_cm_login_patch import FedCmLoginPatch
     from .federated_connection_token_set import FederatedConnectionTokenSet
     from .flow_action import FlowAction
     from .flow_action_activecampaign import FlowActionActivecampaign
@@ -2661,6 +2668,7 @@ if typing.TYPE_CHECKING:
     from .get_organization_invitation_response_content import GetOrganizationInvitationResponseContent
     from .get_organization_response_content import GetOrganizationResponseContent
     from .get_partials_response_content import GetPartialsResponseContent
+    from .get_phone_provider_protection_response_content import GetPhoneProviderProtectionResponseContent
     from .get_phone_template_response_content import GetPhoneTemplateResponseContent
     from .get_rate_limit_policy_response_content import GetRateLimitPolicyResponseContent
     from .get_refresh_token_response_content import GetRefreshTokenResponseContent
@@ -2886,8 +2894,12 @@ if typing.TYPE_CHECKING:
     from .mfa_policy_enum import MfaPolicyEnum
     from .native_social_login import NativeSocialLogin
     from .native_social_login_apple import NativeSocialLoginApple
+    from .native_social_login_apple_patch import NativeSocialLoginApplePatch
     from .native_social_login_facebook import NativeSocialLoginFacebook
+    from .native_social_login_facebook_patch import NativeSocialLoginFacebookPatch
     from .native_social_login_google import NativeSocialLoginGoogle
+    from .native_social_login_google_patch import NativeSocialLoginGooglePatch
+    from .native_social_login_patch import NativeSocialLoginPatch
     from .network_acl_action import NetworkAclAction
     from .network_acl_action_allow_enum import NetworkAclActionAllowEnum
     from .network_acl_action_block_enum import NetworkAclActionBlockEnum
@@ -2932,6 +2944,7 @@ if typing.TYPE_CHECKING:
     from .password_max_length_exceeded_policy_enum import PasswordMaxLengthExceededPolicyEnum
     from .password_sequential_characters_policy_enum import PasswordSequentialCharactersPolicyEnum
     from .patch_client_credential_response_content import PatchClientCredentialResponseContent
+    from .patch_phone_provider_protection_response_content import PatchPhoneProviderProtectionResponseContent
     from .patch_rate_limit_policy_configuration_request_content import PatchRateLimitPolicyConfigurationRequestContent
     from .patch_rate_limit_policy_configuration_request_content_action import (
         PatchRateLimitPolicyConfigurationRequestContentAction,
@@ -2960,6 +2973,7 @@ if typing.TYPE_CHECKING:
     from .phone_provider_credentials import PhoneProviderCredentials
     from .phone_provider_delivery_method_enum import PhoneProviderDeliveryMethodEnum
     from .phone_provider_name_enum import PhoneProviderNameEnum
+    from .phone_provider_protection_backoff_strategy_enum import PhoneProviderProtectionBackoffStrategyEnum
     from .phone_provider_schema_masked import PhoneProviderSchemaMasked
     from .phone_template import PhoneTemplate
     from .phone_template_body import PhoneTemplateBody
@@ -3168,6 +3182,7 @@ if typing.TYPE_CHECKING:
     from .token_quota import TokenQuota
     from .token_quota_client_credentials import TokenQuotaClientCredentials
     from .token_quota_configuration import TokenQuotaConfiguration
+    from .token_vault_privileged_access_ip_allowlist_entry import TokenVaultPrivilegedAccessIpAllowlistEntry
     from .too_many_requests_schema import TooManyRequestsSchema
     from .too_many_requests_schema_error import TooManyRequestsSchemaError
     from .twilio_provider_configuration import TwilioProviderConfiguration
@@ -3348,7 +3363,6 @@ if typing.TYPE_CHECKING:
     from .user_authentication_method_properties import UserAuthenticationMethodProperties
     from .user_authentication_method_properties_enum import UserAuthenticationMethodPropertiesEnum
     from .user_block_identifier import UserBlockIdentifier
-    from .user_date_schema import UserDateSchema
     from .user_effective_permission_response_content import UserEffectivePermissionResponseContent
     from .user_effective_permission_role_source_enum import UserEffectivePermissionRoleSourceEnum
     from .user_effective_permission_role_source_response_content import UserEffectivePermissionRoleSourceResponseContent
@@ -3615,6 +3629,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientTokenExchangeConfiguration": ".client_token_exchange_configuration",
     "ClientTokenExchangeConfigurationOrNull": ".client_token_exchange_configuration_or_null",
     "ClientTokenExchangeTypeEnum": ".client_token_exchange_type_enum",
+    "ClientTokenVaultPrivilegedAccessWithCredentialId": ".client_token_vault_privileged_access_with_credential_id",
+    "ClientTokenVaultPrivilegedAccessWithPublicKey": ".client_token_vault_privileged_access_with_public_key",
     "ConnectedAccount": ".connected_account",
     "ConnectedAccountAccessTypeEnum": ".connected_account_access_type_enum",
     "ConnectionAccessTokenUrloAuth1": ".connection_access_token_urlo_auth_1",
@@ -4391,6 +4407,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatedUserAuthenticationMethodTypeEnum": ".created_user_authentication_method_type_enum",
     "CredentialDeviceTypeEnum": ".credential_device_type_enum",
     "CredentialId": ".credential_id",
+    "CrossAppAccessRequestingApp": ".cross_app_access_requesting_app",
     "CspDirectives": ".csp_directives",
     "CspFlag": ".csp_flag",
     "CspFlags": ".csp_flags",
@@ -4856,6 +4873,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtensibilityEmailProviderCredentials": ".extensibility_email_provider_credentials",
     "FedCmLogin": ".fed_cm_login",
     "FedCmLoginGoogle": ".fed_cm_login_google",
+    "FedCmLoginGooglePatch": ".fed_cm_login_google_patch",
+    "FedCmLoginPatch": ".fed_cm_login_patch",
     "FederatedConnectionTokenSet": ".federated_connection_token_set",
     "FlowAction": ".flow_action",
     "FlowActionActivecampaign": ".flow_action_activecampaign",
@@ -5492,6 +5511,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetOrganizationInvitationResponseContent": ".get_organization_invitation_response_content",
     "GetOrganizationResponseContent": ".get_organization_response_content",
     "GetPartialsResponseContent": ".get_partials_response_content",
+    "GetPhoneProviderProtectionResponseContent": ".get_phone_provider_protection_response_content",
     "GetPhoneTemplateResponseContent": ".get_phone_template_response_content",
     "GetRateLimitPolicyResponseContent": ".get_rate_limit_policy_response_content",
     "GetRefreshTokenResponseContent": ".get_refresh_token_response_content",
@@ -5675,8 +5695,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MfaPolicyEnum": ".mfa_policy_enum",
     "NativeSocialLogin": ".native_social_login",
     "NativeSocialLoginApple": ".native_social_login_apple",
+    "NativeSocialLoginApplePatch": ".native_social_login_apple_patch",
     "NativeSocialLoginFacebook": ".native_social_login_facebook",
+    "NativeSocialLoginFacebookPatch": ".native_social_login_facebook_patch",
     "NativeSocialLoginGoogle": ".native_social_login_google",
+    "NativeSocialLoginGooglePatch": ".native_social_login_google_patch",
+    "NativeSocialLoginPatch": ".native_social_login_patch",
     "NetworkAclAction": ".network_acl_action",
     "NetworkAclActionAllowEnum": ".network_acl_action_allow_enum",
     "NetworkAclActionBlockEnum": ".network_acl_action_block_enum",
@@ -5721,6 +5745,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PasswordMaxLengthExceededPolicyEnum": ".password_max_length_exceeded_policy_enum",
     "PasswordSequentialCharactersPolicyEnum": ".password_sequential_characters_policy_enum",
     "PatchClientCredentialResponseContent": ".patch_client_credential_response_content",
+    "PatchPhoneProviderProtectionResponseContent": ".patch_phone_provider_protection_response_content",
     "PatchRateLimitPolicyConfigurationRequestContent": ".patch_rate_limit_policy_configuration_request_content",
     "PatchRateLimitPolicyConfigurationRequestContentAction": ".patch_rate_limit_policy_configuration_request_content_action",
     "PatchRateLimitPolicyConfigurationRequestContentActionAction": ".patch_rate_limit_policy_configuration_request_content_action_action",
@@ -5737,6 +5762,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PhoneProviderCredentials": ".phone_provider_credentials",
     "PhoneProviderDeliveryMethodEnum": ".phone_provider_delivery_method_enum",
     "PhoneProviderNameEnum": ".phone_provider_name_enum",
+    "PhoneProviderProtectionBackoffStrategyEnum": ".phone_provider_protection_backoff_strategy_enum",
     "PhoneProviderSchemaMasked": ".phone_provider_schema_masked",
     "PhoneTemplate": ".phone_template",
     "PhoneTemplateBody": ".phone_template_body",
@@ -5915,6 +5941,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TokenQuota": ".token_quota",
     "TokenQuotaClientCredentials": ".token_quota_client_credentials",
     "TokenQuotaConfiguration": ".token_quota_configuration",
+    "TokenVaultPrivilegedAccessIpAllowlistEntry": ".token_vault_privileged_access_ip_allowlist_entry",
     "TooManyRequestsSchema": ".too_many_requests_schema",
     "TooManyRequestsSchemaError": ".too_many_requests_schema_error",
     "TwilioProviderConfiguration": ".twilio_provider_configuration",
@@ -6069,7 +6096,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserAuthenticationMethodProperties": ".user_authentication_method_properties",
     "UserAuthenticationMethodPropertiesEnum": ".user_authentication_method_properties_enum",
     "UserBlockIdentifier": ".user_block_identifier",
-    "UserDateSchema": ".user_date_schema",
     "UserEffectivePermissionResponseContent": ".user_effective_permission_response_content",
     "UserEffectivePermissionRoleSourceEnum": ".user_effective_permission_role_source_enum",
     "UserEffectivePermissionRoleSourceResponseContent": ".user_effective_permission_role_source_response_content",
@@ -6360,6 +6386,8 @@ __all__ = [
     "ClientTokenExchangeConfiguration",
     "ClientTokenExchangeConfigurationOrNull",
     "ClientTokenExchangeTypeEnum",
+    "ClientTokenVaultPrivilegedAccessWithCredentialId",
+    "ClientTokenVaultPrivilegedAccessWithPublicKey",
     "ConnectedAccount",
     "ConnectedAccountAccessTypeEnum",
     "ConnectionAccessTokenUrloAuth1",
@@ -7136,6 +7164,7 @@ __all__ = [
     "CreatedUserAuthenticationMethodTypeEnum",
     "CredentialDeviceTypeEnum",
     "CredentialId",
+    "CrossAppAccessRequestingApp",
     "CspDirectives",
     "CspFlag",
     "CspFlags",
@@ -7601,6 +7630,8 @@ __all__ = [
     "ExtensibilityEmailProviderCredentials",
     "FedCmLogin",
     "FedCmLoginGoogle",
+    "FedCmLoginGooglePatch",
+    "FedCmLoginPatch",
     "FederatedConnectionTokenSet",
     "FlowAction",
     "FlowActionActivecampaign",
@@ -8237,6 +8268,7 @@ __all__ = [
     "GetOrganizationInvitationResponseContent",
     "GetOrganizationResponseContent",
     "GetPartialsResponseContent",
+    "GetPhoneProviderProtectionResponseContent",
     "GetPhoneTemplateResponseContent",
     "GetRateLimitPolicyResponseContent",
     "GetRefreshTokenResponseContent",
@@ -8420,8 +8452,12 @@ __all__ = [
     "MfaPolicyEnum",
     "NativeSocialLogin",
     "NativeSocialLoginApple",
+    "NativeSocialLoginApplePatch",
     "NativeSocialLoginFacebook",
+    "NativeSocialLoginFacebookPatch",
     "NativeSocialLoginGoogle",
+    "NativeSocialLoginGooglePatch",
+    "NativeSocialLoginPatch",
     "NetworkAclAction",
     "NetworkAclActionAllowEnum",
     "NetworkAclActionBlockEnum",
@@ -8466,6 +8502,7 @@ __all__ = [
     "PasswordMaxLengthExceededPolicyEnum",
     "PasswordSequentialCharactersPolicyEnum",
     "PatchClientCredentialResponseContent",
+    "PatchPhoneProviderProtectionResponseContent",
     "PatchRateLimitPolicyConfigurationRequestContent",
     "PatchRateLimitPolicyConfigurationRequestContentAction",
     "PatchRateLimitPolicyConfigurationRequestContentActionAction",
@@ -8482,6 +8519,7 @@ __all__ = [
     "PhoneProviderCredentials",
     "PhoneProviderDeliveryMethodEnum",
     "PhoneProviderNameEnum",
+    "PhoneProviderProtectionBackoffStrategyEnum",
     "PhoneProviderSchemaMasked",
     "PhoneTemplate",
     "PhoneTemplateBody",
@@ -8660,6 +8698,7 @@ __all__ = [
     "TokenQuota",
     "TokenQuotaClientCredentials",
     "TokenQuotaConfiguration",
+    "TokenVaultPrivilegedAccessIpAllowlistEntry",
     "TooManyRequestsSchema",
     "TooManyRequestsSchemaError",
     "TwilioProviderConfiguration",
@@ -8814,7 +8853,6 @@ __all__ = [
     "UserAuthenticationMethodProperties",
     "UserAuthenticationMethodPropertiesEnum",
     "UserBlockIdentifier",
-    "UserDateSchema",
     "UserEffectivePermissionResponseContent",
     "UserEffectivePermissionRoleSourceEnum",
     "UserEffectivePermissionRoleSourceResponseContent",

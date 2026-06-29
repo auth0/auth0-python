@@ -82,6 +82,7 @@ class IdentitiesClient:
             connection_id of the secondary user account being linked when more than one `auth0` database provider exists.
 
         user_id : typing.Optional[UserId]
+            user_id of the secondary user account being linked.
 
         link_with : typing.Optional[str]
             JWT for the secondary account being linked. If sending this parameter, `provider`, `user_id`, and `connection_id` must not be sent.
@@ -232,6 +233,7 @@ class AsyncIdentitiesClient:
             connection_id of the secondary user account being linked when more than one `auth0` database provider exists.
 
         user_id : typing.Optional[UserId]
+            user_id of the secondary user account being linked.
 
         link_with : typing.Optional[str]
             JWT for the secondary account being linked. If sending this parameter, `provider`, `user_id`, and `connection_id` must not be sent.

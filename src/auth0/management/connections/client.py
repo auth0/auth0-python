@@ -15,6 +15,7 @@ from ..types.connection_properties_options import ConnectionPropertiesOptions
 from ..types.connection_strategy_enum import ConnectionStrategyEnum
 from ..types.connections_metadata import ConnectionsMetadata
 from ..types.create_connection_response_content import CreateConnectionResponseContent
+from ..types.cross_app_access_requesting_app import CrossAppAccessRequestingApp
 from ..types.get_connection_response_content import GetConnectionResponseContent
 from ..types.list_connections_checkpoint_paginated_response_content import (
     ListConnectionsCheckpointPaginatedResponseContent,
@@ -157,6 +158,7 @@ class ConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateConnectionResponseContent:
         """
@@ -194,6 +196,8 @@ class ConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -226,6 +230,7 @@ class ConnectionsClient:
             metadata=metadata,
             authentication=authentication,
             connected_accounts=connected_accounts,
+            cross_app_access_requesting_app=cross_app_access_requesting_app,
             request_options=request_options,
         )
         return _response.data
@@ -323,6 +328,7 @@ class ConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateConnectionResponseContent:
         """
@@ -358,6 +364,8 @@ class ConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -388,6 +396,7 @@ class ConnectionsClient:
             metadata=metadata,
             authentication=authentication,
             connected_accounts=connected_accounts,
+            cross_app_access_requesting_app=cross_app_access_requesting_app,
             request_options=request_options,
         )
         return _response.data
@@ -596,6 +605,7 @@ class AsyncConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateConnectionResponseContent:
         """
@@ -632,6 +642,8 @@ class AsyncConnectionsClient:
         authentication : typing.Optional[ConnectionAuthenticationPurpose]
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
+
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -673,6 +685,7 @@ class AsyncConnectionsClient:
             metadata=metadata,
             authentication=authentication,
             connected_accounts=connected_accounts,
+            cross_app_access_requesting_app=cross_app_access_requesting_app,
             request_options=request_options,
         )
         return _response.data
@@ -786,6 +799,7 @@ class AsyncConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateConnectionResponseContent:
         """
@@ -820,6 +834,8 @@ class AsyncConnectionsClient:
         authentication : typing.Optional[ConnectionAuthenticationPurpose]
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
+
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -859,6 +875,7 @@ class AsyncConnectionsClient:
             metadata=metadata,
             authentication=authentication,
             connected_accounts=connected_accounts,
+            cross_app_access_requesting_app=cross_app_access_requesting_app,
             request_options=request_options,
         )
         return _response.data
