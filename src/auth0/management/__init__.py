@@ -6667,6 +6667,7 @@ __all__ = [
     "CspReportingEndpoints",
     "CspReportingInfrastructure",
     "CustomDomain",
+    "CustomDomainHeader",
     "CustomDomainCustomClientIpHeader",
     "CustomDomainCustomClientIpHeaderEnum",
     "CustomDomainProvisioningTypeEnum",
