@@ -1,5 +1,30 @@
 # Change Log
 
+## [5.8.0](https://github.com/auth0/auth0-python/tree/5.8.0) (2026-06-29)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.7.0...5.8.0)
+
+### ⚠️ Breaking Changes
+
+- **`clients.update()` social/FedCM request types changed** — `native_social_login` and `fedcm_login` on `clients.update()` (`PATCH /api/v2/clients/{id}`) changed from `NativeSocialLogin` / `FedCmLogin` to `NativeSocialLoginPatch` / `FedCmLoginPatch`. `clients.create()` still uses the non-patch types, so create and update now require different types for the same logical field. Code passing the old types to `update()` must switch to the `*Patch` variants.
+- **`UserDateSchema` removed — user date fields now `datetime`** — the `UserDateSchema` type (`Union[str, Dict[str, Any]]`) is deleted and no longer exported from `auth0.management.types`. `created_at`, `updated_at`, `last_login`, `last_password_reset`, and `multifactor_last_modified` on `GetUserResponseContent`, `CreateUserResponseContent`, `UpdateUserResponseContent`, and `UserResponseSchema` are now `Optional[datetime.datetime]`. Code that read these as strings/dicts must update.
+
+### Type Changes
+
+- **Clients — FedCM / Google One Tap** — new `fedcm_login` (read: `FedCmLogin`/`FedCmLoginGoogle`; write: `FedCmLoginPatch`/`FedCmLoginGooglePatch`) on create/update/response, gating the Google One Tap prompt in New Universal Login via `fedcm_login.google.is_enabled`.
+- **Clients — Native Social Login patch types** — new `NativeSocialLoginPatch` wrapping `apple`/`facebook`/`google` patch variants (each `enabled: Optional[bool]`) for `clients.update()`.
+- **Clients — Token Vault Privileged Access** — new `token_vault_privileged_access` field on create/update/response, typed `ClientTokenVaultPrivilegedAccessWithPublicKey` (create) and `ClientTokenVaultPrivilegedAccessWithCredentialId` (update), each with `credentials` + `ip_allowlist`.
+- **Connections — Cross App Access** — new `cross_app_access_requesting_app` field (`CrossAppAccessRequestingApp{active: bool}`) on `connections.create()`/`update()`, OIDC/Okta request types, and all connection response types.
+- **Identity `user_id` widened to `Union[str, int]`** — on `UserIdentitySchema`, `UserIdentity`, and `DeleteUserIdentityResponseContentItem`, fixing Pydantic errors on numeric (e.g. GitHub) identity IDs.
+- **Email templates** — new `auth_email_by_code` value in `EmailTemplateNameEnum`.
+- **Attack Protection — Phone Provider Protection** — new `attack_protection.phone_provider_protection` sub-client with `get()` / `patch(type=...)` (`GET`/`PATCH /attack-protection/phone-provider-protection`); new `PhoneProviderProtectionBackoffStrategyEnum` (`exponential`/`none`) and response types.
+
+### Bug Fixes
+
+- **404 handling added across multiple raw clients** — `keys.signing`, `organizations` (connections, enabled connections, members, member roles), `roles.permissions`, `self_service_profiles.sso_ticket`, `user_attribute_profiles`, and `users` (connected accounts, organizations, permissions, roles) now raise a typed `NotFoundError` on 404 instead of an unhandled parse error.
+- add `"CustomDomainHeader"` to `__all__`.
+- change `CustomDomainHeader` return type annotation from `Dict[str, Any]` to `RequestOptions`.
+
+
 ## [5.7.0](https://github.com/auth0/auth0-python/tree/5.7.0) (2026-06-10)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.6.0...5.7.0)
 
