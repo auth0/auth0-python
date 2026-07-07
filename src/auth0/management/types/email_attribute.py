@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .connection_attribute_identifier import ConnectionAttributeIdentifier
+from .email_attribute_identifier import EmailAttributeIdentifier
 from .signup_verified import SignupVerified
 from .verification_method_enum import VerificationMethodEnum
 
@@ -14,7 +14,7 @@ class EmailAttribute(UniversalBaseModel):
     Configuration for the email attribute for users.
     """
 
-    identifier: typing.Optional[ConnectionAttributeIdentifier] = None
+    identifier: typing.Optional[EmailAttributeIdentifier] = None
     unique: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Determines if the attribute is unique in a given connection

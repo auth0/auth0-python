@@ -12,6 +12,7 @@ from .event_stream_cloud_event_group_updated_cloud_event_type_enum import (
     EventStreamCloudEventGroupUpdatedCloudEventTypeEnum,
 )
 from .event_stream_cloud_event_group_updated_data import EventStreamCloudEventGroupUpdatedData
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 
 
 class EventStreamCloudEventGroupUpdatedCloudEvent(UniversalBaseModel):
@@ -19,11 +20,7 @@ class EventStreamCloudEventGroupUpdatedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when a group is updated.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventGroupUpdatedCloudEventTypeEnum
     source: str = pydantic.Field()
     """

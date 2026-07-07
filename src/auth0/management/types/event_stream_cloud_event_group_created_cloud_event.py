@@ -12,6 +12,7 @@ from .event_stream_cloud_event_group_created_cloud_event_type_enum import (
     EventStreamCloudEventGroupCreatedCloudEventTypeEnum,
 )
 from .event_stream_cloud_event_group_created_data import EventStreamCloudEventGroupCreatedData
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 
 
 class EventStreamCloudEventGroupCreatedCloudEvent(UniversalBaseModel):
@@ -19,11 +20,7 @@ class EventStreamCloudEventGroupCreatedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when a group is created.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventGroupCreatedCloudEventTypeEnum
     source: str = pydantic.Field()
     """

@@ -29,6 +29,8 @@ from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndp
 from .connection_token_endpoint_jwtca_aud_format_enum_oidc import ConnectionTokenEndpointJwtcaAudFormatEnumOidc
 from .connection_upstream_params import ConnectionUpstreamParams
 from .connection_validation_options import ConnectionValidationOptions
+from .connections_discovery_url import ConnectionsDiscoveryUrl
+from .connections_oidc_metadata import ConnectionsOidcMetadata
 
 
 class ConnectionPropertiesOptions(UniversalBaseModel):
@@ -106,6 +108,8 @@ class ConnectionPropertiesOptions(UniversalBaseModel):
     token_endpoint_auth_signing_alg: typing.Optional[ConnectionTokenEndpointAuthSigningAlgEnum] = None
     token_endpoint_jwtca_aud_format: typing.Optional[ConnectionTokenEndpointJwtcaAudFormatEnumOidc] = None
     id_token_session_expiry_supported: typing.Optional[ConnectionIdTokenSessionExpirySupported] = None
+    discovery_url: typing.Optional[ConnectionsDiscoveryUrl] = None
+    oidc_metadata: typing.Optional[ConnectionsOidcMetadata] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

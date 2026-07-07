@@ -6,7 +6,16 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from . import client_grants, connections, discovery_domains, enabled_connections, groups, invitations, members
+    from . import (
+        client_grants,
+        connections,
+        discovery_domains,
+        enabled_connections,
+        groups,
+        invitations,
+        members,
+        roles,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
     "client_grants": ".client_grants",
     "connections": ".connections",
@@ -15,6 +24,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "groups": ".groups",
     "invitations": ".invitations",
     "members": ".members",
+    "roles": ".roles",
 }
 
 
@@ -47,4 +57,5 @@ __all__ = [
     "groups",
     "invitations",
     "members",
+    "roles",
 ]

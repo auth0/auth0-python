@@ -12,6 +12,7 @@ from .event_stream_cloud_event_org_connection_removed_cloud_event_type_enum impo
     EventStreamCloudEventOrgConnectionRemovedCloudEventTypeEnum,
 )
 from .event_stream_cloud_event_org_connection_removed_data import EventStreamCloudEventOrgConnectionRemovedData
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 
 
 class EventStreamCloudEventOrgConnectionRemovedCloudEvent(UniversalBaseModel):
@@ -19,11 +20,7 @@ class EventStreamCloudEventOrgConnectionRemovedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when a connection is removed from an organization.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventOrgConnectionRemovedCloudEventTypeEnum
     source: str = pydantic.Field()
     """

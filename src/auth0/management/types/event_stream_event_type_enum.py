@@ -4,6 +4,9 @@ import typing
 
 EventStreamEventTypeEnum = typing.Union[
     typing.Literal[
+        "connection.created",
+        "connection.deleted",
+        "connection.updated",
         "group.created",
         "group.deleted",
         "group.member.added",

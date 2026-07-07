@@ -34,6 +34,11 @@ class UserGrant(UniversalBaseModel):
     Scopes included in this grant.
     """
 
+    organization_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID of the organization associated with the grant.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

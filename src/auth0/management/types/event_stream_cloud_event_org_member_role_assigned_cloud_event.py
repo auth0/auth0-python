@@ -12,6 +12,7 @@ from .event_stream_cloud_event_org_member_role_assigned_cloud_event_type_enum im
     EventStreamCloudEventOrgMemberRoleAssignedCloudEventTypeEnum,
 )
 from .event_stream_cloud_event_org_member_role_assigned_data import EventStreamCloudEventOrgMemberRoleAssignedData
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 
 
 class EventStreamCloudEventOrgMemberRoleAssignedCloudEvent(UniversalBaseModel):
@@ -19,11 +20,7 @@ class EventStreamCloudEventOrgMemberRoleAssignedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when a member is added to an organization.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventOrgMemberRoleAssignedCloudEventTypeEnum
     source: str = pydantic.Field()
     """
