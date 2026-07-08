@@ -117,7 +117,7 @@ class RawRenderingClient:
                     ),
                 )
                 _items = _parsed_response.configs
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     fields=fields,
                     include_fields=include_fields,
@@ -645,7 +645,7 @@ class AsyncRawRenderingClient:
                     ),
                 )
                 _items = _parsed_response.configs
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(

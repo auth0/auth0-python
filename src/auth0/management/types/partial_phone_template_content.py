@@ -17,6 +17,10 @@ class PartialPhoneTemplateContent(UniversalBaseModel):
             alias="from", description="Default phone number to be used as 'from' when sending a phone notification"
         ),
     ] = None
+    """
+    Default phone number to be used as 'from' when sending a phone notification
+    """
+
     body: typing.Optional[PhoneTemplateBody] = None
 
     if IS_PYDANTIC_V2:

@@ -236,6 +236,10 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
             description="When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.",
         ),
     ] = None
+    """
+    When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.
+    """
+
     ext_tenantid: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When false, prevents storing the user's Azure AD tenant ID. When true (default), tenant ID is persisted. Useful for identifying which Azure AD organization the user belongs to.

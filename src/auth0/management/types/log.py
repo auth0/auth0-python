@@ -97,6 +97,10 @@ class Log(UniversalBaseModel):
             description="Whether the client was a mobile device (true) or desktop/laptop/server (false).",
         ),
     ] = None
+    """
+    Whether the client was a mobile device (true) or desktop/laptop/server (false).
+    """
+
     details: typing.Optional[LogDetails] = None
     user_agent: typing.Optional[str] = pydantic.Field(default=None)
     """

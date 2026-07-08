@@ -16,6 +16,7 @@ from ..types.list_organizations_paginated_response_content import ListOrganizati
 from ..types.organization import Organization
 from ..types.organization_branding import OrganizationBranding
 from ..types.organization_metadata import OrganizationMetadata
+from ..types.organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
 from ..types.update_organization_response_content import UpdateOrganizationResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
 from .raw_client import AsyncRawOrganizationsClient, RawOrganizationsClient
@@ -28,6 +29,7 @@ if typing.TYPE_CHECKING:
     from .groups.client import AsyncGroupsClient, GroupsClient
     from .invitations.client import AsyncInvitationsClient, InvitationsClient
     from .members.client import AsyncMembersClient, MembersClient
+    from .roles.client import AsyncRolesClient, RolesClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
@@ -43,6 +45,7 @@ class OrganizationsClient:
         self._invitations: typing.Optional[InvitationsClient] = None
         self._members: typing.Optional[MembersClient] = None
         self._groups: typing.Optional[GroupsClient] = None
+        self._roles: typing.Optional[RolesClient] = None
 
     @property
     def with_raw_response(self) -> RawOrganizationsClient:
@@ -130,6 +133,7 @@ class OrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationResponseContent:
         """
@@ -151,6 +155,8 @@ class OrganizationsClient:
             Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
 
         token_quota : typing.Optional[CreateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -178,6 +184,7 @@ class OrganizationsClient:
             metadata=metadata,
             enabled_connections=enabled_connections,
             token_quota=token_quota,
+            third_party_client_access=third_party_client_access,
             request_options=request_options,
         )
         return _response.data
@@ -289,6 +296,7 @@ class OrganizationsClient:
         branding: typing.Optional[OrganizationBranding] = OMIT,
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationResponseContent:
         """
@@ -310,6 +318,8 @@ class OrganizationsClient:
         metadata : typing.Optional[OrganizationMetadata]
 
         token_quota : typing.Optional[UpdateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -337,6 +347,7 @@ class OrganizationsClient:
             branding=branding,
             metadata=metadata,
             token_quota=token_quota,
+            third_party_client_access=third_party_client_access,
             request_options=request_options,
         )
         return _response.data
@@ -397,6 +408,14 @@ class OrganizationsClient:
             self._groups = GroupsClient(client_wrapper=self._client_wrapper)
         return self._groups
 
+    @property
+    def roles(self):
+        if self._roles is None:
+            from .roles.client import RolesClient  # noqa: E402
+
+            self._roles = RolesClient(client_wrapper=self._client_wrapper)
+        return self._roles
+
 
 class AsyncOrganizationsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -409,6 +428,7 @@ class AsyncOrganizationsClient:
         self._invitations: typing.Optional[AsyncInvitationsClient] = None
         self._members: typing.Optional[AsyncMembersClient] = None
         self._groups: typing.Optional[AsyncGroupsClient] = None
+        self._roles: typing.Optional[AsyncRolesClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawOrganizationsClient:
@@ -505,6 +525,7 @@ class AsyncOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationResponseContent:
         """
@@ -526,6 +547,8 @@ class AsyncOrganizationsClient:
             Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
 
         token_quota : typing.Optional[CreateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -561,6 +584,7 @@ class AsyncOrganizationsClient:
             metadata=metadata,
             enabled_connections=enabled_connections,
             token_quota=token_quota,
+            third_party_client_access=third_party_client_access,
             request_options=request_options,
         )
         return _response.data
@@ -696,6 +720,7 @@ class AsyncOrganizationsClient:
         branding: typing.Optional[OrganizationBranding] = OMIT,
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationResponseContent:
         """
@@ -717,6 +742,8 @@ class AsyncOrganizationsClient:
         metadata : typing.Optional[OrganizationMetadata]
 
         token_quota : typing.Optional[UpdateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -752,6 +779,7 @@ class AsyncOrganizationsClient:
             branding=branding,
             metadata=metadata,
             token_quota=token_quota,
+            third_party_client_access=third_party_client_access,
             request_options=request_options,
         )
         return _response.data
@@ -811,3 +839,11 @@ class AsyncOrganizationsClient:
 
             self._groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
         return self._groups
+
+    @property
+    def roles(self):
+        if self._roles is None:
+            from .roles.client import AsyncRolesClient  # noqa: E402
+
+            self._roles = AsyncRolesClient(client_wrapper=self._client_wrapper)
+        return self._roles

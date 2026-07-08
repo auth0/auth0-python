@@ -2,4 +2,4 @@
 
 import typing
 
-PhoneProviderProtectionBackoffStrategyEnum = typing.Union[typing.Literal["exponential", "none"], typing.Any]
+PhoneProviderProtectionBackoffStrategyEnum = typing.Union[typing.Literal["exponential", "default"], typing.Any]

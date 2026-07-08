@@ -27,6 +27,7 @@ from ..types.list_organizations_paginated_response_content import ListOrganizati
 from ..types.organization import Organization
 from ..types.organization_branding import OrganizationBranding
 from ..types.organization_metadata import OrganizationMetadata
+from ..types.organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
 from ..types.update_organization_response_content import UpdateOrganizationResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
 from pydantic import ValidationError
@@ -176,6 +177,7 @@ class RawOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateOrganizationResponseContent]:
         """
@@ -197,6 +199,8 @@ class RawOrganizationsClient:
             Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
 
         token_quota : typing.Optional[CreateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -224,6 +228,7 @@ class RawOrganizationsClient:
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
+                "third_party_client_access": third_party_client_access,
             },
             headers={
                 "content-type": "application/json",
@@ -600,6 +605,7 @@ class RawOrganizationsClient:
         branding: typing.Optional[OrganizationBranding] = OMIT,
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateOrganizationResponseContent]:
         """
@@ -622,6 +628,8 @@ class RawOrganizationsClient:
 
         token_quota : typing.Optional[UpdateTokenQuota]
 
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -643,6 +651,7 @@ class RawOrganizationsClient:
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=typing.Optional[UpdateTokenQuota], direction="write"
                 ),
+                "third_party_client_access": third_party_client_access,
             },
             headers={
                 "content-type": "application/json",
@@ -858,6 +867,7 @@ class AsyncRawOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateOrganizationResponseContent]:
         """
@@ -879,6 +889,8 @@ class AsyncRawOrganizationsClient:
             Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
 
         token_quota : typing.Optional[CreateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -906,6 +918,7 @@ class AsyncRawOrganizationsClient:
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
+                "third_party_client_access": third_party_client_access,
             },
             headers={
                 "content-type": "application/json",
@@ -1284,6 +1297,7 @@ class AsyncRawOrganizationsClient:
         branding: typing.Optional[OrganizationBranding] = OMIT,
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateOrganizationResponseContent]:
         """
@@ -1306,6 +1320,8 @@ class AsyncRawOrganizationsClient:
 
         token_quota : typing.Optional[UpdateTokenQuota]
 
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1327,6 +1343,7 @@ class AsyncRawOrganizationsClient:
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=typing.Optional[UpdateTokenQuota], direction="write"
                 ),
+                "third_party_client_access": third_party_client_access,
             },
             headers={
                 "content-type": "application/json",

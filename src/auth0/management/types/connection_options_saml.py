@@ -44,6 +44,10 @@ class ConnectionOptionsSaml(ConnectionOptionsCommonSaml, ConnectionOptionsCommon
             description="When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).",
         ),
     ] = None
+    """
+    When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).
+    """
+
     fields_map: typing_extensions.Annotated[
         typing.Optional[ConnectionFieldsMapSaml], FieldMetadata(alias="fieldsMap"), pydantic.Field(alias="fieldsMap")
     ] = None

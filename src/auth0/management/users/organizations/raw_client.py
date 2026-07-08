@@ -81,7 +81,7 @@ class RawOrganizationsClient:
                     ),
                 )
                 _items = _parsed_response.organizations
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     page=page + 1,
@@ -204,7 +204,7 @@ class AsyncRawOrganizationsClient:
                     ),
                 )
                 _items = _parsed_response.organizations
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(

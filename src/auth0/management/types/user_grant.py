@@ -19,6 +19,10 @@ class UserGrant(UniversalBaseModel):
         FieldMetadata(alias="clientID"),
         pydantic.Field(alias="clientID", description="ID of the client."),
     ] = None
+    """
+    ID of the client.
+    """
+
     user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the user.
@@ -32,6 +36,11 @@ class UserGrant(UniversalBaseModel):
     scope: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     Scopes included in this grant.
+    """
+
+    organization_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID of the organization associated with the grant.
     """
 
     if IS_PYDANTIC_V2:

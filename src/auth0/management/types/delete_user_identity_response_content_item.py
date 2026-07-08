@@ -34,6 +34,10 @@ class DeleteUserIdentityResponseContentItem(UniversalBaseModel):
             description="<code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise",
         ),
     ] = None
+    """
+    <code>true</code> if the identity provider is a social provider, <code>false</code>s otherwise
+    """
+
     access_token: typing.Optional[str] = pydantic.Field(default=None)
     """
     IDP access token returned only if scope read:user_idp_tokens is defined

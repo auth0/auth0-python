@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .credential_id import CredentialId
+from .token_vault_privileged_access_grant import TokenVaultPrivilegedAccessGrant
 from .token_vault_privileged_access_ip_allowlist_entry import TokenVaultPrivilegedAccessIpAllowlistEntry
 
 
@@ -15,6 +16,7 @@ class ClientTokenVaultPrivilegedAccessWithCredentialId(UniversalBaseModel):
 
     credentials: typing.List[CredentialId]
     ip_allowlist: typing.Optional[typing.List[TokenVaultPrivilegedAccessIpAllowlistEntry]] = None
+    grants: typing.Optional[typing.List[TokenVaultPrivilegedAccessGrant]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

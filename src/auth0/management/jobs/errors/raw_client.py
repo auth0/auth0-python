@@ -25,7 +25,7 @@ class RawErrorsClient:
 
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ErrorsGetResponse]:
+    ) -> HttpResponse[typing.Optional[ErrorsGetResponse]]:
         """
         Retrieve error details of a failed job.
 
@@ -39,7 +39,7 @@ class RawErrorsClient:
 
         Returns
         -------
-        HttpResponse[ErrorsGetResponse]
+        HttpResponse[typing.Optional[ErrorsGetResponse]]
             Job successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -48,11 +48,13 @@ class RawErrorsClient:
             request_options=request_options,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ErrorsGetResponse,
+                    typing.Optional[ErrorsGetResponse],
                     parse_obj_as(
-                        type_=ErrorsGetResponse,  # type: ignore
+                        type_=typing.Optional[ErrorsGetResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -128,7 +130,7 @@ class AsyncRawErrorsClient:
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ErrorsGetResponse]:
+    ) -> AsyncHttpResponse[typing.Optional[ErrorsGetResponse]]:
         """
         Retrieve error details of a failed job.
 
@@ -142,7 +144,7 @@ class AsyncRawErrorsClient:
 
         Returns
         -------
-        AsyncHttpResponse[ErrorsGetResponse]
+        AsyncHttpResponse[typing.Optional[ErrorsGetResponse]]
             Job successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -151,11 +153,13 @@ class AsyncRawErrorsClient:
             request_options=request_options,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ErrorsGetResponse,
+                    typing.Optional[ErrorsGetResponse],
                     parse_obj_as(
-                        type_=ErrorsGetResponse,  # type: ignore
+                        type_=typing.Optional[ErrorsGetResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

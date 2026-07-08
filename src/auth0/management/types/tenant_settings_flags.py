@@ -21,6 +21,10 @@ class TenantSettingsFlags(UniversalBaseModel):
             description="Whether to use the older v1 change password flow (true, not recommended except for backward compatibility) or the newer safer flow (false, recommended).",
         ),
     ] = None
+    """
+    Whether to use the older v1 change password flow (true, not recommended except for backward compatibility) or the newer safer flow (false, recommended).
+    """
+
     enable_apis_section: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the APIs section is enabled (true) or disabled (false).
@@ -44,6 +48,10 @@ class TenantSettingsFlags(UniversalBaseModel):
             description="Whether advanced API Authorization scenarios are enabled (true) or disabled (false).",
         ),
     ] = None
+    """
+    Whether advanced API Authorization scenarios are enabled (true) or disabled (false).
+    """
+
     allow_legacy_delegation_grant_types: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If enabled, clients are able to add legacy delegation grants.
@@ -72,6 +80,10 @@ class TenantSettingsFlags(UniversalBaseModel):
             description="Whether ID tokens can be used to authorize some types of requests to API v2 (true) not not (false).",
         ),
     ] = None
+    """
+    Whether ID tokens can be used to authorize some types of requests to API v2 (true) not not (false).
+    """
+
     enable_public_signup_user_exists_error: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the public sign up process shows a user_exists error (true) or a generic error (false) if the user already exists.

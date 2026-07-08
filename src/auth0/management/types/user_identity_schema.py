@@ -26,6 +26,10 @@ class UserIdentitySchema(UniversalBaseModel):
             alias="isSocial", description="Whether this identity is from a social provider (true) or not (false)."
         ),
     ] = None
+    """
+    Whether this identity is from a social provider (true) or not (false).
+    """
+
     access_token: typing.Optional[str] = pydantic.Field(default=None)
     """
     IDP access token returned only if scope read:user_idp_tokens is defined.
