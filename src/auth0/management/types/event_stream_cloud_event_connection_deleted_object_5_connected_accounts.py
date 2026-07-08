@@ -4,16 +4,14 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .default_method_email_identifier_enum import DefaultMethodEmailIdentifierEnum
 
 
-class ConnectionAttributeIdentifier(UniversalBaseModel):
-    active: typing.Optional[bool] = pydantic.Field(default=None)
+class EventStreamCloudEventConnectionDeletedObject5ConnectedAccounts(UniversalBaseModel):
     """
-    Determines if the attribute is used for identification
+    Configure the purpose of a connection to be used for connected accounts and Token Vault.
     """
 
-    default_method: typing.Optional[DefaultMethodEmailIdentifierEnum] = None
+    active: bool
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

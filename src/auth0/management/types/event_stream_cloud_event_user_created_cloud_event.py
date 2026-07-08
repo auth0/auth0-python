@@ -8,6 +8,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .event_stream_cloud_event_a_0_purpose_enum import EventStreamCloudEventA0PurposeEnum
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 from .event_stream_cloud_event_user_created_cloud_event_type_enum import (
     EventStreamCloudEventUserCreatedCloudEventTypeEnum,
 )
@@ -19,11 +20,7 @@ class EventStreamCloudEventUserCreatedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when a user is created.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventUserCreatedCloudEventTypeEnum
     source: str = pydantic.Field()
     """

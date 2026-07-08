@@ -12,6 +12,7 @@ from .event_stream_cloud_event_org_deleted_cloud_event_type_enum import (
     EventStreamCloudEventOrgDeletedCloudEventTypeEnum,
 )
 from .event_stream_cloud_event_org_deleted_data import EventStreamCloudEventOrgDeletedData
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 
 
 class EventStreamCloudEventOrgDeletedCloudEvent(UniversalBaseModel):
@@ -19,11 +20,7 @@ class EventStreamCloudEventOrgDeletedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when an organization is deleted.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventOrgDeletedCloudEventTypeEnum
     source: str = pydantic.Field()
     """

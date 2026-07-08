@@ -12,6 +12,7 @@ from .event_stream_cloud_event_org_updated_cloud_event_type_enum import (
     EventStreamCloudEventOrgUpdatedCloudEventTypeEnum,
 )
 from .event_stream_cloud_event_org_updated_data import EventStreamCloudEventOrgUpdatedData
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 
 
 class EventStreamCloudEventOrgUpdatedCloudEvent(UniversalBaseModel):
@@ -19,11 +20,7 @@ class EventStreamCloudEventOrgUpdatedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when an organization is updated.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventOrgUpdatedCloudEventTypeEnum
     source: str = pydantic.Field()
     """

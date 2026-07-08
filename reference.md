@@ -6320,7 +6320,7 @@ client = Auth0(
 
 client.event_streams.test(
     id="id",
-    event_type="group.created",
+    event_type="connection.created",
 )
 
 ```
@@ -6413,7 +6413,7 @@ client.events.subscribe(
     from_="from",
     from_timestamp="from_timestamp",
     event_type=[
-        "group.created"
+        "connection.created"
     ],
 )
 
@@ -10294,6 +10294,14 @@ client.organizations.create(
 <dl>
 <dd>
 
+**third_party_client_access:** `typing.Optional[OrganizationThirdPartyClientAccessEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -10621,6 +10629,14 @@ client.organizations.update(
 <dd>
 
 **token_quota:** `typing.Optional[UpdateTokenQuota]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**third_party_client_access:** `typing.Optional[OrganizationThirdPartyClientAccessEnum]` 
     
 </dd>
 </dl>
@@ -28195,7 +28211,7 @@ client.guardian.factors.sms.set_provider(
 </dl>
 </details>
 
-<details><summary><code>client.guardian.factors.sms.<a href="src/auth0.management/guardian/factors/sms/client.py">get_templates</a>() -> GetGuardianFactorSmsTemplatesResponseContent</code></summary>
+<details><summary><code>client.guardian.factors.sms.<a href="src/auth0.management/guardian/factors/sms/client.py">get_templates</a>() -> typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]</code></summary>
 <dl>
 <dd>
 
@@ -29198,7 +29214,7 @@ client.jobs.verification_email.create(
 </details>
 
 ## Jobs Errors
-<details><summary><code>client.jobs.errors.<a href="src/auth0.management/jobs/errors/client.py">get</a>(...) -> ErrorsGetResponse</code></summary>
+<details><summary><code>client.jobs.errors.<a href="src/auth0.management/jobs/errors/client.py">get</a>(...) -> typing.Optional[ErrorsGetResponse]</code></summary>
 <dl>
 <dd>
 
@@ -33599,6 +33615,125 @@ client.organizations.members.effective_roles.sources.groups.list(
 <dd>
 
 **take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Organizations Roles Members
+<details><summary><code>client.organizations.roles.members.<a href="src/auth0.management/organizations/roles/members/client.py">list</a>(...) -> ListOrganizationRoleMembersResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the organization members assigned a specific role within the context of an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.roles.members.list(
+    id="id",
+    role_id="role_id",
+    from_="from",
+    take=1,
+    fields="fields",
+    include_fields=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**role_id:** `str` — ID of the role to retrieve the assigned members for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50. Values above the maximum permitted size are capped.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[str]` — Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_fields:** `typing.Optional[bool]` — Whether specified fields are to be included (true) or excluded (false). Defaults to true.
     
 </dd>
 </dl>
