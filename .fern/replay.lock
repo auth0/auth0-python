@@ -8808,7 +8808,7 @@ patches:
             "verifiable_credentials",
         ]
     user_owned: true
-    status: unresolved
+    status: resolving
   - id: patch-7271f157
     content_hash: sha256:cd98dd1948587cf3396a2eacf46626176784bd00996eb660374161bfef686e93
     original_commit: 7271f15759cfb545c9ef82b5a4f519ffe0a89db2
@@ -8989,7 +8989,7 @@ patches:
                     token = await self._async_token()
                     headers["Authorization"] = f"Bearer {token}"
                 return headers
-    status: unresolved
+    status: resolving
   - id: patch-c04f0b4d
     content_hash: sha256:efc0d6e98f846a1ec39e2be0c62a4b1698fe7cbb862229d9ce16095051c8e230
     original_commit: c04f0b4dbbe8f2300f4f1bf42f62350888a92da5
