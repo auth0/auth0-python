@@ -8,9 +8,9 @@ from .role import Role
 
 
 class ListRolesOffsetPaginatedResponseContent(UniversalBaseModel):
-    start: typing.Optional[float] = None
-    limit: typing.Optional[float] = None
-    total: typing.Optional[float] = None
+    start: float
+    limit: float
+    total: float
     roles: typing.Optional[typing.List[Role]] = None
 
     if IS_PYDANTIC_V2:

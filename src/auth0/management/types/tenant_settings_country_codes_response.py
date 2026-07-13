@@ -19,6 +19,10 @@ class TenantSettingsCountryCodesResponse(UniversalBaseModel):
         FieldMetadata(alias="list"),
         pydantic.Field(alias="list", description="Array of ISO 3166-1 alpha-2 country codes."),
     ] = None
+    """
+    Array of ISO 3166-1 alpha-2 country codes.
+    """
+
     mode: typing.Optional[TenantSettingsCountryCodesModeResponse] = None
 
     if IS_PYDANTIC_V2:

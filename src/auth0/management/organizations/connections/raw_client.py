@@ -95,7 +95,7 @@ class RawConnectionsClient:
                     ),
                 )
                 _items = _parsed_response.connections
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     page=page + 1,
@@ -656,7 +656,7 @@ class AsyncRawConnectionsClient:
                     ),
                 )
                 _items = _parsed_response.connections
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(

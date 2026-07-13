@@ -69,6 +69,10 @@ class Client(UniversalBaseModel):
             description="Whether this is your global 'All Applications' client representing legacy tenant settings (true) or a regular client (false).",
         ),
     ] = None
+    """
+    Whether this is your global 'All Applications' client representing legacy tenant settings (true) or a regular client (false).
+    """
+
     client_secret: typing.Optional[str] = pydantic.Field(default=None)
     """
     Client secret (which you must not make public).

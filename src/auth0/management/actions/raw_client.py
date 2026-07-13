@@ -107,7 +107,7 @@ class RawActionsClient:
                     ),
                 )
                 _items = _parsed_response.actions
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     trigger_id=trigger_id,
                     action_name=action_name,
@@ -910,7 +910,7 @@ class AsyncRawActionsClient:
                     ),
                 )
                 _items = _parsed_response.actions
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(

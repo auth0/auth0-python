@@ -19,11 +19,19 @@ class GetBrandingDefaultThemeResponseContent(UniversalBaseModel):
     display_name: typing_extensions.Annotated[
         str, FieldMetadata(alias="displayName"), pydantic.Field(alias="displayName", description="Display Name")
     ]
+    """
+    Display Name
+    """
+
     fonts: BrandingThemeFonts
     page_background: BrandingThemePageBackground
     theme_id: typing_extensions.Annotated[
         str, FieldMetadata(alias="themeId"), pydantic.Field(alias="themeId", description="Theme Id")
     ]
+    """
+    Theme Id
+    """
+
     widget: BrandingThemeWidget
 
     if IS_PYDANTIC_V2:

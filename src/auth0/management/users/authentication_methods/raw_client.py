@@ -96,7 +96,7 @@ class RawAuthenticationMethodsClient:
                     ),
                 )
                 _items = _parsed_response.authenticators
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     page=page + 1,
@@ -925,7 +925,7 @@ class AsyncRawAuthenticationMethodsClient:
                     ),
                 )
                 _items = _parsed_response.authenticators
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(

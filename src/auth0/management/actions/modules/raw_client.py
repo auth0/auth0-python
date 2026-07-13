@@ -86,7 +86,7 @@ class RawModulesClient:
                     ),
                 )
                 _items = _parsed_response.modules
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     page=page + 1,
                     per_page=per_page,
@@ -668,7 +668,7 @@ class RawModulesClient:
                     ),
                 )
                 _items = _parsed_response.actions
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list_actions(
                     id,
                     page=page + 1,
@@ -911,7 +911,7 @@ class AsyncRawModulesClient:
                     ),
                 )
                 _items = _parsed_response.modules
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -1498,7 +1498,7 @@ class AsyncRawModulesClient:
                     ),
                 )
                 _items = _parsed_response.actions
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list_actions(
