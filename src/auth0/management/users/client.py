@@ -25,10 +25,6 @@ if typing.TYPE_CHECKING:
     from .effective_permissions.client import AsyncEffectivePermissionsClient, EffectivePermissionsClient
     from .effective_roles.client import AsyncEffectiveRolesClient, EffectiveRolesClient
     from .enrollments.client import AsyncEnrollmentsClient, EnrollmentsClient
-    from .federated_connections_tokensets.client import (
-        AsyncFederatedConnectionsTokensetsClient,
-        FederatedConnectionsTokensetsClient,
-    )
     from .groups.client import AsyncGroupsClient, GroupsClient
     from .identities.client import AsyncIdentitiesClient, IdentitiesClient
     from .logs.client import AsyncLogsClient, LogsClient
@@ -53,7 +49,6 @@ class UsersClient:
         self._effective_permissions: typing.Optional[EffectivePermissionsClient] = None
         self._effective_roles: typing.Optional[EffectiveRolesClient] = None
         self._enrollments: typing.Optional[EnrollmentsClient] = None
-        self._federated_connections_tokensets: typing.Optional[FederatedConnectionsTokensetsClient] = None
         self._groups: typing.Optional[GroupsClient] = None
         self._identities: typing.Optional[IdentitiesClient] = None
         self._logs: typing.Optional[LogsClient] = None
@@ -785,16 +780,6 @@ class UsersClient:
         return self._enrollments
 
     @property
-    def federated_connections_tokensets(self):
-        if self._federated_connections_tokensets is None:
-            from .federated_connections_tokensets.client import FederatedConnectionsTokensetsClient  # noqa: E402
-
-            self._federated_connections_tokensets = FederatedConnectionsTokensetsClient(
-                client_wrapper=self._client_wrapper
-            )
-        return self._federated_connections_tokensets
-
-    @property
     def groups(self):
         if self._groups is None:
             from .groups.client import GroupsClient  # noqa: E402
@@ -885,7 +870,6 @@ class AsyncUsersClient:
         self._effective_permissions: typing.Optional[AsyncEffectivePermissionsClient] = None
         self._effective_roles: typing.Optional[AsyncEffectiveRolesClient] = None
         self._enrollments: typing.Optional[AsyncEnrollmentsClient] = None
-        self._federated_connections_tokensets: typing.Optional[AsyncFederatedConnectionsTokensetsClient] = None
         self._groups: typing.Optional[AsyncGroupsClient] = None
         self._identities: typing.Optional[AsyncIdentitiesClient] = None
         self._logs: typing.Optional[AsyncLogsClient] = None
@@ -1680,16 +1664,6 @@ class AsyncUsersClient:
 
             self._enrollments = AsyncEnrollmentsClient(client_wrapper=self._client_wrapper)
         return self._enrollments
-
-    @property
-    def federated_connections_tokensets(self):
-        if self._federated_connections_tokensets is None:
-            from .federated_connections_tokensets.client import AsyncFederatedConnectionsTokensetsClient  # noqa: E402
-
-            self._federated_connections_tokensets = AsyncFederatedConnectionsTokensetsClient(
-                client_wrapper=self._client_wrapper
-            )
-        return self._federated_connections_tokensets
 
     @property
     def groups(self):
