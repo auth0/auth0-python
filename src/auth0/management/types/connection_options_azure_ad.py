@@ -16,7 +16,6 @@ from .connection_ext_assigned_plans import ConnectionExtAssignedPlans
 from .connection_ext_groups_azure_ad import ConnectionExtGroupsAzureAd
 from .connection_ext_is_suspended import ConnectionExtIsSuspended
 from .connection_ext_profile import ConnectionExtProfile
-from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
 from .connection_icon_url_azure_ad import ConnectionIconUrlAzureAd
 from .connection_identity_api_azure_ad import ConnectionIdentityApiAzureAd
 from .connection_max_groups_to_retrieve import ConnectionMaxGroupsToRetrieve
@@ -260,7 +259,6 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     When false, prevents storing an alternative user ID. When true (default), this user ID is persisted in the user profile.
     """
 
-    federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
     granted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether admin consent has been granted for the required Azure AD permissions. Read-only status field managed by Auth0 during the OAuth authorization flow.

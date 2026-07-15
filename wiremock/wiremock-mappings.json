@@ -3406,7 +3406,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"description\": \"description\",\n  \"active\": true,\n  \"priority\": 1.1,\n  \"rule\": {\n    \"action\": {\n      \"block\": true,\n      \"allow\": true,\n      \"log\": true,\n      \"redirect\": true,\n      \"redirect_uri\": \"redirect_uri\"\n    },\n    \"match\": {\n      \"asns\": [\n        1\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"not_match\": {\n      \"asns\": [\n        1\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"scope\": \"management\"\n  },\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"description\": \"description\",\n  \"active\": true,\n  \"priority\": 1.1,\n  \"rule\": {\n    \"action\": {\n      \"block\": true,\n      \"allow\": true,\n      \"log\": true,\n      \"redirect\": true,\n      \"redirect_uri\": \"redirect_uri\"\n    },\n    \"match\": {\n      \"asns\": [\n        1\n      ],\n      \"auth0_managed\": [\n        \"auth0_managed\"\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"not_match\": {\n      \"asns\": [\n        1\n      ],\n      \"auth0_managed\": [\n        \"auth0_managed\"\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"scope\": \"management\"\n  },\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3442,7 +3442,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"description\": \"description\",\n  \"active\": true,\n  \"priority\": 1.1,\n  \"rule\": {\n    \"action\": {\n      \"block\": true,\n      \"allow\": true,\n      \"log\": true,\n      \"redirect\": true,\n      \"redirect_uri\": \"redirect_uri\"\n    },\n    \"match\": {\n      \"asns\": [\n        1\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"not_match\": {\n      \"asns\": [\n        1\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"scope\": \"management\"\n  },\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"description\": \"description\",\n  \"active\": true,\n  \"priority\": 1.1,\n  \"rule\": {\n    \"action\": {\n      \"block\": true,\n      \"allow\": true,\n      \"log\": true,\n      \"redirect\": true,\n      \"redirect_uri\": \"redirect_uri\"\n    },\n    \"match\": {\n      \"asns\": [\n        1\n      ],\n      \"auth0_managed\": [\n        \"auth0_managed\"\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"not_match\": {\n      \"asns\": [\n        1\n      ],\n      \"auth0_managed\": [\n        \"auth0_managed\"\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"scope\": \"management\"\n  },\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3514,7 +3514,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"description\": \"description\",\n  \"active\": true,\n  \"priority\": 1.1,\n  \"rule\": {\n    \"action\": {\n      \"block\": true,\n      \"allow\": true,\n      \"log\": true,\n      \"redirect\": true,\n      \"redirect_uri\": \"redirect_uri\"\n    },\n    \"match\": {\n      \"asns\": [\n        1\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"not_match\": {\n      \"asns\": [\n        1\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"scope\": \"management\"\n  },\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"description\": \"description\",\n  \"active\": true,\n  \"priority\": 1.1,\n  \"rule\": {\n    \"action\": {\n      \"block\": true,\n      \"allow\": true,\n      \"log\": true,\n      \"redirect\": true,\n      \"redirect_uri\": \"redirect_uri\"\n    },\n    \"match\": {\n      \"asns\": [\n        1\n      ],\n      \"auth0_managed\": [\n        \"auth0_managed\"\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"not_match\": {\n      \"asns\": [\n        1\n      ],\n      \"auth0_managed\": [\n        \"auth0_managed\"\n      ],\n      \"geo_country_codes\": [\n        \"geo_country_codes\"\n      ],\n      \"geo_subdivision_codes\": [\n        \"geo_subdivision_codes\"\n      ],\n      \"ipv4_cidrs\": [\n        \"ipv4_cidrs\"\n      ],\n      \"ipv6_cidrs\": [\n        \"ipv6_cidrs\"\n      ],\n      \"ja3_fingerprints\": [\n        \"ja3_fingerprints\"\n      ],\n      \"ja4_fingerprints\": [\n        \"ja4_fingerprints\"\n      ],\n      \"user_agents\": [\n        \"user_agents\"\n      ],\n      \"hostnames\": [\n        \"hostnames\"\n      ],\n      \"connecting_ipv4_cidrs\": [\n        \"connecting_ipv4_cidrs\"\n      ],\n      \"connecting_ipv6_cidrs\": [\n        \"connecting_ipv6_cidrs\"\n      ]\n    },\n    \"scope\": \"management\"\n  },\n  \"created_at\": \"created_at\",\n  \"updated_at\": \"updated_at\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -14979,81 +14979,6 @@
       }
     },
     {
-      "id": "7df16d6a-51ec-415e-a605-f161474b5a60",
-      "name": "Get tokensets for a user - default",
-      "request": {
-        "urlPathTemplate": "/users/{id}/federated-connections-tokensets",
-        "method": "GET",
-        "headers": {
-          "Authorization": {
-            "matches": "Bearer .+"
-          }
-        },
-        "pathParameters": {
-          "id": {
-            "equalTo": "id"
-          }
-        }
-      },
-      "response": {
-        "status": 200,
-        "body": "[\n  {\n    \"id\": \"id\",\n    \"connection\": \"connection\",\n    \"scope\": \"scope\",\n    \"expires_at\": \"2024-01-15T09:30:00Z\",\n    \"issued_at\": \"2024-01-15T09:30:00Z\",\n    \"last_used_at\": \"2024-01-15T09:30:00Z\"\n  }\n]",
-        "headers": {
-          "Content-Type": "application/json"
-        }
-      },
-      "uuid": "7df16d6a-51ec-415e-a605-f161474b5a60",
-      "persistent": true,
-      "priority": 3,
-      "metadata": {
-        "mocklab": {
-          "created": {
-            "at": "2020-01-01T00:00:00.000Z",
-            "via": "SYSTEM"
-          }
-        }
-      }
-    },
-    {
-      "id": "2dd7f5e1-dfec-4564-8331-8dd9d7ecfa93",
-      "name": "Deletes a tokenset for federated connections by id. - default",
-      "request": {
-        "urlPathTemplate": "/users/{id}/federated-connections-tokensets/{tokenset_id}",
-        "method": "DELETE",
-        "headers": {
-          "Authorization": {
-            "matches": "Bearer .+"
-          }
-        },
-        "pathParameters": {
-          "id": {
-            "equalTo": "id"
-          },
-          "tokenset_id": {
-            "equalTo": "tokenset_id"
-          }
-        }
-      },
-      "response": {
-        "status": 200,
-        "body": "\"\"",
-        "headers": {
-          "Content-Type": "application/json"
-        }
-      },
-      "uuid": "2dd7f5e1-dfec-4564-8331-8dd9d7ecfa93",
-      "persistent": true,
-      "priority": 3,
-      "metadata": {
-        "mocklab": {
-          "created": {
-            "at": "2020-01-01T00:00:00.000Z",
-            "via": "SYSTEM"
-          }
-        }
-      }
-    },
-    {
       "id": "10f1d36a-08fb-4d1c-9ae0-7e3a75f996ee",
       "name": "Get user's groups - default",
       "request": {
@@ -16065,6 +15990,6 @@
     }
   ],
   "meta": {
-    "total": 430
+    "total": 428
   }
 }

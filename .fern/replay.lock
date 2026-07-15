@@ -49,7 +49,13 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.17.0
-current_generation: 0ad7f7046e16c2c18e6c4b2c2f40e3f53b13f104
+  - commit_sha: f3e76ebf362aac6f76e51d749b7497af72a641ff
+    tree_hash: b6cd2c44dba6fee1b4f7f3a3b073868eb9843957
+    timestamp: 2026-07-14T15:57:13.040Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.17.0
+current_generation: f3e76ebf362aac6f76e51d749b7497af72a641ff
 patches:
   - id: patch-4894603d
     content_hash: sha256:fc35b55720e7e9e354dca29191c5832b7e242ad21ba635310c698ea2c3b70a00
@@ -8991,19 +8997,28 @@ patches:
                 return headers
     status: resolving
   - id: patch-c04f0b4d
-    content_hash: sha256:efc0d6e98f846a1ec39e2be0c62a4b1698fe7cbb862229d9ce16095051c8e230
+    content_hash: sha256:83d107f26dbfc31edb435b802c8aed47747628eddee83e0fb85a71ec8d11519c
     original_commit: c04f0b4dbbe8f2300f4f1bf42f62350888a92da5
     original_message: Fix for incorrect return type and missing __all__ type
     original_author: Sourav Basu <sourav.basu@okta.com>
-    base_generation: 0ad7f7046e16c2c18e6c4b2c2f40e3f53b13f104
+    base_generation: f3e76ebf362aac6f76e51d749b7497af72a641ff
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index 1f42ca56..48bbce95 100644
+      index b2be29eb..ec3d7dfc 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -3192,6 +3192,8 @@ if typing.TYPE_CHECKING:
+      @@ -1860,6 +1860,8 @@ if typing.TYPE_CHECKING:
+               FedCmLoginGoogle,
+               FedCmLoginGooglePatch,
+               FedCmLoginPatch,
+      +        FedCmLoginGooglePatch,
+      +        FedCmLoginPatch,
+               FlowAction,
+               FlowActionActivecampaign,
+               FlowActionActivecampaignListContacts,
+      @@ -3190,6 +3192,8 @@ if typing.TYPE_CHECKING:
            from .environment import Auth0Environment
            from .event_streams import EventStreamsCreateRequest
            from .version import __version__
@@ -9012,7 +9027,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -3252,6 +3254,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -3250,6 +3254,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "AssociateOrganizationClientGrantResponseContent": ".types",
            "AsyncApprovalNotificationsChannelsEnum": ".types",
            "AsyncAuth0": ".client",
@@ -9021,7 +9036,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent": ".types",
            "AttackProtectionCaptchaAuthChallengeRequest": ".types",
            "AttackProtectionCaptchaAuthChallengeResponseContent": ".types",
-      @@ -4224,6 +4228,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -4221,6 +4227,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CspReportingEndpoints": ".types",
            "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
@@ -9029,7 +9044,16 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainProvisioningTypeEnum": ".types",
-      @@ -5874,6 +5879,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5053,6 +5060,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+           "FedCmLoginGoogle": ".types",
+           "FedCmLoginGooglePatch": ".types",
+           "FedCmLoginPatch": ".types",
+      +    "FedCmLoginGooglePatch": ".types",
+      +    "FedCmLoginPatch": ".types",
+           "FlowAction": ".types",
+           "FlowActionActivecampaign": ".types",
+           "FlowActionActivecampaignListContacts": ".types",
+      @@ -5870,6 +5879,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "LogStreamSumoEnum": ".types",
            "LogStreamSumoResponseSchema": ".types",
            "LogStreamSumoSink": ".types",
@@ -9037,7 +9061,7 @@ patches:
            "MdlPresentationProperties": ".types",
            "MdlPresentationRequest": ".types",
            "MdlPresentationRequestProperties": ".types",
-      @@ -6132,6 +6138,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -6128,6 +6138,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "TestEventDataContent": ".types",
            "TokenExchangeProfileResponseContent": ".types",
            "TokenExchangeProfileTypeEnum": ".types",
@@ -9045,7 +9069,7 @@ patches:
            "TokenQuota": ".types",
            "TokenQuotaClientCredentials": ".types",
            "TokenQuotaConfiguration": ".types",
-      @@ -6459,6 +6466,8 @@ __all__ = [
+      @@ -6455,6 +6466,8 @@ __all__ = [
            "AssociateOrganizationClientGrantResponseContent",
            "AsyncApprovalNotificationsChannelsEnum",
            "AsyncAuth0",
@@ -9054,7 +9078,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent",
            "AttackProtectionCaptchaAuthChallengeRequest",
            "AttackProtectionCaptchaAuthChallengeResponseContent",
-      @@ -7431,6 +7440,7 @@ __all__ = [
+      @@ -7426,6 +7439,7 @@ __all__ = [
            "CspReportingEndpoints",
            "CspReportingInfrastructure",
            "CustomDomain",
@@ -9062,7 +9086,16 @@ patches:
            "CustomDomainCustomClientIpHeader",
            "CustomDomainCustomClientIpHeaderEnum",
            "CustomDomainProvisioningTypeEnum",
-      @@ -9081,6 +9091,7 @@ __all__ = [
+      @@ -8258,6 +8272,8 @@ __all__ = [
+           "FedCmLoginGoogle",
+           "FedCmLoginGooglePatch",
+           "FedCmLoginPatch",
+      +    "FedCmLoginGooglePatch",
+      +    "FedCmLoginPatch",
+           "FlowAction",
+           "FlowActionActivecampaign",
+           "FlowActionActivecampaignListContacts",
+      @@ -9075,6 +9091,7 @@ __all__ = [
            "LogStreamSumoEnum",
            "LogStreamSumoResponseSchema",
            "LogStreamSumoSink",
@@ -9070,7 +9103,7 @@ patches:
            "MdlPresentationProperties",
            "MdlPresentationRequest",
            "MdlPresentationRequestProperties",
-      @@ -9339,6 +9350,7 @@ __all__ = [
+      @@ -9333,6 +9350,7 @@ __all__ = [
            "TestEventDataContent",
            "TokenExchangeProfileResponseContent",
            "TokenExchangeProfileTypeEnum",
@@ -9448,7 +9481,6 @@ patches:
                 ConnectionExtIsSuspended,
                 ConnectionExtIsSuspendedGoogleApps,
                 ConnectionExtProfile,
-                ConnectionFederatedConnectionsAccessTokens,
                 ConnectionFieldsMap,
                 ConnectionFieldsMapSaml,
                 ConnectionFieldsMapSamlValue,
@@ -10943,7 +10975,8 @@ patches:
                 FedCmLoginGoogle,
                 FedCmLoginGooglePatch,
                 FedCmLoginPatch,
-                FederatedConnectionTokenSet,
+                FedCmLoginGooglePatch,
+                FedCmLoginPatch,
                 FlowAction,
                 FlowActionActivecampaign,
                 FlowActionActivecampaignListContacts,
@@ -12643,7 +12676,6 @@ patches:
             "ConnectionExtIsSuspended": ".types",
             "ConnectionExtIsSuspendedGoogleApps": ".types",
             "ConnectionExtProfile": ".types",
-            "ConnectionFederatedConnectionsAccessTokens": ".types",
             "ConnectionFieldsMap": ".types",
             "ConnectionFieldsMapSaml": ".types",
             "ConnectionFieldsMapSamlValue": ".types",
@@ -14143,7 +14175,8 @@ patches:
             "FedCmLoginGoogle": ".types",
             "FedCmLoginGooglePatch": ".types",
             "FedCmLoginPatch": ".types",
-            "FederatedConnectionTokenSet": ".types",
+            "FedCmLoginGooglePatch": ".types",
+            "FedCmLoginPatch": ".types",
             "FlowAction": ".types",
             "FlowActionActivecampaign": ".types",
             "FlowActionActivecampaignListContacts": ".types",
@@ -15855,7 +15888,6 @@ patches:
             "ConnectionExtIsSuspended",
             "ConnectionExtIsSuspendedGoogleApps",
             "ConnectionExtProfile",
-            "ConnectionFederatedConnectionsAccessTokens",
             "ConnectionFieldsMap",
             "ConnectionFieldsMapSaml",
             "ConnectionFieldsMapSamlValue",
@@ -17355,7 +17387,8 @@ patches:
             "FedCmLoginGoogle",
             "FedCmLoginGooglePatch",
             "FedCmLoginPatch",
-            "FederatedConnectionTokenSet",
+            "FedCmLoginGooglePatch",
+            "FedCmLoginPatch",
             "FlowAction",
             "FlowActionActivecampaign",
             "FlowActionActivecampaignListContacts",
@@ -18677,21 +18710,31 @@ patches:
             "users",
             "verifiable_credentials",
         ]
+    user_owned: true
   - id: patch-95211006
-    content_hash: sha256:bf02e0b67ed9dcfde6ffbf2880f2355bf31e840592fd6e914a1c4a99d6292614
+    content_hash: sha256:1be4415d1692a2bc1fc88fced25a9d80a56fc838787fd3c66b41cae244c29a7d
     original_commit: 952110062af1b3eb297b3cb94149b1bb8068a253
     original_message: Restore Auth0 telemetry and custom client wiring after regeneration
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 0ad7f7046e16c2c18e6c4b2c2f40e3f53b13f104
+    base_generation: f3e76ebf362aac6f76e51d749b7497af72a641ff
     files:
       - src/auth0/management/__init__.py
       - src/auth0/management/core/client_wrapper.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index 1f42ca56..48bbce95 100644
+      index b2be29eb..ec3d7dfc 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -3192,6 +3192,8 @@ if typing.TYPE_CHECKING:
+      @@ -1860,6 +1860,8 @@ if typing.TYPE_CHECKING:
+               FedCmLoginGoogle,
+               FedCmLoginGooglePatch,
+               FedCmLoginPatch,
+      +        FedCmLoginGooglePatch,
+      +        FedCmLoginPatch,
+               FlowAction,
+               FlowActionActivecampaign,
+               FlowActionActivecampaignListContacts,
+      @@ -3190,6 +3192,8 @@ if typing.TYPE_CHECKING:
            from .environment import Auth0Environment
            from .event_streams import EventStreamsCreateRequest
            from .version import __version__
@@ -18700,7 +18743,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -3252,6 +3254,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -3250,6 +3254,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "AssociateOrganizationClientGrantResponseContent": ".types",
            "AsyncApprovalNotificationsChannelsEnum": ".types",
            "AsyncAuth0": ".client",
@@ -18709,7 +18752,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent": ".types",
            "AttackProtectionCaptchaAuthChallengeRequest": ".types",
            "AttackProtectionCaptchaAuthChallengeResponseContent": ".types",
-      @@ -4224,6 +4228,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -4221,6 +4227,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CspReportingEndpoints": ".types",
            "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
@@ -18717,7 +18760,16 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainProvisioningTypeEnum": ".types",
-      @@ -5874,6 +5879,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5053,6 +5060,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+           "FedCmLoginGoogle": ".types",
+           "FedCmLoginGooglePatch": ".types",
+           "FedCmLoginPatch": ".types",
+      +    "FedCmLoginGooglePatch": ".types",
+      +    "FedCmLoginPatch": ".types",
+           "FlowAction": ".types",
+           "FlowActionActivecampaign": ".types",
+           "FlowActionActivecampaignListContacts": ".types",
+      @@ -5870,6 +5879,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "LogStreamSumoEnum": ".types",
            "LogStreamSumoResponseSchema": ".types",
            "LogStreamSumoSink": ".types",
@@ -18725,7 +18777,7 @@ patches:
            "MdlPresentationProperties": ".types",
            "MdlPresentationRequest": ".types",
            "MdlPresentationRequestProperties": ".types",
-      @@ -6132,6 +6138,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -6128,6 +6138,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "TestEventDataContent": ".types",
            "TokenExchangeProfileResponseContent": ".types",
            "TokenExchangeProfileTypeEnum": ".types",
@@ -18733,7 +18785,7 @@ patches:
            "TokenQuota": ".types",
            "TokenQuotaClientCredentials": ".types",
            "TokenQuotaConfiguration": ".types",
-      @@ -6459,6 +6466,8 @@ __all__ = [
+      @@ -6455,6 +6466,8 @@ __all__ = [
            "AssociateOrganizationClientGrantResponseContent",
            "AsyncApprovalNotificationsChannelsEnum",
            "AsyncAuth0",
@@ -18742,7 +18794,7 @@ patches:
            "AttackProtectionCaptchaArkoseResponseContent",
            "AttackProtectionCaptchaAuthChallengeRequest",
            "AttackProtectionCaptchaAuthChallengeResponseContent",
-      @@ -7431,6 +7440,7 @@ __all__ = [
+      @@ -7426,6 +7439,7 @@ __all__ = [
            "CspReportingEndpoints",
            "CspReportingInfrastructure",
            "CustomDomain",
@@ -18750,7 +18802,16 @@ patches:
            "CustomDomainCustomClientIpHeader",
            "CustomDomainCustomClientIpHeaderEnum",
            "CustomDomainProvisioningTypeEnum",
-      @@ -9081,6 +9091,7 @@ __all__ = [
+      @@ -8258,6 +8272,8 @@ __all__ = [
+           "FedCmLoginGoogle",
+           "FedCmLoginGooglePatch",
+           "FedCmLoginPatch",
+      +    "FedCmLoginGooglePatch",
+      +    "FedCmLoginPatch",
+           "FlowAction",
+           "FlowActionActivecampaign",
+           "FlowActionActivecampaignListContacts",
+      @@ -9075,6 +9091,7 @@ __all__ = [
            "LogStreamSumoEnum",
            "LogStreamSumoResponseSchema",
            "LogStreamSumoSink",
@@ -18758,7 +18819,7 @@ patches:
            "MdlPresentationProperties",
            "MdlPresentationRequest",
            "MdlPresentationRequestProperties",
-      @@ -9339,6 +9350,7 @@ __all__ = [
+      @@ -9333,6 +9350,7 @@ __all__ = [
            "TestEventDataContent",
            "TokenExchangeProfileResponseContent",
            "TokenExchangeProfileTypeEnum",
@@ -19168,7 +19229,6 @@ patches:
                 ConnectionExtIsSuspended,
                 ConnectionExtIsSuspendedGoogleApps,
                 ConnectionExtProfile,
-                ConnectionFederatedConnectionsAccessTokens,
                 ConnectionFieldsMap,
                 ConnectionFieldsMapSaml,
                 ConnectionFieldsMapSamlValue,
@@ -20663,7 +20723,8 @@ patches:
                 FedCmLoginGoogle,
                 FedCmLoginGooglePatch,
                 FedCmLoginPatch,
-                FederatedConnectionTokenSet,
+                FedCmLoginGooglePatch,
+                FedCmLoginPatch,
                 FlowAction,
                 FlowActionActivecampaign,
                 FlowActionActivecampaignListContacts,
@@ -22363,7 +22424,6 @@ patches:
             "ConnectionExtIsSuspended": ".types",
             "ConnectionExtIsSuspendedGoogleApps": ".types",
             "ConnectionExtProfile": ".types",
-            "ConnectionFederatedConnectionsAccessTokens": ".types",
             "ConnectionFieldsMap": ".types",
             "ConnectionFieldsMapSaml": ".types",
             "ConnectionFieldsMapSamlValue": ".types",
@@ -23863,7 +23923,8 @@ patches:
             "FedCmLoginGoogle": ".types",
             "FedCmLoginGooglePatch": ".types",
             "FedCmLoginPatch": ".types",
-            "FederatedConnectionTokenSet": ".types",
+            "FedCmLoginGooglePatch": ".types",
+            "FedCmLoginPatch": ".types",
             "FlowAction": ".types",
             "FlowActionActivecampaign": ".types",
             "FlowActionActivecampaignListContacts": ".types",
@@ -25575,7 +25636,6 @@ patches:
             "ConnectionExtIsSuspended",
             "ConnectionExtIsSuspendedGoogleApps",
             "ConnectionExtProfile",
-            "ConnectionFederatedConnectionsAccessTokens",
             "ConnectionFieldsMap",
             "ConnectionFieldsMapSaml",
             "ConnectionFieldsMapSamlValue",
@@ -27075,7 +27135,8 @@ patches:
             "FedCmLoginGoogle",
             "FedCmLoginGooglePatch",
             "FedCmLoginPatch",
-            "FederatedConnectionTokenSet",
+            "FedCmLoginGooglePatch",
+            "FedCmLoginPatch",
             "FlowAction",
             "FlowActionActivecampaign",
             "FlowActionActivecampaignListContacts",
@@ -28557,3 +28618,4 @@ patches:
                     token = await self._async_token()
                     headers["Authorization"] = f"Bearer {token}"
                 return headers
+    user_owned: true

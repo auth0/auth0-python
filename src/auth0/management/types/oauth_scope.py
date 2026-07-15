@@ -84,8 +84,6 @@ OauthScope = typing.Union[
         "update:event_streams",
         "delete:event_streams",
         "read:events",
-        "read:federated_connections_tokens",
-        "delete:federated_connections_tokens",
         "create:flows",
         "read:flows",
         "update:flows",

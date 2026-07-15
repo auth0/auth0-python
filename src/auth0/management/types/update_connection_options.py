@@ -11,7 +11,6 @@ from .connection_attributes import ConnectionAttributes
 from .connection_authentication_methods import ConnectionAuthenticationMethods
 from .connection_custom_scripts import ConnectionCustomScripts
 from .connection_dpop_signing_alg_enum import ConnectionDpopSigningAlgEnum
-from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
 from .connection_gateway_authentication import ConnectionGatewayAuthentication
 from .connection_id_token_session_expiry_supported import ConnectionIdTokenSessionExpirySupported
 from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
@@ -103,7 +102,6 @@ class UpdateConnectionOptions(UniversalBaseModel):
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
     gateway_authentication: typing.Optional[ConnectionGatewayAuthentication] = None
-    federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
     password_options: typing.Optional[ConnectionPasswordOptions] = None
     assertion_decryption_settings: typing.Optional[ConnectionAssertionDecryptionSettings] = None
     id_token_signed_response_algs: typing.Optional[ConnectionIdTokenSignedResponseAlgs] = None
