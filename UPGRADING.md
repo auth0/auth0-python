@@ -11,11 +11,6 @@ A guide to migrating the Auth0 Python SDK from v5 to v6.
   - [`ConnectionAttributeIdentifier` split into three types](#connectionattributeidentifier-split-into-three-types)
   - [`PhoneProviderProtectionBackoffStrategyEnum` value renamed](#phoneproviderprotectionbackoffstrategyenum-value-renamed)
   - [`ListRolesOffsetPaginatedResponseContent` pagination fields now required](#listrolesoffsetpaginatedresponsecontent-pagination-fields-now-required)
-- [New features](#new-features)
-  - [Network ACL: `auth0_managed` field](#network-acl-auth0_managed-field)
-  - [Organizations: role members endpoint](#organizations-role-members-endpoint)
-  - [Organizations: third-party client access](#organizations-third-party-client-access)
-  - [Other additions](#other-additions)
 
 ## Overall changes
 
@@ -61,8 +56,11 @@ from:
 - `UpdateConnectionOptions`
 
 Any code reading or setting this field on the above types will need to
-remove that usage; passing it will simply be dropped as an unrecognized
-field.
+remove that usage. Note that these models are configured with
+`extra="allow"`, so passing `federated_connections_access_tokens` is **not**
+silently dropped — it is retained on the model and still serialized into the
+outbound request. Remove the field explicitly rather than relying on the SDK
+to strip it.
 
 ### `read:federated_connections_tokens` / `delete:federated_connections_tokens` scopes removed
 
@@ -101,14 +99,14 @@ It is replaced by three narrower types, one per attribute:
 # v5
 from auth0.management.types import ConnectionAttributeIdentifier
 
-identifier = ConnectionAttributeIdentifier(active=True, default_method="email")
+identifier = ConnectionAttributeIdentifier(active=True, default_method="email_otp")
 ```
 
 ```python
 # v6
 from auth0.management.types import EmailAttributeIdentifier
 
-identifier = EmailAttributeIdentifier(active=True, default_method="email")
+identifier = EmailAttributeIdentifier(active=True, default_method="email_otp")
 ```
 
 `EmailAttributeIdentifier` has the same shape as the old
@@ -157,65 +155,3 @@ Deserializing a role-list response that is missing any of these fields now
 raises `pydantic.ValidationError` instead of silently defaulting to `None`.
 This matches the Management API, which always returns these fields for this
 endpoint.
-
-## New features
-
-### Network ACL: `auth0_managed` field
-
-`NetworkAclMatch` gains an optional `auth0_managed: Optional[List[str]]`
-field (serialized as `auth0_managed`), available on both the `match` and
-`not_match` rule blocks. Use it to reference Auth0-managed lists when
-matching or excluding traffic:
-
-```python
-from auth0.management.types import NetworkAclMatch
-
-match = NetworkAclMatch(auth_0_managed=["tor-exit-nodes"])
-```
-
-The Python attribute is `auth_0_managed`; it serializes to `auth0_managed`
-over the wire. Both spellings are accepted as the constructor keyword.
-
-### Organizations: role members endpoint
-
-New sub-clients `organizations.roles` and `organizations.roles.members`
-expose `GET /api/v2/organizations/{id}/roles/{role_id}/members`:
-
-```python
-for member in client.organizations.roles.members.list(id="org_id", role_id="role_id"):
-    print(member)
-```
-
-This returns a `SyncPager`/`AsyncPager` of `RoleMember`, wrapping
-`ListOrganizationRoleMembersResponseContent`.
-
-### Organizations: third-party client access
-
-`create()`/`update()` and all organization response types gain
-`third_party_client_access: Optional[OrganizationThirdPartyClientAccessEnum]`
-(`Literal["block", "allow"]`), controlling whether third-party clients can
-access the organization.
-
-### Other additions
-
-- **Grants**: `UserGrant.organization_id: Optional[str]` (read-only), returned
-  from `GET /grants`.
-- **Connections**: `discovery_url` / `oidc_metadata` are now available on
-  `samlp` connections (previously OIDC-only), via new `ConnectionsDiscoveryUrl`
-  / `ConnectionsOidcMetadata` on `ConnectionPropertiesOptions` and
-  `UpdateConnectionOptions`.
-- **Event Streams**: new event-type values `connection.created`,
-  `connection.deleted`, `connection.updated` on `EventStreamEventTypeEnum`,
-  `EventStreamDeliveryEventTypeEnum`, `EventStreamSubscribeEventsEventTypeEnum`,
-  and `EventStreamTestEventTypeEnum`; new
-  `EventStreamCloudEventConnection{Created,Deleted,Updated}*` payload types;
-  and `EventStreamSubscribeEventsResponseContent` extended with the
-  connection event variants.
-- **Token Vault**: new `grants: Optional[List[TokenVaultPrivilegedAccessGrant]]`
-  on the privileged-access credential/public-key types.
-  `TokenVaultPrivilegedAccessGrant`: `{connection: str, scopes: List[str]}`.
-- **Errors**: new error body types `NotFoundErrorBody`/`NotFoundErrorBodyError`
-  and `TooManyRequestsErrorBody`/`TooManyRequestsErrorBodyError`.
-- **CloudEvent**: `specversion` is now typed as
-  `EventStreamCloudEventSpecVersionEnum` (`Literal["1.0"]` + `Any` fallback)
-  instead of `str`, across group/org/user CloudEvent types.
