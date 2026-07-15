@@ -1,5 +1,37 @@
 # Change Log
 
+## [6.0.0](https://github.com/auth0/auth0-python/tree/6.0.0) (2026-07-15)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.8.0...6.0.0)
+
+### ⚠️ Breaking Changes
+
+- `ConnectionAttributeIdentifier` removed (no compatibility alias); split into three types. The `identifier` field on each attribute now points to its own type:
+  - `EmailAttribute.identifier`: `EmailAttributeIdentifier` — `{active?, default_method?: DefaultMethodEmailIdentifierEnum}` (same shape as the old type; use this as the drop-in replacement).
+  - `PhoneAttribute.identifier`: `PhoneAttributeIdentifier` — `{active?, default_method?: DefaultMethodPhoneNumberIdentifierEnum}`.
+  - `UsernameAttribute.identifier`: `UsernameAttributeIdentifier` — `{active?}` (no `default_method`).
+- `PhoneProviderProtectionBackoffStrategyEnum`: `Literal["exponential", "none"]` → `Literal["exponential", "default"]`. Replace the value `"none"` with `"default"`.
+- `ListRolesOffsetPaginatedResponseContent.start` / `.limit` / `.total`: `Optional[float] = None` → required `float`. Deserializing a role-list response missing any of these now raises `pydantic.ValidationError`.
+- **Federated Connections Tokensets removed** — the `users.federated_connections_tokensets` client and its `list`/`delete` methods are removed, along with the `FederatedConnectionTokenSet` and `ConnectionFederatedConnectionsAccessTokens` types.
+- **`federated_connections_access_tokens` field removed** — this optional field is no longer present on `ConnectionOptionsAzureAd`, `ConnectionOptionsCommonOidc`, `ConnectionOptionsGoogleApps`, `ConnectionPropertiesOptions`, and `UpdateConnectionOptions`.
+- **OAuth scopes removed** — `read:federated_connections_tokens` and `delete:federated_connections_tokens` are no longer valid values of `OauthScope`.
+- **`ClientSessionTransferDelegationDeviceBindingEnum` narrowed** — the `"asn"` value is removed; the enum now only accepts `"ip"`.
+
+### New Endpoints
+
+- `organizations.roles.members.list(id=..., role_id=...)` (sync + async) → `GET /api/v2/organizations/{id}/roles/{role_id}/members`. New sub-clients `organizations.roles` and `organizations.roles.members`; response type `ListOrganizationRoleMembersResponseContent`, item type `RoleMember`.
+
+### Type Changes/Features
+
+- Organizations: `third_party_client_access: Optional[OrganizationThirdPartyClientAccessEnum]` (`Literal["block", "allow"]`) on `create()`/`update()` and all organization response types.
+- Organizations: new types `ListOrganizationRoleMembersResponseContent` and `RoleMember` (returned by the role-members endpoint above).
+- Grants: new `UserGrant.organization_id: Optional[str]` (read-only), via `GET /grants`.
+- Connections: `discovery_url` / `oidc_metadata` extended to `samlp` connections (previously OIDC-only), via new `ConnectionsDiscoveryUrl` / `ConnectionsOidcMetadata` on `ConnectionPropertiesOptions` and `UpdateConnectionOptions`.
+- Event Streams: new event-type values `connection.created`, `connection.deleted`, `connection.updated` on `EventStreamEventTypeEnum`, `EventStreamDeliveryEventTypeEnum`, `EventStreamSubscribeEventsEventTypeEnum`, `EventStreamTestEventTypeEnum`; new `EventStreamCloudEventConnection{Created,Deleted,Updated}*` payload types; new `EventStreamSubscribeEventsResponseContent`.
+- Token Vault: new `grants: Optional[List[TokenVaultPrivilegedAccessGrant]]` on the privileged-access credential/public-key types. `TokenVaultPrivilegedAccessGrant`: `{connection: str, scopes: List[str]}`.
+- New error body types: `NotFoundErrorBody`/`NotFoundErrorBodyError`, `TooManyRequestsErrorBody`/`TooManyRequestsErrorBodyError`.
+- CloudEvent `specversion`: `str` → `EventStreamCloudEventSpecVersionEnum` (`Literal["1.0"]` + `Any` fallback) across group/org/user CloudEvent types.
+- **`NetworkAclMatch`** — new optional `auth0_managed: Optional[List[str]]` field (serialized as `auth0_managed`), available on both the `match` and `not_match` rule blocks. This lets network ACL rules reference Auth0-managed lists when matching or excluding traffic.
+
 ## [5.8.0](https://github.com/auth0/auth0-python/tree/5.8.0) (2026-06-29)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.7.0...5.8.0)
 
