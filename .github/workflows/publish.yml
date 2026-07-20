@@ -21,7 +21,7 @@ jobs:
           fetch-tags: true
 
       - name: Configure Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -100,7 +100,7 @@ jobs:
           prerelease: ${{ steps.get_prerelease.outputs.prerelease }}
 
       - name: Configure Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: "3.10"
 
