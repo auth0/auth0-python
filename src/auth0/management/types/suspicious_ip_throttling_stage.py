@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .suspicious_ip_throttling_pre_custom_token_exchange_stage import SuspiciousIpThrottlingPreCustomTokenExchangeStage
 from .suspicious_ip_throttling_pre_login_stage import SuspiciousIpThrottlingPreLoginStage
 from .suspicious_ip_throttling_pre_user_registration_stage import SuspiciousIpThrottlingPreUserRegistrationStage
 
@@ -24,6 +25,11 @@ class SuspiciousIpThrottlingStage(UniversalBaseModel):
         typing.Optional[SuspiciousIpThrottlingPreUserRegistrationStage],
         FieldMetadata(alias="pre-user-registration"),
         pydantic.Field(alias="pre-user-registration"),
+    ] = None
+    pre_custom_token_exchange: typing_extensions.Annotated[
+        typing.Optional[SuspiciousIpThrottlingPreCustomTokenExchangeStage],
+        FieldMetadata(alias="pre-custom-token-exchange"),
+        pydantic.Field(alias="pre-custom-token-exchange"),
     ] = None
 
     if IS_PYDANTIC_V2:

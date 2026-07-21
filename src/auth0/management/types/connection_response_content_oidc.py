@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_authentication_purpose import ConnectionAuthenticationPurpose
 from .connection_connected_accounts_purpose_xaa import ConnectionConnectedAccountsPurposeXaa
+from .connection_cross_app_access_resource_app import ConnectionCrossAppAccessResourceApp
 from .connection_options_oidc import ConnectionOptionsOidc
 from .connection_response_common import ConnectionResponseCommon
 from .connection_response_content_oidc_strategy import ConnectionResponseContentOidcStrategy
@@ -22,6 +23,7 @@ class ConnectionResponseContentOidc(ConnectionResponseCommon):
     authentication: typing.Optional[ConnectionAuthenticationPurpose] = None
     connected_accounts: typing.Optional[ConnectionConnectedAccountsPurposeXaa] = None
     cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = None
+    cross_app_access_resource_app: typing.Optional[ConnectionCrossAppAccessResourceApp] = None
     options: typing.Optional[ConnectionOptionsOidc] = None
     show_as_button: typing.Optional[ConnectionShowAsButton] = None
 

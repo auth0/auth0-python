@@ -1528,7 +1528,7 @@ client.clients.list(
 <dl>
 <dd>
 
-**external_client_id:** `typing.Optional[str]` — Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+**external_client_id:** `typing.Optional[str]` — Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
     
 </dd>
 </dl>
@@ -2019,6 +2019,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **resource_server_identifier:** `typing.Optional[str]` — The identifier of the resource server that this client is linked to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_assertion_authorization_grant:** `typing.Optional[CreateIdentityAssertionAuthorizationGrant]` 
     
 </dd>
 </dl>
@@ -2719,6 +2727,14 @@ client.clients.update(
 <dd>
 
 **token_quota:** `typing.Optional[UpdateTokenQuota]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_assertion_authorization_grant:** `typing.Optional[UpdateIdentityAssertionAuthorizationGrant]` 
     
 </dd>
 </dl>
@@ -3915,6 +3931,14 @@ client.connections.create(
 <dl>
 <dd>
 
+**cross_app_access_resource_app:** `typing.Optional[CreateCrossAppAccessResourceApp]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -4229,6 +4253,14 @@ client.connections.update(
 <dd>
 
 **cross_app_access_requesting_app:** `typing.Optional[CrossAppAccessRequestingApp]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cross_app_access_resource_app:** `typing.Optional[UpdateCrossAppAccessResourceApp]` 
     
 </dd>
 </dl>
@@ -20137,6 +20169,14 @@ client.branding.themes.create(
 <dl>
 <dd>
 
+**identifiers:** `typing.Optional[BrandingThemeIdentifiers]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -20530,6 +20570,14 @@ client.branding.themes.update(
 <dd>
 
 **display_name:** `typing.Optional[str]` — Display Name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identifiers:** `typing.Optional[BrandingThemeIdentifiers]` 
     
 </dd>
 </dl>
@@ -35830,6 +35878,14 @@ client.self_service_profiles.sso_ticket.create(
 <dd>
 
 **use_for_organization_discovery:** `typing.Optional[bool]` — Indicates whether a verified domain should be used for organization discovery during authentication.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**third_party_client_access_config:** `typing.Optional[ThirdPartyClientAccessConfig]` 
     
 </dd>
 </dl>

@@ -121,6 +121,13 @@ if typing.TYPE_CHECKING:
     from .branding_theme_font_subtitle import BrandingThemeFontSubtitle
     from .branding_theme_font_title import BrandingThemeFontTitle
     from .branding_theme_fonts import BrandingThemeFonts
+    from .branding_theme_identifiers import BrandingThemeIdentifiers
+    from .branding_theme_identifiers_login_display_enum import BrandingThemeIdentifiersLoginDisplayEnum
+    from .branding_theme_identifiers_phone_display import BrandingThemeIdentifiersPhoneDisplay
+    from .branding_theme_identifiers_phone_display_formatting_enum import (
+        BrandingThemeIdentifiersPhoneDisplayFormattingEnum,
+    )
+    from .branding_theme_identifiers_phone_display_masking_enum import BrandingThemeIdentifiersPhoneDisplayMaskingEnum
     from .branding_theme_page_background import BrandingThemePageBackground
     from .branding_theme_page_background_page_layout_enum import BrandingThemePageBackgroundPageLayoutEnum
     from .branding_theme_widget import BrandingThemeWidget
@@ -365,6 +372,8 @@ if typing.TYPE_CHECKING:
     from .connection_connected_accounts_purpose_xaa import ConnectionConnectedAccountsPurposeXaa
     from .connection_connection_settings import ConnectionConnectionSettings
     from .connection_connection_settings_pkce_enum import ConnectionConnectionSettingsPkceEnum
+    from .connection_cross_app_access_resource_app import ConnectionCrossAppAccessResourceApp
+    from .connection_cross_app_access_resource_app_status_enum import ConnectionCrossAppAccessResourceAppStatusEnum
     from .connection_custom_headers_o_auth_2 import ConnectionCustomHeadersOAuth2
     from .connection_custom_scripts import ConnectionCustomScripts
     from .connection_debug_saml import ConnectionDebugSaml
@@ -972,6 +981,7 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_yandex import CreateConnectionRequestContentYandex
     from .create_connection_request_content_yandex_strategy import CreateConnectionRequestContentYandexStrategy
     from .create_connection_response_content import CreateConnectionResponseContent
+    from .create_cross_app_access_resource_app import CreateCrossAppAccessResourceApp
     from .create_custom_domain_response_content import CreateCustomDomainResponseContent
     from .create_directory_provisioning_request_content import CreateDirectoryProvisioningRequestContent
     from .create_directory_provisioning_response_content import CreateDirectoryProvisioningResponseContent
@@ -1075,6 +1085,7 @@ if typing.TYPE_CHECKING:
     from .create_guardian_enrollment_ticket_response_content import CreateGuardianEnrollmentTicketResponseContent
     from .create_hook_response_content import CreateHookResponseContent
     from .create_hook_secret_request_content import CreateHookSecretRequestContent
+    from .create_identity_assertion_authorization_grant import CreateIdentityAssertionAuthorizationGrant
     from .create_import_users_response_content import CreateImportUsersResponseContent
     from .create_log_stream_datadog_request_body import CreateLogStreamDatadogRequestBody
     from .create_log_stream_event_bridge_request_body import CreateLogStreamEventBridgeRequestBody
@@ -1121,6 +1132,8 @@ if typing.TYPE_CHECKING:
     from .credential_device_type_enum import CredentialDeviceTypeEnum
     from .credential_id import CredentialId
     from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
+    from .cross_app_access_resource_app import CrossAppAccessResourceApp
+    from .cross_app_access_resource_app_status_enum import CrossAppAccessResourceAppStatusEnum
     from .csp_directives import CspDirectives
     from .csp_flag import CspFlag
     from .csp_flags import CspFlags
@@ -3760,6 +3773,7 @@ if typing.TYPE_CHECKING:
     from .hook_trigger_id_enum import HookTriggerIdEnum
     from .http_custom_header import HttpCustomHeader
     from .identity import Identity
+    from .identity_assertion_authorization_grant import IdentityAssertionAuthorizationGrant
     from .identity_provider_enum import IdentityProviderEnum
     from .identity_provider_only_auth_0_enum import IdentityProviderOnlyAuth0Enum
     from .import_encryption_key_response_content import ImportEncryptionKeyResponseContent
@@ -4128,6 +4142,8 @@ if typing.TYPE_CHECKING:
     )
     from .self_service_profile_user_attribute import SelfServiceProfileUserAttribute
     from .self_service_profile_user_attributes import SelfServiceProfileUserAttributes
+    from .session_actor_claim_value import SessionActorClaimValue
+    from .session_actor_metadata import SessionActorMetadata
     from .session_authentication_signal import SessionAuthenticationSignal
     from .session_authentication_signals import SessionAuthenticationSignals
     from .session_client_metadata import SessionClientMetadata
@@ -4193,6 +4209,9 @@ if typing.TYPE_CHECKING:
     from .supported_locales import SupportedLocales
     from .suspicious_ip_throttling_allowlist import SuspiciousIpThrottlingAllowlist
     from .suspicious_ip_throttling_allowlist_item import SuspiciousIpThrottlingAllowlistItem
+    from .suspicious_ip_throttling_pre_custom_token_exchange_stage import (
+        SuspiciousIpThrottlingPreCustomTokenExchangeStage,
+    )
     from .suspicious_ip_throttling_pre_login_stage import SuspiciousIpThrottlingPreLoginStage
     from .suspicious_ip_throttling_pre_user_registration_stage import SuspiciousIpThrottlingPreUserRegistrationStage
     from .suspicious_ip_throttling_shields_enum import SuspiciousIpThrottlingShieldsEnum
@@ -4223,6 +4242,7 @@ if typing.TYPE_CHECKING:
     from .test_action_result_payload import TestActionResultPayload
     from .test_custom_domain_response_content import TestCustomDomainResponseContent
     from .test_event_data_content import TestEventDataContent
+    from .third_party_client_access_config import ThirdPartyClientAccessConfig
     from .token_exchange_profile_response_content import TokenExchangeProfileResponseContent
     from .token_exchange_profile_type_enum import TokenExchangeProfileTypeEnum
     from .token_quota import TokenQuota
@@ -4318,6 +4338,7 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_yahoo import UpdateConnectionRequestContentYahoo
     from .update_connection_request_content_yandex import UpdateConnectionRequestContentYandex
     from .update_connection_response_content import UpdateConnectionResponseContent
+    from .update_cross_app_access_resource_app import UpdateCrossAppAccessResourceApp
     from .update_custom_domain_response_content import UpdateCustomDomainResponseContent
     from .update_default_canonical_domain_response_content import UpdateDefaultCanonicalDomainResponseContent
     from .update_default_custom_domain_response_content import UpdateDefaultCustomDomainResponseContent
@@ -4348,6 +4369,7 @@ if typing.TYPE_CHECKING:
     )
     from .update_hook_response_content import UpdateHookResponseContent
     from .update_hook_secret_request_content import UpdateHookSecretRequestContent
+    from .update_identity_assertion_authorization_grant import UpdateIdentityAssertionAuthorizationGrant
     from .update_log_stream_response_content import UpdateLogStreamResponseContent
     from .update_network_acl_response_content import UpdateNetworkAclResponseContent
     from .update_organization_all_connection_response_content import UpdateOrganizationAllConnectionResponseContent
@@ -4550,6 +4572,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BrandingThemeFontSubtitle": ".branding_theme_font_subtitle",
     "BrandingThemeFontTitle": ".branding_theme_font_title",
     "BrandingThemeFonts": ".branding_theme_fonts",
+    "BrandingThemeIdentifiers": ".branding_theme_identifiers",
+    "BrandingThemeIdentifiersLoginDisplayEnum": ".branding_theme_identifiers_login_display_enum",
+    "BrandingThemeIdentifiersPhoneDisplay": ".branding_theme_identifiers_phone_display",
+    "BrandingThemeIdentifiersPhoneDisplayFormattingEnum": ".branding_theme_identifiers_phone_display_formatting_enum",
+    "BrandingThemeIdentifiersPhoneDisplayMaskingEnum": ".branding_theme_identifiers_phone_display_masking_enum",
     "BrandingThemePageBackground": ".branding_theme_page_background",
     "BrandingThemePageBackgroundPageLayoutEnum": ".branding_theme_page_background_page_layout_enum",
     "BrandingThemeWidget": ".branding_theme_widget",
@@ -4760,6 +4787,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionConnectedAccountsPurposeXaa": ".connection_connected_accounts_purpose_xaa",
     "ConnectionConnectionSettings": ".connection_connection_settings",
     "ConnectionConnectionSettingsPkceEnum": ".connection_connection_settings_pkce_enum",
+    "ConnectionCrossAppAccessResourceApp": ".connection_cross_app_access_resource_app",
+    "ConnectionCrossAppAccessResourceAppStatusEnum": ".connection_cross_app_access_resource_app_status_enum",
     "ConnectionCustomHeadersOAuth2": ".connection_custom_headers_o_auth_2",
     "ConnectionCustomScripts": ".connection_custom_scripts",
     "ConnectionDebugSaml": ".connection_debug_saml",
@@ -5323,6 +5352,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentYandex": ".create_connection_request_content_yandex",
     "CreateConnectionRequestContentYandexStrategy": ".create_connection_request_content_yandex_strategy",
     "CreateConnectionResponseContent": ".create_connection_response_content",
+    "CreateCrossAppAccessResourceApp": ".create_cross_app_access_resource_app",
     "CreateCustomDomainResponseContent": ".create_custom_domain_response_content",
     "CreateDirectoryProvisioningRequestContent": ".create_directory_provisioning_request_content",
     "CreateDirectoryProvisioningResponseContent": ".create_directory_provisioning_response_content",
@@ -5418,6 +5448,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateGuardianEnrollmentTicketResponseContent": ".create_guardian_enrollment_ticket_response_content",
     "CreateHookResponseContent": ".create_hook_response_content",
     "CreateHookSecretRequestContent": ".create_hook_secret_request_content",
+    "CreateIdentityAssertionAuthorizationGrant": ".create_identity_assertion_authorization_grant",
     "CreateImportUsersResponseContent": ".create_import_users_response_content",
     "CreateLogStreamDatadogRequestBody": ".create_log_stream_datadog_request_body",
     "CreateLogStreamEventBridgeRequestBody": ".create_log_stream_event_bridge_request_body",
@@ -5458,6 +5489,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CredentialDeviceTypeEnum": ".credential_device_type_enum",
     "CredentialId": ".credential_id",
     "CrossAppAccessRequestingApp": ".cross_app_access_requesting_app",
+    "CrossAppAccessResourceApp": ".cross_app_access_resource_app",
+    "CrossAppAccessResourceAppStatusEnum": ".cross_app_access_resource_app_status_enum",
     "CspDirectives": ".csp_directives",
     "CspFlag": ".csp_flag",
     "CspFlags": ".csp_flags",
@@ -6981,6 +7014,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "HookTriggerIdEnum": ".hook_trigger_id_enum",
     "HttpCustomHeader": ".http_custom_header",
     "Identity": ".identity",
+    "IdentityAssertionAuthorizationGrant": ".identity_assertion_authorization_grant",
     "IdentityProviderEnum": ".identity_provider_enum",
     "IdentityProviderOnlyAuth0Enum": ".identity_provider_only_auth_0_enum",
     "ImportEncryptionKeyResponseContent": ".import_encryption_key_response_content",
@@ -7289,6 +7323,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SelfServiceProfileSsoTicketProvisioningScopeEnum": ".self_service_profile_sso_ticket_provisioning_scope_enum",
     "SelfServiceProfileUserAttribute": ".self_service_profile_user_attribute",
     "SelfServiceProfileUserAttributes": ".self_service_profile_user_attributes",
+    "SessionActorClaimValue": ".session_actor_claim_value",
+    "SessionActorMetadata": ".session_actor_metadata",
     "SessionAuthenticationSignal": ".session_authentication_signal",
     "SessionAuthenticationSignals": ".session_authentication_signals",
     "SessionClientMetadata": ".session_client_metadata",
@@ -7338,6 +7374,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SupportedLocales": ".supported_locales",
     "SuspiciousIpThrottlingAllowlist": ".suspicious_ip_throttling_allowlist",
     "SuspiciousIpThrottlingAllowlistItem": ".suspicious_ip_throttling_allowlist_item",
+    "SuspiciousIpThrottlingPreCustomTokenExchangeStage": ".suspicious_ip_throttling_pre_custom_token_exchange_stage",
     "SuspiciousIpThrottlingPreLoginStage": ".suspicious_ip_throttling_pre_login_stage",
     "SuspiciousIpThrottlingPreUserRegistrationStage": ".suspicious_ip_throttling_pre_user_registration_stage",
     "SuspiciousIpThrottlingShieldsEnum": ".suspicious_ip_throttling_shields_enum",
@@ -7366,6 +7403,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TestActionResultPayload": ".test_action_result_payload",
     "TestCustomDomainResponseContent": ".test_custom_domain_response_content",
     "TestEventDataContent": ".test_event_data_content",
+    "ThirdPartyClientAccessConfig": ".third_party_client_access_config",
     "TokenExchangeProfileResponseContent": ".token_exchange_profile_response_content",
     "TokenExchangeProfileTypeEnum": ".token_exchange_profile_type_enum",
     "TokenQuota": ".token_quota",
@@ -7457,6 +7495,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentYahoo": ".update_connection_request_content_yahoo",
     "UpdateConnectionRequestContentYandex": ".update_connection_request_content_yandex",
     "UpdateConnectionResponseContent": ".update_connection_response_content",
+    "UpdateCrossAppAccessResourceApp": ".update_cross_app_access_resource_app",
     "UpdateCustomDomainResponseContent": ".update_custom_domain_response_content",
     "UpdateDefaultCanonicalDomainResponseContent": ".update_default_canonical_domain_response_content",
     "UpdateDefaultCustomDomainResponseContent": ".update_default_custom_domain_response_content",
@@ -7479,6 +7518,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateGuardianFactorsProviderPushNotificationSnsResponseContent": ".update_guardian_factors_provider_push_notification_sns_response_content",
     "UpdateHookResponseContent": ".update_hook_response_content",
     "UpdateHookSecretRequestContent": ".update_hook_secret_request_content",
+    "UpdateIdentityAssertionAuthorizationGrant": ".update_identity_assertion_authorization_grant",
     "UpdateLogStreamResponseContent": ".update_log_stream_response_content",
     "UpdateNetworkAclResponseContent": ".update_network_acl_response_content",
     "UpdateOrganizationAllConnectionResponseContent": ".update_organization_all_connection_response_content",
@@ -7691,6 +7731,11 @@ __all__ = [
     "BrandingThemeFontSubtitle",
     "BrandingThemeFontTitle",
     "BrandingThemeFonts",
+    "BrandingThemeIdentifiers",
+    "BrandingThemeIdentifiersLoginDisplayEnum",
+    "BrandingThemeIdentifiersPhoneDisplay",
+    "BrandingThemeIdentifiersPhoneDisplayFormattingEnum",
+    "BrandingThemeIdentifiersPhoneDisplayMaskingEnum",
     "BrandingThemePageBackground",
     "BrandingThemePageBackgroundPageLayoutEnum",
     "BrandingThemeWidget",
@@ -7901,6 +7946,8 @@ __all__ = [
     "ConnectionConnectedAccountsPurposeXaa",
     "ConnectionConnectionSettings",
     "ConnectionConnectionSettingsPkceEnum",
+    "ConnectionCrossAppAccessResourceApp",
+    "ConnectionCrossAppAccessResourceAppStatusEnum",
     "ConnectionCustomHeadersOAuth2",
     "ConnectionCustomScripts",
     "ConnectionDebugSaml",
@@ -8464,6 +8511,7 @@ __all__ = [
     "CreateConnectionRequestContentYandex",
     "CreateConnectionRequestContentYandexStrategy",
     "CreateConnectionResponseContent",
+    "CreateCrossAppAccessResourceApp",
     "CreateCustomDomainResponseContent",
     "CreateDirectoryProvisioningRequestContent",
     "CreateDirectoryProvisioningResponseContent",
@@ -8559,6 +8607,7 @@ __all__ = [
     "CreateGuardianEnrollmentTicketResponseContent",
     "CreateHookResponseContent",
     "CreateHookSecretRequestContent",
+    "CreateIdentityAssertionAuthorizationGrant",
     "CreateImportUsersResponseContent",
     "CreateLogStreamDatadogRequestBody",
     "CreateLogStreamEventBridgeRequestBody",
@@ -8599,6 +8648,8 @@ __all__ = [
     "CredentialDeviceTypeEnum",
     "CredentialId",
     "CrossAppAccessRequestingApp",
+    "CrossAppAccessResourceApp",
+    "CrossAppAccessResourceAppStatusEnum",
     "CspDirectives",
     "CspFlag",
     "CspFlags",
@@ -10122,6 +10173,7 @@ __all__ = [
     "HookTriggerIdEnum",
     "HttpCustomHeader",
     "Identity",
+    "IdentityAssertionAuthorizationGrant",
     "IdentityProviderEnum",
     "IdentityProviderOnlyAuth0Enum",
     "ImportEncryptionKeyResponseContent",
@@ -10430,6 +10482,8 @@ __all__ = [
     "SelfServiceProfileSsoTicketProvisioningScopeEnum",
     "SelfServiceProfileUserAttribute",
     "SelfServiceProfileUserAttributes",
+    "SessionActorClaimValue",
+    "SessionActorMetadata",
     "SessionAuthenticationSignal",
     "SessionAuthenticationSignals",
     "SessionClientMetadata",
@@ -10479,6 +10533,7 @@ __all__ = [
     "SupportedLocales",
     "SuspiciousIpThrottlingAllowlist",
     "SuspiciousIpThrottlingAllowlistItem",
+    "SuspiciousIpThrottlingPreCustomTokenExchangeStage",
     "SuspiciousIpThrottlingPreLoginStage",
     "SuspiciousIpThrottlingPreUserRegistrationStage",
     "SuspiciousIpThrottlingShieldsEnum",
@@ -10507,6 +10562,7 @@ __all__ = [
     "TestActionResultPayload",
     "TestCustomDomainResponseContent",
     "TestEventDataContent",
+    "ThirdPartyClientAccessConfig",
     "TokenExchangeProfileResponseContent",
     "TokenExchangeProfileTypeEnum",
     "TokenQuota",
@@ -10598,6 +10654,7 @@ __all__ = [
     "UpdateConnectionRequestContentYahoo",
     "UpdateConnectionRequestContentYandex",
     "UpdateConnectionResponseContent",
+    "UpdateCrossAppAccessResourceApp",
     "UpdateCustomDomainResponseContent",
     "UpdateDefaultCanonicalDomainResponseContent",
     "UpdateDefaultCustomDomainResponseContent",
@@ -10620,6 +10677,7 @@ __all__ = [
     "UpdateGuardianFactorsProviderPushNotificationSnsResponseContent",
     "UpdateHookResponseContent",
     "UpdateHookSecretRequestContent",
+    "UpdateIdentityAssertionAuthorizationGrant",
     "UpdateLogStreamResponseContent",
     "UpdateNetworkAclResponseContent",
     "UpdateOrganizationAllConnectionResponseContent",

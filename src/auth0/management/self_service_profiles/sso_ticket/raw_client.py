@@ -26,6 +26,7 @@ from ...types.self_service_profile_sso_ticket_domain_aliases_config import (
 from ...types.self_service_profile_sso_ticket_enabled_features import SelfServiceProfileSsoTicketEnabledFeatures
 from ...types.self_service_profile_sso_ticket_enabled_organization import SelfServiceProfileSsoTicketEnabledOrganization
 from ...types.self_service_profile_sso_ticket_provisioning_config import SelfServiceProfileSsoTicketProvisioningConfig
+from ...types.third_party_client_access_config import ThirdPartyClientAccessConfig
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -48,6 +49,7 @@ class RawSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        third_party_client_access_config: typing.Optional[ThirdPartyClientAccessConfig] = OMIT,
         enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
@@ -79,6 +81,8 @@ class RawSsoTicketClient:
 
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
+
+        third_party_client_access_config : typing.Optional[ThirdPartyClientAccessConfig]
 
         enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
 
@@ -116,6 +120,9 @@ class RawSsoTicketClient:
                     direction="write",
                 ),
                 "use_for_organization_discovery": use_for_organization_discovery,
+                "third_party_client_access_config": convert_and_respect_annotation_metadata(
+                    object_=third_party_client_access_config, annotation=ThirdPartyClientAccessConfig, direction="write"
+                ),
                 "enabled_features": convert_and_respect_annotation_metadata(
                     object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
                 ),
@@ -289,6 +296,7 @@ class AsyncRawSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        third_party_client_access_config: typing.Optional[ThirdPartyClientAccessConfig] = OMIT,
         enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
@@ -320,6 +328,8 @@ class AsyncRawSsoTicketClient:
 
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
+
+        third_party_client_access_config : typing.Optional[ThirdPartyClientAccessConfig]
 
         enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
 
@@ -357,6 +367,9 @@ class AsyncRawSsoTicketClient:
                     direction="write",
                 ),
                 "use_for_organization_discovery": use_for_organization_discovery,
+                "third_party_client_access_config": convert_and_respect_annotation_metadata(
+                    object_=third_party_client_access_config, annotation=ThirdPartyClientAccessConfig, direction="write"
+                ),
                 "enabled_features": convert_and_respect_annotation_metadata(
                     object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
                 ),

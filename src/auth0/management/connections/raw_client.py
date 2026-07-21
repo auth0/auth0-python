@@ -26,6 +26,7 @@ from ..types.connection_properties_options import ConnectionPropertiesOptions
 from ..types.connection_strategy_enum import ConnectionStrategyEnum
 from ..types.connections_metadata import ConnectionsMetadata
 from ..types.create_connection_response_content import CreateConnectionResponseContent
+from ..types.create_cross_app_access_resource_app import CreateCrossAppAccessResourceApp
 from ..types.cross_app_access_requesting_app import CrossAppAccessRequestingApp
 from ..types.get_connection_response_content import GetConnectionResponseContent
 from ..types.list_connections_checkpoint_paginated_response_content import (
@@ -33,6 +34,7 @@ from ..types.list_connections_checkpoint_paginated_response_content import (
 )
 from ..types.update_connection_options import UpdateConnectionOptions
 from ..types.update_connection_response_content import UpdateConnectionResponseContent
+from ..types.update_cross_app_access_resource_app import UpdateCrossAppAccessResourceApp
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -204,6 +206,7 @@ class RawConnectionsClient:
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
         cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[CreateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateConnectionResponseContent]:
         """
@@ -243,6 +246,8 @@ class RawConnectionsClient:
 
         cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
 
+        cross_app_access_resource_app : typing.Optional[CreateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -274,6 +279,9 @@ class RawConnectionsClient:
                 ),
                 "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
                     object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app, annotation=CreateCrossAppAccessResourceApp, direction="write"
                 ),
             },
             headers={
@@ -562,6 +570,7 @@ class RawConnectionsClient:
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
         cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[UpdateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateConnectionResponseContent]:
         """
@@ -599,6 +608,8 @@ class RawConnectionsClient:
 
         cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
 
+        cross_app_access_resource_app : typing.Optional[UpdateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -628,6 +639,11 @@ class RawConnectionsClient:
                 ),
                 "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
                     object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=typing.Optional[UpdateCrossAppAccessResourceApp],
+                    direction="write",
                 ),
             },
             headers={
@@ -978,6 +994,7 @@ class AsyncRawConnectionsClient:
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
         cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[CreateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateConnectionResponseContent]:
         """
@@ -1017,6 +1034,8 @@ class AsyncRawConnectionsClient:
 
         cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
 
+        cross_app_access_resource_app : typing.Optional[CreateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1048,6 +1067,9 @@ class AsyncRawConnectionsClient:
                 ),
                 "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
                     object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app, annotation=CreateCrossAppAccessResourceApp, direction="write"
                 ),
             },
             headers={
@@ -1338,6 +1360,7 @@ class AsyncRawConnectionsClient:
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
         cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[UpdateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateConnectionResponseContent]:
         """
@@ -1375,6 +1398,8 @@ class AsyncRawConnectionsClient:
 
         cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
 
+        cross_app_access_resource_app : typing.Optional[UpdateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1404,6 +1429,11 @@ class AsyncRawConnectionsClient:
                 ),
                 "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
                     object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=typing.Optional[UpdateCrossAppAccessResourceApp],
+                    direction="write",
                 ),
             },
             headers={

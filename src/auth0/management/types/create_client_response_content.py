@@ -36,6 +36,7 @@ from .client_token_exchange_configuration import ClientTokenExchangeConfiguratio
 from .client_token_vault_privileged_access_with_credential_id import ClientTokenVaultPrivilegedAccessWithCredentialId
 from .express_configuration import ExpressConfiguration
 from .fed_cm_login import FedCmLogin
+from .identity_assertion_authorization_grant import IdentityAssertionAuthorizationGrant
 from .native_social_login import NativeSocialLogin
 from .token_quota import TokenQuota
 
@@ -231,6 +232,7 @@ class CreateClientResponseContent(UniversalBaseModel):
     token_quota: typing.Optional[TokenQuota] = None
     express_configuration: typing.Optional[ExpressConfiguration] = None
     my_organization_configuration: typing.Optional[ClientMyOrganizationResponseConfiguration] = None
+    identity_assertion_authorization_grant: typing.Optional[IdentityAssertionAuthorizationGrant] = None
     third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = None
     redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = None
     resource_server_identifier: typing.Optional[str] = pydantic.Field(default=None)

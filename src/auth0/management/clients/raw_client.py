@@ -59,6 +59,7 @@ from ..types.client_token_vault_privileged_access_with_credential_id import (
 )
 from ..types.client_token_vault_privileged_access_with_public_key import ClientTokenVaultPrivilegedAccessWithPublicKey
 from ..types.create_client_response_content import CreateClientResponseContent
+from ..types.create_identity_assertion_authorization_grant import CreateIdentityAssertionAuthorizationGrant
 from ..types.create_token_quota import CreateTokenQuota
 from ..types.express_configuration import ExpressConfiguration
 from ..types.express_configuration_or_null import ExpressConfigurationOrNull
@@ -72,6 +73,7 @@ from ..types.preview_cimd_metadata_response_content import PreviewCimdMetadataRe
 from ..types.register_cimd_client_response_content import RegisterCimdClientResponseContent
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
 from ..types.update_client_response_content import UpdateClientResponseContent
+from ..types.update_identity_assertion_authorization_grant import UpdateIdentityAssertionAuthorizationGrant
 from ..types.update_token_quota import UpdateTokenQuota
 from pydantic import ValidationError
 
@@ -152,7 +154,7 @@ class RawClientsClient:
             Optional filter by a comma-separated list of application types.
 
         external_client_id : typing.Optional[str]
-            Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+            Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
 
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
@@ -315,6 +317,7 @@ class RawClientsClient:
         par_request_expiry: typing.Optional[int] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
+        identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
@@ -473,6 +476,8 @@ class RawClientsClient:
         resource_server_identifier : typing.Optional[str]
             The identifier of the resource server that this client is linked to.
 
+        identity_assertion_authorization_grant : typing.Optional[CreateIdentityAssertionAuthorizationGrant]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
@@ -587,6 +592,11 @@ class RawClientsClient:
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
                 "resource_server_identifier": resource_server_identifier,
+                "identity_assertion_authorization_grant": convert_and_respect_annotation_metadata(
+                    object_=identity_assertion_authorization_grant,
+                    annotation=CreateIdentityAssertionAuthorizationGrant,
+                    direction="write",
+                ),
                 "third_party_security_mode": third_party_security_mode,
                 "redirection_policy": redirection_policy,
                 "express_configuration": convert_and_respect_annotation_metadata(
@@ -1160,6 +1170,7 @@ class RawClientsClient:
         custom_login_page: typing.Optional[str] = OMIT,
         custom_login_page_preview: typing.Optional[str] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
@@ -1287,6 +1298,8 @@ class RawClientsClient:
 
         token_quota : typing.Optional[UpdateTokenQuota]
 
+        identity_assertion_authorization_grant : typing.Optional[UpdateIdentityAssertionAuthorizationGrant]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -1403,6 +1416,11 @@ class RawClientsClient:
                 "custom_login_page_preview": custom_login_page_preview,
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=typing.Optional[UpdateTokenQuota], direction="write"
+                ),
+                "identity_assertion_authorization_grant": convert_and_respect_annotation_metadata(
+                    object_=identity_assertion_authorization_grant,
+                    annotation=typing.Optional[UpdateIdentityAssertionAuthorizationGrant],
+                    direction="write",
                 ),
                 "form_template": form_template,
                 "addons": convert_and_respect_annotation_metadata(
@@ -1727,7 +1745,7 @@ class AsyncRawClientsClient:
             Optional filter by a comma-separated list of application types.
 
         external_client_id : typing.Optional[str]
-            Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+            Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
 
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
@@ -1893,6 +1911,7 @@ class AsyncRawClientsClient:
         par_request_expiry: typing.Optional[int] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
+        identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
@@ -2051,6 +2070,8 @@ class AsyncRawClientsClient:
         resource_server_identifier : typing.Optional[str]
             The identifier of the resource server that this client is linked to.
 
+        identity_assertion_authorization_grant : typing.Optional[CreateIdentityAssertionAuthorizationGrant]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
@@ -2165,6 +2186,11 @@ class AsyncRawClientsClient:
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
                 "resource_server_identifier": resource_server_identifier,
+                "identity_assertion_authorization_grant": convert_and_respect_annotation_metadata(
+                    object_=identity_assertion_authorization_grant,
+                    annotation=CreateIdentityAssertionAuthorizationGrant,
+                    direction="write",
+                ),
                 "third_party_security_mode": third_party_security_mode,
                 "redirection_policy": redirection_policy,
                 "express_configuration": convert_and_respect_annotation_metadata(
@@ -2740,6 +2766,7 @@ class AsyncRawClientsClient:
         custom_login_page: typing.Optional[str] = OMIT,
         custom_login_page_preview: typing.Optional[str] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
@@ -2867,6 +2894,8 @@ class AsyncRawClientsClient:
 
         token_quota : typing.Optional[UpdateTokenQuota]
 
+        identity_assertion_authorization_grant : typing.Optional[UpdateIdentityAssertionAuthorizationGrant]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -2983,6 +3012,11 @@ class AsyncRawClientsClient:
                 "custom_login_page_preview": custom_login_page_preview,
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=typing.Optional[UpdateTokenQuota], direction="write"
+                ),
+                "identity_assertion_authorization_grant": convert_and_respect_annotation_metadata(
+                    object_=identity_assertion_authorization_grant,
+                    annotation=typing.Optional[UpdateIdentityAssertionAuthorizationGrant],
+                    direction="write",
                 ),
                 "form_template": form_template,
                 "addons": convert_and_respect_annotation_metadata(
