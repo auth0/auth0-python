@@ -1,5 +1,12 @@
 # Change Log
 
+## [6.1.0](https://github.com/auth0/auth0-python/tree/6.1.0) (2026-07-22)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.0.0...6.1.0)
+
+**Added**
+- feat: Cross App Access (ID-JAG), branding theme identifiers, Self-Service Enterprise Configuration third-party client access, session actor [\#877](https://github.com/auth0/auth0-python/pull/877) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+
 ## [6.0.0](https://github.com/auth0/auth0-python/tree/6.0.0) (2026-07-15)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.8.0...6.0.0)
 
