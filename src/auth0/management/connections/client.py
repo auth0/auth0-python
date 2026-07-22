@@ -15,6 +15,7 @@ from ..types.connection_properties_options import ConnectionPropertiesOptions
 from ..types.connection_strategy_enum import ConnectionStrategyEnum
 from ..types.connections_metadata import ConnectionsMetadata
 from ..types.create_connection_response_content import CreateConnectionResponseContent
+from ..types.create_cross_app_access_resource_app import CreateCrossAppAccessResourceApp
 from ..types.cross_app_access_requesting_app import CrossAppAccessRequestingApp
 from ..types.get_connection_response_content import GetConnectionResponseContent
 from ..types.list_connections_checkpoint_paginated_response_content import (
@@ -22,6 +23,7 @@ from ..types.list_connections_checkpoint_paginated_response_content import (
 )
 from ..types.update_connection_options import UpdateConnectionOptions
 from ..types.update_connection_response_content import UpdateConnectionResponseContent
+from ..types.update_cross_app_access_resource_app import UpdateCrossAppAccessResourceApp
 from .raw_client import AsyncRawConnectionsClient, RawConnectionsClient
 
 if typing.TYPE_CHECKING:
@@ -159,6 +161,7 @@ class ConnectionsClient:
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
         cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[CreateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateConnectionResponseContent:
         """
@@ -198,6 +201,8 @@ class ConnectionsClient:
 
         cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
 
+        cross_app_access_resource_app : typing.Optional[CreateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -231,6 +236,7 @@ class ConnectionsClient:
             authentication=authentication,
             connected_accounts=connected_accounts,
             cross_app_access_requesting_app=cross_app_access_requesting_app,
+            cross_app_access_resource_app=cross_app_access_resource_app,
             request_options=request_options,
         )
         return _response.data
@@ -329,6 +335,7 @@ class ConnectionsClient:
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
         cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[UpdateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateConnectionResponseContent:
         """
@@ -366,6 +373,8 @@ class ConnectionsClient:
 
         cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
 
+        cross_app_access_resource_app : typing.Optional[UpdateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -397,6 +406,7 @@ class ConnectionsClient:
             authentication=authentication,
             connected_accounts=connected_accounts,
             cross_app_access_requesting_app=cross_app_access_requesting_app,
+            cross_app_access_resource_app=cross_app_access_resource_app,
             request_options=request_options,
         )
         return _response.data
@@ -606,6 +616,7 @@ class AsyncConnectionsClient:
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
         cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[CreateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateConnectionResponseContent:
         """
@@ -644,6 +655,8 @@ class AsyncConnectionsClient:
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
         cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
+        cross_app_access_resource_app : typing.Optional[CreateCrossAppAccessResourceApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -686,6 +699,7 @@ class AsyncConnectionsClient:
             authentication=authentication,
             connected_accounts=connected_accounts,
             cross_app_access_requesting_app=cross_app_access_requesting_app,
+            cross_app_access_resource_app=cross_app_access_resource_app,
             request_options=request_options,
         )
         return _response.data
@@ -800,6 +814,7 @@ class AsyncConnectionsClient:
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
         cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[UpdateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateConnectionResponseContent:
         """
@@ -836,6 +851,8 @@ class AsyncConnectionsClient:
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
         cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
+        cross_app_access_resource_app : typing.Optional[UpdateCrossAppAccessResourceApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -876,6 +893,7 @@ class AsyncConnectionsClient:
             authentication=authentication,
             connected_accounts=connected_accounts,
             cross_app_access_requesting_app=cross_app_access_requesting_app,
+            cross_app_access_resource_app=cross_app_access_resource_app,
             request_options=request_options,
         )
         return _response.data

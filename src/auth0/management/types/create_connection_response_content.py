@@ -9,6 +9,7 @@ from .connection_connected_accounts_purpose import ConnectionConnectedAccountsPu
 from .connection_options import ConnectionOptions
 from .connections_metadata import ConnectionsMetadata
 from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
+from .cross_app_access_resource_app import CrossAppAccessResourceApp
 
 
 class CreateConnectionResponseContent(UniversalBaseModel):
@@ -57,6 +58,7 @@ class CreateConnectionResponseContent(UniversalBaseModel):
     authentication: typing.Optional[ConnectionAuthenticationPurpose] = None
     connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = None
     cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = None
+    cross_app_access_resource_app: typing.Optional[CrossAppAccessResourceApp] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
