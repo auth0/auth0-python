@@ -11,26 +11,26 @@ from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
+from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.bad_request_error import BadRequestError
 from ...errors.conflict_error import ConflictError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
-from ...types.add_organization_connection_response_content import AddOrganizationConnectionResponseContent
-from ...types.get_organization_connection_response_content import GetOrganizationConnectionResponseContent
-from ...types.list_organization_connections_offset_paginated_response_content import (
-    ListOrganizationConnectionsOffsetPaginatedResponseContent,
-)
-from ...types.organization_connection import OrganizationConnection
-from ...types.update_organization_connection_response_content import UpdateOrganizationConnectionResponseContent
+from ...types.create_organization_client_request_item import CreateOrganizationClientRequestItem
+from ...types.create_organization_clients_response_content import CreateOrganizationClientsResponseContent
+from ...types.get_organization_client_response_content import GetOrganizationClientResponseContent
+from ...types.list_organization_clients_response_content import ListOrganizationClientsResponseContent
+from ...types.organization_client import OrganizationClient
+from ...types.update_organization_client_response_content import UpdateOrganizationClientResponseContent
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class RawEnabledConnectionsClient:
+class RawClientsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -38,64 +38,62 @@ class RawEnabledConnectionsClient:
         self,
         id: str,
         *,
-        page: typing.Optional[int] = 0,
-        per_page: typing.Optional[int] = 50,
-        include_totals: typing.Optional[bool] = True,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[OrganizationConnection, ListOrganizationConnectionsOffsetPaginatedResponseContent]:
+    ) -> SyncPager[OrganizationClient, ListOrganizationClientsResponseContent]:
         """
-        Retrieve details about a specific connection currently enabled for an Organization. Information returned includes details such as connection ID, name, strategy, and whether the connection automatically grants membership upon login.
+        List all clients associated with an organization, using checkpoint pagination.
+        <ul>
+          <li>
+            <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+          </li>
+        </ul>
 
         Parameters
         ----------
         id : str
-            Organization identifier.
+            ID of the organization.
 
-        page : typing.Optional[int]
-            Page index of the results to return. First page is 0.
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
 
-        per_page : typing.Optional[int]
-            Number of results per page. Defaults to 50.
-
-        include_totals : typing.Optional[bool]
-            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50. Values greater than the maximum of 100 are capped at 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[OrganizationConnection, ListOrganizationConnectionsOffsetPaginatedResponseContent]
-            Connections successfully retrieved.
+        SyncPager[OrganizationClient, ListOrganizationClientsResponseContent]
+            Organization clients successfully retrieved.
         """
-        page = page if page is not None else 0
-
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections",
+            f"organizations/{encode_path_param(id)}/clients",
             method="GET",
             params={
-                "page": page,
-                "per_page": per_page,
-                "include_totals": include_totals,
+                "from": from_,
+                "take": take,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _parsed_response = typing.cast(
-                    ListOrganizationConnectionsOffsetPaginatedResponseContent,
+                    ListOrganizationClientsResponseContent,
                     parse_obj_as(
-                        type_=ListOrganizationConnectionsOffsetPaginatedResponseContent,  # type: ignore
+                        type_=ListOrganizationClientsResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                _items = _parsed_response.enabled_connections
-                _has_next = len(_items or []) > 0
+                _items = _parsed_response.clients
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
                     id,
-                    page=page + 1,
-                    per_page=per_page,
-                    include_totals=include_totals,
+                    from_=_parsed_next,
+                    take=take,
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -163,54 +161,39 @@ class RawEnabledConnectionsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def add(
+    def create(
         self,
         id: str,
         *,
-        connection_id: str,
-        assign_membership_on_login: typing.Optional[bool] = OMIT,
-        is_signup_enabled: typing.Optional[bool] = OMIT,
-        show_as_button: typing.Optional[bool] = OMIT,
+        clients: typing.Sequence[CreateOrganizationClientRequestItem],
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[AddOrganizationConnectionResponseContent]:
+    ) -> HttpResponse[CreateOrganizationClientsResponseContent]:
         """
-        Enable a specific connection for a given Organization. To enable a connection, it must already exist within your tenant; connections cannot be created through this action.
-
-        [Connections](https://auth0.com/docs/authenticate/identity-providers) represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.
+        Associate one or more clients with an organization.
 
         Parameters
         ----------
         id : str
-            Organization identifier.
+            ID of the organization.
 
-        connection_id : str
-            Single connection ID to add to the organization.
-
-        assign_membership_on_login : typing.Optional[bool]
-            When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
-
-        is_signup_enabled : typing.Optional[bool]
-            Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
-
-        show_as_button : typing.Optional[bool]
-            Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.
+        clients : typing.Sequence[CreateOrganizationClientRequestItem]
+            List of clients to associate with the organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[AddOrganizationConnectionResponseContent]
-            Organization connection successfully added.
+        HttpResponse[CreateOrganizationClientsResponseContent]
+            Organization clients successfully associated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections",
+            f"organizations/{encode_path_param(id)}/clients",
             method="POST",
             json={
-                "connection_id": connection_id,
-                "assign_membership_on_login": assign_membership_on_login,
-                "is_signup_enabled": is_signup_enabled,
-                "show_as_button": show_as_button,
+                "clients": convert_and_respect_annotation_metadata(
+                    object_=clients, annotation=typing.Sequence[CreateOrganizationClientRequestItem], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -221,9 +204,9 @@ class RawEnabledConnectionsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AddOrganizationConnectionResponseContent,
+                    CreateOrganizationClientsResponseContent,
                     parse_obj_as(
-                        type_=AddOrganizationConnectionResponseContent,  # type: ignore
+                        type_=CreateOrganizationClientsResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -303,111 +286,19 @@ class RawEnabledConnectionsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get(
-        self, id: str, connection_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[GetOrganizationConnectionResponseContent]:
-        """
-        Retrieve details about a specific connection currently enabled for an Organization. Information returned includes details such as connection ID, name, strategy, and whether the connection automatically grants membership upon login.
-
-        Parameters
-        ----------
-        id : str
-            Organization identifier.
-
-        connection_id : str
-            Connection identifier.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[GetOrganizationConnectionResponseContent]
-            Connection successfully retrieved.
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    GetOrganizationConnectionResponseContent,
-                    parse_obj_as(
-                        type_=GetOrganizationConnectionResponseContent,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def delete(
-        self, id: str, connection_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, clients: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-
-        **Note**: This action does not remove the connection from your tenant.
+        Remove one or more client associations from an organization.
 
         Parameters
         ----------
         id : str
-            Organization identifier.
+            ID of the organization.
 
-        connection_id : str
-            Connection identifier.
+        clients : typing.Sequence[str]
+            List of client IDs to disassociate from the organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -417,9 +308,16 @@ class RawEnabledConnectionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{encode_path_param(id)}/clients",
             method="DELETE",
+            json={
+                "clients": clients,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -488,51 +386,142 @@ class RawEnabledConnectionsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def update(
-        self,
-        id: str,
-        connection_id: str,
-        *,
-        assign_membership_on_login: typing.Optional[bool] = OMIT,
-        is_signup_enabled: typing.Optional[bool] = OMIT,
-        show_as_button: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[UpdateOrganizationConnectionResponseContent]:
+    def get(
+        self, id: str, client_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[GetOrganizationClientResponseContent]:
         """
-        Modify the details of a specific connection currently enabled for an Organization.
+        Get a specific client association for an organization.
 
         Parameters
         ----------
         id : str
-            Organization identifier.
+            ID of the organization.
 
-        connection_id : str
-            Connection identifier.
-
-        assign_membership_on_login : typing.Optional[bool]
-            When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
-
-        is_signup_enabled : typing.Optional[bool]
-            Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
-
-        show_as_button : typing.Optional[bool]
-            Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.
+        client_id : str
+            ID of the client association to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[UpdateOrganizationConnectionResponseContent]
-            Organization connection successfully updated.
+        HttpResponse[GetOrganizationClientResponseContent]
+            Organization client association successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{encode_path_param(id)}/clients/{encode_path_param(client_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetOrganizationClientResponseContent,
+                    parse_obj_as(
+                        type_=GetOrganizationClientResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update(
+        self,
+        id: str,
+        client_id: str,
+        *,
+        use_for_member_access: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[UpdateOrganizationClientResponseContent]:
+        """
+        Update an organization client association.
+
+        Parameters
+        ----------
+        id : str
+            ID of the organization.
+
+        client_id : str
+            ID of the client association to update.
+
+        use_for_member_access : typing.Optional[bool]
+            Whether this client is used for member access to the organization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[UpdateOrganizationClientResponseContent]
+            Organization client successfully updated.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"organizations/{encode_path_param(id)}/clients/{encode_path_param(client_id)}",
             method="PATCH",
             json={
-                "assign_membership_on_login": assign_membership_on_login,
-                "is_signup_enabled": is_signup_enabled,
-                "show_as_button": show_as_button,
+                "use_for_member_access": use_for_member_access,
             },
             headers={
                 "content-type": "application/json",
@@ -543,9 +532,9 @@ class RawEnabledConnectionsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    UpdateOrganizationConnectionResponseContent,
+                    UpdateOrganizationClientResponseContent,
                     parse_obj_as(
-                        type_=UpdateOrganizationConnectionResponseContent,  # type: ignore
+                        type_=UpdateOrganizationClientResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -615,7 +604,7 @@ class RawEnabledConnectionsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
-class AsyncRawEnabledConnectionsClient:
+class AsyncRawClientsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -623,66 +612,64 @@ class AsyncRawEnabledConnectionsClient:
         self,
         id: str,
         *,
-        page: typing.Optional[int] = 0,
-        per_page: typing.Optional[int] = 50,
-        include_totals: typing.Optional[bool] = True,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[OrganizationConnection, ListOrganizationConnectionsOffsetPaginatedResponseContent]:
+    ) -> AsyncPager[OrganizationClient, ListOrganizationClientsResponseContent]:
         """
-        Retrieve details about a specific connection currently enabled for an Organization. Information returned includes details such as connection ID, name, strategy, and whether the connection automatically grants membership upon login.
+        List all clients associated with an organization, using checkpoint pagination.
+        <ul>
+          <li>
+            <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+          </li>
+        </ul>
 
         Parameters
         ----------
         id : str
-            Organization identifier.
+            ID of the organization.
 
-        page : typing.Optional[int]
-            Page index of the results to return. First page is 0.
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
 
-        per_page : typing.Optional[int]
-            Number of results per page. Defaults to 50.
-
-        include_totals : typing.Optional[bool]
-            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50. Values greater than the maximum of 100 are capped at 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[OrganizationConnection, ListOrganizationConnectionsOffsetPaginatedResponseContent]
-            Connections successfully retrieved.
+        AsyncPager[OrganizationClient, ListOrganizationClientsResponseContent]
+            Organization clients successfully retrieved.
         """
-        page = page if page is not None else 0
-
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections",
+            f"organizations/{encode_path_param(id)}/clients",
             method="GET",
             params={
-                "page": page,
-                "per_page": per_page,
-                "include_totals": include_totals,
+                "from": from_,
+                "take": take,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _parsed_response = typing.cast(
-                    ListOrganizationConnectionsOffsetPaginatedResponseContent,
+                    ListOrganizationClientsResponseContent,
                     parse_obj_as(
-                        type_=ListOrganizationConnectionsOffsetPaginatedResponseContent,  # type: ignore
+                        type_=ListOrganizationClientsResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                _items = _parsed_response.enabled_connections
-                _has_next = len(_items or []) > 0
+                _items = _parsed_response.clients
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
 
                 async def _get_next():
                     return await self.list(
                         id,
-                        page=page + 1,
-                        per_page=per_page,
-                        include_totals=include_totals,
+                        from_=_parsed_next,
+                        take=take,
                         request_options=request_options,
                     )
 
@@ -751,54 +738,39 @@ class AsyncRawEnabledConnectionsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def add(
+    async def create(
         self,
         id: str,
         *,
-        connection_id: str,
-        assign_membership_on_login: typing.Optional[bool] = OMIT,
-        is_signup_enabled: typing.Optional[bool] = OMIT,
-        show_as_button: typing.Optional[bool] = OMIT,
+        clients: typing.Sequence[CreateOrganizationClientRequestItem],
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[AddOrganizationConnectionResponseContent]:
+    ) -> AsyncHttpResponse[CreateOrganizationClientsResponseContent]:
         """
-        Enable a specific connection for a given Organization. To enable a connection, it must already exist within your tenant; connections cannot be created through this action.
-
-        [Connections](https://auth0.com/docs/authenticate/identity-providers) represent the relationship between Auth0 and a source of users. Available types of connections include database, enterprise, and social.
+        Associate one or more clients with an organization.
 
         Parameters
         ----------
         id : str
-            Organization identifier.
+            ID of the organization.
 
-        connection_id : str
-            Single connection ID to add to the organization.
-
-        assign_membership_on_login : typing.Optional[bool]
-            When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
-
-        is_signup_enabled : typing.Optional[bool]
-            Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
-
-        show_as_button : typing.Optional[bool]
-            Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.
+        clients : typing.Sequence[CreateOrganizationClientRequestItem]
+            List of clients to associate with the organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[AddOrganizationConnectionResponseContent]
-            Organization connection successfully added.
+        AsyncHttpResponse[CreateOrganizationClientsResponseContent]
+            Organization clients successfully associated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections",
+            f"organizations/{encode_path_param(id)}/clients",
             method="POST",
             json={
-                "connection_id": connection_id,
-                "assign_membership_on_login": assign_membership_on_login,
-                "is_signup_enabled": is_signup_enabled,
-                "show_as_button": show_as_button,
+                "clients": convert_and_respect_annotation_metadata(
+                    object_=clients, annotation=typing.Sequence[CreateOrganizationClientRequestItem], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -809,9 +781,9 @@ class AsyncRawEnabledConnectionsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AddOrganizationConnectionResponseContent,
+                    CreateOrganizationClientsResponseContent,
                     parse_obj_as(
-                        type_=AddOrganizationConnectionResponseContent,  # type: ignore
+                        type_=CreateOrganizationClientsResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -891,111 +863,19 @@ class AsyncRawEnabledConnectionsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def get(
-        self, id: str, connection_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[GetOrganizationConnectionResponseContent]:
-        """
-        Retrieve details about a specific connection currently enabled for an Organization. Information returned includes details such as connection ID, name, strategy, and whether the connection automatically grants membership upon login.
-
-        Parameters
-        ----------
-        id : str
-            Organization identifier.
-
-        connection_id : str
-            Connection identifier.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[GetOrganizationConnectionResponseContent]
-            Connection successfully retrieved.
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    GetOrganizationConnectionResponseContent,
-                    parse_obj_as(
-                        type_=GetOrganizationConnectionResponseContent,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     async def delete(
-        self, id: str, connection_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, clients: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Disable a specific connection for an Organization. Once disabled, Organization members can no longer use that connection to authenticate.
-
-        **Note**: This action does not remove the connection from your tenant.
+        Remove one or more client associations from an organization.
 
         Parameters
         ----------
         id : str
-            Organization identifier.
+            ID of the organization.
 
-        connection_id : str
-            Connection identifier.
+        clients : typing.Sequence[str]
+            List of client IDs to disassociate from the organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1005,9 +885,16 @@ class AsyncRawEnabledConnectionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{encode_path_param(id)}/clients",
             method="DELETE",
+            json={
+                "clients": clients,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -1076,51 +963,142 @@ class AsyncRawEnabledConnectionsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def update(
-        self,
-        id: str,
-        connection_id: str,
-        *,
-        assign_membership_on_login: typing.Optional[bool] = OMIT,
-        is_signup_enabled: typing.Optional[bool] = OMIT,
-        show_as_button: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[UpdateOrganizationConnectionResponseContent]:
+    async def get(
+        self, id: str, client_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[GetOrganizationClientResponseContent]:
         """
-        Modify the details of a specific connection currently enabled for an Organization.
+        Get a specific client association for an organization.
 
         Parameters
         ----------
         id : str
-            Organization identifier.
+            ID of the organization.
 
-        connection_id : str
-            Connection identifier.
-
-        assign_membership_on_login : typing.Optional[bool]
-            When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
-
-        is_signup_enabled : typing.Optional[bool]
-            Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
-
-        show_as_button : typing.Optional[bool]
-            Determines whether a connection should be displayed on this organization’s login prompt. Only applicable for enterprise connections. Default: true.
+        client_id : str
+            ID of the client association to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[UpdateOrganizationConnectionResponseContent]
-            Organization connection successfully updated.
+        AsyncHttpResponse[GetOrganizationClientResponseContent]
+            Organization client association successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{encode_path_param(id)}/clients/{encode_path_param(client_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetOrganizationClientResponseContent,
+                    parse_obj_as(
+                        type_=GetOrganizationClientResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update(
+        self,
+        id: str,
+        client_id: str,
+        *,
+        use_for_member_access: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[UpdateOrganizationClientResponseContent]:
+        """
+        Update an organization client association.
+
+        Parameters
+        ----------
+        id : str
+            ID of the organization.
+
+        client_id : str
+            ID of the client association to update.
+
+        use_for_member_access : typing.Optional[bool]
+            Whether this client is used for member access to the organization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[UpdateOrganizationClientResponseContent]
+            Organization client successfully updated.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"organizations/{encode_path_param(id)}/clients/{encode_path_param(client_id)}",
             method="PATCH",
             json={
-                "assign_membership_on_login": assign_membership_on_login,
-                "is_signup_enabled": is_signup_enabled,
-                "show_as_button": show_as_button,
+                "use_for_member_access": use_for_member_access,
             },
             headers={
                 "content-type": "application/json",
@@ -1131,9 +1109,9 @@ class AsyncRawEnabledConnectionsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    UpdateOrganizationConnectionResponseContent,
+                    UpdateOrganizationClientResponseContent,
                     parse_obj_as(
-                        type_=UpdateOrganizationConnectionResponseContent,  # type: ignore
+                        type_=UpdateOrganizationClientResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

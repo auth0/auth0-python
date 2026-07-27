@@ -19,8 +19,9 @@ from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.create_role_response_content import CreateRoleResponseContent
 from ..types.get_role_response_content import GetRoleResponseContent
-from ..types.list_roles_offset_paginated_response_content import ListRolesOffsetPaginatedResponseContent
+from ..types.list_roles_response_content import ListRolesResponseContent
 from ..types.role import Role
+from ..types.role_type_enum import RoleTypeEnum
 from ..types.update_role_response_content import UpdateRoleResponseContent
 from pydantic import ValidationError
 
@@ -35,12 +36,13 @@ class RawRolesClient:
     def list(
         self,
         *,
-        per_page: typing.Optional[int] = 50,
-        page: typing.Optional[int] = 0,
-        include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
+        type: typing.Optional[RoleTypeEnum] = None,
+        owner_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
+    ) -> SyncPager[Role, ListRolesResponseContent]:
         """
         Retrieve detailed list of user roles created in your tenant.
 
@@ -48,55 +50,59 @@ class RawRolesClient:
 
         Parameters
         ----------
-        per_page : typing.Optional[int]
-            Number of results per page. Defaults to 50.
-
-        page : typing.Optional[int]
-            Page index of the results to return. First page is 0.
-
-        include_totals : typing.Optional[bool]
-            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
-
         name_filter : typing.Optional[str]
             Optional filter on name (case-insensitive).
+
+        type : typing.Optional[RoleTypeEnum]
+            Optional filter on the type of the role
+
+        owner_id : typing.Optional[str]
+            Filter organization-level roles by owner ID. Required when type is "organization".
+
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[Role, ListRolesOffsetPaginatedResponseContent]
+        SyncPager[Role, ListRolesResponseContent]
             Roles successfully retrieved.
         """
-        page = page if page is not None else 0
-
         _response = self._client_wrapper.httpx_client.request(
             "roles",
             method="GET",
             params={
-                "per_page": per_page,
-                "page": page,
-                "include_totals": include_totals,
                 "name_filter": name_filter,
+                "type": type,
+                "owner_id": owner_id,
+                "from": from_,
+                "take": take,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _parsed_response = typing.cast(
-                    ListRolesOffsetPaginatedResponseContent,
+                    ListRolesResponseContent,
                     parse_obj_as(
-                        type_=ListRolesOffsetPaginatedResponseContent,  # type: ignore
+                        type_=ListRolesResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 _items = _parsed_response.roles
-                _has_next = len(_items or []) > 0
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
-                    per_page=per_page,
-                    page=page + 1,
-                    include_totals=include_totals,
                     name_filter=name_filter,
+                    type=type,
+                    owner_id=owner_id,
+                    from_=_parsed_next,
+                    take=take,
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -158,6 +164,8 @@ class RawRolesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        type: typing.Optional[RoleTypeEnum] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateRoleResponseContent]:
         """
@@ -173,6 +181,12 @@ class RawRolesClient:
         description : typing.Optional[str]
             Description of the role.
 
+        type : typing.Optional[RoleTypeEnum]
+            The type of the role. Defaults to tenant.
+
+        owner_id : typing.Optional[str]
+            The ID of the organization that owns this role. Required when type is "organization".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -187,6 +201,8 @@ class RawRolesClient:
             json={
                 "name": name,
                 "description": description,
+                "type": type,
+                "owner_id": owner_id,
             },
             headers={
                 "content-type": "application/json",
@@ -568,12 +584,13 @@ class AsyncRawRolesClient:
     async def list(
         self,
         *,
-        per_page: typing.Optional[int] = 50,
-        page: typing.Optional[int] = 0,
-        include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
+        type: typing.Optional[RoleTypeEnum] = None,
+        owner_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
+    ) -> AsyncPager[Role, ListRolesResponseContent]:
         """
         Retrieve detailed list of user roles created in your tenant.
 
@@ -581,57 +598,61 @@ class AsyncRawRolesClient:
 
         Parameters
         ----------
-        per_page : typing.Optional[int]
-            Number of results per page. Defaults to 50.
-
-        page : typing.Optional[int]
-            Page index of the results to return. First page is 0.
-
-        include_totals : typing.Optional[bool]
-            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
-
         name_filter : typing.Optional[str]
             Optional filter on name (case-insensitive).
+
+        type : typing.Optional[RoleTypeEnum]
+            Optional filter on the type of the role
+
+        owner_id : typing.Optional[str]
+            Filter organization-level roles by owner ID. Required when type is "organization".
+
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of results per page. Defaults to 50.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]
+        AsyncPager[Role, ListRolesResponseContent]
             Roles successfully retrieved.
         """
-        page = page if page is not None else 0
-
         _response = await self._client_wrapper.httpx_client.request(
             "roles",
             method="GET",
             params={
-                "per_page": per_page,
-                "page": page,
-                "include_totals": include_totals,
                 "name_filter": name_filter,
+                "type": type,
+                "owner_id": owner_id,
+                "from": from_,
+                "take": take,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _parsed_response = typing.cast(
-                    ListRolesOffsetPaginatedResponseContent,
+                    ListRolesResponseContent,
                     parse_obj_as(
-                        type_=ListRolesOffsetPaginatedResponseContent,  # type: ignore
+                        type_=ListRolesResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 _items = _parsed_response.roles
-                _has_next = len(_items or []) > 0
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
 
                 async def _get_next():
                     return await self.list(
-                        per_page=per_page,
-                        page=page + 1,
-                        include_totals=include_totals,
                         name_filter=name_filter,
+                        type=type,
+                        owner_id=owner_id,
+                        from_=_parsed_next,
+                        take=take,
                         request_options=request_options,
                     )
 
@@ -694,6 +715,8 @@ class AsyncRawRolesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        type: typing.Optional[RoleTypeEnum] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateRoleResponseContent]:
         """
@@ -709,6 +732,12 @@ class AsyncRawRolesClient:
         description : typing.Optional[str]
             Description of the role.
 
+        type : typing.Optional[RoleTypeEnum]
+            The type of the role. Defaults to tenant.
+
+        owner_id : typing.Optional[str]
+            The ID of the organization that owns this role. Required when type is "organization".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -723,6 +752,8 @@ class AsyncRawRolesClient:
             json={
                 "name": name,
                 "description": description,
+                "type": type,
+                "owner_id": owner_id,
             },
             headers={
                 "content-type": "application/json",

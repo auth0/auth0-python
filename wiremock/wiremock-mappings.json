@@ -3551,12 +3551,15 @@
           },
           "sort": {
             "equalTo": "sort"
+          },
+          "include_client_association_for": {
+            "equalTo": "include_client_association_for"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"next\": \"next\",\n  \"organizations\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"display_name\": \"display_name\",\n      \"token_quota\": {\n        \"client_credentials\": {}\n      },\n      \"third_party_client_access\": \"block\"\n    }\n  ]\n}",
+        "body": "{\n  \"next\": \"next\",\n  \"organizations\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"display_name\": \"display_name\",\n      \"token_quota\": {\n        \"client_credentials\": {}\n      },\n      \"third_party_client_access\": \"block\",\n      \"is_app_entitlement_active\": true\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3588,7 +3591,7 @@
       },
       "response": {
         "status": 201,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"display_name\": \"display_name\",\n  \"branding\": {\n    \"logo_url\": \"logo_url\",\n    \"colors\": {\n      \"primary\": \"primary\",\n      \"page_background\": \"page_background\"\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  },\n  \"token_quota\": {\n    \"client_credentials\": {\n      \"enforce\": true,\n      \"per_day\": 1,\n      \"per_hour\": 1\n    }\n  },\n  \"third_party_client_access\": \"block\",\n  \"enabled_connections\": [\n    {\n      \"connection_id\": \"connection_id\",\n      \"assign_membership_on_login\": true,\n      \"show_as_button\": true,\n      \"is_signup_enabled\": true\n    }\n  ]\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"display_name\": \"display_name\",\n  \"branding\": {\n    \"logo_url\": \"logo_url\",\n    \"colors\": {\n      \"primary\": \"primary\",\n      \"page_background\": \"page_background\"\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  },\n  \"token_quota\": {\n    \"client_credentials\": {\n      \"enforce\": true,\n      \"per_day\": 1,\n      \"per_hour\": 1\n    }\n  },\n  \"third_party_client_access\": \"block\",\n  \"is_app_entitlement_active\": true,\n  \"client\": {\n    \"use_for_member_access\": true\n  },\n  \"enabled_connections\": [\n    {\n      \"connection_id\": \"connection_id\",\n      \"assign_membership_on_login\": true,\n      \"show_as_button\": true,\n      \"is_signup_enabled\": true\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3624,7 +3627,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"display_name\": \"display_name\",\n  \"branding\": {\n    \"logo_url\": \"logo_url\",\n    \"colors\": {\n      \"primary\": \"primary\",\n      \"page_background\": \"page_background\"\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  },\n  \"token_quota\": {\n    \"client_credentials\": {\n      \"enforce\": true,\n      \"per_day\": 1,\n      \"per_hour\": 1\n    }\n  },\n  \"third_party_client_access\": \"block\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"display_name\": \"display_name\",\n  \"branding\": {\n    \"logo_url\": \"logo_url\",\n    \"colors\": {\n      \"primary\": \"primary\",\n      \"page_background\": \"page_background\"\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  },\n  \"token_quota\": {\n    \"client_credentials\": {\n      \"enforce\": true,\n      \"per_day\": 1,\n      \"per_hour\": 1\n    }\n  },\n  \"third_party_client_access\": \"block\",\n  \"is_app_entitlement_active\": true,\n  \"client\": {\n    \"use_for_member_access\": true\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3660,7 +3663,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"display_name\": \"display_name\",\n  \"branding\": {\n    \"logo_url\": \"logo_url\",\n    \"colors\": {\n      \"primary\": \"primary\",\n      \"page_background\": \"page_background\"\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  },\n  \"token_quota\": {\n    \"client_credentials\": {\n      \"enforce\": true,\n      \"per_day\": 1,\n      \"per_hour\": 1\n    }\n  },\n  \"third_party_client_access\": \"block\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"display_name\": \"display_name\",\n  \"branding\": {\n    \"logo_url\": \"logo_url\",\n    \"colors\": {\n      \"primary\": \"primary\",\n      \"page_background\": \"page_background\"\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  },\n  \"token_quota\": {\n    \"client_credentials\": {\n      \"enforce\": true,\n      \"per_day\": 1,\n      \"per_hour\": 1\n    }\n  },\n  \"third_party_client_access\": \"block\",\n  \"is_app_entitlement_active\": true,\n  \"client\": {\n    \"use_for_member_access\": true\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3732,7 +3735,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"display_name\": \"display_name\",\n  \"branding\": {\n    \"logo_url\": \"logo_url\",\n    \"colors\": {\n      \"primary\": \"primary\",\n      \"page_background\": \"page_background\"\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  },\n  \"token_quota\": {\n    \"client_credentials\": {\n      \"enforce\": true,\n      \"per_day\": 1,\n      \"per_hour\": 1\n    }\n  },\n  \"third_party_client_access\": \"block\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"display_name\": \"display_name\",\n  \"branding\": {\n    \"logo_url\": \"logo_url\",\n    \"colors\": {\n      \"primary\": \"primary\",\n      \"page_background\": \"page_background\"\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  },\n  \"token_quota\": {\n    \"client_credentials\": {\n      \"enforce\": true,\n      \"per_day\": 1,\n      \"per_hour\": 1\n    }\n  },\n  \"third_party_client_access\": \"block\",\n  \"is_app_entitlement_active\": true,\n  \"client\": {\n    \"use_for_member_access\": true\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -4400,23 +4403,26 @@
           }
         },
         "queryParameters": {
-          "per_page": {
-            "equalTo": "1"
-          },
-          "page": {
-            "equalTo": "1"
-          },
-          "include_totals": {
-            "equalTo": "true"
-          },
           "name_filter": {
             "equalTo": "name_filter"
+          },
+          "type": {
+            "equalTo": "tenant"
+          },
+          "owner_id": {
+            "equalTo": "owner_id"
+          },
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\"\n    }\n  ]\n}",
+        "body": "{\n  \"next\": \"next\",\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"type\": \"tenant\",\n      \"owner_id\": \"owner_id\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -4448,7 +4454,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"tenant\",\n  \"owner_id\": \"owner_id\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -4484,7 +4490,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"tenant\",\n  \"owner_id\": \"owner_id\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -4556,7 +4562,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"tenant\",\n  \"owner_id\": \"owner_id\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -8154,7 +8160,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"next\": \"next\",\n  \"organizations\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"display_name\": \"display_name\",\n      \"token_quota\": {\n        \"client_credentials\": {}\n      },\n      \"third_party_client_access\": \"block\"\n    }\n  ]\n}",
+        "body": "{\n  \"next\": \"next\",\n  \"organizations\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"display_name\": \"display_name\",\n      \"token_quota\": {\n        \"client_credentials\": {}\n      },\n      \"third_party_client_access\": \"block\",\n      \"is_app_entitlement_active\": true\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -10006,7 +10012,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"type\": \"tenant\",\n      \"owner_id\": \"owner_id\"\n    }\n  ],\n  \"next\": \"next\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -12126,6 +12132,200 @@
       }
     },
     {
+      "id": "a3c9ba95-a693-4d69-a1b3-1aa9120eb072",
+      "name": "List organization client associations - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{id}/clients",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"clients\": [\n    {\n      \"client_id\": \"client_id\",\n      \"use_for_member_access\": true,\n      \"client\": {}\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a3c9ba95-a693-4d69-a1b3-1aa9120eb072",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2fa25415-ea73-486d-a4db-dc430b35eb0b",
+      "name": "Associate clients with an organization - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{id}/clients",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "[\n  {\n    \"client_id\": \"client_id\",\n    \"use_for_member_access\": true,\n    \"client\": {\n      \"name\": \"name\",\n      \"app_type\": \"app_type\",\n      \"logo_uri\": \"logo_uri\",\n      \"is_first_party\": true,\n      \"grant_types\": [\n        \"grant_types\"\n      ],\n      \"organization_usage\": \"deny\"\n    }\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2fa25415-ea73-486d-a4db-dc430b35eb0b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "20855d1e-636b-4663-bac9-875b3eb0d7b3",
+      "name": "Remove client associations from an organization - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{id}/clients",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "20855d1e-636b-4663-bac9-875b3eb0d7b3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "87f91e02-b7a6-470d-9913-43e936377815",
+      "name": "Get an organization client association - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{id}/clients/{client_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          },
+          "client_id": {
+            "equalTo": "client_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"client_id\": \"client_id\",\n  \"use_for_member_access\": true,\n  \"client\": {\n    \"name\": \"name\",\n    \"app_type\": \"app_type\",\n    \"logo_uri\": \"logo_uri\",\n    \"is_first_party\": true,\n    \"grant_types\": [\n      \"grant_types\"\n    ],\n    \"organization_usage\": \"deny\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "87f91e02-b7a6-470d-9913-43e936377815",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "da35509c-6faa-46b7-b7d9-809febc746b9",
+      "name": "Update an organization client association - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{id}/clients/{client_id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          },
+          "client_id": {
+            "equalTo": "client_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"client_id\": \"client_id\",\n  \"use_for_member_access\": true,\n  \"client\": {\n    \"name\": \"name\",\n    \"app_type\": \"app_type\",\n    \"logo_uri\": \"logo_uri\",\n    \"is_first_party\": true,\n    \"grant_types\": [\n      \"grant_types\"\n    ],\n    \"organization_usage\": \"deny\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "da35509c-6faa-46b7-b7d9-809febc746b9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "4c65b7b7-43a0-4437-b96f-7f47fdad6550",
       "name": "Get connections associated with an organization - default",
       "request": {
@@ -13138,7 +13338,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"type\": \"tenant\",\n      \"owner_id\": \"owner_id\"\n    }\n  ],\n  \"next\": \"next\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -13313,7 +13513,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\"\n    }\n  ]\n}",
+        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"type\": \"tenant\",\n      \"owner_id\": \"owner_id\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -13459,8 +13659,8 @@
       }
     },
     {
-      "id": "ffccd1de-fe6a-40b4-830b-54a8b73f173c",
-      "name": "Get the members assigned to an organization role - default",
+      "id": "b184f317-24f3-4e73-9e7b-c6e7decd08e0",
+      "name": "List the members assigned to a role in the context of an organization - default",
       "request": {
         "urlPathTemplate": "/organizations/{id}/roles/{role_id}/members",
         "method": "GET",
@@ -13499,7 +13699,54 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "ffccd1de-fe6a-40b4-830b-54a8b73f173c",
+      "uuid": "b184f317-24f3-4e73-9e7b-c6e7decd08e0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c6a72036-f7db-4e59-a8cf-684c7aa65301",
+      "name": "List the groups assigned to a role in the context of an organization - default",
+      "request": {
+        "urlPathTemplate": "/organizations/{organization_id}/roles/{role_id}/groups",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "organization_id": {
+            "equalTo": "organization_id"
+          },
+          "role_id": {
+            "equalTo": "role_id"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"groups\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"external_id\": \"external_id\",\n      \"connection_id\": \"connection_id\",\n      \"organization_id\": \"organization_id\",\n      \"tenant_name\": \"tenant_name\",\n      \"description\": \"description\",\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c6a72036-f7db-4e59-a8cf-684c7aa65301",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -15261,7 +15508,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"organizations\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"display_name\": \"display_name\",\n      \"token_quota\": {\n        \"client_credentials\": {}\n      },\n      \"third_party_client_access\": \"block\"\n    }\n  ]\n}",
+        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"organizations\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"display_name\": \"display_name\",\n      \"token_quota\": {\n        \"client_credentials\": {}\n      },\n      \"third_party_client_access\": \"block\",\n      \"is_app_entitlement_active\": true\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -15463,7 +15710,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\"\n    }\n  ]\n}",
+        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"type\": \"tenant\",\n      \"owner_id\": \"owner_id\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -15745,7 +15992,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"sources\": [\n        \"direct\"\n      ]\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "body": "{\n  \"roles\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"type\": \"tenant\",\n      \"owner_id\": \"owner_id\",\n      \"sources\": [\n        \"direct\"\n      ]\n    }\n  ],\n  \"next\": \"next\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -15990,6 +16237,6 @@
     }
   ],
   "meta": {
-    "total": 428
+    "total": 434
   }
 }

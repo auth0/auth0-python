@@ -4,14 +4,19 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .role import Role
+from .role_group import RoleGroup
 
 
-class ListRolesOffsetPaginatedResponseContent(UniversalBaseModel):
-    start: float
-    limit: float
-    total: float
-    roles: typing.Optional[typing.List[Role]] = None
+class ListOrganizationRoleGroupsResponseContent(UniversalBaseModel):
+    """
+    Checkpoint paginated list of groups assigned to a role within an organization.
+    """
+
+    groups: typing.List[RoleGroup]
+    next: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A cursor to be used as the "from" query parameter for the next page of results.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

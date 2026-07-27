@@ -240,6 +240,10 @@ OauthScope = typing.Union[
         "read:vdcs_templates",
         "update:vdcs_templates",
         "delete:vdcs_templates",
+        "create:organization_clients",
+        "read:organization_clients",
+        "update:organization_clients",
+        "delete:organization_clients",
     ],
     typing.Any,
 ]

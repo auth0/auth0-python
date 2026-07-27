@@ -6,16 +6,17 @@ def test_roles_list_() -> None:
     test_id = "roles.list_.0"
     client = get_client(test_id)
     client.roles.list(
-        per_page=1,
-        page=1,
-        include_totals=True,
         name_filter="name_filter",
+        type="tenant",
+        owner_id="owner_id",
+        from_="from",
+        take=1,
     )
     verify_request_count(
         test_id,
         "GET",
         "/roles",
-        {"per_page": "1", "page": "1", "include_totals": "true", "name_filter": "name_filter"},
+        {"name_filter": "name_filter", "type": "tenant", "owner_id": "owner_id", "from": "from", "take": "1"},
         1,
     )
 

@@ -10173,6 +10173,7 @@ client.organizations.list(
     from_="from",
     take=1,
     sort="sort",
+    include_client_association_for="include_client_association_for",
 )
 
 ```
@@ -10206,6 +10207,14 @@ client.organizations.list(
 <dd>
 
 **sort:** `typing.Optional[str]` — Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_client_association_for:** `typing.Optional[str]` — Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
     
 </dd>
 </dl>
@@ -10327,6 +10336,14 @@ client.organizations.create(
 <dd>
 
 **third_party_client_access:** `typing.Optional[OrganizationThirdPartyClientAccessEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_app_entitlement_active:** `typing.Optional[bool]` — Whether app entitlement is active for this organization.
     
 </dd>
 </dl>
@@ -10669,6 +10686,14 @@ client.organizations.update(
 <dd>
 
 **third_party_client_access:** `typing.Optional[OrganizationThirdPartyClientAccessEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_app_entitlement_active:** `typing.Optional[bool]` — Whether app entitlement is active for this organization.
     
 </dd>
 </dl>
@@ -12338,7 +12363,7 @@ client.resource_servers.update(
 </details>
 
 ## Roles
-<details><summary><code>client.roles.<a href="src/auth0.management/roles/client.py">list</a>(...) -> ListRolesOffsetPaginatedResponseContent</code></summary>
+<details><summary><code>client.roles.<a href="src/auth0.management/roles/client.py">list</a>(...) -> ListRolesResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -12376,10 +12401,11 @@ client = Auth0(
 )
 
 client.roles.list(
-    per_page=1,
-    page=1,
-    include_totals=True,
     name_filter="name_filter",
+    type="tenant",
+    owner_id="owner_id",
+    from_="from",
+    take=1,
 )
 
 ```
@@ -12396,31 +12422,39 @@ client.roles.list(
 <dl>
 <dd>
 
-**per_page:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page:** `typing.Optional[int]` — Page index of the results to return. First page is 0.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_totals:** `typing.Optional[bool]` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **name_filter:** `typing.Optional[str]` — Optional filter on name (case-insensitive).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[RoleTypeEnum]` — Optional filter on the type of the role
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**owner_id:** `typing.Optional[str]` — Filter organization-level roles by owner ID. Required when type is "organization".
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
     
 </dd>
 </dl>
@@ -12504,6 +12538,22 @@ client.roles.create(
 <dd>
 
 **description:** `typing.Optional[str]` — Description of the role.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[RoleTypeEnum]` — The type of the role. Defaults to tenant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**owner_id:** `typing.Optional[str]` — The ID of the organization that owns this role. Required when type is "organization".
     
 </dd>
 </dl>
@@ -30593,6 +30643,446 @@ client.organizations.client_grants.delete(
 </dl>
 </details>
 
+## Organizations Clients
+<details><summary><code>client.organizations.clients.<a href="src/auth0.management/organizations/clients/client.py">list</a>(...) -> ListOrganizationClientsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all clients associated with an organization, using checkpoint pagination.
+<ul>
+  <li>
+    <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+  </li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.clients.list(
+    id="id",
+    from_="from",
+    take=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50. Values greater than the maximum of 100 are capped at 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.clients.<a href="src/auth0.management/organizations/clients/client.py">create</a>(...) -> CreateOrganizationClientsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Associate one or more clients with an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0, CreateOrganizationClientRequestItem
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.clients.create(
+    id="id",
+    clients=[
+        CreateOrganizationClientRequestItem(
+            client_id="client_id",
+            use_for_member_access=True,
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clients:** `typing.List[CreateOrganizationClientRequestItem]` — List of clients to associate with the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.clients.<a href="src/auth0.management/organizations/clients/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove one or more client associations from an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.clients.delete(
+    id="id",
+    clients=[
+        "clients"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clients:** `typing.List[str]` — List of client IDs to disassociate from the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.clients.<a href="src/auth0.management/organizations/clients/client.py">get</a>(...) -> GetOrganizationClientResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a specific client association for an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.clients.get(
+    id="id",
+    client_id="client_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_id:** `str` — ID of the client association to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.clients.<a href="src/auth0.management/organizations/clients/client.py">update</a>(...) -> UpdateOrganizationClientResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an organization client association.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.clients.update(
+    id="id",
+    client_id="client_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_id:** `str` — ID of the client association to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_for_member_access:** `typing.Optional[bool]` — Whether this client is used for member access to the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Organizations Connections
 <details><summary><code>client.organizations.connections.<a href="src/auth0.management/organizations/connections/client.py">list</a>(...) -> ListOrganizationAllConnectionsOffsetPaginatedResponseContent</code></summary>
 <dl>
@@ -33782,6 +34272,107 @@ client.organizations.roles.members.list(
 <dd>
 
 **include_fields:** `typing.Optional[bool]` — Whether specified fields are to be included (true) or excluded (false). Defaults to true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Organizations Roles Groups
+<details><summary><code>client.organizations.roles.groups.<a href="src/auth0.management/organizations/roles/groups/client.py">list</a>(...) -> ListOrganizationRoleGroupsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the list of groups assigned to a role in the context of an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.roles.groups.list(
+    organization_id="organization_id",
+    role_id="role_id",
+    from_="from",
+    take=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**organization_id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**role_id:** `str` — ID of the role.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
     
 </dd>
 </dl>

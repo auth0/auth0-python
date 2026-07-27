@@ -46,6 +46,7 @@ class RawOrganizationsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         sort: typing.Optional[str] = None,
+        include_client_association_for: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Organization, ListOrganizationsPaginatedResponseContent]:
         """
@@ -78,6 +79,9 @@ class RawOrganizationsClient:
         sort : typing.Optional[str]
             Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
 
+        include_client_association_for : typing.Optional[str]
+            Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -93,6 +97,7 @@ class RawOrganizationsClient:
                 "from": from_,
                 "take": take,
                 "sort": sort,
+                "include_client_association_for": include_client_association_for,
             },
             request_options=request_options,
         )
@@ -112,6 +117,7 @@ class RawOrganizationsClient:
                     from_=_parsed_next,
                     take=take,
                     sort=sort,
+                    include_client_association_for=include_client_association_for,
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -178,6 +184,7 @@ class RawOrganizationsClient:
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateOrganizationResponseContent]:
         """
@@ -201,6 +208,9 @@ class RawOrganizationsClient:
         token_quota : typing.Optional[CreateTokenQuota]
 
         third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -229,6 +239,7 @@ class RawOrganizationsClient:
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
                 "third_party_client_access": third_party_client_access,
+                "is_app_entitlement_active": is_app_entitlement_active,
             },
             headers={
                 "content-type": "application/json",
@@ -606,6 +617,7 @@ class RawOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateOrganizationResponseContent]:
         """
@@ -630,6 +642,9 @@ class RawOrganizationsClient:
 
         third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
 
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -652,6 +667,7 @@ class RawOrganizationsClient:
                     object_=token_quota, annotation=typing.Optional[UpdateTokenQuota], direction="write"
                 ),
                 "third_party_client_access": third_party_client_access,
+                "is_app_entitlement_active": is_app_entitlement_active,
             },
             headers={
                 "content-type": "application/json",
@@ -733,6 +749,7 @@ class AsyncRawOrganizationsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         sort: typing.Optional[str] = None,
+        include_client_association_for: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Organization, ListOrganizationsPaginatedResponseContent]:
         """
@@ -765,6 +782,9 @@ class AsyncRawOrganizationsClient:
         sort : typing.Optional[str]
             Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
 
+        include_client_association_for : typing.Optional[str]
+            Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -780,6 +800,7 @@ class AsyncRawOrganizationsClient:
                 "from": from_,
                 "take": take,
                 "sort": sort,
+                "include_client_association_for": include_client_association_for,
             },
             request_options=request_options,
         )
@@ -801,6 +822,7 @@ class AsyncRawOrganizationsClient:
                         from_=_parsed_next,
                         take=take,
                         sort=sort,
+                        include_client_association_for=include_client_association_for,
                         request_options=request_options,
                     )
 
@@ -868,6 +890,7 @@ class AsyncRawOrganizationsClient:
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateOrganizationResponseContent]:
         """
@@ -891,6 +914,9 @@ class AsyncRawOrganizationsClient:
         token_quota : typing.Optional[CreateTokenQuota]
 
         third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -919,6 +945,7 @@ class AsyncRawOrganizationsClient:
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
                 "third_party_client_access": third_party_client_access,
+                "is_app_entitlement_active": is_app_entitlement_active,
             },
             headers={
                 "content-type": "application/json",
@@ -1298,6 +1325,7 @@ class AsyncRawOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateOrganizationResponseContent]:
         """
@@ -1322,6 +1350,9 @@ class AsyncRawOrganizationsClient:
 
         third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
 
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1344,6 +1375,7 @@ class AsyncRawOrganizationsClient:
                     object_=token_quota, annotation=typing.Optional[UpdateTokenQuota], direction="write"
                 ),
                 "third_party_client_access": third_party_client_access,
+                "is_app_entitlement_active": is_app_entitlement_active,
             },
             headers={
                 "content-type": "application/json",

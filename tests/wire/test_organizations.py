@@ -9,8 +9,20 @@ def test_organizations_list_() -> None:
         from_="from",
         take=1,
         sort="sort",
+        include_client_association_for="include_client_association_for",
     )
-    verify_request_count(test_id, "GET", "/organizations", {"from": "from", "take": "1", "sort": "sort"}, 1)
+    verify_request_count(
+        test_id,
+        "GET",
+        "/organizations",
+        {
+            "from": "from",
+            "take": "1",
+            "sort": "sort",
+            "include_client_association_for": "include_client_association_for",
+        },
+        1,
+    )
 
 
 def test_organizations_create() -> None:
