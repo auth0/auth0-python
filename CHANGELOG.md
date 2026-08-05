@@ -3,14 +3,11 @@
 ## [6.2.0](https://github.com/auth0/auth0-python/tree/6.2.0) (2026-08-05)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.1.0...6.2.0)
 
-⚠️ **Breaking Changes**
-- `EventStreamCloudEvent.data` changed from `Optional[str]` to `Optional[Dict[str, Any]]` (new `EventStreamCloudEventData` type). Code that previously parsed `.data` as a JSON-encoded string (e.g. `json.loads(event.data)`) will now receive a dict directly [\#881](https://github.com/auth0/auth0-python/pull/881) ([fern-api[bot]](https://github.com/apps/fern-api))
-
 **Added**
 - feat: Add agents management, organization-client associations, organization-level roles (groups/members), network ACL keys, and directory provisioning group sync selections [\#881](https://github.com/auth0/auth0-python/pull/881) ([fern-api[bot]](https://github.com/apps/fern-api))
 
 **Fixed**
-- fix: `EventStreamCloudEvent.data` now deserializes as its actual object shape (`Dict[str, Any]`) instead of an opaque JSON-encoded string that callers had to `json.loads()` themselves. See Breaking Changes above for the migration impact [\#881](https://github.com/auth0/auth0-python/pull/881) ([fern-api[bot]](https://github.com/apps/fern-api))
+- fix: `EventStreamCloudEvent.data` now deserializes as its actual object shape (`Dict[str, Any]`) instead of an opaque JSON-encoded string that callers had to `json.loads()` themselves.
 
 ## [6.1.0](https://github.com/auth0/auth0-python/tree/6.1.0) (2026-07-22)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.0.0...6.1.0)
