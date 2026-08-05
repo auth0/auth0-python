@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -322,7 +322,7 @@ class RawDeviceCredentialsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"device-credentials/{encode_path_param(id)}",
+            f"device-credentials/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -681,7 +681,7 @@ class AsyncRawDeviceCredentialsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"device-credentials/{encode_path_param(id)}",
+            f"device-credentials/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )

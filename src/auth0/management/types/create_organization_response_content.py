@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .organization_branding import OrganizationBranding
+from .organization_client_association import OrganizationClientAssociation
 from .organization_enabled_connection import OrganizationEnabledConnection
 from .organization_metadata import OrganizationMetadata
 from .organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
@@ -31,6 +32,12 @@ class CreateOrganizationResponseContent(UniversalBaseModel):
     metadata: typing.Optional[OrganizationMetadata] = None
     token_quota: typing.Optional[TokenQuota] = None
     third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = None
+    is_app_entitlement_active: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether app entitlement is active for this organization.
+    """
+
+    client: typing.Optional[OrganizationClientAssociation] = None
     enabled_connections: typing.Optional[typing.List[OrganizationEnabledConnection]] = None
 
     if IS_PYDANTIC_V2:

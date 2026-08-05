@@ -6,12 +6,13 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
+from ...errors.conflict_error import ConflictError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
@@ -70,7 +71,7 @@ class RawEnabledConnectionsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections",
+            f"organizations/{quote_path_param(id)}/enabled_connections",
             method="GET",
             params={
                 "page": page,
@@ -203,7 +204,7 @@ class RawEnabledConnectionsClient:
             Organization connection successfully added.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections",
+            f"organizations/{quote_path_param(id)}/enabled_connections",
             method="POST",
             json={
                 "connection_id": connection_id,
@@ -271,6 +272,17 @@ class RawEnabledConnectionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -314,7 +326,7 @@ class RawEnabledConnectionsClient:
             Connection successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/enabled_connections/{quote_path_param(connection_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -405,7 +417,7 @@ class RawEnabledConnectionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/enabled_connections/{quote_path_param(connection_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -515,7 +527,7 @@ class RawEnabledConnectionsClient:
             Organization connection successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/enabled_connections/{quote_path_param(connection_id)}",
             method="PATCH",
             json={
                 "assign_membership_on_login": assign_membership_on_login,
@@ -644,7 +656,7 @@ class AsyncRawEnabledConnectionsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections",
+            f"organizations/{quote_path_param(id)}/enabled_connections",
             method="GET",
             params={
                 "page": page,
@@ -780,7 +792,7 @@ class AsyncRawEnabledConnectionsClient:
             Organization connection successfully added.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections",
+            f"organizations/{quote_path_param(id)}/enabled_connections",
             method="POST",
             json={
                 "connection_id": connection_id,
@@ -848,6 +860,17 @@ class AsyncRawEnabledConnectionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -891,7 +914,7 @@ class AsyncRawEnabledConnectionsClient:
             Connection successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/enabled_connections/{quote_path_param(connection_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -982,7 +1005,7 @@ class AsyncRawEnabledConnectionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/enabled_connections/{quote_path_param(connection_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1092,7 +1115,7 @@ class AsyncRawEnabledConnectionsClient:
             Organization connection successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/enabled_connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/enabled_connections/{quote_path_param(connection_id)}",
             method="PATCH",
             json={
                 "assign_membership_on_login": assign_membership_on_login,

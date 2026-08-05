@@ -11,6 +11,7 @@ from .environment import Auth0Environment
 
 if typing.TYPE_CHECKING:
     from .actions.client import ActionsClient, AsyncActionsClient
+    from .agents.client import AgentsClient, AsyncAgentsClient
     from .anomaly.client import AnomalyClient, AsyncAnomalyClient
     from .attack_protection.client import AsyncAttackProtectionClient, AttackProtectionClient
     from .branding.client import AsyncBrandingClient, BrandingClient
@@ -132,7 +133,12 @@ class Auth0:
         _defaulted_max_retries = max_retries if max_retries is not None else 2
         if tenant_domain is not None:
             _tenant_domain = tenant_domain if tenant_domain is not None else "{TENANT}.auth0.com"
-            base_url = "https://{tenantDomain}/api/v2".format(tenantDomain=_tenant_domain)
+            _environment_url_templates = {
+                Auth0Environment.DEFAULT: "https://{tenantDomain}/api/v2",
+            }
+            _url_template = _environment_url_templates.get(environment, "https://{tenantDomain}/api/v2")
+            if base_url is None:
+                base_url = _url_template.format(tenantDomain=_tenant_domain)
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             token=token,
@@ -149,6 +155,7 @@ class Auth0:
             logging=logging,
         )
         self._actions: typing.Optional[ActionsClient] = None
+        self._agents: typing.Optional[AgentsClient] = None
         self._branding: typing.Optional[BrandingClient] = None
         self._client_grants: typing.Optional[ClientGrantsClient] = None
         self._clients: typing.Optional[ClientsClient] = None
@@ -201,6 +208,14 @@ class Auth0:
 
             self._actions = ActionsClient(client_wrapper=self._client_wrapper)
         return self._actions
+
+    @property
+    def agents(self):
+        if self._agents is None:
+            from .agents.client import AgentsClient  # noqa: E402
+
+            self._agents = AgentsClient(client_wrapper=self._client_wrapper)
+        return self._agents
 
     @property
     def branding(self):
@@ -652,7 +667,12 @@ class AsyncAuth0:
         _defaulted_max_retries = max_retries if max_retries is not None else 2
         if tenant_domain is not None:
             _tenant_domain = tenant_domain if tenant_domain is not None else "{TENANT}.auth0.com"
-            base_url = "https://{tenantDomain}/api/v2".format(tenantDomain=_tenant_domain)
+            _environment_url_templates = {
+                Auth0Environment.DEFAULT: "https://{tenantDomain}/api/v2",
+            }
+            _url_template = _environment_url_templates.get(environment, "https://{tenantDomain}/api/v2")
+            if base_url is None:
+                base_url = _url_template.format(tenantDomain=_tenant_domain)
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             token=token,
@@ -668,6 +688,7 @@ class AsyncAuth0:
             logging=logging,
         )
         self._actions: typing.Optional[AsyncActionsClient] = None
+        self._agents: typing.Optional[AsyncAgentsClient] = None
         self._branding: typing.Optional[AsyncBrandingClient] = None
         self._client_grants: typing.Optional[AsyncClientGrantsClient] = None
         self._clients: typing.Optional[AsyncClientsClient] = None
@@ -720,6 +741,14 @@ class AsyncAuth0:
 
             self._actions = AsyncActionsClient(client_wrapper=self._client_wrapper)
         return self._actions
+
+    @property
+    def agents(self):
+        if self._agents is None:
+            from .agents.client import AsyncAgentsClient  # noqa: E402
+
+            self._agents = AsyncAgentsClient(client_wrapper=self._client_wrapper)
+        return self._agents
 
     @property
     def branding(self):

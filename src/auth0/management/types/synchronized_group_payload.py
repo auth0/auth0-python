@@ -12,6 +12,21 @@ class SynchronizedGroupPayload(UniversalBaseModel):
     Google Workspace Directory group ID.
     """
 
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Google Workspace Directory group name.
+    """
+
+    email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Google Workspace Directory group email.
+    """
+
+    direct_members_count: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Number of direct members in the Google Workspace Directory group.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

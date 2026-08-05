@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.pagination import AsyncPager, SyncPager
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
@@ -62,7 +62,7 @@ class RawVersionsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/modules/{encode_path_param(id)}/versions",
+            f"actions/modules/{quote_path_param(id)}/versions",
             method="GET",
             params={
                 "page": page,
@@ -172,7 +172,7 @@ class RawVersionsClient:
             The action module version was created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/modules/{encode_path_param(id)}/versions",
+            f"actions/modules/{quote_path_param(id)}/versions",
             method="POST",
             request_options=request_options,
         )
@@ -284,7 +284,7 @@ class RawVersionsClient:
             The module version was retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/modules/{encode_path_param(id)}/versions/{encode_path_param(version_id)}",
+            f"actions/modules/{quote_path_param(id)}/versions/{quote_path_param(version_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -400,7 +400,7 @@ class AsyncRawVersionsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/modules/{encode_path_param(id)}/versions",
+            f"actions/modules/{quote_path_param(id)}/versions",
             method="GET",
             params={
                 "page": page,
@@ -513,7 +513,7 @@ class AsyncRawVersionsClient:
             The action module version was created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/modules/{encode_path_param(id)}/versions",
+            f"actions/modules/{quote_path_param(id)}/versions",
             method="POST",
             request_options=request_options,
         )
@@ -625,7 +625,7 @@ class AsyncRawVersionsClient:
             The module version was retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/modules/{encode_path_param(id)}/versions/{encode_path_param(version_id)}",
+            f"actions/modules/{quote_path_param(id)}/versions/{quote_path_param(version_id)}",
             method="GET",
             request_options=request_options,
         )

@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.pagination import AsyncPager, SyncPager
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
@@ -61,7 +61,7 @@ class RawEffectiveRolesClient:
             Organization member's effective roles successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/effective-roles",
+            f"organizations/{quote_path_param(id)}/members/{quote_path_param(user_id)}/effective-roles",
             method="GET",
             params={
                 "from": from_,
@@ -193,7 +193,7 @@ class AsyncRawEffectiveRolesClient:
             Organization member's effective roles successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/effective-roles",
+            f"organizations/{quote_path_param(id)}/members/{quote_path_param(user_id)}/effective-roles",
             method="GET",
             params={
                 "from": from_,

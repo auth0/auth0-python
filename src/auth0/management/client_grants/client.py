@@ -45,6 +45,7 @@ class ClientGrantsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         audience: typing.Optional[str] = None,
@@ -59,6 +60,9 @@ class ClientGrantsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -96,6 +100,7 @@ class ClientGrantsClient:
             token="YOUR_TOKEN",
         )
         response = client.client_grants.list(
+            include_totals=True,
             from_="from",
             take=1,
             audience="audience",
@@ -111,6 +116,7 @@ class ClientGrantsClient:
             yield page
         """
         return self._raw_client.list(
+            include_totals=include_totals,
             from_=from_,
             take=take,
             audience=audience,
@@ -351,6 +357,7 @@ class AsyncClientGrantsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         audience: typing.Optional[str] = None,
@@ -365,6 +372,9 @@ class AsyncClientGrantsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -407,6 +417,7 @@ class AsyncClientGrantsClient:
 
         async def main() -> None:
             response = await client.client_grants.list(
+                include_totals=True,
                 from_="from",
                 take=1,
                 audience="audience",
@@ -426,6 +437,7 @@ class AsyncClientGrantsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
+            include_totals=include_totals,
             from_=from_,
             take=take,
             audience=audience,

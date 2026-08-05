@@ -59,6 +59,8 @@ if typing.TYPE_CHECKING:
     from .acul_organization_metadata import AculOrganizationMetadata
     from .acul_rendering_mode_enum import AculRenderingModeEnum
     from .add_organization_connection_response_content import AddOrganizationConnectionResponseContent
+    from .agent_metadata import AgentMetadata
+    from .agent_response_content import AgentResponseContent
     from .anomaly_ip_format import AnomalyIpFormat
     from .app_metadata import AppMetadata
     from .assessors_type_enum import AssessorsTypeEnum
@@ -291,6 +293,8 @@ if typing.TYPE_CHECKING:
         ClientTokenVaultPrivilegedAccessWithCredentialId,
     )
     from .client_token_vault_privileged_access_with_public_key import ClientTokenVaultPrivilegedAccessWithPublicKey
+    from .conflict_schema import ConflictSchema
+    from .conflict_schema_error import ConflictSchemaError
     from .connected_account import ConnectedAccount
     from .connected_account_access_type_enum import ConnectedAccountAccessTypeEnum
     from .connection_access_token_urlo_auth_1 import ConnectionAccessTokenUrloAuth1
@@ -1087,6 +1091,7 @@ if typing.TYPE_CHECKING:
     from .create_hook_secret_request_content import CreateHookSecretRequestContent
     from .create_identity_assertion_authorization_grant import CreateIdentityAssertionAuthorizationGrant
     from .create_import_users_response_content import CreateImportUsersResponseContent
+    from .create_keys_network_acls_response_content import CreateKeysNetworkAclsResponseContent
     from .create_log_stream_datadog_request_body import CreateLogStreamDatadogRequestBody
     from .create_log_stream_event_bridge_request_body import CreateLogStreamEventBridgeRequestBody
     from .create_log_stream_event_grid_request_body import CreateLogStreamEventGridRequestBody
@@ -1098,6 +1103,8 @@ if typing.TYPE_CHECKING:
     from .create_log_stream_splunk_request_body import CreateLogStreamSplunkRequestBody
     from .create_log_stream_sumo_request_body import CreateLogStreamSumoRequestBody
     from .create_organization_all_connection_response_content import CreateOrganizationAllConnectionResponseContent
+    from .create_organization_client_request_item import CreateOrganizationClientRequestItem
+    from .create_organization_clients_response_content import CreateOrganizationClientsResponseContent
     from .create_organization_discovery_domain_response_content import CreateOrganizationDiscoveryDomainResponseContent
     from .create_organization_invitation_response_content import CreateOrganizationInvitationResponseContent
     from .create_organization_response_content import CreateOrganizationResponseContent
@@ -2259,6 +2266,7 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_context_request import EventStreamCloudEventContextRequest
     from .event_stream_cloud_event_context_request_geo import EventStreamCloudEventContextRequestGeo
     from .event_stream_cloud_event_context_tenant import EventStreamCloudEventContextTenant
+    from .event_stream_cloud_event_data import EventStreamCloudEventData
     from .event_stream_cloud_event_error_code_enum import EventStreamCloudEventErrorCodeEnum
     from .event_stream_cloud_event_error_detail import EventStreamCloudEventErrorDetail
     from .event_stream_cloud_event_error_message import EventStreamCloudEventErrorMessage
@@ -3713,6 +3721,7 @@ if typing.TYPE_CHECKING:
     from .get_network_acls_response_content import GetNetworkAclsResponseContent
     from .get_organization_all_connection_response_content import GetOrganizationAllConnectionResponseContent
     from .get_organization_by_name_response_content import GetOrganizationByNameResponseContent
+    from .get_organization_client_response_content import GetOrganizationClientResponseContent
     from .get_organization_connection_response_content import GetOrganizationConnectionResponseContent
     from .get_organization_discovery_domain_by_name_response_content import (
         GetOrganizationDiscoveryDomainByNameResponseContent,
@@ -3764,6 +3773,7 @@ if typing.TYPE_CHECKING:
     from .guardian_factor import GuardianFactor
     from .guardian_factor_name_enum import GuardianFactorNameEnum
     from .guardian_factor_phone_factor_message_type_enum import GuardianFactorPhoneFactorMessageTypeEnum
+    from .guardian_factor_settings import GuardianFactorSettings
     from .guardian_factors_provider_push_notification_provider_data_enum import (
         GuardianFactorsProviderPushNotificationProviderDataEnum,
     )
@@ -3792,6 +3802,7 @@ if typing.TYPE_CHECKING:
     from .list_actions_paginated_response_content import ListActionsPaginatedResponseContent
     from .list_aculs_offset_paginated_response_content import ListAculsOffsetPaginatedResponseContent
     from .list_aculs_response_content_item import ListAculsResponseContentItem
+    from .list_agents_response_content import ListAgentsResponseContent
     from .list_branding_phone_providers_response_content import ListBrandingPhoneProvidersResponseContent
     from .list_client_connections_response_content import ListClientConnectionsResponseContent
     from .list_client_grant_organizations_paginated_response_content import (
@@ -3810,6 +3821,7 @@ if typing.TYPE_CHECKING:
     )
     from .list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
     from .list_encryption_key_offset_paginated_response_content import ListEncryptionKeyOffsetPaginatedResponseContent
+    from .list_event_stream_deliveries_response_content import ListEventStreamDeliveriesResponseContent
     from .list_event_streams_response_content import ListEventStreamsResponseContent
     from .list_flow_executions_paginated_response_content import ListFlowExecutionsPaginatedResponseContent
     from .list_flows_offset_paginated_response_content import ListFlowsOffsetPaginatedResponseContent
@@ -3830,6 +3842,7 @@ if typing.TYPE_CHECKING:
     from .list_organization_client_grants_offset_paginated_response_content import (
         ListOrganizationClientGrantsOffsetPaginatedResponseContent,
     )
+    from .list_organization_clients_response_content import ListOrganizationClientsResponseContent
     from .list_organization_connections_offset_paginated_response_content import (
         ListOrganizationConnectionsOffsetPaginatedResponseContent,
     )
@@ -3849,6 +3862,7 @@ if typing.TYPE_CHECKING:
         ListOrganizationMemberRolesOffsetPaginatedResponseContent,
     )
     from .list_organization_members_paginated_response_content import ListOrganizationMembersPaginatedResponseContent
+    from .list_organization_role_groups_response_content import ListOrganizationRoleGroupsResponseContent
     from .list_organization_role_members_response_content import ListOrganizationRoleMembersResponseContent
     from .list_organizations_paginated_response_content import ListOrganizationsPaginatedResponseContent
     from .list_phone_templates_response_content import ListPhoneTemplatesResponseContent
@@ -3960,6 +3974,7 @@ if typing.TYPE_CHECKING:
     from .network_acl_action_block_enum import NetworkAclActionBlockEnum
     from .network_acl_action_log_enum import NetworkAclActionLogEnum
     from .network_acl_action_redirect_enum import NetworkAclActionRedirectEnum
+    from .network_acl_key_algorithm_enum import NetworkAclKeyAlgorithmEnum
     from .network_acl_match import NetworkAclMatch
     from .network_acl_match_connecting_ipv_4_cidr import NetworkAclMatchConnectingIpv4Cidr
     from .network_acl_match_connecting_ipv_6_cidr import NetworkAclMatchConnectingIpv6Cidr
@@ -3970,6 +3985,8 @@ if typing.TYPE_CHECKING:
     from .network_acls_response_content import NetworkAclsResponseContent
     from .not_found_error_body import NotFoundErrorBody
     from .not_found_error_body_error import NotFoundErrorBodyError
+    from .not_found_schema import NotFoundSchema
+    from .not_found_schema_error import NotFoundSchemaError
     from .oauth_scope import OauthScope
     from .organization import Organization
     from .organization_access_level_enum import OrganizationAccessLevelEnum
@@ -3977,7 +3994,11 @@ if typing.TYPE_CHECKING:
     from .organization_all_connection_post import OrganizationAllConnectionPost
     from .organization_branding import OrganizationBranding
     from .organization_branding_colors import OrganizationBrandingColors
+    from .organization_client import OrganizationClient
+    from .organization_client_association import OrganizationClientAssociation
     from .organization_client_grant import OrganizationClientGrant
+    from .organization_client_metadata import OrganizationClientMetadata
+    from .organization_client_metadata_organization_usage_enum import OrganizationClientMetadataOrganizationUsageEnum
     from .organization_connection import OrganizationConnection
     from .organization_connection_information import OrganizationConnectionInformation
     from .organization_discovery_domain import OrganizationDiscoveryDomain
@@ -4098,7 +4119,9 @@ if typing.TYPE_CHECKING:
     from .resource_server_verification_key_pem_certificate import ResourceServerVerificationKeyPemCertificate
     from .revoked_signing_keys_response_content import RevokedSigningKeysResponseContent
     from .role import Role
+    from .role_group import RoleGroup
     from .role_member import RoleMember
+    from .role_type_enum import RoleTypeEnum
     from .role_user import RoleUser
     from .rollback_action_module_response_content import RollbackActionModuleResponseContent
     from .rotate_client_secret_response_content import RotateClientSecretResponseContent
@@ -4218,6 +4241,7 @@ if typing.TYPE_CHECKING:
     from .suspicious_ip_throttling_stage import SuspiciousIpThrottlingStage
     from .synchronize_groups_enum import SynchronizeGroupsEnum
     from .synchronized_group_payload import SynchronizedGroupPayload
+    from .synchronized_group_selection_id import SynchronizedGroupSelectionId
     from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
     from .tenant_settings_country_codes import TenantSettingsCountryCodes
     from .tenant_settings_country_codes_mode import TenantSettingsCountryCodesMode
@@ -4373,6 +4397,7 @@ if typing.TYPE_CHECKING:
     from .update_log_stream_response_content import UpdateLogStreamResponseContent
     from .update_network_acl_response_content import UpdateNetworkAclResponseContent
     from .update_organization_all_connection_response_content import UpdateOrganizationAllConnectionResponseContent
+    from .update_organization_client_response_content import UpdateOrganizationClientResponseContent
     from .update_organization_connection_response_content import UpdateOrganizationConnectionResponseContent
     from .update_organization_discovery_domain_response_content import UpdateOrganizationDiscoveryDomainResponseContent
     from .update_organization_response_content import UpdateOrganizationResponseContent
@@ -4522,6 +4547,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AculOrganizationMetadata": ".acul_organization_metadata",
     "AculRenderingModeEnum": ".acul_rendering_mode_enum",
     "AddOrganizationConnectionResponseContent": ".add_organization_connection_response_content",
+    "AgentMetadata": ".agent_metadata",
+    "AgentResponseContent": ".agent_response_content",
     "AnomalyIpFormat": ".anomaly_ip_format",
     "AppMetadata": ".app_metadata",
     "AssessorsTypeEnum": ".assessors_type_enum",
@@ -4708,6 +4735,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientTokenExchangeTypeEnum": ".client_token_exchange_type_enum",
     "ClientTokenVaultPrivilegedAccessWithCredentialId": ".client_token_vault_privileged_access_with_credential_id",
     "ClientTokenVaultPrivilegedAccessWithPublicKey": ".client_token_vault_privileged_access_with_public_key",
+    "ConflictSchema": ".conflict_schema",
+    "ConflictSchemaError": ".conflict_schema_error",
     "ConnectedAccount": ".connected_account",
     "ConnectedAccountAccessTypeEnum": ".connected_account_access_type_enum",
     "ConnectionAccessTokenUrloAuth1": ".connection_access_token_urlo_auth_1",
@@ -5450,6 +5479,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateHookSecretRequestContent": ".create_hook_secret_request_content",
     "CreateIdentityAssertionAuthorizationGrant": ".create_identity_assertion_authorization_grant",
     "CreateImportUsersResponseContent": ".create_import_users_response_content",
+    "CreateKeysNetworkAclsResponseContent": ".create_keys_network_acls_response_content",
     "CreateLogStreamDatadogRequestBody": ".create_log_stream_datadog_request_body",
     "CreateLogStreamEventBridgeRequestBody": ".create_log_stream_event_bridge_request_body",
     "CreateLogStreamEventGridRequestBody": ".create_log_stream_event_grid_request_body",
@@ -5461,6 +5491,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateLogStreamSplunkRequestBody": ".create_log_stream_splunk_request_body",
     "CreateLogStreamSumoRequestBody": ".create_log_stream_sumo_request_body",
     "CreateOrganizationAllConnectionResponseContent": ".create_organization_all_connection_response_content",
+    "CreateOrganizationClientRequestItem": ".create_organization_client_request_item",
+    "CreateOrganizationClientsResponseContent": ".create_organization_clients_response_content",
     "CreateOrganizationDiscoveryDomainResponseContent": ".create_organization_discovery_domain_response_content",
     "CreateOrganizationInvitationResponseContent": ".create_organization_invitation_response_content",
     "CreateOrganizationResponseContent": ".create_organization_response_content",
@@ -5948,6 +5980,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventContextRequest": ".event_stream_cloud_event_context_request",
     "EventStreamCloudEventContextRequestGeo": ".event_stream_cloud_event_context_request_geo",
     "EventStreamCloudEventContextTenant": ".event_stream_cloud_event_context_tenant",
+    "EventStreamCloudEventData": ".event_stream_cloud_event_data",
     "EventStreamCloudEventErrorCodeEnum": ".event_stream_cloud_event_error_code_enum",
     "EventStreamCloudEventErrorDetail": ".event_stream_cloud_event_error_detail",
     "EventStreamCloudEventErrorMessage": ".event_stream_cloud_event_error_message",
@@ -6962,6 +6995,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetNetworkAclsResponseContent": ".get_network_acls_response_content",
     "GetOrganizationAllConnectionResponseContent": ".get_organization_all_connection_response_content",
     "GetOrganizationByNameResponseContent": ".get_organization_by_name_response_content",
+    "GetOrganizationClientResponseContent": ".get_organization_client_response_content",
     "GetOrganizationConnectionResponseContent": ".get_organization_connection_response_content",
     "GetOrganizationDiscoveryDomainByNameResponseContent": ".get_organization_discovery_domain_by_name_response_content",
     "GetOrganizationDiscoveryDomainResponseContent": ".get_organization_discovery_domain_response_content",
@@ -7007,6 +7041,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GuardianFactor": ".guardian_factor",
     "GuardianFactorNameEnum": ".guardian_factor_name_enum",
     "GuardianFactorPhoneFactorMessageTypeEnum": ".guardian_factor_phone_factor_message_type_enum",
+    "GuardianFactorSettings": ".guardian_factor_settings",
     "GuardianFactorsProviderPushNotificationProviderDataEnum": ".guardian_factors_provider_push_notification_provider_data_enum",
     "GuardianFactorsProviderSmsProviderEnum": ".guardian_factors_provider_sms_provider_enum",
     "Hook": ".hook",
@@ -7033,6 +7068,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListActionsPaginatedResponseContent": ".list_actions_paginated_response_content",
     "ListAculsOffsetPaginatedResponseContent": ".list_aculs_offset_paginated_response_content",
     "ListAculsResponseContentItem": ".list_aculs_response_content_item",
+    "ListAgentsResponseContent": ".list_agents_response_content",
     "ListBrandingPhoneProvidersResponseContent": ".list_branding_phone_providers_response_content",
     "ListClientConnectionsResponseContent": ".list_client_connections_response_content",
     "ListClientGrantOrganizationsPaginatedResponseContent": ".list_client_grant_organizations_paginated_response_content",
@@ -7045,6 +7081,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListDeviceCredentialsOffsetPaginatedResponseContent": ".list_device_credentials_offset_paginated_response_content",
     "ListDirectoryProvisioningsResponseContent": ".list_directory_provisionings_response_content",
     "ListEncryptionKeyOffsetPaginatedResponseContent": ".list_encryption_key_offset_paginated_response_content",
+    "ListEventStreamDeliveriesResponseContent": ".list_event_stream_deliveries_response_content",
     "ListEventStreamsResponseContent": ".list_event_streams_response_content",
     "ListFlowExecutionsPaginatedResponseContent": ".list_flow_executions_paginated_response_content",
     "ListFlowsOffsetPaginatedResponseContent": ".list_flows_offset_paginated_response_content",
@@ -7059,6 +7096,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListNetworkAclsOffsetPaginatedResponseContent": ".list_network_acls_offset_paginated_response_content",
     "ListOrganizationAllConnectionsOffsetPaginatedResponseContent": ".list_organization_all_connections_offset_paginated_response_content",
     "ListOrganizationClientGrantsOffsetPaginatedResponseContent": ".list_organization_client_grants_offset_paginated_response_content",
+    "ListOrganizationClientsResponseContent": ".list_organization_clients_response_content",
     "ListOrganizationConnectionsOffsetPaginatedResponseContent": ".list_organization_connections_offset_paginated_response_content",
     "ListOrganizationDiscoveryDomainsResponseContent": ".list_organization_discovery_domains_response_content",
     "ListOrganizationGroupRolesResponseContent": ".list_organization_group_roles_response_content",
@@ -7068,6 +7106,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListOrganizationMemberRoleSourceGroupsResponseContent": ".list_organization_member_role_source_groups_response_content",
     "ListOrganizationMemberRolesOffsetPaginatedResponseContent": ".list_organization_member_roles_offset_paginated_response_content",
     "ListOrganizationMembersPaginatedResponseContent": ".list_organization_members_paginated_response_content",
+    "ListOrganizationRoleGroupsResponseContent": ".list_organization_role_groups_response_content",
     "ListOrganizationRoleMembersResponseContent": ".list_organization_role_members_response_content",
     "ListOrganizationsPaginatedResponseContent": ".list_organizations_paginated_response_content",
     "ListPhoneTemplatesResponseContent": ".list_phone_templates_response_content",
@@ -7165,6 +7204,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NetworkAclActionBlockEnum": ".network_acl_action_block_enum",
     "NetworkAclActionLogEnum": ".network_acl_action_log_enum",
     "NetworkAclActionRedirectEnum": ".network_acl_action_redirect_enum",
+    "NetworkAclKeyAlgorithmEnum": ".network_acl_key_algorithm_enum",
     "NetworkAclMatch": ".network_acl_match",
     "NetworkAclMatchConnectingIpv4Cidr": ".network_acl_match_connecting_ipv_4_cidr",
     "NetworkAclMatchConnectingIpv6Cidr": ".network_acl_match_connecting_ipv_6_cidr",
@@ -7175,6 +7215,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NetworkAclsResponseContent": ".network_acls_response_content",
     "NotFoundErrorBody": ".not_found_error_body",
     "NotFoundErrorBodyError": ".not_found_error_body_error",
+    "NotFoundSchema": ".not_found_schema",
+    "NotFoundSchemaError": ".not_found_schema_error",
     "OauthScope": ".oauth_scope",
     "Organization": ".organization",
     "OrganizationAccessLevelEnum": ".organization_access_level_enum",
@@ -7182,7 +7224,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationAllConnectionPost": ".organization_all_connection_post",
     "OrganizationBranding": ".organization_branding",
     "OrganizationBrandingColors": ".organization_branding_colors",
+    "OrganizationClient": ".organization_client",
+    "OrganizationClientAssociation": ".organization_client_association",
     "OrganizationClientGrant": ".organization_client_grant",
+    "OrganizationClientMetadata": ".organization_client_metadata",
+    "OrganizationClientMetadataOrganizationUsageEnum": ".organization_client_metadata_organization_usage_enum",
     "OrganizationConnection": ".organization_connection",
     "OrganizationConnectionInformation": ".organization_connection_information",
     "OrganizationDiscoveryDomain": ".organization_discovery_domain",
@@ -7287,7 +7333,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResourceServerVerificationKeyPemCertificate": ".resource_server_verification_key_pem_certificate",
     "RevokedSigningKeysResponseContent": ".revoked_signing_keys_response_content",
     "Role": ".role",
+    "RoleGroup": ".role_group",
     "RoleMember": ".role_member",
+    "RoleTypeEnum": ".role_type_enum",
     "RoleUser": ".role_user",
     "RollbackActionModuleResponseContent": ".rollback_action_module_response_content",
     "RotateClientSecretResponseContent": ".rotate_client_secret_response_content",
@@ -7381,6 +7429,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SuspiciousIpThrottlingStage": ".suspicious_ip_throttling_stage",
     "SynchronizeGroupsEnum": ".synchronize_groups_enum",
     "SynchronizedGroupPayload": ".synchronized_group_payload",
+    "SynchronizedGroupSelectionId": ".synchronized_group_selection_id",
     "TenantOidcLogoutSettings": ".tenant_oidc_logout_settings",
     "TenantSettingsCountryCodes": ".tenant_settings_country_codes",
     "TenantSettingsCountryCodesMode": ".tenant_settings_country_codes_mode",
@@ -7522,6 +7571,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateLogStreamResponseContent": ".update_log_stream_response_content",
     "UpdateNetworkAclResponseContent": ".update_network_acl_response_content",
     "UpdateOrganizationAllConnectionResponseContent": ".update_organization_all_connection_response_content",
+    "UpdateOrganizationClientResponseContent": ".update_organization_client_response_content",
     "UpdateOrganizationConnectionResponseContent": ".update_organization_connection_response_content",
     "UpdateOrganizationDiscoveryDomainResponseContent": ".update_organization_discovery_domain_response_content",
     "UpdateOrganizationResponseContent": ".update_organization_response_content",
@@ -7681,6 +7731,8 @@ __all__ = [
     "AculOrganizationMetadata",
     "AculRenderingModeEnum",
     "AddOrganizationConnectionResponseContent",
+    "AgentMetadata",
+    "AgentResponseContent",
     "AnomalyIpFormat",
     "AppMetadata",
     "AssessorsTypeEnum",
@@ -7867,6 +7919,8 @@ __all__ = [
     "ClientTokenExchangeTypeEnum",
     "ClientTokenVaultPrivilegedAccessWithCredentialId",
     "ClientTokenVaultPrivilegedAccessWithPublicKey",
+    "ConflictSchema",
+    "ConflictSchemaError",
     "ConnectedAccount",
     "ConnectedAccountAccessTypeEnum",
     "ConnectionAccessTokenUrloAuth1",
@@ -8609,6 +8663,7 @@ __all__ = [
     "CreateHookSecretRequestContent",
     "CreateIdentityAssertionAuthorizationGrant",
     "CreateImportUsersResponseContent",
+    "CreateKeysNetworkAclsResponseContent",
     "CreateLogStreamDatadogRequestBody",
     "CreateLogStreamEventBridgeRequestBody",
     "CreateLogStreamEventGridRequestBody",
@@ -8620,6 +8675,8 @@ __all__ = [
     "CreateLogStreamSplunkRequestBody",
     "CreateLogStreamSumoRequestBody",
     "CreateOrganizationAllConnectionResponseContent",
+    "CreateOrganizationClientRequestItem",
+    "CreateOrganizationClientsResponseContent",
     "CreateOrganizationDiscoveryDomainResponseContent",
     "CreateOrganizationInvitationResponseContent",
     "CreateOrganizationResponseContent",
@@ -9107,6 +9164,7 @@ __all__ = [
     "EventStreamCloudEventContextRequest",
     "EventStreamCloudEventContextRequestGeo",
     "EventStreamCloudEventContextTenant",
+    "EventStreamCloudEventData",
     "EventStreamCloudEventErrorCodeEnum",
     "EventStreamCloudEventErrorDetail",
     "EventStreamCloudEventErrorMessage",
@@ -10121,6 +10179,7 @@ __all__ = [
     "GetNetworkAclsResponseContent",
     "GetOrganizationAllConnectionResponseContent",
     "GetOrganizationByNameResponseContent",
+    "GetOrganizationClientResponseContent",
     "GetOrganizationConnectionResponseContent",
     "GetOrganizationDiscoveryDomainByNameResponseContent",
     "GetOrganizationDiscoveryDomainResponseContent",
@@ -10166,6 +10225,7 @@ __all__ = [
     "GuardianFactor",
     "GuardianFactorNameEnum",
     "GuardianFactorPhoneFactorMessageTypeEnum",
+    "GuardianFactorSettings",
     "GuardianFactorsProviderPushNotificationProviderDataEnum",
     "GuardianFactorsProviderSmsProviderEnum",
     "Hook",
@@ -10192,6 +10252,7 @@ __all__ = [
     "ListActionsPaginatedResponseContent",
     "ListAculsOffsetPaginatedResponseContent",
     "ListAculsResponseContentItem",
+    "ListAgentsResponseContent",
     "ListBrandingPhoneProvidersResponseContent",
     "ListClientConnectionsResponseContent",
     "ListClientGrantOrganizationsPaginatedResponseContent",
@@ -10204,6 +10265,7 @@ __all__ = [
     "ListDeviceCredentialsOffsetPaginatedResponseContent",
     "ListDirectoryProvisioningsResponseContent",
     "ListEncryptionKeyOffsetPaginatedResponseContent",
+    "ListEventStreamDeliveriesResponseContent",
     "ListEventStreamsResponseContent",
     "ListFlowExecutionsPaginatedResponseContent",
     "ListFlowsOffsetPaginatedResponseContent",
@@ -10218,6 +10280,7 @@ __all__ = [
     "ListNetworkAclsOffsetPaginatedResponseContent",
     "ListOrganizationAllConnectionsOffsetPaginatedResponseContent",
     "ListOrganizationClientGrantsOffsetPaginatedResponseContent",
+    "ListOrganizationClientsResponseContent",
     "ListOrganizationConnectionsOffsetPaginatedResponseContent",
     "ListOrganizationDiscoveryDomainsResponseContent",
     "ListOrganizationGroupRolesResponseContent",
@@ -10227,6 +10290,7 @@ __all__ = [
     "ListOrganizationMemberRoleSourceGroupsResponseContent",
     "ListOrganizationMemberRolesOffsetPaginatedResponseContent",
     "ListOrganizationMembersPaginatedResponseContent",
+    "ListOrganizationRoleGroupsResponseContent",
     "ListOrganizationRoleMembersResponseContent",
     "ListOrganizationsPaginatedResponseContent",
     "ListPhoneTemplatesResponseContent",
@@ -10324,6 +10388,7 @@ __all__ = [
     "NetworkAclActionBlockEnum",
     "NetworkAclActionLogEnum",
     "NetworkAclActionRedirectEnum",
+    "NetworkAclKeyAlgorithmEnum",
     "NetworkAclMatch",
     "NetworkAclMatchConnectingIpv4Cidr",
     "NetworkAclMatchConnectingIpv6Cidr",
@@ -10334,6 +10399,8 @@ __all__ = [
     "NetworkAclsResponseContent",
     "NotFoundErrorBody",
     "NotFoundErrorBodyError",
+    "NotFoundSchema",
+    "NotFoundSchemaError",
     "OauthScope",
     "Organization",
     "OrganizationAccessLevelEnum",
@@ -10341,7 +10408,11 @@ __all__ = [
     "OrganizationAllConnectionPost",
     "OrganizationBranding",
     "OrganizationBrandingColors",
+    "OrganizationClient",
+    "OrganizationClientAssociation",
     "OrganizationClientGrant",
+    "OrganizationClientMetadata",
+    "OrganizationClientMetadataOrganizationUsageEnum",
     "OrganizationConnection",
     "OrganizationConnectionInformation",
     "OrganizationDiscoveryDomain",
@@ -10446,7 +10517,9 @@ __all__ = [
     "ResourceServerVerificationKeyPemCertificate",
     "RevokedSigningKeysResponseContent",
     "Role",
+    "RoleGroup",
     "RoleMember",
+    "RoleTypeEnum",
     "RoleUser",
     "RollbackActionModuleResponseContent",
     "RotateClientSecretResponseContent",
@@ -10540,6 +10613,7 @@ __all__ = [
     "SuspiciousIpThrottlingStage",
     "SynchronizeGroupsEnum",
     "SynchronizedGroupPayload",
+    "SynchronizedGroupSelectionId",
     "TenantOidcLogoutSettings",
     "TenantSettingsCountryCodes",
     "TenantSettingsCountryCodesMode",
@@ -10681,6 +10755,7 @@ __all__ = [
     "UpdateLogStreamResponseContent",
     "UpdateNetworkAclResponseContent",
     "UpdateOrganizationAllConnectionResponseContent",
+    "UpdateOrganizationClientResponseContent",
     "UpdateOrganizationConnectionResponseContent",
     "UpdateOrganizationDiscoveryDomainResponseContent",
     "UpdateOrganizationResponseContent",

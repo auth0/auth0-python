@@ -45,6 +45,8 @@ class RolesClient:
 
         Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.
 
+        **Note**: Returns only direct role assignments for this member. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
+
         Parameters
         ----------
         id : str
@@ -218,6 +220,8 @@ class AsyncRolesClient:
         Retrieve detailed list of roles assigned to a given user within the context of a specific Organization.
 
         Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.
+
+        **Note**: Returns only direct role assignments for this member. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         Parameters
         ----------

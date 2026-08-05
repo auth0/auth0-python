@@ -6,11 +6,25 @@ def test_organizations_list_() -> None:
     test_id = "organizations.list_.0"
     client = get_client(test_id)
     client.organizations.list(
+        include_totals=True,
         from_="from",
         take=1,
         sort="sort",
+        include_client_association_for="include_client_association_for",
     )
-    verify_request_count(test_id, "GET", "/organizations", {"from": "from", "take": "1", "sort": "sort"}, 1)
+    verify_request_count(
+        test_id,
+        "GET",
+        "/organizations",
+        {
+            "include_totals": "true",
+            "from": "from",
+            "take": "1",
+            "sort": "sort",
+            "include_client_association_for": "include_client_association_for",
+        },
+        1,
+    )
 
 
 def test_organizations_create() -> None:

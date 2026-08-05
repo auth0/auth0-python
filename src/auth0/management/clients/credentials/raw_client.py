@@ -7,7 +7,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -54,7 +54,7 @@ class RawCredentialsClient:
             Credentials successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials",
+            f"clients/{quote_path_param(client_id)}/credentials",
             method="GET",
             request_options=request_options,
         )
@@ -230,7 +230,7 @@ class RawCredentialsClient:
             Credential successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials",
+            f"clients/{quote_path_param(client_id)}/credentials",
             method="POST",
             json={
                 "credential_type": credential_type,
@@ -347,7 +347,7 @@ class RawCredentialsClient:
             Credential successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -436,7 +436,7 @@ class RawCredentialsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -527,7 +527,7 @@ class RawCredentialsClient:
             Credential successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="PATCH",
             json={
                 "expires_at": expires_at,
@@ -639,7 +639,7 @@ class AsyncRawCredentialsClient:
             Credentials successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials",
+            f"clients/{quote_path_param(client_id)}/credentials",
             method="GET",
             request_options=request_options,
         )
@@ -815,7 +815,7 @@ class AsyncRawCredentialsClient:
             Credential successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials",
+            f"clients/{quote_path_param(client_id)}/credentials",
             method="POST",
             json={
                 "credential_type": credential_type,
@@ -932,7 +932,7 @@ class AsyncRawCredentialsClient:
             Credential successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1021,7 +1021,7 @@ class AsyncRawCredentialsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1112,7 +1112,7 @@ class AsyncRawCredentialsClient:
             Credential successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="PATCH",
             json={
                 "expires_at": expires_at,

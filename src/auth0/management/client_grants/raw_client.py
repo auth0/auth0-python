@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -40,6 +40,7 @@ class RawClientGrantsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         audience: typing.Optional[str] = None,
@@ -54,6 +55,9 @@ class RawClientGrantsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -87,6 +91,7 @@ class RawClientGrantsClient:
             "client-grants",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "audience": audience,
@@ -110,6 +115,7 @@ class RawClientGrantsClient:
                 _parsed_next = _parsed_response.next
                 _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     audience=audience,
@@ -339,7 +345,7 @@ class RawClientGrantsClient:
             Client grant successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"client-grants/{encode_path_param(id)}",
+            f"client-grants/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -423,7 +429,7 @@ class RawClientGrantsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"client-grants/{encode_path_param(id)}",
+            f"client-grants/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -525,7 +531,7 @@ class RawClientGrantsClient:
             Client grant successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"client-grants/{encode_path_param(id)}",
+            f"client-grants/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "scope": scope,
@@ -622,6 +628,7 @@ class AsyncRawClientGrantsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         audience: typing.Optional[str] = None,
@@ -636,6 +643,9 @@ class AsyncRawClientGrantsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -669,6 +679,7 @@ class AsyncRawClientGrantsClient:
             "client-grants",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "audience": audience,
@@ -694,6 +705,7 @@ class AsyncRawClientGrantsClient:
 
                 async def _get_next():
                     return await self.list(
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         audience=audience,
@@ -924,7 +936,7 @@ class AsyncRawClientGrantsClient:
             Client grant successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"client-grants/{encode_path_param(id)}",
+            f"client-grants/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1010,7 +1022,7 @@ class AsyncRawClientGrantsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"client-grants/{encode_path_param(id)}",
+            f"client-grants/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1112,7 +1124,7 @@ class AsyncRawClientGrantsClient:
             Client grant successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"client-grants/{encode_path_param(id)}",
+            f"client-grants/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "scope": scope,

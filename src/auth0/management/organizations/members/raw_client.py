@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -34,6 +34,7 @@ class RawMembersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         fields: typing.Optional[str] = None,
@@ -45,7 +46,7 @@ class RawMembersClient:
         This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
         - Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
-        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token.
+        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         This endpoint supports two types of pagination:
 
@@ -62,6 +63,9 @@ class RawMembersClient:
         ----------
         id : str
             Organization identifier.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -84,9 +88,10 @@ class RawMembersClient:
             Members successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "fields": fields,
@@ -108,6 +113,7 @@ class RawMembersClient:
                 _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
                     id,
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     fields=fields,
@@ -203,7 +209,7 @@ class RawMembersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="POST",
             json={
                 "members": members,
@@ -290,7 +296,7 @@ class RawMembersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="DELETE",
             json={
                 "members": members,
@@ -366,6 +372,7 @@ class AsyncRawMembersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         fields: typing.Optional[str] = None,
@@ -377,7 +384,7 @@ class AsyncRawMembersClient:
         This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
         - Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
-        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token.
+        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         This endpoint supports two types of pagination:
 
@@ -394,6 +401,9 @@ class AsyncRawMembersClient:
         ----------
         id : str
             Organization identifier.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -416,9 +426,10 @@ class AsyncRawMembersClient:
             Members successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "fields": fields,
@@ -442,6 +453,7 @@ class AsyncRawMembersClient:
                 async def _get_next():
                     return await self.list(
                         id,
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         fields=fields,
@@ -538,7 +550,7 @@ class AsyncRawMembersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="POST",
             json={
                 "members": members,
@@ -625,7 +637,7 @@ class AsyncRawMembersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="DELETE",
             json={
                 "members": members,

@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -546,7 +546,7 @@ class RawUsersClient:
             User successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}",
+            f"users/{quote_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -645,7 +645,7 @@ class RawUsersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}",
+            f"users/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -890,7 +890,7 @@ class RawUsersClient:
             User successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}",
+            f"users/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "blocked": blocked,
@@ -1012,7 +1012,7 @@ class RawUsersClient:
             New recovery code successfully generated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/recovery-code-regeneration",
+            f"users/{quote_path_param(id)}/recovery-code-regeneration",
             method="POST",
             request_options=request_options,
         )
@@ -1109,7 +1109,7 @@ class RawUsersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/revoke-access",
+            f"users/{quote_path_param(id)}/revoke-access",
             method="POST",
             json={
                 "session_id": session_id,
@@ -1694,7 +1694,7 @@ class AsyncRawUsersClient:
             User successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}",
+            f"users/{quote_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -1795,7 +1795,7 @@ class AsyncRawUsersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}",
+            f"users/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -2040,7 +2040,7 @@ class AsyncRawUsersClient:
             User successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}",
+            f"users/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "blocked": blocked,
@@ -2162,7 +2162,7 @@ class AsyncRawUsersClient:
             New recovery code successfully generated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/recovery-code-regeneration",
+            f"users/{quote_path_param(id)}/recovery-code-regeneration",
             method="POST",
             request_options=request_options,
         )
@@ -2259,7 +2259,7 @@ class AsyncRawUsersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/revoke-access",
+            f"users/{quote_path_param(id)}/revoke-access",
             method="POST",
             json={
                 "session_id": session_id,

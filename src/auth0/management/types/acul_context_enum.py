@@ -6,6 +6,7 @@ AculContextEnum = typing.Union[
     typing.Literal[
         "branding.settings",
         "branding.themes.default",
+        "country_codes",
         "client.logo_uri",
         "client.description",
         "organization.display_name",

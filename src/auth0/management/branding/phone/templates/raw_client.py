@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
@@ -261,7 +261,7 @@ class RawTemplatesClient:
             The phone notification template were retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}",
+            f"branding/phone/templates/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -353,7 +353,7 @@ class RawTemplatesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}",
+            f"branding/phone/templates/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -451,7 +451,7 @@ class RawTemplatesClient:
             The phone notification template was updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}",
+            f"branding/phone/templates/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "content": convert_and_respect_annotation_metadata(
@@ -562,7 +562,7 @@ class RawTemplatesClient:
             The phone notification template was reset.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}/reset",
+            f"branding/phone/templates/{quote_path_param(id)}/reset",
             method="PATCH",
             json=request,
             request_options=request_options,
@@ -659,7 +659,7 @@ class RawTemplatesClient:
             The phone testing notification for the template was sent
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}/try",
+            f"branding/phone/templates/{quote_path_param(id)}/try",
             method="POST",
             json={
                 "to": to,
@@ -971,7 +971,7 @@ class AsyncRawTemplatesClient:
             The phone notification template were retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}",
+            f"branding/phone/templates/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1065,7 +1065,7 @@ class AsyncRawTemplatesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}",
+            f"branding/phone/templates/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1163,7 +1163,7 @@ class AsyncRawTemplatesClient:
             The phone notification template was updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}",
+            f"branding/phone/templates/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "content": convert_and_respect_annotation_metadata(
@@ -1274,7 +1274,7 @@ class AsyncRawTemplatesClient:
             The phone notification template was reset.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}/reset",
+            f"branding/phone/templates/{quote_path_param(id)}/reset",
             method="PATCH",
             json=request,
             request_options=request_options,
@@ -1371,7 +1371,7 @@ class AsyncRawTemplatesClient:
             The phone testing notification for the template was sent
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/templates/{encode_path_param(id)}/try",
+            f"branding/phone/templates/{quote_path_param(id)}/try",
             method="POST",
             json={
                 "to": to,

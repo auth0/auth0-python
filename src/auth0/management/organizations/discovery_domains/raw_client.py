@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -74,7 +74,7 @@ class RawDiscoveryDomainsClient:
             Organization discovery domains retrieved successfully.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains",
+            f"organizations/{quote_path_param(id)}/discovery-domains",
             method="GET",
             params={
                 "from": from_,
@@ -199,7 +199,7 @@ class RawDiscoveryDomainsClient:
             Organization discovery domain successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains",
+            f"organizations/{quote_path_param(id)}/discovery-domains",
             method="POST",
             json={
                 "domain": domain,
@@ -321,7 +321,7 @@ class RawDiscoveryDomainsClient:
             Organization discovery domain successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains/name/{encode_path_param(discovery_domain)}",
+            f"organizations/{quote_path_param(id)}/discovery-domains/name/{quote_path_param(discovery_domain)}",
             method="GET",
             request_options=request_options,
         )
@@ -423,7 +423,7 @@ class RawDiscoveryDomainsClient:
             Organization discovery domain successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains/{encode_path_param(discovery_domain_id)}",
+            f"organizations/{quote_path_param(id)}/discovery-domains/{quote_path_param(discovery_domain_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -523,7 +523,7 @@ class RawDiscoveryDomainsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains/{encode_path_param(discovery_domain_id)}",
+            f"organizations/{quote_path_param(id)}/discovery-domains/{quote_path_param(discovery_domain_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -617,7 +617,7 @@ class RawDiscoveryDomainsClient:
             Organization discovery domain successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains/{encode_path_param(discovery_domain_id)}",
+            f"organizations/{quote_path_param(id)}/discovery-domains/{quote_path_param(discovery_domain_id)}",
             method="PATCH",
             json={
                 "status": status,
@@ -707,7 +707,7 @@ class AsyncRawDiscoveryDomainsClient:
             Organization discovery domains retrieved successfully.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains",
+            f"organizations/{quote_path_param(id)}/discovery-domains",
             method="GET",
             params={
                 "from": from_,
@@ -835,7 +835,7 @@ class AsyncRawDiscoveryDomainsClient:
             Organization discovery domain successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains",
+            f"organizations/{quote_path_param(id)}/discovery-domains",
             method="POST",
             json={
                 "domain": domain,
@@ -957,7 +957,7 @@ class AsyncRawDiscoveryDomainsClient:
             Organization discovery domain successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains/name/{encode_path_param(discovery_domain)}",
+            f"organizations/{quote_path_param(id)}/discovery-domains/name/{quote_path_param(discovery_domain)}",
             method="GET",
             request_options=request_options,
         )
@@ -1059,7 +1059,7 @@ class AsyncRawDiscoveryDomainsClient:
             Organization discovery domain successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains/{encode_path_param(discovery_domain_id)}",
+            f"organizations/{quote_path_param(id)}/discovery-domains/{quote_path_param(discovery_domain_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1159,7 +1159,7 @@ class AsyncRawDiscoveryDomainsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains/{encode_path_param(discovery_domain_id)}",
+            f"organizations/{quote_path_param(id)}/discovery-domains/{quote_path_param(discovery_domain_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1253,7 +1253,7 @@ class AsyncRawDiscoveryDomainsClient:
             Organization discovery domain successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/discovery-domains/{encode_path_param(discovery_domain_id)}",
+            f"organizations/{quote_path_param(id)}/discovery-domains/{quote_path_param(discovery_domain_id)}",
             method="PATCH",
             json={
                 "status": status,

@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -63,7 +63,7 @@ class RawClientsClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/clients",
+            f"connections/{quote_path_param(id)}/clients",
             method="GET",
             params={
                 "take": take,
@@ -177,7 +177,7 @@ class RawClientsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/clients",
+            f"connections/{quote_path_param(id)}/clients",
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateEnabledClientConnectionsRequestContent, direction="write"
@@ -290,7 +290,7 @@ class AsyncRawClientsClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/clients",
+            f"connections/{quote_path_param(id)}/clients",
             method="GET",
             params={
                 "take": take,
@@ -407,7 +407,7 @@ class AsyncRawClientsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/clients",
+            f"connections/{quote_path_param(id)}/clients",
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateEnabledClientConnectionsRequestContent, direction="write"

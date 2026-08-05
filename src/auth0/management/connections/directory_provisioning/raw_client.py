@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -28,6 +28,7 @@ from ...types.get_directory_provisioning_response_content import GetDirectoryPro
 from ...types.list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
 from ...types.list_synchronized_groups_response_content import ListSynchronizedGroupsResponseContent
 from ...types.synchronized_group_payload import SynchronizedGroupPayload
+from ...types.synchronized_group_selection_id import SynchronizedGroupSelectionId
 from ...types.update_directory_provisioning_request_content import UpdateDirectoryProvisioningRequestContent
 from ...types.update_directory_provisioning_response_content import UpdateDirectoryProvisioningResponseContent
 from pydantic import ValidationError
@@ -166,7 +167,7 @@ class RawDirectoryProvisioningClient:
             The connection's directory provisioning configuration. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning",
+            f"connections/{quote_path_param(id)}/directory-provisioning",
             method="GET",
             request_options=request_options,
         )
@@ -270,7 +271,7 @@ class RawDirectoryProvisioningClient:
             The connection's directory provisioning configuration was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning",
+            f"connections/{quote_path_param(id)}/directory-provisioning",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request,
@@ -382,7 +383,7 @@ class RawDirectoryProvisioningClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning",
+            f"connections/{quote_path_param(id)}/directory-provisioning",
             method="DELETE",
             request_options=request_options,
         )
@@ -479,7 +480,7 @@ class RawDirectoryProvisioningClient:
             The connection's directory provisioning configuration was updated. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning",
+            f"connections/{quote_path_param(id)}/directory-provisioning",
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request,
@@ -583,7 +584,7 @@ class RawDirectoryProvisioningClient:
             The connection's directory provisioning default mapping. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning/default-mapping",
+            f"connections/{quote_path_param(id)}/directory-provisioning/default-mapping",
             method="GET",
             request_options=request_options,
         )
@@ -667,6 +668,7 @@ class RawDirectoryProvisioningClient:
         *,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
+        q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]:
         """
@@ -683,6 +685,9 @@ class RawDirectoryProvisioningClient:
         take : typing.Optional[int]
             Number of results per page. Defaults to 50.
 
+        q : typing.Optional[str]
+            Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Only prefix search on "name" or "email" fields are allowed, with a single wildcard suffix. Operators, modifiers, and groupings are not allowed. Terms are treated as case-insensitive. Example query: "name:engineering*".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -692,11 +697,12 @@ class RawDirectoryProvisioningClient:
             The connection's synchronized groups. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning/synchronized-groups",
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronized-groups",
             method="GET",
             params={
                 "from": from_,
                 "take": take,
+                "q": q,
             },
             request_options=request_options,
         )
@@ -716,9 +722,116 @@ class RawDirectoryProvisioningClient:
                     id,
                     from_=_parsed_next,
                     take=take,
+                    q=q,
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def add_synchronized_group_selections(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupPayload],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[None]:
+        """
+        Add synchronized group selections to a directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to add synchronized groups to
+
+        groups : typing.Sequence[SynchronizedGroupPayload]
+            Array of Google Workspace Directory group objects to synchronize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[None]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronized-groups",
+            method="POST",
+            json={
+                "groups": convert_and_respect_annotation_metadata(
+                    object_=groups, annotation=typing.Sequence[SynchronizedGroupPayload], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return HttpResponse(response=_response, data=None)
             if _response.status_code == 400:
                 raise BadRequestError(
                     headers=dict(_response.headers),
@@ -809,7 +922,7 @@ class RawDirectoryProvisioningClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning/synchronized-groups",
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronized-groups",
             method="PUT",
             json={
                 "groups": convert_and_respect_annotation_metadata(
@@ -871,6 +984,112 @@ class RawDirectoryProvisioningClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def delete_synchronized_group_selections(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupSelectionId],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[None]:
+        """
+        Delete synchronized group selections for a directory provisioning configuration
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to delete synchronized group selections for
+
+        groups : typing.Sequence[SynchronizedGroupSelectionId]
+            Array of groups to remove from the selection set.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[None]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronized-groups",
+            method="DELETE",
+            json={
+                "groups": convert_and_respect_annotation_metadata(
+                    object_=groups, annotation=typing.Sequence[SynchronizedGroupSelectionId], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return HttpResponse(response=_response, data=None)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1034,7 +1253,7 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's directory provisioning configuration. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning",
+            f"connections/{quote_path_param(id)}/directory-provisioning",
             method="GET",
             request_options=request_options,
         )
@@ -1138,7 +1357,7 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's directory provisioning configuration was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning",
+            f"connections/{quote_path_param(id)}/directory-provisioning",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request,
@@ -1252,7 +1471,7 @@ class AsyncRawDirectoryProvisioningClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning",
+            f"connections/{quote_path_param(id)}/directory-provisioning",
             method="DELETE",
             request_options=request_options,
         )
@@ -1349,7 +1568,7 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's directory provisioning configuration was updated. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning",
+            f"connections/{quote_path_param(id)}/directory-provisioning",
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request,
@@ -1453,7 +1672,7 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's directory provisioning default mapping. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning/default-mapping",
+            f"connections/{quote_path_param(id)}/directory-provisioning/default-mapping",
             method="GET",
             request_options=request_options,
         )
@@ -1537,6 +1756,7 @@ class AsyncRawDirectoryProvisioningClient:
         *,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
+        q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]:
         """
@@ -1553,6 +1773,9 @@ class AsyncRawDirectoryProvisioningClient:
         take : typing.Optional[int]
             Number of results per page. Defaults to 50.
 
+        q : typing.Optional[str]
+            Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Only prefix search on "name" or "email" fields are allowed, with a single wildcard suffix. Operators, modifiers, and groupings are not allowed. Terms are treated as case-insensitive. Example query: "name:engineering*".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1562,11 +1785,12 @@ class AsyncRawDirectoryProvisioningClient:
             The connection's synchronized groups. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning/synchronized-groups",
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronized-groups",
             method="GET",
             params={
                 "from": from_,
                 "take": take,
+                "q": q,
             },
             request_options=request_options,
         )
@@ -1588,10 +1812,117 @@ class AsyncRawDirectoryProvisioningClient:
                         id,
                         from_=_parsed_next,
                         take=take,
+                        q=q,
                         request_options=request_options,
                     )
 
                 return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def add_synchronized_group_selections(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupPayload],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[None]:
+        """
+        Add synchronized group selections to a directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to add synchronized groups to
+
+        groups : typing.Sequence[SynchronizedGroupPayload]
+            Array of Google Workspace Directory group objects to synchronize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[None]
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronized-groups",
+            method="POST",
+            json={
+                "groups": convert_and_respect_annotation_metadata(
+                    object_=groups, annotation=typing.Sequence[SynchronizedGroupPayload], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return AsyncHttpResponse(response=_response, data=None)
             if _response.status_code == 400:
                 raise BadRequestError(
                     headers=dict(_response.headers),
@@ -1682,7 +2013,7 @@ class AsyncRawDirectoryProvisioningClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning/synchronized-groups",
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronized-groups",
             method="PUT",
             json={
                 "groups": convert_and_respect_annotation_metadata(
@@ -1744,6 +2075,112 @@ class AsyncRawDirectoryProvisioningClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def delete_synchronized_group_selections(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupSelectionId],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[None]:
+        """
+        Delete synchronized group selections for a directory provisioning configuration
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to delete synchronized group selections for
+
+        groups : typing.Sequence[SynchronizedGroupSelectionId]
+            Array of groups to remove from the selection set.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[None]
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronized-groups",
+            method="DELETE",
+            json={
+                "groups": convert_and_respect_annotation_metadata(
+                    object_=groups, annotation=typing.Sequence[SynchronizedGroupSelectionId], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return AsyncHttpResponse(response=_response, data=None)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

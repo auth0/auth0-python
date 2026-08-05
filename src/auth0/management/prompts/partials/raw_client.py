@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -48,7 +48,7 @@ class RawPartialsClient:
             Prompt partials successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"prompts/{encode_path_param(prompt)}/partials",
+            f"prompts/{quote_path_param(prompt)}/partials",
             method="GET",
             request_options=request_options,
         )
@@ -151,7 +151,7 @@ class RawPartialsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"prompts/{encode_path_param(prompt)}/partials",
+            f"prompts/{quote_path_param(prompt)}/partials",
             method="PUT",
             json=request,
             request_options=request_options,
@@ -238,7 +238,7 @@ class AsyncRawPartialsClient:
             Prompt partials successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"prompts/{encode_path_param(prompt)}/partials",
+            f"prompts/{quote_path_param(prompt)}/partials",
             method="GET",
             request_options=request_options,
         )
@@ -341,7 +341,7 @@ class AsyncRawPartialsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"prompts/{encode_path_param(prompt)}/partials",
+            f"prompts/{quote_path_param(prompt)}/partials",
             method="PUT",
             json=request,
             request_options=request_options,

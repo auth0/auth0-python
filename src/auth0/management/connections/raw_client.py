@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -48,6 +48,7 @@ class RawConnectionsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         strategy: typing.Optional[typing.Union[ConnectionStrategyEnum, typing.Sequence[ConnectionStrategyEnum]]] = None,
@@ -77,6 +78,9 @@ class RawConnectionsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            true if a query summary must be included in the result, false otherwise. Not returned when using checkpoint pagination. Default <code>false</code>.
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -107,6 +111,7 @@ class RawConnectionsClient:
             "connections",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "strategy": strategy,
@@ -129,6 +134,7 @@ class RawConnectionsClient:
                 _parsed_next = _parsed_response.next
                 _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     strategy=strategy,
@@ -395,7 +401,7 @@ class RawConnectionsClient:
             The connection was retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -496,7 +502,7 @@ class RawConnectionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -619,7 +625,7 @@ class RawConnectionsClient:
             The connection was updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "display_name": display_name,
@@ -754,7 +760,7 @@ class RawConnectionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/status",
+            f"connections/{quote_path_param(id)}/status",
             method="GET",
             request_options=request_options,
         )
@@ -833,6 +839,7 @@ class AsyncRawConnectionsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         strategy: typing.Optional[typing.Union[ConnectionStrategyEnum, typing.Sequence[ConnectionStrategyEnum]]] = None,
@@ -862,6 +869,9 @@ class AsyncRawConnectionsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            true if a query summary must be included in the result, false otherwise. Not returned when using checkpoint pagination. Default <code>false</code>.
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -892,6 +902,7 @@ class AsyncRawConnectionsClient:
             "connections",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "strategy": strategy,
@@ -916,6 +927,7 @@ class AsyncRawConnectionsClient:
 
                 async def _get_next():
                     return await self.list(
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         strategy=strategy,
@@ -1183,7 +1195,7 @@ class AsyncRawConnectionsClient:
             The connection was retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -1286,7 +1298,7 @@ class AsyncRawConnectionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1409,7 +1421,7 @@ class AsyncRawConnectionsClient:
             The connection was updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "display_name": display_name,
@@ -1546,7 +1558,7 @@ class AsyncRawConnectionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/status",
+            f"connections/{quote_path_param(id)}/status",
             method="GET",
             request_options=request_options,
         )

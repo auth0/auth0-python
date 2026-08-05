@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from . import (
         client_grants,
+        clients,
         connections,
         discovery_domains,
         enabled_connections,
@@ -18,6 +19,7 @@ if typing.TYPE_CHECKING:
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "client_grants": ".client_grants",
+    "clients": ".clients",
     "connections": ".connections",
     "discovery_domains": ".discovery_domains",
     "enabled_connections": ".enabled_connections",
@@ -51,6 +53,7 @@ def __dir__():
 
 __all__ = [
     "client_grants",
+    "clients",
     "connections",
     "discovery_domains",
     "enabled_connections",

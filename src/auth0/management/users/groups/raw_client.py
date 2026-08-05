@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -30,6 +30,7 @@ class RawGroupsClient:
         *,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -48,6 +49,9 @@ class RawGroupsClient:
         include_fields : typing.Optional[bool]
             Whether specified fields are to be included (true) or excluded (false).
 
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -63,11 +67,12 @@ class RawGroupsClient:
             Groups successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/groups",
+            f"users/{quote_path_param(id)}/groups",
             method="GET",
             params={
                 "fields": fields,
                 "include_fields": include_fields,
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
             },
@@ -89,6 +94,7 @@ class RawGroupsClient:
                     id,
                     fields=fields,
                     include_fields=include_fields,
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     request_options=request_options,
@@ -169,6 +175,7 @@ class AsyncRawGroupsClient:
         *,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -187,6 +194,9 @@ class AsyncRawGroupsClient:
         include_fields : typing.Optional[bool]
             Whether specified fields are to be included (true) or excluded (false).
 
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -202,11 +212,12 @@ class AsyncRawGroupsClient:
             Groups successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/groups",
+            f"users/{quote_path_param(id)}/groups",
             method="GET",
             params={
                 "fields": fields,
                 "include_fields": include_fields,
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
             },
@@ -230,6 +241,7 @@ class AsyncRawGroupsClient:
                         id,
                         fields=fields,
                         include_fields=include_fields,
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         request_options=request_options,

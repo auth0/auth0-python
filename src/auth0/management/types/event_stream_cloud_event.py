@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .event_stream_cloud_event_data import EventStreamCloudEventData
 
 
 class EventStreamCloudEvent(UniversalBaseModel):
@@ -37,10 +38,7 @@ class EventStreamCloudEvent(UniversalBaseModel):
     Timestamp at which the event was generated
     """
 
-    data: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Event contents encoded as a string.
-    """
+    data: typing.Optional[EventStreamCloudEventData] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
