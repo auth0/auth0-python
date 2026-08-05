@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -299,7 +299,7 @@ class RawRateLimitPoliciesClient:
             Rate limit policy retrieved successfully.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"rate-limit-policies/{encode_path_param(id)}",
+            f"rate-limit-policies/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -381,7 +381,7 @@ class RawRateLimitPoliciesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"rate-limit-policies/{encode_path_param(id)}",
+            f"rate-limit-policies/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -465,7 +465,7 @@ class RawRateLimitPoliciesClient:
             Rate limit policy successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"rate-limit-policies/{encode_path_param(id)}",
+            f"rate-limit-policies/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "configuration": convert_and_respect_annotation_metadata(
@@ -820,7 +820,7 @@ class AsyncRawRateLimitPoliciesClient:
             Rate limit policy retrieved successfully.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"rate-limit-policies/{encode_path_param(id)}",
+            f"rate-limit-policies/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -904,7 +904,7 @@ class AsyncRawRateLimitPoliciesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"rate-limit-policies/{encode_path_param(id)}",
+            f"rate-limit-policies/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -988,7 +988,7 @@ class AsyncRawRateLimitPoliciesClient:
             Rate limit policy successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"rate-limit-policies/{encode_path_param(id)}",
+            f"rate-limit-policies/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "configuration": convert_and_respect_annotation_metadata(

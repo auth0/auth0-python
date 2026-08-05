@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -77,7 +77,7 @@ class RawAuthenticationMethodsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods",
+            f"users/{quote_path_param(id)}/authentication-methods",
             method="GET",
             params={
                 "page": page,
@@ -253,7 +253,7 @@ class RawAuthenticationMethodsClient:
             Authentication method created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods",
+            f"users/{quote_path_param(id)}/authentication-methods",
             method="POST",
             json={
                 "type": type,
@@ -392,7 +392,7 @@ class RawAuthenticationMethodsClient:
             All authentication methods successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods",
+            f"users/{quote_path_param(id)}/authentication-methods",
             method="PUT",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=SetUserAuthenticationMethodsRequestContent, direction="write"
@@ -491,7 +491,7 @@ class RawAuthenticationMethodsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods",
+            f"users/{quote_path_param(id)}/authentication-methods",
             method="DELETE",
             request_options=request_options,
         )
@@ -572,7 +572,7 @@ class RawAuthenticationMethodsClient:
             Authentication method retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
+            f"users/{quote_path_param(id)}/authentication-methods/{quote_path_param(authentication_method_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -672,7 +672,7 @@ class RawAuthenticationMethodsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
+            f"users/{quote_path_param(id)}/authentication-methods/{quote_path_param(authentication_method_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -778,7 +778,7 @@ class RawAuthenticationMethodsClient:
             Authentication method updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
+            f"users/{quote_path_param(id)}/authentication-methods/{quote_path_param(authentication_method_id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -906,7 +906,7 @@ class AsyncRawAuthenticationMethodsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods",
+            f"users/{quote_path_param(id)}/authentication-methods",
             method="GET",
             params={
                 "page": page,
@@ -1085,7 +1085,7 @@ class AsyncRawAuthenticationMethodsClient:
             Authentication method created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods",
+            f"users/{quote_path_param(id)}/authentication-methods",
             method="POST",
             json={
                 "type": type,
@@ -1224,7 +1224,7 @@ class AsyncRawAuthenticationMethodsClient:
             All authentication methods successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods",
+            f"users/{quote_path_param(id)}/authentication-methods",
             method="PUT",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=SetUserAuthenticationMethodsRequestContent, direction="write"
@@ -1325,7 +1325,7 @@ class AsyncRawAuthenticationMethodsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods",
+            f"users/{quote_path_param(id)}/authentication-methods",
             method="DELETE",
             request_options=request_options,
         )
@@ -1406,7 +1406,7 @@ class AsyncRawAuthenticationMethodsClient:
             Authentication method retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
+            f"users/{quote_path_param(id)}/authentication-methods/{quote_path_param(authentication_method_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1506,7 +1506,7 @@ class AsyncRawAuthenticationMethodsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
+            f"users/{quote_path_param(id)}/authentication-methods/{quote_path_param(authentication_method_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1612,7 +1612,7 @@ class AsyncRawAuthenticationMethodsClient:
             Authentication method updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/authentication-methods/{encode_path_param(authentication_method_id)}",
+            f"users/{quote_path_param(id)}/authentication-methods/{quote_path_param(authentication_method_id)}",
             method="PATCH",
             json={
                 "name": name,

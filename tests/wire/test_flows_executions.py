@@ -7,10 +7,13 @@ def test_flows_executions_list_() -> None:
     client = get_client(test_id)
     client.flows.executions.list(
         flow_id="flow_id",
+        include_totals=True,
         from_="from",
         take=1,
     )
-    verify_request_count(test_id, "GET", "/flows/flow_id/executions", {"from": "from", "take": "1"}, 1)
+    verify_request_count(
+        test_id, "GET", "/flows/flow_id/executions", {"include_totals": "true", "from": "from", "take": "1"}, 1
+    )
 
 
 def test_flows_executions_get() -> None:

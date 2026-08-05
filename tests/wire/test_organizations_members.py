@@ -7,6 +7,7 @@ def test_organizations_members_list_() -> None:
     client = get_client(test_id)
     client.organizations.members.list(
         id="id",
+        include_totals=True,
         from_="from",
         take=1,
         fields="fields",
@@ -16,7 +17,7 @@ def test_organizations_members_list_() -> None:
         test_id,
         "GET",
         "/organizations/id/members",
-        {"from": "from", "take": "1", "fields": "fields", "include_fields": "true"},
+        {"include_totals": "true", "from": "from", "take": "1", "fields": "fields", "include_fields": "true"},
         1,
     )
 

@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -32,12 +32,15 @@ class RawUsersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]:
         """
         Retrieve list of users associated with a specific role. For Dashboard instructions, review [View Users Assigned to Roles](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles).
+
+        **Note**: Returns only users with direct role assignments. For groups assigned to this role, use `GET /api/v2/roles/{id}/groups`.
 
         This endpoint supports two types of pagination:
 
@@ -60,6 +63,9 @@ class RawUsersClient:
         id : str
             ID of the role to retrieve a list of users associated with.
 
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -75,9 +81,10 @@ class RawUsersClient:
             Role users successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/users",
+            f"roles/{quote_path_param(id)}/users",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
             },
@@ -97,6 +104,7 @@ class RawUsersClient:
                 _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
                     id,
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     request_options=request_options,
@@ -190,7 +198,7 @@ class RawUsersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/users",
+            f"roles/{quote_path_param(id)}/users",
             method="POST",
             json={
                 "users": users,
@@ -277,12 +285,15 @@ class AsyncRawUsersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]:
         """
         Retrieve list of users associated with a specific role. For Dashboard instructions, review [View Users Assigned to Roles](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles).
+
+        **Note**: Returns only users with direct role assignments. For groups assigned to this role, use `GET /api/v2/roles/{id}/groups`.
 
         This endpoint supports two types of pagination:
 
@@ -305,6 +316,9 @@ class AsyncRawUsersClient:
         id : str
             ID of the role to retrieve a list of users associated with.
 
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -320,9 +334,10 @@ class AsyncRawUsersClient:
             Role users successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/users",
+            f"roles/{quote_path_param(id)}/users",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
             },
@@ -344,6 +359,7 @@ class AsyncRawUsersClient:
                 async def _get_next():
                     return await self.list(
                         id,
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         request_options=request_options,
@@ -438,7 +454,7 @@ class AsyncRawUsersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/users",
+            f"roles/{quote_path_param(id)}/users",
             method="POST",
             json={
                 "users": users,

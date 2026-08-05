@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -63,7 +63,7 @@ class RawMembersClient:
             Group members successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"groups/{encode_path_param(id)}/members",
+            f"groups/{quote_path_param(id)}/members",
             method="GET",
             params={
                 "fields": fields,
@@ -202,7 +202,7 @@ class AsyncRawMembersClient:
             Group members successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"groups/{encode_path_param(id)}/members",
+            f"groups/{quote_path_param(id)}/members",
             method="GET",
             params={
                 "fields": fields,

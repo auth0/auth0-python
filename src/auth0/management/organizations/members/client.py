@@ -42,6 +42,7 @@ class MembersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         fields: typing.Optional[str] = None,
@@ -53,7 +54,7 @@ class MembersClient:
         This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
         - Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
-        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token.
+        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         This endpoint supports two types of pagination:
 
@@ -70,6 +71,9 @@ class MembersClient:
         ----------
         id : str
             Organization identifier.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -100,6 +104,7 @@ class MembersClient:
         )
         response = client.organizations.members.list(
             id="id",
+            include_totals=True,
             from_="from",
             take=1,
             fields="fields",
@@ -112,7 +117,13 @@ class MembersClient:
             yield page
         """
         return self._raw_client.list(
-            id, from_=from_, take=take, fields=fields, include_fields=include_fields, request_options=request_options
+            id,
+            include_totals=include_totals,
+            from_=from_,
+            take=take,
+            fields=fields,
+            include_fields=include_fields,
+            request_options=request_options,
         )
 
     def create(
@@ -226,6 +237,7 @@ class AsyncMembersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         fields: typing.Optional[str] = None,
@@ -237,7 +249,7 @@ class AsyncMembersClient:
         This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
         - Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
-        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token.
+        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         This endpoint supports two types of pagination:
 
@@ -254,6 +266,9 @@ class AsyncMembersClient:
         ----------
         id : str
             Organization identifier.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -289,6 +304,7 @@ class AsyncMembersClient:
         async def main() -> None:
             response = await client.organizations.members.list(
                 id="id",
+                include_totals=True,
                 from_="from",
                 take=1,
                 fields="fields",
@@ -305,7 +321,13 @@ class AsyncMembersClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            id, from_=from_, take=take, fields=fields, include_fields=include_fields, request_options=request_options
+            id,
+            include_totals=include_totals,
+            from_=from_,
+            take=take,
+            fields=fields,
+            include_fields=include_fields,
+            request_options=request_options,
         )
 
     async def create(

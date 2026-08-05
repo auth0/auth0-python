@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -168,7 +168,7 @@ class RawEnrollmentsClient:
             Enrollment successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"guardian/enrollments/{encode_path_param(id)}",
+            f"guardian/enrollments/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -241,7 +241,7 @@ class RawEnrollmentsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"guardian/enrollments/{encode_path_param(id)}",
+            f"guardian/enrollments/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -436,7 +436,7 @@ class AsyncRawEnrollmentsClient:
             Enrollment successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"guardian/enrollments/{encode_path_param(id)}",
+            f"guardian/enrollments/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -511,7 +511,7 @@ class AsyncRawEnrollmentsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"guardian/enrollments/{encode_path_param(id)}",
+            f"guardian/enrollments/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )

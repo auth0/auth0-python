@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -21,6 +21,7 @@ from ..types.create_role_response_content import CreateRoleResponseContent
 from ..types.get_role_response_content import GetRoleResponseContent
 from ..types.list_roles_offset_paginated_response_content import ListRolesOffsetPaginatedResponseContent
 from ..types.role import Role
+from ..types.role_type_enum import RoleTypeEnum
 from ..types.update_role_response_content import UpdateRoleResponseContent
 from pydantic import ValidationError
 
@@ -39,6 +40,8 @@ class RawRolesClient:
         page: typing.Optional[int] = 0,
         include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
+        type: typing.Optional[RoleTypeEnum] = None,
+        owner_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
         """
@@ -60,6 +63,12 @@ class RawRolesClient:
         name_filter : typing.Optional[str]
             Optional filter on name (case-insensitive).
 
+        type : typing.Optional[RoleTypeEnum]
+            Optional filter on the type of the role
+
+        owner_id : typing.Optional[str]
+            Filter organization-level roles by owner ID. Required when type is "organization".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -78,6 +87,8 @@ class RawRolesClient:
                 "page": page,
                 "include_totals": include_totals,
                 "name_filter": name_filter,
+                "type": type,
+                "owner_id": owner_id,
             },
             request_options=request_options,
         )
@@ -97,6 +108,8 @@ class RawRolesClient:
                     page=page + 1,
                     include_totals=include_totals,
                     name_filter=name_filter,
+                    type=type,
+                    owner_id=owner_id,
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -158,6 +171,8 @@ class RawRolesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        type: typing.Optional[RoleTypeEnum] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateRoleResponseContent]:
         """
@@ -173,6 +188,12 @@ class RawRolesClient:
         description : typing.Optional[str]
             Description of the role.
 
+        type : typing.Optional[RoleTypeEnum]
+            The type of the role. Defaults to tenant.
+
+        owner_id : typing.Optional[str]
+            The ID of the organization that owns this role. Required when type is "organization".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -187,6 +208,8 @@ class RawRolesClient:
             json={
                 "name": name,
                 "description": description,
+                "type": type,
+                "owner_id": owner_id,
             },
             headers={
                 "content-type": "application/json",
@@ -288,7 +311,7 @@ class RawRolesClient:
             Role successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}",
+            f"roles/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -383,7 +406,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}",
+            f"roles/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -485,7 +508,7 @@ class RawRolesClient:
             Role successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}",
+            f"roles/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -572,6 +595,8 @@ class AsyncRawRolesClient:
         page: typing.Optional[int] = 0,
         include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
+        type: typing.Optional[RoleTypeEnum] = None,
+        owner_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
         """
@@ -593,6 +618,12 @@ class AsyncRawRolesClient:
         name_filter : typing.Optional[str]
             Optional filter on name (case-insensitive).
 
+        type : typing.Optional[RoleTypeEnum]
+            Optional filter on the type of the role
+
+        owner_id : typing.Optional[str]
+            Filter organization-level roles by owner ID. Required when type is "organization".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -611,6 +642,8 @@ class AsyncRawRolesClient:
                 "page": page,
                 "include_totals": include_totals,
                 "name_filter": name_filter,
+                "type": type,
+                "owner_id": owner_id,
             },
             request_options=request_options,
         )
@@ -632,6 +665,8 @@ class AsyncRawRolesClient:
                         page=page + 1,
                         include_totals=include_totals,
                         name_filter=name_filter,
+                        type=type,
+                        owner_id=owner_id,
                         request_options=request_options,
                     )
 
@@ -694,6 +729,8 @@ class AsyncRawRolesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        type: typing.Optional[RoleTypeEnum] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateRoleResponseContent]:
         """
@@ -709,6 +746,12 @@ class AsyncRawRolesClient:
         description : typing.Optional[str]
             Description of the role.
 
+        type : typing.Optional[RoleTypeEnum]
+            The type of the role. Defaults to tenant.
+
+        owner_id : typing.Optional[str]
+            The ID of the organization that owns this role. Required when type is "organization".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -723,6 +766,8 @@ class AsyncRawRolesClient:
             json={
                 "name": name,
                 "description": description,
+                "type": type,
+                "owner_id": owner_id,
             },
             headers={
                 "content-type": "application/json",
@@ -824,7 +869,7 @@ class AsyncRawRolesClient:
             Role successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}",
+            f"roles/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -921,7 +966,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}",
+            f"roles/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1023,7 +1068,7 @@ class AsyncRawRolesClient:
             Role successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}",
+            f"roles/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,

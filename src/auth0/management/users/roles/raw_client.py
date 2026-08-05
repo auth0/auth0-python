@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -42,6 +42,8 @@ class RawRolesClient:
 
         **Note**: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: [Get user roles assigned to an Organization member](https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles).
 
+        **Note**: Returns only direct role assignments. To also include group-based role assignments, use `GET /api/v2/users/{id}/effective-roles`.
+
         Parameters
         ----------
         id : str
@@ -67,7 +69,7 @@ class RawRolesClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/roles",
+            f"users/{quote_path_param(id)}/roles",
             method="GET",
             params={
                 "per_page": per_page,
@@ -183,7 +185,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/roles",
+            f"users/{quote_path_param(id)}/roles",
             method="POST",
             json={
                 "roles": roles,
@@ -285,7 +287,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/roles",
+            f"users/{quote_path_param(id)}/roles",
             method="DELETE",
             json={
                 "roles": roles,
@@ -371,6 +373,8 @@ class AsyncRawRolesClient:
 
         **Note**: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: [Get user roles assigned to an Organization member](https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles).
 
+        **Note**: Returns only direct role assignments. To also include group-based role assignments, use `GET /api/v2/users/{id}/effective-roles`.
+
         Parameters
         ----------
         id : str
@@ -396,7 +400,7 @@ class AsyncRawRolesClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/roles",
+            f"users/{quote_path_param(id)}/roles",
             method="GET",
             params={
                 "per_page": per_page,
@@ -515,7 +519,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/roles",
+            f"users/{quote_path_param(id)}/roles",
             method="POST",
             json={
                 "roles": roles,
@@ -617,7 +621,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/roles",
+            f"users/{quote_path_param(id)}/roles",
             method="DELETE",
             json={
                 "roles": roles,

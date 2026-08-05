@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
@@ -270,7 +270,7 @@ class RawProvidersClient:
             Phone provider successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -364,7 +364,7 @@ class RawProvidersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -460,7 +460,7 @@ class RawProvidersClient:
             Phone provider successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -590,7 +590,7 @@ class RawProvidersClient:
             Phone notification sent.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}/try",
+            f"branding/phone/providers/{quote_path_param(id)}/try",
             method="POST",
             json={
                 "to": to,
@@ -926,7 +926,7 @@ class AsyncRawProvidersClient:
             Phone provider successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1022,7 +1022,7 @@ class AsyncRawProvidersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1118,7 +1118,7 @@ class AsyncRawProvidersClient:
             Phone provider successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -1248,7 +1248,7 @@ class AsyncRawProvidersClient:
             Phone notification sent.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}/try",
+            f"branding/phone/providers/{quote_path_param(id)}/try",
             method="POST",
             json={
                 "to": to,

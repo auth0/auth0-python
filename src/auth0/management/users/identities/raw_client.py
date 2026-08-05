@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -97,7 +97,7 @@ class RawIdentitiesClient:
             Identity successfully added.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/identities",
+            f"users/{quote_path_param(id)}/identities",
             method="POST",
             json={
                 "provider": provider,
@@ -220,7 +220,7 @@ class RawIdentitiesClient:
             User identity successfully unlinked.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/identities/{encode_path_param(provider)}/{encode_path_param(user_id)}",
+            f"users/{quote_path_param(id)}/identities/{quote_path_param(provider)}/{quote_path_param(user_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -359,7 +359,7 @@ class AsyncRawIdentitiesClient:
             Identity successfully added.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/identities",
+            f"users/{quote_path_param(id)}/identities",
             method="POST",
             json={
                 "provider": provider,
@@ -482,7 +482,7 @@ class AsyncRawIdentitiesClient:
             User identity successfully unlinked.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/identities/{encode_path_param(provider)}/{encode_path_param(user_id)}",
+            f"users/{quote_path_param(id)}/identities/{quote_path_param(provider)}/{quote_path_param(user_id)}",
             method="DELETE",
             request_options=request_options,
         )

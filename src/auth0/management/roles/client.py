@@ -11,6 +11,7 @@ from ..types.create_role_response_content import CreateRoleResponseContent
 from ..types.get_role_response_content import GetRoleResponseContent
 from ..types.list_roles_offset_paginated_response_content import ListRolesOffsetPaginatedResponseContent
 from ..types.role import Role
+from ..types.role_type_enum import RoleTypeEnum
 from ..types.update_role_response_content import UpdateRoleResponseContent
 from .raw_client import AsyncRawRolesClient, RawRolesClient
 
@@ -48,6 +49,8 @@ class RolesClient:
         page: typing.Optional[int] = 0,
         include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
+        type: typing.Optional[RoleTypeEnum] = None,
+        owner_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
         """
@@ -69,6 +72,12 @@ class RolesClient:
         name_filter : typing.Optional[str]
             Optional filter on name (case-insensitive).
 
+        type : typing.Optional[RoleTypeEnum]
+            Optional filter on the type of the role
+
+        owner_id : typing.Optional[str]
+            Filter organization-level roles by owner ID. Required when type is "organization".
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -89,6 +98,8 @@ class RolesClient:
             page=1,
             include_totals=True,
             name_filter="name_filter",
+            type="tenant",
+            owner_id="owner_id",
         )
         for item in response:
             yield item
@@ -101,6 +112,8 @@ class RolesClient:
             page=page,
             include_totals=include_totals,
             name_filter=name_filter,
+            type=type,
+            owner_id=owner_id,
             request_options=request_options,
         )
 
@@ -109,6 +122,8 @@ class RolesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        type: typing.Optional[RoleTypeEnum] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRoleResponseContent:
         """
@@ -123,6 +138,12 @@ class RolesClient:
 
         description : typing.Optional[str]
             Description of the role.
+
+        type : typing.Optional[RoleTypeEnum]
+            The type of the role. Defaults to tenant.
+
+        owner_id : typing.Optional[str]
+            The ID of the organization that owns this role. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -143,7 +164,9 @@ class RolesClient:
             name="name",
         )
         """
-        _response = self._raw_client.create(name=name, description=description, request_options=request_options)
+        _response = self._raw_client.create(
+            name=name, description=description, type=type, owner_id=owner_id, request_options=request_options
+        )
         return _response.data
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetRoleResponseContent:
@@ -302,6 +325,8 @@ class AsyncRolesClient:
         page: typing.Optional[int] = 0,
         include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
+        type: typing.Optional[RoleTypeEnum] = None,
+        owner_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
         """
@@ -322,6 +347,12 @@ class AsyncRolesClient:
 
         name_filter : typing.Optional[str]
             Optional filter on name (case-insensitive).
+
+        type : typing.Optional[RoleTypeEnum]
+            Optional filter on the type of the role
+
+        owner_id : typing.Optional[str]
+            Filter organization-level roles by owner ID. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -348,6 +379,8 @@ class AsyncRolesClient:
                 page=1,
                 include_totals=True,
                 name_filter="name_filter",
+                type="tenant",
+                owner_id="owner_id",
             )
             async for item in response:
                 yield item
@@ -364,6 +397,8 @@ class AsyncRolesClient:
             page=page,
             include_totals=include_totals,
             name_filter=name_filter,
+            type=type,
+            owner_id=owner_id,
             request_options=request_options,
         )
 
@@ -372,6 +407,8 @@ class AsyncRolesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        type: typing.Optional[RoleTypeEnum] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRoleResponseContent:
         """
@@ -386,6 +423,12 @@ class AsyncRolesClient:
 
         description : typing.Optional[str]
             Description of the role.
+
+        type : typing.Optional[RoleTypeEnum]
+            The type of the role. Defaults to tenant.
+
+        owner_id : typing.Optional[str]
+            The ID of the organization that owns this role. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -414,7 +457,9 @@ class AsyncRolesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(name=name, description=description, request_options=request_options)
+        _response = await self._raw_client.create(
+            name=name, description=description, type=type, owner_id=owner_id, request_options=request_options
+        )
         return _response.data
 
     async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetRoleResponseContent:

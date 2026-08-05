@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.pagination import AsyncPager, SyncPager
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
@@ -64,7 +64,7 @@ class RawBindingsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/triggers/{encode_path_param(trigger_id)}/bindings",
+            f"actions/triggers/{quote_path_param(trigger_id)}/bindings",
             method="GET",
             params={
                 "page": page,
@@ -170,7 +170,7 @@ class RawBindingsClient:
             The bindings were updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/triggers/{encode_path_param(trigger_id)}/bindings",
+            f"actions/triggers/{quote_path_param(trigger_id)}/bindings",
             method="PATCH",
             json={
                 "bindings": convert_and_respect_annotation_metadata(
@@ -284,7 +284,7 @@ class AsyncRawBindingsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/triggers/{encode_path_param(trigger_id)}/bindings",
+            f"actions/triggers/{quote_path_param(trigger_id)}/bindings",
             method="GET",
             params={
                 "page": page,
@@ -393,7 +393,7 @@ class AsyncRawBindingsClient:
             The bindings were updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/triggers/{encode_path_param(trigger_id)}/bindings",
+            f"actions/triggers/{quote_path_param(trigger_id)}/bindings",
             method="PATCH",
             json={
                 "bindings": convert_and_respect_annotation_metadata(

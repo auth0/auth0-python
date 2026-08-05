@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .role_type_enum import RoleTypeEnum
 
 
 class GetRoleResponseContent(UniversalBaseModel):
@@ -20,6 +21,12 @@ class GetRoleResponseContent(UniversalBaseModel):
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Description of this role.
+    """
+
+    type: typing.Optional[RoleTypeEnum] = None
+    owner_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the entity that owns this role, such as an organization id.
     """
 
     if IS_PYDANTIC_V2:

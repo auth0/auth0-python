@@ -42,6 +42,8 @@ class RolesClient:
 
         **Note**: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: [Get user roles assigned to an Organization member](https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles).
 
+        **Note**: Returns only direct role assignments. To also include group-based role assignments, use `GET /api/v2/users/{id}/effective-roles`.
+
         Parameters
         ----------
         id : str
@@ -192,6 +194,8 @@ class AsyncRolesClient:
         Retrieve detailed list of all user roles currently assigned to a user.
 
         **Note**: This action retrieves all roles assigned to a user in the context of your whole tenant. To retrieve Organization-specific roles, use the following endpoint: [Get user roles assigned to an Organization member](https://auth0.com/docs/api/management/v2/organizations/get-organization-member-roles).
+
+        **Note**: Returns only direct role assignments. To also include group-based role assignments, use `GET /api/v2/users/{id}/effective-roles`.
 
         Parameters
         ----------

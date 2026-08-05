@@ -60,6 +60,7 @@ class ConnectionsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         strategy: typing.Optional[typing.Union[ConnectionStrategyEnum, typing.Sequence[ConnectionStrategyEnum]]] = None,
@@ -89,6 +90,9 @@ class ConnectionsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            true if a query summary must be included in the result, false otherwise. Not returned when using checkpoint pagination. Default <code>false</code>.
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -123,6 +127,7 @@ class ConnectionsClient:
             token="YOUR_TOKEN",
         )
         response = client.connections.list(
+            include_totals=True,
             from_="from",
             take=1,
             strategy=["ad"],
@@ -137,6 +142,7 @@ class ConnectionsClient:
             yield page
         """
         return self._raw_client.list(
+            include_totals=include_totals,
             from_=from_,
             take=take,
             strategy=strategy,
@@ -506,6 +512,7 @@ class AsyncConnectionsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         strategy: typing.Optional[typing.Union[ConnectionStrategyEnum, typing.Sequence[ConnectionStrategyEnum]]] = None,
@@ -535,6 +542,9 @@ class AsyncConnectionsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            true if a query summary must be included in the result, false otherwise. Not returned when using checkpoint pagination. Default <code>false</code>.
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -574,6 +584,7 @@ class AsyncConnectionsClient:
 
         async def main() -> None:
             response = await client.connections.list(
+                include_totals=True,
                 from_="from",
                 take=1,
                 strategy=["ad"],
@@ -592,6 +603,7 @@ class AsyncConnectionsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
+            include_totals=include_totals,
             from_=from_,
             take=take,
             strategy=strategy,

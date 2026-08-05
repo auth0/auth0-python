@@ -31,6 +31,7 @@ class ExecutionsClient:
         self,
         flow_id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -40,6 +41,9 @@ class ExecutionsClient:
         ----------
         flow_id : str
             Flow id
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -64,6 +68,7 @@ class ExecutionsClient:
         )
         response = client.flows.executions.list(
             flow_id="flow_id",
+            include_totals=True,
             from_="from",
             take=1,
         )
@@ -73,7 +78,9 @@ class ExecutionsClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list(flow_id, from_=from_, take=take, request_options=request_options)
+        return self._raw_client.list(
+            flow_id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
     def get(
         self,
@@ -178,6 +185,7 @@ class AsyncExecutionsClient:
         self,
         flow_id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -187,6 +195,9 @@ class AsyncExecutionsClient:
         ----------
         flow_id : str
             Flow id
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -216,6 +227,7 @@ class AsyncExecutionsClient:
         async def main() -> None:
             response = await client.flows.executions.list(
                 flow_id="flow_id",
+                include_totals=True,
                 from_="from",
                 take=1,
             )
@@ -229,7 +241,9 @@ class AsyncExecutionsClient:
 
         asyncio.run(main())
         """
-        return await self._raw_client.list(flow_id, from_=from_, take=take, request_options=request_options)
+        return await self._raw_client.list(
+            flow_id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
     async def get(
         self,

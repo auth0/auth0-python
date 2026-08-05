@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.pagination import AsyncPager, SyncPager
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
@@ -37,6 +37,11 @@ class RawMembersClient:
     ) -> SyncPager[RoleMember, ListOrganizationRoleMembersResponseContent]:
         """
         List the organization members assigned a specific role within the context of an organization.
+        <ul>
+          <li>
+            <b>Note</b>: Returns only members with direct role assignments. For groups assigned to this role within the organization, use <code>GET /api/v2/organizations/{organization_id}/roles/{role_id}/groups</code>.
+          </li>
+        </ul>
 
         Parameters
         ----------
@@ -67,7 +72,7 @@ class RawMembersClient:
             Role members successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/roles/{encode_path_param(role_id)}/members",
+            f"organizations/{quote_path_param(id)}/roles/{quote_path_param(role_id)}/members",
             method="GET",
             params={
                 "from": from_,
@@ -181,6 +186,11 @@ class AsyncRawMembersClient:
     ) -> AsyncPager[RoleMember, ListOrganizationRoleMembersResponseContent]:
         """
         List the organization members assigned a specific role within the context of an organization.
+        <ul>
+          <li>
+            <b>Note</b>: Returns only members with direct role assignments. For groups assigned to this role within the organization, use <code>GET /api/v2/organizations/{organization_id}/roles/{role_id}/groups</code>.
+          </li>
+        </ul>
 
         Parameters
         ----------
@@ -211,7 +221,7 @@ class AsyncRawMembersClient:
             Role members successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/roles/{encode_path_param(role_id)}/members",
+            f"organizations/{quote_path_param(id)}/roles/{quote_path_param(role_id)}/members",
             method="GET",
             params={
                 "from": from_,

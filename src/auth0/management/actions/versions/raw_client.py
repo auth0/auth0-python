@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -65,7 +65,7 @@ class RawVersionsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(action_id)}/versions",
+            f"actions/actions/{quote_path_param(action_id)}/versions",
             method="GET",
             params={
                 "page": page,
@@ -167,7 +167,7 @@ class RawVersionsClient:
             The action version was retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(action_id)}/versions/{encode_path_param(id)}",
+            f"actions/actions/{quote_path_param(action_id)}/versions/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -275,7 +275,7 @@ class RawVersionsClient:
             Request to create action version was accepted.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(action_id)}/versions/{encode_path_param(id)}/deploy",
+            f"actions/actions/{quote_path_param(action_id)}/versions/{quote_path_param(id)}/deploy",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[DeployActionVersionRequestContent], direction="write"
@@ -384,7 +384,7 @@ class AsyncRawVersionsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(action_id)}/versions",
+            f"actions/actions/{quote_path_param(action_id)}/versions",
             method="GET",
             params={
                 "page": page,
@@ -489,7 +489,7 @@ class AsyncRawVersionsClient:
             The action version was retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(action_id)}/versions/{encode_path_param(id)}",
+            f"actions/actions/{quote_path_param(action_id)}/versions/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -597,7 +597,7 @@ class AsyncRawVersionsClient:
             Request to create action version was accepted.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(action_id)}/versions/{encode_path_param(id)}/deploy",
+            f"actions/actions/{quote_path_param(action_id)}/versions/{quote_path_param(id)}/deploy",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[DeployActionVersionRequestContent], direction="write"

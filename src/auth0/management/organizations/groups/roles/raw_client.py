@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.pagination import AsyncPager, SyncPager
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
@@ -64,7 +64,7 @@ class RawRolesClient:
             Organization group roles successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(organization_id)}/groups/{encode_path_param(group_id)}/roles",
+            f"organizations/{quote_path_param(organization_id)}/groups/{quote_path_param(group_id)}/roles",
             method="GET",
             params={
                 "from": from_,
@@ -186,7 +186,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(organization_id)}/groups/{encode_path_param(group_id)}/roles",
+            f"organizations/{quote_path_param(organization_id)}/groups/{quote_path_param(group_id)}/roles",
             method="POST",
             json={
                 "roles": roles,
@@ -305,7 +305,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(organization_id)}/groups/{encode_path_param(group_id)}/roles",
+            f"organizations/{quote_path_param(organization_id)}/groups/{quote_path_param(group_id)}/roles",
             method="DELETE",
             json={
                 "roles": roles,
@@ -423,7 +423,7 @@ class AsyncRawRolesClient:
             Organization group roles successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(organization_id)}/groups/{encode_path_param(group_id)}/roles",
+            f"organizations/{quote_path_param(organization_id)}/groups/{quote_path_param(group_id)}/roles",
             method="GET",
             params={
                 "from": from_,
@@ -548,7 +548,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(organization_id)}/groups/{encode_path_param(group_id)}/roles",
+            f"organizations/{quote_path_param(organization_id)}/groups/{quote_path_param(group_id)}/roles",
             method="POST",
             json={
                 "roles": roles,
@@ -667,7 +667,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(organization_id)}/groups/{encode_path_param(group_id)}/roles",
+            f"organizations/{quote_path_param(organization_id)}/groups/{quote_path_param(group_id)}/roles",
             method="DELETE",
             json={
                 "roles": roles,

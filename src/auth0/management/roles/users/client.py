@@ -32,12 +32,15 @@ class UsersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]:
         """
         Retrieve list of users associated with a specific role. For Dashboard instructions, review [View Users Assigned to Roles](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles).
+
+        **Note**: Returns only users with direct role assignments. For groups assigned to this role, use `GET /api/v2/roles/{id}/groups`.
 
         This endpoint supports two types of pagination:
 
@@ -59,6 +62,9 @@ class UsersClient:
         ----------
         id : str
             ID of the role to retrieve a list of users associated with.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -83,6 +89,7 @@ class UsersClient:
         )
         response = client.roles.users.list(
             id="id",
+            include_totals=True,
             from_="from",
             take=1,
         )
@@ -92,7 +99,9 @@ class UsersClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list(id, from_=from_, take=take, request_options=request_options)
+        return self._raw_client.list(
+            id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
     def assign(
         self, id: str, *, users: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
@@ -152,12 +161,15 @@ class AsyncUsersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]:
         """
         Retrieve list of users associated with a specific role. For Dashboard instructions, review [View Users Assigned to Roles](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles).
+
+        **Note**: Returns only users with direct role assignments. For groups assigned to this role, use `GET /api/v2/roles/{id}/groups`.
 
         This endpoint supports two types of pagination:
 
@@ -179,6 +191,9 @@ class AsyncUsersClient:
         ----------
         id : str
             ID of the role to retrieve a list of users associated with.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -208,6 +223,7 @@ class AsyncUsersClient:
         async def main() -> None:
             response = await client.roles.users.list(
                 id="id",
+                include_totals=True,
                 from_="from",
                 take=1,
             )
@@ -221,7 +237,9 @@ class AsyncUsersClient:
 
         asyncio.run(main())
         """
-        return await self._raw_client.list(id, from_=from_, take=take, request_options=request_options)
+        return await self._raw_client.list(
+            id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
     async def assign(
         self, id: str, *, users: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None

@@ -23,6 +23,7 @@ from .raw_client import AsyncRawOrganizationsClient, RawOrganizationsClient
 
 if typing.TYPE_CHECKING:
     from .client_grants.client import AsyncClientGrantsClient, ClientGrantsClient
+    from .clients.client import AsyncClientsClient, ClientsClient
     from .connections.client import AsyncConnectionsClient, ConnectionsClient
     from .discovery_domains.client import AsyncDiscoveryDomainsClient, DiscoveryDomainsClient
     from .enabled_connections.client import AsyncEnabledConnectionsClient, EnabledConnectionsClient
@@ -39,6 +40,7 @@ class OrganizationsClient:
         self._raw_client = RawOrganizationsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._client_grants: typing.Optional[ClientGrantsClient] = None
+        self._clients: typing.Optional[ClientsClient] = None
         self._connections: typing.Optional[ConnectionsClient] = None
         self._discovery_domains: typing.Optional[DiscoveryDomainsClient] = None
         self._enabled_connections: typing.Optional[EnabledConnectionsClient] = None
@@ -61,9 +63,11 @@ class OrganizationsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         sort: typing.Optional[str] = None,
+        include_client_association_for: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Organization, ListOrganizationsPaginatedResponseContent]:
         """
@@ -87,6 +91,9 @@ class OrganizationsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -95,6 +102,9 @@ class OrganizationsClient:
 
         sort : typing.Optional[str]
             Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
+
+        include_client_association_for : typing.Optional[str]
+            Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -112,9 +122,11 @@ class OrganizationsClient:
             token="YOUR_TOKEN",
         )
         response = client.organizations.list(
+            include_totals=True,
             from_="from",
             take=1,
             sort="sort",
+            include_client_association_for="include_client_association_for",
         )
         for item in response:
             yield item
@@ -122,7 +134,14 @@ class OrganizationsClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list(from_=from_, take=take, sort=sort, request_options=request_options)
+        return self._raw_client.list(
+            include_totals=include_totals,
+            from_=from_,
+            take=take,
+            sort=sort,
+            include_client_association_for=include_client_association_for,
+            request_options=request_options,
+        )
 
     def create(
         self,
@@ -134,6 +153,7 @@ class OrganizationsClient:
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationResponseContent:
         """
@@ -157,6 +177,9 @@ class OrganizationsClient:
         token_quota : typing.Optional[CreateTokenQuota]
 
         third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -185,6 +208,7 @@ class OrganizationsClient:
             enabled_connections=enabled_connections,
             token_quota=token_quota,
             third_party_client_access=third_party_client_access,
+            is_app_entitlement_active=is_app_entitlement_active,
             request_options=request_options,
         )
         return _response.data
@@ -297,6 +321,7 @@ class OrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationResponseContent:
         """
@@ -320,6 +345,9 @@ class OrganizationsClient:
         token_quota : typing.Optional[UpdateTokenQuota]
 
         third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -348,6 +376,7 @@ class OrganizationsClient:
             metadata=metadata,
             token_quota=token_quota,
             third_party_client_access=third_party_client_access,
+            is_app_entitlement_active=is_app_entitlement_active,
             request_options=request_options,
         )
         return _response.data
@@ -359,6 +388,14 @@ class OrganizationsClient:
 
             self._client_grants = ClientGrantsClient(client_wrapper=self._client_wrapper)
         return self._client_grants
+
+    @property
+    def clients(self):
+        if self._clients is None:
+            from .clients.client import ClientsClient  # noqa: E402
+
+            self._clients = ClientsClient(client_wrapper=self._client_wrapper)
+        return self._clients
 
     @property
     def connections(self):
@@ -422,6 +459,7 @@ class AsyncOrganizationsClient:
         self._raw_client = AsyncRawOrganizationsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._client_grants: typing.Optional[AsyncClientGrantsClient] = None
+        self._clients: typing.Optional[AsyncClientsClient] = None
         self._connections: typing.Optional[AsyncConnectionsClient] = None
         self._discovery_domains: typing.Optional[AsyncDiscoveryDomainsClient] = None
         self._enabled_connections: typing.Optional[AsyncEnabledConnectionsClient] = None
@@ -444,9 +482,11 @@ class AsyncOrganizationsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         sort: typing.Optional[str] = None,
+        include_client_association_for: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Organization, ListOrganizationsPaginatedResponseContent]:
         """
@@ -470,6 +510,9 @@ class AsyncOrganizationsClient:
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -478,6 +521,9 @@ class AsyncOrganizationsClient:
 
         sort : typing.Optional[str]
             Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
+
+        include_client_association_for : typing.Optional[str]
+            Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -500,9 +546,11 @@ class AsyncOrganizationsClient:
 
         async def main() -> None:
             response = await client.organizations.list(
+                include_totals=True,
                 from_="from",
                 take=1,
                 sort="sort",
+                include_client_association_for="include_client_association_for",
             )
             async for item in response:
                 yield item
@@ -514,7 +562,14 @@ class AsyncOrganizationsClient:
 
         asyncio.run(main())
         """
-        return await self._raw_client.list(from_=from_, take=take, sort=sort, request_options=request_options)
+        return await self._raw_client.list(
+            include_totals=include_totals,
+            from_=from_,
+            take=take,
+            sort=sort,
+            include_client_association_for=include_client_association_for,
+            request_options=request_options,
+        )
 
     async def create(
         self,
@@ -526,6 +581,7 @@ class AsyncOrganizationsClient:
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationResponseContent:
         """
@@ -549,6 +605,9 @@ class AsyncOrganizationsClient:
         token_quota : typing.Optional[CreateTokenQuota]
 
         third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -585,6 +644,7 @@ class AsyncOrganizationsClient:
             enabled_connections=enabled_connections,
             token_quota=token_quota,
             third_party_client_access=third_party_client_access,
+            is_app_entitlement_active=is_app_entitlement_active,
             request_options=request_options,
         )
         return _response.data
@@ -721,6 +781,7 @@ class AsyncOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationResponseContent:
         """
@@ -744,6 +805,9 @@ class AsyncOrganizationsClient:
         token_quota : typing.Optional[UpdateTokenQuota]
 
         third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -780,6 +844,7 @@ class AsyncOrganizationsClient:
             metadata=metadata,
             token_quota=token_quota,
             third_party_client_access=third_party_client_access,
+            is_app_entitlement_active=is_app_entitlement_active,
             request_options=request_options,
         )
         return _response.data
@@ -791,6 +856,14 @@ class AsyncOrganizationsClient:
 
             self._client_grants = AsyncClientGrantsClient(client_wrapper=self._client_wrapper)
         return self._client_grants
+
+    @property
+    def clients(self):
+        if self._clients is None:
+            from .clients.client import AsyncClientsClient  # noqa: E402
+
+            self._clients = AsyncClientsClient(client_wrapper=self._client_wrapper)
+        return self._clients
 
     @property
     def connections(self):

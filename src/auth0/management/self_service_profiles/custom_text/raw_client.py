@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -64,7 +64,7 @@ class RawCustomTextClient:
             Retrieved custom text.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
+            f"self-service-profiles/{quote_path_param(id)}/custom-text/{quote_path_param(language)}/{quote_path_param(page)}",
             method="GET",
             request_options=request_options,
         )
@@ -165,7 +165,7 @@ class RawCustomTextClient:
             Updated custom text.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
+            f"self-service-profiles/{quote_path_param(id)}/custom-text/{quote_path_param(language)}/{quote_path_param(page)}",
             method="PUT",
             json=request,
             request_options=request_options,
@@ -270,7 +270,7 @@ class AsyncRawCustomTextClient:
             Retrieved custom text.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
+            f"self-service-profiles/{quote_path_param(id)}/custom-text/{quote_path_param(language)}/{quote_path_param(page)}",
             method="GET",
             request_options=request_options,
         )
@@ -371,7 +371,7 @@ class AsyncRawCustomTextClient:
             Updated custom text.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{encode_path_param(id)}/custom-text/{encode_path_param(language)}/{encode_path_param(page)}",
+            f"self-service-profiles/{quote_path_param(id)}/custom-text/{quote_path_param(language)}/{quote_path_param(page)}",
             method="PUT",
             json=request,
             request_options=request_options,
