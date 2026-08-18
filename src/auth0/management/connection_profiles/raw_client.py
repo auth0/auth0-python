@@ -21,6 +21,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.connection_name_prefix_template import ConnectionNamePrefixTemplate
 from ..types.connection_profile import ConnectionProfile
 from ..types.connection_profile_config import ConnectionProfileConfig
+from ..types.connection_profile_cross_app_access_resource_app import ConnectionProfileCrossAppAccessResourceApp
 from ..types.connection_profile_enabled_features import ConnectionProfileEnabledFeatures
 from ..types.connection_profile_name import ConnectionProfileName
 from ..types.connection_profile_organization import ConnectionProfileOrganization
@@ -156,6 +157,7 @@ class RawConnectionProfilesClient:
         enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = OMIT,
         connection_config: typing.Optional[ConnectionProfileConfig] = OMIT,
         strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = OMIT,
+        cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateConnectionProfileResponseContent]:
         """
@@ -174,6 +176,8 @@ class RawConnectionProfilesClient:
         connection_config : typing.Optional[ConnectionProfileConfig]
 
         strategy_overrides : typing.Optional[ConnectionProfileStrategyOverrides]
+
+        cross_app_access_resource_app : typing.Optional[ConnectionProfileCrossAppAccessResourceApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -198,6 +202,11 @@ class RawConnectionProfilesClient:
                 ),
                 "strategy_overrides": convert_and_respect_annotation_metadata(
                     object_=strategy_overrides, annotation=ConnectionProfileStrategyOverrides, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=ConnectionProfileCrossAppAccessResourceApp,
+                    direction="write",
                 ),
             },
             headers={
@@ -603,6 +612,7 @@ class RawConnectionProfilesClient:
         enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = OMIT,
         connection_config: typing.Optional[ConnectionProfileConfig] = OMIT,
         strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = OMIT,
+        cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateConnectionProfileResponseContent]:
         """
@@ -624,6 +634,8 @@ class RawConnectionProfilesClient:
         connection_config : typing.Optional[ConnectionProfileConfig]
 
         strategy_overrides : typing.Optional[ConnectionProfileStrategyOverrides]
+
+        cross_app_access_resource_app : typing.Optional[ConnectionProfileCrossAppAccessResourceApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -648,6 +660,11 @@ class RawConnectionProfilesClient:
                 ),
                 "strategy_overrides": convert_and_respect_annotation_metadata(
                     object_=strategy_overrides, annotation=ConnectionProfileStrategyOverrides, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=ConnectionProfileCrossAppAccessResourceApp,
+                    direction="write",
                 ),
             },
             headers={
@@ -853,6 +870,7 @@ class AsyncRawConnectionProfilesClient:
         enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = OMIT,
         connection_config: typing.Optional[ConnectionProfileConfig] = OMIT,
         strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = OMIT,
+        cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateConnectionProfileResponseContent]:
         """
@@ -871,6 +889,8 @@ class AsyncRawConnectionProfilesClient:
         connection_config : typing.Optional[ConnectionProfileConfig]
 
         strategy_overrides : typing.Optional[ConnectionProfileStrategyOverrides]
+
+        cross_app_access_resource_app : typing.Optional[ConnectionProfileCrossAppAccessResourceApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -895,6 +915,11 @@ class AsyncRawConnectionProfilesClient:
                 ),
                 "strategy_overrides": convert_and_respect_annotation_metadata(
                     object_=strategy_overrides, annotation=ConnectionProfileStrategyOverrides, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=ConnectionProfileCrossAppAccessResourceApp,
+                    direction="write",
                 ),
             },
             headers={
@@ -1302,6 +1327,7 @@ class AsyncRawConnectionProfilesClient:
         enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = OMIT,
         connection_config: typing.Optional[ConnectionProfileConfig] = OMIT,
         strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = OMIT,
+        cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateConnectionProfileResponseContent]:
         """
@@ -1323,6 +1349,8 @@ class AsyncRawConnectionProfilesClient:
         connection_config : typing.Optional[ConnectionProfileConfig]
 
         strategy_overrides : typing.Optional[ConnectionProfileStrategyOverrides]
+
+        cross_app_access_resource_app : typing.Optional[ConnectionProfileCrossAppAccessResourceApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1347,6 +1375,11 @@ class AsyncRawConnectionProfilesClient:
                 ),
                 "strategy_overrides": convert_and_respect_annotation_metadata(
                     object_=strategy_overrides, annotation=ConnectionProfileStrategyOverrides, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=ConnectionProfileCrossAppAccessResourceApp,
+                    direction="write",
                 ),
             },
             headers={

@@ -551,7 +551,7 @@ class RawSelfServiceProfilesClient:
                 "name": name,
                 "description": description,
                 "branding": convert_and_respect_annotation_metadata(
-                    object_=branding, annotation=SelfServiceProfileBranding, direction="write"
+                    object_=branding, annotation=typing.Optional[SelfServiceProfileBranding], direction="write"
                 ),
                 "allowed_strategies": allowed_strategies,
                 "user_attributes": convert_and_respect_annotation_metadata(
@@ -1171,7 +1171,7 @@ class AsyncRawSelfServiceProfilesClient:
                 "name": name,
                 "description": description,
                 "branding": convert_and_respect_annotation_metadata(
-                    object_=branding, annotation=SelfServiceProfileBranding, direction="write"
+                    object_=branding, annotation=typing.Optional[SelfServiceProfileBranding], direction="write"
                 ),
                 "allowed_strategies": allowed_strategies,
                 "user_attributes": convert_and_respect_annotation_metadata(
