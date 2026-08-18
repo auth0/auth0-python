@@ -1888,6 +1888,8 @@ if typing.TYPE_CHECKING:
         FedCmLoginGoogle,
         FedCmLoginGooglePatch,
         FedCmLoginPatch,
+        FedCmLoginGooglePatch,
+        FedCmLoginPatch,
         FlowAction,
         FlowActionActivecampaign,
         FlowActionActivecampaignListContacts,
@@ -3248,6 +3250,8 @@ if typing.TYPE_CHECKING:
     from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
     from .token_provider import AsyncTokenProvider, TokenProvider
     from .version import __version__
+    from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
+    from .token_provider import AsyncTokenProvider, TokenProvider
 _dynamic_imports: typing.Dict[str, str] = {
     "Action": ".types",
     "ActionBase": ".types",
@@ -4308,6 +4312,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CspReportingEndpoints": ".types",
     "CspReportingInfrastructure": ".types",
     "CustomDomain": ".types",
+    "CustomDomainHeader": ".management_client",
     "CustomDomainCustomClientIpHeader": ".types",
     "CustomDomainCustomClientIpHeaderEnum": ".types",
     "CustomDomainHeader": ".management_client",
@@ -5140,6 +5145,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtensibilityEmailProviderCredentials": ".types",
     "FedCmLogin": ".types",
     "FedCmLoginGoogle": ".types",
+    "FedCmLoginGooglePatch": ".types",
+    "FedCmLoginPatch": ".types",
     "FedCmLoginGooglePatch": ".types",
     "FedCmLoginPatch": ".types",
     "FlowAction": ".types",
@@ -7574,6 +7581,7 @@ __all__ = [
     "CspReportingEndpoints",
     "CspReportingInfrastructure",
     "CustomDomain",
+    "CustomDomainHeader",
     "CustomDomainCustomClientIpHeader",
     "CustomDomainCustomClientIpHeaderEnum",
     "CustomDomainHeader",
@@ -8406,6 +8414,8 @@ __all__ = [
     "ExtensibilityEmailProviderCredentials",
     "FedCmLogin",
     "FedCmLoginGoogle",
+    "FedCmLoginGooglePatch",
+    "FedCmLoginPatch",
     "FedCmLoginGooglePatch",
     "FedCmLoginPatch",
     "FlowAction",
