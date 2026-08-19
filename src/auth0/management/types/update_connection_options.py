@@ -27,6 +27,7 @@ from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointA
 from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
 from .connection_token_endpoint_jwtca_aud_format_enum_oidc import ConnectionTokenEndpointJwtcaAudFormatEnumOidc
 from .connection_upstream_params import ConnectionUpstreamParams
+from .connection_use_oauth_spec_scope import ConnectionUseOauthSpecScope
 from .connection_validation_options import ConnectionValidationOptions
 from .connections_discovery_url import ConnectionsDiscoveryUrl
 from .connections_oidc_metadata import ConnectionsOidcMetadata
@@ -110,6 +111,11 @@ class UpdateConnectionOptions(UniversalBaseModel):
     token_endpoint_auth_signing_alg: typing.Optional[ConnectionTokenEndpointAuthSigningAlgEnum] = None
     token_endpoint_jwtca_aud_format: typing.Optional[ConnectionTokenEndpointJwtcaAudFormatEnumOidc] = None
     id_token_session_expiry_supported: typing.Optional[ConnectionIdTokenSessionExpirySupported] = None
+    use_oauth_spec_scope: typing_extensions.Annotated[
+        typing.Optional[ConnectionUseOauthSpecScope],
+        FieldMetadata(alias="useOauthSpecScope"),
+        pydantic.Field(alias="useOauthSpecScope"),
+    ] = None
     discovery_url: typing.Optional[ConnectionsDiscoveryUrl] = None
     oidc_metadata: typing.Optional[ConnectionsOidcMetadata] = None
 

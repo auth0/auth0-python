@@ -67,7 +67,13 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.26.0
-current_generation: 850d1a4c4bf5ba44f0625ad47806728afb00f262
+  - commit_sha: 7e308145caae3e97a4b71308e78be026b1f100e0
+    tree_hash: d22f26728a1a73ace08aa3feadf5393b6baa2120
+    timestamp: 2026-08-18T10:41:33.667Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.26.0
+current_generation: 7e308145caae3e97a4b71308e78be026b1f100e0
 patches:
   - id: patch-4894603d
     content_hash: sha256:fc35b55720e7e9e354dca29191c5832b7e242ad21ba635310c698ea2c3b70a00
@@ -9009,19 +9015,19 @@ patches:
                 return headers
     status: resolving
   - id: patch-c04f0b4d
-    content_hash: sha256:43ebbb253ebad1f84d1513073cd79c00b97472374fb71a9fe4f560956679eb8f
+    content_hash: sha256:8956a9a62d80f8259a926410a849964e99d422b7c6fb78ab920913f12ac5e664
     original_commit: c04f0b4dbbe8f2300f4f1bf42f62350888a92da5
     original_message: Fix for incorrect return type and missing __all__ type
     original_author: Sourav Basu <sourav.basu@okta.com>
-    base_generation: 850d1a4c4bf5ba44f0625ad47806728afb00f262
+    base_generation: 7e308145caae3e97a4b71308e78be026b1f100e0
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index 2b5797ab..ee01f5ed 100644
+      index 914ee71f..c0ad72b8 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -1879,6 +1879,8 @@ if typing.TYPE_CHECKING:
+      @@ -1888,6 +1888,8 @@ if typing.TYPE_CHECKING:
                FedCmLoginGoogle,
                FedCmLoginGooglePatch,
                FedCmLoginPatch,
@@ -9030,7 +9036,7 @@ patches:
                FlowAction,
                FlowActionActivecampaign,
                FlowActionActivecampaignListContacts,
-      @@ -3236,6 +3238,8 @@ if typing.TYPE_CHECKING:
+      @@ -3248,6 +3250,8 @@ if typing.TYPE_CHECKING:
            from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
            from .token_provider import AsyncTokenProvider, TokenProvider
            from .version import __version__
@@ -9039,7 +9045,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -4287,6 +4291,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -4308,6 +4312,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CspReportingEndpoints": ".types",
            "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
@@ -9047,7 +9053,7 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainHeader": ".management_client",
-      @@ -5121,6 +5126,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5142,6 +5147,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "FedCmLoginGoogle": ".types",
            "FedCmLoginGooglePatch": ".types",
            "FedCmLoginPatch": ".types",
@@ -9056,7 +9062,7 @@ patches:
            "FlowAction": ".types",
            "FlowActionActivecampaign": ".types",
            "FlowActionActivecampaignListContacts": ".types",
-      @@ -7541,6 +7548,7 @@ __all__ = [
+      @@ -7574,6 +7581,7 @@ __all__ = [
            "CspReportingEndpoints",
            "CspReportingInfrastructure",
            "CustomDomain",
@@ -9064,7 +9070,7 @@ patches:
            "CustomDomainCustomClientIpHeader",
            "CustomDomainCustomClientIpHeaderEnum",
            "CustomDomainHeader",
-      @@ -8375,6 +8383,8 @@ __all__ = [
+      @@ -8408,6 +8416,8 @@ __all__ = [
            "FedCmLoginGoogle",
            "FedCmLoginGooglePatch",
            "FedCmLoginPatch",
@@ -9291,10 +9297,13 @@ patches:
                 ClientMobileAndroid,
                 ClientMobileiOs,
                 ClientMyOrganizationConfigurationAllowedStrategiesEnum,
+                ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum,
+                ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum,
                 ClientMyOrganizationDeletionBehaviorEnum,
                 ClientMyOrganizationPatchConfiguration,
                 ClientMyOrganizationPostConfiguration,
                 ClientMyOrganizationResponseConfiguration,
+                ClientMyOrganizationThirdPartyClientAccessConfiguration,
                 ClientOidcBackchannelLogoutInitiators,
                 ClientOidcBackchannelLogoutInitiatorsEnum,
                 ClientOidcBackchannelLogoutInitiatorsModeEnum,
@@ -9609,6 +9618,11 @@ patches:
                 ConnectionProfile,
                 ConnectionProfileBitbucket,
                 ConnectionProfileConfig,
+                ConnectionProfileCrossAppAccessResourceApp,
+                ConnectionProfileCrossAppAccessResourceAppStatus,
+                ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum,
+                ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum,
+                ConnectionProfileCrossAppAccessResourceAppStatusValueEnum,
                 ConnectionProfileEnabledFeatures,
                 ConnectionProfileId,
                 ConnectionProfileName,
@@ -9833,6 +9847,7 @@ patches:
                 ConnectionUpstreamParamsFacebook,
                 ConnectionUpstreamValue,
                 ConnectionUseCommonEndpointAzureAd,
+                ConnectionUseOauthSpecScope,
                 ConnectionUserAuthorizationUrloAuth1,
                 ConnectionUserIdAttributeSaml,
                 ConnectionUseridAttributeAzureAd,
@@ -11526,6 +11541,7 @@ patches:
                 GetActionVersionResponseContent,
                 GetActiveUsersCountStatsResponseContent,
                 GetAculResponseContent,
+                GetAllKeysNetworkAclsResponseContent,
                 GetAttackProtectionCaptchaResponseContent,
                 GetBotDetectionSettingsResponseContent,
                 GetBrandingDefaultThemeResponseContent,
@@ -11796,6 +11812,7 @@ patches:
                 NetworkAclActionBlockEnum,
                 NetworkAclActionLogEnum,
                 NetworkAclActionRedirectEnum,
+                NetworkAclKey,
                 NetworkAclKeyAlgorithmEnum,
                 NetworkAclMatch,
                 NetworkAclMatchConnectingIpv4Cidr,
@@ -11803,6 +11820,7 @@ patches:
                 NetworkAclMatchIpv4Cidr,
                 NetworkAclMatchIpv6Cidr,
                 NetworkAclRule,
+                NetworkAclRuleMatchAllEnum,
                 NetworkAclRuleScopeEnum,
                 NetworkAclsResponseContent,
                 NotFoundErrorBody,
@@ -12531,10 +12549,13 @@ patches:
             "ClientMobileAndroid": ".types",
             "ClientMobileiOs": ".types",
             "ClientMyOrganizationConfigurationAllowedStrategiesEnum": ".types",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum": ".types",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum": ".types",
             "ClientMyOrganizationDeletionBehaviorEnum": ".types",
             "ClientMyOrganizationPatchConfiguration": ".types",
             "ClientMyOrganizationPostConfiguration": ".types",
             "ClientMyOrganizationResponseConfiguration": ".types",
+            "ClientMyOrganizationThirdPartyClientAccessConfiguration": ".types",
             "ClientOidcBackchannelLogoutInitiators": ".types",
             "ClientOidcBackchannelLogoutInitiatorsEnum": ".types",
             "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".types",
@@ -12850,6 +12871,11 @@ patches:
             "ConnectionProfile": ".types",
             "ConnectionProfileBitbucket": ".types",
             "ConnectionProfileConfig": ".types",
+            "ConnectionProfileCrossAppAccessResourceApp": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatus": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum": ".types",
             "ConnectionProfileEnabledFeatures": ".types",
             "ConnectionProfileId": ".types",
             "ConnectionProfileName": ".types",
@@ -13074,6 +13100,7 @@ patches:
             "ConnectionUpstreamParamsFacebook": ".types",
             "ConnectionUpstreamValue": ".types",
             "ConnectionUseCommonEndpointAzureAd": ".types",
+            "ConnectionUseOauthSpecScope": ".types",
             "ConnectionUserAuthorizationUrloAuth1": ".types",
             "ConnectionUserIdAttributeSaml": ".types",
             "ConnectionUseridAttributeAzureAd": ".types",
@@ -14774,6 +14801,7 @@ patches:
             "GetActionVersionResponseContent": ".types",
             "GetActiveUsersCountStatsResponseContent": ".types",
             "GetAculResponseContent": ".types",
+            "GetAllKeysNetworkAclsResponseContent": ".types",
             "GetAttackProtectionCaptchaResponseContent": ".types",
             "GetBotDetectionSettingsResponseContent": ".types",
             "GetBrandingDefaultThemeResponseContent": ".types",
@@ -15047,6 +15075,7 @@ patches:
             "NetworkAclActionBlockEnum": ".types",
             "NetworkAclActionLogEnum": ".types",
             "NetworkAclActionRedirectEnum": ".types",
+            "NetworkAclKey": ".types",
             "NetworkAclKeyAlgorithmEnum": ".types",
             "NetworkAclMatch": ".types",
             "NetworkAclMatchConnectingIpv4Cidr": ".types",
@@ -15054,6 +15083,7 @@ patches:
             "NetworkAclMatchIpv4Cidr": ".types",
             "NetworkAclMatchIpv6Cidr": ".types",
             "NetworkAclRule": ".types",
+            "NetworkAclRuleMatchAllEnum": ".types",
             "NetworkAclRuleScopeEnum": ".types",
             "NetworkAclsResponseContent": ".types",
             "NotFoundError": ".errors",
@@ -15788,10 +15818,13 @@ patches:
             "ClientMobileAndroid",
             "ClientMobileiOs",
             "ClientMyOrganizationConfigurationAllowedStrategiesEnum",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum",
             "ClientMyOrganizationDeletionBehaviorEnum",
             "ClientMyOrganizationPatchConfiguration",
             "ClientMyOrganizationPostConfiguration",
             "ClientMyOrganizationResponseConfiguration",
+            "ClientMyOrganizationThirdPartyClientAccessConfiguration",
             "ClientOidcBackchannelLogoutInitiators",
             "ClientOidcBackchannelLogoutInitiatorsEnum",
             "ClientOidcBackchannelLogoutInitiatorsModeEnum",
@@ -16107,6 +16140,11 @@ patches:
             "ConnectionProfile",
             "ConnectionProfileBitbucket",
             "ConnectionProfileConfig",
+            "ConnectionProfileCrossAppAccessResourceApp",
+            "ConnectionProfileCrossAppAccessResourceAppStatus",
+            "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum",
+            "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum",
+            "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum",
             "ConnectionProfileEnabledFeatures",
             "ConnectionProfileId",
             "ConnectionProfileName",
@@ -16331,6 +16369,7 @@ patches:
             "ConnectionUpstreamParamsFacebook",
             "ConnectionUpstreamValue",
             "ConnectionUseCommonEndpointAzureAd",
+            "ConnectionUseOauthSpecScope",
             "ConnectionUserAuthorizationUrloAuth1",
             "ConnectionUserIdAttributeSaml",
             "ConnectionUseridAttributeAzureAd",
@@ -18031,6 +18070,7 @@ patches:
             "GetActionVersionResponseContent",
             "GetActiveUsersCountStatsResponseContent",
             "GetAculResponseContent",
+            "GetAllKeysNetworkAclsResponseContent",
             "GetAttackProtectionCaptchaResponseContent",
             "GetBotDetectionSettingsResponseContent",
             "GetBrandingDefaultThemeResponseContent",
@@ -18304,6 +18344,7 @@ patches:
             "NetworkAclActionBlockEnum",
             "NetworkAclActionLogEnum",
             "NetworkAclActionRedirectEnum",
+            "NetworkAclKey",
             "NetworkAclKeyAlgorithmEnum",
             "NetworkAclMatch",
             "NetworkAclMatchConnectingIpv4Cidr",
@@ -18311,6 +18352,7 @@ patches:
             "NetworkAclMatchIpv4Cidr",
             "NetworkAclMatchIpv6Cidr",
             "NetworkAclRule",
+            "NetworkAclRuleMatchAllEnum",
             "NetworkAclRuleScopeEnum",
             "NetworkAclsResponseContent",
             "NotFoundError",
@@ -28773,19 +28815,19 @@ patches:
     user_owned: true
     status: resolving
   - id: patch-f7384913
-    content_hash: sha256:43ebbb253ebad1f84d1513073cd79c00b97472374fb71a9fe4f560956679eb8f
+    content_hash: sha256:8956a9a62d80f8259a926410a849964e99d422b7c6fb78ab920913f12ac5e664
     original_commit: f7384913ab0a14df83dbc602d2b694e2cb7b7668
     original_message: Remove duplicate FedCmLoginGooglePatch and FedCmLoginPatch entries
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 850d1a4c4bf5ba44f0625ad47806728afb00f262
+    base_generation: 7e308145caae3e97a4b71308e78be026b1f100e0
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index 2b5797ab..ee01f5ed 100644
+      index 914ee71f..c0ad72b8 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -1879,6 +1879,8 @@ if typing.TYPE_CHECKING:
+      @@ -1888,6 +1888,8 @@ if typing.TYPE_CHECKING:
                FedCmLoginGoogle,
                FedCmLoginGooglePatch,
                FedCmLoginPatch,
@@ -28794,7 +28836,7 @@ patches:
                FlowAction,
                FlowActionActivecampaign,
                FlowActionActivecampaignListContacts,
-      @@ -3236,6 +3238,8 @@ if typing.TYPE_CHECKING:
+      @@ -3248,6 +3250,8 @@ if typing.TYPE_CHECKING:
            from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
            from .token_provider import AsyncTokenProvider, TokenProvider
            from .version import __version__
@@ -28803,7 +28845,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -4287,6 +4291,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -4308,6 +4312,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CspReportingEndpoints": ".types",
            "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
@@ -28811,7 +28853,7 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainHeader": ".management_client",
-      @@ -5121,6 +5126,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5142,6 +5147,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "FedCmLoginGoogle": ".types",
            "FedCmLoginGooglePatch": ".types",
            "FedCmLoginPatch": ".types",
@@ -28820,7 +28862,7 @@ patches:
            "FlowAction": ".types",
            "FlowActionActivecampaign": ".types",
            "FlowActionActivecampaignListContacts": ".types",
-      @@ -7541,6 +7548,7 @@ __all__ = [
+      @@ -7574,6 +7581,7 @@ __all__ = [
            "CspReportingEndpoints",
            "CspReportingInfrastructure",
            "CustomDomain",
@@ -28828,7 +28870,7 @@ patches:
            "CustomDomainCustomClientIpHeader",
            "CustomDomainCustomClientIpHeaderEnum",
            "CustomDomainHeader",
-      @@ -8375,6 +8383,8 @@ __all__ = [
+      @@ -8408,6 +8416,8 @@ __all__ = [
            "FedCmLoginGoogle",
            "FedCmLoginGooglePatch",
            "FedCmLoginPatch",
@@ -29055,10 +29097,13 @@ patches:
                 ClientMobileAndroid,
                 ClientMobileiOs,
                 ClientMyOrganizationConfigurationAllowedStrategiesEnum,
+                ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum,
+                ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum,
                 ClientMyOrganizationDeletionBehaviorEnum,
                 ClientMyOrganizationPatchConfiguration,
                 ClientMyOrganizationPostConfiguration,
                 ClientMyOrganizationResponseConfiguration,
+                ClientMyOrganizationThirdPartyClientAccessConfiguration,
                 ClientOidcBackchannelLogoutInitiators,
                 ClientOidcBackchannelLogoutInitiatorsEnum,
                 ClientOidcBackchannelLogoutInitiatorsModeEnum,
@@ -29373,6 +29418,11 @@ patches:
                 ConnectionProfile,
                 ConnectionProfileBitbucket,
                 ConnectionProfileConfig,
+                ConnectionProfileCrossAppAccessResourceApp,
+                ConnectionProfileCrossAppAccessResourceAppStatus,
+                ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum,
+                ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum,
+                ConnectionProfileCrossAppAccessResourceAppStatusValueEnum,
                 ConnectionProfileEnabledFeatures,
                 ConnectionProfileId,
                 ConnectionProfileName,
@@ -29597,6 +29647,7 @@ patches:
                 ConnectionUpstreamParamsFacebook,
                 ConnectionUpstreamValue,
                 ConnectionUseCommonEndpointAzureAd,
+                ConnectionUseOauthSpecScope,
                 ConnectionUserAuthorizationUrloAuth1,
                 ConnectionUserIdAttributeSaml,
                 ConnectionUseridAttributeAzureAd,
@@ -31290,6 +31341,7 @@ patches:
                 GetActionVersionResponseContent,
                 GetActiveUsersCountStatsResponseContent,
                 GetAculResponseContent,
+                GetAllKeysNetworkAclsResponseContent,
                 GetAttackProtectionCaptchaResponseContent,
                 GetBotDetectionSettingsResponseContent,
                 GetBrandingDefaultThemeResponseContent,
@@ -31560,6 +31612,7 @@ patches:
                 NetworkAclActionBlockEnum,
                 NetworkAclActionLogEnum,
                 NetworkAclActionRedirectEnum,
+                NetworkAclKey,
                 NetworkAclKeyAlgorithmEnum,
                 NetworkAclMatch,
                 NetworkAclMatchConnectingIpv4Cidr,
@@ -31567,6 +31620,7 @@ patches:
                 NetworkAclMatchIpv4Cidr,
                 NetworkAclMatchIpv6Cidr,
                 NetworkAclRule,
+                NetworkAclRuleMatchAllEnum,
                 NetworkAclRuleScopeEnum,
                 NetworkAclsResponseContent,
                 NotFoundErrorBody,
@@ -32295,10 +32349,13 @@ patches:
             "ClientMobileAndroid": ".types",
             "ClientMobileiOs": ".types",
             "ClientMyOrganizationConfigurationAllowedStrategiesEnum": ".types",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum": ".types",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum": ".types",
             "ClientMyOrganizationDeletionBehaviorEnum": ".types",
             "ClientMyOrganizationPatchConfiguration": ".types",
             "ClientMyOrganizationPostConfiguration": ".types",
             "ClientMyOrganizationResponseConfiguration": ".types",
+            "ClientMyOrganizationThirdPartyClientAccessConfiguration": ".types",
             "ClientOidcBackchannelLogoutInitiators": ".types",
             "ClientOidcBackchannelLogoutInitiatorsEnum": ".types",
             "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".types",
@@ -32614,6 +32671,11 @@ patches:
             "ConnectionProfile": ".types",
             "ConnectionProfileBitbucket": ".types",
             "ConnectionProfileConfig": ".types",
+            "ConnectionProfileCrossAppAccessResourceApp": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatus": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum": ".types",
             "ConnectionProfileEnabledFeatures": ".types",
             "ConnectionProfileId": ".types",
             "ConnectionProfileName": ".types",
@@ -32838,6 +32900,7 @@ patches:
             "ConnectionUpstreamParamsFacebook": ".types",
             "ConnectionUpstreamValue": ".types",
             "ConnectionUseCommonEndpointAzureAd": ".types",
+            "ConnectionUseOauthSpecScope": ".types",
             "ConnectionUserAuthorizationUrloAuth1": ".types",
             "ConnectionUserIdAttributeSaml": ".types",
             "ConnectionUseridAttributeAzureAd": ".types",
@@ -34538,6 +34601,7 @@ patches:
             "GetActionVersionResponseContent": ".types",
             "GetActiveUsersCountStatsResponseContent": ".types",
             "GetAculResponseContent": ".types",
+            "GetAllKeysNetworkAclsResponseContent": ".types",
             "GetAttackProtectionCaptchaResponseContent": ".types",
             "GetBotDetectionSettingsResponseContent": ".types",
             "GetBrandingDefaultThemeResponseContent": ".types",
@@ -34811,6 +34875,7 @@ patches:
             "NetworkAclActionBlockEnum": ".types",
             "NetworkAclActionLogEnum": ".types",
             "NetworkAclActionRedirectEnum": ".types",
+            "NetworkAclKey": ".types",
             "NetworkAclKeyAlgorithmEnum": ".types",
             "NetworkAclMatch": ".types",
             "NetworkAclMatchConnectingIpv4Cidr": ".types",
@@ -34818,6 +34883,7 @@ patches:
             "NetworkAclMatchIpv4Cidr": ".types",
             "NetworkAclMatchIpv6Cidr": ".types",
             "NetworkAclRule": ".types",
+            "NetworkAclRuleMatchAllEnum": ".types",
             "NetworkAclRuleScopeEnum": ".types",
             "NetworkAclsResponseContent": ".types",
             "NotFoundError": ".errors",
@@ -35552,10 +35618,13 @@ patches:
             "ClientMobileAndroid",
             "ClientMobileiOs",
             "ClientMyOrganizationConfigurationAllowedStrategiesEnum",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum",
             "ClientMyOrganizationDeletionBehaviorEnum",
             "ClientMyOrganizationPatchConfiguration",
             "ClientMyOrganizationPostConfiguration",
             "ClientMyOrganizationResponseConfiguration",
+            "ClientMyOrganizationThirdPartyClientAccessConfiguration",
             "ClientOidcBackchannelLogoutInitiators",
             "ClientOidcBackchannelLogoutInitiatorsEnum",
             "ClientOidcBackchannelLogoutInitiatorsModeEnum",
@@ -35871,6 +35940,11 @@ patches:
             "ConnectionProfile",
             "ConnectionProfileBitbucket",
             "ConnectionProfileConfig",
+            "ConnectionProfileCrossAppAccessResourceApp",
+            "ConnectionProfileCrossAppAccessResourceAppStatus",
+            "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum",
+            "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum",
+            "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum",
             "ConnectionProfileEnabledFeatures",
             "ConnectionProfileId",
             "ConnectionProfileName",
@@ -36095,6 +36169,7 @@ patches:
             "ConnectionUpstreamParamsFacebook",
             "ConnectionUpstreamValue",
             "ConnectionUseCommonEndpointAzureAd",
+            "ConnectionUseOauthSpecScope",
             "ConnectionUserAuthorizationUrloAuth1",
             "ConnectionUserIdAttributeSaml",
             "ConnectionUseridAttributeAzureAd",
@@ -37795,6 +37870,7 @@ patches:
             "GetActionVersionResponseContent",
             "GetActiveUsersCountStatsResponseContent",
             "GetAculResponseContent",
+            "GetAllKeysNetworkAclsResponseContent",
             "GetAttackProtectionCaptchaResponseContent",
             "GetBotDetectionSettingsResponseContent",
             "GetBrandingDefaultThemeResponseContent",
@@ -38068,6 +38144,7 @@ patches:
             "NetworkAclActionBlockEnum",
             "NetworkAclActionLogEnum",
             "NetworkAclActionRedirectEnum",
+            "NetworkAclKey",
             "NetworkAclKeyAlgorithmEnum",
             "NetworkAclMatch",
             "NetworkAclMatchConnectingIpv4Cidr",
@@ -38075,6 +38152,7 @@ patches:
             "NetworkAclMatchIpv4Cidr",
             "NetworkAclMatchIpv6Cidr",
             "NetworkAclRule",
+            "NetworkAclRuleMatchAllEnum",
             "NetworkAclRuleScopeEnum",
             "NetworkAclsResponseContent",
             "NotFoundError",
@@ -38578,7 +38656,7 @@ patches:
     original_commit: 1e44613dc017468608983dfc1363804d02ed8fc4
     original_message: Added migration guide for v5 to v6
     original_author: Sourav Basu <sourav.basu@okta.com>
-    base_generation: 850d1a4c4bf5ba44f0625ad47806728afb00f262
+    base_generation: 7e308145caae3e97a4b71308e78be026b1f100e0
     files:
       - UPGRADING.md
     patch_content: |
@@ -38910,7 +38988,7 @@ patches:
     original_commit: 30b1089ae90f33c4b431b9d868edd89a6d4697ce
     original_message: Updated UPGRADING.md doc
     original_author: Sourav Basu <sourav.basu@okta.com>
-    base_generation: 850d1a4c4bf5ba44f0625ad47806728afb00f262
+    base_generation: 7e308145caae3e97a4b71308e78be026b1f100e0
     files:
       - UPGRADING.md
     patch_content: |
@@ -39238,19 +39316,19 @@ patches:
         endpoint.
     user_owned: true
   - id: patch-d6d69aeb
-    content_hash: sha256:43ebbb253ebad1f84d1513073cd79c00b97472374fb71a9fe4f560956679eb8f
+    content_hash: sha256:8956a9a62d80f8259a926410a849964e99d422b7c6fb78ab920913f12ac5e664
     original_commit: d6d69aeb98af7789afffbc697bc8fd50d7d86baa
     original_message: Remove duplicate FedCmLoginGooglePatch and FedCmLoginPatch entries
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 850d1a4c4bf5ba44f0625ad47806728afb00f262
+    base_generation: 7e308145caae3e97a4b71308e78be026b1f100e0
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index 2b5797ab..ee01f5ed 100644
+      index 914ee71f..c0ad72b8 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
-      @@ -1879,6 +1879,8 @@ if typing.TYPE_CHECKING:
+      @@ -1888,6 +1888,8 @@ if typing.TYPE_CHECKING:
                FedCmLoginGoogle,
                FedCmLoginGooglePatch,
                FedCmLoginPatch,
@@ -39259,7 +39337,7 @@ patches:
                FlowAction,
                FlowActionActivecampaign,
                FlowActionActivecampaignListContacts,
-      @@ -3236,6 +3238,8 @@ if typing.TYPE_CHECKING:
+      @@ -3248,6 +3250,8 @@ if typing.TYPE_CHECKING:
            from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
            from .token_provider import AsyncTokenProvider, TokenProvider
            from .version import __version__
@@ -39268,7 +39346,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -4287,6 +4291,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -4308,6 +4312,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CspReportingEndpoints": ".types",
            "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
@@ -39276,7 +39354,7 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainHeader": ".management_client",
-      @@ -5121,6 +5126,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -5142,6 +5147,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "FedCmLoginGoogle": ".types",
            "FedCmLoginGooglePatch": ".types",
            "FedCmLoginPatch": ".types",
@@ -39285,7 +39363,7 @@ patches:
            "FlowAction": ".types",
            "FlowActionActivecampaign": ".types",
            "FlowActionActivecampaignListContacts": ".types",
-      @@ -7541,6 +7548,7 @@ __all__ = [
+      @@ -7574,6 +7581,7 @@ __all__ = [
            "CspReportingEndpoints",
            "CspReportingInfrastructure",
            "CustomDomain",
@@ -39293,7 +39371,7 @@ patches:
            "CustomDomainCustomClientIpHeader",
            "CustomDomainCustomClientIpHeaderEnum",
            "CustomDomainHeader",
-      @@ -8375,6 +8383,8 @@ __all__ = [
+      @@ -8408,6 +8416,8 @@ __all__ = [
            "FedCmLoginGoogle",
            "FedCmLoginGooglePatch",
            "FedCmLoginPatch",
@@ -39520,10 +39598,13 @@ patches:
                 ClientMobileAndroid,
                 ClientMobileiOs,
                 ClientMyOrganizationConfigurationAllowedStrategiesEnum,
+                ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum,
+                ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum,
                 ClientMyOrganizationDeletionBehaviorEnum,
                 ClientMyOrganizationPatchConfiguration,
                 ClientMyOrganizationPostConfiguration,
                 ClientMyOrganizationResponseConfiguration,
+                ClientMyOrganizationThirdPartyClientAccessConfiguration,
                 ClientOidcBackchannelLogoutInitiators,
                 ClientOidcBackchannelLogoutInitiatorsEnum,
                 ClientOidcBackchannelLogoutInitiatorsModeEnum,
@@ -39838,6 +39919,11 @@ patches:
                 ConnectionProfile,
                 ConnectionProfileBitbucket,
                 ConnectionProfileConfig,
+                ConnectionProfileCrossAppAccessResourceApp,
+                ConnectionProfileCrossAppAccessResourceAppStatus,
+                ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum,
+                ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum,
+                ConnectionProfileCrossAppAccessResourceAppStatusValueEnum,
                 ConnectionProfileEnabledFeatures,
                 ConnectionProfileId,
                 ConnectionProfileName,
@@ -40062,6 +40148,7 @@ patches:
                 ConnectionUpstreamParamsFacebook,
                 ConnectionUpstreamValue,
                 ConnectionUseCommonEndpointAzureAd,
+                ConnectionUseOauthSpecScope,
                 ConnectionUserAuthorizationUrloAuth1,
                 ConnectionUserIdAttributeSaml,
                 ConnectionUseridAttributeAzureAd,
@@ -41755,6 +41842,7 @@ patches:
                 GetActionVersionResponseContent,
                 GetActiveUsersCountStatsResponseContent,
                 GetAculResponseContent,
+                GetAllKeysNetworkAclsResponseContent,
                 GetAttackProtectionCaptchaResponseContent,
                 GetBotDetectionSettingsResponseContent,
                 GetBrandingDefaultThemeResponseContent,
@@ -42025,6 +42113,7 @@ patches:
                 NetworkAclActionBlockEnum,
                 NetworkAclActionLogEnum,
                 NetworkAclActionRedirectEnum,
+                NetworkAclKey,
                 NetworkAclKeyAlgorithmEnum,
                 NetworkAclMatch,
                 NetworkAclMatchConnectingIpv4Cidr,
@@ -42032,6 +42121,7 @@ patches:
                 NetworkAclMatchIpv4Cidr,
                 NetworkAclMatchIpv6Cidr,
                 NetworkAclRule,
+                NetworkAclRuleMatchAllEnum,
                 NetworkAclRuleScopeEnum,
                 NetworkAclsResponseContent,
                 NotFoundErrorBody,
@@ -42760,10 +42850,13 @@ patches:
             "ClientMobileAndroid": ".types",
             "ClientMobileiOs": ".types",
             "ClientMyOrganizationConfigurationAllowedStrategiesEnum": ".types",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum": ".types",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum": ".types",
             "ClientMyOrganizationDeletionBehaviorEnum": ".types",
             "ClientMyOrganizationPatchConfiguration": ".types",
             "ClientMyOrganizationPostConfiguration": ".types",
             "ClientMyOrganizationResponseConfiguration": ".types",
+            "ClientMyOrganizationThirdPartyClientAccessConfiguration": ".types",
             "ClientOidcBackchannelLogoutInitiators": ".types",
             "ClientOidcBackchannelLogoutInitiatorsEnum": ".types",
             "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".types",
@@ -43079,6 +43172,11 @@ patches:
             "ConnectionProfile": ".types",
             "ConnectionProfileBitbucket": ".types",
             "ConnectionProfileConfig": ".types",
+            "ConnectionProfileCrossAppAccessResourceApp": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatus": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum": ".types",
+            "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum": ".types",
             "ConnectionProfileEnabledFeatures": ".types",
             "ConnectionProfileId": ".types",
             "ConnectionProfileName": ".types",
@@ -43303,6 +43401,7 @@ patches:
             "ConnectionUpstreamParamsFacebook": ".types",
             "ConnectionUpstreamValue": ".types",
             "ConnectionUseCommonEndpointAzureAd": ".types",
+            "ConnectionUseOauthSpecScope": ".types",
             "ConnectionUserAuthorizationUrloAuth1": ".types",
             "ConnectionUserIdAttributeSaml": ".types",
             "ConnectionUseridAttributeAzureAd": ".types",
@@ -45003,6 +45102,7 @@ patches:
             "GetActionVersionResponseContent": ".types",
             "GetActiveUsersCountStatsResponseContent": ".types",
             "GetAculResponseContent": ".types",
+            "GetAllKeysNetworkAclsResponseContent": ".types",
             "GetAttackProtectionCaptchaResponseContent": ".types",
             "GetBotDetectionSettingsResponseContent": ".types",
             "GetBrandingDefaultThemeResponseContent": ".types",
@@ -45276,6 +45376,7 @@ patches:
             "NetworkAclActionBlockEnum": ".types",
             "NetworkAclActionLogEnum": ".types",
             "NetworkAclActionRedirectEnum": ".types",
+            "NetworkAclKey": ".types",
             "NetworkAclKeyAlgorithmEnum": ".types",
             "NetworkAclMatch": ".types",
             "NetworkAclMatchConnectingIpv4Cidr": ".types",
@@ -45283,6 +45384,7 @@ patches:
             "NetworkAclMatchIpv4Cidr": ".types",
             "NetworkAclMatchIpv6Cidr": ".types",
             "NetworkAclRule": ".types",
+            "NetworkAclRuleMatchAllEnum": ".types",
             "NetworkAclRuleScopeEnum": ".types",
             "NetworkAclsResponseContent": ".types",
             "NotFoundError": ".errors",
@@ -46017,10 +46119,13 @@ patches:
             "ClientMobileAndroid",
             "ClientMobileiOs",
             "ClientMyOrganizationConfigurationAllowedStrategiesEnum",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum",
+            "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum",
             "ClientMyOrganizationDeletionBehaviorEnum",
             "ClientMyOrganizationPatchConfiguration",
             "ClientMyOrganizationPostConfiguration",
             "ClientMyOrganizationResponseConfiguration",
+            "ClientMyOrganizationThirdPartyClientAccessConfiguration",
             "ClientOidcBackchannelLogoutInitiators",
             "ClientOidcBackchannelLogoutInitiatorsEnum",
             "ClientOidcBackchannelLogoutInitiatorsModeEnum",
@@ -46336,6 +46441,11 @@ patches:
             "ConnectionProfile",
             "ConnectionProfileBitbucket",
             "ConnectionProfileConfig",
+            "ConnectionProfileCrossAppAccessResourceApp",
+            "ConnectionProfileCrossAppAccessResourceAppStatus",
+            "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum",
+            "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum",
+            "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum",
             "ConnectionProfileEnabledFeatures",
             "ConnectionProfileId",
             "ConnectionProfileName",
@@ -46560,6 +46670,7 @@ patches:
             "ConnectionUpstreamParamsFacebook",
             "ConnectionUpstreamValue",
             "ConnectionUseCommonEndpointAzureAd",
+            "ConnectionUseOauthSpecScope",
             "ConnectionUserAuthorizationUrloAuth1",
             "ConnectionUserIdAttributeSaml",
             "ConnectionUseridAttributeAzureAd",
@@ -48260,6 +48371,7 @@ patches:
             "GetActionVersionResponseContent",
             "GetActiveUsersCountStatsResponseContent",
             "GetAculResponseContent",
+            "GetAllKeysNetworkAclsResponseContent",
             "GetAttackProtectionCaptchaResponseContent",
             "GetBotDetectionSettingsResponseContent",
             "GetBrandingDefaultThemeResponseContent",
@@ -48533,6 +48645,7 @@ patches:
             "NetworkAclActionBlockEnum",
             "NetworkAclActionLogEnum",
             "NetworkAclActionRedirectEnum",
+            "NetworkAclKey",
             "NetworkAclKeyAlgorithmEnum",
             "NetworkAclMatch",
             "NetworkAclMatchConnectingIpv4Cidr",
@@ -48540,6 +48653,7 @@ patches:
             "NetworkAclMatchIpv4Cidr",
             "NetworkAclMatchIpv6Cidr",
             "NetworkAclRule",
+            "NetworkAclRuleMatchAllEnum",
             "NetworkAclRuleScopeEnum",
             "NetworkAclsResponseContent",
             "NotFoundError",
@@ -49037,3 +49151,4 @@ patches:
             "users",
             "verifiable_credentials",
         ]
+    user_owned: true

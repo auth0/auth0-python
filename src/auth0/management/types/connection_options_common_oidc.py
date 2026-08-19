@@ -3,7 +3,9 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .connection_authorization_endpoint import ConnectionAuthorizationEndpoint
 from .connection_client_id_oidc import ConnectionClientIdOidc
 from .connection_client_secret_oidc import ConnectionClientSecretOidc
@@ -25,6 +27,7 @@ from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointA
 from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
 from .connection_token_endpoint_jwtca_aud_format_enum_oidc import ConnectionTokenEndpointJwtcaAudFormatEnumOidc
 from .connection_upstream_params import ConnectionUpstreamParams
+from .connection_use_oauth_spec_scope import ConnectionUseOauthSpecScope
 from .connection_userinfo_endpoint import ConnectionUserinfoEndpoint
 
 
@@ -55,6 +58,11 @@ class ConnectionOptionsCommonOidc(UniversalBaseModel):
     token_endpoint_jwtca_aud_format: typing.Optional[ConnectionTokenEndpointJwtcaAudFormatEnumOidc] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     userinfo_endpoint: typing.Optional[ConnectionUserinfoEndpoint] = None
+    use_oauth_spec_scope: typing_extensions.Annotated[
+        typing.Optional[ConnectionUseOauthSpecScope],
+        FieldMetadata(alias="useOauthSpecScope"),
+        pydantic.Field(alias="useOauthSpecScope"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
