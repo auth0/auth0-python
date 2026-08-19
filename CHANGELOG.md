@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.3.0](https://github.com/auth0/auth0-python/tree/6.3.0) (2026-08-19)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.2.0...6.3.0)
+
+**Added**
+- feat: Add My Organization client access control, Connection Profile Cross-App Access support, Network ACL keys management, and OIDC space-delimited scope support [\#886](https://github.com/auth0/auth0-python/pull/886) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Fixed**
+- fix: `management.forms`/`management.flows` raw clients now surface `400`/`404`/`409` errors instead of unhandled responses, corrected docstring field name in `management.clients` [\#886](https://github.com/auth0/auth0-python/pull/886) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.2.0](https://github.com/auth0/auth0-python/tree/6.2.0) (2026-08-05)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.1.0...6.2.0)
 
