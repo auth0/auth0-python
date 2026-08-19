@@ -347,7 +347,7 @@ class ConnectionsClient:
         """
         Update details for a specific [connection](https://auth0.com/docs/authenticate/identity-providers), including option properties for identity provider configuration.
 
-        **Note**: If you use the `options` parameter, the entire `options` object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.
+        **Note**: If you use the `options` parameter, the entire `options` object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option. If any options are unspecified, the default will be used, even if it differs from the existing value.
 
         Parameters
         ----------
@@ -832,7 +832,7 @@ class AsyncConnectionsClient:
         """
         Update details for a specific [connection](https://auth0.com/docs/authenticate/identity-providers), including option properties for identity provider configuration.
 
-        **Note**: If you use the `options` parameter, the entire `options` object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option.
+        **Note**: If you use the `options` parameter, the entire `options` object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option. If any options are unspecified, the default will be used, even if it differs from the existing value.
 
         Parameters
         ----------

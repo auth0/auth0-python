@@ -8,6 +8,9 @@ from .client_my_organization_configuration_allowed_strategies_enum import (
     ClientMyOrganizationConfigurationAllowedStrategiesEnum,
 )
 from .client_my_organization_deletion_behavior_enum import ClientMyOrganizationDeletionBehaviorEnum
+from .client_my_organization_third_party_client_access_configuration import (
+    ClientMyOrganizationThirdPartyClientAccessConfiguration,
+)
 
 
 class ClientMyOrganizationPatchConfiguration(UniversalBaseModel):
@@ -30,6 +33,7 @@ class ClientMyOrganizationPatchConfiguration(UniversalBaseModel):
     The allowed connection strategies for the My Organization Configuration.
     """
 
+    third_party_client_access: typing.Optional[ClientMyOrganizationThirdPartyClientAccessConfiguration] = None
     connection_deletion_behavior: ClientMyOrganizationDeletionBehaviorEnum
     invitation_landing_client_id: typing.Optional[str] = pydantic.Field(default=None)
     """

@@ -255,10 +255,19 @@ if typing.TYPE_CHECKING:
     from .client_my_organization_configuration_allowed_strategies_enum import (
         ClientMyOrganizationConfigurationAllowedStrategiesEnum,
     )
+    from .client_my_organization_configuration_third_party_client_access_allowed_values_enum import (
+        ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum,
+    )
+    from .client_my_organization_configuration_third_party_client_access_default_value_enum import (
+        ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum,
+    )
     from .client_my_organization_deletion_behavior_enum import ClientMyOrganizationDeletionBehaviorEnum
     from .client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
     from .client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
     from .client_my_organization_response_configuration import ClientMyOrganizationResponseConfiguration
+    from .client_my_organization_third_party_client_access_configuration import (
+        ClientMyOrganizationThirdPartyClientAccessConfiguration,
+    )
     from .client_oidc_backchannel_logout_initiators import ClientOidcBackchannelLogoutInitiators
     from .client_oidc_backchannel_logout_initiators_enum import ClientOidcBackchannelLogoutInitiatorsEnum
     from .client_oidc_backchannel_logout_initiators_mode_enum import ClientOidcBackchannelLogoutInitiatorsModeEnum
@@ -581,6 +590,19 @@ if typing.TYPE_CHECKING:
     from .connection_profile import ConnectionProfile
     from .connection_profile_bitbucket import ConnectionProfileBitbucket
     from .connection_profile_config import ConnectionProfileConfig
+    from .connection_profile_cross_app_access_resource_app import ConnectionProfileCrossAppAccessResourceApp
+    from .connection_profile_cross_app_access_resource_app_status import (
+        ConnectionProfileCrossAppAccessResourceAppStatus,
+    )
+    from .connection_profile_cross_app_access_resource_app_status_allowed_values_enum import (
+        ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum,
+    )
+    from .connection_profile_cross_app_access_resource_app_status_default_value_enum import (
+        ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum,
+    )
+    from .connection_profile_cross_app_access_resource_app_status_value_enum import (
+        ConnectionProfileCrossAppAccessResourceAppStatusValueEnum,
+    )
     from .connection_profile_enabled_features import ConnectionProfileEnabledFeatures
     from .connection_profile_id import ConnectionProfileId
     from .connection_profile_name import ConnectionProfileName
@@ -823,6 +845,7 @@ if typing.TYPE_CHECKING:
     from .connection_upstream_params_facebook import ConnectionUpstreamParamsFacebook
     from .connection_upstream_value import ConnectionUpstreamValue
     from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
+    from .connection_use_oauth_spec_scope import ConnectionUseOauthSpecScope
     from .connection_user_authorization_urlo_auth_1 import ConnectionUserAuthorizationUrloAuth1
     from .connection_user_id_attribute_saml import ConnectionUserIdAttributeSaml
     from .connection_userid_attribute_azure_ad import ConnectionUseridAttributeAzureAd
@@ -3648,6 +3671,7 @@ if typing.TYPE_CHECKING:
     from .get_action_version_response_content import GetActionVersionResponseContent
     from .get_active_users_count_stats_response_content import GetActiveUsersCountStatsResponseContent
     from .get_acul_response_content import GetAculResponseContent
+    from .get_all_keys_network_acls_response_content import GetAllKeysNetworkAclsResponseContent
     from .get_attack_protection_captcha_response_content import GetAttackProtectionCaptchaResponseContent
     from .get_bot_detection_settings_response_content import GetBotDetectionSettingsResponseContent
     from .get_branding_default_theme_response_content import GetBrandingDefaultThemeResponseContent
@@ -3974,6 +3998,7 @@ if typing.TYPE_CHECKING:
     from .network_acl_action_block_enum import NetworkAclActionBlockEnum
     from .network_acl_action_log_enum import NetworkAclActionLogEnum
     from .network_acl_action_redirect_enum import NetworkAclActionRedirectEnum
+    from .network_acl_key import NetworkAclKey
     from .network_acl_key_algorithm_enum import NetworkAclKeyAlgorithmEnum
     from .network_acl_match import NetworkAclMatch
     from .network_acl_match_connecting_ipv_4_cidr import NetworkAclMatchConnectingIpv4Cidr
@@ -3981,6 +4006,7 @@ if typing.TYPE_CHECKING:
     from .network_acl_match_ipv_4_cidr import NetworkAclMatchIpv4Cidr
     from .network_acl_match_ipv_6_cidr import NetworkAclMatchIpv6Cidr
     from .network_acl_rule import NetworkAclRule
+    from .network_acl_rule_match_all_enum import NetworkAclRuleMatchAllEnum
     from .network_acl_rule_scope_enum import NetworkAclRuleScopeEnum
     from .network_acls_response_content import NetworkAclsResponseContent
     from .not_found_error_body import NotFoundErrorBody
@@ -4701,10 +4727,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientMobileAndroid": ".client_mobile_android",
     "ClientMobileiOs": ".client_mobilei_os",
     "ClientMyOrganizationConfigurationAllowedStrategiesEnum": ".client_my_organization_configuration_allowed_strategies_enum",
+    "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum": ".client_my_organization_configuration_third_party_client_access_allowed_values_enum",
+    "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum": ".client_my_organization_configuration_third_party_client_access_default_value_enum",
     "ClientMyOrganizationDeletionBehaviorEnum": ".client_my_organization_deletion_behavior_enum",
     "ClientMyOrganizationPatchConfiguration": ".client_my_organization_patch_configuration",
     "ClientMyOrganizationPostConfiguration": ".client_my_organization_post_configuration",
     "ClientMyOrganizationResponseConfiguration": ".client_my_organization_response_configuration",
+    "ClientMyOrganizationThirdPartyClientAccessConfiguration": ".client_my_organization_third_party_client_access_configuration",
     "ClientOidcBackchannelLogoutInitiators": ".client_oidc_backchannel_logout_initiators",
     "ClientOidcBackchannelLogoutInitiatorsEnum": ".client_oidc_backchannel_logout_initiators_enum",
     "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".client_oidc_backchannel_logout_initiators_mode_enum",
@@ -5019,6 +5048,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionProfile": ".connection_profile",
     "ConnectionProfileBitbucket": ".connection_profile_bitbucket",
     "ConnectionProfileConfig": ".connection_profile_config",
+    "ConnectionProfileCrossAppAccessResourceApp": ".connection_profile_cross_app_access_resource_app",
+    "ConnectionProfileCrossAppAccessResourceAppStatus": ".connection_profile_cross_app_access_resource_app_status",
+    "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum": ".connection_profile_cross_app_access_resource_app_status_allowed_values_enum",
+    "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum": ".connection_profile_cross_app_access_resource_app_status_default_value_enum",
+    "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum": ".connection_profile_cross_app_access_resource_app_status_value_enum",
     "ConnectionProfileEnabledFeatures": ".connection_profile_enabled_features",
     "ConnectionProfileId": ".connection_profile_id",
     "ConnectionProfileName": ".connection_profile_name",
@@ -5243,6 +5277,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionUpstreamParamsFacebook": ".connection_upstream_params_facebook",
     "ConnectionUpstreamValue": ".connection_upstream_value",
     "ConnectionUseCommonEndpointAzureAd": ".connection_use_common_endpoint_azure_ad",
+    "ConnectionUseOauthSpecScope": ".connection_use_oauth_spec_scope",
     "ConnectionUserAuthorizationUrloAuth1": ".connection_user_authorization_urlo_auth_1",
     "ConnectionUserIdAttributeSaml": ".connection_user_id_attribute_saml",
     "ConnectionUseridAttributeAzureAd": ".connection_userid_attribute_azure_ad",
@@ -6934,6 +6969,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetActionVersionResponseContent": ".get_action_version_response_content",
     "GetActiveUsersCountStatsResponseContent": ".get_active_users_count_stats_response_content",
     "GetAculResponseContent": ".get_acul_response_content",
+    "GetAllKeysNetworkAclsResponseContent": ".get_all_keys_network_acls_response_content",
     "GetAttackProtectionCaptchaResponseContent": ".get_attack_protection_captcha_response_content",
     "GetBotDetectionSettingsResponseContent": ".get_bot_detection_settings_response_content",
     "GetBrandingDefaultThemeResponseContent": ".get_branding_default_theme_response_content",
@@ -7204,6 +7240,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NetworkAclActionBlockEnum": ".network_acl_action_block_enum",
     "NetworkAclActionLogEnum": ".network_acl_action_log_enum",
     "NetworkAclActionRedirectEnum": ".network_acl_action_redirect_enum",
+    "NetworkAclKey": ".network_acl_key",
     "NetworkAclKeyAlgorithmEnum": ".network_acl_key_algorithm_enum",
     "NetworkAclMatch": ".network_acl_match",
     "NetworkAclMatchConnectingIpv4Cidr": ".network_acl_match_connecting_ipv_4_cidr",
@@ -7211,6 +7248,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NetworkAclMatchIpv4Cidr": ".network_acl_match_ipv_4_cidr",
     "NetworkAclMatchIpv6Cidr": ".network_acl_match_ipv_6_cidr",
     "NetworkAclRule": ".network_acl_rule",
+    "NetworkAclRuleMatchAllEnum": ".network_acl_rule_match_all_enum",
     "NetworkAclRuleScopeEnum": ".network_acl_rule_scope_enum",
     "NetworkAclsResponseContent": ".network_acls_response_content",
     "NotFoundErrorBody": ".not_found_error_body",
@@ -7885,10 +7923,13 @@ __all__ = [
     "ClientMobileAndroid",
     "ClientMobileiOs",
     "ClientMyOrganizationConfigurationAllowedStrategiesEnum",
+    "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum",
+    "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum",
     "ClientMyOrganizationDeletionBehaviorEnum",
     "ClientMyOrganizationPatchConfiguration",
     "ClientMyOrganizationPostConfiguration",
     "ClientMyOrganizationResponseConfiguration",
+    "ClientMyOrganizationThirdPartyClientAccessConfiguration",
     "ClientOidcBackchannelLogoutInitiators",
     "ClientOidcBackchannelLogoutInitiatorsEnum",
     "ClientOidcBackchannelLogoutInitiatorsModeEnum",
@@ -8203,6 +8244,11 @@ __all__ = [
     "ConnectionProfile",
     "ConnectionProfileBitbucket",
     "ConnectionProfileConfig",
+    "ConnectionProfileCrossAppAccessResourceApp",
+    "ConnectionProfileCrossAppAccessResourceAppStatus",
+    "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum",
+    "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum",
+    "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum",
     "ConnectionProfileEnabledFeatures",
     "ConnectionProfileId",
     "ConnectionProfileName",
@@ -8427,6 +8473,7 @@ __all__ = [
     "ConnectionUpstreamParamsFacebook",
     "ConnectionUpstreamValue",
     "ConnectionUseCommonEndpointAzureAd",
+    "ConnectionUseOauthSpecScope",
     "ConnectionUserAuthorizationUrloAuth1",
     "ConnectionUserIdAttributeSaml",
     "ConnectionUseridAttributeAzureAd",
@@ -10118,6 +10165,7 @@ __all__ = [
     "GetActionVersionResponseContent",
     "GetActiveUsersCountStatsResponseContent",
     "GetAculResponseContent",
+    "GetAllKeysNetworkAclsResponseContent",
     "GetAttackProtectionCaptchaResponseContent",
     "GetBotDetectionSettingsResponseContent",
     "GetBrandingDefaultThemeResponseContent",
@@ -10388,6 +10436,7 @@ __all__ = [
     "NetworkAclActionBlockEnum",
     "NetworkAclActionLogEnum",
     "NetworkAclActionRedirectEnum",
+    "NetworkAclKey",
     "NetworkAclKeyAlgorithmEnum",
     "NetworkAclMatch",
     "NetworkAclMatchConnectingIpv4Cidr",
@@ -10395,6 +10444,7 @@ __all__ = [
     "NetworkAclMatchIpv4Cidr",
     "NetworkAclMatchIpv6Cidr",
     "NetworkAclRule",
+    "NetworkAclRuleMatchAllEnum",
     "NetworkAclRuleScopeEnum",
     "NetworkAclsResponseContent",
     "NotFoundErrorBody",

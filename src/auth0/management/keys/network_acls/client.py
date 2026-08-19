@@ -5,6 +5,8 @@ import typing
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.create_keys_network_acls_response_content import CreateKeysNetworkAclsResponseContent
+from ...types.get_all_keys_network_acls_response_content import GetAllKeysNetworkAclsResponseContent
+from ...types.network_acl_key import NetworkAclKey
 from ...types.network_acl_key_algorithm_enum import NetworkAclKeyAlgorithmEnum
 from .raw_client import AsyncRawNetworkAclsClient, RawNetworkAclsClient
 
@@ -26,6 +28,32 @@ class NetworkAclsClient:
         RawNetworkAclsClient
         """
         return self._raw_client
+
+    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> GetAllKeysNetworkAclsResponseContent:
+        """
+        Retrieve all keys used to verify HTTP Message Signatures on Network ACL rules, ordered by creation time descending.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAllKeysNetworkAclsResponseContent
+            The tenant's Network ACL Keys were successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.keys.network_acls.list()
+        """
+        _response = self._raw_client.list(request_options=request_options)
+        return _response.data
 
     def create(
         self,
@@ -72,6 +100,37 @@ class NetworkAclsClient:
         _response = self._raw_client.create(name=name, alg=alg, value=value, request_options=request_options)
         return _response.data
 
+    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> NetworkAclKey:
+        """
+        Retrieve a specific key used to verify HTTP Message Signatures on Network ACL rules.
+
+        Parameters
+        ----------
+        id : str
+            ID of the Network ACL Key to retrieve.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NetworkAclKey
+            The Network ACL key was successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.keys.network_acls.get(
+            id="id",
+        )
+        """
+        _response = self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
 
 class AsyncNetworkAclsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -87,6 +146,42 @@ class AsyncNetworkAclsClient:
         AsyncRawNetworkAclsClient
         """
         return self._raw_client
+
+    async def list(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetAllKeysNetworkAclsResponseContent:
+        """
+        Retrieve all keys used to verify HTTP Message Signatures on Network ACL rules, ordered by creation time descending.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAllKeysNetworkAclsResponseContent
+            The tenant's Network ACL Keys were successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.keys.network_acls.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(request_options=request_options)
+        return _response.data
 
     async def create(
         self,
@@ -139,4 +234,43 @@ class AsyncNetworkAclsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(name=name, alg=alg, value=value, request_options=request_options)
+        return _response.data
+
+    async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> NetworkAclKey:
+        """
+        Retrieve a specific key used to verify HTTP Message Signatures on Network ACL rules.
+
+        Parameters
+        ----------
+        id : str
+            ID of the Network ACL Key to retrieve.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NetworkAclKey
+            The Network ACL key was successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.keys.network_acls.get(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get(id, request_options=request_options)
         return _response.data

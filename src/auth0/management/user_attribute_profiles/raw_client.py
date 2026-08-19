@@ -618,7 +618,7 @@ class RawUserAttributeProfilesClient:
             json={
                 "name": name,
                 "user_id": convert_and_respect_annotation_metadata(
-                    object_=user_id, annotation=UserAttributeProfilePatchUserId, direction="write"
+                    object_=user_id, annotation=typing.Optional[UserAttributeProfilePatchUserId], direction="write"
                 ),
                 "user_attributes": convert_and_respect_annotation_metadata(
                     object_=user_attributes, annotation=UserAttributeProfileUserAttributes, direction="write"
@@ -1289,7 +1289,7 @@ class AsyncRawUserAttributeProfilesClient:
             json={
                 "name": name,
                 "user_id": convert_and_respect_annotation_metadata(
-                    object_=user_id, annotation=UserAttributeProfilePatchUserId, direction="write"
+                    object_=user_id, annotation=typing.Optional[UserAttributeProfilePatchUserId], direction="write"
                 ),
                 "user_attributes": convert_and_respect_annotation_metadata(
                     object_=user_attributes, annotation=UserAttributeProfileUserAttributes, direction="write"
