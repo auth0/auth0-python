@@ -35,6 +35,7 @@ if typing.TYPE_CHECKING:
     from .log_streams.client import AsyncLogStreamsClient, LogStreamsClient
     from .logs.client import AsyncLogsClient, LogsClient
     from .network_acls.client import AsyncNetworkAclsClient, NetworkAclsClient
+    from .organization_templates.client import AsyncOrganizationTemplatesClient, OrganizationTemplatesClient
     from .organizations.client import AsyncOrganizationsClient, OrganizationsClient
     from .prompts.client import AsyncPromptsClient, PromptsClient
     from .rate_limit_policies.client import AsyncRateLimitPoliciesClient, RateLimitPoliciesClient
@@ -175,6 +176,7 @@ class Auth0:
         self._log_streams: typing.Optional[LogStreamsClient] = None
         self._logs: typing.Optional[LogsClient] = None
         self._network_acls: typing.Optional[NetworkAclsClient] = None
+        self._organization_templates: typing.Optional[OrganizationTemplatesClient] = None
         self._organizations: typing.Optional[OrganizationsClient] = None
         self._prompts: typing.Optional[PromptsClient] = None
         self._rate_limit_policies: typing.Optional[RateLimitPoliciesClient] = None
@@ -368,6 +370,14 @@ class Auth0:
 
             self._network_acls = NetworkAclsClient(client_wrapper=self._client_wrapper)
         return self._network_acls
+
+    @property
+    def organization_templates(self):
+        if self._organization_templates is None:
+            from .organization_templates.client import OrganizationTemplatesClient  # noqa: E402
+
+            self._organization_templates = OrganizationTemplatesClient(client_wrapper=self._client_wrapper)
+        return self._organization_templates
 
     @property
     def organizations(self):
@@ -708,6 +718,7 @@ class AsyncAuth0:
         self._log_streams: typing.Optional[AsyncLogStreamsClient] = None
         self._logs: typing.Optional[AsyncLogsClient] = None
         self._network_acls: typing.Optional[AsyncNetworkAclsClient] = None
+        self._organization_templates: typing.Optional[AsyncOrganizationTemplatesClient] = None
         self._organizations: typing.Optional[AsyncOrganizationsClient] = None
         self._prompts: typing.Optional[AsyncPromptsClient] = None
         self._rate_limit_policies: typing.Optional[AsyncRateLimitPoliciesClient] = None
@@ -901,6 +912,14 @@ class AsyncAuth0:
 
             self._network_acls = AsyncNetworkAclsClient(client_wrapper=self._client_wrapper)
         return self._network_acls
+
+    @property
+    def organization_templates(self):
+        if self._organization_templates is None:
+            from .organization_templates.client import AsyncOrganizationTemplatesClient  # noqa: E402
+
+            self._organization_templates = AsyncOrganizationTemplatesClient(client_wrapper=self._client_wrapper)
+        return self._organization_templates
 
     @property
     def organizations(self):

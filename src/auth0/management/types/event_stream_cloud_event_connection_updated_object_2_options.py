@@ -19,6 +19,9 @@ from .event_stream_cloud_event_connection_updated_object_2_options_fields_map im
 from .event_stream_cloud_event_connection_updated_object_2_options_idpinitiated import (
     EventStreamCloudEventConnectionUpdatedObject2OptionsIdpinitiated,
 )
+from .event_stream_cloud_event_connection_updated_object_2_options_oidc_metadata import (
+    EventStreamCloudEventConnectionUpdatedObject2OptionsOidcMetadata,
+)
 from .event_stream_cloud_event_connection_updated_object_2_options_protocol_binding_enum import (
     EventStreamCloudEventConnectionUpdatedObject2OptionsProtocolBindingEnum,
 )
@@ -175,6 +178,18 @@ class EventStreamCloudEventConnectionUpdatedObject2Options(UniversalBaseModel):
     The URL where Auth0 will send SAML authentication requests (the Identity Provider's SSO URL). Must be a valid HTTPS URL.
     """
 
+    disable_fields_map_fix: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="disableFieldsMapFix"),
+        pydantic.Field(
+            alias="disableFieldsMapFix",
+            description="When true, disables the automatic correction of the fieldsMap configuration to ensure proper mapping of SAML attributes to user profile fields. Defaults to false (fieldsMap fix enabled).",
+        ),
+    ] = None
+    """
+    When true, disables the automatic correction of the fieldsMap configuration to ensure proper mapping of SAML attributes to user profile fields. Defaults to false (fieldsMap fix enabled).
+    """
+
     disable_signout: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="disableSignout"),
@@ -187,11 +202,28 @@ class EventStreamCloudEventConnectionUpdatedObject2Options(UniversalBaseModel):
     When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).
     """
 
+    discovery_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    URL of the identity provider's OIDC Discovery endpoint (/.well-known/openid-configuration). When provided and oidc_metadata is empty, Auth0 automatically retrieves the provider's configuration including endpoints and supported features. Used with Cross App Access.
+    """
+
     fields_map: typing_extensions.Annotated[
         typing.Optional[EventStreamCloudEventConnectionUpdatedObject2OptionsFieldsMap],
         FieldMetadata(alias="fieldsMap"),
         pydantic.Field(alias="fieldsMap"),
     ] = None
+    fields_map_json_raw: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="fieldsMapJsonRaw"),
+        pydantic.Field(
+            alias="fieldsMapJsonRaw",
+            description="Raw JSON string representation of the fieldsMap configuration. Used internally for storage and retrieval of the fieldsMap object.",
+        ),
+    ] = None
+    """
+    Raw JSON string representation of the fieldsMap configuration. Used internally for storage and retrieval of the fieldsMap object.
+    """
+
     global_token_revocation_jwt_iss: typing.Optional[str] = pydantic.Field(default=None)
     """
     Expected 'iss' (Issuer) claim value for JWT tokens in Global Token Revocation requests from the identity provider. When configured, Auth0 validates the JWT issuer matches this value before processing token revocation. Must be used together with global_token_revocation_jwt_sub.
@@ -214,6 +246,7 @@ class EventStreamCloudEventConnectionUpdatedObject2Options(UniversalBaseModel):
     HTTPS URL to the identity provider's SAML metadata document. When provided, Auth0 automatically fetches and parses the metadata to extract signInEndpoint, signOutEndpoint, signingCert, signSAMLRequest, and protocolBinding. Use metadataUrl OR metadataXml, not both.
     """
 
+    oidc_metadata: typing.Optional[EventStreamCloudEventConnectionUpdatedObject2OptionsOidcMetadata] = None
     recipient_url: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="recipientUrl"),

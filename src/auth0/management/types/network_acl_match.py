@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .network_acl_http_message_signature import NetworkAclHttpMessageSignature
 from .network_acl_match_connecting_ipv_4_cidr import NetworkAclMatchConnectingIpv4Cidr
 from .network_acl_match_connecting_ipv_6_cidr import NetworkAclMatchConnectingIpv6Cidr
 from .network_acl_match_ipv_4_cidr import NetworkAclMatchIpv4Cidr
@@ -51,6 +52,7 @@ class NetworkAclMatch(UniversalBaseModel):
         FieldMetadata(alias="connecting_ipv6_cidrs"),
         pydantic.Field(alias="connecting_ipv6_cidrs"),
     ] = None
+    http_message_signature: typing.Optional[NetworkAclHttpMessageSignature] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

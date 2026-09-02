@@ -131,6 +131,36 @@ class NetworkAclsClient:
         _response = self._raw_client.get(id, request_options=request_options)
         return _response.data
 
+    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Delete a key used to verify HTTP Message Signatures on Network ACL rules
+
+        Parameters
+        ----------
+        id : str
+            ID of the Network ACL Key to delete.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.keys.network_acls.delete(
+            id="id",
+        )
+        """
+        _response = self._raw_client.delete(id, request_options=request_options)
+        return _response.data
+
 
 class AsyncNetworkAclsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -273,4 +303,42 @@ class AsyncNetworkAclsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
+    async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Delete a key used to verify HTTP Message Signatures on Network ACL rules
+
+        Parameters
+        ----------
+        id : str
+            ID of the Network ACL Key to delete.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.keys.network_acls.delete(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete(id, request_options=request_options)
         return _response.data

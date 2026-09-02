@@ -18,6 +18,7 @@ if typing.TYPE_CHECKING:
     from .service_unavailable_error import ServiceUnavailableError
     from .too_many_requests_error import TooManyRequestsError
     from .unauthorized_error import UnauthorizedError
+    from .unprocessable_entity_error import UnprocessableEntityError
 _dynamic_imports: typing.Dict[str, str] = {
     "BadRequestError": ".bad_request_error",
     "ConflictError": ".conflict_error",
@@ -31,6 +32,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ServiceUnavailableError": ".service_unavailable_error",
     "TooManyRequestsError": ".too_many_requests_error",
     "UnauthorizedError": ".unauthorized_error",
+    "UnprocessableEntityError": ".unprocessable_entity_error",
 }
 
 
@@ -68,4 +70,5 @@ __all__ = [
     "ServiceUnavailableError",
     "TooManyRequestsError",
     "UnauthorizedError",
+    "UnprocessableEntityError",
 ]

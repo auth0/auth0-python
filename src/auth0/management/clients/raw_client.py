@@ -19,6 +19,7 @@ from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.b_2_b_integration_configuration import B2BIntegrationConfiguration
 from ..types.client import Client
 from ..types.client_addons import ClientAddons
 from ..types.client_app_type_enum import ClientAppTypeEnum
@@ -321,6 +322,7 @@ class RawClientsClient:
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
@@ -484,6 +486,8 @@ class RawClientsClient:
 
         express_configuration : typing.Optional[ExpressConfiguration]
 
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
+
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
@@ -601,6 +605,9 @@ class RawClientsClient:
                 "redirection_policy": redirection_policy,
                 "express_configuration": convert_and_respect_annotation_metadata(
                     object_=express_configuration, annotation=ExpressConfiguration, direction="write"
+                ),
+                "b2b_integration_configuration": convert_and_respect_annotation_metadata(
+                    object_=b_2_b_integration_configuration, annotation=B2BIntegrationConfiguration, direction="write"
                 ),
                 "my_organization_configuration": convert_and_respect_annotation_metadata(
                     object_=my_organization_configuration,
@@ -1193,6 +1200,7 @@ class RawClientsClient:
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
@@ -1354,6 +1362,8 @@ class RawClientsClient:
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
 
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
+
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
@@ -1479,6 +1489,9 @@ class RawClientsClient:
                     object_=express_configuration,
                     annotation=typing.Optional[ExpressConfigurationOrNull],
                     direction="write",
+                ),
+                "b2b_integration_configuration": convert_and_respect_annotation_metadata(
+                    object_=b_2_b_integration_configuration, annotation=B2BIntegrationConfiguration, direction="write"
                 ),
                 "my_organization_configuration": convert_and_respect_annotation_metadata(
                     object_=my_organization_configuration,
@@ -1915,6 +1928,7 @@ class AsyncRawClientsClient:
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
@@ -2078,6 +2092,8 @@ class AsyncRawClientsClient:
 
         express_configuration : typing.Optional[ExpressConfiguration]
 
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
+
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
@@ -2195,6 +2211,9 @@ class AsyncRawClientsClient:
                 "redirection_policy": redirection_policy,
                 "express_configuration": convert_and_respect_annotation_metadata(
                     object_=express_configuration, annotation=ExpressConfiguration, direction="write"
+                ),
+                "b2b_integration_configuration": convert_and_respect_annotation_metadata(
+                    object_=b_2_b_integration_configuration, annotation=B2BIntegrationConfiguration, direction="write"
                 ),
                 "my_organization_configuration": convert_and_respect_annotation_metadata(
                     object_=my_organization_configuration,
@@ -2789,6 +2808,7 @@ class AsyncRawClientsClient:
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
@@ -2950,6 +2970,8 @@ class AsyncRawClientsClient:
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
 
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
+
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
@@ -3075,6 +3097,9 @@ class AsyncRawClientsClient:
                     object_=express_configuration,
                     annotation=typing.Optional[ExpressConfigurationOrNull],
                     direction="write",
+                ),
+                "b2b_integration_configuration": convert_and_respect_annotation_metadata(
+                    object_=b_2_b_integration_configuration, annotation=B2BIntegrationConfiguration, direction="write"
                 ),
                 "my_organization_configuration": convert_and_respect_annotation_metadata(
                     object_=my_organization_configuration,

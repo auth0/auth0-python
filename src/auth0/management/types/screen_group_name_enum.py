@@ -33,6 +33,7 @@ ScreenGroupNameEnum = typing.Union[
         "reset-password-mfa-webauthn-roaming-challenge",
         "custom-form",
         "consent",
+        "consent-tenant-scopes",
         "customized-consent",
         "logout",
         "logout-complete",

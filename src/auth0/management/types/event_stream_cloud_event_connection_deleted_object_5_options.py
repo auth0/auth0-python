@@ -107,6 +107,11 @@ class EventStreamCloudEventConnectionDeletedObject5Options(UniversalBaseModel):
     Enables Windows Integrated Authentication (Kerberos) for seamless SSO when users authenticate from within the corporate network IP ranges
     """
 
+    kerberos_only: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When true, restricts the connection to Kerberos-only authentication, disallowing username/password fallback.
+    """
+
     non_persistent_attrs: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     An array of user fields that should not be stored in the Auth0 database (https://auth0.com/docs/security/data-security/denylist)

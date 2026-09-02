@@ -11,6 +11,7 @@ from .connection_profile_enabled_features import ConnectionProfileEnabledFeature
 from .connection_profile_id import ConnectionProfileId
 from .connection_profile_name import ConnectionProfileName
 from .connection_profile_organization import ConnectionProfileOrganization
+from .connection_profile_provisioning import ConnectionProfileProvisioning
 from .connection_profile_strategy_overrides import ConnectionProfileStrategyOverrides
 
 
@@ -22,6 +23,7 @@ class GetConnectionProfileResponseContent(UniversalBaseModel):
     enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = None
     connection_config: typing.Optional[ConnectionProfileConfig] = None
     strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = None
+    provisioning: typing.Optional[ConnectionProfileProvisioning] = None
     cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = None
 
     if IS_PYDANTIC_V2:

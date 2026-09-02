@@ -3,7 +3,9 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .event_stream_cloud_event_connection_updated_object_1_options_attribute_map import (
     EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMap,
 )
@@ -137,6 +139,18 @@ class EventStreamCloudEventConnectionUpdatedObject1Options(UniversalBaseModel):
         EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointJwtcaAudFormatEnum
     ] = None
     upstream_params: typing.Optional[EventStreamCloudEventConnectionUpdatedObject1OptionsUpstreamParams] = None
+    use_oauth_spec_scope: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="useOauthSpecScope"),
+        pydantic.Field(
+            alias="useOauthSpecScope",
+            description="When true, uses space-delimited scopes (per OAuth 2.0 spec) instead of comma-delimited when calling the identity provider's authorization endpoint. Only relevant when using the connection_scope parameter. See https://auth0.com/docs/authenticate/identity-providers/adding-scopes-for-an-external-idp#pass-scopes-to-authorize-endpoint",
+        ),
+    ] = None
+    """
+    When true, uses space-delimited scopes (per OAuth 2.0 spec) instead of comma-delimited when calling the identity provider's authorization endpoint. Only relevant when using the connection_scope parameter. See https://auth0.com/docs/authenticate/identity-providers/adding-scopes-for-an-external-idp#pass-scopes-to-authorize-endpoint
+    """
+
     userinfo_endpoint: typing.Optional[str] = pydantic.Field(default=None)
     """
     Optional URL of the identity provider's UserInfo endpoint. When configured with attribute mapping, Auth0 calls this endpoint to retrieve additional user profile claims using the access token.

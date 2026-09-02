@@ -6,6 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .event_stream_cloud_event_context import EventStreamCloudEventContext
 from .event_stream_cloud_event_group_role_assigned_object import EventStreamCloudEventGroupRoleAssignedObject
+from .event_stream_cloud_event_group_role_assigned_previous_object import (
+    EventStreamCloudEventGroupRoleAssignedPreviousObject,
+)
 
 
 class EventStreamCloudEventGroupRoleAssignedData(UniversalBaseModel):
@@ -14,6 +17,7 @@ class EventStreamCloudEventGroupRoleAssignedData(UniversalBaseModel):
     """
 
     object: EventStreamCloudEventGroupRoleAssignedObject
+    previous_object: typing.Optional[EventStreamCloudEventGroupRoleAssignedPreviousObject] = None
     context: typing.Optional[EventStreamCloudEventContext] = None
 
     if IS_PYDANTIC_V2:

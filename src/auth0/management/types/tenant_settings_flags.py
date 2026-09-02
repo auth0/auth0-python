@@ -159,6 +159,11 @@ class TenantSettingsFlags(UniversalBaseModel):
     This tenant signed up for the Auth4GenAI trail
     """
 
+    local_resource_discovery: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the Local Resource Discovery endpoint is enabled (true) or disabled (false).
+    """
+
     enable_dynamic_client_registration: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether third-party developers can <a href="https://auth0.com/docs/api-auth/dynamic-client-registration">dynamically register</a> applications for your APIs (true) or not (false). This flag enables dynamic client registration.

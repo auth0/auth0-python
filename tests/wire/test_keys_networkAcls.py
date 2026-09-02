@@ -29,3 +29,13 @@ def test_keys_networkAcls_get() -> None:
         id="id",
     )
     verify_request_count(test_id, "GET", "/keys/network-acls/id", None, 1)
+
+
+def test_keys_networkAcls_delete() -> None:
+    """Test delete endpoint with WireMock"""
+    test_id = "keys.network_acls.delete.0"
+    client = get_client(test_id)
+    client.keys.network_acls.delete(
+        id="id",
+    )
+    verify_request_count(test_id, "DELETE", "/keys/network-acls/id", None, 1)
