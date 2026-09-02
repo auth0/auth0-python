@@ -21,6 +21,7 @@ from .connection_issuer import ConnectionIssuer
 from .connection_jwks_uri import ConnectionJwksUri
 from .connection_op_policy_uri import ConnectionOpPolicyUri
 from .connection_op_tos_uri import ConnectionOpTosUri
+from .connection_pushed_authorization_request_endpoint import ConnectionPushedAuthorizationRequestEndpoint
 from .connection_registration_endpoint import ConnectionRegistrationEndpoint
 from .connection_request_object_encryption_alg_values_supported import (
     ConnectionRequestObjectEncryptionAlgValuesSupported,
@@ -31,6 +32,7 @@ from .connection_request_object_encryption_enc_values_supported import (
 from .connection_request_object_signing_alg_values_supported import ConnectionRequestObjectSigningAlgValuesSupported
 from .connection_request_parameter_supported import ConnectionRequestParameterSupported
 from .connection_request_uri_parameter_supported import ConnectionRequestUriParameterSupported
+from .connection_require_pushed_authorization_requests import ConnectionRequirePushedAuthorizationRequests
 from .connection_require_request_uri_registration import ConnectionRequireRequestUriRegistration
 from .connection_response_modes_supported import ConnectionResponseModesSupported
 from .connection_response_types_supported import ConnectionResponseTypesSupported
@@ -71,6 +73,7 @@ class ConnectionOptionsOidcMetadata(UniversalBaseModel):
     jwks_uri: ConnectionJwksUri
     op_policy_uri: typing.Optional[ConnectionOpPolicyUri] = None
     op_tos_uri: typing.Optional[ConnectionOpTosUri] = None
+    pushed_authorization_request_endpoint: typing.Optional[ConnectionPushedAuthorizationRequestEndpoint] = None
     registration_endpoint: typing.Optional[ConnectionRegistrationEndpoint] = None
     request_object_encryption_alg_values_supported: typing.Optional[
         ConnectionRequestObjectEncryptionAlgValuesSupported
@@ -83,6 +86,7 @@ class ConnectionOptionsOidcMetadata(UniversalBaseModel):
     )
     request_parameter_supported: typing.Optional[ConnectionRequestParameterSupported] = None
     request_uri_parameter_supported: typing.Optional[ConnectionRequestUriParameterSupported] = None
+    require_pushed_authorization_requests: typing.Optional[ConnectionRequirePushedAuthorizationRequests] = None
     require_request_uri_registration: typing.Optional[ConnectionRequireRequestUriRegistration] = None
     response_modes_supported: typing.Optional[ConnectionResponseModesSupported] = None
     response_types_supported: typing.Optional[ConnectionResponseTypesSupported] = None

@@ -8,6 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from .connection_debug_saml import ConnectionDebugSaml
 from .connection_destination_url_saml import ConnectionDestinationUrlSaml
+from .connection_discovery_url import ConnectionDiscoveryUrl
 from .connection_fields_map_saml import ConnectionFieldsMapSaml
 from .connection_global_token_revocation_jwt_iss_saml import ConnectionGlobalTokenRevocationJwtIssSaml
 from .connection_global_token_revocation_jwt_sub_saml import ConnectionGlobalTokenRevocationJwtSubSaml
@@ -16,6 +17,7 @@ from .connection_metadata_xml_saml import ConnectionMetadataXmlSaml
 from .connection_options_common import ConnectionOptionsCommon
 from .connection_options_common_saml import ConnectionOptionsCommonSaml
 from .connection_options_deflate_saml import ConnectionOptionsDeflateSaml
+from .connection_options_oidc_metadata import ConnectionOptionsOidcMetadata
 from .connection_recipient_url_saml import ConnectionRecipientUrlSaml
 from .connection_request_template_saml import ConnectionRequestTemplateSaml
 from .connection_sign_out_endpoint_saml import ConnectionSignOutEndpointSaml
@@ -48,6 +50,7 @@ class ConnectionOptionsSaml(ConnectionOptionsCommonSaml, ConnectionOptionsCommon
     When true, disables sending SAML logout requests (SingleLogoutService) to the identity provider during user sign-out. The user will be logged out of Auth0 but will remain logged into the identity provider. Defaults to false (federated logout enabled).
     """
 
+    discovery_url: typing.Optional[ConnectionDiscoveryUrl] = None
     fields_map: typing_extensions.Annotated[
         typing.Optional[ConnectionFieldsMapSaml], FieldMetadata(alias="fieldsMap"), pydantic.Field(alias="fieldsMap")
     ] = None
@@ -63,6 +66,7 @@ class ConnectionOptionsSaml(ConnectionOptionsCommonSaml, ConnectionOptionsCommon
         FieldMetadata(alias="metadataXml"),
         pydantic.Field(alias="metadataXml"),
     ] = None
+    oidc_metadata: typing.Optional[ConnectionOptionsOidcMetadata] = None
     recipient_url: typing_extensions.Annotated[
         typing.Optional[ConnectionRecipientUrlSaml],
         FieldMetadata(alias="recipientUrl"),

@@ -10,7 +10,6 @@ ClientAppTypeEnum = typing.Union[
         "non_interactive",
         "resource_server",
         "express_configuration",
-        "b2b_integration",
         "rms",
         "box",
         "cloudbees",

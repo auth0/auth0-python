@@ -30,6 +30,7 @@ if typing.TYPE_CHECKING:
     from .groups.client import AsyncGroupsClient, GroupsClient
     from .invitations.client import AsyncInvitationsClient, InvitationsClient
     from .members.client import AsyncMembersClient, MembersClient
+    from .organization_template.client import AsyncOrganizationTemplateClient, OrganizationTemplateClient
     from .roles.client import AsyncRolesClient, RolesClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -46,6 +47,7 @@ class OrganizationsClient:
         self._enabled_connections: typing.Optional[EnabledConnectionsClient] = None
         self._invitations: typing.Optional[InvitationsClient] = None
         self._members: typing.Optional[MembersClient] = None
+        self._organization_template: typing.Optional[OrganizationTemplateClient] = None
         self._groups: typing.Optional[GroupsClient] = None
         self._roles: typing.Optional[RolesClient] = None
 
@@ -438,6 +440,14 @@ class OrganizationsClient:
         return self._members
 
     @property
+    def organization_template(self):
+        if self._organization_template is None:
+            from .organization_template.client import OrganizationTemplateClient  # noqa: E402
+
+            self._organization_template = OrganizationTemplateClient(client_wrapper=self._client_wrapper)
+        return self._organization_template
+
+    @property
     def groups(self):
         if self._groups is None:
             from .groups.client import GroupsClient  # noqa: E402
@@ -465,6 +475,7 @@ class AsyncOrganizationsClient:
         self._enabled_connections: typing.Optional[AsyncEnabledConnectionsClient] = None
         self._invitations: typing.Optional[AsyncInvitationsClient] = None
         self._members: typing.Optional[AsyncMembersClient] = None
+        self._organization_template: typing.Optional[AsyncOrganizationTemplateClient] = None
         self._groups: typing.Optional[AsyncGroupsClient] = None
         self._roles: typing.Optional[AsyncRolesClient] = None
 
@@ -904,6 +915,14 @@ class AsyncOrganizationsClient:
 
             self._members = AsyncMembersClient(client_wrapper=self._client_wrapper)
         return self._members
+
+    @property
+    def organization_template(self):
+        if self._organization_template is None:
+            from .organization_template.client import AsyncOrganizationTemplateClient  # noqa: E402
+
+            self._organization_template = AsyncOrganizationTemplateClient(client_wrapper=self._client_wrapper)
+        return self._organization_template
 
     @property
     def groups(self):

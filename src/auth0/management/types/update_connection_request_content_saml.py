@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_common import ConnectionCommon
+from .connection_cross_app_access_resource_app import ConnectionCrossAppAccessResourceApp
 from .connection_options_saml import ConnectionOptionsSaml
 from .connection_show_as_button import ConnectionShowAsButton
 
@@ -15,6 +16,7 @@ class UpdateConnectionRequestContentSaml(ConnectionCommon):
     """
 
     options: typing.Optional[ConnectionOptionsSaml] = None
+    cross_app_access_resource_app: typing.Optional[ConnectionCrossAppAccessResourceApp] = None
     show_as_button: typing.Optional[ConnectionShowAsButton] = None
 
     if IS_PYDANTIC_V2:

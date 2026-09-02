@@ -10,6 +10,7 @@ from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
+from ...errors.bad_request_error import BadRequestError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
@@ -36,6 +37,22 @@ class RawOrganizationsClient:
     ) -> SyncPager[Organization, ListUserOrganizationsOffsetPaginatedResponseContent]:
         """
         Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review [Auth0 Organizations](https://auth0.com/docs/manage-users/organizations).
+
+        This endpoint supports two types of pagination:
+
+        - Offset pagination
+        - Checkpoint pagination
+
+        Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
+
+        **Checkpoint Pagination**
+
+        To search by checkpoint, use the following parameters:
+
+        - `from`: Optional id from which to start selection.
+        - `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
@@ -90,6 +107,17 @@ class RawOrganizationsClient:
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -160,6 +188,22 @@ class AsyncRawOrganizationsClient:
         """
         Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review [Auth0 Organizations](https://auth0.com/docs/manage-users/organizations).
 
+        This endpoint supports two types of pagination:
+
+        - Offset pagination
+        - Checkpoint pagination
+
+        Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
+
+        **Checkpoint Pagination**
+
+        To search by checkpoint, use the following parameters:
+
+        - `from`: Optional id from which to start selection.
+        - `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
+
         Parameters
         ----------
         id : str
@@ -216,6 +260,17 @@ class AsyncRawOrganizationsClient:
                     )
 
                 return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),

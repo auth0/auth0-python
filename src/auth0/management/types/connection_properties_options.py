@@ -11,6 +11,7 @@ from .connection_attributes import ConnectionAttributes
 from .connection_authentication_methods import ConnectionAuthenticationMethods
 from .connection_custom_scripts import ConnectionCustomScripts
 from .connection_dpop_signing_alg_enum import ConnectionDpopSigningAlgEnum
+from .connection_enable_pushed_authorization_requests import ConnectionEnablePushedAuthorizationRequests
 from .connection_gateway_authentication import ConnectionGatewayAuthentication
 from .connection_id_token_session_expiry_supported import ConnectionIdTokenSessionExpirySupported
 from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
@@ -22,6 +23,7 @@ from .connection_password_history_options import ConnectionPasswordHistoryOption
 from .connection_password_no_personal_info_options import ConnectionPasswordNoPersonalInfoOptions
 from .connection_password_options import ConnectionPasswordOptions
 from .connection_password_policy_enum import ConnectionPasswordPolicyEnum
+from .connection_pushed_authorization_request_endpoint import ConnectionPushedAuthorizationRequestEndpoint
 from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
 from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointAuthMethodEnum
 from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
@@ -107,6 +109,8 @@ class ConnectionPropertiesOptions(UniversalBaseModel):
     assertion_decryption_settings: typing.Optional[ConnectionAssertionDecryptionSettings] = None
     id_token_signed_response_algs: typing.Optional[ConnectionIdTokenSignedResponseAlgs] = None
     dpop_signing_alg: typing.Optional[ConnectionDpopSigningAlgEnum] = None
+    enable_pushed_authorization_requests: typing.Optional[ConnectionEnablePushedAuthorizationRequests] = None
+    pushed_authorization_request_endpoint: typing.Optional[ConnectionPushedAuthorizationRequestEndpoint] = None
     token_endpoint_auth_method: typing.Optional[ConnectionTokenEndpointAuthMethodEnum] = None
     token_endpoint_auth_signing_alg: typing.Optional[ConnectionTokenEndpointAuthSigningAlgEnum] = None
     token_endpoint_jwtca_aud_format: typing.Optional[ConnectionTokenEndpointJwtcaAudFormatEnumOidc] = None

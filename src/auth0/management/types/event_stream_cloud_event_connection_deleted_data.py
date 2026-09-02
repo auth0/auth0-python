@@ -5,6 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .event_stream_cloud_event_connection_deleted_object import EventStreamCloudEventConnectionDeletedObject
+from .event_stream_cloud_event_connection_deleted_previous_object import (
+    EventStreamCloudEventConnectionDeletedPreviousObject,
+)
 from .event_stream_cloud_event_context import EventStreamCloudEventContext
 
 
@@ -14,6 +17,7 @@ class EventStreamCloudEventConnectionDeletedData(UniversalBaseModel):
     """
 
     object: EventStreamCloudEventConnectionDeletedObject
+    previous_object: typing.Optional[EventStreamCloudEventConnectionDeletedPreviousObject] = None
     context: typing.Optional[EventStreamCloudEventContext] = None
 
     if IS_PYDANTIC_V2:

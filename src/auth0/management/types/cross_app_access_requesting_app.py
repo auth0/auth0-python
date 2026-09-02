@@ -13,7 +13,7 @@ class CrossAppAccessRequestingApp(UniversalBaseModel):
 
     active: bool = pydantic.Field()
     """
-    Set to `true` to enable the connection as a Requesting Application for Cross App Access.
+    Set to `true` to enable the connection as a Requesting Application for Cross App Access. On `oidc` connections this requires `options.type` to be `back_channel`. Setting `false` is always accepted, so the role can be turned off even if the tenant or connection no longer supports it.
     """
 
     if IS_PYDANTIC_V2:

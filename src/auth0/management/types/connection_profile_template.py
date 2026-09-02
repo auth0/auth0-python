@@ -9,6 +9,7 @@ from .connection_profile_config import ConnectionProfileConfig
 from .connection_profile_enabled_features import ConnectionProfileEnabledFeatures
 from .connection_profile_name import ConnectionProfileName
 from .connection_profile_organization import ConnectionProfileOrganization
+from .connection_profile_provisioning import ConnectionProfileProvisioning
 from .connection_profile_strategy_overrides import ConnectionProfileStrategyOverrides
 
 
@@ -23,6 +24,7 @@ class ConnectionProfileTemplate(UniversalBaseModel):
     enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = None
     connection_config: typing.Optional[ConnectionProfileConfig] = None
     strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = None
+    provisioning: typing.Optional[ConnectionProfileProvisioning] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

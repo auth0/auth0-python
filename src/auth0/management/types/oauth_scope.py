@@ -248,8 +248,12 @@ OauthScope = typing.Union[
         "read:organization_clients",
         "update:organization_clients",
         "delete:organization_clients",
+        "create:organization_templates",
+        "read:organization_templates",
+        "update:organization_templates",
         "create:network_acl_keys",
         "read:network_acl_keys",
+        "delete:network_acl_keys",
     ],
     typing.Any,
 ]

@@ -2482,6 +2482,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**b_2_b_integration_configuration:** `typing.Optional[B2BIntegrationConfiguration]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **my_organization_configuration:** `typing.Optional[ClientMyOrganizationPostConfiguration]` 
     
 </dd>
@@ -3346,6 +3354,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**b_2_b_integration_configuration:** `typing.Optional[B2BIntegrationConfiguration]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **my_organization_configuration:** `typing.Optional[ClientMyOrganizationPatchConfiguration]` 
     
 </dd>
@@ -3644,6 +3660,14 @@ client.connection_profiles.create(
 <dd>
 
 **strategy_overrides:** `typing.Optional[ConnectionProfileStrategyOverrides]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provisioning:** `typing.Optional[ConnectionProfileProvisioning]` 
     
 </dd>
 </dl>
@@ -4055,6 +4079,14 @@ client.connection_profiles.update(
 <dd>
 
 **strategy_overrides:** `typing.Optional[ConnectionProfileStrategyOverrides]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provisioning:** `typing.Optional[ConnectionProfileProvisioning]` 
     
 </dd>
 </dl>
@@ -10556,6 +10588,602 @@ client.network_acls.update(
 <dd>
 
 **rule:** `typing.Optional[NetworkAclRule]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## OrganizationTemplates
+<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">list</a>(...) -> ListOrganizationTemplatesPaginatedResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of Organization Templates. This endpoint supports Checkpoint pagination. Results are returned in a stable order, sorted by their identifier (`id`) in ascending order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organization_templates.list(
+    from_="from",
+    take=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 5. Values greater than 10 are capped at 10.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">create</a>(...) -> OrganizationTemplate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create an Organization Template.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organization_templates.create(
+    name="name",
+    organization_deletion_behavior="allow",
+    enforce_permission_ceiling=True,
+    enforce_self_assignment_restriction=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — The name of the organization template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization_deletion_behavior:** `OrganizationDeletionBehaviorEnum` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enforce_permission_ceiling:** `bool` — Whether to enforce permission ceiling for organizations using this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enforce_self_assignment_restriction:** `bool` — Whether to enforce self-assignment restrictions for organizations using this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_default:** `typing.Optional[bool]` — Whether this is the default template applied to new organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection_deletion_behavior:** `typing.Optional[ConnectionDeletionBehaviorEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection_profile_id:** `typing.Optional[str]` — The connection profile to apply to new connections.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_attribute_profile_id:** `typing.Optional[str]` — The user attribute profile to apply to organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowed_strategies:** `typing.Optional[typing.List[OrganizationTemplateAllowedStrategyEnum]]` — List of allowed connection strategies for this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invitation_landing_client_id:** `typing.Optional[str]` — The client ID for the invitation landing page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**admin_roles_assignment:** `typing.Optional[typing.List[str]]` — Default admin roles to assign to organization creators.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_for_organization_discovery:** `typing.Optional[OrganizationTemplateUseForOrganizationDiscovery]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**role_visibility_policy:** `typing.Optional[OrganizationTemplateRoleVisibilityPolicy]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">get</a>(...) -> OrganizationTemplate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details about a single Organization Template specified by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organization_templates.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Organization Template identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">update</a>(...) -> OrganizationTemplate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the details of a specific Organization Template.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organization_templates.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Organization Template identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — The name of the organization template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_default:** `typing.Optional[bool]` — Whether this is the default template applied to new organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization_deletion_behavior:** `typing.Optional[OrganizationDeletionBehaviorEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection_deletion_behavior:** `typing.Optional[ConnectionDeletionBehaviorEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enforce_permission_ceiling:** `typing.Optional[bool]` — Whether to enforce permission ceiling for organizations using this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enforce_self_assignment_restriction:** `typing.Optional[bool]` — Whether to enforce self-assignment restrictions for organizations using this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connection_profile_id:** `typing.Optional[str]` — The connection profile to apply to new connections.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_attribute_profile_id:** `typing.Optional[str]` — The user attribute profile to apply to organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowed_strategies:** `typing.Optional[typing.List[OrganizationTemplateAllowedStrategyEnum]]` — List of allowed connection strategies for this template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invitation_landing_client_id:** `typing.Optional[str]` — The client ID for the invitation landing page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**admin_roles_assignment:** `typing.Optional[typing.List[str]]` — Default admin roles to assign to organization creators.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_for_organization_discovery:** `typing.Optional[OrganizationTemplateUseForOrganizationDiscovery]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**role_visibility_policy:** `typing.Optional[OrganizationTemplateRoleVisibilityPolicy]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">list_organizations</a>(...) -> ListTemplateOrganizationsPaginatedResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of organizations assigned to an Organization Template. This endpoint supports Checkpoint pagination. Results are returned in a stable order, sorted by their identifier (`id`) in ascending order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organization_templates.list_organizations(
+    id="id",
+    from_="from",
+    take=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the organization template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 5. Values greater than 10 are capped at 10.
     
 </dd>
 </dl>
@@ -31021,6 +31649,79 @@ client.keys.network_acls.get(
 </dl>
 </details>
 
+<details><summary><code>client.keys.network_acls.<a href="src/auth0.management/keys/network_acls/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a key used to verify HTTP Message Signatures on Network ACL rules
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.keys.network_acls.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the Network ACL Key to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Keys Signing
 <details><summary><code>client.keys.signing.<a href="src/auth0.management/keys/signing/client.py">list</a>() -> typing.List[SigningKeys]</code></summary>
 <dl>
@@ -34173,6 +34874,244 @@ client.organizations.members.delete(
 <dd>
 
 **members:** `typing.List[str]` — List of user IDs to remove from the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Organizations OrganizationTemplate
+<details><summary><code>client.organizations.organization_template.<a href="src/auth0.management/organizations/organization_template/client.py">get</a>(...) -> OrganizationTemplate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the organization template assigned to a specific organization. Returns the template object if one is explicitly assigned, or a 404 if no template is assigned.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.organization_template.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.organization_template.<a href="src/auth0.management/organizations/organization_template/client.py">assign_organization_template</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Assign an Organization Template to an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.organization_template.assign_organization_template(
+    id="id",
+    template_id="template_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_id:** `str` — The ID of the organization template to assign.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.organization_template.<a href="src/auth0.management/organizations/organization_template/client.py">unassign_organization_template</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove an Organization Template assignment from an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.organization_template.unassign_organization_template(
+    id="id",
+    template_id="template_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_id:** `str` — The ID of the organization template to unassign.
     
 </dd>
 </dl>
@@ -39788,6 +40727,22 @@ client.users.multifactor.delete_provider(
 <dd>
 
 Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review [Auth0 Organizations](https://auth0.com/docs/manage-users/organizations).
+
+This endpoint supports two types of pagination:
+
+- Offset pagination
+- Checkpoint pagination
+
+Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
+
+**Checkpoint Pagination**
+
+To search by checkpoint, use the following parameters:
+
+- `from`: Optional id from which to start selection.
+- `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+**Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 </dd>
 </dl>
 </dd>

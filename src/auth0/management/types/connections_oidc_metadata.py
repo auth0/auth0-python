@@ -191,6 +191,16 @@ class ConnectionsOidcMetadata(UniversalBaseModel):
     URL of the identity provider's logout/end session endpoint. When configured as a static URL, users are redirected here after logging out from Auth0. Must use HTTPS scheme.
     """
 
+    pushed_authorization_request_endpoint: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    URL of the identity provider's Pushed Authorization Request (PAR) endpoint, as per https://datatracker.ietf.org/doc/html/rfc9126. Must use HTTPS scheme.
+    """
+
+    require_pushed_authorization_requests: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Boolean parameter indicating whether the identity provider requires Pushed Authorization Requests (PAR), as per https://datatracker.ietf.org/doc/html/rfc9126. Discovered from the identity provider's metadata; not used to decide whether the server performs PAR.
+    """
+
     dpop_signing_alg_values_supported: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     JSON array containing a list of the JWS signing algorithms (alg values) supported for DPoP proof JWT signing.

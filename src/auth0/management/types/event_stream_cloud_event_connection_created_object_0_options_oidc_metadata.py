@@ -41,6 +41,11 @@ class EventStreamCloudEventConnectionCreatedObject0OptionsOidcMetadata(Universal
     JSON array containing a list of the Claim Names of the Claims that the OpenID Provider MAY be able to supply values for. Note that for privacy or other reasons, this might not be an exhaustive list.
     """
 
+    code_challenge_methods_supported: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    JSON array containing a list of Proof Key for Code Exchange (PKCE) code challenge methods supported by this OP (e.g., S256, plain), as defined in RFC 7636.
+    """
+
     display_values_supported: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     JSON array containing a list of the JWS signing algorithms (alg values) supported by the Token Endpoint for the signature on the JWT [JWT] used to authenticate the Client at the Token Endpoint for the private_key_jwt and client_secret_jwt authentication methods. Servers SHOULD support RS256. The value none MUST NOT be used.

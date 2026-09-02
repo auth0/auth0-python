@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .b_2_b_integration_configuration import B2BIntegrationConfiguration
 from .client_addons import ClientAddons
 from .client_app_type_enum import ClientAppTypeEnum
 from .client_async_approval_notifications_channels_api_post_configuration import (
@@ -231,6 +232,11 @@ class CreateClientResponseContent(UniversalBaseModel):
 
     token_quota: typing.Optional[TokenQuota] = None
     express_configuration: typing.Optional[ExpressConfiguration] = None
+    b_2_b_integration_configuration: typing_extensions.Annotated[
+        typing.Optional[B2BIntegrationConfiguration],
+        FieldMetadata(alias="b2b_integration_configuration"),
+        pydantic.Field(alias="b2b_integration_configuration"),
+    ] = None
     my_organization_configuration: typing.Optional[ClientMyOrganizationResponseConfiguration] = None
     identity_assertion_authorization_grant: typing.Optional[IdentityAssertionAuthorizationGrant] = None
     third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = None

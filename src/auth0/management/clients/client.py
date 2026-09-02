@@ -7,6 +7,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
+from ..types.b_2_b_integration_configuration import B2BIntegrationConfiguration
 from ..types.client import Client
 from ..types.client_addons import ClientAddons
 from ..types.client_app_type_enum import ClientAppTypeEnum
@@ -268,6 +269,7 @@ class ClientsClient:
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
@@ -431,6 +433,8 @@ class ClientsClient:
 
         express_configuration : typing.Optional[ExpressConfiguration]
 
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
+
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
@@ -509,6 +513,7 @@ class ClientsClient:
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
             express_configuration=express_configuration,
+            b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             request_options=request_options,
@@ -756,6 +761,7 @@ class ClientsClient:
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
@@ -917,6 +923,8 @@ class ClientsClient:
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
 
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
+
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
@@ -998,6 +1006,7 @@ class ClientsClient:
             token_exchange=token_exchange,
             par_request_expiry=par_request_expiry,
             express_configuration=express_configuration,
+            b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
@@ -1265,6 +1274,7 @@ class AsyncClientsClient:
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
@@ -1428,6 +1438,8 @@ class AsyncClientsClient:
 
         express_configuration : typing.Optional[ExpressConfiguration]
 
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
+
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
@@ -1514,6 +1526,7 @@ class AsyncClientsClient:
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
             express_configuration=express_configuration,
+            b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             request_options=request_options,
@@ -1793,6 +1806,7 @@ class AsyncClientsClient:
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
@@ -1954,6 +1968,8 @@ class AsyncClientsClient:
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
 
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
+
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
@@ -2043,6 +2059,7 @@ class AsyncClientsClient:
             token_exchange=token_exchange,
             par_request_expiry=par_request_expiry,
             express_configuration=express_configuration,
+            b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
