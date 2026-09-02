@@ -1,5 +1,17 @@
 # Change Log
 
+## [6.4.0](https://github.com/auth0/auth0-python/tree/6.4.0) (2026-09-02)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.3.0...6.4.0)
+
+⚠️ **Breaking Changes**
+- Client `app_type` `b2b_integration` removed (configure via `b2b_integration_configuration` instead); `EventStreamCloudEventContextTenant.tenant_id` renamed to `id` [\#888](https://github.com/auth0/auth0-python/pull/888) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Added**
+- Organization templates client, client B2B integration configuration, network ACL HTTP message signatures and key deletion, connection profile SCIM provisioning, OIDC/Okta pushed authorization request support, SAML `discovery_url`/`oidc_metadata`/`cross_app_access_resource_app` options, tenant `local_resource_discovery` flag, forms `server_key`, `post-credential-validation` action trigger and `consent-tenant-scopes` screen group, and `UnprocessableEntityError` for HTTP 422 [\#888](https://github.com/auth0/auth0-python/pull/888) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Fixed**
+- Raw `management.connections` client now surfaces 422 errors; raw `management.connections.scim_configuration` now surfaces 409 errors; `management.users.organizations.list` docstring updated for checkpoint pagination [\#888](https://github.com/auth0/auth0-python/pull/888) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.3.0](https://github.com/auth0/auth0-python/tree/6.3.0) (2026-08-19)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.2.0...6.3.0)
 
