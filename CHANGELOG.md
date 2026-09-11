@@ -3,7 +3,7 @@
 ## [6.5.0](https://github.com/auth0/auth0-python/tree/6.5.0) (2026-09-11)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.4.0...6.5.0)
 
-**Breaking Changes**
+⚠️ **Breaking Changes**
 - `management.organization_templates` client removed along with `ListOrganizationTemplatesPaginatedResponseContent` and `OrganizationTemplateAssignedOrganization`; four connection providers dropped the `-mcp` suffix (`asana-mcp` becomes `asana`, `atlassian-mcp` becomes `atlassian`, `gitlab-mcp` becomes `gitlab`, `slack-mcp` becomes `slack`) and nine values removed entirely (`docusign-mcp`, `figma-mcp`, `gusto-mcp`, `heroku-mcp`, `intercom-mcp`, `pagerduty-mcp`, `supabase-mcp`, `vercel-mcp`, `xero-mcp`) [\#890](https://github.com/auth0/auth0-python/pull/890) ([fern-api[bot]](https://github.com/apps/fern-api))
 
 **Added**
