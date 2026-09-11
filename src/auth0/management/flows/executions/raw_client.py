@@ -6,13 +6,14 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
 from ...errors.forbidden_error import ForbiddenError
+from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.flow_execution_summary import FlowExecutionSummary
@@ -30,6 +31,7 @@ class RawExecutionsClient:
         self,
         flow_id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -39,6 +41,9 @@ class RawExecutionsClient:
         ----------
         flow_id : str
             Flow id
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -55,9 +60,10 @@ class RawExecutionsClient:
             Flow executions successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"flows/{encode_path_param(flow_id)}/executions",
+            f"flows/{quote_path_param(flow_id)}/executions",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
             },
@@ -77,6 +83,7 @@ class RawExecutionsClient:
                 _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
                     flow_id,
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     request_options=request_options,
@@ -106,6 +113,17 @@ class RawExecutionsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -169,7 +187,7 @@ class RawExecutionsClient:
             Flow execution successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"flows/{encode_path_param(flow_id)}/executions/{encode_path_param(execution_id)}",
+            f"flows/{quote_path_param(flow_id)}/executions/{quote_path_param(execution_id)}",
             method="GET",
             params={
                 "hydrate": hydrate,
@@ -219,6 +237,17 @@ class RawExecutionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -259,7 +288,7 @@ class RawExecutionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"flows/{encode_path_param(flow_id)}/executions/{encode_path_param(execution_id)}",
+            f"flows/{quote_path_param(flow_id)}/executions/{quote_path_param(execution_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -328,6 +357,7 @@ class AsyncRawExecutionsClient:
         self,
         flow_id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -337,6 +367,9 @@ class AsyncRawExecutionsClient:
         ----------
         flow_id : str
             Flow id
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -353,9 +386,10 @@ class AsyncRawExecutionsClient:
             Flow executions successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"flows/{encode_path_param(flow_id)}/executions",
+            f"flows/{quote_path_param(flow_id)}/executions",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
             },
@@ -377,6 +411,7 @@ class AsyncRawExecutionsClient:
                 async def _get_next():
                     return await self.list(
                         flow_id,
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         request_options=request_options,
@@ -407,6 +442,17 @@ class AsyncRawExecutionsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -470,7 +516,7 @@ class AsyncRawExecutionsClient:
             Flow execution successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"flows/{encode_path_param(flow_id)}/executions/{encode_path_param(execution_id)}",
+            f"flows/{quote_path_param(flow_id)}/executions/{quote_path_param(execution_id)}",
             method="GET",
             params={
                 "hydrate": hydrate,
@@ -520,6 +566,17 @@ class AsyncRawExecutionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -560,7 +617,7 @@ class AsyncRawExecutionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"flows/{encode_path_param(flow_id)}/executions/{encode_path_param(execution_id)}",
+            f"flows/{quote_path_param(flow_id)}/executions/{quote_path_param(execution_id)}",
             method="DELETE",
             request_options=request_options,
         )

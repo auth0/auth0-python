@@ -1,5 +1,153 @@
 # Change Log
 
+## [6.4.0](https://github.com/auth0/auth0-python/tree/6.4.0) (2026-09-02)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.3.0...6.4.0)
+
+⚠️ **Breaking Changes**
+- Client `app_type` `b2b_integration` removed (configure via `b2b_integration_configuration` instead); `EventStreamCloudEventContextTenant.tenant_id` renamed to `id` [\#888](https://github.com/auth0/auth0-python/pull/888) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Added**
+- Organization templates client, client B2B integration configuration, network ACL HTTP message signatures and key deletion, connection profile SCIM provisioning, OIDC/Okta pushed authorization request support, SAML `discovery_url`/`oidc_metadata`/`cross_app_access_resource_app` options, tenant `local_resource_discovery` flag, forms `server_key`, `post-credential-validation` action trigger and `consent-tenant-scopes` screen group, and `UnprocessableEntityError` for HTTP 422 [\#888](https://github.com/auth0/auth0-python/pull/888) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Fixed**
+- Raw `management.connections` client now surfaces 422 errors; raw `management.connections.scim_configuration` now surfaces 409 errors; `management.users.organizations.list` docstring updated for checkpoint pagination [\#888](https://github.com/auth0/auth0-python/pull/888) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+## [6.3.0](https://github.com/auth0/auth0-python/tree/6.3.0) (2026-08-19)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.2.0...6.3.0)
+
+**Added**
+- feat: Add My Organization client access control, Connection Profile Cross-App Access support, Network ACL keys management, and OIDC space-delimited scope support [\#886](https://github.com/auth0/auth0-python/pull/886) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Fixed**
+- fix: Raw clients for forms and flows now surface additional error responses instead of failing unhandled, corrected a docstring field name [\#886](https://github.com/auth0/auth0-python/pull/886) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+## [6.2.0](https://github.com/auth0/auth0-python/tree/6.2.0) (2026-08-05)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.1.0...6.2.0)
+
+**Added**
+- feat: Add agents management, organization-client associations, organization-level roles (groups/members), network ACL keys, and directory provisioning group sync selections [\#881](https://github.com/auth0/auth0-python/pull/881) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Fixed**
+- fix: `EventStreamCloudEvent.data` now deserializes as its actual object shape (`Dict[str, Any]`) instead of an opaque JSON-encoded string that callers had to `json.loads()` themselves. [\#881](https://github.com/auth0/auth0-python/pull/881) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+## [6.1.0](https://github.com/auth0/auth0-python/tree/6.1.0) (2026-07-22)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.0.0...6.1.0)
+
+**Added**
+- feat: Cross App Access (ID-JAG), branding theme identifiers, Self-Service Enterprise Configuration third-party client access, session actor [\#877](https://github.com/auth0/auth0-python/pull/877) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+
+## [6.0.0](https://github.com/auth0/auth0-python/tree/6.0.0) (2026-07-15)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.8.0...6.0.0)
+
+### ⚠️ Breaking Changes
+
+- `ConnectionAttributeIdentifier` removed (no compatibility alias); split into three types. The `identifier` field on each attribute now points to its own type:
+  - `EmailAttribute.identifier`: `EmailAttributeIdentifier` — `{active?, default_method?: DefaultMethodEmailIdentifierEnum}` (same shape as the old type; use this as the drop-in replacement).
+  - `PhoneAttribute.identifier`: `PhoneAttributeIdentifier` — `{active?, default_method?: DefaultMethodPhoneNumberIdentifierEnum}`.
+  - `UsernameAttribute.identifier`: `UsernameAttributeIdentifier` — `{active?}` (no `default_method`).
+- `PhoneProviderProtectionBackoffStrategyEnum`: `Literal["exponential", "none"]` → `Literal["exponential", "default"]`. Replace the value `"none"` with `"default"`.
+- `ListRolesOffsetPaginatedResponseContent.start` / `.limit` / `.total`: `Optional[float] = None` → required `float`. Deserializing a role-list response missing any of these now raises `pydantic.ValidationError`.
+- **Federated Connections Tokensets removed** — the `users.federated_connections_tokensets` client and its `list`/`delete` methods are removed, along with the `FederatedConnectionTokenSet` and `ConnectionFederatedConnectionsAccessTokens` types.
+- **`federated_connections_access_tokens` field removed** — this optional field is no longer present on `ConnectionOptionsAzureAd`, `ConnectionOptionsCommonOidc`, `ConnectionOptionsGoogleApps`, `ConnectionPropertiesOptions`, and `UpdateConnectionOptions`.
+- **OAuth scopes removed** — `read:federated_connections_tokens` and `delete:federated_connections_tokens` are no longer valid values of `OauthScope`.
+- **`ClientSessionTransferDelegationDeviceBindingEnum` narrowed** — the `"asn"` value is removed; the enum now only accepts `"ip"`.
+
+### New Endpoints
+
+- `organizations.roles.members.list(id=..., role_id=...)` (sync + async) → `GET /api/v2/organizations/{id}/roles/{role_id}/members`. New sub-clients `organizations.roles` and `organizations.roles.members`; response type `ListOrganizationRoleMembersResponseContent`, item type `RoleMember`.
+
+### Type Changes/Features
+
+- Organizations: `third_party_client_access: Optional[OrganizationThirdPartyClientAccessEnum]` (`Literal["block", "allow"]`) on `create()`/`update()` and all organization response types.
+- Organizations: new types `ListOrganizationRoleMembersResponseContent` and `RoleMember` (returned by the role-members endpoint above).
+- Grants: new `UserGrant.organization_id: Optional[str]` (read-only), via `GET /grants`.
+- Connections: `discovery_url` / `oidc_metadata` extended to `samlp` connections (previously OIDC-only), via new `ConnectionsDiscoveryUrl` / `ConnectionsOidcMetadata` on `ConnectionPropertiesOptions` and `UpdateConnectionOptions`.
+- Event Streams: new event-type values `connection.created`, `connection.deleted`, `connection.updated` on `EventStreamEventTypeEnum`, `EventStreamDeliveryEventTypeEnum`, `EventStreamSubscribeEventsEventTypeEnum`, `EventStreamTestEventTypeEnum`; new `EventStreamCloudEventConnection{Created,Deleted,Updated}*` payload types; new `EventStreamSubscribeEventsResponseContent`.
+- Token Vault: new `grants: Optional[List[TokenVaultPrivilegedAccessGrant]]` on the privileged-access credential/public-key types. `TokenVaultPrivilegedAccessGrant`: `{connection: str, scopes: List[str]}`.
+- New error body types: `NotFoundErrorBody`/`NotFoundErrorBodyError`, `TooManyRequestsErrorBody`/`TooManyRequestsErrorBodyError`.
+- CloudEvent `specversion`: `str` → `EventStreamCloudEventSpecVersionEnum` (`Literal["1.0"]` + `Any` fallback) across group/org/user CloudEvent types.
+- **`NetworkAclMatch`** — new optional `auth0_managed: Optional[List[str]]` field (serialized as `auth0_managed`), available on both the `match` and `not_match` rule blocks. This lets network ACL rules reference Auth0-managed lists when matching or excluding traffic.
+
+## [5.8.0](https://github.com/auth0/auth0-python/tree/5.8.0) (2026-06-29)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.7.0...5.8.0)
+
+### ⚠️ Breaking Changes
+
+- **`clients.update()` social/FedCM request types changed** — `native_social_login` and `fedcm_login` on `clients.update()` (`PATCH /api/v2/clients/{id}`) changed from `NativeSocialLogin` / `FedCmLogin` to `NativeSocialLoginPatch` / `FedCmLoginPatch`. `clients.create()` still uses the non-patch types, so create and update now require different types for the same logical field. Code passing the old types to `update()` must switch to the `*Patch` variants.
+- **`UserDateSchema` removed — user date fields now `datetime`** — the `UserDateSchema` type (`Union[str, Dict[str, Any]]`) is deleted and no longer exported from `auth0.management.types`. `created_at`, `updated_at`, `last_login`, `last_password_reset`, and `multifactor_last_modified` on `GetUserResponseContent`, `CreateUserResponseContent`, `UpdateUserResponseContent`, and `UserResponseSchema` are now `Optional[datetime.datetime]`. Code that read these as strings/dicts must update.
+
+### Type Changes
+
+- **Clients — FedCM / Google One Tap** — new `fedcm_login` (read: `FedCmLogin`/`FedCmLoginGoogle`; write: `FedCmLoginPatch`/`FedCmLoginGooglePatch`) on create/update/response, gating the Google One Tap prompt in New Universal Login via `fedcm_login.google.is_enabled`.
+- **Clients — Native Social Login patch types** — new `NativeSocialLoginPatch` wrapping `apple`/`facebook`/`google` patch variants (each `enabled: Optional[bool]`) for `clients.update()`.
+- **Clients — Token Vault Privileged Access** — new `token_vault_privileged_access` field on create/update/response, typed `ClientTokenVaultPrivilegedAccessWithPublicKey` (create) and `ClientTokenVaultPrivilegedAccessWithCredentialId` (update), each with `credentials` + `ip_allowlist`.
+- **Connections — Cross App Access** — new `cross_app_access_requesting_app` field (`CrossAppAccessRequestingApp{active: bool}`) on `connections.create()`/`update()`, OIDC/Okta request types, and all connection response types.
+- **Identity `user_id` widened to `Union[str, int]`** — on `UserIdentitySchema`, `UserIdentity`, and `DeleteUserIdentityResponseContentItem`, fixing Pydantic errors on numeric (e.g. GitHub) identity IDs.
+- **Email templates** — new `auth_email_by_code` value in `EmailTemplateNameEnum`.
+- **Attack Protection — Phone Provider Protection** — new `attack_protection.phone_provider_protection` sub-client with `get()` / `patch(type=...)` (`GET`/`PATCH /attack-protection/phone-provider-protection`); new `PhoneProviderProtectionBackoffStrategyEnum` (`exponential`/`none`) and response types.
+
+### Bug Fixes
+
+- **404 handling added across multiple raw clients** — `keys.signing`, `organizations` (connections, enabled connections, members, member roles), `roles.permissions`, `self_service_profiles.sso_ticket`, `user_attribute_profiles`, and `users` (connected accounts, organizations, permissions, roles) now raise a typed `NotFoundError` on 404 instead of an unhandled parse error.
+- add `"CustomDomainHeader"` to `__all__`.
+- change `CustomDomainHeader` return type annotation from `Dict[str, Any]` to `RequestOptions`.
+
+
+## [5.7.0](https://github.com/auth0/auth0-python/tree/5.7.0) (2026-06-10)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.6.0...5.7.0)
+
+⚠️ **Breaking Changes**
+- `identifiers` parameter removed from `branding.update()`; `identifiers` field removed from `GetBrandingResponseContent` and `UpdateBrandingResponseContent`. The following types are no longer exported from auth0.management.types: `BrandingIdentifiers`, `UpdateBrandingIdentifiers`, `BrandingPhoneDisplay`, `UpdateBrandingPhoneDisplay`, `BrandingLoginDisplayEnum`, `BrandingPhoneFormattingEnum`, `BrandingPhoneMaskingEnum`, `UpdateBrandingLoginDisplayEnum`, `UpdateBrandingPhoneFormattingEnum`, `UpdateBrandingPhoneMaskingEnum`. These settings now live exclusively on the theme resource (`PATCH /api/v2/branding/themes/{id}`) [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- `id` was a required `str` on `PhoneTemplate`, `GetPhoneTemplateResponseContent`, `CreatePhoneTemplateResponseContent`, `UpdatePhoneTemplateResponseContent`, and `ResetPhoneTemplateResponseContent`. It is now `Optional[str]`. Code that accesses `.id` without a `None` check will require updating [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Added**
+- feat: `security_headers` (`TenantSettingsNullableSecurityHeaders`, CSP + XSS protection config), `country_codes` (`TenantSettingsCountryCodesResponse`, phone identifier allow/deny list), and `include_session_metadata_in_tenant_logs` (`bool`) added to `GetTenantSettingsResponseContent` and `UpdateTenantSettingsResponseContent` [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: `id_token_session_expiry_supported` (`ConnectionIdTokenSessionExpirySupported`) added to `ConnectionOptionsCommonOidc` and `UpdateConnectionOptions` [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: new `invitation_landing_client_id` Optional field added to `ClientMyOrganizationPostConfiguration`, `ClientMyOrganizationPatchConfiguration`, and `ClientMyOrganizationResponseConfiguration` - available on `POST /clients`, `PATCH /clients/{id}`, `GET /clients`, and `GET /clients/{id}` [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Fixed**
+- fix: `GET /client-grants/{id}/organizations` — added `404` handling; raises `NotFoundError` when the grant does not exist (was previously an unhandled parse error) [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+- fix: `PATCH /token-exchange-profiles/{id}` — added `409` handling; raises `ConflictError` when a profile with the same `subject_token_type` already exists (was previously an unhandled parse error) [\#860](https://github.com/auth0/auth0-python/pull/860) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+
+## [5.6.0](https://github.com/auth0/auth0-python/tree/5.6.0) (2026-05-28)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.5.0...5.6.0)
+
+**Added**
+- feat: rate_limit_policies client with full CRUD: list, create, get, update, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Response Types: RateLimitPolicyConfigurationZero (allow), RateLimitPolicyConfigurationOne (block/log + limit), RateLimitPolicyConfigurationAction (redirect + limit + redirect_uri), RateLimitPolicy [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: OAuth scopes: create:rate_limit_policies, read:rate_limit_policies, update:rate_limit_policies, delete:rate_limit_policies [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for groups.roles — list, create, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for roles.groups — get, create, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for users.effective_roles / users.effective_roles.sources.groups  [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for users.effective_permissions / users.effective_permissions.sources.roles  [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for organizations.groups — list [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for organizations.groups.roles — list, create, delete [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Support for organizations.members.effective_roles / organizations.members.effective_roles.sources.groups [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: Types for SCIM Groups: effective role/permission response types, org-member effective role types, paginated list wrappers, source enum discriminators [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: OAuth scopes: create/read/delete:group_roles, read:organization_groups, create/read/delete:organization_group_roles, read:organization_member_effective_roles, read:organization_member_role_source_groups, read:user_effective_roles, read:user_role_source_groups, read:user_effective_permissions, read:user_permission_source_roles [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Changed**
+* ConnectionPropertiesOptions — dpop_signing_alg field added (write path for POST /api/v2/connections) [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+* UpdateConnectionOptions — dpop_signing_alg field added (write path for PATCH /api/v2/connections/{id}) [\#853](https://github.com/auth0/auth0-python/pull/853) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+## [5.5.0](https://github.com/auth0/auth0-python/tree/5.5.0) (2026-05-20)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/5.4.0...5.5.0)
+
+**⚠️ Breaking: Python 3.9 support dropped**
+- Python 3.9 reached end-of-life in October 2025. This release requires **Python >=3.10**. Users on Python 3.9 should remain on v5.4.0 until they upgrade their Python version. [\#843](https://github.com/auth0/auth0-python/pull/843) ([developerkunal](https://github.com/developerkunal))
+
+**Added**
+- feat: configurable max_retries parameter to Auth0 and AsyncAuth0 clients (defaults to 2 with exponential backoff) [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: New error types: BadRequestSchema, ForbiddenSchema, UnauthorizedSchema, TooManyRequestsSchema [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+- feat: New types: FedCmLogin, FedCmLoginGoogle, CredentialDeviceTypeEnum [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Extended user_authentication_method and resource_server response types with additional fields [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Expanded clients, refresh_tokens, resource_servers, tickets, and users/authentication_methods endpoint parameters
+
+**Changed**
+- Updated connection types with additional validation fields [\#841](https://github.com/auth0/auth0-python/pull/841) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [5.4.0](https://github.com/auth0/auth0-python/tree/5.4.0) (2026-05-04)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/5.3.0...5.4.0)
 

@@ -17,7 +17,6 @@ from .connection_ext_agreed_terms_google_apps import ConnectionExtAgreedTermsGoo
 from .connection_ext_groups_google_apps import ConnectionExtGroupsGoogleApps
 from .connection_ext_is_admin_google_apps import ConnectionExtIsAdminGoogleApps
 from .connection_ext_is_suspended_google_apps import ConnectionExtIsSuspendedGoogleApps
-from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
 from .connection_handle_login_from_social_google_apps import ConnectionHandleLoginFromSocialGoogleApps
 from .connection_icon_url_google_apps import ConnectionIconUrlGoogleApps
 from .connection_options_common import ConnectionOptionsCommon
@@ -60,7 +59,6 @@ class ConnectionOptionsGoogleApps(ConnectionOptionsCommon):
 
     ext_is_admin: typing.Optional[ConnectionExtIsAdminGoogleApps] = None
     ext_is_suspended: typing.Optional[ConnectionExtIsSuspendedGoogleApps] = None
-    federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
     handle_login_from_social: typing.Optional[ConnectionHandleLoginFromSocialGoogleApps] = None
     icon_url: typing.Optional[ConnectionIconUrlGoogleApps] = None
     map_user_id_to_id: typing.Optional[bool] = pydantic.Field(default=None)

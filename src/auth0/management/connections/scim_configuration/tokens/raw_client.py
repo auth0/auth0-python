@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
@@ -29,7 +29,7 @@ class RawTokensClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetScimTokensResponseContent]:
         """
-        Retrieves all scim tokens by its connection <code>id</code>.
+        Retrieves all scim tokens by its connection `id`.
 
         Parameters
         ----------
@@ -45,7 +45,7 @@ class RawTokensClient:
             The connection's SCIM tokens were retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration/tokens",
+            f"connections/{quote_path_param(id)}/scim-configuration/tokens",
             method="GET",
             request_options=request_options,
         )
@@ -121,7 +121,7 @@ class RawTokensClient:
             The connection's SCIM token was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration/tokens",
+            f"connections/{quote_path_param(id)}/scim-configuration/tokens",
             method="POST",
             json={
                 "scopes": scopes,
@@ -189,7 +189,7 @@ class RawTokensClient:
         self, id: str, token_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
+        Deletes a scim token by its connection `id` and `tokenId`.
 
         Parameters
         ----------
@@ -207,7 +207,7 @@ class RawTokensClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration/tokens/{encode_path_param(token_id)}",
+            f"connections/{quote_path_param(id)}/scim-configuration/tokens/{quote_path_param(token_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -254,7 +254,7 @@ class AsyncRawTokensClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetScimTokensResponseContent]:
         """
-        Retrieves all scim tokens by its connection <code>id</code>.
+        Retrieves all scim tokens by its connection `id`.
 
         Parameters
         ----------
@@ -270,7 +270,7 @@ class AsyncRawTokensClient:
             The connection's SCIM tokens were retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration/tokens",
+            f"connections/{quote_path_param(id)}/scim-configuration/tokens",
             method="GET",
             request_options=request_options,
         )
@@ -346,7 +346,7 @@ class AsyncRawTokensClient:
             The connection's SCIM token was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration/tokens",
+            f"connections/{quote_path_param(id)}/scim-configuration/tokens",
             method="POST",
             json={
                 "scopes": scopes,
@@ -414,7 +414,7 @@ class AsyncRawTokensClient:
         self, id: str, token_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
+        Deletes a scim token by its connection `id` and `tokenId`.
 
         Parameters
         ----------
@@ -432,7 +432,7 @@ class AsyncRawTokensClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration/tokens/{encode_path_param(token_id)}",
+            f"connections/{quote_path_param(id)}/scim-configuration/tokens/{quote_path_param(token_id)}",
             method="DELETE",
             request_options=request_options,
         )

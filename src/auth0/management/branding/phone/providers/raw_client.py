@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
@@ -40,7 +40,7 @@ class RawProvidersClient:
         self, *, disabled: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ListBrandingPhoneProvidersResponseContent]:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
+        Retrieve a list of [phone providers](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details set for a Tenant. A list of fields to include or exclude may also be specified.
 
         Parameters
         ----------
@@ -136,8 +136,8 @@ class RawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateBrandingPhoneProviderResponseContent]:
         """
-        Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-        The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+        Create a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+        The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 
         Parameters
         ----------
@@ -255,7 +255,7 @@ class RawProvidersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetBrandingPhoneProviderResponseContent]:
         """
-        Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
+        Retrieve [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details. A list of fields to include or exclude may also be specified.
 
         Parameters
         ----------
@@ -270,7 +270,7 @@ class RawProvidersClient:
             Phone provider successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -364,7 +364,7 @@ class RawProvidersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -435,8 +435,8 @@ class RawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateBrandingPhoneProviderResponseContent]:
         """
-        Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-        The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+        Update a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+        The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 
         Parameters
         ----------
@@ -460,7 +460,7 @@ class RawProvidersClient:
             Phone provider successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -590,7 +590,7 @@ class RawProvidersClient:
             Phone notification sent.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}/try",
+            f"branding/phone/providers/{quote_path_param(id)}/try",
             method="POST",
             json={
                 "to": to,
@@ -696,7 +696,7 @@ class AsyncRawProvidersClient:
         self, *, disabled: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ListBrandingPhoneProvidersResponseContent]:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
+        Retrieve a list of [phone providers](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details set for a Tenant. A list of fields to include or exclude may also be specified.
 
         Parameters
         ----------
@@ -792,8 +792,8 @@ class AsyncRawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateBrandingPhoneProviderResponseContent]:
         """
-        Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-        The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+        Create a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+        The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 
         Parameters
         ----------
@@ -911,7 +911,7 @@ class AsyncRawProvidersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetBrandingPhoneProviderResponseContent]:
         """
-        Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
+        Retrieve [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details. A list of fields to include or exclude may also be specified.
 
         Parameters
         ----------
@@ -926,7 +926,7 @@ class AsyncRawProvidersClient:
             Phone provider successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1022,7 +1022,7 @@ class AsyncRawProvidersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1093,8 +1093,8 @@ class AsyncRawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateBrandingPhoneProviderResponseContent]:
         """
-        Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-        The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+        Update a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+        The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 
         Parameters
         ----------
@@ -1118,7 +1118,7 @@ class AsyncRawProvidersClient:
             Phone provider successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}",
+            f"branding/phone/providers/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -1248,7 +1248,7 @@ class AsyncRawProvidersClient:
             Phone notification sent.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/phone/providers/{encode_path_param(id)}/try",
+            f"branding/phone/providers/{quote_path_param(id)}/try",
             method="POST",
             json={
                 "to": to,

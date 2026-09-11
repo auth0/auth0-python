@@ -2,4 +2,4 @@
 
 import typing
 
-ClientExternalMetadataTypeEnum = typing.Union[typing.Literal["cimd"], typing.Any]
+ClientExternalMetadataTypeEnum = typing.Union[typing.Literal["cimd", "dcr"], typing.Any]

@@ -127,7 +127,7 @@ class RenderingClient:
         self, *, configs: AculConfigs, request_options: typing.Optional[RequestOptions] = None
     ) -> BulkUpdateAculResponseContent:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -215,7 +215,7 @@ class RenderingClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateAculResponseContent:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -388,7 +388,7 @@ class AsyncRenderingClient:
         self, *, configs: AculConfigs, request_options: typing.Optional[RequestOptions] = None
     ) -> BulkUpdateAculResponseContent:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -492,7 +492,7 @@ class AsyncRenderingClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateAculResponseContent:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------

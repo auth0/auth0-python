@@ -18,6 +18,7 @@ ActionTriggerTypeEnum = typing.Union[
         "password-hash-migration",
         "login-post-identifier",
         "signup-post-identifier",
+        "post-credential-validation",
     ],
     typing.Any,
 ]

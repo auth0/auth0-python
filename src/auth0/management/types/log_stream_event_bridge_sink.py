@@ -13,6 +13,10 @@ class LogStreamEventBridgeSink(UniversalBaseModel):
     aws_account_id: typing_extensions.Annotated[
         str, FieldMetadata(alias="awsAccountId"), pydantic.Field(alias="awsAccountId", description="AWS account ID")
     ]
+    """
+    AWS account ID
+    """
+
     aws_region: typing_extensions.Annotated[
         LogStreamEventBridgeSinkRegionEnum, FieldMetadata(alias="awsRegion"), pydantic.Field(alias="awsRegion")
     ]
@@ -21,6 +25,9 @@ class LogStreamEventBridgeSink(UniversalBaseModel):
         FieldMetadata(alias="awsPartnerEventSource"),
         pydantic.Field(alias="awsPartnerEventSource", description="AWS EventBridge partner event source"),
     ] = None
+    """
+    AWS EventBridge partner event source
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

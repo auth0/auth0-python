@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -81,7 +81,7 @@ class RawClientGrantsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/client-grants",
+            f"organizations/{quote_path_param(id)}/client-grants",
             method="GET",
             params={
                 "audience": audience,
@@ -103,7 +103,7 @@ class RawClientGrantsClient:
                     ),
                 )
                 _items = _parsed_response.client_grants
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     audience=audience,
@@ -189,7 +189,7 @@ class RawClientGrantsClient:
             Client Grant successfully associated with Organization.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/client-grants",
+            f"organizations/{quote_path_param(id)}/client-grants",
             method="POST",
             json={
                 "grant_id": grant_id,
@@ -305,7 +305,7 @@ class RawClientGrantsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/client-grants/{encode_path_param(grant_id)}",
+            f"organizations/{quote_path_param(id)}/client-grants/{quote_path_param(grant_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -428,7 +428,7 @@ class AsyncRawClientGrantsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/client-grants",
+            f"organizations/{quote_path_param(id)}/client-grants",
             method="GET",
             params={
                 "audience": audience,
@@ -450,7 +450,7 @@ class AsyncRawClientGrantsClient:
                     ),
                 )
                 _items = _parsed_response.client_grants
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -539,7 +539,7 @@ class AsyncRawClientGrantsClient:
             Client Grant successfully associated with Organization.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/client-grants",
+            f"organizations/{quote_path_param(id)}/client-grants",
             method="POST",
             json={
                 "grant_id": grant_id,
@@ -655,7 +655,7 @@ class AsyncRawClientGrantsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/client-grants/{encode_path_param(grant_id)}",
+            f"organizations/{quote_path_param(id)}/client-grants/{quote_path_param(grant_id)}",
             method="DELETE",
             request_options=request_options,
         )

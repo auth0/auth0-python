@@ -47,6 +47,10 @@ class ConnectionOptionsAd(ConnectionOptionsCommon):
             description="Enables client SSL certificate authentication for the AD connector, requiring HTTPS on the sign-in endpoint",
         ),
     ] = None
+    """
+    Enables client SSL certificate authentication for the AD connector, requiring HTTPS on the sign-in endpoint
+    """
+
     certs: typing.Optional[ConnectionCertsAd] = None
     disable_cache: typing.Optional[bool] = pydantic.Field(default=None)
     """

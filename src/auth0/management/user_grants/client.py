@@ -37,7 +37,7 @@ class UserGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[UserGrant, ListUserGrantsOffsetPaginatedResponseContent]:
         """
-        Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
+        Retrieve the [grants](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) associated with your account.
 
         Parameters
         ----------
@@ -186,7 +186,7 @@ class AsyncUserGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[UserGrant, ListUserGrantsOffsetPaginatedResponseContent]:
         """
-        Retrieve the <a href="https://auth0.com/docs/api-auth/which-oauth-flow-to-use">grants</a> associated with your account.
+        Retrieve the [grants](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) associated with your account.
 
         Parameters
         ----------

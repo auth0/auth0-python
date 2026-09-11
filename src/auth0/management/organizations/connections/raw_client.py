@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -75,7 +75,7 @@ class RawConnectionsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections",
+            f"organizations/{quote_path_param(id)}/connections",
             method="GET",
             params={
                 "page": page,
@@ -95,7 +95,7 @@ class RawConnectionsClient:
                     ),
                 )
                 _items = _parsed_response.connections
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     page=page + 1,
@@ -206,7 +206,7 @@ class RawConnectionsClient:
             Connection successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections",
+            f"organizations/{quote_path_param(id)}/connections",
             method="POST",
             json={
                 "organization_connection_name": organization_connection_name,
@@ -257,6 +257,17 @@ class RawConnectionsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -318,7 +329,7 @@ class RawConnectionsClient:
             Connection successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/connections/{quote_path_param(connection_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -405,7 +416,7 @@ class RawConnectionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/connections/{quote_path_param(connection_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -502,7 +513,7 @@ class RawConnectionsClient:
             Connection successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/connections/{quote_path_param(connection_id)}",
             method="PATCH",
             json={
                 "organization_connection_name": organization_connection_name,
@@ -625,7 +636,7 @@ class AsyncRawConnectionsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections",
+            f"organizations/{quote_path_param(id)}/connections",
             method="GET",
             params={
                 "page": page,
@@ -645,7 +656,7 @@ class AsyncRawConnectionsClient:
                     ),
                 )
                 _items = _parsed_response.connections
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -759,7 +770,7 @@ class AsyncRawConnectionsClient:
             Connection successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections",
+            f"organizations/{quote_path_param(id)}/connections",
             method="POST",
             json={
                 "organization_connection_name": organization_connection_name,
@@ -810,6 +821,17 @@ class AsyncRawConnectionsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -871,7 +893,7 @@ class AsyncRawConnectionsClient:
             Connection successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/connections/{quote_path_param(connection_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -958,7 +980,7 @@ class AsyncRawConnectionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/connections/{quote_path_param(connection_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1055,7 +1077,7 @@ class AsyncRawConnectionsClient:
             Connection successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/connections/{encode_path_param(connection_id)}",
+            f"organizations/{quote_path_param(id)}/connections/{quote_path_param(connection_id)}",
             method="PATCH",
             json={
                 "organization_connection_name": organization_connection_name,

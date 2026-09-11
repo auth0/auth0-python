@@ -3,6 +3,7 @@ from .conftest import get_client, verify_request_count
 from auth0.management import (
     CreateDirectoryProvisioningRequestContent,
     SynchronizedGroupPayload,
+    SynchronizedGroupSelectionId,
     UpdateDirectoryProvisioningRequestContent,
 )
 
@@ -78,10 +79,30 @@ def test_connections_directoryProvisioning_list_synchronized_groups() -> None:
         id="id",
         from_="from",
         take=1,
+        q="q",
     )
     verify_request_count(
-        test_id, "GET", "/connections/id/directory-provisioning/synchronized-groups", {"from": "from", "take": "1"}, 1
+        test_id,
+        "GET",
+        "/connections/id/directory-provisioning/synchronized-groups",
+        {"from": "from", "take": "1", "q": "q"},
+        1,
     )
+
+
+def test_connections_directoryProvisioning_add_synchronized_group_selections() -> None:
+    """Test addSynchronizedGroupSelections endpoint with WireMock"""
+    test_id = "connections.directory_provisioning.add_synchronized_group_selections.0"
+    client = get_client(test_id)
+    client.connections.directory_provisioning.add_synchronized_group_selections(
+        id="id",
+        groups=[
+            SynchronizedGroupPayload(
+                id="id",
+            )
+        ],
+    )
+    verify_request_count(test_id, "POST", "/connections/id/directory-provisioning/synchronized-groups", None, 1)
 
 
 def test_connections_directoryProvisioning_set_() -> None:
@@ -97,3 +118,18 @@ def test_connections_directoryProvisioning_set_() -> None:
         ],
     )
     verify_request_count(test_id, "PUT", "/connections/id/directory-provisioning/synchronized-groups", None, 1)
+
+
+def test_connections_directoryProvisioning_delete_synchronized_group_selections() -> None:
+    """Test deleteSynchronizedGroupSelections endpoint with WireMock"""
+    test_id = "connections.directory_provisioning.delete_synchronized_group_selections.0"
+    client = get_client(test_id)
+    client.connections.directory_provisioning.delete_synchronized_group_selections(
+        id="id",
+        groups=[
+            SynchronizedGroupSelectionId(
+                id="id",
+            )
+        ],
+    )
+    verify_request_count(test_id, "DELETE", "/connections/id/directory-provisioning/synchronized-groups", None, 1)

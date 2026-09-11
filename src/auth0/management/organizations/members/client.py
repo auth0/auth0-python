@@ -14,6 +14,7 @@ from ...types.organization_member import OrganizationMember
 from .raw_client import AsyncRawMembersClient, RawMembersClient
 
 if typing.TYPE_CHECKING:
+    from .effective_roles.client import AsyncEffectiveRolesClient, EffectiveRolesClient
     from .roles.client import AsyncRolesClient, RolesClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -23,6 +24,7 @@ class MembersClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawMembersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._effective_roles: typing.Optional[EffectiveRolesClient] = None
         self._roles: typing.Optional[RolesClient] = None
 
     @property
@@ -40,6 +42,7 @@ class MembersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         fields: typing.Optional[str] = None,
@@ -50,14 +53,8 @@ class MembersClient:
         List organization members.
         This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
-        <ul>
-          <li>
-            Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-          </li>
-          <li>
-            Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-          </li>
-        </ul>
+        - Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
+        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         This endpoint supports two types of pagination:
 
@@ -66,14 +63,17 @@ class MembersClient:
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
-        To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.
+        To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the `from` parameter. If there are more results, a `next` value will be included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, this indicates there are no more pages remaining.
 
         Parameters
         ----------
         id : str
             Organization identifier.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -104,6 +104,7 @@ class MembersClient:
         )
         response = client.organizations.members.list(
             id="id",
+            include_totals=True,
             from_="from",
             take=1,
             fields="fields",
@@ -116,16 +117,22 @@ class MembersClient:
             yield page
         """
         return self._raw_client.list(
-            id, from_=from_, take=take, fields=fields, include_fields=include_fields, request_options=request_options
+            id,
+            include_totals=include_totals,
+            from_=from_,
+            take=take,
+            fields=fields,
+            include_fields=include_fields,
+            request_options=request_options,
         )
 
     def create(
         self, id: str, *, members: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Set one or more existing users as members of a specific <a href="https://auth0.com/docs/manage-users/organizations">Organization</a>.
+        Set one or more existing users as members of a specific [Organization](https://auth0.com/docs/manage-users/organizations).
 
-        To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">invite them to create an account</a>, manually create them through the Auth0 Dashboard, or use the Management API.
+        To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can [invite them to create an account](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members), manually create them through the Auth0 Dashboard, or use the Management API.
 
         Parameters
         ----------
@@ -192,6 +199,14 @@ class MembersClient:
         return _response.data
 
     @property
+    def effective_roles(self):
+        if self._effective_roles is None:
+            from .effective_roles.client import EffectiveRolesClient  # noqa: E402
+
+            self._effective_roles = EffectiveRolesClient(client_wrapper=self._client_wrapper)
+        return self._effective_roles
+
+    @property
     def roles(self):
         if self._roles is None:
             from .roles.client import RolesClient  # noqa: E402
@@ -204,6 +219,7 @@ class AsyncMembersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawMembersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._effective_roles: typing.Optional[AsyncEffectiveRolesClient] = None
         self._roles: typing.Optional[AsyncRolesClient] = None
 
     @property
@@ -221,6 +237,7 @@ class AsyncMembersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         fields: typing.Optional[str] = None,
@@ -231,14 +248,8 @@ class AsyncMembersClient:
         List organization members.
         This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
-        <ul>
-          <li>
-            Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-          </li>
-          <li>
-            Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-          </li>
-        </ul>
+        - Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
+        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         This endpoint supports two types of pagination:
 
@@ -247,14 +258,17 @@ class AsyncMembersClient:
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
-        To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.
+        To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the `from` parameter. If there are more results, a `next` value will be included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, this indicates there are no more pages remaining.
 
         Parameters
         ----------
         id : str
             Organization identifier.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -290,6 +304,7 @@ class AsyncMembersClient:
         async def main() -> None:
             response = await client.organizations.members.list(
                 id="id",
+                include_totals=True,
                 from_="from",
                 take=1,
                 fields="fields",
@@ -306,16 +321,22 @@ class AsyncMembersClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            id, from_=from_, take=take, fields=fields, include_fields=include_fields, request_options=request_options
+            id,
+            include_totals=include_totals,
+            from_=from_,
+            take=take,
+            fields=fields,
+            include_fields=include_fields,
+            request_options=request_options,
         )
 
     async def create(
         self, id: str, *, members: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Set one or more existing users as members of a specific <a href="https://auth0.com/docs/manage-users/organizations">Organization</a>.
+        Set one or more existing users as members of a specific [Organization](https://auth0.com/docs/manage-users/organizations).
 
-        To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">invite them to create an account</a>, manually create them through the Auth0 Dashboard, or use the Management API.
+        To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can [invite them to create an account](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members), manually create them through the Auth0 Dashboard, or use the Management API.
 
         Parameters
         ----------
@@ -396,6 +417,14 @@ class AsyncMembersClient:
         """
         _response = await self._raw_client.delete(id, members=members, request_options=request_options)
         return _response.data
+
+    @property
+    def effective_roles(self):
+        if self._effective_roles is None:
+            from .effective_roles.client import AsyncEffectiveRolesClient  # noqa: E402
+
+            self._effective_roles = AsyncEffectiveRolesClient(client_wrapper=self._client_wrapper)
+        return self._effective_roles
 
     @property
     def roles(self):

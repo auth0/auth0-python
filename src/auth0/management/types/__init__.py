@@ -59,7 +59,11 @@ if typing.TYPE_CHECKING:
     from .acul_organization_metadata import AculOrganizationMetadata
     from .acul_rendering_mode_enum import AculRenderingModeEnum
     from .add_organization_connection_response_content import AddOrganizationConnectionResponseContent
+    from .advance_ramp_response_content import AdvanceRampResponseContent
+    from .agent_metadata import AgentMetadata
+    from .agent_response_content import AgentResponseContent
     from .anomaly_ip_format import AnomalyIpFormat
+    from .anonymous_sessions import AnonymousSessions
     from .app_metadata import AppMetadata
     from .assessors_type_enum import AssessorsTypeEnum
     from .associate_organization_client_grant_response_content import AssociateOrganizationClientGrantResponseContent
@@ -90,6 +94,8 @@ if typing.TYPE_CHECKING:
     from .attack_protection_update_captcha_recaptcha_v_2 import AttackProtectionUpdateCaptchaRecaptchaV2
     from .authentication_method_type_enum import AuthenticationMethodTypeEnum
     from .authentication_type_enum import AuthenticationTypeEnum
+    from .b_2_b_integration_configuration import B2BIntegrationConfiguration
+    from .b_2_b_integration_configuration_integration_type_enum import B2BIntegrationConfigurationIntegrationTypeEnum
     from .bad_request_schema import BadRequestSchema
     from .bad_request_schema_error import BadRequestSchemaError
     from .bot_detection_allowlist import BotDetectionAllowlist
@@ -107,12 +113,7 @@ if typing.TYPE_CHECKING:
     from .bot_detection_monitoring_mode_enabled import BotDetectionMonitoringModeEnabled
     from .branding_colors import BrandingColors
     from .branding_font import BrandingFont
-    from .branding_identifiers import BrandingIdentifiers
-    from .branding_login_display_enum import BrandingLoginDisplayEnum
     from .branding_page_background import BrandingPageBackground
-    from .branding_phone_display import BrandingPhoneDisplay
-    from .branding_phone_formatting_enum import BrandingPhoneFormattingEnum
-    from .branding_phone_masking_enum import BrandingPhoneMaskingEnum
     from .branding_theme_borders import BrandingThemeBorders
     from .branding_theme_borders_buttons_style_enum import BrandingThemeBordersButtonsStyleEnum
     from .branding_theme_borders_inputs_style_enum import BrandingThemeBordersInputsStyleEnum
@@ -126,6 +127,13 @@ if typing.TYPE_CHECKING:
     from .branding_theme_font_subtitle import BrandingThemeFontSubtitle
     from .branding_theme_font_title import BrandingThemeFontTitle
     from .branding_theme_fonts import BrandingThemeFonts
+    from .branding_theme_identifiers import BrandingThemeIdentifiers
+    from .branding_theme_identifiers_login_display_enum import BrandingThemeIdentifiersLoginDisplayEnum
+    from .branding_theme_identifiers_phone_display import BrandingThemeIdentifiersPhoneDisplay
+    from .branding_theme_identifiers_phone_display_formatting_enum import (
+        BrandingThemeIdentifiersPhoneDisplayFormattingEnum,
+    )
+    from .branding_theme_identifiers_phone_display_masking_enum import BrandingThemeIdentifiersPhoneDisplayMaskingEnum
     from .branding_theme_page_background import BrandingThemePageBackground
     from .branding_theme_page_background_page_layout_enum import BrandingThemePageBackgroundPageLayoutEnum
     from .branding_theme_widget import BrandingThemeWidget
@@ -251,10 +259,19 @@ if typing.TYPE_CHECKING:
     from .client_my_organization_configuration_allowed_strategies_enum import (
         ClientMyOrganizationConfigurationAllowedStrategiesEnum,
     )
+    from .client_my_organization_configuration_third_party_client_access_allowed_values_enum import (
+        ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum,
+    )
+    from .client_my_organization_configuration_third_party_client_access_default_value_enum import (
+        ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum,
+    )
     from .client_my_organization_deletion_behavior_enum import ClientMyOrganizationDeletionBehaviorEnum
     from .client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
     from .client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
     from .client_my_organization_response_configuration import ClientMyOrganizationResponseConfiguration
+    from .client_my_organization_third_party_client_access_configuration import (
+        ClientMyOrganizationThirdPartyClientAccessConfiguration,
+    )
     from .client_oidc_backchannel_logout_initiators import ClientOidcBackchannelLogoutInitiators
     from .client_oidc_backchannel_logout_initiators_enum import ClientOidcBackchannelLogoutInitiatorsEnum
     from .client_oidc_backchannel_logout_initiators_mode_enum import ClientOidcBackchannelLogoutInitiatorsModeEnum
@@ -285,6 +302,12 @@ if typing.TYPE_CHECKING:
     from .client_token_exchange_configuration import ClientTokenExchangeConfiguration
     from .client_token_exchange_configuration_or_null import ClientTokenExchangeConfigurationOrNull
     from .client_token_exchange_type_enum import ClientTokenExchangeTypeEnum
+    from .client_token_vault_privileged_access_with_credential_id import (
+        ClientTokenVaultPrivilegedAccessWithCredentialId,
+    )
+    from .client_token_vault_privileged_access_with_public_key import ClientTokenVaultPrivilegedAccessWithPublicKey
+    from .conflict_schema import ConflictSchema
+    from .conflict_schema_error import ConflictSchemaError
     from .connected_account import ConnectedAccount
     from .connected_account_access_type_enum import ConnectedAccountAccessTypeEnum
     from .connection_access_token_urlo_auth_1 import ConnectionAccessTokenUrloAuth1
@@ -306,7 +329,6 @@ if typing.TYPE_CHECKING:
         ConnectionAssertionDecryptionAlgorithmProfileEnum,
     )
     from .connection_assertion_decryption_settings import ConnectionAssertionDecryptionSettings
-    from .connection_attribute_identifier import ConnectionAttributeIdentifier
     from .connection_attribute_map_attributes import ConnectionAttributeMapAttributes
     from .connection_attribute_map_oidc import ConnectionAttributeMapOidc
     from .connection_attribute_map_okta import ConnectionAttributeMapOkta
@@ -367,11 +389,14 @@ if typing.TYPE_CHECKING:
     from .connection_connected_accounts_purpose_xaa import ConnectionConnectedAccountsPurposeXaa
     from .connection_connection_settings import ConnectionConnectionSettings
     from .connection_connection_settings_pkce_enum import ConnectionConnectionSettingsPkceEnum
+    from .connection_cross_app_access_resource_app import ConnectionCrossAppAccessResourceApp
+    from .connection_cross_app_access_resource_app_status_enum import ConnectionCrossAppAccessResourceAppStatusEnum
     from .connection_custom_headers_o_auth_2 import ConnectionCustomHeadersOAuth2
     from .connection_custom_scripts import ConnectionCustomScripts
     from .connection_debug_saml import ConnectionDebugSaml
     from .connection_decryption_key_saml import ConnectionDecryptionKeySaml
     from .connection_decryption_key_saml_cert import ConnectionDecryptionKeySamlCert
+    from .connection_deletion_behavior_enum import ConnectionDeletionBehaviorEnum
     from .connection_destination_url_saml import ConnectionDestinationUrlSaml
     from .connection_digest_algorithm_enum_saml import ConnectionDigestAlgorithmEnumSaml
     from .connection_digest_algorithm_saml import ConnectionDigestAlgorithmSaml
@@ -396,6 +421,7 @@ if typing.TYPE_CHECKING:
     from .connection_email_from_email import ConnectionEmailFromEmail
     from .connection_email_otp_authentication_method import ConnectionEmailOtpAuthenticationMethod
     from .connection_email_subject_email import ConnectionEmailSubjectEmail
+    from .connection_enable_pushed_authorization_requests import ConnectionEnablePushedAuthorizationRequests
     from .connection_enable_script_context import ConnectionEnableScriptContext
     from .connection_enabled_client import ConnectionEnabledClient
     from .connection_enabled_clients import ConnectionEnabledClients
@@ -413,7 +439,6 @@ if typing.TYPE_CHECKING:
     from .connection_ext_is_suspended import ConnectionExtIsSuspended
     from .connection_ext_is_suspended_google_apps import ConnectionExtIsSuspendedGoogleApps
     from .connection_ext_profile import ConnectionExtProfile
-    from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
     from .connection_fields_map import ConnectionFieldsMap
     from .connection_fields_map_saml import ConnectionFieldsMapSaml
     from .connection_fields_map_saml_value import ConnectionFieldsMapSamlValue
@@ -449,6 +474,7 @@ if typing.TYPE_CHECKING:
     from .connection_id import ConnectionId
     from .connection_id_token_encryption_alg_values_supported import ConnectionIdTokenEncryptionAlgValuesSupported
     from .connection_id_token_encryption_enc_values_supported import ConnectionIdTokenEncryptionEncValuesSupported
+    from .connection_id_token_session_expiry_supported import ConnectionIdTokenSessionExpirySupported
     from .connection_id_token_signed_response_alg_enum import ConnectionIdTokenSignedResponseAlgEnum
     from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
     from .connection_id_token_signing_alg_values_supported import ConnectionIdTokenSigningAlgValuesSupported
@@ -570,6 +596,19 @@ if typing.TYPE_CHECKING:
     from .connection_profile import ConnectionProfile
     from .connection_profile_bitbucket import ConnectionProfileBitbucket
     from .connection_profile_config import ConnectionProfileConfig
+    from .connection_profile_cross_app_access_resource_app import ConnectionProfileCrossAppAccessResourceApp
+    from .connection_profile_cross_app_access_resource_app_status import (
+        ConnectionProfileCrossAppAccessResourceAppStatus,
+    )
+    from .connection_profile_cross_app_access_resource_app_status_allowed_values_enum import (
+        ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum,
+    )
+    from .connection_profile_cross_app_access_resource_app_status_default_value_enum import (
+        ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum,
+    )
+    from .connection_profile_cross_app_access_resource_app_status_value_enum import (
+        ConnectionProfileCrossAppAccessResourceAppStatusValueEnum,
+    )
     from .connection_profile_enabled_features import ConnectionProfileEnabledFeatures
     from .connection_profile_id import ConnectionProfileId
     from .connection_profile_name import ConnectionProfileName
@@ -578,6 +617,17 @@ if typing.TYPE_CHECKING:
         ConnectionProfileOrganizationAssignMembershipOnLoginEnum,
     )
     from .connection_profile_organization_show_as_button_enum import ConnectionProfileOrganizationShowAsButtonEnum
+    from .connection_profile_provisioning import ConnectionProfileProvisioning
+    from .connection_profile_provisioning_scim import ConnectionProfileProvisioningScim
+    from .connection_profile_provisioning_scim_token_default_expiry import (
+        ConnectionProfileProvisioningScimTokenDefaultExpiry,
+    )
+    from .connection_profile_provisioning_scim_token_max_allowed_expiry import (
+        ConnectionProfileProvisioningScimTokenMaxAllowedExpiry,
+    )
+    from .connection_profile_provisioning_scim_token_scope_enum import ConnectionProfileProvisioningScimTokenScopeEnum
+    from .connection_profile_provisioning_scim_token_scopes import ConnectionProfileProvisioningScimTokenScopes
+    from .connection_profile_provisioning_scim_tokens import ConnectionProfileProvisioningScimTokens
     from .connection_profile_strategy_override import ConnectionProfileStrategyOverride
     from .connection_profile_strategy_overrides import ConnectionProfileStrategyOverrides
     from .connection_profile_strategy_overrides_connection_config import (
@@ -586,6 +636,7 @@ if typing.TYPE_CHECKING:
     from .connection_profile_strategy_overrides_enabled_features import (
         ConnectionProfileStrategyOverridesEnabledFeatures,
     )
+    from .connection_profile_strategy_overrides_provisioning import ConnectionProfileStrategyOverridesProvisioning
     from .connection_profile_template import ConnectionProfileTemplate
     from .connection_profile_template_item import ConnectionProfileTemplateItem
     from .connection_properties_options import ConnectionPropertiesOptions
@@ -595,6 +646,7 @@ if typing.TYPE_CHECKING:
     from .connection_provider_sms import ConnectionProviderSms
     from .connection_provisioning_ticket_url import ConnectionProvisioningTicketUrl
     from .connection_purposes import ConnectionPurposes
+    from .connection_pushed_authorization_request_endpoint import ConnectionPushedAuthorizationRequestEndpoint
     from .connection_realm_fallback import ConnectionRealmFallback
     from .connection_realms import ConnectionRealms
     from .connection_recipient_url_saml import ConnectionRecipientUrlSaml
@@ -610,6 +662,7 @@ if typing.TYPE_CHECKING:
     from .connection_request_template_saml import ConnectionRequestTemplateSaml
     from .connection_request_token_urlo_auth_1 import ConnectionRequestTokenUrloAuth1
     from .connection_request_uri_parameter_supported import ConnectionRequestUriParameterSupported
+    from .connection_require_pushed_authorization_requests import ConnectionRequirePushedAuthorizationRequests
     from .connection_require_request_uri_registration import ConnectionRequireRequestUriRegistration
     from .connection_requires_username import ConnectionRequiresUsername
     from .connection_response_common import ConnectionResponseCommon
@@ -812,6 +865,7 @@ if typing.TYPE_CHECKING:
     from .connection_upstream_params_facebook import ConnectionUpstreamParamsFacebook
     from .connection_upstream_value import ConnectionUpstreamValue
     from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
+    from .connection_use_oauth_spec_scope import ConnectionUseOauthSpecScope
     from .connection_user_authorization_urlo_auth_1 import ConnectionUserAuthorizationUrloAuth1
     from .connection_user_id_attribute_saml import ConnectionUserIdAttributeSaml
     from .connection_userid_attribute_azure_ad import ConnectionUseridAttributeAzureAd
@@ -824,10 +878,14 @@ if typing.TYPE_CHECKING:
     from .connection_validation_options import ConnectionValidationOptions
     from .connection_waad_protocol import ConnectionWaadProtocol
     from .connection_waad_protocol_enum_azure_ad import ConnectionWaadProtocolEnumAzureAd
+    from .connections_discovery_url import ConnectionsDiscoveryUrl
     from .connections_metadata import ConnectionsMetadata
+    from .connections_oidc_metadata import ConnectionsOidcMetadata
+    from .content_security_policy_config import ContentSecurityPolicyConfig
     from .create_action_module_response_content import CreateActionModuleResponseContent
     from .create_action_module_version_response_content import CreateActionModuleVersionResponseContent
     from .create_action_response_content import CreateActionResponseContent
+    from .create_anonymous_sessions import CreateAnonymousSessions
     from .create_branding_phone_provider_response_content import CreateBrandingPhoneProviderResponseContent
     from .create_branding_theme_response_content import CreateBrandingThemeResponseContent
     from .create_client_authentication_method_self_signed_tls_client_auth import (
@@ -971,6 +1029,7 @@ if typing.TYPE_CHECKING:
     from .create_connection_request_content_yandex import CreateConnectionRequestContentYandex
     from .create_connection_request_content_yandex_strategy import CreateConnectionRequestContentYandexStrategy
     from .create_connection_response_content import CreateConnectionResponseContent
+    from .create_cross_app_access_resource_app import CreateCrossAppAccessResourceApp
     from .create_custom_domain_response_content import CreateCustomDomainResponseContent
     from .create_directory_provisioning_request_content import CreateDirectoryProvisioningRequestContent
     from .create_directory_provisioning_response_content import CreateDirectoryProvisioningResponseContent
@@ -1074,7 +1133,9 @@ if typing.TYPE_CHECKING:
     from .create_guardian_enrollment_ticket_response_content import CreateGuardianEnrollmentTicketResponseContent
     from .create_hook_response_content import CreateHookResponseContent
     from .create_hook_secret_request_content import CreateHookSecretRequestContent
+    from .create_identity_assertion_authorization_grant import CreateIdentityAssertionAuthorizationGrant
     from .create_import_users_response_content import CreateImportUsersResponseContent
+    from .create_keys_network_acls_response_content import CreateKeysNetworkAclsResponseContent
     from .create_log_stream_datadog_request_body import CreateLogStreamDatadogRequestBody
     from .create_log_stream_event_bridge_request_body import CreateLogStreamEventBridgeRequestBody
     from .create_log_stream_event_grid_request_body import CreateLogStreamEventGridRequestBody
@@ -1086,6 +1147,8 @@ if typing.TYPE_CHECKING:
     from .create_log_stream_splunk_request_body import CreateLogStreamSplunkRequestBody
     from .create_log_stream_sumo_request_body import CreateLogStreamSumoRequestBody
     from .create_organization_all_connection_response_content import CreateOrganizationAllConnectionResponseContent
+    from .create_organization_client_request_item import CreateOrganizationClientRequestItem
+    from .create_organization_clients_response_content import CreateOrganizationClientsResponseContent
     from .create_organization_discovery_domain_response_content import CreateOrganizationDiscoveryDomainResponseContent
     from .create_organization_invitation_response_content import CreateOrganizationInvitationResponseContent
     from .create_organization_response_content import CreateOrganizationResponseContent
@@ -1095,6 +1158,7 @@ if typing.TYPE_CHECKING:
         CreatePhoneTemplateTestNotificationResponseContent,
     )
     from .create_public_key_device_credential_response_content import CreatePublicKeyDeviceCredentialResponseContent
+    from .create_rate_limit_policy_response_content import CreateRateLimitPolicyResponseContent
     from .create_resource_server_response_content import CreateResourceServerResponseContent
     from .create_role_response_content import CreateRoleResponseContent
     from .create_rule_response_content import CreateRuleResponseContent
@@ -1118,6 +1182,21 @@ if typing.TYPE_CHECKING:
     from .created_user_authentication_method_type_enum import CreatedUserAuthenticationMethodTypeEnum
     from .credential_device_type_enum import CredentialDeviceTypeEnum
     from .credential_id import CredentialId
+    from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
+    from .cross_app_access_resource_app import CrossAppAccessResourceApp
+    from .cross_app_access_resource_app_status_enum import CrossAppAccessResourceAppStatusEnum
+    from .csp_directives import CspDirectives
+    from .csp_flag import CspFlag
+    from .csp_flags import CspFlags
+    from .csp_policies import CspPolicies
+    from .csp_policy import CspPolicy
+    from .csp_policy_mode import CspPolicyMode
+    from .csp_policy_reporting import CspPolicyReporting
+    from .csp_report_to import CspReportTo
+    from .csp_report_to_endpoint import CspReportToEndpoint
+    from .csp_report_to_endpoints import CspReportToEndpoints
+    from .csp_reporting_endpoints import CspReportingEndpoints
+    from .csp_reporting_infrastructure import CspReportingInfrastructure
     from .custom_domain import CustomDomain
     from .custom_domain_custom_client_ip_header import CustomDomainCustomClientIpHeader
     from .custom_domain_custom_client_ip_header_enum import CustomDomainCustomClientIpHeaderEnum
@@ -1137,6 +1216,7 @@ if typing.TYPE_CHECKING:
     from .custom_signing_key_use_enum import CustomSigningKeyUseEnum
     from .daily_stats import DailyStats
     from .default_method_email_identifier_enum import DefaultMethodEmailIdentifierEnum
+    from .default_method_phone_number_identifier_enum import DefaultMethodPhoneNumberIdentifierEnum
     from .default_token_quota import DefaultTokenQuota
     from .delete_hook_secret_request_content import DeleteHookSecretRequestContent
     from .delete_user_identity_response_content import DeleteUserIdentityResponseContent
@@ -1158,6 +1238,7 @@ if typing.TYPE_CHECKING:
     from .domain_verification_method_name_enum import DomainVerificationMethodNameEnum
     from .domain_verification_status_enum import DomainVerificationStatusEnum
     from .email_attribute import EmailAttribute
+    from .email_attribute_identifier import EmailAttributeIdentifier
     from .email_mailgun_region_enum import EmailMailgunRegionEnum
     from .email_provider_credentials import EmailProviderCredentials
     from .email_provider_credentials_schema import EmailProviderCredentialsSchema
@@ -1187,6 +1268,2121 @@ if typing.TYPE_CHECKING:
     from .event_stream_action_response_content import EventStreamActionResponseContent
     from .event_stream_cloud_event import EventStreamCloudEvent
     from .event_stream_cloud_event_a_0_purpose_enum import EventStreamCloudEventA0PurposeEnum
+    from .event_stream_cloud_event_connection_created import EventStreamCloudEventConnectionCreated
+    from .event_stream_cloud_event_connection_created_cloud_event import (
+        EventStreamCloudEventConnectionCreatedCloudEvent,
+    )
+    from .event_stream_cloud_event_connection_created_cloud_event_type_enum import (
+        EventStreamCloudEventConnectionCreatedCloudEventTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_data import EventStreamCloudEventConnectionCreatedData
+    from .event_stream_cloud_event_connection_created_object import EventStreamCloudEventConnectionCreatedObject
+    from .event_stream_cloud_event_connection_created_object_0 import EventStreamCloudEventConnectionCreatedObject0
+    from .event_stream_cloud_event_connection_created_object_0_authentication import (
+        EventStreamCloudEventConnectionCreatedObject0Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedObject0ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_metadata import (
+        EventStreamCloudEventConnectionCreatedObject0Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options import (
+        EventStreamCloudEventConnectionCreatedObject0Options,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_attribute_map import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_connection_settings import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_oidc_metadata import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_schema_version_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_type_enum import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedObject0OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_object_0_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedObject0StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1 import EventStreamCloudEventConnectionCreatedObject1
+    from .event_stream_cloud_event_connection_created_object_1_authentication import (
+        EventStreamCloudEventConnectionCreatedObject1Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedObject1ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_metadata import (
+        EventStreamCloudEventConnectionCreatedObject1Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options import (
+        EventStreamCloudEventConnectionCreatedObject1Options,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_attribute_map import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_connection_settings import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_oidc_metadata import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_schema_version_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_type_enum import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedObject1OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_object_1_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedObject1StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_2 import EventStreamCloudEventConnectionCreatedObject2
+    from .event_stream_cloud_event_connection_created_object_2_authentication import (
+        EventStreamCloudEventConnectionCreatedObject2Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedObject2ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_metadata import (
+        EventStreamCloudEventConnectionCreatedObject2Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options import (
+        EventStreamCloudEventConnectionCreatedObject2Options,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_fields_map import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsFieldsMap,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_idpinitiated import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_oidc_metadata import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_subject import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedObject2OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_object_2_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedObject2StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_3 import EventStreamCloudEventConnectionCreatedObject3
+    from .event_stream_cloud_event_connection_created_object_3_authentication import (
+        EventStreamCloudEventConnectionCreatedObject3Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedObject3ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_metadata import (
+        EventStreamCloudEventConnectionCreatedObject3Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options import (
+        EventStreamCloudEventConnectionCreatedObject3Options,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_idpinitiated import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_subject import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedObject3OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_object_3_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedObject3StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_4 import EventStreamCloudEventConnectionCreatedObject4
+    from .event_stream_cloud_event_connection_created_object_4_authentication import (
+        EventStreamCloudEventConnectionCreatedObject4Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_object_4_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedObject4ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_object_4_metadata import (
+        EventStreamCloudEventConnectionCreatedObject4Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_4_options import (
+        EventStreamCloudEventConnectionCreatedObject4Options,
+    )
+    from .event_stream_cloud_event_connection_created_object_4_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedObject4OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_4_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionCreatedObject4OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_4_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedObject4OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_object_4_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedObject4StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_5 import EventStreamCloudEventConnectionCreatedObject5
+    from .event_stream_cloud_event_connection_created_object_5_authentication import (
+        EventStreamCloudEventConnectionCreatedObject5Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_object_5_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedObject5ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_object_5_metadata import (
+        EventStreamCloudEventConnectionCreatedObject5Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_5_options import (
+        EventStreamCloudEventConnectionCreatedObject5Options,
+    )
+    from .event_stream_cloud_event_connection_created_object_5_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedObject5OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_5_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedObject5OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_object_5_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedObject5StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_6 import EventStreamCloudEventConnectionCreatedObject6
+    from .event_stream_cloud_event_connection_created_object_6_authentication import (
+        EventStreamCloudEventConnectionCreatedObject6Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_object_6_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedObject6ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_object_6_metadata import (
+        EventStreamCloudEventConnectionCreatedObject6Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_6_options import (
+        EventStreamCloudEventConnectionCreatedObject6Options,
+    )
+    from .event_stream_cloud_event_connection_created_object_6_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionCreatedObject6OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_created_object_6_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedObject6OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_6_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedObject6OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_object_6_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedObject6StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_7 import EventStreamCloudEventConnectionCreatedObject7
+    from .event_stream_cloud_event_connection_created_object_7_authentication import (
+        EventStreamCloudEventConnectionCreatedObject7Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedObject7ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_metadata import (
+        EventStreamCloudEventConnectionCreatedObject7Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options import (
+        EventStreamCloudEventConnectionCreatedObject7Options,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionCreatedObject7OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options_identity_api_enum import (
+        EventStreamCloudEventConnectionCreatedObject7OptionsIdentityApiEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedObject7OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionCreatedObject7OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options_tenant_domain_one import (
+        EventStreamCloudEventConnectionCreatedObject7OptionsTenantDomainOne,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedObject7OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options_userid_attribute_enum import (
+        EventStreamCloudEventConnectionCreatedObject7OptionsUseridAttributeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_options_waad_protocol_enum import (
+        EventStreamCloudEventConnectionCreatedObject7OptionsWaadProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_created_object_7_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedObject7StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object import (
+        EventStreamCloudEventConnectionCreatedPreviousObject,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0 import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_authentication import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0Options,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_attribute_map import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_connection_settings import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_oidc_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_schema_version_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_type_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_0_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject0StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1 import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_authentication import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1Options,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_attribute_map import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_connection_settings import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_oidc_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_schema_version_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_type_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_1_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject1StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2 import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_authentication import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2Options,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_fields_map import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsFieldsMap,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_idpinitiated import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_oidc_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_subject import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_2_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject2StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3 import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_authentication import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3Options,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_idpinitiated import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_subject import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_3_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject3StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4 import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4_authentication import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4_options import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4Options,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_4_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject4StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_5 import (
+        EventStreamCloudEventConnectionCreatedPreviousObject5,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_5_authentication import (
+        EventStreamCloudEventConnectionCreatedPreviousObject5Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_5_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedPreviousObject5ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_5_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject5Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_5_options import (
+        EventStreamCloudEventConnectionCreatedPreviousObject5Options,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_5_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject5OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_5_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedPreviousObject5OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_5_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject5StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6 import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6_authentication import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6_options import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6Options,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_6_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject6StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7 import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_authentication import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7Authentication,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_connected_accounts import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_metadata import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7Metadata,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7Options,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options_identity_api_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7OptionsIdentityApiEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options_tenant_domain_one import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7OptionsTenantDomainOne,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options_upstream_params import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options_userid_attribute_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7OptionsUseridAttributeEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_options_waad_protocol_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7OptionsWaadProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_created_previous_object_7_strategy_enum import (
+        EventStreamCloudEventConnectionCreatedPreviousObject7StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_created_type_enum import EventStreamCloudEventConnectionCreatedTypeEnum
+    from .event_stream_cloud_event_connection_deleted import EventStreamCloudEventConnectionDeleted
+    from .event_stream_cloud_event_connection_deleted_cloud_event import (
+        EventStreamCloudEventConnectionDeletedCloudEvent,
+    )
+    from .event_stream_cloud_event_connection_deleted_cloud_event_type_enum import (
+        EventStreamCloudEventConnectionDeletedCloudEventTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_data import EventStreamCloudEventConnectionDeletedData
+    from .event_stream_cloud_event_connection_deleted_object import EventStreamCloudEventConnectionDeletedObject
+    from .event_stream_cloud_event_connection_deleted_object_0 import EventStreamCloudEventConnectionDeletedObject0
+    from .event_stream_cloud_event_connection_deleted_object_0_authentication import (
+        EventStreamCloudEventConnectionDeletedObject0Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedObject0ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_metadata import (
+        EventStreamCloudEventConnectionDeletedObject0Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options import (
+        EventStreamCloudEventConnectionDeletedObject0Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_attribute_map import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_connection_settings import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_oidc_metadata import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_schema_version_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_type_enum import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedObject0OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_0_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedObject0StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1 import EventStreamCloudEventConnectionDeletedObject1
+    from .event_stream_cloud_event_connection_deleted_object_1_authentication import (
+        EventStreamCloudEventConnectionDeletedObject1Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedObject1ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_metadata import (
+        EventStreamCloudEventConnectionDeletedObject1Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options import (
+        EventStreamCloudEventConnectionDeletedObject1Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_attribute_map import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_connection_settings import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_oidc_metadata import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_schema_version_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_type_enum import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedObject1OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_1_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedObject1StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2 import EventStreamCloudEventConnectionDeletedObject2
+    from .event_stream_cloud_event_connection_deleted_object_2_authentication import (
+        EventStreamCloudEventConnectionDeletedObject2Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedObject2ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_metadata import (
+        EventStreamCloudEventConnectionDeletedObject2Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options import (
+        EventStreamCloudEventConnectionDeletedObject2Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_fields_map import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsFieldsMap,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_idpinitiated import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_oidc_metadata import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_subject import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedObject2OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_2_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedObject2StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3 import EventStreamCloudEventConnectionDeletedObject3
+    from .event_stream_cloud_event_connection_deleted_object_3_authentication import (
+        EventStreamCloudEventConnectionDeletedObject3Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedObject3ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_metadata import (
+        EventStreamCloudEventConnectionDeletedObject3Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options import (
+        EventStreamCloudEventConnectionDeletedObject3Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_idpinitiated import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_subject import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedObject3OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_3_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedObject3StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_4 import EventStreamCloudEventConnectionDeletedObject4
+    from .event_stream_cloud_event_connection_deleted_object_4_authentication import (
+        EventStreamCloudEventConnectionDeletedObject4Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_4_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedObject4ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_4_metadata import (
+        EventStreamCloudEventConnectionDeletedObject4Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_4_options import (
+        EventStreamCloudEventConnectionDeletedObject4Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_4_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedObject4OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_4_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionDeletedObject4OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_4_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedObject4OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_4_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedObject4StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_5 import EventStreamCloudEventConnectionDeletedObject5
+    from .event_stream_cloud_event_connection_deleted_object_5_authentication import (
+        EventStreamCloudEventConnectionDeletedObject5Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_5_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedObject5ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_5_metadata import (
+        EventStreamCloudEventConnectionDeletedObject5Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_5_options import (
+        EventStreamCloudEventConnectionDeletedObject5Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_5_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedObject5OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_5_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedObject5OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_5_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedObject5StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_6 import EventStreamCloudEventConnectionDeletedObject6
+    from .event_stream_cloud_event_connection_deleted_object_6_authentication import (
+        EventStreamCloudEventConnectionDeletedObject6Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_6_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedObject6ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_6_metadata import (
+        EventStreamCloudEventConnectionDeletedObject6Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_6_options import (
+        EventStreamCloudEventConnectionDeletedObject6Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_6_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionDeletedObject6OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_6_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedObject6OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_6_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedObject6OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_6_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedObject6StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7 import EventStreamCloudEventConnectionDeletedObject7
+    from .event_stream_cloud_event_connection_deleted_object_7_authentication import (
+        EventStreamCloudEventConnectionDeletedObject7Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedObject7ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_metadata import (
+        EventStreamCloudEventConnectionDeletedObject7Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options import (
+        EventStreamCloudEventConnectionDeletedObject7Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionDeletedObject7OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options_identity_api_enum import (
+        EventStreamCloudEventConnectionDeletedObject7OptionsIdentityApiEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedObject7OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionDeletedObject7OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options_tenant_domain_one import (
+        EventStreamCloudEventConnectionDeletedObject7OptionsTenantDomainOne,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedObject7OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options_userid_attribute_enum import (
+        EventStreamCloudEventConnectionDeletedObject7OptionsUseridAttributeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_options_waad_protocol_enum import (
+        EventStreamCloudEventConnectionDeletedObject7OptionsWaadProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_object_7_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedObject7StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object import (
+        EventStreamCloudEventConnectionDeletedPreviousObject,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0 import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_authentication import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_attribute_map import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_connection_settings import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_oidc_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_schema_version_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_type_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_0_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject0StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1 import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_authentication import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_attribute_map import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_connection_settings import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_oidc_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_schema_version_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_type_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_1_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject1StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2 import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_authentication import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_fields_map import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsFieldsMap,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_idpinitiated import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_oidc_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_subject import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_2_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject2StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3 import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_authentication import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_idpinitiated import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_subject import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_3_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject3StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4 import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4_authentication import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4_options import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_4_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject4StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_5 import (
+        EventStreamCloudEventConnectionDeletedPreviousObject5,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_5_authentication import (
+        EventStreamCloudEventConnectionDeletedPreviousObject5Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_5_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedPreviousObject5ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_5_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject5Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_5_options import (
+        EventStreamCloudEventConnectionDeletedPreviousObject5Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_5_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject5OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_5_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedPreviousObject5OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_5_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject5StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6 import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6_authentication import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6_options import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_6_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject6StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7 import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_authentication import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7Authentication,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_connected_accounts import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_metadata import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7Metadata,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7Options,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options_identity_api_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7OptionsIdentityApiEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options_tenant_domain_one import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7OptionsTenantDomainOne,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options_upstream_params import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options_userid_attribute_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7OptionsUseridAttributeEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_options_waad_protocol_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7OptionsWaadProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_previous_object_7_strategy_enum import (
+        EventStreamCloudEventConnectionDeletedPreviousObject7StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_deleted_type_enum import EventStreamCloudEventConnectionDeletedTypeEnum
+    from .event_stream_cloud_event_connection_updated import EventStreamCloudEventConnectionUpdated
+    from .event_stream_cloud_event_connection_updated_cloud_event import (
+        EventStreamCloudEventConnectionUpdatedCloudEvent,
+    )
+    from .event_stream_cloud_event_connection_updated_cloud_event_type_enum import (
+        EventStreamCloudEventConnectionUpdatedCloudEventTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_data import EventStreamCloudEventConnectionUpdatedData
+    from .event_stream_cloud_event_connection_updated_object import EventStreamCloudEventConnectionUpdatedObject
+    from .event_stream_cloud_event_connection_updated_object_0 import EventStreamCloudEventConnectionUpdatedObject0
+    from .event_stream_cloud_event_connection_updated_object_0_authentication import (
+        EventStreamCloudEventConnectionUpdatedObject0Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedObject0ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject0Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options import (
+        EventStreamCloudEventConnectionUpdatedObject0Options,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_attribute_map import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_connection_settings import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_oidc_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_schema_version_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_type_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedObject0OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_object_0_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedObject0StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1 import EventStreamCloudEventConnectionUpdatedObject1
+    from .event_stream_cloud_event_connection_updated_object_1_authentication import (
+        EventStreamCloudEventConnectionUpdatedObject1Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedObject1ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject1Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options import (
+        EventStreamCloudEventConnectionUpdatedObject1Options,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_attribute_map import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_connection_settings import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_oidc_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_schema_version_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_type_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedObject1OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_object_1_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedObject1StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2 import EventStreamCloudEventConnectionUpdatedObject2
+    from .event_stream_cloud_event_connection_updated_object_2_authentication import (
+        EventStreamCloudEventConnectionUpdatedObject2Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedObject2ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject2Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options import (
+        EventStreamCloudEventConnectionUpdatedObject2Options,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_fields_map import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsFieldsMap,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_idpinitiated import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_oidc_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_subject import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedObject2OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_object_2_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedObject2StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3 import EventStreamCloudEventConnectionUpdatedObject3
+    from .event_stream_cloud_event_connection_updated_object_3_authentication import (
+        EventStreamCloudEventConnectionUpdatedObject3Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedObject3ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject3Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options import (
+        EventStreamCloudEventConnectionUpdatedObject3Options,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_idpinitiated import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_subject import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedObject3OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_object_3_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedObject3StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_4 import EventStreamCloudEventConnectionUpdatedObject4
+    from .event_stream_cloud_event_connection_updated_object_4_authentication import (
+        EventStreamCloudEventConnectionUpdatedObject4Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_object_4_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedObject4ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_object_4_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject4Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_4_options import (
+        EventStreamCloudEventConnectionUpdatedObject4Options,
+    )
+    from .event_stream_cloud_event_connection_updated_object_4_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedObject4OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_4_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionUpdatedObject4OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_4_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedObject4OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_object_4_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedObject4StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_5 import EventStreamCloudEventConnectionUpdatedObject5
+    from .event_stream_cloud_event_connection_updated_object_5_authentication import (
+        EventStreamCloudEventConnectionUpdatedObject5Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_object_5_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedObject5ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_object_5_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject5Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_5_options import (
+        EventStreamCloudEventConnectionUpdatedObject5Options,
+    )
+    from .event_stream_cloud_event_connection_updated_object_5_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedObject5OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_5_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedObject5OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_object_5_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedObject5StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_6 import EventStreamCloudEventConnectionUpdatedObject6
+    from .event_stream_cloud_event_connection_updated_object_6_authentication import (
+        EventStreamCloudEventConnectionUpdatedObject6Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_object_6_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedObject6ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_object_6_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject6Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_6_options import (
+        EventStreamCloudEventConnectionUpdatedObject6Options,
+    )
+    from .event_stream_cloud_event_connection_updated_object_6_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionUpdatedObject6OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_updated_object_6_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedObject6OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_6_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedObject6OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_object_6_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedObject6StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7 import EventStreamCloudEventConnectionUpdatedObject7
+    from .event_stream_cloud_event_connection_updated_object_7_authentication import (
+        EventStreamCloudEventConnectionUpdatedObject7Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedObject7ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_metadata import (
+        EventStreamCloudEventConnectionUpdatedObject7Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options import (
+        EventStreamCloudEventConnectionUpdatedObject7Options,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionUpdatedObject7OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options_identity_api_enum import (
+        EventStreamCloudEventConnectionUpdatedObject7OptionsIdentityApiEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedObject7OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionUpdatedObject7OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options_tenant_domain_one import (
+        EventStreamCloudEventConnectionUpdatedObject7OptionsTenantDomainOne,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedObject7OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options_userid_attribute_enum import (
+        EventStreamCloudEventConnectionUpdatedObject7OptionsUseridAttributeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_options_waad_protocol_enum import (
+        EventStreamCloudEventConnectionUpdatedObject7OptionsWaadProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_object_7_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedObject7StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0 import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_authentication import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0Options,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_attribute_map import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_connection_settings import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_oidc_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_schema_version_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_type_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_0_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject0StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1 import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_authentication import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1Options,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_attribute_map import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMap,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_attribute_map_attributes import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMapAttributes,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_attribute_map_mapping_mode_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMapMappingModeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_connection_settings import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsConnectionSettings,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_connection_settings_pkce_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsConnectionSettingsPkceEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_dpop_signing_alg_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsDpopSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_id_token_signed_response_algs_item_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_oidc_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_schema_version_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsSchemaVersionEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_token_endpoint_auth_method_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointAuthMethodEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_token_endpoint_auth_signing_alg_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_token_endpoint_jwtca_aud_format_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_type_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTypeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_1_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject1StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2 import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_authentication import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2Options,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_fields_map import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsFieldsMap,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_idpinitiated import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_oidc_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsOidcMetadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_subject import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_2_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject2StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3 import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_authentication import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3Options,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_assertion_decryption_settings import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsAssertionDecryptionSettings,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_assertion_decryption_settings_algorithm_profile_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_digest_algorithm_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsDigestAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_idpinitiated import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsIdpinitiated,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_idpinitiated_client_protocol_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsIdpinitiatedClientProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_protocol_binding_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsProtocolBindingEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_signature_algorithm_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSignatureAlgorithmEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_subject import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSubject,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_3_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject3StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4 import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4_authentication import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4_options import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4Options,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_4_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject4StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_5 import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject5,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_5_authentication import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject5Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_5_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject5ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_5_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject5Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_5_options import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject5Options,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_5_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject5OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_5_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject5OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_5_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject5StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6 import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6_authentication import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6_options import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6Options,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_6_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject6StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7 import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_authentication import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7Authentication,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_connected_accounts import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7ConnectedAccounts,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_metadata import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7Metadata,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7Options,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options_federated_connections_access_tokens import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsFederatedConnectionsAccessTokens,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options_identity_api_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsIdentityApiEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options_set_user_root_attributes_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsSetUserRootAttributesEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options_should_trust_email_verified_connection_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options_tenant_domain_one import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsTenantDomainOne,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options_upstream_params import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsUpstreamParams,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options_userid_attribute_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsUseridAttributeEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_options_waad_protocol_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsWaadProtocolEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_previous_object_7_strategy_enum import (
+        EventStreamCloudEventConnectionUpdatedPreviousObject7StrategyEnum,
+    )
+    from .event_stream_cloud_event_connection_updated_type_enum import EventStreamCloudEventConnectionUpdatedTypeEnum
     from .event_stream_cloud_event_context import EventStreamCloudEventContext
     from .event_stream_cloud_event_context_client import EventStreamCloudEventContextClient
     from .event_stream_cloud_event_context_client_metadata import EventStreamCloudEventContextClientMetadata
@@ -1194,6 +3390,7 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_context_request import EventStreamCloudEventContextRequest
     from .event_stream_cloud_event_context_request_geo import EventStreamCloudEventContextRequestGeo
     from .event_stream_cloud_event_context_tenant import EventStreamCloudEventContextTenant
+    from .event_stream_cloud_event_data import EventStreamCloudEventData
     from .event_stream_cloud_event_error_code_enum import EventStreamCloudEventErrorCodeEnum
     from .event_stream_cloud_event_error_detail import EventStreamCloudEventErrorDetail
     from .event_stream_cloud_event_error_message import EventStreamCloudEventErrorMessage
@@ -1217,6 +3414,25 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_created_object_2_type_enum import (
         EventStreamCloudEventGroupCreatedObject2TypeEnum,
     )
+    from .event_stream_cloud_event_group_created_previous_object import EventStreamCloudEventGroupCreatedPreviousObject
+    from .event_stream_cloud_event_group_created_previous_object_0 import (
+        EventStreamCloudEventGroupCreatedPreviousObject0,
+    )
+    from .event_stream_cloud_event_group_created_previous_object_0_type_enum import (
+        EventStreamCloudEventGroupCreatedPreviousObject0TypeEnum,
+    )
+    from .event_stream_cloud_event_group_created_previous_object_1 import (
+        EventStreamCloudEventGroupCreatedPreviousObject1,
+    )
+    from .event_stream_cloud_event_group_created_previous_object_1_type_enum import (
+        EventStreamCloudEventGroupCreatedPreviousObject1TypeEnum,
+    )
+    from .event_stream_cloud_event_group_created_previous_object_2 import (
+        EventStreamCloudEventGroupCreatedPreviousObject2,
+    )
+    from .event_stream_cloud_event_group_created_previous_object_2_type_enum import (
+        EventStreamCloudEventGroupCreatedPreviousObject2TypeEnum,
+    )
     from .event_stream_cloud_event_group_created_type_enum import EventStreamCloudEventGroupCreatedTypeEnum
     from .event_stream_cloud_event_group_deleted import EventStreamCloudEventGroupDeleted
     from .event_stream_cloud_event_group_deleted_cloud_event import EventStreamCloudEventGroupDeletedCloudEvent
@@ -1236,6 +3452,25 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_deleted_object_2 import EventStreamCloudEventGroupDeletedObject2
     from .event_stream_cloud_event_group_deleted_object_2_type_enum import (
         EventStreamCloudEventGroupDeletedObject2TypeEnum,
+    )
+    from .event_stream_cloud_event_group_deleted_previous_object import EventStreamCloudEventGroupDeletedPreviousObject
+    from .event_stream_cloud_event_group_deleted_previous_object_0 import (
+        EventStreamCloudEventGroupDeletedPreviousObject0,
+    )
+    from .event_stream_cloud_event_group_deleted_previous_object_0_type_enum import (
+        EventStreamCloudEventGroupDeletedPreviousObject0TypeEnum,
+    )
+    from .event_stream_cloud_event_group_deleted_previous_object_1 import (
+        EventStreamCloudEventGroupDeletedPreviousObject1,
+    )
+    from .event_stream_cloud_event_group_deleted_previous_object_1_type_enum import (
+        EventStreamCloudEventGroupDeletedPreviousObject1TypeEnum,
+    )
+    from .event_stream_cloud_event_group_deleted_previous_object_2 import (
+        EventStreamCloudEventGroupDeletedPreviousObject2,
+    )
+    from .event_stream_cloud_event_group_deleted_previous_object_2_type_enum import (
+        EventStreamCloudEventGroupDeletedPreviousObject2TypeEnum,
     )
     from .event_stream_cloud_event_group_deleted_type_enum import EventStreamCloudEventGroupDeletedTypeEnum
     from .event_stream_cloud_event_group_member_added import EventStreamCloudEventGroupMemberAdded
@@ -1280,6 +3515,45 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_group_member_added_object_member_1_member_type_enum import (
         EventStreamCloudEventGroupMemberAddedObjectMember1MemberTypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object import (
+        EventStreamCloudEventGroupMemberAddedPreviousObject,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_group import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectGroup,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_group_0 import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectGroup0,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_group_0_type_enum import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectGroup0TypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_group_1 import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectGroup1,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_group_1_type_enum import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectGroup1TypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_group_2 import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectGroup2,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_group_2_type_enum import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectGroup2TypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_member import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectMember,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_member_0 import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectMember0,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_member_0_member_type_enum import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectMember0MemberTypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_member_1 import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectMember1,
+    )
+    from .event_stream_cloud_event_group_member_added_previous_object_member_1_member_type_enum import (
+        EventStreamCloudEventGroupMemberAddedPreviousObjectMember1MemberTypeEnum,
     )
     from .event_stream_cloud_event_group_member_added_type_enum import EventStreamCloudEventGroupMemberAddedTypeEnum
     from .event_stream_cloud_event_group_member_deleted import EventStreamCloudEventGroupMemberDeleted
@@ -1327,6 +3601,45 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_member_deleted_object_member_1_member_type_enum import (
         EventStreamCloudEventGroupMemberDeletedObjectMember1MemberTypeEnum,
     )
+    from .event_stream_cloud_event_group_member_deleted_previous_object import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObject,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_group import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_group_0 import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup0,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_group_0_type_enum import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup0TypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_group_1 import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup1,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_group_1_type_enum import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup1TypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_group_2 import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup2,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_group_2_type_enum import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup2TypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_member import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectMember,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_member_0 import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectMember0,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_member_0_member_type_enum import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectMember0MemberTypeEnum,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_member_1 import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectMember1,
+    )
+    from .event_stream_cloud_event_group_member_deleted_previous_object_member_1_member_type_enum import (
+        EventStreamCloudEventGroupMemberDeletedPreviousObjectMember1MemberTypeEnum,
+    )
     from .event_stream_cloud_event_group_member_deleted_type_enum import EventStreamCloudEventGroupMemberDeletedTypeEnum
     from .event_stream_cloud_event_group_role_assigned import EventStreamCloudEventGroupRoleAssigned
     from .event_stream_cloud_event_group_role_assigned_cloud_event import (
@@ -1361,6 +3674,33 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_role_assigned_object_role import (
         EventStreamCloudEventGroupRoleAssignedObjectRole,
     )
+    from .event_stream_cloud_event_group_role_assigned_previous_object import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObject,
+    )
+    from .event_stream_cloud_event_group_role_assigned_previous_object_group import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup,
+    )
+    from .event_stream_cloud_event_group_role_assigned_previous_object_group_0 import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup0,
+    )
+    from .event_stream_cloud_event_group_role_assigned_previous_object_group_0_type_enum import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup0TypeEnum,
+    )
+    from .event_stream_cloud_event_group_role_assigned_previous_object_group_1 import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup1,
+    )
+    from .event_stream_cloud_event_group_role_assigned_previous_object_group_1_type_enum import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup1TypeEnum,
+    )
+    from .event_stream_cloud_event_group_role_assigned_previous_object_group_2 import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup2,
+    )
+    from .event_stream_cloud_event_group_role_assigned_previous_object_group_2_type_enum import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup2TypeEnum,
+    )
+    from .event_stream_cloud_event_group_role_assigned_previous_object_role import (
+        EventStreamCloudEventGroupRoleAssignedPreviousObjectRole,
+    )
     from .event_stream_cloud_event_group_role_assigned_type_enum import EventStreamCloudEventGroupRoleAssignedTypeEnum
     from .event_stream_cloud_event_group_role_deleted import EventStreamCloudEventGroupRoleDeleted
     from .event_stream_cloud_event_group_role_deleted_cloud_event import EventStreamCloudEventGroupRoleDeletedCloudEvent
@@ -1391,6 +3731,33 @@ if typing.TYPE_CHECKING:
         EventStreamCloudEventGroupRoleDeletedObjectGroup2TypeEnum,
     )
     from .event_stream_cloud_event_group_role_deleted_object_role import EventStreamCloudEventGroupRoleDeletedObjectRole
+    from .event_stream_cloud_event_group_role_deleted_previous_object import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObject,
+    )
+    from .event_stream_cloud_event_group_role_deleted_previous_object_group import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup,
+    )
+    from .event_stream_cloud_event_group_role_deleted_previous_object_group_0 import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup0,
+    )
+    from .event_stream_cloud_event_group_role_deleted_previous_object_group_0_type_enum import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup0TypeEnum,
+    )
+    from .event_stream_cloud_event_group_role_deleted_previous_object_group_1 import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup1,
+    )
+    from .event_stream_cloud_event_group_role_deleted_previous_object_group_1_type_enum import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup1TypeEnum,
+    )
+    from .event_stream_cloud_event_group_role_deleted_previous_object_group_2 import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup2,
+    )
+    from .event_stream_cloud_event_group_role_deleted_previous_object_group_2_type_enum import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup2TypeEnum,
+    )
+    from .event_stream_cloud_event_group_role_deleted_previous_object_role import (
+        EventStreamCloudEventGroupRoleDeletedPreviousObjectRole,
+    )
     from .event_stream_cloud_event_group_role_deleted_type_enum import EventStreamCloudEventGroupRoleDeletedTypeEnum
     from .event_stream_cloud_event_group_updated import EventStreamCloudEventGroupUpdated
     from .event_stream_cloud_event_group_updated_cloud_event import EventStreamCloudEventGroupUpdatedCloudEvent
@@ -1411,6 +3778,25 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_group_updated_object_2_type_enum import (
         EventStreamCloudEventGroupUpdatedObject2TypeEnum,
     )
+    from .event_stream_cloud_event_group_updated_previous_object import EventStreamCloudEventGroupUpdatedPreviousObject
+    from .event_stream_cloud_event_group_updated_previous_object_0 import (
+        EventStreamCloudEventGroupUpdatedPreviousObject0,
+    )
+    from .event_stream_cloud_event_group_updated_previous_object_0_type_enum import (
+        EventStreamCloudEventGroupUpdatedPreviousObject0TypeEnum,
+    )
+    from .event_stream_cloud_event_group_updated_previous_object_1 import (
+        EventStreamCloudEventGroupUpdatedPreviousObject1,
+    )
+    from .event_stream_cloud_event_group_updated_previous_object_1_type_enum import (
+        EventStreamCloudEventGroupUpdatedPreviousObject1TypeEnum,
+    )
+    from .event_stream_cloud_event_group_updated_previous_object_2 import (
+        EventStreamCloudEventGroupUpdatedPreviousObject2,
+    )
+    from .event_stream_cloud_event_group_updated_previous_object_2_type_enum import (
+        EventStreamCloudEventGroupUpdatedPreviousObject2TypeEnum,
+    )
     from .event_stream_cloud_event_group_updated_type_enum import EventStreamCloudEventGroupUpdatedTypeEnum
     from .event_stream_cloud_event_offset_only_message import EventStreamCloudEventOffsetOnlyMessage
     from .event_stream_cloud_event_offset_only_message_type_enum import EventStreamCloudEventOffsetOnlyMessageTypeEnum
@@ -1429,6 +3815,45 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_connection_added_object_organization import (
         EventStreamCloudEventOrgConnectionAddedObjectOrganization,
     )
+    from .event_stream_cloud_event_org_connection_added_object_organization_access_level import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel,
+    )
+    from .event_stream_cloud_event_org_connection_added_object_organization_access_level_0_enum import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel0Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_object_organization_access_level_1_enum import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel1Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_object_organization_access_level_2_enum import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel2Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_object_organization_access_level_3_enum import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel3Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_connection import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectConnection,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_access_level import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_0_enum import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel0Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_1_enum import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel1Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_2_enum import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel2Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_3_enum import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel3Enum,
+    )
     from .event_stream_cloud_event_org_connection_added_type_enum import EventStreamCloudEventOrgConnectionAddedTypeEnum
     from .event_stream_cloud_event_org_connection_removed import EventStreamCloudEventOrgConnectionRemoved
     from .event_stream_cloud_event_org_connection_removed_cloud_event import (
@@ -1444,6 +3869,15 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_org_connection_removed_object_organization import (
         EventStreamCloudEventOrgConnectionRemovedObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_connection_removed_previous_object import (
+        EventStreamCloudEventOrgConnectionRemovedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_connection_removed_previous_object_connection import (
+        EventStreamCloudEventOrgConnectionRemovedPreviousObjectConnection,
+    )
+    from .event_stream_cloud_event_org_connection_removed_previous_object_organization import (
+        EventStreamCloudEventOrgConnectionRemovedPreviousObjectOrganization,
     )
     from .event_stream_cloud_event_org_connection_removed_type_enum import (
         EventStreamCloudEventOrgConnectionRemovedTypeEnum,
@@ -1463,6 +3897,45 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_connection_updated_object_organization import (
         EventStreamCloudEventOrgConnectionUpdatedObjectOrganization,
     )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_access_level import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel,
+    )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_access_level_0_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel0Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_access_level_1_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel1Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_access_level_2_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel2Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_access_level_3_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel3Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_connection import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectConnection,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_0_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel0Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_1_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel1Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_2_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel2Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_3_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel3Enum,
+    )
     from .event_stream_cloud_event_org_connection_updated_type_enum import (
         EventStreamCloudEventOrgConnectionUpdatedTypeEnum,
     )
@@ -1478,6 +3951,16 @@ if typing.TYPE_CHECKING:
         EventStreamCloudEventOrgCreatedObjectBrandingColors,
     )
     from .event_stream_cloud_event_org_created_object_metadata import EventStreamCloudEventOrgCreatedObjectMetadata
+    from .event_stream_cloud_event_org_created_previous_object import EventStreamCloudEventOrgCreatedPreviousObject
+    from .event_stream_cloud_event_org_created_previous_object_branding import (
+        EventStreamCloudEventOrgCreatedPreviousObjectBranding,
+    )
+    from .event_stream_cloud_event_org_created_previous_object_branding_colors import (
+        EventStreamCloudEventOrgCreatedPreviousObjectBrandingColors,
+    )
+    from .event_stream_cloud_event_org_created_previous_object_metadata import (
+        EventStreamCloudEventOrgCreatedPreviousObjectMetadata,
+    )
     from .event_stream_cloud_event_org_created_type_enum import EventStreamCloudEventOrgCreatedTypeEnum
     from .event_stream_cloud_event_org_deleted import EventStreamCloudEventOrgDeleted
     from .event_stream_cloud_event_org_deleted_cloud_event import EventStreamCloudEventOrgDeletedCloudEvent
@@ -1487,6 +3970,10 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_deleted_data import EventStreamCloudEventOrgDeletedData
     from .event_stream_cloud_event_org_deleted_object import EventStreamCloudEventOrgDeletedObject
     from .event_stream_cloud_event_org_deleted_object_metadata import EventStreamCloudEventOrgDeletedObjectMetadata
+    from .event_stream_cloud_event_org_deleted_previous_object import EventStreamCloudEventOrgDeletedPreviousObject
+    from .event_stream_cloud_event_org_deleted_previous_object_metadata import (
+        EventStreamCloudEventOrgDeletedPreviousObjectMetadata,
+    )
     from .event_stream_cloud_event_org_deleted_type_enum import EventStreamCloudEventOrgDeletedTypeEnum
     from .event_stream_cloud_event_org_group_role_assigned import EventStreamCloudEventOrgGroupRoleAssigned
     from .event_stream_cloud_event_org_group_role_assigned_cloud_event import (
@@ -1523,6 +4010,36 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_org_group_role_assigned_object_role import (
         EventStreamCloudEventOrgGroupRoleAssignedObjectRole,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_group import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_group_0 import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup0,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_group_0_type_enum import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup0TypeEnum,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_group_1 import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup1,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_group_1_type_enum import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup1TypeEnum,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_group_2 import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup2,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_group_2_type_enum import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup2TypeEnum,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_organization import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_group_role_assigned_previous_object_role import (
+        EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectRole,
     )
     from .event_stream_cloud_event_org_group_role_assigned_type_enum import (
         EventStreamCloudEventOrgGroupRoleAssignedTypeEnum,
@@ -1563,6 +4080,36 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_group_role_deleted_object_role import (
         EventStreamCloudEventOrgGroupRoleDeletedObjectRole,
     )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_group import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_group_0 import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup0,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_group_0_type_enum import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup0TypeEnum,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_group_1 import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup1,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_group_1_type_enum import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup1TypeEnum,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_group_2 import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup2,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_group_2_type_enum import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup2TypeEnum,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_organization import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_group_role_deleted_previous_object_role import (
+        EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectRole,
+    )
     from .event_stream_cloud_event_org_group_role_deleted_type_enum import (
         EventStreamCloudEventOrgGroupRoleDeletedTypeEnum,
     )
@@ -1577,6 +4124,15 @@ if typing.TYPE_CHECKING:
         EventStreamCloudEventOrgMemberAddedObjectOrganization,
     )
     from .event_stream_cloud_event_org_member_added_object_user import EventStreamCloudEventOrgMemberAddedObjectUser
+    from .event_stream_cloud_event_org_member_added_previous_object import (
+        EventStreamCloudEventOrgMemberAddedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_member_added_previous_object_organization import (
+        EventStreamCloudEventOrgMemberAddedPreviousObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_member_added_previous_object_user import (
+        EventStreamCloudEventOrgMemberAddedPreviousObjectUser,
+    )
     from .event_stream_cloud_event_org_member_added_type_enum import EventStreamCloudEventOrgMemberAddedTypeEnum
     from .event_stream_cloud_event_org_member_deleted import EventStreamCloudEventOrgMemberDeleted
     from .event_stream_cloud_event_org_member_deleted_cloud_event import EventStreamCloudEventOrgMemberDeletedCloudEvent
@@ -1589,6 +4145,15 @@ if typing.TYPE_CHECKING:
         EventStreamCloudEventOrgMemberDeletedObjectOrganization,
     )
     from .event_stream_cloud_event_org_member_deleted_object_user import EventStreamCloudEventOrgMemberDeletedObjectUser
+    from .event_stream_cloud_event_org_member_deleted_previous_object import (
+        EventStreamCloudEventOrgMemberDeletedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_member_deleted_previous_object_organization import (
+        EventStreamCloudEventOrgMemberDeletedPreviousObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_member_deleted_previous_object_user import (
+        EventStreamCloudEventOrgMemberDeletedPreviousObjectUser,
+    )
     from .event_stream_cloud_event_org_member_deleted_type_enum import EventStreamCloudEventOrgMemberDeletedTypeEnum
     from .event_stream_cloud_event_org_member_role_assigned import EventStreamCloudEventOrgMemberRoleAssigned
     from .event_stream_cloud_event_org_member_role_assigned_cloud_event import (
@@ -1609,6 +4174,18 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_org_member_role_assigned_object_user import (
         EventStreamCloudEventOrgMemberRoleAssignedObjectUser,
+    )
+    from .event_stream_cloud_event_org_member_role_assigned_previous_object import (
+        EventStreamCloudEventOrgMemberRoleAssignedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_member_role_assigned_previous_object_organization import (
+        EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_member_role_assigned_previous_object_role import (
+        EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectRole,
+    )
+    from .event_stream_cloud_event_org_member_role_assigned_previous_object_user import (
+        EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectUser,
     )
     from .event_stream_cloud_event_org_member_role_assigned_type_enum import (
         EventStreamCloudEventOrgMemberRoleAssignedTypeEnum,
@@ -1631,6 +4208,18 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_member_role_deleted_object_user import (
         EventStreamCloudEventOrgMemberRoleDeletedObjectUser,
     )
+    from .event_stream_cloud_event_org_member_role_deleted_previous_object import (
+        EventStreamCloudEventOrgMemberRoleDeletedPreviousObject,
+    )
+    from .event_stream_cloud_event_org_member_role_deleted_previous_object_organization import (
+        EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectOrganization,
+    )
+    from .event_stream_cloud_event_org_member_role_deleted_previous_object_role import (
+        EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectRole,
+    )
+    from .event_stream_cloud_event_org_member_role_deleted_previous_object_user import (
+        EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectUser,
+    )
     from .event_stream_cloud_event_org_member_role_deleted_type_enum import (
         EventStreamCloudEventOrgMemberRoleDeletedTypeEnum,
     )
@@ -1646,7 +4235,18 @@ if typing.TYPE_CHECKING:
         EventStreamCloudEventOrgUpdatedObjectBrandingColors,
     )
     from .event_stream_cloud_event_org_updated_object_metadata import EventStreamCloudEventOrgUpdatedObjectMetadata
+    from .event_stream_cloud_event_org_updated_previous_object import EventStreamCloudEventOrgUpdatedPreviousObject
+    from .event_stream_cloud_event_org_updated_previous_object_branding import (
+        EventStreamCloudEventOrgUpdatedPreviousObjectBranding,
+    )
+    from .event_stream_cloud_event_org_updated_previous_object_branding_colors import (
+        EventStreamCloudEventOrgUpdatedPreviousObjectBrandingColors,
+    )
+    from .event_stream_cloud_event_org_updated_previous_object_metadata import (
+        EventStreamCloudEventOrgUpdatedPreviousObjectMetadata,
+    )
     from .event_stream_cloud_event_org_updated_type_enum import EventStreamCloudEventOrgUpdatedTypeEnum
+    from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
     from .event_stream_cloud_event_user_created import EventStreamCloudEventUserCreated
     from .event_stream_cloud_event_user_created_cloud_event import EventStreamCloudEventUserCreatedCloudEvent
     from .event_stream_cloud_event_user_created_cloud_event_type_enum import (
@@ -1737,6 +4337,91 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_user_created_object_user_metadata import (
         EventStreamCloudEventUserCreatedObjectUserMetadata,
+    )
+    from .event_stream_cloud_event_user_created_previous_object import EventStreamCloudEventUserCreatedPreviousObject
+    from .event_stream_cloud_event_user_created_previous_object_app_metadata import (
+        EventStreamCloudEventUserCreatedPreviousObjectAppMetadata,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItem,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_custom import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustom,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_custom_is_social_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_custom_profile_data import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomProfileData,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_custom_provider_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomProviderEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_custom_user_id import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomUserId,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_database import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabase,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_database_is_social_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_database_profile_data import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseProfileData,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_database_provider_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseProviderEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_database_user_id import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseUserId,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_enterprise import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterprise,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_enterprise_is_social_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_enterprise_profile_data import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseProfileData,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_enterprise_provider_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseProviderEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_enterprise_user_id import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseUserId,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_passwordless import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordless,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_passwordless_is_social_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_passwordless_profile_data import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessProfileData,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_passwordless_provider_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessProviderEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_passwordless_user_id import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessUserId,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_social import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocial,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_social_is_social_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_social_profile_data import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialProfileData,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_social_provider_enum import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialProviderEnum,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_identities_item_social_user_id import (
+        EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialUserId,
+    )
+    from .event_stream_cloud_event_user_created_previous_object_user_metadata import (
+        EventStreamCloudEventUserCreatedPreviousObjectUserMetadata,
     )
     from .event_stream_cloud_event_user_created_type_enum import EventStreamCloudEventUserCreatedTypeEnum
     from .event_stream_cloud_event_user_deleted import EventStreamCloudEventUserDeleted
@@ -1830,6 +4515,91 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_user_deleted_object_user_metadata import (
         EventStreamCloudEventUserDeletedObjectUserMetadata,
     )
+    from .event_stream_cloud_event_user_deleted_previous_object import EventStreamCloudEventUserDeletedPreviousObject
+    from .event_stream_cloud_event_user_deleted_previous_object_app_metadata import (
+        EventStreamCloudEventUserDeletedPreviousObjectAppMetadata,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItem,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_custom import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustom,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_custom_is_social_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_custom_profile_data import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomProfileData,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_custom_provider_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomProviderEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_custom_user_id import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomUserId,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_database import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabase,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_database_is_social_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_database_profile_data import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseProfileData,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_database_provider_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseProviderEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_database_user_id import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseUserId,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterprise,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise_is_social_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise_profile_data import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseProfileData,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise_provider_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseProviderEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise_user_id import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseUserId,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordless,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless_is_social_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless_profile_data import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessProfileData,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless_provider_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessProviderEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless_user_id import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessUserId,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_social import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocial,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_social_is_social_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_social_profile_data import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialProfileData,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_social_provider_enum import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialProviderEnum,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_identities_item_social_user_id import (
+        EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialUserId,
+    )
+    from .event_stream_cloud_event_user_deleted_previous_object_user_metadata import (
+        EventStreamCloudEventUserDeletedPreviousObjectUserMetadata,
+    )
     from .event_stream_cloud_event_user_deleted_type_enum import EventStreamCloudEventUserDeletedTypeEnum
     from .event_stream_cloud_event_user_updated import EventStreamCloudEventUserUpdated
     from .event_stream_cloud_event_user_updated_cloud_event import EventStreamCloudEventUserUpdatedCloudEvent
@@ -1922,6 +4692,91 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_user_updated_object_user_metadata import (
         EventStreamCloudEventUserUpdatedObjectUserMetadata,
     )
+    from .event_stream_cloud_event_user_updated_previous_object import EventStreamCloudEventUserUpdatedPreviousObject
+    from .event_stream_cloud_event_user_updated_previous_object_app_metadata import (
+        EventStreamCloudEventUserUpdatedPreviousObjectAppMetadata,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItem,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_custom import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustom,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_custom_is_social_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_custom_profile_data import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomProfileData,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_custom_provider_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomProviderEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_custom_user_id import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomUserId,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_database import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabase,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_database_is_social_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_database_profile_data import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseProfileData,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_database_provider_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseProviderEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_database_user_id import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseUserId,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterprise,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise_is_social_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise_profile_data import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseProfileData,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise_provider_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseProviderEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise_user_id import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseUserId,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordless,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless_is_social_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless_profile_data import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessProfileData,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless_provider_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessProviderEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless_user_id import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessUserId,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_social import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocial,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_social_is_social_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialIsSocialEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_social_profile_data import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialProfileData,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_social_provider_enum import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialProviderEnum,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_identities_item_social_user_id import (
+        EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialUserId,
+    )
+    from .event_stream_cloud_event_user_updated_previous_object_user_metadata import (
+        EventStreamCloudEventUserUpdatedPreviousObjectUserMetadata,
+    )
     from .event_stream_cloud_event_user_updated_type_enum import EventStreamCloudEventUserUpdatedTypeEnum
     from .event_stream_delivery import EventStreamDelivery
     from .event_stream_delivery_attempt import EventStreamDeliveryAttempt
@@ -1940,6 +4795,9 @@ if typing.TYPE_CHECKING:
     from .event_stream_subscribe_events_event_type_param import EventStreamSubscribeEventsEventTypeParam
     from .event_stream_subscribe_events_response_content import (
         EventStreamSubscribeEventsResponseContent,
+        EventStreamSubscribeEventsResponseContent_ConnectionCreated,
+        EventStreamSubscribeEventsResponseContent_ConnectionDeleted,
+        EventStreamSubscribeEventsResponseContent_ConnectionUpdated,
         EventStreamSubscribeEventsResponseContent_Error,
         EventStreamSubscribeEventsResponseContent_GroupCreated,
         EventStreamSubscribeEventsResponseContent_GroupDeleted,
@@ -1983,7 +4841,8 @@ if typing.TYPE_CHECKING:
     from .extensibility_email_provider_credentials import ExtensibilityEmailProviderCredentials
     from .fed_cm_login import FedCmLogin
     from .fed_cm_login_google import FedCmLoginGoogle
-    from .federated_connection_token_set import FederatedConnectionTokenSet
+    from .fed_cm_login_google_patch import FedCmLoginGooglePatch
+    from .fed_cm_login_patch import FedCmLoginPatch
     from .flow_action import FlowAction
     from .flow_action_activecampaign import FlowActionActivecampaign
     from .flow_action_activecampaign_list_contacts import FlowActionActivecampaignListContacts
@@ -2570,6 +5429,7 @@ if typing.TYPE_CHECKING:
     from .get_action_version_response_content import GetActionVersionResponseContent
     from .get_active_users_count_stats_response_content import GetActiveUsersCountStatsResponseContent
     from .get_acul_response_content import GetAculResponseContent
+    from .get_all_keys_network_acls_response_content import GetAllKeysNetworkAclsResponseContent
     from .get_attack_protection_captcha_response_content import GetAttackProtectionCaptchaResponseContent
     from .get_bot_detection_settings_response_content import GetBotDetectionSettingsResponseContent
     from .get_branding_default_theme_response_content import GetBrandingDefaultThemeResponseContent
@@ -2597,6 +5457,7 @@ if typing.TYPE_CHECKING:
         GetDirectoryProvisioningDefaultMappingResponseContent,
     )
     from .get_directory_provisioning_response_content import GetDirectoryProvisioningResponseContent
+    from .get_email_factor_settings_response_content import GetEmailFactorSettingsResponseContent
     from .get_email_provider_response_content import GetEmailProviderResponseContent
     from .get_email_template_response_content import GetEmailTemplateResponseContent
     from .get_encryption_key_response_content import GetEncryptionKeyResponseContent
@@ -2630,6 +5491,7 @@ if typing.TYPE_CHECKING:
         GetGuardianFactorsProviderSmsTwilioResponseContent,
     )
     from .get_guardian_factors_provider_sns_response_content import GetGuardianFactorsProviderSnsResponseContent
+    from .get_guardian_settings_response_content import GetGuardianSettingsResponseContent
     from .get_hook_response_content import GetHookResponseContent
     from .get_hook_secret_response_content import GetHookSecretResponseContent
     from .get_job_error_response_content import GetJobErrorResponseContent
@@ -2643,6 +5505,7 @@ if typing.TYPE_CHECKING:
     from .get_network_acls_response_content import GetNetworkAclsResponseContent
     from .get_organization_all_connection_response_content import GetOrganizationAllConnectionResponseContent
     from .get_organization_by_name_response_content import GetOrganizationByNameResponseContent
+    from .get_organization_client_response_content import GetOrganizationClientResponseContent
     from .get_organization_connection_response_content import GetOrganizationConnectionResponseContent
     from .get_organization_discovery_domain_by_name_response_content import (
         GetOrganizationDiscoveryDomainByNameResponseContent,
@@ -2651,7 +5514,10 @@ if typing.TYPE_CHECKING:
     from .get_organization_invitation_response_content import GetOrganizationInvitationResponseContent
     from .get_organization_response_content import GetOrganizationResponseContent
     from .get_partials_response_content import GetPartialsResponseContent
+    from .get_phone_factor_settings_response_content import GetPhoneFactorSettingsResponseContent
+    from .get_phone_provider_protection_response_content import GetPhoneProviderProtectionResponseContent
     from .get_phone_template_response_content import GetPhoneTemplateResponseContent
+    from .get_rate_limit_policy_response_content import GetRateLimitPolicyResponseContent
     from .get_refresh_token_response_content import GetRefreshTokenResponseContent
     from .get_refresh_tokens_paginated_response_content import GetRefreshTokensPaginatedResponseContent
     from .get_resource_server_response_content import GetResourceServerResponseContent
@@ -2692,6 +5558,7 @@ if typing.TYPE_CHECKING:
     from .guardian_factor import GuardianFactor
     from .guardian_factor_name_enum import GuardianFactorNameEnum
     from .guardian_factor_phone_factor_message_type_enum import GuardianFactorPhoneFactorMessageTypeEnum
+    from .guardian_factor_settings import GuardianFactorSettings
     from .guardian_factors_provider_push_notification_provider_data_enum import (
         GuardianFactorsProviderPushNotificationProviderDataEnum,
     )
@@ -2701,6 +5568,7 @@ if typing.TYPE_CHECKING:
     from .hook_trigger_id_enum import HookTriggerIdEnum
     from .http_custom_header import HttpCustomHeader
     from .identity import Identity
+    from .identity_assertion_authorization_grant import IdentityAssertionAuthorizationGrant
     from .identity_provider_enum import IdentityProviderEnum
     from .identity_provider_only_auth_0_enum import IdentityProviderOnlyAuth0Enum
     from .import_encryption_key_response_content import ImportEncryptionKeyResponseContent
@@ -2719,6 +5587,7 @@ if typing.TYPE_CHECKING:
     from .list_actions_paginated_response_content import ListActionsPaginatedResponseContent
     from .list_aculs_offset_paginated_response_content import ListAculsOffsetPaginatedResponseContent
     from .list_aculs_response_content_item import ListAculsResponseContentItem
+    from .list_agents_response_content import ListAgentsResponseContent
     from .list_branding_phone_providers_response_content import ListBrandingPhoneProvidersResponseContent
     from .list_client_connections_response_content import ListClientConnectionsResponseContent
     from .list_client_grant_organizations_paginated_response_content import (
@@ -2737,6 +5606,7 @@ if typing.TYPE_CHECKING:
     )
     from .list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
     from .list_encryption_key_offset_paginated_response_content import ListEncryptionKeyOffsetPaginatedResponseContent
+    from .list_event_stream_deliveries_response_content import ListEventStreamDeliveriesResponseContent
     from .list_event_streams_response_content import ListEventStreamsResponseContent
     from .list_flow_executions_paginated_response_content import ListFlowExecutionsPaginatedResponseContent
     from .list_flows_offset_paginated_response_content import ListFlowsOffsetPaginatedResponseContent
@@ -2745,6 +5615,7 @@ if typing.TYPE_CHECKING:
         ListFlowsVaultConnectionsOffsetPaginatedResponseContent,
     )
     from .list_forms_offset_paginated_response_content import ListFormsOffsetPaginatedResponseContent
+    from .list_group_roles_response_content import ListGroupRolesResponseContent
     from .list_groups_paginated_response_content import ListGroupsPaginatedResponseContent
     from .list_guardian_policies_response_content import ListGuardianPoliciesResponseContent
     from .list_hooks_offset_paginated_response_content import ListHooksOffsetPaginatedResponseContent
@@ -2756,21 +5627,34 @@ if typing.TYPE_CHECKING:
     from .list_organization_client_grants_offset_paginated_response_content import (
         ListOrganizationClientGrantsOffsetPaginatedResponseContent,
     )
+    from .list_organization_clients_response_content import ListOrganizationClientsResponseContent
     from .list_organization_connections_offset_paginated_response_content import (
         ListOrganizationConnectionsOffsetPaginatedResponseContent,
     )
     from .list_organization_discovery_domains_response_content import ListOrganizationDiscoveryDomainsResponseContent
+    from .list_organization_group_roles_response_content import ListOrganizationGroupRolesResponseContent
+    from .list_organization_groups_response_content import ListOrganizationGroupsResponseContent
     from .list_organization_invitations_offset_paginated_response_content import (
         ListOrganizationInvitationsOffsetPaginatedResponseContent,
+    )
+    from .list_organization_member_effective_roles_response_content import (
+        ListOrganizationMemberEffectiveRolesResponseContent,
+    )
+    from .list_organization_member_role_source_groups_response_content import (
+        ListOrganizationMemberRoleSourceGroupsResponseContent,
     )
     from .list_organization_member_roles_offset_paginated_response_content import (
         ListOrganizationMemberRolesOffsetPaginatedResponseContent,
     )
     from .list_organization_members_paginated_response_content import ListOrganizationMembersPaginatedResponseContent
+    from .list_organization_role_groups_response_content import ListOrganizationRoleGroupsResponseContent
+    from .list_organization_role_members_response_content import ListOrganizationRoleMembersResponseContent
     from .list_organizations_paginated_response_content import ListOrganizationsPaginatedResponseContent
     from .list_phone_templates_response_content import ListPhoneTemplatesResponseContent
+    from .list_rate_limit_policies_paginated_response_content import ListRateLimitPoliciesPaginatedResponseContent
     from .list_refresh_tokens_paginated_response_content import ListRefreshTokensPaginatedResponseContent
     from .list_resource_server_offset_paginated_response_content import ListResourceServerOffsetPaginatedResponseContent
+    from .list_role_groups_response_content import ListRoleGroupsResponseContent
     from .list_role_permissions_offset_paginated_response_content import (
         ListRolePermissionsOffsetPaginatedResponseContent,
     )
@@ -2792,6 +5676,11 @@ if typing.TYPE_CHECKING:
     from .list_user_blocks_by_identifier_response_content import ListUserBlocksByIdentifierResponseContent
     from .list_user_blocks_response_content import ListUserBlocksResponseContent
     from .list_user_connected_accounts_response_content import ListUserConnectedAccountsResponseContent
+    from .list_user_effective_permission_role_sources_response_content import (
+        ListUserEffectivePermissionRoleSourcesResponseContent,
+    )
+    from .list_user_effective_permissions_response_content import ListUserEffectivePermissionsResponseContent
+    from .list_user_effective_roles_response_content import ListUserEffectiveRolesResponseContent
     from .list_user_grants_offset_paginated_response_content import ListUserGrantsOffsetPaginatedResponseContent
     from .list_user_organizations_offset_paginated_response_content import (
         ListUserOrganizationsOffsetPaginatedResponseContent,
@@ -2799,6 +5688,7 @@ if typing.TYPE_CHECKING:
     from .list_user_permissions_offset_paginated_response_content import (
         ListUserPermissionsOffsetPaginatedResponseContent,
     )
+    from .list_user_role_source_groups_response_content import ListUserRoleSourceGroupsResponseContent
     from .list_user_roles_offset_paginated_response_content import ListUserRolesOffsetPaginatedResponseContent
     from .list_user_sessions_paginated_response_content import ListUserSessionsPaginatedResponseContent
     from .list_users_offset_paginated_response_content import ListUsersOffsetPaginatedResponseContent
@@ -2858,21 +5748,35 @@ if typing.TYPE_CHECKING:
     from .mfa_policy_enum import MfaPolicyEnum
     from .native_social_login import NativeSocialLogin
     from .native_social_login_apple import NativeSocialLoginApple
+    from .native_social_login_apple_patch import NativeSocialLoginApplePatch
     from .native_social_login_facebook import NativeSocialLoginFacebook
+    from .native_social_login_facebook_patch import NativeSocialLoginFacebookPatch
     from .native_social_login_google import NativeSocialLoginGoogle
+    from .native_social_login_google_patch import NativeSocialLoginGooglePatch
+    from .native_social_login_patch import NativeSocialLoginPatch
     from .network_acl_action import NetworkAclAction
     from .network_acl_action_allow_enum import NetworkAclActionAllowEnum
     from .network_acl_action_block_enum import NetworkAclActionBlockEnum
     from .network_acl_action_log_enum import NetworkAclActionLogEnum
     from .network_acl_action_redirect_enum import NetworkAclActionRedirectEnum
+    from .network_acl_http_message_signature import NetworkAclHttpMessageSignature
+    from .network_acl_http_message_signature_key import NetworkAclHttpMessageSignatureKey
+    from .network_acl_http_message_signature_keys import NetworkAclHttpMessageSignatureKeys
+    from .network_acl_key import NetworkAclKey
+    from .network_acl_key_algorithm_enum import NetworkAclKeyAlgorithmEnum
     from .network_acl_match import NetworkAclMatch
     from .network_acl_match_connecting_ipv_4_cidr import NetworkAclMatchConnectingIpv4Cidr
     from .network_acl_match_connecting_ipv_6_cidr import NetworkAclMatchConnectingIpv6Cidr
     from .network_acl_match_ipv_4_cidr import NetworkAclMatchIpv4Cidr
     from .network_acl_match_ipv_6_cidr import NetworkAclMatchIpv6Cidr
     from .network_acl_rule import NetworkAclRule
+    from .network_acl_rule_match_all_enum import NetworkAclRuleMatchAllEnum
     from .network_acl_rule_scope_enum import NetworkAclRuleScopeEnum
     from .network_acls_response_content import NetworkAclsResponseContent
+    from .not_found_error_body import NotFoundErrorBody
+    from .not_found_error_body_error import NotFoundErrorBodyError
+    from .not_found_schema import NotFoundSchema
+    from .not_found_schema_error import NotFoundSchemaError
     from .oauth_scope import OauthScope
     from .organization import Organization
     from .organization_access_level_enum import OrganizationAccessLevelEnum
@@ -2880,9 +5784,14 @@ if typing.TYPE_CHECKING:
     from .organization_all_connection_post import OrganizationAllConnectionPost
     from .organization_branding import OrganizationBranding
     from .organization_branding_colors import OrganizationBrandingColors
+    from .organization_client import OrganizationClient
+    from .organization_client_association import OrganizationClientAssociation
     from .organization_client_grant import OrganizationClientGrant
+    from .organization_client_metadata import OrganizationClientMetadata
+    from .organization_client_metadata_organization_usage_enum import OrganizationClientMetadataOrganizationUsageEnum
     from .organization_connection import OrganizationConnection
     from .organization_connection_information import OrganizationConnectionInformation
+    from .organization_deletion_behavior_enum import OrganizationDeletionBehaviorEnum
     from .organization_discovery_domain import OrganizationDiscoveryDomain
     from .organization_discovery_domain_status import OrganizationDiscoveryDomainStatus
     from .organization_enabled_connection import OrganizationEnabledConnection
@@ -2890,8 +5799,18 @@ if typing.TYPE_CHECKING:
     from .organization_invitation_invitee import OrganizationInvitationInvitee
     from .organization_invitation_inviter import OrganizationInvitationInviter
     from .organization_member import OrganizationMember
+    from .organization_member_effective_role import OrganizationMemberEffectiveRole
+    from .organization_member_effective_role_source import OrganizationMemberEffectiveRoleSource
     from .organization_member_role import OrganizationMemberRole
     from .organization_metadata import OrganizationMetadata
+    from .organization_sort_field_enum import OrganizationSortFieldEnum
+    from .organization_template import OrganizationTemplate
+    from .organization_template_allowed_strategy_enum import OrganizationTemplateAllowedStrategyEnum
+    from .organization_template_role_visibility_enum import OrganizationTemplateRoleVisibilityEnum
+    from .organization_template_role_visibility_override import OrganizationTemplateRoleVisibilityOverride
+    from .organization_template_role_visibility_policy import OrganizationTemplateRoleVisibilityPolicy
+    from .organization_template_use_for_organization_discovery import OrganizationTemplateUseForOrganizationDiscovery
+    from .organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
     from .organization_usage_enum import OrganizationUsageEnum
     from .partial_groups_enum import PartialGroupsEnum
     from .partial_phone_template_content import PartialPhoneTemplateContent
@@ -2902,15 +5821,37 @@ if typing.TYPE_CHECKING:
     from .password_max_length_exceeded_policy_enum import PasswordMaxLengthExceededPolicyEnum
     from .password_sequential_characters_policy_enum import PasswordSequentialCharactersPolicyEnum
     from .patch_client_credential_response_content import PatchClientCredentialResponseContent
+    from .patch_phone_provider_protection_response_content import PatchPhoneProviderProtectionResponseContent
+    from .patch_rate_limit_policy_configuration_request_content import PatchRateLimitPolicyConfigurationRequestContent
+    from .patch_rate_limit_policy_configuration_request_content_action import (
+        PatchRateLimitPolicyConfigurationRequestContentAction,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_action_action import (
+        PatchRateLimitPolicyConfigurationRequestContentActionAction,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_one import (
+        PatchRateLimitPolicyConfigurationRequestContentOne,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_one_action import (
+        PatchRateLimitPolicyConfigurationRequestContentOneAction,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_zero import (
+        PatchRateLimitPolicyConfigurationRequestContentZero,
+    )
+    from .patch_rate_limit_policy_configuration_request_content_zero_action import (
+        PatchRateLimitPolicyConfigurationRequestContentZeroAction,
+    )
     from .patch_supplemental_signals_response_content import PatchSupplementalSignalsResponseContent
     from .permission_request_payload import PermissionRequestPayload
     from .permissions_response_payload import PermissionsResponsePayload
     from .phone_attribute import PhoneAttribute
+    from .phone_attribute_identifier import PhoneAttributeIdentifier
     from .phone_provider_channel_enum import PhoneProviderChannelEnum
     from .phone_provider_configuration import PhoneProviderConfiguration
     from .phone_provider_credentials import PhoneProviderCredentials
     from .phone_provider_delivery_method_enum import PhoneProviderDeliveryMethodEnum
     from .phone_provider_name_enum import PhoneProviderNameEnum
+    from .phone_provider_protection_backoff_strategy_enum import PhoneProviderProtectionBackoffStrategyEnum
     from .phone_provider_schema_masked import PhoneProviderSchemaMasked
     from .phone_template import PhoneTemplate
     from .phone_template_body import PhoneTemplateBody
@@ -2928,6 +5869,16 @@ if typing.TYPE_CHECKING:
     from .public_key_credential import PublicKeyCredential
     from .public_key_credential_algorithm_enum import PublicKeyCredentialAlgorithmEnum
     from .public_key_credential_type_enum import PublicKeyCredentialTypeEnum
+    from .rate_limit_policy import RateLimitPolicy
+    from .rate_limit_policy_configuration import RateLimitPolicyConfiguration
+    from .rate_limit_policy_configuration_action import RateLimitPolicyConfigurationAction
+    from .rate_limit_policy_configuration_action_action import RateLimitPolicyConfigurationActionAction
+    from .rate_limit_policy_configuration_one import RateLimitPolicyConfigurationOne
+    from .rate_limit_policy_configuration_one_action import RateLimitPolicyConfigurationOneAction
+    from .rate_limit_policy_configuration_zero import RateLimitPolicyConfigurationZero
+    from .rate_limit_policy_configuration_zero_action import RateLimitPolicyConfigurationZeroAction
+    from .rate_limit_policy_consumer_enum import RateLimitPolicyConsumerEnum
+    from .rate_limit_policy_resource_enum import RateLimitPolicyResourceEnum
     from .refresh_token_date import RefreshTokenDate
     from .refresh_token_date_object import RefreshTokenDateObject
     from .refresh_token_device import RefreshTokenDevice
@@ -2948,7 +5899,15 @@ if typing.TYPE_CHECKING:
     from .resource_server_proof_of_possession_mechanism_enum import ResourceServerProofOfPossessionMechanismEnum
     from .resource_server_proof_of_possession_required_for_enum import ResourceServerProofOfPossessionRequiredForEnum
     from .resource_server_scope import ResourceServerScope
+    from .resource_server_search_response import ResourceServerSearchResponse
+    from .resource_server_sort_field_enum import ResourceServerSortFieldEnum
     from .resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
+    from .resource_server_subject_type_authorization_anonymous_user import (
+        ResourceServerSubjectTypeAuthorizationAnonymousUser,
+    )
+    from .resource_server_subject_type_authorization_anonymous_user_policy_enum import (
+        ResourceServerSubjectTypeAuthorizationAnonymousUserPolicyEnum,
+    )
     from .resource_server_subject_type_authorization_client import ResourceServerSubjectTypeAuthorizationClient
     from .resource_server_subject_type_authorization_client_policy_enum import (
         ResourceServerSubjectTypeAuthorizationClientPolicyEnum,
@@ -2966,6 +5925,9 @@ if typing.TYPE_CHECKING:
     from .resource_server_verification_key_pem_certificate import ResourceServerVerificationKeyPemCertificate
     from .revoked_signing_keys_response_content import RevokedSigningKeysResponseContent
     from .role import Role
+    from .role_group import RoleGroup
+    from .role_member import RoleMember
+    from .role_type_enum import RoleTypeEnum
     from .role_user import RoleUser
     from .rollback_action_module_response_content import RollbackActionModuleResponseContent
     from .rotate_client_secret_response_content import RotateClientSecretResponseContent
@@ -2980,6 +5942,10 @@ if typing.TYPE_CHECKING:
     from .scim_token_item import ScimTokenItem
     from .screen_group_name_enum import ScreenGroupNameEnum
     from .search_engine_versions_enum import SearchEngineVersionsEnum
+    from .search_organization import SearchOrganization
+    from .search_organizations_paginated_response_content import SearchOrganizationsPaginatedResponseContent
+    from .search_parser_enum import SearchParserEnum
+    from .search_resource_servers_response_content import SearchResourceServersResponseContent
     from .self_service_profile import SelfServiceProfile
     from .self_service_profile_allowed_strategy_enum import SelfServiceProfileAllowedStrategyEnum
     from .self_service_profile_branding import SelfServiceProfileBranding
@@ -3009,6 +5975,8 @@ if typing.TYPE_CHECKING:
     )
     from .self_service_profile_user_attribute import SelfServiceProfileUserAttribute
     from .self_service_profile_user_attributes import SelfServiceProfileUserAttributes
+    from .session_actor_claim_value import SessionActorClaimValue
+    from .session_actor_metadata import SessionActorMetadata
     from .session_authentication_signal import SessionAuthenticationSignal
     from .session_authentication_signals import SessionAuthenticationSignals
     from .session_client_metadata import SessionClientMetadata
@@ -3022,6 +5990,7 @@ if typing.TYPE_CHECKING:
     from .session_metadata import SessionMetadata
     from .session_response_content import SessionResponseContent
     from .set_custom_signing_keys_response_content import SetCustomSigningKeysResponseContent
+    from .set_email_factor_settings_response_content import SetEmailFactorSettingsResponseContent
     from .set_email_template_response_content import SetEmailTemplateResponseContent
     from .set_guardian_factor_duo_settings_response_content import SetGuardianFactorDuoSettingsResponseContent
     from .set_guardian_factor_phone_message_types_response_content import (
@@ -3055,8 +6024,10 @@ if typing.TYPE_CHECKING:
     )
     from .set_guardian_policies_request_content import SetGuardianPoliciesRequestContent
     from .set_guardian_policies_response_content import SetGuardianPoliciesResponseContent
+    from .set_guardian_settings_response_content import SetGuardianSettingsResponseContent
     from .set_network_acls_response_content import SetNetworkAclsResponseContent
     from .set_partials_request_content import SetPartialsRequestContent
+    from .set_phone_factor_settings_response_content import SetPhoneFactorSettingsResponseContent
     from .set_rules_config_response_content import SetRulesConfigResponseContent
     from .set_self_service_profile_custom_text_request_content import SetSelfServiceProfileCustomTextRequestContent
     from .set_self_service_profile_custom_text_response_content import SetSelfServiceProfileCustomTextResponseContent
@@ -3074,13 +6045,21 @@ if typing.TYPE_CHECKING:
     from .supported_locales import SupportedLocales
     from .suspicious_ip_throttling_allowlist import SuspiciousIpThrottlingAllowlist
     from .suspicious_ip_throttling_allowlist_item import SuspiciousIpThrottlingAllowlistItem
+    from .suspicious_ip_throttling_pre_custom_token_exchange_stage import (
+        SuspiciousIpThrottlingPreCustomTokenExchangeStage,
+    )
     from .suspicious_ip_throttling_pre_login_stage import SuspiciousIpThrottlingPreLoginStage
     from .suspicious_ip_throttling_pre_user_registration_stage import SuspiciousIpThrottlingPreUserRegistrationStage
     from .suspicious_ip_throttling_shields_enum import SuspiciousIpThrottlingShieldsEnum
     from .suspicious_ip_throttling_stage import SuspiciousIpThrottlingStage
     from .synchronize_groups_enum import SynchronizeGroupsEnum
     from .synchronized_group_payload import SynchronizedGroupPayload
+    from .synchronized_group_selection_id import SynchronizedGroupSelectionId
     from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
+    from .tenant_settings_country_codes import TenantSettingsCountryCodes
+    from .tenant_settings_country_codes_mode import TenantSettingsCountryCodesMode
+    from .tenant_settings_country_codes_mode_response import TenantSettingsCountryCodesModeResponse
+    from .tenant_settings_country_codes_response import TenantSettingsCountryCodesResponse
     from .tenant_settings_device_flow import TenantSettingsDeviceFlow
     from .tenant_settings_device_flow_charset import TenantSettingsDeviceFlowCharset
     from .tenant_settings_dynamic_client_registration_security_mode import (
@@ -3090,20 +6069,27 @@ if typing.TYPE_CHECKING:
     from .tenant_settings_flags import TenantSettingsFlags
     from .tenant_settings_guardian_page import TenantSettingsGuardianPage
     from .tenant_settings_mtls import TenantSettingsMtls
+    from .tenant_settings_nullable_security_headers import TenantSettingsNullableSecurityHeaders
     from .tenant_settings_password_page import TenantSettingsPasswordPage
     from .tenant_settings_resource_parameter_profile import TenantSettingsResourceParameterProfile
     from .tenant_settings_sessions import TenantSettingsSessions
+    from .tenant_settings_sessions_anonymous import TenantSettingsSessionsAnonymous
     from .tenant_settings_supported_locales_enum import TenantSettingsSupportedLocalesEnum
     from .test_action_payload import TestActionPayload
     from .test_action_response_content import TestActionResponseContent
     from .test_action_result_payload import TestActionResultPayload
     from .test_custom_domain_response_content import TestCustomDomainResponseContent
     from .test_event_data_content import TestEventDataContent
+    from .third_party_client_access_config import ThirdPartyClientAccessConfig
     from .token_exchange_profile_response_content import TokenExchangeProfileResponseContent
     from .token_exchange_profile_type_enum import TokenExchangeProfileTypeEnum
     from .token_quota import TokenQuota
     from .token_quota_client_credentials import TokenQuotaClientCredentials
     from .token_quota_configuration import TokenQuotaConfiguration
+    from .token_vault_privileged_access_grant import TokenVaultPrivilegedAccessGrant
+    from .token_vault_privileged_access_ip_allowlist_entry import TokenVaultPrivilegedAccessIpAllowlistEntry
+    from .too_many_requests_error_body import TooManyRequestsErrorBody
+    from .too_many_requests_error_body_error import TooManyRequestsErrorBodyError
     from .too_many_requests_schema import TooManyRequestsSchema
     from .too_many_requests_schema_error import TooManyRequestsSchemaError
     from .twilio_provider_configuration import TwilioProviderConfiguration
@@ -3116,16 +6102,12 @@ if typing.TYPE_CHECKING:
     from .update_action_module_response_content import UpdateActionModuleResponseContent
     from .update_action_response_content import UpdateActionResponseContent
     from .update_acul_response_content import UpdateAculResponseContent
+    from .update_anonymous_sessions import UpdateAnonymousSessions
     from .update_attack_protection_captcha_response_content import UpdateAttackProtectionCaptchaResponseContent
     from .update_bot_detection_settings_response_content import UpdateBotDetectionSettingsResponseContent
     from .update_branding_colors import UpdateBrandingColors
     from .update_branding_font import UpdateBrandingFont
-    from .update_branding_identifiers import UpdateBrandingIdentifiers
-    from .update_branding_login_display_enum import UpdateBrandingLoginDisplayEnum
     from .update_branding_page_background import UpdateBrandingPageBackground
-    from .update_branding_phone_display import UpdateBrandingPhoneDisplay
-    from .update_branding_phone_formatting_enum import UpdateBrandingPhoneFormattingEnum
-    from .update_branding_phone_masking_enum import UpdateBrandingPhoneMaskingEnum
     from .update_branding_phone_provider_response_content import UpdateBrandingPhoneProviderResponseContent
     from .update_branding_response_content import UpdateBrandingResponseContent
     from .update_branding_theme_response_content import UpdateBrandingThemeResponseContent
@@ -3195,6 +6177,7 @@ if typing.TYPE_CHECKING:
     from .update_connection_request_content_yahoo import UpdateConnectionRequestContentYahoo
     from .update_connection_request_content_yandex import UpdateConnectionRequestContentYandex
     from .update_connection_response_content import UpdateConnectionResponseContent
+    from .update_cross_app_access_resource_app import UpdateCrossAppAccessResourceApp
     from .update_custom_domain_response_content import UpdateCustomDomainResponseContent
     from .update_default_canonical_domain_response_content import UpdateDefaultCanonicalDomainResponseContent
     from .update_default_custom_domain_response_content import UpdateDefaultCustomDomainResponseContent
@@ -3225,13 +6208,16 @@ if typing.TYPE_CHECKING:
     )
     from .update_hook_response_content import UpdateHookResponseContent
     from .update_hook_secret_request_content import UpdateHookSecretRequestContent
+    from .update_identity_assertion_authorization_grant import UpdateIdentityAssertionAuthorizationGrant
     from .update_log_stream_response_content import UpdateLogStreamResponseContent
     from .update_network_acl_response_content import UpdateNetworkAclResponseContent
     from .update_organization_all_connection_response_content import UpdateOrganizationAllConnectionResponseContent
+    from .update_organization_client_response_content import UpdateOrganizationClientResponseContent
     from .update_organization_connection_response_content import UpdateOrganizationConnectionResponseContent
     from .update_organization_discovery_domain_response_content import UpdateOrganizationDiscoveryDomainResponseContent
     from .update_organization_response_content import UpdateOrganizationResponseContent
     from .update_phone_template_response_content import UpdatePhoneTemplateResponseContent
+    from .update_rate_limit_policy_response_content import UpdateRateLimitPolicyResponseContent
     from .update_refresh_token_response_content import UpdateRefreshTokenResponseContent
     from .update_resource_server_response_content import UpdateResourceServerResponseContent
     from .update_risk_assessments_settings_new_device_response_content import (
@@ -3288,7 +6274,12 @@ if typing.TYPE_CHECKING:
     from .user_authentication_method_properties import UserAuthenticationMethodProperties
     from .user_authentication_method_properties_enum import UserAuthenticationMethodPropertiesEnum
     from .user_block_identifier import UserBlockIdentifier
-    from .user_date_schema import UserDateSchema
+    from .user_effective_permission_response_content import UserEffectivePermissionResponseContent
+    from .user_effective_permission_role_source_enum import UserEffectivePermissionRoleSourceEnum
+    from .user_effective_permission_role_source_response_content import UserEffectivePermissionRoleSourceResponseContent
+    from .user_effective_permission_source_enum import UserEffectivePermissionSourceEnum
+    from .user_effective_role import UserEffectiveRole
+    from .user_effective_role_source import UserEffectiveRoleSource
     from .user_enrollment_auth_method_enum import UserEnrollmentAuthMethodEnum
     from .user_enrollment_status_enum import UserEnrollmentStatusEnum
     from .user_grant import UserGrant
@@ -3306,6 +6297,7 @@ if typing.TYPE_CHECKING:
     from .user_response_schema import UserResponseSchema
     from .username_allowed_types import UsernameAllowedTypes
     from .username_attribute import UsernameAttribute
+    from .username_attribute_identifier import UsernameAttributeIdentifier
     from .username_validation import UsernameValidation
     from .users_enrollment import UsersEnrollment
     from .verifiable_credential_template_response import VerifiableCredentialTemplateResponse
@@ -3314,6 +6306,8 @@ if typing.TYPE_CHECKING:
     from .verify_email_ticket_response_content import VerifyEmailTicketResponseContent
     from .x_509_certificate_credential import X509CertificateCredential
     from .x_509_certificate_credential_type_enum import X509CertificateCredentialTypeEnum
+    from .xss_protection_config import XssProtectionConfig
+    from .xss_protection_mode import XssProtectionMode
 _dynamic_imports: typing.Dict[str, str] = {
     "Action": ".action",
     "ActionBase": ".action_base",
@@ -3368,7 +6362,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AculOrganizationMetadata": ".acul_organization_metadata",
     "AculRenderingModeEnum": ".acul_rendering_mode_enum",
     "AddOrganizationConnectionResponseContent": ".add_organization_connection_response_content",
+    "AdvanceRampResponseContent": ".advance_ramp_response_content",
+    "AgentMetadata": ".agent_metadata",
+    "AgentResponseContent": ".agent_response_content",
     "AnomalyIpFormat": ".anomaly_ip_format",
+    "AnonymousSessions": ".anonymous_sessions",
     "AppMetadata": ".app_metadata",
     "AssessorsTypeEnum": ".assessors_type_enum",
     "AssociateOrganizationClientGrantResponseContent": ".associate_organization_client_grant_response_content",
@@ -3389,6 +6387,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AttackProtectionUpdateCaptchaRecaptchaV2": ".attack_protection_update_captcha_recaptcha_v_2",
     "AuthenticationMethodTypeEnum": ".authentication_method_type_enum",
     "AuthenticationTypeEnum": ".authentication_type_enum",
+    "B2BIntegrationConfiguration": ".b_2_b_integration_configuration",
+    "B2BIntegrationConfigurationIntegrationTypeEnum": ".b_2_b_integration_configuration_integration_type_enum",
     "BadRequestSchema": ".bad_request_schema",
     "BadRequestSchemaError": ".bad_request_schema_error",
     "BotDetectionAllowlist": ".bot_detection_allowlist",
@@ -3404,12 +6404,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BotDetectionMonitoringModeEnabled": ".bot_detection_monitoring_mode_enabled",
     "BrandingColors": ".branding_colors",
     "BrandingFont": ".branding_font",
-    "BrandingIdentifiers": ".branding_identifiers",
-    "BrandingLoginDisplayEnum": ".branding_login_display_enum",
     "BrandingPageBackground": ".branding_page_background",
-    "BrandingPhoneDisplay": ".branding_phone_display",
-    "BrandingPhoneFormattingEnum": ".branding_phone_formatting_enum",
-    "BrandingPhoneMaskingEnum": ".branding_phone_masking_enum",
     "BrandingThemeBorders": ".branding_theme_borders",
     "BrandingThemeBordersButtonsStyleEnum": ".branding_theme_borders_buttons_style_enum",
     "BrandingThemeBordersInputsStyleEnum": ".branding_theme_borders_inputs_style_enum",
@@ -3423,6 +6418,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BrandingThemeFontSubtitle": ".branding_theme_font_subtitle",
     "BrandingThemeFontTitle": ".branding_theme_font_title",
     "BrandingThemeFonts": ".branding_theme_fonts",
+    "BrandingThemeIdentifiers": ".branding_theme_identifiers",
+    "BrandingThemeIdentifiersLoginDisplayEnum": ".branding_theme_identifiers_login_display_enum",
+    "BrandingThemeIdentifiersPhoneDisplay": ".branding_theme_identifiers_phone_display",
+    "BrandingThemeIdentifiersPhoneDisplayFormattingEnum": ".branding_theme_identifiers_phone_display_formatting_enum",
+    "BrandingThemeIdentifiersPhoneDisplayMaskingEnum": ".branding_theme_identifiers_phone_display_masking_enum",
     "BrandingThemePageBackground": ".branding_theme_page_background",
     "BrandingThemePageBackgroundPageLayoutEnum": ".branding_theme_page_background_page_layout_enum",
     "BrandingThemeWidget": ".branding_theme_widget",
@@ -3520,10 +6520,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientMobileAndroid": ".client_mobile_android",
     "ClientMobileiOs": ".client_mobilei_os",
     "ClientMyOrganizationConfigurationAllowedStrategiesEnum": ".client_my_organization_configuration_allowed_strategies_enum",
+    "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum": ".client_my_organization_configuration_third_party_client_access_allowed_values_enum",
+    "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum": ".client_my_organization_configuration_third_party_client_access_default_value_enum",
     "ClientMyOrganizationDeletionBehaviorEnum": ".client_my_organization_deletion_behavior_enum",
     "ClientMyOrganizationPatchConfiguration": ".client_my_organization_patch_configuration",
     "ClientMyOrganizationPostConfiguration": ".client_my_organization_post_configuration",
     "ClientMyOrganizationResponseConfiguration": ".client_my_organization_response_configuration",
+    "ClientMyOrganizationThirdPartyClientAccessConfiguration": ".client_my_organization_third_party_client_access_configuration",
     "ClientOidcBackchannelLogoutInitiators": ".client_oidc_backchannel_logout_initiators",
     "ClientOidcBackchannelLogoutInitiatorsEnum": ".client_oidc_backchannel_logout_initiators_enum",
     "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".client_oidc_backchannel_logout_initiators_mode_enum",
@@ -3552,6 +6555,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientTokenExchangeConfiguration": ".client_token_exchange_configuration",
     "ClientTokenExchangeConfigurationOrNull": ".client_token_exchange_configuration_or_null",
     "ClientTokenExchangeTypeEnum": ".client_token_exchange_type_enum",
+    "ClientTokenVaultPrivilegedAccessWithCredentialId": ".client_token_vault_privileged_access_with_credential_id",
+    "ClientTokenVaultPrivilegedAccessWithPublicKey": ".client_token_vault_privileged_access_with_public_key",
+    "ConflictSchema": ".conflict_schema",
+    "ConflictSchemaError": ".conflict_schema_error",
     "ConnectedAccount": ".connected_account",
     "ConnectedAccountAccessTypeEnum": ".connected_account_access_type_enum",
     "ConnectionAccessTokenUrloAuth1": ".connection_access_token_urlo_auth_1",
@@ -3571,7 +6578,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionAppDomainAzureAd": ".connection_app_domain_azure_ad",
     "ConnectionAssertionDecryptionAlgorithmProfileEnum": ".connection_assertion_decryption_algorithm_profile_enum",
     "ConnectionAssertionDecryptionSettings": ".connection_assertion_decryption_settings",
-    "ConnectionAttributeIdentifier": ".connection_attribute_identifier",
     "ConnectionAttributeMapAttributes": ".connection_attribute_map_attributes",
     "ConnectionAttributeMapOidc": ".connection_attribute_map_oidc",
     "ConnectionAttributeMapOkta": ".connection_attribute_map_okta",
@@ -3632,11 +6638,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionConnectedAccountsPurposeXaa": ".connection_connected_accounts_purpose_xaa",
     "ConnectionConnectionSettings": ".connection_connection_settings",
     "ConnectionConnectionSettingsPkceEnum": ".connection_connection_settings_pkce_enum",
+    "ConnectionCrossAppAccessResourceApp": ".connection_cross_app_access_resource_app",
+    "ConnectionCrossAppAccessResourceAppStatusEnum": ".connection_cross_app_access_resource_app_status_enum",
     "ConnectionCustomHeadersOAuth2": ".connection_custom_headers_o_auth_2",
     "ConnectionCustomScripts": ".connection_custom_scripts",
     "ConnectionDebugSaml": ".connection_debug_saml",
     "ConnectionDecryptionKeySaml": ".connection_decryption_key_saml",
     "ConnectionDecryptionKeySamlCert": ".connection_decryption_key_saml_cert",
+    "ConnectionDeletionBehaviorEnum": ".connection_deletion_behavior_enum",
     "ConnectionDestinationUrlSaml": ".connection_destination_url_saml",
     "ConnectionDigestAlgorithmEnumSaml": ".connection_digest_algorithm_enum_saml",
     "ConnectionDigestAlgorithmSaml": ".connection_digest_algorithm_saml",
@@ -3661,6 +6670,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionEmailFromEmail": ".connection_email_from_email",
     "ConnectionEmailOtpAuthenticationMethod": ".connection_email_otp_authentication_method",
     "ConnectionEmailSubjectEmail": ".connection_email_subject_email",
+    "ConnectionEnablePushedAuthorizationRequests": ".connection_enable_pushed_authorization_requests",
     "ConnectionEnableScriptContext": ".connection_enable_script_context",
     "ConnectionEnabledClient": ".connection_enabled_client",
     "ConnectionEnabledClients": ".connection_enabled_clients",
@@ -3678,7 +6688,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionExtIsSuspended": ".connection_ext_is_suspended",
     "ConnectionExtIsSuspendedGoogleApps": ".connection_ext_is_suspended_google_apps",
     "ConnectionExtProfile": ".connection_ext_profile",
-    "ConnectionFederatedConnectionsAccessTokens": ".connection_federated_connections_access_tokens",
     "ConnectionFieldsMap": ".connection_fields_map",
     "ConnectionFieldsMapSaml": ".connection_fields_map_saml",
     "ConnectionFieldsMapSamlValue": ".connection_fields_map_saml_value",
@@ -3714,6 +6723,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionId": ".connection_id",
     "ConnectionIdTokenEncryptionAlgValuesSupported": ".connection_id_token_encryption_alg_values_supported",
     "ConnectionIdTokenEncryptionEncValuesSupported": ".connection_id_token_encryption_enc_values_supported",
+    "ConnectionIdTokenSessionExpirySupported": ".connection_id_token_session_expiry_supported",
     "ConnectionIdTokenSignedResponseAlgEnum": ".connection_id_token_signed_response_alg_enum",
     "ConnectionIdTokenSignedResponseAlgs": ".connection_id_token_signed_response_algs",
     "ConnectionIdTokenSigningAlgValuesSupported": ".connection_id_token_signing_alg_values_supported",
@@ -3833,16 +6843,29 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionProfile": ".connection_profile",
     "ConnectionProfileBitbucket": ".connection_profile_bitbucket",
     "ConnectionProfileConfig": ".connection_profile_config",
+    "ConnectionProfileCrossAppAccessResourceApp": ".connection_profile_cross_app_access_resource_app",
+    "ConnectionProfileCrossAppAccessResourceAppStatus": ".connection_profile_cross_app_access_resource_app_status",
+    "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum": ".connection_profile_cross_app_access_resource_app_status_allowed_values_enum",
+    "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum": ".connection_profile_cross_app_access_resource_app_status_default_value_enum",
+    "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum": ".connection_profile_cross_app_access_resource_app_status_value_enum",
     "ConnectionProfileEnabledFeatures": ".connection_profile_enabled_features",
     "ConnectionProfileId": ".connection_profile_id",
     "ConnectionProfileName": ".connection_profile_name",
     "ConnectionProfileOrganization": ".connection_profile_organization",
     "ConnectionProfileOrganizationAssignMembershipOnLoginEnum": ".connection_profile_organization_assign_membership_on_login_enum",
     "ConnectionProfileOrganizationShowAsButtonEnum": ".connection_profile_organization_show_as_button_enum",
+    "ConnectionProfileProvisioning": ".connection_profile_provisioning",
+    "ConnectionProfileProvisioningScim": ".connection_profile_provisioning_scim",
+    "ConnectionProfileProvisioningScimTokenDefaultExpiry": ".connection_profile_provisioning_scim_token_default_expiry",
+    "ConnectionProfileProvisioningScimTokenMaxAllowedExpiry": ".connection_profile_provisioning_scim_token_max_allowed_expiry",
+    "ConnectionProfileProvisioningScimTokenScopeEnum": ".connection_profile_provisioning_scim_token_scope_enum",
+    "ConnectionProfileProvisioningScimTokenScopes": ".connection_profile_provisioning_scim_token_scopes",
+    "ConnectionProfileProvisioningScimTokens": ".connection_profile_provisioning_scim_tokens",
     "ConnectionProfileStrategyOverride": ".connection_profile_strategy_override",
     "ConnectionProfileStrategyOverrides": ".connection_profile_strategy_overrides",
     "ConnectionProfileStrategyOverridesConnectionConfig": ".connection_profile_strategy_overrides_connection_config",
     "ConnectionProfileStrategyOverridesEnabledFeatures": ".connection_profile_strategy_overrides_enabled_features",
+    "ConnectionProfileStrategyOverridesProvisioning": ".connection_profile_strategy_overrides_provisioning",
     "ConnectionProfileTemplate": ".connection_profile_template",
     "ConnectionProfileTemplateItem": ".connection_profile_template_item",
     "ConnectionPropertiesOptions": ".connection_properties_options",
@@ -3852,6 +6875,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionProviderSms": ".connection_provider_sms",
     "ConnectionProvisioningTicketUrl": ".connection_provisioning_ticket_url",
     "ConnectionPurposes": ".connection_purposes",
+    "ConnectionPushedAuthorizationRequestEndpoint": ".connection_pushed_authorization_request_endpoint",
     "ConnectionRealmFallback": ".connection_realm_fallback",
     "ConnectionRealms": ".connection_realms",
     "ConnectionRecipientUrlSaml": ".connection_recipient_url_saml",
@@ -3863,6 +6887,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionRequestTemplateSaml": ".connection_request_template_saml",
     "ConnectionRequestTokenUrloAuth1": ".connection_request_token_urlo_auth_1",
     "ConnectionRequestUriParameterSupported": ".connection_request_uri_parameter_supported",
+    "ConnectionRequirePushedAuthorizationRequests": ".connection_require_pushed_authorization_requests",
     "ConnectionRequireRequestUriRegistration": ".connection_require_request_uri_registration",
     "ConnectionRequiresUsername": ".connection_requires_username",
     "ConnectionResponseCommon": ".connection_response_common",
@@ -4057,6 +7082,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionUpstreamParamsFacebook": ".connection_upstream_params_facebook",
     "ConnectionUpstreamValue": ".connection_upstream_value",
     "ConnectionUseCommonEndpointAzureAd": ".connection_use_common_endpoint_azure_ad",
+    "ConnectionUseOauthSpecScope": ".connection_use_oauth_spec_scope",
     "ConnectionUserAuthorizationUrloAuth1": ".connection_user_authorization_urlo_auth_1",
     "ConnectionUserIdAttributeSaml": ".connection_user_id_attribute_saml",
     "ConnectionUseridAttributeAzureAd": ".connection_userid_attribute_azure_ad",
@@ -4069,10 +7095,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionValidationOptions": ".connection_validation_options",
     "ConnectionWaadProtocol": ".connection_waad_protocol",
     "ConnectionWaadProtocolEnumAzureAd": ".connection_waad_protocol_enum_azure_ad",
+    "ConnectionsDiscoveryUrl": ".connections_discovery_url",
     "ConnectionsMetadata": ".connections_metadata",
+    "ConnectionsOidcMetadata": ".connections_oidc_metadata",
+    "ContentSecurityPolicyConfig": ".content_security_policy_config",
     "CreateActionModuleResponseContent": ".create_action_module_response_content",
     "CreateActionModuleVersionResponseContent": ".create_action_module_version_response_content",
     "CreateActionResponseContent": ".create_action_response_content",
+    "CreateAnonymousSessions": ".create_anonymous_sessions",
     "CreateBrandingPhoneProviderResponseContent": ".create_branding_phone_provider_response_content",
     "CreateBrandingThemeResponseContent": ".create_branding_theme_response_content",
     "CreateClientAuthenticationMethodSelfSignedTlsClientAuth": ".create_client_authentication_method_self_signed_tls_client_auth",
@@ -4192,6 +7222,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConnectionRequestContentYandex": ".create_connection_request_content_yandex",
     "CreateConnectionRequestContentYandexStrategy": ".create_connection_request_content_yandex_strategy",
     "CreateConnectionResponseContent": ".create_connection_response_content",
+    "CreateCrossAppAccessResourceApp": ".create_cross_app_access_resource_app",
     "CreateCustomDomainResponseContent": ".create_custom_domain_response_content",
     "CreateDirectoryProvisioningRequestContent": ".create_directory_provisioning_request_content",
     "CreateDirectoryProvisioningResponseContent": ".create_directory_provisioning_response_content",
@@ -4287,7 +7318,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateGuardianEnrollmentTicketResponseContent": ".create_guardian_enrollment_ticket_response_content",
     "CreateHookResponseContent": ".create_hook_response_content",
     "CreateHookSecretRequestContent": ".create_hook_secret_request_content",
+    "CreateIdentityAssertionAuthorizationGrant": ".create_identity_assertion_authorization_grant",
     "CreateImportUsersResponseContent": ".create_import_users_response_content",
+    "CreateKeysNetworkAclsResponseContent": ".create_keys_network_acls_response_content",
     "CreateLogStreamDatadogRequestBody": ".create_log_stream_datadog_request_body",
     "CreateLogStreamEventBridgeRequestBody": ".create_log_stream_event_bridge_request_body",
     "CreateLogStreamEventGridRequestBody": ".create_log_stream_event_grid_request_body",
@@ -4299,6 +7332,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateLogStreamSplunkRequestBody": ".create_log_stream_splunk_request_body",
     "CreateLogStreamSumoRequestBody": ".create_log_stream_sumo_request_body",
     "CreateOrganizationAllConnectionResponseContent": ".create_organization_all_connection_response_content",
+    "CreateOrganizationClientRequestItem": ".create_organization_client_request_item",
+    "CreateOrganizationClientsResponseContent": ".create_organization_clients_response_content",
     "CreateOrganizationDiscoveryDomainResponseContent": ".create_organization_discovery_domain_response_content",
     "CreateOrganizationInvitationResponseContent": ".create_organization_invitation_response_content",
     "CreateOrganizationResponseContent": ".create_organization_response_content",
@@ -4306,6 +7341,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePhoneTemplateResponseContent": ".create_phone_template_response_content",
     "CreatePhoneTemplateTestNotificationResponseContent": ".create_phone_template_test_notification_response_content",
     "CreatePublicKeyDeviceCredentialResponseContent": ".create_public_key_device_credential_response_content",
+    "CreateRateLimitPolicyResponseContent": ".create_rate_limit_policy_response_content",
     "CreateResourceServerResponseContent": ".create_resource_server_response_content",
     "CreateRoleResponseContent": ".create_role_response_content",
     "CreateRuleResponseContent": ".create_rule_response_content",
@@ -4325,6 +7361,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatedUserAuthenticationMethodTypeEnum": ".created_user_authentication_method_type_enum",
     "CredentialDeviceTypeEnum": ".credential_device_type_enum",
     "CredentialId": ".credential_id",
+    "CrossAppAccessRequestingApp": ".cross_app_access_requesting_app",
+    "CrossAppAccessResourceApp": ".cross_app_access_resource_app",
+    "CrossAppAccessResourceAppStatusEnum": ".cross_app_access_resource_app_status_enum",
+    "CspDirectives": ".csp_directives",
+    "CspFlag": ".csp_flag",
+    "CspFlags": ".csp_flags",
+    "CspPolicies": ".csp_policies",
+    "CspPolicy": ".csp_policy",
+    "CspPolicyMode": ".csp_policy_mode",
+    "CspPolicyReporting": ".csp_policy_reporting",
+    "CspReportTo": ".csp_report_to",
+    "CspReportToEndpoint": ".csp_report_to_endpoint",
+    "CspReportToEndpoints": ".csp_report_to_endpoints",
+    "CspReportingEndpoints": ".csp_reporting_endpoints",
+    "CspReportingInfrastructure": ".csp_reporting_infrastructure",
     "CustomDomain": ".custom_domain",
     "CustomDomainCustomClientIpHeader": ".custom_domain_custom_client_ip_header",
     "CustomDomainCustomClientIpHeaderEnum": ".custom_domain_custom_client_ip_header_enum",
@@ -4344,6 +7395,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CustomSigningKeyUseEnum": ".custom_signing_key_use_enum",
     "DailyStats": ".daily_stats",
     "DefaultMethodEmailIdentifierEnum": ".default_method_email_identifier_enum",
+    "DefaultMethodPhoneNumberIdentifierEnum": ".default_method_phone_number_identifier_enum",
     "DefaultTokenQuota": ".default_token_quota",
     "DeleteHookSecretRequestContent": ".delete_hook_secret_request_content",
     "DeleteUserIdentityResponseContent": ".delete_user_identity_response_content",
@@ -4365,6 +7417,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainVerificationMethodNameEnum": ".domain_verification_method_name_enum",
     "DomainVerificationStatusEnum": ".domain_verification_status_enum",
     "EmailAttribute": ".email_attribute",
+    "EmailAttributeIdentifier": ".email_attribute_identifier",
     "EmailMailgunRegionEnum": ".email_mailgun_region_enum",
     "EmailProviderCredentials": ".email_provider_credentials",
     "EmailProviderCredentialsSchema": ".email_provider_credentials_schema",
@@ -4392,6 +7445,735 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamActionResponseContent": ".event_stream_action_response_content",
     "EventStreamCloudEvent": ".event_stream_cloud_event",
     "EventStreamCloudEventA0PurposeEnum": ".event_stream_cloud_event_a_0_purpose_enum",
+    "EventStreamCloudEventConnectionCreated": ".event_stream_cloud_event_connection_created",
+    "EventStreamCloudEventConnectionCreatedCloudEvent": ".event_stream_cloud_event_connection_created_cloud_event",
+    "EventStreamCloudEventConnectionCreatedCloudEventTypeEnum": ".event_stream_cloud_event_connection_created_cloud_event_type_enum",
+    "EventStreamCloudEventConnectionCreatedData": ".event_stream_cloud_event_connection_created_data",
+    "EventStreamCloudEventConnectionCreatedObject": ".event_stream_cloud_event_connection_created_object",
+    "EventStreamCloudEventConnectionCreatedObject0": ".event_stream_cloud_event_connection_created_object_0",
+    "EventStreamCloudEventConnectionCreatedObject0Authentication": ".event_stream_cloud_event_connection_created_object_0_authentication",
+    "EventStreamCloudEventConnectionCreatedObject0ConnectedAccounts": ".event_stream_cloud_event_connection_created_object_0_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedObject0Metadata": ".event_stream_cloud_event_connection_created_object_0_metadata",
+    "EventStreamCloudEventConnectionCreatedObject0Options": ".event_stream_cloud_event_connection_created_object_0_options",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMap": ".event_stream_cloud_event_connection_created_object_0_options_attribute_map",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_created_object_0_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_created_object_0_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsConnectionSettings": ".event_stream_cloud_event_connection_created_object_0_options_connection_settings",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_created_object_0_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_created_object_0_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_created_object_0_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_created_object_0_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsOidcMetadata": ".event_stream_cloud_event_connection_created_object_0_options_oidc_metadata",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_created_object_0_options_schema_version_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_object_0_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_created_object_0_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_created_object_0_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_created_object_0_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsTypeEnum": ".event_stream_cloud_event_connection_created_object_0_options_type_enum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_object_0_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedObject0StrategyEnum": ".event_stream_cloud_event_connection_created_object_0_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedObject1": ".event_stream_cloud_event_connection_created_object_1",
+    "EventStreamCloudEventConnectionCreatedObject1Authentication": ".event_stream_cloud_event_connection_created_object_1_authentication",
+    "EventStreamCloudEventConnectionCreatedObject1ConnectedAccounts": ".event_stream_cloud_event_connection_created_object_1_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedObject1Metadata": ".event_stream_cloud_event_connection_created_object_1_metadata",
+    "EventStreamCloudEventConnectionCreatedObject1Options": ".event_stream_cloud_event_connection_created_object_1_options",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMap": ".event_stream_cloud_event_connection_created_object_1_options_attribute_map",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_created_object_1_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_created_object_1_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsConnectionSettings": ".event_stream_cloud_event_connection_created_object_1_options_connection_settings",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_created_object_1_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_created_object_1_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_created_object_1_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_created_object_1_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsOidcMetadata": ".event_stream_cloud_event_connection_created_object_1_options_oidc_metadata",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_created_object_1_options_schema_version_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_object_1_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_created_object_1_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_created_object_1_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_created_object_1_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsTypeEnum": ".event_stream_cloud_event_connection_created_object_1_options_type_enum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_object_1_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedObject1StrategyEnum": ".event_stream_cloud_event_connection_created_object_1_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedObject2": ".event_stream_cloud_event_connection_created_object_2",
+    "EventStreamCloudEventConnectionCreatedObject2Authentication": ".event_stream_cloud_event_connection_created_object_2_authentication",
+    "EventStreamCloudEventConnectionCreatedObject2ConnectedAccounts": ".event_stream_cloud_event_connection_created_object_2_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedObject2Metadata": ".event_stream_cloud_event_connection_created_object_2_metadata",
+    "EventStreamCloudEventConnectionCreatedObject2Options": ".event_stream_cloud_event_connection_created_object_2_options",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_created_object_2_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_created_object_2_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_created_object_2_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsFieldsMap": ".event_stream_cloud_event_connection_created_object_2_options_fields_map",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsIdpinitiated": ".event_stream_cloud_event_connection_created_object_2_options_idpinitiated",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_created_object_2_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsOidcMetadata": ".event_stream_cloud_event_connection_created_object_2_options_oidc_metadata",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_created_object_2_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_object_2_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_created_object_2_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsSubject": ".event_stream_cloud_event_connection_created_object_2_options_subject",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_object_2_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedObject2StrategyEnum": ".event_stream_cloud_event_connection_created_object_2_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedObject3": ".event_stream_cloud_event_connection_created_object_3",
+    "EventStreamCloudEventConnectionCreatedObject3Authentication": ".event_stream_cloud_event_connection_created_object_3_authentication",
+    "EventStreamCloudEventConnectionCreatedObject3ConnectedAccounts": ".event_stream_cloud_event_connection_created_object_3_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedObject3Metadata": ".event_stream_cloud_event_connection_created_object_3_metadata",
+    "EventStreamCloudEventConnectionCreatedObject3Options": ".event_stream_cloud_event_connection_created_object_3_options",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_created_object_3_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_created_object_3_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_created_object_3_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsIdpinitiated": ".event_stream_cloud_event_connection_created_object_3_options_idpinitiated",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_created_object_3_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_created_object_3_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_object_3_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_created_object_3_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsSubject": ".event_stream_cloud_event_connection_created_object_3_options_subject",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_object_3_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedObject3StrategyEnum": ".event_stream_cloud_event_connection_created_object_3_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedObject4": ".event_stream_cloud_event_connection_created_object_4",
+    "EventStreamCloudEventConnectionCreatedObject4Authentication": ".event_stream_cloud_event_connection_created_object_4_authentication",
+    "EventStreamCloudEventConnectionCreatedObject4ConnectedAccounts": ".event_stream_cloud_event_connection_created_object_4_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedObject4Metadata": ".event_stream_cloud_event_connection_created_object_4_metadata",
+    "EventStreamCloudEventConnectionCreatedObject4Options": ".event_stream_cloud_event_connection_created_object_4_options",
+    "EventStreamCloudEventConnectionCreatedObject4OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_object_4_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedObject4OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_created_object_4_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionCreatedObject4OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_object_4_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedObject4StrategyEnum": ".event_stream_cloud_event_connection_created_object_4_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedObject5": ".event_stream_cloud_event_connection_created_object_5",
+    "EventStreamCloudEventConnectionCreatedObject5Authentication": ".event_stream_cloud_event_connection_created_object_5_authentication",
+    "EventStreamCloudEventConnectionCreatedObject5ConnectedAccounts": ".event_stream_cloud_event_connection_created_object_5_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedObject5Metadata": ".event_stream_cloud_event_connection_created_object_5_metadata",
+    "EventStreamCloudEventConnectionCreatedObject5Options": ".event_stream_cloud_event_connection_created_object_5_options",
+    "EventStreamCloudEventConnectionCreatedObject5OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_object_5_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedObject5OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_object_5_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedObject5StrategyEnum": ".event_stream_cloud_event_connection_created_object_5_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedObject6": ".event_stream_cloud_event_connection_created_object_6",
+    "EventStreamCloudEventConnectionCreatedObject6Authentication": ".event_stream_cloud_event_connection_created_object_6_authentication",
+    "EventStreamCloudEventConnectionCreatedObject6ConnectedAccounts": ".event_stream_cloud_event_connection_created_object_6_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedObject6Metadata": ".event_stream_cloud_event_connection_created_object_6_metadata",
+    "EventStreamCloudEventConnectionCreatedObject6Options": ".event_stream_cloud_event_connection_created_object_6_options",
+    "EventStreamCloudEventConnectionCreatedObject6OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_created_object_6_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionCreatedObject6OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_object_6_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedObject6OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_object_6_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedObject6StrategyEnum": ".event_stream_cloud_event_connection_created_object_6_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedObject7": ".event_stream_cloud_event_connection_created_object_7",
+    "EventStreamCloudEventConnectionCreatedObject7Authentication": ".event_stream_cloud_event_connection_created_object_7_authentication",
+    "EventStreamCloudEventConnectionCreatedObject7ConnectedAccounts": ".event_stream_cloud_event_connection_created_object_7_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedObject7Metadata": ".event_stream_cloud_event_connection_created_object_7_metadata",
+    "EventStreamCloudEventConnectionCreatedObject7Options": ".event_stream_cloud_event_connection_created_object_7_options",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_created_object_7_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsIdentityApiEnum": ".event_stream_cloud_event_connection_created_object_7_options_identity_api_enum",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_object_7_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_created_object_7_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsTenantDomainOne": ".event_stream_cloud_event_connection_created_object_7_options_tenant_domain_one",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_object_7_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsUseridAttributeEnum": ".event_stream_cloud_event_connection_created_object_7_options_userid_attribute_enum",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsWaadProtocolEnum": ".event_stream_cloud_event_connection_created_object_7_options_waad_protocol_enum",
+    "EventStreamCloudEventConnectionCreatedObject7StrategyEnum": ".event_stream_cloud_event_connection_created_object_7_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject": ".event_stream_cloud_event_connection_created_previous_object",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0": ".event_stream_cloud_event_connection_created_previous_object_0",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0Authentication": ".event_stream_cloud_event_connection_created_previous_object_0_authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0ConnectedAccounts": ".event_stream_cloud_event_connection_created_previous_object_0_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0Metadata": ".event_stream_cloud_event_connection_created_previous_object_0_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0Options": ".event_stream_cloud_event_connection_created_previous_object_0_options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMap": ".event_stream_cloud_event_connection_created_previous_object_0_options_attribute_map",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_created_previous_object_0_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsConnectionSettings": ".event_stream_cloud_event_connection_created_previous_object_0_options_connection_settings",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_created_previous_object_0_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsOidcMetadata": ".event_stream_cloud_event_connection_created_previous_object_0_options_oidc_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_schema_version_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTypeEnum": ".event_stream_cloud_event_connection_created_previous_object_0_options_type_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_previous_object_0_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0StrategyEnum": ".event_stream_cloud_event_connection_created_previous_object_0_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1": ".event_stream_cloud_event_connection_created_previous_object_1",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1Authentication": ".event_stream_cloud_event_connection_created_previous_object_1_authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1ConnectedAccounts": ".event_stream_cloud_event_connection_created_previous_object_1_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1Metadata": ".event_stream_cloud_event_connection_created_previous_object_1_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1Options": ".event_stream_cloud_event_connection_created_previous_object_1_options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMap": ".event_stream_cloud_event_connection_created_previous_object_1_options_attribute_map",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_created_previous_object_1_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsConnectionSettings": ".event_stream_cloud_event_connection_created_previous_object_1_options_connection_settings",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_created_previous_object_1_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsOidcMetadata": ".event_stream_cloud_event_connection_created_previous_object_1_options_oidc_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_schema_version_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTypeEnum": ".event_stream_cloud_event_connection_created_previous_object_1_options_type_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_previous_object_1_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1StrategyEnum": ".event_stream_cloud_event_connection_created_previous_object_1_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2": ".event_stream_cloud_event_connection_created_previous_object_2",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2Authentication": ".event_stream_cloud_event_connection_created_previous_object_2_authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2ConnectedAccounts": ".event_stream_cloud_event_connection_created_previous_object_2_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2Metadata": ".event_stream_cloud_event_connection_created_previous_object_2_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2Options": ".event_stream_cloud_event_connection_created_previous_object_2_options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_created_previous_object_2_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_created_previous_object_2_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_created_previous_object_2_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsFieldsMap": ".event_stream_cloud_event_connection_created_previous_object_2_options_fields_map",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsIdpinitiated": ".event_stream_cloud_event_connection_created_previous_object_2_options_idpinitiated",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_created_previous_object_2_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsOidcMetadata": ".event_stream_cloud_event_connection_created_previous_object_2_options_oidc_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_created_previous_object_2_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_previous_object_2_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_created_previous_object_2_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSubject": ".event_stream_cloud_event_connection_created_previous_object_2_options_subject",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_previous_object_2_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2StrategyEnum": ".event_stream_cloud_event_connection_created_previous_object_2_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3": ".event_stream_cloud_event_connection_created_previous_object_3",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3Authentication": ".event_stream_cloud_event_connection_created_previous_object_3_authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3ConnectedAccounts": ".event_stream_cloud_event_connection_created_previous_object_3_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3Metadata": ".event_stream_cloud_event_connection_created_previous_object_3_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3Options": ".event_stream_cloud_event_connection_created_previous_object_3_options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_created_previous_object_3_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_created_previous_object_3_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_created_previous_object_3_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsIdpinitiated": ".event_stream_cloud_event_connection_created_previous_object_3_options_idpinitiated",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_created_previous_object_3_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_created_previous_object_3_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_previous_object_3_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_created_previous_object_3_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSubject": ".event_stream_cloud_event_connection_created_previous_object_3_options_subject",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_previous_object_3_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3StrategyEnum": ".event_stream_cloud_event_connection_created_previous_object_3_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4": ".event_stream_cloud_event_connection_created_previous_object_4",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4Authentication": ".event_stream_cloud_event_connection_created_previous_object_4_authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4ConnectedAccounts": ".event_stream_cloud_event_connection_created_previous_object_4_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4Metadata": ".event_stream_cloud_event_connection_created_previous_object_4_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4Options": ".event_stream_cloud_event_connection_created_previous_object_4_options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_previous_object_4_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_created_previous_object_4_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_previous_object_4_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4StrategyEnum": ".event_stream_cloud_event_connection_created_previous_object_4_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5": ".event_stream_cloud_event_connection_created_previous_object_5",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5Authentication": ".event_stream_cloud_event_connection_created_previous_object_5_authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5ConnectedAccounts": ".event_stream_cloud_event_connection_created_previous_object_5_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5Metadata": ".event_stream_cloud_event_connection_created_previous_object_5_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5Options": ".event_stream_cloud_event_connection_created_previous_object_5_options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_previous_object_5_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_previous_object_5_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5StrategyEnum": ".event_stream_cloud_event_connection_created_previous_object_5_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6": ".event_stream_cloud_event_connection_created_previous_object_6",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6Authentication": ".event_stream_cloud_event_connection_created_previous_object_6_authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6ConnectedAccounts": ".event_stream_cloud_event_connection_created_previous_object_6_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6Metadata": ".event_stream_cloud_event_connection_created_previous_object_6_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6Options": ".event_stream_cloud_event_connection_created_previous_object_6_options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_created_previous_object_6_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_previous_object_6_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_previous_object_6_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6StrategyEnum": ".event_stream_cloud_event_connection_created_previous_object_6_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7": ".event_stream_cloud_event_connection_created_previous_object_7",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7Authentication": ".event_stream_cloud_event_connection_created_previous_object_7_authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7ConnectedAccounts": ".event_stream_cloud_event_connection_created_previous_object_7_connected_accounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7Metadata": ".event_stream_cloud_event_connection_created_previous_object_7_metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7Options": ".event_stream_cloud_event_connection_created_previous_object_7_options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_created_previous_object_7_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsIdentityApiEnum": ".event_stream_cloud_event_connection_created_previous_object_7_options_identity_api_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_created_previous_object_7_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_created_previous_object_7_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsTenantDomainOne": ".event_stream_cloud_event_connection_created_previous_object_7_options_tenant_domain_one",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsUpstreamParams": ".event_stream_cloud_event_connection_created_previous_object_7_options_upstream_params",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsUseridAttributeEnum": ".event_stream_cloud_event_connection_created_previous_object_7_options_userid_attribute_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsWaadProtocolEnum": ".event_stream_cloud_event_connection_created_previous_object_7_options_waad_protocol_enum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7StrategyEnum": ".event_stream_cloud_event_connection_created_previous_object_7_strategy_enum",
+    "EventStreamCloudEventConnectionCreatedTypeEnum": ".event_stream_cloud_event_connection_created_type_enum",
+    "EventStreamCloudEventConnectionDeleted": ".event_stream_cloud_event_connection_deleted",
+    "EventStreamCloudEventConnectionDeletedCloudEvent": ".event_stream_cloud_event_connection_deleted_cloud_event",
+    "EventStreamCloudEventConnectionDeletedCloudEventTypeEnum": ".event_stream_cloud_event_connection_deleted_cloud_event_type_enum",
+    "EventStreamCloudEventConnectionDeletedData": ".event_stream_cloud_event_connection_deleted_data",
+    "EventStreamCloudEventConnectionDeletedObject": ".event_stream_cloud_event_connection_deleted_object",
+    "EventStreamCloudEventConnectionDeletedObject0": ".event_stream_cloud_event_connection_deleted_object_0",
+    "EventStreamCloudEventConnectionDeletedObject0Authentication": ".event_stream_cloud_event_connection_deleted_object_0_authentication",
+    "EventStreamCloudEventConnectionDeletedObject0ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_object_0_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedObject0Metadata": ".event_stream_cloud_event_connection_deleted_object_0_metadata",
+    "EventStreamCloudEventConnectionDeletedObject0Options": ".event_stream_cloud_event_connection_deleted_object_0_options",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMap": ".event_stream_cloud_event_connection_deleted_object_0_options_attribute_map",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_deleted_object_0_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsConnectionSettings": ".event_stream_cloud_event_connection_deleted_object_0_options_connection_settings",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_deleted_object_0_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetadata": ".event_stream_cloud_event_connection_deleted_object_0_options_oidc_metadata",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_schema_version_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsTypeEnum": ".event_stream_cloud_event_connection_deleted_object_0_options_type_enum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_object_0_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedObject0StrategyEnum": ".event_stream_cloud_event_connection_deleted_object_0_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedObject1": ".event_stream_cloud_event_connection_deleted_object_1",
+    "EventStreamCloudEventConnectionDeletedObject1Authentication": ".event_stream_cloud_event_connection_deleted_object_1_authentication",
+    "EventStreamCloudEventConnectionDeletedObject1ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_object_1_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedObject1Metadata": ".event_stream_cloud_event_connection_deleted_object_1_metadata",
+    "EventStreamCloudEventConnectionDeletedObject1Options": ".event_stream_cloud_event_connection_deleted_object_1_options",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMap": ".event_stream_cloud_event_connection_deleted_object_1_options_attribute_map",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_deleted_object_1_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsConnectionSettings": ".event_stream_cloud_event_connection_deleted_object_1_options_connection_settings",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_deleted_object_1_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsOidcMetadata": ".event_stream_cloud_event_connection_deleted_object_1_options_oidc_metadata",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_schema_version_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsTypeEnum": ".event_stream_cloud_event_connection_deleted_object_1_options_type_enum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_object_1_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedObject1StrategyEnum": ".event_stream_cloud_event_connection_deleted_object_1_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedObject2": ".event_stream_cloud_event_connection_deleted_object_2",
+    "EventStreamCloudEventConnectionDeletedObject2Authentication": ".event_stream_cloud_event_connection_deleted_object_2_authentication",
+    "EventStreamCloudEventConnectionDeletedObject2ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_object_2_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedObject2Metadata": ".event_stream_cloud_event_connection_deleted_object_2_metadata",
+    "EventStreamCloudEventConnectionDeletedObject2Options": ".event_stream_cloud_event_connection_deleted_object_2_options",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_deleted_object_2_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_deleted_object_2_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_deleted_object_2_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsFieldsMap": ".event_stream_cloud_event_connection_deleted_object_2_options_fields_map",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsIdpinitiated": ".event_stream_cloud_event_connection_deleted_object_2_options_idpinitiated",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_deleted_object_2_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata": ".event_stream_cloud_event_connection_deleted_object_2_options_oidc_metadata",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_deleted_object_2_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_object_2_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_deleted_object_2_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsSubject": ".event_stream_cloud_event_connection_deleted_object_2_options_subject",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_object_2_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedObject2StrategyEnum": ".event_stream_cloud_event_connection_deleted_object_2_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedObject3": ".event_stream_cloud_event_connection_deleted_object_3",
+    "EventStreamCloudEventConnectionDeletedObject3Authentication": ".event_stream_cloud_event_connection_deleted_object_3_authentication",
+    "EventStreamCloudEventConnectionDeletedObject3ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_object_3_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedObject3Metadata": ".event_stream_cloud_event_connection_deleted_object_3_metadata",
+    "EventStreamCloudEventConnectionDeletedObject3Options": ".event_stream_cloud_event_connection_deleted_object_3_options",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_deleted_object_3_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_deleted_object_3_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_deleted_object_3_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsIdpinitiated": ".event_stream_cloud_event_connection_deleted_object_3_options_idpinitiated",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_deleted_object_3_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_deleted_object_3_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_object_3_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_deleted_object_3_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsSubject": ".event_stream_cloud_event_connection_deleted_object_3_options_subject",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_object_3_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedObject3StrategyEnum": ".event_stream_cloud_event_connection_deleted_object_3_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedObject4": ".event_stream_cloud_event_connection_deleted_object_4",
+    "EventStreamCloudEventConnectionDeletedObject4Authentication": ".event_stream_cloud_event_connection_deleted_object_4_authentication",
+    "EventStreamCloudEventConnectionDeletedObject4ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_object_4_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedObject4Metadata": ".event_stream_cloud_event_connection_deleted_object_4_metadata",
+    "EventStreamCloudEventConnectionDeletedObject4Options": ".event_stream_cloud_event_connection_deleted_object_4_options",
+    "EventStreamCloudEventConnectionDeletedObject4OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_object_4_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedObject4OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_deleted_object_4_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionDeletedObject4OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_object_4_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedObject4StrategyEnum": ".event_stream_cloud_event_connection_deleted_object_4_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedObject5": ".event_stream_cloud_event_connection_deleted_object_5",
+    "EventStreamCloudEventConnectionDeletedObject5Authentication": ".event_stream_cloud_event_connection_deleted_object_5_authentication",
+    "EventStreamCloudEventConnectionDeletedObject5ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_object_5_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedObject5Metadata": ".event_stream_cloud_event_connection_deleted_object_5_metadata",
+    "EventStreamCloudEventConnectionDeletedObject5Options": ".event_stream_cloud_event_connection_deleted_object_5_options",
+    "EventStreamCloudEventConnectionDeletedObject5OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_object_5_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedObject5OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_object_5_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedObject5StrategyEnum": ".event_stream_cloud_event_connection_deleted_object_5_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedObject6": ".event_stream_cloud_event_connection_deleted_object_6",
+    "EventStreamCloudEventConnectionDeletedObject6Authentication": ".event_stream_cloud_event_connection_deleted_object_6_authentication",
+    "EventStreamCloudEventConnectionDeletedObject6ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_object_6_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedObject6Metadata": ".event_stream_cloud_event_connection_deleted_object_6_metadata",
+    "EventStreamCloudEventConnectionDeletedObject6Options": ".event_stream_cloud_event_connection_deleted_object_6_options",
+    "EventStreamCloudEventConnectionDeletedObject6OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_deleted_object_6_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionDeletedObject6OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_object_6_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedObject6OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_object_6_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedObject6StrategyEnum": ".event_stream_cloud_event_connection_deleted_object_6_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedObject7": ".event_stream_cloud_event_connection_deleted_object_7",
+    "EventStreamCloudEventConnectionDeletedObject7Authentication": ".event_stream_cloud_event_connection_deleted_object_7_authentication",
+    "EventStreamCloudEventConnectionDeletedObject7ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_object_7_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedObject7Metadata": ".event_stream_cloud_event_connection_deleted_object_7_metadata",
+    "EventStreamCloudEventConnectionDeletedObject7Options": ".event_stream_cloud_event_connection_deleted_object_7_options",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_deleted_object_7_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsIdentityApiEnum": ".event_stream_cloud_event_connection_deleted_object_7_options_identity_api_enum",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_object_7_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_deleted_object_7_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsTenantDomainOne": ".event_stream_cloud_event_connection_deleted_object_7_options_tenant_domain_one",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_object_7_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsUseridAttributeEnum": ".event_stream_cloud_event_connection_deleted_object_7_options_userid_attribute_enum",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsWaadProtocolEnum": ".event_stream_cloud_event_connection_deleted_object_7_options_waad_protocol_enum",
+    "EventStreamCloudEventConnectionDeletedObject7StrategyEnum": ".event_stream_cloud_event_connection_deleted_object_7_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject": ".event_stream_cloud_event_connection_deleted_previous_object",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0": ".event_stream_cloud_event_connection_deleted_previous_object_0",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0Authentication": ".event_stream_cloud_event_connection_deleted_previous_object_0_authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_previous_object_0_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0Metadata": ".event_stream_cloud_event_connection_deleted_previous_object_0_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0Options": ".event_stream_cloud_event_connection_deleted_previous_object_0_options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMap": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_attribute_map",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsConnectionSettings": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_connection_settings",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsOidcMetadata": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_oidc_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_schema_version_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTypeEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_type_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_previous_object_0_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0StrategyEnum": ".event_stream_cloud_event_connection_deleted_previous_object_0_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1": ".event_stream_cloud_event_connection_deleted_previous_object_1",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1Authentication": ".event_stream_cloud_event_connection_deleted_previous_object_1_authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_previous_object_1_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1Metadata": ".event_stream_cloud_event_connection_deleted_previous_object_1_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1Options": ".event_stream_cloud_event_connection_deleted_previous_object_1_options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMap": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_attribute_map",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsConnectionSettings": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_connection_settings",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsOidcMetadata": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_oidc_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_schema_version_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTypeEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_type_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_previous_object_1_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1StrategyEnum": ".event_stream_cloud_event_connection_deleted_previous_object_1_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2": ".event_stream_cloud_event_connection_deleted_previous_object_2",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2Authentication": ".event_stream_cloud_event_connection_deleted_previous_object_2_authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_previous_object_2_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2Metadata": ".event_stream_cloud_event_connection_deleted_previous_object_2_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2Options": ".event_stream_cloud_event_connection_deleted_previous_object_2_options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsFieldsMap": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_fields_map",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsIdpinitiated": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_idpinitiated",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsOidcMetadata": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_oidc_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSubject": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_subject",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_previous_object_2_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2StrategyEnum": ".event_stream_cloud_event_connection_deleted_previous_object_2_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3": ".event_stream_cloud_event_connection_deleted_previous_object_3",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3Authentication": ".event_stream_cloud_event_connection_deleted_previous_object_3_authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_previous_object_3_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3Metadata": ".event_stream_cloud_event_connection_deleted_previous_object_3_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3Options": ".event_stream_cloud_event_connection_deleted_previous_object_3_options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsIdpinitiated": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_idpinitiated",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSubject": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_subject",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_previous_object_3_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3StrategyEnum": ".event_stream_cloud_event_connection_deleted_previous_object_3_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4": ".event_stream_cloud_event_connection_deleted_previous_object_4",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4Authentication": ".event_stream_cloud_event_connection_deleted_previous_object_4_authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_previous_object_4_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4Metadata": ".event_stream_cloud_event_connection_deleted_previous_object_4_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4Options": ".event_stream_cloud_event_connection_deleted_previous_object_4_options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_previous_object_4_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_deleted_previous_object_4_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_previous_object_4_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4StrategyEnum": ".event_stream_cloud_event_connection_deleted_previous_object_4_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5": ".event_stream_cloud_event_connection_deleted_previous_object_5",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5Authentication": ".event_stream_cloud_event_connection_deleted_previous_object_5_authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_previous_object_5_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5Metadata": ".event_stream_cloud_event_connection_deleted_previous_object_5_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5Options": ".event_stream_cloud_event_connection_deleted_previous_object_5_options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_previous_object_5_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_previous_object_5_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5StrategyEnum": ".event_stream_cloud_event_connection_deleted_previous_object_5_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6": ".event_stream_cloud_event_connection_deleted_previous_object_6",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6Authentication": ".event_stream_cloud_event_connection_deleted_previous_object_6_authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_previous_object_6_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6Metadata": ".event_stream_cloud_event_connection_deleted_previous_object_6_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6Options": ".event_stream_cloud_event_connection_deleted_previous_object_6_options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_deleted_previous_object_6_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_previous_object_6_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_previous_object_6_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6StrategyEnum": ".event_stream_cloud_event_connection_deleted_previous_object_6_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7": ".event_stream_cloud_event_connection_deleted_previous_object_7",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7Authentication": ".event_stream_cloud_event_connection_deleted_previous_object_7_authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7ConnectedAccounts": ".event_stream_cloud_event_connection_deleted_previous_object_7_connected_accounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7Metadata": ".event_stream_cloud_event_connection_deleted_previous_object_7_metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7Options": ".event_stream_cloud_event_connection_deleted_previous_object_7_options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_deleted_previous_object_7_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsIdentityApiEnum": ".event_stream_cloud_event_connection_deleted_previous_object_7_options_identity_api_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_deleted_previous_object_7_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_deleted_previous_object_7_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsTenantDomainOne": ".event_stream_cloud_event_connection_deleted_previous_object_7_options_tenant_domain_one",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsUpstreamParams": ".event_stream_cloud_event_connection_deleted_previous_object_7_options_upstream_params",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsUseridAttributeEnum": ".event_stream_cloud_event_connection_deleted_previous_object_7_options_userid_attribute_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsWaadProtocolEnum": ".event_stream_cloud_event_connection_deleted_previous_object_7_options_waad_protocol_enum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7StrategyEnum": ".event_stream_cloud_event_connection_deleted_previous_object_7_strategy_enum",
+    "EventStreamCloudEventConnectionDeletedTypeEnum": ".event_stream_cloud_event_connection_deleted_type_enum",
+    "EventStreamCloudEventConnectionUpdated": ".event_stream_cloud_event_connection_updated",
+    "EventStreamCloudEventConnectionUpdatedCloudEvent": ".event_stream_cloud_event_connection_updated_cloud_event",
+    "EventStreamCloudEventConnectionUpdatedCloudEventTypeEnum": ".event_stream_cloud_event_connection_updated_cloud_event_type_enum",
+    "EventStreamCloudEventConnectionUpdatedData": ".event_stream_cloud_event_connection_updated_data",
+    "EventStreamCloudEventConnectionUpdatedObject": ".event_stream_cloud_event_connection_updated_object",
+    "EventStreamCloudEventConnectionUpdatedObject0": ".event_stream_cloud_event_connection_updated_object_0",
+    "EventStreamCloudEventConnectionUpdatedObject0Authentication": ".event_stream_cloud_event_connection_updated_object_0_authentication",
+    "EventStreamCloudEventConnectionUpdatedObject0ConnectedAccounts": ".event_stream_cloud_event_connection_updated_object_0_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedObject0Metadata": ".event_stream_cloud_event_connection_updated_object_0_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject0Options": ".event_stream_cloud_event_connection_updated_object_0_options",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMap": ".event_stream_cloud_event_connection_updated_object_0_options_attribute_map",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_updated_object_0_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_updated_object_0_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsConnectionSettings": ".event_stream_cloud_event_connection_updated_object_0_options_connection_settings",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_updated_object_0_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_updated_object_0_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_updated_object_0_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_updated_object_0_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsOidcMetadata": ".event_stream_cloud_event_connection_updated_object_0_options_oidc_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_updated_object_0_options_schema_version_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_object_0_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_updated_object_0_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_updated_object_0_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_updated_object_0_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsTypeEnum": ".event_stream_cloud_event_connection_updated_object_0_options_type_enum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_object_0_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedObject0StrategyEnum": ".event_stream_cloud_event_connection_updated_object_0_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1": ".event_stream_cloud_event_connection_updated_object_1",
+    "EventStreamCloudEventConnectionUpdatedObject1Authentication": ".event_stream_cloud_event_connection_updated_object_1_authentication",
+    "EventStreamCloudEventConnectionUpdatedObject1ConnectedAccounts": ".event_stream_cloud_event_connection_updated_object_1_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedObject1Metadata": ".event_stream_cloud_event_connection_updated_object_1_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject1Options": ".event_stream_cloud_event_connection_updated_object_1_options",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMap": ".event_stream_cloud_event_connection_updated_object_1_options_attribute_map",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_updated_object_1_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_updated_object_1_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsConnectionSettings": ".event_stream_cloud_event_connection_updated_object_1_options_connection_settings",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_updated_object_1_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_updated_object_1_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_updated_object_1_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_updated_object_1_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsOidcMetadata": ".event_stream_cloud_event_connection_updated_object_1_options_oidc_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_updated_object_1_options_schema_version_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_object_1_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_updated_object_1_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_updated_object_1_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_updated_object_1_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsTypeEnum": ".event_stream_cloud_event_connection_updated_object_1_options_type_enum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_object_1_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedObject1StrategyEnum": ".event_stream_cloud_event_connection_updated_object_1_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedObject2": ".event_stream_cloud_event_connection_updated_object_2",
+    "EventStreamCloudEventConnectionUpdatedObject2Authentication": ".event_stream_cloud_event_connection_updated_object_2_authentication",
+    "EventStreamCloudEventConnectionUpdatedObject2ConnectedAccounts": ".event_stream_cloud_event_connection_updated_object_2_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedObject2Metadata": ".event_stream_cloud_event_connection_updated_object_2_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject2Options": ".event_stream_cloud_event_connection_updated_object_2_options",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_updated_object_2_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_updated_object_2_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_updated_object_2_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsFieldsMap": ".event_stream_cloud_event_connection_updated_object_2_options_fields_map",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsIdpinitiated": ".event_stream_cloud_event_connection_updated_object_2_options_idpinitiated",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_updated_object_2_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsOidcMetadata": ".event_stream_cloud_event_connection_updated_object_2_options_oidc_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_updated_object_2_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_object_2_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_updated_object_2_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsSubject": ".event_stream_cloud_event_connection_updated_object_2_options_subject",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_object_2_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedObject2StrategyEnum": ".event_stream_cloud_event_connection_updated_object_2_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedObject3": ".event_stream_cloud_event_connection_updated_object_3",
+    "EventStreamCloudEventConnectionUpdatedObject3Authentication": ".event_stream_cloud_event_connection_updated_object_3_authentication",
+    "EventStreamCloudEventConnectionUpdatedObject3ConnectedAccounts": ".event_stream_cloud_event_connection_updated_object_3_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedObject3Metadata": ".event_stream_cloud_event_connection_updated_object_3_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject3Options": ".event_stream_cloud_event_connection_updated_object_3_options",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_updated_object_3_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_updated_object_3_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_updated_object_3_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsIdpinitiated": ".event_stream_cloud_event_connection_updated_object_3_options_idpinitiated",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_updated_object_3_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_updated_object_3_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_object_3_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_updated_object_3_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsSubject": ".event_stream_cloud_event_connection_updated_object_3_options_subject",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_object_3_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedObject3StrategyEnum": ".event_stream_cloud_event_connection_updated_object_3_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedObject4": ".event_stream_cloud_event_connection_updated_object_4",
+    "EventStreamCloudEventConnectionUpdatedObject4Authentication": ".event_stream_cloud_event_connection_updated_object_4_authentication",
+    "EventStreamCloudEventConnectionUpdatedObject4ConnectedAccounts": ".event_stream_cloud_event_connection_updated_object_4_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedObject4Metadata": ".event_stream_cloud_event_connection_updated_object_4_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject4Options": ".event_stream_cloud_event_connection_updated_object_4_options",
+    "EventStreamCloudEventConnectionUpdatedObject4OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_object_4_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedObject4OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_updated_object_4_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionUpdatedObject4OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_object_4_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedObject4StrategyEnum": ".event_stream_cloud_event_connection_updated_object_4_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedObject5": ".event_stream_cloud_event_connection_updated_object_5",
+    "EventStreamCloudEventConnectionUpdatedObject5Authentication": ".event_stream_cloud_event_connection_updated_object_5_authentication",
+    "EventStreamCloudEventConnectionUpdatedObject5ConnectedAccounts": ".event_stream_cloud_event_connection_updated_object_5_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedObject5Metadata": ".event_stream_cloud_event_connection_updated_object_5_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject5Options": ".event_stream_cloud_event_connection_updated_object_5_options",
+    "EventStreamCloudEventConnectionUpdatedObject5OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_object_5_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedObject5OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_object_5_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedObject5StrategyEnum": ".event_stream_cloud_event_connection_updated_object_5_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedObject6": ".event_stream_cloud_event_connection_updated_object_6",
+    "EventStreamCloudEventConnectionUpdatedObject6Authentication": ".event_stream_cloud_event_connection_updated_object_6_authentication",
+    "EventStreamCloudEventConnectionUpdatedObject6ConnectedAccounts": ".event_stream_cloud_event_connection_updated_object_6_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedObject6Metadata": ".event_stream_cloud_event_connection_updated_object_6_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject6Options": ".event_stream_cloud_event_connection_updated_object_6_options",
+    "EventStreamCloudEventConnectionUpdatedObject6OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_updated_object_6_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionUpdatedObject6OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_object_6_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedObject6OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_object_6_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedObject6StrategyEnum": ".event_stream_cloud_event_connection_updated_object_6_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedObject7": ".event_stream_cloud_event_connection_updated_object_7",
+    "EventStreamCloudEventConnectionUpdatedObject7Authentication": ".event_stream_cloud_event_connection_updated_object_7_authentication",
+    "EventStreamCloudEventConnectionUpdatedObject7ConnectedAccounts": ".event_stream_cloud_event_connection_updated_object_7_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedObject7Metadata": ".event_stream_cloud_event_connection_updated_object_7_metadata",
+    "EventStreamCloudEventConnectionUpdatedObject7Options": ".event_stream_cloud_event_connection_updated_object_7_options",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_updated_object_7_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsIdentityApiEnum": ".event_stream_cloud_event_connection_updated_object_7_options_identity_api_enum",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_object_7_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_updated_object_7_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsTenantDomainOne": ".event_stream_cloud_event_connection_updated_object_7_options_tenant_domain_one",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_object_7_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsUseridAttributeEnum": ".event_stream_cloud_event_connection_updated_object_7_options_userid_attribute_enum",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsWaadProtocolEnum": ".event_stream_cloud_event_connection_updated_object_7_options_waad_protocol_enum",
+    "EventStreamCloudEventConnectionUpdatedObject7StrategyEnum": ".event_stream_cloud_event_connection_updated_object_7_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject": ".event_stream_cloud_event_connection_updated_previous_object",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0": ".event_stream_cloud_event_connection_updated_previous_object_0",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0Authentication": ".event_stream_cloud_event_connection_updated_previous_object_0_authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0ConnectedAccounts": ".event_stream_cloud_event_connection_updated_previous_object_0_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0Metadata": ".event_stream_cloud_event_connection_updated_previous_object_0_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0Options": ".event_stream_cloud_event_connection_updated_previous_object_0_options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMap": ".event_stream_cloud_event_connection_updated_previous_object_0_options_attribute_map",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_updated_previous_object_0_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsConnectionSettings": ".event_stream_cloud_event_connection_updated_previous_object_0_options_connection_settings",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_updated_previous_object_0_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsOidcMetadata": ".event_stream_cloud_event_connection_updated_previous_object_0_options_oidc_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_schema_version_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTypeEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_options_type_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_previous_object_0_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0StrategyEnum": ".event_stream_cloud_event_connection_updated_previous_object_0_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1": ".event_stream_cloud_event_connection_updated_previous_object_1",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1Authentication": ".event_stream_cloud_event_connection_updated_previous_object_1_authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1ConnectedAccounts": ".event_stream_cloud_event_connection_updated_previous_object_1_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1Metadata": ".event_stream_cloud_event_connection_updated_previous_object_1_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1Options": ".event_stream_cloud_event_connection_updated_previous_object_1_options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMap": ".event_stream_cloud_event_connection_updated_previous_object_1_options_attribute_map",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMapAttributes": ".event_stream_cloud_event_connection_updated_previous_object_1_options_attribute_map_attributes",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMapMappingModeEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_attribute_map_mapping_mode_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsConnectionSettings": ".event_stream_cloud_event_connection_updated_previous_object_1_options_connection_settings",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsConnectionSettingsPkceEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_connection_settings_pkce_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsDpopSigningAlgEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_dpop_signing_alg_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_updated_previous_object_1_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_id_token_signed_response_algs_item_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsOidcMetadata": ".event_stream_cloud_event_connection_updated_previous_object_1_options_oidc_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsSchemaVersionEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_schema_version_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointAuthMethodEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_token_endpoint_auth_method_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_token_endpoint_auth_signing_alg_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_token_endpoint_jwtca_aud_format_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTypeEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_options_type_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_previous_object_1_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1StrategyEnum": ".event_stream_cloud_event_connection_updated_previous_object_1_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2": ".event_stream_cloud_event_connection_updated_previous_object_2",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2Authentication": ".event_stream_cloud_event_connection_updated_previous_object_2_authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2ConnectedAccounts": ".event_stream_cloud_event_connection_updated_previous_object_2_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2Metadata": ".event_stream_cloud_event_connection_updated_previous_object_2_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2Options": ".event_stream_cloud_event_connection_updated_previous_object_2_options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_updated_previous_object_2_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_updated_previous_object_2_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_updated_previous_object_2_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsFieldsMap": ".event_stream_cloud_event_connection_updated_previous_object_2_options_fields_map",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsIdpinitiated": ".event_stream_cloud_event_connection_updated_previous_object_2_options_idpinitiated",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_updated_previous_object_2_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsOidcMetadata": ".event_stream_cloud_event_connection_updated_previous_object_2_options_oidc_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_updated_previous_object_2_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_previous_object_2_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_updated_previous_object_2_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSubject": ".event_stream_cloud_event_connection_updated_previous_object_2_options_subject",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_previous_object_2_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2StrategyEnum": ".event_stream_cloud_event_connection_updated_previous_object_2_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3": ".event_stream_cloud_event_connection_updated_previous_object_3",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3Authentication": ".event_stream_cloud_event_connection_updated_previous_object_3_authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3ConnectedAccounts": ".event_stream_cloud_event_connection_updated_previous_object_3_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3Metadata": ".event_stream_cloud_event_connection_updated_previous_object_3_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3Options": ".event_stream_cloud_event_connection_updated_previous_object_3_options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsAssertionDecryptionSettings": ".event_stream_cloud_event_connection_updated_previous_object_3_options_assertion_decryption_settings",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum": ".event_stream_cloud_event_connection_updated_previous_object_3_options_assertion_decryption_settings_algorithm_profile_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsDigestAlgorithmEnum": ".event_stream_cloud_event_connection_updated_previous_object_3_options_digest_algorithm_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsIdpinitiated": ".event_stream_cloud_event_connection_updated_previous_object_3_options_idpinitiated",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsIdpinitiatedClientProtocolEnum": ".event_stream_cloud_event_connection_updated_previous_object_3_options_idpinitiated_client_protocol_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsProtocolBindingEnum": ".event_stream_cloud_event_connection_updated_previous_object_3_options_protocol_binding_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_previous_object_3_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSignatureAlgorithmEnum": ".event_stream_cloud_event_connection_updated_previous_object_3_options_signature_algorithm_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSubject": ".event_stream_cloud_event_connection_updated_previous_object_3_options_subject",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_previous_object_3_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3StrategyEnum": ".event_stream_cloud_event_connection_updated_previous_object_3_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4": ".event_stream_cloud_event_connection_updated_previous_object_4",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4Authentication": ".event_stream_cloud_event_connection_updated_previous_object_4_authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4ConnectedAccounts": ".event_stream_cloud_event_connection_updated_previous_object_4_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4Metadata": ".event_stream_cloud_event_connection_updated_previous_object_4_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4Options": ".event_stream_cloud_event_connection_updated_previous_object_4_options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_previous_object_4_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_updated_previous_object_4_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_previous_object_4_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4StrategyEnum": ".event_stream_cloud_event_connection_updated_previous_object_4_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5": ".event_stream_cloud_event_connection_updated_previous_object_5",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5Authentication": ".event_stream_cloud_event_connection_updated_previous_object_5_authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5ConnectedAccounts": ".event_stream_cloud_event_connection_updated_previous_object_5_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5Metadata": ".event_stream_cloud_event_connection_updated_previous_object_5_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5Options": ".event_stream_cloud_event_connection_updated_previous_object_5_options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_previous_object_5_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_previous_object_5_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5StrategyEnum": ".event_stream_cloud_event_connection_updated_previous_object_5_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6": ".event_stream_cloud_event_connection_updated_previous_object_6",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6Authentication": ".event_stream_cloud_event_connection_updated_previous_object_6_authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6ConnectedAccounts": ".event_stream_cloud_event_connection_updated_previous_object_6_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6Metadata": ".event_stream_cloud_event_connection_updated_previous_object_6_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6Options": ".event_stream_cloud_event_connection_updated_previous_object_6_options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_updated_previous_object_6_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_previous_object_6_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_previous_object_6_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6StrategyEnum": ".event_stream_cloud_event_connection_updated_previous_object_6_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7": ".event_stream_cloud_event_connection_updated_previous_object_7",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7Authentication": ".event_stream_cloud_event_connection_updated_previous_object_7_authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7ConnectedAccounts": ".event_stream_cloud_event_connection_updated_previous_object_7_connected_accounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7Metadata": ".event_stream_cloud_event_connection_updated_previous_object_7_metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7Options": ".event_stream_cloud_event_connection_updated_previous_object_7_options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsFederatedConnectionsAccessTokens": ".event_stream_cloud_event_connection_updated_previous_object_7_options_federated_connections_access_tokens",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsIdentityApiEnum": ".event_stream_cloud_event_connection_updated_previous_object_7_options_identity_api_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsSetUserRootAttributesEnum": ".event_stream_cloud_event_connection_updated_previous_object_7_options_set_user_root_attributes_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum": ".event_stream_cloud_event_connection_updated_previous_object_7_options_should_trust_email_verified_connection_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsTenantDomainOne": ".event_stream_cloud_event_connection_updated_previous_object_7_options_tenant_domain_one",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsUpstreamParams": ".event_stream_cloud_event_connection_updated_previous_object_7_options_upstream_params",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsUseridAttributeEnum": ".event_stream_cloud_event_connection_updated_previous_object_7_options_userid_attribute_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsWaadProtocolEnum": ".event_stream_cloud_event_connection_updated_previous_object_7_options_waad_protocol_enum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7StrategyEnum": ".event_stream_cloud_event_connection_updated_previous_object_7_strategy_enum",
+    "EventStreamCloudEventConnectionUpdatedTypeEnum": ".event_stream_cloud_event_connection_updated_type_enum",
     "EventStreamCloudEventContext": ".event_stream_cloud_event_context",
     "EventStreamCloudEventContextClient": ".event_stream_cloud_event_context_client",
     "EventStreamCloudEventContextClientMetadata": ".event_stream_cloud_event_context_client_metadata",
@@ -4399,6 +8181,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventContextRequest": ".event_stream_cloud_event_context_request",
     "EventStreamCloudEventContextRequestGeo": ".event_stream_cloud_event_context_request_geo",
     "EventStreamCloudEventContextTenant": ".event_stream_cloud_event_context_tenant",
+    "EventStreamCloudEventData": ".event_stream_cloud_event_data",
     "EventStreamCloudEventErrorCodeEnum": ".event_stream_cloud_event_error_code_enum",
     "EventStreamCloudEventErrorDetail": ".event_stream_cloud_event_error_detail",
     "EventStreamCloudEventErrorMessage": ".event_stream_cloud_event_error_message",
@@ -4414,6 +8197,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupCreatedObject1TypeEnum": ".event_stream_cloud_event_group_created_object_1_type_enum",
     "EventStreamCloudEventGroupCreatedObject2": ".event_stream_cloud_event_group_created_object_2",
     "EventStreamCloudEventGroupCreatedObject2TypeEnum": ".event_stream_cloud_event_group_created_object_2_type_enum",
+    "EventStreamCloudEventGroupCreatedPreviousObject": ".event_stream_cloud_event_group_created_previous_object",
+    "EventStreamCloudEventGroupCreatedPreviousObject0": ".event_stream_cloud_event_group_created_previous_object_0",
+    "EventStreamCloudEventGroupCreatedPreviousObject0TypeEnum": ".event_stream_cloud_event_group_created_previous_object_0_type_enum",
+    "EventStreamCloudEventGroupCreatedPreviousObject1": ".event_stream_cloud_event_group_created_previous_object_1",
+    "EventStreamCloudEventGroupCreatedPreviousObject1TypeEnum": ".event_stream_cloud_event_group_created_previous_object_1_type_enum",
+    "EventStreamCloudEventGroupCreatedPreviousObject2": ".event_stream_cloud_event_group_created_previous_object_2",
+    "EventStreamCloudEventGroupCreatedPreviousObject2TypeEnum": ".event_stream_cloud_event_group_created_previous_object_2_type_enum",
     "EventStreamCloudEventGroupCreatedTypeEnum": ".event_stream_cloud_event_group_created_type_enum",
     "EventStreamCloudEventGroupDeleted": ".event_stream_cloud_event_group_deleted",
     "EventStreamCloudEventGroupDeletedCloudEvent": ".event_stream_cloud_event_group_deleted_cloud_event",
@@ -4426,6 +8216,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupDeletedObject1TypeEnum": ".event_stream_cloud_event_group_deleted_object_1_type_enum",
     "EventStreamCloudEventGroupDeletedObject2": ".event_stream_cloud_event_group_deleted_object_2",
     "EventStreamCloudEventGroupDeletedObject2TypeEnum": ".event_stream_cloud_event_group_deleted_object_2_type_enum",
+    "EventStreamCloudEventGroupDeletedPreviousObject": ".event_stream_cloud_event_group_deleted_previous_object",
+    "EventStreamCloudEventGroupDeletedPreviousObject0": ".event_stream_cloud_event_group_deleted_previous_object_0",
+    "EventStreamCloudEventGroupDeletedPreviousObject0TypeEnum": ".event_stream_cloud_event_group_deleted_previous_object_0_type_enum",
+    "EventStreamCloudEventGroupDeletedPreviousObject1": ".event_stream_cloud_event_group_deleted_previous_object_1",
+    "EventStreamCloudEventGroupDeletedPreviousObject1TypeEnum": ".event_stream_cloud_event_group_deleted_previous_object_1_type_enum",
+    "EventStreamCloudEventGroupDeletedPreviousObject2": ".event_stream_cloud_event_group_deleted_previous_object_2",
+    "EventStreamCloudEventGroupDeletedPreviousObject2TypeEnum": ".event_stream_cloud_event_group_deleted_previous_object_2_type_enum",
     "EventStreamCloudEventGroupDeletedTypeEnum": ".event_stream_cloud_event_group_deleted_type_enum",
     "EventStreamCloudEventGroupMemberAdded": ".event_stream_cloud_event_group_member_added",
     "EventStreamCloudEventGroupMemberAddedCloudEvent": ".event_stream_cloud_event_group_member_added_cloud_event",
@@ -4444,6 +8241,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupMemberAddedObjectMember0MemberTypeEnum": ".event_stream_cloud_event_group_member_added_object_member_0_member_type_enum",
     "EventStreamCloudEventGroupMemberAddedObjectMember1": ".event_stream_cloud_event_group_member_added_object_member_1",
     "EventStreamCloudEventGroupMemberAddedObjectMember1MemberTypeEnum": ".event_stream_cloud_event_group_member_added_object_member_1_member_type_enum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObject": ".event_stream_cloud_event_group_member_added_previous_object",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup": ".event_stream_cloud_event_group_member_added_previous_object_group",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup0": ".event_stream_cloud_event_group_member_added_previous_object_group_0",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup0TypeEnum": ".event_stream_cloud_event_group_member_added_previous_object_group_0_type_enum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup1": ".event_stream_cloud_event_group_member_added_previous_object_group_1",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup1TypeEnum": ".event_stream_cloud_event_group_member_added_previous_object_group_1_type_enum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup2": ".event_stream_cloud_event_group_member_added_previous_object_group_2",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup2TypeEnum": ".event_stream_cloud_event_group_member_added_previous_object_group_2_type_enum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember": ".event_stream_cloud_event_group_member_added_previous_object_member",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember0": ".event_stream_cloud_event_group_member_added_previous_object_member_0",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember0MemberTypeEnum": ".event_stream_cloud_event_group_member_added_previous_object_member_0_member_type_enum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember1": ".event_stream_cloud_event_group_member_added_previous_object_member_1",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember1MemberTypeEnum": ".event_stream_cloud_event_group_member_added_previous_object_member_1_member_type_enum",
     "EventStreamCloudEventGroupMemberAddedTypeEnum": ".event_stream_cloud_event_group_member_added_type_enum",
     "EventStreamCloudEventGroupMemberDeleted": ".event_stream_cloud_event_group_member_deleted",
     "EventStreamCloudEventGroupMemberDeletedCloudEvent": ".event_stream_cloud_event_group_member_deleted_cloud_event",
@@ -4462,6 +8272,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupMemberDeletedObjectMember0MemberTypeEnum": ".event_stream_cloud_event_group_member_deleted_object_member_0_member_type_enum",
     "EventStreamCloudEventGroupMemberDeletedObjectMember1": ".event_stream_cloud_event_group_member_deleted_object_member_1",
     "EventStreamCloudEventGroupMemberDeletedObjectMember1MemberTypeEnum": ".event_stream_cloud_event_group_member_deleted_object_member_1_member_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObject": ".event_stream_cloud_event_group_member_deleted_previous_object",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup": ".event_stream_cloud_event_group_member_deleted_previous_object_group",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup0": ".event_stream_cloud_event_group_member_deleted_previous_object_group_0",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup0TypeEnum": ".event_stream_cloud_event_group_member_deleted_previous_object_group_0_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup1": ".event_stream_cloud_event_group_member_deleted_previous_object_group_1",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup1TypeEnum": ".event_stream_cloud_event_group_member_deleted_previous_object_group_1_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup2": ".event_stream_cloud_event_group_member_deleted_previous_object_group_2",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup2TypeEnum": ".event_stream_cloud_event_group_member_deleted_previous_object_group_2_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember": ".event_stream_cloud_event_group_member_deleted_previous_object_member",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember0": ".event_stream_cloud_event_group_member_deleted_previous_object_member_0",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember0MemberTypeEnum": ".event_stream_cloud_event_group_member_deleted_previous_object_member_0_member_type_enum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember1": ".event_stream_cloud_event_group_member_deleted_previous_object_member_1",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember1MemberTypeEnum": ".event_stream_cloud_event_group_member_deleted_previous_object_member_1_member_type_enum",
     "EventStreamCloudEventGroupMemberDeletedTypeEnum": ".event_stream_cloud_event_group_member_deleted_type_enum",
     "EventStreamCloudEventGroupRoleAssigned": ".event_stream_cloud_event_group_role_assigned",
     "EventStreamCloudEventGroupRoleAssignedCloudEvent": ".event_stream_cloud_event_group_role_assigned_cloud_event",
@@ -4476,6 +8299,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupRoleAssignedObjectGroup2": ".event_stream_cloud_event_group_role_assigned_object_group_2",
     "EventStreamCloudEventGroupRoleAssignedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_role_assigned_object_group_2_type_enum",
     "EventStreamCloudEventGroupRoleAssignedObjectRole": ".event_stream_cloud_event_group_role_assigned_object_role",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObject": ".event_stream_cloud_event_group_role_assigned_previous_object",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup": ".event_stream_cloud_event_group_role_assigned_previous_object_group",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup0": ".event_stream_cloud_event_group_role_assigned_previous_object_group_0",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup0TypeEnum": ".event_stream_cloud_event_group_role_assigned_previous_object_group_0_type_enum",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup1": ".event_stream_cloud_event_group_role_assigned_previous_object_group_1",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup1TypeEnum": ".event_stream_cloud_event_group_role_assigned_previous_object_group_1_type_enum",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup2": ".event_stream_cloud_event_group_role_assigned_previous_object_group_2",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup2TypeEnum": ".event_stream_cloud_event_group_role_assigned_previous_object_group_2_type_enum",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectRole": ".event_stream_cloud_event_group_role_assigned_previous_object_role",
     "EventStreamCloudEventGroupRoleAssignedTypeEnum": ".event_stream_cloud_event_group_role_assigned_type_enum",
     "EventStreamCloudEventGroupRoleDeleted": ".event_stream_cloud_event_group_role_deleted",
     "EventStreamCloudEventGroupRoleDeletedCloudEvent": ".event_stream_cloud_event_group_role_deleted_cloud_event",
@@ -4490,6 +8322,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupRoleDeletedObjectGroup2": ".event_stream_cloud_event_group_role_deleted_object_group_2",
     "EventStreamCloudEventGroupRoleDeletedObjectGroup2TypeEnum": ".event_stream_cloud_event_group_role_deleted_object_group_2_type_enum",
     "EventStreamCloudEventGroupRoleDeletedObjectRole": ".event_stream_cloud_event_group_role_deleted_object_role",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObject": ".event_stream_cloud_event_group_role_deleted_previous_object",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup": ".event_stream_cloud_event_group_role_deleted_previous_object_group",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup0": ".event_stream_cloud_event_group_role_deleted_previous_object_group_0",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup0TypeEnum": ".event_stream_cloud_event_group_role_deleted_previous_object_group_0_type_enum",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup1": ".event_stream_cloud_event_group_role_deleted_previous_object_group_1",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup1TypeEnum": ".event_stream_cloud_event_group_role_deleted_previous_object_group_1_type_enum",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup2": ".event_stream_cloud_event_group_role_deleted_previous_object_group_2",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup2TypeEnum": ".event_stream_cloud_event_group_role_deleted_previous_object_group_2_type_enum",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectRole": ".event_stream_cloud_event_group_role_deleted_previous_object_role",
     "EventStreamCloudEventGroupRoleDeletedTypeEnum": ".event_stream_cloud_event_group_role_deleted_type_enum",
     "EventStreamCloudEventGroupUpdated": ".event_stream_cloud_event_group_updated",
     "EventStreamCloudEventGroupUpdatedCloudEvent": ".event_stream_cloud_event_group_updated_cloud_event",
@@ -4502,6 +8343,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventGroupUpdatedObject1TypeEnum": ".event_stream_cloud_event_group_updated_object_1_type_enum",
     "EventStreamCloudEventGroupUpdatedObject2": ".event_stream_cloud_event_group_updated_object_2",
     "EventStreamCloudEventGroupUpdatedObject2TypeEnum": ".event_stream_cloud_event_group_updated_object_2_type_enum",
+    "EventStreamCloudEventGroupUpdatedPreviousObject": ".event_stream_cloud_event_group_updated_previous_object",
+    "EventStreamCloudEventGroupUpdatedPreviousObject0": ".event_stream_cloud_event_group_updated_previous_object_0",
+    "EventStreamCloudEventGroupUpdatedPreviousObject0TypeEnum": ".event_stream_cloud_event_group_updated_previous_object_0_type_enum",
+    "EventStreamCloudEventGroupUpdatedPreviousObject1": ".event_stream_cloud_event_group_updated_previous_object_1",
+    "EventStreamCloudEventGroupUpdatedPreviousObject1TypeEnum": ".event_stream_cloud_event_group_updated_previous_object_1_type_enum",
+    "EventStreamCloudEventGroupUpdatedPreviousObject2": ".event_stream_cloud_event_group_updated_previous_object_2",
+    "EventStreamCloudEventGroupUpdatedPreviousObject2TypeEnum": ".event_stream_cloud_event_group_updated_previous_object_2_type_enum",
     "EventStreamCloudEventGroupUpdatedTypeEnum": ".event_stream_cloud_event_group_updated_type_enum",
     "EventStreamCloudEventOffsetOnlyMessage": ".event_stream_cloud_event_offset_only_message",
     "EventStreamCloudEventOffsetOnlyMessageTypeEnum": ".event_stream_cloud_event_offset_only_message_type_enum",
@@ -4512,6 +8360,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgConnectionAddedObject": ".event_stream_cloud_event_org_connection_added_object",
     "EventStreamCloudEventOrgConnectionAddedObjectConnection": ".event_stream_cloud_event_org_connection_added_object_connection",
     "EventStreamCloudEventOrgConnectionAddedObjectOrganization": ".event_stream_cloud_event_org_connection_added_object_organization",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel": ".event_stream_cloud_event_org_connection_added_object_organization_access_level",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel0Enum": ".event_stream_cloud_event_org_connection_added_object_organization_access_level_0_enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel1Enum": ".event_stream_cloud_event_org_connection_added_object_organization_access_level_1_enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel2Enum": ".event_stream_cloud_event_org_connection_added_object_organization_access_level_2_enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel3Enum": ".event_stream_cloud_event_org_connection_added_object_organization_access_level_3_enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObject": ".event_stream_cloud_event_org_connection_added_previous_object",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectConnection": ".event_stream_cloud_event_org_connection_added_previous_object_connection",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganization": ".event_stream_cloud_event_org_connection_added_previous_object_organization",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel": ".event_stream_cloud_event_org_connection_added_previous_object_organization_access_level",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel0Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_0_enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel1Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_1_enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel2Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_2_enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel3Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_3_enum",
     "EventStreamCloudEventOrgConnectionAddedTypeEnum": ".event_stream_cloud_event_org_connection_added_type_enum",
     "EventStreamCloudEventOrgConnectionRemoved": ".event_stream_cloud_event_org_connection_removed",
     "EventStreamCloudEventOrgConnectionRemovedCloudEvent": ".event_stream_cloud_event_org_connection_removed_cloud_event",
@@ -4520,6 +8381,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgConnectionRemovedObject": ".event_stream_cloud_event_org_connection_removed_object",
     "EventStreamCloudEventOrgConnectionRemovedObjectConnection": ".event_stream_cloud_event_org_connection_removed_object_connection",
     "EventStreamCloudEventOrgConnectionRemovedObjectOrganization": ".event_stream_cloud_event_org_connection_removed_object_organization",
+    "EventStreamCloudEventOrgConnectionRemovedPreviousObject": ".event_stream_cloud_event_org_connection_removed_previous_object",
+    "EventStreamCloudEventOrgConnectionRemovedPreviousObjectConnection": ".event_stream_cloud_event_org_connection_removed_previous_object_connection",
+    "EventStreamCloudEventOrgConnectionRemovedPreviousObjectOrganization": ".event_stream_cloud_event_org_connection_removed_previous_object_organization",
     "EventStreamCloudEventOrgConnectionRemovedTypeEnum": ".event_stream_cloud_event_org_connection_removed_type_enum",
     "EventStreamCloudEventOrgConnectionUpdated": ".event_stream_cloud_event_org_connection_updated",
     "EventStreamCloudEventOrgConnectionUpdatedCloudEvent": ".event_stream_cloud_event_org_connection_updated_cloud_event",
@@ -4528,6 +8392,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgConnectionUpdatedObject": ".event_stream_cloud_event_org_connection_updated_object",
     "EventStreamCloudEventOrgConnectionUpdatedObjectConnection": ".event_stream_cloud_event_org_connection_updated_object_connection",
     "EventStreamCloudEventOrgConnectionUpdatedObjectOrganization": ".event_stream_cloud_event_org_connection_updated_object_organization",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel": ".event_stream_cloud_event_org_connection_updated_object_organization_access_level",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel0Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_access_level_0_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel1Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_access_level_1_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel2Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_access_level_2_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel3Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_access_level_3_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObject": ".event_stream_cloud_event_org_connection_updated_previous_object",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectConnection": ".event_stream_cloud_event_org_connection_updated_previous_object_connection",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganization": ".event_stream_cloud_event_org_connection_updated_previous_object_organization",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel0Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_0_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel1Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_1_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel2Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_2_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel3Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_3_enum",
     "EventStreamCloudEventOrgConnectionUpdatedTypeEnum": ".event_stream_cloud_event_org_connection_updated_type_enum",
     "EventStreamCloudEventOrgCreated": ".event_stream_cloud_event_org_created",
     "EventStreamCloudEventOrgCreatedCloudEvent": ".event_stream_cloud_event_org_created_cloud_event",
@@ -4537,6 +8414,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgCreatedObjectBranding": ".event_stream_cloud_event_org_created_object_branding",
     "EventStreamCloudEventOrgCreatedObjectBrandingColors": ".event_stream_cloud_event_org_created_object_branding_colors",
     "EventStreamCloudEventOrgCreatedObjectMetadata": ".event_stream_cloud_event_org_created_object_metadata",
+    "EventStreamCloudEventOrgCreatedPreviousObject": ".event_stream_cloud_event_org_created_previous_object",
+    "EventStreamCloudEventOrgCreatedPreviousObjectBranding": ".event_stream_cloud_event_org_created_previous_object_branding",
+    "EventStreamCloudEventOrgCreatedPreviousObjectBrandingColors": ".event_stream_cloud_event_org_created_previous_object_branding_colors",
+    "EventStreamCloudEventOrgCreatedPreviousObjectMetadata": ".event_stream_cloud_event_org_created_previous_object_metadata",
     "EventStreamCloudEventOrgCreatedTypeEnum": ".event_stream_cloud_event_org_created_type_enum",
     "EventStreamCloudEventOrgDeleted": ".event_stream_cloud_event_org_deleted",
     "EventStreamCloudEventOrgDeletedCloudEvent": ".event_stream_cloud_event_org_deleted_cloud_event",
@@ -4544,6 +8425,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgDeletedData": ".event_stream_cloud_event_org_deleted_data",
     "EventStreamCloudEventOrgDeletedObject": ".event_stream_cloud_event_org_deleted_object",
     "EventStreamCloudEventOrgDeletedObjectMetadata": ".event_stream_cloud_event_org_deleted_object_metadata",
+    "EventStreamCloudEventOrgDeletedPreviousObject": ".event_stream_cloud_event_org_deleted_previous_object",
+    "EventStreamCloudEventOrgDeletedPreviousObjectMetadata": ".event_stream_cloud_event_org_deleted_previous_object_metadata",
     "EventStreamCloudEventOrgDeletedTypeEnum": ".event_stream_cloud_event_org_deleted_type_enum",
     "EventStreamCloudEventOrgGroupRoleAssigned": ".event_stream_cloud_event_org_group_role_assigned",
     "EventStreamCloudEventOrgGroupRoleAssignedCloudEvent": ".event_stream_cloud_event_org_group_role_assigned_cloud_event",
@@ -4559,6 +8442,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup2TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_object_group_2_type_enum",
     "EventStreamCloudEventOrgGroupRoleAssignedObjectOrganization": ".event_stream_cloud_event_org_group_role_assigned_object_organization",
     "EventStreamCloudEventOrgGroupRoleAssignedObjectRole": ".event_stream_cloud_event_org_group_role_assigned_object_role",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObject": ".event_stream_cloud_event_org_group_role_assigned_previous_object",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup": ".event_stream_cloud_event_org_group_role_assigned_previous_object_group",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup0": ".event_stream_cloud_event_org_group_role_assigned_previous_object_group_0",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup0TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_previous_object_group_0_type_enum",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup1": ".event_stream_cloud_event_org_group_role_assigned_previous_object_group_1",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup1TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_previous_object_group_1_type_enum",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup2": ".event_stream_cloud_event_org_group_role_assigned_previous_object_group_2",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup2TypeEnum": ".event_stream_cloud_event_org_group_role_assigned_previous_object_group_2_type_enum",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectOrganization": ".event_stream_cloud_event_org_group_role_assigned_previous_object_organization",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectRole": ".event_stream_cloud_event_org_group_role_assigned_previous_object_role",
     "EventStreamCloudEventOrgGroupRoleAssignedTypeEnum": ".event_stream_cloud_event_org_group_role_assigned_type_enum",
     "EventStreamCloudEventOrgGroupRoleDeleted": ".event_stream_cloud_event_org_group_role_deleted",
     "EventStreamCloudEventOrgGroupRoleDeletedCloudEvent": ".event_stream_cloud_event_org_group_role_deleted_cloud_event",
@@ -4574,6 +8467,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_object_group_2_type_enum",
     "EventStreamCloudEventOrgGroupRoleDeletedObjectOrganization": ".event_stream_cloud_event_org_group_role_deleted_object_organization",
     "EventStreamCloudEventOrgGroupRoleDeletedObjectRole": ".event_stream_cloud_event_org_group_role_deleted_object_role",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObject": ".event_stream_cloud_event_org_group_role_deleted_previous_object",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup": ".event_stream_cloud_event_org_group_role_deleted_previous_object_group",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup0": ".event_stream_cloud_event_org_group_role_deleted_previous_object_group_0",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup0TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_previous_object_group_0_type_enum",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup1": ".event_stream_cloud_event_org_group_role_deleted_previous_object_group_1",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup1TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_previous_object_group_1_type_enum",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup2": ".event_stream_cloud_event_org_group_role_deleted_previous_object_group_2",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup2TypeEnum": ".event_stream_cloud_event_org_group_role_deleted_previous_object_group_2_type_enum",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectOrganization": ".event_stream_cloud_event_org_group_role_deleted_previous_object_organization",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectRole": ".event_stream_cloud_event_org_group_role_deleted_previous_object_role",
     "EventStreamCloudEventOrgGroupRoleDeletedTypeEnum": ".event_stream_cloud_event_org_group_role_deleted_type_enum",
     "EventStreamCloudEventOrgMemberAdded": ".event_stream_cloud_event_org_member_added",
     "EventStreamCloudEventOrgMemberAddedCloudEvent": ".event_stream_cloud_event_org_member_added_cloud_event",
@@ -4582,6 +8485,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgMemberAddedObject": ".event_stream_cloud_event_org_member_added_object",
     "EventStreamCloudEventOrgMemberAddedObjectOrganization": ".event_stream_cloud_event_org_member_added_object_organization",
     "EventStreamCloudEventOrgMemberAddedObjectUser": ".event_stream_cloud_event_org_member_added_object_user",
+    "EventStreamCloudEventOrgMemberAddedPreviousObject": ".event_stream_cloud_event_org_member_added_previous_object",
+    "EventStreamCloudEventOrgMemberAddedPreviousObjectOrganization": ".event_stream_cloud_event_org_member_added_previous_object_organization",
+    "EventStreamCloudEventOrgMemberAddedPreviousObjectUser": ".event_stream_cloud_event_org_member_added_previous_object_user",
     "EventStreamCloudEventOrgMemberAddedTypeEnum": ".event_stream_cloud_event_org_member_added_type_enum",
     "EventStreamCloudEventOrgMemberDeleted": ".event_stream_cloud_event_org_member_deleted",
     "EventStreamCloudEventOrgMemberDeletedCloudEvent": ".event_stream_cloud_event_org_member_deleted_cloud_event",
@@ -4590,6 +8496,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgMemberDeletedObject": ".event_stream_cloud_event_org_member_deleted_object",
     "EventStreamCloudEventOrgMemberDeletedObjectOrganization": ".event_stream_cloud_event_org_member_deleted_object_organization",
     "EventStreamCloudEventOrgMemberDeletedObjectUser": ".event_stream_cloud_event_org_member_deleted_object_user",
+    "EventStreamCloudEventOrgMemberDeletedPreviousObject": ".event_stream_cloud_event_org_member_deleted_previous_object",
+    "EventStreamCloudEventOrgMemberDeletedPreviousObjectOrganization": ".event_stream_cloud_event_org_member_deleted_previous_object_organization",
+    "EventStreamCloudEventOrgMemberDeletedPreviousObjectUser": ".event_stream_cloud_event_org_member_deleted_previous_object_user",
     "EventStreamCloudEventOrgMemberDeletedTypeEnum": ".event_stream_cloud_event_org_member_deleted_type_enum",
     "EventStreamCloudEventOrgMemberRoleAssigned": ".event_stream_cloud_event_org_member_role_assigned",
     "EventStreamCloudEventOrgMemberRoleAssignedCloudEvent": ".event_stream_cloud_event_org_member_role_assigned_cloud_event",
@@ -4599,6 +8508,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgMemberRoleAssignedObjectOrganization": ".event_stream_cloud_event_org_member_role_assigned_object_organization",
     "EventStreamCloudEventOrgMemberRoleAssignedObjectRole": ".event_stream_cloud_event_org_member_role_assigned_object_role",
     "EventStreamCloudEventOrgMemberRoleAssignedObjectUser": ".event_stream_cloud_event_org_member_role_assigned_object_user",
+    "EventStreamCloudEventOrgMemberRoleAssignedPreviousObject": ".event_stream_cloud_event_org_member_role_assigned_previous_object",
+    "EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectOrganization": ".event_stream_cloud_event_org_member_role_assigned_previous_object_organization",
+    "EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectRole": ".event_stream_cloud_event_org_member_role_assigned_previous_object_role",
+    "EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectUser": ".event_stream_cloud_event_org_member_role_assigned_previous_object_user",
     "EventStreamCloudEventOrgMemberRoleAssignedTypeEnum": ".event_stream_cloud_event_org_member_role_assigned_type_enum",
     "EventStreamCloudEventOrgMemberRoleDeleted": ".event_stream_cloud_event_org_member_role_deleted",
     "EventStreamCloudEventOrgMemberRoleDeletedCloudEvent": ".event_stream_cloud_event_org_member_role_deleted_cloud_event",
@@ -4608,6 +8521,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgMemberRoleDeletedObjectOrganization": ".event_stream_cloud_event_org_member_role_deleted_object_organization",
     "EventStreamCloudEventOrgMemberRoleDeletedObjectRole": ".event_stream_cloud_event_org_member_role_deleted_object_role",
     "EventStreamCloudEventOrgMemberRoleDeletedObjectUser": ".event_stream_cloud_event_org_member_role_deleted_object_user",
+    "EventStreamCloudEventOrgMemberRoleDeletedPreviousObject": ".event_stream_cloud_event_org_member_role_deleted_previous_object",
+    "EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectOrganization": ".event_stream_cloud_event_org_member_role_deleted_previous_object_organization",
+    "EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectRole": ".event_stream_cloud_event_org_member_role_deleted_previous_object_role",
+    "EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectUser": ".event_stream_cloud_event_org_member_role_deleted_previous_object_user",
     "EventStreamCloudEventOrgMemberRoleDeletedTypeEnum": ".event_stream_cloud_event_org_member_role_deleted_type_enum",
     "EventStreamCloudEventOrgUpdated": ".event_stream_cloud_event_org_updated",
     "EventStreamCloudEventOrgUpdatedCloudEvent": ".event_stream_cloud_event_org_updated_cloud_event",
@@ -4617,7 +8534,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgUpdatedObjectBranding": ".event_stream_cloud_event_org_updated_object_branding",
     "EventStreamCloudEventOrgUpdatedObjectBrandingColors": ".event_stream_cloud_event_org_updated_object_branding_colors",
     "EventStreamCloudEventOrgUpdatedObjectMetadata": ".event_stream_cloud_event_org_updated_object_metadata",
+    "EventStreamCloudEventOrgUpdatedPreviousObject": ".event_stream_cloud_event_org_updated_previous_object",
+    "EventStreamCloudEventOrgUpdatedPreviousObjectBranding": ".event_stream_cloud_event_org_updated_previous_object_branding",
+    "EventStreamCloudEventOrgUpdatedPreviousObjectBrandingColors": ".event_stream_cloud_event_org_updated_previous_object_branding_colors",
+    "EventStreamCloudEventOrgUpdatedPreviousObjectMetadata": ".event_stream_cloud_event_org_updated_previous_object_metadata",
     "EventStreamCloudEventOrgUpdatedTypeEnum": ".event_stream_cloud_event_org_updated_type_enum",
+    "EventStreamCloudEventSpecVersionEnum": ".event_stream_cloud_event_spec_version_enum",
     "EventStreamCloudEventUserCreated": ".event_stream_cloud_event_user_created",
     "EventStreamCloudEventUserCreatedCloudEvent": ".event_stream_cloud_event_user_created_cloud_event",
     "EventStreamCloudEventUserCreatedCloudEventTypeEnum": ".event_stream_cloud_event_user_created_cloud_event_type_enum",
@@ -4651,6 +8573,35 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventUserCreatedObjectIdentitiesItemSocialProviderEnum": ".event_stream_cloud_event_user_created_object_identities_item_social_provider_enum",
     "EventStreamCloudEventUserCreatedObjectIdentitiesItemSocialUserId": ".event_stream_cloud_event_user_created_object_identities_item_social_user_id",
     "EventStreamCloudEventUserCreatedObjectUserMetadata": ".event_stream_cloud_event_user_created_object_user_metadata",
+    "EventStreamCloudEventUserCreatedPreviousObject": ".event_stream_cloud_event_user_created_previous_object",
+    "EventStreamCloudEventUserCreatedPreviousObjectAppMetadata": ".event_stream_cloud_event_user_created_previous_object_app_metadata",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItem": ".event_stream_cloud_event_user_created_previous_object_identities_item",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustom": ".event_stream_cloud_event_user_created_previous_object_identities_item_custom",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomIsSocialEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_custom_is_social_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomProfileData": ".event_stream_cloud_event_user_created_previous_object_identities_item_custom_profile_data",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomProviderEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_custom_provider_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomUserId": ".event_stream_cloud_event_user_created_previous_object_identities_item_custom_user_id",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabase": ".event_stream_cloud_event_user_created_previous_object_identities_item_database",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseIsSocialEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_database_is_social_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseProfileData": ".event_stream_cloud_event_user_created_previous_object_identities_item_database_profile_data",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseProviderEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_database_provider_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseUserId": ".event_stream_cloud_event_user_created_previous_object_identities_item_database_user_id",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterprise": ".event_stream_cloud_event_user_created_previous_object_identities_item_enterprise",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_enterprise_is_social_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseProfileData": ".event_stream_cloud_event_user_created_previous_object_identities_item_enterprise_profile_data",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseProviderEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_enterprise_provider_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseUserId": ".event_stream_cloud_event_user_created_previous_object_identities_item_enterprise_user_id",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordless": ".event_stream_cloud_event_user_created_previous_object_identities_item_passwordless",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_passwordless_is_social_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessProfileData": ".event_stream_cloud_event_user_created_previous_object_identities_item_passwordless_profile_data",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessProviderEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_passwordless_provider_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessUserId": ".event_stream_cloud_event_user_created_previous_object_identities_item_passwordless_user_id",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocial": ".event_stream_cloud_event_user_created_previous_object_identities_item_social",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialIsSocialEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_social_is_social_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialProfileData": ".event_stream_cloud_event_user_created_previous_object_identities_item_social_profile_data",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialProviderEnum": ".event_stream_cloud_event_user_created_previous_object_identities_item_social_provider_enum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialUserId": ".event_stream_cloud_event_user_created_previous_object_identities_item_social_user_id",
+    "EventStreamCloudEventUserCreatedPreviousObjectUserMetadata": ".event_stream_cloud_event_user_created_previous_object_user_metadata",
     "EventStreamCloudEventUserCreatedTypeEnum": ".event_stream_cloud_event_user_created_type_enum",
     "EventStreamCloudEventUserDeleted": ".event_stream_cloud_event_user_deleted",
     "EventStreamCloudEventUserDeletedCloudEvent": ".event_stream_cloud_event_user_deleted_cloud_event",
@@ -4685,6 +8636,35 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventUserDeletedObjectIdentitiesItemSocialProviderEnum": ".event_stream_cloud_event_user_deleted_object_identities_item_social_provider_enum",
     "EventStreamCloudEventUserDeletedObjectIdentitiesItemSocialUserId": ".event_stream_cloud_event_user_deleted_object_identities_item_social_user_id",
     "EventStreamCloudEventUserDeletedObjectUserMetadata": ".event_stream_cloud_event_user_deleted_object_user_metadata",
+    "EventStreamCloudEventUserDeletedPreviousObject": ".event_stream_cloud_event_user_deleted_previous_object",
+    "EventStreamCloudEventUserDeletedPreviousObjectAppMetadata": ".event_stream_cloud_event_user_deleted_previous_object_app_metadata",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItem": ".event_stream_cloud_event_user_deleted_previous_object_identities_item",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustom": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_custom",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomIsSocialEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_custom_is_social_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomProfileData": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_custom_profile_data",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomProviderEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_custom_provider_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomUserId": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_custom_user_id",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabase": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_database",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseIsSocialEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_database_is_social_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseProfileData": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_database_profile_data",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseProviderEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_database_provider_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseUserId": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_database_user_id",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterprise": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise_is_social_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseProfileData": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise_profile_data",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseProviderEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise_provider_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseUserId": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_enterprise_user_id",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordless": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless_is_social_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessProfileData": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless_profile_data",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessProviderEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless_provider_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessUserId": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_passwordless_user_id",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocial": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_social",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialIsSocialEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_social_is_social_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialProfileData": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_social_profile_data",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialProviderEnum": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_social_provider_enum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialUserId": ".event_stream_cloud_event_user_deleted_previous_object_identities_item_social_user_id",
+    "EventStreamCloudEventUserDeletedPreviousObjectUserMetadata": ".event_stream_cloud_event_user_deleted_previous_object_user_metadata",
     "EventStreamCloudEventUserDeletedTypeEnum": ".event_stream_cloud_event_user_deleted_type_enum",
     "EventStreamCloudEventUserUpdated": ".event_stream_cloud_event_user_updated",
     "EventStreamCloudEventUserUpdatedCloudEvent": ".event_stream_cloud_event_user_updated_cloud_event",
@@ -4719,6 +8699,35 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventUserUpdatedObjectIdentitiesItemSocialProviderEnum": ".event_stream_cloud_event_user_updated_object_identities_item_social_provider_enum",
     "EventStreamCloudEventUserUpdatedObjectIdentitiesItemSocialUserId": ".event_stream_cloud_event_user_updated_object_identities_item_social_user_id",
     "EventStreamCloudEventUserUpdatedObjectUserMetadata": ".event_stream_cloud_event_user_updated_object_user_metadata",
+    "EventStreamCloudEventUserUpdatedPreviousObject": ".event_stream_cloud_event_user_updated_previous_object",
+    "EventStreamCloudEventUserUpdatedPreviousObjectAppMetadata": ".event_stream_cloud_event_user_updated_previous_object_app_metadata",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItem": ".event_stream_cloud_event_user_updated_previous_object_identities_item",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustom": ".event_stream_cloud_event_user_updated_previous_object_identities_item_custom",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomIsSocialEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_custom_is_social_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomProfileData": ".event_stream_cloud_event_user_updated_previous_object_identities_item_custom_profile_data",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomProviderEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_custom_provider_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomUserId": ".event_stream_cloud_event_user_updated_previous_object_identities_item_custom_user_id",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabase": ".event_stream_cloud_event_user_updated_previous_object_identities_item_database",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseIsSocialEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_database_is_social_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseProfileData": ".event_stream_cloud_event_user_updated_previous_object_identities_item_database_profile_data",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseProviderEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_database_provider_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseUserId": ".event_stream_cloud_event_user_updated_previous_object_identities_item_database_user_id",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterprise": ".event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise_is_social_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseProfileData": ".event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise_profile_data",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseProviderEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise_provider_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseUserId": ".event_stream_cloud_event_user_updated_previous_object_identities_item_enterprise_user_id",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordless": ".event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless_is_social_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessProfileData": ".event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless_profile_data",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessProviderEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless_provider_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessUserId": ".event_stream_cloud_event_user_updated_previous_object_identities_item_passwordless_user_id",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocial": ".event_stream_cloud_event_user_updated_previous_object_identities_item_social",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialIsSocialEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_social_is_social_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialProfileData": ".event_stream_cloud_event_user_updated_previous_object_identities_item_social_profile_data",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialProviderEnum": ".event_stream_cloud_event_user_updated_previous_object_identities_item_social_provider_enum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialUserId": ".event_stream_cloud_event_user_updated_previous_object_identities_item_social_user_id",
+    "EventStreamCloudEventUserUpdatedPreviousObjectUserMetadata": ".event_stream_cloud_event_user_updated_previous_object_user_metadata",
     "EventStreamCloudEventUserUpdatedTypeEnum": ".event_stream_cloud_event_user_updated_type_enum",
     "EventStreamDelivery": ".event_stream_delivery",
     "EventStreamDeliveryAttempt": ".event_stream_delivery_attempt",
@@ -4736,6 +8745,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamSubscribeEventsEventTypeEnum": ".event_stream_subscribe_events_event_type_enum",
     "EventStreamSubscribeEventsEventTypeParam": ".event_stream_subscribe_events_event_type_param",
     "EventStreamSubscribeEventsResponseContent": ".event_stream_subscribe_events_response_content",
+    "EventStreamSubscribeEventsResponseContent_ConnectionCreated": ".event_stream_subscribe_events_response_content",
+    "EventStreamSubscribeEventsResponseContent_ConnectionDeleted": ".event_stream_subscribe_events_response_content",
+    "EventStreamSubscribeEventsResponseContent_ConnectionUpdated": ".event_stream_subscribe_events_response_content",
     "EventStreamSubscribeEventsResponseContent_Error": ".event_stream_subscribe_events_response_content",
     "EventStreamSubscribeEventsResponseContent_GroupCreated": ".event_stream_subscribe_events_response_content",
     "EventStreamSubscribeEventsResponseContent_GroupDeleted": ".event_stream_subscribe_events_response_content",
@@ -4778,7 +8790,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtensibilityEmailProviderCredentials": ".extensibility_email_provider_credentials",
     "FedCmLogin": ".fed_cm_login",
     "FedCmLoginGoogle": ".fed_cm_login_google",
-    "FederatedConnectionTokenSet": ".federated_connection_token_set",
+    "FedCmLoginGooglePatch": ".fed_cm_login_google_patch",
+    "FedCmLoginPatch": ".fed_cm_login_patch",
     "FlowAction": ".flow_action",
     "FlowActionActivecampaign": ".flow_action_activecampaign",
     "FlowActionActivecampaignListContacts": ".flow_action_activecampaign_list_contacts",
@@ -5347,6 +9360,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetActionVersionResponseContent": ".get_action_version_response_content",
     "GetActiveUsersCountStatsResponseContent": ".get_active_users_count_stats_response_content",
     "GetAculResponseContent": ".get_acul_response_content",
+    "GetAllKeysNetworkAclsResponseContent": ".get_all_keys_network_acls_response_content",
     "GetAttackProtectionCaptchaResponseContent": ".get_attack_protection_captcha_response_content",
     "GetBotDetectionSettingsResponseContent": ".get_bot_detection_settings_response_content",
     "GetBrandingDefaultThemeResponseContent": ".get_branding_default_theme_response_content",
@@ -5370,6 +9384,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetDefaultDomainResponseContent": ".get_default_domain_response_content",
     "GetDirectoryProvisioningDefaultMappingResponseContent": ".get_directory_provisioning_default_mapping_response_content",
     "GetDirectoryProvisioningResponseContent": ".get_directory_provisioning_response_content",
+    "GetEmailFactorSettingsResponseContent": ".get_email_factor_settings_response_content",
     "GetEmailProviderResponseContent": ".get_email_provider_response_content",
     "GetEmailTemplateResponseContent": ".get_email_template_response_content",
     "GetEncryptionKeyResponseContent": ".get_encryption_key_response_content",
@@ -5395,6 +9410,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetGuardianFactorsProviderSmsResponseContent": ".get_guardian_factors_provider_sms_response_content",
     "GetGuardianFactorsProviderSmsTwilioResponseContent": ".get_guardian_factors_provider_sms_twilio_response_content",
     "GetGuardianFactorsProviderSnsResponseContent": ".get_guardian_factors_provider_sns_response_content",
+    "GetGuardianSettingsResponseContent": ".get_guardian_settings_response_content",
     "GetHookResponseContent": ".get_hook_response_content",
     "GetHookSecretResponseContent": ".get_hook_secret_response_content",
     "GetJobErrorResponseContent": ".get_job_error_response_content",
@@ -5408,13 +9424,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetNetworkAclsResponseContent": ".get_network_acls_response_content",
     "GetOrganizationAllConnectionResponseContent": ".get_organization_all_connection_response_content",
     "GetOrganizationByNameResponseContent": ".get_organization_by_name_response_content",
+    "GetOrganizationClientResponseContent": ".get_organization_client_response_content",
     "GetOrganizationConnectionResponseContent": ".get_organization_connection_response_content",
     "GetOrganizationDiscoveryDomainByNameResponseContent": ".get_organization_discovery_domain_by_name_response_content",
     "GetOrganizationDiscoveryDomainResponseContent": ".get_organization_discovery_domain_response_content",
     "GetOrganizationInvitationResponseContent": ".get_organization_invitation_response_content",
     "GetOrganizationResponseContent": ".get_organization_response_content",
     "GetPartialsResponseContent": ".get_partials_response_content",
+    "GetPhoneFactorSettingsResponseContent": ".get_phone_factor_settings_response_content",
+    "GetPhoneProviderProtectionResponseContent": ".get_phone_provider_protection_response_content",
     "GetPhoneTemplateResponseContent": ".get_phone_template_response_content",
+    "GetRateLimitPolicyResponseContent": ".get_rate_limit_policy_response_content",
     "GetRefreshTokenResponseContent": ".get_refresh_token_response_content",
     "GetRefreshTokensPaginatedResponseContent": ".get_refresh_tokens_paginated_response_content",
     "GetResourceServerResponseContent": ".get_resource_server_response_content",
@@ -5451,6 +9471,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GuardianFactor": ".guardian_factor",
     "GuardianFactorNameEnum": ".guardian_factor_name_enum",
     "GuardianFactorPhoneFactorMessageTypeEnum": ".guardian_factor_phone_factor_message_type_enum",
+    "GuardianFactorSettings": ".guardian_factor_settings",
     "GuardianFactorsProviderPushNotificationProviderDataEnum": ".guardian_factors_provider_push_notification_provider_data_enum",
     "GuardianFactorsProviderSmsProviderEnum": ".guardian_factors_provider_sms_provider_enum",
     "Hook": ".hook",
@@ -5458,6 +9479,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "HookTriggerIdEnum": ".hook_trigger_id_enum",
     "HttpCustomHeader": ".http_custom_header",
     "Identity": ".identity",
+    "IdentityAssertionAuthorizationGrant": ".identity_assertion_authorization_grant",
     "IdentityProviderEnum": ".identity_provider_enum",
     "IdentityProviderOnlyAuth0Enum": ".identity_provider_only_auth_0_enum",
     "ImportEncryptionKeyResponseContent": ".import_encryption_key_response_content",
@@ -5476,6 +9498,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListActionsPaginatedResponseContent": ".list_actions_paginated_response_content",
     "ListAculsOffsetPaginatedResponseContent": ".list_aculs_offset_paginated_response_content",
     "ListAculsResponseContentItem": ".list_aculs_response_content_item",
+    "ListAgentsResponseContent": ".list_agents_response_content",
     "ListBrandingPhoneProvidersResponseContent": ".list_branding_phone_providers_response_content",
     "ListClientConnectionsResponseContent": ".list_client_connections_response_content",
     "ListClientGrantOrganizationsPaginatedResponseContent": ".list_client_grant_organizations_paginated_response_content",
@@ -5488,12 +9511,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListDeviceCredentialsOffsetPaginatedResponseContent": ".list_device_credentials_offset_paginated_response_content",
     "ListDirectoryProvisioningsResponseContent": ".list_directory_provisionings_response_content",
     "ListEncryptionKeyOffsetPaginatedResponseContent": ".list_encryption_key_offset_paginated_response_content",
+    "ListEventStreamDeliveriesResponseContent": ".list_event_stream_deliveries_response_content",
     "ListEventStreamsResponseContent": ".list_event_streams_response_content",
     "ListFlowExecutionsPaginatedResponseContent": ".list_flow_executions_paginated_response_content",
     "ListFlowsOffsetPaginatedResponseContent": ".list_flows_offset_paginated_response_content",
     "ListFlowsRequestParametersHydrateEnum": ".list_flows_request_parameters_hydrate_enum",
     "ListFlowsVaultConnectionsOffsetPaginatedResponseContent": ".list_flows_vault_connections_offset_paginated_response_content",
     "ListFormsOffsetPaginatedResponseContent": ".list_forms_offset_paginated_response_content",
+    "ListGroupRolesResponseContent": ".list_group_roles_response_content",
     "ListGroupsPaginatedResponseContent": ".list_groups_paginated_response_content",
     "ListGuardianPoliciesResponseContent": ".list_guardian_policies_response_content",
     "ListHooksOffsetPaginatedResponseContent": ".list_hooks_offset_paginated_response_content",
@@ -5501,15 +9526,24 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListNetworkAclsOffsetPaginatedResponseContent": ".list_network_acls_offset_paginated_response_content",
     "ListOrganizationAllConnectionsOffsetPaginatedResponseContent": ".list_organization_all_connections_offset_paginated_response_content",
     "ListOrganizationClientGrantsOffsetPaginatedResponseContent": ".list_organization_client_grants_offset_paginated_response_content",
+    "ListOrganizationClientsResponseContent": ".list_organization_clients_response_content",
     "ListOrganizationConnectionsOffsetPaginatedResponseContent": ".list_organization_connections_offset_paginated_response_content",
     "ListOrganizationDiscoveryDomainsResponseContent": ".list_organization_discovery_domains_response_content",
+    "ListOrganizationGroupRolesResponseContent": ".list_organization_group_roles_response_content",
+    "ListOrganizationGroupsResponseContent": ".list_organization_groups_response_content",
     "ListOrganizationInvitationsOffsetPaginatedResponseContent": ".list_organization_invitations_offset_paginated_response_content",
+    "ListOrganizationMemberEffectiveRolesResponseContent": ".list_organization_member_effective_roles_response_content",
+    "ListOrganizationMemberRoleSourceGroupsResponseContent": ".list_organization_member_role_source_groups_response_content",
     "ListOrganizationMemberRolesOffsetPaginatedResponseContent": ".list_organization_member_roles_offset_paginated_response_content",
     "ListOrganizationMembersPaginatedResponseContent": ".list_organization_members_paginated_response_content",
+    "ListOrganizationRoleGroupsResponseContent": ".list_organization_role_groups_response_content",
+    "ListOrganizationRoleMembersResponseContent": ".list_organization_role_members_response_content",
     "ListOrganizationsPaginatedResponseContent": ".list_organizations_paginated_response_content",
     "ListPhoneTemplatesResponseContent": ".list_phone_templates_response_content",
+    "ListRateLimitPoliciesPaginatedResponseContent": ".list_rate_limit_policies_paginated_response_content",
     "ListRefreshTokensPaginatedResponseContent": ".list_refresh_tokens_paginated_response_content",
     "ListResourceServerOffsetPaginatedResponseContent": ".list_resource_server_offset_paginated_response_content",
+    "ListRoleGroupsResponseContent": ".list_role_groups_response_content",
     "ListRolePermissionsOffsetPaginatedResponseContent": ".list_role_permissions_offset_paginated_response_content",
     "ListRoleUsersPaginatedResponseContent": ".list_role_users_paginated_response_content",
     "ListRolesOffsetPaginatedResponseContent": ".list_roles_offset_paginated_response_content",
@@ -5525,9 +9559,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListUserBlocksByIdentifierResponseContent": ".list_user_blocks_by_identifier_response_content",
     "ListUserBlocksResponseContent": ".list_user_blocks_response_content",
     "ListUserConnectedAccountsResponseContent": ".list_user_connected_accounts_response_content",
+    "ListUserEffectivePermissionRoleSourcesResponseContent": ".list_user_effective_permission_role_sources_response_content",
+    "ListUserEffectivePermissionsResponseContent": ".list_user_effective_permissions_response_content",
+    "ListUserEffectiveRolesResponseContent": ".list_user_effective_roles_response_content",
     "ListUserGrantsOffsetPaginatedResponseContent": ".list_user_grants_offset_paginated_response_content",
     "ListUserOrganizationsOffsetPaginatedResponseContent": ".list_user_organizations_offset_paginated_response_content",
     "ListUserPermissionsOffsetPaginatedResponseContent": ".list_user_permissions_offset_paginated_response_content",
+    "ListUserRoleSourceGroupsResponseContent": ".list_user_role_source_groups_response_content",
     "ListUserRolesOffsetPaginatedResponseContent": ".list_user_roles_offset_paginated_response_content",
     "ListUserSessionsPaginatedResponseContent": ".list_user_sessions_paginated_response_content",
     "ListUsersOffsetPaginatedResponseContent": ".list_users_offset_paginated_response_content",
@@ -5585,21 +9623,35 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MfaPolicyEnum": ".mfa_policy_enum",
     "NativeSocialLogin": ".native_social_login",
     "NativeSocialLoginApple": ".native_social_login_apple",
+    "NativeSocialLoginApplePatch": ".native_social_login_apple_patch",
     "NativeSocialLoginFacebook": ".native_social_login_facebook",
+    "NativeSocialLoginFacebookPatch": ".native_social_login_facebook_patch",
     "NativeSocialLoginGoogle": ".native_social_login_google",
+    "NativeSocialLoginGooglePatch": ".native_social_login_google_patch",
+    "NativeSocialLoginPatch": ".native_social_login_patch",
     "NetworkAclAction": ".network_acl_action",
     "NetworkAclActionAllowEnum": ".network_acl_action_allow_enum",
     "NetworkAclActionBlockEnum": ".network_acl_action_block_enum",
     "NetworkAclActionLogEnum": ".network_acl_action_log_enum",
     "NetworkAclActionRedirectEnum": ".network_acl_action_redirect_enum",
+    "NetworkAclHttpMessageSignature": ".network_acl_http_message_signature",
+    "NetworkAclHttpMessageSignatureKey": ".network_acl_http_message_signature_key",
+    "NetworkAclHttpMessageSignatureKeys": ".network_acl_http_message_signature_keys",
+    "NetworkAclKey": ".network_acl_key",
+    "NetworkAclKeyAlgorithmEnum": ".network_acl_key_algorithm_enum",
     "NetworkAclMatch": ".network_acl_match",
     "NetworkAclMatchConnectingIpv4Cidr": ".network_acl_match_connecting_ipv_4_cidr",
     "NetworkAclMatchConnectingIpv6Cidr": ".network_acl_match_connecting_ipv_6_cidr",
     "NetworkAclMatchIpv4Cidr": ".network_acl_match_ipv_4_cidr",
     "NetworkAclMatchIpv6Cidr": ".network_acl_match_ipv_6_cidr",
     "NetworkAclRule": ".network_acl_rule",
+    "NetworkAclRuleMatchAllEnum": ".network_acl_rule_match_all_enum",
     "NetworkAclRuleScopeEnum": ".network_acl_rule_scope_enum",
     "NetworkAclsResponseContent": ".network_acls_response_content",
+    "NotFoundErrorBody": ".not_found_error_body",
+    "NotFoundErrorBodyError": ".not_found_error_body_error",
+    "NotFoundSchema": ".not_found_schema",
+    "NotFoundSchemaError": ".not_found_schema_error",
     "OauthScope": ".oauth_scope",
     "Organization": ".organization",
     "OrganizationAccessLevelEnum": ".organization_access_level_enum",
@@ -5607,9 +9659,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationAllConnectionPost": ".organization_all_connection_post",
     "OrganizationBranding": ".organization_branding",
     "OrganizationBrandingColors": ".organization_branding_colors",
+    "OrganizationClient": ".organization_client",
+    "OrganizationClientAssociation": ".organization_client_association",
     "OrganizationClientGrant": ".organization_client_grant",
+    "OrganizationClientMetadata": ".organization_client_metadata",
+    "OrganizationClientMetadataOrganizationUsageEnum": ".organization_client_metadata_organization_usage_enum",
     "OrganizationConnection": ".organization_connection",
     "OrganizationConnectionInformation": ".organization_connection_information",
+    "OrganizationDeletionBehaviorEnum": ".organization_deletion_behavior_enum",
     "OrganizationDiscoveryDomain": ".organization_discovery_domain",
     "OrganizationDiscoveryDomainStatus": ".organization_discovery_domain_status",
     "OrganizationEnabledConnection": ".organization_enabled_connection",
@@ -5617,8 +9674,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationInvitationInvitee": ".organization_invitation_invitee",
     "OrganizationInvitationInviter": ".organization_invitation_inviter",
     "OrganizationMember": ".organization_member",
+    "OrganizationMemberEffectiveRole": ".organization_member_effective_role",
+    "OrganizationMemberEffectiveRoleSource": ".organization_member_effective_role_source",
     "OrganizationMemberRole": ".organization_member_role",
     "OrganizationMetadata": ".organization_metadata",
+    "OrganizationSortFieldEnum": ".organization_sort_field_enum",
+    "OrganizationTemplate": ".organization_template",
+    "OrganizationTemplateAllowedStrategyEnum": ".organization_template_allowed_strategy_enum",
+    "OrganizationTemplateRoleVisibilityEnum": ".organization_template_role_visibility_enum",
+    "OrganizationTemplateRoleVisibilityOverride": ".organization_template_role_visibility_override",
+    "OrganizationTemplateRoleVisibilityPolicy": ".organization_template_role_visibility_policy",
+    "OrganizationTemplateUseForOrganizationDiscovery": ".organization_template_use_for_organization_discovery",
+    "OrganizationThirdPartyClientAccessEnum": ".organization_third_party_client_access_enum",
     "OrganizationUsageEnum": ".organization_usage_enum",
     "PartialGroupsEnum": ".partial_groups_enum",
     "PartialPhoneTemplateContent": ".partial_phone_template_content",
@@ -5629,15 +9696,25 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PasswordMaxLengthExceededPolicyEnum": ".password_max_length_exceeded_policy_enum",
     "PasswordSequentialCharactersPolicyEnum": ".password_sequential_characters_policy_enum",
     "PatchClientCredentialResponseContent": ".patch_client_credential_response_content",
+    "PatchPhoneProviderProtectionResponseContent": ".patch_phone_provider_protection_response_content",
+    "PatchRateLimitPolicyConfigurationRequestContent": ".patch_rate_limit_policy_configuration_request_content",
+    "PatchRateLimitPolicyConfigurationRequestContentAction": ".patch_rate_limit_policy_configuration_request_content_action",
+    "PatchRateLimitPolicyConfigurationRequestContentActionAction": ".patch_rate_limit_policy_configuration_request_content_action_action",
+    "PatchRateLimitPolicyConfigurationRequestContentOne": ".patch_rate_limit_policy_configuration_request_content_one",
+    "PatchRateLimitPolicyConfigurationRequestContentOneAction": ".patch_rate_limit_policy_configuration_request_content_one_action",
+    "PatchRateLimitPolicyConfigurationRequestContentZero": ".patch_rate_limit_policy_configuration_request_content_zero",
+    "PatchRateLimitPolicyConfigurationRequestContentZeroAction": ".patch_rate_limit_policy_configuration_request_content_zero_action",
     "PatchSupplementalSignalsResponseContent": ".patch_supplemental_signals_response_content",
     "PermissionRequestPayload": ".permission_request_payload",
     "PermissionsResponsePayload": ".permissions_response_payload",
     "PhoneAttribute": ".phone_attribute",
+    "PhoneAttributeIdentifier": ".phone_attribute_identifier",
     "PhoneProviderChannelEnum": ".phone_provider_channel_enum",
     "PhoneProviderConfiguration": ".phone_provider_configuration",
     "PhoneProviderCredentials": ".phone_provider_credentials",
     "PhoneProviderDeliveryMethodEnum": ".phone_provider_delivery_method_enum",
     "PhoneProviderNameEnum": ".phone_provider_name_enum",
+    "PhoneProviderProtectionBackoffStrategyEnum": ".phone_provider_protection_backoff_strategy_enum",
     "PhoneProviderSchemaMasked": ".phone_provider_schema_masked",
     "PhoneTemplate": ".phone_template",
     "PhoneTemplateBody": ".phone_template_body",
@@ -5655,6 +9732,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PublicKeyCredential": ".public_key_credential",
     "PublicKeyCredentialAlgorithmEnum": ".public_key_credential_algorithm_enum",
     "PublicKeyCredentialTypeEnum": ".public_key_credential_type_enum",
+    "RateLimitPolicy": ".rate_limit_policy",
+    "RateLimitPolicyConfiguration": ".rate_limit_policy_configuration",
+    "RateLimitPolicyConfigurationAction": ".rate_limit_policy_configuration_action",
+    "RateLimitPolicyConfigurationActionAction": ".rate_limit_policy_configuration_action_action",
+    "RateLimitPolicyConfigurationOne": ".rate_limit_policy_configuration_one",
+    "RateLimitPolicyConfigurationOneAction": ".rate_limit_policy_configuration_one_action",
+    "RateLimitPolicyConfigurationZero": ".rate_limit_policy_configuration_zero",
+    "RateLimitPolicyConfigurationZeroAction": ".rate_limit_policy_configuration_zero_action",
+    "RateLimitPolicyConsumerEnum": ".rate_limit_policy_consumer_enum",
+    "RateLimitPolicyResourceEnum": ".rate_limit_policy_resource_enum",
     "RefreshTokenDate": ".refresh_token_date",
     "RefreshTokenDateObject": ".refresh_token_date_object",
     "RefreshTokenDevice": ".refresh_token_device",
@@ -5675,7 +9762,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResourceServerProofOfPossessionMechanismEnum": ".resource_server_proof_of_possession_mechanism_enum",
     "ResourceServerProofOfPossessionRequiredForEnum": ".resource_server_proof_of_possession_required_for_enum",
     "ResourceServerScope": ".resource_server_scope",
+    "ResourceServerSearchResponse": ".resource_server_search_response",
+    "ResourceServerSortFieldEnum": ".resource_server_sort_field_enum",
     "ResourceServerSubjectTypeAuthorization": ".resource_server_subject_type_authorization",
+    "ResourceServerSubjectTypeAuthorizationAnonymousUser": ".resource_server_subject_type_authorization_anonymous_user",
+    "ResourceServerSubjectTypeAuthorizationAnonymousUserPolicyEnum": ".resource_server_subject_type_authorization_anonymous_user_policy_enum",
     "ResourceServerSubjectTypeAuthorizationClient": ".resource_server_subject_type_authorization_client",
     "ResourceServerSubjectTypeAuthorizationClientPolicyEnum": ".resource_server_subject_type_authorization_client_policy_enum",
     "ResourceServerSubjectTypeAuthorizationUser": ".resource_server_subject_type_authorization_user",
@@ -5689,6 +9780,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResourceServerVerificationKeyPemCertificate": ".resource_server_verification_key_pem_certificate",
     "RevokedSigningKeysResponseContent": ".revoked_signing_keys_response_content",
     "Role": ".role",
+    "RoleGroup": ".role_group",
+    "RoleMember": ".role_member",
+    "RoleTypeEnum": ".role_type_enum",
     "RoleUser": ".role_user",
     "RollbackActionModuleResponseContent": ".rollback_action_module_response_content",
     "RotateClientSecretResponseContent": ".rotate_client_secret_response_content",
@@ -5703,6 +9797,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ScimTokenItem": ".scim_token_item",
     "ScreenGroupNameEnum": ".screen_group_name_enum",
     "SearchEngineVersionsEnum": ".search_engine_versions_enum",
+    "SearchOrganization": ".search_organization",
+    "SearchOrganizationsPaginatedResponseContent": ".search_organizations_paginated_response_content",
+    "SearchParserEnum": ".search_parser_enum",
+    "SearchResourceServersResponseContent": ".search_resource_servers_response_content",
     "SelfServiceProfile": ".self_service_profile",
     "SelfServiceProfileAllowedStrategyEnum": ".self_service_profile_allowed_strategy_enum",
     "SelfServiceProfileBranding": ".self_service_profile_branding",
@@ -5724,6 +9822,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SelfServiceProfileSsoTicketProvisioningScopeEnum": ".self_service_profile_sso_ticket_provisioning_scope_enum",
     "SelfServiceProfileUserAttribute": ".self_service_profile_user_attribute",
     "SelfServiceProfileUserAttributes": ".self_service_profile_user_attributes",
+    "SessionActorClaimValue": ".session_actor_claim_value",
+    "SessionActorMetadata": ".session_actor_metadata",
     "SessionAuthenticationSignal": ".session_authentication_signal",
     "SessionAuthenticationSignals": ".session_authentication_signals",
     "SessionClientMetadata": ".session_client_metadata",
@@ -5737,6 +9837,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SessionMetadata": ".session_metadata",
     "SessionResponseContent": ".session_response_content",
     "SetCustomSigningKeysResponseContent": ".set_custom_signing_keys_response_content",
+    "SetEmailFactorSettingsResponseContent": ".set_email_factor_settings_response_content",
     "SetEmailTemplateResponseContent": ".set_email_template_response_content",
     "SetGuardianFactorDuoSettingsResponseContent": ".set_guardian_factor_duo_settings_response_content",
     "SetGuardianFactorPhoneMessageTypesResponseContent": ".set_guardian_factor_phone_message_types_response_content",
@@ -5754,8 +9855,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SetGuardianFactorsProviderSmsTwilioResponseContent": ".set_guardian_factors_provider_sms_twilio_response_content",
     "SetGuardianPoliciesRequestContent": ".set_guardian_policies_request_content",
     "SetGuardianPoliciesResponseContent": ".set_guardian_policies_response_content",
+    "SetGuardianSettingsResponseContent": ".set_guardian_settings_response_content",
     "SetNetworkAclsResponseContent": ".set_network_acls_response_content",
     "SetPartialsRequestContent": ".set_partials_request_content",
+    "SetPhoneFactorSettingsResponseContent": ".set_phone_factor_settings_response_content",
     "SetRulesConfigResponseContent": ".set_rules_config_response_content",
     "SetSelfServiceProfileCustomTextRequestContent": ".set_self_service_profile_custom_text_request_content",
     "SetSelfServiceProfileCustomTextResponseContent": ".set_self_service_profile_custom_text_response_content",
@@ -5773,13 +9876,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SupportedLocales": ".supported_locales",
     "SuspiciousIpThrottlingAllowlist": ".suspicious_ip_throttling_allowlist",
     "SuspiciousIpThrottlingAllowlistItem": ".suspicious_ip_throttling_allowlist_item",
+    "SuspiciousIpThrottlingPreCustomTokenExchangeStage": ".suspicious_ip_throttling_pre_custom_token_exchange_stage",
     "SuspiciousIpThrottlingPreLoginStage": ".suspicious_ip_throttling_pre_login_stage",
     "SuspiciousIpThrottlingPreUserRegistrationStage": ".suspicious_ip_throttling_pre_user_registration_stage",
     "SuspiciousIpThrottlingShieldsEnum": ".suspicious_ip_throttling_shields_enum",
     "SuspiciousIpThrottlingStage": ".suspicious_ip_throttling_stage",
     "SynchronizeGroupsEnum": ".synchronize_groups_enum",
     "SynchronizedGroupPayload": ".synchronized_group_payload",
+    "SynchronizedGroupSelectionId": ".synchronized_group_selection_id",
     "TenantOidcLogoutSettings": ".tenant_oidc_logout_settings",
+    "TenantSettingsCountryCodes": ".tenant_settings_country_codes",
+    "TenantSettingsCountryCodesMode": ".tenant_settings_country_codes_mode",
+    "TenantSettingsCountryCodesModeResponse": ".tenant_settings_country_codes_mode_response",
+    "TenantSettingsCountryCodesResponse": ".tenant_settings_country_codes_response",
     "TenantSettingsDeviceFlow": ".tenant_settings_device_flow",
     "TenantSettingsDeviceFlowCharset": ".tenant_settings_device_flow_charset",
     "TenantSettingsDynamicClientRegistrationSecurityMode": ".tenant_settings_dynamic_client_registration_security_mode",
@@ -5787,20 +9896,27 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TenantSettingsFlags": ".tenant_settings_flags",
     "TenantSettingsGuardianPage": ".tenant_settings_guardian_page",
     "TenantSettingsMtls": ".tenant_settings_mtls",
+    "TenantSettingsNullableSecurityHeaders": ".tenant_settings_nullable_security_headers",
     "TenantSettingsPasswordPage": ".tenant_settings_password_page",
     "TenantSettingsResourceParameterProfile": ".tenant_settings_resource_parameter_profile",
     "TenantSettingsSessions": ".tenant_settings_sessions",
+    "TenantSettingsSessionsAnonymous": ".tenant_settings_sessions_anonymous",
     "TenantSettingsSupportedLocalesEnum": ".tenant_settings_supported_locales_enum",
     "TestActionPayload": ".test_action_payload",
     "TestActionResponseContent": ".test_action_response_content",
     "TestActionResultPayload": ".test_action_result_payload",
     "TestCustomDomainResponseContent": ".test_custom_domain_response_content",
     "TestEventDataContent": ".test_event_data_content",
+    "ThirdPartyClientAccessConfig": ".third_party_client_access_config",
     "TokenExchangeProfileResponseContent": ".token_exchange_profile_response_content",
     "TokenExchangeProfileTypeEnum": ".token_exchange_profile_type_enum",
     "TokenQuota": ".token_quota",
     "TokenQuotaClientCredentials": ".token_quota_client_credentials",
     "TokenQuotaConfiguration": ".token_quota_configuration",
+    "TokenVaultPrivilegedAccessGrant": ".token_vault_privileged_access_grant",
+    "TokenVaultPrivilegedAccessIpAllowlistEntry": ".token_vault_privileged_access_ip_allowlist_entry",
+    "TooManyRequestsErrorBody": ".too_many_requests_error_body",
+    "TooManyRequestsErrorBodyError": ".too_many_requests_error_body_error",
     "TooManyRequestsSchema": ".too_many_requests_schema",
     "TooManyRequestsSchemaError": ".too_many_requests_schema_error",
     "TwilioProviderConfiguration": ".twilio_provider_configuration",
@@ -5813,16 +9929,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateActionModuleResponseContent": ".update_action_module_response_content",
     "UpdateActionResponseContent": ".update_action_response_content",
     "UpdateAculResponseContent": ".update_acul_response_content",
+    "UpdateAnonymousSessions": ".update_anonymous_sessions",
     "UpdateAttackProtectionCaptchaResponseContent": ".update_attack_protection_captcha_response_content",
     "UpdateBotDetectionSettingsResponseContent": ".update_bot_detection_settings_response_content",
     "UpdateBrandingColors": ".update_branding_colors",
     "UpdateBrandingFont": ".update_branding_font",
-    "UpdateBrandingIdentifiers": ".update_branding_identifiers",
-    "UpdateBrandingLoginDisplayEnum": ".update_branding_login_display_enum",
     "UpdateBrandingPageBackground": ".update_branding_page_background",
-    "UpdateBrandingPhoneDisplay": ".update_branding_phone_display",
-    "UpdateBrandingPhoneFormattingEnum": ".update_branding_phone_formatting_enum",
-    "UpdateBrandingPhoneMaskingEnum": ".update_branding_phone_masking_enum",
     "UpdateBrandingPhoneProviderResponseContent": ".update_branding_phone_provider_response_content",
     "UpdateBrandingResponseContent": ".update_branding_response_content",
     "UpdateBrandingThemeResponseContent": ".update_branding_theme_response_content",
@@ -5888,6 +10000,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateConnectionRequestContentYahoo": ".update_connection_request_content_yahoo",
     "UpdateConnectionRequestContentYandex": ".update_connection_request_content_yandex",
     "UpdateConnectionResponseContent": ".update_connection_response_content",
+    "UpdateCrossAppAccessResourceApp": ".update_cross_app_access_resource_app",
     "UpdateCustomDomainResponseContent": ".update_custom_domain_response_content",
     "UpdateDefaultCanonicalDomainResponseContent": ".update_default_canonical_domain_response_content",
     "UpdateDefaultCustomDomainResponseContent": ".update_default_custom_domain_response_content",
@@ -5910,13 +10023,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateGuardianFactorsProviderPushNotificationSnsResponseContent": ".update_guardian_factors_provider_push_notification_sns_response_content",
     "UpdateHookResponseContent": ".update_hook_response_content",
     "UpdateHookSecretRequestContent": ".update_hook_secret_request_content",
+    "UpdateIdentityAssertionAuthorizationGrant": ".update_identity_assertion_authorization_grant",
     "UpdateLogStreamResponseContent": ".update_log_stream_response_content",
     "UpdateNetworkAclResponseContent": ".update_network_acl_response_content",
     "UpdateOrganizationAllConnectionResponseContent": ".update_organization_all_connection_response_content",
+    "UpdateOrganizationClientResponseContent": ".update_organization_client_response_content",
     "UpdateOrganizationConnectionResponseContent": ".update_organization_connection_response_content",
     "UpdateOrganizationDiscoveryDomainResponseContent": ".update_organization_discovery_domain_response_content",
     "UpdateOrganizationResponseContent": ".update_organization_response_content",
     "UpdatePhoneTemplateResponseContent": ".update_phone_template_response_content",
+    "UpdateRateLimitPolicyResponseContent": ".update_rate_limit_policy_response_content",
     "UpdateRefreshTokenResponseContent": ".update_refresh_token_response_content",
     "UpdateResourceServerResponseContent": ".update_resource_server_response_content",
     "UpdateRiskAssessmentsSettingsNewDeviceResponseContent": ".update_risk_assessments_settings_new_device_response_content",
@@ -5959,7 +10075,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserAuthenticationMethodProperties": ".user_authentication_method_properties",
     "UserAuthenticationMethodPropertiesEnum": ".user_authentication_method_properties_enum",
     "UserBlockIdentifier": ".user_block_identifier",
-    "UserDateSchema": ".user_date_schema",
+    "UserEffectivePermissionResponseContent": ".user_effective_permission_response_content",
+    "UserEffectivePermissionRoleSourceEnum": ".user_effective_permission_role_source_enum",
+    "UserEffectivePermissionRoleSourceResponseContent": ".user_effective_permission_role_source_response_content",
+    "UserEffectivePermissionSourceEnum": ".user_effective_permission_source_enum",
+    "UserEffectiveRole": ".user_effective_role",
+    "UserEffectiveRoleSource": ".user_effective_role_source",
     "UserEnrollmentAuthMethodEnum": ".user_enrollment_auth_method_enum",
     "UserEnrollmentStatusEnum": ".user_enrollment_status_enum",
     "UserGrant": ".user_grant",
@@ -5977,6 +10098,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserResponseSchema": ".user_response_schema",
     "UsernameAllowedTypes": ".username_allowed_types",
     "UsernameAttribute": ".username_attribute",
+    "UsernameAttributeIdentifier": ".username_attribute_identifier",
     "UsernameValidation": ".username_validation",
     "UsersEnrollment": ".users_enrollment",
     "VerifiableCredentialTemplateResponse": ".verifiable_credential_template_response",
@@ -5985,6 +10107,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VerifyEmailTicketResponseContent": ".verify_email_ticket_response_content",
     "X509CertificateCredential": ".x_509_certificate_credential",
     "X509CertificateCredentialTypeEnum": ".x_509_certificate_credential_type_enum",
+    "XssProtectionConfig": ".xss_protection_config",
+    "XssProtectionMode": ".xss_protection_mode",
 }
 
 
@@ -6063,7 +10187,11 @@ __all__ = [
     "AculOrganizationMetadata",
     "AculRenderingModeEnum",
     "AddOrganizationConnectionResponseContent",
+    "AdvanceRampResponseContent",
+    "AgentMetadata",
+    "AgentResponseContent",
     "AnomalyIpFormat",
+    "AnonymousSessions",
     "AppMetadata",
     "AssessorsTypeEnum",
     "AssociateOrganizationClientGrantResponseContent",
@@ -6084,6 +10212,8 @@ __all__ = [
     "AttackProtectionUpdateCaptchaRecaptchaV2",
     "AuthenticationMethodTypeEnum",
     "AuthenticationTypeEnum",
+    "B2BIntegrationConfiguration",
+    "B2BIntegrationConfigurationIntegrationTypeEnum",
     "BadRequestSchema",
     "BadRequestSchemaError",
     "BotDetectionAllowlist",
@@ -6099,12 +10229,7 @@ __all__ = [
     "BotDetectionMonitoringModeEnabled",
     "BrandingColors",
     "BrandingFont",
-    "BrandingIdentifiers",
-    "BrandingLoginDisplayEnum",
     "BrandingPageBackground",
-    "BrandingPhoneDisplay",
-    "BrandingPhoneFormattingEnum",
-    "BrandingPhoneMaskingEnum",
     "BrandingThemeBorders",
     "BrandingThemeBordersButtonsStyleEnum",
     "BrandingThemeBordersInputsStyleEnum",
@@ -6118,6 +10243,11 @@ __all__ = [
     "BrandingThemeFontSubtitle",
     "BrandingThemeFontTitle",
     "BrandingThemeFonts",
+    "BrandingThemeIdentifiers",
+    "BrandingThemeIdentifiersLoginDisplayEnum",
+    "BrandingThemeIdentifiersPhoneDisplay",
+    "BrandingThemeIdentifiersPhoneDisplayFormattingEnum",
+    "BrandingThemeIdentifiersPhoneDisplayMaskingEnum",
     "BrandingThemePageBackground",
     "BrandingThemePageBackgroundPageLayoutEnum",
     "BrandingThemeWidget",
@@ -6215,10 +10345,13 @@ __all__ = [
     "ClientMobileAndroid",
     "ClientMobileiOs",
     "ClientMyOrganizationConfigurationAllowedStrategiesEnum",
+    "ClientMyOrganizationConfigurationThirdPartyClientAccessAllowedValuesEnum",
+    "ClientMyOrganizationConfigurationThirdPartyClientAccessDefaultValueEnum",
     "ClientMyOrganizationDeletionBehaviorEnum",
     "ClientMyOrganizationPatchConfiguration",
     "ClientMyOrganizationPostConfiguration",
     "ClientMyOrganizationResponseConfiguration",
+    "ClientMyOrganizationThirdPartyClientAccessConfiguration",
     "ClientOidcBackchannelLogoutInitiators",
     "ClientOidcBackchannelLogoutInitiatorsEnum",
     "ClientOidcBackchannelLogoutInitiatorsModeEnum",
@@ -6247,6 +10380,10 @@ __all__ = [
     "ClientTokenExchangeConfiguration",
     "ClientTokenExchangeConfigurationOrNull",
     "ClientTokenExchangeTypeEnum",
+    "ClientTokenVaultPrivilegedAccessWithCredentialId",
+    "ClientTokenVaultPrivilegedAccessWithPublicKey",
+    "ConflictSchema",
+    "ConflictSchemaError",
     "ConnectedAccount",
     "ConnectedAccountAccessTypeEnum",
     "ConnectionAccessTokenUrloAuth1",
@@ -6266,7 +10403,6 @@ __all__ = [
     "ConnectionAppDomainAzureAd",
     "ConnectionAssertionDecryptionAlgorithmProfileEnum",
     "ConnectionAssertionDecryptionSettings",
-    "ConnectionAttributeIdentifier",
     "ConnectionAttributeMapAttributes",
     "ConnectionAttributeMapOidc",
     "ConnectionAttributeMapOkta",
@@ -6327,11 +10463,14 @@ __all__ = [
     "ConnectionConnectedAccountsPurposeXaa",
     "ConnectionConnectionSettings",
     "ConnectionConnectionSettingsPkceEnum",
+    "ConnectionCrossAppAccessResourceApp",
+    "ConnectionCrossAppAccessResourceAppStatusEnum",
     "ConnectionCustomHeadersOAuth2",
     "ConnectionCustomScripts",
     "ConnectionDebugSaml",
     "ConnectionDecryptionKeySaml",
     "ConnectionDecryptionKeySamlCert",
+    "ConnectionDeletionBehaviorEnum",
     "ConnectionDestinationUrlSaml",
     "ConnectionDigestAlgorithmEnumSaml",
     "ConnectionDigestAlgorithmSaml",
@@ -6356,6 +10495,7 @@ __all__ = [
     "ConnectionEmailFromEmail",
     "ConnectionEmailOtpAuthenticationMethod",
     "ConnectionEmailSubjectEmail",
+    "ConnectionEnablePushedAuthorizationRequests",
     "ConnectionEnableScriptContext",
     "ConnectionEnabledClient",
     "ConnectionEnabledClients",
@@ -6373,7 +10513,6 @@ __all__ = [
     "ConnectionExtIsSuspended",
     "ConnectionExtIsSuspendedGoogleApps",
     "ConnectionExtProfile",
-    "ConnectionFederatedConnectionsAccessTokens",
     "ConnectionFieldsMap",
     "ConnectionFieldsMapSaml",
     "ConnectionFieldsMapSamlValue",
@@ -6409,6 +10548,7 @@ __all__ = [
     "ConnectionId",
     "ConnectionIdTokenEncryptionAlgValuesSupported",
     "ConnectionIdTokenEncryptionEncValuesSupported",
+    "ConnectionIdTokenSessionExpirySupported",
     "ConnectionIdTokenSignedResponseAlgEnum",
     "ConnectionIdTokenSignedResponseAlgs",
     "ConnectionIdTokenSigningAlgValuesSupported",
@@ -6528,16 +10668,29 @@ __all__ = [
     "ConnectionProfile",
     "ConnectionProfileBitbucket",
     "ConnectionProfileConfig",
+    "ConnectionProfileCrossAppAccessResourceApp",
+    "ConnectionProfileCrossAppAccessResourceAppStatus",
+    "ConnectionProfileCrossAppAccessResourceAppStatusAllowedValuesEnum",
+    "ConnectionProfileCrossAppAccessResourceAppStatusDefaultValueEnum",
+    "ConnectionProfileCrossAppAccessResourceAppStatusValueEnum",
     "ConnectionProfileEnabledFeatures",
     "ConnectionProfileId",
     "ConnectionProfileName",
     "ConnectionProfileOrganization",
     "ConnectionProfileOrganizationAssignMembershipOnLoginEnum",
     "ConnectionProfileOrganizationShowAsButtonEnum",
+    "ConnectionProfileProvisioning",
+    "ConnectionProfileProvisioningScim",
+    "ConnectionProfileProvisioningScimTokenDefaultExpiry",
+    "ConnectionProfileProvisioningScimTokenMaxAllowedExpiry",
+    "ConnectionProfileProvisioningScimTokenScopeEnum",
+    "ConnectionProfileProvisioningScimTokenScopes",
+    "ConnectionProfileProvisioningScimTokens",
     "ConnectionProfileStrategyOverride",
     "ConnectionProfileStrategyOverrides",
     "ConnectionProfileStrategyOverridesConnectionConfig",
     "ConnectionProfileStrategyOverridesEnabledFeatures",
+    "ConnectionProfileStrategyOverridesProvisioning",
     "ConnectionProfileTemplate",
     "ConnectionProfileTemplateItem",
     "ConnectionPropertiesOptions",
@@ -6547,6 +10700,7 @@ __all__ = [
     "ConnectionProviderSms",
     "ConnectionProvisioningTicketUrl",
     "ConnectionPurposes",
+    "ConnectionPushedAuthorizationRequestEndpoint",
     "ConnectionRealmFallback",
     "ConnectionRealms",
     "ConnectionRecipientUrlSaml",
@@ -6558,6 +10712,7 @@ __all__ = [
     "ConnectionRequestTemplateSaml",
     "ConnectionRequestTokenUrloAuth1",
     "ConnectionRequestUriParameterSupported",
+    "ConnectionRequirePushedAuthorizationRequests",
     "ConnectionRequireRequestUriRegistration",
     "ConnectionRequiresUsername",
     "ConnectionResponseCommon",
@@ -6752,6 +10907,7 @@ __all__ = [
     "ConnectionUpstreamParamsFacebook",
     "ConnectionUpstreamValue",
     "ConnectionUseCommonEndpointAzureAd",
+    "ConnectionUseOauthSpecScope",
     "ConnectionUserAuthorizationUrloAuth1",
     "ConnectionUserIdAttributeSaml",
     "ConnectionUseridAttributeAzureAd",
@@ -6764,10 +10920,14 @@ __all__ = [
     "ConnectionValidationOptions",
     "ConnectionWaadProtocol",
     "ConnectionWaadProtocolEnumAzureAd",
+    "ConnectionsDiscoveryUrl",
     "ConnectionsMetadata",
+    "ConnectionsOidcMetadata",
+    "ContentSecurityPolicyConfig",
     "CreateActionModuleResponseContent",
     "CreateActionModuleVersionResponseContent",
     "CreateActionResponseContent",
+    "CreateAnonymousSessions",
     "CreateBrandingPhoneProviderResponseContent",
     "CreateBrandingThemeResponseContent",
     "CreateClientAuthenticationMethodSelfSignedTlsClientAuth",
@@ -6887,6 +11047,7 @@ __all__ = [
     "CreateConnectionRequestContentYandex",
     "CreateConnectionRequestContentYandexStrategy",
     "CreateConnectionResponseContent",
+    "CreateCrossAppAccessResourceApp",
     "CreateCustomDomainResponseContent",
     "CreateDirectoryProvisioningRequestContent",
     "CreateDirectoryProvisioningResponseContent",
@@ -6982,7 +11143,9 @@ __all__ = [
     "CreateGuardianEnrollmentTicketResponseContent",
     "CreateHookResponseContent",
     "CreateHookSecretRequestContent",
+    "CreateIdentityAssertionAuthorizationGrant",
     "CreateImportUsersResponseContent",
+    "CreateKeysNetworkAclsResponseContent",
     "CreateLogStreamDatadogRequestBody",
     "CreateLogStreamEventBridgeRequestBody",
     "CreateLogStreamEventGridRequestBody",
@@ -6994,6 +11157,8 @@ __all__ = [
     "CreateLogStreamSplunkRequestBody",
     "CreateLogStreamSumoRequestBody",
     "CreateOrganizationAllConnectionResponseContent",
+    "CreateOrganizationClientRequestItem",
+    "CreateOrganizationClientsResponseContent",
     "CreateOrganizationDiscoveryDomainResponseContent",
     "CreateOrganizationInvitationResponseContent",
     "CreateOrganizationResponseContent",
@@ -7001,6 +11166,7 @@ __all__ = [
     "CreatePhoneTemplateResponseContent",
     "CreatePhoneTemplateTestNotificationResponseContent",
     "CreatePublicKeyDeviceCredentialResponseContent",
+    "CreateRateLimitPolicyResponseContent",
     "CreateResourceServerResponseContent",
     "CreateRoleResponseContent",
     "CreateRuleResponseContent",
@@ -7020,6 +11186,21 @@ __all__ = [
     "CreatedUserAuthenticationMethodTypeEnum",
     "CredentialDeviceTypeEnum",
     "CredentialId",
+    "CrossAppAccessRequestingApp",
+    "CrossAppAccessResourceApp",
+    "CrossAppAccessResourceAppStatusEnum",
+    "CspDirectives",
+    "CspFlag",
+    "CspFlags",
+    "CspPolicies",
+    "CspPolicy",
+    "CspPolicyMode",
+    "CspPolicyReporting",
+    "CspReportTo",
+    "CspReportToEndpoint",
+    "CspReportToEndpoints",
+    "CspReportingEndpoints",
+    "CspReportingInfrastructure",
     "CustomDomain",
     "CustomDomainCustomClientIpHeader",
     "CustomDomainCustomClientIpHeaderEnum",
@@ -7039,6 +11220,7 @@ __all__ = [
     "CustomSigningKeyUseEnum",
     "DailyStats",
     "DefaultMethodEmailIdentifierEnum",
+    "DefaultMethodPhoneNumberIdentifierEnum",
     "DefaultTokenQuota",
     "DeleteHookSecretRequestContent",
     "DeleteUserIdentityResponseContent",
@@ -7060,6 +11242,7 @@ __all__ = [
     "DomainVerificationMethodNameEnum",
     "DomainVerificationStatusEnum",
     "EmailAttribute",
+    "EmailAttributeIdentifier",
     "EmailMailgunRegionEnum",
     "EmailProviderCredentials",
     "EmailProviderCredentialsSchema",
@@ -7087,6 +11270,735 @@ __all__ = [
     "EventStreamActionResponseContent",
     "EventStreamCloudEvent",
     "EventStreamCloudEventA0PurposeEnum",
+    "EventStreamCloudEventConnectionCreated",
+    "EventStreamCloudEventConnectionCreatedCloudEvent",
+    "EventStreamCloudEventConnectionCreatedCloudEventTypeEnum",
+    "EventStreamCloudEventConnectionCreatedData",
+    "EventStreamCloudEventConnectionCreatedObject",
+    "EventStreamCloudEventConnectionCreatedObject0",
+    "EventStreamCloudEventConnectionCreatedObject0Authentication",
+    "EventStreamCloudEventConnectionCreatedObject0ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedObject0Metadata",
+    "EventStreamCloudEventConnectionCreatedObject0Options",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMap",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsTypeEnum",
+    "EventStreamCloudEventConnectionCreatedObject0OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedObject0StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedObject1",
+    "EventStreamCloudEventConnectionCreatedObject1Authentication",
+    "EventStreamCloudEventConnectionCreatedObject1ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedObject1Metadata",
+    "EventStreamCloudEventConnectionCreatedObject1Options",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMap",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsTypeEnum",
+    "EventStreamCloudEventConnectionCreatedObject1OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedObject1StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedObject2",
+    "EventStreamCloudEventConnectionCreatedObject2Authentication",
+    "EventStreamCloudEventConnectionCreatedObject2ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedObject2Metadata",
+    "EventStreamCloudEventConnectionCreatedObject2Options",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsFieldsMap",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsSubject",
+    "EventStreamCloudEventConnectionCreatedObject2OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedObject2StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedObject3",
+    "EventStreamCloudEventConnectionCreatedObject3Authentication",
+    "EventStreamCloudEventConnectionCreatedObject3ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedObject3Metadata",
+    "EventStreamCloudEventConnectionCreatedObject3Options",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsSubject",
+    "EventStreamCloudEventConnectionCreatedObject3OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedObject3StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedObject4",
+    "EventStreamCloudEventConnectionCreatedObject4Authentication",
+    "EventStreamCloudEventConnectionCreatedObject4ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedObject4Metadata",
+    "EventStreamCloudEventConnectionCreatedObject4Options",
+    "EventStreamCloudEventConnectionCreatedObject4OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedObject4OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionCreatedObject4OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedObject4StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedObject5",
+    "EventStreamCloudEventConnectionCreatedObject5Authentication",
+    "EventStreamCloudEventConnectionCreatedObject5ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedObject5Metadata",
+    "EventStreamCloudEventConnectionCreatedObject5Options",
+    "EventStreamCloudEventConnectionCreatedObject5OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedObject5OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedObject5StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedObject6",
+    "EventStreamCloudEventConnectionCreatedObject6Authentication",
+    "EventStreamCloudEventConnectionCreatedObject6ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedObject6Metadata",
+    "EventStreamCloudEventConnectionCreatedObject6Options",
+    "EventStreamCloudEventConnectionCreatedObject6OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionCreatedObject6OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedObject6OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedObject6StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedObject7",
+    "EventStreamCloudEventConnectionCreatedObject7Authentication",
+    "EventStreamCloudEventConnectionCreatedObject7ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedObject7Metadata",
+    "EventStreamCloudEventConnectionCreatedObject7Options",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsIdentityApiEnum",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsTenantDomainOne",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsUseridAttributeEnum",
+    "EventStreamCloudEventConnectionCreatedObject7OptionsWaadProtocolEnum",
+    "EventStreamCloudEventConnectionCreatedObject7StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0Authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0Metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0Options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMap",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsTypeEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedPreviousObject0StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1Authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1Metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1Options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMap",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsTypeEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedPreviousObject1StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2Authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2Metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2Options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsFieldsMap",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsSubject",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedPreviousObject2StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3Authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3Metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3Options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsSubject",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedPreviousObject3StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4Authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4Metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4Options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedPreviousObject4StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5Authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5Metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5Options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedPreviousObject5StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6Authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6Metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6Options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedPreviousObject6StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7Authentication",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7ConnectedAccounts",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7Metadata",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7Options",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsIdentityApiEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsTenantDomainOne",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsUseridAttributeEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7OptionsWaadProtocolEnum",
+    "EventStreamCloudEventConnectionCreatedPreviousObject7StrategyEnum",
+    "EventStreamCloudEventConnectionCreatedTypeEnum",
+    "EventStreamCloudEventConnectionDeleted",
+    "EventStreamCloudEventConnectionDeletedCloudEvent",
+    "EventStreamCloudEventConnectionDeletedCloudEventTypeEnum",
+    "EventStreamCloudEventConnectionDeletedData",
+    "EventStreamCloudEventConnectionDeletedObject",
+    "EventStreamCloudEventConnectionDeletedObject0",
+    "EventStreamCloudEventConnectionDeletedObject0Authentication",
+    "EventStreamCloudEventConnectionDeletedObject0ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedObject0Metadata",
+    "EventStreamCloudEventConnectionDeletedObject0Options",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMap",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsTypeEnum",
+    "EventStreamCloudEventConnectionDeletedObject0OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedObject0StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedObject1",
+    "EventStreamCloudEventConnectionDeletedObject1Authentication",
+    "EventStreamCloudEventConnectionDeletedObject1ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedObject1Metadata",
+    "EventStreamCloudEventConnectionDeletedObject1Options",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMap",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsTypeEnum",
+    "EventStreamCloudEventConnectionDeletedObject1OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedObject1StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedObject2",
+    "EventStreamCloudEventConnectionDeletedObject2Authentication",
+    "EventStreamCloudEventConnectionDeletedObject2ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedObject2Metadata",
+    "EventStreamCloudEventConnectionDeletedObject2Options",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsFieldsMap",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsSubject",
+    "EventStreamCloudEventConnectionDeletedObject2OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedObject2StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedObject3",
+    "EventStreamCloudEventConnectionDeletedObject3Authentication",
+    "EventStreamCloudEventConnectionDeletedObject3ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedObject3Metadata",
+    "EventStreamCloudEventConnectionDeletedObject3Options",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsSubject",
+    "EventStreamCloudEventConnectionDeletedObject3OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedObject3StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedObject4",
+    "EventStreamCloudEventConnectionDeletedObject4Authentication",
+    "EventStreamCloudEventConnectionDeletedObject4ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedObject4Metadata",
+    "EventStreamCloudEventConnectionDeletedObject4Options",
+    "EventStreamCloudEventConnectionDeletedObject4OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedObject4OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionDeletedObject4OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedObject4StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedObject5",
+    "EventStreamCloudEventConnectionDeletedObject5Authentication",
+    "EventStreamCloudEventConnectionDeletedObject5ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedObject5Metadata",
+    "EventStreamCloudEventConnectionDeletedObject5Options",
+    "EventStreamCloudEventConnectionDeletedObject5OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedObject5OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedObject5StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedObject6",
+    "EventStreamCloudEventConnectionDeletedObject6Authentication",
+    "EventStreamCloudEventConnectionDeletedObject6ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedObject6Metadata",
+    "EventStreamCloudEventConnectionDeletedObject6Options",
+    "EventStreamCloudEventConnectionDeletedObject6OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionDeletedObject6OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedObject6OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedObject6StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedObject7",
+    "EventStreamCloudEventConnectionDeletedObject7Authentication",
+    "EventStreamCloudEventConnectionDeletedObject7ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedObject7Metadata",
+    "EventStreamCloudEventConnectionDeletedObject7Options",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsIdentityApiEnum",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsTenantDomainOne",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsUseridAttributeEnum",
+    "EventStreamCloudEventConnectionDeletedObject7OptionsWaadProtocolEnum",
+    "EventStreamCloudEventConnectionDeletedObject7StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0Authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0Metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0Options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMap",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsTypeEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedPreviousObject0StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1Authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1Metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1Options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMap",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsTypeEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedPreviousObject1StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2Authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2Metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2Options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsFieldsMap",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsSubject",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedPreviousObject2StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3Authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3Metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3Options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsSubject",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedPreviousObject3StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4Authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4Metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4Options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedPreviousObject4StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5Authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5Metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5Options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedPreviousObject5StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6Authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6Metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6Options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedPreviousObject6StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7Authentication",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7ConnectedAccounts",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7Metadata",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7Options",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsIdentityApiEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsTenantDomainOne",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsUseridAttributeEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7OptionsWaadProtocolEnum",
+    "EventStreamCloudEventConnectionDeletedPreviousObject7StrategyEnum",
+    "EventStreamCloudEventConnectionDeletedTypeEnum",
+    "EventStreamCloudEventConnectionUpdated",
+    "EventStreamCloudEventConnectionUpdatedCloudEvent",
+    "EventStreamCloudEventConnectionUpdatedCloudEventTypeEnum",
+    "EventStreamCloudEventConnectionUpdatedData",
+    "EventStreamCloudEventConnectionUpdatedObject",
+    "EventStreamCloudEventConnectionUpdatedObject0",
+    "EventStreamCloudEventConnectionUpdatedObject0Authentication",
+    "EventStreamCloudEventConnectionUpdatedObject0ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedObject0Metadata",
+    "EventStreamCloudEventConnectionUpdatedObject0Options",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMap",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsTypeEnum",
+    "EventStreamCloudEventConnectionUpdatedObject0OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedObject0StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1",
+    "EventStreamCloudEventConnectionUpdatedObject1Authentication",
+    "EventStreamCloudEventConnectionUpdatedObject1ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedObject1Metadata",
+    "EventStreamCloudEventConnectionUpdatedObject1Options",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMap",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsTypeEnum",
+    "EventStreamCloudEventConnectionUpdatedObject1OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedObject1StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedObject2",
+    "EventStreamCloudEventConnectionUpdatedObject2Authentication",
+    "EventStreamCloudEventConnectionUpdatedObject2ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedObject2Metadata",
+    "EventStreamCloudEventConnectionUpdatedObject2Options",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsFieldsMap",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsSubject",
+    "EventStreamCloudEventConnectionUpdatedObject2OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedObject2StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedObject3",
+    "EventStreamCloudEventConnectionUpdatedObject3Authentication",
+    "EventStreamCloudEventConnectionUpdatedObject3ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedObject3Metadata",
+    "EventStreamCloudEventConnectionUpdatedObject3Options",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsSubject",
+    "EventStreamCloudEventConnectionUpdatedObject3OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedObject3StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedObject4",
+    "EventStreamCloudEventConnectionUpdatedObject4Authentication",
+    "EventStreamCloudEventConnectionUpdatedObject4ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedObject4Metadata",
+    "EventStreamCloudEventConnectionUpdatedObject4Options",
+    "EventStreamCloudEventConnectionUpdatedObject4OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedObject4OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionUpdatedObject4OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedObject4StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedObject5",
+    "EventStreamCloudEventConnectionUpdatedObject5Authentication",
+    "EventStreamCloudEventConnectionUpdatedObject5ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedObject5Metadata",
+    "EventStreamCloudEventConnectionUpdatedObject5Options",
+    "EventStreamCloudEventConnectionUpdatedObject5OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedObject5OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedObject5StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedObject6",
+    "EventStreamCloudEventConnectionUpdatedObject6Authentication",
+    "EventStreamCloudEventConnectionUpdatedObject6ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedObject6Metadata",
+    "EventStreamCloudEventConnectionUpdatedObject6Options",
+    "EventStreamCloudEventConnectionUpdatedObject6OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionUpdatedObject6OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedObject6OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedObject6StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedObject7",
+    "EventStreamCloudEventConnectionUpdatedObject7Authentication",
+    "EventStreamCloudEventConnectionUpdatedObject7ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedObject7Metadata",
+    "EventStreamCloudEventConnectionUpdatedObject7Options",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsIdentityApiEnum",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsTenantDomainOne",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsUseridAttributeEnum",
+    "EventStreamCloudEventConnectionUpdatedObject7OptionsWaadProtocolEnum",
+    "EventStreamCloudEventConnectionUpdatedObject7StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0Authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0Metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0Options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMap",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsTypeEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject0StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1Authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1Metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1Options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMap",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMapAttributes",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsAttributeMapMappingModeEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsConnectionSettings",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsConnectionSettingsPkceEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsDpopSigningAlgEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsIdTokenSignedResponseAlgsItemEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsSchemaVersionEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointAuthMethodEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointAuthSigningAlgEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTokenEndpointJwtcaAudFormatEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsTypeEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject1StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2Authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2Metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2Options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsFieldsMap",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsOidcMetadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsSubject",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject2StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3Authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3Metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3Options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsAssertionDecryptionSettings",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsAssertionDecryptionSettingsAlgorithmProfileEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsDigestAlgorithmEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsIdpinitiated",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsIdpinitiatedClientProtocolEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsProtocolBindingEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSignatureAlgorithmEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsSubject",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject3StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4Authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4Metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4Options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject4StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5Authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5Metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5Options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject5StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6Authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6Metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6Options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject6StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7Authentication",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7ConnectedAccounts",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7Metadata",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7Options",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsFederatedConnectionsAccessTokens",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsIdentityApiEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsSetUserRootAttributesEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsShouldTrustEmailVerifiedConnectionEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsTenantDomainOne",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsUpstreamParams",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsUseridAttributeEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7OptionsWaadProtocolEnum",
+    "EventStreamCloudEventConnectionUpdatedPreviousObject7StrategyEnum",
+    "EventStreamCloudEventConnectionUpdatedTypeEnum",
     "EventStreamCloudEventContext",
     "EventStreamCloudEventContextClient",
     "EventStreamCloudEventContextClientMetadata",
@@ -7094,6 +12006,7 @@ __all__ = [
     "EventStreamCloudEventContextRequest",
     "EventStreamCloudEventContextRequestGeo",
     "EventStreamCloudEventContextTenant",
+    "EventStreamCloudEventData",
     "EventStreamCloudEventErrorCodeEnum",
     "EventStreamCloudEventErrorDetail",
     "EventStreamCloudEventErrorMessage",
@@ -7109,6 +12022,13 @@ __all__ = [
     "EventStreamCloudEventGroupCreatedObject1TypeEnum",
     "EventStreamCloudEventGroupCreatedObject2",
     "EventStreamCloudEventGroupCreatedObject2TypeEnum",
+    "EventStreamCloudEventGroupCreatedPreviousObject",
+    "EventStreamCloudEventGroupCreatedPreviousObject0",
+    "EventStreamCloudEventGroupCreatedPreviousObject0TypeEnum",
+    "EventStreamCloudEventGroupCreatedPreviousObject1",
+    "EventStreamCloudEventGroupCreatedPreviousObject1TypeEnum",
+    "EventStreamCloudEventGroupCreatedPreviousObject2",
+    "EventStreamCloudEventGroupCreatedPreviousObject2TypeEnum",
     "EventStreamCloudEventGroupCreatedTypeEnum",
     "EventStreamCloudEventGroupDeleted",
     "EventStreamCloudEventGroupDeletedCloudEvent",
@@ -7121,6 +12041,13 @@ __all__ = [
     "EventStreamCloudEventGroupDeletedObject1TypeEnum",
     "EventStreamCloudEventGroupDeletedObject2",
     "EventStreamCloudEventGroupDeletedObject2TypeEnum",
+    "EventStreamCloudEventGroupDeletedPreviousObject",
+    "EventStreamCloudEventGroupDeletedPreviousObject0",
+    "EventStreamCloudEventGroupDeletedPreviousObject0TypeEnum",
+    "EventStreamCloudEventGroupDeletedPreviousObject1",
+    "EventStreamCloudEventGroupDeletedPreviousObject1TypeEnum",
+    "EventStreamCloudEventGroupDeletedPreviousObject2",
+    "EventStreamCloudEventGroupDeletedPreviousObject2TypeEnum",
     "EventStreamCloudEventGroupDeletedTypeEnum",
     "EventStreamCloudEventGroupMemberAdded",
     "EventStreamCloudEventGroupMemberAddedCloudEvent",
@@ -7139,6 +12066,19 @@ __all__ = [
     "EventStreamCloudEventGroupMemberAddedObjectMember0MemberTypeEnum",
     "EventStreamCloudEventGroupMemberAddedObjectMember1",
     "EventStreamCloudEventGroupMemberAddedObjectMember1MemberTypeEnum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObject",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup0",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup0TypeEnum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup1",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup1TypeEnum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup2",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectGroup2TypeEnum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember0",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember0MemberTypeEnum",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember1",
+    "EventStreamCloudEventGroupMemberAddedPreviousObjectMember1MemberTypeEnum",
     "EventStreamCloudEventGroupMemberAddedTypeEnum",
     "EventStreamCloudEventGroupMemberDeleted",
     "EventStreamCloudEventGroupMemberDeletedCloudEvent",
@@ -7157,6 +12097,19 @@ __all__ = [
     "EventStreamCloudEventGroupMemberDeletedObjectMember0MemberTypeEnum",
     "EventStreamCloudEventGroupMemberDeletedObjectMember1",
     "EventStreamCloudEventGroupMemberDeletedObjectMember1MemberTypeEnum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObject",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup0",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup0TypeEnum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup1",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup1TypeEnum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup2",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectGroup2TypeEnum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember0",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember0MemberTypeEnum",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember1",
+    "EventStreamCloudEventGroupMemberDeletedPreviousObjectMember1MemberTypeEnum",
     "EventStreamCloudEventGroupMemberDeletedTypeEnum",
     "EventStreamCloudEventGroupRoleAssigned",
     "EventStreamCloudEventGroupRoleAssignedCloudEvent",
@@ -7171,6 +12124,15 @@ __all__ = [
     "EventStreamCloudEventGroupRoleAssignedObjectGroup2",
     "EventStreamCloudEventGroupRoleAssignedObjectGroup2TypeEnum",
     "EventStreamCloudEventGroupRoleAssignedObjectRole",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObject",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup0",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup0TypeEnum",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup1",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup1TypeEnum",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup2",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectGroup2TypeEnum",
+    "EventStreamCloudEventGroupRoleAssignedPreviousObjectRole",
     "EventStreamCloudEventGroupRoleAssignedTypeEnum",
     "EventStreamCloudEventGroupRoleDeleted",
     "EventStreamCloudEventGroupRoleDeletedCloudEvent",
@@ -7185,6 +12147,15 @@ __all__ = [
     "EventStreamCloudEventGroupRoleDeletedObjectGroup2",
     "EventStreamCloudEventGroupRoleDeletedObjectGroup2TypeEnum",
     "EventStreamCloudEventGroupRoleDeletedObjectRole",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObject",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup0",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup0TypeEnum",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup1",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup1TypeEnum",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup2",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectGroup2TypeEnum",
+    "EventStreamCloudEventGroupRoleDeletedPreviousObjectRole",
     "EventStreamCloudEventGroupRoleDeletedTypeEnum",
     "EventStreamCloudEventGroupUpdated",
     "EventStreamCloudEventGroupUpdatedCloudEvent",
@@ -7197,6 +12168,13 @@ __all__ = [
     "EventStreamCloudEventGroupUpdatedObject1TypeEnum",
     "EventStreamCloudEventGroupUpdatedObject2",
     "EventStreamCloudEventGroupUpdatedObject2TypeEnum",
+    "EventStreamCloudEventGroupUpdatedPreviousObject",
+    "EventStreamCloudEventGroupUpdatedPreviousObject0",
+    "EventStreamCloudEventGroupUpdatedPreviousObject0TypeEnum",
+    "EventStreamCloudEventGroupUpdatedPreviousObject1",
+    "EventStreamCloudEventGroupUpdatedPreviousObject1TypeEnum",
+    "EventStreamCloudEventGroupUpdatedPreviousObject2",
+    "EventStreamCloudEventGroupUpdatedPreviousObject2TypeEnum",
     "EventStreamCloudEventGroupUpdatedTypeEnum",
     "EventStreamCloudEventOffsetOnlyMessage",
     "EventStreamCloudEventOffsetOnlyMessageTypeEnum",
@@ -7207,6 +12185,19 @@ __all__ = [
     "EventStreamCloudEventOrgConnectionAddedObject",
     "EventStreamCloudEventOrgConnectionAddedObjectConnection",
     "EventStreamCloudEventOrgConnectionAddedObjectOrganization",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel0Enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel1Enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel2Enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel3Enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObject",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectConnection",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganization",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel0Enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel1Enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel2Enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel3Enum",
     "EventStreamCloudEventOrgConnectionAddedTypeEnum",
     "EventStreamCloudEventOrgConnectionRemoved",
     "EventStreamCloudEventOrgConnectionRemovedCloudEvent",
@@ -7215,6 +12206,9 @@ __all__ = [
     "EventStreamCloudEventOrgConnectionRemovedObject",
     "EventStreamCloudEventOrgConnectionRemovedObjectConnection",
     "EventStreamCloudEventOrgConnectionRemovedObjectOrganization",
+    "EventStreamCloudEventOrgConnectionRemovedPreviousObject",
+    "EventStreamCloudEventOrgConnectionRemovedPreviousObjectConnection",
+    "EventStreamCloudEventOrgConnectionRemovedPreviousObjectOrganization",
     "EventStreamCloudEventOrgConnectionRemovedTypeEnum",
     "EventStreamCloudEventOrgConnectionUpdated",
     "EventStreamCloudEventOrgConnectionUpdatedCloudEvent",
@@ -7223,6 +12217,19 @@ __all__ = [
     "EventStreamCloudEventOrgConnectionUpdatedObject",
     "EventStreamCloudEventOrgConnectionUpdatedObjectConnection",
     "EventStreamCloudEventOrgConnectionUpdatedObjectOrganization",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel0Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel1Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel2Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel3Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObject",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectConnection",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganization",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel0Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel1Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel2Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel3Enum",
     "EventStreamCloudEventOrgConnectionUpdatedTypeEnum",
     "EventStreamCloudEventOrgCreated",
     "EventStreamCloudEventOrgCreatedCloudEvent",
@@ -7232,6 +12239,10 @@ __all__ = [
     "EventStreamCloudEventOrgCreatedObjectBranding",
     "EventStreamCloudEventOrgCreatedObjectBrandingColors",
     "EventStreamCloudEventOrgCreatedObjectMetadata",
+    "EventStreamCloudEventOrgCreatedPreviousObject",
+    "EventStreamCloudEventOrgCreatedPreviousObjectBranding",
+    "EventStreamCloudEventOrgCreatedPreviousObjectBrandingColors",
+    "EventStreamCloudEventOrgCreatedPreviousObjectMetadata",
     "EventStreamCloudEventOrgCreatedTypeEnum",
     "EventStreamCloudEventOrgDeleted",
     "EventStreamCloudEventOrgDeletedCloudEvent",
@@ -7239,6 +12250,8 @@ __all__ = [
     "EventStreamCloudEventOrgDeletedData",
     "EventStreamCloudEventOrgDeletedObject",
     "EventStreamCloudEventOrgDeletedObjectMetadata",
+    "EventStreamCloudEventOrgDeletedPreviousObject",
+    "EventStreamCloudEventOrgDeletedPreviousObjectMetadata",
     "EventStreamCloudEventOrgDeletedTypeEnum",
     "EventStreamCloudEventOrgGroupRoleAssigned",
     "EventStreamCloudEventOrgGroupRoleAssignedCloudEvent",
@@ -7254,6 +12267,16 @@ __all__ = [
     "EventStreamCloudEventOrgGroupRoleAssignedObjectGroup2TypeEnum",
     "EventStreamCloudEventOrgGroupRoleAssignedObjectOrganization",
     "EventStreamCloudEventOrgGroupRoleAssignedObjectRole",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObject",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup0",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup0TypeEnum",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup1",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup1TypeEnum",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup2",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectGroup2TypeEnum",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectOrganization",
+    "EventStreamCloudEventOrgGroupRoleAssignedPreviousObjectRole",
     "EventStreamCloudEventOrgGroupRoleAssignedTypeEnum",
     "EventStreamCloudEventOrgGroupRoleDeleted",
     "EventStreamCloudEventOrgGroupRoleDeletedCloudEvent",
@@ -7269,6 +12292,16 @@ __all__ = [
     "EventStreamCloudEventOrgGroupRoleDeletedObjectGroup2TypeEnum",
     "EventStreamCloudEventOrgGroupRoleDeletedObjectOrganization",
     "EventStreamCloudEventOrgGroupRoleDeletedObjectRole",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObject",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup0",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup0TypeEnum",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup1",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup1TypeEnum",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup2",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectGroup2TypeEnum",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectOrganization",
+    "EventStreamCloudEventOrgGroupRoleDeletedPreviousObjectRole",
     "EventStreamCloudEventOrgGroupRoleDeletedTypeEnum",
     "EventStreamCloudEventOrgMemberAdded",
     "EventStreamCloudEventOrgMemberAddedCloudEvent",
@@ -7277,6 +12310,9 @@ __all__ = [
     "EventStreamCloudEventOrgMemberAddedObject",
     "EventStreamCloudEventOrgMemberAddedObjectOrganization",
     "EventStreamCloudEventOrgMemberAddedObjectUser",
+    "EventStreamCloudEventOrgMemberAddedPreviousObject",
+    "EventStreamCloudEventOrgMemberAddedPreviousObjectOrganization",
+    "EventStreamCloudEventOrgMemberAddedPreviousObjectUser",
     "EventStreamCloudEventOrgMemberAddedTypeEnum",
     "EventStreamCloudEventOrgMemberDeleted",
     "EventStreamCloudEventOrgMemberDeletedCloudEvent",
@@ -7285,6 +12321,9 @@ __all__ = [
     "EventStreamCloudEventOrgMemberDeletedObject",
     "EventStreamCloudEventOrgMemberDeletedObjectOrganization",
     "EventStreamCloudEventOrgMemberDeletedObjectUser",
+    "EventStreamCloudEventOrgMemberDeletedPreviousObject",
+    "EventStreamCloudEventOrgMemberDeletedPreviousObjectOrganization",
+    "EventStreamCloudEventOrgMemberDeletedPreviousObjectUser",
     "EventStreamCloudEventOrgMemberDeletedTypeEnum",
     "EventStreamCloudEventOrgMemberRoleAssigned",
     "EventStreamCloudEventOrgMemberRoleAssignedCloudEvent",
@@ -7294,6 +12333,10 @@ __all__ = [
     "EventStreamCloudEventOrgMemberRoleAssignedObjectOrganization",
     "EventStreamCloudEventOrgMemberRoleAssignedObjectRole",
     "EventStreamCloudEventOrgMemberRoleAssignedObjectUser",
+    "EventStreamCloudEventOrgMemberRoleAssignedPreviousObject",
+    "EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectOrganization",
+    "EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectRole",
+    "EventStreamCloudEventOrgMemberRoleAssignedPreviousObjectUser",
     "EventStreamCloudEventOrgMemberRoleAssignedTypeEnum",
     "EventStreamCloudEventOrgMemberRoleDeleted",
     "EventStreamCloudEventOrgMemberRoleDeletedCloudEvent",
@@ -7303,6 +12346,10 @@ __all__ = [
     "EventStreamCloudEventOrgMemberRoleDeletedObjectOrganization",
     "EventStreamCloudEventOrgMemberRoleDeletedObjectRole",
     "EventStreamCloudEventOrgMemberRoleDeletedObjectUser",
+    "EventStreamCloudEventOrgMemberRoleDeletedPreviousObject",
+    "EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectOrganization",
+    "EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectRole",
+    "EventStreamCloudEventOrgMemberRoleDeletedPreviousObjectUser",
     "EventStreamCloudEventOrgMemberRoleDeletedTypeEnum",
     "EventStreamCloudEventOrgUpdated",
     "EventStreamCloudEventOrgUpdatedCloudEvent",
@@ -7312,7 +12359,12 @@ __all__ = [
     "EventStreamCloudEventOrgUpdatedObjectBranding",
     "EventStreamCloudEventOrgUpdatedObjectBrandingColors",
     "EventStreamCloudEventOrgUpdatedObjectMetadata",
+    "EventStreamCloudEventOrgUpdatedPreviousObject",
+    "EventStreamCloudEventOrgUpdatedPreviousObjectBranding",
+    "EventStreamCloudEventOrgUpdatedPreviousObjectBrandingColors",
+    "EventStreamCloudEventOrgUpdatedPreviousObjectMetadata",
     "EventStreamCloudEventOrgUpdatedTypeEnum",
+    "EventStreamCloudEventSpecVersionEnum",
     "EventStreamCloudEventUserCreated",
     "EventStreamCloudEventUserCreatedCloudEvent",
     "EventStreamCloudEventUserCreatedCloudEventTypeEnum",
@@ -7346,6 +12398,35 @@ __all__ = [
     "EventStreamCloudEventUserCreatedObjectIdentitiesItemSocialProviderEnum",
     "EventStreamCloudEventUserCreatedObjectIdentitiesItemSocialUserId",
     "EventStreamCloudEventUserCreatedObjectUserMetadata",
+    "EventStreamCloudEventUserCreatedPreviousObject",
+    "EventStreamCloudEventUserCreatedPreviousObjectAppMetadata",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItem",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustom",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomIsSocialEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomProfileData",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomProviderEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemCustomUserId",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabase",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseIsSocialEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseProfileData",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseProviderEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemDatabaseUserId",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterprise",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseProfileData",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseProviderEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemEnterpriseUserId",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordless",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessProfileData",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessProviderEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemPasswordlessUserId",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocial",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialIsSocialEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialProfileData",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialProviderEnum",
+    "EventStreamCloudEventUserCreatedPreviousObjectIdentitiesItemSocialUserId",
+    "EventStreamCloudEventUserCreatedPreviousObjectUserMetadata",
     "EventStreamCloudEventUserCreatedTypeEnum",
     "EventStreamCloudEventUserDeleted",
     "EventStreamCloudEventUserDeletedCloudEvent",
@@ -7380,6 +12461,35 @@ __all__ = [
     "EventStreamCloudEventUserDeletedObjectIdentitiesItemSocialProviderEnum",
     "EventStreamCloudEventUserDeletedObjectIdentitiesItemSocialUserId",
     "EventStreamCloudEventUserDeletedObjectUserMetadata",
+    "EventStreamCloudEventUserDeletedPreviousObject",
+    "EventStreamCloudEventUserDeletedPreviousObjectAppMetadata",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItem",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustom",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomIsSocialEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomProfileData",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomProviderEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemCustomUserId",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabase",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseIsSocialEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseProfileData",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseProviderEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemDatabaseUserId",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterprise",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseProfileData",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseProviderEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemEnterpriseUserId",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordless",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessProfileData",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessProviderEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemPasswordlessUserId",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocial",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialIsSocialEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialProfileData",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialProviderEnum",
+    "EventStreamCloudEventUserDeletedPreviousObjectIdentitiesItemSocialUserId",
+    "EventStreamCloudEventUserDeletedPreviousObjectUserMetadata",
     "EventStreamCloudEventUserDeletedTypeEnum",
     "EventStreamCloudEventUserUpdated",
     "EventStreamCloudEventUserUpdatedCloudEvent",
@@ -7414,6 +12524,35 @@ __all__ = [
     "EventStreamCloudEventUserUpdatedObjectIdentitiesItemSocialProviderEnum",
     "EventStreamCloudEventUserUpdatedObjectIdentitiesItemSocialUserId",
     "EventStreamCloudEventUserUpdatedObjectUserMetadata",
+    "EventStreamCloudEventUserUpdatedPreviousObject",
+    "EventStreamCloudEventUserUpdatedPreviousObjectAppMetadata",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItem",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustom",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomIsSocialEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomProfileData",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomProviderEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemCustomUserId",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabase",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseIsSocialEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseProfileData",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseProviderEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemDatabaseUserId",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterprise",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseIsSocialEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseProfileData",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseProviderEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemEnterpriseUserId",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordless",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessIsSocialEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessProfileData",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessProviderEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemPasswordlessUserId",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocial",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialIsSocialEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialProfileData",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialProviderEnum",
+    "EventStreamCloudEventUserUpdatedPreviousObjectIdentitiesItemSocialUserId",
+    "EventStreamCloudEventUserUpdatedPreviousObjectUserMetadata",
     "EventStreamCloudEventUserUpdatedTypeEnum",
     "EventStreamDelivery",
     "EventStreamDeliveryAttempt",
@@ -7431,6 +12570,9 @@ __all__ = [
     "EventStreamSubscribeEventsEventTypeEnum",
     "EventStreamSubscribeEventsEventTypeParam",
     "EventStreamSubscribeEventsResponseContent",
+    "EventStreamSubscribeEventsResponseContent_ConnectionCreated",
+    "EventStreamSubscribeEventsResponseContent_ConnectionDeleted",
+    "EventStreamSubscribeEventsResponseContent_ConnectionUpdated",
     "EventStreamSubscribeEventsResponseContent_Error",
     "EventStreamSubscribeEventsResponseContent_GroupCreated",
     "EventStreamSubscribeEventsResponseContent_GroupDeleted",
@@ -7473,7 +12615,8 @@ __all__ = [
     "ExtensibilityEmailProviderCredentials",
     "FedCmLogin",
     "FedCmLoginGoogle",
-    "FederatedConnectionTokenSet",
+    "FedCmLoginGooglePatch",
+    "FedCmLoginPatch",
     "FlowAction",
     "FlowActionActivecampaign",
     "FlowActionActivecampaignListContacts",
@@ -8042,6 +13185,7 @@ __all__ = [
     "GetActionVersionResponseContent",
     "GetActiveUsersCountStatsResponseContent",
     "GetAculResponseContent",
+    "GetAllKeysNetworkAclsResponseContent",
     "GetAttackProtectionCaptchaResponseContent",
     "GetBotDetectionSettingsResponseContent",
     "GetBrandingDefaultThemeResponseContent",
@@ -8065,6 +13209,7 @@ __all__ = [
     "GetDefaultDomainResponseContent",
     "GetDirectoryProvisioningDefaultMappingResponseContent",
     "GetDirectoryProvisioningResponseContent",
+    "GetEmailFactorSettingsResponseContent",
     "GetEmailProviderResponseContent",
     "GetEmailTemplateResponseContent",
     "GetEncryptionKeyResponseContent",
@@ -8090,6 +13235,7 @@ __all__ = [
     "GetGuardianFactorsProviderSmsResponseContent",
     "GetGuardianFactorsProviderSmsTwilioResponseContent",
     "GetGuardianFactorsProviderSnsResponseContent",
+    "GetGuardianSettingsResponseContent",
     "GetHookResponseContent",
     "GetHookSecretResponseContent",
     "GetJobErrorResponseContent",
@@ -8103,13 +13249,17 @@ __all__ = [
     "GetNetworkAclsResponseContent",
     "GetOrganizationAllConnectionResponseContent",
     "GetOrganizationByNameResponseContent",
+    "GetOrganizationClientResponseContent",
     "GetOrganizationConnectionResponseContent",
     "GetOrganizationDiscoveryDomainByNameResponseContent",
     "GetOrganizationDiscoveryDomainResponseContent",
     "GetOrganizationInvitationResponseContent",
     "GetOrganizationResponseContent",
     "GetPartialsResponseContent",
+    "GetPhoneFactorSettingsResponseContent",
+    "GetPhoneProviderProtectionResponseContent",
     "GetPhoneTemplateResponseContent",
+    "GetRateLimitPolicyResponseContent",
     "GetRefreshTokenResponseContent",
     "GetRefreshTokensPaginatedResponseContent",
     "GetResourceServerResponseContent",
@@ -8146,6 +13296,7 @@ __all__ = [
     "GuardianFactor",
     "GuardianFactorNameEnum",
     "GuardianFactorPhoneFactorMessageTypeEnum",
+    "GuardianFactorSettings",
     "GuardianFactorsProviderPushNotificationProviderDataEnum",
     "GuardianFactorsProviderSmsProviderEnum",
     "Hook",
@@ -8153,6 +13304,7 @@ __all__ = [
     "HookTriggerIdEnum",
     "HttpCustomHeader",
     "Identity",
+    "IdentityAssertionAuthorizationGrant",
     "IdentityProviderEnum",
     "IdentityProviderOnlyAuth0Enum",
     "ImportEncryptionKeyResponseContent",
@@ -8171,6 +13323,7 @@ __all__ = [
     "ListActionsPaginatedResponseContent",
     "ListAculsOffsetPaginatedResponseContent",
     "ListAculsResponseContentItem",
+    "ListAgentsResponseContent",
     "ListBrandingPhoneProvidersResponseContent",
     "ListClientConnectionsResponseContent",
     "ListClientGrantOrganizationsPaginatedResponseContent",
@@ -8183,12 +13336,14 @@ __all__ = [
     "ListDeviceCredentialsOffsetPaginatedResponseContent",
     "ListDirectoryProvisioningsResponseContent",
     "ListEncryptionKeyOffsetPaginatedResponseContent",
+    "ListEventStreamDeliveriesResponseContent",
     "ListEventStreamsResponseContent",
     "ListFlowExecutionsPaginatedResponseContent",
     "ListFlowsOffsetPaginatedResponseContent",
     "ListFlowsRequestParametersHydrateEnum",
     "ListFlowsVaultConnectionsOffsetPaginatedResponseContent",
     "ListFormsOffsetPaginatedResponseContent",
+    "ListGroupRolesResponseContent",
     "ListGroupsPaginatedResponseContent",
     "ListGuardianPoliciesResponseContent",
     "ListHooksOffsetPaginatedResponseContent",
@@ -8196,15 +13351,24 @@ __all__ = [
     "ListNetworkAclsOffsetPaginatedResponseContent",
     "ListOrganizationAllConnectionsOffsetPaginatedResponseContent",
     "ListOrganizationClientGrantsOffsetPaginatedResponseContent",
+    "ListOrganizationClientsResponseContent",
     "ListOrganizationConnectionsOffsetPaginatedResponseContent",
     "ListOrganizationDiscoveryDomainsResponseContent",
+    "ListOrganizationGroupRolesResponseContent",
+    "ListOrganizationGroupsResponseContent",
     "ListOrganizationInvitationsOffsetPaginatedResponseContent",
+    "ListOrganizationMemberEffectiveRolesResponseContent",
+    "ListOrganizationMemberRoleSourceGroupsResponseContent",
     "ListOrganizationMemberRolesOffsetPaginatedResponseContent",
     "ListOrganizationMembersPaginatedResponseContent",
+    "ListOrganizationRoleGroupsResponseContent",
+    "ListOrganizationRoleMembersResponseContent",
     "ListOrganizationsPaginatedResponseContent",
     "ListPhoneTemplatesResponseContent",
+    "ListRateLimitPoliciesPaginatedResponseContent",
     "ListRefreshTokensPaginatedResponseContent",
     "ListResourceServerOffsetPaginatedResponseContent",
+    "ListRoleGroupsResponseContent",
     "ListRolePermissionsOffsetPaginatedResponseContent",
     "ListRoleUsersPaginatedResponseContent",
     "ListRolesOffsetPaginatedResponseContent",
@@ -8220,9 +13384,13 @@ __all__ = [
     "ListUserBlocksByIdentifierResponseContent",
     "ListUserBlocksResponseContent",
     "ListUserConnectedAccountsResponseContent",
+    "ListUserEffectivePermissionRoleSourcesResponseContent",
+    "ListUserEffectivePermissionsResponseContent",
+    "ListUserEffectiveRolesResponseContent",
     "ListUserGrantsOffsetPaginatedResponseContent",
     "ListUserOrganizationsOffsetPaginatedResponseContent",
     "ListUserPermissionsOffsetPaginatedResponseContent",
+    "ListUserRoleSourceGroupsResponseContent",
     "ListUserRolesOffsetPaginatedResponseContent",
     "ListUserSessionsPaginatedResponseContent",
     "ListUsersOffsetPaginatedResponseContent",
@@ -8280,21 +13448,35 @@ __all__ = [
     "MfaPolicyEnum",
     "NativeSocialLogin",
     "NativeSocialLoginApple",
+    "NativeSocialLoginApplePatch",
     "NativeSocialLoginFacebook",
+    "NativeSocialLoginFacebookPatch",
     "NativeSocialLoginGoogle",
+    "NativeSocialLoginGooglePatch",
+    "NativeSocialLoginPatch",
     "NetworkAclAction",
     "NetworkAclActionAllowEnum",
     "NetworkAclActionBlockEnum",
     "NetworkAclActionLogEnum",
     "NetworkAclActionRedirectEnum",
+    "NetworkAclHttpMessageSignature",
+    "NetworkAclHttpMessageSignatureKey",
+    "NetworkAclHttpMessageSignatureKeys",
+    "NetworkAclKey",
+    "NetworkAclKeyAlgorithmEnum",
     "NetworkAclMatch",
     "NetworkAclMatchConnectingIpv4Cidr",
     "NetworkAclMatchConnectingIpv6Cidr",
     "NetworkAclMatchIpv4Cidr",
     "NetworkAclMatchIpv6Cidr",
     "NetworkAclRule",
+    "NetworkAclRuleMatchAllEnum",
     "NetworkAclRuleScopeEnum",
     "NetworkAclsResponseContent",
+    "NotFoundErrorBody",
+    "NotFoundErrorBodyError",
+    "NotFoundSchema",
+    "NotFoundSchemaError",
     "OauthScope",
     "Organization",
     "OrganizationAccessLevelEnum",
@@ -8302,9 +13484,14 @@ __all__ = [
     "OrganizationAllConnectionPost",
     "OrganizationBranding",
     "OrganizationBrandingColors",
+    "OrganizationClient",
+    "OrganizationClientAssociation",
     "OrganizationClientGrant",
+    "OrganizationClientMetadata",
+    "OrganizationClientMetadataOrganizationUsageEnum",
     "OrganizationConnection",
     "OrganizationConnectionInformation",
+    "OrganizationDeletionBehaviorEnum",
     "OrganizationDiscoveryDomain",
     "OrganizationDiscoveryDomainStatus",
     "OrganizationEnabledConnection",
@@ -8312,8 +13499,18 @@ __all__ = [
     "OrganizationInvitationInvitee",
     "OrganizationInvitationInviter",
     "OrganizationMember",
+    "OrganizationMemberEffectiveRole",
+    "OrganizationMemberEffectiveRoleSource",
     "OrganizationMemberRole",
     "OrganizationMetadata",
+    "OrganizationSortFieldEnum",
+    "OrganizationTemplate",
+    "OrganizationTemplateAllowedStrategyEnum",
+    "OrganizationTemplateRoleVisibilityEnum",
+    "OrganizationTemplateRoleVisibilityOverride",
+    "OrganizationTemplateRoleVisibilityPolicy",
+    "OrganizationTemplateUseForOrganizationDiscovery",
+    "OrganizationThirdPartyClientAccessEnum",
     "OrganizationUsageEnum",
     "PartialGroupsEnum",
     "PartialPhoneTemplateContent",
@@ -8324,15 +13521,25 @@ __all__ = [
     "PasswordMaxLengthExceededPolicyEnum",
     "PasswordSequentialCharactersPolicyEnum",
     "PatchClientCredentialResponseContent",
+    "PatchPhoneProviderProtectionResponseContent",
+    "PatchRateLimitPolicyConfigurationRequestContent",
+    "PatchRateLimitPolicyConfigurationRequestContentAction",
+    "PatchRateLimitPolicyConfigurationRequestContentActionAction",
+    "PatchRateLimitPolicyConfigurationRequestContentOne",
+    "PatchRateLimitPolicyConfigurationRequestContentOneAction",
+    "PatchRateLimitPolicyConfigurationRequestContentZero",
+    "PatchRateLimitPolicyConfigurationRequestContentZeroAction",
     "PatchSupplementalSignalsResponseContent",
     "PermissionRequestPayload",
     "PermissionsResponsePayload",
     "PhoneAttribute",
+    "PhoneAttributeIdentifier",
     "PhoneProviderChannelEnum",
     "PhoneProviderConfiguration",
     "PhoneProviderCredentials",
     "PhoneProviderDeliveryMethodEnum",
     "PhoneProviderNameEnum",
+    "PhoneProviderProtectionBackoffStrategyEnum",
     "PhoneProviderSchemaMasked",
     "PhoneTemplate",
     "PhoneTemplateBody",
@@ -8350,6 +13557,16 @@ __all__ = [
     "PublicKeyCredential",
     "PublicKeyCredentialAlgorithmEnum",
     "PublicKeyCredentialTypeEnum",
+    "RateLimitPolicy",
+    "RateLimitPolicyConfiguration",
+    "RateLimitPolicyConfigurationAction",
+    "RateLimitPolicyConfigurationActionAction",
+    "RateLimitPolicyConfigurationOne",
+    "RateLimitPolicyConfigurationOneAction",
+    "RateLimitPolicyConfigurationZero",
+    "RateLimitPolicyConfigurationZeroAction",
+    "RateLimitPolicyConsumerEnum",
+    "RateLimitPolicyResourceEnum",
     "RefreshTokenDate",
     "RefreshTokenDateObject",
     "RefreshTokenDevice",
@@ -8370,7 +13587,11 @@ __all__ = [
     "ResourceServerProofOfPossessionMechanismEnum",
     "ResourceServerProofOfPossessionRequiredForEnum",
     "ResourceServerScope",
+    "ResourceServerSearchResponse",
+    "ResourceServerSortFieldEnum",
     "ResourceServerSubjectTypeAuthorization",
+    "ResourceServerSubjectTypeAuthorizationAnonymousUser",
+    "ResourceServerSubjectTypeAuthorizationAnonymousUserPolicyEnum",
     "ResourceServerSubjectTypeAuthorizationClient",
     "ResourceServerSubjectTypeAuthorizationClientPolicyEnum",
     "ResourceServerSubjectTypeAuthorizationUser",
@@ -8384,6 +13605,9 @@ __all__ = [
     "ResourceServerVerificationKeyPemCertificate",
     "RevokedSigningKeysResponseContent",
     "Role",
+    "RoleGroup",
+    "RoleMember",
+    "RoleTypeEnum",
     "RoleUser",
     "RollbackActionModuleResponseContent",
     "RotateClientSecretResponseContent",
@@ -8398,6 +13622,10 @@ __all__ = [
     "ScimTokenItem",
     "ScreenGroupNameEnum",
     "SearchEngineVersionsEnum",
+    "SearchOrganization",
+    "SearchOrganizationsPaginatedResponseContent",
+    "SearchParserEnum",
+    "SearchResourceServersResponseContent",
     "SelfServiceProfile",
     "SelfServiceProfileAllowedStrategyEnum",
     "SelfServiceProfileBranding",
@@ -8419,6 +13647,8 @@ __all__ = [
     "SelfServiceProfileSsoTicketProvisioningScopeEnum",
     "SelfServiceProfileUserAttribute",
     "SelfServiceProfileUserAttributes",
+    "SessionActorClaimValue",
+    "SessionActorMetadata",
     "SessionAuthenticationSignal",
     "SessionAuthenticationSignals",
     "SessionClientMetadata",
@@ -8432,6 +13662,7 @@ __all__ = [
     "SessionMetadata",
     "SessionResponseContent",
     "SetCustomSigningKeysResponseContent",
+    "SetEmailFactorSettingsResponseContent",
     "SetEmailTemplateResponseContent",
     "SetGuardianFactorDuoSettingsResponseContent",
     "SetGuardianFactorPhoneMessageTypesResponseContent",
@@ -8449,8 +13680,10 @@ __all__ = [
     "SetGuardianFactorsProviderSmsTwilioResponseContent",
     "SetGuardianPoliciesRequestContent",
     "SetGuardianPoliciesResponseContent",
+    "SetGuardianSettingsResponseContent",
     "SetNetworkAclsResponseContent",
     "SetPartialsRequestContent",
+    "SetPhoneFactorSettingsResponseContent",
     "SetRulesConfigResponseContent",
     "SetSelfServiceProfileCustomTextRequestContent",
     "SetSelfServiceProfileCustomTextResponseContent",
@@ -8468,13 +13701,19 @@ __all__ = [
     "SupportedLocales",
     "SuspiciousIpThrottlingAllowlist",
     "SuspiciousIpThrottlingAllowlistItem",
+    "SuspiciousIpThrottlingPreCustomTokenExchangeStage",
     "SuspiciousIpThrottlingPreLoginStage",
     "SuspiciousIpThrottlingPreUserRegistrationStage",
     "SuspiciousIpThrottlingShieldsEnum",
     "SuspiciousIpThrottlingStage",
     "SynchronizeGroupsEnum",
     "SynchronizedGroupPayload",
+    "SynchronizedGroupSelectionId",
     "TenantOidcLogoutSettings",
+    "TenantSettingsCountryCodes",
+    "TenantSettingsCountryCodesMode",
+    "TenantSettingsCountryCodesModeResponse",
+    "TenantSettingsCountryCodesResponse",
     "TenantSettingsDeviceFlow",
     "TenantSettingsDeviceFlowCharset",
     "TenantSettingsDynamicClientRegistrationSecurityMode",
@@ -8482,20 +13721,27 @@ __all__ = [
     "TenantSettingsFlags",
     "TenantSettingsGuardianPage",
     "TenantSettingsMtls",
+    "TenantSettingsNullableSecurityHeaders",
     "TenantSettingsPasswordPage",
     "TenantSettingsResourceParameterProfile",
     "TenantSettingsSessions",
+    "TenantSettingsSessionsAnonymous",
     "TenantSettingsSupportedLocalesEnum",
     "TestActionPayload",
     "TestActionResponseContent",
     "TestActionResultPayload",
     "TestCustomDomainResponseContent",
     "TestEventDataContent",
+    "ThirdPartyClientAccessConfig",
     "TokenExchangeProfileResponseContent",
     "TokenExchangeProfileTypeEnum",
     "TokenQuota",
     "TokenQuotaClientCredentials",
     "TokenQuotaConfiguration",
+    "TokenVaultPrivilegedAccessGrant",
+    "TokenVaultPrivilegedAccessIpAllowlistEntry",
+    "TooManyRequestsErrorBody",
+    "TooManyRequestsErrorBodyError",
     "TooManyRequestsSchema",
     "TooManyRequestsSchemaError",
     "TwilioProviderConfiguration",
@@ -8508,16 +13754,12 @@ __all__ = [
     "UpdateActionModuleResponseContent",
     "UpdateActionResponseContent",
     "UpdateAculResponseContent",
+    "UpdateAnonymousSessions",
     "UpdateAttackProtectionCaptchaResponseContent",
     "UpdateBotDetectionSettingsResponseContent",
     "UpdateBrandingColors",
     "UpdateBrandingFont",
-    "UpdateBrandingIdentifiers",
-    "UpdateBrandingLoginDisplayEnum",
     "UpdateBrandingPageBackground",
-    "UpdateBrandingPhoneDisplay",
-    "UpdateBrandingPhoneFormattingEnum",
-    "UpdateBrandingPhoneMaskingEnum",
     "UpdateBrandingPhoneProviderResponseContent",
     "UpdateBrandingResponseContent",
     "UpdateBrandingThemeResponseContent",
@@ -8583,6 +13825,7 @@ __all__ = [
     "UpdateConnectionRequestContentYahoo",
     "UpdateConnectionRequestContentYandex",
     "UpdateConnectionResponseContent",
+    "UpdateCrossAppAccessResourceApp",
     "UpdateCustomDomainResponseContent",
     "UpdateDefaultCanonicalDomainResponseContent",
     "UpdateDefaultCustomDomainResponseContent",
@@ -8605,13 +13848,16 @@ __all__ = [
     "UpdateGuardianFactorsProviderPushNotificationSnsResponseContent",
     "UpdateHookResponseContent",
     "UpdateHookSecretRequestContent",
+    "UpdateIdentityAssertionAuthorizationGrant",
     "UpdateLogStreamResponseContent",
     "UpdateNetworkAclResponseContent",
     "UpdateOrganizationAllConnectionResponseContent",
+    "UpdateOrganizationClientResponseContent",
     "UpdateOrganizationConnectionResponseContent",
     "UpdateOrganizationDiscoveryDomainResponseContent",
     "UpdateOrganizationResponseContent",
     "UpdatePhoneTemplateResponseContent",
+    "UpdateRateLimitPolicyResponseContent",
     "UpdateRefreshTokenResponseContent",
     "UpdateResourceServerResponseContent",
     "UpdateRiskAssessmentsSettingsNewDeviceResponseContent",
@@ -8654,7 +13900,12 @@ __all__ = [
     "UserAuthenticationMethodProperties",
     "UserAuthenticationMethodPropertiesEnum",
     "UserBlockIdentifier",
-    "UserDateSchema",
+    "UserEffectivePermissionResponseContent",
+    "UserEffectivePermissionRoleSourceEnum",
+    "UserEffectivePermissionRoleSourceResponseContent",
+    "UserEffectivePermissionSourceEnum",
+    "UserEffectiveRole",
+    "UserEffectiveRoleSource",
     "UserEnrollmentAuthMethodEnum",
     "UserEnrollmentStatusEnum",
     "UserGrant",
@@ -8672,6 +13923,7 @@ __all__ = [
     "UserResponseSchema",
     "UsernameAllowedTypes",
     "UsernameAttribute",
+    "UsernameAttributeIdentifier",
     "UsernameValidation",
     "UsersEnrollment",
     "VerifiableCredentialTemplateResponse",
@@ -8680,4 +13932,6 @@ __all__ = [
     "VerifyEmailTicketResponseContent",
     "X509CertificateCredential",
     "X509CertificateCredentialTypeEnum",
+    "XssProtectionConfig",
+    "XssProtectionMode",
 ]

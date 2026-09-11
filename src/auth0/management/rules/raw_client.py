@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -44,7 +44,7 @@ class RawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Rule, ListRulesOffsetPaginatedResponseContent]:
         """
-        Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
+        Retrieve a filtered list of [rules](https://auth0.com/docs/rules). Accepts a list of fields to include or exclude.
 
         Parameters
         ----------
@@ -99,7 +99,7 @@ class RawRulesClient:
                     ),
                 )
                 _items = _parsed_response.rules
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     page=page + 1,
                     per_page=per_page,
@@ -184,9 +184,9 @@ class RawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateRuleResponseContent]:
         """
-        Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+        Create a [new rule](https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api).
 
-        Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.
+        Note: Changing a rule's stage of execution from the default `login_success` can change the rule's function signature to have user omitted.
 
         Parameters
         ----------
@@ -308,7 +308,7 @@ class RawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[GetRuleResponseContent]:
         """
-        Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
+        Retrieve [rule](https://auth0.com/docs/rules) details. Accepts a list of fields to include or exclude in the result.
 
         Parameters
         ----------
@@ -330,7 +330,7 @@ class RawRulesClient:
             Rule successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"rules/{encode_path_param(id)}",
+            f"rules/{quote_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -429,7 +429,7 @@ class RawRulesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"rules/{encode_path_param(id)}",
+            f"rules/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -528,7 +528,7 @@ class RawRulesClient:
             Rule successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"rules/{encode_path_param(id)}",
+            f"rules/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "script": script,
@@ -644,7 +644,7 @@ class AsyncRawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Rule, ListRulesOffsetPaginatedResponseContent]:
         """
-        Retrieve a filtered list of <a href="https://auth0.com/docs/rules">rules</a>. Accepts a list of fields to include or exclude.
+        Retrieve a filtered list of [rules](https://auth0.com/docs/rules). Accepts a list of fields to include or exclude.
 
         Parameters
         ----------
@@ -699,7 +699,7 @@ class AsyncRawRulesClient:
                     ),
                 )
                 _items = _parsed_response.rules
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -787,9 +787,9 @@ class AsyncRawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateRuleResponseContent]:
         """
-        Create a <a href="https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api">new rule</a>.
+        Create a [new rule](https://auth0.com/docs/rules#create-a-new-rule-using-the-management-api).
 
-        Note: Changing a rule's stage of execution from the default <code>login_success</code> can change the rule's function signature to have user omitted.
+        Note: Changing a rule's stage of execution from the default `login_success` can change the rule's function signature to have user omitted.
 
         Parameters
         ----------
@@ -911,7 +911,7 @@ class AsyncRawRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[GetRuleResponseContent]:
         """
-        Retrieve <a href="https://auth0.com/docs/rules">rule</a> details. Accepts a list of fields to include or exclude in the result.
+        Retrieve [rule](https://auth0.com/docs/rules) details. Accepts a list of fields to include or exclude in the result.
 
         Parameters
         ----------
@@ -933,7 +933,7 @@ class AsyncRawRulesClient:
             Rule successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"rules/{encode_path_param(id)}",
+            f"rules/{quote_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -1034,7 +1034,7 @@ class AsyncRawRulesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"rules/{encode_path_param(id)}",
+            f"rules/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1133,7 +1133,7 @@ class AsyncRawRulesClient:
             Rule successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"rules/{encode_path_param(id)}",
+            f"rules/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "script": script,

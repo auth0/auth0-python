@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -69,7 +69,7 @@ class RawPermissionsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/permissions",
+            f"roles/{quote_path_param(id)}/permissions",
             method="GET",
             params={
                 "per_page": per_page,
@@ -88,7 +88,7 @@ class RawPermissionsClient:
                     ),
                 )
                 _items = _parsed_response.permissions
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     per_page=per_page,
@@ -169,7 +169,7 @@ class RawPermissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
-        Add one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> to a specified user role.
+        Add one or more [permissions](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions) to a specified user role.
 
         Parameters
         ----------
@@ -187,7 +187,7 @@ class RawPermissionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/permissions",
+            f"roles/{quote_path_param(id)}/permissions",
             method="POST",
             json={
                 "permissions": convert_and_respect_annotation_metadata(
@@ -236,6 +236,17 @@ class RawPermissionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -264,7 +275,7 @@ class RawPermissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
-        Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> from a specified user role.
+        Remove one or more [permissions](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions) from a specified user role.
 
         Parameters
         ----------
@@ -282,7 +293,7 @@ class RawPermissionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/permissions",
+            f"roles/{quote_path_param(id)}/permissions",
             method="DELETE",
             json={
                 "permissions": convert_and_respect_annotation_metadata(
@@ -393,7 +404,7 @@ class AsyncRawPermissionsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/permissions",
+            f"roles/{quote_path_param(id)}/permissions",
             method="GET",
             params={
                 "per_page": per_page,
@@ -412,7 +423,7 @@ class AsyncRawPermissionsClient:
                     ),
                 )
                 _items = _parsed_response.permissions
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -496,7 +507,7 @@ class AsyncRawPermissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
-        Add one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> to a specified user role.
+        Add one or more [permissions](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions) to a specified user role.
 
         Parameters
         ----------
@@ -514,7 +525,7 @@ class AsyncRawPermissionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/permissions",
+            f"roles/{quote_path_param(id)}/permissions",
             method="POST",
             json={
                 "permissions": convert_and_respect_annotation_metadata(
@@ -563,6 +574,17 @@ class AsyncRawPermissionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -591,7 +613,7 @@ class AsyncRawPermissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
-        Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> from a specified user role.
+        Remove one or more [permissions](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions) from a specified user role.
 
         Parameters
         ----------
@@ -609,7 +631,7 @@ class AsyncRawPermissionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"roles/{encode_path_param(id)}/permissions",
+            f"roles/{quote_path_param(id)}/permissions",
             method="DELETE",
             json={
                 "permissions": convert_and_respect_annotation_metadata(

@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -37,15 +37,10 @@ class RawConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ConnectionForList, ListClientConnectionsResponseContent]:
         """
-        Retrieve all connections that are enabled for the specified <a href="https://www.auth0.com/docs/get-started/applications"> Application</a>, using checkpoint pagination. A list of fields to include or exclude for each connection may also be specified.
-        <ul>
-          <li>
-            This endpoint requires the <code>read:connections</code> scope and any one of <code>read:clients</code> or <code>read:client_summary</code>.
-          </li>
-          <li>
-            <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
-          </li>
-        </ul>
+        Retrieve all connections that are enabled for the specified [Application](https://www.auth0.com/docs/get-started/applications), using checkpoint pagination. A list of fields to include or exclude for each connection may also be specified.
+
+        - This endpoint requires the `read:connections` scope and any one of `read:clients` or `read:client_summary`.
+        - **Note**: The first time you call this endpoint, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no further results are remaining.
 
         Parameters
         ----------
@@ -76,7 +71,7 @@ class RawConnectionsClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(id)}/connections",
+            f"clients/{quote_path_param(id)}/connections",
             method="GET",
             params={
                 "strategy": strategy,
@@ -190,15 +185,10 @@ class AsyncRawConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ConnectionForList, ListClientConnectionsResponseContent]:
         """
-        Retrieve all connections that are enabled for the specified <a href="https://www.auth0.com/docs/get-started/applications"> Application</a>, using checkpoint pagination. A list of fields to include or exclude for each connection may also be specified.
-        <ul>
-          <li>
-            This endpoint requires the <code>read:connections</code> scope and any one of <code>read:clients</code> or <code>read:client_summary</code>.
-          </li>
-          <li>
-            <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
-          </li>
-        </ul>
+        Retrieve all connections that are enabled for the specified [Application](https://www.auth0.com/docs/get-started/applications), using checkpoint pagination. A list of fields to include or exclude for each connection may also be specified.
+
+        - This endpoint requires the `read:connections` scope and any one of `read:clients` or `read:client_summary`.
+        - **Note**: The first time you call this endpoint, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no further results are remaining.
 
         Parameters
         ----------
@@ -229,7 +219,7 @@ class AsyncRawConnectionsClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(id)}/connections",
+            f"clients/{quote_path_param(id)}/connections",
             method="GET",
             params={
                 "strategy": strategy,

@@ -31,6 +31,7 @@ class OrganizationsClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -40,6 +41,9 @@ class OrganizationsClient:
         ----------
         id : str
             ID of the client grant
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -64,6 +68,7 @@ class OrganizationsClient:
         )
         response = client.client_grants.organizations.list(
             id="id",
+            include_totals=True,
             from_="from",
             take=1,
         )
@@ -73,7 +78,9 @@ class OrganizationsClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list(id, from_=from_, take=take, request_options=request_options)
+        return self._raw_client.list(
+            id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
 
 class AsyncOrganizationsClient:
@@ -95,6 +102,7 @@ class AsyncOrganizationsClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -104,6 +112,9 @@ class AsyncOrganizationsClient:
         ----------
         id : str
             ID of the client grant
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -133,6 +144,7 @@ class AsyncOrganizationsClient:
         async def main() -> None:
             response = await client.client_grants.organizations.list(
                 id="id",
+                include_totals=True,
                 from_="from",
                 take=1,
             )
@@ -146,4 +158,6 @@ class AsyncOrganizationsClient:
 
         asyncio.run(main())
         """
-        return await self._raw_client.list(id, from_=from_, take=take, request_options=request_options)
+        return await self._raw_client.list(
+            id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )

@@ -18,6 +18,7 @@ from ...types.default_token_quota import DefaultTokenQuota
 from ...types.get_tenant_settings_response_content import GetTenantSettingsResponseContent
 from ...types.session_cookie_schema import SessionCookieSchema
 from ...types.tenant_oidc_logout_settings import TenantOidcLogoutSettings
+from ...types.tenant_settings_country_codes import TenantSettingsCountryCodes
 from ...types.tenant_settings_device_flow import TenantSettingsDeviceFlow
 from ...types.tenant_settings_dynamic_client_registration_security_mode import (
     TenantSettingsDynamicClientRegistrationSecurityMode,
@@ -26,6 +27,7 @@ from ...types.tenant_settings_error_page import TenantSettingsErrorPage
 from ...types.tenant_settings_flags import TenantSettingsFlags
 from ...types.tenant_settings_guardian_page import TenantSettingsGuardianPage
 from ...types.tenant_settings_mtls import TenantSettingsMtls
+from ...types.tenant_settings_nullable_security_headers import TenantSettingsNullableSecurityHeaders
 from ...types.tenant_settings_password_page import TenantSettingsPasswordPage
 from ...types.tenant_settings_resource_parameter_profile import TenantSettingsResourceParameterProfile
 from ...types.tenant_settings_sessions import TenantSettingsSessions
@@ -156,13 +158,18 @@ class RawSettingsClient:
         support_url: typing.Optional[str] = OMIT,
         allowed_logout_urls: typing.Optional[typing.Sequence[str]] = OMIT,
         session_lifetime: typing.Optional[int] = OMIT,
+        session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         idle_session_lifetime: typing.Optional[int] = OMIT,
+        idle_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         ephemeral_session_lifetime: typing.Optional[int] = OMIT,
         idle_ephemeral_session_lifetime: typing.Optional[int] = OMIT,
+        ephemeral_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
+        idle_ephemeral_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         sandbox_version: typing.Optional[str] = OMIT,
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
         enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
+        security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
         oidc_logout: typing.Optional[TenantOidcLogoutSettings] = OMIT,
@@ -177,9 +184,11 @@ class RawSettingsClient:
         client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
+        include_session_metadata_in_tenant_logs: typing.Optional[bool] = OMIT,
         dynamic_client_registration_security_mode: typing.Optional[
             TenantSettingsDynamicClientRegistrationSecurityMode
         ] = OMIT,
+        country_codes: typing.Optional[TenantSettingsCountryCodes] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateTenantSettingsResponseContent]:
         """
@@ -224,14 +233,26 @@ class RawSettingsClient:
         session_lifetime : typing.Optional[int]
             Number of hours a session will stay valid.
 
+        session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes a session will stay valid. Cannot be specified together with `session_lifetime`.
+
         idle_session_lifetime : typing.Optional[int]
             Number of hours for which a session can be inactive before the user must log in again.
+
+        idle_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes a session can be inactive before the user must log in again. Cannot be specified together with `idle_session_lifetime`.
 
         ephemeral_session_lifetime : typing.Optional[int]
             Number of hours an ephemeral (non-persistent) session will stay valid.
 
         idle_ephemeral_session_lifetime : typing.Optional[int]
             Number of hours for which an ephemeral (non-persistent) session can be inactive before the user must log in again.
+
+        ephemeral_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes an ephemeral (non-persistent) session will stay valid. Cannot be specified together with `ephemeral_session_lifetime`.
+
+        idle_ephemeral_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes an ephemeral (non-persistent) session can be inactive before the user must log in again. Cannot be specified together with `idle_ephemeral_session_lifetime`.
 
         sandbox_version : typing.Optional[str]
             Selected sandbox version for the extensibility environment
@@ -244,6 +265,8 @@ class RawSettingsClient:
 
         enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
+
+        security_headers : typing.Optional[TenantSettingsNullableSecurityHeaders]
 
         session_cookie : typing.Optional[SessionCookieSchema]
 
@@ -284,7 +307,12 @@ class RawSettingsClient:
         phone_consolidated_experience : typing.Optional[bool]
             Whether Phone Consolidated Experience is enabled for this tenant.
 
+        include_session_metadata_in_tenant_logs : typing.Optional[bool]
+            Whether session metadata is included in specific tenant logs (slo, oidc_backchannel_logout_failed, oidc_backchannel_logout_succeeded).
+
         dynamic_client_registration_security_mode : typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]
+
+        country_codes : typing.Optional[TenantSettingsCountryCodes]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -324,13 +352,22 @@ class RawSettingsClient:
                 "support_url": support_url,
                 "allowed_logout_urls": allowed_logout_urls,
                 "session_lifetime": session_lifetime,
+                "session_lifetime_in_minutes": session_lifetime_in_minutes,
                 "idle_session_lifetime": idle_session_lifetime,
+                "idle_session_lifetime_in_minutes": idle_session_lifetime_in_minutes,
                 "ephemeral_session_lifetime": ephemeral_session_lifetime,
                 "idle_ephemeral_session_lifetime": idle_ephemeral_session_lifetime,
+                "ephemeral_session_lifetime_in_minutes": ephemeral_session_lifetime_in_minutes,
+                "idle_ephemeral_session_lifetime_in_minutes": idle_ephemeral_session_lifetime_in_minutes,
                 "sandbox_version": sandbox_version,
                 "legacy_sandbox_version": legacy_sandbox_version,
                 "default_redirection_uri": default_redirection_uri,
                 "enabled_locales": enabled_locales,
+                "security_headers": convert_and_respect_annotation_metadata(
+                    object_=security_headers,
+                    annotation=typing.Optional[TenantSettingsNullableSecurityHeaders],
+                    direction="write",
+                ),
                 "session_cookie": convert_and_respect_annotation_metadata(
                     object_=session_cookie, annotation=typing.Optional[SessionCookieSchema], direction="write"
                 ),
@@ -353,7 +390,11 @@ class RawSettingsClient:
                 "client_id_metadata_document_supported": client_id_metadata_document_supported,
                 "enable_ai_guide": enable_ai_guide,
                 "phone_consolidated_experience": phone_consolidated_experience,
+                "include_session_metadata_in_tenant_logs": include_session_metadata_in_tenant_logs,
                 "dynamic_client_registration_security_mode": dynamic_client_registration_security_mode,
+                "country_codes": convert_and_respect_annotation_metadata(
+                    object_=country_codes, annotation=typing.Optional[TenantSettingsCountryCodes], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -544,13 +585,18 @@ class AsyncRawSettingsClient:
         support_url: typing.Optional[str] = OMIT,
         allowed_logout_urls: typing.Optional[typing.Sequence[str]] = OMIT,
         session_lifetime: typing.Optional[int] = OMIT,
+        session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         idle_session_lifetime: typing.Optional[int] = OMIT,
+        idle_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         ephemeral_session_lifetime: typing.Optional[int] = OMIT,
         idle_ephemeral_session_lifetime: typing.Optional[int] = OMIT,
+        ephemeral_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
+        idle_ephemeral_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         sandbox_version: typing.Optional[str] = OMIT,
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
         enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
+        security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
         oidc_logout: typing.Optional[TenantOidcLogoutSettings] = OMIT,
@@ -565,9 +611,11 @@ class AsyncRawSettingsClient:
         client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
+        include_session_metadata_in_tenant_logs: typing.Optional[bool] = OMIT,
         dynamic_client_registration_security_mode: typing.Optional[
             TenantSettingsDynamicClientRegistrationSecurityMode
         ] = OMIT,
+        country_codes: typing.Optional[TenantSettingsCountryCodes] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateTenantSettingsResponseContent]:
         """
@@ -612,14 +660,26 @@ class AsyncRawSettingsClient:
         session_lifetime : typing.Optional[int]
             Number of hours a session will stay valid.
 
+        session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes a session will stay valid. Cannot be specified together with `session_lifetime`.
+
         idle_session_lifetime : typing.Optional[int]
             Number of hours for which a session can be inactive before the user must log in again.
+
+        idle_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes a session can be inactive before the user must log in again. Cannot be specified together with `idle_session_lifetime`.
 
         ephemeral_session_lifetime : typing.Optional[int]
             Number of hours an ephemeral (non-persistent) session will stay valid.
 
         idle_ephemeral_session_lifetime : typing.Optional[int]
             Number of hours for which an ephemeral (non-persistent) session can be inactive before the user must log in again.
+
+        ephemeral_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes an ephemeral (non-persistent) session will stay valid. Cannot be specified together with `ephemeral_session_lifetime`.
+
+        idle_ephemeral_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes an ephemeral (non-persistent) session can be inactive before the user must log in again. Cannot be specified together with `idle_ephemeral_session_lifetime`.
 
         sandbox_version : typing.Optional[str]
             Selected sandbox version for the extensibility environment
@@ -632,6 +692,8 @@ class AsyncRawSettingsClient:
 
         enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
+
+        security_headers : typing.Optional[TenantSettingsNullableSecurityHeaders]
 
         session_cookie : typing.Optional[SessionCookieSchema]
 
@@ -672,7 +734,12 @@ class AsyncRawSettingsClient:
         phone_consolidated_experience : typing.Optional[bool]
             Whether Phone Consolidated Experience is enabled for this tenant.
 
+        include_session_metadata_in_tenant_logs : typing.Optional[bool]
+            Whether session metadata is included in specific tenant logs (slo, oidc_backchannel_logout_failed, oidc_backchannel_logout_succeeded).
+
         dynamic_client_registration_security_mode : typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]
+
+        country_codes : typing.Optional[TenantSettingsCountryCodes]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -712,13 +779,22 @@ class AsyncRawSettingsClient:
                 "support_url": support_url,
                 "allowed_logout_urls": allowed_logout_urls,
                 "session_lifetime": session_lifetime,
+                "session_lifetime_in_minutes": session_lifetime_in_minutes,
                 "idle_session_lifetime": idle_session_lifetime,
+                "idle_session_lifetime_in_minutes": idle_session_lifetime_in_minutes,
                 "ephemeral_session_lifetime": ephemeral_session_lifetime,
                 "idle_ephemeral_session_lifetime": idle_ephemeral_session_lifetime,
+                "ephemeral_session_lifetime_in_minutes": ephemeral_session_lifetime_in_minutes,
+                "idle_ephemeral_session_lifetime_in_minutes": idle_ephemeral_session_lifetime_in_minutes,
                 "sandbox_version": sandbox_version,
                 "legacy_sandbox_version": legacy_sandbox_version,
                 "default_redirection_uri": default_redirection_uri,
                 "enabled_locales": enabled_locales,
+                "security_headers": convert_and_respect_annotation_metadata(
+                    object_=security_headers,
+                    annotation=typing.Optional[TenantSettingsNullableSecurityHeaders],
+                    direction="write",
+                ),
                 "session_cookie": convert_and_respect_annotation_metadata(
                     object_=session_cookie, annotation=typing.Optional[SessionCookieSchema], direction="write"
                 ),
@@ -741,7 +817,11 @@ class AsyncRawSettingsClient:
                 "client_id_metadata_document_supported": client_id_metadata_document_supported,
                 "enable_ai_guide": enable_ai_guide,
                 "phone_consolidated_experience": phone_consolidated_experience,
+                "include_session_metadata_in_tenant_logs": include_session_metadata_in_tenant_logs,
                 "dynamic_client_registration_security_mode": dynamic_client_registration_security_mode,
+                "country_codes": convert_and_respect_annotation_metadata(
+                    object_=country_codes, annotation=typing.Optional[TenantSettingsCountryCodes], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
