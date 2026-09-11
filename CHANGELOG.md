@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.5.0](https://github.com/auth0/auth0-python/tree/6.5.0) (2026-09-11)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.4.0...6.5.0)
+
+⚠️ **Breaking Changes**
+- `management.organization_templates` client removed along with `ListOrganizationTemplatesPaginatedResponseContent` and `OrganizationTemplateAssignedOrganization`. Four connection providers dropped the `-mcp` suffix (`asana-mcp` becomes `asana`, `atlassian-mcp` becomes `atlassian`, `gitlab-mcp` becomes `gitlab`, `slack-mcp` becomes `slack`) and nine values removed entirely (`docusign-mcp`, `figma-mcp`, `gusto-mcp`, `heroku-mcp`, `intercom-mcp`, `pagerduty-mcp`, `supabase-mcp`, `vercel-mcp`, `xero-mcp`) [\#890](https://github.com/auth0/auth0-python/pull/890) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Added**
+- Guardian MFA settings (`GET`/`PUT /api/v2/guardian/settings`), email and phone factor settings, organizations search, resource servers search, experimentation client, anonymous sessions support on clients and tenant settings, resource server anonymous access token configuration, and `GatewayTimeoutError` for HTTP 504 [\#890](https://github.com/auth0/auth0-python/pull/890) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.4.0](https://github.com/auth0/auth0-python/tree/6.4.0) (2026-09-02)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.3.0...6.4.0)
 
