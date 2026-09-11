@@ -6,9 +6,10 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from . import duo, phone, push_notification, sms
+    from . import duo, email, phone, push_notification, sms
 _dynamic_imports: typing.Dict[str, str] = {
     "duo": ".duo",
+    "email": ".email",
     "phone": ".phone",
     "push_notification": ".push_notification",
     "sms": ".sms",
@@ -36,4 +37,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["duo", "phone", "push_notification", "sms"]
+__all__ = ["duo", "email", "phone", "push_notification", "sms"]

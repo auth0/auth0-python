@@ -25,6 +25,7 @@ if typing.TYPE_CHECKING:
     from .emails.client import AsyncEmailsClient, EmailsClient
     from .event_streams.client import AsyncEventStreamsClient, EventStreamsClient
     from .events.client import AsyncEventsClient, EventsClient
+    from .experimentation.client import AsyncExperimentationClient, ExperimentationClient
     from .flows.client import AsyncFlowsClient, FlowsClient
     from .forms.client import AsyncFormsClient, FormsClient
     from .groups.client import AsyncGroupsClient, GroupsClient
@@ -35,7 +36,6 @@ if typing.TYPE_CHECKING:
     from .log_streams.client import AsyncLogStreamsClient, LogStreamsClient
     from .logs.client import AsyncLogsClient, LogsClient
     from .network_acls.client import AsyncNetworkAclsClient, NetworkAclsClient
-    from .organization_templates.client import AsyncOrganizationTemplatesClient, OrganizationTemplatesClient
     from .organizations.client import AsyncOrganizationsClient, OrganizationsClient
     from .prompts.client import AsyncPromptsClient, PromptsClient
     from .rate_limit_policies.client import AsyncRateLimitPoliciesClient, RateLimitPoliciesClient
@@ -171,12 +171,12 @@ class Auth0:
         self._forms: typing.Optional[FormsClient] = None
         self._user_grants: typing.Optional[UserGrantsClient] = None
         self._groups: typing.Optional[GroupsClient] = None
+        self._guardian: typing.Optional[GuardianClient] = None
         self._hooks: typing.Optional[HooksClient] = None
         self._jobs: typing.Optional[JobsClient] = None
         self._log_streams: typing.Optional[LogStreamsClient] = None
         self._logs: typing.Optional[LogsClient] = None
         self._network_acls: typing.Optional[NetworkAclsClient] = None
-        self._organization_templates: typing.Optional[OrganizationTemplatesClient] = None
         self._organizations: typing.Optional[OrganizationsClient] = None
         self._prompts: typing.Optional[PromptsClient] = None
         self._rate_limit_policies: typing.Optional[RateLimitPoliciesClient] = None
@@ -197,7 +197,7 @@ class Auth0:
         self._anomaly: typing.Optional[AnomalyClient] = None
         self._attack_protection: typing.Optional[AttackProtectionClient] = None
         self._emails: typing.Optional[EmailsClient] = None
-        self._guardian: typing.Optional[GuardianClient] = None
+        self._experimentation: typing.Optional[ExperimentationClient] = None
         self._keys: typing.Optional[KeysClient] = None
         self._risk_assessments: typing.Optional[RiskAssessmentsClient] = None
         self._tenants: typing.Optional[TenantsClient] = None
@@ -332,6 +332,14 @@ class Auth0:
         return self._groups
 
     @property
+    def guardian(self):
+        if self._guardian is None:
+            from .guardian.client import GuardianClient  # noqa: E402
+
+            self._guardian = GuardianClient(client_wrapper=self._client_wrapper)
+        return self._guardian
+
+    @property
     def hooks(self):
         if self._hooks is None:
             from .hooks.client import HooksClient  # noqa: E402
@@ -370,14 +378,6 @@ class Auth0:
 
             self._network_acls = NetworkAclsClient(client_wrapper=self._client_wrapper)
         return self._network_acls
-
-    @property
-    def organization_templates(self):
-        if self._organization_templates is None:
-            from .organization_templates.client import OrganizationTemplatesClient  # noqa: E402
-
-            self._organization_templates = OrganizationTemplatesClient(client_wrapper=self._client_wrapper)
-        return self._organization_templates
 
     @property
     def organizations(self):
@@ -540,12 +540,12 @@ class Auth0:
         return self._emails
 
     @property
-    def guardian(self):
-        if self._guardian is None:
-            from .guardian.client import GuardianClient  # noqa: E402
+    def experimentation(self):
+        if self._experimentation is None:
+            from .experimentation.client import ExperimentationClient  # noqa: E402
 
-            self._guardian = GuardianClient(client_wrapper=self._client_wrapper)
-        return self._guardian
+            self._experimentation = ExperimentationClient(client_wrapper=self._client_wrapper)
+        return self._experimentation
 
     @property
     def keys(self):
@@ -713,12 +713,12 @@ class AsyncAuth0:
         self._forms: typing.Optional[AsyncFormsClient] = None
         self._user_grants: typing.Optional[AsyncUserGrantsClient] = None
         self._groups: typing.Optional[AsyncGroupsClient] = None
+        self._guardian: typing.Optional[AsyncGuardianClient] = None
         self._hooks: typing.Optional[AsyncHooksClient] = None
         self._jobs: typing.Optional[AsyncJobsClient] = None
         self._log_streams: typing.Optional[AsyncLogStreamsClient] = None
         self._logs: typing.Optional[AsyncLogsClient] = None
         self._network_acls: typing.Optional[AsyncNetworkAclsClient] = None
-        self._organization_templates: typing.Optional[AsyncOrganizationTemplatesClient] = None
         self._organizations: typing.Optional[AsyncOrganizationsClient] = None
         self._prompts: typing.Optional[AsyncPromptsClient] = None
         self._rate_limit_policies: typing.Optional[AsyncRateLimitPoliciesClient] = None
@@ -739,7 +739,7 @@ class AsyncAuth0:
         self._anomaly: typing.Optional[AsyncAnomalyClient] = None
         self._attack_protection: typing.Optional[AsyncAttackProtectionClient] = None
         self._emails: typing.Optional[AsyncEmailsClient] = None
-        self._guardian: typing.Optional[AsyncGuardianClient] = None
+        self._experimentation: typing.Optional[AsyncExperimentationClient] = None
         self._keys: typing.Optional[AsyncKeysClient] = None
         self._risk_assessments: typing.Optional[AsyncRiskAssessmentsClient] = None
         self._tenants: typing.Optional[AsyncTenantsClient] = None
@@ -874,6 +874,14 @@ class AsyncAuth0:
         return self._groups
 
     @property
+    def guardian(self):
+        if self._guardian is None:
+            from .guardian.client import AsyncGuardianClient  # noqa: E402
+
+            self._guardian = AsyncGuardianClient(client_wrapper=self._client_wrapper)
+        return self._guardian
+
+    @property
     def hooks(self):
         if self._hooks is None:
             from .hooks.client import AsyncHooksClient  # noqa: E402
@@ -912,14 +920,6 @@ class AsyncAuth0:
 
             self._network_acls = AsyncNetworkAclsClient(client_wrapper=self._client_wrapper)
         return self._network_acls
-
-    @property
-    def organization_templates(self):
-        if self._organization_templates is None:
-            from .organization_templates.client import AsyncOrganizationTemplatesClient  # noqa: E402
-
-            self._organization_templates = AsyncOrganizationTemplatesClient(client_wrapper=self._client_wrapper)
-        return self._organization_templates
 
     @property
     def organizations(self):
@@ -1082,12 +1082,12 @@ class AsyncAuth0:
         return self._emails
 
     @property
-    def guardian(self):
-        if self._guardian is None:
-            from .guardian.client import AsyncGuardianClient  # noqa: E402
+    def experimentation(self):
+        if self._experimentation is None:
+            from .experimentation.client import AsyncExperimentationClient  # noqa: E402
 
-            self._guardian = AsyncGuardianClient(client_wrapper=self._client_wrapper)
-        return self._guardian
+            self._experimentation = AsyncExperimentationClient(client_wrapper=self._client_wrapper)
+        return self._experimentation
 
     @property
     def keys(self):

@@ -15,6 +15,7 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
+from ..errors.gateway_timeout_error import GatewayTimeoutError
 from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
@@ -27,7 +28,11 @@ from ..types.list_organizations_paginated_response_content import ListOrganizati
 from ..types.organization import Organization
 from ..types.organization_branding import OrganizationBranding
 from ..types.organization_metadata import OrganizationMetadata
+from ..types.organization_sort_field_enum import OrganizationSortFieldEnum
 from ..types.organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
+from ..types.search_organization import SearchOrganization
+from ..types.search_organizations_paginated_response_content import SearchOrganizationsPaginatedResponseContent
+from ..types.search_parser_enum import SearchParserEnum
 from ..types.update_organization_response_content import UpdateOrganizationResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
 from pydantic import ValidationError
@@ -407,6 +412,155 @@ class RawOrganizationsClient:
                 )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[OrganizationSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]:
+        """
+        Retrieve details of organizations matching a search criteria. It is possible to:
+
+        - Specify a search criteria for organizations
+        - Search via `name`
+        - Search via `display_name`
+        - Substring matching (`contains` and `ends-with`) requires at least 3 characters
+        - Use wildcards
+
+        The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+        This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+        Results are eventually consistent and may not reflect recent updates immediately.
+
+        **Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[OrganizationSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]
+            Organizations successfully retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "organizations/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchOrganizationsPaginatedResponseContent,
+                    parse_obj_as(
+                        type_=SearchOrganizationsPaginatedResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.organizations
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.search(
+                    q=q,
+                    parser=parser,
+                    take=take,
+                    from_=_parsed_next,
+                    sort=sort,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1119,6 +1273,158 @@ class AsyncRawOrganizationsClient:
                 )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[OrganizationSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]:
+        """
+        Retrieve details of organizations matching a search criteria. It is possible to:
+
+        - Specify a search criteria for organizations
+        - Search via `name`
+        - Search via `display_name`
+        - Substring matching (`contains` and `ends-with`) requires at least 3 characters
+        - Use wildcards
+
+        The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+        This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+        Results are eventually consistent and may not reflect recent updates immediately.
+
+        **Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[OrganizationSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]
+            Organizations successfully retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "organizations/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchOrganizationsPaginatedResponseContent,
+                    parse_obj_as(
+                        type_=SearchOrganizationsPaginatedResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.organizations
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.search(
+                        q=q,
+                        parser=parser,
+                        take=take,
+                        from_=_parsed_next,
+                        sort=sort,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

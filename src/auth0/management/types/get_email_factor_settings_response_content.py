@@ -4,18 +4,17 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .organization_template_assigned_organization import OrganizationTemplateAssignedOrganization
 
 
-class ListTemplateOrganizationsPaginatedResponseContent(UniversalBaseModel):
-    next: typing.Optional[str] = pydantic.Field(default=None)
+class GetEmailFactorSettingsResponseContent(UniversalBaseModel):
+    otp_length: int = pydantic.Field()
     """
-    A cursor to be used as the "from" query parameter for the next page of results.
+    The length of the OTP code.
     """
 
-    organizations: typing.List[OrganizationTemplateAssignedOrganization] = pydantic.Field()
+    otp_expiration_time: int = pydantic.Field()
     """
-    The list of organizations assigned to this template.
+    The OTP expiration time in seconds.
     """
 
     if IS_PYDANTIC_V2:

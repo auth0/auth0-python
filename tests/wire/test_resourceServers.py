@@ -37,6 +37,36 @@ def test_resourceServers_create() -> None:
     verify_request_count(test_id, "POST", "/resource-servers", None, 1)
 
 
+def test_resourceServers_search() -> None:
+    """Test search endpoint with WireMock"""
+    test_id = "resource_servers.search.0"
+    client = get_client(test_id)
+    client.resource_servers.search(
+        q="q",
+        parser="scim",
+        fields="fields",
+        include_fields=True,
+        take=1,
+        from_="from",
+        sort="identifier",
+    )
+    verify_request_count(
+        test_id,
+        "GET",
+        "/resource-servers/search",
+        {
+            "q": "q",
+            "parser": "scim",
+            "fields": "fields",
+            "include_fields": "true",
+            "take": "1",
+            "from": "from",
+            "sort": "identifier",
+        },
+        1,
+    )
+
+
 def test_resourceServers_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "resource_servers.get.0"

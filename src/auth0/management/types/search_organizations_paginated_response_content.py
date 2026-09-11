@@ -4,16 +4,15 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .organization_template import OrganizationTemplate
+from .search_organization import SearchOrganization
 
 
-class ListOrganizationTemplatesPaginatedResponseContent(UniversalBaseModel):
+class SearchOrganizationsPaginatedResponseContent(UniversalBaseModel):
+    organizations: typing.List[SearchOrganization]
     next: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A cursor to be used as the "from" query parameter for the next page of results.
+    Cursor for retrieving the next page of results. Absent when no more results are available.
     """
-
-    organization_templates: typing.Optional[typing.List[OrganizationTemplate]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -59,6 +59,7 @@ from ..types.client_token_vault_privileged_access_with_credential_id import (
     ClientTokenVaultPrivilegedAccessWithCredentialId,
 )
 from ..types.client_token_vault_privileged_access_with_public_key import ClientTokenVaultPrivilegedAccessWithPublicKey
+from ..types.create_anonymous_sessions import CreateAnonymousSessions
 from ..types.create_client_response_content import CreateClientResponseContent
 from ..types.create_identity_assertion_authorization_grant import CreateIdentityAssertionAuthorizationGrant
 from ..types.create_token_quota import CreateTokenQuota
@@ -73,6 +74,7 @@ from ..types.native_social_login_patch import NativeSocialLoginPatch
 from ..types.preview_cimd_metadata_response_content import PreviewCimdMetadataResponseContent
 from ..types.register_cimd_client_response_content import RegisterCimdClientResponseContent
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
+from ..types.update_anonymous_sessions import UpdateAnonymousSessions
 from ..types.update_client_response_content import UpdateClientResponseContent
 from ..types.update_identity_assertion_authorization_grant import UpdateIdentityAssertionAuthorizationGrant
 from ..types.update_token_quota import UpdateTokenQuota
@@ -319,6 +321,7 @@ class RawClientsClient:
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
+        anonymous_sessions: typing.Optional[CreateAnonymousSessions] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
@@ -480,6 +483,8 @@ class RawClientsClient:
 
         identity_assertion_authorization_grant : typing.Optional[CreateIdentityAssertionAuthorizationGrant]
 
+        anonymous_sessions : typing.Optional[CreateAnonymousSessions]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
@@ -600,6 +605,9 @@ class RawClientsClient:
                     object_=identity_assertion_authorization_grant,
                     annotation=CreateIdentityAssertionAuthorizationGrant,
                     direction="write",
+                ),
+                "anonymous_sessions": convert_and_respect_annotation_metadata(
+                    object_=anonymous_sessions, annotation=CreateAnonymousSessions, direction="write"
                 ),
                 "third_party_security_mode": third_party_security_mode,
                 "redirection_policy": redirection_policy,
@@ -1178,6 +1186,7 @@ class RawClientsClient:
         custom_login_page_preview: typing.Optional[str] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
+        anonymous_sessions: typing.Optional[UpdateAnonymousSessions] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
@@ -1308,6 +1317,8 @@ class RawClientsClient:
 
         identity_assertion_authorization_grant : typing.Optional[UpdateIdentityAssertionAuthorizationGrant]
 
+        anonymous_sessions : typing.Optional[UpdateAnonymousSessions]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -1431,6 +1442,9 @@ class RawClientsClient:
                     object_=identity_assertion_authorization_grant,
                     annotation=typing.Optional[UpdateIdentityAssertionAuthorizationGrant],
                     direction="write",
+                ),
+                "anonymous_sessions": convert_and_respect_annotation_metadata(
+                    object_=anonymous_sessions, annotation=typing.Optional[UpdateAnonymousSessions], direction="write"
                 ),
                 "form_template": form_template,
                 "addons": convert_and_respect_annotation_metadata(
@@ -1925,6 +1939,7 @@ class AsyncRawClientsClient:
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
+        anonymous_sessions: typing.Optional[CreateAnonymousSessions] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
@@ -2086,6 +2101,8 @@ class AsyncRawClientsClient:
 
         identity_assertion_authorization_grant : typing.Optional[CreateIdentityAssertionAuthorizationGrant]
 
+        anonymous_sessions : typing.Optional[CreateAnonymousSessions]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
@@ -2206,6 +2223,9 @@ class AsyncRawClientsClient:
                     object_=identity_assertion_authorization_grant,
                     annotation=CreateIdentityAssertionAuthorizationGrant,
                     direction="write",
+                ),
+                "anonymous_sessions": convert_and_respect_annotation_metadata(
+                    object_=anonymous_sessions, annotation=CreateAnonymousSessions, direction="write"
                 ),
                 "third_party_security_mode": third_party_security_mode,
                 "redirection_policy": redirection_policy,
@@ -2786,6 +2806,7 @@ class AsyncRawClientsClient:
         custom_login_page_preview: typing.Optional[str] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
+        anonymous_sessions: typing.Optional[UpdateAnonymousSessions] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
@@ -2916,6 +2937,8 @@ class AsyncRawClientsClient:
 
         identity_assertion_authorization_grant : typing.Optional[UpdateIdentityAssertionAuthorizationGrant]
 
+        anonymous_sessions : typing.Optional[UpdateAnonymousSessions]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -3039,6 +3062,9 @@ class AsyncRawClientsClient:
                     object_=identity_assertion_authorization_grant,
                     annotation=typing.Optional[UpdateIdentityAssertionAuthorizationGrant],
                     direction="write",
+                ),
+                "anonymous_sessions": convert_and_respect_annotation_metadata(
+                    object_=anonymous_sessions, annotation=typing.Optional[UpdateAnonymousSessions], direction="write"
                 ),
                 "form_template": form_template,
                 "addons": convert_and_respect_annotation_metadata(

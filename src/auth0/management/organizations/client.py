@@ -16,7 +16,11 @@ from ..types.list_organizations_paginated_response_content import ListOrganizati
 from ..types.organization import Organization
 from ..types.organization_branding import OrganizationBranding
 from ..types.organization_metadata import OrganizationMetadata
+from ..types.organization_sort_field_enum import OrganizationSortFieldEnum
 from ..types.organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
+from ..types.search_organization import SearchOrganization
+from ..types.search_organizations_paginated_response_content import SearchOrganizationsPaginatedResponseContent
+from ..types.search_parser_enum import SearchParserEnum
 from ..types.update_organization_response_content import UpdateOrganizationResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
 from .raw_client import AsyncRawOrganizationsClient, RawOrganizationsClient
@@ -247,6 +251,82 @@ class OrganizationsClient:
         """
         _response = self._raw_client.get_by_name(name, request_options=request_options)
         return _response.data
+
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[OrganizationSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]:
+        """
+        Retrieve details of organizations matching a search criteria. It is possible to:
+
+        - Specify a search criteria for organizations
+        - Search via `name`
+        - Search via `display_name`
+        - Substring matching (`contains` and `ends-with`) requires at least 3 characters
+        - Use wildcards
+
+        The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+        This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+        Results are eventually consistent and may not reflect recent updates immediately.
+
+        **Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[OrganizationSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]
+            Organizations successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.organizations.search(
+            q="q",
+            parser="scim",
+            take=1,
+            from_="from",
+            sort="name",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.search(
+            q=q, parser=parser, take=take, from_=from_, sort=sort, request_options=request_options
+        )
 
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -700,6 +780,91 @@ class AsyncOrganizationsClient:
         """
         _response = await self._raw_client.get_by_name(name, request_options=request_options)
         return _response.data
+
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[OrganizationSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]:
+        """
+        Retrieve details of organizations matching a search criteria. It is possible to:
+
+        - Specify a search criteria for organizations
+        - Search via `name`
+        - Search via `display_name`
+        - Substring matching (`contains` and `ends-with`) requires at least 3 characters
+        - Use wildcards
+
+        The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+        This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+        Results are eventually consistent and may not reflect recent updates immediately.
+
+        **Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[OrganizationSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]
+            Organizations successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.organizations.search(
+                q="q",
+                parser="scim",
+                take=1,
+                from_="from",
+                sort="name",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.search(
+            q=q, parser=parser, take=take, from_=from_, sort=sort, request_options=request_options
+        )
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
