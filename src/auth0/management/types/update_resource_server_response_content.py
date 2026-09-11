@@ -81,6 +81,11 @@ class UpdateResourceServerResponseContent(UniversalBaseModel):
     Whether authorization polices are enforced (true) or unenforced (false).
     """
 
+    token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+    """
+
     token_dialect: typing.Optional[ResourceServerTokenDialectResponseEnum] = None
     token_encryption: typing.Optional[ResourceServerTokenEncryption] = None
     consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = None

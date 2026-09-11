@@ -4,17 +4,17 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .resource_server_subject_type_authorization_anonymous_user_policy_enum import (
+    ResourceServerSubjectTypeAuthorizationAnonymousUserPolicyEnum,
+)
 
 
-class OrganizationTemplateAssignedOrganization(UniversalBaseModel):
+class ResourceServerSubjectTypeAuthorizationAnonymousUser(UniversalBaseModel):
     """
-    An organization assigned to the template.
+    Access Permissions for anonymous user flows
     """
 
-    id: str = pydantic.Field()
-    """
-    Organization identifier.
-    """
+    policy: typing.Optional[ResourceServerSubjectTypeAuthorizationAnonymousUserPolicyEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

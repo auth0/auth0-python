@@ -73,7 +73,7 @@ class DeviceCredentialsClient:
             client_id of the devices to retrieve.
 
         type : typing.Optional[DeviceCredentialTypeEnum]
-            Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. The property will default to `refresh_token` when paging is requested
+            Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. If none is provided a combined list of `refresh_tokens` and `public_keys` will be returned (and no `rotating_refresh_token`), in this case `page`, `per_page` and `include_totals` will be ignored.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -267,7 +267,7 @@ class AsyncDeviceCredentialsClient:
             client_id of the devices to retrieve.
 
         type : typing.Optional[DeviceCredentialTypeEnum]
-            Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. The property will default to `refresh_token` when paging is requested
+            Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. If none is provided a combined list of `refresh_tokens` and `public_keys` will be returned (and no `rotating_refresh_token`), in this case `page`, `per_page` and `include_totals` will be ignored.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -47,6 +47,26 @@ def test_organizations_get_by_name() -> None:
     verify_request_count(test_id, "GET", "/organizations/name/name", None, 1)
 
 
+def test_organizations_search() -> None:
+    """Test search endpoint with WireMock"""
+    test_id = "organizations.search.0"
+    client = get_client(test_id)
+    client.organizations.search(
+        q="q",
+        parser="scim",
+        take=1,
+        from_="from",
+        sort="name",
+    )
+    verify_request_count(
+        test_id,
+        "GET",
+        "/organizations/search",
+        {"q": "q", "parser": "scim", "take": "1", "from": "from", "sort": "name"},
+        1,
+    )
+
+
 def test_organizations_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "organizations.get.0"

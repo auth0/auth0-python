@@ -2458,6 +2458,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**anonymous_sessions:** `typing.Optional[CreateAnonymousSessions]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **third_party_security_mode:** `typing.Optional[ClientThirdPartySecurityModeEnum]` 
     
 </dd>
@@ -3167,6 +3175,14 @@ client.clients.update(
 <dd>
 
 **identity_assertion_authorization_grant:** `typing.Optional[UpdateIdentityAssertionAuthorizationGrant]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**anonymous_sessions:** `typing.Optional[UpdateAnonymousSessions]` 
     
 </dd>
 </dl>
@@ -5757,7 +5773,7 @@ client.device_credentials.list(
 <dl>
 <dd>
 
-**type:** `typing.Optional[DeviceCredentialTypeEnum]` — Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. The property will default to `refresh_token` when paging is requested
+**type:** `typing.Optional[DeviceCredentialTypeEnum]` — Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. If none is provided a combined list of `refresh_tokens` and `public_keys` will be returned (and no `rotating_refresh_token`), in this case `page`, `per_page` and `include_totals` will be ignored.
     
 </dd>
 </dl>
@@ -8362,6 +8378,170 @@ client.groups.delete(
 </dl>
 </details>
 
+## Guardian
+<details><summary><code>client.guardian.<a href="src/auth0.management/guardian/client.py">get</a>() -> GetGuardianSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.guardian.get()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.<a href="src/auth0.management/guardian/client.py">set</a>(...) -> SetGuardianSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a tenant's guardian settings such as Remember Me 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.guardian.set(
+    display_remember_me_checkbox=True,
+    remember_me_default_value=True,
+    mfa_session_inactivity_timeout=1,
+    mfa_session_overall_timeout=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**display_remember_me_checkbox:** `bool` — Determines whether to display the "Remember Me" checkbox on the MFA prompt in Universal Login.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remember_me_default_value:** `bool` — Determines the default state of the "Remember Me" checkbox on the MFA prompt in Universal Login.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfa_session_inactivity_timeout:** `int` — Duration of inactivity after which the user will be prompted for MFA. Represented as seconds. Minimum duration is 1 hour, maximum is 30 days, and cannot exceed the overall timeout.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfa_session_overall_timeout:** `int` — Maximum duration after which the user will be prompted for MFA regardless of activity. Represented as seconds. Minimum duration is 1 hour, maximum is 90 days.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hooks
 <details><summary><code>client.hooks.<a href="src/auth0.management/hooks/client.py">list</a>(...) -> ListHooksOffsetPaginatedResponseContent</code></summary>
 <dl>
@@ -10607,602 +10787,6 @@ client.network_acls.update(
 </dl>
 </details>
 
-## OrganizationTemplates
-<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">list</a>(...) -> ListOrganizationTemplatesPaginatedResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve a list of Organization Templates. This endpoint supports Checkpoint pagination. Results are returned in a stable order, sorted by their identifier (`id`) in ascending order.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.organization_templates.list(
-    from_="from",
-    take=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**from:** `typing.Optional[str]` — Optional Id from which to start selection.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**take:** `typing.Optional[int]` — Number of results per page. Defaults to 5. Values greater than 10 are capped at 10.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">create</a>(...) -> OrganizationTemplate</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create an Organization Template.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.organization_templates.create(
-    name="name",
-    organization_deletion_behavior="allow",
-    enforce_permission_ceiling=True,
-    enforce_self_assignment_restriction=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` — The name of the organization template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**organization_deletion_behavior:** `OrganizationDeletionBehaviorEnum` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**enforce_permission_ceiling:** `bool` — Whether to enforce permission ceiling for organizations using this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**enforce_self_assignment_restriction:** `bool` — Whether to enforce self-assignment restrictions for organizations using this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_default:** `typing.Optional[bool]` — Whether this is the default template applied to new organizations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connection_deletion_behavior:** `typing.Optional[ConnectionDeletionBehaviorEnum]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connection_profile_id:** `typing.Optional[str]` — The connection profile to apply to new connections.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_attribute_profile_id:** `typing.Optional[str]` — The user attribute profile to apply to organizations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**allowed_strategies:** `typing.Optional[typing.List[OrganizationTemplateAllowedStrategyEnum]]` — List of allowed connection strategies for this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invitation_landing_client_id:** `typing.Optional[str]` — The client ID for the invitation landing page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**admin_roles_assignment:** `typing.Optional[typing.List[str]]` — Default admin roles to assign to organization creators.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**use_for_organization_discovery:** `typing.Optional[OrganizationTemplateUseForOrganizationDiscovery]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**role_visibility_policy:** `typing.Optional[OrganizationTemplateRoleVisibilityPolicy]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">get</a>(...) -> OrganizationTemplate</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve details about a single Organization Template specified by ID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.organization_templates.get(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — Organization Template identifier.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">update</a>(...) -> OrganizationTemplate</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update the details of a specific Organization Template.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.organization_templates.update(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — Organization Template identifier.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — The name of the organization template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_default:** `typing.Optional[bool]` — Whether this is the default template applied to new organizations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**organization_deletion_behavior:** `typing.Optional[OrganizationDeletionBehaviorEnum]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connection_deletion_behavior:** `typing.Optional[ConnectionDeletionBehaviorEnum]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**enforce_permission_ceiling:** `typing.Optional[bool]` — Whether to enforce permission ceiling for organizations using this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**enforce_self_assignment_restriction:** `typing.Optional[bool]` — Whether to enforce self-assignment restrictions for organizations using this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connection_profile_id:** `typing.Optional[str]` — The connection profile to apply to new connections.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_attribute_profile_id:** `typing.Optional[str]` — The user attribute profile to apply to organizations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**allowed_strategies:** `typing.Optional[typing.List[OrganizationTemplateAllowedStrategyEnum]]` — List of allowed connection strategies for this template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invitation_landing_client_id:** `typing.Optional[str]` — The client ID for the invitation landing page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**admin_roles_assignment:** `typing.Optional[typing.List[str]]` — Default admin roles to assign to organization creators.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**use_for_organization_discovery:** `typing.Optional[OrganizationTemplateUseForOrganizationDiscovery]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**role_visibility_policy:** `typing.Optional[OrganizationTemplateRoleVisibilityPolicy]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organization_templates.<a href="src/auth0.management/organization_templates/client.py">list_organizations</a>(...) -> ListTemplateOrganizationsPaginatedResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve a list of organizations assigned to an Organization Template. This endpoint supports Checkpoint pagination. Results are returned in a stable order, sorted by their identifier (`id`) in ascending order.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.organization_templates.list_organizations(
-    id="id",
-    from_="from",
-    take=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The ID of the organization template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**from:** `typing.Optional[str]` — Optional Id from which to start selection.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**take:** `typing.Optional[int]` — Number of results per page. Defaults to 5. Values greater than 10 are capped at 10.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Organizations
 <details><summary><code>client.organizations.<a href="src/auth0.management/organizations/client.py">list</a>(...) -> ListOrganizationsPaginatedResponseContent</code></summary>
 <dl>
@@ -11512,6 +11096,129 @@ client.organizations.get_by_name(
 <dd>
 
 **name:** `str` — name of the organization to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.<a href="src/auth0.management/organizations/client.py">search</a>(...) -> SearchOrganizationsPaginatedResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details of organizations matching a search criteria. It is possible to:
+
+- Specify a search criteria for organizations
+- Search via `name`
+- Search via `display_name`
+- Substring matching (`contains` and `ends-with`) requires at least 3 characters
+- Use wildcards
+
+The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+Results are eventually consistent and may not reflect recent updates immediately.
+
+**Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.organizations.search(
+    q="q",
+    parser="scim",
+    take=1,
+    from_="from",
+    sort="name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parser:** `typing.Optional[SearchParserEnum]` — Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Maximum number of results to return per page (1-100). Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Cursor for the next page of results. Use the value from the next field in the previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `typing.Optional[OrganizationSortFieldEnum]` — Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
     
 </dd>
 </dl>
@@ -13009,6 +12716,14 @@ client.resource_servers.create(
 <dl>
 <dd>
 
+**token_lifetime_for_anonymous_access_tokens:** `typing.Optional[int]` — Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **token_dialect:** `typing.Optional[ResourceServerTokenDialectSchemaEnum]` 
     
 </dd>
@@ -13074,6 +12789,136 @@ client.resource_servers.create(
 <dd>
 
 **authorization_policy:** `typing.Optional[ResourceServerAuthorizationPolicy]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.resource_servers.<a href="src/auth0.management/resource_servers/client.py">search</a>(...) -> SearchResourceServersResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+Results may not reflect recent updates immediately.
+
+The `signing_secret` field is not supported by this endpoint.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.resource_servers.search(
+    q="q",
+    parser="scim",
+    fields="fields",
+    include_fields=True,
+    take=1,
+    from_="from",
+    sort="identifier",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "My API"`, `identifier sw "https://"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Filter by resource server ID</li><li><i>identifier</i> - Filter by resource server identifier</li><li><i>name</i> - Filter by resource server name</li><li><i>updated_at</i> - Filter by last update date</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parser:** `typing.Optional[SearchParserEnum]` — Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[str]` — Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_fields:** `typing.Optional[bool]` — Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Maximum number of results to return per page (1-100). Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Cursor for the next page of results. Use the value from the next field in the previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `typing.Optional[ResourceServerSortFieldEnum]` — Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
     
 </dd>
 </dl>
@@ -13374,6 +13219,14 @@ client.resource_servers.update(
 <dd>
 
 **token_lifetime:** `typing.Optional[int]` — Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**token_lifetime_for_anonymous_access_tokens:** `typing.Optional[int]` — Expiration value (in seconds) for anonymous-session access tokens issued for this API.
     
 </dd>
 </dl>
@@ -26317,6 +26170,89 @@ client.event_streams.redeliveries.create_by_id(
 </dl>
 </details>
 
+## Experimentation Experiments
+<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">advance_ramp</a>(...) -> AdvanceRampResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Increments the current ramp index to the requested target level. Up-only: the target must be the immediate next level in the schedule. Idempotent: calling with the current level returns success without writing anything.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.experiments.advance_ramp(
+    id="id",
+    target_level=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the experiment to advance.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**target_level:** `int` — The target percentage level from the experiment schedule. Must be the immediate next level.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Flows Executions
 <details><summary><code>client.flows.executions.<a href="src/auth0.management/flows/executions/client.py">list</a>(...) -> ListFlowExecutionsPaginatedResponseContent</code></summary>
 <dl>
@@ -27818,6 +27754,152 @@ client.guardian.policies.set(
 </dl>
 </details>
 
+## Guardian Factors Email
+<details><summary><code>client.guardian.factors.email.<a href="src/auth0.management/guardian/factors/email/client.py">get</a>() -> GetEmailFactorSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.guardian.factors.email.get()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.email.<a href="src/auth0.management/guardian/factors/email/client.py">set</a>(...) -> SetEmailFactorSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.guardian.factors.email.set(
+    otp_length=1,
+    otp_expiration_time=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**otp_length:** `int` — The length of the OTP code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**otp_expiration_time:** `int` — The OTP expiration time in seconds.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Guardian Factors Phone
 <details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">get_message_types</a>() -> GetGuardianFactorPhoneMessageTypesResponseContent</code></summary>
 <dl>
@@ -28218,6 +28300,151 @@ client.guardian.factors.phone.set_provider(
 <dd>
 
 **provider:** `GuardianFactorsProviderSmsProviderEnum` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">get</a>() -> GetPhoneFactorSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.guardian.factors.phone.get()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.guardian.factors.phone.<a href="src/auth0.management/guardian/factors/phone/client.py">set</a>(...) -> SetPhoneFactorSettingsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+TODO: Link this endpoint to relevant documentation when available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.guardian.factors.phone.set(
+    otp_length=1,
+    otp_expiration_time=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**otp_length:** `int` — The length of the OTP code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**otp_expiration_time:** `int` — The OTP expiration time in seconds.
     
 </dd>
 </dl>
