@@ -5799,6 +5799,8 @@ if typing.TYPE_CHECKING:
     from .organization_invitation_invitee import OrganizationInvitationInvitee
     from .organization_invitation_inviter import OrganizationInvitationInviter
     from .organization_member import OrganizationMember
+    from .organization_member_access_level_enum import OrganizationMemberAccessLevelEnum
+    from .organization_member_access_level_enum_with_null import OrganizationMemberAccessLevelEnumWithNull
     from .organization_member_effective_role import OrganizationMemberEffectiveRole
     from .organization_member_effective_role_source import OrganizationMemberEffectiveRoleSource
     from .organization_member_role import OrganizationMemberRole
@@ -5893,6 +5895,12 @@ if typing.TYPE_CHECKING:
     from .reset_phone_template_request_content import ResetPhoneTemplateRequestContent
     from .reset_phone_template_response_content import ResetPhoneTemplateResponseContent
     from .resource_server import ResourceServer
+    from .resource_server_access_token import ResourceServerAccessToken
+    from .resource_server_access_token_claims_mapping import ResourceServerAccessTokenClaimsMapping
+    from .resource_server_access_token_custom_claims_mapping import ResourceServerAccessTokenCustomClaimsMapping
+    from .resource_server_access_token_custom_claims_mapping_rule import (
+        ResourceServerAccessTokenCustomClaimsMappingRule,
+    )
     from .resource_server_authorization_policy import ResourceServerAuthorizationPolicy
     from .resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
     from .resource_server_proof_of_possession import ResourceServerProofOfPossession
@@ -9674,6 +9682,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationInvitationInvitee": ".organization_invitation_invitee",
     "OrganizationInvitationInviter": ".organization_invitation_inviter",
     "OrganizationMember": ".organization_member",
+    "OrganizationMemberAccessLevelEnum": ".organization_member_access_level_enum",
+    "OrganizationMemberAccessLevelEnumWithNull": ".organization_member_access_level_enum_with_null",
     "OrganizationMemberEffectiveRole": ".organization_member_effective_role",
     "OrganizationMemberEffectiveRoleSource": ".organization_member_effective_role_source",
     "OrganizationMemberRole": ".organization_member_role",
@@ -9756,6 +9766,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResetPhoneTemplateRequestContent": ".reset_phone_template_request_content",
     "ResetPhoneTemplateResponseContent": ".reset_phone_template_response_content",
     "ResourceServer": ".resource_server",
+    "ResourceServerAccessToken": ".resource_server_access_token",
+    "ResourceServerAccessTokenClaimsMapping": ".resource_server_access_token_claims_mapping",
+    "ResourceServerAccessTokenCustomClaimsMapping": ".resource_server_access_token_custom_claims_mapping",
+    "ResourceServerAccessTokenCustomClaimsMappingRule": ".resource_server_access_token_custom_claims_mapping_rule",
     "ResourceServerAuthorizationPolicy": ".resource_server_authorization_policy",
     "ResourceServerConsentPolicyEnum": ".resource_server_consent_policy_enum",
     "ResourceServerProofOfPossession": ".resource_server_proof_of_possession",
@@ -13499,6 +13513,8 @@ __all__ = [
     "OrganizationInvitationInvitee",
     "OrganizationInvitationInviter",
     "OrganizationMember",
+    "OrganizationMemberAccessLevelEnum",
+    "OrganizationMemberAccessLevelEnumWithNull",
     "OrganizationMemberEffectiveRole",
     "OrganizationMemberEffectiveRoleSource",
     "OrganizationMemberRole",
@@ -13581,6 +13597,10 @@ __all__ = [
     "ResetPhoneTemplateRequestContent",
     "ResetPhoneTemplateResponseContent",
     "ResourceServer",
+    "ResourceServerAccessToken",
+    "ResourceServerAccessTokenClaimsMapping",
+    "ResourceServerAccessTokenCustomClaimsMapping",
+    "ResourceServerAccessTokenCustomClaimsMappingRule",
     "ResourceServerAuthorizationPolicy",
     "ResourceServerConsentPolicyEnum",
     "ResourceServerProofOfPossession",

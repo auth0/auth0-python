@@ -40,6 +40,16 @@ class ClientMyOrganizationPostConfiguration(UniversalBaseModel):
     The client ID this client uses while creating invitations through My Organization API.
     """
 
+    enforce_permission_ceiling: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When true, limits the permissions that organization admins can assign to members to only those held by the admin themselves.
+    """
+
+    enforce_self_assignment_restriction: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When true, prevents organization admins from assigning permissions to themselves.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

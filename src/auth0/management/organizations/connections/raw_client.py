@@ -25,6 +25,8 @@ from ...types.list_organization_all_connections_offset_paginated_response_conten
 from ...types.organization_access_level_enum import OrganizationAccessLevelEnum
 from ...types.organization_access_level_enum_with_null import OrganizationAccessLevelEnumWithNull
 from ...types.organization_all_connection_post import OrganizationAllConnectionPost
+from ...types.organization_member_access_level_enum import OrganizationMemberAccessLevelEnum
+from ...types.organization_member_access_level_enum_with_null import OrganizationMemberAccessLevelEnumWithNull
 from ...types.update_organization_all_connection_response_content import UpdateOrganizationAllConnectionResponseContent
 from pydantic import ValidationError
 
@@ -168,6 +170,7 @@ class RawConnectionsClient:
         show_as_button: typing.Optional[bool] = OMIT,
         is_signup_enabled: typing.Optional[bool] = OMIT,
         organization_access_level: typing.Optional[OrganizationAccessLevelEnum] = OMIT,
+        organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnum] = OMIT,
         is_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateOrganizationAllConnectionResponseContent]:
@@ -194,6 +197,8 @@ class RawConnectionsClient:
 
         organization_access_level : typing.Optional[OrganizationAccessLevelEnum]
 
+        organization_member_access_level : typing.Optional[OrganizationMemberAccessLevelEnum]
+
         is_enabled : typing.Optional[bool]
             Whether the connection is enabled for the organization.
 
@@ -214,6 +219,7 @@ class RawConnectionsClient:
                 "show_as_button": show_as_button,
                 "is_signup_enabled": is_signup_enabled,
                 "organization_access_level": organization_access_level,
+                "organization_member_access_level": organization_member_access_level,
                 "is_enabled": is_enabled,
                 "connection_id": connection_id,
             },
@@ -475,6 +481,7 @@ class RawConnectionsClient:
         show_as_button: typing.Optional[bool] = OMIT,
         is_signup_enabled: typing.Optional[bool] = OMIT,
         organization_access_level: typing.Optional[OrganizationAccessLevelEnumWithNull] = OMIT,
+        organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnumWithNull] = OMIT,
         is_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateOrganizationAllConnectionResponseContent]:
@@ -501,6 +508,8 @@ class RawConnectionsClient:
 
         organization_access_level : typing.Optional[OrganizationAccessLevelEnumWithNull]
 
+        organization_member_access_level : typing.Optional[OrganizationMemberAccessLevelEnumWithNull]
+
         is_enabled : typing.Optional[bool]
             Whether the connection is enabled for the organization.
 
@@ -521,6 +530,7 @@ class RawConnectionsClient:
                 "show_as_button": show_as_button,
                 "is_signup_enabled": is_signup_enabled,
                 "organization_access_level": organization_access_level,
+                "organization_member_access_level": organization_member_access_level,
                 "is_enabled": is_enabled,
             },
             headers={
@@ -732,6 +742,7 @@ class AsyncRawConnectionsClient:
         show_as_button: typing.Optional[bool] = OMIT,
         is_signup_enabled: typing.Optional[bool] = OMIT,
         organization_access_level: typing.Optional[OrganizationAccessLevelEnum] = OMIT,
+        organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnum] = OMIT,
         is_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateOrganizationAllConnectionResponseContent]:
@@ -758,6 +769,8 @@ class AsyncRawConnectionsClient:
 
         organization_access_level : typing.Optional[OrganizationAccessLevelEnum]
 
+        organization_member_access_level : typing.Optional[OrganizationMemberAccessLevelEnum]
+
         is_enabled : typing.Optional[bool]
             Whether the connection is enabled for the organization.
 
@@ -778,6 +791,7 @@ class AsyncRawConnectionsClient:
                 "show_as_button": show_as_button,
                 "is_signup_enabled": is_signup_enabled,
                 "organization_access_level": organization_access_level,
+                "organization_member_access_level": organization_member_access_level,
                 "is_enabled": is_enabled,
                 "connection_id": connection_id,
             },
@@ -1039,6 +1053,7 @@ class AsyncRawConnectionsClient:
         show_as_button: typing.Optional[bool] = OMIT,
         is_signup_enabled: typing.Optional[bool] = OMIT,
         organization_access_level: typing.Optional[OrganizationAccessLevelEnumWithNull] = OMIT,
+        organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnumWithNull] = OMIT,
         is_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateOrganizationAllConnectionResponseContent]:
@@ -1065,6 +1080,8 @@ class AsyncRawConnectionsClient:
 
         organization_access_level : typing.Optional[OrganizationAccessLevelEnumWithNull]
 
+        organization_member_access_level : typing.Optional[OrganizationMemberAccessLevelEnumWithNull]
+
         is_enabled : typing.Optional[bool]
             Whether the connection is enabled for the organization.
 
@@ -1085,6 +1102,7 @@ class AsyncRawConnectionsClient:
                 "show_as_button": show_as_button,
                 "is_signup_enabled": is_signup_enabled,
                 "organization_access_level": organization_access_level,
+                "organization_member_access_level": organization_member_access_level,
                 "is_enabled": is_enabled,
             },
             headers={

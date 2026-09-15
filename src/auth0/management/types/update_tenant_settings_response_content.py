@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .default_token_quota import DefaultTokenQuota
+from .resource_server_access_token import ResourceServerAccessToken
 from .session_cookie_schema import SessionCookieSchema
 from .supported_locales import SupportedLocales
 from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
@@ -110,6 +111,7 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     Supported locales for the user interface.
     """
 
+    access_token: typing.Optional[ResourceServerAccessToken] = None
     security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = None
     session_cookie: typing.Optional[SessionCookieSchema] = None
     sessions: typing.Optional[TenantSettingsSessions] = None
