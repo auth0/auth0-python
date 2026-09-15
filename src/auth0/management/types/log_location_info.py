@@ -26,6 +26,10 @@ class LogLocationInfo(UniversalBaseModel):
             description='Three-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-3 ISO 3166-1</a> country code.',
         ),
     ] = None
+    """
+    Three-letter <a href="https://www.iso.org/iso-3166-country-codes.html">Alpha-3 ISO 3166-1</a> country code.
+    """
+
     country_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Full country name in English.

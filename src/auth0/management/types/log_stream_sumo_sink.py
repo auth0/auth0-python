@@ -14,6 +14,9 @@ class LogStreamSumoSink(UniversalBaseModel):
         FieldMetadata(alias="sumoSourceAddress"),
         pydantic.Field(alias="sumoSourceAddress", description="HTTP Source Address"),
     ]
+    """
+    HTTP Source Address
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

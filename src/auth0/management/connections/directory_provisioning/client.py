@@ -17,6 +17,7 @@ from ...types.get_directory_provisioning_response_content import GetDirectoryPro
 from ...types.list_directory_provisionings_response_content import ListDirectoryProvisioningsResponseContent
 from ...types.list_synchronized_groups_response_content import ListSynchronizedGroupsResponseContent
 from ...types.synchronized_group_payload import SynchronizedGroupPayload
+from ...types.synchronized_group_selection_id import SynchronizedGroupSelectionId
 from ...types.update_directory_provisioning_request_content import UpdateDirectoryProvisioningRequestContent
 from ...types.update_directory_provisioning_response_content import UpdateDirectoryProvisioningResponseContent
 from .raw_client import AsyncRawDirectoryProvisioningClient, RawDirectoryProvisioningClient
@@ -271,6 +272,7 @@ class DirectoryProvisioningClient:
         *,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
+        q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]:
         """
@@ -286,6 +288,9 @@ class DirectoryProvisioningClient:
 
         take : typing.Optional[int]
             Number of results per page. Defaults to 50.
+
+        q : typing.Optional[str]
+            Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Only prefix search on "name" or "email" fields are allowed, with a single wildcard suffix. Operators, modifiers, and groupings are not allowed. Terms are treated as case-insensitive. Example query: "name:engineering*".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -306,6 +311,7 @@ class DirectoryProvisioningClient:
             id="id",
             from_="from",
             take=1,
+            q="q",
         )
         for item in response:
             yield item
@@ -313,7 +319,55 @@ class DirectoryProvisioningClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list_synchronized_groups(id, from_=from_, take=take, request_options=request_options)
+        return self._raw_client.list_synchronized_groups(
+            id, from_=from_, take=take, q=q, request_options=request_options
+        )
+
+    def add_synchronized_group_selections(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupPayload],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Add synchronized group selections to a directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to add synchronized groups to
+
+        groups : typing.Sequence[SynchronizedGroupPayload]
+            Array of Google Workspace Directory group objects to synchronize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from auth0 import Auth0, SynchronizedGroupPayload
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.connections.directory_provisioning.add_synchronized_group_selections(
+            id="id",
+            groups=[
+                SynchronizedGroupPayload(
+                    id="id",
+                )
+            ],
+        )
+        """
+        _response = self._raw_client.add_synchronized_group_selections(
+            id, groups=groups, request_options=request_options
+        )
+        return _response.data
 
     def set(
         self,
@@ -357,6 +411,52 @@ class DirectoryProvisioningClient:
         )
         """
         _response = self._raw_client.set(id, groups=groups, request_options=request_options)
+        return _response.data
+
+    def delete_synchronized_group_selections(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupSelectionId],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Delete synchronized group selections for a directory provisioning configuration
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to delete synchronized group selections for
+
+        groups : typing.Sequence[SynchronizedGroupSelectionId]
+            Array of groups to remove from the selection set.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from auth0 import Auth0, SynchronizedGroupSelectionId
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.connections.directory_provisioning.delete_synchronized_group_selections(
+            id="id",
+            groups=[
+                SynchronizedGroupSelectionId(
+                    id="id",
+                )
+            ],
+        )
+        """
+        _response = self._raw_client.delete_synchronized_group_selections(
+            id, groups=groups, request_options=request_options
+        )
         return _response.data
 
     @property
@@ -661,6 +761,7 @@ class AsyncDirectoryProvisioningClient:
         *,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
+        q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SynchronizedGroupPayload, ListSynchronizedGroupsResponseContent]:
         """
@@ -676,6 +777,9 @@ class AsyncDirectoryProvisioningClient:
 
         take : typing.Optional[int]
             Number of results per page. Defaults to 50.
+
+        q : typing.Optional[str]
+            Query in <a target='_new' href ='https://lucene.apache.org/core/2_9_4/queryparsersyntax.html'>Lucene query string syntax</a>. Only prefix search on "name" or "email" fields are allowed, with a single wildcard suffix. Operators, modifiers, and groupings are not allowed. Terms are treated as case-insensitive. Example query: "name:engineering*".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -701,6 +805,7 @@ class AsyncDirectoryProvisioningClient:
                 id="id",
                 from_="from",
                 take=1,
+                q="q",
             )
             async for item in response:
                 yield item
@@ -713,8 +818,62 @@ class AsyncDirectoryProvisioningClient:
         asyncio.run(main())
         """
         return await self._raw_client.list_synchronized_groups(
-            id, from_=from_, take=take, request_options=request_options
+            id, from_=from_, take=take, q=q, request_options=request_options
         )
+
+    async def add_synchronized_group_selections(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupPayload],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Add synchronized group selections to a directory provisioning configuration.
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to add synchronized groups to
+
+        groups : typing.Sequence[SynchronizedGroupPayload]
+            Array of Google Workspace Directory group objects to synchronize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0, SynchronizedGroupPayload
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.connections.directory_provisioning.add_synchronized_group_selections(
+                id="id",
+                groups=[
+                    SynchronizedGroupPayload(
+                        id="id",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.add_synchronized_group_selections(
+            id, groups=groups, request_options=request_options
+        )
+        return _response.data
 
     async def set(
         self,
@@ -766,6 +925,60 @@ class AsyncDirectoryProvisioningClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.set(id, groups=groups, request_options=request_options)
+        return _response.data
+
+    async def delete_synchronized_group_selections(
+        self,
+        id: str,
+        *,
+        groups: typing.Sequence[SynchronizedGroupSelectionId],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Delete synchronized group selections for a directory provisioning configuration
+
+        Parameters
+        ----------
+        id : str
+            The id of the connection to delete synchronized group selections for
+
+        groups : typing.Sequence[SynchronizedGroupSelectionId]
+            Array of groups to remove from the selection set.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0, SynchronizedGroupSelectionId
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.connections.directory_provisioning.delete_synchronized_group_selections(
+                id="id",
+                groups=[
+                    SynchronizedGroupSelectionId(
+                        id="id",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_synchronized_group_selections(
+            id, groups=groups, request_options=request_options
+        )
         return _response.data
 
     @property

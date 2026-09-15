@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -42,15 +42,14 @@ class RawTokenExchangeProfilesClient:
         """
         Retrieve a list of all Token Exchange Profiles available in your tenant.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
@@ -160,7 +159,7 @@ class RawTokenExchangeProfilesClient:
         """
         Create a new Token Exchange Profile within your tenant.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         Parameters
         ----------
@@ -278,7 +277,7 @@ class RawTokenExchangeProfilesClient:
         """
         Retrieve details about a single Token Exchange Profile specified by ID.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         Parameters
         ----------
@@ -294,7 +293,7 @@ class RawTokenExchangeProfilesClient:
             Token Exchange Profile successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"token-exchange-profiles/{encode_path_param(id)}",
+            f"token-exchange-profiles/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -376,7 +375,7 @@ class RawTokenExchangeProfilesClient:
         """
         Delete a Token Exchange Profile within your tenant.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta's Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user's subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         Parameters
         ----------
@@ -391,7 +390,7 @@ class RawTokenExchangeProfilesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"token-exchange-profiles/{encode_path_param(id)}",
+            f"token-exchange-profiles/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -451,7 +450,7 @@ class RawTokenExchangeProfilesClient:
         """
         Update a Token Exchange Profile within your tenant.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta's Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user's subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         Parameters
         ----------
@@ -472,7 +471,7 @@ class RawTokenExchangeProfilesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"token-exchange-profiles/{encode_path_param(id)}",
+            f"token-exchange-profiles/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -531,6 +530,17 @@ class RawTokenExchangeProfilesClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -566,15 +576,14 @@ class AsyncRawTokenExchangeProfilesClient:
         """
         Retrieve a list of all Token Exchange Profiles available in your tenant.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         This endpoint supports Checkpoint pagination. To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
@@ -687,7 +696,7 @@ class AsyncRawTokenExchangeProfilesClient:
         """
         Create a new Token Exchange Profile within your tenant.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         Parameters
         ----------
@@ -805,7 +814,7 @@ class AsyncRawTokenExchangeProfilesClient:
         """
         Retrieve details about a single Token Exchange Profile specified by ID.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta’s Master Subscription Agreement</a>. It is your responsibility to securely validate the user’s subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta’s Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user’s subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         Parameters
         ----------
@@ -821,7 +830,7 @@ class AsyncRawTokenExchangeProfilesClient:
             Token Exchange Profile successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"token-exchange-profiles/{encode_path_param(id)}",
+            f"token-exchange-profiles/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -905,7 +914,7 @@ class AsyncRawTokenExchangeProfilesClient:
         """
         Delete a Token Exchange Profile within your tenant.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta's Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user's subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         Parameters
         ----------
@@ -920,7 +929,7 @@ class AsyncRawTokenExchangeProfilesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"token-exchange-profiles/{encode_path_param(id)}",
+            f"token-exchange-profiles/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -980,7 +989,7 @@ class AsyncRawTokenExchangeProfilesClient:
         """
         Update a Token Exchange Profile within your tenant.
 
-        By using this feature, you agree to the applicable Free Trial terms in <a href="https://www.okta.com/legal/">Okta's Master Subscription Agreement</a>. It is your responsibility to securely validate the user's subject_token. See <a href="https://auth0.com/docs/authenticate/custom-token-exchange">User Guide</a> for more details.
+        By using this feature, you agree to the applicable Free Trial terms in [Okta's Master Subscription Agreement](https://www.okta.com/legal/). It is your responsibility to securely validate the user's subject_token. See [User Guide](https://auth0.com/docs/authenticate/custom-token-exchange) for more details.
 
         Parameters
         ----------
@@ -1001,7 +1010,7 @@ class AsyncRawTokenExchangeProfilesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"token-exchange-profiles/{encode_path_param(id)}",
+            f"token-exchange-profiles/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -1051,6 +1060,17 @@ class AsyncRawTokenExchangeProfilesClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

@@ -6,6 +6,7 @@ AculContextEnum = typing.Union[
     typing.Literal[
         "branding.settings",
         "branding.themes.default",
+        "country_codes",
         "client.logo_uri",
         "client.description",
         "organization.display_name",
@@ -21,6 +22,7 @@ AculContextEnum = typing.Union[
         "untrusted_data.authorization_params.ui_locales",
         "user.organizations",
         "transaction.custom_domain.domain",
+        "experiment",
     ],
     typing.Any,
 ]

@@ -28,6 +28,10 @@ class ClientAddonSalesforceSandboxApi(UniversalBaseModel):
         FieldMetadata(alias="communityName"),
         pydantic.Field(alias="communityName", description="Community name."),
     ] = None
+    """
+    Community name.
+    """
+
     community_url_section: typing.Optional[str] = pydantic.Field(default=None)
     """
     Community url section.

@@ -31,6 +31,10 @@ class LogStreamEventGridResponseSchema(UniversalBaseModel):
         FieldMetadata(alias="isPriority"),
         pydantic.Field(alias="isPriority", description="True for priority log streams, false for non-priority"),
     ] = None
+    """
+    True for priority log streams, false for non-priority
+    """
+
     filters: typing.Optional[typing.List[LogStreamFilter]] = pydantic.Field(default=None)
     """
     Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.

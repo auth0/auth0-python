@@ -16,17 +16,26 @@ from ..types.list_organizations_paginated_response_content import ListOrganizati
 from ..types.organization import Organization
 from ..types.organization_branding import OrganizationBranding
 from ..types.organization_metadata import OrganizationMetadata
+from ..types.organization_sort_field_enum import OrganizationSortFieldEnum
+from ..types.organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
+from ..types.search_organization import SearchOrganization
+from ..types.search_organizations_paginated_response_content import SearchOrganizationsPaginatedResponseContent
+from ..types.search_parser_enum import SearchParserEnum
 from ..types.update_organization_response_content import UpdateOrganizationResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
 from .raw_client import AsyncRawOrganizationsClient, RawOrganizationsClient
 
 if typing.TYPE_CHECKING:
     from .client_grants.client import AsyncClientGrantsClient, ClientGrantsClient
+    from .clients.client import AsyncClientsClient, ClientsClient
     from .connections.client import AsyncConnectionsClient, ConnectionsClient
     from .discovery_domains.client import AsyncDiscoveryDomainsClient, DiscoveryDomainsClient
     from .enabled_connections.client import AsyncEnabledConnectionsClient, EnabledConnectionsClient
+    from .groups.client import AsyncGroupsClient, GroupsClient
     from .invitations.client import AsyncInvitationsClient, InvitationsClient
     from .members.client import AsyncMembersClient, MembersClient
+    from .organization_template.client import AsyncOrganizationTemplateClient, OrganizationTemplateClient
+    from .roles.client import AsyncRolesClient, RolesClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
@@ -36,11 +45,15 @@ class OrganizationsClient:
         self._raw_client = RawOrganizationsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._client_grants: typing.Optional[ClientGrantsClient] = None
+        self._clients: typing.Optional[ClientsClient] = None
         self._connections: typing.Optional[ConnectionsClient] = None
         self._discovery_domains: typing.Optional[DiscoveryDomainsClient] = None
         self._enabled_connections: typing.Optional[EnabledConnectionsClient] = None
         self._invitations: typing.Optional[InvitationsClient] = None
         self._members: typing.Optional[MembersClient] = None
+        self._organization_template: typing.Optional[OrganizationTemplateClient] = None
+        self._groups: typing.Optional[GroupsClient] = None
+        self._roles: typing.Optional[RolesClient] = None
 
     @property
     def with_raw_response(self) -> RawOrganizationsClient:
@@ -56,34 +69,37 @@ class OrganizationsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         sort: typing.Optional[str] = None,
+        include_client_association_for: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Organization, ListOrganizationsPaginatedResponseContent]:
         """
         Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -92,6 +108,9 @@ class OrganizationsClient:
 
         sort : typing.Optional[str]
             Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
+
+        include_client_association_for : typing.Optional[str]
+            Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -109,9 +128,11 @@ class OrganizationsClient:
             token="YOUR_TOKEN",
         )
         response = client.organizations.list(
+            include_totals=True,
             from_="from",
             take=1,
             sort="sort",
+            include_client_association_for="include_client_association_for",
         )
         for item in response:
             yield item
@@ -119,7 +140,14 @@ class OrganizationsClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list(from_=from_, take=take, sort=sort, request_options=request_options)
+        return self._raw_client.list(
+            include_totals=include_totals,
+            from_=from_,
+            take=take,
+            sort=sort,
+            include_client_association_for=include_client_association_for,
+            request_options=request_options,
+        )
 
     def create(
         self,
@@ -130,10 +158,12 @@ class OrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationResponseContent:
         """
-        Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
+        Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review [Create Your First Organization](https://auth0.com/docs/manage-users/organizations/create-first-organization).
 
         Parameters
         ----------
@@ -151,6 +181,11 @@ class OrganizationsClient:
             Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
 
         token_quota : typing.Optional[CreateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -178,6 +213,8 @@ class OrganizationsClient:
             metadata=metadata,
             enabled_connections=enabled_connections,
             token_quota=token_quota,
+            third_party_client_access=third_party_client_access,
+            is_app_entitlement_active=is_app_entitlement_active,
             request_options=request_options,
         )
         return _response.data
@@ -214,6 +251,82 @@ class OrganizationsClient:
         """
         _response = self._raw_client.get_by_name(name, request_options=request_options)
         return _response.data
+
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[OrganizationSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]:
+        """
+        Retrieve details of organizations matching a search criteria. It is possible to:
+
+        - Specify a search criteria for organizations
+        - Search via `name`
+        - Search via `display_name`
+        - Substring matching (`contains` and `ends-with`) requires at least 3 characters
+        - Use wildcards
+
+        The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+        This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+        Results are eventually consistent and may not reflect recent updates immediately.
+
+        **Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[OrganizationSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]
+            Organizations successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.organizations.search(
+            q="q",
+            parser="scim",
+            take=1,
+            from_="from",
+            sort="name",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.search(
+            q=q, parser=parser, take=take, from_=from_, sort=sort, request_options=request_options
+        )
 
     def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -252,7 +365,7 @@ class OrganizationsClient:
         """
         Remove an Organization from your tenant.  This action cannot be undone.
 
-        <b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.
+        **Note**: Members are automatically disassociated from an Organization when it is deleted. However, this action does **not** delete these users from your tenant.
 
         Parameters
         ----------
@@ -289,10 +402,12 @@ class OrganizationsClient:
         branding: typing.Optional[OrganizationBranding] = OMIT,
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationResponseContent:
         """
-        Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
+        Update the details of a specific [Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations), such as name and display name, branding options, and metadata.
 
         Parameters
         ----------
@@ -310,6 +425,11 @@ class OrganizationsClient:
         metadata : typing.Optional[OrganizationMetadata]
 
         token_quota : typing.Optional[UpdateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -337,6 +457,8 @@ class OrganizationsClient:
             branding=branding,
             metadata=metadata,
             token_quota=token_quota,
+            third_party_client_access=third_party_client_access,
+            is_app_entitlement_active=is_app_entitlement_active,
             request_options=request_options,
         )
         return _response.data
@@ -348,6 +470,14 @@ class OrganizationsClient:
 
             self._client_grants = ClientGrantsClient(client_wrapper=self._client_wrapper)
         return self._client_grants
+
+    @property
+    def clients(self):
+        if self._clients is None:
+            from .clients.client import ClientsClient  # noqa: E402
+
+            self._clients = ClientsClient(client_wrapper=self._client_wrapper)
+        return self._clients
 
     @property
     def connections(self):
@@ -389,17 +519,45 @@ class OrganizationsClient:
             self._members = MembersClient(client_wrapper=self._client_wrapper)
         return self._members
 
+    @property
+    def organization_template(self):
+        if self._organization_template is None:
+            from .organization_template.client import OrganizationTemplateClient  # noqa: E402
+
+            self._organization_template = OrganizationTemplateClient(client_wrapper=self._client_wrapper)
+        return self._organization_template
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import GroupsClient  # noqa: E402
+
+            self._groups = GroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
+
+    @property
+    def roles(self):
+        if self._roles is None:
+            from .roles.client import RolesClient  # noqa: E402
+
+            self._roles = RolesClient(client_wrapper=self._client_wrapper)
+        return self._roles
+
 
 class AsyncOrganizationsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawOrganizationsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._client_grants: typing.Optional[AsyncClientGrantsClient] = None
+        self._clients: typing.Optional[AsyncClientsClient] = None
         self._connections: typing.Optional[AsyncConnectionsClient] = None
         self._discovery_domains: typing.Optional[AsyncDiscoveryDomainsClient] = None
         self._enabled_connections: typing.Optional[AsyncEnabledConnectionsClient] = None
         self._invitations: typing.Optional[AsyncInvitationsClient] = None
         self._members: typing.Optional[AsyncMembersClient] = None
+        self._organization_template: typing.Optional[AsyncOrganizationTemplateClient] = None
+        self._groups: typing.Optional[AsyncGroupsClient] = None
+        self._roles: typing.Optional[AsyncRolesClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawOrganizationsClient:
@@ -415,34 +573,37 @@ class AsyncOrganizationsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         sort: typing.Optional[str] = None,
+        include_client_association_for: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Organization, ListOrganizationsPaginatedResponseContent]:
         """
         Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -451,6 +612,9 @@ class AsyncOrganizationsClient:
 
         sort : typing.Optional[str]
             Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
+
+        include_client_association_for : typing.Optional[str]
+            Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -473,9 +637,11 @@ class AsyncOrganizationsClient:
 
         async def main() -> None:
             response = await client.organizations.list(
+                include_totals=True,
                 from_="from",
                 take=1,
                 sort="sort",
+                include_client_association_for="include_client_association_for",
             )
             async for item in response:
                 yield item
@@ -487,7 +653,14 @@ class AsyncOrganizationsClient:
 
         asyncio.run(main())
         """
-        return await self._raw_client.list(from_=from_, take=take, sort=sort, request_options=request_options)
+        return await self._raw_client.list(
+            include_totals=include_totals,
+            from_=from_,
+            take=take,
+            sort=sort,
+            include_client_association_for=include_client_association_for,
+            request_options=request_options,
+        )
 
     async def create(
         self,
@@ -498,10 +671,12 @@ class AsyncOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationResponseContent:
         """
-        Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
+        Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review [Create Your First Organization](https://auth0.com/docs/manage-users/organizations/create-first-organization).
 
         Parameters
         ----------
@@ -519,6 +694,11 @@ class AsyncOrganizationsClient:
             Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
 
         token_quota : typing.Optional[CreateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -554,6 +734,8 @@ class AsyncOrganizationsClient:
             metadata=metadata,
             enabled_connections=enabled_connections,
             token_quota=token_quota,
+            third_party_client_access=third_party_client_access,
+            is_app_entitlement_active=is_app_entitlement_active,
             request_options=request_options,
         )
         return _response.data
@@ -598,6 +780,91 @@ class AsyncOrganizationsClient:
         """
         _response = await self._raw_client.get_by_name(name, request_options=request_options)
         return _response.data
+
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[OrganizationSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]:
+        """
+        Retrieve details of organizations matching a search criteria. It is possible to:
+
+        - Specify a search criteria for organizations
+        - Search via `name`
+        - Search via `display_name`
+        - Substring matching (`contains` and `ends-with`) requires at least 3 characters
+        - Use wildcards
+
+        The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+        This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+        Results are eventually consistent and may not reflect recent updates immediately.
+
+        **Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[OrganizationSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]
+            Organizations successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.organizations.search(
+                q="q",
+                parser="scim",
+                take=1,
+                from_="from",
+                sort="name",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.search(
+            q=q, parser=parser, take=take, from_=from_, sort=sort, request_options=request_options
+        )
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -644,7 +911,7 @@ class AsyncOrganizationsClient:
         """
         Remove an Organization from your tenant.  This action cannot be undone.
 
-        <b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.
+        **Note**: Members are automatically disassociated from an Organization when it is deleted. However, this action does **not** delete these users from your tenant.
 
         Parameters
         ----------
@@ -689,10 +956,12 @@ class AsyncOrganizationsClient:
         branding: typing.Optional[OrganizationBranding] = OMIT,
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationResponseContent:
         """
-        Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
+        Update the details of a specific [Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations), such as name and display name, branding options, and metadata.
 
         Parameters
         ----------
@@ -710,6 +979,11 @@ class AsyncOrganizationsClient:
         metadata : typing.Optional[OrganizationMetadata]
 
         token_quota : typing.Optional[UpdateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -745,6 +1019,8 @@ class AsyncOrganizationsClient:
             branding=branding,
             metadata=metadata,
             token_quota=token_quota,
+            third_party_client_access=third_party_client_access,
+            is_app_entitlement_active=is_app_entitlement_active,
             request_options=request_options,
         )
         return _response.data
@@ -756,6 +1032,14 @@ class AsyncOrganizationsClient:
 
             self._client_grants = AsyncClientGrantsClient(client_wrapper=self._client_wrapper)
         return self._client_grants
+
+    @property
+    def clients(self):
+        if self._clients is None:
+            from .clients.client import AsyncClientsClient  # noqa: E402
+
+            self._clients = AsyncClientsClient(client_wrapper=self._client_wrapper)
+        return self._clients
 
     @property
     def connections(self):
@@ -796,3 +1080,27 @@ class AsyncOrganizationsClient:
 
             self._members = AsyncMembersClient(client_wrapper=self._client_wrapper)
         return self._members
+
+    @property
+    def organization_template(self):
+        if self._organization_template is None:
+            from .organization_template.client import AsyncOrganizationTemplateClient  # noqa: E402
+
+            self._organization_template = AsyncOrganizationTemplateClient(client_wrapper=self._client_wrapper)
+        return self._organization_template
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import AsyncGroupsClient  # noqa: E402
+
+            self._groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
+
+    @property
+    def roles(self):
+        if self._roles is None:
+            from .roles.client import AsyncRolesClient  # noqa: E402
+
+            self._roles = AsyncRolesClient(client_wrapper=self._client_wrapper)
+        return self._roles

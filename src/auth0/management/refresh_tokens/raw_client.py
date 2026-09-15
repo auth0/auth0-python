@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -182,7 +182,7 @@ class RawRefreshTokensClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
-        Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+        Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
 
         Parameters
         ----------
@@ -193,7 +193,7 @@ class RawRefreshTokensClient:
             Revoke all refresh tokens for this user.
 
         client_id : typing.Optional[str]
-            Revoke all refresh tokens for this client.
+            Revoke refresh tokens for this client. Must be paired with `user_id`; optionally narrowed further with `audience`.
 
         audience : typing.Optional[str]
             Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
@@ -296,7 +296,7 @@ class RawRefreshTokensClient:
             The refresh token was retrieved
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{encode_path_param(id)}",
+            f"refresh-tokens/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -391,7 +391,7 @@ class RawRefreshTokensClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{encode_path_param(id)}",
+            f"refresh-tokens/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -478,7 +478,7 @@ class RawRefreshTokensClient:
             Refresh token successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{encode_path_param(id)}",
+            f"refresh-tokens/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "refresh_token_metadata": refresh_token_metadata,
@@ -722,7 +722,7 @@ class AsyncRawRefreshTokensClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
-        Revoke refresh tokens in bulk by ID list, user, user+client, or client.
+        Revoke refresh tokens in bulk by ID list, user, user+client, or user+client+audience.
 
         Parameters
         ----------
@@ -733,7 +733,7 @@ class AsyncRawRefreshTokensClient:
             Revoke all refresh tokens for this user.
 
         client_id : typing.Optional[str]
-            Revoke all refresh tokens for this client.
+            Revoke refresh tokens for this client. Must be paired with `user_id`; optionally narrowed further with `audience`.
 
         audience : typing.Optional[str]
             Resource server identifier (audience) to scope the revocation. Must be used with both `user_id` and `client_id`.
@@ -836,7 +836,7 @@ class AsyncRawRefreshTokensClient:
             The refresh token was retrieved
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{encode_path_param(id)}",
+            f"refresh-tokens/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -933,7 +933,7 @@ class AsyncRawRefreshTokensClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{encode_path_param(id)}",
+            f"refresh-tokens/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1020,7 +1020,7 @@ class AsyncRawRefreshTokensClient:
             Refresh token successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"refresh-tokens/{encode_path_param(id)}",
+            f"refresh-tokens/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "refresh_token_metadata": refresh_token_metadata,

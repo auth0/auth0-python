@@ -6,13 +6,14 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.bad_request_error import BadRequestError
+from ...errors.conflict_error import ConflictError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
@@ -147,7 +148,7 @@ class RawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetScimConfigurationResponseContent]:
         """
-        Retrieves a scim configuration by its <code>connectionId</code>.
+        Retrieves a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -163,7 +164,7 @@ class RawScimConfigurationClient:
             The connection's SCIM configuration was retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration",
+            f"connections/{quote_path_param(id)}/scim-configuration",
             method="GET",
             request_options=request_options,
         )
@@ -234,14 +235,11 @@ class RawScimConfigurationClient:
             The connection's SCIM configuration was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration",
+            f"connections/{quote_path_param(id)}/scim-configuration",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[CreateScimConfigurationRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -277,6 +275,17 @@ class RawScimConfigurationClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -288,7 +297,7 @@ class RawScimConfigurationClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        Deletes a scim configuration by its <code>connectionId</code>.
+        Deletes a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -303,7 +312,7 @@ class RawScimConfigurationClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration",
+            f"connections/{quote_path_param(id)}/scim-configuration",
             method="DELETE",
             request_options=request_options,
         )
@@ -350,7 +359,7 @@ class RawScimConfigurationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateScimConfigurationResponseContent]:
         """
-        Update a scim configuration by its <code>connectionId</code>.
+        Update a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -372,7 +381,7 @@ class RawScimConfigurationClient:
             The connection's SCIM configuration was updated. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration",
+            f"connections/{quote_path_param(id)}/scim-configuration",
             method="PATCH",
             json={
                 "user_id_attribute": user_id_attribute,
@@ -431,7 +440,7 @@ class RawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetScimConfigurationDefaultMappingResponseContent]:
         """
-        Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
+        Retrieves a scim configuration's default mapping by its `connectionId`.
 
         Parameters
         ----------
@@ -447,7 +456,7 @@ class RawScimConfigurationClient:
             The connection's default SCIM mapping was retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration/default-mapping",
+            f"connections/{quote_path_param(id)}/scim-configuration/default-mapping",
             method="GET",
             request_options=request_options,
         )
@@ -610,7 +619,7 @@ class AsyncRawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetScimConfigurationResponseContent]:
         """
-        Retrieves a scim configuration by its <code>connectionId</code>.
+        Retrieves a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -626,7 +635,7 @@ class AsyncRawScimConfigurationClient:
             The connection's SCIM configuration was retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration",
+            f"connections/{quote_path_param(id)}/scim-configuration",
             method="GET",
             request_options=request_options,
         )
@@ -697,14 +706,11 @@ class AsyncRawScimConfigurationClient:
             The connection's SCIM configuration was created. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration",
+            f"connections/{quote_path_param(id)}/scim-configuration",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=typing.Optional[CreateScimConfigurationRequestContent], direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -740,6 +746,17 @@ class AsyncRawScimConfigurationClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -753,7 +770,7 @@ class AsyncRawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Deletes a scim configuration by its <code>connectionId</code>.
+        Deletes a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -768,7 +785,7 @@ class AsyncRawScimConfigurationClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration",
+            f"connections/{quote_path_param(id)}/scim-configuration",
             method="DELETE",
             request_options=request_options,
         )
@@ -815,7 +832,7 @@ class AsyncRawScimConfigurationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateScimConfigurationResponseContent]:
         """
-        Update a scim configuration by its <code>connectionId</code>.
+        Update a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -837,7 +854,7 @@ class AsyncRawScimConfigurationClient:
             The connection's SCIM configuration was updated. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration",
+            f"connections/{quote_path_param(id)}/scim-configuration",
             method="PATCH",
             json={
                 "user_id_attribute": user_id_attribute,
@@ -896,7 +913,7 @@ class AsyncRawScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetScimConfigurationDefaultMappingResponseContent]:
         """
-        Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
+        Retrieves a scim configuration's default mapping by its `connectionId`.
 
         Parameters
         ----------
@@ -912,7 +929,7 @@ class AsyncRawScimConfigurationClient:
             The connection's default SCIM mapping was retrieved. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/scim-configuration/default-mapping",
+            f"connections/{quote_path_param(id)}/scim-configuration/default-mapping",
             method="GET",
             request_options=request_options,
         )

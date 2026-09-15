@@ -13,6 +13,7 @@ from .raw_client import AsyncRawFactorsClient, RawFactorsClient
 
 if typing.TYPE_CHECKING:
     from .duo.client import AsyncDuoClient, DuoClient
+    from .email.client import AsyncEmailClient, EmailClient
     from .phone.client import AsyncPhoneClient, PhoneClient
     from .push_notification.client import AsyncPushNotificationClient, PushNotificationClient
     from .sms.client import AsyncSmsClient, SmsClient
@@ -24,6 +25,7 @@ class FactorsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawFactorsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._email: typing.Optional[EmailClient] = None
         self._phone: typing.Optional[PhoneClient] = None
         self._push_notification: typing.Optional[PushNotificationClient] = None
         self._sms: typing.Optional[SmsClient] = None
@@ -104,6 +106,14 @@ class FactorsClient:
         return _response.data
 
     @property
+    def email(self):
+        if self._email is None:
+            from .email.client import EmailClient  # noqa: E402
+
+            self._email = EmailClient(client_wrapper=self._client_wrapper)
+        return self._email
+
+    @property
     def phone(self):
         if self._phone is None:
             from .phone.client import PhoneClient  # noqa: E402
@@ -140,6 +150,7 @@ class AsyncFactorsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawFactorsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._email: typing.Optional[AsyncEmailClient] = None
         self._phone: typing.Optional[AsyncPhoneClient] = None
         self._push_notification: typing.Optional[AsyncPushNotificationClient] = None
         self._sms: typing.Optional[AsyncSmsClient] = None
@@ -234,6 +245,14 @@ class AsyncFactorsClient:
         """
         _response = await self._raw_client.set(name, enabled=enabled, request_options=request_options)
         return _response.data
+
+    @property
+    def email(self):
+        if self._email is None:
+            from .email.client import AsyncEmailClient  # noqa: E402
+
+            self._email = AsyncEmailClient(client_wrapper=self._client_wrapper)
+        return self._email
 
     @property
     def phone(self):

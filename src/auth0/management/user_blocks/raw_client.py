@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -32,7 +32,7 @@ class RawUserBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ListUserBlocksByIdentifierResponseContent]:
         """
-        Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
+        Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for a user with the given identifier (username, phone number, or email).
 
         Parameters
         ----------
@@ -129,9 +129,9 @@ class RawUserBlocksClient:
         self, *, identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+        Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given identifier (username, phone number, or email).
 
-        Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+        Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 
         Parameters
         ----------
@@ -217,7 +217,7 @@ class RawUserBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ListUserBlocksResponseContent]:
         """
-        Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+        Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
         Parameters
         ----------
@@ -239,7 +239,7 @@ class RawUserBlocksClient:
             User block successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"user-blocks/{encode_path_param(id)}",
+            f"user-blocks/{quote_path_param(id)}",
             method="GET",
             params={
                 "consider_brute_force_enablement": consider_brute_force_enablement,
@@ -322,9 +322,9 @@ class RawUserBlocksClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+        Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
-        Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+        Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 
         Parameters
         ----------
@@ -339,7 +339,7 @@ class RawUserBlocksClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"user-blocks/{encode_path_param(id)}",
+            f"user-blocks/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -423,7 +423,7 @@ class AsyncRawUserBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ListUserBlocksByIdentifierResponseContent]:
         """
-        Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
+        Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for a user with the given identifier (username, phone number, or email).
 
         Parameters
         ----------
@@ -520,9 +520,9 @@ class AsyncRawUserBlocksClient:
         self, *, identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+        Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given identifier (username, phone number, or email).
 
-        Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+        Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 
         Parameters
         ----------
@@ -608,7 +608,7 @@ class AsyncRawUserBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ListUserBlocksResponseContent]:
         """
-        Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+        Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
         Parameters
         ----------
@@ -630,7 +630,7 @@ class AsyncRawUserBlocksClient:
             User block successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"user-blocks/{encode_path_param(id)}",
+            f"user-blocks/{quote_path_param(id)}",
             method="GET",
             params={
                 "consider_brute_force_enablement": consider_brute_force_enablement,
@@ -715,9 +715,9 @@ class AsyncRawUserBlocksClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+        Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
-        Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+        Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 
         Parameters
         ----------
@@ -732,7 +732,7 @@ class AsyncRawUserBlocksClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"user-blocks/{encode_path_param(id)}",
+            f"user-blocks/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )

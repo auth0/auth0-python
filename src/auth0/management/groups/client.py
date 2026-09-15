@@ -14,6 +14,7 @@ from .raw_client import AsyncRawGroupsClient, RawGroupsClient
 
 if typing.TYPE_CHECKING:
     from .members.client import AsyncMembersClient, MembersClient
+    from .roles.client import AsyncRolesClient, RolesClient
 
 
 class GroupsClient:
@@ -21,6 +22,7 @@ class GroupsClient:
         self._raw_client = RawGroupsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._members: typing.Optional[MembersClient] = None
+        self._roles: typing.Optional[RolesClient] = None
 
     @property
     def with_raw_response(self) -> RawGroupsClient:
@@ -42,6 +44,7 @@ class GroupsClient:
         search: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -68,6 +71,9 @@ class GroupsClient:
 
         include_fields : typing.Optional[bool]
             Whether specified fields are to be included (true) or excluded (false).
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -97,6 +103,7 @@ class GroupsClient:
             search="search",
             fields="fields",
             include_fields=True,
+            include_totals=True,
             from_="from",
             take=1,
         )
@@ -113,6 +120,7 @@ class GroupsClient:
             search=search,
             fields=fields,
             include_fields=include_fields,
+            include_totals=include_totals,
             from_=from_,
             take=take,
             request_options=request_options,
@@ -187,12 +195,21 @@ class GroupsClient:
             self._members = MembersClient(client_wrapper=self._client_wrapper)
         return self._members
 
+    @property
+    def roles(self):
+        if self._roles is None:
+            from .roles.client import RolesClient  # noqa: E402
+
+            self._roles = RolesClient(client_wrapper=self._client_wrapper)
+        return self._roles
+
 
 class AsyncGroupsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawGroupsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._members: typing.Optional[AsyncMembersClient] = None
+        self._roles: typing.Optional[AsyncRolesClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawGroupsClient:
@@ -214,6 +231,7 @@ class AsyncGroupsClient:
         search: typing.Optional[str] = None,
         fields: typing.Optional[str] = None,
         include_fields: typing.Optional[bool] = None,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -240,6 +258,9 @@ class AsyncGroupsClient:
 
         include_fields : typing.Optional[bool]
             Whether specified fields are to be included (true) or excluded (false).
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -274,6 +295,7 @@ class AsyncGroupsClient:
                 search="search",
                 fields="fields",
                 include_fields=True,
+                include_totals=True,
                 from_="from",
                 take=1,
             )
@@ -294,6 +316,7 @@ class AsyncGroupsClient:
             search=search,
             fields=fields,
             include_fields=include_fields,
+            include_totals=include_totals,
             from_=from_,
             take=take,
             request_options=request_options,
@@ -383,3 +406,11 @@ class AsyncGroupsClient:
 
             self._members = AsyncMembersClient(client_wrapper=self._client_wrapper)
         return self._members
+
+    @property
+    def roles(self):
+        if self._roles is None:
+            from .roles.client import AsyncRolesClient  # noqa: E402
+
+            self._roles = AsyncRolesClient(client_wrapper=self._client_wrapper)
+        return self._roles

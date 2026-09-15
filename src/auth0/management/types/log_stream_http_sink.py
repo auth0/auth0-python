@@ -16,6 +16,10 @@ class LogStreamHttpSink(UniversalBaseModel):
         FieldMetadata(alias="httpAuthorization"),
         pydantic.Field(alias="httpAuthorization", description="HTTP Authorization header"),
     ] = None
+    """
+    HTTP Authorization header
+    """
+
     http_content_format: typing_extensions.Annotated[
         typing.Optional[LogStreamHttpContentFormatEnum],
         FieldMetadata(alias="httpContentFormat"),
@@ -26,14 +30,25 @@ class LogStreamHttpSink(UniversalBaseModel):
         FieldMetadata(alias="httpContentType"),
         pydantic.Field(alias="httpContentType", description="HTTP Content-Type header"),
     ] = None
+    """
+    HTTP Content-Type header
+    """
+
     http_endpoint: typing_extensions.Annotated[
         str, FieldMetadata(alias="httpEndpoint"), pydantic.Field(alias="httpEndpoint", description="HTTP endpoint")
     ]
+    """
+    HTTP endpoint
+    """
+
     http_custom_headers: typing_extensions.Annotated[
         typing.Optional[typing.List[HttpCustomHeader]],
         FieldMetadata(alias="httpCustomHeaders"),
         pydantic.Field(alias="httpCustomHeaders", description="custom HTTP headers"),
     ] = None
+    """
+    custom HTTP headers
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

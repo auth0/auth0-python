@@ -7,7 +7,10 @@ def test_clientGrants_organizations_list_() -> None:
     client = get_client(test_id)
     client.client_grants.organizations.list(
         id="id",
+        include_totals=True,
         from_="from",
         take=1,
     )
-    verify_request_count(test_id, "GET", "/client-grants/id/organizations", {"from": "from", "take": "1"}, 1)
+    verify_request_count(
+        test_id, "GET", "/client-grants/id/organizations", {"include_totals": "true", "from": "from", "take": "1"}, 1
+    )

@@ -12,6 +12,10 @@ class SetGuardianFactorsProviderSmsTwilioResponseContent(UniversalBaseModel):
     from_: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="from"), pydantic.Field(alias="from", description="From number")
     ] = None
+    """
+    From number
+    """
+
     messaging_service_sid: typing.Optional[str] = pydantic.Field(default=None)
     """
     Copilot SID

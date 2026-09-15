@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -39,10 +39,7 @@ class RawEnrollmentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateGuardianEnrollmentTicketResponseContent]:
         """
-        Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket, to a given user.
-        Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.<br/>
-
-        Note: Users cannot enroll in Email as a factor through custom enrollment tickets.
+        Create a [multi-factor authentication (MFA) enrollment ticket](https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets), and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.
 
         Parameters
         ----------
@@ -171,7 +168,7 @@ class RawEnrollmentsClient:
             Enrollment successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"guardian/enrollments/{encode_path_param(id)}",
+            f"guardian/enrollments/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -229,7 +226,7 @@ class RawEnrollmentsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa">Reset User Multi-Factor Authentication and Recovery Codes</a>.
+        Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review [Reset User Multi-Factor Authentication and Recovery Codes](https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa).
 
         Parameters
         ----------
@@ -244,7 +241,7 @@ class RawEnrollmentsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"guardian/enrollments/{encode_path_param(id)}",
+            f"guardian/enrollments/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -310,10 +307,7 @@ class AsyncRawEnrollmentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateGuardianEnrollmentTicketResponseContent]:
         """
-        Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket, to a given user.
-        Create a <a href="https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets">multi-factor authentication (MFA) enrollment ticket</a>, and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.<br/>
-
-        Note: Users cannot enroll in Email as a factor through custom enrollment tickets.
+        Create a [multi-factor authentication (MFA) enrollment ticket](https://auth0.com/docs/secure/multi-factor-authentication/auth0-guardian/create-custom-enrollment-tickets), and optionally send an email with the created ticket to a given user. Enrollment tickets can specify which factor users must enroll with or allow existing MFA users to enroll in additional factors.
 
         Parameters
         ----------
@@ -442,7 +436,7 @@ class AsyncRawEnrollmentsClient:
             Enrollment successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"guardian/enrollments/{encode_path_param(id)}",
+            f"guardian/enrollments/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -502,7 +496,7 @@ class AsyncRawEnrollmentsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review <a href="https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa">Reset User Multi-Factor Authentication and Recovery Codes</a>.
+        Remove a specific multi-factor authentication (MFA) enrollment from a user's account. This allows the user to re-enroll with MFA. For more information, review [Reset User Multi-Factor Authentication and Recovery Codes](https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa).
 
         Parameters
         ----------
@@ -517,7 +511,7 @@ class AsyncRawEnrollmentsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"guardian/enrollments/{encode_path_param(id)}",
+            f"guardian/enrollments/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )

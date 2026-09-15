@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -27,7 +27,7 @@ class RawMultifactorClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
+        Invalidate all remembered browsers across all [authentication factors](https://auth0.com/docs/multifactor-authentication) for a user.
 
         Parameters
         ----------
@@ -42,7 +42,7 @@ class RawMultifactorClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/multifactor/actions/invalidate-remember-browser",
+            f"users/{quote_path_param(id)}/multifactor/actions/invalidate-remember-browser",
             method="POST",
             request_options=request_options,
         )
@@ -95,7 +95,7 @@ class RawMultifactorClient:
         self, id: str, provider: UserMultifactorProviderEnum, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+        Remove a [multifactor](https://auth0.com/docs/multifactor-authentication) authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
 
         Parameters
         ----------
@@ -113,7 +113,7 @@ class RawMultifactorClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/multifactor/{encode_path_param(provider)}",
+            f"users/{quote_path_param(id)}/multifactor/{quote_path_param(provider)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -193,7 +193,7 @@ class AsyncRawMultifactorClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Invalidate all remembered browsers across all <a href="https://auth0.com/docs/multifactor-authentication">authentication factors</a> for a user.
+        Invalidate all remembered browsers across all [authentication factors](https://auth0.com/docs/multifactor-authentication) for a user.
 
         Parameters
         ----------
@@ -208,7 +208,7 @@ class AsyncRawMultifactorClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/multifactor/actions/invalidate-remember-browser",
+            f"users/{quote_path_param(id)}/multifactor/actions/invalidate-remember-browser",
             method="POST",
             request_options=request_options,
         )
@@ -261,7 +261,7 @@ class AsyncRawMultifactorClient:
         self, id: str, provider: UserMultifactorProviderEnum, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Remove a <a href="https://auth0.com/docs/multifactor-authentication">multifactor</a> authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
+        Remove a [multifactor](https://auth0.com/docs/multifactor-authentication) authentication configuration from a user's account. This forces the user to manually reconfigure the multi-factor provider.
 
         Parameters
         ----------
@@ -279,7 +279,7 @@ class AsyncRawMultifactorClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/multifactor/{encode_path_param(provider)}",
+            f"users/{quote_path_param(id)}/multifactor/{quote_path_param(provider)}",
             method="DELETE",
             request_options=request_options,
         )

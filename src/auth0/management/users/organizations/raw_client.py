@@ -5,12 +5,14 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
+from ...errors.bad_request_error import BadRequestError
 from ...errors.forbidden_error import ForbiddenError
+from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.list_user_organizations_offset_paginated_response_content import (
@@ -34,7 +36,23 @@ class RawOrganizationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Organization, ListUserOrganizationsOffsetPaginatedResponseContent]:
         """
-        Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+        Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review [Auth0 Organizations](https://auth0.com/docs/manage-users/organizations).
+
+        This endpoint supports two types of pagination:
+
+        - Offset pagination
+        - Checkpoint pagination
+
+        Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
+
+        **Checkpoint Pagination**
+
+        To search by checkpoint, use the following parameters:
+
+        - `from`: Optional id from which to start selection.
+        - `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
@@ -61,7 +79,7 @@ class RawOrganizationsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/organizations",
+            f"users/{quote_path_param(id)}/organizations",
             method="GET",
             params={
                 "page": page,
@@ -80,7 +98,7 @@ class RawOrganizationsClient:
                     ),
                 )
                 _items = _parsed_response.organizations
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     page=page + 1,
@@ -89,6 +107,17 @@ class RawOrganizationsClient:
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -102,6 +131,17 @@ class RawOrganizationsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -146,7 +186,23 @@ class AsyncRawOrganizationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Organization, ListUserOrganizationsOffsetPaginatedResponseContent]:
         """
-        Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review <a href="https://auth0.com/docs/manage-users/organizations">Auth0 Organizations</a>.
+        Retrieve list of the specified user's current Organization memberships. User must be specified by user ID. For more information, review [Auth0 Organizations](https://auth0.com/docs/manage-users/organizations).
+
+        This endpoint supports two types of pagination:
+
+        - Offset pagination
+        - Checkpoint pagination
+
+        Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
+
+        **Checkpoint Pagination**
+
+        To search by checkpoint, use the following parameters:
+
+        - `from`: Optional id from which to start selection.
+        - `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
@@ -173,7 +229,7 @@ class AsyncRawOrganizationsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{encode_path_param(id)}/organizations",
+            f"users/{quote_path_param(id)}/organizations",
             method="GET",
             params={
                 "page": page,
@@ -192,7 +248,7 @@ class AsyncRawOrganizationsClient:
                     ),
                 )
                 _items = _parsed_response.organizations
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -204,6 +260,17 @@ class AsyncRawOrganizationsClient:
                     )
 
                 return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -217,6 +284,17 @@ class AsyncRawOrganizationsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

@@ -7,6 +7,9 @@ import typing
 import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .event_stream_cloud_event_connection_created_cloud_event import EventStreamCloudEventConnectionCreatedCloudEvent
+from .event_stream_cloud_event_connection_deleted_cloud_event import EventStreamCloudEventConnectionDeletedCloudEvent
+from .event_stream_cloud_event_connection_updated_cloud_event import EventStreamCloudEventConnectionUpdatedCloudEvent
 from .event_stream_cloud_event_error_detail import EventStreamCloudEventErrorDetail
 from .event_stream_cloud_event_group_created_cloud_event import EventStreamCloudEventGroupCreatedCloudEvent
 from .event_stream_cloud_event_group_deleted_cloud_event import EventStreamCloudEventGroupDeletedCloudEvent
@@ -42,6 +45,63 @@ from .event_stream_cloud_event_org_updated_cloud_event import EventStreamCloudEv
 from .event_stream_cloud_event_user_created_cloud_event import EventStreamCloudEventUserCreatedCloudEvent
 from .event_stream_cloud_event_user_deleted_cloud_event import EventStreamCloudEventUserDeletedCloudEvent
 from .event_stream_cloud_event_user_updated_cloud_event import EventStreamCloudEventUserUpdatedCloudEvent
+
+
+class EventStreamSubscribeEventsResponseContent_ConnectionCreated(UniversalBaseModel):
+    """
+    The JSON payload delivered in each SSE data line. The type field is injected from the SSE event field by the SDK. Discriminated by type: an event type name for events, "error" for errors, and "offset-only" for cursor-only heartbeats.
+    """
+
+    type: typing.Literal["connection.created"] = "connection.created"
+    offset: str
+    event: EventStreamCloudEventConnectionCreatedCloudEvent
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
+
+
+class EventStreamSubscribeEventsResponseContent_ConnectionDeleted(UniversalBaseModel):
+    """
+    The JSON payload delivered in each SSE data line. The type field is injected from the SSE event field by the SDK. Discriminated by type: an event type name for events, "error" for errors, and "offset-only" for cursor-only heartbeats.
+    """
+
+    type: typing.Literal["connection.deleted"] = "connection.deleted"
+    offset: str
+    event: EventStreamCloudEventConnectionDeletedCloudEvent
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
+
+
+class EventStreamSubscribeEventsResponseContent_ConnectionUpdated(UniversalBaseModel):
+    """
+    The JSON payload delivered in each SSE data line. The type field is injected from the SSE event field by the SDK. Discriminated by type: an event type name for events, "error" for errors, and "offset-only" for cursor-only heartbeats.
+    """
+
+    type: typing.Literal["connection.updated"] = "connection.updated"
+    offset: str
+    event: EventStreamCloudEventConnectionUpdatedCloudEvent
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
 
 
 class EventStreamSubscribeEventsResponseContent_GroupCreated(UniversalBaseModel):
@@ -500,6 +560,9 @@ class EventStreamSubscribeEventsResponseContent_OffsetOnly(UniversalBaseModel):
 
 EventStreamSubscribeEventsResponseContent = typing_extensions.Annotated[
     typing.Union[
+        EventStreamSubscribeEventsResponseContent_ConnectionCreated,
+        EventStreamSubscribeEventsResponseContent_ConnectionDeleted,
+        EventStreamSubscribeEventsResponseContent_ConnectionUpdated,
         EventStreamSubscribeEventsResponseContent_GroupCreated,
         EventStreamSubscribeEventsResponseContent_GroupDeleted,
         EventStreamSubscribeEventsResponseContent_GroupMemberAdded,

@@ -7,6 +7,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
+from ..types.b_2_b_integration_configuration import B2BIntegrationConfiguration
 from ..types.client import Client
 from ..types.client_addons import ClientAddons
 from ..types.client_app_type_enum import ClientAppTypeEnum
@@ -42,18 +43,28 @@ from ..types.client_token_endpoint_auth_method_enum import ClientTokenEndpointAu
 from ..types.client_token_endpoint_auth_method_or_null_enum import ClientTokenEndpointAuthMethodOrNullEnum
 from ..types.client_token_exchange_configuration import ClientTokenExchangeConfiguration
 from ..types.client_token_exchange_configuration_or_null import ClientTokenExchangeConfigurationOrNull
+from ..types.client_token_vault_privileged_access_with_credential_id import (
+    ClientTokenVaultPrivilegedAccessWithCredentialId,
+)
+from ..types.client_token_vault_privileged_access_with_public_key import ClientTokenVaultPrivilegedAccessWithPublicKey
+from ..types.create_anonymous_sessions import CreateAnonymousSessions
 from ..types.create_client_response_content import CreateClientResponseContent
+from ..types.create_identity_assertion_authorization_grant import CreateIdentityAssertionAuthorizationGrant
 from ..types.create_token_quota import CreateTokenQuota
 from ..types.express_configuration import ExpressConfiguration
 from ..types.express_configuration_or_null import ExpressConfigurationOrNull
 from ..types.fed_cm_login import FedCmLogin
+from ..types.fed_cm_login_patch import FedCmLoginPatch
 from ..types.get_client_response_content import GetClientResponseContent
 from ..types.list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
 from ..types.native_social_login import NativeSocialLogin
+from ..types.native_social_login_patch import NativeSocialLoginPatch
 from ..types.preview_cimd_metadata_response_content import PreviewCimdMetadataResponseContent
 from ..types.register_cimd_client_response_content import RegisterCimdClientResponseContent
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
+from ..types.update_anonymous_sessions import UpdateAnonymousSessions
 from ..types.update_client_response_content import UpdateClientResponseContent
+from ..types.update_identity_assertion_authorization_grant import UpdateIdentityAssertionAuthorizationGrant
 from ..types.update_token_quota import UpdateTokenQuota
 from .raw_client import AsyncRawClientsClient, RawClientsClient
 
@@ -99,38 +110,30 @@ class ClientsClient:
     ) -> SyncPager[Client, ListClientsOffsetPaginatedResponseContent]:
         """
         Retrieve clients (applications and SSO integrations) matching provided filters. A list of fields to include or exclude may also be specified.
-        For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
+        For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
 
-        <ul>
-          <li>
-            The following can be retrieved with any scope:
-            <code>client_id</code>, <code>app_type</code>, <code>name</code>, and <code>description</code>.
-          </li>
-          <li>
-            The following properties can only be retrieved with the <code>read:clients</code> or
-            <code>read:client_keys</code> scope:
-            <code>callbacks</code>, <code>oidc_logout</code>, <code>allowed_origins</code>,
-            <code>web_origins</code>, <code>tenant</code>, <code>global</code>, <code>config_route</code>,
-            <code>callback_url_template</code>, <code>jwt_configuration</code>,
-            <code>jwt_configuration.lifetime_in_seconds</code>, <code>jwt_configuration.secret_encoded</code>,
-            <code>jwt_configuration.scopes</code>, <code>jwt_configuration.alg</code>, <code>api_type</code>,
-            <code>logo_uri</code>, <code>allowed_clients</code>, <code>owners</code>, <code>custom_login_page</code>,
-            <code>custom_login_page_off</code>, <code>sso</code>, <code>addons</code>, <code>form_template</code>,
-            <code>custom_login_page_codeview</code>, <code>resource_servers</code>, <code>client_metadata</code>,
-            <code>mobile</code>, <code>mobile.android</code>, <code>mobile.ios</code>, <code>allowed_logout_urls</code>,
-            <code>token_endpoint_auth_method</code>, <code>is_first_party</code>, <code>oidc_conformant</code>,
-            <code>is_token_endpoint_ip_header_trusted</code>, <code>initiate_login_uri</code>, <code>grant_types</code>,
-            <code>refresh_token</code>, <code>refresh_token.rotation_type</code>, <code>refresh_token.expiration_type</code>,
-            <code>refresh_token.leeway</code>, <code>refresh_token.token_lifetime</code>, <code>refresh_token.policies</code>, <code>organization_usage</code>,
-            <code>organization_require_behavior</code>.
-          </li>
-          <li>
-            The following properties can only be retrieved with the
-            <code>read:client_keys</code> or <code>read:client_credentials</code> scope:
-            <code>encryption_key</code>, <code>encryption_key.pub</code>, <code>encryption_key.cert</code>,
-            <code>client_secret</code>, <code>client_authentication_methods</code> and <code>signing_key</code>.
-          </li>
-        </ul>
+        - The following can be retrieved with any scope:
+            `client_id`, `app_type`, `name`, and `description`.
+        - The following properties can only be retrieved with the `read:clients` or
+            `read:client_keys` scope:
+            `callbacks`, `oidc_logout`, `allowed_origins`,
+            `web_origins`, `tenant`, `global`, `config_route`,
+            `callback_url_template`, `jwt_configuration`,
+            `jwt_configuration.lifetime_in_seconds`, `jwt_configuration.secret_encoded`,
+            `jwt_configuration.scopes`, `jwt_configuration.alg`, `api_type`,
+            `logo_uri`, `allowed_clients`, `owners`, `custom_login_page`,
+            `custom_login_page_on`, `sso`, `addons`, `form_template`,
+            `custom_login_page_codeview`, `resource_servers`, `client_metadata`,
+            `mobile`, `mobile.android`, `mobile.ios`, `allowed_logout_urls`,
+            `token_endpoint_auth_method`, `is_first_party`, `oidc_conformant`,
+            `is_token_endpoint_ip_header_trusted`, `initiate_login_uri`, `grant_types`,
+            `refresh_token`, `refresh_token.rotation_type`, `refresh_token.expiration_type`,
+            `refresh_token.leeway`, `refresh_token.token_lifetime`, `refresh_token.policies`, `organization_usage`,
+            `organization_require_behavior`.
+        - The following properties can only be retrieved with the
+            `read:client_keys` or `read:client_credentials` scope:
+            `encryption_key`, `encryption_key.pub`, `encryption_key.cert`,
+            `client_secret`, `client_authentication_methods` and `signing_key`.
 
         Parameters
         ----------
@@ -159,7 +162,7 @@ class ClientsClient:
             Optional filter by a comma-separated list of application types.
 
         external_client_id : typing.Optional[str]
-            Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+            Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
 
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
@@ -257,15 +260,19 @@ class ClientsClient:
         require_pushed_authorization_requests: typing.Optional[bool] = OMIT,
         require_proof_of_possession: typing.Optional[bool] = OMIT,
         signed_request_object: typing.Optional[ClientSignedRequestObjectWithPublicKey] = OMIT,
+        token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey] = OMIT,
         compliance_level: typing.Optional[ClientComplianceLevelEnum] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         token_exchange: typing.Optional[ClientTokenExchangeConfiguration] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
+        identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
+        anonymous_sessions: typing.Optional[CreateAnonymousSessions] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
@@ -273,20 +280,20 @@ class ClientsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientResponseContent:
         """
-        Create a new client (application or SSO integration). For more information, read <a href="https://www.auth0.com/docs/get-started/auth0-overview/create-applications">Create Applications</a>
-        <a href="https://www.auth0.com/docs/authenticate/single-sign-on/api-endpoints-for-single-sign-on>">API Endpoints for Single Sign-On</a>.
+        Create a new client (application or SSO integration). For more information, read [Create Applications](https://www.auth0.com/docs/get-started/auth0-overview/create-applications)
+        [API Endpoints for Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on/api-endpoints-for-single-sign-on).
 
         Notes:
         - We recommend leaving the `client_secret` parameter unspecified to allow the generation of a safe secret.
-        - The <code>client_authentication_methods</code> and <code>token_endpoint_auth_method</code> properties are mutually exclusive. Use
-        <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method. Otherwise, use <code>token_endpoint_auth_method</code>
+        - The `client_authentication_methods` and `token_endpoint_auth_method` properties are mutually exclusive. Use
+        `client_authentication_methods` to configure the client with Private Key JWT authentication method. Otherwise, use `token_endpoint_auth_method`
         to configure the client with client secret (basic or post) or with no authentication method (none).
-        - When using <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method, specify fully defined credentials.
+        - When using `client_authentication_methods` to configure the client with Private Key JWT authentication method, specify fully defined credentials.
         These credentials will be automatically enabled for Private Key JWT authentication on the client.
-        - To configure <code>client_authentication_methods</code>, the <code>create:client_credentials</code> scope is required.
-        - To configure <code>client_authentication_methods</code>, the property <code>jwt_configuration.alg</code> must be set to RS256.
+        - To configure `client_authentication_methods`, the `create:client_credentials` scope is required.
+        - To configure `client_authentication_methods`, the property `jwt_configuration.alg` must be set to RS256.
 
-        <div class="alert alert-warning">SSO Integrations created via this endpoint will accept login requests and share user profile information.</div>
+        SSO Integrations created via this endpoint will accept login requests and share user profile information.
 
         Parameters
         ----------
@@ -402,6 +409,8 @@ class ClientsClient:
 
         signed_request_object : typing.Optional[ClientSignedRequestObjectWithPublicKey]
 
+        token_vault_privileged_access : typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey]
+
         compliance_level : typing.Optional[ClientComplianceLevelEnum]
 
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
@@ -419,11 +428,17 @@ class ClientsClient:
         resource_server_identifier : typing.Optional[str]
             The identifier of the resource server that this client is linked to.
 
+        identity_assertion_authorization_grant : typing.Optional[CreateIdentityAssertionAuthorizationGrant]
+
+        anonymous_sessions : typing.Optional[CreateAnonymousSessions]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
         express_configuration : typing.Optional[ExpressConfiguration]
+
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
@@ -492,15 +507,19 @@ class ClientsClient:
             require_pushed_authorization_requests=require_pushed_authorization_requests,
             require_proof_of_possession=require_proof_of_possession,
             signed_request_object=signed_request_object,
+            token_vault_privileged_access=token_vault_privileged_access,
             compliance_level=compliance_level,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             token_exchange=token_exchange,
             par_request_expiry=par_request_expiry,
             token_quota=token_quota,
             resource_server_identifier=resource_server_identifier,
+            identity_assertion_authorization_grant=identity_assertion_authorization_grant,
+            anonymous_sessions=anonymous_sessions,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
             express_configuration=express_configuration,
+            b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             request_options=request_options,
@@ -553,16 +572,14 @@ class ClientsClient:
         Idempotent registration for Client ID Metadata Document (CIMD) clients.
         Uses external_client_id as the unique identifier for upsert operations.
 
-        <strong>Create:</strong> Returns 201 when a new client is created (requires <code>create:clients</code> scope).
-        <strong>Update:</strong> Returns 200 when an existing client is updated (requires <code>update:clients</code> scope).
+        **Create:** Returns 201 when a new client is created (requires `create:clients` scope).
+        **Update:** Returns 200 when an existing client is updated (requires `update:clients` scope).
 
         This endpoint automatically:
-        <ul>
-          <li>Fetches and validates the metadata document</li>
-          <li>Maps CIMD fields to Auth0 client configuration</li>
-          <li>Creates/rotates credentials from the JWKS</li>
-          <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
-        </ul>
+        - Fetches and validates the metadata document
+        - Maps CIMD fields to Auth0 client configuration
+        - Creates/rotates credentials from the JWKS
+        - Enforces CIMD security policies (HTTPS-only, no shared secrets)
 
         Parameters
         ----------
@@ -603,36 +620,29 @@ class ClientsClient:
     ) -> GetClientResponseContent:
         """
         Retrieve client details by ID. Clients are SSO connections or Applications linked with your Auth0 tenant. A list of fields to include or exclude may also be specified.
-        For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
-        <ul>
-          <li>
-            The following properties can be retrieved with any of the scopes:
-            <code>client_id</code>, <code>app_type</code>, <code>name</code>, and <code>description</code>.
-          </li>
-          <li>
-            The following properties can only be retrieved with the <code>read:clients</code> or
-            <code>read:client_keys</code> scopes:
-            <code>callbacks</code>, <code>oidc_logout</code>, <code>allowed_origins</code>,
-            <code>web_origins</code>, <code>tenant</code>, <code>global</code>, <code>config_route</code>,
-            <code>callback_url_template</code>, <code>jwt_configuration</code>,
-            <code>jwt_configuration.lifetime_in_seconds</code>, <code>jwt_configuration.secret_encoded</code>,
-            <code>jwt_configuration.scopes</code>, <code>jwt_configuration.alg</code>, <code>api_type</code>,
-            <code>logo_uri</code>, <code>allowed_clients</code>, <code>owners</code>, <code>custom_login_page</code>,
-            <code>custom_login_page_off</code>, <code>sso</code>, <code>addons</code>, <code>form_template</code>,
-            <code>custom_login_page_codeview</code>, <code>resource_servers</code>, <code>client_metadata</code>,
-            <code>mobile</code>, <code>mobile.android</code>, <code>mobile.ios</code>, <code>allowed_logout_urls</code>,
-            <code>token_endpoint_auth_method</code>, <code>is_first_party</code>, <code>oidc_conformant</code>,
-            <code>is_token_endpoint_ip_header_trusted</code>, <code>initiate_login_uri</code>, <code>grant_types</code>,
-            <code>refresh_token</code>, <code>refresh_token.rotation_type</code>, <code>refresh_token.expiration_type</code>,
-            <code>refresh_token.leeway</code>, <code>refresh_token.token_lifetime</code>, <code>refresh_token.policies</code>, <code>organization_usage</code>,
-            <code>organization_require_behavior</code>.
-          </li>
-          <li>
-            The following properties can only be retrieved with the <code>read:client_keys</code> or <code>read:client_credentials</code> scopes:
-            <code>encryption_key</code>, <code>encryption_key.pub</code>, <code>encryption_key.cert</code>,
-            <code>client_secret</code>, <code>client_authentication_methods</code> and <code>signing_key</code>.
-          </li>
-        </ul>
+        For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
+
+        - The following properties can be retrieved with any of the scopes:
+            `client_id`, `app_type`, `name`, and `description`.
+        - The following properties can only be retrieved with the `read:clients` or
+            `read:client_keys` scopes:
+            `callbacks`, `oidc_logout`, `allowed_origins`,
+            `web_origins`, `tenant`, `global`, `config_route`,
+            `callback_url_template`, `jwt_configuration`,
+            `jwt_configuration.lifetime_in_seconds`, `jwt_configuration.secret_encoded`,
+            `jwt_configuration.scopes`, `jwt_configuration.alg`, `api_type`,
+            `logo_uri`, `allowed_clients`, `owners`, `custom_login_page`,
+            `custom_login_page_on`, `sso`, `addons`, `form_template`,
+            `custom_login_page_codeview`, `resource_servers`, `client_metadata`,
+            `mobile`, `mobile.android`, `mobile.ios`, `allowed_logout_urls`,
+            `token_endpoint_auth_method`, `is_first_party`, `oidc_conformant`,
+            `is_token_endpoint_ip_header_trusted`, `initiate_login_uri`, `grant_types`,
+            `refresh_token`, `refresh_token.rotation_type`, `refresh_token.expiration_type`,
+            `refresh_token.leeway`, `refresh_token.token_lifetime`, `refresh_token.policies`, `organization_usage`,
+            `organization_require_behavior`.
+        - The following properties can only be retrieved with the `read:client_keys` or `read:client_credentials` scopes:
+            `encryption_key`, `encryption_key.pub`, `encryption_key.cert`,
+            `client_secret`, `client_authentication_methods` and `signing_key`.
 
         Parameters
         ----------
@@ -734,13 +744,15 @@ class ClientsClient:
         custom_login_page: typing.Optional[str] = OMIT,
         custom_login_page_preview: typing.Optional[str] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
+        anonymous_sessions: typing.Optional[UpdateAnonymousSessions] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
-        native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
-        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
+        native_social_login: typing.Optional[NativeSocialLoginPatch] = OMIT,
+        fedcm_login: typing.Optional[FedCmLoginPatch] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsagePatchEnum] = OMIT,
@@ -750,11 +762,13 @@ class ClientsClient:
         require_pushed_authorization_requests: typing.Optional[bool] = OMIT,
         require_proof_of_possession: typing.Optional[bool] = OMIT,
         signed_request_object: typing.Optional[ClientSignedRequestObjectWithCredentialId] = OMIT,
+        token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId] = OMIT,
         compliance_level: typing.Optional[ClientComplianceLevelEnum] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
@@ -764,15 +778,15 @@ class ClientsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientResponseContent:
         """
-        Updates a client's settings. For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
+        Updates a client's settings. For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
 
         Notes:
         - The `client_secret` and `signing_key` attributes can only be updated with the `update:client_keys` scope.
-        - The <code>client_authentication_methods</code> and <code>token_endpoint_auth_method</code> properties are mutually exclusive. Use <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method. Otherwise, use <code>token_endpoint_auth_method</code> to configure the client with client secret (basic or post) or with no authentication method (none).
-        - When using <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method, only specify the credential IDs that were generated when creating the credentials on the client.
-        - To configure <code>client_authentication_methods</code>, the <code>update:client_credentials</code> scope is required.
-        - To configure <code>client_authentication_methods</code>, the property <code>jwt_configuration.alg</code> must be set to RS256.
-        - To change a client's <code>is_first_party</code> property to <code>false</code>, the <code>organization_usage</code> and <code>organization_require_behavior</code> properties must be unset.
+        - The `client_authentication_methods` and `token_endpoint_auth_method` properties are mutually exclusive. Use `client_authentication_methods` to configure the client with Private Key JWT authentication method. Otherwise, use `token_endpoint_auth_method` to configure the client with client secret (basic or post) or with no authentication method (none).
+        - When using `client_authentication_methods` to configure the client with Private Key JWT authentication method, only specify the credential IDs that were generated when creating the credentials on the client.
+        - To configure `client_authentication_methods`, the `update:client_credentials` scope is required.
+        - To configure `client_authentication_methods`, the property `jwt_configuration.alg` must be set to RS256.
+        - To change a client's `is_first_party` property to `false`, the `organization_usage` and `organization_require_behavior` properties must be unset.
 
         Parameters
         ----------
@@ -860,6 +874,10 @@ class ClientsClient:
 
         token_quota : typing.Optional[UpdateTokenQuota]
 
+        identity_assertion_authorization_grant : typing.Optional[UpdateIdentityAssertionAuthorizationGrant]
+
+        anonymous_sessions : typing.Optional[UpdateAnonymousSessions]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -873,9 +891,9 @@ class ClientsClient:
         initiate_login_uri : typing.Optional[str]
             Initiate login uri, must be https
 
-        native_social_login : typing.Optional[NativeSocialLogin]
+        native_social_login : typing.Optional[NativeSocialLoginPatch]
 
-        fedcm_login : typing.Optional[FedCmLogin]
+        fedcm_login : typing.Optional[FedCmLoginPatch]
 
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
@@ -898,6 +916,8 @@ class ClientsClient:
 
         signed_request_object : typing.Optional[ClientSignedRequestObjectWithCredentialId]
 
+        token_vault_privileged_access : typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId]
+
         compliance_level : typing.Optional[ClientComplianceLevelEnum]
 
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
@@ -911,6 +931,8 @@ class ClientsClient:
             Specifies how long, in seconds, a Pushed Authorization Request URI remains valid
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
+
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
@@ -970,6 +992,8 @@ class ClientsClient:
             custom_login_page=custom_login_page,
             custom_login_page_preview=custom_login_page_preview,
             token_quota=token_quota,
+            identity_assertion_authorization_grant=identity_assertion_authorization_grant,
+            anonymous_sessions=anonymous_sessions,
             form_template=form_template,
             addons=addons,
             client_metadata=client_metadata,
@@ -986,11 +1010,13 @@ class ClientsClient:
             require_pushed_authorization_requests=require_pushed_authorization_requests,
             require_proof_of_possession=require_proof_of_possession,
             signed_request_object=signed_request_object,
+            token_vault_privileged_access=token_vault_privileged_access,
             compliance_level=compliance_level,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             token_exchange=token_exchange,
             par_request_expiry=par_request_expiry,
             express_configuration=express_configuration,
+            b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
@@ -1007,7 +1033,7 @@ class ClientsClient:
 
         This endpoint cannot be used with clients configured with Private Key JWT authentication method (client_authentication_methods configured with private_key_jwt). The generated secret is NOT base64 encoded.
 
-        For more information, read <a href="https://www.auth0.com/docs/get-started/applications/rotate-client-secret">Rotate Client Secrets</a>.
+        For more information, read [Rotate Client Secrets](https://www.auth0.com/docs/get-started/applications/rotate-client-secret).
 
         Parameters
         ----------
@@ -1088,38 +1114,30 @@ class AsyncClientsClient:
     ) -> AsyncPager[Client, ListClientsOffsetPaginatedResponseContent]:
         """
         Retrieve clients (applications and SSO integrations) matching provided filters. A list of fields to include or exclude may also be specified.
-        For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
+        For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
 
-        <ul>
-          <li>
-            The following can be retrieved with any scope:
-            <code>client_id</code>, <code>app_type</code>, <code>name</code>, and <code>description</code>.
-          </li>
-          <li>
-            The following properties can only be retrieved with the <code>read:clients</code> or
-            <code>read:client_keys</code> scope:
-            <code>callbacks</code>, <code>oidc_logout</code>, <code>allowed_origins</code>,
-            <code>web_origins</code>, <code>tenant</code>, <code>global</code>, <code>config_route</code>,
-            <code>callback_url_template</code>, <code>jwt_configuration</code>,
-            <code>jwt_configuration.lifetime_in_seconds</code>, <code>jwt_configuration.secret_encoded</code>,
-            <code>jwt_configuration.scopes</code>, <code>jwt_configuration.alg</code>, <code>api_type</code>,
-            <code>logo_uri</code>, <code>allowed_clients</code>, <code>owners</code>, <code>custom_login_page</code>,
-            <code>custom_login_page_off</code>, <code>sso</code>, <code>addons</code>, <code>form_template</code>,
-            <code>custom_login_page_codeview</code>, <code>resource_servers</code>, <code>client_metadata</code>,
-            <code>mobile</code>, <code>mobile.android</code>, <code>mobile.ios</code>, <code>allowed_logout_urls</code>,
-            <code>token_endpoint_auth_method</code>, <code>is_first_party</code>, <code>oidc_conformant</code>,
-            <code>is_token_endpoint_ip_header_trusted</code>, <code>initiate_login_uri</code>, <code>grant_types</code>,
-            <code>refresh_token</code>, <code>refresh_token.rotation_type</code>, <code>refresh_token.expiration_type</code>,
-            <code>refresh_token.leeway</code>, <code>refresh_token.token_lifetime</code>, <code>refresh_token.policies</code>, <code>organization_usage</code>,
-            <code>organization_require_behavior</code>.
-          </li>
-          <li>
-            The following properties can only be retrieved with the
-            <code>read:client_keys</code> or <code>read:client_credentials</code> scope:
-            <code>encryption_key</code>, <code>encryption_key.pub</code>, <code>encryption_key.cert</code>,
-            <code>client_secret</code>, <code>client_authentication_methods</code> and <code>signing_key</code>.
-          </li>
-        </ul>
+        - The following can be retrieved with any scope:
+            `client_id`, `app_type`, `name`, and `description`.
+        - The following properties can only be retrieved with the `read:clients` or
+            `read:client_keys` scope:
+            `callbacks`, `oidc_logout`, `allowed_origins`,
+            `web_origins`, `tenant`, `global`, `config_route`,
+            `callback_url_template`, `jwt_configuration`,
+            `jwt_configuration.lifetime_in_seconds`, `jwt_configuration.secret_encoded`,
+            `jwt_configuration.scopes`, `jwt_configuration.alg`, `api_type`,
+            `logo_uri`, `allowed_clients`, `owners`, `custom_login_page`,
+            `custom_login_page_on`, `sso`, `addons`, `form_template`,
+            `custom_login_page_codeview`, `resource_servers`, `client_metadata`,
+            `mobile`, `mobile.android`, `mobile.ios`, `allowed_logout_urls`,
+            `token_endpoint_auth_method`, `is_first_party`, `oidc_conformant`,
+            `is_token_endpoint_ip_header_trusted`, `initiate_login_uri`, `grant_types`,
+            `refresh_token`, `refresh_token.rotation_type`, `refresh_token.expiration_type`,
+            `refresh_token.leeway`, `refresh_token.token_lifetime`, `refresh_token.policies`, `organization_usage`,
+            `organization_require_behavior`.
+        - The following properties can only be retrieved with the
+            `read:client_keys` or `read:client_credentials` scope:
+            `encryption_key`, `encryption_key.pub`, `encryption_key.cert`,
+            `client_secret`, `client_authentication_methods` and `signing_key`.
 
         Parameters
         ----------
@@ -1148,7 +1166,7 @@ class AsyncClientsClient:
             Optional filter by a comma-separated list of application types.
 
         external_client_id : typing.Optional[str]
-            Optional filter by the <a href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-04.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+            Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
 
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
@@ -1255,15 +1273,19 @@ class AsyncClientsClient:
         require_pushed_authorization_requests: typing.Optional[bool] = OMIT,
         require_proof_of_possession: typing.Optional[bool] = OMIT,
         signed_request_object: typing.Optional[ClientSignedRequestObjectWithPublicKey] = OMIT,
+        token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey] = OMIT,
         compliance_level: typing.Optional[ClientComplianceLevelEnum] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         token_exchange: typing.Optional[ClientTokenExchangeConfiguration] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
         resource_server_identifier: typing.Optional[str] = OMIT,
+        identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
+        anonymous_sessions: typing.Optional[CreateAnonymousSessions] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
@@ -1271,20 +1293,20 @@ class AsyncClientsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientResponseContent:
         """
-        Create a new client (application or SSO integration). For more information, read <a href="https://www.auth0.com/docs/get-started/auth0-overview/create-applications">Create Applications</a>
-        <a href="https://www.auth0.com/docs/authenticate/single-sign-on/api-endpoints-for-single-sign-on>">API Endpoints for Single Sign-On</a>.
+        Create a new client (application or SSO integration). For more information, read [Create Applications](https://www.auth0.com/docs/get-started/auth0-overview/create-applications)
+        [API Endpoints for Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on/api-endpoints-for-single-sign-on).
 
         Notes:
         - We recommend leaving the `client_secret` parameter unspecified to allow the generation of a safe secret.
-        - The <code>client_authentication_methods</code> and <code>token_endpoint_auth_method</code> properties are mutually exclusive. Use
-        <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method. Otherwise, use <code>token_endpoint_auth_method</code>
+        - The `client_authentication_methods` and `token_endpoint_auth_method` properties are mutually exclusive. Use
+        `client_authentication_methods` to configure the client with Private Key JWT authentication method. Otherwise, use `token_endpoint_auth_method`
         to configure the client with client secret (basic or post) or with no authentication method (none).
-        - When using <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method, specify fully defined credentials.
+        - When using `client_authentication_methods` to configure the client with Private Key JWT authentication method, specify fully defined credentials.
         These credentials will be automatically enabled for Private Key JWT authentication on the client.
-        - To configure <code>client_authentication_methods</code>, the <code>create:client_credentials</code> scope is required.
-        - To configure <code>client_authentication_methods</code>, the property <code>jwt_configuration.alg</code> must be set to RS256.
+        - To configure `client_authentication_methods`, the `create:client_credentials` scope is required.
+        - To configure `client_authentication_methods`, the property `jwt_configuration.alg` must be set to RS256.
 
-        <div class="alert alert-warning">SSO Integrations created via this endpoint will accept login requests and share user profile information.</div>
+        SSO Integrations created via this endpoint will accept login requests and share user profile information.
 
         Parameters
         ----------
@@ -1400,6 +1422,8 @@ class AsyncClientsClient:
 
         signed_request_object : typing.Optional[ClientSignedRequestObjectWithPublicKey]
 
+        token_vault_privileged_access : typing.Optional[ClientTokenVaultPrivilegedAccessWithPublicKey]
+
         compliance_level : typing.Optional[ClientComplianceLevelEnum]
 
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
@@ -1417,11 +1441,17 @@ class AsyncClientsClient:
         resource_server_identifier : typing.Optional[str]
             The identifier of the resource server that this client is linked to.
 
+        identity_assertion_authorization_grant : typing.Optional[CreateIdentityAssertionAuthorizationGrant]
+
+        anonymous_sessions : typing.Optional[CreateAnonymousSessions]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
         express_configuration : typing.Optional[ExpressConfiguration]
+
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
@@ -1498,15 +1528,19 @@ class AsyncClientsClient:
             require_pushed_authorization_requests=require_pushed_authorization_requests,
             require_proof_of_possession=require_proof_of_possession,
             signed_request_object=signed_request_object,
+            token_vault_privileged_access=token_vault_privileged_access,
             compliance_level=compliance_level,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             token_exchange=token_exchange,
             par_request_expiry=par_request_expiry,
             token_quota=token_quota,
             resource_server_identifier=resource_server_identifier,
+            identity_assertion_authorization_grant=identity_assertion_authorization_grant,
+            anonymous_sessions=anonymous_sessions,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
             express_configuration=express_configuration,
+            b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             request_options=request_options,
@@ -1567,16 +1601,14 @@ class AsyncClientsClient:
         Idempotent registration for Client ID Metadata Document (CIMD) clients.
         Uses external_client_id as the unique identifier for upsert operations.
 
-        <strong>Create:</strong> Returns 201 when a new client is created (requires <code>create:clients</code> scope).
-        <strong>Update:</strong> Returns 200 when an existing client is updated (requires <code>update:clients</code> scope).
+        **Create:** Returns 201 when a new client is created (requires `create:clients` scope).
+        **Update:** Returns 200 when an existing client is updated (requires `update:clients` scope).
 
         This endpoint automatically:
-        <ul>
-          <li>Fetches and validates the metadata document</li>
-          <li>Maps CIMD fields to Auth0 client configuration</li>
-          <li>Creates/rotates credentials from the JWKS</li>
-          <li>Enforces CIMD security policies (HTTPS-only, no shared secrets)</li>
-        </ul>
+        - Fetches and validates the metadata document
+        - Maps CIMD fields to Auth0 client configuration
+        - Creates/rotates credentials from the JWKS
+        - Enforces CIMD security policies (HTTPS-only, no shared secrets)
 
         Parameters
         ----------
@@ -1625,36 +1657,29 @@ class AsyncClientsClient:
     ) -> GetClientResponseContent:
         """
         Retrieve client details by ID. Clients are SSO connections or Applications linked with your Auth0 tenant. A list of fields to include or exclude may also be specified.
-        For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
-        <ul>
-          <li>
-            The following properties can be retrieved with any of the scopes:
-            <code>client_id</code>, <code>app_type</code>, <code>name</code>, and <code>description</code>.
-          </li>
-          <li>
-            The following properties can only be retrieved with the <code>read:clients</code> or
-            <code>read:client_keys</code> scopes:
-            <code>callbacks</code>, <code>oidc_logout</code>, <code>allowed_origins</code>,
-            <code>web_origins</code>, <code>tenant</code>, <code>global</code>, <code>config_route</code>,
-            <code>callback_url_template</code>, <code>jwt_configuration</code>,
-            <code>jwt_configuration.lifetime_in_seconds</code>, <code>jwt_configuration.secret_encoded</code>,
-            <code>jwt_configuration.scopes</code>, <code>jwt_configuration.alg</code>, <code>api_type</code>,
-            <code>logo_uri</code>, <code>allowed_clients</code>, <code>owners</code>, <code>custom_login_page</code>,
-            <code>custom_login_page_off</code>, <code>sso</code>, <code>addons</code>, <code>form_template</code>,
-            <code>custom_login_page_codeview</code>, <code>resource_servers</code>, <code>client_metadata</code>,
-            <code>mobile</code>, <code>mobile.android</code>, <code>mobile.ios</code>, <code>allowed_logout_urls</code>,
-            <code>token_endpoint_auth_method</code>, <code>is_first_party</code>, <code>oidc_conformant</code>,
-            <code>is_token_endpoint_ip_header_trusted</code>, <code>initiate_login_uri</code>, <code>grant_types</code>,
-            <code>refresh_token</code>, <code>refresh_token.rotation_type</code>, <code>refresh_token.expiration_type</code>,
-            <code>refresh_token.leeway</code>, <code>refresh_token.token_lifetime</code>, <code>refresh_token.policies</code>, <code>organization_usage</code>,
-            <code>organization_require_behavior</code>.
-          </li>
-          <li>
-            The following properties can only be retrieved with the <code>read:client_keys</code> or <code>read:client_credentials</code> scopes:
-            <code>encryption_key</code>, <code>encryption_key.pub</code>, <code>encryption_key.cert</code>,
-            <code>client_secret</code>, <code>client_authentication_methods</code> and <code>signing_key</code>.
-          </li>
-        </ul>
+        For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
+
+        - The following properties can be retrieved with any of the scopes:
+            `client_id`, `app_type`, `name`, and `description`.
+        - The following properties can only be retrieved with the `read:clients` or
+            `read:client_keys` scopes:
+            `callbacks`, `oidc_logout`, `allowed_origins`,
+            `web_origins`, `tenant`, `global`, `config_route`,
+            `callback_url_template`, `jwt_configuration`,
+            `jwt_configuration.lifetime_in_seconds`, `jwt_configuration.secret_encoded`,
+            `jwt_configuration.scopes`, `jwt_configuration.alg`, `api_type`,
+            `logo_uri`, `allowed_clients`, `owners`, `custom_login_page`,
+            `custom_login_page_on`, `sso`, `addons`, `form_template`,
+            `custom_login_page_codeview`, `resource_servers`, `client_metadata`,
+            `mobile`, `mobile.android`, `mobile.ios`, `allowed_logout_urls`,
+            `token_endpoint_auth_method`, `is_first_party`, `oidc_conformant`,
+            `is_token_endpoint_ip_header_trusted`, `initiate_login_uri`, `grant_types`,
+            `refresh_token`, `refresh_token.rotation_type`, `refresh_token.expiration_type`,
+            `refresh_token.leeway`, `refresh_token.token_lifetime`, `refresh_token.policies`, `organization_usage`,
+            `organization_require_behavior`.
+        - The following properties can only be retrieved with the `read:client_keys` or `read:client_credentials` scopes:
+            `encryption_key`, `encryption_key.pub`, `encryption_key.cert`,
+            `client_secret`, `client_authentication_methods` and `signing_key`.
 
         Parameters
         ----------
@@ -1772,13 +1797,15 @@ class AsyncClientsClient:
         custom_login_page: typing.Optional[str] = OMIT,
         custom_login_page_preview: typing.Optional[str] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
+        anonymous_sessions: typing.Optional[UpdateAnonymousSessions] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
         mobile: typing.Optional[ClientMobile] = OMIT,
         initiate_login_uri: typing.Optional[str] = OMIT,
-        native_social_login: typing.Optional[NativeSocialLogin] = OMIT,
-        fedcm_login: typing.Optional[FedCmLogin] = OMIT,
+        native_social_login: typing.Optional[NativeSocialLoginPatch] = OMIT,
+        fedcm_login: typing.Optional[FedCmLoginPatch] = OMIT,
         refresh_token: typing.Optional[ClientRefreshTokenConfiguration] = OMIT,
         default_organization: typing.Optional[ClientDefaultOrganization] = OMIT,
         organization_usage: typing.Optional[ClientOrganizationUsagePatchEnum] = OMIT,
@@ -1788,11 +1815,13 @@ class AsyncClientsClient:
         require_pushed_authorization_requests: typing.Optional[bool] = OMIT,
         require_proof_of_possession: typing.Optional[bool] = OMIT,
         signed_request_object: typing.Optional[ClientSignedRequestObjectWithCredentialId] = OMIT,
+        token_vault_privileged_access: typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId] = OMIT,
         compliance_level: typing.Optional[ClientComplianceLevelEnum] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         token_exchange: typing.Optional[ClientTokenExchangeConfigurationOrNull] = OMIT,
         par_request_expiry: typing.Optional[int] = OMIT,
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
+        b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
@@ -1802,15 +1831,15 @@ class AsyncClientsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientResponseContent:
         """
-        Updates a client's settings. For more information, read <a href="https://www.auth0.com/docs/get-started/applications"> Applications in Auth0</a> and <a href="https://www.auth0.com/docs/authenticate/single-sign-on"> Single Sign-On</a>.
+        Updates a client's settings. For more information, read [Applications in Auth0](https://www.auth0.com/docs/get-started/applications) and [Single Sign-On](https://www.auth0.com/docs/authenticate/single-sign-on).
 
         Notes:
         - The `client_secret` and `signing_key` attributes can only be updated with the `update:client_keys` scope.
-        - The <code>client_authentication_methods</code> and <code>token_endpoint_auth_method</code> properties are mutually exclusive. Use <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method. Otherwise, use <code>token_endpoint_auth_method</code> to configure the client with client secret (basic or post) or with no authentication method (none).
-        - When using <code>client_authentication_methods</code> to configure the client with Private Key JWT authentication method, only specify the credential IDs that were generated when creating the credentials on the client.
-        - To configure <code>client_authentication_methods</code>, the <code>update:client_credentials</code> scope is required.
-        - To configure <code>client_authentication_methods</code>, the property <code>jwt_configuration.alg</code> must be set to RS256.
-        - To change a client's <code>is_first_party</code> property to <code>false</code>, the <code>organization_usage</code> and <code>organization_require_behavior</code> properties must be unset.
+        - The `client_authentication_methods` and `token_endpoint_auth_method` properties are mutually exclusive. Use `client_authentication_methods` to configure the client with Private Key JWT authentication method. Otherwise, use `token_endpoint_auth_method` to configure the client with client secret (basic or post) or with no authentication method (none).
+        - When using `client_authentication_methods` to configure the client with Private Key JWT authentication method, only specify the credential IDs that were generated when creating the credentials on the client.
+        - To configure `client_authentication_methods`, the `update:client_credentials` scope is required.
+        - To configure `client_authentication_methods`, the property `jwt_configuration.alg` must be set to RS256.
+        - To change a client's `is_first_party` property to `false`, the `organization_usage` and `organization_require_behavior` properties must be unset.
 
         Parameters
         ----------
@@ -1898,6 +1927,10 @@ class AsyncClientsClient:
 
         token_quota : typing.Optional[UpdateTokenQuota]
 
+        identity_assertion_authorization_grant : typing.Optional[UpdateIdentityAssertionAuthorizationGrant]
+
+        anonymous_sessions : typing.Optional[UpdateAnonymousSessions]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -1911,9 +1944,9 @@ class AsyncClientsClient:
         initiate_login_uri : typing.Optional[str]
             Initiate login uri, must be https
 
-        native_social_login : typing.Optional[NativeSocialLogin]
+        native_social_login : typing.Optional[NativeSocialLoginPatch]
 
-        fedcm_login : typing.Optional[FedCmLogin]
+        fedcm_login : typing.Optional[FedCmLoginPatch]
 
         refresh_token : typing.Optional[ClientRefreshTokenConfiguration]
 
@@ -1936,6 +1969,8 @@ class AsyncClientsClient:
 
         signed_request_object : typing.Optional[ClientSignedRequestObjectWithCredentialId]
 
+        token_vault_privileged_access : typing.Optional[ClientTokenVaultPrivilegedAccessWithCredentialId]
+
         compliance_level : typing.Optional[ClientComplianceLevelEnum]
 
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
@@ -1949,6 +1984,8 @@ class AsyncClientsClient:
             Specifies how long, in seconds, a Pushed Authorization Request URI remains valid
 
         express_configuration : typing.Optional[ExpressConfigurationOrNull]
+
+        b_2_b_integration_configuration : typing.Optional[B2BIntegrationConfiguration]
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
@@ -2016,6 +2053,8 @@ class AsyncClientsClient:
             custom_login_page=custom_login_page,
             custom_login_page_preview=custom_login_page_preview,
             token_quota=token_quota,
+            identity_assertion_authorization_grant=identity_assertion_authorization_grant,
+            anonymous_sessions=anonymous_sessions,
             form_template=form_template,
             addons=addons,
             client_metadata=client_metadata,
@@ -2032,11 +2071,13 @@ class AsyncClientsClient:
             require_pushed_authorization_requests=require_pushed_authorization_requests,
             require_proof_of_possession=require_proof_of_possession,
             signed_request_object=signed_request_object,
+            token_vault_privileged_access=token_vault_privileged_access,
             compliance_level=compliance_level,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             token_exchange=token_exchange,
             par_request_expiry=par_request_expiry,
             express_configuration=express_configuration,
+            b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
@@ -2053,7 +2094,7 @@ class AsyncClientsClient:
 
         This endpoint cannot be used with clients configured with Private Key JWT authentication method (client_authentication_methods configured with private_key_jwt). The generated secret is NOT base64 encoded.
 
-        For more information, read <a href="https://www.auth0.com/docs/get-started/applications/rotate-client-secret">Rotate Client Secrets</a>.
+        For more information, read [Rotate Client Secrets](https://www.auth0.com/docs/get-started/applications/rotate-client-secret).
 
         Parameters
         ----------

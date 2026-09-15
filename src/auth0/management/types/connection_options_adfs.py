@@ -37,6 +37,10 @@ class ConnectionOptionsAdfs(ConnectionOptionsCommon):
             description="The entity identifier (Issuer) for the ADFS Service Provider. When not provided, defaults to 'urn:auth0:{tenant}:{connection}'.",
         ),
     ] = None
+    """
+    The entity identifier (Issuer) for the ADFS Service Provider. When not provided, defaults to 'urn:auth0:{tenant}:{connection}'.
+    """
+
     fed_metadata_xml: typing_extensions.Annotated[
         typing.Optional[ConnectionMetadataXmlAdfs],
         FieldMetadata(alias="fedMetadataXml"),

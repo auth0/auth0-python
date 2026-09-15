@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .session_actor_metadata import SessionActorMetadata
 from .session_authentication_signals import SessionAuthenticationSignals
 from .session_client_metadata import SessionClientMetadata
 from .session_cookie_metadata import SessionCookieMetadata
@@ -38,6 +39,7 @@ class GetSessionResponseContent(UniversalBaseModel):
     authentication: typing.Optional[SessionAuthenticationSignals] = None
     cookie: typing.Optional[SessionCookieMetadata] = None
     session_metadata: typing.Optional[SessionMetadata] = None
+    actor: typing.Optional[SessionActorMetadata] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

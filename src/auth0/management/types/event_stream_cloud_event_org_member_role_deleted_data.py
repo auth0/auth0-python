@@ -6,6 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .event_stream_cloud_event_context import EventStreamCloudEventContext
 from .event_stream_cloud_event_org_member_role_deleted_object import EventStreamCloudEventOrgMemberRoleDeletedObject
+from .event_stream_cloud_event_org_member_role_deleted_previous_object import (
+    EventStreamCloudEventOrgMemberRoleDeletedPreviousObject,
+)
 
 
 class EventStreamCloudEventOrgMemberRoleDeletedData(UniversalBaseModel):
@@ -14,6 +17,7 @@ class EventStreamCloudEventOrgMemberRoleDeletedData(UniversalBaseModel):
     """
 
     object: EventStreamCloudEventOrgMemberRoleDeletedObject
+    previous_object: typing.Optional[EventStreamCloudEventOrgMemberRoleDeletedPreviousObject] = None
     context: typing.Optional[EventStreamCloudEventContext] = None
 
     if IS_PYDANTIC_V2:

@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -50,7 +50,7 @@ class RawInvitationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[OrganizationInvitation, ListOrganizationInvitationsOffsetPaginatedResponseContent]:
         """
-        Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
+        Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review [Invite Organization Members](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members).
 
         Parameters
         ----------
@@ -86,7 +86,7 @@ class RawInvitationsClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/invitations",
+            f"organizations/{quote_path_param(id)}/invitations",
             method="GET",
             params={
                 "page": page,
@@ -108,7 +108,7 @@ class RawInvitationsClient:
                     ),
                 )
                 _items = _parsed_response.invitations
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     page=page + 1,
@@ -200,7 +200,7 @@ class RawInvitationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateOrganizationInvitationResponseContent]:
         """
-        Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
+        Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review [Invite Organization Members](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members).
 
         Parameters
         ----------
@@ -239,7 +239,7 @@ class RawInvitationsClient:
             Invitation successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/invitations",
+            f"organizations/{quote_path_param(id)}/invitations",
             method="POST",
             json={
                 "inviter": convert_and_respect_annotation_metadata(
@@ -369,7 +369,7 @@ class RawInvitationsClient:
             Invitation successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/invitations/{encode_path_param(invitation_id)}",
+            f"organizations/{quote_path_param(id)}/invitations/{quote_path_param(invitation_id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -471,7 +471,7 @@ class RawInvitationsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/invitations/{encode_path_param(invitation_id)}",
+            f"organizations/{quote_path_param(id)}/invitations/{quote_path_param(invitation_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -549,7 +549,7 @@ class AsyncRawInvitationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[OrganizationInvitation, ListOrganizationInvitationsOffsetPaginatedResponseContent]:
         """
-        Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
+        Retrieve a detailed list of invitations sent to users for a specific Organization. The list includes details such as inviter and invitee information, invitation URLs, and dates of creation and expiration. To learn more about Organization invitations, review [Invite Organization Members](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members).
 
         Parameters
         ----------
@@ -585,7 +585,7 @@ class AsyncRawInvitationsClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/invitations",
+            f"organizations/{quote_path_param(id)}/invitations",
             method="GET",
             params={
                 "page": page,
@@ -607,7 +607,7 @@ class AsyncRawInvitationsClient:
                     ),
                 )
                 _items = _parsed_response.invitations
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -702,7 +702,7 @@ class AsyncRawInvitationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateOrganizationInvitationResponseContent]:
         """
-        Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">Invite Organization Members</a>.
+        Create a user invitation for a specific Organization. Upon creation, the listed user receives an email inviting them to join the Organization. To learn more about Organization invitations, review [Invite Organization Members](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members).
 
         Parameters
         ----------
@@ -741,7 +741,7 @@ class AsyncRawInvitationsClient:
             Invitation successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/invitations",
+            f"organizations/{quote_path_param(id)}/invitations",
             method="POST",
             json={
                 "inviter": convert_and_respect_annotation_metadata(
@@ -871,7 +871,7 @@ class AsyncRawInvitationsClient:
             Invitation successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/invitations/{encode_path_param(invitation_id)}",
+            f"organizations/{quote_path_param(id)}/invitations/{quote_path_param(invitation_id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -973,7 +973,7 @@ class AsyncRawInvitationsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/invitations/{encode_path_param(invitation_id)}",
+            f"organizations/{quote_path_param(id)}/invitations/{quote_path_param(invitation_id)}",
             method="DELETE",
             request_options=request_options,
         )

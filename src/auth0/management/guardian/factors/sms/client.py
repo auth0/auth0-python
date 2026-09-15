@@ -189,7 +189,7 @@ class SmsClient:
 
     def get_templates(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetGuardianFactorSmsTemplatesResponseContent:
+    ) -> typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]:
         """
         This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/get-factor-phone-templates">Retrieve enrollment and verification phone templates</a> endpoint instead.
 
@@ -202,7 +202,7 @@ class SmsClient:
 
         Returns
         -------
-        GetGuardianFactorSmsTemplatesResponseContent
+        typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]
             SMS enrollment and verification templates successfully retrieved.
 
         Examples
@@ -465,7 +465,7 @@ class AsyncSmsClient:
 
     async def get_templates(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetGuardianFactorSmsTemplatesResponseContent:
+    ) -> typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]:
         """
         This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/get-factor-phone-templates">Retrieve enrollment and verification phone templates</a> endpoint instead.
 
@@ -478,7 +478,7 @@ class AsyncSmsClient:
 
         Returns
         -------
-        GetGuardianFactorSmsTemplatesResponseContent
+        typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]
             SMS enrollment and verification templates successfully retrieved.
 
         Examples

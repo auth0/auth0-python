@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
+from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -17,6 +18,7 @@ from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.event_stream_delivery import EventStreamDelivery
 from ...types.get_event_stream_delivery_history_response_content import GetEventStreamDeliveryHistoryResponseContent
+from ...types.list_event_stream_deliveries_response_content import ListEventStreamDeliveriesResponseContent
 from pydantic import ValidationError
 
 
@@ -35,7 +37,7 @@ class RawDeliveriesClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[EventStreamDelivery]]:
+    ) -> SyncPager[EventStreamDelivery, ListEventStreamDeliveriesResponseContent]:
         """
         Parameters
         ----------
@@ -65,11 +67,11 @@ class RawDeliveriesClient:
 
         Returns
         -------
-        HttpResponse[typing.List[EventStreamDelivery]]
+        SyncPager[EventStreamDelivery, ListEventStreamDeliveriesResponseContent]
             Event stream deliveries successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"event-streams/{encode_path_param(id)}/deliveries",
+            f"event-streams/{quote_path_param(id)}/deliveries",
             method="GET",
             params={
                 "statuses": statuses,
@@ -83,14 +85,27 @@ class RawDeliveriesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[EventStreamDelivery],
+                _parsed_response = typing.cast(
+                    ListEventStreamDeliveriesResponseContent,
                     parse_obj_as(
-                        type_=typing.List[EventStreamDelivery],  # type: ignore
+                        type_=ListEventStreamDeliveriesResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.deliveries
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    id,
+                    statuses=statuses,
+                    event_types=event_types,
+                    date_from=date_from,
+                    date_to=date_to,
+                    from_=_parsed_next,
+                    take=take,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             if _response.status_code == 400:
                 raise BadRequestError(
                     headers=dict(_response.headers),
@@ -176,7 +191,7 @@ class RawDeliveriesClient:
             Delivery history for event successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"event-streams/{encode_path_param(id)}/deliveries/{encode_path_param(event_id)}",
+            f"event-streams/{quote_path_param(id)}/deliveries/{quote_path_param(event_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -259,7 +274,7 @@ class AsyncRawDeliveriesClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[EventStreamDelivery]]:
+    ) -> AsyncPager[EventStreamDelivery, ListEventStreamDeliveriesResponseContent]:
         """
         Parameters
         ----------
@@ -289,11 +304,11 @@ class AsyncRawDeliveriesClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.List[EventStreamDelivery]]
+        AsyncPager[EventStreamDelivery, ListEventStreamDeliveriesResponseContent]
             Event stream deliveries successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"event-streams/{encode_path_param(id)}/deliveries",
+            f"event-streams/{quote_path_param(id)}/deliveries",
             method="GET",
             params={
                 "statuses": statuses,
@@ -307,14 +322,30 @@ class AsyncRawDeliveriesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[EventStreamDelivery],
+                _parsed_response = typing.cast(
+                    ListEventStreamDeliveriesResponseContent,
                     parse_obj_as(
-                        type_=typing.List[EventStreamDelivery],  # type: ignore
+                        type_=ListEventStreamDeliveriesResponseContent,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.deliveries
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        id,
+                        statuses=statuses,
+                        event_types=event_types,
+                        date_from=date_from,
+                        date_to=date_to,
+                        from_=_parsed_next,
+                        take=take,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             if _response.status_code == 400:
                 raise BadRequestError(
                     headers=dict(_response.headers),
@@ -400,7 +431,7 @@ class AsyncRawDeliveriesClient:
             Delivery history for event successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"event-streams/{encode_path_param(id)}/deliveries/{encode_path_param(event_id)}",
+            f"event-streams/{quote_path_param(id)}/deliveries/{quote_path_param(event_id)}",
             method="GET",
             request_options=request_options,
         )

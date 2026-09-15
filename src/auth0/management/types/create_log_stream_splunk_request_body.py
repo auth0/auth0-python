@@ -24,6 +24,10 @@ class CreateLogStreamSplunkRequestBody(UniversalBaseModel):
         FieldMetadata(alias="isPriority"),
         pydantic.Field(alias="isPriority", description="True for priority log streams, false for non-priority"),
     ] = None
+    """
+    True for priority log streams, false for non-priority
+    """
+
     filters: typing.Optional[typing.List[LogStreamFilter]] = pydantic.Field(default=None)
     """
     Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.
@@ -36,6 +40,9 @@ class CreateLogStreamSplunkRequestBody(UniversalBaseModel):
         FieldMetadata(alias="startFrom"),
         pydantic.Field(alias="startFrom", description="The optional datetime (ISO 8601) to start streaming logs from"),
     ] = None
+    """
+    The optional datetime (ISO 8601) to start streaming logs from
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

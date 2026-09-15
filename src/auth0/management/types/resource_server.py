@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .resource_server_access_token import ResourceServerAccessToken
 from .resource_server_authorization_policy import ResourceServerAuthorizationPolicy
 from .resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
 from .resource_server_proof_of_possession import ResourceServerProofOfPossession
@@ -81,7 +82,13 @@ class ResourceServer(UniversalBaseModel):
     Whether authorization polices are enforced (true) or unenforced (false).
     """
 
+    token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+    """
+
     token_dialect: typing.Optional[ResourceServerTokenDialectResponseEnum] = None
+    access_token: typing.Optional[ResourceServerAccessToken] = None
     token_encryption: typing.Optional[ResourceServerTokenEncryption] = None
     consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = None
     authorization_details: typing.Optional[typing.List[typing.Any]] = None

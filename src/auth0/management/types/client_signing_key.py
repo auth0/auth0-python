@@ -14,6 +14,10 @@ class ClientSigningKey(UniversalBaseModel):
         FieldMetadata(alias="pkcs7"),
         pydantic.Field(alias="pkcs7", description="Signing certificate public key and chain in PKCS#7 (.P7B) format."),
     ] = None
+    """
+    Signing certificate public key and chain in PKCS#7 (.P7B) format.
+    """
+
     cert: typing.Optional[str] = pydantic.Field(default=None)
     """
     Signing certificate public key in X.509 (.CER) format.

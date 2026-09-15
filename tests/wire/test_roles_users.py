@@ -7,10 +7,11 @@ def test_roles_users_list_() -> None:
     client = get_client(test_id)
     client.roles.users.list(
         id="id",
+        include_totals=True,
         from_="from",
         take=1,
     )
-    verify_request_count(test_id, "GET", "/roles/id/users", {"from": "from", "take": "1"}, 1)
+    verify_request_count(test_id, "GET", "/roles/id/users", {"include_totals": "true", "from": "from", "take": "1"}, 1)
 
 
 def test_roles_users_assign() -> None:

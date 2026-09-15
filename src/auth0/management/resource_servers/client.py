@@ -11,13 +11,18 @@ from ..types.list_resource_server_offset_paginated_response_content import (
     ListResourceServerOffsetPaginatedResponseContent,
 )
 from ..types.resource_server import ResourceServer
+from ..types.resource_server_access_token import ResourceServerAccessToken
 from ..types.resource_server_authorization_policy import ResourceServerAuthorizationPolicy
 from ..types.resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
 from ..types.resource_server_proof_of_possession import ResourceServerProofOfPossession
 from ..types.resource_server_scope import ResourceServerScope
+from ..types.resource_server_search_response import ResourceServerSearchResponse
+from ..types.resource_server_sort_field_enum import ResourceServerSortFieldEnum
 from ..types.resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
 from ..types.resource_server_token_dialect_schema_enum import ResourceServerTokenDialectSchemaEnum
 from ..types.resource_server_token_encryption import ResourceServerTokenEncryption
+from ..types.search_parser_enum import SearchParserEnum
+from ..types.search_resource_servers_response_content import SearchResourceServersResponseContent
 from ..types.signing_algorithm_enum import SigningAlgorithmEnum
 from ..types.update_resource_server_response_content import UpdateResourceServerResponseContent
 from .raw_client import AsyncRawResourceServersClient, RawResourceServersClient
@@ -120,9 +125,11 @@ class ResourceServersClient:
         allow_online_access: typing.Optional[bool] = OMIT,
         allow_online_access_with_ephemeral_sessions: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
+        token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
@@ -162,6 +169,9 @@ class ResourceServersClient:
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
 
+        token_lifetime_for_anonymous_access_tokens : typing.Optional[int]
+            Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+
         token_dialect : typing.Optional[ResourceServerTokenDialectSchemaEnum]
 
         skip_consent_for_verifiable_first_party_clients : typing.Optional[bool]
@@ -169,6 +179,8 @@ class ResourceServersClient:
 
         enforce_policies : typing.Optional[bool]
             Whether to enforce authorization policies (true) or to ignore them (false).
+
+        access_token : typing.Optional[ResourceServerAccessToken]
 
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
@@ -211,9 +223,11 @@ class ResourceServersClient:
             allow_online_access=allow_online_access,
             allow_online_access_with_ephemeral_sessions=allow_online_access_with_ephemeral_sessions,
             token_lifetime=token_lifetime,
+            token_lifetime_for_anonymous_access_tokens=token_lifetime_for_anonymous_access_tokens,
             token_dialect=token_dialect,
             skip_consent_for_verifiable_first_party_clients=skip_consent_for_verifiable_first_party_clients,
             enforce_policies=enforce_policies,
+            access_token=access_token,
             token_encryption=token_encryption,
             consent_policy=consent_policy,
             authorization_details=authorization_details,
@@ -223,6 +237,88 @@ class ResourceServersClient:
             request_options=request_options,
         )
         return _response.data
+
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ResourceServerSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ResourceServerSearchResponse, SearchResourceServersResponseContent]:
+        """
+        Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+        Results may not reflect recent updates immediately.
+
+        The `signing_secret` field is not supported by this endpoint.
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "My API"`, `identifier sw "https://"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Filter by resource server ID</li><li><i>identifier</i> - Filter by resource server identifier</li><li><i>name</i> - Filter by resource server name</li><li><i>updated_at</i> - Filter by last update date</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ResourceServerSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ResourceServerSearchResponse, SearchResourceServersResponseContent]
+            Resource servers successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.resource_servers.search(
+            q="q",
+            parser="scim",
+            fields="fields",
+            include_fields=True,
+            take=1,
+            from_="from",
+            sort="identifier",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.search(
+            q=q,
+            parser=parser,
+            fields=fields,
+            include_fields=include_fields,
+            take=take,
+            from_=from_,
+            sort=sort,
+            request_options=request_options,
+        )
 
     def get(
         self,
@@ -308,8 +404,10 @@ class ResourceServersClient:
         allow_online_access: typing.Optional[bool] = OMIT,
         allow_online_access_with_ephemeral_sessions: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
+        token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
@@ -352,10 +450,15 @@ class ResourceServersClient:
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
 
+        token_lifetime_for_anonymous_access_tokens : typing.Optional[int]
+            Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+
         token_dialect : typing.Optional[ResourceServerTokenDialectSchemaEnum]
 
         enforce_policies : typing.Optional[bool]
             Whether authorization policies are enforced (true) or not enforced (false).
+
+        access_token : typing.Optional[ResourceServerAccessToken]
 
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
@@ -399,8 +502,10 @@ class ResourceServersClient:
             allow_online_access=allow_online_access,
             allow_online_access_with_ephemeral_sessions=allow_online_access_with_ephemeral_sessions,
             token_lifetime=token_lifetime,
+            token_lifetime_for_anonymous_access_tokens=token_lifetime_for_anonymous_access_tokens,
             token_dialect=token_dialect,
             enforce_policies=enforce_policies,
+            access_token=access_token,
             token_encryption=token_encryption,
             consent_policy=consent_policy,
             authorization_details=authorization_details,
@@ -515,9 +620,11 @@ class AsyncResourceServersClient:
         allow_online_access: typing.Optional[bool] = OMIT,
         allow_online_access_with_ephemeral_sessions: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
+        token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
@@ -557,6 +664,9 @@ class AsyncResourceServersClient:
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
 
+        token_lifetime_for_anonymous_access_tokens : typing.Optional[int]
+            Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+
         token_dialect : typing.Optional[ResourceServerTokenDialectSchemaEnum]
 
         skip_consent_for_verifiable_first_party_clients : typing.Optional[bool]
@@ -564,6 +674,8 @@ class AsyncResourceServersClient:
 
         enforce_policies : typing.Optional[bool]
             Whether to enforce authorization policies (true) or to ignore them (false).
+
+        access_token : typing.Optional[ResourceServerAccessToken]
 
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
@@ -614,9 +726,11 @@ class AsyncResourceServersClient:
             allow_online_access=allow_online_access,
             allow_online_access_with_ephemeral_sessions=allow_online_access_with_ephemeral_sessions,
             token_lifetime=token_lifetime,
+            token_lifetime_for_anonymous_access_tokens=token_lifetime_for_anonymous_access_tokens,
             token_dialect=token_dialect,
             skip_consent_for_verifiable_first_party_clients=skip_consent_for_verifiable_first_party_clients,
             enforce_policies=enforce_policies,
+            access_token=access_token,
             token_encryption=token_encryption,
             consent_policy=consent_policy,
             authorization_details=authorization_details,
@@ -626,6 +740,97 @@ class AsyncResourceServersClient:
             request_options=request_options,
         )
         return _response.data
+
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ResourceServerSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ResourceServerSearchResponse, SearchResourceServersResponseContent]:
+        """
+        Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+        Results may not reflect recent updates immediately.
+
+        The `signing_secret` field is not supported by this endpoint.
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "My API"`, `identifier sw "https://"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Filter by resource server ID</li><li><i>identifier</i> - Filter by resource server identifier</li><li><i>name</i> - Filter by resource server name</li><li><i>updated_at</i> - Filter by last update date</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ResourceServerSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ResourceServerSearchResponse, SearchResourceServersResponseContent]
+            Resource servers successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.resource_servers.search(
+                q="q",
+                parser="scim",
+                fields="fields",
+                include_fields=True,
+                take=1,
+                from_="from",
+                sort="identifier",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.search(
+            q=q,
+            parser=parser,
+            fields=fields,
+            include_fields=include_fields,
+            take=take,
+            from_=from_,
+            sort=sort,
+            request_options=request_options,
+        )
 
     async def get(
         self,
@@ -727,8 +932,10 @@ class AsyncResourceServersClient:
         allow_online_access: typing.Optional[bool] = OMIT,
         allow_online_access_with_ephemeral_sessions: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
+        token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
@@ -771,10 +978,15 @@ class AsyncResourceServersClient:
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
 
+        token_lifetime_for_anonymous_access_tokens : typing.Optional[int]
+            Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+
         token_dialect : typing.Optional[ResourceServerTokenDialectSchemaEnum]
 
         enforce_policies : typing.Optional[bool]
             Whether authorization policies are enforced (true) or not enforced (false).
+
+        access_token : typing.Optional[ResourceServerAccessToken]
 
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
@@ -826,8 +1038,10 @@ class AsyncResourceServersClient:
             allow_online_access=allow_online_access,
             allow_online_access_with_ephemeral_sessions=allow_online_access_with_ephemeral_sessions,
             token_lifetime=token_lifetime,
+            token_lifetime_for_anonymous_access_tokens=token_lifetime_for_anonymous_access_tokens,
             token_dialect=token_dialect,
             enforce_policies=enforce_policies,
+            access_token=access_token,
             token_encryption=token_encryption,
             consent_policy=consent_policy,
             authorization_details=authorization_details,

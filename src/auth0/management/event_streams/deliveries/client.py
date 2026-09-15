@@ -3,9 +3,11 @@
 import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from ...types.event_stream_delivery import EventStreamDelivery
 from ...types.get_event_stream_delivery_history_response_content import GetEventStreamDeliveryHistoryResponseContent
+from ...types.list_event_stream_deliveries_response_content import ListEventStreamDeliveriesResponseContent
 from .raw_client import AsyncRawDeliveriesClient, RawDeliveriesClient
 
 
@@ -35,7 +37,7 @@ class DeliveriesClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[EventStreamDelivery]:
+    ) -> SyncPager[EventStreamDelivery, ListEventStreamDeliveriesResponseContent]:
         """
         Parameters
         ----------
@@ -65,7 +67,7 @@ class DeliveriesClient:
 
         Returns
         -------
-        typing.List[EventStreamDelivery]
+        SyncPager[EventStreamDelivery, ListEventStreamDeliveriesResponseContent]
             Event stream deliveries successfully retrieved.
 
         Examples
@@ -75,7 +77,7 @@ class DeliveriesClient:
         client = Auth0(
             token="YOUR_TOKEN",
         )
-        client.event_streams.deliveries.list(
+        response = client.event_streams.deliveries.list(
             id="id",
             statuses="statuses",
             event_types="event_types",
@@ -84,8 +86,13 @@ class DeliveriesClient:
             from_="from",
             take=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             id,
             statuses=statuses,
             event_types=event_types,
@@ -95,7 +102,6 @@ class DeliveriesClient:
             take=take,
             request_options=request_options,
         )
-        return _response.data
 
     def get_history(
         self, id: str, event_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -159,7 +165,7 @@ class AsyncDeliveriesClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[EventStreamDelivery]:
+    ) -> AsyncPager[EventStreamDelivery, ListEventStreamDeliveriesResponseContent]:
         """
         Parameters
         ----------
@@ -189,7 +195,7 @@ class AsyncDeliveriesClient:
 
         Returns
         -------
-        typing.List[EventStreamDelivery]
+        AsyncPager[EventStreamDelivery, ListEventStreamDeliveriesResponseContent]
             Event stream deliveries successfully retrieved.
 
         Examples
@@ -204,7 +210,7 @@ class AsyncDeliveriesClient:
 
 
         async def main() -> None:
-            await client.event_streams.deliveries.list(
+            response = await client.event_streams.deliveries.list(
                 id="id",
                 statuses="statuses",
                 event_types="event_types",
@@ -213,11 +219,17 @@ class AsyncDeliveriesClient:
                 from_="from",
                 take=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             id,
             statuses=statuses,
             event_types=event_types,
@@ -227,7 +239,6 @@ class AsyncDeliveriesClient:
             take=take,
             request_options=request_options,
         )
-        return _response.data
 
     async def get_history(
         self, id: str, event_id: str, *, request_options: typing.Optional[RequestOptions] = None

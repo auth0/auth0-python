@@ -68,7 +68,7 @@ class EventsClient:
         response = client.events.subscribe(
             from_="from",
             from_timestamp="from_timestamp",
-            event_type=["group.created"],
+            event_type=["connection.created"],
         )
         for chunk in response:
             yield chunk
@@ -143,7 +143,7 @@ class AsyncEventsClient:
             response = await client.events.subscribe(
                 from_="from",
                 from_timestamp="from_timestamp",
-                event_type=["group.created"],
+                event_type=["connection.created"],
             )
             async for chunk in response:
                 yield chunk

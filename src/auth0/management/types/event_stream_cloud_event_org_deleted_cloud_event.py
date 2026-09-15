@@ -12,6 +12,7 @@ from .event_stream_cloud_event_org_deleted_cloud_event_type_enum import (
     EventStreamCloudEventOrgDeletedCloudEventTypeEnum,
 )
 from .event_stream_cloud_event_org_deleted_data import EventStreamCloudEventOrgDeletedData
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 
 
 class EventStreamCloudEventOrgDeletedCloudEvent(UniversalBaseModel):
@@ -19,11 +20,7 @@ class EventStreamCloudEventOrgDeletedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when an organization is deleted.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventOrgDeletedCloudEventTypeEnum
     source: str = pydantic.Field()
     """
@@ -46,6 +43,10 @@ class EventStreamCloudEventOrgDeletedCloudEvent(UniversalBaseModel):
         FieldMetadata(alias="a0tenant"),
         pydantic.Field(alias="a0tenant", description="The auth0 tenant ID to which the event is associated."),
     ]
+    """
+    The auth0 tenant ID to which the event is associated.
+    """
+
     a_0_stream: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="a0stream"),
@@ -53,6 +54,10 @@ class EventStreamCloudEventOrgDeletedCloudEvent(UniversalBaseModel):
             alias="a0stream", description="The auth0 event stream ID of the stream the event was delivered on."
         ),
     ]
+    """
+    The auth0 event stream ID of the stream the event was delivered on.
+    """
+
     a_0_purpose: typing_extensions.Annotated[
         typing.Optional[EventStreamCloudEventA0PurposeEnum],
         FieldMetadata(alias="a0purpose"),

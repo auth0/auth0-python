@@ -6,12 +6,13 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.bad_request_error import BadRequestError
+from ...errors.conflict_error import ConflictError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
@@ -25,6 +26,7 @@ from ...types.self_service_profile_sso_ticket_domain_aliases_config import (
 from ...types.self_service_profile_sso_ticket_enabled_features import SelfServiceProfileSsoTicketEnabledFeatures
 from ...types.self_service_profile_sso_ticket_enabled_organization import SelfServiceProfileSsoTicketEnabledOrganization
 from ...types.self_service_profile_sso_ticket_provisioning_config import SelfServiceProfileSsoTicketProvisioningConfig
+from ...types.third_party_client_access_config import ThirdPartyClientAccessConfig
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -47,6 +49,7 @@ class RawSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        third_party_client_access_config: typing.Optional[ThirdPartyClientAccessConfig] = OMIT,
         enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
@@ -79,6 +82,8 @@ class RawSsoTicketClient:
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
+        third_party_client_access_config : typing.Optional[ThirdPartyClientAccessConfig]
+
         enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
 
         request_options : typing.Optional[RequestOptions]
@@ -90,7 +95,7 @@ class RawSsoTicketClient:
             Self-Service Enterprise Configuration Access Ticket successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{encode_path_param(id)}/sso-ticket",
+            f"self-service-profiles/{quote_path_param(id)}/sso-ticket",
             method="POST",
             json={
                 "connection_id": connection_id,
@@ -115,6 +120,9 @@ class RawSsoTicketClient:
                     direction="write",
                 ),
                 "use_for_organization_discovery": use_for_organization_discovery,
+                "third_party_client_access_config": convert_and_respect_annotation_metadata(
+                    object_=third_party_client_access_config, annotation=ThirdPartyClientAccessConfig, direction="write"
+                ),
                 "enabled_features": convert_and_respect_annotation_metadata(
                     object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
                 ),
@@ -168,6 +176,17 @@ class RawSsoTicketClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -211,7 +230,7 @@ class RawSsoTicketClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{encode_path_param(profile_id)}/sso-ticket/{encode_path_param(id)}/revoke",
+            f"self-service-profiles/{quote_path_param(profile_id)}/sso-ticket/{quote_path_param(id)}/revoke",
             method="POST",
             request_options=request_options,
         )
@@ -277,6 +296,7 @@ class AsyncRawSsoTicketClient:
         domain_aliases_config: typing.Optional[SelfServiceProfileSsoTicketDomainAliasesConfig] = OMIT,
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
+        third_party_client_access_config: typing.Optional[ThirdPartyClientAccessConfig] = OMIT,
         enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
@@ -309,6 +329,8 @@ class AsyncRawSsoTicketClient:
         use_for_organization_discovery : typing.Optional[bool]
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
+        third_party_client_access_config : typing.Optional[ThirdPartyClientAccessConfig]
+
         enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
 
         request_options : typing.Optional[RequestOptions]
@@ -320,7 +342,7 @@ class AsyncRawSsoTicketClient:
             Self-Service Enterprise Configuration Access Ticket successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{encode_path_param(id)}/sso-ticket",
+            f"self-service-profiles/{quote_path_param(id)}/sso-ticket",
             method="POST",
             json={
                 "connection_id": connection_id,
@@ -345,6 +367,9 @@ class AsyncRawSsoTicketClient:
                     direction="write",
                 ),
                 "use_for_organization_discovery": use_for_organization_discovery,
+                "third_party_client_access_config": convert_and_respect_annotation_metadata(
+                    object_=third_party_client_access_config, annotation=ThirdPartyClientAccessConfig, direction="write"
+                ),
                 "enabled_features": convert_and_respect_annotation_metadata(
                     object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
                 ),
@@ -398,6 +423,17 @@ class AsyncRawSsoTicketClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -441,7 +477,7 @@ class AsyncRawSsoTicketClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"self-service-profiles/{encode_path_param(profile_id)}/sso-ticket/{encode_path_param(id)}/revoke",
+            f"self-service-profiles/{quote_path_param(profile_id)}/sso-ticket/{quote_path_param(id)}/revoke",
             method="POST",
             request_options=request_options,
         )

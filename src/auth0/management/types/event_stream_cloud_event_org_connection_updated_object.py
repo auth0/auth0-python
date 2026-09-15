@@ -10,6 +10,9 @@ from .event_stream_cloud_event_org_connection_updated_object_connection import (
 from .event_stream_cloud_event_org_connection_updated_object_organization import (
     EventStreamCloudEventOrgConnectionUpdatedObjectOrganization,
 )
+from .event_stream_cloud_event_org_connection_updated_object_organization_access_level import (
+    EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel,
+)
 
 
 class EventStreamCloudEventOrgConnectionUpdatedObject(UniversalBaseModel):
@@ -37,6 +40,15 @@ class EventStreamCloudEventOrgConnectionUpdatedObject(UniversalBaseModel):
     Determines whether organization signup should be enabled for this organization connection.
     Only applicable for database connections.
     """
+
+    is_enabled: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Determines whether the connection is enabled for the organization.
+    """
+
+    organization_access_level: typing.Optional[
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

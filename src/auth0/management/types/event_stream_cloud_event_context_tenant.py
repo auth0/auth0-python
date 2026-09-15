@@ -11,9 +11,9 @@ class EventStreamCloudEventContextTenant(UniversalBaseModel):
     Reference to a tenant in event context
     """
 
-    tenant_id: str = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Machine-generated unique tenant identifier.
+    User-provided tenant identifier.
     """
 
     if IS_PYDANTIC_V2:

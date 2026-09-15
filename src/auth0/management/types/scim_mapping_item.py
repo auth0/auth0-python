@@ -14,6 +14,10 @@ class ScimMappingItem(UniversalBaseModel):
         FieldMetadata(alias="auth0"),
         pydantic.Field(alias="auth0", description="The field location in the auth0 schema"),
     ] = None
+    """
+    The field location in the auth0 schema
+    """
+
     scim: typing.Optional[str] = pydantic.Field(default=None)
     """
     The field location in the SCIM schema

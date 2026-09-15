@@ -40,6 +40,9 @@ class ConnectionGatewayAuthentication(UniversalBaseModel):
             alias="secret_base64_encoded", description="Set to true if the provided secret is base64 encoded."
         ),
     ] = None
+    """
+    Set to true if the provided secret is base64 encoded.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

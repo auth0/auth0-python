@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -87,7 +87,7 @@ class RawNetworkAclsClient:
                     ),
                 )
                 _items = _parsed_response.network_acls
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     page=page + 1,
                     per_page=per_page,
@@ -294,7 +294,7 @@ class RawNetworkAclsClient:
             Network access control list successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"network-acls/{encode_path_param(id)}",
+            f"network-acls/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -398,7 +398,7 @@ class RawNetworkAclsClient:
             Network ACL properties successfully updated
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"network-acls/{encode_path_param(id)}",
+            f"network-acls/{quote_path_param(id)}",
             method="PUT",
             json={
                 "description": description,
@@ -505,7 +505,7 @@ class RawNetworkAclsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"network-acls/{encode_path_param(id)}",
+            f"network-acls/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -613,7 +613,7 @@ class RawNetworkAclsClient:
             Network ACL properties successfully updated
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"network-acls/{encode_path_param(id)}",
+            f"network-acls/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "description": description,
@@ -760,7 +760,7 @@ class AsyncRawNetworkAclsClient:
                     ),
                 )
                 _items = _parsed_response.network_acls
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -970,7 +970,7 @@ class AsyncRawNetworkAclsClient:
             Network access control list successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"network-acls/{encode_path_param(id)}",
+            f"network-acls/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1074,7 +1074,7 @@ class AsyncRawNetworkAclsClient:
             Network ACL properties successfully updated
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"network-acls/{encode_path_param(id)}",
+            f"network-acls/{quote_path_param(id)}",
             method="PUT",
             json={
                 "description": description,
@@ -1183,7 +1183,7 @@ class AsyncRawNetworkAclsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"network-acls/{encode_path_param(id)}",
+            f"network-acls/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1291,7 +1291,7 @@ class AsyncRawNetworkAclsClient:
             Network ACL properties successfully updated
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"network-acls/{encode_path_param(id)}",
+            f"network-acls/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "description": description,
