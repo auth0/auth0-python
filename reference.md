@@ -12748,6 +12748,14 @@ client.resource_servers.create(
 <dl>
 <dd>
 
+**access_token:** `typing.Optional[ResourceServerAccessToken]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **token_encryption:** `typing.Optional[ResourceServerTokenEncryption]` 
     
 </dd>
@@ -13243,6 +13251,14 @@ client.resource_servers.update(
 <dd>
 
 **enforce_policies:** `typing.Optional[bool]` — Whether authorization policies are enforced (true) or not enforced (false).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**access_token:** `typing.Optional[ResourceServerAccessToken]` 
     
 </dd>
 </dl>
@@ -33106,6 +33122,14 @@ client.organizations.connections.create(
 <dl>
 <dd>
 
+**organization_member_access_level:** `typing.Optional[OrganizationMemberAccessLevelEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **is_enabled:** `typing.Optional[bool]` — Whether the connection is enabled for the organization.
     
 </dd>
@@ -33351,6 +33375,14 @@ client.organizations.connections.update(
 <dd>
 
 **organization_access_level:** `typing.Optional[OrganizationAccessLevelEnumWithNull]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**organization_member_access_level:** `typing.Optional[OrganizationMemberAccessLevelEnumWithNull]` 
     
 </dd>
 </dl>
@@ -39010,6 +39042,14 @@ client.tenants.settings.update()
 <dd>
 
 **enabled_locales:** `typing.Optional[typing.List[TenantSettingsSupportedLocalesEnum]]` — Supported locales for the user interface
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**access_token:** `typing.Optional[ResourceServerAccessToken]` 
     
 </dd>
 </dl>

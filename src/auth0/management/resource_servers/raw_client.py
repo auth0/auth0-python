@@ -26,6 +26,7 @@ from ..types.list_resource_server_offset_paginated_response_content import (
     ListResourceServerOffsetPaginatedResponseContent,
 )
 from ..types.resource_server import ResourceServer
+from ..types.resource_server_access_token import ResourceServerAccessToken
 from ..types.resource_server_authorization_policy import ResourceServerAuthorizationPolicy
 from ..types.resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
 from ..types.resource_server_proof_of_possession import ResourceServerProofOfPossession
@@ -190,6 +191,7 @@ class RawResourceServersClient:
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
@@ -240,6 +242,8 @@ class RawResourceServersClient:
         enforce_policies : typing.Optional[bool]
             Whether to enforce authorization policies (true) or to ignore them (false).
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
@@ -279,6 +283,9 @@ class RawResourceServersClient:
                 "token_dialect": token_dialect,
                 "skip_consent_for_verifiable_first_party_clients": skip_consent_for_verifiable_first_party_clients,
                 "enforce_policies": enforce_policies,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "token_encryption": convert_and_respect_annotation_metadata(
                     object_=token_encryption,
                     annotation=typing.Optional[ResourceServerTokenEncryption],
@@ -755,6 +762,7 @@ class RawResourceServersClient:
         token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
@@ -805,6 +813,8 @@ class RawResourceServersClient:
         enforce_policies : typing.Optional[bool]
             Whether authorization policies are enforced (true) or not enforced (false).
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
@@ -843,6 +853,9 @@ class RawResourceServersClient:
                 "token_lifetime_for_anonymous_access_tokens": token_lifetime_for_anonymous_access_tokens,
                 "token_dialect": token_dialect,
                 "enforce_policies": enforce_policies,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "token_encryption": convert_and_respect_annotation_metadata(
                     object_=token_encryption,
                     annotation=typing.Optional[ResourceServerTokenEncryption],
@@ -1095,6 +1108,7 @@ class AsyncRawResourceServersClient:
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
@@ -1145,6 +1159,8 @@ class AsyncRawResourceServersClient:
         enforce_policies : typing.Optional[bool]
             Whether to enforce authorization policies (true) or to ignore them (false).
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
@@ -1184,6 +1200,9 @@ class AsyncRawResourceServersClient:
                 "token_dialect": token_dialect,
                 "skip_consent_for_verifiable_first_party_clients": skip_consent_for_verifiable_first_party_clients,
                 "enforce_policies": enforce_policies,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "token_encryption": convert_and_respect_annotation_metadata(
                     object_=token_encryption,
                     annotation=typing.Optional[ResourceServerTokenEncryption],
@@ -1665,6 +1684,7 @@ class AsyncRawResourceServersClient:
         token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
@@ -1715,6 +1735,8 @@ class AsyncRawResourceServersClient:
         enforce_policies : typing.Optional[bool]
             Whether authorization policies are enforced (true) or not enforced (false).
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
@@ -1753,6 +1775,9 @@ class AsyncRawResourceServersClient:
                 "token_lifetime_for_anonymous_access_tokens": token_lifetime_for_anonymous_access_tokens,
                 "token_dialect": token_dialect,
                 "enforce_policies": enforce_policies,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "token_encryption": convert_and_respect_annotation_metadata(
                     object_=token_encryption,
                     annotation=typing.Optional[ResourceServerTokenEncryption],

@@ -16,6 +16,7 @@ from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.default_token_quota import DefaultTokenQuota
 from ...types.get_tenant_settings_response_content import GetTenantSettingsResponseContent
+from ...types.resource_server_access_token import ResourceServerAccessToken
 from ...types.session_cookie_schema import SessionCookieSchema
 from ...types.tenant_oidc_logout_settings import TenantOidcLogoutSettings
 from ...types.tenant_settings_country_codes import TenantSettingsCountryCodes
@@ -169,6 +170,7 @@ class RawSettingsClient:
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
         enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
@@ -265,6 +267,8 @@ class RawSettingsClient:
 
         enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
+
+        access_token : typing.Optional[ResourceServerAccessToken]
 
         security_headers : typing.Optional[TenantSettingsNullableSecurityHeaders]
 
@@ -363,6 +367,9 @@ class RawSettingsClient:
                 "legacy_sandbox_version": legacy_sandbox_version,
                 "default_redirection_uri": default_redirection_uri,
                 "enabled_locales": enabled_locales,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "security_headers": convert_and_respect_annotation_metadata(
                     object_=security_headers,
                     annotation=typing.Optional[TenantSettingsNullableSecurityHeaders],
@@ -596,6 +603,7 @@ class AsyncRawSettingsClient:
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
         enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
@@ -692,6 +700,8 @@ class AsyncRawSettingsClient:
 
         enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
+
+        access_token : typing.Optional[ResourceServerAccessToken]
 
         security_headers : typing.Optional[TenantSettingsNullableSecurityHeaders]
 
@@ -790,6 +800,9 @@ class AsyncRawSettingsClient:
                 "legacy_sandbox_version": legacy_sandbox_version,
                 "default_redirection_uri": default_redirection_uri,
                 "enabled_locales": enabled_locales,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "security_headers": convert_and_respect_annotation_metadata(
                     object_=security_headers,
                     annotation=typing.Optional[TenantSettingsNullableSecurityHeaders],

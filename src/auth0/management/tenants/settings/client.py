@@ -6,6 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.default_token_quota import DefaultTokenQuota
 from ...types.get_tenant_settings_response_content import GetTenantSettingsResponseContent
+from ...types.resource_server_access_token import ResourceServerAccessToken
 from ...types.session_cookie_schema import SessionCookieSchema
 from ...types.tenant_oidc_logout_settings import TenantOidcLogoutSettings
 from ...types.tenant_settings_country_codes import TenantSettingsCountryCodes
@@ -113,6 +114,7 @@ class SettingsClient:
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
         enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
@@ -210,6 +212,8 @@ class SettingsClient:
         enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         security_headers : typing.Optional[TenantSettingsNullableSecurityHeaders]
 
         session_cookie : typing.Optional[SessionCookieSchema]
@@ -301,6 +305,7 @@ class SettingsClient:
             legacy_sandbox_version=legacy_sandbox_version,
             default_redirection_uri=default_redirection_uri,
             enabled_locales=enabled_locales,
+            access_token=access_token,
             security_headers=security_headers,
             session_cookie=session_cookie,
             sessions=sessions,
@@ -418,6 +423,7 @@ class AsyncSettingsClient:
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
         enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
@@ -514,6 +520,8 @@ class AsyncSettingsClient:
 
         enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
+
+        access_token : typing.Optional[ResourceServerAccessToken]
 
         security_headers : typing.Optional[TenantSettingsNullableSecurityHeaders]
 
@@ -614,6 +622,7 @@ class AsyncSettingsClient:
             legacy_sandbox_version=legacy_sandbox_version,
             default_redirection_uri=default_redirection_uri,
             enabled_locales=enabled_locales,
+            access_token=access_token,
             security_headers=security_headers,
             session_cookie=session_cookie,
             sessions=sessions,

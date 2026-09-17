@@ -85,7 +85,13 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.26.0
-current_generation: 29398c8e076021d0cce84a2ab2c4e4a2f7bff601
+  - commit_sha: 193c5b32c22bbefb59df79172f03574bdc409a5c
+    tree_hash: 3b87618efe45d6130392f9470f675eb901e2d453
+    timestamp: 2026-09-15T11:36:26.380Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.26.0
+current_generation: 193c5b32c22bbefb59df79172f03574bdc409a5c
 patches:
   - id: patch-4894603d
     content_hash: sha256:fc35b55720e7e9e354dca29191c5832b7e242ad21ba635310c698ea2c3b70a00
@@ -9027,16 +9033,16 @@ patches:
                 return headers
     status: resolving
   - id: patch-c04f0b4d
-    content_hash: sha256:0efa9bc9e6f16dd1f574dc20b6a80a0649bbacd1b244f12c33bd5019a26aac70
+    content_hash: sha256:d81b346f6b8180a73e2f451377ba6365bd7086e80b1eb22b2d694648365be947
     original_commit: c04f0b4dbbe8f2300f4f1bf42f62350888a92da5
     original_message: Fix for incorrect return type and missing __all__ type
     original_author: Sourav Basu <sourav.basu@okta.com>
-    base_generation: 29398c8e076021d0cce84a2ab2c4e4a2f7bff601
+    base_generation: 193c5b32c22bbefb59df79172f03574bdc409a5c
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index d9396e43..8fe7ccdf 100644
+      index 6d53c2e2..c07ffb67 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
       @@ -2490,6 +2490,8 @@ if typing.TYPE_CHECKING:
@@ -9048,7 +9054,7 @@ patches:
                FlowAction,
                FlowActionActivecampaign,
                FlowActionActivecampaignListContacts,
-      @@ -3880,6 +3882,8 @@ if typing.TYPE_CHECKING:
+      @@ -3886,6 +3888,8 @@ if typing.TYPE_CHECKING:
            from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
            from .token_provider import AsyncTokenProvider, TokenProvider
            from .version import __version__
@@ -9057,7 +9063,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -4957,6 +4961,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -4963,6 +4967,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CspReportingEndpoints": ".types",
            "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
@@ -9065,7 +9071,7 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainHeader": ".management_client",
-      @@ -6376,6 +6381,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -6382,6 +6387,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "FedCmLoginGoogle": ".types",
            "FedCmLoginGooglePatch": ".types",
            "FedCmLoginPatch": ".types",
@@ -9074,7 +9080,7 @@ patches:
            "FlowAction": ".types",
            "FlowActionActivecampaign": ".types",
            "FlowActionActivecampaignListContacts": ".types",
-      @@ -8855,6 +8862,7 @@ __all__ = [
+      @@ -8867,6 +8874,7 @@ __all__ = [
            "CspReportingEndpoints",
            "CspReportingInfrastructure",
            "CustomDomain",
@@ -9082,7 +9088,7 @@ patches:
            "CustomDomainCustomClientIpHeader",
            "CustomDomainCustomClientIpHeaderEnum",
            "CustomDomainHeader",
-      @@ -10274,6 +10282,8 @@ __all__ = [
+      @@ -10286,6 +10294,8 @@ __all__ = [
            "FedCmLoginGoogle",
            "FedCmLoginGooglePatch",
            "FedCmLoginPatch",
@@ -12469,6 +12475,8 @@ patches:
                 OrganizationInvitationInvitee,
                 OrganizationInvitationInviter,
                 OrganizationMember,
+                OrganizationMemberAccessLevelEnum,
+                OrganizationMemberAccessLevelEnumWithNull,
                 OrganizationMemberEffectiveRole,
                 OrganizationMemberEffectiveRoleSource,
                 OrganizationMemberRole,
@@ -12551,6 +12559,10 @@ patches:
                 ResetPhoneTemplateRequestContent,
                 ResetPhoneTemplateResponseContent,
                 ResourceServer,
+                ResourceServerAccessToken,
+                ResourceServerAccessTokenClaimsMapping,
+                ResourceServerAccessTokenCustomClaimsMapping,
+                ResourceServerAccessTokenCustomClaimsMappingRule,
                 ResourceServerAuthorizationPolicy,
                 ResourceServerConsentPolicyEnum,
                 ResourceServerProofOfPossession,
@@ -16366,6 +16378,8 @@ patches:
             "OrganizationInvitationInvitee": ".types",
             "OrganizationInvitationInviter": ".types",
             "OrganizationMember": ".types",
+            "OrganizationMemberAccessLevelEnum": ".types",
+            "OrganizationMemberAccessLevelEnumWithNull": ".types",
             "OrganizationMemberEffectiveRole": ".types",
             "OrganizationMemberEffectiveRoleSource": ".types",
             "OrganizationMemberRole": ".types",
@@ -16450,6 +16464,10 @@ patches:
             "ResetPhoneTemplateRequestContent": ".types",
             "ResetPhoneTemplateResponseContent": ".types",
             "ResourceServer": ".types",
+            "ResourceServerAccessToken": ".types",
+            "ResourceServerAccessTokenClaimsMapping": ".types",
+            "ResourceServerAccessTokenCustomClaimsMapping": ".types",
+            "ResourceServerAccessTokenCustomClaimsMappingRule": ".types",
             "ResourceServerAuthorizationPolicy": ".types",
             "ResourceServerConsentPolicyEnum": ".types",
             "ResourceServerProofOfPossession": ".types",
@@ -20267,6 +20285,8 @@ patches:
             "OrganizationInvitationInvitee",
             "OrganizationInvitationInviter",
             "OrganizationMember",
+            "OrganizationMemberAccessLevelEnum",
+            "OrganizationMemberAccessLevelEnumWithNull",
             "OrganizationMemberEffectiveRole",
             "OrganizationMemberEffectiveRoleSource",
             "OrganizationMemberRole",
@@ -20351,6 +20371,10 @@ patches:
             "ResetPhoneTemplateRequestContent",
             "ResetPhoneTemplateResponseContent",
             "ResourceServer",
+            "ResourceServerAccessToken",
+            "ResourceServerAccessTokenClaimsMapping",
+            "ResourceServerAccessTokenCustomClaimsMapping",
+            "ResourceServerAccessTokenCustomClaimsMappingRule",
             "ResourceServerAuthorizationPolicy",
             "ResourceServerConsentPolicyEnum",
             "ResourceServerProofOfPossession",
@@ -30723,16 +30747,16 @@ patches:
     user_owned: true
     status: resolving
   - id: patch-f7384913
-    content_hash: sha256:0efa9bc9e6f16dd1f574dc20b6a80a0649bbacd1b244f12c33bd5019a26aac70
+    content_hash: sha256:d81b346f6b8180a73e2f451377ba6365bd7086e80b1eb22b2d694648365be947
     original_commit: f7384913ab0a14df83dbc602d2b694e2cb7b7668
     original_message: Remove duplicate FedCmLoginGooglePatch and FedCmLoginPatch entries
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 29398c8e076021d0cce84a2ab2c4e4a2f7bff601
+    base_generation: 193c5b32c22bbefb59df79172f03574bdc409a5c
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index d9396e43..8fe7ccdf 100644
+      index 6d53c2e2..c07ffb67 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
       @@ -2490,6 +2490,8 @@ if typing.TYPE_CHECKING:
@@ -30744,7 +30768,7 @@ patches:
                FlowAction,
                FlowActionActivecampaign,
                FlowActionActivecampaignListContacts,
-      @@ -3880,6 +3882,8 @@ if typing.TYPE_CHECKING:
+      @@ -3886,6 +3888,8 @@ if typing.TYPE_CHECKING:
            from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
            from .token_provider import AsyncTokenProvider, TokenProvider
            from .version import __version__
@@ -30753,7 +30777,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -4957,6 +4961,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -4963,6 +4967,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CspReportingEndpoints": ".types",
            "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
@@ -30761,7 +30785,7 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainHeader": ".management_client",
-      @@ -6376,6 +6381,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -6382,6 +6387,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "FedCmLoginGoogle": ".types",
            "FedCmLoginGooglePatch": ".types",
            "FedCmLoginPatch": ".types",
@@ -30770,7 +30794,7 @@ patches:
            "FlowAction": ".types",
            "FlowActionActivecampaign": ".types",
            "FlowActionActivecampaignListContacts": ".types",
-      @@ -8855,6 +8862,7 @@ __all__ = [
+      @@ -8867,6 +8874,7 @@ __all__ = [
            "CspReportingEndpoints",
            "CspReportingInfrastructure",
            "CustomDomain",
@@ -30778,7 +30802,7 @@ patches:
            "CustomDomainCustomClientIpHeader",
            "CustomDomainCustomClientIpHeaderEnum",
            "CustomDomainHeader",
-      @@ -10274,6 +10282,8 @@ __all__ = [
+      @@ -10286,6 +10294,8 @@ __all__ = [
            "FedCmLoginGoogle",
            "FedCmLoginGooglePatch",
            "FedCmLoginPatch",
@@ -34165,6 +34189,8 @@ patches:
                 OrganizationInvitationInvitee,
                 OrganizationInvitationInviter,
                 OrganizationMember,
+                OrganizationMemberAccessLevelEnum,
+                OrganizationMemberAccessLevelEnumWithNull,
                 OrganizationMemberEffectiveRole,
                 OrganizationMemberEffectiveRoleSource,
                 OrganizationMemberRole,
@@ -34247,6 +34273,10 @@ patches:
                 ResetPhoneTemplateRequestContent,
                 ResetPhoneTemplateResponseContent,
                 ResourceServer,
+                ResourceServerAccessToken,
+                ResourceServerAccessTokenClaimsMapping,
+                ResourceServerAccessTokenCustomClaimsMapping,
+                ResourceServerAccessTokenCustomClaimsMappingRule,
                 ResourceServerAuthorizationPolicy,
                 ResourceServerConsentPolicyEnum,
                 ResourceServerProofOfPossession,
@@ -38062,6 +38092,8 @@ patches:
             "OrganizationInvitationInvitee": ".types",
             "OrganizationInvitationInviter": ".types",
             "OrganizationMember": ".types",
+            "OrganizationMemberAccessLevelEnum": ".types",
+            "OrganizationMemberAccessLevelEnumWithNull": ".types",
             "OrganizationMemberEffectiveRole": ".types",
             "OrganizationMemberEffectiveRoleSource": ".types",
             "OrganizationMemberRole": ".types",
@@ -38146,6 +38178,10 @@ patches:
             "ResetPhoneTemplateRequestContent": ".types",
             "ResetPhoneTemplateResponseContent": ".types",
             "ResourceServer": ".types",
+            "ResourceServerAccessToken": ".types",
+            "ResourceServerAccessTokenClaimsMapping": ".types",
+            "ResourceServerAccessTokenCustomClaimsMapping": ".types",
+            "ResourceServerAccessTokenCustomClaimsMappingRule": ".types",
             "ResourceServerAuthorizationPolicy": ".types",
             "ResourceServerConsentPolicyEnum": ".types",
             "ResourceServerProofOfPossession": ".types",
@@ -41963,6 +41999,8 @@ patches:
             "OrganizationInvitationInvitee",
             "OrganizationInvitationInviter",
             "OrganizationMember",
+            "OrganizationMemberAccessLevelEnum",
+            "OrganizationMemberAccessLevelEnumWithNull",
             "OrganizationMemberEffectiveRole",
             "OrganizationMemberEffectiveRoleSource",
             "OrganizationMemberRole",
@@ -42047,6 +42085,10 @@ patches:
             "ResetPhoneTemplateRequestContent",
             "ResetPhoneTemplateResponseContent",
             "ResourceServer",
+            "ResourceServerAccessToken",
+            "ResourceServerAccessTokenClaimsMapping",
+            "ResourceServerAccessTokenCustomClaimsMapping",
+            "ResourceServerAccessTokenCustomClaimsMappingRule",
             "ResourceServerAuthorizationPolicy",
             "ResourceServerConsentPolicyEnum",
             "ResourceServerProofOfPossession",
@@ -42460,7 +42502,7 @@ patches:
     original_commit: 1e44613dc017468608983dfc1363804d02ed8fc4
     original_message: Added migration guide for v5 to v6
     original_author: Sourav Basu <sourav.basu@okta.com>
-    base_generation: 29398c8e076021d0cce84a2ab2c4e4a2f7bff601
+    base_generation: 193c5b32c22bbefb59df79172f03574bdc409a5c
     files:
       - UPGRADING.md
     patch_content: |
@@ -42792,7 +42834,7 @@ patches:
     original_commit: 30b1089ae90f33c4b431b9d868edd89a6d4697ce
     original_message: Updated UPGRADING.md doc
     original_author: Sourav Basu <sourav.basu@okta.com>
-    base_generation: 29398c8e076021d0cce84a2ab2c4e4a2f7bff601
+    base_generation: 193c5b32c22bbefb59df79172f03574bdc409a5c
     files:
       - UPGRADING.md
     patch_content: |
@@ -43120,16 +43162,16 @@ patches:
         endpoint.
     user_owned: true
   - id: patch-d6d69aeb
-    content_hash: sha256:0efa9bc9e6f16dd1f574dc20b6a80a0649bbacd1b244f12c33bd5019a26aac70
+    content_hash: sha256:d81b346f6b8180a73e2f451377ba6365bd7086e80b1eb22b2d694648365be947
     original_commit: d6d69aeb98af7789afffbc697bc8fd50d7d86baa
     original_message: Remove duplicate FedCmLoginGooglePatch and FedCmLoginPatch entries
     original_author: Kunal Dawar <kunal.dawar@okta.com>
-    base_generation: 29398c8e076021d0cce84a2ab2c4e4a2f7bff601
+    base_generation: 193c5b32c22bbefb59df79172f03574bdc409a5c
     files:
       - src/auth0/management/__init__.py
     patch_content: |
       diff --git a/src/auth0/management/__init__.py b/src/auth0/management/__init__.py
-      index d9396e43..8fe7ccdf 100644
+      index 6d53c2e2..c07ffb67 100644
       --- a/src/auth0/management/__init__.py
       +++ b/src/auth0/management/__init__.py
       @@ -2490,6 +2490,8 @@ if typing.TYPE_CHECKING:
@@ -43141,7 +43183,7 @@ patches:
                FlowAction,
                FlowActionActivecampaign,
                FlowActionActivecampaignListContacts,
-      @@ -3880,6 +3882,8 @@ if typing.TYPE_CHECKING:
+      @@ -3886,6 +3888,8 @@ if typing.TYPE_CHECKING:
            from .management_client import AsyncManagementClient, CustomDomainHeader, ManagementClient
            from .token_provider import AsyncTokenProvider, TokenProvider
            from .version import __version__
@@ -43150,7 +43192,7 @@ patches:
        _dynamic_imports: typing.Dict[str, str] = {
            "Action": ".types",
            "ActionBase": ".types",
-      @@ -4957,6 +4961,7 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -4963,6 +4967,7 @@ _dynamic_imports: typing.Dict[str, str] = {
            "CspReportingEndpoints": ".types",
            "CspReportingInfrastructure": ".types",
            "CustomDomain": ".types",
@@ -43158,7 +43200,7 @@ patches:
            "CustomDomainCustomClientIpHeader": ".types",
            "CustomDomainCustomClientIpHeaderEnum": ".types",
            "CustomDomainHeader": ".management_client",
-      @@ -6376,6 +6381,8 @@ _dynamic_imports: typing.Dict[str, str] = {
+      @@ -6382,6 +6387,8 @@ _dynamic_imports: typing.Dict[str, str] = {
            "FedCmLoginGoogle": ".types",
            "FedCmLoginGooglePatch": ".types",
            "FedCmLoginPatch": ".types",
@@ -43167,7 +43209,7 @@ patches:
            "FlowAction": ".types",
            "FlowActionActivecampaign": ".types",
            "FlowActionActivecampaignListContacts": ".types",
-      @@ -8855,6 +8862,7 @@ __all__ = [
+      @@ -8867,6 +8874,7 @@ __all__ = [
            "CspReportingEndpoints",
            "CspReportingInfrastructure",
            "CustomDomain",
@@ -43175,7 +43217,7 @@ patches:
            "CustomDomainCustomClientIpHeader",
            "CustomDomainCustomClientIpHeaderEnum",
            "CustomDomainHeader",
-      @@ -10274,6 +10282,8 @@ __all__ = [
+      @@ -10286,6 +10294,8 @@ __all__ = [
            "FedCmLoginGoogle",
            "FedCmLoginGooglePatch",
            "FedCmLoginPatch",
@@ -46562,6 +46604,8 @@ patches:
                 OrganizationInvitationInvitee,
                 OrganizationInvitationInviter,
                 OrganizationMember,
+                OrganizationMemberAccessLevelEnum,
+                OrganizationMemberAccessLevelEnumWithNull,
                 OrganizationMemberEffectiveRole,
                 OrganizationMemberEffectiveRoleSource,
                 OrganizationMemberRole,
@@ -46644,6 +46688,10 @@ patches:
                 ResetPhoneTemplateRequestContent,
                 ResetPhoneTemplateResponseContent,
                 ResourceServer,
+                ResourceServerAccessToken,
+                ResourceServerAccessTokenClaimsMapping,
+                ResourceServerAccessTokenCustomClaimsMapping,
+                ResourceServerAccessTokenCustomClaimsMappingRule,
                 ResourceServerAuthorizationPolicy,
                 ResourceServerConsentPolicyEnum,
                 ResourceServerProofOfPossession,
@@ -50459,6 +50507,8 @@ patches:
             "OrganizationInvitationInvitee": ".types",
             "OrganizationInvitationInviter": ".types",
             "OrganizationMember": ".types",
+            "OrganizationMemberAccessLevelEnum": ".types",
+            "OrganizationMemberAccessLevelEnumWithNull": ".types",
             "OrganizationMemberEffectiveRole": ".types",
             "OrganizationMemberEffectiveRoleSource": ".types",
             "OrganizationMemberRole": ".types",
@@ -50543,6 +50593,10 @@ patches:
             "ResetPhoneTemplateRequestContent": ".types",
             "ResetPhoneTemplateResponseContent": ".types",
             "ResourceServer": ".types",
+            "ResourceServerAccessToken": ".types",
+            "ResourceServerAccessTokenClaimsMapping": ".types",
+            "ResourceServerAccessTokenCustomClaimsMapping": ".types",
+            "ResourceServerAccessTokenCustomClaimsMappingRule": ".types",
             "ResourceServerAuthorizationPolicy": ".types",
             "ResourceServerConsentPolicyEnum": ".types",
             "ResourceServerProofOfPossession": ".types",
@@ -54360,6 +54414,8 @@ patches:
             "OrganizationInvitationInvitee",
             "OrganizationInvitationInviter",
             "OrganizationMember",
+            "OrganizationMemberAccessLevelEnum",
+            "OrganizationMemberAccessLevelEnumWithNull",
             "OrganizationMemberEffectiveRole",
             "OrganizationMemberEffectiveRoleSource",
             "OrganizationMemberRole",
@@ -54444,6 +54500,10 @@ patches:
             "ResetPhoneTemplateRequestContent",
             "ResetPhoneTemplateResponseContent",
             "ResourceServer",
+            "ResourceServerAccessToken",
+            "ResourceServerAccessTokenClaimsMapping",
+            "ResourceServerAccessTokenCustomClaimsMapping",
+            "ResourceServerAccessTokenCustomClaimsMappingRule",
             "ResourceServerAuthorizationPolicy",
             "ResourceServerConsentPolicyEnum",
             "ResourceServerProofOfPossession",
