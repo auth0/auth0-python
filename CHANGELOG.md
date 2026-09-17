@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.6.0](https://github.com/auth0/auth0-python/tree/6.6.0) (2026-09-17)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.5.0...6.6.0)
+
+**Added**
+- Organization connection member access level, resource server access token configuration, and client My Organization enforcement settings [\#892](https://github.com/auth0/auth0-python/pull/892) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.5.0](https://github.com/auth0/auth0-python/tree/6.5.0) (2026-09-11)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.4.0...6.5.0)
 
