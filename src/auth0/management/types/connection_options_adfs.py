@@ -15,6 +15,7 @@ from .connection_should_trust_email_verified_connection_enum import ConnectionSh
 from .connection_sign_in_endpoint_adfs import ConnectionSignInEndpointAdfs
 from .connection_tenant_domain import ConnectionTenantDomain
 from .connection_thumbprints import ConnectionThumbprints
+from .connection_thumbprints_sha_384 import ConnectionThumbprintsSha384
 from .connection_upstream_params import ConnectionUpstreamParams
 
 
@@ -57,6 +58,11 @@ class ConnectionOptionsAdfs(ConnectionOptionsCommon):
     ] = None
     tenant_domain: typing.Optional[ConnectionTenantDomain] = None
     thumbprints: typing.Optional[ConnectionThumbprints] = None
+    thumbprints_sha_384: typing_extensions.Annotated[
+        typing.Optional[ConnectionThumbprintsSha384],
+        FieldMetadata(alias="thumbprints_sha384"),
+        pydantic.Field(alias="thumbprints_sha384"),
+    ] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     user_id_attribute: typing.Optional[str] = pydantic.Field(default=None)
     """

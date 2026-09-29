@@ -4,20 +4,15 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .organization_template_role_visibility_enum import OrganizationTemplateRoleVisibilityEnum
+from .segment import Segment
 
 
-class OrganizationTemplateRoleVisibilityOverride(UniversalBaseModel):
+class ListSegmentsResponseContent(UniversalBaseModel):
+    segments: typing.List[Segment]
+    next: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A role visibility override.
+    Checkpoint token for the next page. Omitted when there are no further results.
     """
-
-    role_id: str = pydantic.Field()
-    """
-    The role identifier.
-    """
-
-    access: OrganizationTemplateRoleVisibilityEnum
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

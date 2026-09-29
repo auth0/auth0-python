@@ -3,8 +3,22 @@
 import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from ...types.advance_ramp_response_content import AdvanceRampResponseContent
+from ...types.allocation_request_item import AllocationRequestItem
+from ...types.allocation_strategy_enum import AllocationStrategyEnum
+from ...types.authentication_flow_enum import AuthenticationFlowEnum
+from ...types.create_experiment_response_content import CreateExperimentResponseContent
+from ...types.default_config_enum import DefaultConfigEnum
+from ...types.experiment_list_item import ExperimentListItem
+from ...types.experiment_status_enum import ExperimentStatusEnum
+from ...types.experiment_transition_status_enum import ExperimentTransitionStatusEnum
+from ...types.get_experiment_response_content import GetExperimentResponseContent
+from ...types.list_experiments_response_content import ListExperimentsResponseContent
+from ...types.update_experiment_response_content import UpdateExperimentResponseContent
+from ...types.update_experiment_status_response_content import UpdateExperimentStatusResponseContent
+from ...types.validate_experiment_response_content import ValidateExperimentResponseContent
 from .raw_client import AsyncRawExperimentsClient, RawExperimentsClient
 
 # this is used as the default value for optional parameters
@@ -25,6 +39,278 @@ class ExperimentsClient:
         RawExperimentsClient
         """
         return self._raw_client
+
+    def list(
+        self,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        status: typing.Optional[ExperimentStatusEnum] = None,
+        authentication_flow: typing.Optional[str] = None,
+        feature_flag_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ExperimentListItem, ListExperimentsResponseContent]:
+        """
+        Retrieve a paginated list of experiments for the tenant, with optional filters.
+
+        Parameters
+        ----------
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of experiments to return per page. Defaults to 25, maximum 50.
+
+        status : typing.Optional[ExperimentStatusEnum]
+            Filter by status. Exact match.
+
+        authentication_flow : typing.Optional[str]
+            Filter by authentication flow. Exact match.
+
+        feature_flag_id : typing.Optional[str]
+            Filter by feature flag ID. Exact match.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ExperimentListItem, ListExperimentsResponseContent]
+            Experiments successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.experimentation.experiments.list(
+            from_="from",
+            take=1,
+            status="draft",
+            authentication_flow="authentication_flow",
+            feature_flag_id="feature_flag_id",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.list(
+            from_=from_,
+            take=take,
+            status=status,
+            authentication_flow=authentication_flow,
+            feature_flag_id=feature_flag_id,
+            request_options=request_options,
+        )
+
+    def create(
+        self,
+        *,
+        name: str,
+        feature_flag_id: str,
+        authentication_flow: AuthenticationFlowEnum,
+        description: typing.Optional[str] = OMIT,
+        default_config: typing.Optional[DefaultConfigEnum] = OMIT,
+        allocation_strategy: typing.Optional[AllocationStrategyEnum] = OMIT,
+        allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
+        levels: typing.Optional[typing.Sequence[int]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateExperimentResponseContent:
+        """
+        Create a new experiment for A/B testing.
+
+        Parameters
+        ----------
+        name : str
+            A human-readable name for the experiment
+
+        feature_flag_id : str
+            The ID of the feature flag this experiment is based on
+
+        authentication_flow : AuthenticationFlowEnum
+
+        description : typing.Optional[str]
+            A description of the experiment
+
+        default_config : typing.Optional[DefaultConfigEnum]
+            Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config so the experiment overlays only its changes, 'flag' uses the flag's frozen defaults for a complete config. Optional; defaults to 'tenant' when omitted. Rejected for customer-defined flags.
+
+        allocation_strategy : typing.Optional[AllocationStrategyEnum]
+            The traffic allocation strategy for this experiment
+
+        allocations : typing.Optional[typing.Sequence[AllocationRequestItem]]
+            Traffic allocations mapping variations to weights or segments
+
+        levels : typing.Optional[typing.Sequence[int]]
+            Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100].
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateExperimentResponseContent
+            Experiment successfully created.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.experimentation.experiments.create(
+            name="name",
+            feature_flag_id="feature_flag_id",
+            authentication_flow="authentication",
+        )
+        """
+        _response = self._raw_client.create(
+            name=name,
+            feature_flag_id=feature_flag_id,
+            authentication_flow=authentication_flow,
+            description=description,
+            default_config=default_config,
+            allocation_strategy=allocation_strategy,
+            allocations=allocations,
+            levels=levels,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetExperimentResponseContent:
+        """
+        Retrieve a single experiment with its allocations by ID.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to retrieve.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetExperimentResponseContent
+            Experiment successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.experimentation.experiments.get(
+            id="id",
+        )
+        """
+        _response = self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
+    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Permanently delete an experiment and its allocations by ID. Active experiments cannot be deleted; pause or complete first. Idempotent: returns 204 even if the experiment does not exist.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to delete.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.experimentation.experiments.delete(
+            id="id",
+        )
+        """
+        _response = self._raw_client.delete(id, request_options=request_options)
+        return _response.data
+
+    def update(
+        self,
+        id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        authentication_flow: typing.Optional[AuthenticationFlowEnum] = OMIT,
+        allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
+        default_config: typing.Optional[DefaultConfigEnum] = OMIT,
+        levels: typing.Optional[typing.Sequence[int]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateExperimentResponseContent:
+        """
+        Partially update an experiment by ID. Only provided fields are updated. Providing allocations replaces the entire allocations set.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to update.
+
+        name : typing.Optional[str]
+            A human-readable name for the experiment
+
+        description : typing.Optional[str]
+            A description of the experiment
+
+        authentication_flow : typing.Optional[AuthenticationFlowEnum]
+            Specifies the target authentication flow for this experiment. This field can only be modified on draft experiments. Must be one of: authentication, mfa_enrollment, mfa_challenge, password_reset, passkey_enrollment, or all. Note that the all value targets every flow at once, but requires that this is the only active experiment.
+
+        allocations : typing.Optional[typing.Sequence[AllocationRequestItem]]
+            Replaces all traffic allocations. Cannot be modified while the experiment is active.
+
+        default_config : typing.Optional[DefaultConfigEnum]
+            Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config, 'flag' uses the flag's frozen defaults. Can only be modified on draft experiments. Rejected for customer-defined flags.
+
+        levels : typing.Optional[typing.Sequence[int]]
+            Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100]. Can only be modified on draft experiments.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateExperimentResponseContent
+            Experiment successfully updated.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.experimentation.experiments.update(
+            id="id",
+        )
+        """
+        _response = self._raw_client.update(
+            id,
+            name=name,
+            description=description,
+            authentication_flow=authentication_flow,
+            allocations=allocations,
+            default_config=default_config,
+            levels=levels,
+            request_options=request_options,
+        )
+        return _response.data
 
     def advance_ramp(
         self, id: str, *, target_level: int, request_options: typing.Optional[RequestOptions] = None
@@ -63,6 +349,79 @@ class ExperimentsClient:
         _response = self._raw_client.advance_ramp(id, target_level=target_level, request_options=request_options)
         return _response.data
 
+    def update_status(
+        self,
+        id: str,
+        *,
+        status: ExperimentTransitionStatusEnum,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateExperimentStatusResponseContent:
+        """
+        Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to transition.
+
+        status : ExperimentTransitionStatusEnum
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateExperimentStatusResponseContent
+            Experiment status successfully updated.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.experimentation.experiments.update_status(
+            id="id",
+            status="active",
+        )
+        """
+        _response = self._raw_client.update_status(id, status=status, request_options=request_options)
+        return _response.data
+
+    def validate(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ValidateExperimentResponseContent:
+        """
+        Checks whether an experiment is ready to be activated. Returns is_valid boolean and an errors array describing any blockers. Read-only; no state is modified.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to validate.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ValidateExperimentResponseContent
+            Experiment validation result returned.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.experimentation.experiments.validate(
+            id="id",
+        )
+        """
+        _response = self._raw_client.validate(id, request_options=request_options)
+        return _response.data
+
 
 class AsyncExperimentsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -78,6 +437,321 @@ class AsyncExperimentsClient:
         AsyncRawExperimentsClient
         """
         return self._raw_client
+
+    async def list(
+        self,
+        *,
+        from_: typing.Optional[str] = None,
+        take: typing.Optional[int] = 50,
+        status: typing.Optional[ExperimentStatusEnum] = None,
+        authentication_flow: typing.Optional[str] = None,
+        feature_flag_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ExperimentListItem, ListExperimentsResponseContent]:
+        """
+        Retrieve a paginated list of experiments for the tenant, with optional filters.
+
+        Parameters
+        ----------
+        from_ : typing.Optional[str]
+            Optional Id from which to start selection.
+
+        take : typing.Optional[int]
+            Number of experiments to return per page. Defaults to 25, maximum 50.
+
+        status : typing.Optional[ExperimentStatusEnum]
+            Filter by status. Exact match.
+
+        authentication_flow : typing.Optional[str]
+            Filter by authentication flow. Exact match.
+
+        feature_flag_id : typing.Optional[str]
+            Filter by feature flag ID. Exact match.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ExperimentListItem, ListExperimentsResponseContent]
+            Experiments successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.experimentation.experiments.list(
+                from_="from",
+                take=1,
+                status="draft",
+                authentication_flow="authentication_flow",
+                feature_flag_id="feature_flag_id",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.list(
+            from_=from_,
+            take=take,
+            status=status,
+            authentication_flow=authentication_flow,
+            feature_flag_id=feature_flag_id,
+            request_options=request_options,
+        )
+
+    async def create(
+        self,
+        *,
+        name: str,
+        feature_flag_id: str,
+        authentication_flow: AuthenticationFlowEnum,
+        description: typing.Optional[str] = OMIT,
+        default_config: typing.Optional[DefaultConfigEnum] = OMIT,
+        allocation_strategy: typing.Optional[AllocationStrategyEnum] = OMIT,
+        allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
+        levels: typing.Optional[typing.Sequence[int]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateExperimentResponseContent:
+        """
+        Create a new experiment for A/B testing.
+
+        Parameters
+        ----------
+        name : str
+            A human-readable name for the experiment
+
+        feature_flag_id : str
+            The ID of the feature flag this experiment is based on
+
+        authentication_flow : AuthenticationFlowEnum
+
+        description : typing.Optional[str]
+            A description of the experiment
+
+        default_config : typing.Optional[DefaultConfigEnum]
+            Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config so the experiment overlays only its changes, 'flag' uses the flag's frozen defaults for a complete config. Optional; defaults to 'tenant' when omitted. Rejected for customer-defined flags.
+
+        allocation_strategy : typing.Optional[AllocationStrategyEnum]
+            The traffic allocation strategy for this experiment
+
+        allocations : typing.Optional[typing.Sequence[AllocationRequestItem]]
+            Traffic allocations mapping variations to weights or segments
+
+        levels : typing.Optional[typing.Sequence[int]]
+            Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100].
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateExperimentResponseContent
+            Experiment successfully created.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.experimentation.experiments.create(
+                name="name",
+                feature_flag_id="feature_flag_id",
+                authentication_flow="authentication",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create(
+            name=name,
+            feature_flag_id=feature_flag_id,
+            authentication_flow=authentication_flow,
+            description=description,
+            default_config=default_config,
+            allocation_strategy=allocation_strategy,
+            allocations=allocations,
+            levels=levels,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetExperimentResponseContent:
+        """
+        Retrieve a single experiment with its allocations by ID.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to retrieve.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetExperimentResponseContent
+            Experiment successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.experimentation.experiments.get(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
+    async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Permanently delete an experiment and its allocations by ID. Active experiments cannot be deleted; pause or complete first. Idempotent: returns 204 even if the experiment does not exist.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to delete.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.experimentation.experiments.delete(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete(id, request_options=request_options)
+        return _response.data
+
+    async def update(
+        self,
+        id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        authentication_flow: typing.Optional[AuthenticationFlowEnum] = OMIT,
+        allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
+        default_config: typing.Optional[DefaultConfigEnum] = OMIT,
+        levels: typing.Optional[typing.Sequence[int]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateExperimentResponseContent:
+        """
+        Partially update an experiment by ID. Only provided fields are updated. Providing allocations replaces the entire allocations set.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to update.
+
+        name : typing.Optional[str]
+            A human-readable name for the experiment
+
+        description : typing.Optional[str]
+            A description of the experiment
+
+        authentication_flow : typing.Optional[AuthenticationFlowEnum]
+            Specifies the target authentication flow for this experiment. This field can only be modified on draft experiments. Must be one of: authentication, mfa_enrollment, mfa_challenge, password_reset, passkey_enrollment, or all. Note that the all value targets every flow at once, but requires that this is the only active experiment.
+
+        allocations : typing.Optional[typing.Sequence[AllocationRequestItem]]
+            Replaces all traffic allocations. Cannot be modified while the experiment is active.
+
+        default_config : typing.Optional[DefaultConfigEnum]
+            Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config, 'flag' uses the flag's frozen defaults. Can only be modified on draft experiments. Rejected for customer-defined flags.
+
+        levels : typing.Optional[typing.Sequence[int]]
+            Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100]. Can only be modified on draft experiments.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateExperimentResponseContent
+            Experiment successfully updated.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.experimentation.experiments.update(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update(
+            id,
+            name=name,
+            description=description,
+            authentication_flow=authentication_flow,
+            allocations=allocations,
+            default_config=default_config,
+            levels=levels,
+            request_options=request_options,
+        )
+        return _response.data
 
     async def advance_ramp(
         self, id: str, *, target_level: int, request_options: typing.Optional[RequestOptions] = None
@@ -122,4 +796,93 @@ class AsyncExperimentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.advance_ramp(id, target_level=target_level, request_options=request_options)
+        return _response.data
+
+    async def update_status(
+        self,
+        id: str,
+        *,
+        status: ExperimentTransitionStatusEnum,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateExperimentStatusResponseContent:
+        """
+        Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to transition.
+
+        status : ExperimentTransitionStatusEnum
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateExperimentStatusResponseContent
+            Experiment status successfully updated.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.experimentation.experiments.update_status(
+                id="id",
+                status="active",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_status(id, status=status, request_options=request_options)
+        return _response.data
+
+    async def validate(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ValidateExperimentResponseContent:
+        """
+        Checks whether an experiment is ready to be activated. Returns is_valid boolean and an errors array describing any blockers. Read-only; no state is modified.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the experiment to validate.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ValidateExperimentResponseContent
+            Experiment validation result returned.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.experimentation.experiments.validate(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.validate(id, request_options=request_options)
         return _response.data

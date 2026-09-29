@@ -28,6 +28,7 @@ from ..types.client_mobile import ClientMobile
 from ..types.client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
 from ..types.client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
 from ..types.client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
+from ..types.client_oidc_support_post import ClientOidcSupportPost
 from ..types.client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
 from ..types.client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
 from ..types.client_organization_require_behavior_patch_enum import ClientOrganizationRequireBehaviorPatchEnum
@@ -277,6 +278,7 @@ class ClientsClient:
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
+        oidc_support: typing.Optional[ClientOidcSupportPost] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientResponseContent:
         """
@@ -444,6 +446,8 @@ class ClientsClient:
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
+        oidc_support : typing.Optional[ClientOidcSupportPost]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -522,6 +526,7 @@ class ClientsClient:
             b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
+            oidc_support=oidc_support,
             request_options=request_options,
         )
         return _response.data
@@ -1290,6 +1295,7 @@ class AsyncClientsClient:
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
+        oidc_support: typing.Optional[ClientOidcSupportPost] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientResponseContent:
         """
@@ -1457,6 +1463,8 @@ class AsyncClientsClient:
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
+        oidc_support : typing.Optional[ClientOidcSupportPost]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1543,6 +1551,7 @@ class AsyncClientsClient:
             b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
+            oidc_support=oidc_support,
             request_options=request_options,
         )
         return _response.data

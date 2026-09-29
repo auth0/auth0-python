@@ -6,19 +6,15 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class OrganizationTemplateUseForOrganizationDiscovery(UniversalBaseModel):
+class ExperimentValidationError(UniversalBaseModel):
+    code: str = pydantic.Field()
     """
-    Controls whether connections from this template are used for organization discovery.
-    """
-
-    default_value: bool = pydantic.Field()
-    """
-    The default value for organization discovery.
+    Machine-readable error code identifying the validation failure.
     """
 
-    allowed_values: typing.Optional[typing.List[bool]] = pydantic.Field(default=None)
+    message: str = pydantic.Field()
     """
-    The allowed values for organization discovery.
+    Human-readable description of the validation failure.
     """
 
     if IS_PYDANTIC_V2:

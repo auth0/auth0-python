@@ -91,6 +91,11 @@ class ResourceServer(UniversalBaseModel):
     access_token: typing.Optional[ResourceServerAccessToken] = None
     token_encryption: typing.Optional[ResourceServerTokenEncryption] = None
     consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = None
+    require_consent_non_repudiation: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+    """
+
     authorization_details: typing.Optional[typing.List[typing.Any]] = None
     proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = None
     subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = None

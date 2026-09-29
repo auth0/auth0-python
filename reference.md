@@ -2514,6 +2514,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**oidc_support:** `typing.Optional[ClientOidcSupportPost]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -12772,6 +12780,14 @@ client.resource_servers.create(
 <dl>
 <dd>
 
+**require_consent_non_repudiation:** `typing.Optional[bool]` — When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **authorization_details:** `typing.Optional[typing.List[typing.Any]]` 
     
 </dd>
@@ -13275,6 +13291,14 @@ client.resource_servers.update(
 <dd>
 
 **consent_policy:** `typing.Optional[ResourceServerConsentPolicyEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**require_consent_non_repudiation:** `typing.Optional[bool]` — When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
     
 </dd>
 </dl>
@@ -16873,8 +16897,8 @@ client.user_blocks.list_by_identifier(
 **consider_brute_force_enablement:** `typing.Optional[bool]` 
 
 
-          If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-          If true and Brute Force Protection is disabled, will return an empty list.
+          If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+          If false or omitted, returns all blocks regardless of enforcement state.
         
     
 </dd>
@@ -17035,8 +17059,8 @@ client.user_blocks.list(
 **consider_brute_force_enablement:** `typing.Optional[bool]` 
 
 
-          If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-          If true and Brute Force Protection is disabled, will return an empty list.
+          If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+          If false or omitted, returns all blocks regardless of enforcement state.
         
     
 </dd>
@@ -17145,24 +17169,22 @@ client.user_blocks.delete(
 <dl>
 <dd>
 
-Retrieve details of users. It is possible to:
+This endpoint retrieves details of users. It's best suited to interactive, best-effort search and lookups where slightly stale results are acceptable. With it, you can:
 
-- Specify a search criteria for users
+- Specify search criteria for users
 - Sort the users to be returned
 - Select the fields to be returned
 - Specify the number of users to retrieve per page and the page index
 
+This endpoint is **not suited for use in critical paths**. It is eventually consistent and runs under a short (~2 second) query time limit, so results can be stale and heavy queries can return a 503.
 
+- Do not use this endpoint for authentication, account linking, or logic inside login-flow Actions. Instead, [look users up directly by ID or email](https://auth0.com/docs/manage-users/user-search/get-users-by-id-or-email#management-api) to get their current state.
+- Do not use this endpoint to keep an external system in sync with user data. Instead, subscribe to [Event Streams](https://auth0.com/docs/customize/events/sync-data-across-systems) to receive every change as it happens.
+- Do not use this endpoint to enumerate or export your entire user base. Instead, run a [bulk user export](https://auth0.com/docs/manage-users/user-migration/bulk-user-exports) to retrieve the full set.
 
-The `q` query parameter can be used to get users that match the specified criteria [using query string syntax.](https://auth0.com/docs/users/search/v3/query-syntax)
+Use the `q` query parameter to match users with [query string syntax](https://auth0.com/docs/manage-users/user-search/user-search-query-syntax). For full instructions and guidance, see [How to List and Search Users](https://auth0.com/docs/manage-users/user-search/list-and-search-users).
 
-[Learn more about searching for users.](https://auth0.com/docs/users/search/v3)
-
-Read about [best practices](https://auth0.com/docs/users/search/best-practices) when working with the API endpoints for retrieving users.
-
-
-
-Auth0 limits the number of users you can return. If you exceed this threshold, please redefine your search, use the [export job](https://auth0.com/docs/api/management/v2#!/Jobs/post_users_exports), or the [User Import / Export](https://auth0.com/docs/extensions/user-import-export) extension.
+For efficient queries, prefer indexed top-level fields and exact matches. Certain kinds of queries can be slow and may time out, such as filtering on freeform or multi-value fields (like user-defined attributes in `app_metadata` or `user_metadata`) or using leading wildcards.
 </dd>
 </dl>
 </dd>
@@ -26187,6 +26209,513 @@ client.event_streams.redeliveries.create_by_id(
 </details>
 
 ## Experimentation Experiments
+<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">list</a>(...) -> ListExperimentsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of experiments for the tenant, with optional filters.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.experiments.list(
+    from_="from",
+    take=1,
+    status="draft",
+    authentication_flow="authentication_flow",
+    feature_flag_id="feature_flag_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of experiments to return per page. Defaults to 25, maximum 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ExperimentStatusEnum]` — Filter by status. Exact match.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authentication_flow:** `typing.Optional[str]` — Filter by authentication flow. Exact match.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**feature_flag_id:** `typing.Optional[str]` — Filter by feature flag ID. Exact match.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">create</a>(...) -> CreateExperimentResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new experiment for A/B testing.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.experiments.create(
+    name="name",
+    feature_flag_id="feature_flag_id",
+    authentication_flow="authentication",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — A human-readable name for the experiment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**feature_flag_id:** `str` — The ID of the feature flag this experiment is based on
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authentication_flow:** `AuthenticationFlowEnum` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A description of the experiment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**default_config:** `typing.Optional[DefaultConfigEnum]` — Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config so the experiment overlays only its changes, 'flag' uses the flag's frozen defaults for a complete config. Optional; defaults to 'tenant' when omitted. Rejected for customer-defined flags.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allocation_strategy:** `typing.Optional[AllocationStrategyEnum]` — The traffic allocation strategy for this experiment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allocations:** `typing.Optional[typing.List[AllocationRequestItem]]` — Traffic allocations mapping variations to weights or segments
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**levels:** `typing.Optional[typing.List[int]]` — Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100].
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">get</a>(...) -> GetExperimentResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single experiment with its allocations by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.experiments.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the experiment to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete an experiment and its allocations by ID. Active experiments cannot be deleted; pause or complete first. Idempotent: returns 204 even if the experiment does not exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.experiments.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the experiment to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">update</a>(...) -> UpdateExperimentResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partially update an experiment by ID. Only provided fields are updated. Providing allocations replaces the entire allocations set.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.experiments.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the experiment to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — A human-readable name for the experiment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A description of the experiment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authentication_flow:** `typing.Optional[AuthenticationFlowEnum]` — Specifies the target authentication flow for this experiment. This field can only be modified on draft experiments. Must be one of: authentication, mfa_enrollment, mfa_challenge, password_reset, passkey_enrollment, or all. Note that the all value targets every flow at once, but requires that this is the only active experiment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allocations:** `typing.Optional[typing.List[AllocationRequestItem]]` — Replaces all traffic allocations. Cannot be modified while the experiment is active.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**default_config:** `typing.Optional[DefaultConfigEnum]` — Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config, 'flag' uses the flag's frozen defaults. Can only be modified on draft experiments. Rejected for customer-defined flags.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**levels:** `typing.Optional[typing.List[int]]` — Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100]. Can only be modified on draft experiments.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">advance_ramp</a>(...) -> AdvanceRampResponseContent</code></summary>
 <dl>
 <dd>
@@ -26250,6 +26779,1549 @@ client.experimentation.experiments.advance_ramp(
 <dd>
 
 **target_level:** `int` — The target percentage level from the experiment schedule. Must be the immediate next level.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">update_status</a>(...) -> UpdateExperimentStatusResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.experiments.update_status(
+    id="id",
+    status="active",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the experiment to transition.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `ExperimentTransitionStatusEnum` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">validate</a>(...) -> ValidateExperimentResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Checks whether an experiment is ready to be activated. Returns is_valid boolean and an errors array describing any blockers. Read-only; no state is modified.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.experiments.validate(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the experiment to validate.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Experimentation FeatureFlags
+<details><summary><code>client.experimentation.feature_flags.<a href="src/auth0.management/experimentation/feature_flags/client.py">list</a>(...) -> ListFeatureFlagsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of feature flags for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.list(
+    from_="from",
+    take=1,
+    type="auth0",
+    status="draft",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of feature flags to return per page. Defaults to 25, maximum 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[FeatureFlagTypeEnum]` — Filter by type. Exact match.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[FeatureFlagStatusEnum]` — Filter by status. Exact match.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.<a href="src/auth0.management/experimentation/feature_flags/client.py">create</a>(...) -> CreateFeatureFlagResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new feature flag with parameters for use in experiments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.create(
+    name="name",
+    parameters={},
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — A human-readable name for the feature flag
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `CreateFeatureFlagParameters` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A description of what this feature flag controls
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.<a href="src/auth0.management/experimentation/feature_flags/client.py">get</a>(...) -> GetFeatureFlagResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single feature flag by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the feature flag to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.<a href="src/auth0.management/experimentation/feature_flags/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a feature flag by ID. Idempotent: returns 204 even if flag does not exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the feature flag to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.<a href="src/auth0.management/experimentation/feature_flags/client.py">update</a>(...) -> UpdateFeatureFlagResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partially update a feature flag by ID. Only provided fields are updated.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the feature flag to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — A human-readable name for the feature flag
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A description of what this feature flag controls
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[UpdateFeatureFlagParameters]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.<a href="src/auth0.management/experimentation/feature_flags/client.py">update_status</a>(...) -> UpdateFeatureFlagStatusResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.update_status(
+    id="id",
+    status="draft",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the feature flag to transition.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `FeatureFlagStatusEnum` — The target status to transition the feature flag to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Experimentation Segments
+<details><summary><code>client.experimentation.segments.<a href="src/auth0.management/experimentation/segments/client.py">list</a>(...) -> ListSegmentsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of segments for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.segments.list(
+    from_="from",
+    take=1,
+    type="auth0",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of segments to return per page. Defaults to 25, maximum 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[SegmentTypeFilterEnum]` — Filter by type. Exact match.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.segments.<a href="src/auth0.management/experimentation/segments/client.py">create</a>(...) -> CreateSegmentResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new segment with rule-based membership criteria for use in experiments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0, SegmentRule
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.segments.create(
+    name="name",
+    rules=[
+        SegmentRule()
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — A human-readable name for the segment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**rules:** `typing.List[SegmentRule]` — An ordered list of rules. A segment matches if any rule matches. Each rule is limited to 4KB and the whole segment to 10KB (serialized).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A description of the segment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.segments.<a href="src/auth0.management/experimentation/segments/client.py">get</a>(...) -> GetSegmentResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single segment by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.segments.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the segment to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.segments.<a href="src/auth0.management/experimentation/segments/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a segment by ID. Idempotent: returns 204 even if segment does not exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.segments.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the segment to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.segments.<a href="src/auth0.management/experimentation/segments/client.py">update</a>(...) -> UpdateSegmentResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partially update a segment by ID. Only provided fields are updated. Sending rules replaces the entire rules array.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.segments.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the segment to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — A human-readable name for the segment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A description of the segment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**rules:** `typing.Optional[typing.List[SegmentRule]]` — Replaces the entire rules array. Each rule is limited to 4KB and the whole segment to 10KB (serialized).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Experimentation FeatureFlags Variations
+<details><summary><code>client.experimentation.feature_flags.variations.<a href="src/auth0.management/experimentation/feature_flags/variations/client.py">list</a>(...) -> ListVariationsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all variations defined for a specific feature flag.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.variations.list(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the parent feature flag.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.variations.<a href="src/auth0.management/experimentation/feature_flags/variations/client.py">create</a>(...) -> CreateVariationResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new variation with parameter overrides for a specific feature flag.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.variations.create(
+    id="id",
+    name="name",
+    overrides={
+        "key": "value"
+    },
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the parent feature flag.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `str` — A human-readable name for the variation
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**overrides:** `VariationOverridesMap` — Configuration overrides for this variation; keys must exist in the parent flag parameters. Empty {} is the baseline (control) variation that overrides nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A description of what this variation controls
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.variations.<a href="src/auth0.management/experimentation/feature_flags/variations/client.py">get</a>(...) -> GetVariationResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single variation by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.variations.get(
+    id="id",
+    vid="vid",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the parent feature flag.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vid:** `str` — The ID of the variation to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.variations.<a href="src/auth0.management/experimentation/feature_flags/variations/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a variation by ID. Returns 204 if the variation does not exist. Returns 404 if the parent feature flag does not exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.variations.delete(
+    id="id",
+    vid="vid",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the parent feature flag.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vid:** `str` — The ID of the variation to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experimentation.feature_flags.variations.<a href="src/auth0.management/experimentation/feature_flags/variations/client.py">update</a>(...) -> UpdateVariationResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partially update a variation by ID. Only provided fields are updated.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.experimentation.feature_flags.variations.update(
+    id="id",
+    vid="vid",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the parent feature flag.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vid:** `str` — The ID of the variation to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — A human-readable name for the variation
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A description of what this variation controls
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**overrides:** `typing.Optional[UpdateVariationOverridesMap]` 
     
 </dd>
 </dl>
@@ -35133,244 +37205,6 @@ client.organizations.members.delete(
 <dd>
 
 **members:** `typing.List[str]` — List of user IDs to remove from the organization.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Organizations OrganizationTemplate
-<details><summary><code>client.organizations.organization_template.<a href="src/auth0.management/organizations/organization_template/client.py">get</a>(...) -> OrganizationTemplate</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the organization template assigned to a specific organization. Returns the template object if one is explicitly assigned, or a 404 if no template is assigned.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.organizations.organization_template.get(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — ID of the organization.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organizations.organization_template.<a href="src/auth0.management/organizations/organization_template/client.py">assign_organization_template</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Assign an Organization Template to an organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.organizations.organization_template.assign_organization_template(
-    id="id",
-    template_id="template_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The ID of the organization.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_id:** `str` — The ID of the organization template to assign.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.organizations.organization_template.<a href="src/auth0.management/organizations/organization_template/client.py">unassign_organization_template</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Remove an Organization Template assignment from an organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.organizations.organization_template.unassign_organization_template(
-    id="id",
-    template_id="template_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The ID of the organization.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_id:** `str` — The ID of the organization template to unassign.
     
 </dd>
 </dl>

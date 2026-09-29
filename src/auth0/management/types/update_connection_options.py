@@ -25,6 +25,8 @@ from .connection_password_options import ConnectionPasswordOptions
 from .connection_password_policy_enum import ConnectionPasswordPolicyEnum
 from .connection_pushed_authorization_request_endpoint import ConnectionPushedAuthorizationRequestEndpoint
 from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
+from .connection_thumbprints import ConnectionThumbprints
+from .connection_thumbprints_sha_384 import ConnectionThumbprintsSha384
 from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointAuthMethodEnum
 from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
 from .connection_token_endpoint_jwtca_aud_format_enum_oidc import ConnectionTokenEndpointJwtcaAudFormatEnumOidc
@@ -122,6 +124,12 @@ class UpdateConnectionOptions(UniversalBaseModel):
     ] = None
     discovery_url: typing.Optional[ConnectionsDiscoveryUrl] = None
     oidc_metadata: typing.Optional[ConnectionsOidcMetadata] = None
+    thumbprints: typing.Optional[ConnectionThumbprints] = None
+    thumbprints_sha_384: typing_extensions.Annotated[
+        typing.Optional[ConnectionThumbprintsSha384],
+        FieldMetadata(alias="thumbprints_sha384"),
+        pydantic.Field(alias="thumbprints_sha384"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

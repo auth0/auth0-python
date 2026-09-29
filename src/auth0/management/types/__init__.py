@@ -62,6 +62,9 @@ if typing.TYPE_CHECKING:
     from .advance_ramp_response_content import AdvanceRampResponseContent
     from .agent_metadata import AgentMetadata
     from .agent_response_content import AgentResponseContent
+    from .allocation_item import AllocationItem
+    from .allocation_request_item import AllocationRequestItem
+    from .allocation_strategy_enum import AllocationStrategyEnum
     from .anomaly_ip_format import AnomalyIpFormat
     from .anonymous_sessions import AnonymousSessions
     from .app_metadata import AppMetadata
@@ -92,6 +95,7 @@ if typing.TYPE_CHECKING:
     from .attack_protection_update_captcha_hcaptcha import AttackProtectionUpdateCaptchaHcaptcha
     from .attack_protection_update_captcha_recaptcha_enterprise import AttackProtectionUpdateCaptchaRecaptchaEnterprise
     from .attack_protection_update_captcha_recaptcha_v_2 import AttackProtectionUpdateCaptchaRecaptchaV2
+    from .authentication_flow_enum import AuthenticationFlowEnum
     from .authentication_method_type_enum import AuthenticationMethodTypeEnum
     from .authentication_type_enum import AuthenticationTypeEnum
     from .b_2_b_integration_configuration import B2BIntegrationConfiguration
@@ -277,6 +281,8 @@ if typing.TYPE_CHECKING:
     from .client_oidc_backchannel_logout_initiators_mode_enum import ClientOidcBackchannelLogoutInitiatorsModeEnum
     from .client_oidc_backchannel_logout_session_metadata import ClientOidcBackchannelLogoutSessionMetadata
     from .client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
+    from .client_oidc_support_allowed_scopes_enum import ClientOidcSupportAllowedScopesEnum
+    from .client_oidc_support_post import ClientOidcSupportPost
     from .client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
     from .client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
     from .client_organization_require_behavior_patch_enum import ClientOrganizationRequireBehaviorPatchEnum
@@ -396,7 +402,6 @@ if typing.TYPE_CHECKING:
     from .connection_debug_saml import ConnectionDebugSaml
     from .connection_decryption_key_saml import ConnectionDecryptionKeySaml
     from .connection_decryption_key_saml_cert import ConnectionDecryptionKeySamlCert
-    from .connection_deletion_behavior_enum import ConnectionDeletionBehaviorEnum
     from .connection_destination_url_saml import ConnectionDestinationUrlSaml
     from .connection_digest_algorithm_enum_saml import ConnectionDigestAlgorithmEnumSaml
     from .connection_digest_algorithm_saml import ConnectionDigestAlgorithmSaml
@@ -837,6 +842,9 @@ if typing.TYPE_CHECKING:
     from .connection_thumbprints import ConnectionThumbprints
     from .connection_thumbprints_ad import ConnectionThumbprintsAd
     from .connection_thumbprints_saml import ConnectionThumbprintsSaml
+    from .connection_thumbprints_sha_384 import ConnectionThumbprintsSha384
+    from .connection_thumbprints_sha_384_ad import ConnectionThumbprintsSha384Ad
+    from .connection_thumbprints_sha_384_saml import ConnectionThumbprintsSha384Saml
     from .connection_token_endpoint import ConnectionTokenEndpoint
     from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointAuthMethodEnum
     from .connection_token_endpoint_auth_methods_supported import ConnectionTokenEndpointAuthMethodsSupported
@@ -1045,8 +1053,11 @@ if typing.TYPE_CHECKING:
     from .create_event_stream_response_content import CreateEventStreamResponseContent
     from .create_event_stream_test_event_response_content import CreateEventStreamTestEventResponseContent
     from .create_event_stream_web_hook_request_content import CreateEventStreamWebHookRequestContent
+    from .create_experiment_response_content import CreateExperimentResponseContent
     from .create_export_users_fields import CreateExportUsersFields
     from .create_export_users_response_content import CreateExportUsersResponseContent
+    from .create_feature_flag_parameters import CreateFeatureFlagParameters
+    from .create_feature_flag_response_content import CreateFeatureFlagResponseContent
     from .create_flow_response_content import CreateFlowResponseContent
     from .create_flows_vault_connection_activecampaign import CreateFlowsVaultConnectionActivecampaign
     from .create_flows_vault_connection_activecampaign_api_key import CreateFlowsVaultConnectionActivecampaignApiKey
@@ -1165,6 +1176,7 @@ if typing.TYPE_CHECKING:
     from .create_scim_configuration_request_content import CreateScimConfigurationRequestContent
     from .create_scim_configuration_response_content import CreateScimConfigurationResponseContent
     from .create_scim_token_response_content import CreateScimTokenResponseContent
+    from .create_segment_response_content import CreateSegmentResponseContent
     from .create_self_service_profile_response_content import CreateSelfServiceProfileResponseContent
     from .create_self_service_profile_sso_ticket_response_content import (
         CreateSelfServiceProfileSsoTicketResponseContent,
@@ -1174,6 +1186,7 @@ if typing.TYPE_CHECKING:
     from .create_user_attribute_profile_response_content import CreateUserAttributeProfileResponseContent
     from .create_user_authentication_method_response_content import CreateUserAuthenticationMethodResponseContent
     from .create_user_response_content import CreateUserResponseContent
+    from .create_variation_response_content import CreateVariationResponseContent
     from .create_verifiable_credential_template_response_content import (
         CreateVerifiableCredentialTemplateResponseContent,
     )
@@ -1215,6 +1228,7 @@ if typing.TYPE_CHECKING:
     from .custom_signing_key_type_enum import CustomSigningKeyTypeEnum
     from .custom_signing_key_use_enum import CustomSigningKeyUseEnum
     from .daily_stats import DailyStats
+    from .default_config_enum import DefaultConfigEnum
     from .default_method_email_identifier_enum import DefaultMethodEmailIdentifierEnum
     from .default_method_phone_number_identifier_enum import DefaultMethodPhoneNumberIdentifierEnum
     from .default_token_quota import DefaultTokenQuota
@@ -4836,9 +4850,19 @@ if typing.TYPE_CHECKING:
     from .event_stream_webhook_destination import EventStreamWebhookDestination
     from .event_stream_webhook_destination_type_enum import EventStreamWebhookDestinationTypeEnum
     from .event_stream_webhook_response_content import EventStreamWebhookResponseContent
+    from .experiment_list_item import ExperimentListItem
+    from .experiment_status_enum import ExperimentStatusEnum
+    from .experiment_transition_status_enum import ExperimentTransitionStatusEnum
+    from .experiment_validation_error import ExperimentValidationError
     from .express_configuration import ExpressConfiguration
     from .express_configuration_or_null import ExpressConfigurationOrNull
     from .extensibility_email_provider_credentials import ExtensibilityEmailProviderCredentials
+    from .feature_flag import FeatureFlag
+    from .feature_flag_config_param import FeatureFlagConfigParam
+    from .feature_flag_config_param_type_enum import FeatureFlagConfigParamTypeEnum
+    from .feature_flag_config_params import FeatureFlagConfigParams
+    from .feature_flag_status_enum import FeatureFlagStatusEnum
+    from .feature_flag_type_enum import FeatureFlagTypeEnum
     from .fed_cm_login import FedCmLogin
     from .fed_cm_login_google import FedCmLoginGoogle
     from .fed_cm_login_google_patch import FedCmLoginGooglePatch
@@ -5463,6 +5487,8 @@ if typing.TYPE_CHECKING:
     from .get_encryption_key_response_content import GetEncryptionKeyResponseContent
     from .get_event_stream_delivery_history_response_content import GetEventStreamDeliveryHistoryResponseContent
     from .get_event_stream_response_content import GetEventStreamResponseContent
+    from .get_experiment_response_content import GetExperimentResponseContent
+    from .get_feature_flag_response_content import GetFeatureFlagResponseContent
     from .get_flow_execution_request_parameters_hydrate_enum import GetFlowExecutionRequestParametersHydrateEnum
     from .get_flow_execution_response_content import GetFlowExecutionResponseContent
     from .get_flow_request_parameters_hydrate_enum import GetFlowRequestParametersHydrateEnum
@@ -5532,6 +5558,7 @@ if typing.TYPE_CHECKING:
     )
     from .get_scim_configuration_response_content import GetScimConfigurationResponseContent
     from .get_scim_tokens_response_content import GetScimTokensResponseContent
+    from .get_segment_response_content import GetSegmentResponseContent
     from .get_self_service_profile_response_content import GetSelfServiceProfileResponseContent
     from .get_session_response_content import GetSessionResponseContent
     from .get_settings_response_content import GetSettingsResponseContent
@@ -5547,6 +5574,7 @@ if typing.TYPE_CHECKING:
     from .get_user_authentication_method_response_content import GetUserAuthenticationMethodResponseContent
     from .get_user_groups_paginated_response_content import GetUserGroupsPaginatedResponseContent
     from .get_user_response_content import GetUserResponseContent
+    from .get_variation_response_content import GetVariationResponseContent
     from .get_verifiable_credential_template_response_content import GetVerifiableCredentialTemplateResponseContent
     from .group import Group
     from .group_member import GroupMember
@@ -5608,6 +5636,8 @@ if typing.TYPE_CHECKING:
     from .list_encryption_key_offset_paginated_response_content import ListEncryptionKeyOffsetPaginatedResponseContent
     from .list_event_stream_deliveries_response_content import ListEventStreamDeliveriesResponseContent
     from .list_event_streams_response_content import ListEventStreamsResponseContent
+    from .list_experiments_response_content import ListExperimentsResponseContent
+    from .list_feature_flags_response_content import ListFeatureFlagsResponseContent
     from .list_flow_executions_paginated_response_content import ListFlowExecutionsPaginatedResponseContent
     from .list_flows_offset_paginated_response_content import ListFlowsOffsetPaginatedResponseContent
     from .list_flows_request_parameters_hydrate_enum import ListFlowsRequestParametersHydrateEnum
@@ -5662,6 +5692,7 @@ if typing.TYPE_CHECKING:
     from .list_roles_offset_paginated_response_content import ListRolesOffsetPaginatedResponseContent
     from .list_rules_offset_paginated_response_content import ListRulesOffsetPaginatedResponseContent
     from .list_scim_configurations_response_content import ListScimConfigurationsResponseContent
+    from .list_segments_response_content import ListSegmentsResponseContent
     from .list_self_service_profile_custom_text_response_content import ListSelfServiceProfileCustomTextResponseContent
     from .list_self_service_profiles_paginated_response_content import ListSelfServiceProfilesPaginatedResponseContent
     from .list_synchronized_groups_response_content import ListSynchronizedGroupsResponseContent
@@ -5692,6 +5723,7 @@ if typing.TYPE_CHECKING:
     from .list_user_roles_offset_paginated_response_content import ListUserRolesOffsetPaginatedResponseContent
     from .list_user_sessions_paginated_response_content import ListUserSessionsPaginatedResponseContent
     from .list_users_offset_paginated_response_content import ListUsersOffsetPaginatedResponseContent
+    from .list_variations_response_content import ListVariationsResponseContent
     from .list_verifiable_credential_templates_paginated_response_content import (
         ListVerifiableCredentialTemplatesPaginatedResponseContent,
     )
@@ -5791,7 +5823,6 @@ if typing.TYPE_CHECKING:
     from .organization_client_metadata_organization_usage_enum import OrganizationClientMetadataOrganizationUsageEnum
     from .organization_connection import OrganizationConnection
     from .organization_connection_information import OrganizationConnectionInformation
-    from .organization_deletion_behavior_enum import OrganizationDeletionBehaviorEnum
     from .organization_discovery_domain import OrganizationDiscoveryDomain
     from .organization_discovery_domain_status import OrganizationDiscoveryDomainStatus
     from .organization_enabled_connection import OrganizationEnabledConnection
@@ -5806,12 +5837,6 @@ if typing.TYPE_CHECKING:
     from .organization_member_role import OrganizationMemberRole
     from .organization_metadata import OrganizationMetadata
     from .organization_sort_field_enum import OrganizationSortFieldEnum
-    from .organization_template import OrganizationTemplate
-    from .organization_template_allowed_strategy_enum import OrganizationTemplateAllowedStrategyEnum
-    from .organization_template_role_visibility_enum import OrganizationTemplateRoleVisibilityEnum
-    from .organization_template_role_visibility_override import OrganizationTemplateRoleVisibilityOverride
-    from .organization_template_role_visibility_policy import OrganizationTemplateRoleVisibilityPolicy
-    from .organization_template_use_for_organization_discovery import OrganizationTemplateUseForOrganizationDiscovery
     from .organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
     from .organization_usage_enum import OrganizationUsageEnum
     from .partial_groups_enum import PartialGroupsEnum
@@ -5954,6 +5979,17 @@ if typing.TYPE_CHECKING:
     from .search_organizations_paginated_response_content import SearchOrganizationsPaginatedResponseContent
     from .search_parser_enum import SearchParserEnum
     from .search_resource_servers_response_content import SearchResourceServersResponseContent
+    from .segment import Segment
+    from .segment_contains_expression import SegmentContainsExpression
+    from .segment_ends_with_expression import SegmentEndsWithExpression
+    from .segment_exists_expression import SegmentExistsExpression
+    from .segment_match_conditions import SegmentMatchConditions
+    from .segment_match_expression import SegmentMatchExpression
+    from .segment_not_match_conditions import SegmentNotMatchConditions
+    from .segment_rule import SegmentRule
+    from .segment_starts_with_expression import SegmentStartsWithExpression
+    from .segment_type_enum import SegmentTypeEnum
+    from .segment_type_filter_enum import SegmentTypeFilterEnum
     from .self_service_profile import SelfServiceProfile
     from .self_service_profile_allowed_strategy_enum import SelfServiceProfileAllowedStrategyEnum
     from .self_service_profile_branding import SelfServiceProfileBranding
@@ -6197,6 +6233,11 @@ if typing.TYPE_CHECKING:
     from .update_enabled_client_connections_request_content import UpdateEnabledClientConnectionsRequestContent
     from .update_enabled_client_connections_request_content_item import UpdateEnabledClientConnectionsRequestContentItem
     from .update_event_stream_response_content import UpdateEventStreamResponseContent
+    from .update_experiment_response_content import UpdateExperimentResponseContent
+    from .update_experiment_status_response_content import UpdateExperimentStatusResponseContent
+    from .update_feature_flag_parameters import UpdateFeatureFlagParameters
+    from .update_feature_flag_response_content import UpdateFeatureFlagResponseContent
+    from .update_feature_flag_status_response_content import UpdateFeatureFlagStatusResponseContent
     from .update_flow_response_content import UpdateFlowResponseContent
     from .update_flows_vault_connection_response_content import UpdateFlowsVaultConnectionResponseContent
     from .update_flows_vault_connection_setup import UpdateFlowsVaultConnectionSetup
@@ -6235,6 +6276,7 @@ if typing.TYPE_CHECKING:
     from .update_role_response_content import UpdateRoleResponseContent
     from .update_rule_response_content import UpdateRuleResponseContent
     from .update_scim_configuration_response_content import UpdateScimConfigurationResponseContent
+    from .update_segment_response_content import UpdateSegmentResponseContent
     from .update_self_service_profile_response_content import UpdateSelfServiceProfileResponseContent
     from .update_session_response_content import UpdateSessionResponseContent
     from .update_settings_response_content import UpdateSettingsResponseContent
@@ -6250,6 +6292,8 @@ if typing.TYPE_CHECKING:
     from .update_user_attribute_profile_response_content import UpdateUserAttributeProfileResponseContent
     from .update_user_authentication_method_response_content import UpdateUserAuthenticationMethodResponseContent
     from .update_user_response_content import UpdateUserResponseContent
+    from .update_variation_overrides_map import UpdateVariationOverridesMap
+    from .update_variation_response_content import UpdateVariationResponseContent
     from .update_verifiable_credential_template_response_content import (
         UpdateVerifiableCredentialTemplateResponseContent,
     )
@@ -6308,6 +6352,9 @@ if typing.TYPE_CHECKING:
     from .username_attribute_identifier import UsernameAttributeIdentifier
     from .username_validation import UsernameValidation
     from .users_enrollment import UsersEnrollment
+    from .validate_experiment_response_content import ValidateExperimentResponseContent
+    from .variation import Variation
+    from .variation_overrides_map import VariationOverridesMap
     from .verifiable_credential_template_response import VerifiableCredentialTemplateResponse
     from .verification_method_enum import VerificationMethodEnum
     from .verify_custom_domain_response_content import VerifyCustomDomainResponseContent
@@ -6373,6 +6420,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdvanceRampResponseContent": ".advance_ramp_response_content",
     "AgentMetadata": ".agent_metadata",
     "AgentResponseContent": ".agent_response_content",
+    "AllocationItem": ".allocation_item",
+    "AllocationRequestItem": ".allocation_request_item",
+    "AllocationStrategyEnum": ".allocation_strategy_enum",
     "AnomalyIpFormat": ".anomaly_ip_format",
     "AnonymousSessions": ".anonymous_sessions",
     "AppMetadata": ".app_metadata",
@@ -6393,6 +6443,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AttackProtectionUpdateCaptchaHcaptcha": ".attack_protection_update_captcha_hcaptcha",
     "AttackProtectionUpdateCaptchaRecaptchaEnterprise": ".attack_protection_update_captcha_recaptcha_enterprise",
     "AttackProtectionUpdateCaptchaRecaptchaV2": ".attack_protection_update_captcha_recaptcha_v_2",
+    "AuthenticationFlowEnum": ".authentication_flow_enum",
     "AuthenticationMethodTypeEnum": ".authentication_method_type_enum",
     "AuthenticationTypeEnum": ".authentication_type_enum",
     "B2BIntegrationConfiguration": ".b_2_b_integration_configuration",
@@ -6540,6 +6591,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".client_oidc_backchannel_logout_initiators_mode_enum",
     "ClientOidcBackchannelLogoutSessionMetadata": ".client_oidc_backchannel_logout_session_metadata",
     "ClientOidcBackchannelLogoutSettings": ".client_oidc_backchannel_logout_settings",
+    "ClientOidcSupportAllowedScopesEnum": ".client_oidc_support_allowed_scopes_enum",
+    "ClientOidcSupportPost": ".client_oidc_support_post",
     "ClientOrganizationDiscoveryEnum": ".client_organization_discovery_enum",
     "ClientOrganizationRequireBehaviorEnum": ".client_organization_require_behavior_enum",
     "ClientOrganizationRequireBehaviorPatchEnum": ".client_organization_require_behavior_patch_enum",
@@ -6653,7 +6706,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionDebugSaml": ".connection_debug_saml",
     "ConnectionDecryptionKeySaml": ".connection_decryption_key_saml",
     "ConnectionDecryptionKeySamlCert": ".connection_decryption_key_saml_cert",
-    "ConnectionDeletionBehaviorEnum": ".connection_deletion_behavior_enum",
     "ConnectionDestinationUrlSaml": ".connection_destination_url_saml",
     "ConnectionDigestAlgorithmEnumSaml": ".connection_digest_algorithm_enum_saml",
     "ConnectionDigestAlgorithmSaml": ".connection_digest_algorithm_saml",
@@ -7064,6 +7116,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionThumbprints": ".connection_thumbprints",
     "ConnectionThumbprintsAd": ".connection_thumbprints_ad",
     "ConnectionThumbprintsSaml": ".connection_thumbprints_saml",
+    "ConnectionThumbprintsSha384": ".connection_thumbprints_sha_384",
+    "ConnectionThumbprintsSha384Ad": ".connection_thumbprints_sha_384_ad",
+    "ConnectionThumbprintsSha384Saml": ".connection_thumbprints_sha_384_saml",
     "ConnectionTokenEndpoint": ".connection_token_endpoint",
     "ConnectionTokenEndpointAuthMethodEnum": ".connection_token_endpoint_auth_method_enum",
     "ConnectionTokenEndpointAuthMethodsSupported": ".connection_token_endpoint_auth_methods_supported",
@@ -7246,8 +7301,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateEventStreamResponseContent": ".create_event_stream_response_content",
     "CreateEventStreamTestEventResponseContent": ".create_event_stream_test_event_response_content",
     "CreateEventStreamWebHookRequestContent": ".create_event_stream_web_hook_request_content",
+    "CreateExperimentResponseContent": ".create_experiment_response_content",
     "CreateExportUsersFields": ".create_export_users_fields",
     "CreateExportUsersResponseContent": ".create_export_users_response_content",
+    "CreateFeatureFlagParameters": ".create_feature_flag_parameters",
+    "CreateFeatureFlagResponseContent": ".create_feature_flag_response_content",
     "CreateFlowResponseContent": ".create_flow_response_content",
     "CreateFlowsVaultConnectionActivecampaign": ".create_flows_vault_connection_activecampaign",
     "CreateFlowsVaultConnectionActivecampaignApiKey": ".create_flows_vault_connection_activecampaign_api_key",
@@ -7356,6 +7414,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateScimConfigurationRequestContent": ".create_scim_configuration_request_content",
     "CreateScimConfigurationResponseContent": ".create_scim_configuration_response_content",
     "CreateScimTokenResponseContent": ".create_scim_token_response_content",
+    "CreateSegmentResponseContent": ".create_segment_response_content",
     "CreateSelfServiceProfileResponseContent": ".create_self_service_profile_response_content",
     "CreateSelfServiceProfileSsoTicketResponseContent": ".create_self_service_profile_sso_ticket_response_content",
     "CreateTokenExchangeProfileResponseContent": ".create_token_exchange_profile_response_content",
@@ -7363,6 +7422,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateUserAttributeProfileResponseContent": ".create_user_attribute_profile_response_content",
     "CreateUserAuthenticationMethodResponseContent": ".create_user_authentication_method_response_content",
     "CreateUserResponseContent": ".create_user_response_content",
+    "CreateVariationResponseContent": ".create_variation_response_content",
     "CreateVerifiableCredentialTemplateResponseContent": ".create_verifiable_credential_template_response_content",
     "CreateVerificationEmailResponseContent": ".create_verification_email_response_content",
     "CreatedAuthenticationMethodTypeEnum": ".created_authentication_method_type_enum",
@@ -7402,6 +7462,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CustomSigningKeyTypeEnum": ".custom_signing_key_type_enum",
     "CustomSigningKeyUseEnum": ".custom_signing_key_use_enum",
     "DailyStats": ".daily_stats",
+    "DefaultConfigEnum": ".default_config_enum",
     "DefaultMethodEmailIdentifierEnum": ".default_method_email_identifier_enum",
     "DefaultMethodPhoneNumberIdentifierEnum": ".default_method_phone_number_identifier_enum",
     "DefaultTokenQuota": ".default_token_quota",
@@ -8793,9 +8854,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamWebhookDestination": ".event_stream_webhook_destination",
     "EventStreamWebhookDestinationTypeEnum": ".event_stream_webhook_destination_type_enum",
     "EventStreamWebhookResponseContent": ".event_stream_webhook_response_content",
+    "ExperimentListItem": ".experiment_list_item",
+    "ExperimentStatusEnum": ".experiment_status_enum",
+    "ExperimentTransitionStatusEnum": ".experiment_transition_status_enum",
+    "ExperimentValidationError": ".experiment_validation_error",
     "ExpressConfiguration": ".express_configuration",
     "ExpressConfigurationOrNull": ".express_configuration_or_null",
     "ExtensibilityEmailProviderCredentials": ".extensibility_email_provider_credentials",
+    "FeatureFlag": ".feature_flag",
+    "FeatureFlagConfigParam": ".feature_flag_config_param",
+    "FeatureFlagConfigParamTypeEnum": ".feature_flag_config_param_type_enum",
+    "FeatureFlagConfigParams": ".feature_flag_config_params",
+    "FeatureFlagStatusEnum": ".feature_flag_status_enum",
+    "FeatureFlagTypeEnum": ".feature_flag_type_enum",
     "FedCmLogin": ".fed_cm_login",
     "FedCmLoginGoogle": ".fed_cm_login_google",
     "FedCmLoginGooglePatch": ".fed_cm_login_google_patch",
@@ -9398,6 +9469,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetEncryptionKeyResponseContent": ".get_encryption_key_response_content",
     "GetEventStreamDeliveryHistoryResponseContent": ".get_event_stream_delivery_history_response_content",
     "GetEventStreamResponseContent": ".get_event_stream_response_content",
+    "GetExperimentResponseContent": ".get_experiment_response_content",
+    "GetFeatureFlagResponseContent": ".get_feature_flag_response_content",
     "GetFlowExecutionRequestParametersHydrateEnum": ".get_flow_execution_request_parameters_hydrate_enum",
     "GetFlowExecutionResponseContent": ".get_flow_execution_response_content",
     "GetFlowRequestParametersHydrateEnum": ".get_flow_request_parameters_hydrate_enum",
@@ -9453,6 +9526,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetScimConfigurationDefaultMappingResponseContent": ".get_scim_configuration_default_mapping_response_content",
     "GetScimConfigurationResponseContent": ".get_scim_configuration_response_content",
     "GetScimTokensResponseContent": ".get_scim_tokens_response_content",
+    "GetSegmentResponseContent": ".get_segment_response_content",
     "GetSelfServiceProfileResponseContent": ".get_self_service_profile_response_content",
     "GetSessionResponseContent": ".get_session_response_content",
     "GetSettingsResponseContent": ".get_settings_response_content",
@@ -9468,6 +9542,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetUserAuthenticationMethodResponseContent": ".get_user_authentication_method_response_content",
     "GetUserGroupsPaginatedResponseContent": ".get_user_groups_paginated_response_content",
     "GetUserResponseContent": ".get_user_response_content",
+    "GetVariationResponseContent": ".get_variation_response_content",
     "GetVerifiableCredentialTemplateResponseContent": ".get_verifiable_credential_template_response_content",
     "Group": ".group",
     "GroupMember": ".group_member",
@@ -9521,6 +9596,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListEncryptionKeyOffsetPaginatedResponseContent": ".list_encryption_key_offset_paginated_response_content",
     "ListEventStreamDeliveriesResponseContent": ".list_event_stream_deliveries_response_content",
     "ListEventStreamsResponseContent": ".list_event_streams_response_content",
+    "ListExperimentsResponseContent": ".list_experiments_response_content",
+    "ListFeatureFlagsResponseContent": ".list_feature_flags_response_content",
     "ListFlowExecutionsPaginatedResponseContent": ".list_flow_executions_paginated_response_content",
     "ListFlowsOffsetPaginatedResponseContent": ".list_flows_offset_paginated_response_content",
     "ListFlowsRequestParametersHydrateEnum": ".list_flows_request_parameters_hydrate_enum",
@@ -9557,6 +9634,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListRolesOffsetPaginatedResponseContent": ".list_roles_offset_paginated_response_content",
     "ListRulesOffsetPaginatedResponseContent": ".list_rules_offset_paginated_response_content",
     "ListScimConfigurationsResponseContent": ".list_scim_configurations_response_content",
+    "ListSegmentsResponseContent": ".list_segments_response_content",
     "ListSelfServiceProfileCustomTextResponseContent": ".list_self_service_profile_custom_text_response_content",
     "ListSelfServiceProfilesPaginatedResponseContent": ".list_self_service_profiles_paginated_response_content",
     "ListSynchronizedGroupsResponseContent": ".list_synchronized_groups_response_content",
@@ -9577,6 +9655,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListUserRolesOffsetPaginatedResponseContent": ".list_user_roles_offset_paginated_response_content",
     "ListUserSessionsPaginatedResponseContent": ".list_user_sessions_paginated_response_content",
     "ListUsersOffsetPaginatedResponseContent": ".list_users_offset_paginated_response_content",
+    "ListVariationsResponseContent": ".list_variations_response_content",
     "ListVerifiableCredentialTemplatesPaginatedResponseContent": ".list_verifiable_credential_templates_paginated_response_content",
     "Log": ".log",
     "LogDate": ".log_date",
@@ -9674,7 +9753,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationClientMetadataOrganizationUsageEnum": ".organization_client_metadata_organization_usage_enum",
     "OrganizationConnection": ".organization_connection",
     "OrganizationConnectionInformation": ".organization_connection_information",
-    "OrganizationDeletionBehaviorEnum": ".organization_deletion_behavior_enum",
     "OrganizationDiscoveryDomain": ".organization_discovery_domain",
     "OrganizationDiscoveryDomainStatus": ".organization_discovery_domain_status",
     "OrganizationEnabledConnection": ".organization_enabled_connection",
@@ -9689,12 +9767,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationMemberRole": ".organization_member_role",
     "OrganizationMetadata": ".organization_metadata",
     "OrganizationSortFieldEnum": ".organization_sort_field_enum",
-    "OrganizationTemplate": ".organization_template",
-    "OrganizationTemplateAllowedStrategyEnum": ".organization_template_allowed_strategy_enum",
-    "OrganizationTemplateRoleVisibilityEnum": ".organization_template_role_visibility_enum",
-    "OrganizationTemplateRoleVisibilityOverride": ".organization_template_role_visibility_override",
-    "OrganizationTemplateRoleVisibilityPolicy": ".organization_template_role_visibility_policy",
-    "OrganizationTemplateUseForOrganizationDiscovery": ".organization_template_use_for_organization_discovery",
     "OrganizationThirdPartyClientAccessEnum": ".organization_third_party_client_access_enum",
     "OrganizationUsageEnum": ".organization_usage_enum",
     "PartialGroupsEnum": ".partial_groups_enum",
@@ -9815,6 +9887,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SearchOrganizationsPaginatedResponseContent": ".search_organizations_paginated_response_content",
     "SearchParserEnum": ".search_parser_enum",
     "SearchResourceServersResponseContent": ".search_resource_servers_response_content",
+    "Segment": ".segment",
+    "SegmentContainsExpression": ".segment_contains_expression",
+    "SegmentEndsWithExpression": ".segment_ends_with_expression",
+    "SegmentExistsExpression": ".segment_exists_expression",
+    "SegmentMatchConditions": ".segment_match_conditions",
+    "SegmentMatchExpression": ".segment_match_expression",
+    "SegmentNotMatchConditions": ".segment_not_match_conditions",
+    "SegmentRule": ".segment_rule",
+    "SegmentStartsWithExpression": ".segment_starts_with_expression",
+    "SegmentTypeEnum": ".segment_type_enum",
+    "SegmentTypeFilterEnum": ".segment_type_filter_enum",
     "SelfServiceProfile": ".self_service_profile",
     "SelfServiceProfileAllowedStrategyEnum": ".self_service_profile_allowed_strategy_enum",
     "SelfServiceProfileBranding": ".self_service_profile_branding",
@@ -10026,6 +10109,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateEnabledClientConnectionsRequestContent": ".update_enabled_client_connections_request_content",
     "UpdateEnabledClientConnectionsRequestContentItem": ".update_enabled_client_connections_request_content_item",
     "UpdateEventStreamResponseContent": ".update_event_stream_response_content",
+    "UpdateExperimentResponseContent": ".update_experiment_response_content",
+    "UpdateExperimentStatusResponseContent": ".update_experiment_status_response_content",
+    "UpdateFeatureFlagParameters": ".update_feature_flag_parameters",
+    "UpdateFeatureFlagResponseContent": ".update_feature_flag_response_content",
+    "UpdateFeatureFlagStatusResponseContent": ".update_feature_flag_status_response_content",
     "UpdateFlowResponseContent": ".update_flow_response_content",
     "UpdateFlowsVaultConnectionResponseContent": ".update_flows_vault_connection_response_content",
     "UpdateFlowsVaultConnectionSetup": ".update_flows_vault_connection_setup",
@@ -10054,6 +10142,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateRoleResponseContent": ".update_role_response_content",
     "UpdateRuleResponseContent": ".update_rule_response_content",
     "UpdateScimConfigurationResponseContent": ".update_scim_configuration_response_content",
+    "UpdateSegmentResponseContent": ".update_segment_response_content",
     "UpdateSelfServiceProfileResponseContent": ".update_self_service_profile_response_content",
     "UpdateSessionResponseContent": ".update_session_response_content",
     "UpdateSettingsResponseContent": ".update_settings_response_content",
@@ -10065,6 +10154,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateUserAttributeProfileResponseContent": ".update_user_attribute_profile_response_content",
     "UpdateUserAuthenticationMethodResponseContent": ".update_user_authentication_method_response_content",
     "UpdateUserResponseContent": ".update_user_response_content",
+    "UpdateVariationOverridesMap": ".update_variation_overrides_map",
+    "UpdateVariationResponseContent": ".update_variation_response_content",
     "UpdateVerifiableCredentialTemplateResponseContent": ".update_verifiable_credential_template_response_content",
     "UserAppMetadataSchema": ".user_app_metadata_schema",
     "UserAttributeProfile": ".user_attribute_profile",
@@ -10115,6 +10206,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UsernameAttributeIdentifier": ".username_attribute_identifier",
     "UsernameValidation": ".username_validation",
     "UsersEnrollment": ".users_enrollment",
+    "ValidateExperimentResponseContent": ".validate_experiment_response_content",
+    "Variation": ".variation",
+    "VariationOverridesMap": ".variation_overrides_map",
     "VerifiableCredentialTemplateResponse": ".verifiable_credential_template_response",
     "VerificationMethodEnum": ".verification_method_enum",
     "VerifyCustomDomainResponseContent": ".verify_custom_domain_response_content",
@@ -10204,6 +10298,9 @@ __all__ = [
     "AdvanceRampResponseContent",
     "AgentMetadata",
     "AgentResponseContent",
+    "AllocationItem",
+    "AllocationRequestItem",
+    "AllocationStrategyEnum",
     "AnomalyIpFormat",
     "AnonymousSessions",
     "AppMetadata",
@@ -10224,6 +10321,7 @@ __all__ = [
     "AttackProtectionUpdateCaptchaHcaptcha",
     "AttackProtectionUpdateCaptchaRecaptchaEnterprise",
     "AttackProtectionUpdateCaptchaRecaptchaV2",
+    "AuthenticationFlowEnum",
     "AuthenticationMethodTypeEnum",
     "AuthenticationTypeEnum",
     "B2BIntegrationConfiguration",
@@ -10371,6 +10469,8 @@ __all__ = [
     "ClientOidcBackchannelLogoutInitiatorsModeEnum",
     "ClientOidcBackchannelLogoutSessionMetadata",
     "ClientOidcBackchannelLogoutSettings",
+    "ClientOidcSupportAllowedScopesEnum",
+    "ClientOidcSupportPost",
     "ClientOrganizationDiscoveryEnum",
     "ClientOrganizationRequireBehaviorEnum",
     "ClientOrganizationRequireBehaviorPatchEnum",
@@ -10484,7 +10584,6 @@ __all__ = [
     "ConnectionDebugSaml",
     "ConnectionDecryptionKeySaml",
     "ConnectionDecryptionKeySamlCert",
-    "ConnectionDeletionBehaviorEnum",
     "ConnectionDestinationUrlSaml",
     "ConnectionDigestAlgorithmEnumSaml",
     "ConnectionDigestAlgorithmSaml",
@@ -10895,6 +10994,9 @@ __all__ = [
     "ConnectionThumbprints",
     "ConnectionThumbprintsAd",
     "ConnectionThumbprintsSaml",
+    "ConnectionThumbprintsSha384",
+    "ConnectionThumbprintsSha384Ad",
+    "ConnectionThumbprintsSha384Saml",
     "ConnectionTokenEndpoint",
     "ConnectionTokenEndpointAuthMethodEnum",
     "ConnectionTokenEndpointAuthMethodsSupported",
@@ -11077,8 +11179,11 @@ __all__ = [
     "CreateEventStreamResponseContent",
     "CreateEventStreamTestEventResponseContent",
     "CreateEventStreamWebHookRequestContent",
+    "CreateExperimentResponseContent",
     "CreateExportUsersFields",
     "CreateExportUsersResponseContent",
+    "CreateFeatureFlagParameters",
+    "CreateFeatureFlagResponseContent",
     "CreateFlowResponseContent",
     "CreateFlowsVaultConnectionActivecampaign",
     "CreateFlowsVaultConnectionActivecampaignApiKey",
@@ -11187,6 +11292,7 @@ __all__ = [
     "CreateScimConfigurationRequestContent",
     "CreateScimConfigurationResponseContent",
     "CreateScimTokenResponseContent",
+    "CreateSegmentResponseContent",
     "CreateSelfServiceProfileResponseContent",
     "CreateSelfServiceProfileSsoTicketResponseContent",
     "CreateTokenExchangeProfileResponseContent",
@@ -11194,6 +11300,7 @@ __all__ = [
     "CreateUserAttributeProfileResponseContent",
     "CreateUserAuthenticationMethodResponseContent",
     "CreateUserResponseContent",
+    "CreateVariationResponseContent",
     "CreateVerifiableCredentialTemplateResponseContent",
     "CreateVerificationEmailResponseContent",
     "CreatedAuthenticationMethodTypeEnum",
@@ -11233,6 +11340,7 @@ __all__ = [
     "CustomSigningKeyTypeEnum",
     "CustomSigningKeyUseEnum",
     "DailyStats",
+    "DefaultConfigEnum",
     "DefaultMethodEmailIdentifierEnum",
     "DefaultMethodPhoneNumberIdentifierEnum",
     "DefaultTokenQuota",
@@ -12624,9 +12732,19 @@ __all__ = [
     "EventStreamWebhookDestination",
     "EventStreamWebhookDestinationTypeEnum",
     "EventStreamWebhookResponseContent",
+    "ExperimentListItem",
+    "ExperimentStatusEnum",
+    "ExperimentTransitionStatusEnum",
+    "ExperimentValidationError",
     "ExpressConfiguration",
     "ExpressConfigurationOrNull",
     "ExtensibilityEmailProviderCredentials",
+    "FeatureFlag",
+    "FeatureFlagConfigParam",
+    "FeatureFlagConfigParamTypeEnum",
+    "FeatureFlagConfigParams",
+    "FeatureFlagStatusEnum",
+    "FeatureFlagTypeEnum",
     "FedCmLogin",
     "FedCmLoginGoogle",
     "FedCmLoginGooglePatch",
@@ -13229,6 +13347,8 @@ __all__ = [
     "GetEncryptionKeyResponseContent",
     "GetEventStreamDeliveryHistoryResponseContent",
     "GetEventStreamResponseContent",
+    "GetExperimentResponseContent",
+    "GetFeatureFlagResponseContent",
     "GetFlowExecutionRequestParametersHydrateEnum",
     "GetFlowExecutionResponseContent",
     "GetFlowRequestParametersHydrateEnum",
@@ -13284,6 +13404,7 @@ __all__ = [
     "GetScimConfigurationDefaultMappingResponseContent",
     "GetScimConfigurationResponseContent",
     "GetScimTokensResponseContent",
+    "GetSegmentResponseContent",
     "GetSelfServiceProfileResponseContent",
     "GetSessionResponseContent",
     "GetSettingsResponseContent",
@@ -13299,6 +13420,7 @@ __all__ = [
     "GetUserAuthenticationMethodResponseContent",
     "GetUserGroupsPaginatedResponseContent",
     "GetUserResponseContent",
+    "GetVariationResponseContent",
     "GetVerifiableCredentialTemplateResponseContent",
     "Group",
     "GroupMember",
@@ -13352,6 +13474,8 @@ __all__ = [
     "ListEncryptionKeyOffsetPaginatedResponseContent",
     "ListEventStreamDeliveriesResponseContent",
     "ListEventStreamsResponseContent",
+    "ListExperimentsResponseContent",
+    "ListFeatureFlagsResponseContent",
     "ListFlowExecutionsPaginatedResponseContent",
     "ListFlowsOffsetPaginatedResponseContent",
     "ListFlowsRequestParametersHydrateEnum",
@@ -13388,6 +13512,7 @@ __all__ = [
     "ListRolesOffsetPaginatedResponseContent",
     "ListRulesOffsetPaginatedResponseContent",
     "ListScimConfigurationsResponseContent",
+    "ListSegmentsResponseContent",
     "ListSelfServiceProfileCustomTextResponseContent",
     "ListSelfServiceProfilesPaginatedResponseContent",
     "ListSynchronizedGroupsResponseContent",
@@ -13408,6 +13533,7 @@ __all__ = [
     "ListUserRolesOffsetPaginatedResponseContent",
     "ListUserSessionsPaginatedResponseContent",
     "ListUsersOffsetPaginatedResponseContent",
+    "ListVariationsResponseContent",
     "ListVerifiableCredentialTemplatesPaginatedResponseContent",
     "Log",
     "LogDate",
@@ -13505,7 +13631,6 @@ __all__ = [
     "OrganizationClientMetadataOrganizationUsageEnum",
     "OrganizationConnection",
     "OrganizationConnectionInformation",
-    "OrganizationDeletionBehaviorEnum",
     "OrganizationDiscoveryDomain",
     "OrganizationDiscoveryDomainStatus",
     "OrganizationEnabledConnection",
@@ -13520,12 +13645,6 @@ __all__ = [
     "OrganizationMemberRole",
     "OrganizationMetadata",
     "OrganizationSortFieldEnum",
-    "OrganizationTemplate",
-    "OrganizationTemplateAllowedStrategyEnum",
-    "OrganizationTemplateRoleVisibilityEnum",
-    "OrganizationTemplateRoleVisibilityOverride",
-    "OrganizationTemplateRoleVisibilityPolicy",
-    "OrganizationTemplateUseForOrganizationDiscovery",
     "OrganizationThirdPartyClientAccessEnum",
     "OrganizationUsageEnum",
     "PartialGroupsEnum",
@@ -13646,6 +13765,17 @@ __all__ = [
     "SearchOrganizationsPaginatedResponseContent",
     "SearchParserEnum",
     "SearchResourceServersResponseContent",
+    "Segment",
+    "SegmentContainsExpression",
+    "SegmentEndsWithExpression",
+    "SegmentExistsExpression",
+    "SegmentMatchConditions",
+    "SegmentMatchExpression",
+    "SegmentNotMatchConditions",
+    "SegmentRule",
+    "SegmentStartsWithExpression",
+    "SegmentTypeEnum",
+    "SegmentTypeFilterEnum",
     "SelfServiceProfile",
     "SelfServiceProfileAllowedStrategyEnum",
     "SelfServiceProfileBranding",
@@ -13857,6 +13987,11 @@ __all__ = [
     "UpdateEnabledClientConnectionsRequestContent",
     "UpdateEnabledClientConnectionsRequestContentItem",
     "UpdateEventStreamResponseContent",
+    "UpdateExperimentResponseContent",
+    "UpdateExperimentStatusResponseContent",
+    "UpdateFeatureFlagParameters",
+    "UpdateFeatureFlagResponseContent",
+    "UpdateFeatureFlagStatusResponseContent",
     "UpdateFlowResponseContent",
     "UpdateFlowsVaultConnectionResponseContent",
     "UpdateFlowsVaultConnectionSetup",
@@ -13885,6 +14020,7 @@ __all__ = [
     "UpdateRoleResponseContent",
     "UpdateRuleResponseContent",
     "UpdateScimConfigurationResponseContent",
+    "UpdateSegmentResponseContent",
     "UpdateSelfServiceProfileResponseContent",
     "UpdateSessionResponseContent",
     "UpdateSettingsResponseContent",
@@ -13896,6 +14032,8 @@ __all__ = [
     "UpdateUserAttributeProfileResponseContent",
     "UpdateUserAuthenticationMethodResponseContent",
     "UpdateUserResponseContent",
+    "UpdateVariationOverridesMap",
+    "UpdateVariationResponseContent",
     "UpdateVerifiableCredentialTemplateResponseContent",
     "UserAppMetadataSchema",
     "UserAttributeProfile",
@@ -13946,6 +14084,9 @@ __all__ = [
     "UsernameAttributeIdentifier",
     "UsernameValidation",
     "UsersEnrollment",
+    "ValidateExperimentResponseContent",
+    "Variation",
+    "VariationOverridesMap",
     "VerifiableCredentialTemplateResponse",
     "VerificationMethodEnum",
     "VerifyCustomDomainResponseContent",

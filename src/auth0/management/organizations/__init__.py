@@ -15,7 +15,6 @@ if typing.TYPE_CHECKING:
         groups,
         invitations,
         members,
-        organization_template,
         roles,
     )
 _dynamic_imports: typing.Dict[str, str] = {
@@ -27,7 +26,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "groups": ".groups",
     "invitations": ".invitations",
     "members": ".members",
-    "organization_template": ".organization_template",
     "roles": ".roles",
 }
 
@@ -62,6 +60,5 @@ __all__ = [
     "groups",
     "invitations",
     "members",
-    "organization_template",
     "roles",
 ]

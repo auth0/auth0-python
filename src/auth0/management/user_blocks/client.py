@@ -41,8 +41,8 @@ class UserBlocksClient:
 
         consider_brute_force_enablement : typing.Optional[bool]
 
-                      If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-                      If true and Brute Force Protection is disabled, will return an empty list.
+                      If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+                      If false or omitted, returns all blocks regardless of enforcement state.
 
 
         request_options : typing.Optional[RequestOptions]
@@ -121,8 +121,8 @@ class UserBlocksClient:
 
         consider_brute_force_enablement : typing.Optional[bool]
 
-                      If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-                      If true and Brute Force Protection is disabled, will return an empty list.
+                      If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+                      If false or omitted, returns all blocks regardless of enforcement state.
 
 
         request_options : typing.Optional[RequestOptions]
@@ -215,8 +215,8 @@ class AsyncUserBlocksClient:
 
         consider_brute_force_enablement : typing.Optional[bool]
 
-                      If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-                      If true and Brute Force Protection is disabled, will return an empty list.
+                      If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+                      If false or omitted, returns all blocks regardless of enforcement state.
 
 
         request_options : typing.Optional[RequestOptions]
@@ -313,8 +313,8 @@ class AsyncUserBlocksClient:
 
         consider_brute_force_enablement : typing.Optional[bool]
 
-                      If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-                      If true and Brute Force Protection is disabled, will return an empty list.
+                      If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+                      If false or omitted, returns all blocks regardless of enforcement state.
 
 
         request_options : typing.Optional[RequestOptions]

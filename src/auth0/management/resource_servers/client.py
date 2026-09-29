@@ -132,6 +132,7 @@ class ResourceServersClient:
         access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
+        require_consent_non_repudiation: typing.Optional[bool] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
@@ -186,6 +187,9 @@ class ResourceServersClient:
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
 
+        require_consent_non_repudiation : typing.Optional[bool]
+            When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+
         authorization_details : typing.Optional[typing.Sequence[typing.Any]]
 
         proof_of_possession : typing.Optional[ResourceServerProofOfPossession]
@@ -230,6 +234,7 @@ class ResourceServersClient:
             access_token=access_token,
             token_encryption=token_encryption,
             consent_policy=consent_policy,
+            require_consent_non_repudiation=require_consent_non_repudiation,
             authorization_details=authorization_details,
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
@@ -410,6 +415,7 @@ class ResourceServersClient:
         access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
+        require_consent_non_repudiation: typing.Optional[bool] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
@@ -464,6 +470,9 @@ class ResourceServersClient:
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
 
+        require_consent_non_repudiation : typing.Optional[bool]
+            When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+
         authorization_details : typing.Optional[typing.Sequence[typing.Any]]
 
         proof_of_possession : typing.Optional[ResourceServerProofOfPossession]
@@ -508,6 +517,7 @@ class ResourceServersClient:
             access_token=access_token,
             token_encryption=token_encryption,
             consent_policy=consent_policy,
+            require_consent_non_repudiation=require_consent_non_repudiation,
             authorization_details=authorization_details,
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
@@ -627,6 +637,7 @@ class AsyncResourceServersClient:
         access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
+        require_consent_non_repudiation: typing.Optional[bool] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
@@ -681,6 +692,9 @@ class AsyncResourceServersClient:
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
 
+        require_consent_non_repudiation : typing.Optional[bool]
+            When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+
         authorization_details : typing.Optional[typing.Sequence[typing.Any]]
 
         proof_of_possession : typing.Optional[ResourceServerProofOfPossession]
@@ -733,6 +747,7 @@ class AsyncResourceServersClient:
             access_token=access_token,
             token_encryption=token_encryption,
             consent_policy=consent_policy,
+            require_consent_non_repudiation=require_consent_non_repudiation,
             authorization_details=authorization_details,
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
@@ -938,6 +953,7 @@ class AsyncResourceServersClient:
         access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
+        require_consent_non_repudiation: typing.Optional[bool] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
@@ -992,6 +1008,9 @@ class AsyncResourceServersClient:
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
 
+        require_consent_non_repudiation : typing.Optional[bool]
+            When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
+
         authorization_details : typing.Optional[typing.Sequence[typing.Any]]
 
         proof_of_possession : typing.Optional[ResourceServerProofOfPossession]
@@ -1044,6 +1063,7 @@ class AsyncResourceServersClient:
             access_token=access_token,
             token_encryption=token_encryption,
             consent_policy=consent_policy,
+            require_consent_non_repudiation=require_consent_non_repudiation,
             authorization_details=authorization_details,
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
