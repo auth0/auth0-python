@@ -32,7 +32,7 @@ class UserBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListUserBlocksByIdentifierResponseContent:
         """
-        Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
+        Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for a user with the given identifier (username, phone number, or email).
 
         Parameters
         ----------
@@ -41,8 +41,8 @@ class UserBlocksClient:
 
         consider_brute_force_enablement : typing.Optional[bool]
 
-                      If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-                      If true and Brute Force Protection is disabled, will return an empty list.
+                      If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+                      If false or omitted, returns all blocks regardless of enforcement state.
 
 
         request_options : typing.Optional[RequestOptions]
@@ -74,9 +74,9 @@ class UserBlocksClient:
 
     def delete_by_identifier(self, *, identifier: str, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+        Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given identifier (username, phone number, or email).
 
-        Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+        Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 
         Parameters
         ----------
@@ -112,7 +112,7 @@ class UserBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListUserBlocksResponseContent:
         """
-        Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+        Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
         Parameters
         ----------
@@ -121,8 +121,8 @@ class UserBlocksClient:
 
         consider_brute_force_enablement : typing.Optional[bool]
 
-                      If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-                      If true and Brute Force Protection is disabled, will return an empty list.
+                      If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+                      If false or omitted, returns all blocks regardless of enforcement state.
 
 
         request_options : typing.Optional[RequestOptions]
@@ -152,9 +152,9 @@ class UserBlocksClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+        Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
-        Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+        Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 
         Parameters
         ----------
@@ -206,7 +206,7 @@ class AsyncUserBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListUserBlocksByIdentifierResponseContent:
         """
-        Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for a user with the given identifier (username, phone number, or email).
+        Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for a user with the given identifier (username, phone number, or email).
 
         Parameters
         ----------
@@ -215,8 +215,8 @@ class AsyncUserBlocksClient:
 
         consider_brute_force_enablement : typing.Optional[bool]
 
-                      If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-                      If true and Brute Force Protection is disabled, will return an empty list.
+                      If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+                      If false or omitted, returns all blocks regardless of enforcement state.
 
 
         request_options : typing.Optional[RequestOptions]
@@ -258,9 +258,9 @@ class AsyncUserBlocksClient:
         self, *, identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given identifier (username, phone number, or email).
+        Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given identifier (username, phone number, or email).
 
-        Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+        Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 
         Parameters
         ----------
@@ -304,7 +304,7 @@ class AsyncUserBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListUserBlocksResponseContent:
         """
-        Retrieve details of all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+        Retrieve details of all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
         Parameters
         ----------
@@ -313,8 +313,8 @@ class AsyncUserBlocksClient:
 
         consider_brute_force_enablement : typing.Optional[bool]
 
-                      If true and Brute Force Protection is enabled and configured to block logins, will return a list of blocked IP addresses.
-                      If true and Brute Force Protection is disabled, will return an empty list.
+                      If true, returns only blocks that are currently enforced (e.g. subject to protection status, IP allowlist, etc.).
+                      If false or omitted, returns all blocks regardless of enforcement state.
 
 
         request_options : typing.Optional[RequestOptions]
@@ -352,9 +352,9 @@ class AsyncUserBlocksClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Remove all <a href="https://auth0.com/docs/secure/attack-protection/brute-force-protection">Brute-force Protection</a> blocks for the user with the given ID.
+        Remove all [Brute-force Protection](https://auth0.com/docs/secure/attack-protection/brute-force-protection) blocks for the user with the given ID.
 
-        Note: This endpoint does not unblock users that were <a href="https://auth0.com/docs/user-profile#block-and-unblock-a-user">blocked by a tenant administrator</a>.
+        Note: This endpoint does not unblock users that were [blocked by a tenant administrator](https://auth0.com/docs/user-profile#block-and-unblock-a-user).
 
         Parameters
         ----------

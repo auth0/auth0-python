@@ -16,6 +16,11 @@ class SelfServiceProfileSsoTicketGoogleWorkspaceConfig(UniversalBaseModel):
     Whether to enable Google Workspace Directory Sync for users during the self-service flow.
     """
 
+    sync_groups: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether to enable Google Workspace Directory Sync for groups during the self-service flow.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

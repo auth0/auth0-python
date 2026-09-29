@@ -6,7 +6,6 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .branding_colors import BrandingColors
 from .branding_font import BrandingFont
-from .branding_identifiers import BrandingIdentifiers
 
 
 class UpdateBrandingResponseContent(UniversalBaseModel):
@@ -21,7 +20,6 @@ class UpdateBrandingResponseContent(UniversalBaseModel):
     URL for the logo. Must use HTTPS.
     """
 
-    identifiers: typing.Optional[BrandingIdentifiers] = None
     font: typing.Optional[BrandingFont] = None
 
     if IS_PYDANTIC_V2:

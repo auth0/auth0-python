@@ -39,6 +39,10 @@ class ClientCredential(UniversalBaseModel):
         FieldMetadata(alias="thumbprint_sha256"),
         pydantic.Field(alias="thumbprint_sha256", description="The X509 certificate's SHA256 thumbprint"),
     ] = None
+    """
+    The X509 certificate's SHA256 thumbprint
+    """
+
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The ISO 8601 formatted date the credential was created.

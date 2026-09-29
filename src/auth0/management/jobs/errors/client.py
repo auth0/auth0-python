@@ -23,7 +23,9 @@ class ErrorsClient:
         """
         return self._raw_client
 
-    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ErrorsGetResponse:
+    def get(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[ErrorsGetResponse]:
         """
         Retrieve error details of a failed job.
 
@@ -37,7 +39,7 @@ class ErrorsClient:
 
         Returns
         -------
-        ErrorsGetResponse
+        typing.Optional[ErrorsGetResponse]
             Job successfully retrieved.
 
         Examples
@@ -70,7 +72,9 @@ class AsyncErrorsClient:
         """
         return self._raw_client
 
-    async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ErrorsGetResponse:
+    async def get(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[ErrorsGetResponse]:
         """
         Retrieve error details of a failed job.
 
@@ -84,7 +88,7 @@ class AsyncErrorsClient:
 
         Returns
         -------
-        ErrorsGetResponse
+        typing.Optional[ErrorsGetResponse]
             Job successfully retrieved.
 
         Examples

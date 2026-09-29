@@ -14,6 +14,9 @@ class LogStreamSegmentSink(UniversalBaseModel):
         FieldMetadata(alias="segmentWriteKey"),
         pydantic.Field(alias="segmentWriteKey", description="Segment write key"),
     ] = None
+    """
+    Segment write key
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

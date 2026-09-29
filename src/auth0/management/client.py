@@ -11,6 +11,7 @@ from .environment import Auth0Environment
 
 if typing.TYPE_CHECKING:
     from .actions.client import ActionsClient, AsyncActionsClient
+    from .agents.client import AgentsClient, AsyncAgentsClient
     from .anomaly.client import AnomalyClient, AsyncAnomalyClient
     from .attack_protection.client import AsyncAttackProtectionClient, AttackProtectionClient
     from .branding.client import AsyncBrandingClient, BrandingClient
@@ -24,6 +25,7 @@ if typing.TYPE_CHECKING:
     from .emails.client import AsyncEmailsClient, EmailsClient
     from .event_streams.client import AsyncEventStreamsClient, EventStreamsClient
     from .events.client import AsyncEventsClient, EventsClient
+    from .experimentation.client import AsyncExperimentationClient, ExperimentationClient
     from .flows.client import AsyncFlowsClient, FlowsClient
     from .forms.client import AsyncFormsClient, FormsClient
     from .groups.client import AsyncGroupsClient, GroupsClient
@@ -36,6 +38,7 @@ if typing.TYPE_CHECKING:
     from .network_acls.client import AsyncNetworkAclsClient, NetworkAclsClient
     from .organizations.client import AsyncOrganizationsClient, OrganizationsClient
     from .prompts.client import AsyncPromptsClient, PromptsClient
+    from .rate_limit_policies.client import AsyncRateLimitPoliciesClient, RateLimitPoliciesClient
     from .refresh_tokens.client import AsyncRefreshTokensClient, RefreshTokensClient
     from .resource_servers.client import AsyncResourceServersClient, ResourceServersClient
     from .risk_assessments.client import AsyncRiskAssessmentsClient, RiskAssessmentsClient
@@ -87,6 +90,12 @@ class Auth0:
     max_retries : typing.Optional[int]
         The default maximum number of retries for failed requests. Defaults to 2. Per-request `max_retries` in `request_options` takes precedence over this value.
 
+    stream_reconnection_enabled : typing.Optional[bool]
+        Whether to automatically reconnect on stream disconnection for resumable streaming endpoints. Defaults to True. Per-request `stream_reconnection_enabled` in `request_options` takes precedence over this value.
+
+    max_stream_reconnection_attempts : typing.Optional[int]
+        The maximum number of reconnection attempts for resumable streaming endpoints. Defaults to no limit. Per-request `max_stream_reconnection_attempts` in `request_options` takes precedence over this value.
+
     follow_redirects : typing.Optional[bool]
         Whether the default httpx client follows redirects or not, this is irrelevant if a custom httpx client is passed in.
 
@@ -115,17 +124,22 @@ class Auth0:
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
         max_retries: typing.Optional[int] = None,
+        stream_reconnection_enabled: typing.Optional[bool] = None,
+        max_stream_reconnection_attempts: typing.Optional[int] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
-        _defaulted_timeout = (
-            timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
-        )
+        _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         _defaulted_max_retries = max_retries if max_retries is not None else 2
         if tenant_domain is not None:
             _tenant_domain = tenant_domain if tenant_domain is not None else "{TENANT}.auth0.com"
-            base_url = "https://{tenantDomain}/api/v2".format(tenantDomain=_tenant_domain)
+            _environment_url_templates = {
+                Auth0Environment.DEFAULT: "https://{tenantDomain}/api/v2",
+            }
+            _url_template = _environment_url_templates.get(environment, "https://{tenantDomain}/api/v2")
+            if base_url is None:
+                base_url = _url_template.format(tenantDomain=_tenant_domain)
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             token=token,
@@ -137,9 +151,12 @@ class Auth0:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
             max_retries=_defaulted_max_retries,
+            stream_reconnection_enabled=stream_reconnection_enabled,
+            max_stream_reconnection_attempts=max_stream_reconnection_attempts,
             logging=logging,
         )
         self._actions: typing.Optional[ActionsClient] = None
+        self._agents: typing.Optional[AgentsClient] = None
         self._branding: typing.Optional[BrandingClient] = None
         self._client_grants: typing.Optional[ClientGrantsClient] = None
         self._clients: typing.Optional[ClientsClient] = None
@@ -154,6 +171,7 @@ class Auth0:
         self._forms: typing.Optional[FormsClient] = None
         self._user_grants: typing.Optional[UserGrantsClient] = None
         self._groups: typing.Optional[GroupsClient] = None
+        self._guardian: typing.Optional[GuardianClient] = None
         self._hooks: typing.Optional[HooksClient] = None
         self._jobs: typing.Optional[JobsClient] = None
         self._log_streams: typing.Optional[LogStreamsClient] = None
@@ -161,6 +179,7 @@ class Auth0:
         self._network_acls: typing.Optional[NetworkAclsClient] = None
         self._organizations: typing.Optional[OrganizationsClient] = None
         self._prompts: typing.Optional[PromptsClient] = None
+        self._rate_limit_policies: typing.Optional[RateLimitPoliciesClient] = None
         self._refresh_tokens: typing.Optional[RefreshTokensClient] = None
         self._resource_servers: typing.Optional[ResourceServersClient] = None
         self._roles: typing.Optional[RolesClient] = None
@@ -178,7 +197,7 @@ class Auth0:
         self._anomaly: typing.Optional[AnomalyClient] = None
         self._attack_protection: typing.Optional[AttackProtectionClient] = None
         self._emails: typing.Optional[EmailsClient] = None
-        self._guardian: typing.Optional[GuardianClient] = None
+        self._experimentation: typing.Optional[ExperimentationClient] = None
         self._keys: typing.Optional[KeysClient] = None
         self._risk_assessments: typing.Optional[RiskAssessmentsClient] = None
         self._tenants: typing.Optional[TenantsClient] = None
@@ -191,6 +210,14 @@ class Auth0:
 
             self._actions = ActionsClient(client_wrapper=self._client_wrapper)
         return self._actions
+
+    @property
+    def agents(self):
+        if self._agents is None:
+            from .agents.client import AgentsClient  # noqa: E402
+
+            self._agents = AgentsClient(client_wrapper=self._client_wrapper)
+        return self._agents
 
     @property
     def branding(self):
@@ -305,6 +332,14 @@ class Auth0:
         return self._groups
 
     @property
+    def guardian(self):
+        if self._guardian is None:
+            from .guardian.client import GuardianClient  # noqa: E402
+
+            self._guardian = GuardianClient(client_wrapper=self._client_wrapper)
+        return self._guardian
+
+    @property
     def hooks(self):
         if self._hooks is None:
             from .hooks.client import HooksClient  # noqa: E402
@@ -359,6 +394,14 @@ class Auth0:
 
             self._prompts = PromptsClient(client_wrapper=self._client_wrapper)
         return self._prompts
+
+    @property
+    def rate_limit_policies(self):
+        if self._rate_limit_policies is None:
+            from .rate_limit_policies.client import RateLimitPoliciesClient  # noqa: E402
+
+            self._rate_limit_policies = RateLimitPoliciesClient(client_wrapper=self._client_wrapper)
+        return self._rate_limit_policies
 
     @property
     def refresh_tokens(self):
@@ -497,12 +540,12 @@ class Auth0:
         return self._emails
 
     @property
-    def guardian(self):
-        if self._guardian is None:
-            from .guardian.client import GuardianClient  # noqa: E402
+    def experimentation(self):
+        if self._experimentation is None:
+            from .experimentation.client import ExperimentationClient  # noqa: E402
 
-            self._guardian = GuardianClient(client_wrapper=self._client_wrapper)
-        return self._guardian
+            self._experimentation = ExperimentationClient(client_wrapper=self._client_wrapper)
+        return self._experimentation
 
     @property
     def keys(self):
@@ -589,6 +632,12 @@ class AsyncAuth0:
     max_retries : typing.Optional[int]
         The default maximum number of retries for failed requests. Defaults to 2. Per-request `max_retries` in `request_options` takes precedence over this value.
 
+    stream_reconnection_enabled : typing.Optional[bool]
+        Whether to automatically reconnect on stream disconnection for resumable streaming endpoints. Defaults to True. Per-request `stream_reconnection_enabled` in `request_options` takes precedence over this value.
+
+    max_stream_reconnection_attempts : typing.Optional[int]
+        The maximum number of reconnection attempts for resumable streaming endpoints. Defaults to no limit. Per-request `max_stream_reconnection_attempts` in `request_options` takes precedence over this value.
+
     follow_redirects : typing.Optional[bool]
         Whether the default httpx client follows redirects or not, this is irrelevant if a custom httpx client is passed in.
 
@@ -618,17 +667,22 @@ class AsyncAuth0:
         async_token: typing.Optional[typing.Callable[[], typing.Awaitable[str]]] = None,
         timeout: typing.Optional[float] = None,
         max_retries: typing.Optional[int] = None,
+        stream_reconnection_enabled: typing.Optional[bool] = None,
+        max_stream_reconnection_attempts: typing.Optional[int] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
-        _defaulted_timeout = (
-            timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
-        )
+        _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         _defaulted_max_retries = max_retries if max_retries is not None else 2
         if tenant_domain is not None:
             _tenant_domain = tenant_domain if tenant_domain is not None else "{TENANT}.auth0.com"
-            base_url = "https://{tenantDomain}/api/v2".format(tenantDomain=_tenant_domain)
+            _environment_url_templates = {
+                Auth0Environment.DEFAULT: "https://{tenantDomain}/api/v2",
+            }
+            _url_template = _environment_url_templates.get(environment, "https://{tenantDomain}/api/v2")
+            if base_url is None:
+                base_url = _url_template.format(tenantDomain=_tenant_domain)
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             token=token,
@@ -639,9 +693,12 @@ class AsyncAuth0:
             else _make_default_async_client(timeout=_defaulted_timeout, follow_redirects=follow_redirects),
             timeout=_defaulted_timeout,
             max_retries=_defaulted_max_retries,
+            stream_reconnection_enabled=stream_reconnection_enabled,
+            max_stream_reconnection_attempts=max_stream_reconnection_attempts,
             logging=logging,
         )
         self._actions: typing.Optional[AsyncActionsClient] = None
+        self._agents: typing.Optional[AsyncAgentsClient] = None
         self._branding: typing.Optional[AsyncBrandingClient] = None
         self._client_grants: typing.Optional[AsyncClientGrantsClient] = None
         self._clients: typing.Optional[AsyncClientsClient] = None
@@ -656,6 +713,7 @@ class AsyncAuth0:
         self._forms: typing.Optional[AsyncFormsClient] = None
         self._user_grants: typing.Optional[AsyncUserGrantsClient] = None
         self._groups: typing.Optional[AsyncGroupsClient] = None
+        self._guardian: typing.Optional[AsyncGuardianClient] = None
         self._hooks: typing.Optional[AsyncHooksClient] = None
         self._jobs: typing.Optional[AsyncJobsClient] = None
         self._log_streams: typing.Optional[AsyncLogStreamsClient] = None
@@ -663,6 +721,7 @@ class AsyncAuth0:
         self._network_acls: typing.Optional[AsyncNetworkAclsClient] = None
         self._organizations: typing.Optional[AsyncOrganizationsClient] = None
         self._prompts: typing.Optional[AsyncPromptsClient] = None
+        self._rate_limit_policies: typing.Optional[AsyncRateLimitPoliciesClient] = None
         self._refresh_tokens: typing.Optional[AsyncRefreshTokensClient] = None
         self._resource_servers: typing.Optional[AsyncResourceServersClient] = None
         self._roles: typing.Optional[AsyncRolesClient] = None
@@ -680,7 +739,7 @@ class AsyncAuth0:
         self._anomaly: typing.Optional[AsyncAnomalyClient] = None
         self._attack_protection: typing.Optional[AsyncAttackProtectionClient] = None
         self._emails: typing.Optional[AsyncEmailsClient] = None
-        self._guardian: typing.Optional[AsyncGuardianClient] = None
+        self._experimentation: typing.Optional[AsyncExperimentationClient] = None
         self._keys: typing.Optional[AsyncKeysClient] = None
         self._risk_assessments: typing.Optional[AsyncRiskAssessmentsClient] = None
         self._tenants: typing.Optional[AsyncTenantsClient] = None
@@ -693,6 +752,14 @@ class AsyncAuth0:
 
             self._actions = AsyncActionsClient(client_wrapper=self._client_wrapper)
         return self._actions
+
+    @property
+    def agents(self):
+        if self._agents is None:
+            from .agents.client import AsyncAgentsClient  # noqa: E402
+
+            self._agents = AsyncAgentsClient(client_wrapper=self._client_wrapper)
+        return self._agents
 
     @property
     def branding(self):
@@ -807,6 +874,14 @@ class AsyncAuth0:
         return self._groups
 
     @property
+    def guardian(self):
+        if self._guardian is None:
+            from .guardian.client import AsyncGuardianClient  # noqa: E402
+
+            self._guardian = AsyncGuardianClient(client_wrapper=self._client_wrapper)
+        return self._guardian
+
+    @property
     def hooks(self):
         if self._hooks is None:
             from .hooks.client import AsyncHooksClient  # noqa: E402
@@ -861,6 +936,14 @@ class AsyncAuth0:
 
             self._prompts = AsyncPromptsClient(client_wrapper=self._client_wrapper)
         return self._prompts
+
+    @property
+    def rate_limit_policies(self):
+        if self._rate_limit_policies is None:
+            from .rate_limit_policies.client import AsyncRateLimitPoliciesClient  # noqa: E402
+
+            self._rate_limit_policies = AsyncRateLimitPoliciesClient(client_wrapper=self._client_wrapper)
+        return self._rate_limit_policies
 
     @property
     def refresh_tokens(self):
@@ -999,12 +1082,12 @@ class AsyncAuth0:
         return self._emails
 
     @property
-    def guardian(self):
-        if self._guardian is None:
-            from .guardian.client import AsyncGuardianClient  # noqa: E402
+    def experimentation(self):
+        if self._experimentation is None:
+            from .experimentation.client import AsyncExperimentationClient  # noqa: E402
 
-            self._guardian = AsyncGuardianClient(client_wrapper=self._client_wrapper)
-        return self._guardian
+            self._experimentation = AsyncExperimentationClient(client_wrapper=self._client_wrapper)
+        return self._experimentation
 
     @property
     def keys(self):

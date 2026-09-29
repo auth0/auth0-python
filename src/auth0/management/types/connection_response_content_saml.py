@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from .connection_cross_app_access_resource_app import ConnectionCrossAppAccessResourceApp
 from .connection_options_saml import ConnectionOptionsSaml
 from .connection_provisioning_ticket_url import ConnectionProvisioningTicketUrl
 from .connection_purposes import ConnectionPurposes
@@ -18,6 +19,7 @@ class ConnectionResponseContentSaml(ConnectionPurposes, ConnectionResponseCommon
     """
 
     strategy: ConnectionResponseContentSamlStrategy
+    cross_app_access_resource_app: typing.Optional[ConnectionCrossAppAccessResourceApp] = None
     options: typing.Optional[ConnectionOptionsSaml] = None
     provisioning_ticket_url: typing.Optional[ConnectionProvisioningTicketUrl] = None
     show_as_button: typing.Optional[ConnectionShowAsButton] = None

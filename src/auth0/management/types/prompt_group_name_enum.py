@@ -40,6 +40,7 @@ PromptGroupNameEnum = typing.Union[
         "captcha",
         "brute-force-protection",
         "async-approval-flow",
+        "confirmation",
     ],
     typing.Any,
 ]

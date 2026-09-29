@@ -29,7 +29,7 @@ class TokensClient:
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetScimTokensResponseContent:
         """
-        Retrieves all scim tokens by its connection <code>id</code>.
+        Retrieves all scim tokens by its connection `id`.
 
         Parameters
         ----------
@@ -106,7 +106,7 @@ class TokensClient:
 
     def delete(self, id: str, token_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
+        Deletes a scim token by its connection `id` and `tokenId`.
 
         Parameters
         ----------
@@ -158,7 +158,7 @@ class AsyncTokensClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetScimTokensResponseContent:
         """
-        Retrieves all scim tokens by its connection <code>id</code>.
+        Retrieves all scim tokens by its connection `id`.
 
         Parameters
         ----------
@@ -251,7 +251,7 @@ class AsyncTokensClient:
 
     async def delete(self, id: str, token_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Deletes a scim token by its connection <code>id</code> and <code>tokenId</code>.
+        Deletes a scim token by its connection `id` and `tokenId`.
 
         Parameters
         ----------

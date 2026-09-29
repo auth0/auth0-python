@@ -7,7 +7,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -38,7 +38,7 @@ class RawCredentialsClient:
         """
         Get the details of a client credential.
 
-        <b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.
+        **Important**: To enable credentials to be used for a client authentication method, set the `client_authentication_methods` property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the `signed_request_object` property on the client.
 
         Parameters
         ----------
@@ -54,7 +54,7 @@ class RawCredentialsClient:
             Credentials successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials",
+            f"clients/{quote_path_param(client_id)}/credentials",
             method="GET",
             request_options=request_options,
         )
@@ -138,37 +138,61 @@ class RawCredentialsClient:
         """
         Create a client credential associated to your application. Credentials can be used to configure Private Key JWT and mTLS authentication methods, as well as for JWT-secured Authorization requests.
 
-        <h5>Public Key</h5>Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.
+        **Public Key**
 
-        Sample: <pre><code>{
+        Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.
+
+        Sample:
+
+        ```json
+        {
           "credential_type": "public_key",
           "name": "string",
           "pem": "string",
           "alg": "RS256",
           "parse_expiry_from_cert": false,
           "expires_at": "2022-12-31T23:59:59Z"
-        }</code></pre>
-        <h5>Certificate (CA-signed & self-signed)</h5>Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.
+        }
+        ```
 
-        CA-signed Certificate Sample (pem): <pre><code>{
+        **Certificate (CA-signed & self-signed)**
+
+        Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.
+
+        CA-signed Certificate Sample (pem):
+
+        ```json
+        {
           "credential_type": "x509_cert",
           "name": "string",
           "pem": "string"
-        }</code></pre>CA-signed Certificate Sample (subject_dn): <pre><code>{
+        }
+        ```
+
+        CA-signed Certificate Sample (subject_dn):
+
+        ```json
+        {
           "credential_type": "cert_subject_dn",
           "name": "string",
           "subject_dn": "string"
-        }</code></pre>Self-signed Certificate Sample: <pre><code>{
+        }
+        ```
+
+        Self-signed Certificate Sample:
+
+        ```json
+        {
           "credential_type": "cert_subject_dn",
           "name": "string",
           "pem": "string"
-        }</code></pre>
+        }
+        ```
 
         The credential will be created but not yet enabled for use until you set the corresponding properties in the client:
-        <ul>
-          <li>To enable the credential for Private Key JWT or mTLS authentication methods, set the <code>client_authentication_methods</code> property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-private-key-jwt">Configure Private Key JWT Authentication</a> and <a href="https://auth0.com/docs/get-started/applications/configure-mtls">Configure mTLS Authentication</a></li>
-          <li>To enable the credential for JWT-secured Authorization requests, set the <code>signed_request_object</code>property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-jar">Configure JWT-secured Authorization Requests (JAR)</a></li>
-        </ul>
+
+        - To enable the credential for Private Key JWT or mTLS authentication methods, set the `client_authentication_methods` property on the client. For more information, read [Configure Private Key JWT Authentication](https://auth0.com/docs/get-started/applications/configure-private-key-jwt) and [Configure mTLS Authentication](https://auth0.com/docs/get-started/applications/configure-mtls)
+        - To enable the credential for JWT-secured Authorization requests, set the `signed_request_object`property on the client. For more information, read [Configure JWT-secured Authorization Requests (JAR)](https://auth0.com/docs/get-started/applications/configure-jar)
 
         Parameters
         ----------
@@ -206,7 +230,7 @@ class RawCredentialsClient:
             Credential successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials",
+            f"clients/{quote_path_param(client_id)}/credentials",
             method="POST",
             json={
                 "credential_type": credential_type,
@@ -304,7 +328,7 @@ class RawCredentialsClient:
         """
         Get the details of a client credential.
 
-        <b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.
+        **Important**: To enable credentials to be used for a client authentication method, set the `client_authentication_methods` property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the `signed_request_object` property on the client.
 
         Parameters
         ----------
@@ -323,7 +347,7 @@ class RawCredentialsClient:
             Credential successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -412,7 +436,7 @@ class RawCredentialsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -503,7 +527,7 @@ class RawCredentialsClient:
             Credential successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="PATCH",
             json={
                 "expires_at": expires_at,
@@ -599,7 +623,7 @@ class AsyncRawCredentialsClient:
         """
         Get the details of a client credential.
 
-        <b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.
+        **Important**: To enable credentials to be used for a client authentication method, set the `client_authentication_methods` property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the `signed_request_object` property on the client.
 
         Parameters
         ----------
@@ -615,7 +639,7 @@ class AsyncRawCredentialsClient:
             Credentials successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials",
+            f"clients/{quote_path_param(client_id)}/credentials",
             method="GET",
             request_options=request_options,
         )
@@ -699,37 +723,61 @@ class AsyncRawCredentialsClient:
         """
         Create a client credential associated to your application. Credentials can be used to configure Private Key JWT and mTLS authentication methods, as well as for JWT-secured Authorization requests.
 
-        <h5>Public Key</h5>Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.
+        **Public Key**
 
-        Sample: <pre><code>{
+        Public Key credentials can be used to set up Private Key JWT client authentication and JWT-secured Authorization requests.
+
+        Sample:
+
+        ```json
+        {
           "credential_type": "public_key",
           "name": "string",
           "pem": "string",
           "alg": "RS256",
           "parse_expiry_from_cert": false,
           "expires_at": "2022-12-31T23:59:59Z"
-        }</code></pre>
-        <h5>Certificate (CA-signed & self-signed)</h5>Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.
+        }
+        ```
 
-        CA-signed Certificate Sample (pem): <pre><code>{
+        **Certificate (CA-signed & self-signed)**
+
+        Certificate credentials can be used to set up mTLS client authentication. CA-signed certificates can be configured either with a signed certificate or with just the certificate Subject DN.
+
+        CA-signed Certificate Sample (pem):
+
+        ```json
+        {
           "credential_type": "x509_cert",
           "name": "string",
           "pem": "string"
-        }</code></pre>CA-signed Certificate Sample (subject_dn): <pre><code>{
+        }
+        ```
+
+        CA-signed Certificate Sample (subject_dn):
+
+        ```json
+        {
           "credential_type": "cert_subject_dn",
           "name": "string",
           "subject_dn": "string"
-        }</code></pre>Self-signed Certificate Sample: <pre><code>{
+        }
+        ```
+
+        Self-signed Certificate Sample:
+
+        ```json
+        {
           "credential_type": "cert_subject_dn",
           "name": "string",
           "pem": "string"
-        }</code></pre>
+        }
+        ```
 
         The credential will be created but not yet enabled for use until you set the corresponding properties in the client:
-        <ul>
-          <li>To enable the credential for Private Key JWT or mTLS authentication methods, set the <code>client_authentication_methods</code> property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-private-key-jwt">Configure Private Key JWT Authentication</a> and <a href="https://auth0.com/docs/get-started/applications/configure-mtls">Configure mTLS Authentication</a></li>
-          <li>To enable the credential for JWT-secured Authorization requests, set the <code>signed_request_object</code>property on the client. For more information, read <a href="https://auth0.com/docs/get-started/applications/configure-jar">Configure JWT-secured Authorization Requests (JAR)</a></li>
-        </ul>
+
+        - To enable the credential for Private Key JWT or mTLS authentication methods, set the `client_authentication_methods` property on the client. For more information, read [Configure Private Key JWT Authentication](https://auth0.com/docs/get-started/applications/configure-private-key-jwt) and [Configure mTLS Authentication](https://auth0.com/docs/get-started/applications/configure-mtls)
+        - To enable the credential for JWT-secured Authorization requests, set the `signed_request_object`property on the client. For more information, read [Configure JWT-secured Authorization Requests (JAR)](https://auth0.com/docs/get-started/applications/configure-jar)
 
         Parameters
         ----------
@@ -767,7 +815,7 @@ class AsyncRawCredentialsClient:
             Credential successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials",
+            f"clients/{quote_path_param(client_id)}/credentials",
             method="POST",
             json={
                 "credential_type": credential_type,
@@ -865,7 +913,7 @@ class AsyncRawCredentialsClient:
         """
         Get the details of a client credential.
 
-        <b>Important</b>: To enable credentials to be used for a client authentication method, set the <code>client_authentication_methods</code> property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the <code>signed_request_object</code> property on the client.
+        **Important**: To enable credentials to be used for a client authentication method, set the `client_authentication_methods` property on the client. To enable credentials to be used for JWT-Secured Authorization requests set the `signed_request_object` property on the client.
 
         Parameters
         ----------
@@ -884,7 +932,7 @@ class AsyncRawCredentialsClient:
             Credential successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -973,7 +1021,7 @@ class AsyncRawCredentialsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1064,7 +1112,7 @@ class AsyncRawCredentialsClient:
             Credential successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"clients/{encode_path_param(client_id)}/credentials/{encode_path_param(credential_id)}",
+            f"clients/{quote_path_param(client_id)}/credentials/{quote_path_param(credential_id)}",
             method="PATCH",
             json={
                 "expires_at": expires_at,

@@ -20,6 +20,11 @@ class EventStreamDeliveryAttempt(UniversalBaseModel):
     Delivery error message, if applicable
     """
 
+    duration: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Duration of the delivery attempt in milliseconds
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

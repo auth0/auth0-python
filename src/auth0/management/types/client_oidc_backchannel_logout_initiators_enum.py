@@ -13,6 +13,7 @@ ClientOidcBackchannelLogoutInitiatorsEnum = typing.Union[
         "email-identifier-changed",
         "mfa-phone-unenrolled",
         "account-deactivated",
+        "profile-changed",
     ],
     typing.Any,
 ]

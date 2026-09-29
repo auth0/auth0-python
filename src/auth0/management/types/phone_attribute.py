@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .connection_attribute_identifier import ConnectionAttributeIdentifier
+from .phone_attribute_identifier import PhoneAttributeIdentifier
 from .signup_verified import SignupVerified
 
 
@@ -13,7 +13,7 @@ class PhoneAttribute(UniversalBaseModel):
     Configuration for the phone number attribute for users.
     """
 
-    identifier: typing.Optional[ConnectionAttributeIdentifier] = None
+    identifier: typing.Optional[PhoneAttributeIdentifier] = None
     profile_required: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Determines if property should be required for users

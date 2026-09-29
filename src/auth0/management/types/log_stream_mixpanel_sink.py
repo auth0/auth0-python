@@ -18,16 +18,27 @@ class LogStreamMixpanelSink(UniversalBaseModel):
         FieldMetadata(alias="mixpanelProjectId"),
         pydantic.Field(alias="mixpanelProjectId", description="Mixpanel Project Id"),
     ]
+    """
+    Mixpanel Project Id
+    """
+
     mixpanel_service_account_username: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="mixpanelServiceAccountUsername"),
         pydantic.Field(alias="mixpanelServiceAccountUsername", description="Mixpanel Service Account Username"),
     ]
+    """
+    Mixpanel Service Account Username
+    """
+
     mixpanel_service_account_password: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="mixpanelServiceAccountPassword"),
         pydantic.Field(alias="mixpanelServiceAccountPassword", description="Mixpanel Service Account Password"),
     ]
+    """
+    Mixpanel Service Account Password
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

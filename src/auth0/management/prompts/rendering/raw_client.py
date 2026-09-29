@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -117,7 +117,7 @@ class RawRenderingClient:
                     ),
                 )
                 _items = _parsed_response.configs
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     fields=fields,
                     include_fields=include_fields,
@@ -198,7 +198,7 @@ class RawRenderingClient:
         self, *, configs: AculConfigs, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[BulkUpdateAculResponseContent]:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -327,7 +327,7 @@ class RawRenderingClient:
             ACUL settings successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"prompts/{encode_path_param(prompt)}/screen/{encode_path_param(screen)}/rendering",
+            f"prompts/{quote_path_param(prompt)}/screen/{quote_path_param(screen)}/rendering",
             method="GET",
             request_options=request_options,
         )
@@ -430,7 +430,7 @@ class RawRenderingClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateAculResponseContent]:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -465,7 +465,7 @@ class RawRenderingClient:
             ACUL settings successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"prompts/{encode_path_param(prompt)}/screen/{encode_path_param(screen)}/rendering",
+            f"prompts/{quote_path_param(prompt)}/screen/{quote_path_param(screen)}/rendering",
             method="PATCH",
             json={
                 "rendering_mode": rendering_mode,
@@ -645,7 +645,7 @@ class AsyncRawRenderingClient:
                     ),
                 )
                 _items = _parsed_response.configs
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -729,7 +729,7 @@ class AsyncRawRenderingClient:
         self, *, configs: AculConfigs, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[BulkUpdateAculResponseContent]:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -858,7 +858,7 @@ class AsyncRawRenderingClient:
             ACUL settings successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"prompts/{encode_path_param(prompt)}/screen/{encode_path_param(screen)}/rendering",
+            f"prompts/{quote_path_param(prompt)}/screen/{quote_path_param(screen)}/rendering",
             method="GET",
             request_options=request_options,
         )
@@ -961,7 +961,7 @@ class AsyncRawRenderingClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateAculResponseContent]:
         """
-        Learn more about <a href='https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens'>configuring render settings</a> for advanced customization.
+        Learn more about [configuring render settings](https://auth0.com/docs/customize/login-pages/advanced-customizations/getting-started/configure-acul-screens) for advanced customization.
 
         Parameters
         ----------
@@ -996,7 +996,7 @@ class AsyncRawRenderingClient:
             ACUL settings successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"prompts/{encode_path_param(prompt)}/screen/{encode_path_param(screen)}/rendering",
+            f"prompts/{quote_path_param(prompt)}/screen/{quote_path_param(screen)}/rendering",
             method="PATCH",
             json={
                 "rendering_mode": rendering_mode,

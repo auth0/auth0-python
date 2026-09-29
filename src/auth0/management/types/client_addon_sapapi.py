@@ -26,11 +26,19 @@ class ClientAddonSapapi(UniversalBaseModel):
             description="Name of the property in the user object that maps to a SAP username. e.g. `email`.",
         ),
     ] = None
+    """
+    Name of the property in the user object that maps to a SAP username. e.g. `email`.
+    """
+
     token_endpoint_url: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="tokenEndpointUrl"),
         pydantic.Field(alias="tokenEndpointUrl", description="Your SAP OData server OAuth2 token endpoint URL."),
     ] = None
+    """
+    Your SAP OData server OAuth2 token endpoint URL.
+    """
+
     scope: typing.Optional[str] = pydantic.Field(default=None)
     """
     Requested scope for SAP APIs.
@@ -44,6 +52,10 @@ class ClientAddonSapapi(UniversalBaseModel):
             description="Service account password to use to authenticate API calls to the token endpoint.",
         ),
     ] = None
+    """
+    Service account password to use to authenticate API calls to the token endpoint.
+    """
+
     name_identifier_format: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="nameIdentifierFormat"),
@@ -52,6 +64,9 @@ class ClientAddonSapapi(UniversalBaseModel):
             description="NameID element of the Subject which can be used to express the user's identity. Defaults to `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified`.",
         ),
     ] = None
+    """
+    NameID element of the Subject which can be used to express the user's identity. Defaults to `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified`.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

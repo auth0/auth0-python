@@ -9,6 +9,7 @@ from ..core.serialization import FieldMetadata
 from .branding_theme_borders import BrandingThemeBorders
 from .branding_theme_colors import BrandingThemeColors
 from .branding_theme_fonts import BrandingThemeFonts
+from .branding_theme_identifiers import BrandingThemeIdentifiers
 from .branding_theme_page_background import BrandingThemePageBackground
 from .branding_theme_widget import BrandingThemeWidget
 
@@ -19,11 +20,20 @@ class UpdateBrandingThemeResponseContent(UniversalBaseModel):
     display_name: typing_extensions.Annotated[
         str, FieldMetadata(alias="displayName"), pydantic.Field(alias="displayName", description="Display Name")
     ]
+    """
+    Display Name
+    """
+
     fonts: BrandingThemeFonts
+    identifiers: typing.Optional[BrandingThemeIdentifiers] = None
     page_background: BrandingThemePageBackground
     theme_id: typing_extensions.Annotated[
         str, FieldMetadata(alias="themeId"), pydantic.Field(alias="themeId", description="Theme Id")
     ]
+    """
+    Theme Id
+    """
+
     widget: BrandingThemeWidget
 
     if IS_PYDANTIC_V2:

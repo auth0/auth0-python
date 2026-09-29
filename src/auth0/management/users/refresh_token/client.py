@@ -29,6 +29,7 @@ class RefreshTokenClient:
         self,
         user_id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -40,6 +41,9 @@ class RefreshTokenClient:
         ----------
         user_id : str
             ID of the user to get refresh tokens for
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             An optional cursor from which to start the selection (exclusive).
@@ -64,6 +68,7 @@ class RefreshTokenClient:
         )
         response = client.users.refresh_token.list(
             user_id="user_id",
+            include_totals=True,
             from_="from",
             take=1,
         )
@@ -73,7 +78,9 @@ class RefreshTokenClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list(user_id, from_=from_, take=take, request_options=request_options)
+        return self._raw_client.list(
+            user_id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
     def delete(self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
@@ -125,6 +132,7 @@ class AsyncRefreshTokenClient:
         self,
         user_id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
@@ -136,6 +144,9 @@ class AsyncRefreshTokenClient:
         ----------
         user_id : str
             ID of the user to get refresh tokens for
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             An optional cursor from which to start the selection (exclusive).
@@ -165,6 +176,7 @@ class AsyncRefreshTokenClient:
         async def main() -> None:
             response = await client.users.refresh_token.list(
                 user_id="user_id",
+                include_totals=True,
                 from_="from",
                 take=1,
             )
@@ -178,7 +190,9 @@ class AsyncRefreshTokenClient:
 
         asyncio.run(main())
         """
-        return await self._raw_client.list(user_id, from_=from_, take=take, request_options=request_options)
+        return await self._raw_client.list(
+            user_id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
     async def delete(self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """

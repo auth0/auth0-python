@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
@@ -39,9 +39,9 @@ class RawClientsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]:
         """
-        Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+        Retrieve all clients that have the specified [connection](https://auth0.com/docs/authenticate/identity-providers) enabled.
 
-        <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+        **Note**: The first time you call this endpoint, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no further results are remaining.
 
         Parameters
         ----------
@@ -63,7 +63,7 @@ class RawClientsClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/clients",
+            f"connections/{quote_path_param(id)}/clients",
             method="GET",
             params={
                 "take": take,
@@ -177,14 +177,11 @@ class RawClientsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/clients",
+            f"connections/{quote_path_param(id)}/clients",
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateEnabledClientConnectionsRequestContent, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -269,9 +266,9 @@ class AsyncRawClientsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ConnectionEnabledClient, GetConnectionEnabledClientsResponseContent]:
         """
-        Retrieve all clients that have the specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> enabled.
+        Retrieve all clients that have the specified [connection](https://auth0.com/docs/authenticate/identity-providers) enabled.
 
-        <b>Note</b>: The first time you call this endpoint, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no further results are remaining.
+        **Note**: The first time you call this endpoint, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no further results are remaining.
 
         Parameters
         ----------
@@ -293,7 +290,7 @@ class AsyncRawClientsClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/clients",
+            f"connections/{quote_path_param(id)}/clients",
             method="GET",
             params={
                 "take": take,
@@ -410,14 +407,11 @@ class AsyncRawClientsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/clients",
+            f"connections/{quote_path_param(id)}/clients",
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateEnabledClientConnectionsRequestContent, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

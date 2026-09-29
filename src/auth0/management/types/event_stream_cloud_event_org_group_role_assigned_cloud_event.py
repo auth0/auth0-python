@@ -12,6 +12,7 @@ from .event_stream_cloud_event_org_group_role_assigned_cloud_event_type_enum imp
     EventStreamCloudEventOrgGroupRoleAssignedCloudEventTypeEnum,
 )
 from .event_stream_cloud_event_org_group_role_assigned_data import EventStreamCloudEventOrgGroupRoleAssignedData
+from .event_stream_cloud_event_spec_version_enum import EventStreamCloudEventSpecVersionEnum
 
 
 class EventStreamCloudEventOrgGroupRoleAssignedCloudEvent(UniversalBaseModel):
@@ -19,11 +20,7 @@ class EventStreamCloudEventOrgGroupRoleAssignedCloudEvent(UniversalBaseModel):
     Represents an event that occurs when a role is assigned to an organization group.
     """
 
-    specversion: str = pydantic.Field()
-    """
-    The version of the CloudEvents specification which the event uses.
-    """
-
+    specversion: EventStreamCloudEventSpecVersionEnum
     type: EventStreamCloudEventOrgGroupRoleAssignedCloudEventTypeEnum
     source: str = pydantic.Field()
     """
@@ -46,6 +43,10 @@ class EventStreamCloudEventOrgGroupRoleAssignedCloudEvent(UniversalBaseModel):
         FieldMetadata(alias="a0tenant"),
         pydantic.Field(alias="a0tenant", description="The auth0 tenant ID to which the event is associated."),
     ]
+    """
+    The auth0 tenant ID to which the event is associated.
+    """
+
     a_0_stream: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="a0stream"),
@@ -53,6 +54,10 @@ class EventStreamCloudEventOrgGroupRoleAssignedCloudEvent(UniversalBaseModel):
             alias="a0stream", description="The auth0 event stream ID of the stream the event was delivered on."
         ),
     ]
+    """
+    The auth0 event stream ID of the stream the event was delivered on.
+    """
+
     a_0_purpose: typing_extensions.Annotated[
         typing.Optional[EventStreamCloudEventA0PurposeEnum],
         FieldMetadata(alias="a0purpose"),

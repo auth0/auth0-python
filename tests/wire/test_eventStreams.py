@@ -76,6 +76,6 @@ def test_eventStreams_test() -> None:
     client = get_client(test_id)
     client.event_streams.test(
         id="id",
-        event_type="group.created",
+        event_type="connection.created",
     )
     verify_request_count(test_id, "POST", "/event-streams/id/test", None, 1)

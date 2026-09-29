@@ -4,6 +4,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .resource_server_subject_type_authorization_anonymous_user import (
+    ResourceServerSubjectTypeAuthorizationAnonymousUser,
+)
 from .resource_server_subject_type_authorization_client import ResourceServerSubjectTypeAuthorizationClient
 from .resource_server_subject_type_authorization_user import ResourceServerSubjectTypeAuthorizationUser
 
@@ -15,6 +18,7 @@ class ResourceServerSubjectTypeAuthorization(UniversalBaseModel):
 
     user: typing.Optional[ResourceServerSubjectTypeAuthorizationUser] = None
     client: typing.Optional[ResourceServerSubjectTypeAuthorizationClient] = None
+    anonymous_user: typing.Optional[ResourceServerSubjectTypeAuthorizationAnonymousUser] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

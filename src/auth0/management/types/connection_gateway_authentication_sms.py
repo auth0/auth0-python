@@ -28,6 +28,10 @@ class ConnectionGatewayAuthenticationSms(UniversalBaseModel):
         FieldMetadata(alias="secret_base64_encoded"),
         pydantic.Field(alias="secret_base64_encoded", description="Set to true if the secret is base64-url-encoded"),
     ] = None
+    """
+    Set to true if the secret is base64-url-encoded
+    """
+
     subject: typing.Optional[ConnectionGatewayAuthenticationSubjectSms] = None
 
     if IS_PYDANTIC_V2:

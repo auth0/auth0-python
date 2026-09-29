@@ -12,6 +12,7 @@ def test_groups_list_() -> None:
         search="search",
         fields="fields",
         include_fields=True,
+        include_totals=True,
         from_="from",
         take=1,
     )
@@ -26,6 +27,7 @@ def test_groups_list_() -> None:
             "search": "search",
             "fields": "fields",
             "include_fields": "true",
+            "include_totals": "true",
             "from": "from",
             "take": "1",
         },

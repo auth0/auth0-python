@@ -375,7 +375,7 @@ class RawSmsClient:
 
     def get_templates(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[GetGuardianFactorSmsTemplatesResponseContent]:
+    ) -> HttpResponse[typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]]:
         """
         This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/get-factor-phone-templates">Retrieve enrollment and verification phone templates</a> endpoint instead.
 
@@ -388,7 +388,7 @@ class RawSmsClient:
 
         Returns
         -------
-        HttpResponse[GetGuardianFactorSmsTemplatesResponseContent]
+        HttpResponse[typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]]
             SMS enrollment and verification templates successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -397,11 +397,13 @@ class RawSmsClient:
             request_options=request_options,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    GetGuardianFactorSmsTemplatesResponseContent,
+                    typing.Optional[GetGuardianFactorSmsTemplatesResponseContent],
                     parse_obj_as(
-                        type_=GetGuardianFactorSmsTemplatesResponseContent,  # type: ignore
+                        type_=typing.Optional[GetGuardianFactorSmsTemplatesResponseContent],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -888,7 +890,7 @@ class AsyncRawSmsClient:
 
     async def get_templates(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[GetGuardianFactorSmsTemplatesResponseContent]:
+    ) -> AsyncHttpResponse[typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]]:
         """
         This endpoint has been deprecated. To complete this action, use the <a href="https://auth0.com/docs/api/management/v2/guardian/get-factor-phone-templates">Retrieve enrollment and verification phone templates</a> endpoint instead.
 
@@ -901,7 +903,7 @@ class AsyncRawSmsClient:
 
         Returns
         -------
-        AsyncHttpResponse[GetGuardianFactorSmsTemplatesResponseContent]
+        AsyncHttpResponse[typing.Optional[GetGuardianFactorSmsTemplatesResponseContent]]
             SMS enrollment and verification templates successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -910,11 +912,13 @@ class AsyncRawSmsClient:
             request_options=request_options,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    GetGuardianFactorSmsTemplatesResponseContent,
+                    typing.Optional[GetGuardianFactorSmsTemplatesResponseContent],
                     parse_obj_as(
-                        type_=GetGuardianFactorSmsTemplatesResponseContent,  # type: ignore
+                        type_=typing.Optional[GetGuardianFactorSmsTemplatesResponseContent],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -50,7 +50,7 @@ class RawSecretsClient:
             Hook secrets successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hooks/{encode_path_param(id)}/secrets",
+            f"hooks/{quote_path_param(id)}/secrets",
             method="GET",
             request_options=request_options,
         )
@@ -153,12 +153,9 @@ class RawSecretsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hooks/{encode_path_param(id)}/secrets",
+            f"hooks/{quote_path_param(id)}/secrets",
             method="POST",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -254,12 +251,9 @@ class RawSecretsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hooks/{encode_path_param(id)}/secrets",
+            f"hooks/{quote_path_param(id)}/secrets",
             method="DELETE",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -344,12 +338,9 @@ class RawSecretsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hooks/{encode_path_param(id)}/secrets",
+            f"hooks/{quote_path_param(id)}/secrets",
             method="PATCH",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -456,7 +447,7 @@ class AsyncRawSecretsClient:
             Hook secrets successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hooks/{encode_path_param(id)}/secrets",
+            f"hooks/{quote_path_param(id)}/secrets",
             method="GET",
             request_options=request_options,
         )
@@ -559,12 +550,9 @@ class AsyncRawSecretsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hooks/{encode_path_param(id)}/secrets",
+            f"hooks/{quote_path_param(id)}/secrets",
             method="POST",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -660,12 +648,9 @@ class AsyncRawSecretsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hooks/{encode_path_param(id)}/secrets",
+            f"hooks/{quote_path_param(id)}/secrets",
             method="DELETE",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -750,12 +735,9 @@ class AsyncRawSecretsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hooks/{encode_path_param(id)}/secrets",
+            f"hooks/{quote_path_param(id)}/secrets",
             method="PATCH",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

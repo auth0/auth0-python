@@ -96,7 +96,7 @@ class PermissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
-        Add one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> to a specified user role.
+        Add one or more [permissions](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions) to a specified user role.
 
         Parameters
         ----------
@@ -141,7 +141,7 @@ class PermissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
-        Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> from a specified user role.
+        Remove one or more [permissions](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions) from a specified user role.
 
         Parameters
         ----------
@@ -268,7 +268,7 @@ class AsyncPermissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
-        Add one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> to a specified user role.
+        Add one or more [permissions](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions) to a specified user role.
 
         Parameters
         ----------
@@ -321,7 +321,7 @@ class AsyncPermissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
-        Remove one or more <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions">permissions</a> from a specified user role.
+        Remove one or more [permissions](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/manage-permissions) from a specified user role.
 
         Parameters
         ----------

@@ -45,6 +45,7 @@ class ClientGrantsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         audience: typing.Optional[str] = None,
@@ -55,10 +56,13 @@ class ClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+        Retrieve a list of [client grants](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the scopes associated with the application/API pair.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -96,6 +100,7 @@ class ClientGrantsClient:
             token="YOUR_TOKEN",
         )
         response = client.client_grants.list(
+            include_totals=True,
             from_="from",
             take=1,
             audience="audience",
@@ -111,6 +116,7 @@ class ClientGrantsClient:
             yield page
         """
         return self._raw_client.list(
+            include_totals=include_totals,
             from_=from_,
             take=take,
             audience=audience,
@@ -136,7 +142,7 @@ class ClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientGrantResponseContent:
         """
-        Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
+        Create a client grant for a machine-to-machine login flow. To learn more, read [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow).
 
         Parameters
         ----------
@@ -199,7 +205,7 @@ class ClientGrantsClient:
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetClientGrantResponseContent:
         """
-        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        Retrieve a single [client grant](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the
         scopes associated with the application/API pair.
 
         Parameters
@@ -231,7 +237,7 @@ class ClientGrantsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
+        Delete the [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) from your machine-to-machine application.
 
         Parameters
         ----------
@@ -351,6 +357,7 @@ class AsyncClientGrantsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         audience: typing.Optional[str] = None,
@@ -361,10 +368,13 @@ class AsyncClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+        Retrieve a list of [client grants](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the scopes associated with the application/API pair.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -407,6 +417,7 @@ class AsyncClientGrantsClient:
 
         async def main() -> None:
             response = await client.client_grants.list(
+                include_totals=True,
                 from_="from",
                 take=1,
                 audience="audience",
@@ -426,6 +437,7 @@ class AsyncClientGrantsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
+            include_totals=include_totals,
             from_=from_,
             take=take,
             audience=audience,
@@ -451,7 +463,7 @@ class AsyncClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientGrantResponseContent:
         """
-        Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
+        Create a client grant for a machine-to-machine login flow. To learn more, read [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow).
 
         Parameters
         ----------
@@ -524,7 +536,7 @@ class AsyncClientGrantsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetClientGrantResponseContent:
         """
-        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        Retrieve a single [client grant](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the
         scopes associated with the application/API pair.
 
         Parameters
@@ -564,7 +576,7 @@ class AsyncClientGrantsClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
+        Delete the [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) from your machine-to-machine application.
 
         Parameters
         ----------

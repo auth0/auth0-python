@@ -53,6 +53,25 @@ def test_guardian_factors_phone_set_provider() -> None:
     verify_request_count(test_id, "PUT", "/guardian/factors/phone/selected-provider", None, 1)
 
 
+def test_guardian_factors_phone_get() -> None:
+    """Test get endpoint with WireMock"""
+    test_id = "guardian.factors.phone.get.0"
+    client = get_client(test_id)
+    client.guardian.factors.phone.get()
+    verify_request_count(test_id, "GET", "/guardian/factors/phone/settings", None, 1)
+
+
+def test_guardian_factors_phone_set_() -> None:
+    """Test set endpoint with WireMock"""
+    test_id = "guardian.factors.phone.set_.0"
+    client = get_client(test_id)
+    client.guardian.factors.phone.set(
+        otp_length=1,
+        otp_expiration_time=1,
+    )
+    verify_request_count(test_id, "PUT", "/guardian/factors/phone/settings", None, 1)
+
+
 def test_guardian_factors_phone_get_templates() -> None:
     """Test getTemplates endpoint with WireMock"""
     test_id = "guardian.factors.phone.get_templates.0"

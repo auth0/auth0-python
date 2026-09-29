@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -18,6 +18,7 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.connection_authentication_purpose import ConnectionAuthenticationPurpose
 from ..types.connection_connected_accounts_purpose import ConnectionConnectedAccountsPurpose
 from ..types.connection_for_list import ConnectionForList
@@ -26,12 +27,15 @@ from ..types.connection_properties_options import ConnectionPropertiesOptions
 from ..types.connection_strategy_enum import ConnectionStrategyEnum
 from ..types.connections_metadata import ConnectionsMetadata
 from ..types.create_connection_response_content import CreateConnectionResponseContent
+from ..types.create_cross_app_access_resource_app import CreateCrossAppAccessResourceApp
+from ..types.cross_app_access_requesting_app import CrossAppAccessRequestingApp
 from ..types.get_connection_response_content import GetConnectionResponseContent
 from ..types.list_connections_checkpoint_paginated_response_content import (
     ListConnectionsCheckpointPaginatedResponseContent,
 )
 from ..types.update_connection_options import UpdateConnectionOptions
 from ..types.update_connection_response_content import UpdateConnectionResponseContent
+from ..types.update_cross_app_access_resource_app import UpdateCrossAppAccessResourceApp
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -45,6 +49,7 @@ class RawConnectionsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         strategy: typing.Optional[typing.Union[ConnectionStrategyEnum, typing.Sequence[ConnectionStrategyEnum]]] = None,
@@ -54,28 +59,29 @@ class RawConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ConnectionForList, ListConnectionsCheckpointPaginatedResponseContent]:
         """
-        Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
+        Retrieves detailed list of all [connections](https://auth0.com/docs/authenticate/identity-providers) that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 connections.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            true if a query summary must be included in the result, false otherwise. Not returned when using checkpoint pagination. Default <code>false</code>.
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -106,6 +112,7 @@ class RawConnectionsClient:
             "connections",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "strategy": strategy,
@@ -128,6 +135,7 @@ class RawConnectionsClient:
                 _parsed_next = _parsed_response.next
                 _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     strategy=strategy,
@@ -204,12 +212,14 @@ class RawConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[CreateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateConnectionResponseContent]:
         """
-        Creates a new connection according to the JSON object received in <code>body</code>.
+        Creates a new connection according to the JSON object received in `body`.
 
-        <b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
+        **Note:** If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
 
         Parameters
         ----------
@@ -241,6 +251,10 @@ class RawConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
+        cross_app_access_resource_app : typing.Optional[CreateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -269,6 +283,12 @@ class RawConnectionsClient:
                 ),
                 "connected_accounts": convert_and_respect_annotation_metadata(
                     object_=connected_accounts, annotation=ConnectionConnectedAccountsPurpose, direction="write"
+                ),
+                "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app, annotation=CreateCrossAppAccessResourceApp, direction="write"
                 ),
             },
             headers={
@@ -331,6 +351,17 @@ class RawConnectionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -360,7 +391,7 @@ class RawConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[GetConnectionResponseContent]:
         """
-        Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> along with options that can be used for identity provider configuration.
+        Retrieve details for a specified [connection](https://auth0.com/docs/authenticate/identity-providers) along with options that can be used for identity provider configuration.
 
         Parameters
         ----------
@@ -382,7 +413,7 @@ class RawConnectionsClient:
             The connection was retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -466,9 +497,9 @@ class RawConnectionsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+        Removes a specific [connection](https://auth0.com/docs/authenticate/identity-providers) from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
 
-        <b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.
+        **Note:** If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent [create connection](https://auth0.com/docs/api/management/v2/connections/post-connections) requests, if they use an identical connection name.
 
         Parameters
         ----------
@@ -483,7 +514,7 @@ class RawConnectionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -556,12 +587,14 @@ class RawConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[UpdateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateConnectionResponseContent]:
         """
-        Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
+        Update details for a specific [connection](https://auth0.com/docs/authenticate/identity-providers), including option properties for identity provider configuration.
 
-        <b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.
+        **Note**: If you use the `options` parameter, the entire `options` object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option. If any options are unspecified, the default will be used, even if it differs from the existing value.
 
         Parameters
         ----------
@@ -591,6 +624,10 @@ class RawConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
+        cross_app_access_resource_app : typing.Optional[UpdateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -600,7 +637,7 @@ class RawConnectionsClient:
             The connection was updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "display_name": display_name,
@@ -617,6 +654,14 @@ class RawConnectionsClient:
                 ),
                 "connected_accounts": convert_and_respect_annotation_metadata(
                     object_=connected_accounts, annotation=ConnectionConnectedAccountsPurpose, direction="write"
+                ),
+                "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=typing.Optional[UpdateCrossAppAccessResourceApp],
+                    direction="write",
                 ),
             },
             headers={
@@ -690,6 +735,17 @@ class RawConnectionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -712,7 +768,7 @@ class RawConnectionsClient:
 
     def check_status(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        Retrieves the status of an ad/ldap connection referenced by its <code>ID</code>. <code>200 OK</code> http status code response is returned  when the connection is online, otherwise a <code>404</code> status code is returned along with an error message
+        Retrieves the status of an ad/ldap connection referenced by its `ID`. `200 OK` http status code response is returned  when the connection is online, otherwise a `404` status code is returned along with an error message
 
         Parameters
         ----------
@@ -727,7 +783,7 @@ class RawConnectionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/status",
+            f"connections/{quote_path_param(id)}/status",
             method="GET",
             request_options=request_options,
         )
@@ -806,6 +862,7 @@ class AsyncRawConnectionsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         strategy: typing.Optional[typing.Union[ConnectionStrategyEnum, typing.Sequence[ConnectionStrategyEnum]]] = None,
@@ -815,28 +872,29 @@ class AsyncRawConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ConnectionForList, ListConnectionsCheckpointPaginatedResponseContent]:
         """
-        Retrieves detailed list of all <a href="https://auth0.com/docs/authenticate/identity-providers">connections</a> that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
+        Retrieves detailed list of all [connections](https://auth0.com/docs/authenticate/identity-providers) that match the specified strategy. If no strategy is provided, all connections within your tenant are retrieved. This action can accept a list of fields to include or exclude from the resulting list of connections.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 connections.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            true if a query summary must be included in the result, false otherwise. Not returned when using checkpoint pagination. Default <code>false</code>.
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -867,6 +925,7 @@ class AsyncRawConnectionsClient:
             "connections",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "strategy": strategy,
@@ -891,6 +950,7 @@ class AsyncRawConnectionsClient:
 
                 async def _get_next():
                     return await self.list(
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         strategy=strategy,
@@ -968,12 +1028,14 @@ class AsyncRawConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[CreateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateConnectionResponseContent]:
         """
-        Creates a new connection according to the JSON object received in <code>body</code>.
+        Creates a new connection according to the JSON object received in `body`.
 
-        <b>Note:</b> If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
+        **Note:** If a connection with the same name was recently deleted and had a large number of associated users, the deletion may still be processing. Creating a new connection with that name before the deletion completes may fail or produce unexpected results.
 
         Parameters
         ----------
@@ -1005,6 +1067,10 @@ class AsyncRawConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
+        cross_app_access_resource_app : typing.Optional[CreateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1033,6 +1099,12 @@ class AsyncRawConnectionsClient:
                 ),
                 "connected_accounts": convert_and_respect_annotation_metadata(
                     object_=connected_accounts, annotation=ConnectionConnectedAccountsPurpose, direction="write"
+                ),
+                "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app, annotation=CreateCrossAppAccessResourceApp, direction="write"
                 ),
             },
             headers={
@@ -1095,6 +1167,17 @@ class AsyncRawConnectionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -1124,7 +1207,7 @@ class AsyncRawConnectionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[GetConnectionResponseContent]:
         """
-        Retrieve details for a specified <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> along with options that can be used for identity provider configuration.
+        Retrieve details for a specified [connection](https://auth0.com/docs/authenticate/identity-providers) along with options that can be used for identity provider configuration.
 
         Parameters
         ----------
@@ -1146,7 +1229,7 @@ class AsyncRawConnectionsClient:
             The connection was retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="GET",
             params={
                 "fields": fields,
@@ -1232,9 +1315,9 @@ class AsyncRawConnectionsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Removes a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a> from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
+        Removes a specific [connection](https://auth0.com/docs/authenticate/identity-providers) from your tenant. This action cannot be undone. Once removed, users can no longer use this connection to authenticate.
 
-        <b>Note:</b> If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent <a href="https://auth0.com/docs/api/management/v2/connections/post-connections">create connection</a> requests, if they use an identical connection name.
+        **Note:** If your connection has a large amount of users associated with it, please be aware that this operation can be long running after the response is returned and may impact concurrent [create connection](https://auth0.com/docs/api/management/v2/connections/post-connections) requests, if they use an identical connection name.
 
         Parameters
         ----------
@@ -1249,7 +1332,7 @@ class AsyncRawConnectionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1322,12 +1405,14 @@ class AsyncRawConnectionsClient:
         metadata: typing.Optional[ConnectionsMetadata] = OMIT,
         authentication: typing.Optional[ConnectionAuthenticationPurpose] = OMIT,
         connected_accounts: typing.Optional[ConnectionConnectedAccountsPurpose] = OMIT,
+        cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = OMIT,
+        cross_app_access_resource_app: typing.Optional[UpdateCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateConnectionResponseContent]:
         """
-        Update details for a specific <a href="https://auth0.com/docs/authenticate/identity-providers">connection</a>, including option properties for identity provider configuration.
+        Update details for a specific [connection](https://auth0.com/docs/authenticate/identity-providers), including option properties for identity provider configuration.
 
-        <b>Note</b>: If you use the <code>options</code> parameter, the entire <code>options</code> object is overriden. To avoid partial data or other issues, ensure all parameters are present when using this option.
+        **Note**: If you use the `options` parameter, the entire `options` object is overridden. To avoid partial data or other issues, ensure all parameters are present when using this option. If any options are unspecified, the default will be used, even if it differs from the existing value.
 
         Parameters
         ----------
@@ -1357,6 +1442,10 @@ class AsyncRawConnectionsClient:
 
         connected_accounts : typing.Optional[ConnectionConnectedAccountsPurpose]
 
+        cross_app_access_requesting_app : typing.Optional[CrossAppAccessRequestingApp]
+
+        cross_app_access_resource_app : typing.Optional[UpdateCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1366,7 +1455,7 @@ class AsyncRawConnectionsClient:
             The connection was updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}",
+            f"connections/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "display_name": display_name,
@@ -1383,6 +1472,14 @@ class AsyncRawConnectionsClient:
                 ),
                 "connected_accounts": convert_and_respect_annotation_metadata(
                     object_=connected_accounts, annotation=ConnectionConnectedAccountsPurpose, direction="write"
+                ),
+                "cross_app_access_requesting_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_requesting_app, annotation=CrossAppAccessRequestingApp, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=typing.Optional[UpdateCrossAppAccessResourceApp],
+                    direction="write",
                 ),
             },
             headers={
@@ -1456,6 +1553,17 @@ class AsyncRawConnectionsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -1480,7 +1588,7 @@ class AsyncRawConnectionsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Retrieves the status of an ad/ldap connection referenced by its <code>ID</code>. <code>200 OK</code> http status code response is returned  when the connection is online, otherwise a <code>404</code> status code is returned along with an error message
+        Retrieves the status of an ad/ldap connection referenced by its `ID`. `200 OK` http status code response is returned  when the connection is online, otherwise a `404` status code is returned along with an error message
 
         Parameters
         ----------
@@ -1495,7 +1603,7 @@ class AsyncRawConnectionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/status",
+            f"connections/{quote_path_param(id)}/status",
             method="GET",
             request_options=request_options,
         )

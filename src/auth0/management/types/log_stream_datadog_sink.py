@@ -13,6 +13,10 @@ class LogStreamDatadogSink(UniversalBaseModel):
     datadog_api_key: typing_extensions.Annotated[
         str, FieldMetadata(alias="datadogApiKey"), pydantic.Field(alias="datadogApiKey", description="Datadog API Key")
     ]
+    """
+    Datadog API Key
+    """
+
     datadog_region: typing_extensions.Annotated[
         LogStreamDatadogRegionEnum, FieldMetadata(alias="datadogRegion"), pydantic.Field(alias="datadogRegion")
     ]

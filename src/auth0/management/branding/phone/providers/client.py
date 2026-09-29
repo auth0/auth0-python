@@ -38,7 +38,7 @@ class ProvidersClient:
         self, *, disabled: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> ListBrandingPhoneProvidersResponseContent:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
+        Retrieve a list of [phone providers](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details set for a Tenant. A list of fields to include or exclude may also be specified.
 
         Parameters
         ----------
@@ -77,8 +77,8 @@ class ProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateBrandingPhoneProviderResponseContent:
         """
-        Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-        The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+        Create a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+        The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 
         Parameters
         ----------
@@ -126,7 +126,7 @@ class ProvidersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetBrandingPhoneProviderResponseContent:
         """
-        Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
+        Retrieve [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details. A list of fields to include or exclude may also be specified.
 
         Parameters
         ----------
@@ -194,8 +194,8 @@ class ProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBrandingPhoneProviderResponseContent:
         """
-        Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-        The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+        Update a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+        The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 
         Parameters
         ----------
@@ -300,7 +300,7 @@ class AsyncProvidersClient:
         self, *, disabled: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> ListBrandingPhoneProvidersResponseContent:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone providers</a> details set for a Tenant. A list of fields to include or exclude may also be specified.
+        Retrieve a list of [phone providers](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details set for a Tenant. A list of fields to include or exclude may also be specified.
 
         Parameters
         ----------
@@ -347,8 +347,8 @@ class AsyncProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateBrandingPhoneProviderResponseContent:
         """
-        Create a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-        The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+        Create a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+        The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 
         Parameters
         ----------
@@ -404,7 +404,7 @@ class AsyncProvidersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetBrandingPhoneProviderResponseContent:
         """
-        Retrieve <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a> details. A list of fields to include or exclude may also be specified.
+        Retrieve [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers) details. A list of fields to include or exclude may also be specified.
 
         Parameters
         ----------
@@ -488,8 +488,8 @@ class AsyncProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBrandingPhoneProviderResponseContent:
         """
-        Update a <a href="https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers">phone provider</a>.
-        The <code>credentials</code> object requires different properties depending on the phone provider (which is specified using the <code>name</code> property).
+        Update a [phone provider](https://auth0.com/docs/customize/phone-messages/configure-phone-messaging-providers).
+        The `credentials` object requires different properties depending on the phone provider (which is specified using the `name` property).
 
         Parameters
         ----------

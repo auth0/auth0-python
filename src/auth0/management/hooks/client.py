@@ -51,7 +51,7 @@ class HooksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Hook, ListHooksOffsetPaginatedResponseContent]:
         """
-        Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
+        Retrieve all [hooks](https://auth0.com/docs/hooks). Accepts a list of fields to include or exclude in the result.
 
         Parameters
         ----------
@@ -176,7 +176,7 @@ class HooksClient:
         self, id: str, *, fields: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> GetHookResponseContent:
         """
-        Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
+        Retrieve [a hook](https://auth0.com/docs/hooks) by its ID. Accepts a list of fields to include in the result.
 
         Parameters
         ----------
@@ -330,7 +330,7 @@ class AsyncHooksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Hook, ListHooksOffsetPaginatedResponseContent]:
         """
-        Retrieve all <a href="https://auth0.com/docs/hooks">hooks</a>. Accepts a list of fields to include or exclude in the result.
+        Retrieve all [hooks](https://auth0.com/docs/hooks). Accepts a list of fields to include or exclude in the result.
 
         Parameters
         ----------
@@ -472,7 +472,7 @@ class AsyncHooksClient:
         self, id: str, *, fields: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> GetHookResponseContent:
         """
-        Retrieve <a href="https://auth0.com/docs/hooks">a hook</a> by its ID. Accepts a list of fields to include in the result.
+        Retrieve [a hook](https://auth0.com/docs/hooks) by its ID. Accepts a list of fields to include in the result.
 
         Parameters
         ----------

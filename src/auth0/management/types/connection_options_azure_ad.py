@@ -16,7 +16,6 @@ from .connection_ext_assigned_plans import ConnectionExtAssignedPlans
 from .connection_ext_groups_azure_ad import ConnectionExtGroupsAzureAd
 from .connection_ext_is_suspended import ConnectionExtIsSuspended
 from .connection_ext_profile import ConnectionExtProfile
-from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
 from .connection_icon_url_azure_ad import ConnectionIconUrlAzureAd
 from .connection_identity_api_azure_ad import ConnectionIdentityApiAzureAd
 from .connection_max_groups_to_retrieve import ConnectionMaxGroupsToRetrieve
@@ -27,6 +26,7 @@ from .connection_should_trust_email_verified_connection_enum import ConnectionSh
 from .connection_tenant_domain_azure_ad_one import ConnectionTenantDomainAzureAdOne
 from .connection_tenant_id_azure_ad import ConnectionTenantIdAzureAd
 from .connection_thumbprints import ConnectionThumbprints
+from .connection_thumbprints_sha_384 import ConnectionThumbprintsSha384
 from .connection_upstream_params import ConnectionUpstreamParams
 from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
 from .connection_userid_attribute_azure_ad import ConnectionUseridAttributeAzureAd
@@ -236,6 +236,10 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
             description="When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.",
         ),
     ] = None
+    """
+    When false, prevents storing the user's telephone number from Azure AD. When true (default), telephone number is persisted in the user profile.
+    """
+
     ext_tenantid: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When false, prevents storing the user's Azure AD tenant ID. When true (default), tenant ID is persisted. Useful for identifying which Azure AD organization the user belongs to.
@@ -256,7 +260,6 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
     When false, prevents storing an alternative user ID. When true (default), this user ID is persisted in the user profile.
     """
 
-    federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
     granted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether admin consent has been granted for the required Azure AD permissions. Read-only status field managed by Auth0 during the OAuth authorization flow.
@@ -273,6 +276,11 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
         typing.Optional[ConnectionTenantIdAzureAd], FieldMetadata(alias="tenantId"), pydantic.Field(alias="tenantId")
     ] = None
     thumbprints: typing.Optional[ConnectionThumbprints] = None
+    thumbprints_sha_384: typing_extensions.Annotated[
+        typing.Optional[ConnectionThumbprintsSha384],
+        FieldMetadata(alias="thumbprints_sha384"),
+        pydantic.Field(alias="thumbprints_sha384"),
+    ] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     use_wsfed: typing.Optional[bool] = pydantic.Field(default=None)
     """

@@ -15,6 +15,10 @@ class GetHookResponseContent(UniversalBaseModel):
         FieldMetadata(alias="triggerId"),
         pydantic.Field(alias="triggerId", description="Trigger ID"),
     ] = None
+    """
+    Trigger ID
+    """
+
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of this hook.

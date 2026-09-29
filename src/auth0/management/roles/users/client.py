@@ -32,35 +32,39 @@ class UsersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]:
         """
-        Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
+        Retrieve list of users associated with a specific role. For Dashboard instructions, review [View Users Assigned to Roles](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles).
+
+        **Note**: Returns only users with direct role assignments. For groups assigned to this role, use `GET /api/v2/roles/{id}/groups`.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
         id : str
             ID of the role to retrieve a list of users associated with.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -85,6 +89,7 @@ class UsersClient:
         )
         response = client.roles.users.list(
             id="id",
+            include_totals=True,
             from_="from",
             take=1,
         )
@@ -94,15 +99,17 @@ class UsersClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list(id, from_=from_, take=take, request_options=request_options)
+        return self._raw_client.list(
+            id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
     def assign(
         self, id: str, *, users: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Assign one or more users to an existing user role. To learn more, review <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+        Assign one or more users to an existing user role. To learn more, review [Role-Based Access Control](https://auth0.com/docs/manage-users/access-control/rbac).
 
-        <b>Note</b>: New roles cannot be created through this action.
+        **Note**: New roles cannot be created through this action.
 
         Parameters
         ----------
@@ -154,35 +161,39 @@ class AsyncUsersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[RoleUser, ListRoleUsersPaginatedResponseContent]:
         """
-        Retrieve list of users associated with a specific role. For Dashboard instructions, review <a href="https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles">View Users Assigned to Roles</a>.
+        Retrieve list of users associated with a specific role. For Dashboard instructions, review [View Users Assigned to Roles](https://auth0.com/docs/manage-users/access-control/configure-core-rbac/roles/view-users-assigned-to-roles).
+
+        **Note**: Returns only users with direct role assignments. For groups assigned to this role, use `GET /api/v2/roles/{id}/groups`.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total amount of entries to retrieve when using the from parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total amount of entries to retrieve when using the from parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
         id : str
             ID of the role to retrieve a list of users associated with.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -212,6 +223,7 @@ class AsyncUsersClient:
         async def main() -> None:
             response = await client.roles.users.list(
                 id="id",
+                include_totals=True,
                 from_="from",
                 take=1,
             )
@@ -225,15 +237,17 @@ class AsyncUsersClient:
 
         asyncio.run(main())
         """
-        return await self._raw_client.list(id, from_=from_, take=take, request_options=request_options)
+        return await self._raw_client.list(
+            id, include_totals=include_totals, from_=from_, take=take, request_options=request_options
+        )
 
     async def assign(
         self, id: str, *, users: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Assign one or more users to an existing user role. To learn more, review <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+        Assign one or more users to an existing user role. To learn more, review [Role-Based Access Control](https://auth0.com/docs/manage-users/access-control/rbac).
 
-        <b>Note</b>: New roles cannot be created through this action.
+        **Note**: New roles cannot be created through this action.
 
         Parameters
         ----------

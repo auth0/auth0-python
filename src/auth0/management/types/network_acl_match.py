@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .network_acl_http_message_signature import NetworkAclHttpMessageSignature
 from .network_acl_match_connecting_ipv_4_cidr import NetworkAclMatchConnectingIpv4Cidr
 from .network_acl_match_connecting_ipv_6_cidr import NetworkAclMatchConnectingIpv6Cidr
 from .network_acl_match_ipv_4_cidr import NetworkAclMatchIpv4Cidr
@@ -14,6 +15,9 @@ from .network_acl_match_ipv_6_cidr import NetworkAclMatchIpv6Cidr
 
 class NetworkAclMatch(UniversalBaseModel):
     asns: typing.Optional[typing.List[int]] = None
+    auth_0_managed: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="auth0_managed"), pydantic.Field(alias="auth0_managed")
+    ] = None
     geo_country_codes: typing.Optional[typing.List[str]] = None
     geo_subdivision_codes: typing.Optional[typing.List[str]] = None
     ipv_4_cidrs: typing_extensions.Annotated[
@@ -48,6 +52,7 @@ class NetworkAclMatch(UniversalBaseModel):
         FieldMetadata(alias="connecting_ipv6_cidrs"),
         pydantic.Field(alias="connecting_ipv6_cidrs"),
     ] = None
+    http_message_signature: typing.Optional[NetworkAclHttpMessageSignature] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -8,13 +8,13 @@ def test_events_subscribe() -> None:
     for _ in client.events.subscribe(
         from_="from",
         from_timestamp="from_timestamp",
-        event_type=["group.created"],
+        event_type=["connection.created"],
     ):
         pass
     verify_request_count(
         test_id,
         "GET",
         "/events",
-        {"from": "from", "from_timestamp": "from_timestamp", "event_type": "group.created"},
+        {"from": "from", "from_timestamp": "from_timestamp", "event_type": "connection.created"},
         1,
     )

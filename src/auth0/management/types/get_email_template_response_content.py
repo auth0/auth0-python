@@ -21,11 +21,19 @@ class GetEmailTemplateResponseContent(UniversalBaseModel):
         FieldMetadata(alias="from"),
         pydantic.Field(alias="from", description="Senders `from` email address."),
     ] = None
+    """
+    Senders `from` email address.
+    """
+
     result_url: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="resultUrl"),
         pydantic.Field(alias="resultUrl", description="URL to redirect the user to after a successful action."),
     ] = None
+    """
+    URL to redirect the user to after a successful action.
+    """
+
     subject: typing.Optional[str] = pydantic.Field(default=None)
     """
     Subject line of the email.
@@ -44,6 +52,10 @@ class GetEmailTemplateResponseContent(UniversalBaseModel):
             description="Lifetime in seconds that the link within the email will be valid for.",
         ),
     ] = None
+    """
+    Lifetime in seconds that the link within the email will be valid for.
+    """
+
     include_email_in_redirect: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="includeEmailInRedirect"),
@@ -52,6 +64,10 @@ class GetEmailTemplateResponseContent(UniversalBaseModel):
             description="Whether the `reset_email` and `verify_email` templates should include the user's email address as the `email` parameter in the returnUrl (true) or whether no email address should be included in the redirect (false). Defaults to true.",
         ),
     ] = None
+    """
+    Whether the `reset_email` and `verify_email` templates should include the user's email address as the `email` parameter in the returnUrl (true) or whether no email address should be included in the redirect (false). Defaults to true.
+    """
+
     enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the template is enabled (true) or disabled (false).

@@ -6,6 +6,7 @@ def test_clientGrants_list_() -> None:
     test_id = "client_grants.list_.0"
     client = get_client(test_id)
     client.client_grants.list(
+        include_totals=True,
         from_="from",
         take=1,
         audience="audience",
@@ -19,6 +20,7 @@ def test_clientGrants_list_() -> None:
         "GET",
         "/client-grants",
         {
+            "include_totals": "true",
             "from": "from",
             "take": "1",
             "audience": "audience",

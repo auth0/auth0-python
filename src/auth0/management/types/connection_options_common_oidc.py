@@ -3,19 +3,23 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .connection_authorization_endpoint import ConnectionAuthorizationEndpoint
 from .connection_client_id_oidc import ConnectionClientIdOidc
 from .connection_client_secret_oidc import ConnectionClientSecretOidc
 from .connection_connection_settings import ConnectionConnectionSettings
 from .connection_domain_aliases import ConnectionDomainAliases
 from .connection_dpop_signing_alg_enum import ConnectionDpopSigningAlgEnum
-from .connection_federated_connections_access_tokens import ConnectionFederatedConnectionsAccessTokens
+from .connection_enable_pushed_authorization_requests import ConnectionEnablePushedAuthorizationRequests
 from .connection_icon_url import ConnectionIconUrl
+from .connection_id_token_session_expiry_supported import ConnectionIdTokenSessionExpirySupported
 from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
 from .connection_issuer import ConnectionIssuer
 from .connection_jwks_uri import ConnectionJwksUri
 from .connection_options_oidc_metadata import ConnectionOptionsOidcMetadata
+from .connection_pushed_authorization_request_endpoint import ConnectionPushedAuthorizationRequestEndpoint
 from .connection_scope_oidc import ConnectionScopeOidc
 from .connection_send_back_channel_nonce import ConnectionSendBackChannelNonce
 from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttributesEnum
@@ -25,6 +29,7 @@ from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointA
 from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
 from .connection_token_endpoint_jwtca_aud_format_enum_oidc import ConnectionTokenEndpointJwtcaAudFormatEnumOidc
 from .connection_upstream_params import ConnectionUpstreamParams
+from .connection_use_oauth_spec_scope import ConnectionUseOauthSpecScope
 from .connection_userinfo_endpoint import ConnectionUserinfoEndpoint
 
 
@@ -39,12 +44,14 @@ class ConnectionOptionsCommonOidc(UniversalBaseModel):
     connection_settings: typing.Optional[ConnectionConnectionSettings] = None
     domain_aliases: typing.Optional[ConnectionDomainAliases] = None
     dpop_signing_alg: typing.Optional[ConnectionDpopSigningAlgEnum] = None
-    federated_connections_access_tokens: typing.Optional[ConnectionFederatedConnectionsAccessTokens] = None
+    enable_pushed_authorization_requests: typing.Optional[ConnectionEnablePushedAuthorizationRequests] = None
     icon_url: typing.Optional[ConnectionIconUrl] = None
+    id_token_session_expiry_supported: typing.Optional[ConnectionIdTokenSessionExpirySupported] = None
     id_token_signed_response_algs: typing.Optional[ConnectionIdTokenSignedResponseAlgs] = None
     issuer: typing.Optional[ConnectionIssuer] = None
     jwks_uri: typing.Optional[ConnectionJwksUri] = None
     oidc_metadata: typing.Optional[ConnectionOptionsOidcMetadata] = None
+    pushed_authorization_request_endpoint: typing.Optional[ConnectionPushedAuthorizationRequestEndpoint] = None
     scope: typing.Optional[ConnectionScopeOidc] = None
     send_back_channel_nonce: typing.Optional[ConnectionSendBackChannelNonce] = None
     set_user_root_attributes: typing.Optional[ConnectionSetUserRootAttributesEnum] = None
@@ -55,6 +62,11 @@ class ConnectionOptionsCommonOidc(UniversalBaseModel):
     token_endpoint_jwtca_aud_format: typing.Optional[ConnectionTokenEndpointJwtcaAudFormatEnumOidc] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     userinfo_endpoint: typing.Optional[ConnectionUserinfoEndpoint] = None
+    use_oauth_spec_scope: typing_extensions.Annotated[
+        typing.Optional[ConnectionUseOauthSpecScope],
+        FieldMetadata(alias="useOauthSpecScope"),
+        pydantic.Field(alias="useOauthSpecScope"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

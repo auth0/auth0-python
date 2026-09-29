@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -15,6 +15,7 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
+from ..errors.gateway_timeout_error import GatewayTimeoutError
 from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
@@ -27,6 +28,11 @@ from ..types.list_organizations_paginated_response_content import ListOrganizati
 from ..types.organization import Organization
 from ..types.organization_branding import OrganizationBranding
 from ..types.organization_metadata import OrganizationMetadata
+from ..types.organization_sort_field_enum import OrganizationSortFieldEnum
+from ..types.organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
+from ..types.search_organization import SearchOrganization
+from ..types.search_organizations_paginated_response_content import SearchOrganizationsPaginatedResponseContent
+from ..types.search_parser_enum import SearchParserEnum
 from ..types.update_organization_response_content import UpdateOrganizationResponseContent
 from ..types.update_token_quota import UpdateTokenQuota
 from pydantic import ValidationError
@@ -42,34 +48,37 @@ class RawOrganizationsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         sort: typing.Optional[str] = None,
+        include_client_association_for: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Organization, ListOrganizationsPaginatedResponseContent]:
         """
         Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -78,6 +87,9 @@ class RawOrganizationsClient:
 
         sort : typing.Optional[str]
             Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
+
+        include_client_association_for : typing.Optional[str]
+            Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -91,9 +103,11 @@ class RawOrganizationsClient:
             "organizations",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "sort": sort,
+                "include_client_association_for": include_client_association_for,
             },
             request_options=request_options,
         )
@@ -110,9 +124,11 @@ class RawOrganizationsClient:
                 _parsed_next = _parsed_response.next
                 _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     sort=sort,
+                    include_client_association_for=include_client_association_for,
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -178,10 +194,12 @@ class RawOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateOrganizationResponseContent]:
         """
-        Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
+        Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review [Create Your First Organization](https://auth0.com/docs/manage-users/organizations/create-first-organization).
 
         Parameters
         ----------
@@ -199,6 +217,11 @@ class RawOrganizationsClient:
             Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
 
         token_quota : typing.Optional[CreateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -226,6 +249,8 @@ class RawOrganizationsClient:
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
+                "third_party_client_access": third_party_client_access,
+                "is_app_entitlement_active": is_app_entitlement_active,
             },
             headers={
                 "content-type": "application/json",
@@ -327,7 +352,7 @@ class RawOrganizationsClient:
             Organization successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/name/{encode_path_param(name)}",
+            f"organizations/name/{quote_path_param(name)}",
             method="GET",
             request_options=request_options,
         )
@@ -374,8 +399,168 @@ class RawOrganizationsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[OrganizationSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]:
+        """
+        Retrieve details of organizations matching a search criteria. It is possible to:
+
+        - Specify a search criteria for organizations
+        - Search via `name`
+        - Search via `display_name`
+        - Substring matching (`contains` and `ends-with`) requires at least 3 characters
+        - Use wildcards
+
+        The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+        This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+        Results are eventually consistent and may not reflect recent updates immediately.
+
+        **Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[OrganizationSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]
+            Organizations successfully retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "organizations/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchOrganizationsPaginatedResponseContent,
+                    parse_obj_as(
+                        type_=SearchOrganizationsPaginatedResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.organizations
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.search(
+                    q=q,
+                    parser=parser,
+                    take=take,
+                    from_=_parsed_next,
+                    sort=sort,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -414,7 +599,7 @@ class RawOrganizationsClient:
             Organization successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}",
+            f"organizations/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -461,6 +646,17 @@ class RawOrganizationsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -485,7 +681,7 @@ class RawOrganizationsClient:
         """
         Remove an Organization from your tenant.  This action cannot be undone.
 
-        <b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.
+        **Note**: Members are automatically disassociated from an Organization when it is deleted. However, this action does **not** delete these users from your tenant.
 
         Parameters
         ----------
@@ -500,7 +696,7 @@ class RawOrganizationsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}",
+            f"organizations/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -580,10 +776,12 @@ class RawOrganizationsClient:
         branding: typing.Optional[OrganizationBranding] = OMIT,
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateOrganizationResponseContent]:
         """
-        Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
+        Update the details of a specific [Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations), such as name and display name, branding options, and metadata.
 
         Parameters
         ----------
@@ -602,6 +800,11 @@ class RawOrganizationsClient:
 
         token_quota : typing.Optional[UpdateTokenQuota]
 
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -611,7 +814,7 @@ class RawOrganizationsClient:
             Organization successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}",
+            f"organizations/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "display_name": display_name,
@@ -623,6 +826,8 @@ class RawOrganizationsClient:
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=typing.Optional[UpdateTokenQuota], direction="write"
                 ),
+                "third_party_client_access": third_party_client_access,
+                "is_app_entitlement_active": is_app_entitlement_active,
             },
             headers={
                 "content-type": "application/json",
@@ -701,34 +906,37 @@ class AsyncRawOrganizationsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         sort: typing.Optional[str] = None,
+        include_client_association_for: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Organization, ListOrganizationsPaginatedResponseContent]:
         """
         Retrieve detailed list of all Organizations available in your tenant. For more information, see Auth0 Organizations.
 
         This endpoint supports two types of pagination:
-        <ul>
-        <li>Offset pagination</li>
-        <li>Checkpoint pagination</li>
-        </ul>
+
+        - Offset pagination
+        - Checkpoint pagination
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organizations.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
         To search by checkpoint, use the following parameters:
-        <ul>
-        <li><code>from</code>: Optional id from which to start selection.</li>
-        <li><code>take</code>: The total number of entries to retrieve when using the <code>from</code> parameter. Defaults to 50.</li>
-        </ul>
 
-        <b>Note</b>: The first time you call this endpoint using checkpoint pagination, omit the <code>from</code> parameter. If there are more results, a <code>next</code> value is included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, no pages are remaining.
+        - `from`: Optional id from which to start selection.
+        - `take`: The total number of entries to retrieve when using the `from` parameter. Defaults to 50.
+
+        **Note**: The first time you call this endpoint using checkpoint pagination, omit the `from` parameter. If there are more results, a `next` value is included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, no pages are remaining.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -737,6 +945,9 @@ class AsyncRawOrganizationsClient:
 
         sort : typing.Optional[str]
             Field to sort by. Use <code>field:order</code> where order is <code>1</code> for ascending and <code>-1</code> for descending. e.g. <code>created_at:1</code>. We currently support sorting by the following fields: <code>name</code>, <code>display_name</code> and <code>created_at</code>.
+
+        include_client_association_for : typing.Optional[str]
+            Client ID. When set, each returned organization that has an association with this client gains a <code>client</code> object describing it; organizations without one omit the field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -750,9 +961,11 @@ class AsyncRawOrganizationsClient:
             "organizations",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "sort": sort,
+                "include_client_association_for": include_client_association_for,
             },
             request_options=request_options,
         )
@@ -771,9 +984,11 @@ class AsyncRawOrganizationsClient:
 
                 async def _get_next():
                     return await self.list(
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         sort=sort,
+                        include_client_association_for=include_client_association_for,
                         request_options=request_options,
                     )
 
@@ -840,10 +1055,12 @@ class AsyncRawOrganizationsClient:
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         enabled_connections: typing.Optional[typing.Sequence[ConnectionForOrganization]] = OMIT,
         token_quota: typing.Optional[CreateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateOrganizationResponseContent]:
         """
-        Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review <a href="https://auth0.com/docs/manage-users/organizations/create-first-organization">Create Your First Organization</a>.
+        Create a new Organization within your tenant.  To learn more about Organization settings, behavior, and configuration options, review [Create Your First Organization](https://auth0.com/docs/manage-users/organizations/create-first-organization).
 
         Parameters
         ----------
@@ -861,6 +1078,11 @@ class AsyncRawOrganizationsClient:
             Connections that will be enabled for this organization. See POST enabled_connections endpoint for the object format. (Max of 10 connections allowed)
 
         token_quota : typing.Optional[CreateTokenQuota]
+
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -888,6 +1110,8 @@ class AsyncRawOrganizationsClient:
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=CreateTokenQuota, direction="write"
                 ),
+                "third_party_client_access": third_party_client_access,
+                "is_app_entitlement_active": is_app_entitlement_active,
             },
             headers={
                 "content-type": "application/json",
@@ -989,7 +1213,7 @@ class AsyncRawOrganizationsClient:
             Organization successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/name/{encode_path_param(name)}",
+            f"organizations/name/{quote_path_param(name)}",
             method="GET",
             request_options=request_options,
         )
@@ -1036,8 +1260,171 @@ class AsyncRawOrganizationsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[OrganizationSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]:
+        """
+        Retrieve details of organizations matching a search criteria. It is possible to:
+
+        - Specify a search criteria for organizations
+        - Search via `name`
+        - Search via `display_name`
+        - Substring matching (`contains` and `ends-with`) requires at least 3 characters
+        - Use wildcards
+
+        The `q` query parameter can be used to get organizations that match the specified criteria on `name` OR `display_name`.
+
+        This endpoint supports SCIM or Lucene filter syntax with low-latency, cursor-based pagination. Use the `parser` parameter to specify "scim" or "lucene" syntax (default: "lucene").
+
+        Results are eventually consistent and may not reflect recent updates immediately.
+
+        **Sortable fields:** `name`, `display_name`, `created_at` (ascending only). Defaults to insertion order (oldest first).
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter, default: Lucene). Lucene examples: `name:acme*`, `display_name:*auth*`. SCIM examples: `name eq "Auth0"`, `display_name sw "auth" and created_at gt "2024-01-01"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Organization ID (case-sensitive, exact match)</li><li><i>name</i> - Organization name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>display_name</i> - Organization display name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>created_at</i> - Creation timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by organization metadata key-value pairs</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[OrganizationSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[SearchOrganization, SearchOrganizationsPaginatedResponseContent]
+            Organizations successfully retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "organizations/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchOrganizationsPaginatedResponseContent,
+                    parse_obj_as(
+                        type_=SearchOrganizationsPaginatedResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.organizations
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.search(
+                        q=q,
+                        parser=parser,
+                        take=take,
+                        from_=_parsed_next,
+                        sort=sort,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1076,7 +1463,7 @@ class AsyncRawOrganizationsClient:
             Organization successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}",
+            f"organizations/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1123,6 +1510,17 @@ class AsyncRawOrganizationsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -1149,7 +1547,7 @@ class AsyncRawOrganizationsClient:
         """
         Remove an Organization from your tenant.  This action cannot be undone.
 
-        <b>Note</b>: Members are automatically disassociated from an Organization when it is deleted. However, this action does <b>not</b> delete these users from your tenant.
+        **Note**: Members are automatically disassociated from an Organization when it is deleted. However, this action does **not** delete these users from your tenant.
 
         Parameters
         ----------
@@ -1164,7 +1562,7 @@ class AsyncRawOrganizationsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}",
+            f"organizations/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1244,10 +1642,12 @@ class AsyncRawOrganizationsClient:
         branding: typing.Optional[OrganizationBranding] = OMIT,
         metadata: typing.Optional[OrganizationMetadata] = OMIT,
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
+        third_party_client_access: typing.Optional[OrganizationThirdPartyClientAccessEnum] = OMIT,
+        is_app_entitlement_active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateOrganizationResponseContent]:
         """
-        Update the details of a specific <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations">Organization</a>, such as name and display name, branding options, and metadata.
+        Update the details of a specific [Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/create-organizations), such as name and display name, branding options, and metadata.
 
         Parameters
         ----------
@@ -1266,6 +1666,11 @@ class AsyncRawOrganizationsClient:
 
         token_quota : typing.Optional[UpdateTokenQuota]
 
+        third_party_client_access : typing.Optional[OrganizationThirdPartyClientAccessEnum]
+
+        is_app_entitlement_active : typing.Optional[bool]
+            Whether app entitlement is active for this organization.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1275,7 +1680,7 @@ class AsyncRawOrganizationsClient:
             Organization successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}",
+            f"organizations/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "display_name": display_name,
@@ -1287,6 +1692,8 @@ class AsyncRawOrganizationsClient:
                 "token_quota": convert_and_respect_annotation_metadata(
                     object_=token_quota, annotation=typing.Optional[UpdateTokenQuota], direction="write"
                 ),
+                "third_party_client_access": third_party_client_access,
+                "is_app_entitlement_active": is_app_entitlement_active,
             },
             headers={
                 "content-type": "application/json",

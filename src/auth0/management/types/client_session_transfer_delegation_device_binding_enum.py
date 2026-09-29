@@ -2,4 +2,4 @@
 
 import typing
 
-ClientSessionTransferDelegationDeviceBindingEnum = typing.Union[typing.Literal["ip", "asn"], typing.Any]
+ClientSessionTransferDelegationDeviceBindingEnum = typing.Union[typing.Literal["ip"], typing.Any]

@@ -25,6 +25,10 @@ class SigningKeys(UniversalBaseModel):
         FieldMetadata(alias="pkcs7"),
         pydantic.Field(alias="pkcs7", description="The public certificate of the signing key in pkcs7 format"),
     ] = None
+    """
+    The public certificate of the signing key in pkcs7 format
+    """
+
     current: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True if the key is the the current key

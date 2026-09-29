@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .network_acl_action import NetworkAclAction
 from .network_acl_match import NetworkAclMatch
+from .network_acl_rule_match_all_enum import NetworkAclRuleMatchAllEnum
 from .network_acl_rule_scope_enum import NetworkAclRuleScopeEnum
 
 
@@ -13,6 +14,7 @@ class NetworkAclRule(UniversalBaseModel):
     action: NetworkAclAction
     match: typing.Optional[NetworkAclMatch] = None
     not_match: typing.Optional[NetworkAclMatch] = None
+    match_all: typing.Optional[NetworkAclRuleMatchAllEnum] = None
     scope: NetworkAclRuleScopeEnum
 
     if IS_PYDANTIC_V2:

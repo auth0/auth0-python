@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.pagination import AsyncPager, SyncPager
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
@@ -14,6 +14,7 @@ from ....core.request_options import RequestOptions
 from ....errors.bad_request_error import BadRequestError
 from ....errors.conflict_error import ConflictError
 from ....errors.forbidden_error import ForbiddenError
+from ....errors.not_found_error import NotFoundError
 from ....errors.too_many_requests_error import TooManyRequestsError
 from ....errors.unauthorized_error import UnauthorizedError
 from ....types.list_organization_member_roles_offset_paginated_response_content import (
@@ -45,6 +46,8 @@ class RawRolesClient:
 
         Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.
 
+        **Note**: Returns only direct role assignments for this member. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
+
         Parameters
         ----------
         id : str
@@ -73,7 +76,7 @@ class RawRolesClient:
         page = page if page is not None else 0
 
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
+            f"organizations/{quote_path_param(id)}/members/{quote_path_param(user_id)}/roles",
             method="GET",
             params={
                 "page": page,
@@ -92,7 +95,7 @@ class RawRolesClient:
                     ),
                 )
                 _items = _parsed_response.roles
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     id,
                     user_id,
@@ -135,6 +138,17 @@ class RawRolesClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -164,7 +178,7 @@ class RawRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
-        Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a user to determine their access for a specific Organization.
+        Assign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) to a user to determine their access for a specific Organization.
 
         Users can be members of multiple Organizations with unique roles assigned for each membership. This action assigns roles to a user only for the specified Organization. Roles cannot be assigned to a user across multiple Organizations in the same call.
 
@@ -187,7 +201,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
+            f"organizations/{quote_path_param(id)}/members/{quote_path_param(user_id)}/roles",
             method="POST",
             json={
                 "roles": roles,
@@ -274,7 +288,7 @@ class RawRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
-        Remove one or more Organization-specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a given user.
+        Remove one or more Organization-specific [roles](https://auth0.com/docs/manage-users/access-control/rbac) from a given user.
 
         Users can be members of multiple Organizations with unique roles assigned for each membership. This action removes roles from a user in relation to the specified Organization. Roles assigned to the user within a different Organization cannot be managed in the same call.
 
@@ -297,7 +311,7 @@ class RawRolesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
+            f"organizations/{quote_path_param(id)}/members/{quote_path_param(user_id)}/roles",
             method="DELETE",
             json={
                 "roles": roles,
@@ -384,6 +398,8 @@ class AsyncRawRolesClient:
 
         Users can be members of multiple Organizations with unique roles assigned for each membership. This action only returns the roles associated with the specified Organization; any roles assigned to the user within other Organizations are not included.
 
+        **Note**: Returns only direct role assignments for this member. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
+
         Parameters
         ----------
         id : str
@@ -412,7 +428,7 @@ class AsyncRawRolesClient:
         page = page if page is not None else 0
 
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
+            f"organizations/{quote_path_param(id)}/members/{quote_path_param(user_id)}/roles",
             method="GET",
             params={
                 "page": page,
@@ -431,7 +447,7 @@ class AsyncRawRolesClient:
                     ),
                 )
                 _items = _parsed_response.roles
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -477,6 +493,17 @@ class AsyncRawRolesClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -506,7 +533,7 @@ class AsyncRawRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
-        Assign one or more <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> to a user to determine their access for a specific Organization.
+        Assign one or more [roles](https://auth0.com/docs/manage-users/access-control/rbac) to a user to determine their access for a specific Organization.
 
         Users can be members of multiple Organizations with unique roles assigned for each membership. This action assigns roles to a user only for the specified Organization. Roles cannot be assigned to a user across multiple Organizations in the same call.
 
@@ -529,7 +556,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
+            f"organizations/{quote_path_param(id)}/members/{quote_path_param(user_id)}/roles",
             method="POST",
             json={
                 "roles": roles,
@@ -616,7 +643,7 @@ class AsyncRawRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
-        Remove one or more Organization-specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">roles</a> from a given user.
+        Remove one or more Organization-specific [roles](https://auth0.com/docs/manage-users/access-control/rbac) from a given user.
 
         Users can be members of multiple Organizations with unique roles assigned for each membership. This action removes roles from a user in relation to the specified Organization. Roles assigned to the user within a different Organization cannot be managed in the same call.
 
@@ -639,7 +666,7 @@ class AsyncRawRolesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members/{encode_path_param(user_id)}/roles",
+            f"organizations/{quote_path_param(id)}/members/{quote_path_param(user_id)}/roles",
             method="DELETE",
             json={
                 "roles": roles,
