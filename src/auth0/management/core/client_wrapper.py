@@ -35,7 +35,18 @@ class BaseClientWrapper:
         self._logging = logging
 
     def get_headers(self) -> typing.Dict[str, str]:
+        py_version = platform.python_version()
+        version = sys.modules["auth0"].__version__
+
+        auth0_client = dumps({
+            "name": "auth0-python",
+            "version": version,
+            "env": {"python": py_version}
+        }).encode("utf-8")
+
         headers: typing.Dict[str, str] = {
+            "User-Agent": f"Python/{py_version}",
+            "Auth0-Client": base64.b64encode(auth0_client).decode(),
             **(self.get_custom_headers() or {}),
         }
         headers["Authorization"] = f"Bearer {self._get_token()}"
