@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.7.0](https://github.com/auth0/auth0-python/tree/6.7.0) (2026-09-30)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.6.0...6.7.0)
+
+⚠️ **Breaking Changes**
+- `management.organizations.organization_template` sub-client removed along with six types (`OrganizationTemplate`, `OrganizationTemplateAllowedStrategyEnum`, `OrganizationTemplateRoleVisibilityEnum`, `OrganizationTemplateRoleVisibilityOverride`, `OrganizationTemplateRoleVisibilityPolicy`, `OrganizationTemplateUseForOrganizationDiscovery`). `ConnectionDeletionBehaviorEnum` and `OrganizationDeletionBehaviorEnum` also removed from the public surface [\#894](https://github.com/auth0/auth0-python/pull/894) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Added**
+- Experiment Center CRUD sub-clients for experiments (`management.experimentation.experiments`), feature flags (`management.experimentation.feature_flags`), segments (`management.experimentation.segments`), and variations (`management.experimentation.feature_flags.variations`). Resource server `require_consent_non_repudiation` flag, client `oidc_support` parameter, connection `thumbprints_sha_384` field, new `OauthScope` experimentation values, and `ClientOidcBackchannelLogoutInitiatorsEnum.profile-changed` [\#894](https://github.com/auth0/auth0-python/pull/894) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.6.0](https://github.com/auth0/auth0-python/tree/6.6.0) (2026-09-17)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.5.0...6.6.0)
 
