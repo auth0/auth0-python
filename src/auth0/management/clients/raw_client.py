@@ -40,6 +40,7 @@ from ..types.client_mobile import ClientMobile
 from ..types.client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
 from ..types.client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
 from ..types.client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
+from ..types.client_oidc_support_post import ClientOidcSupportPost
 from ..types.client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
 from ..types.client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
 from ..types.client_organization_require_behavior_patch_enum import ClientOrganizationRequireBehaviorPatchEnum
@@ -330,6 +331,7 @@ class RawClientsClient:
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
+        oidc_support: typing.Optional[ClientOidcSupportPost] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateClientResponseContent]:
         """
@@ -497,6 +499,8 @@ class RawClientsClient:
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
+        oidc_support : typing.Optional[ClientOidcSupportPost]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -623,6 +627,9 @@ class RawClientsClient:
                     direction="write",
                 ),
                 "async_approval_notification_channels": async_approval_notification_channels,
+                "oidc_support": convert_and_respect_annotation_metadata(
+                    object_=oidc_support, annotation=ClientOidcSupportPost, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -1948,6 +1955,7 @@ class AsyncRawClientsClient:
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
+        oidc_support: typing.Optional[ClientOidcSupportPost] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateClientResponseContent]:
         """
@@ -2115,6 +2123,8 @@ class AsyncRawClientsClient:
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
+        oidc_support : typing.Optional[ClientOidcSupportPost]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2241,6 +2251,9 @@ class AsyncRawClientsClient:
                     direction="write",
                 ),
                 "async_approval_notification_channels": async_approval_notification_channels,
+                "oidc_support": convert_and_respect_annotation_metadata(
+                    object_=oidc_support, annotation=ClientOidcSupportPost, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",

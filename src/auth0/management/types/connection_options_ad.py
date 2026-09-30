@@ -19,6 +19,7 @@ from .connection_set_user_root_attributes_enum import ConnectionSetUserRootAttri
 from .connection_sign_in_endpoint_ad import ConnectionSignInEndpointAd
 from .connection_tenant_domain_ad import ConnectionTenantDomainAd
 from .connection_thumbprints_ad import ConnectionThumbprintsAd
+from .connection_thumbprints_sha_384_ad import ConnectionThumbprintsSha384Ad
 from .connection_upstream_params import ConnectionUpstreamParams
 
 
@@ -78,6 +79,11 @@ class ConnectionOptionsAd(ConnectionOptionsCommon):
     ] = None
     tenant_domain: typing.Optional[ConnectionTenantDomainAd] = None
     thumbprints: typing.Optional[ConnectionThumbprintsAd] = None
+    thumbprints_sha_384: typing_extensions.Annotated[
+        typing.Optional[ConnectionThumbprintsSha384Ad],
+        FieldMetadata(alias="thumbprints_sha384"),
+        pydantic.Field(alias="thumbprints_sha384"),
+    ] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
 
     if IS_PYDANTIC_V2:

@@ -9,6 +9,8 @@ from .raw_client import AsyncRawExperimentationClient, RawExperimentationClient
 
 if typing.TYPE_CHECKING:
     from .experiments.client import AsyncExperimentsClient, ExperimentsClient
+    from .feature_flags.client import AsyncFeatureFlagsClient, FeatureFlagsClient
+    from .segments.client import AsyncSegmentsClient, SegmentsClient
 
 
 class ExperimentationClient:
@@ -16,6 +18,8 @@ class ExperimentationClient:
         self._raw_client = RawExperimentationClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._experiments: typing.Optional[ExperimentsClient] = None
+        self._feature_flags: typing.Optional[FeatureFlagsClient] = None
+        self._segments: typing.Optional[SegmentsClient] = None
 
     @property
     def with_raw_response(self) -> RawExperimentationClient:
@@ -36,12 +40,30 @@ class ExperimentationClient:
             self._experiments = ExperimentsClient(client_wrapper=self._client_wrapper)
         return self._experiments
 
+    @property
+    def feature_flags(self):
+        if self._feature_flags is None:
+            from .feature_flags.client import FeatureFlagsClient  # noqa: E402
+
+            self._feature_flags = FeatureFlagsClient(client_wrapper=self._client_wrapper)
+        return self._feature_flags
+
+    @property
+    def segments(self):
+        if self._segments is None:
+            from .segments.client import SegmentsClient  # noqa: E402
+
+            self._segments = SegmentsClient(client_wrapper=self._client_wrapper)
+        return self._segments
+
 
 class AsyncExperimentationClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawExperimentationClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._experiments: typing.Optional[AsyncExperimentsClient] = None
+        self._feature_flags: typing.Optional[AsyncFeatureFlagsClient] = None
+        self._segments: typing.Optional[AsyncSegmentsClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawExperimentationClient:
@@ -61,3 +83,19 @@ class AsyncExperimentationClient:
 
             self._experiments = AsyncExperimentsClient(client_wrapper=self._client_wrapper)
         return self._experiments
+
+    @property
+    def feature_flags(self):
+        if self._feature_flags is None:
+            from .feature_flags.client import AsyncFeatureFlagsClient  # noqa: E402
+
+            self._feature_flags = AsyncFeatureFlagsClient(client_wrapper=self._client_wrapper)
+        return self._feature_flags
+
+    @property
+    def segments(self):
+        if self._segments is None:
+            from .segments.client import AsyncSegmentsClient  # noqa: E402
+
+            self._segments = AsyncSegmentsClient(client_wrapper=self._client_wrapper)
+        return self._segments

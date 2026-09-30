@@ -26,6 +26,7 @@ from .connection_should_trust_email_verified_connection_enum import ConnectionSh
 from .connection_tenant_domain_azure_ad_one import ConnectionTenantDomainAzureAdOne
 from .connection_tenant_id_azure_ad import ConnectionTenantIdAzureAd
 from .connection_thumbprints import ConnectionThumbprints
+from .connection_thumbprints_sha_384 import ConnectionThumbprintsSha384
 from .connection_upstream_params import ConnectionUpstreamParams
 from .connection_use_common_endpoint_azure_ad import ConnectionUseCommonEndpointAzureAd
 from .connection_userid_attribute_azure_ad import ConnectionUseridAttributeAzureAd
@@ -275,6 +276,11 @@ class ConnectionOptionsAzureAd(ConnectionOptionsCommon):
         typing.Optional[ConnectionTenantIdAzureAd], FieldMetadata(alias="tenantId"), pydantic.Field(alias="tenantId")
     ] = None
     thumbprints: typing.Optional[ConnectionThumbprints] = None
+    thumbprints_sha_384: typing_extensions.Annotated[
+        typing.Optional[ConnectionThumbprintsSha384],
+        FieldMetadata(alias="thumbprints_sha384"),
+        pydantic.Field(alias="thumbprints_sha384"),
+    ] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
     use_wsfed: typing.Optional[bool] = pydantic.Field(default=None)
     """

@@ -4532,7 +4532,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"resource_servers\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"is_system\": true,\n      \"identifier\": \"identifier\",\n      \"scopes\": [\n        {\n          \"value\": \"value\"\n        }\n      ],\n      \"signing_alg\": \"HS256\",\n      \"signing_secret\": \"signing_secret\",\n      \"allow_offline_access\": true,\n      \"allow_online_access\": true,\n      \"allow_online_access_with_ephemeral_sessions\": true,\n      \"skip_consent_for_verifiable_first_party_clients\": true,\n      \"token_lifetime\": 1,\n      \"token_lifetime_for_web\": 1,\n      \"enforce_policies\": true,\n      \"token_lifetime_for_anonymous_access_tokens\": 1,\n      \"token_dialect\": \"access_token\",\n      \"token_encryption\": {\n        \"format\": \"compact-nested-jwe\",\n        \"encryption_key\": {\n          \"alg\": \"RSA-OAEP-256\",\n          \"pem\": \"pem\"\n        }\n      },\n      \"consent_policy\": \"transactional-authorization-with-mfa\",\n      \"proof_of_possession\": {\n        \"mechanism\": \"mtls\",\n        \"required\": true\n      },\n      \"authorization_policy\": {\n        \"policy_id\": \"policy_id\"\n      },\n      \"client_id\": \"client_id\"\n    }\n  ]\n}",
+        "body": "{\n  \"start\": 1.1,\n  \"limit\": 1.1,\n  \"total\": 1.1,\n  \"resource_servers\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"is_system\": true,\n      \"identifier\": \"identifier\",\n      \"scopes\": [\n        {\n          \"value\": \"value\"\n        }\n      ],\n      \"signing_alg\": \"HS256\",\n      \"signing_secret\": \"signing_secret\",\n      \"allow_offline_access\": true,\n      \"allow_online_access\": true,\n      \"allow_online_access_with_ephemeral_sessions\": true,\n      \"skip_consent_for_verifiable_first_party_clients\": true,\n      \"token_lifetime\": 1,\n      \"token_lifetime_for_web\": 1,\n      \"enforce_policies\": true,\n      \"token_lifetime_for_anonymous_access_tokens\": 1,\n      \"token_dialect\": \"access_token\",\n      \"token_encryption\": {\n        \"format\": \"compact-nested-jwe\",\n        \"encryption_key\": {\n          \"alg\": \"RSA-OAEP-256\",\n          \"pem\": \"pem\"\n        }\n      },\n      \"consent_policy\": \"transactional-authorization-with-mfa\",\n      \"require_consent_non_repudiation\": true,\n      \"proof_of_possession\": {\n        \"mechanism\": \"mtls\",\n        \"required\": true\n      },\n      \"authorization_policy\": {\n        \"policy_id\": \"policy_id\"\n      },\n      \"client_id\": \"client_id\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -4564,7 +4564,7 @@
       },
       "response": {
         "status": 201,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"is_system\": true,\n  \"identifier\": \"identifier\",\n  \"scopes\": [\n    {\n      \"value\": \"value\",\n      \"description\": \"description\"\n    }\n  ],\n  \"signing_alg\": \"HS256\",\n  \"signing_secret\": \"signing_secret\",\n  \"allow_offline_access\": true,\n  \"allow_online_access\": true,\n  \"allow_online_access_with_ephemeral_sessions\": true,\n  \"skip_consent_for_verifiable_first_party_clients\": true,\n  \"token_lifetime\": 1,\n  \"token_lifetime_for_web\": 1,\n  \"enforce_policies\": true,\n  \"token_lifetime_for_anonymous_access_tokens\": 1,\n  \"token_dialect\": \"access_token\",\n  \"access_token\": {\n    \"claims_mapping\": {\n      \"custom_claims\": [\n        {\n          \"name\": \"name\",\n          \"expression\": \"expression\"\n        }\n      ]\n    }\n  },\n  \"token_encryption\": {\n    \"format\": \"compact-nested-jwe\",\n    \"encryption_key\": {\n      \"name\": \"name\",\n      \"alg\": \"RSA-OAEP-256\",\n      \"kid\": \"kid\",\n      \"pem\": \"pem\"\n    }\n  },\n  \"consent_policy\": \"transactional-authorization-with-mfa\",\n  \"authorization_details\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"proof_of_possession\": {\n    \"mechanism\": \"mtls\",\n    \"required\": true,\n    \"required_for\": \"public_clients\"\n  },\n  \"subject_type_authorization\": {\n    \"user\": {\n      \"policy\": \"allow_all\"\n    },\n    \"client\": {\n      \"policy\": \"deny_all\"\n    },\n    \"anonymous_user\": {\n      \"policy\": \"deny_all\"\n    }\n  },\n  \"authorization_policy\": {\n    \"policy_id\": \"policy_id\"\n  },\n  \"client_id\": \"client_id\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"is_system\": true,\n  \"identifier\": \"identifier\",\n  \"scopes\": [\n    {\n      \"value\": \"value\",\n      \"description\": \"description\"\n    }\n  ],\n  \"signing_alg\": \"HS256\",\n  \"signing_secret\": \"signing_secret\",\n  \"allow_offline_access\": true,\n  \"allow_online_access\": true,\n  \"allow_online_access_with_ephemeral_sessions\": true,\n  \"skip_consent_for_verifiable_first_party_clients\": true,\n  \"token_lifetime\": 1,\n  \"token_lifetime_for_web\": 1,\n  \"enforce_policies\": true,\n  \"token_lifetime_for_anonymous_access_tokens\": 1,\n  \"token_dialect\": \"access_token\",\n  \"access_token\": {\n    \"claims_mapping\": {\n      \"custom_claims\": [\n        {\n          \"name\": \"name\",\n          \"expression\": \"expression\"\n        }\n      ]\n    }\n  },\n  \"token_encryption\": {\n    \"format\": \"compact-nested-jwe\",\n    \"encryption_key\": {\n      \"name\": \"name\",\n      \"alg\": \"RSA-OAEP-256\",\n      \"kid\": \"kid\",\n      \"pem\": \"pem\"\n    }\n  },\n  \"consent_policy\": \"transactional-authorization-with-mfa\",\n  \"require_consent_non_repudiation\": true,\n  \"authorization_details\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"proof_of_possession\": {\n    \"mechanism\": \"mtls\",\n    \"required\": true,\n    \"required_for\": \"public_clients\"\n  },\n  \"subject_type_authorization\": {\n    \"user\": {\n      \"policy\": \"allow_all\"\n    },\n    \"client\": {\n      \"policy\": \"deny_all\"\n    },\n    \"anonymous_user\": {\n      \"policy\": \"deny_all\"\n    }\n  },\n  \"authorization_policy\": {\n    \"policy_id\": \"policy_id\"\n  },\n  \"client_id\": \"client_id\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -4618,7 +4618,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"resource_servers\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"is_system\": true,\n      \"identifier\": \"identifier\",\n      \"scopes\": [\n        {\n          \"value\": \"value\"\n        }\n      ],\n      \"signing_alg\": \"HS256\",\n      \"allow_offline_access\": true,\n      \"allow_online_access\": true,\n      \"allow_online_access_with_ephemeral_sessions\": true,\n      \"skip_consent_for_verifiable_first_party_clients\": true,\n      \"token_lifetime\": 1,\n      \"token_lifetime_for_web\": 1,\n      \"enforce_policies\": true,\n      \"token_lifetime_for_anonymous_access_tokens\": 1,\n      \"token_dialect\": \"access_token\",\n      \"token_encryption\": {\n        \"format\": \"compact-nested-jwe\",\n        \"encryption_key\": {\n          \"alg\": \"RSA-OAEP-256\",\n          \"pem\": \"pem\"\n        }\n      },\n      \"consent_policy\": \"transactional-authorization-with-mfa\",\n      \"proof_of_possession\": {\n        \"mechanism\": \"mtls\",\n        \"required\": true\n      },\n      \"authorization_policy\": {\n        \"policy_id\": \"policy_id\"\n      },\n      \"client_id\": \"client_id\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "body": "{\n  \"resource_servers\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"is_system\": true,\n      \"identifier\": \"identifier\",\n      \"scopes\": [\n        {\n          \"value\": \"value\"\n        }\n      ],\n      \"signing_alg\": \"HS256\",\n      \"allow_offline_access\": true,\n      \"allow_online_access\": true,\n      \"allow_online_access_with_ephemeral_sessions\": true,\n      \"skip_consent_for_verifiable_first_party_clients\": true,\n      \"token_lifetime\": 1,\n      \"token_lifetime_for_web\": 1,\n      \"enforce_policies\": true,\n      \"token_lifetime_for_anonymous_access_tokens\": 1,\n      \"token_dialect\": \"access_token\",\n      \"token_encryption\": {\n        \"format\": \"compact-nested-jwe\",\n        \"encryption_key\": {\n          \"alg\": \"RSA-OAEP-256\",\n          \"pem\": \"pem\"\n        }\n      },\n      \"consent_policy\": \"transactional-authorization-with-mfa\",\n      \"require_consent_non_repudiation\": true,\n      \"proof_of_possession\": {\n        \"mechanism\": \"mtls\",\n        \"required\": true\n      },\n      \"authorization_policy\": {\n        \"policy_id\": \"policy_id\"\n      },\n      \"client_id\": \"client_id\"\n    }\n  ],\n  \"next\": \"next\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -4660,7 +4660,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"is_system\": true,\n  \"identifier\": \"identifier\",\n  \"scopes\": [\n    {\n      \"value\": \"value\",\n      \"description\": \"description\"\n    }\n  ],\n  \"signing_alg\": \"HS256\",\n  \"signing_secret\": \"signing_secret\",\n  \"allow_offline_access\": true,\n  \"allow_online_access\": true,\n  \"allow_online_access_with_ephemeral_sessions\": true,\n  \"skip_consent_for_verifiable_first_party_clients\": true,\n  \"token_lifetime\": 1,\n  \"token_lifetime_for_web\": 1,\n  \"enforce_policies\": true,\n  \"token_lifetime_for_anonymous_access_tokens\": 1,\n  \"token_dialect\": \"access_token\",\n  \"access_token\": {\n    \"claims_mapping\": {\n      \"custom_claims\": [\n        {\n          \"name\": \"name\",\n          \"expression\": \"expression\"\n        }\n      ]\n    }\n  },\n  \"token_encryption\": {\n    \"format\": \"compact-nested-jwe\",\n    \"encryption_key\": {\n      \"name\": \"name\",\n      \"alg\": \"RSA-OAEP-256\",\n      \"kid\": \"kid\",\n      \"pem\": \"pem\"\n    }\n  },\n  \"consent_policy\": \"transactional-authorization-with-mfa\",\n  \"authorization_details\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"proof_of_possession\": {\n    \"mechanism\": \"mtls\",\n    \"required\": true,\n    \"required_for\": \"public_clients\"\n  },\n  \"subject_type_authorization\": {\n    \"user\": {\n      \"policy\": \"allow_all\"\n    },\n    \"client\": {\n      \"policy\": \"deny_all\"\n    },\n    \"anonymous_user\": {\n      \"policy\": \"deny_all\"\n    }\n  },\n  \"authorization_policy\": {\n    \"policy_id\": \"policy_id\"\n  },\n  \"client_id\": \"client_id\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"is_system\": true,\n  \"identifier\": \"identifier\",\n  \"scopes\": [\n    {\n      \"value\": \"value\",\n      \"description\": \"description\"\n    }\n  ],\n  \"signing_alg\": \"HS256\",\n  \"signing_secret\": \"signing_secret\",\n  \"allow_offline_access\": true,\n  \"allow_online_access\": true,\n  \"allow_online_access_with_ephemeral_sessions\": true,\n  \"skip_consent_for_verifiable_first_party_clients\": true,\n  \"token_lifetime\": 1,\n  \"token_lifetime_for_web\": 1,\n  \"enforce_policies\": true,\n  \"token_lifetime_for_anonymous_access_tokens\": 1,\n  \"token_dialect\": \"access_token\",\n  \"access_token\": {\n    \"claims_mapping\": {\n      \"custom_claims\": [\n        {\n          \"name\": \"name\",\n          \"expression\": \"expression\"\n        }\n      ]\n    }\n  },\n  \"token_encryption\": {\n    \"format\": \"compact-nested-jwe\",\n    \"encryption_key\": {\n      \"name\": \"name\",\n      \"alg\": \"RSA-OAEP-256\",\n      \"kid\": \"kid\",\n      \"pem\": \"pem\"\n    }\n  },\n  \"consent_policy\": \"transactional-authorization-with-mfa\",\n  \"require_consent_non_repudiation\": true,\n  \"authorization_details\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"proof_of_possession\": {\n    \"mechanism\": \"mtls\",\n    \"required\": true,\n    \"required_for\": \"public_clients\"\n  },\n  \"subject_type_authorization\": {\n    \"user\": {\n      \"policy\": \"allow_all\"\n    },\n    \"client\": {\n      \"policy\": \"deny_all\"\n    },\n    \"anonymous_user\": {\n      \"policy\": \"deny_all\"\n    }\n  },\n  \"authorization_policy\": {\n    \"policy_id\": \"policy_id\"\n  },\n  \"client_id\": \"client_id\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -4732,7 +4732,7 @@
       },
       "response": {
         "status": 201,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"is_system\": true,\n  \"identifier\": \"identifier\",\n  \"scopes\": [\n    {\n      \"value\": \"value\",\n      \"description\": \"description\"\n    }\n  ],\n  \"signing_alg\": \"HS256\",\n  \"signing_secret\": \"signing_secret\",\n  \"allow_offline_access\": true,\n  \"allow_online_access\": true,\n  \"allow_online_access_with_ephemeral_sessions\": true,\n  \"skip_consent_for_verifiable_first_party_clients\": true,\n  \"token_lifetime\": 1,\n  \"token_lifetime_for_web\": 1,\n  \"enforce_policies\": true,\n  \"token_lifetime_for_anonymous_access_tokens\": 1,\n  \"token_dialect\": \"access_token\",\n  \"access_token\": {\n    \"claims_mapping\": {\n      \"custom_claims\": [\n        {\n          \"name\": \"name\",\n          \"expression\": \"expression\"\n        }\n      ]\n    }\n  },\n  \"token_encryption\": {\n    \"format\": \"compact-nested-jwe\",\n    \"encryption_key\": {\n      \"name\": \"name\",\n      \"alg\": \"RSA-OAEP-256\",\n      \"kid\": \"kid\",\n      \"pem\": \"pem\"\n    }\n  },\n  \"consent_policy\": \"transactional-authorization-with-mfa\",\n  \"authorization_details\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"proof_of_possession\": {\n    \"mechanism\": \"mtls\",\n    \"required\": true,\n    \"required_for\": \"public_clients\"\n  },\n  \"subject_type_authorization\": {\n    \"user\": {\n      \"policy\": \"allow_all\"\n    },\n    \"client\": {\n      \"policy\": \"deny_all\"\n    },\n    \"anonymous_user\": {\n      \"policy\": \"deny_all\"\n    }\n  },\n  \"authorization_policy\": {\n    \"policy_id\": \"policy_id\"\n  },\n  \"client_id\": \"client_id\"\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"is_system\": true,\n  \"identifier\": \"identifier\",\n  \"scopes\": [\n    {\n      \"value\": \"value\",\n      \"description\": \"description\"\n    }\n  ],\n  \"signing_alg\": \"HS256\",\n  \"signing_secret\": \"signing_secret\",\n  \"allow_offline_access\": true,\n  \"allow_online_access\": true,\n  \"allow_online_access_with_ephemeral_sessions\": true,\n  \"skip_consent_for_verifiable_first_party_clients\": true,\n  \"token_lifetime\": 1,\n  \"token_lifetime_for_web\": 1,\n  \"enforce_policies\": true,\n  \"token_lifetime_for_anonymous_access_tokens\": 1,\n  \"token_dialect\": \"access_token\",\n  \"access_token\": {\n    \"claims_mapping\": {\n      \"custom_claims\": [\n        {\n          \"name\": \"name\",\n          \"expression\": \"expression\"\n        }\n      ]\n    }\n  },\n  \"token_encryption\": {\n    \"format\": \"compact-nested-jwe\",\n    \"encryption_key\": {\n      \"name\": \"name\",\n      \"alg\": \"RSA-OAEP-256\",\n      \"kid\": \"kid\",\n      \"pem\": \"pem\"\n    }\n  },\n  \"consent_policy\": \"transactional-authorization-with-mfa\",\n  \"require_consent_non_repudiation\": true,\n  \"authorization_details\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"proof_of_possession\": {\n    \"mechanism\": \"mtls\",\n    \"required\": true,\n    \"required_for\": \"public_clients\"\n  },\n  \"subject_type_authorization\": {\n    \"user\": {\n      \"policy\": \"allow_all\"\n    },\n    \"client\": {\n      \"policy\": \"deny_all\"\n    },\n    \"anonymous_user\": {\n      \"policy\": \"deny_all\"\n    }\n  },\n  \"authorization_policy\": {\n    \"policy_id\": \"policy_id\"\n  },\n  \"client_id\": \"client_id\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -10062,6 +10062,194 @@
       }
     },
     {
+      "id": "bd75bcab-7889-4be2-8450-869b365b3fd6",
+      "name": "List experiments for the tenant. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/experiments",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          },
+          "status": {
+            "equalTo": "draft"
+          },
+          "authentication_flow": {
+            "equalTo": "authentication_flow"
+          },
+          "feature_flag_id": {
+            "equalTo": "feature_flag_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"experiments\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"feature_flag_id\": \"feature_flag_id\",\n      \"feature_flag_name\": \"feature_flag_name\",\n      \"authentication_flow\": \"authentication_flow\",\n      \"allocation_strategy\": \"percentage\",\n      \"status\": \"draft\",\n      \"is_valid\": true,\n      \"default_config\": \"tenant\",\n      \"feature_flag_snapshot\": {\n        \"key\": \"value\"\n      },\n      \"allocations\": [\n        {}\n      ],\n      \"editable_fields\": [\n        \"editable_fields\"\n      ],\n      \"levels\": [\n        1\n      ],\n      \"current_level\": 1,\n      \"started_at\": \"2024-01-15T09:30:00Z\",\n      \"ended_at\": \"2024-01-15T09:30:00Z\",\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bd75bcab-7889-4be2-8450-869b365b3fd6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "8134b9b9-4d8a-4951-a430-6287adc0df07",
+      "name": "Create an experiment for the Experiment Center. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/experiments",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"feature_flag_id\": \"feature_flag_id\",\n  \"feature_flag_name\": \"feature_flag_name\",\n  \"authentication_flow\": \"authentication_flow\",\n  \"allocation_strategy\": \"percentage\",\n  \"status\": \"draft\",\n  \"is_valid\": true,\n  \"default_config\": \"tenant\",\n  \"feature_flag_snapshot\": {\n    \"key\": \"value\"\n  },\n  \"allocations\": [\n    {\n      \"variation_id\": \"variation_id\",\n      \"variation_name\": \"variation_name\",\n      \"segment_id\": \"segment_id\",\n      \"segment_name\": \"segment_name\",\n      \"weight\": 1,\n      \"priority\": 1,\n      \"is_control\": true,\n      \"is_fallback\": true,\n      \"variation_snapshot\": {\n        \"key\": \"value\"\n      },\n      \"segment_snapshot\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"editable_fields\": [\n    \"editable_fields\"\n  ],\n  \"levels\": [\n    1\n  ],\n  \"current_level\": 1,\n  \"started_at\": \"2024-01-15T09:30:00Z\",\n  \"ended_at\": \"2024-01-15T09:30:00Z\",\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8134b9b9-4d8a-4951-a430-6287adc0df07",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "274d4dba-dc33-4e37-8a85-e46845e575b9",
+      "name": "Get an experiment by ID. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/experiments/{id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"feature_flag_id\": \"feature_flag_id\",\n  \"feature_flag_name\": \"feature_flag_name\",\n  \"authentication_flow\": \"authentication_flow\",\n  \"allocation_strategy\": \"percentage\",\n  \"status\": \"draft\",\n  \"is_valid\": true,\n  \"default_config\": \"tenant\",\n  \"feature_flag_snapshot\": {\n    \"key\": \"value\"\n  },\n  \"allocations\": [\n    {\n      \"variation_id\": \"variation_id\",\n      \"variation_name\": \"variation_name\",\n      \"segment_id\": \"segment_id\",\n      \"segment_name\": \"segment_name\",\n      \"weight\": 1,\n      \"priority\": 1,\n      \"is_control\": true,\n      \"is_fallback\": true,\n      \"variation_snapshot\": {\n        \"key\": \"value\"\n      },\n      \"segment_snapshot\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"editable_fields\": [\n    \"editable_fields\"\n  ],\n  \"levels\": [\n    1\n  ],\n  \"current_level\": 1,\n  \"started_at\": \"2024-01-15T09:30:00Z\",\n  \"ended_at\": \"2024-01-15T09:30:00Z\",\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "274d4dba-dc33-4e37-8a85-e46845e575b9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "0029389e-1345-4549-9a99-7244a9975ed8",
+      "name": "Delete an experiment. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/experiments/{id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "0029389e-1345-4549-9a99-7244a9975ed8",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2f052315-dd21-4094-b6d2-095774dabfe2",
+      "name": "Update an experiment. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/experiments/{id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"feature_flag_id\": \"feature_flag_id\",\n  \"feature_flag_name\": \"feature_flag_name\",\n  \"authentication_flow\": \"authentication_flow\",\n  \"allocation_strategy\": \"percentage\",\n  \"status\": \"draft\",\n  \"is_valid\": true,\n  \"default_config\": \"tenant\",\n  \"feature_flag_snapshot\": {\n    \"key\": \"value\"\n  },\n  \"allocations\": [\n    {\n      \"variation_id\": \"variation_id\",\n      \"variation_name\": \"variation_name\",\n      \"segment_id\": \"segment_id\",\n      \"segment_name\": \"segment_name\",\n      \"weight\": 1,\n      \"priority\": 1,\n      \"is_control\": true,\n      \"is_fallback\": true,\n      \"variation_snapshot\": {\n        \"key\": \"value\"\n      },\n      \"segment_snapshot\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"editable_fields\": [\n    \"editable_fields\"\n  ],\n  \"levels\": [\n    1\n  ],\n  \"current_level\": 1,\n  \"started_at\": \"2024-01-15T09:30:00Z\",\n  \"ended_at\": \"2024-01-15T09:30:00Z\",\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2f052315-dd21-4094-b6d2-095774dabfe2",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "82b4942b-e9d7-43ff-9167-27f89f0fb6e3",
       "name": "Advance the rollout level of a ramp experiment. - default",
       "request": {
@@ -10086,6 +10274,670 @@
         }
       },
       "uuid": "82b4942b-e9d7-43ff-9167-27f89f0fb6e3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "bad7af9d-5e89-4f47-b2d5-36b3d3560d91",
+      "name": "Transition an experiment to a new status. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/experiments/{id}/status",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"feature_flag_id\": \"feature_flag_id\",\n  \"feature_flag_name\": \"feature_flag_name\",\n  \"authentication_flow\": \"authentication_flow\",\n  \"allocation_strategy\": \"percentage\",\n  \"status\": \"draft\",\n  \"is_valid\": true,\n  \"default_config\": \"tenant\",\n  \"feature_flag_snapshot\": {\n    \"key\": \"value\"\n  },\n  \"allocations\": [\n    {\n      \"variation_id\": \"variation_id\",\n      \"variation_name\": \"variation_name\",\n      \"segment_id\": \"segment_id\",\n      \"segment_name\": \"segment_name\",\n      \"weight\": 1,\n      \"priority\": 1,\n      \"is_control\": true,\n      \"is_fallback\": true,\n      \"variation_snapshot\": {\n        \"key\": \"value\"\n      },\n      \"segment_snapshot\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"editable_fields\": [\n    \"editable_fields\"\n  ],\n  \"levels\": [\n    1\n  ],\n  \"current_level\": 1,\n  \"started_at\": \"2024-01-15T09:30:00Z\",\n  \"ended_at\": \"2024-01-15T09:30:00Z\",\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bad7af9d-5e89-4f47-b2d5-36b3d3560d91",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "20ae6e00-fdf5-43c3-a259-bcdbc0129c9d",
+      "name": "Validate an experiment. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/experiments/{id}/validate",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"is_valid\": true,\n  \"errors\": [\n    {\n      \"code\": \"code\",\n      \"message\": \"message\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "20ae6e00-fdf5-43c3-a259-bcdbc0129c9d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c7a5a02e-7595-4d10-b58d-5a96d5a3f7c8",
+      "name": "List feature flags for the tenant. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          },
+          "type": {
+            "equalTo": "auth0"
+          },
+          "status": {
+            "equalTo": "draft"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"feature_flags\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"type\": \"auth0\",\n      \"status\": \"draft\",\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c7a5a02e-7595-4d10-b58d-5a96d5a3f7c8",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "5b965deb-f921-4ef0-b7db-7ba8c30d1fef",
+      "name": "Create a feature flag for the Experiment Center. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"auth0\",\n  \"status\": \"draft\",\n  \"parameters\": {\n    \"key\": {\n      \"type\": \"string\",\n      \"value\": {\n        \"key\": \"value\"\n      },\n      \"description\": \"description\"\n    }\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5b965deb-f921-4ef0-b7db-7ba8c30d1fef",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d67c44c6-dd70-4a7a-a203-566a40f7970f",
+      "name": "Get a feature flag by ID. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"auth0\",\n  \"status\": \"draft\",\n  \"parameters\": {\n    \"key\": {\n      \"type\": \"string\",\n      \"value\": {\n        \"key\": \"value\"\n      },\n      \"description\": \"description\"\n    }\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d67c44c6-dd70-4a7a-a203-566a40f7970f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "94fc1535-b1de-4f15-a050-e0db73d2031d",
+      "name": "Delete a feature flag. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "94fc1535-b1de-4f15-a050-e0db73d2031d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "fca842b6-3f36-4dfb-ae90-568e68695c8c",
+      "name": "Update a feature flag. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"auth0\",\n  \"status\": \"draft\",\n  \"parameters\": {\n    \"key\": {\n      \"type\": \"string\",\n      \"value\": {\n        \"key\": \"value\"\n      },\n      \"description\": \"description\"\n    }\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fca842b6-3f36-4dfb-ae90-568e68695c8c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e8918863-9064-44c0-a1b7-db3c423377a1",
+      "name": "Transition a feature flag to a new status. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}/status",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"auth0\",\n  \"status\": \"draft\",\n  \"parameters\": {\n    \"key\": {\n      \"type\": \"string\",\n      \"value\": {\n        \"key\": \"value\"\n      },\n      \"description\": \"description\"\n    }\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e8918863-9064-44c0-a1b7-db3c423377a1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f3d101fb-cdd6-4ae1-9613-a72ab8cb6207",
+      "name": "List segments for the tenant. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/segments",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "queryParameters": {
+          "from": {
+            "equalTo": "from"
+          },
+          "take": {
+            "equalTo": "1"
+          },
+          "type": {
+            "equalTo": "auth0"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"segments\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"type\": \"self\",\n      \"rules\": [\n        {}\n      ],\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f3d101fb-cdd6-4ae1-9613-a72ab8cb6207",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "d8d193b6-8822-4d36-8044-479bd24483e1",
+      "name": "Create a segment for the Experiment Center. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/segments",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"self\",\n  \"rules\": [\n    {}\n  ],\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d8d193b6-8822-4d36-8044-479bd24483e1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f205ed84-327b-4abc-9154-889fab0fb681",
+      "name": "Get a segment by ID. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/segments/{id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"self\",\n  \"rules\": [\n    {}\n  ],\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f205ed84-327b-4abc-9154-889fab0fb681",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1f1e87b3-9fdc-4b26-8ac2-537a57b6d8ae",
+      "name": "Delete a segment. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/segments/{id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1f1e87b3-9fdc-4b26-8ac2-537a57b6d8ae",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e2397c3e-6009-45bf-8ebd-62d6d9ccc2bd",
+      "name": "Update a segment. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/segments/{id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"type\": \"self\",\n  \"rules\": [\n    {}\n  ],\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e2397c3e-6009-45bf-8ebd-62d6d9ccc2bd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1abb2607-78fd-4896-bc90-9384a36aafdc",
+      "name": "List all variations for a feature flag. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}/variations",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"variations\": [\n    {\n      \"id\": \"id\",\n      \"feature_flag_id\": \"feature_flag_id\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"overrides\": {\n        \"key\": \"value\"\n      },\n      \"created_at\": \"2024-01-15T09:30:00Z\",\n      \"updated_at\": \"2024-01-15T09:30:00Z\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1abb2607-78fd-4896-bc90-9384a36aafdc",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c9d939f1-99ea-420a-a6ad-0f672876141b",
+      "name": "Create a variation for a feature flag. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}/variations",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"id\": \"id\",\n  \"feature_flag_id\": \"feature_flag_id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"overrides\": {\n    \"key\": \"value\"\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c9d939f1-99ea-420a-a6ad-0f672876141b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e2d62924-fd55-44bd-a420-b2af14221ab3",
+      "name": "Get a variation by ID. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}/variations/{vid}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          },
+          "vid": {
+            "equalTo": "vid"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"feature_flag_id\": \"feature_flag_id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"overrides\": {\n    \"key\": \"value\"\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e2d62924-fd55-44bd-a420-b2af14221ab3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c581e83f-a6d2-4f3f-b7c3-fd93c5d99b1b",
+      "name": "Delete a variation. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}/variations/{vid}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          },
+          "vid": {
+            "equalTo": "vid"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c581e83f-a6d2-4f3f-b7c3-fd93c5d99b1b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f2b8f79d-6aa1-47c2-8894-b917b3dea8e3",
+      "name": "Update a variation. - default",
+      "request": {
+        "urlPathTemplate": "/experimentation/feature-flags/{id}/variations/{vid}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "id": {
+            "equalTo": "id"
+          },
+          "vid": {
+            "equalTo": "vid"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"feature_flag_id\": \"feature_flag_id\",\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"overrides\": {\n    \"key\": \"value\"\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f2b8f79d-6aa1-47c2-8894-b917b3dea8e3",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -14007,120 +14859,6 @@
       }
     },
     {
-      "id": "c2f5ec1c-5df7-4f2c-9343-e5e3f3f637ef",
-      "name": "Get organization template for organization - default",
-      "request": {
-        "urlPathTemplate": "/organizations/{id}/organization-templates",
-        "method": "GET",
-        "headers": {
-          "Authorization": {
-            "matches": "Bearer .+"
-          }
-        },
-        "pathParameters": {
-          "id": {
-            "equalTo": "id"
-          }
-        }
-      },
-      "response": {
-        "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"is_default\": true,\n  \"organization_deletion_behavior\": \"allow\",\n  \"connection_deletion_behavior\": \"allow\",\n  \"enforce_permission_ceiling\": true,\n  \"enforce_self_assignment_restriction\": true,\n  \"connection_profile_id\": \"connection_profile_id\",\n  \"user_attribute_profile_id\": \"user_attribute_profile_id\",\n  \"allowed_strategies\": [\n    \"adfs\"\n  ],\n  \"invitation_landing_client_id\": \"invitation_landing_client_id\",\n  \"admin_roles_assignment\": [\n    \"admin_roles_assignment\"\n  ],\n  \"use_for_organization_discovery\": {\n    \"default_value\": true,\n    \"allowed_values\": [\n      true\n    ]\n  },\n  \"role_visibility_policy\": {\n    \"default_value\": \"write\",\n    \"overrides\": [\n      {\n        \"role_id\": \"role_id\",\n        \"access\": \"write\"\n      }\n    ]\n  },\n  \"created_at\": \"2024-01-15T09:30:00Z\",\n  \"updated_at\": \"2024-01-15T09:30:00Z\"\n}",
-        "headers": {
-          "Content-Type": "application/json"
-        }
-      },
-      "uuid": "c2f5ec1c-5df7-4f2c-9343-e5e3f3f637ef",
-      "persistent": true,
-      "priority": 3,
-      "metadata": {
-        "mocklab": {
-          "created": {
-            "at": "2020-01-01T00:00:00.000Z",
-            "via": "SYSTEM"
-          }
-        }
-      }
-    },
-    {
-      "id": "50ff1eeb-7359-44c1-94f5-552cd5844704",
-      "name": "Assign an organization template to an organization - default",
-      "request": {
-        "urlPathTemplate": "/organizations/{id}/organization-templates/{template_id}",
-        "method": "PUT",
-        "headers": {
-          "Authorization": {
-            "matches": "Bearer .+"
-          }
-        },
-        "pathParameters": {
-          "id": {
-            "equalTo": "id"
-          },
-          "template_id": {
-            "equalTo": "template_id"
-          }
-        }
-      },
-      "response": {
-        "status": 200,
-        "body": "\"\"",
-        "headers": {
-          "Content-Type": "application/json"
-        }
-      },
-      "uuid": "50ff1eeb-7359-44c1-94f5-552cd5844704",
-      "persistent": true,
-      "priority": 3,
-      "metadata": {
-        "mocklab": {
-          "created": {
-            "at": "2020-01-01T00:00:00.000Z",
-            "via": "SYSTEM"
-          }
-        }
-      }
-    },
-    {
-      "id": "f4cc26a9-f247-4729-96f3-d61861a61351",
-      "name": "Unassign an organization template from an organization - default",
-      "request": {
-        "urlPathTemplate": "/organizations/{id}/organization-templates/{template_id}",
-        "method": "DELETE",
-        "headers": {
-          "Authorization": {
-            "matches": "Bearer .+"
-          }
-        },
-        "pathParameters": {
-          "id": {
-            "equalTo": "id"
-          },
-          "template_id": {
-            "equalTo": "template_id"
-          }
-        }
-      },
-      "response": {
-        "status": 200,
-        "body": "\"\"",
-        "headers": {
-          "Content-Type": "application/json"
-        }
-      },
-      "uuid": "f4cc26a9-f247-4729-96f3-d61861a61351",
-      "persistent": true,
-      "priority": 3,
-      "metadata": {
-        "mocklab": {
-          "created": {
-            "at": "2020-01-01T00:00:00.000Z",
-            "via": "SYSTEM"
-          }
-        }
-      }
-    },
-    {
       "id": "6d9e3ba1-00dd-4040-89c3-a856e4b77da2",
       "name": "List the groups that are assigned to the organization. - default",
       "request": {
@@ -17105,6 +17843,6 @@
     }
   ],
   "meta": {
-    "total": 457
+    "total": 477
   }
 }
