@@ -5,6 +5,8 @@ import re
 from json import dumps
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Union
 
+from .core.request_options import RequestOptions
+
 import httpx
 from .client import AsyncAuth0, Auth0
 from .token_provider import TokenProvider
@@ -36,7 +38,7 @@ def _enforce_custom_domain_whitelist(request: httpx.Request) -> None:
         del request.headers[CUSTOM_DOMAIN_HEADER]
 
 
-def CustomDomainHeader(domain: str) -> Dict[str, Any]:
+def CustomDomainHeader(domain: str) -> RequestOptions:
     """Create request options that set the Auth0-Custom-Domain header for a single request.
 
     When both a global custom_domain (set at client init) and a per-request

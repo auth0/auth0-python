@@ -7,7 +7,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -66,7 +66,7 @@ class RawRedeliveriesClient:
             Redelivery request accepted.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"event-streams/{encode_path_param(id)}/redeliver",
+            f"event-streams/{quote_path_param(id)}/redeliver",
             method="POST",
             json={
                 "date_from": date_from,
@@ -174,7 +174,7 @@ class RawRedeliveriesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"event-streams/{encode_path_param(id)}/redeliver/{encode_path_param(event_id)}",
+            f"event-streams/{quote_path_param(id)}/redeliver/{quote_path_param(event_id)}",
             method="POST",
             request_options=request_options,
         )
@@ -287,7 +287,7 @@ class AsyncRawRedeliveriesClient:
             Redelivery request accepted.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"event-streams/{encode_path_param(id)}/redeliver",
+            f"event-streams/{quote_path_param(id)}/redeliver",
             method="POST",
             json={
                 "date_from": date_from,
@@ -395,7 +395,7 @@ class AsyncRawRedeliveriesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"event-streams/{encode_path_param(id)}/redeliver/{encode_path_param(event_id)}",
+            f"event-streams/{quote_path_param(id)}/redeliver/{quote_path_param(event_id)}",
             method="POST",
             request_options=request_options,
         )

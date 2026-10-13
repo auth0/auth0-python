@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -182,12 +182,12 @@ class RawEmailTemplatesClient:
         self, template_name: EmailTemplateNameEnum, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetEmailTemplateResponseContent]:
         """
-        Retrieve an email template by pre-defined name. These names are `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, and `async_approval`. The names `change_password`, and `password_reset` are also supported for legacy scenarios.
+        Retrieve an email template by pre-defined name. These names are `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, and `async_approval`. The names `change_password`, and `password_reset` are also supported for legacy scenarios.
 
         Parameters
         ----------
         template_name : EmailTemplateNameEnum
-            Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+            Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -198,7 +198,7 @@ class RawEmailTemplatesClient:
             Template successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"email-templates/{encode_path_param(template_name)}",
+            f"email-templates/{quote_path_param(template_name)}",
             method="GET",
             request_options=request_options,
         )
@@ -286,7 +286,7 @@ class RawEmailTemplatesClient:
         Parameters
         ----------
         template_name : EmailTemplateNameEnum
-            Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+            Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
 
         template : EmailTemplateNameEnum
 
@@ -323,7 +323,7 @@ class RawEmailTemplatesClient:
             Template successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"email-templates/{encode_path_param(template_name)}",
+            f"email-templates/{quote_path_param(template_name)}",
             method="PUT",
             json={
                 "template": template,
@@ -437,7 +437,7 @@ class RawEmailTemplatesClient:
         Parameters
         ----------
         template_name : EmailTemplateNameEnum
-            Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+            Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
 
         template : typing.Optional[EmailTemplateNameEnum]
 
@@ -474,7 +474,7 @@ class RawEmailTemplatesClient:
             Template successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"email-templates/{encode_path_param(template_name)}",
+            f"email-templates/{quote_path_param(template_name)}",
             method="PATCH",
             json={
                 "template": template,
@@ -723,12 +723,12 @@ class AsyncRawEmailTemplatesClient:
         self, template_name: EmailTemplateNameEnum, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetEmailTemplateResponseContent]:
         """
-        Retrieve an email template by pre-defined name. These names are `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, and `async_approval`. The names `change_password`, and `password_reset` are also supported for legacy scenarios.
+        Retrieve an email template by pre-defined name. These names are `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, and `async_approval`. The names `change_password`, and `password_reset` are also supported for legacy scenarios.
 
         Parameters
         ----------
         template_name : EmailTemplateNameEnum
-            Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+            Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -739,7 +739,7 @@ class AsyncRawEmailTemplatesClient:
             Template successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"email-templates/{encode_path_param(template_name)}",
+            f"email-templates/{quote_path_param(template_name)}",
             method="GET",
             request_options=request_options,
         )
@@ -827,7 +827,7 @@ class AsyncRawEmailTemplatesClient:
         Parameters
         ----------
         template_name : EmailTemplateNameEnum
-            Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+            Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
 
         template : EmailTemplateNameEnum
 
@@ -864,7 +864,7 @@ class AsyncRawEmailTemplatesClient:
             Template successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"email-templates/{encode_path_param(template_name)}",
+            f"email-templates/{quote_path_param(template_name)}",
             method="PUT",
             json={
                 "template": template,
@@ -978,7 +978,7 @@ class AsyncRawEmailTemplatesClient:
         Parameters
         ----------
         template_name : EmailTemplateNameEnum
-            Template name. Can be `verify_email`, `verify_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
+            Template name. Can be `verify_email`, `verify_email_by_code`, `auth_email_by_code`, `reset_email`, `reset_email_by_code`, `welcome_email`, `blocked_account`, `stolen_credentials`, `enrollment_email`, `mfa_oob_code`, `user_invitation`, `async_approval`, `change_password` (legacy), or `password_reset` (legacy).
 
         template : typing.Optional[EmailTemplateNameEnum]
 
@@ -1015,7 +1015,7 @@ class AsyncRawEmailTemplatesClient:
             Template successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"email-templates/{encode_path_param(template_name)}",
+            f"email-templates/{quote_path_param(template_name)}",
             method="PATCH",
             json={
                 "template": template,

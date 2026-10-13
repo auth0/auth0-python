@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .cimd_external_metadata_created_by_enum import CimdExternalMetadataCreatedByEnum
 from .cimd_mapped_client_fields import CimdMappedClientFields
 from .cimd_validation_result import CimdValidationResult
 
@@ -14,6 +15,7 @@ class PreviewCimdMetadataResponseContent(UniversalBaseModel):
     The client_id of an existing client registered with this external_client_id, if one exists.
     """
 
+    external_metadata_created_by: typing.Optional[CimdExternalMetadataCreatedByEnum] = None
     errors: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     Array of retrieval errors (populated when the metadata document could not be fetched). When present, validation is omitted.

@@ -4,8 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .connection_attribute_identifier import ConnectionAttributeIdentifier
 from .signup_schema import SignupSchema
+from .username_attribute_identifier import UsernameAttributeIdentifier
 from .username_validation import UsernameValidation
 
 
@@ -14,7 +14,7 @@ class UsernameAttribute(UniversalBaseModel):
     Configuration for the username attribute for users.
     """
 
-    identifier: typing.Optional[ConnectionAttributeIdentifier] = None
+    identifier: typing.Optional[UsernameAttributeIdentifier] = None
     profile_required: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Determines if property should be required for users

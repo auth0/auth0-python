@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -104,7 +104,7 @@ class RawFormsClient:
                     ),
                 )
                 _items = _parsed_response.forms
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     page=page + 1,
                     per_page=per_page,
@@ -327,7 +327,7 @@ class RawFormsClient:
             Form successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"forms/{encode_path_param(id)}",
+            f"forms/{quote_path_param(id)}",
             method="GET",
             params={
                 "hydrate": hydrate,
@@ -423,7 +423,7 @@ class RawFormsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"forms/{encode_path_param(id)}",
+            f"forms/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -528,28 +528,28 @@ class RawFormsClient:
             Form successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"forms/{encode_path_param(id)}",
+            f"forms/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
                 "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=FormMessagesNullable, direction="write"
+                    object_=messages, annotation=typing.Optional[FormMessagesNullable], direction="write"
                 ),
                 "languages": convert_and_respect_annotation_metadata(
-                    object_=languages, annotation=FormLanguagesNullable, direction="write"
+                    object_=languages, annotation=typing.Optional[FormLanguagesNullable], direction="write"
                 ),
                 "translations": translations,
                 "nodes": convert_and_respect_annotation_metadata(
-                    object_=nodes, annotation=FormNodeListNullable, direction="write"
+                    object_=nodes, annotation=typing.Optional[FormNodeListNullable], direction="write"
                 ),
                 "start": convert_and_respect_annotation_metadata(
-                    object_=start, annotation=FormStartNodeNullable, direction="write"
+                    object_=start, annotation=typing.Optional[FormStartNodeNullable], direction="write"
                 ),
                 "ending": convert_and_respect_annotation_metadata(
-                    object_=ending, annotation=FormEndingNodeNullable, direction="write"
+                    object_=ending, annotation=typing.Optional[FormEndingNodeNullable], direction="write"
                 ),
                 "style": convert_and_respect_annotation_metadata(
-                    object_=style, annotation=FormStyleNullable, direction="write"
+                    object_=style, annotation=typing.Optional[FormStyleNullable], direction="write"
                 ),
             },
             headers={
@@ -568,6 +568,17 @@ class RawFormsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -581,6 +592,17 @@ class RawFormsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -672,7 +694,7 @@ class AsyncRawFormsClient:
                     ),
                 )
                 _items = _parsed_response.forms
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -898,7 +920,7 @@ class AsyncRawFormsClient:
             Form successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"forms/{encode_path_param(id)}",
+            f"forms/{quote_path_param(id)}",
             method="GET",
             params={
                 "hydrate": hydrate,
@@ -996,7 +1018,7 @@ class AsyncRawFormsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"forms/{encode_path_param(id)}",
+            f"forms/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1101,28 +1123,28 @@ class AsyncRawFormsClient:
             Form successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"forms/{encode_path_param(id)}",
+            f"forms/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
                 "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=FormMessagesNullable, direction="write"
+                    object_=messages, annotation=typing.Optional[FormMessagesNullable], direction="write"
                 ),
                 "languages": convert_and_respect_annotation_metadata(
-                    object_=languages, annotation=FormLanguagesNullable, direction="write"
+                    object_=languages, annotation=typing.Optional[FormLanguagesNullable], direction="write"
                 ),
                 "translations": translations,
                 "nodes": convert_and_respect_annotation_metadata(
-                    object_=nodes, annotation=FormNodeListNullable, direction="write"
+                    object_=nodes, annotation=typing.Optional[FormNodeListNullable], direction="write"
                 ),
                 "start": convert_and_respect_annotation_metadata(
-                    object_=start, annotation=FormStartNodeNullable, direction="write"
+                    object_=start, annotation=typing.Optional[FormStartNodeNullable], direction="write"
                 ),
                 "ending": convert_and_respect_annotation_metadata(
-                    object_=ending, annotation=FormEndingNodeNullable, direction="write"
+                    object_=ending, annotation=typing.Optional[FormEndingNodeNullable], direction="write"
                 ),
                 "style": convert_and_respect_annotation_metadata(
-                    object_=style, annotation=FormStyleNullable, direction="write"
+                    object_=style, annotation=typing.Optional[FormStyleNullable], direction="write"
                 ),
             },
             headers={
@@ -1141,6 +1163,17 @@ class AsyncRawFormsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -1154,6 +1187,17 @@ class AsyncRawFormsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

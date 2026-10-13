@@ -2,4 +2,4 @@
 
 import typing
 
-ClientGrantSubjectTypeEnum = typing.Union[typing.Literal["client", "user"], typing.Any]
+ClientGrantSubjectTypeEnum = typing.Union[typing.Literal["client", "user", "anonymous_user"], typing.Any]

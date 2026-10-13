@@ -14,11 +14,19 @@ class EmailProviderCredentialsSchemaAccessKeyId(UniversalBaseModel):
         FieldMetadata(alias="accessKeyId"),
         pydantic.Field(alias="accessKeyId", description="AWS Access Key ID."),
     ] = None
+    """
+    AWS Access Key ID.
+    """
+
     secret_access_key: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="secretAccessKey"),
         pydantic.Field(alias="secretAccessKey", description="AWS Secret Access Key."),
     ] = None
+    """
+    AWS Secret Access Key.
+    """
+
     region: typing.Optional[str] = pydantic.Field(default=None)
     """
     AWS region.

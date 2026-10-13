@@ -6,6 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .event_stream_cloud_event_context import EventStreamCloudEventContext
 from .event_stream_cloud_event_org_connection_updated_object import EventStreamCloudEventOrgConnectionUpdatedObject
+from .event_stream_cloud_event_org_connection_updated_previous_object import (
+    EventStreamCloudEventOrgConnectionUpdatedPreviousObject,
+)
 
 
 class EventStreamCloudEventOrgConnectionUpdatedData(UniversalBaseModel):
@@ -14,6 +17,7 @@ class EventStreamCloudEventOrgConnectionUpdatedData(UniversalBaseModel):
     """
 
     object: EventStreamCloudEventOrgConnectionUpdatedObject
+    previous_object: typing.Optional[EventStreamCloudEventOrgConnectionUpdatedPreviousObject] = None
     context: typing.Optional[EventStreamCloudEventContext] = None
 
     if IS_PYDANTIC_V2:

@@ -15,6 +15,10 @@ class LogStreamEventGridSink(UniversalBaseModel):
         FieldMetadata(alias="azureSubscriptionId"),
         pydantic.Field(alias="azureSubscriptionId", description="Subscription ID"),
     ]
+    """
+    Subscription ID
+    """
+
     azure_region: typing_extensions.Annotated[
         LogStreamEventGridRegionEnum, FieldMetadata(alias="azureRegion"), pydantic.Field(alias="azureRegion")
     ]
@@ -23,11 +27,18 @@ class LogStreamEventGridSink(UniversalBaseModel):
         FieldMetadata(alias="azureResourceGroup"),
         pydantic.Field(alias="azureResourceGroup", description="Resource Group"),
     ]
+    """
+    Resource Group
+    """
+
     azure_partner_topic: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="azurePartnerTopic"),
         pydantic.Field(alias="azurePartnerTopic", description="Partner Topic"),
     ] = None
+    """
+    Partner Topic
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

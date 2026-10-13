@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -158,7 +158,7 @@ class RawUserAttributeProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateUserAttributeProfileResponseContent]:
         """
-        Create a User Attribute Profile
+        Create a User Attribute Profile.
 
         Parameters
         ----------
@@ -361,7 +361,7 @@ class RawUserAttributeProfilesClient:
             User Attribute Profile Template successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"user-attribute-profiles/templates/{encode_path_param(id)}",
+            f"user-attribute-profiles/templates/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -448,7 +448,7 @@ class RawUserAttributeProfilesClient:
             Record for existing user attribute profile.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"user-attribute-profiles/{encode_path_param(id)}",
+            f"user-attribute-profiles/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -532,7 +532,7 @@ class RawUserAttributeProfilesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"user-attribute-profiles/{encode_path_param(id)}",
+            f"user-attribute-profiles/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -613,12 +613,12 @@ class RawUserAttributeProfilesClient:
             User attribute profile successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"user-attribute-profiles/{encode_path_param(id)}",
+            f"user-attribute-profiles/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
                 "user_id": convert_and_respect_annotation_metadata(
-                    object_=user_id, annotation=UserAttributeProfilePatchUserId, direction="write"
+                    object_=user_id, annotation=typing.Optional[UserAttributeProfilePatchUserId], direction="write"
                 ),
                 "user_attributes": convert_and_respect_annotation_metadata(
                     object_=user_attributes, annotation=UserAttributeProfileUserAttributes, direction="write"
@@ -664,6 +664,17 @@ class RawUserAttributeProfilesClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -816,7 +827,7 @@ class AsyncRawUserAttributeProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateUserAttributeProfileResponseContent]:
         """
-        Create a User Attribute Profile
+        Create a User Attribute Profile.
 
         Parameters
         ----------
@@ -1019,7 +1030,7 @@ class AsyncRawUserAttributeProfilesClient:
             User Attribute Profile Template successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"user-attribute-profiles/templates/{encode_path_param(id)}",
+            f"user-attribute-profiles/templates/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1106,7 +1117,7 @@ class AsyncRawUserAttributeProfilesClient:
             Record for existing user attribute profile.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"user-attribute-profiles/{encode_path_param(id)}",
+            f"user-attribute-profiles/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1192,7 +1203,7 @@ class AsyncRawUserAttributeProfilesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"user-attribute-profiles/{encode_path_param(id)}",
+            f"user-attribute-profiles/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1273,12 +1284,12 @@ class AsyncRawUserAttributeProfilesClient:
             User attribute profile successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"user-attribute-profiles/{encode_path_param(id)}",
+            f"user-attribute-profiles/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
                 "user_id": convert_and_respect_annotation_metadata(
-                    object_=user_id, annotation=UserAttributeProfilePatchUserId, direction="write"
+                    object_=user_id, annotation=typing.Optional[UserAttributeProfilePatchUserId], direction="write"
                 ),
                 "user_attributes": convert_and_respect_annotation_metadata(
                     object_=user_attributes, annotation=UserAttributeProfileUserAttributes, direction="write"
@@ -1324,6 +1335,17 @@ class AsyncRawUserAttributeProfilesClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

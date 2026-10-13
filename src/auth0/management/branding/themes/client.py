@@ -7,6 +7,7 @@ from ...core.request_options import RequestOptions
 from ...types.branding_theme_borders import BrandingThemeBorders
 from ...types.branding_theme_colors import BrandingThemeColors
 from ...types.branding_theme_fonts import BrandingThemeFonts
+from ...types.branding_theme_identifiers import BrandingThemeIdentifiers
 from ...types.branding_theme_page_background import BrandingThemePageBackground
 from ...types.branding_theme_widget import BrandingThemeWidget
 from ...types.create_branding_theme_response_content import CreateBrandingThemeResponseContent
@@ -43,6 +44,7 @@ class ThemesClient:
         page_background: BrandingThemePageBackground,
         widget: BrandingThemeWidget,
         display_name: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[BrandingThemeIdentifiers] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateBrandingThemeResponseContent:
         """
@@ -62,6 +64,8 @@ class ThemesClient:
 
         display_name : typing.Optional[str]
             Display Name
+
+        identifiers : typing.Optional[BrandingThemeIdentifiers]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -171,6 +175,7 @@ class ThemesClient:
             page_background=page_background,
             widget=widget,
             display_name=display_name,
+            identifiers=identifiers,
             request_options=request_options,
         )
         return _response.data
@@ -276,6 +281,7 @@ class ThemesClient:
         page_background: BrandingThemePageBackground,
         widget: BrandingThemeWidget,
         display_name: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[BrandingThemeIdentifiers] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBrandingThemeResponseContent:
         """
@@ -298,6 +304,8 @@ class ThemesClient:
 
         display_name : typing.Optional[str]
             Display Name
+
+        identifiers : typing.Optional[BrandingThemeIdentifiers]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -409,6 +417,7 @@ class ThemesClient:
             page_background=page_background,
             widget=widget,
             display_name=display_name,
+            identifiers=identifiers,
             request_options=request_options,
         )
         return _response.data
@@ -438,6 +447,7 @@ class AsyncThemesClient:
         page_background: BrandingThemePageBackground,
         widget: BrandingThemeWidget,
         display_name: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[BrandingThemeIdentifiers] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateBrandingThemeResponseContent:
         """
@@ -457,6 +467,8 @@ class AsyncThemesClient:
 
         display_name : typing.Optional[str]
             Display Name
+
+        identifiers : typing.Optional[BrandingThemeIdentifiers]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -574,6 +586,7 @@ class AsyncThemesClient:
             page_background=page_background,
             widget=widget,
             display_name=display_name,
+            identifiers=identifiers,
             request_options=request_options,
         )
         return _response.data
@@ -703,6 +716,7 @@ class AsyncThemesClient:
         page_background: BrandingThemePageBackground,
         widget: BrandingThemeWidget,
         display_name: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[BrandingThemeIdentifiers] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBrandingThemeResponseContent:
         """
@@ -725,6 +739,8 @@ class AsyncThemesClient:
 
         display_name : typing.Optional[str]
             Display Name
+
+        identifiers : typing.Optional[BrandingThemeIdentifiers]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -844,6 +860,7 @@ class AsyncThemesClient:
             page_background=page_background,
             widget=widget,
             display_name=display_name,
+            identifiers=identifiers,
             request_options=request_options,
         )
         return _response.data

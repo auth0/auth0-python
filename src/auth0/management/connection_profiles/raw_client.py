@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -21,9 +21,11 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.connection_name_prefix_template import ConnectionNamePrefixTemplate
 from ..types.connection_profile import ConnectionProfile
 from ..types.connection_profile_config import ConnectionProfileConfig
+from ..types.connection_profile_cross_app_access_resource_app import ConnectionProfileCrossAppAccessResourceApp
 from ..types.connection_profile_enabled_features import ConnectionProfileEnabledFeatures
 from ..types.connection_profile_name import ConnectionProfileName
 from ..types.connection_profile_organization import ConnectionProfileOrganization
+from ..types.connection_profile_provisioning import ConnectionProfileProvisioning
 from ..types.connection_profile_strategy_overrides import ConnectionProfileStrategyOverrides
 from ..types.create_connection_profile_response_content import CreateConnectionProfileResponseContent
 from ..types.get_connection_profile_response_content import GetConnectionProfileResponseContent
@@ -156,6 +158,8 @@ class RawConnectionProfilesClient:
         enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = OMIT,
         connection_config: typing.Optional[ConnectionProfileConfig] = OMIT,
         strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = OMIT,
+        provisioning: typing.Optional[ConnectionProfileProvisioning] = OMIT,
+        cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateConnectionProfileResponseContent]:
         """
@@ -174,6 +178,10 @@ class RawConnectionProfilesClient:
         connection_config : typing.Optional[ConnectionProfileConfig]
 
         strategy_overrides : typing.Optional[ConnectionProfileStrategyOverrides]
+
+        provisioning : typing.Optional[ConnectionProfileProvisioning]
+
+        cross_app_access_resource_app : typing.Optional[ConnectionProfileCrossAppAccessResourceApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -198,6 +206,14 @@ class RawConnectionProfilesClient:
                 ),
                 "strategy_overrides": convert_and_respect_annotation_metadata(
                     object_=strategy_overrides, annotation=ConnectionProfileStrategyOverrides, direction="write"
+                ),
+                "provisioning": convert_and_respect_annotation_metadata(
+                    object_=provisioning, annotation=ConnectionProfileProvisioning, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=ConnectionProfileCrossAppAccessResourceApp,
+                    direction="write",
                 ),
             },
             headers={
@@ -373,7 +389,7 @@ class RawConnectionProfilesClient:
             Connection Profile Template successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connection-profiles/templates/{encode_path_param(id)}",
+            f"connection-profiles/templates/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -460,7 +476,7 @@ class RawConnectionProfilesClient:
             Record for existing connection profile.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connection-profiles/{encode_path_param(id)}",
+            f"connection-profiles/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -544,7 +560,7 @@ class RawConnectionProfilesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connection-profiles/{encode_path_param(id)}",
+            f"connection-profiles/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -603,6 +619,8 @@ class RawConnectionProfilesClient:
         enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = OMIT,
         connection_config: typing.Optional[ConnectionProfileConfig] = OMIT,
         strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = OMIT,
+        provisioning: typing.Optional[ConnectionProfileProvisioning] = OMIT,
+        cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateConnectionProfileResponseContent]:
         """
@@ -625,6 +643,10 @@ class RawConnectionProfilesClient:
 
         strategy_overrides : typing.Optional[ConnectionProfileStrategyOverrides]
 
+        provisioning : typing.Optional[ConnectionProfileProvisioning]
+
+        cross_app_access_resource_app : typing.Optional[ConnectionProfileCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -634,7 +656,7 @@ class RawConnectionProfilesClient:
             Connection profile successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connection-profiles/{encode_path_param(id)}",
+            f"connection-profiles/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -648,6 +670,14 @@ class RawConnectionProfilesClient:
                 ),
                 "strategy_overrides": convert_and_respect_annotation_metadata(
                     object_=strategy_overrides, annotation=ConnectionProfileStrategyOverrides, direction="write"
+                ),
+                "provisioning": convert_and_respect_annotation_metadata(
+                    object_=provisioning, annotation=ConnectionProfileProvisioning, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=ConnectionProfileCrossAppAccessResourceApp,
+                    direction="write",
                 ),
             },
             headers={
@@ -690,6 +720,17 @@ class RawConnectionProfilesClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -842,6 +883,8 @@ class AsyncRawConnectionProfilesClient:
         enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = OMIT,
         connection_config: typing.Optional[ConnectionProfileConfig] = OMIT,
         strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = OMIT,
+        provisioning: typing.Optional[ConnectionProfileProvisioning] = OMIT,
+        cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateConnectionProfileResponseContent]:
         """
@@ -860,6 +903,10 @@ class AsyncRawConnectionProfilesClient:
         connection_config : typing.Optional[ConnectionProfileConfig]
 
         strategy_overrides : typing.Optional[ConnectionProfileStrategyOverrides]
+
+        provisioning : typing.Optional[ConnectionProfileProvisioning]
+
+        cross_app_access_resource_app : typing.Optional[ConnectionProfileCrossAppAccessResourceApp]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -884,6 +931,14 @@ class AsyncRawConnectionProfilesClient:
                 ),
                 "strategy_overrides": convert_and_respect_annotation_metadata(
                     object_=strategy_overrides, annotation=ConnectionProfileStrategyOverrides, direction="write"
+                ),
+                "provisioning": convert_and_respect_annotation_metadata(
+                    object_=provisioning, annotation=ConnectionProfileProvisioning, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=ConnectionProfileCrossAppAccessResourceApp,
+                    direction="write",
                 ),
             },
             headers={
@@ -1059,7 +1114,7 @@ class AsyncRawConnectionProfilesClient:
             Connection Profile Template successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connection-profiles/templates/{encode_path_param(id)}",
+            f"connection-profiles/templates/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1146,7 +1201,7 @@ class AsyncRawConnectionProfilesClient:
             Record for existing connection profile.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connection-profiles/{encode_path_param(id)}",
+            f"connection-profiles/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1232,7 +1287,7 @@ class AsyncRawConnectionProfilesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connection-profiles/{encode_path_param(id)}",
+            f"connection-profiles/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1291,6 +1346,8 @@ class AsyncRawConnectionProfilesClient:
         enabled_features: typing.Optional[ConnectionProfileEnabledFeatures] = OMIT,
         connection_config: typing.Optional[ConnectionProfileConfig] = OMIT,
         strategy_overrides: typing.Optional[ConnectionProfileStrategyOverrides] = OMIT,
+        provisioning: typing.Optional[ConnectionProfileProvisioning] = OMIT,
+        cross_app_access_resource_app: typing.Optional[ConnectionProfileCrossAppAccessResourceApp] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateConnectionProfileResponseContent]:
         """
@@ -1313,6 +1370,10 @@ class AsyncRawConnectionProfilesClient:
 
         strategy_overrides : typing.Optional[ConnectionProfileStrategyOverrides]
 
+        provisioning : typing.Optional[ConnectionProfileProvisioning]
+
+        cross_app_access_resource_app : typing.Optional[ConnectionProfileCrossAppAccessResourceApp]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1322,7 +1383,7 @@ class AsyncRawConnectionProfilesClient:
             Connection profile successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connection-profiles/{encode_path_param(id)}",
+            f"connection-profiles/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -1336,6 +1397,14 @@ class AsyncRawConnectionProfilesClient:
                 ),
                 "strategy_overrides": convert_and_respect_annotation_metadata(
                     object_=strategy_overrides, annotation=ConnectionProfileStrategyOverrides, direction="write"
+                ),
+                "provisioning": convert_and_respect_annotation_metadata(
+                    object_=provisioning, annotation=ConnectionProfileProvisioning, direction="write"
+                ),
+                "cross_app_access_resource_app": convert_and_respect_annotation_metadata(
+                    object_=cross_app_access_resource_app,
+                    annotation=ConnectionProfileCrossAppAccessResourceApp,
+                    direction="write",
                 ),
             },
             headers={
@@ -1378,6 +1447,17 @@ class AsyncRawConnectionProfilesClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

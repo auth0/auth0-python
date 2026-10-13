@@ -14,6 +14,10 @@ class DirectoryProvisioningMappingItem(UniversalBaseModel):
         FieldMetadata(alias="auth0"),
         pydantic.Field(alias="auth0", description="The field location in the Auth0 schema"),
     ]
+    """
+    The field location in the Auth0 schema
+    """
+
     idp: str = pydantic.Field()
     """
     The field location in the IDP schema

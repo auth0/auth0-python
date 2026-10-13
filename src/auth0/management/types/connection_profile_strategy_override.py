@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .connection_profile_strategy_overrides_connection_config import ConnectionProfileStrategyOverridesConnectionConfig
 from .connection_profile_strategy_overrides_enabled_features import ConnectionProfileStrategyOverridesEnabledFeatures
+from .connection_profile_strategy_overrides_provisioning import ConnectionProfileStrategyOverridesProvisioning
 
 
 class ConnectionProfileStrategyOverride(UniversalBaseModel):
@@ -15,6 +16,7 @@ class ConnectionProfileStrategyOverride(UniversalBaseModel):
 
     enabled_features: typing.Optional[ConnectionProfileStrategyOverridesEnabledFeatures] = None
     connection_config: typing.Optional[ConnectionProfileStrategyOverridesConnectionConfig] = None
+    provisioning: typing.Optional[ConnectionProfileStrategyOverridesProvisioning] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

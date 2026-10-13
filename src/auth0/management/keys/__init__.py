@@ -6,10 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from . import custom_signing, encryption, signing
+    from . import custom_signing, encryption, network_acls, signing
 _dynamic_imports: typing.Dict[str, str] = {
     "custom_signing": ".custom_signing",
     "encryption": ".encryption",
+    "network_acls": ".network_acls",
     "signing": ".signing",
 }
 
@@ -35,4 +36,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["custom_signing", "encryption", "signing"]
+__all__ = ["custom_signing", "encryption", "network_acls", "signing"]

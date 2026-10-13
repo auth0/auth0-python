@@ -91,7 +91,7 @@ class ScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetScimConfigurationResponseContent:
         """
-        Retrieves a scim configuration by its <code>connectionId</code>.
+        Retrieves a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -162,7 +162,7 @@ class ScimConfigurationClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Deletes a scim configuration by its <code>connectionId</code>.
+        Deletes a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -199,7 +199,7 @@ class ScimConfigurationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateScimConfigurationResponseContent:
         """
-        Update a scim configuration by its <code>connectionId</code>.
+        Update a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -242,7 +242,7 @@ class ScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetScimConfigurationDefaultMappingResponseContent:
         """
-        Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
+        Retrieves a scim configuration's default mapping by its `connectionId`.
 
         Parameters
         ----------
@@ -355,7 +355,7 @@ class AsyncScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetScimConfigurationResponseContent:
         """
-        Retrieves a scim configuration by its <code>connectionId</code>.
+        Retrieves a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -442,7 +442,7 @@ class AsyncScimConfigurationClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Deletes a scim configuration by its <code>connectionId</code>.
+        Deletes a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -487,7 +487,7 @@ class AsyncScimConfigurationClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateScimConfigurationResponseContent:
         """
-        Update a scim configuration by its <code>connectionId</code>.
+        Update a scim configuration by its `connectionId`.
 
         Parameters
         ----------
@@ -538,7 +538,7 @@ class AsyncScimConfigurationClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetScimConfigurationDefaultMappingResponseContent:
         """
-        Retrieves a scim configuration's default mapping by its <code>connectionId</code>.
+        Retrieves a scim configuration's default mapping by its `connectionId`.
 
         Parameters
         ----------

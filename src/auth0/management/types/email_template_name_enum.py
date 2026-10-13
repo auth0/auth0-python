@@ -6,6 +6,7 @@ EmailTemplateNameEnum = typing.Union[
     typing.Literal[
         "verify_email",
         "verify_email_by_code",
+        "auth_email_by_code",
         "reset_email",
         "reset_email_by_code",
         "welcome_email",

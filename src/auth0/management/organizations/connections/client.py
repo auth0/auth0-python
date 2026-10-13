@@ -13,6 +13,8 @@ from ...types.list_organization_all_connections_offset_paginated_response_conten
 from ...types.organization_access_level_enum import OrganizationAccessLevelEnum
 from ...types.organization_access_level_enum_with_null import OrganizationAccessLevelEnumWithNull
 from ...types.organization_all_connection_post import OrganizationAllConnectionPost
+from ...types.organization_member_access_level_enum import OrganizationMemberAccessLevelEnum
+from ...types.organization_member_access_level_enum_with_null import OrganizationMemberAccessLevelEnumWithNull
 from ...types.update_organization_all_connection_response_content import UpdateOrganizationAllConnectionResponseContent
 from .raw_client import AsyncRawConnectionsClient, RawConnectionsClient
 
@@ -110,6 +112,7 @@ class ConnectionsClient:
         show_as_button: typing.Optional[bool] = OMIT,
         is_signup_enabled: typing.Optional[bool] = OMIT,
         organization_access_level: typing.Optional[OrganizationAccessLevelEnum] = OMIT,
+        organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnum] = OMIT,
         is_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationAllConnectionResponseContent:
@@ -135,6 +138,8 @@ class ConnectionsClient:
             Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
 
         organization_access_level : typing.Optional[OrganizationAccessLevelEnum]
+
+        organization_member_access_level : typing.Optional[OrganizationMemberAccessLevelEnum]
 
         is_enabled : typing.Optional[bool]
             Whether the connection is enabled for the organization.
@@ -167,6 +172,7 @@ class ConnectionsClient:
             show_as_button=show_as_button,
             is_signup_enabled=is_signup_enabled,
             organization_access_level=organization_access_level,
+            organization_member_access_level=organization_member_access_level,
             is_enabled=is_enabled,
             request_options=request_options,
         )
@@ -249,6 +255,7 @@ class ConnectionsClient:
         show_as_button: typing.Optional[bool] = OMIT,
         is_signup_enabled: typing.Optional[bool] = OMIT,
         organization_access_level: typing.Optional[OrganizationAccessLevelEnumWithNull] = OMIT,
+        organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnumWithNull] = OMIT,
         is_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationAllConnectionResponseContent:
@@ -274,6 +281,8 @@ class ConnectionsClient:
             Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
 
         organization_access_level : typing.Optional[OrganizationAccessLevelEnumWithNull]
+
+        organization_member_access_level : typing.Optional[OrganizationMemberAccessLevelEnumWithNull]
 
         is_enabled : typing.Optional[bool]
             Whether the connection is enabled for the organization.
@@ -306,6 +315,7 @@ class ConnectionsClient:
             show_as_button=show_as_button,
             is_signup_enabled=is_signup_enabled,
             organization_access_level=organization_access_level,
+            organization_member_access_level=organization_member_access_level,
             is_enabled=is_enabled,
             request_options=request_options,
         )
@@ -411,6 +421,7 @@ class AsyncConnectionsClient:
         show_as_button: typing.Optional[bool] = OMIT,
         is_signup_enabled: typing.Optional[bool] = OMIT,
         organization_access_level: typing.Optional[OrganizationAccessLevelEnum] = OMIT,
+        organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnum] = OMIT,
         is_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateOrganizationAllConnectionResponseContent:
@@ -436,6 +447,8 @@ class AsyncConnectionsClient:
             Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
 
         organization_access_level : typing.Optional[OrganizationAccessLevelEnum]
+
+        organization_member_access_level : typing.Optional[OrganizationMemberAccessLevelEnum]
 
         is_enabled : typing.Optional[bool]
             Whether the connection is enabled for the organization.
@@ -476,6 +489,7 @@ class AsyncConnectionsClient:
             show_as_button=show_as_button,
             is_signup_enabled=is_signup_enabled,
             organization_access_level=organization_access_level,
+            organization_member_access_level=organization_member_access_level,
             is_enabled=is_enabled,
             request_options=request_options,
         )
@@ -576,6 +590,7 @@ class AsyncConnectionsClient:
         show_as_button: typing.Optional[bool] = OMIT,
         is_signup_enabled: typing.Optional[bool] = OMIT,
         organization_access_level: typing.Optional[OrganizationAccessLevelEnumWithNull] = OMIT,
+        organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnumWithNull] = OMIT,
         is_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateOrganizationAllConnectionResponseContent:
@@ -601,6 +616,8 @@ class AsyncConnectionsClient:
             Determines whether organization signup should be enabled for this organization connection. Only applicable for database connections. Default: false.
 
         organization_access_level : typing.Optional[OrganizationAccessLevelEnumWithNull]
+
+        organization_member_access_level : typing.Optional[OrganizationMemberAccessLevelEnumWithNull]
 
         is_enabled : typing.Optional[bool]
             Whether the connection is enabled for the organization.
@@ -641,6 +658,7 @@ class AsyncConnectionsClient:
             show_as_button=show_as_button,
             is_signup_enabled=is_signup_enabled,
             organization_access_level=organization_access_level,
+            organization_member_access_level=organization_member_access_level,
             is_enabled=is_enabled,
             request_options=request_options,
         )

@@ -6,13 +6,14 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
 from ...errors.forbidden_error import ForbiddenError
+from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.list_organization_members_paginated_response_content import (
@@ -33,6 +34,7 @@ class RawMembersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         fields: typing.Optional[str] = None,
@@ -43,14 +45,8 @@ class RawMembersClient:
         List organization members.
         This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
-        <ul>
-          <li>
-            Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-          </li>
-          <li>
-            Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-          </li>
-        </ul>
+        - Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
+        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         This endpoint supports two types of pagination:
 
@@ -59,14 +55,17 @@ class RawMembersClient:
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
-        To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.
+        To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the `from` parameter. If there are more results, a `next` value will be included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, this indicates there are no more pages remaining.
 
         Parameters
         ----------
         id : str
             Organization identifier.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -89,9 +88,10 @@ class RawMembersClient:
             Members successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "fields": fields,
@@ -113,6 +113,7 @@ class RawMembersClient:
                 _has_next = _parsed_next is not None and _parsed_next != ""
                 _get_next = lambda: self.list(
                     id,
+                    include_totals=include_totals,
                     from_=_parsed_next,
                     take=take,
                     fields=fields,
@@ -153,6 +154,17 @@ class RawMembersClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -177,9 +189,9 @@ class RawMembersClient:
         self, id: str, *, members: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
-        Set one or more existing users as members of a specific <a href="https://auth0.com/docs/manage-users/organizations">Organization</a>.
+        Set one or more existing users as members of a specific [Organization](https://auth0.com/docs/manage-users/organizations).
 
-        To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">invite them to create an account</a>, manually create them through the Auth0 Dashboard, or use the Management API.
+        To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can [invite them to create an account](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members), manually create them through the Auth0 Dashboard, or use the Management API.
 
         Parameters
         ----------
@@ -197,7 +209,7 @@ class RawMembersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="POST",
             json={
                 "members": members,
@@ -284,7 +296,7 @@ class RawMembersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="DELETE",
             json={
                 "members": members,
@@ -360,6 +372,7 @@ class AsyncRawMembersClient:
         self,
         id: str,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         fields: typing.Optional[str] = None,
@@ -370,14 +383,8 @@ class AsyncRawMembersClient:
         List organization members.
         This endpoint is subject to eventual consistency. New users may not be immediately included in the response and deleted users may not be immediately removed from it.
 
-        <ul>
-          <li>
-            Use the <code>fields</code> parameter to optionally define the specific member details retrieved. If <code>fields</code> is left blank, all fields (except roles) are returned.
-          </li>
-          <li>
-            Member roles are not sent by default. Use <code>fields=roles</code> to retrieve the roles assigned to each listed member. To use this parameter, you must include the <code>read:organization_member_roles</code> scope in the token.
-          </li>
-        </ul>
+        - Use the `fields` parameter to optionally define the specific member details retrieved. If `fields` is left blank, all fields (except roles) are returned.
+        - Member roles are not sent by default. Use `fields=roles` to retrieve the roles assigned to each listed member. To use this parameter, you must include the `read:organization_member_roles` scope in the token. Only directly assigned roles are returned. To also include group-based role assignments, use `GET /api/v2/organizations/{id}/members/{user_id}/effective-roles`.
 
         This endpoint supports two types of pagination:
 
@@ -386,14 +393,17 @@ class AsyncRawMembersClient:
 
         Checkpoint pagination must be used if you need to retrieve more than 1000 organization members.
 
-        <h2>Checkpoint Pagination</h2>
+        **Checkpoint Pagination**
 
-        To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the <code>from</code> parameter. If there are more results, a <code>next</code> value will be included in the response. You can use this for subsequent API calls. When <code>next</code> is no longer included in the response, this indicates there are no more pages remaining.
+        To search by checkpoint, use the following parameters: - from: Optional id from which to start selection. - take: The total amount of entries to retrieve when using the from parameter. Defaults to 50. Note: The first time you call this endpoint using Checkpoint Pagination, you should omit the `from` parameter. If there are more results, a `next` value will be included in the response. You can use this for subsequent API calls. When `next` is no longer included in the response, this indicates there are no more pages remaining.
 
         Parameters
         ----------
         id : str
             Organization identifier.
+
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -416,9 +426,10 @@ class AsyncRawMembersClient:
             Members successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="GET",
             params={
+                "include_totals": include_totals,
                 "from": from_,
                 "take": take,
                 "fields": fields,
@@ -442,6 +453,7 @@ class AsyncRawMembersClient:
                 async def _get_next():
                     return await self.list(
                         id,
+                        include_totals=include_totals,
                         from_=_parsed_next,
                         take=take,
                         fields=fields,
@@ -483,6 +495,17 @@ class AsyncRawMembersClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -507,9 +530,9 @@ class AsyncRawMembersClient:
         self, id: str, *, members: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        Set one or more existing users as members of a specific <a href="https://auth0.com/docs/manage-users/organizations">Organization</a>.
+        Set one or more existing users as members of a specific [Organization](https://auth0.com/docs/manage-users/organizations).
 
-        To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can <a href="https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members">invite them to create an account</a>, manually create them through the Auth0 Dashboard, or use the Management API.
+        To add a user to an Organization through this action, the user must already exist in your tenant. If a user does not yet exist, you can [invite them to create an account](https://auth0.com/docs/manage-users/organizations/configure-organizations/invite-members), manually create them through the Auth0 Dashboard, or use the Management API.
 
         Parameters
         ----------
@@ -527,7 +550,7 @@ class AsyncRawMembersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="POST",
             json={
                 "members": members,
@@ -614,7 +637,7 @@ class AsyncRawMembersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"organizations/{encode_path_param(id)}/members",
+            f"organizations/{quote_path_param(id)}/members",
             method="DELETE",
             json={
                 "members": members,

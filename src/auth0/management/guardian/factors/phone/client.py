@@ -16,6 +16,7 @@ from ....types.get_guardian_factors_provider_phone_response_content import (
 from ....types.get_guardian_factors_provider_phone_twilio_response_content import (
     GetGuardianFactorsProviderPhoneTwilioResponseContent,
 )
+from ....types.get_phone_factor_settings_response_content import GetPhoneFactorSettingsResponseContent
 from ....types.guardian_factor_phone_factor_message_type_enum import GuardianFactorPhoneFactorMessageTypeEnum
 from ....types.guardian_factors_provider_sms_provider_enum import GuardianFactorsProviderSmsProviderEnum
 from ....types.set_guardian_factor_phone_message_types_response_content import (
@@ -30,6 +31,7 @@ from ....types.set_guardian_factors_provider_phone_response_content import (
 from ....types.set_guardian_factors_provider_phone_twilio_response_content import (
     SetGuardianFactorsProviderPhoneTwilioResponseContent,
 )
+from ....types.set_phone_factor_settings_response_content import SetPhoneFactorSettingsResponseContent
 from .raw_client import AsyncRawPhoneClient, RawPhoneClient
 
 # this is used as the default value for optional parameters
@@ -254,6 +256,71 @@ class PhoneClient:
         )
         """
         _response = self._raw_client.set_provider(provider=provider, request_options=request_options)
+        return _response.data
+
+    def get(self, *, request_options: typing.Optional[RequestOptions] = None) -> GetPhoneFactorSettingsResponseContent:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetPhoneFactorSettingsResponseContent
+            Returns the phone factor settings.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.guardian.factors.phone.get()
+        """
+        _response = self._raw_client.get(request_options=request_options)
+        return _response.data
+
+    def set(
+        self, *, otp_length: int, otp_expiration_time: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> SetPhoneFactorSettingsResponseContent:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        otp_length : int
+            The length of the OTP code.
+
+        otp_expiration_time : int
+            The OTP expiration time in seconds.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetPhoneFactorSettingsResponseContent
+            The phone factor settings have been successfully set.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.guardian.factors.phone.set(
+            otp_length=1,
+            otp_expiration_time=1,
+        )
+        """
+        _response = self._raw_client.set(
+            otp_length=otp_length, otp_expiration_time=otp_expiration_time, request_options=request_options
+        )
         return _response.data
 
     def get_templates(
@@ -598,6 +665,89 @@ class AsyncPhoneClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.set_provider(provider=provider, request_options=request_options)
+        return _response.data
+
+    async def get(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetPhoneFactorSettingsResponseContent:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetPhoneFactorSettingsResponseContent
+            Returns the phone factor settings.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.guardian.factors.phone.get()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get(request_options=request_options)
+        return _response.data
+
+    async def set(
+        self, *, otp_length: int, otp_expiration_time: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> SetPhoneFactorSettingsResponseContent:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        otp_length : int
+            The length of the OTP code.
+
+        otp_expiration_time : int
+            The OTP expiration time in seconds.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetPhoneFactorSettingsResponseContent
+            The phone factor settings have been successfully set.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.guardian.factors.phone.set(
+                otp_length=1,
+                otp_expiration_time=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.set(
+            otp_length=otp_length, otp_expiration_time=otp_expiration_time, request_options=request_options
+        )
         return _response.data
 
     async def get_templates(

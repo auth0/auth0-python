@@ -11,10 +11,13 @@ from ..types.create_role_response_content import CreateRoleResponseContent
 from ..types.get_role_response_content import GetRoleResponseContent
 from ..types.list_roles_offset_paginated_response_content import ListRolesOffsetPaginatedResponseContent
 from ..types.role import Role
+from ..types.role_owner_id_filter import RoleOwnerIdFilter
+from ..types.role_type_enum import RoleTypeEnum
 from ..types.update_role_response_content import UpdateRoleResponseContent
 from .raw_client import AsyncRawRolesClient, RawRolesClient
 
 if typing.TYPE_CHECKING:
+    from .groups.client import AsyncGroupsClient, GroupsClient
     from .permissions.client import AsyncPermissionsClient, PermissionsClient
     from .users.client import AsyncUsersClient, UsersClient
 # this is used as the default value for optional parameters
@@ -25,6 +28,7 @@ class RolesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawRolesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._groups: typing.Optional[GroupsClient] = None
         self._permissions: typing.Optional[PermissionsClient] = None
         self._users: typing.Optional[UsersClient] = None
 
@@ -46,12 +50,14 @@ class RolesClient:
         page: typing.Optional[int] = 0,
         include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
+        type: typing.Optional[RoleTypeEnum] = None,
+        owner_id: typing.Optional[RoleOwnerIdFilter] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
         """
-        Retrieve detailed list of user roles created in your tenant.
+        Retrieve a list of roles. Includes roles created in your tenant and, when `owner_id=auth0` is supplied, Auth0-managed System Roles.
 
-        <b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
+        **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 
         Parameters
         ----------
@@ -66,6 +72,12 @@ class RolesClient:
 
         name_filter : typing.Optional[str]
             Optional filter on name (case-insensitive).
+
+        type : typing.Optional[RoleTypeEnum]
+            Optional filter on the type of the role
+
+        owner_id : typing.Optional[RoleOwnerIdFilter]
+            Filter organization-level roles by owner ID. Use an organization ID to filter that organization's roles, or "auth0" to retrieve Auth0-managed System Roles. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -87,6 +99,8 @@ class RolesClient:
             page=1,
             include_totals=True,
             name_filter="name_filter",
+            type="tenant",
+            owner_id="owner_id",
         )
         for item in response:
             yield item
@@ -99,6 +113,8 @@ class RolesClient:
             page=page,
             include_totals=include_totals,
             name_filter=name_filter,
+            type=type,
+            owner_id=owner_id,
             request_options=request_options,
         )
 
@@ -107,12 +123,14 @@ class RolesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        type: typing.Optional[RoleTypeEnum] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRoleResponseContent:
         """
-        Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+        Create a user role for [Role-Based Access Control](https://auth0.com/docs/manage-users/access-control/rbac).
 
-        <b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
+        **Note**: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
 
         Parameters
         ----------
@@ -121,6 +139,12 @@ class RolesClient:
 
         description : typing.Optional[str]
             Description of the role.
+
+        type : typing.Optional[RoleTypeEnum]
+            The type of the role. Defaults to tenant.
+
+        owner_id : typing.Optional[str]
+            The ID of the organization that owns this role. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -141,12 +165,14 @@ class RolesClient:
             name="name",
         )
         """
-        _response = self._raw_client.create(name=name, description=description, request_options=request_options)
+        _response = self._raw_client.create(
+            name=name, description=description, type=type, owner_id=owner_id, request_options=request_options
+        )
         return _response.data
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetRoleResponseContent:
         """
-        Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Retrieve details about a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -177,7 +203,7 @@ class RolesClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+        Delete a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
 
         Parameters
         ----------
@@ -214,7 +240,7 @@ class RolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateRoleResponseContent:
         """
-        Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Modify the details of a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -250,6 +276,14 @@ class RolesClient:
         return _response.data
 
     @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import GroupsClient  # noqa: E402
+
+            self._groups = GroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
+
+    @property
     def permissions(self):
         if self._permissions is None:
             from .permissions.client import PermissionsClient  # noqa: E402
@@ -270,6 +304,7 @@ class AsyncRolesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawRolesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._groups: typing.Optional[AsyncGroupsClient] = None
         self._permissions: typing.Optional[AsyncPermissionsClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
 
@@ -291,12 +326,14 @@ class AsyncRolesClient:
         page: typing.Optional[int] = 0,
         include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
+        type: typing.Optional[RoleTypeEnum] = None,
+        owner_id: typing.Optional[RoleOwnerIdFilter] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
         """
-        Retrieve detailed list of user roles created in your tenant.
+        Retrieve a list of roles. Includes roles created in your tenant and, when `owner_id=auth0` is supplied, Auth0-managed System Roles.
 
-        <b>Note</b>: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
+        **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 
         Parameters
         ----------
@@ -311,6 +348,12 @@ class AsyncRolesClient:
 
         name_filter : typing.Optional[str]
             Optional filter on name (case-insensitive).
+
+        type : typing.Optional[RoleTypeEnum]
+            Optional filter on the type of the role
+
+        owner_id : typing.Optional[RoleOwnerIdFilter]
+            Filter organization-level roles by owner ID. Use an organization ID to filter that organization's roles, or "auth0" to retrieve Auth0-managed System Roles. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -337,6 +380,8 @@ class AsyncRolesClient:
                 page=1,
                 include_totals=True,
                 name_filter="name_filter",
+                type="tenant",
+                owner_id="owner_id",
             )
             async for item in response:
                 yield item
@@ -353,6 +398,8 @@ class AsyncRolesClient:
             page=page,
             include_totals=include_totals,
             name_filter=name_filter,
+            type=type,
+            owner_id=owner_id,
             request_options=request_options,
         )
 
@@ -361,12 +408,14 @@ class AsyncRolesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        type: typing.Optional[RoleTypeEnum] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateRoleResponseContent:
         """
-        Create a user role for <a href="https://auth0.com/docs/manage-users/access-control/rbac">Role-Based Access Control</a>.
+        Create a user role for [Role-Based Access Control](https://auth0.com/docs/manage-users/access-control/rbac).
 
-        <b>Note</b>: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
+        **Note**: New roles are not associated with any permissions by default. To assign existing permissions to your role, review Associate Permissions with a Role. To create new permissions, review Add API Permissions.
 
         Parameters
         ----------
@@ -375,6 +424,12 @@ class AsyncRolesClient:
 
         description : typing.Optional[str]
             Description of the role.
+
+        type : typing.Optional[RoleTypeEnum]
+            The type of the role. Defaults to tenant.
+
+        owner_id : typing.Optional[str]
+            The ID of the organization that owns this role. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -403,12 +458,14 @@ class AsyncRolesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(name=name, description=description, request_options=request_options)
+        _response = await self._raw_client.create(
+            name=name, description=description, type=type, owner_id=owner_id, request_options=request_options
+        )
         return _response.data
 
     async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetRoleResponseContent:
         """
-        Retrieve details about a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Retrieve details about a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -447,7 +504,7 @@ class AsyncRolesClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
+        Delete a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) from your tenant. Once deleted, it is removed from any user who was previously assigned that role. This action cannot be undone.
 
         Parameters
         ----------
@@ -492,7 +549,7 @@ class AsyncRolesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateRoleResponseContent:
         """
-        Modify the details of a specific <a href="https://auth0.com/docs/manage-users/access-control/rbac">user role</a> specified by ID.
+        Modify the details of a specific [user role](https://auth0.com/docs/manage-users/access-control/rbac) specified by ID.
 
         Parameters
         ----------
@@ -536,6 +593,14 @@ class AsyncRolesClient:
             id, name=name, description=description, request_options=request_options
         )
         return _response.data
+
+    @property
+    def groups(self):
+        if self._groups is None:
+            from .groups.client import AsyncGroupsClient  # noqa: E402
+
+            self._groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
+        return self._groups
 
     @property
     def permissions(self):

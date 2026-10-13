@@ -6,6 +6,7 @@ def test_connections_list_() -> None:
     test_id = "connections.list_.0"
     client = get_client(test_id)
     client.connections.list(
+        include_totals=True,
         from_="from",
         take=1,
         strategy=["ad"],
@@ -17,7 +18,15 @@ def test_connections_list_() -> None:
         test_id,
         "GET",
         "/connections",
-        {"from": "from", "take": "1", "strategy": "ad", "name": "name", "fields": "fields", "include_fields": "true"},
+        {
+            "include_totals": "true",
+            "from": "from",
+            "take": "1",
+            "strategy": "ad",
+            "name": "name",
+            "fields": "fields",
+            "include_fields": "true",
+        },
         1,
     )
 

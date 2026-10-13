@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
@@ -20,6 +20,7 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.branding_theme_borders import BrandingThemeBorders
 from ...types.branding_theme_colors import BrandingThemeColors
 from ...types.branding_theme_fonts import BrandingThemeFonts
+from ...types.branding_theme_identifiers import BrandingThemeIdentifiers
 from ...types.branding_theme_page_background import BrandingThemePageBackground
 from ...types.branding_theme_widget import BrandingThemeWidget
 from ...types.create_branding_theme_response_content import CreateBrandingThemeResponseContent
@@ -45,6 +46,7 @@ class RawThemesClient:
         page_background: BrandingThemePageBackground,
         widget: BrandingThemeWidget,
         display_name: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[BrandingThemeIdentifiers] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateBrandingThemeResponseContent]:
         """
@@ -64,6 +66,8 @@ class RawThemesClient:
 
         display_name : typing.Optional[str]
             Display Name
+
+        identifiers : typing.Optional[BrandingThemeIdentifiers]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -86,6 +90,9 @@ class RawThemesClient:
                 "displayName": display_name,
                 "fonts": convert_and_respect_annotation_metadata(
                     object_=fonts, annotation=BrandingThemeFonts, direction="write"
+                ),
+                "identifiers": convert_and_respect_annotation_metadata(
+                    object_=identifiers, annotation=BrandingThemeIdentifiers, direction="write"
                 ),
                 "page_background": convert_and_respect_annotation_metadata(
                     object_=page_background, annotation=BrandingThemePageBackground, direction="write"
@@ -278,7 +285,7 @@ class RawThemesClient:
             Branding theme successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/themes/{encode_path_param(theme_id)}",
+            f"branding/themes/{quote_path_param(theme_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -362,7 +369,7 @@ class RawThemesClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/themes/{encode_path_param(theme_id)}",
+            f"branding/themes/{quote_path_param(theme_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -432,6 +439,7 @@ class RawThemesClient:
         page_background: BrandingThemePageBackground,
         widget: BrandingThemeWidget,
         display_name: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[BrandingThemeIdentifiers] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateBrandingThemeResponseContent]:
         """
@@ -455,6 +463,8 @@ class RawThemesClient:
         display_name : typing.Optional[str]
             Display Name
 
+        identifiers : typing.Optional[BrandingThemeIdentifiers]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -464,7 +474,7 @@ class RawThemesClient:
             Branding settings successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"branding/themes/{encode_path_param(theme_id)}",
+            f"branding/themes/{quote_path_param(theme_id)}",
             method="PATCH",
             json={
                 "borders": convert_and_respect_annotation_metadata(
@@ -476,6 +486,9 @@ class RawThemesClient:
                 "displayName": display_name,
                 "fonts": convert_and_respect_annotation_metadata(
                     object_=fonts, annotation=BrandingThemeFonts, direction="write"
+                ),
+                "identifiers": convert_and_respect_annotation_metadata(
+                    object_=identifiers, annotation=BrandingThemeIdentifiers, direction="write"
                 ),
                 "page_background": convert_and_respect_annotation_metadata(
                     object_=page_background, annotation=BrandingThemePageBackground, direction="write"
@@ -578,6 +591,7 @@ class AsyncRawThemesClient:
         page_background: BrandingThemePageBackground,
         widget: BrandingThemeWidget,
         display_name: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[BrandingThemeIdentifiers] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateBrandingThemeResponseContent]:
         """
@@ -597,6 +611,8 @@ class AsyncRawThemesClient:
 
         display_name : typing.Optional[str]
             Display Name
+
+        identifiers : typing.Optional[BrandingThemeIdentifiers]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -619,6 +635,9 @@ class AsyncRawThemesClient:
                 "displayName": display_name,
                 "fonts": convert_and_respect_annotation_metadata(
                     object_=fonts, annotation=BrandingThemeFonts, direction="write"
+                ),
+                "identifiers": convert_and_respect_annotation_metadata(
+                    object_=identifiers, annotation=BrandingThemeIdentifiers, direction="write"
                 ),
                 "page_background": convert_and_respect_annotation_metadata(
                     object_=page_background, annotation=BrandingThemePageBackground, direction="write"
@@ -811,7 +830,7 @@ class AsyncRawThemesClient:
             Branding theme successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/themes/{encode_path_param(theme_id)}",
+            f"branding/themes/{quote_path_param(theme_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -897,7 +916,7 @@ class AsyncRawThemesClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/themes/{encode_path_param(theme_id)}",
+            f"branding/themes/{quote_path_param(theme_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -967,6 +986,7 @@ class AsyncRawThemesClient:
         page_background: BrandingThemePageBackground,
         widget: BrandingThemeWidget,
         display_name: typing.Optional[str] = OMIT,
+        identifiers: typing.Optional[BrandingThemeIdentifiers] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateBrandingThemeResponseContent]:
         """
@@ -990,6 +1010,8 @@ class AsyncRawThemesClient:
         display_name : typing.Optional[str]
             Display Name
 
+        identifiers : typing.Optional[BrandingThemeIdentifiers]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -999,7 +1021,7 @@ class AsyncRawThemesClient:
             Branding settings successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"branding/themes/{encode_path_param(theme_id)}",
+            f"branding/themes/{quote_path_param(theme_id)}",
             method="PATCH",
             json={
                 "borders": convert_and_respect_annotation_metadata(
@@ -1011,6 +1033,9 @@ class AsyncRawThemesClient:
                 "displayName": display_name,
                 "fonts": convert_and_respect_annotation_metadata(
                     object_=fonts, annotation=BrandingThemeFonts, direction="write"
+                ),
+                "identifiers": convert_and_respect_annotation_metadata(
+                    object_=identifiers, annotation=BrandingThemeIdentifiers, direction="write"
                 ),
                 "page_background": convert_and_respect_annotation_metadata(
                     object_=page_background, annotation=BrandingThemePageBackground, direction="write"

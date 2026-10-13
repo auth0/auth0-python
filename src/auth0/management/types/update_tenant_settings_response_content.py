@@ -5,9 +5,11 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .default_token_quota import DefaultTokenQuota
+from .resource_server_access_token import ResourceServerAccessToken
 from .session_cookie_schema import SessionCookieSchema
 from .supported_locales import SupportedLocales
 from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
+from .tenant_settings_country_codes_response import TenantSettingsCountryCodesResponse
 from .tenant_settings_device_flow import TenantSettingsDeviceFlow
 from .tenant_settings_dynamic_client_registration_security_mode import (
     TenantSettingsDynamicClientRegistrationSecurityMode,
@@ -16,6 +18,7 @@ from .tenant_settings_error_page import TenantSettingsErrorPage
 from .tenant_settings_flags import TenantSettingsFlags
 from .tenant_settings_guardian_page import TenantSettingsGuardianPage
 from .tenant_settings_mtls import TenantSettingsMtls
+from .tenant_settings_nullable_security_headers import TenantSettingsNullableSecurityHeaders
 from .tenant_settings_password_page import TenantSettingsPasswordPage
 from .tenant_settings_resource_parameter_profile import TenantSettingsResourceParameterProfile
 from .tenant_settings_sessions import TenantSettingsSessions
@@ -108,6 +111,8 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     Supported locales for the user interface.
     """
 
+    access_token: typing.Optional[ResourceServerAccessToken] = None
+    security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = None
     session_cookie: typing.Optional[SessionCookieSchema] = None
     sessions: typing.Optional[TenantSettingsSessions] = None
     oidc_logout: typing.Optional[TenantOidcLogoutSettings] = None
@@ -137,6 +142,11 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     Supports iss parameter in authorization responses
     """
 
+    dpop_strict_refresh_token_binding: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+    """
+
     skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
@@ -150,6 +160,11 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     Whether the authorization server supports retrieving client metadata from a client_id URL.
     """
 
+    client_id_metadata_document_dynamic_registration_supported: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
+    """
+
     phone_consolidated_experience: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether Phone Consolidated Experience is enabled for this tenant.
@@ -160,9 +175,15 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
     """
 
+    include_session_metadata_in_tenant_logs: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether session metadata is included in specific tenant logs (slo, oidc_backchannel_logout_failed, oidc_backchannel_logout_succeeded).
+    """
+
     dynamic_client_registration_security_mode: typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode] = (
         None
     )
+    country_codes: typing.Optional[TenantSettingsCountryCodesResponse] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

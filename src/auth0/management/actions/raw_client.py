@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -107,7 +107,7 @@ class RawActionsClient:
                     ),
                 )
                 _items = _parsed_response.actions
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     trigger_id=trigger_id,
                     action_name=action_name,
@@ -331,7 +331,7 @@ class RawActionsClient:
             The action was retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}",
+            f"actions/actions/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -431,7 +431,7 @@ class RawActionsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}",
+            f"actions/actions/{quote_path_param(id)}",
             method="DELETE",
             params={
                 "force": force,
@@ -519,7 +519,7 @@ class RawActionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateActionResponseContent]:
         """
-        Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
+        Update an existing action. If this action is currently bound to a trigger, updating it will **not** affect any user flows until the action is deployed.
 
         Parameters
         ----------
@@ -556,7 +556,7 @@ class RawActionsClient:
             Action successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}",
+            f"actions/actions/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -675,7 +675,7 @@ class RawActionsClient:
             Request to create action version was accepted.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}/deploy",
+            f"actions/actions/{quote_path_param(id)}/deploy",
             method="POST",
             request_options=request_options,
         )
@@ -764,7 +764,7 @@ class RawActionsClient:
             Test action version successfully created.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}/test",
+            f"actions/actions/{quote_path_param(id)}/test",
             method="POST",
             json={
                 "payload": payload,
@@ -910,7 +910,7 @@ class AsyncRawActionsClient:
                     ),
                 )
                 _items = _parsed_response.actions
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -1137,7 +1137,7 @@ class AsyncRawActionsClient:
             The action was retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}",
+            f"actions/actions/{quote_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1237,7 +1237,7 @@ class AsyncRawActionsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}",
+            f"actions/actions/{quote_path_param(id)}",
             method="DELETE",
             params={
                 "force": force,
@@ -1325,7 +1325,7 @@ class AsyncRawActionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateActionResponseContent]:
         """
-        Update an existing action. If this action is currently bound to a trigger, updating it will <strong>not</strong> affect any user flows until the action is deployed.
+        Update an existing action. If this action is currently bound to a trigger, updating it will **not** affect any user flows until the action is deployed.
 
         Parameters
         ----------
@@ -1362,7 +1362,7 @@ class AsyncRawActionsClient:
             Action successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}",
+            f"actions/actions/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -1481,7 +1481,7 @@ class AsyncRawActionsClient:
             Request to create action version was accepted.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}/deploy",
+            f"actions/actions/{quote_path_param(id)}/deploy",
             method="POST",
             request_options=request_options,
         )
@@ -1570,7 +1570,7 @@ class AsyncRawActionsClient:
             Test action version successfully created.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"actions/actions/{encode_path_param(id)}/test",
+            f"actions/actions/{quote_path_param(id)}/test",
             method="POST",
             json={
                 "payload": payload,

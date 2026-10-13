@@ -7,10 +7,13 @@ def test_users_refreshToken_list_() -> None:
     client = get_client(test_id)
     client.users.refresh_token.list(
         user_id="user_id",
+        include_totals=True,
         from_="from",
         take=1,
     )
-    verify_request_count(test_id, "GET", "/users/user_id/refresh-tokens", {"from": "from", "take": "1"}, 1)
+    verify_request_count(
+        test_id, "GET", "/users/user_id/refresh-tokens", {"include_totals": "true", "from": "from", "take": "1"}, 1
+    )
 
 
 def test_users_refreshToken_delete() -> None:

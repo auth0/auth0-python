@@ -13,6 +13,10 @@ class ConnectionConnectedAccountsPurposeXaa(UniversalBaseModel):
 
     cross_app_access: typing.Optional[bool] = None
     active: bool
+    allow_missing_user_id: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When true, allows storing a connected account without an upstream identity provider user id. At most one such connected account is allowed per user per connection. Default false preserves the strict behaviour (an upstream user id is required).
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

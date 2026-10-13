@@ -12,6 +12,7 @@ from ....core.request_options import RequestOptions
 from ....errors.bad_request_error import BadRequestError
 from ....errors.forbidden_error import ForbiddenError
 from ....errors.not_found_error import NotFoundError
+from ....errors.too_many_requests_error import TooManyRequestsError
 from ....errors.unauthorized_error import UnauthorizedError
 from ....types.get_guardian_factor_phone_message_types_response_content import (
     GetGuardianFactorPhoneMessageTypesResponseContent,
@@ -25,6 +26,7 @@ from ....types.get_guardian_factors_provider_phone_response_content import (
 from ....types.get_guardian_factors_provider_phone_twilio_response_content import (
     GetGuardianFactorsProviderPhoneTwilioResponseContent,
 )
+from ....types.get_phone_factor_settings_response_content import GetPhoneFactorSettingsResponseContent
 from ....types.guardian_factor_phone_factor_message_type_enum import GuardianFactorPhoneFactorMessageTypeEnum
 from ....types.guardian_factors_provider_sms_provider_enum import GuardianFactorsProviderSmsProviderEnum
 from ....types.set_guardian_factor_phone_message_types_response_content import (
@@ -39,6 +41,7 @@ from ....types.set_guardian_factors_provider_phone_response_content import (
 from ....types.set_guardian_factors_provider_phone_twilio_response_content import (
     SetGuardianFactorsProviderPhoneTwilioResponseContent,
 )
+from ....types.set_phone_factor_settings_response_content import SetPhoneFactorSettingsResponseContent
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -531,6 +534,177 @@ class RawPhoneClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[GetPhoneFactorSettingsResponseContent]:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetPhoneFactorSettingsResponseContent]
+            Returns the phone factor settings.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "guardian/factors/phone/settings",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetPhoneFactorSettingsResponseContent,
+                    parse_obj_as(
+                        type_=GetPhoneFactorSettingsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def set(
+        self, *, otp_length: int, otp_expiration_time: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[SetPhoneFactorSettingsResponseContent]:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        otp_length : int
+            The length of the OTP code.
+
+        otp_expiration_time : int
+            The OTP expiration time in seconds.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SetPhoneFactorSettingsResponseContent]
+            The phone factor settings have been successfully set.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "guardian/factors/phone/settings",
+            method="PUT",
+            json={
+                "otp_length": otp_length,
+                "otp_expiration_time": otp_expiration_time,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetPhoneFactorSettingsResponseContent,
+                    parse_obj_as(
+                        type_=SetPhoneFactorSettingsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1200,6 +1374,177 @@ class AsyncRawPhoneClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[GetPhoneFactorSettingsResponseContent]:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GetPhoneFactorSettingsResponseContent]
+            Returns the phone factor settings.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "guardian/factors/phone/settings",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetPhoneFactorSettingsResponseContent,
+                    parse_obj_as(
+                        type_=GetPhoneFactorSettingsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def set(
+        self, *, otp_length: int, otp_expiration_time: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[SetPhoneFactorSettingsResponseContent]:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        otp_length : int
+            The length of the OTP code.
+
+        otp_expiration_time : int
+            The OTP expiration time in seconds.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SetPhoneFactorSettingsResponseContent]
+            The phone factor settings have been successfully set.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "guardian/factors/phone/settings",
+            method="PUT",
+            json={
+                "otp_length": otp_length,
+                "otp_expiration_time": otp_expiration_time,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetPhoneFactorSettingsResponseContent,
+                    parse_obj_as(
+                        type_=SetPhoneFactorSettingsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

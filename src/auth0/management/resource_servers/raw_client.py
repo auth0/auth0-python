@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -15,6 +15,8 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
+from ..errors.gateway_timeout_error import GatewayTimeoutError
+from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
@@ -24,13 +26,18 @@ from ..types.list_resource_server_offset_paginated_response_content import (
     ListResourceServerOffsetPaginatedResponseContent,
 )
 from ..types.resource_server import ResourceServer
+from ..types.resource_server_access_token import ResourceServerAccessToken
 from ..types.resource_server_authorization_policy import ResourceServerAuthorizationPolicy
 from ..types.resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
 from ..types.resource_server_proof_of_possession import ResourceServerProofOfPossession
 from ..types.resource_server_scope import ResourceServerScope
+from ..types.resource_server_search_response import ResourceServerSearchResponse
+from ..types.resource_server_sort_field_enum import ResourceServerSortFieldEnum
 from ..types.resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
 from ..types.resource_server_token_dialect_schema_enum import ResourceServerTokenDialectSchemaEnum
 from ..types.resource_server_token_encryption import ResourceServerTokenEncryption
+from ..types.search_parser_enum import SearchParserEnum
+from ..types.search_resource_servers_response_content import SearchResourceServersResponseContent
 from ..types.signing_algorithm_enum import SigningAlgorithmEnum
 from ..types.update_resource_server_response_content import UpdateResourceServerResponseContent
 from pydantic import ValidationError
@@ -105,7 +112,7 @@ class RawResourceServersClient:
                     ),
                 )
                 _items = _parsed_response.resource_servers
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     identifiers=identifiers,
                     page=page + 1,
@@ -180,11 +187,14 @@ class RawResourceServersClient:
         allow_online_access: typing.Optional[bool] = OMIT,
         allow_online_access_with_ephemeral_sessions: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
+        token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
+        require_consent_non_repudiation: typing.Optional[bool] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
@@ -222,6 +232,9 @@ class RawResourceServersClient:
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
 
+        token_lifetime_for_anonymous_access_tokens : typing.Optional[int]
+            Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+
         token_dialect : typing.Optional[ResourceServerTokenDialectSchemaEnum]
 
         skip_consent_for_verifiable_first_party_clients : typing.Optional[bool]
@@ -230,9 +243,14 @@ class RawResourceServersClient:
         enforce_policies : typing.Optional[bool]
             Whether to enforce authorization policies (true) or to ignore them (false).
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
+
+        require_consent_non_repudiation : typing.Optional[bool]
+            When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
 
         authorization_details : typing.Optional[typing.Sequence[typing.Any]]
 
@@ -265,15 +283,20 @@ class RawResourceServersClient:
                 "allow_online_access": allow_online_access,
                 "allow_online_access_with_ephemeral_sessions": allow_online_access_with_ephemeral_sessions,
                 "token_lifetime": token_lifetime,
+                "token_lifetime_for_anonymous_access_tokens": token_lifetime_for_anonymous_access_tokens,
                 "token_dialect": token_dialect,
                 "skip_consent_for_verifiable_first_party_clients": skip_consent_for_verifiable_first_party_clients,
                 "enforce_policies": enforce_policies,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "token_encryption": convert_and_respect_annotation_metadata(
                     object_=token_encryption,
                     annotation=typing.Optional[ResourceServerTokenEncryption],
                     direction="write",
                 ),
                 "consent_policy": consent_policy,
+                "require_consent_non_repudiation": require_consent_non_repudiation,
                 "authorization_details": authorization_details,
                 "proof_of_possession": convert_and_respect_annotation_metadata(
                     object_=proof_of_possession,
@@ -371,6 +394,178 @@ class RawResourceServersClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ResourceServerSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ResourceServerSearchResponse, SearchResourceServersResponseContent]:
+        """
+        Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+        Results may not reflect recent updates immediately.
+
+        The `signing_secret` field is not supported by this endpoint.
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "My API"`, `identifier sw "https://"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Filter by resource server ID</li><li><i>identifier</i> - Filter by resource server identifier</li><li><i>name</i> - Filter by resource server name</li><li><i>updated_at</i> - Filter by last update date</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ResourceServerSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ResourceServerSearchResponse, SearchResourceServersResponseContent]
+            Resource servers successfully retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "resource-servers/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "fields": fields,
+                "include_fields": include_fields,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchResourceServersResponseContent,
+                    parse_obj_as(
+                        type_=SearchResourceServersResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.resource_servers
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.search(
+                    q=q,
+                    parser=parser,
+                    fields=fields,
+                    include_fields=include_fields,
+                    take=take,
+                    from_=_parsed_next,
+                    sort=sort,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def get(
         self,
         id: str,
@@ -398,7 +593,7 @@ class RawResourceServersClient:
             Resource server successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"resource-servers/{encode_path_param(id)}",
+            f"resource-servers/{quote_path_param(id)}",
             method="GET",
             params={
                 "include_fields": include_fields,
@@ -496,7 +691,7 @@ class RawResourceServersClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"resource-servers/{encode_path_param(id)}",
+            f"resource-servers/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -569,10 +764,13 @@ class RawResourceServersClient:
         allow_online_access: typing.Optional[bool] = OMIT,
         allow_online_access_with_ephemeral_sessions: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
+        token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
+        require_consent_non_repudiation: typing.Optional[bool] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
@@ -613,14 +811,22 @@ class RawResourceServersClient:
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
 
+        token_lifetime_for_anonymous_access_tokens : typing.Optional[int]
+            Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+
         token_dialect : typing.Optional[ResourceServerTokenDialectSchemaEnum]
 
         enforce_policies : typing.Optional[bool]
             Whether authorization policies are enforced (true) or not enforced (false).
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
+
+        require_consent_non_repudiation : typing.Optional[bool]
+            When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
 
         authorization_details : typing.Optional[typing.Sequence[typing.Any]]
 
@@ -639,7 +845,7 @@ class RawResourceServersClient:
             Resource server successfully updated.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"resource-servers/{encode_path_param(id)}",
+            f"resource-servers/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -653,14 +859,19 @@ class RawResourceServersClient:
                 "allow_online_access": allow_online_access,
                 "allow_online_access_with_ephemeral_sessions": allow_online_access_with_ephemeral_sessions,
                 "token_lifetime": token_lifetime,
+                "token_lifetime_for_anonymous_access_tokens": token_lifetime_for_anonymous_access_tokens,
                 "token_dialect": token_dialect,
                 "enforce_policies": enforce_policies,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "token_encryption": convert_and_respect_annotation_metadata(
                     object_=token_encryption,
                     annotation=typing.Optional[ResourceServerTokenEncryption],
                     direction="write",
                 ),
                 "consent_policy": consent_policy,
+                "require_consent_non_repudiation": require_consent_non_repudiation,
                 "authorization_details": authorization_details,
                 "proof_of_possession": convert_and_respect_annotation_metadata(
                     object_=proof_of_possession,
@@ -825,7 +1036,7 @@ class AsyncRawResourceServersClient:
                     ),
                 )
                 _items = _parsed_response.resource_servers
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -903,11 +1114,14 @@ class AsyncRawResourceServersClient:
         allow_online_access: typing.Optional[bool] = OMIT,
         allow_online_access_with_ephemeral_sessions: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
+        token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         skip_consent_for_verifiable_first_party_clients: typing.Optional[bool] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
+        require_consent_non_repudiation: typing.Optional[bool] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
@@ -945,6 +1159,9 @@ class AsyncRawResourceServersClient:
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
 
+        token_lifetime_for_anonymous_access_tokens : typing.Optional[int]
+            Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+
         token_dialect : typing.Optional[ResourceServerTokenDialectSchemaEnum]
 
         skip_consent_for_verifiable_first_party_clients : typing.Optional[bool]
@@ -953,9 +1170,14 @@ class AsyncRawResourceServersClient:
         enforce_policies : typing.Optional[bool]
             Whether to enforce authorization policies (true) or to ignore them (false).
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
+
+        require_consent_non_repudiation : typing.Optional[bool]
+            When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
 
         authorization_details : typing.Optional[typing.Sequence[typing.Any]]
 
@@ -988,15 +1210,20 @@ class AsyncRawResourceServersClient:
                 "allow_online_access": allow_online_access,
                 "allow_online_access_with_ephemeral_sessions": allow_online_access_with_ephemeral_sessions,
                 "token_lifetime": token_lifetime,
+                "token_lifetime_for_anonymous_access_tokens": token_lifetime_for_anonymous_access_tokens,
                 "token_dialect": token_dialect,
                 "skip_consent_for_verifiable_first_party_clients": skip_consent_for_verifiable_first_party_clients,
                 "enforce_policies": enforce_policies,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "token_encryption": convert_and_respect_annotation_metadata(
                     object_=token_encryption,
                     annotation=typing.Optional[ResourceServerTokenEncryption],
                     direction="write",
                 ),
                 "consent_policy": consent_policy,
+                "require_consent_non_repudiation": require_consent_non_repudiation,
                 "authorization_details": authorization_details,
                 "proof_of_possession": convert_and_respect_annotation_metadata(
                     object_=proof_of_possession,
@@ -1094,6 +1321,181 @@ class AsyncRawResourceServersClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ResourceServerSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ResourceServerSearchResponse, SearchResourceServersResponseContent]:
+        """
+        Search resource servers using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /resource-servers endpoint with better performance for complex queries.
+        Results may not reflect recent updates immediately.
+
+        The `signing_secret` field is not supported by this endpoint.
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "My API"`, `identifier sw "https://"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>id</i> - Filter by resource server ID</li><li><i>identifier</i> - Filter by resource server identifier</li><li><i>name</i> - Filter by resource server name</li><li><i>updated_at</i> - Filter by last update date</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ResourceServerSortFieldEnum]
+            Field name to sort results by in ascending order only. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ResourceServerSearchResponse, SearchResourceServersResponseContent]
+            Resource servers successfully retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "resource-servers/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "fields": fields,
+                "include_fields": include_fields,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchResourceServersResponseContent,
+                    parse_obj_as(
+                        type_=SearchResourceServersResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.resource_servers
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.search(
+                        q=q,
+                        parser=parser,
+                        fields=fields,
+                        include_fields=include_fields,
+                        take=take,
+                        from_=_parsed_next,
+                        sort=sort,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def get(
         self,
         id: str,
@@ -1121,7 +1523,7 @@ class AsyncRawResourceServersClient:
             Resource server successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"resource-servers/{encode_path_param(id)}",
+            f"resource-servers/{quote_path_param(id)}",
             method="GET",
             params={
                 "include_fields": include_fields,
@@ -1221,7 +1623,7 @@ class AsyncRawResourceServersClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"resource-servers/{encode_path_param(id)}",
+            f"resource-servers/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1294,10 +1696,13 @@ class AsyncRawResourceServersClient:
         allow_online_access: typing.Optional[bool] = OMIT,
         allow_online_access_with_ephemeral_sessions: typing.Optional[bool] = OMIT,
         token_lifetime: typing.Optional[int] = OMIT,
+        token_lifetime_for_anonymous_access_tokens: typing.Optional[int] = OMIT,
         token_dialect: typing.Optional[ResourceServerTokenDialectSchemaEnum] = OMIT,
         enforce_policies: typing.Optional[bool] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
         token_encryption: typing.Optional[ResourceServerTokenEncryption] = OMIT,
         consent_policy: typing.Optional[ResourceServerConsentPolicyEnum] = OMIT,
+        require_consent_non_repudiation: typing.Optional[bool] = OMIT,
         authorization_details: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
@@ -1338,14 +1743,22 @@ class AsyncRawResourceServersClient:
         token_lifetime : typing.Optional[int]
             Expiration value (in seconds) for access tokens issued for this API from the token endpoint.
 
+        token_lifetime_for_anonymous_access_tokens : typing.Optional[int]
+            Expiration value (in seconds) for anonymous-session access tokens issued for this API.
+
         token_dialect : typing.Optional[ResourceServerTokenDialectSchemaEnum]
 
         enforce_policies : typing.Optional[bool]
             Whether authorization policies are enforced (true) or not enforced (false).
 
+        access_token : typing.Optional[ResourceServerAccessToken]
+
         token_encryption : typing.Optional[ResourceServerTokenEncryption]
 
         consent_policy : typing.Optional[ResourceServerConsentPolicyEnum]
+
+        require_consent_non_repudiation : typing.Optional[bool]
+            When true, the resource server requires every consent approval to be digitally signed, so the approver cannot later deny a consent they granted. When false, consent decisions do not need a signature. Defaults to false. A configured value is still returned even after the related entitlement is disabled.
 
         authorization_details : typing.Optional[typing.Sequence[typing.Any]]
 
@@ -1364,7 +1777,7 @@ class AsyncRawResourceServersClient:
             Resource server successfully updated.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"resource-servers/{encode_path_param(id)}",
+            f"resource-servers/{quote_path_param(id)}",
             method="PATCH",
             json={
                 "name": name,
@@ -1378,14 +1791,19 @@ class AsyncRawResourceServersClient:
                 "allow_online_access": allow_online_access,
                 "allow_online_access_with_ephemeral_sessions": allow_online_access_with_ephemeral_sessions,
                 "token_lifetime": token_lifetime,
+                "token_lifetime_for_anonymous_access_tokens": token_lifetime_for_anonymous_access_tokens,
                 "token_dialect": token_dialect,
                 "enforce_policies": enforce_policies,
+                "access_token": convert_and_respect_annotation_metadata(
+                    object_=access_token, annotation=typing.Optional[ResourceServerAccessToken], direction="write"
+                ),
                 "token_encryption": convert_and_respect_annotation_metadata(
                     object_=token_encryption,
                     annotation=typing.Optional[ResourceServerTokenEncryption],
                     direction="write",
                 ),
                 "consent_policy": consent_policy,
+                "require_consent_non_repudiation": require_consent_non_repudiation,
                 "authorization_details": authorization_details,
                 "proof_of_possession": convert_and_respect_annotation_metadata(
                     object_=proof_of_possession,

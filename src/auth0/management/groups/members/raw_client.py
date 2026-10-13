@@ -5,13 +5,14 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ...core.jsonable_encoder import encode_path_param
+from ...core.jsonable_encoder import quote_path_param
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
 from ...errors.forbidden_error import ForbiddenError
+from ...errors.not_found_error import NotFoundError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.get_group_members_response_content import GetGroupMembersResponseContent
@@ -62,7 +63,7 @@ class RawMembersClient:
             Group members successfully retrieved.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"groups/{encode_path_param(id)}/members",
+            f"groups/{quote_path_param(id)}/members",
             method="GET",
             params={
                 "fields": fields,
@@ -117,6 +118,17 @@ class RawMembersClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -190,7 +202,7 @@ class AsyncRawMembersClient:
             Group members successfully retrieved.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"groups/{encode_path_param(id)}/members",
+            f"groups/{quote_path_param(id)}/members",
             method="GET",
             params={
                 "fields": fields,
@@ -248,6 +260,17 @@ class AsyncRawMembersClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

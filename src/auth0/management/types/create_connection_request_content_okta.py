@@ -8,6 +8,7 @@ from .connection_options_okta import ConnectionOptionsOkta
 from .connection_show_as_button import ConnectionShowAsButton
 from .create_connection_common import CreateConnectionCommon
 from .create_connection_request_content_okta_strategy import CreateConnectionRequestContentOktaStrategy
+from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
 
 
 class CreateConnectionRequestContentOkta(CreateConnectionCommon):
@@ -16,6 +17,7 @@ class CreateConnectionRequestContentOkta(CreateConnectionCommon):
     """
 
     strategy: CreateConnectionRequestContentOktaStrategy
+    cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = None
     options: typing.Optional[ConnectionOptionsOkta] = None
     show_as_button: typing.Optional[ConnectionShowAsButton] = None
 

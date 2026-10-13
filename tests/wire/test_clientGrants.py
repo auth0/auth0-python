@@ -6,6 +6,7 @@ def test_clientGrants_list_() -> None:
     test_id = "client_grants.list_.0"
     client = get_client(test_id)
     client.client_grants.list(
+        include_totals=True,
         from_="from",
         take=1,
         audience="audience",
@@ -19,6 +20,7 @@ def test_clientGrants_list_() -> None:
         "GET",
         "/client-grants",
         {
+            "include_totals": "true",
             "from": "from",
             "take": "1",
             "audience": "audience",
@@ -39,6 +41,36 @@ def test_clientGrants_create() -> None:
         audience="audience",
     )
     verify_request_count(test_id, "POST", "/client-grants", None, 1)
+
+
+def test_clientGrants_search() -> None:
+    """Test search endpoint with WireMock"""
+    test_id = "client_grants.search.0"
+    client = get_client(test_id)
+    client.client_grants.search(
+        q="q",
+        parser="scim",
+        fields="fields",
+        include_fields=True,
+        take=1,
+        from_="from",
+        sort="audience",
+    )
+    verify_request_count(
+        test_id,
+        "GET",
+        "/client-grants/search",
+        {
+            "q": "q",
+            "parser": "scim",
+            "fields": "fields",
+            "include_fields": "true",
+            "take": "1",
+            "from": "from",
+            "sort": "audience",
+        },
+        1,
+    )
 
 
 def test_clientGrants_get() -> None:

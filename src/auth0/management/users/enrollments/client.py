@@ -25,7 +25,7 @@ class EnrollmentsClient:
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[UsersEnrollment]:
         """
-        Retrieve the first <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication</a> enrollment that a specific user has confirmed.
+        Retrieve the first [multi-factor authentication](https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors) enrollment that a specific user has confirmed.
 
         Parameters
         ----------
@@ -74,7 +74,7 @@ class AsyncEnrollmentsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[UsersEnrollment]:
         """
-        Retrieve the first <a href="https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors">multi-factor authentication</a> enrollment that a specific user has confirmed.
+        Retrieve the first [multi-factor authentication](https://auth0.com/docs/secure/multi-factor-authentication/multi-factor-authentication-factors) enrollment that a specific user has confirmed.
 
         Parameters
         ----------

@@ -5,12 +5,17 @@ from __future__ import annotations
 import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ..core.request_options import RequestOptions
+from ..types.get_guardian_settings_response_content import GetGuardianSettingsResponseContent
+from ..types.set_guardian_settings_response_content import SetGuardianSettingsResponseContent
 from .raw_client import AsyncRawGuardianClient, RawGuardianClient
 
 if typing.TYPE_CHECKING:
     from .enrollments.client import AsyncEnrollmentsClient, EnrollmentsClient
     from .factors.client import AsyncFactorsClient, FactorsClient
     from .policies.client import AsyncPoliciesClient, PoliciesClient
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class GuardianClient:
@@ -31,6 +36,89 @@ class GuardianClient:
         RawGuardianClient
         """
         return self._raw_client
+
+    def get(self, *, request_options: typing.Optional[RequestOptions] = None) -> GetGuardianSettingsResponseContent:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetGuardianSettingsResponseContent
+            Returns the Guardian settings.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.guardian.get()
+        """
+        _response = self._raw_client.get(request_options=request_options)
+        return _response.data
+
+    def set(
+        self,
+        *,
+        display_remember_me_checkbox: bool,
+        remember_me_default_value: bool,
+        mfa_session_inactivity_timeout: int,
+        mfa_session_overall_timeout: int,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetGuardianSettingsResponseContent:
+        """
+        Update a tenant's guardian settings such as Remember Me
+
+        Parameters
+        ----------
+        display_remember_me_checkbox : bool
+            Determines whether to display the "Remember Me" checkbox on the MFA prompt in Universal Login.
+
+        remember_me_default_value : bool
+            Determines the default state of the "Remember Me" checkbox on the MFA prompt in Universal Login.
+
+        mfa_session_inactivity_timeout : int
+            Duration of inactivity after which the user will be prompted for MFA. Represented as seconds. Minimum duration is 1 hour, maximum is 30 days, and cannot exceed the overall timeout.
+
+        mfa_session_overall_timeout : int
+            Maximum duration after which the user will be prompted for MFA regardless of activity. Represented as seconds. Minimum duration is 1 hour, maximum is 90 days.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetGuardianSettingsResponseContent
+            The Guardian settings have been successfully set.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.guardian.set(
+            display_remember_me_checkbox=True,
+            remember_me_default_value=True,
+            mfa_session_inactivity_timeout=1,
+            mfa_session_overall_timeout=1,
+        )
+        """
+        _response = self._raw_client.set(
+            display_remember_me_checkbox=display_remember_me_checkbox,
+            remember_me_default_value=remember_me_default_value,
+            mfa_session_inactivity_timeout=mfa_session_inactivity_timeout,
+            mfa_session_overall_timeout=mfa_session_overall_timeout,
+            request_options=request_options,
+        )
+        return _response.data
 
     @property
     def enrollments(self):
@@ -75,6 +163,107 @@ class AsyncGuardianClient:
         AsyncRawGuardianClient
         """
         return self._raw_client
+
+    async def get(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetGuardianSettingsResponseContent:
+        """
+        TODO: Link this endpoint to relevant documentation when available.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetGuardianSettingsResponseContent
+            Returns the Guardian settings.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.guardian.get()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get(request_options=request_options)
+        return _response.data
+
+    async def set(
+        self,
+        *,
+        display_remember_me_checkbox: bool,
+        remember_me_default_value: bool,
+        mfa_session_inactivity_timeout: int,
+        mfa_session_overall_timeout: int,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetGuardianSettingsResponseContent:
+        """
+        Update a tenant's guardian settings such as Remember Me
+
+        Parameters
+        ----------
+        display_remember_me_checkbox : bool
+            Determines whether to display the "Remember Me" checkbox on the MFA prompt in Universal Login.
+
+        remember_me_default_value : bool
+            Determines the default state of the "Remember Me" checkbox on the MFA prompt in Universal Login.
+
+        mfa_session_inactivity_timeout : int
+            Duration of inactivity after which the user will be prompted for MFA. Represented as seconds. Minimum duration is 1 hour, maximum is 30 days, and cannot exceed the overall timeout.
+
+        mfa_session_overall_timeout : int
+            Maximum duration after which the user will be prompted for MFA regardless of activity. Represented as seconds. Minimum duration is 1 hour, maximum is 90 days.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetGuardianSettingsResponseContent
+            The Guardian settings have been successfully set.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.guardian.set(
+                display_remember_me_checkbox=True,
+                remember_me_default_value=True,
+                mfa_session_inactivity_timeout=1,
+                mfa_session_overall_timeout=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.set(
+            display_remember_me_checkbox=display_remember_me_checkbox,
+            remember_me_default_value=remember_me_default_value,
+            mfa_session_inactivity_timeout=mfa_session_inactivity_timeout,
+            mfa_session_overall_timeout=mfa_session_overall_timeout,
+            request_options=request_options,
+        )
+        return _response.data
 
     @property
     def enrollments(self):

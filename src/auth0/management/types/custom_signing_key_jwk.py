@@ -55,21 +55,36 @@ class CustomSigningKeyJwk(UniversalBaseModel):
     x_5_u: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="x5u"), pydantic.Field(alias="x5u", description="X.509 URL")
     ] = None
+    """
+    X.509 URL
+    """
+
     x_5_c: typing_extensions.Annotated[
         typing.Optional[typing.List[str]],
         FieldMetadata(alias="x5c"),
         pydantic.Field(alias="x5c", description="X.509 certificate chain"),
     ] = None
+    """
+    X.509 certificate chain
+    """
+
     x_5_t: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="x5t"),
         pydantic.Field(alias="x5t", description="X.509 certificate SHA-1 thumbprint"),
     ] = None
+    """
+    X.509 certificate SHA-1 thumbprint
+    """
+
     x_5_t_s_256: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="x5t#S256"),
         pydantic.Field(alias="x5t#S256", description="X.509 certificate SHA-256 thumbprint"),
     ] = None
+    """
+    X.509 certificate SHA-256 thumbprint
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

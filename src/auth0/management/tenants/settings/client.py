@@ -6,8 +6,10 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.default_token_quota import DefaultTokenQuota
 from ...types.get_tenant_settings_response_content import GetTenantSettingsResponseContent
+from ...types.resource_server_access_token import ResourceServerAccessToken
 from ...types.session_cookie_schema import SessionCookieSchema
 from ...types.tenant_oidc_logout_settings import TenantOidcLogoutSettings
+from ...types.tenant_settings_country_codes import TenantSettingsCountryCodes
 from ...types.tenant_settings_device_flow import TenantSettingsDeviceFlow
 from ...types.tenant_settings_dynamic_client_registration_security_mode import (
     TenantSettingsDynamicClientRegistrationSecurityMode,
@@ -16,6 +18,7 @@ from ...types.tenant_settings_error_page import TenantSettingsErrorPage
 from ...types.tenant_settings_flags import TenantSettingsFlags
 from ...types.tenant_settings_guardian_page import TenantSettingsGuardianPage
 from ...types.tenant_settings_mtls import TenantSettingsMtls
+from ...types.tenant_settings_nullable_security_headers import TenantSettingsNullableSecurityHeaders
 from ...types.tenant_settings_password_page import TenantSettingsPasswordPage
 from ...types.tenant_settings_resource_parameter_profile import TenantSettingsResourceParameterProfile
 from ...types.tenant_settings_sessions import TenantSettingsSessions
@@ -100,13 +103,19 @@ class SettingsClient:
         support_url: typing.Optional[str] = OMIT,
         allowed_logout_urls: typing.Optional[typing.Sequence[str]] = OMIT,
         session_lifetime: typing.Optional[int] = OMIT,
+        session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         idle_session_lifetime: typing.Optional[int] = OMIT,
+        idle_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         ephemeral_session_lifetime: typing.Optional[int] = OMIT,
         idle_ephemeral_session_lifetime: typing.Optional[int] = OMIT,
+        ephemeral_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
+        idle_ephemeral_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         sandbox_version: typing.Optional[str] = OMIT,
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
         enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
+        security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
         oidc_logout: typing.Optional[TenantOidcLogoutSettings] = OMIT,
@@ -116,14 +125,18 @@ class SettingsClient:
         mtls: typing.Optional[TenantSettingsMtls] = OMIT,
         pushed_authorization_requests_supported: typing.Optional[bool] = OMIT,
         authorization_response_iss_parameter_supported: typing.Optional[bool] = OMIT,
+        dpop_strict_refresh_token_binding: typing.Optional[bool] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
         client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
+        client_id_metadata_document_dynamic_registration_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
+        include_session_metadata_in_tenant_logs: typing.Optional[bool] = OMIT,
         dynamic_client_registration_security_mode: typing.Optional[
             TenantSettingsDynamicClientRegistrationSecurityMode
         ] = OMIT,
+        country_codes: typing.Optional[TenantSettingsCountryCodes] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateTenantSettingsResponseContent:
         """
@@ -168,14 +181,26 @@ class SettingsClient:
         session_lifetime : typing.Optional[int]
             Number of hours a session will stay valid.
 
+        session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes a session will stay valid. Cannot be specified together with `session_lifetime`.
+
         idle_session_lifetime : typing.Optional[int]
             Number of hours for which a session can be inactive before the user must log in again.
+
+        idle_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes a session can be inactive before the user must log in again. Cannot be specified together with `idle_session_lifetime`.
 
         ephemeral_session_lifetime : typing.Optional[int]
             Number of hours an ephemeral (non-persistent) session will stay valid.
 
         idle_ephemeral_session_lifetime : typing.Optional[int]
             Number of hours for which an ephemeral (non-persistent) session can be inactive before the user must log in again.
+
+        ephemeral_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes an ephemeral (non-persistent) session will stay valid. Cannot be specified together with `ephemeral_session_lifetime`.
+
+        idle_ephemeral_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes an ephemeral (non-persistent) session can be inactive before the user must log in again. Cannot be specified together with `idle_ephemeral_session_lifetime`.
 
         sandbox_version : typing.Optional[str]
             Selected sandbox version for the extensibility environment
@@ -188,6 +213,10 @@ class SettingsClient:
 
         enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
+
+        access_token : typing.Optional[ResourceServerAccessToken]
+
+        security_headers : typing.Optional[TenantSettingsNullableSecurityHeaders]
 
         session_cookie : typing.Optional[SessionCookieSchema]
 
@@ -212,6 +241,9 @@ class SettingsClient:
         authorization_response_iss_parameter_supported : typing.Optional[bool]
             Supports iss parameter in authorization responses
 
+        dpop_strict_refresh_token_binding : typing.Optional[bool]
+            Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
             Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
             If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
@@ -222,13 +254,21 @@ class SettingsClient:
         client_id_metadata_document_supported : typing.Optional[bool]
             Whether the authorization server supports retrieving client metadata from a client_id URL.
 
+        client_id_metadata_document_dynamic_registration_supported : typing.Optional[bool]
+            Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
+
         enable_ai_guide : typing.Optional[bool]
             Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
 
         phone_consolidated_experience : typing.Optional[bool]
             Whether Phone Consolidated Experience is enabled for this tenant.
 
+        include_session_metadata_in_tenant_logs : typing.Optional[bool]
+            Whether session metadata is included in specific tenant logs (slo, oidc_backchannel_logout_failed, oidc_backchannel_logout_succeeded).
+
         dynamic_client_registration_security_mode : typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]
+
+        country_codes : typing.Optional[TenantSettingsCountryCodes]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -262,13 +302,19 @@ class SettingsClient:
             support_url=support_url,
             allowed_logout_urls=allowed_logout_urls,
             session_lifetime=session_lifetime,
+            session_lifetime_in_minutes=session_lifetime_in_minutes,
             idle_session_lifetime=idle_session_lifetime,
+            idle_session_lifetime_in_minutes=idle_session_lifetime_in_minutes,
             ephemeral_session_lifetime=ephemeral_session_lifetime,
             idle_ephemeral_session_lifetime=idle_ephemeral_session_lifetime,
+            ephemeral_session_lifetime_in_minutes=ephemeral_session_lifetime_in_minutes,
+            idle_ephemeral_session_lifetime_in_minutes=idle_ephemeral_session_lifetime_in_minutes,
             sandbox_version=sandbox_version,
             legacy_sandbox_version=legacy_sandbox_version,
             default_redirection_uri=default_redirection_uri,
             enabled_locales=enabled_locales,
+            access_token=access_token,
+            security_headers=security_headers,
             session_cookie=session_cookie,
             sessions=sessions,
             oidc_logout=oidc_logout,
@@ -278,12 +324,16 @@ class SettingsClient:
             mtls=mtls,
             pushed_authorization_requests_supported=pushed_authorization_requests_supported,
             authorization_response_iss_parameter_supported=authorization_response_iss_parameter_supported,
+            dpop_strict_refresh_token_binding=dpop_strict_refresh_token_binding,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             resource_parameter_profile=resource_parameter_profile,
             client_id_metadata_document_supported=client_id_metadata_document_supported,
+            client_id_metadata_document_dynamic_registration_supported=client_id_metadata_document_dynamic_registration_supported,
             enable_ai_guide=enable_ai_guide,
             phone_consolidated_experience=phone_consolidated_experience,
+            include_session_metadata_in_tenant_logs=include_session_metadata_in_tenant_logs,
             dynamic_client_registration_security_mode=dynamic_client_registration_security_mode,
+            country_codes=country_codes,
             request_options=request_options,
         )
         return _response.data
@@ -372,13 +422,19 @@ class AsyncSettingsClient:
         support_url: typing.Optional[str] = OMIT,
         allowed_logout_urls: typing.Optional[typing.Sequence[str]] = OMIT,
         session_lifetime: typing.Optional[int] = OMIT,
+        session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         idle_session_lifetime: typing.Optional[int] = OMIT,
+        idle_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         ephemeral_session_lifetime: typing.Optional[int] = OMIT,
         idle_ephemeral_session_lifetime: typing.Optional[int] = OMIT,
+        ephemeral_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
+        idle_ephemeral_session_lifetime_in_minutes: typing.Optional[int] = OMIT,
         sandbox_version: typing.Optional[str] = OMIT,
         legacy_sandbox_version: typing.Optional[str] = OMIT,
         default_redirection_uri: typing.Optional[str] = OMIT,
         enabled_locales: typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]] = OMIT,
+        access_token: typing.Optional[ResourceServerAccessToken] = OMIT,
+        security_headers: typing.Optional[TenantSettingsNullableSecurityHeaders] = OMIT,
         session_cookie: typing.Optional[SessionCookieSchema] = OMIT,
         sessions: typing.Optional[TenantSettingsSessions] = OMIT,
         oidc_logout: typing.Optional[TenantOidcLogoutSettings] = OMIT,
@@ -388,14 +444,18 @@ class AsyncSettingsClient:
         mtls: typing.Optional[TenantSettingsMtls] = OMIT,
         pushed_authorization_requests_supported: typing.Optional[bool] = OMIT,
         authorization_response_iss_parameter_supported: typing.Optional[bool] = OMIT,
+        dpop_strict_refresh_token_binding: typing.Optional[bool] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
         client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
+        client_id_metadata_document_dynamic_registration_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
+        include_session_metadata_in_tenant_logs: typing.Optional[bool] = OMIT,
         dynamic_client_registration_security_mode: typing.Optional[
             TenantSettingsDynamicClientRegistrationSecurityMode
         ] = OMIT,
+        country_codes: typing.Optional[TenantSettingsCountryCodes] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateTenantSettingsResponseContent:
         """
@@ -440,14 +500,26 @@ class AsyncSettingsClient:
         session_lifetime : typing.Optional[int]
             Number of hours a session will stay valid.
 
+        session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes a session will stay valid. Cannot be specified together with `session_lifetime`.
+
         idle_session_lifetime : typing.Optional[int]
             Number of hours for which a session can be inactive before the user must log in again.
+
+        idle_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes a session can be inactive before the user must log in again. Cannot be specified together with `idle_session_lifetime`.
 
         ephemeral_session_lifetime : typing.Optional[int]
             Number of hours an ephemeral (non-persistent) session will stay valid.
 
         idle_ephemeral_session_lifetime : typing.Optional[int]
             Number of hours for which an ephemeral (non-persistent) session can be inactive before the user must log in again.
+
+        ephemeral_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes an ephemeral (non-persistent) session will stay valid. Cannot be specified together with `ephemeral_session_lifetime`.
+
+        idle_ephemeral_session_lifetime_in_minutes : typing.Optional[int]
+            Number of minutes an ephemeral (non-persistent) session can be inactive before the user must log in again. Cannot be specified together with `idle_ephemeral_session_lifetime`.
 
         sandbox_version : typing.Optional[str]
             Selected sandbox version for the extensibility environment
@@ -460,6 +532,10 @@ class AsyncSettingsClient:
 
         enabled_locales : typing.Optional[typing.Sequence[TenantSettingsSupportedLocalesEnum]]
             Supported locales for the user interface
+
+        access_token : typing.Optional[ResourceServerAccessToken]
+
+        security_headers : typing.Optional[TenantSettingsNullableSecurityHeaders]
 
         session_cookie : typing.Optional[SessionCookieSchema]
 
@@ -484,6 +560,9 @@ class AsyncSettingsClient:
         authorization_response_iss_parameter_supported : typing.Optional[bool]
             Supports iss parameter in authorization responses
 
+        dpop_strict_refresh_token_binding : typing.Optional[bool]
+            Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
             Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
             If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
@@ -494,13 +573,21 @@ class AsyncSettingsClient:
         client_id_metadata_document_supported : typing.Optional[bool]
             Whether the authorization server supports retrieving client metadata from a client_id URL.
 
+        client_id_metadata_document_dynamic_registration_supported : typing.Optional[bool]
+            Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
+
         enable_ai_guide : typing.Optional[bool]
             Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
 
         phone_consolidated_experience : typing.Optional[bool]
             Whether Phone Consolidated Experience is enabled for this tenant.
 
+        include_session_metadata_in_tenant_logs : typing.Optional[bool]
+            Whether session metadata is included in specific tenant logs (slo, oidc_backchannel_logout_failed, oidc_backchannel_logout_succeeded).
+
         dynamic_client_registration_security_mode : typing.Optional[TenantSettingsDynamicClientRegistrationSecurityMode]
+
+        country_codes : typing.Optional[TenantSettingsCountryCodes]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -542,13 +629,19 @@ class AsyncSettingsClient:
             support_url=support_url,
             allowed_logout_urls=allowed_logout_urls,
             session_lifetime=session_lifetime,
+            session_lifetime_in_minutes=session_lifetime_in_minutes,
             idle_session_lifetime=idle_session_lifetime,
+            idle_session_lifetime_in_minutes=idle_session_lifetime_in_minutes,
             ephemeral_session_lifetime=ephemeral_session_lifetime,
             idle_ephemeral_session_lifetime=idle_ephemeral_session_lifetime,
+            ephemeral_session_lifetime_in_minutes=ephemeral_session_lifetime_in_minutes,
+            idle_ephemeral_session_lifetime_in_minutes=idle_ephemeral_session_lifetime_in_minutes,
             sandbox_version=sandbox_version,
             legacy_sandbox_version=legacy_sandbox_version,
             default_redirection_uri=default_redirection_uri,
             enabled_locales=enabled_locales,
+            access_token=access_token,
+            security_headers=security_headers,
             session_cookie=session_cookie,
             sessions=sessions,
             oidc_logout=oidc_logout,
@@ -558,12 +651,16 @@ class AsyncSettingsClient:
             mtls=mtls,
             pushed_authorization_requests_supported=pushed_authorization_requests_supported,
             authorization_response_iss_parameter_supported=authorization_response_iss_parameter_supported,
+            dpop_strict_refresh_token_binding=dpop_strict_refresh_token_binding,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             resource_parameter_profile=resource_parameter_profile,
             client_id_metadata_document_supported=client_id_metadata_document_supported,
+            client_id_metadata_document_dynamic_registration_supported=client_id_metadata_document_dynamic_registration_supported,
             enable_ai_guide=enable_ai_guide,
             phone_consolidated_experience=phone_consolidated_experience,
+            include_session_metadata_in_tenant_logs=include_session_metadata_in_tenant_logs,
             dynamic_client_registration_security_mode=dynamic_client_registration_security_mode,
+            country_codes=country_codes,
             request_options=request_options,
         )
         return _response.data

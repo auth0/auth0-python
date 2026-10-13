@@ -21,6 +21,7 @@ from .connection_signature_algorithm_saml import ConnectionSignatureAlgorithmSam
 from .connection_signing_certificate_der_saml import ConnectionSigningCertificateDerSaml
 from .connection_tenant_domain_saml import ConnectionTenantDomainSaml
 from .connection_thumbprints_saml import ConnectionThumbprintsSaml
+from .connection_thumbprints_sha_384_saml import ConnectionThumbprintsSha384Saml
 from .connection_upstream_params import ConnectionUpstreamParams
 
 
@@ -70,6 +71,11 @@ class ConnectionOptionsCommonSaml(UniversalBaseModel):
     ] = None
     tenant_domain: typing.Optional[ConnectionTenantDomainSaml] = None
     thumbprints: typing.Optional[ConnectionThumbprintsSaml] = None
+    thumbprints_sha_384: typing_extensions.Annotated[
+        typing.Optional[ConnectionThumbprintsSha384Saml],
+        FieldMetadata(alias="thumbprints_sha384"),
+        pydantic.Field(alias="thumbprints_sha384"),
+    ] = None
     upstream_params: typing.Optional[ConnectionUpstreamParams] = None
 
     if IS_PYDANTIC_V2:

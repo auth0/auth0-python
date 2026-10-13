@@ -4,6 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .role_owner_id import RoleOwnerId
+from .role_type_enum import RoleTypeEnum
 
 
 class UpdateRoleResponseContent(UniversalBaseModel):
@@ -21,6 +23,9 @@ class UpdateRoleResponseContent(UniversalBaseModel):
     """
     Description of this role.
     """
+
+    type: typing.Optional[RoleTypeEnum] = None
+    owner_id: typing.Optional[RoleOwnerId] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

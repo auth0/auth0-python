@@ -10,6 +10,7 @@ from .raw_client import AsyncRawKeysClient, RawKeysClient
 if typing.TYPE_CHECKING:
     from .custom_signing.client import AsyncCustomSigningClient, CustomSigningClient
     from .encryption.client import AsyncEncryptionClient, EncryptionClient
+    from .network_acls.client import AsyncNetworkAclsClient, NetworkAclsClient
     from .signing.client import AsyncSigningClient, SigningClient
 
 
@@ -19,6 +20,7 @@ class KeysClient:
         self._client_wrapper = client_wrapper
         self._custom_signing: typing.Optional[CustomSigningClient] = None
         self._encryption: typing.Optional[EncryptionClient] = None
+        self._network_acls: typing.Optional[NetworkAclsClient] = None
         self._signing: typing.Optional[SigningClient] = None
 
     @property
@@ -49,6 +51,14 @@ class KeysClient:
         return self._encryption
 
     @property
+    def network_acls(self):
+        if self._network_acls is None:
+            from .network_acls.client import NetworkAclsClient  # noqa: E402
+
+            self._network_acls = NetworkAclsClient(client_wrapper=self._client_wrapper)
+        return self._network_acls
+
+    @property
     def signing(self):
         if self._signing is None:
             from .signing.client import SigningClient  # noqa: E402
@@ -63,6 +73,7 @@ class AsyncKeysClient:
         self._client_wrapper = client_wrapper
         self._custom_signing: typing.Optional[AsyncCustomSigningClient] = None
         self._encryption: typing.Optional[AsyncEncryptionClient] = None
+        self._network_acls: typing.Optional[AsyncNetworkAclsClient] = None
         self._signing: typing.Optional[AsyncSigningClient] = None
 
     @property
@@ -91,6 +102,14 @@ class AsyncKeysClient:
 
             self._encryption = AsyncEncryptionClient(client_wrapper=self._client_wrapper)
         return self._encryption
+
+    @property
+    def network_acls(self):
+        if self._network_acls is None:
+            from .network_acls.client import AsyncNetworkAclsClient  # noqa: E402
+
+            self._network_acls = AsyncNetworkAclsClient(client_wrapper=self._client_wrapper)
+        return self._network_acls
 
     @property
     def signing(self):

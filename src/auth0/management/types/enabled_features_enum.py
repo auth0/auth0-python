@@ -2,4 +2,4 @@
 
 import typing
 
-EnabledFeaturesEnum = typing.Union[typing.Literal["scim", "universal_logout"], typing.Any]
+EnabledFeaturesEnum = typing.Union[typing.Literal["scim", "universal_logout", "directory_sync"], typing.Any]

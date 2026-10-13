@@ -14,17 +14,32 @@ class LogStreamSplunkSink(UniversalBaseModel):
         FieldMetadata(alias="splunkDomain"),
         pydantic.Field(alias="splunkDomain", description="Splunk URL Endpoint"),
     ]
+    """
+    Splunk URL Endpoint
+    """
+
     splunk_port: typing_extensions.Annotated[
         str, FieldMetadata(alias="splunkPort"), pydantic.Field(alias="splunkPort", description="Port")
     ]
+    """
+    Port
+    """
+
     splunk_token: typing_extensions.Annotated[
         str, FieldMetadata(alias="splunkToken"), pydantic.Field(alias="splunkToken", description="Splunk token")
     ]
+    """
+    Splunk token
+    """
+
     splunk_secure: typing_extensions.Annotated[
         bool,
         FieldMetadata(alias="splunkSecure"),
         pydantic.Field(alias="splunkSecure", description="Verify TLS certificate"),
     ]
+    """
+    Verify TLS certificate
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

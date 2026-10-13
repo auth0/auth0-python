@@ -7,6 +7,11 @@ def test_emailTemplates_create() -> None:
     client = get_client(test_id)
     client.email_templates.create(
         template="verify_email",
+        body=None,
+        from_=None,
+        subject=None,
+        syntax=None,
+        enabled=None,
     )
     verify_request_count(test_id, "POST", "/email-templates", None, 1)
 
@@ -28,6 +33,11 @@ def test_emailTemplates_set_() -> None:
     client.email_templates.set(
         template_name="verify_email",
         template="verify_email",
+        body=None,
+        from_=None,
+        subject=None,
+        syntax=None,
+        enabled=None,
     )
     verify_request_count(test_id, "PUT", "/email-templates/verify_email", None, 1)
 

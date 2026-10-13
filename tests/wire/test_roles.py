@@ -10,12 +10,21 @@ def test_roles_list_() -> None:
         page=1,
         include_totals=True,
         name_filter="name_filter",
+        type="tenant",
+        owner_id="owner_id",
     )
     verify_request_count(
         test_id,
         "GET",
         "/roles",
-        {"per_page": "1", "page": "1", "include_totals": "true", "name_filter": "name_filter"},
+        {
+            "per_page": "1",
+            "page": "1",
+            "include_totals": "true",
+            "name_filter": "name_filter",
+            "type": "tenant",
+            "owner_id": "owner_id",
+        },
         1,
     )
 

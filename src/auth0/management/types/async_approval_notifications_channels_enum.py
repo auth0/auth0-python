@@ -2,4 +2,6 @@
 
 import typing
 
-AsyncApprovalNotificationsChannelsEnum = typing.Union[typing.Literal["guardian-push", "email"], typing.Any]
+AsyncApprovalNotificationsChannelsEnum = typing.Union[
+    typing.Literal["guardian-push", "email", "my-account"], typing.Any
+]

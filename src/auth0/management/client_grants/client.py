@@ -12,10 +12,13 @@ from ..types.client_grant_default_for_enum import ClientGrantDefaultForEnum
 from ..types.client_grant_organization_nullable_usage_enum import ClientGrantOrganizationNullableUsageEnum
 from ..types.client_grant_organization_usage_enum import ClientGrantOrganizationUsageEnum
 from ..types.client_grant_response_content import ClientGrantResponseContent
+from ..types.client_grant_sort_field_enum import ClientGrantSortFieldEnum
 from ..types.client_grant_subject_type_enum import ClientGrantSubjectTypeEnum
 from ..types.create_client_grant_response_content import CreateClientGrantResponseContent
 from ..types.get_client_grant_response_content import GetClientGrantResponseContent
 from ..types.list_client_grant_paginated_response_content import ListClientGrantPaginatedResponseContent
+from ..types.search_client_grants_response_content import SearchClientGrantsResponseContent
+from ..types.search_parser_enum import SearchParserEnum
 from ..types.update_client_grant_response_content import UpdateClientGrantResponseContent
 from .raw_client import AsyncRawClientGrantsClient, RawClientGrantsClient
 
@@ -45,6 +48,7 @@ class ClientGrantsClient:
     def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         audience: typing.Optional[str] = None,
@@ -55,10 +59,13 @@ class ClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+        Retrieve a list of [client grants](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the scopes associated with the application/API pair.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -96,6 +103,7 @@ class ClientGrantsClient:
             token="YOUR_TOKEN",
         )
         response = client.client_grants.list(
+            include_totals=True,
             from_="from",
             take=1,
             audience="audience",
@@ -111,6 +119,7 @@ class ClientGrantsClient:
             yield page
         """
         return self._raw_client.list(
+            include_totals=include_totals,
             from_=from_,
             take=take,
             audience=audience,
@@ -136,7 +145,7 @@ class ClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientGrantResponseContent:
         """
-        Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
+        Create a client grant for a machine-to-machine login flow. To learn more, read [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow).
 
         Parameters
         ----------
@@ -197,9 +206,89 @@ class ClientGrantsClient:
         )
         return _response.data
 
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ClientGrantSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ClientGrantResponseContent, SearchClientGrantsResponseContent]:
+        """
+        Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+        Results may not reflect recent updates immediately.
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `audience eq "https://api.example.com"`, `client_id eq "cli_abc"`, `subject_type eq "client"`, `allow_any_organization eq true`, `default_for eq "third_party_clients"`, `audience co "example" and organization_id eq "org_123"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>audience</i> - Filter by audience (eq, ne, sw, co, ew, pr)</li><li><i>client_id</i> - Filter by client ID (eq, ne, sw, pr)</li><li><i>subject_type</i> - Filter by subject type (eq, ne, sw, pr)</li><li><i>allow_any_organization</i> - Filter by allow_any_organization (eq, ne, pr)</li><li><i>organization_id</i> - Filter by organization ID (eq, ne, sw, pr)</li><li><i>updated_at</i> - Filter by last update date (eq, ne, gt, ge, lt, le, pr)</li><li><i>default_for</i> - Filter by default grant group (eq, ne, sw, pr)</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ClientGrantSortFieldEnum]
+            Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ClientGrantResponseContent, SearchClientGrantsResponseContent]
+            Client grants successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.client_grants.search(
+            q="q",
+            parser="scim",
+            fields="fields",
+            include_fields=True,
+            take=1,
+            from_="from",
+            sort="audience",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.search(
+            q=q,
+            parser=parser,
+            fields=fields,
+            include_fields=include_fields,
+            take=take,
+            from_=from_,
+            sort=sort,
+            request_options=request_options,
+        )
+
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetClientGrantResponseContent:
         """
-        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        Retrieve a single [client grant](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the
         scopes associated with the application/API pair.
 
         Parameters
@@ -231,7 +320,7 @@ class ClientGrantsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
+        Delete the [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) from your machine-to-machine application.
 
         Parameters
         ----------
@@ -351,6 +440,7 @@ class AsyncClientGrantsClient:
     async def list(
         self,
         *,
+        include_totals: typing.Optional[bool] = True,
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         audience: typing.Optional[str] = None,
@@ -361,10 +451,13 @@ class AsyncClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ClientGrantResponseContent, ListClientGrantPaginatedResponseContent]:
         """
-        Retrieve a list of <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grants</a>, including the scopes associated with the application/API pair.
+        Retrieve a list of [client grants](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the scopes associated with the application/API pair.
 
         Parameters
         ----------
+        include_totals : typing.Optional[bool]
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
 
@@ -407,6 +500,7 @@ class AsyncClientGrantsClient:
 
         async def main() -> None:
             response = await client.client_grants.list(
+                include_totals=True,
                 from_="from",
                 take=1,
                 audience="audience",
@@ -426,6 +520,7 @@ class AsyncClientGrantsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
+            include_totals=include_totals,
             from_=from_,
             take=take,
             audience=audience,
@@ -451,7 +546,7 @@ class AsyncClientGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientGrantResponseContent:
         """
-        Create a client grant for a machine-to-machine login flow. To learn more, read <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a>.
+        Create a client grant for a machine-to-machine login flow. To learn more, read [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow).
 
         Parameters
         ----------
@@ -520,11 +615,100 @@ class AsyncClientGrantsClient:
         )
         return _response.data
 
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ClientGrantSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ClientGrantResponseContent, SearchClientGrantsResponseContent]:
+        """
+        Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+        Results may not reflect recent updates immediately.
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `audience eq "https://api.example.com"`, `client_id eq "cli_abc"`, `subject_type eq "client"`, `allow_any_organization eq true`, `default_for eq "third_party_clients"`, `audience co "example" and organization_id eq "org_123"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>audience</i> - Filter by audience (eq, ne, sw, co, ew, pr)</li><li><i>client_id</i> - Filter by client ID (eq, ne, sw, pr)</li><li><i>subject_type</i> - Filter by subject type (eq, ne, sw, pr)</li><li><i>allow_any_organization</i> - Filter by allow_any_organization (eq, ne, pr)</li><li><i>organization_id</i> - Filter by organization ID (eq, ne, sw, pr)</li><li><i>updated_at</i> - Filter by last update date (eq, ne, gt, ge, lt, le, pr)</li><li><i>default_for</i> - Filter by default grant group (eq, ne, sw, pr)</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ClientGrantSortFieldEnum]
+            Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ClientGrantResponseContent, SearchClientGrantsResponseContent]
+            Client grants successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.client_grants.search(
+                q="q",
+                parser="scim",
+                fields="fields",
+                include_fields=True,
+                take=1,
+                from_="from",
+                sort="audience",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.search(
+            q=q,
+            parser=parser,
+            fields=fields,
+            include_fields=include_fields,
+            take=take,
+            from_=from_,
+            sort=sort,
+            request_options=request_options,
+        )
+
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetClientGrantResponseContent:
         """
-        Retrieve a single <a href="https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants">client grant</a>, including the
+        Retrieve a single [client grant](https://auth0.com/docs/get-started/applications/application-access-to-apis-client-grants), including the
         scopes associated with the application/API pair.
 
         Parameters
@@ -564,7 +748,7 @@ class AsyncClientGrantsClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Delete the <a href="https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">Client Credential Flow</a> from your machine-to-machine application.
+        Delete the [Client Credential Flow](https://www.auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) from your machine-to-machine application.
 
         Parameters
         ----------

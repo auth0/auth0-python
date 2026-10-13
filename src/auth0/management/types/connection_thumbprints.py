@@ -4,5 +4,5 @@ import typing
 
 ConnectionThumbprints = typing.List[str]
 """
-Array of certificate thumbprints (SHA-128/SHA-256/SHA-512 hex hashes) for validating SAML signatures. Used with WS-Federation protocol. Maximum 20 thumbprints. Each thumbprint must be a hexadecimal string.
+Array of certificate thumbprints (SHA-128 hex hashes) for validating SAML signatures. Used with WS-Federation protocol. Maximum 20 thumbprints. Each thumbprint must be a hexadecimal string.
 """

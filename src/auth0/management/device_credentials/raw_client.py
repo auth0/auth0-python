@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import encode_path_param
+from ..core.jsonable_encoder import quote_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -47,7 +47,7 @@ class RawDeviceCredentialsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DeviceCredential, ListDeviceCredentialsOffsetPaginatedResponseContent]:
         """
-        Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
+        Retrieve device credential information (`public_key`, `refresh_token`, or `rotating_refresh_token`) associated with a specific user.
 
         Parameters
         ----------
@@ -73,7 +73,7 @@ class RawDeviceCredentialsClient:
             client_id of the devices to retrieve.
 
         type : typing.Optional[DeviceCredentialTypeEnum]
-            Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. The property will default to `refresh_token` when paging is requested
+            Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. If none is provided a combined list of `refresh_tokens` and `public_keys` will be returned (and no `rotating_refresh_token`), in this case `page`, `per_page` and `include_totals` will be ignored.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -110,7 +110,7 @@ class RawDeviceCredentialsClient:
                     ),
                 )
                 _items = _parsed_response.device_credentials
-                _has_next = True
+                _has_next = len(_items or []) > 0
                 _get_next = lambda: self.list(
                     page=page + 1,
                     per_page=per_page,
@@ -187,9 +187,9 @@ class RawDeviceCredentialsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreatePublicKeyDeviceCredentialResponseContent]:
         """
-        Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
+        Create a device credential public key to manage refresh token rotation for a given `user_id`. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
 
-        When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.
+        When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read [Signing Keys](https://auth0.com/docs/get-started/tenant-settings/signing-keys).
 
         Parameters
         ----------
@@ -322,7 +322,7 @@ class RawDeviceCredentialsClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"device-credentials/{encode_path_param(id)}",
+            f"device-credentials/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -401,7 +401,7 @@ class AsyncRawDeviceCredentialsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DeviceCredential, ListDeviceCredentialsOffsetPaginatedResponseContent]:
         """
-        Retrieve device credential information (<code>public_key</code>, <code>refresh_token</code>, or <code>rotating_refresh_token</code>) associated with a specific user.
+        Retrieve device credential information (`public_key`, `refresh_token`, or `rotating_refresh_token`) associated with a specific user.
 
         Parameters
         ----------
@@ -427,7 +427,7 @@ class AsyncRawDeviceCredentialsClient:
             client_id of the devices to retrieve.
 
         type : typing.Optional[DeviceCredentialTypeEnum]
-            Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. The property will default to `refresh_token` when paging is requested
+            Type of credentials to retrieve. Must be `public_key`, `refresh_token` or `rotating_refresh_token`. If none is provided a combined list of `refresh_tokens` and `public_keys` will be returned (and no `rotating_refresh_token`), in this case `page`, `per_page` and `include_totals` will be ignored.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -464,7 +464,7 @@ class AsyncRawDeviceCredentialsClient:
                     ),
                 )
                 _items = _parsed_response.device_credentials
-                _has_next = True
+                _has_next = len(_items or []) > 0
 
                 async def _get_next():
                     return await self.list(
@@ -544,9 +544,9 @@ class AsyncRawDeviceCredentialsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreatePublicKeyDeviceCredentialResponseContent]:
         """
-        Create a device credential public key to manage refresh token rotation for a given <code>user_id</code>. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
+        Create a device credential public key to manage refresh token rotation for a given `user_id`. Device Credentials APIs are designed for ad-hoc administrative use only and paging is by default enabled for GET requests.
 
-        When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read <a href="https://auth0.com/docs/get-started/tenant-settings/signing-keys"> Signing Keys</a>.
+        When refresh token rotation is enabled, the endpoint becomes consistent. For more information, read [Signing Keys](https://auth0.com/docs/get-started/tenant-settings/signing-keys).
 
         Parameters
         ----------
@@ -681,7 +681,7 @@ class AsyncRawDeviceCredentialsClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"device-credentials/{encode_path_param(id)}",
+            f"device-credentials/{quote_path_param(id)}",
             method="DELETE",
             request_options=request_options,
         )

@@ -36,7 +36,7 @@ class RawVerificationEmailClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateVerificationEmailResponseContent]:
         """
-        Send an email to the specified user that asks them to click a link to <a href="https://auth0.com/docs/email/custom#verification-email">verify their email address</a>.
+        Send an email to the specified user that asks them to click a link to [verify their email address](https://auth0.com/docs/email/custom#verification-email).
 
         Note: You must have the `Status` toggle enabled for the verification email template for the email to be sent.
 
@@ -156,7 +156,7 @@ class AsyncRawVerificationEmailClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateVerificationEmailResponseContent]:
         """
-        Send an email to the specified user that asks them to click a link to <a href="https://auth0.com/docs/email/custom#verification-email">verify their email address</a>.
+        Send an email to the specified user that asks them to click a link to [verify their email address](https://auth0.com/docs/email/custom#verification-email).
 
         Note: You must have the `Status` toggle enabled for the verification email template for the email to be sent.
 

@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .connection_common import ConnectionCommon
 from .connection_options_okta import ConnectionOptionsOkta
 from .connection_show_as_button import ConnectionShowAsButton
+from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
 
 
 class UpdateConnectionRequestContentOkta(ConnectionCommon):
@@ -14,6 +15,7 @@ class UpdateConnectionRequestContentOkta(ConnectionCommon):
     Update a connection with strategy=okta
     """
 
+    cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = None
     options: typing.Optional[ConnectionOptionsOkta] = None
     show_as_button: typing.Optional[ConnectionShowAsButton] = None
 

@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ....core.api_error import ApiError
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.http_response import AsyncHttpResponse, HttpResponse
-from ....core.jsonable_encoder import encode_path_param
+from ....core.jsonable_encoder import quote_path_param
 from ....core.parse_error import ParsingError
 from ....core.pydantic_utilities import parse_obj_as
 from ....core.request_options import RequestOptions
@@ -44,7 +44,7 @@ class RawSynchronizationsClient:
             The directory synchronization was triggered. See <strong>Response Schemas</strong> for schema.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning/synchronizations",
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronizations",
             method="POST",
             request_options=request_options,
         )
@@ -158,7 +158,7 @@ class AsyncRawSynchronizationsClient:
             The directory synchronization was triggered. See <strong>Response Schemas</strong> for schema.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"connections/{encode_path_param(id)}/directory-provisioning/synchronizations",
+            f"connections/{quote_path_param(id)}/directory-provisioning/synchronizations",
             method="POST",
             request_options=request_options,
         )

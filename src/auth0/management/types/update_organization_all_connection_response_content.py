@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .organization_access_level_enum import OrganizationAccessLevelEnum
 from .organization_connection_information import OrganizationConnectionInformation
+from .organization_member_access_level_enum import OrganizationMemberAccessLevelEnum
 
 
 class UpdateOrganizationAllConnectionResponseContent(UniversalBaseModel):
@@ -30,6 +31,7 @@ class UpdateOrganizationAllConnectionResponseContent(UniversalBaseModel):
     """
 
     organization_access_level: typing.Optional[OrganizationAccessLevelEnum] = None
+    organization_member_access_level: typing.Optional[OrganizationMemberAccessLevelEnum] = None
     is_enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the connection is enabled for the organization.

@@ -9,6 +9,7 @@ def test_users_groups_get() -> None:
         id="id",
         fields="fields",
         include_fields=True,
+        include_totals=True,
         from_="from",
         take=1,
     )
@@ -16,6 +17,6 @@ def test_users_groups_get() -> None:
         test_id,
         "GET",
         "/users/id/groups",
-        {"fields": "fields", "include_fields": "true", "from": "from", "take": "1"},
+        {"fields": "fields", "include_fields": "true", "include_totals": "true", "from": "from", "take": "1"},
         1,
     )
