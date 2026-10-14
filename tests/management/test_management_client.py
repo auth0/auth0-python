@@ -13,6 +13,7 @@ from auth0.management import (
     ManagementClient,
     TokenProvider,
 )
+from auth0.management.client import AsyncAuth0, Auth0
 from auth0.management.management_client import (
     CUSTOM_DOMAIN_HEADER as _CUSTOM_DOMAIN_HEADER,
 )
@@ -168,19 +169,25 @@ class TestManagementClientProperties:
         """Should have all expected sub-client properties."""
         expected_properties = [
             "actions",
+            "agents",
             "anomaly",
             "attack_protection",
             "branding",
             "client_grants",
+            "client_profiles",
             "clients",
+            "connection_profiles",
             "connections",
             "custom_domains",
             "device_credentials",
             "email_templates",
             "emails",
             "event_streams",
+            "events",
+            "experimentation",
             "flows",
             "forms",
+            "groups",
             "guardian",
             "hooks",
             "jobs",
@@ -190,8 +197,10 @@ class TestManagementClientProperties:
             "network_acls",
             "organizations",
             "prompts",
+            "rate_limit_policies",
             "refresh_tokens",
             "resource_servers",
+            "risk_assessments",
             "roles",
             "rules",
             "rules_configs",
@@ -202,6 +211,7 @@ class TestManagementClientProperties:
             "tenants",
             "tickets",
             "token_exchange_profiles",
+            "user_attribute_profiles",
             "user_blocks",
             "user_grants",
             "users",
@@ -254,6 +264,32 @@ class TestAsyncManagementClientInit:
         assert encoded_header is not None
         decoded = json.loads(base64.b64decode(encoded_header).decode("utf-8"))
         assert decoded == custom_info
+
+
+class TestManagementClientMatchesGeneratedClient:
+    """Keep the hand-written wrappers in step with the generated clients."""
+
+    @staticmethod
+    def _public_properties(cls):
+        return {
+            name
+            for name, value in vars(cls).items()
+            if isinstance(value, property) and not name.startswith("_")
+        }
+
+    def test_management_client_exposes_every_generated_resource(self):
+        """Should expose every resource the generated Auth0 client has."""
+        missing = self._public_properties(Auth0) - self._public_properties(
+            ManagementClient
+        )
+        assert missing == set(), f"ManagementClient is missing: {sorted(missing)}"
+
+    def test_async_management_client_exposes_every_generated_resource(self):
+        """Should expose every resource the generated AsyncAuth0 client has."""
+        missing = self._public_properties(AsyncAuth0) - self._public_properties(
+            AsyncManagementClient
+        )
+        assert missing == set(), f"AsyncManagementClient is missing: {sorted(missing)}"
 
 
 class TestTokenProvider:
