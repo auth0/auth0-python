@@ -13,6 +13,9 @@ from .event_stream_cloud_event_org_connection_added_object_organization import (
 from .event_stream_cloud_event_org_connection_added_object_organization_access_level import (
     EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel,
 )
+from .event_stream_cloud_event_org_connection_added_object_organization_member_access_level import (
+    EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel,
+)
 
 
 class EventStreamCloudEventOrgConnectionAddedObject(UniversalBaseModel):
@@ -49,6 +52,9 @@ class EventStreamCloudEventOrgConnectionAddedObject(UniversalBaseModel):
     organization_access_level: typing.Optional[EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel] = (
         None
     )
+    organization_member_access_level: typing.Optional[
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

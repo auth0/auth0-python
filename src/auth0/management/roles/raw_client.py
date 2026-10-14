@@ -21,6 +21,7 @@ from ..types.create_role_response_content import CreateRoleResponseContent
 from ..types.get_role_response_content import GetRoleResponseContent
 from ..types.list_roles_offset_paginated_response_content import ListRolesOffsetPaginatedResponseContent
 from ..types.role import Role
+from ..types.role_owner_id_filter import RoleOwnerIdFilter
 from ..types.role_type_enum import RoleTypeEnum
 from ..types.update_role_response_content import UpdateRoleResponseContent
 from pydantic import ValidationError
@@ -41,11 +42,11 @@ class RawRolesClient:
         include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
         type: typing.Optional[RoleTypeEnum] = None,
-        owner_id: typing.Optional[str] = None,
+        owner_id: typing.Optional[RoleOwnerIdFilter] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
         """
-        Retrieve detailed list of user roles created in your tenant.
+        Retrieve a list of roles. Includes roles created in your tenant and, when `owner_id=auth0` is supplied, Auth0-managed System Roles.
 
         **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 
@@ -66,8 +67,8 @@ class RawRolesClient:
         type : typing.Optional[RoleTypeEnum]
             Optional filter on the type of the role
 
-        owner_id : typing.Optional[str]
-            Filter organization-level roles by owner ID. Required when type is "organization".
+        owner_id : typing.Optional[RoleOwnerIdFilter]
+            Filter organization-level roles by owner ID. Use an organization ID to filter that organization's roles, or "auth0" to retrieve Auth0-managed System Roles. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -596,11 +597,11 @@ class AsyncRawRolesClient:
         include_totals: typing.Optional[bool] = True,
         name_filter: typing.Optional[str] = None,
         type: typing.Optional[RoleTypeEnum] = None,
-        owner_id: typing.Optional[str] = None,
+        owner_id: typing.Optional[RoleOwnerIdFilter] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Role, ListRolesOffsetPaginatedResponseContent]:
         """
-        Retrieve detailed list of user roles created in your tenant.
+        Retrieve a list of roles. Includes roles created in your tenant and, when `owner_id=auth0` is supplied, Auth0-managed System Roles.
 
         **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 
@@ -621,8 +622,8 @@ class AsyncRawRolesClient:
         type : typing.Optional[RoleTypeEnum]
             Optional filter on the type of the role
 
-        owner_id : typing.Optional[str]
-            Filter organization-level roles by owner ID. Required when type is "organization".
+        owner_id : typing.Optional[RoleOwnerIdFilter]
+            Filter organization-level roles by owner ID. Use an organization ID to filter that organization's roles, or "auth0" to retrieve Auth0-managed System Roles. Required when type is "organization".
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

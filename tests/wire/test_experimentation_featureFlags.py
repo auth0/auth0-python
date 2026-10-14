@@ -59,14 +59,3 @@ def test_experimentation_featureFlags_update() -> None:
         id="id",
     )
     verify_request_count(test_id, "PATCH", "/experimentation/feature-flags/id", None, 1)
-
-
-def test_experimentation_featureFlags_update_status() -> None:
-    """Test updateStatus endpoint with WireMock"""
-    test_id = "experimentation.feature_flags.update_status.0"
-    client = get_client(test_id)
-    client.experimentation.feature_flags.update_status(
-        id="id",
-        status="draft",
-    )
-    verify_request_count(test_id, "POST", "/experimentation/feature-flags/id/status", None, 1)

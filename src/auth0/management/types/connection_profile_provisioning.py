@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_profile_provisioning_google_workspace import ConnectionProfileProvisioningGoogleWorkspace
 from .connection_profile_provisioning_scim import ConnectionProfileProvisioningScim
 
 
@@ -13,6 +14,7 @@ class ConnectionProfileProvisioning(UniversalBaseModel):
     """
 
     scim: typing.Optional[ConnectionProfileProvisioningScim] = None
+    google_workspace: typing.Optional[ConnectionProfileProvisioningGoogleWorkspace] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -73,7 +73,7 @@ class GroupsClient:
             Whether specified fields are to be included (true) or excluded (false).
 
         include_totals : typing.Optional[bool]
-            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). The returned total reflects at most 1,000 results.
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.
@@ -260,7 +260,7 @@ class AsyncGroupsClient:
             Whether specified fields are to be included (true) or excluded (false).
 
         include_totals : typing.Optional[bool]
-            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+            Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). The returned total reflects at most 1,000 results.
 
         from_ : typing.Optional[str]
             Optional Id from which to start selection.

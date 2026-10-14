@@ -142,6 +142,11 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     Supports iss parameter in authorization responses
     """
 
+    dpop_strict_refresh_token_binding: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+    """
+
     skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
@@ -153,6 +158,11 @@ class UpdateTenantSettingsResponseContent(UniversalBaseModel):
     client_id_metadata_document_supported: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the authorization server supports retrieving client metadata from a client_id URL.
+    """
+
+    client_id_metadata_document_dynamic_registration_supported: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
     """
 
     phone_consolidated_experience: typing.Optional[bool] = pydantic.Field(default=None)

@@ -13,6 +13,9 @@ from .event_stream_cloud_event_org_connection_updated_previous_object_organizati
 from .event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level import (
     EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel,
 )
+from .event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level import (
+    EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel,
+)
 
 
 class EventStreamCloudEventOrgConnectionUpdatedPreviousObject(UniversalBaseModel):
@@ -48,6 +51,9 @@ class EventStreamCloudEventOrgConnectionUpdatedPreviousObject(UniversalBaseModel
 
     organization_access_level: typing.Optional[
         EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel
+    ] = None
+    organization_member_access_level: typing.Optional[
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel
     ] = None
 
     if IS_PYDANTIC_V2:

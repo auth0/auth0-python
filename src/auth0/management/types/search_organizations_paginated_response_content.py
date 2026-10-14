@@ -8,7 +8,11 @@ from .search_organization import SearchOrganization
 
 
 class SearchOrganizationsPaginatedResponseContent(UniversalBaseModel):
-    organizations: typing.List[SearchOrganization]
+    organizations: typing.List[SearchOrganization] = pydantic.Field()
+    """
+    Array of organization objects matching the search criteria.
+    """
+
     next: typing.Optional[str] = pydantic.Field(default=None)
     """
     Cursor for retrieving the next page of results. Absent when no more results are available.

@@ -4,7 +4,15 @@ import typing
 
 GuardianFactorNameEnum = typing.Union[
     typing.Literal[
-        "push-notification", "sms", "email", "duo", "otp", "webauthn-roaming", "webauthn-platform", "recovery-code"
+        "push-notification",
+        "sms",
+        "email",
+        "duo",
+        "otp",
+        "webauthn-roaming",
+        "webauthn-platform",
+        "recovery-code",
+        "passkey",
     ],
     typing.Any,
 ]

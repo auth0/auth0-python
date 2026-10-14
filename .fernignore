@@ -10,6 +10,7 @@ tests/management/
 
 # Documentation
 v5_MIGRATION_GUIDE.md
+UPGRADING.md
 CHANGELOG.md
 
 # Authentication API (copied from auth0-python, not Fern-generated)

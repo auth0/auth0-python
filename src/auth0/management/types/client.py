@@ -10,6 +10,7 @@ from ..core.serialization import FieldMetadata
 from .anonymous_sessions import AnonymousSessions
 from .b_2_b_integration_configuration import B2BIntegrationConfiguration
 from .client_addons import ClientAddons
+from .client_anonymous_session_transfer_network_binding_enum import ClientAnonymousSessionTransferNetworkBindingEnum
 from .client_app_type_enum import ClientAppTypeEnum
 from .client_async_approval_notifications_channels_api_post_configuration import (
     ClientAsyncApprovalNotificationsChannelsApiPostConfiguration,
@@ -19,6 +20,7 @@ from .client_compliance_level_enum import ClientComplianceLevelEnum
 from .client_default_organization import ClientDefaultOrganization
 from .client_encryption_key import ClientEncryptionKey
 from .client_external_metadata_created_by_enum import ClientExternalMetadataCreatedByEnum
+from .client_external_metadata_status_enum import ClientExternalMetadataStatusEnum
 from .client_external_metadata_type_enum import ClientExternalMetadataTypeEnum
 from .client_jwt_configuration import ClientJwtConfiguration
 from .client_metadata import ClientMetadata
@@ -252,6 +254,9 @@ class Client(UniversalBaseModel):
     my_organization_configuration: typing.Optional[ClientMyOrganizationResponseConfiguration] = None
     identity_assertion_authorization_grant: typing.Optional[IdentityAssertionAuthorizationGrant] = None
     anonymous_sessions: typing.Optional[AnonymousSessions] = None
+    enforce_anon_session_transfer_network_binding: typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum] = (
+        None
+    )
     third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = None
     redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = None
     resource_server_identifier: typing.Optional[str] = pydantic.Field(default=None)
@@ -264,6 +269,7 @@ class Client(UniversalBaseModel):
     ] = None
     external_metadata_type: typing.Optional[ClientExternalMetadataTypeEnum] = None
     external_metadata_created_by: typing.Optional[ClientExternalMetadataCreatedByEnum] = None
+    external_metadata_status: typing.Optional[ClientExternalMetadataStatusEnum] = None
     external_client_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     An alternate client identifier to be used during authorization flows. Only supports CIMD-based client identifiers.

@@ -13,6 +13,7 @@ from ...errors.bad_request_error import BadRequestError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.too_many_requests_error import TooManyRequestsError
 from ...errors.unauthorized_error import UnauthorizedError
+from ...types.brute_force_protection_form_submission_mode_enum import BruteForceProtectionFormSubmissionModeEnum
 from ...types.brute_force_protection_mode_enum import BruteForceProtectionModeEnum
 from ...types.brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
 from ...types.get_brute_force_settings_response_content import GetBruteForceSettingsResponseContent
@@ -108,6 +109,7 @@ class RawBruteForceProtectionClient:
         allowlist: typing.Optional[typing.Sequence[str]] = OMIT,
         mode: typing.Optional[BruteForceProtectionModeEnum] = OMIT,
         max_attempts: typing.Optional[int] = OMIT,
+        form_submission_mode: typing.Optional[BruteForceProtectionFormSubmissionModeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateBruteForceSettingsResponseContent]:
         """
@@ -130,6 +132,8 @@ class RawBruteForceProtectionClient:
         max_attempts : typing.Optional[int]
             Maximum number of unsuccessful attempts.
 
+        form_submission_mode : typing.Optional[BruteForceProtectionFormSubmissionModeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -147,6 +151,7 @@ class RawBruteForceProtectionClient:
                 "allowlist": allowlist,
                 "mode": mode,
                 "max_attempts": max_attempts,
+                "form_submission_mode": form_submission_mode,
             },
             headers={
                 "content-type": "application/json",
@@ -303,6 +308,7 @@ class AsyncRawBruteForceProtectionClient:
         allowlist: typing.Optional[typing.Sequence[str]] = OMIT,
         mode: typing.Optional[BruteForceProtectionModeEnum] = OMIT,
         max_attempts: typing.Optional[int] = OMIT,
+        form_submission_mode: typing.Optional[BruteForceProtectionFormSubmissionModeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateBruteForceSettingsResponseContent]:
         """
@@ -325,6 +331,8 @@ class AsyncRawBruteForceProtectionClient:
         max_attempts : typing.Optional[int]
             Maximum number of unsuccessful attempts.
 
+        form_submission_mode : typing.Optional[BruteForceProtectionFormSubmissionModeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -342,6 +350,7 @@ class AsyncRawBruteForceProtectionClient:
                 "allowlist": allowlist,
                 "mode": mode,
                 "max_attempts": max_attempts,
+                "form_submission_mode": form_submission_mode,
             },
             headers={
                 "content-type": "application/json",

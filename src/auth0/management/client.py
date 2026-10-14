@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
     from .attack_protection.client import AsyncAttackProtectionClient, AttackProtectionClient
     from .branding.client import AsyncBrandingClient, BrandingClient
     from .client_grants.client import AsyncClientGrantsClient, ClientGrantsClient
+    from .client_profiles.client import AsyncClientProfilesClient, ClientProfilesClient
     from .clients.client import AsyncClientsClient, ClientsClient
     from .connection_profiles.client import AsyncConnectionProfilesClient, ConnectionProfilesClient
     from .connections.client import AsyncConnectionsClient, ConnectionsClient
@@ -159,6 +160,7 @@ class Auth0:
         self._agents: typing.Optional[AgentsClient] = None
         self._branding: typing.Optional[BrandingClient] = None
         self._client_grants: typing.Optional[ClientGrantsClient] = None
+        self._client_profiles: typing.Optional[ClientProfilesClient] = None
         self._clients: typing.Optional[ClientsClient] = None
         self._connection_profiles: typing.Optional[ConnectionProfilesClient] = None
         self._connections: typing.Optional[ConnectionsClient] = None
@@ -234,6 +236,14 @@ class Auth0:
 
             self._client_grants = ClientGrantsClient(client_wrapper=self._client_wrapper)
         return self._client_grants
+
+    @property
+    def client_profiles(self):
+        if self._client_profiles is None:
+            from .client_profiles.client import ClientProfilesClient  # noqa: E402
+
+            self._client_profiles = ClientProfilesClient(client_wrapper=self._client_wrapper)
+        return self._client_profiles
 
     @property
     def clients(self):
@@ -701,6 +711,7 @@ class AsyncAuth0:
         self._agents: typing.Optional[AsyncAgentsClient] = None
         self._branding: typing.Optional[AsyncBrandingClient] = None
         self._client_grants: typing.Optional[AsyncClientGrantsClient] = None
+        self._client_profiles: typing.Optional[AsyncClientProfilesClient] = None
         self._clients: typing.Optional[AsyncClientsClient] = None
         self._connection_profiles: typing.Optional[AsyncConnectionProfilesClient] = None
         self._connections: typing.Optional[AsyncConnectionsClient] = None
@@ -776,6 +787,14 @@ class AsyncAuth0:
 
             self._client_grants = AsyncClientGrantsClient(client_wrapper=self._client_wrapper)
         return self._client_grants
+
+    @property
+    def client_profiles(self):
+        if self._client_profiles is None:
+            from .client_profiles.client import AsyncClientProfilesClient  # noqa: E402
+
+            self._client_profiles = AsyncClientProfilesClient(client_wrapper=self._client_wrapper)
+        return self._client_profiles
 
     @property
     def clients(self):
