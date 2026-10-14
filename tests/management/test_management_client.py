@@ -282,14 +282,20 @@ class TestManagementClientMatchesGeneratedClient:
         missing = self._public_properties(Auth0) - self._public_properties(
             ManagementClient
         )
-        assert missing == set(), f"ManagementClient is missing: {sorted(missing)}"
+        assert missing == set(), (
+            f"ManagementClient is missing: {sorted(missing)}. Add a property and a "
+            "TYPE_CHECKING import for each one in management_client.py."
+        )
 
     def test_async_management_client_exposes_every_generated_resource(self):
         """Should expose every resource the generated AsyncAuth0 client has."""
         missing = self._public_properties(AsyncAuth0) - self._public_properties(
             AsyncManagementClient
         )
-        assert missing == set(), f"AsyncManagementClient is missing: {sorted(missing)}"
+        assert missing == set(), (
+            f"AsyncManagementClient is missing: {sorted(missing)}. Add a property and "
+            "a TYPE_CHECKING import for each one in management_client.py."
+        )
 
 
 class TestTokenProvider:

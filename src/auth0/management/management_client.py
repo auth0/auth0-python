@@ -1,3 +1,7 @@
+# This file is hand-written and listed in .fernignore, so Fern does not overwrite it.
+# Each resource that the generated Auth0 client exposes needs a matching property
+# on ManagementClient and AsyncManagementClient, plus a TYPE_CHECKING import.
+# tests/management/test_management_client.py fails and lists any missing resource.
 from __future__ import annotations
 
 import base64
