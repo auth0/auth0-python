@@ -1,5 +1,20 @@
 # Change Log
 
+## [6.8.0](https://github.com/auth0/auth0-python/tree/6.8.0) (2026-10-14)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.7.0...6.8.0)
+
+⚠️ **Breaking Changes**
+- `management.experimentation.experiments.update_status()` and `management.experimentation.feature_flags.update_status()` removed along with `UpdateExperimentStatusResponseContent` and `UpdateFeatureFlagStatusResponseContent`. Set status through `update(id, status=...)` instead. `SearchOrganization.metadata` removed. `ConnectionResponseCommon` no longer extends `CreateConnectionCommon` and requires `display_name`, though no endpoint returns this model. Feature flag `variations.delete()` no longer maps HTTP 400 to `BadRequestError`, so a 400 raises the base `ApiError` [\#898](https://github.com/auth0/auth0-python/pull/898) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Added**
+- Client profiles (`management.client_profiles`), CAPTCHA policies (`management.attack_protection.captcha_policies`), client and client grant search (`management.clients.search()`, `management.client_grants.search()`), and dynamic CIMD registration in tenant settings with per-client metadata status. Client `enforce_anon_session_transfer_network_binding` setting, `oidc_support` on `clients.update()`, tenant `dpop_strict_refresh_token_binding` setting, brute force protection `form_submission_mode`, `status` on experiments, feature flags, and segments, Google Workspace provisioning and directory sync on connection profiles, organization member access level on organization connection events, and the passkey Guardian factor [\#898](https://github.com/auth0/auth0-python/pull/898) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Changed**
+- `management.clients.register_cimd_client()` raises `ConflictError` on HTTP 409 instead of `ApiError`. `ConflictError` subclasses `ApiError`, so existing handlers still catch it. Role `owner_id` filter and response fields are typed as `RoleOwnerIdFilter` and `RoleOwnerId` string aliases. `a0stream` is now optional on connection, group, organization, and user cloud event types [\#898](https://github.com/auth0/auth0-python/pull/898) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Fixed**
+- `ManagementClient` and `AsyncManagementClient` now expose `agents`, `client_profiles`, `connection_profiles`, `events`, `experimentation`, `groups`, `rate_limit_policies`, `risk_assessments`, and `user_attribute_profiles`, which previously raised `AttributeError` [\#901](https://github.com/auth0/auth0-python/pull/901) ([developerkunal](https://github.com/developerkunal))
+
 ## [6.7.0](https://github.com/auth0/auth0-python/tree/6.7.0) (2026-09-30)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.6.0...6.7.0)
 
