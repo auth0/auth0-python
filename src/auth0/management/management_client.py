@@ -1,3 +1,7 @@
+# This file is hand-written and listed in .fernignore, so Fern does not overwrite it.
+# Each resource that the generated Auth0 client exposes needs a matching property
+# on ManagementClient and AsyncManagementClient, plus a TYPE_CHECKING import.
+# tests/management/test_management_client.py fails and lists any missing resource.
 from __future__ import annotations
 
 import base64
@@ -61,19 +65,25 @@ def CustomDomainHeader(domain: str) -> RequestOptions:
 
 if TYPE_CHECKING:
     from .actions.client import ActionsClient, AsyncActionsClient
+    from .agents.client import AsyncAgentsClient, AgentsClient
     from .anomaly.client import AnomalyClient, AsyncAnomalyClient
     from .attack_protection.client import AsyncAttackProtectionClient, AttackProtectionClient
     from .branding.client import AsyncBrandingClient, BrandingClient
     from .client_grants.client import AsyncClientGrantsClient, ClientGrantsClient
+    from .client_profiles.client import AsyncClientProfilesClient, ClientProfilesClient
     from .clients.client import AsyncClientsClient, ClientsClient
+    from .connection_profiles.client import AsyncConnectionProfilesClient, ConnectionProfilesClient
     from .connections.client import AsyncConnectionsClient, ConnectionsClient
     from .custom_domains.client import AsyncCustomDomainsClient, CustomDomainsClient
     from .device_credentials.client import AsyncDeviceCredentialsClient, DeviceCredentialsClient
     from .email_templates.client import AsyncEmailTemplatesClient, EmailTemplatesClient
     from .emails.client import AsyncEmailsClient, EmailsClient
     from .event_streams.client import AsyncEventStreamsClient, EventStreamsClient
+    from .events.client import AsyncEventsClient, EventsClient
+    from .experimentation.client import AsyncExperimentationClient, ExperimentationClient
     from .flows.client import AsyncFlowsClient, FlowsClient
     from .forms.client import AsyncFormsClient, FormsClient
+    from .groups.client import AsyncGroupsClient, GroupsClient
     from .guardian.client import AsyncGuardianClient, GuardianClient
     from .hooks.client import AsyncHooksClient, HooksClient
     from .jobs.client import AsyncJobsClient, JobsClient
@@ -83,8 +93,10 @@ if TYPE_CHECKING:
     from .network_acls.client import AsyncNetworkAclsClient, NetworkAclsClient
     from .organizations.client import AsyncOrganizationsClient, OrganizationsClient
     from .prompts.client import AsyncPromptsClient, PromptsClient
+    from .rate_limit_policies.client import AsyncRateLimitPoliciesClient, RateLimitPoliciesClient
     from .refresh_tokens.client import AsyncRefreshTokensClient, RefreshTokensClient
     from .resource_servers.client import AsyncResourceServersClient, ResourceServersClient
+    from .risk_assessments.client import AsyncRiskAssessmentsClient, RiskAssessmentsClient
     from .roles.client import AsyncRolesClient, RolesClient
     from .rules.client import AsyncRulesClient, RulesClient
     from .rules_configs.client import AsyncRulesConfigsClient, RulesConfigsClient
@@ -95,6 +107,7 @@ if TYPE_CHECKING:
     from .tenants.client import AsyncTenantsClient, TenantsClient
     from .tickets.client import AsyncTicketsClient, TicketsClient
     from .token_exchange_profiles.client import AsyncTokenExchangeProfilesClient, TokenExchangeProfilesClient
+    from .user_attribute_profiles.client import AsyncUserAttributeProfilesClient, UserAttributeProfilesClient
     from .user_blocks.client import AsyncUserBlocksClient, UserBlocksClient
     from .user_grants.client import AsyncUserGrantsClient, UserGrantsClient
     from .users.client import AsyncUsersClient, UsersClient
@@ -222,6 +235,10 @@ class ManagementClient:
         return self._api.actions
 
     @property
+    def agents(self) -> "AgentsClient":
+        return self._api.agents
+
+    @property
     def anomaly(self) -> "AnomalyClient":
         return self._api.anomaly
 
@@ -238,8 +255,16 @@ class ManagementClient:
         return self._api.client_grants
 
     @property
+    def client_profiles(self) -> "ClientProfilesClient":
+        return self._api.client_profiles
+
+    @property
     def clients(self) -> "ClientsClient":
         return self._api.clients
+
+    @property
+    def connection_profiles(self) -> "ConnectionProfilesClient":
+        return self._api.connection_profiles
 
     @property
     def connections(self) -> "ConnectionsClient":
@@ -266,12 +291,24 @@ class ManagementClient:
         return self._api.event_streams
 
     @property
+    def events(self) -> "EventsClient":
+        return self._api.events
+
+    @property
+    def experimentation(self) -> "ExperimentationClient":
+        return self._api.experimentation
+
+    @property
     def flows(self) -> "FlowsClient":
         return self._api.flows
 
     @property
     def forms(self) -> "FormsClient":
         return self._api.forms
+
+    @property
+    def groups(self) -> "GroupsClient":
+        return self._api.groups
 
     @property
     def guardian(self) -> "GuardianClient":
@@ -310,12 +347,20 @@ class ManagementClient:
         return self._api.prompts
 
     @property
+    def rate_limit_policies(self) -> "RateLimitPoliciesClient":
+        return self._api.rate_limit_policies
+
+    @property
     def refresh_tokens(self) -> "RefreshTokensClient":
         return self._api.refresh_tokens
 
     @property
     def resource_servers(self) -> "ResourceServersClient":
         return self._api.resource_servers
+
+    @property
+    def risk_assessments(self) -> "RiskAssessmentsClient":
+        return self._api.risk_assessments
 
     @property
     def roles(self) -> "RolesClient":
@@ -356,6 +401,10 @@ class ManagementClient:
     @property
     def token_exchange_profiles(self) -> "TokenExchangeProfilesClient":
         return self._api.token_exchange_profiles
+
+    @property
+    def user_attribute_profiles(self) -> "UserAttributeProfilesClient":
+        return self._api.user_attribute_profiles
 
     @property
     def user_blocks(self) -> "UserBlocksClient":
@@ -498,6 +547,10 @@ class AsyncManagementClient:
         return self._api.actions
 
     @property
+    def agents(self) -> "AsyncAgentsClient":
+        return self._api.agents
+
+    @property
     def anomaly(self) -> "AsyncAnomalyClient":
         return self._api.anomaly
 
@@ -514,8 +567,16 @@ class AsyncManagementClient:
         return self._api.client_grants
 
     @property
+    def client_profiles(self) -> "AsyncClientProfilesClient":
+        return self._api.client_profiles
+
+    @property
     def clients(self) -> "AsyncClientsClient":
         return self._api.clients
+
+    @property
+    def connection_profiles(self) -> "AsyncConnectionProfilesClient":
+        return self._api.connection_profiles
 
     @property
     def connections(self) -> "AsyncConnectionsClient":
@@ -542,12 +603,24 @@ class AsyncManagementClient:
         return self._api.event_streams
 
     @property
+    def events(self) -> "AsyncEventsClient":
+        return self._api.events
+
+    @property
+    def experimentation(self) -> "AsyncExperimentationClient":
+        return self._api.experimentation
+
+    @property
     def flows(self) -> "AsyncFlowsClient":
         return self._api.flows
 
     @property
     def forms(self) -> "AsyncFormsClient":
         return self._api.forms
+
+    @property
+    def groups(self) -> "AsyncGroupsClient":
+        return self._api.groups
 
     @property
     def guardian(self) -> "AsyncGuardianClient":
@@ -586,12 +659,20 @@ class AsyncManagementClient:
         return self._api.prompts
 
     @property
+    def rate_limit_policies(self) -> "AsyncRateLimitPoliciesClient":
+        return self._api.rate_limit_policies
+
+    @property
     def refresh_tokens(self) -> "AsyncRefreshTokensClient":
         return self._api.refresh_tokens
 
     @property
     def resource_servers(self) -> "AsyncResourceServersClient":
         return self._api.resource_servers
+
+    @property
+    def risk_assessments(self) -> "AsyncRiskAssessmentsClient":
+        return self._api.risk_assessments
 
     @property
     def roles(self) -> "AsyncRolesClient":
@@ -632,6 +713,10 @@ class AsyncManagementClient:
     @property
     def token_exchange_profiles(self) -> "AsyncTokenExchangeProfilesClient":
         return self._api.token_exchange_profiles
+
+    @property
+    def user_attribute_profiles(self) -> "AsyncUserAttributeProfilesClient":
+        return self._api.user_attribute_profiles
 
     @property
     def user_blocks(self) -> "AsyncUserBlocksClient":
