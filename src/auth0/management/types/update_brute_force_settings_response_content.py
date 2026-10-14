@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .brute_force_protection_form_submission_mode_enum import BruteForceProtectionFormSubmissionModeEnum
 from .brute_force_protection_mode_enum import BruteForceProtectionModeEnum
 from .brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
 
@@ -30,6 +31,8 @@ class UpdateBruteForceSettingsResponseContent(UniversalBaseModel):
     """
     Maximum number of unsuccessful attempts.
     """
+
+    form_submission_mode: typing.Optional[BruteForceProtectionFormSubmissionModeEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

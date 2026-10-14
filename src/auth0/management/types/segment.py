@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .segment_rule import SegmentRule
+from .segment_status_enum import SegmentStatusEnum
 from .segment_type_enum import SegmentTypeEnum
 
 
@@ -14,6 +15,7 @@ class Segment(UniversalBaseModel):
     name: str
     description: typing.Optional[str] = None
     type: SegmentTypeEnum
+    status: SegmentStatusEnum
     rules: typing.List[SegmentRule]
     created_at: dt.datetime
     updated_at: dt.datetime

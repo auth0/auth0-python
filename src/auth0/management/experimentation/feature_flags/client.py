@@ -16,7 +16,6 @@ from ...types.get_feature_flag_response_content import GetFeatureFlagResponseCon
 from ...types.list_feature_flags_response_content import ListFeatureFlagsResponseContent
 from ...types.update_feature_flag_parameters import UpdateFeatureFlagParameters
 from ...types.update_feature_flag_response_content import UpdateFeatureFlagResponseContent
-from ...types.update_feature_flag_status_response_content import UpdateFeatureFlagStatusResponseContent
 from .raw_client import AsyncRawFeatureFlagsClient, RawFeatureFlagsClient
 
 if typing.TYPE_CHECKING:
@@ -211,6 +210,7 @@ class FeatureFlagsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         parameters: typing.Optional[UpdateFeatureFlagParameters] = OMIT,
+        status: typing.Optional[FeatureFlagStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateFeatureFlagResponseContent:
         """
@@ -228,6 +228,9 @@ class FeatureFlagsClient:
             A description of what this feature flag controls
 
         parameters : typing.Optional[UpdateFeatureFlagParameters]
+
+        status : typing.Optional[FeatureFlagStatusEnum]
+            Target lifecycle status (draft → active, draft → archived, active → archived). Activating a flag requires at least 2 variations. When combined with field edits, the edits and the transition are applied together; if the transition is rejected, no edits are applied.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -249,45 +252,13 @@ class FeatureFlagsClient:
         )
         """
         _response = self._raw_client.update(
-            id, name=name, description=description, parameters=parameters, request_options=request_options
+            id,
+            name=name,
+            description=description,
+            parameters=parameters,
+            status=status,
+            request_options=request_options,
         )
-        return _response.data
-
-    def update_status(
-        self, id: str, *, status: FeatureFlagStatusEnum, request_options: typing.Optional[RequestOptions] = None
-    ) -> UpdateFeatureFlagStatusResponseContent:
-        """
-        Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
-
-        Parameters
-        ----------
-        id : str
-            The ID of the feature flag to transition.
-
-        status : FeatureFlagStatusEnum
-            The target status to transition the feature flag to.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        UpdateFeatureFlagStatusResponseContent
-            Feature flag status successfully updated.
-
-        Examples
-        --------
-        from auth0 import Auth0
-
-        client = Auth0(
-            token="YOUR_TOKEN",
-        )
-        client.experimentation.feature_flags.update_status(
-            id="id",
-            status="draft",
-        )
-        """
-        _response = self._raw_client.update_status(id, status=status, request_options=request_options)
         return _response.data
 
     @property
@@ -522,6 +493,7 @@ class AsyncFeatureFlagsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         parameters: typing.Optional[UpdateFeatureFlagParameters] = OMIT,
+        status: typing.Optional[FeatureFlagStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateFeatureFlagResponseContent:
         """
@@ -539,6 +511,9 @@ class AsyncFeatureFlagsClient:
             A description of what this feature flag controls
 
         parameters : typing.Optional[UpdateFeatureFlagParameters]
+
+        status : typing.Optional[FeatureFlagStatusEnum]
+            Target lifecycle status (draft → active, draft → archived, active → archived). Activating a flag requires at least 2 variations. When combined with field edits, the edits and the transition are applied together; if the transition is rejected, no edits are applied.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -568,53 +543,13 @@ class AsyncFeatureFlagsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id, name=name, description=description, parameters=parameters, request_options=request_options
+            id,
+            name=name,
+            description=description,
+            parameters=parameters,
+            status=status,
+            request_options=request_options,
         )
-        return _response.data
-
-    async def update_status(
-        self, id: str, *, status: FeatureFlagStatusEnum, request_options: typing.Optional[RequestOptions] = None
-    ) -> UpdateFeatureFlagStatusResponseContent:
-        """
-        Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
-
-        Parameters
-        ----------
-        id : str
-            The ID of the feature flag to transition.
-
-        status : FeatureFlagStatusEnum
-            The target status to transition the feature flag to.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        UpdateFeatureFlagStatusResponseContent
-            Feature flag status successfully updated.
-
-        Examples
-        --------
-        import asyncio
-
-        from auth0 import AsyncAuth0
-
-        client = AsyncAuth0(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.experimentation.feature_flags.update_status(
-                id="id",
-                status="draft",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_status(id, status=status, request_options=request_options)
         return _response.data
 
     @property

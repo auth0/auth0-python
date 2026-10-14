@@ -1541,6 +1541,134 @@ client.client_grants.create(
 </dl>
 </details>
 
+<details><summary><code>client.client_grants.<a href="src/auth0.management/client_grants/client.py">search</a>(...) -> SearchClientGrantsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+Results may not reflect recent updates immediately.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.client_grants.search(
+    q="q",
+    parser="scim",
+    fields="fields",
+    include_fields=True,
+    take=1,
+    from_="from",
+    sort="audience",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `audience eq "https://api.example.com"`, `client_id eq "cli_abc"`, `subject_type eq "client"`, `allow_any_organization eq true`, `default_for eq "third_party_clients"`, `audience co "example" and organization_id eq "org_123"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>audience</i> - Filter by audience (eq, ne, sw, co, ew, pr)</li><li><i>client_id</i> - Filter by client ID (eq, ne, sw, pr)</li><li><i>subject_type</i> - Filter by subject type (eq, ne, sw, pr)</li><li><i>allow_any_organization</i> - Filter by allow_any_organization (eq, ne, pr)</li><li><i>organization_id</i> - Filter by organization ID (eq, ne, sw, pr)</li><li><i>updated_at</i> - Filter by last update date (eq, ne, gt, ge, lt, le, pr)</li><li><i>default_for</i> - Filter by default grant group (eq, ne, sw, pr)</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parser:** `typing.Optional[SearchParserEnum]` — Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[str]` — Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_fields:** `typing.Optional[bool]` — Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Maximum number of results to return per page (1-100). Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Cursor for the next page of results. Use the value from the next field in the previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `typing.Optional[ClientGrantSortFieldEnum]` — Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.client_grants.<a href="src/auth0.management/client_grants/client.py">get</a>(...) -> GetClientGrantResponseContent</code></summary>
 <dl>
 <dd>
@@ -1782,6 +1910,442 @@ client.client_grants.update(
 <dd>
 
 **allow_all_scopes:** `typing.Optional[bool]` — If enabled, all scopes configured on the resource server are allowed for this grant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ClientProfiles
+<details><summary><code>client.client_profiles.<a href="src/auth0.management/client_profiles/client.py">list</a>(...) -> ListClientProfilesPaginatedResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated list of client profiles for the tenant. Uses checkpoint pagination: pass the <code>next</code> cursor from a previous response as the <code>from</code> query parameter to retrieve the following page.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.client_profiles.list(
+    from_="from",
+    take=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Optional Id from which to start selection.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Number of results per page. Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.client_profiles.<a href="src/auth0.management/client_profiles/client.py">create</a>(...) -> ClientProfile</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a client profile. At most one profile is allowed per tenant in this release; attempting to create a second returns <code>409 Conflict</code>. The profile governs Dynamic CIMD clients matched by its <code>apply_policy</code> at runtime.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0, ClientProfileClientConfiguration, ClientProfileApplyPolicy
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.client_profiles.create(
+    name="name",
+    client_configuration=ClientProfileClientConfiguration(),
+    apply_policy=ClientProfileApplyPolicy(
+        external_metadata_type="cimd",
+        external_metadata_created_by="client",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `ClientProfileName` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_configuration:** `ClientProfileClientConfiguration` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**apply_policy:** `ClientProfileApplyPolicy` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[ClientProfileDescription]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.client_profiles.<a href="src/auth0.management/client_profiles/client.py">get</a>(...) -> ClientProfile</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single client profile by its identifier. Returns <code>404</code> if no profile with the given ID exists for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.client_profiles.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `ClientProfileId` — ID of the client profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.client_profiles.<a href="src/auth0.management/client_profiles/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a client profile. Idempotent: returns <code>204 No Content</code> whether or not a profile with the given ID existed. Deleting the profile removes fleet governance for matched clients immediately.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.client_profiles.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `ClientProfileId` — ID of the client profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.client_profiles.<a href="src/auth0.management/client_profiles/client.py">update</a>(...) -> ClientProfile</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a client profile. Supports partial updates at the top level (JSON Merge Patch); omitted top-level fields remain unchanged. Nested objects such as <code>client_configuration</code> must be supplied in full.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.client_profiles.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `ClientProfileId` — ID of the client profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[ClientProfileName]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[ClientProfileDescription]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_configuration:** `typing.Optional[ClientProfileClientConfiguration]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**apply_policy:** `typing.Optional[ClientProfileApplyPolicy]` 
     
 </dd>
 </dl>
@@ -2466,6 +3030,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**enforce_anon_session_transfer_network_binding:** `typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **third_party_security_mode:** `typing.Optional[ClientThirdPartySecurityModeEnum]` 
     
 </dd>
@@ -2675,6 +3247,144 @@ client.clients.register_cimd_client(
 <dd>
 
 **external_client_id:** `str` — URL to the Client ID Metadata Document. Acts as the unique identifier for upsert operations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.<a href="src/auth0.management/clients/client.py">search</a>(...) -> SearchClientsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene").
+This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+for complex queries. Results may not reflect recent updates immediately.
+
+- This endpoint only supports `read:clients` and `read:client_summary` scopes. The `read:client_keys` and `read:client_credentials` scopes are not supported.
+- The following fields are never returned by this endpoint:
+  - `client_secret`
+  - `encryption_key`
+  - `signing_keys`
+  - `owners`
+  - `addons`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.clients.search(
+    q="q",
+    parser="scim",
+    fields="fields",
+    include_fields=True,
+    take=1,
+    from_="from",
+    sort="name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "Auth0"`, `name sw "auth" and app_type eq "spa"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<br /><ul><li><i>client_id</i> - Auth0 client ID (case-sensitive, exact match)</li><li><i>external_client_id</i> - URL of the Client ID Metadata Document (CIMD); case-sensitive, exact match</li><li><i>name</i> - Client name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>app_type</i> - Application type (e.g. "spa", "native", "non_interactive")</li><li><i>is_first_party</i> - Whether the client is first-party (boolean)</li><li><i>updated_at</i> - Last update timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by client metadata key-value pairs (max 2-level key depth, values indexed up to 64 characters)</li><li><i>client_grant.organization_id</i> - Filter by associated organization ID</li><li><i>client_grant.allow_any_organization</i> - Filter by allow any organization setting</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parser:** `typing.Optional[SearchParserEnum]` — Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[str]` — Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode. Maximum 50 fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_fields:** `typing.Optional[bool]` — Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**take:** `typing.Optional[int]` — Maximum number of results to return per page (1-100). Defaults to 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `typing.Optional[str]` — Cursor for the next page of results. Use the value from the next field in the previous response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `typing.Optional[ClientSortFieldEnum]` — Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
     
 </dd>
 </dl>
@@ -3198,6 +3908,14 @@ client.clients.update(
 <dl>
 <dd>
 
+**enforce_anon_session_transfer_network_binding:** `typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **form_template:** `typing.Optional[str]` — Form template for WS-Federation protocol
     
 </dd>
@@ -3411,6 +4129,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **redirection_policy:** `typing.Optional[ClientRedirectionPolicyEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**oidc_support:** `typing.Optional[ClientOidcSupportPatch]` 
     
 </dd>
 </dl>
@@ -6022,6 +6748,11 @@ client = Auth0(
 
 client.email_templates.create(
     template="verify_email",
+    body=None,
+    from_=None,
+    subject=None,
+    syntax=None,
+    enabled=None,
 )
 
 ```
@@ -6233,6 +6964,11 @@ client = Auth0(
 client.email_templates.set(
     template_name="verify_email",
     template="verify_email",
+    body=None,
+    from_=None,
+    subject=None,
+    syntax=None,
+    enabled=None,
 )
 
 ```
@@ -8204,7 +8940,7 @@ client.groups.list(
 <dl>
 <dd>
 
-**include_totals:** `typing.Optional[bool]` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+**include_totals:** `typing.Optional[bool]` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). The returned total reflects at most 1,000 results.
     
 </dd>
 </dl>
@@ -13363,7 +14099,7 @@ client.resource_servers.update(
 <dl>
 <dd>
 
-Retrieve detailed list of user roles created in your tenant.
+Retrieve a list of roles. Includes roles created in your tenant and, when `owner_id=auth0` is supplied, Auth0-managed System Roles.
 
 **Note**: The returned list does not include standard roles available for tenant members, such as Admin or Support Access.
 </dd>
@@ -13451,7 +14187,7 @@ client.roles.list(
 <dl>
 <dd>
 
-**owner_id:** `typing.Optional[str]` — Filter organization-level roles by owner ID. Required when type is "organization".
+**owner_id:** `typing.Optional[RoleOwnerIdFilter]` — Filter organization-level roles by owner ID. Use an organization ID to filter that organization's roles, or "auth0" to retrieve Auth0-managed System Roles. Required when type is "organization".
     
 </dd>
 </dl>
@@ -20346,6 +21082,14 @@ Action to take when a brute force protection threshold is violated.
 <dl>
 <dd>
 
+**form_submission_mode:** `typing.Optional[BruteForceProtectionFormSubmissionModeEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -20530,6 +21274,437 @@ client.attack_protection.captcha.update()
 <dd>
 
 **simple_captcha:** `typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## AttackProtection CaptchaPolicies
+<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">list</a>() -> ListAttackProtectionCaptchaPoliciesResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all CAPTCHA attack protection policies for the tenant, sorted by priority ascending.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.attack_protection.captcha_policies.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">create</a>(...) -> AttackProtectionCaptchaPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new CAPTCHA attack protection policy for the tenant. The maximum number of policies per tenant is determined by the tenant's subscription.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0, AttackProtectionCaptchaPolicyMatch, AttackProtectionCaptchaPolicyActionInput
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.attack_protection.captcha_policies.create(
+    name="name",
+    priority=1,
+    match=AttackProtectionCaptchaPolicyMatch(),
+    action=AttackProtectionCaptchaPolicyActionInput(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — Human-readable policy name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `int` — Conflict resolution order. Lower number takes higher precedence. Must be unique per tenant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match:** `AttackProtectionCaptchaPolicyMatch` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**action:** `AttackProtectionCaptchaPolicyActionInput` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — Description of the attack protection policy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">get</a>(...) -> AttackProtectionCaptchaPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single CAPTCHA attack protection policy for the tenant by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.attack_protection.captcha_policies.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the CAPTCHA attack protection policy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a CAPTCHA attack protection policy for the tenant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.attack_protection.captcha_policies.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the CAPTCHA attack protection policy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">update</a>(...) -> AttackProtectionCaptchaPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partially update a CAPTCHA attack protection policy. Only the provided fields are modified. A provided match or action replaces the stored value in full rather than merging with it; within action, a provider secret or API key that is omitted from a provided provider block keeps its stored value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.attack_protection.captcha_policies.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the CAPTCHA attack protection policy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Human-readable policy name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — Description of the policy's purpose.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `typing.Optional[int]` — Conflict resolution order. Lower number takes higher precedence. Must be unique per tenant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match:** `typing.Optional[AttackProtectionCaptchaPolicyMatch]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**action:** `typing.Optional[AttackProtectionCaptchaPolicyActionInput]` 
     
 </dd>
 </dl>
@@ -26704,6 +27879,14 @@ client.experimentation.experiments.update(
 <dl>
 <dd>
 
+**status:** `typing.Optional[ExperimentTransitionStatusEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -26779,88 +27962,6 @@ client.experimentation.experiments.advance_ramp(
 <dd>
 
 **target_level:** `int` — The target percentage level from the experiment schedule. Must be the immediate next level.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.experimentation.experiments.<a href="src/auth0.management/experimentation/experiments/client.py">update_status</a>(...) -> UpdateExperimentStatusResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.experimentation.experiments.update_status(
-    id="id",
-    status="active",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The ID of the experiment to transition.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `ExperimentTransitionStatusEnum` 
     
 </dd>
 </dl>
@@ -27375,81 +28476,7 @@ client.experimentation.feature_flags.update(
 <dl>
 <dd>
 
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.experimentation.feature_flags.<a href="src/auth0.management/experimentation/feature_flags/client.py">update_status</a>(...) -> UpdateFeatureFlagStatusResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.experimentation.feature_flags.update_status(
-    id="id",
-    status="draft",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The ID of the feature flag to transition.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `FeatureFlagStatusEnum` — The target status to transition the feature flag to.
+**status:** `typing.Optional[FeatureFlagStatusEnum]` — Target lifecycle status (draft → active, draft → archived, active → archived). Activating a flag requires at least 2 variations. When combined with field edits, the edits and the transition are applied together; if the transition is rejected, no edits are applied.
     
 </dd>
 </dl>
@@ -27877,6 +28904,14 @@ client.experimentation.segments.update(
 <dd>
 
 **rules:** `typing.Optional[typing.List[SegmentRule]]` — Replaces the entire rules array. Each rule is limited to 4KB and the whole segment to 10KB (serialized).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[SegmentStatusEnum]` — Target lifecycle status. Archiving removes the segment from the active pool and is terminal (an archived segment cannot return to active). When combined with field edits, the edits apply first and the transition follows.
     
 </dd>
 </dl>
@@ -29661,7 +30696,7 @@ client.guardian.factors.set(
 <dl>
 <dd>
 
-**name:** `GuardianFactorNameEnum` — Factor name. Can be `sms`, `push-notification`, `email`, `duo` `otp` `webauthn-roaming`, `webauthn-platform`, or `recovery-code`.
+**name:** `GuardianFactorNameEnum` — Factor name. Can be `sms`, `push-notification`, `email`, `duo`, `otp`, `webauthn-roaming`, `webauthn-platform`, `recovery-code`, or `passkey`.
     
 </dd>
 </dl>
@@ -40971,6 +42006,14 @@ client.tenants.settings.update()
 <dl>
 <dd>
 
+**dpop_strict_refresh_token_binding:** `typing.Optional[bool]` — Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **skip_non_verifiable_callback_uri_confirmation_prompt:** `typing.Optional[bool]` 
 
 Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
@@ -40992,6 +42035,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **client_id_metadata_document_supported:** `typing.Optional[bool]` — Whether the authorization server supports retrieving client metadata from a client_id URL.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_id_metadata_document_dynamic_registration_supported:** `typing.Optional[bool]` — Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
     
 </dd>
 </dl>

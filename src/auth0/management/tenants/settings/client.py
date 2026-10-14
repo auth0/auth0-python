@@ -125,9 +125,11 @@ class SettingsClient:
         mtls: typing.Optional[TenantSettingsMtls] = OMIT,
         pushed_authorization_requests_supported: typing.Optional[bool] = OMIT,
         authorization_response_iss_parameter_supported: typing.Optional[bool] = OMIT,
+        dpop_strict_refresh_token_binding: typing.Optional[bool] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
         client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
+        client_id_metadata_document_dynamic_registration_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
         include_session_metadata_in_tenant_logs: typing.Optional[bool] = OMIT,
@@ -239,6 +241,9 @@ class SettingsClient:
         authorization_response_iss_parameter_supported : typing.Optional[bool]
             Supports iss parameter in authorization responses
 
+        dpop_strict_refresh_token_binding : typing.Optional[bool]
+            Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
             Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
             If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
@@ -248,6 +253,9 @@ class SettingsClient:
 
         client_id_metadata_document_supported : typing.Optional[bool]
             Whether the authorization server supports retrieving client metadata from a client_id URL.
+
+        client_id_metadata_document_dynamic_registration_supported : typing.Optional[bool]
+            Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
 
         enable_ai_guide : typing.Optional[bool]
             Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
@@ -316,9 +324,11 @@ class SettingsClient:
             mtls=mtls,
             pushed_authorization_requests_supported=pushed_authorization_requests_supported,
             authorization_response_iss_parameter_supported=authorization_response_iss_parameter_supported,
+            dpop_strict_refresh_token_binding=dpop_strict_refresh_token_binding,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             resource_parameter_profile=resource_parameter_profile,
             client_id_metadata_document_supported=client_id_metadata_document_supported,
+            client_id_metadata_document_dynamic_registration_supported=client_id_metadata_document_dynamic_registration_supported,
             enable_ai_guide=enable_ai_guide,
             phone_consolidated_experience=phone_consolidated_experience,
             include_session_metadata_in_tenant_logs=include_session_metadata_in_tenant_logs,
@@ -434,9 +444,11 @@ class AsyncSettingsClient:
         mtls: typing.Optional[TenantSettingsMtls] = OMIT,
         pushed_authorization_requests_supported: typing.Optional[bool] = OMIT,
         authorization_response_iss_parameter_supported: typing.Optional[bool] = OMIT,
+        dpop_strict_refresh_token_binding: typing.Optional[bool] = OMIT,
         skip_non_verifiable_callback_uri_confirmation_prompt: typing.Optional[bool] = OMIT,
         resource_parameter_profile: typing.Optional[TenantSettingsResourceParameterProfile] = OMIT,
         client_id_metadata_document_supported: typing.Optional[bool] = OMIT,
+        client_id_metadata_document_dynamic_registration_supported: typing.Optional[bool] = OMIT,
         enable_ai_guide: typing.Optional[bool] = OMIT,
         phone_consolidated_experience: typing.Optional[bool] = OMIT,
         include_session_metadata_in_tenant_logs: typing.Optional[bool] = OMIT,
@@ -548,6 +560,9 @@ class AsyncSettingsClient:
         authorization_response_iss_parameter_supported : typing.Optional[bool]
             Supports iss parameter in authorization responses
 
+        dpop_strict_refresh_token_binding : typing.Optional[bool]
+            Enables strict DPoP refresh token binding per RFC 9449: all refresh tokens issued to public clients that present a DPoP proof are bound to the sender's key, and the binding is validated on every subsequent exchange. When disabled, DPoP refresh token binding may still apply for specific audiences for backwards compatibility.
+
         skip_non_verifiable_callback_uri_confirmation_prompt : typing.Optional[bool]
             Controls whether a confirmation prompt is shown during login flows when the redirect URI uses non-verifiable callback URIs (for example, a custom URI schema such as `myapp://`, or `localhost`).
             If set to true, a confirmation prompt will not be shown. We recommend that this is set to false for improved protection from malicious apps.
@@ -557,6 +572,9 @@ class AsyncSettingsClient:
 
         client_id_metadata_document_supported : typing.Optional[bool]
             Whether the authorization server supports retrieving client metadata from a client_id URL.
+
+        client_id_metadata_document_dynamic_registration_supported : typing.Optional[bool]
+            Whether the authorization server supports registering clients dynamically from a client_id URL. Requires client_id_metadata_document_supported to be enabled.
 
         enable_ai_guide : typing.Optional[bool]
             Whether Auth0 Guide (AI-powered assistance) is enabled for this tenant.
@@ -633,9 +651,11 @@ class AsyncSettingsClient:
             mtls=mtls,
             pushed_authorization_requests_supported=pushed_authorization_requests_supported,
             authorization_response_iss_parameter_supported=authorization_response_iss_parameter_supported,
+            dpop_strict_refresh_token_binding=dpop_strict_refresh_token_binding,
             skip_non_verifiable_callback_uri_confirmation_prompt=skip_non_verifiable_callback_uri_confirmation_prompt,
             resource_parameter_profile=resource_parameter_profile,
             client_id_metadata_document_supported=client_id_metadata_document_supported,
+            client_id_metadata_document_dynamic_registration_supported=client_id_metadata_document_dynamic_registration_supported,
             enable_ai_guide=enable_ai_guide,
             phone_consolidated_experience=phone_consolidated_experience,
             include_session_metadata_in_tenant_logs=include_session_metadata_in_tenant_logs,

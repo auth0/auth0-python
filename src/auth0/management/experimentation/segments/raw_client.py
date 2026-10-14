@@ -24,6 +24,7 @@ from ...types.get_segment_response_content import GetSegmentResponseContent
 from ...types.list_segments_response_content import ListSegmentsResponseContent
 from ...types.segment import Segment
 from ...types.segment_rule import SegmentRule
+from ...types.segment_status_enum import SegmentStatusEnum
 from ...types.segment_type_filter_enum import SegmentTypeFilterEnum
 from ...types.update_segment_response_content import UpdateSegmentResponseContent
 from pydantic import ValidationError
@@ -439,6 +440,7 @@ class RawSegmentsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         rules: typing.Optional[typing.Sequence[SegmentRule]] = OMIT,
+        status: typing.Optional[SegmentStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateSegmentResponseContent]:
         """
@@ -458,6 +460,9 @@ class RawSegmentsClient:
         rules : typing.Optional[typing.Sequence[SegmentRule]]
             Replaces the entire rules array. Each rule is limited to 4KB and the whole segment to 10KB (serialized).
 
+        status : typing.Optional[SegmentStatusEnum]
+            Target lifecycle status. Archiving removes the segment from the active pool and is terminal (an archived segment cannot return to active). When combined with field edits, the edits apply first and the transition follows.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -475,6 +480,7 @@ class RawSegmentsClient:
                 "rules": convert_and_respect_annotation_metadata(
                     object_=rules, annotation=typing.Sequence[SegmentRule], direction="write"
                 ),
+                "status": status,
             },
             headers={
                 "content-type": "application/json",
@@ -991,6 +997,7 @@ class AsyncRawSegmentsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         rules: typing.Optional[typing.Sequence[SegmentRule]] = OMIT,
+        status: typing.Optional[SegmentStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateSegmentResponseContent]:
         """
@@ -1010,6 +1017,9 @@ class AsyncRawSegmentsClient:
         rules : typing.Optional[typing.Sequence[SegmentRule]]
             Replaces the entire rules array. Each rule is limited to 4KB and the whole segment to 10KB (serialized).
 
+        status : typing.Optional[SegmentStatusEnum]
+            Target lifecycle status. Archiving removes the segment from the active pool and is terminal (an archived segment cannot return to active). When combined with field edits, the edits apply first and the transition follows.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1027,6 +1037,7 @@ class AsyncRawSegmentsClient:
                 "rules": convert_and_respect_annotation_metadata(
                     object_=rules, annotation=typing.Sequence[SegmentRule], direction="write"
                 ),
+                "status": status,
             },
             headers={
                 "content-type": "application/json",

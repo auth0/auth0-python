@@ -27,7 +27,6 @@ from ...types.get_feature_flag_response_content import GetFeatureFlagResponseCon
 from ...types.list_feature_flags_response_content import ListFeatureFlagsResponseContent
 from ...types.update_feature_flag_parameters import UpdateFeatureFlagParameters
 from ...types.update_feature_flag_response_content import UpdateFeatureFlagResponseContent
-from ...types.update_feature_flag_status_response_content import UpdateFeatureFlagStatusResponseContent
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -435,6 +434,7 @@ class RawFeatureFlagsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         parameters: typing.Optional[UpdateFeatureFlagParameters] = OMIT,
+        status: typing.Optional[FeatureFlagStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateFeatureFlagResponseContent]:
         """
@@ -453,6 +453,9 @@ class RawFeatureFlagsClient:
 
         parameters : typing.Optional[UpdateFeatureFlagParameters]
 
+        status : typing.Optional[FeatureFlagStatusEnum]
+            Target lifecycle status (draft → active, draft → archived, active → archived). Activating a flag requires at least 2 variations. When combined with field edits, the edits and the transition are applied together; if the transition is rejected, no edits are applied.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -470,6 +473,7 @@ class RawFeatureFlagsClient:
                 "parameters": convert_and_respect_annotation_metadata(
                     object_=parameters, annotation=UpdateFeatureFlagParameters, direction="write"
                 ),
+                "status": status,
             },
             headers={
                 "content-type": "application/json",
@@ -533,114 +537,6 @@ class RawFeatureFlagsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def update_status(
-        self, id: str, *, status: FeatureFlagStatusEnum, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[UpdateFeatureFlagStatusResponseContent]:
-        """
-        Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
-
-        Parameters
-        ----------
-        id : str
-            The ID of the feature flag to transition.
-
-        status : FeatureFlagStatusEnum
-            The target status to transition the feature flag to.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[UpdateFeatureFlagStatusResponseContent]
-            Feature flag status successfully updated.
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"experimentation/feature-flags/{quote_path_param(id)}/status",
-            method="POST",
-            json={
-                "status": status,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    UpdateFeatureFlagStatusResponseContent,
-                    parse_obj_as(
-                        type_=UpdateFeatureFlagStatusResponseContent,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1077,6 +973,7 @@ class AsyncRawFeatureFlagsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         parameters: typing.Optional[UpdateFeatureFlagParameters] = OMIT,
+        status: typing.Optional[FeatureFlagStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateFeatureFlagResponseContent]:
         """
@@ -1095,6 +992,9 @@ class AsyncRawFeatureFlagsClient:
 
         parameters : typing.Optional[UpdateFeatureFlagParameters]
 
+        status : typing.Optional[FeatureFlagStatusEnum]
+            Target lifecycle status (draft → active, draft → archived, active → archived). Activating a flag requires at least 2 variations. When combined with field edits, the edits and the transition are applied together; if the transition is rejected, no edits are applied.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1112,6 +1012,7 @@ class AsyncRawFeatureFlagsClient:
                 "parameters": convert_and_respect_annotation_metadata(
                     object_=parameters, annotation=UpdateFeatureFlagParameters, direction="write"
                 ),
+                "status": status,
             },
             headers={
                 "content-type": "application/json",
@@ -1175,114 +1076,6 @@ class AsyncRawFeatureFlagsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def update_status(
-        self, id: str, *, status: FeatureFlagStatusEnum, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[UpdateFeatureFlagStatusResponseContent]:
-        """
-        Transitions a feature flag through its lifecycle states: draft → active, draft → archived, active → archived.
-
-        Parameters
-        ----------
-        id : str
-            The ID of the feature flag to transition.
-
-        status : FeatureFlagStatusEnum
-            The target status to transition the feature flag to.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[UpdateFeatureFlagStatusResponseContent]
-            Feature flag status successfully updated.
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"experimentation/feature-flags/{quote_path_param(id)}/status",
-            method="POST",
-            json={
-                "status": status,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    UpdateFeatureFlagStatusResponseContent,
-                    parse_obj_as(
-                        type_=UpdateFeatureFlagStatusResponseContent,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

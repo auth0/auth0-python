@@ -14,6 +14,8 @@ from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
+from ..errors.gateway_timeout_error import GatewayTimeoutError
+from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
@@ -22,10 +24,13 @@ from ..types.client_grant_default_for_enum import ClientGrantDefaultForEnum
 from ..types.client_grant_organization_nullable_usage_enum import ClientGrantOrganizationNullableUsageEnum
 from ..types.client_grant_organization_usage_enum import ClientGrantOrganizationUsageEnum
 from ..types.client_grant_response_content import ClientGrantResponseContent
+from ..types.client_grant_sort_field_enum import ClientGrantSortFieldEnum
 from ..types.client_grant_subject_type_enum import ClientGrantSubjectTypeEnum
 from ..types.create_client_grant_response_content import CreateClientGrantResponseContent
 from ..types.get_client_grant_response_content import GetClientGrantResponseContent
 from ..types.list_client_grant_paginated_response_content import ListClientGrantPaginatedResponseContent
+from ..types.search_client_grants_response_content import SearchClientGrantsResponseContent
+from ..types.search_parser_enum import SearchParserEnum
 from ..types.update_client_grant_response_content import UpdateClientGrantResponseContent
 from pydantic import ValidationError
 
@@ -306,6 +311,176 @@ class RawClientGrantsClient:
                 )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ClientGrantSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ClientGrantResponseContent, SearchClientGrantsResponseContent]:
+        """
+        Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+        Results may not reflect recent updates immediately.
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `audience eq "https://api.example.com"`, `client_id eq "cli_abc"`, `subject_type eq "client"`, `allow_any_organization eq true`, `default_for eq "third_party_clients"`, `audience co "example" and organization_id eq "org_123"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>audience</i> - Filter by audience (eq, ne, sw, co, ew, pr)</li><li><i>client_id</i> - Filter by client ID (eq, ne, sw, pr)</li><li><i>subject_type</i> - Filter by subject type (eq, ne, sw, pr)</li><li><i>allow_any_organization</i> - Filter by allow_any_organization (eq, ne, pr)</li><li><i>organization_id</i> - Filter by organization ID (eq, ne, sw, pr)</li><li><i>updated_at</i> - Filter by last update date (eq, ne, gt, ge, lt, le, pr)</li><li><i>default_for</i> - Filter by default grant group (eq, ne, sw, pr)</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ClientGrantSortFieldEnum]
+            Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ClientGrantResponseContent, SearchClientGrantsResponseContent]
+            Client grants successfully retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "client-grants/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "fields": fields,
+                "include_fields": include_fields,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchClientGrantsResponseContent,
+                    parse_obj_as(
+                        type_=SearchClientGrantsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.client_grants
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.search(
+                    q=q,
+                    parser=parser,
+                    fields=fields,
+                    include_fields=include_fields,
+                    take=take,
+                    from_=_parsed_next,
+                    sort=sort,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -897,6 +1072,179 @@ class AsyncRawClientGrantsClient:
                 )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ClientGrantSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ClientGrantResponseContent, SearchClientGrantsResponseContent]:
+        """
+        Search client grants using SCIM or Lucene filter syntax with low-latency, eventually consistent results. Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene"). This endpoint provides an alternative to the standard GET /client-grants endpoint with better performance for complex queries.
+        Results may not reflect recent updates immediately.
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `audience eq "https://api.example.com"`, `client_id eq "cli_abc"`, `subject_type eq "client"`, `allow_any_organization eq true`, `default_for eq "third_party_clients"`, `audience co "example" and organization_id eq "org_123"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<ul><li><i>audience</i> - Filter by audience (eq, ne, sw, co, ew, pr)</li><li><i>client_id</i> - Filter by client ID (eq, ne, sw, pr)</li><li><i>subject_type</i> - Filter by subject type (eq, ne, sw, pr)</li><li><i>allow_any_organization</i> - Filter by allow_any_organization (eq, ne, pr)</li><li><i>organization_id</i> - Filter by organization ID (eq, ne, sw, pr)</li><li><i>updated_at</i> - Filter by last update date (eq, ne, gt, ge, lt, le, pr)</li><li><i>default_for</i> - Filter by default grant group (eq, ne, sw, pr)</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ClientGrantSortFieldEnum]
+            Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ClientGrantResponseContent, SearchClientGrantsResponseContent]
+            Client grants successfully retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "client-grants/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "fields": fields,
+                "include_fields": include_fields,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchClientGrantsResponseContent,
+                    parse_obj_as(
+                        type_=SearchClientGrantsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.client_grants
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.search(
+                        q=q,
+                        parser=parser,
+                        fields=fields,
+                        include_fields=include_fields,
+                        take=take,
+                        from_=_parsed_next,
+                        sort=sort,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

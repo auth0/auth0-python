@@ -48,14 +48,17 @@ class EventStreamCloudEventOrgGroupRoleDeletedCloudEvent(UniversalBaseModel):
     """
 
     a_0_stream: typing_extensions.Annotated[
-        str,
+        typing.Optional[str],
         FieldMetadata(alias="a0stream"),
         pydantic.Field(
-            alias="a0stream", description="The auth0 event stream ID of the stream the event was delivered on."
+            alias="a0stream",
+            description="The auth0 event stream ID of the stream the event was delivered on.\nPresent when the event is delivered via an event stream; omitted when\nevents are retrieved via the Events API (GET /api/v2/events).",
         ),
-    ]
+    ] = None
     """
     The auth0 event stream ID of the stream the event was delivered on.
+    Present when the event is delivered via an event stream; omitted when
+    events are retrieved via the Events API (GET /api/v2/events).
     """
 
     a_0_purpose: typing_extensions.Annotated[

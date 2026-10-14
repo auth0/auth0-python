@@ -17,7 +17,6 @@ from ...types.experiment_transition_status_enum import ExperimentTransitionStatu
 from ...types.get_experiment_response_content import GetExperimentResponseContent
 from ...types.list_experiments_response_content import ListExperimentsResponseContent
 from ...types.update_experiment_response_content import UpdateExperimentResponseContent
-from ...types.update_experiment_status_response_content import UpdateExperimentStatusResponseContent
 from ...types.validate_experiment_response_content import ValidateExperimentResponseContent
 from .raw_client import AsyncRawExperimentsClient, RawExperimentsClient
 
@@ -253,6 +252,7 @@ class ExperimentsClient:
         allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
         default_config: typing.Optional[DefaultConfigEnum] = OMIT,
         levels: typing.Optional[typing.Sequence[int]] = OMIT,
+        status: typing.Optional[ExperimentTransitionStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateExperimentResponseContent:
         """
@@ -281,6 +281,8 @@ class ExperimentsClient:
         levels : typing.Optional[typing.Sequence[int]]
             Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100]. Can only be modified on draft experiments.
 
+        status : typing.Optional[ExperimentTransitionStatusEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -308,6 +310,7 @@ class ExperimentsClient:
             allocations=allocations,
             default_config=default_config,
             levels=levels,
+            status=status,
             request_options=request_options,
         )
         return _response.data
@@ -347,46 +350,6 @@ class ExperimentsClient:
         )
         """
         _response = self._raw_client.advance_ramp(id, target_level=target_level, request_options=request_options)
-        return _response.data
-
-    def update_status(
-        self,
-        id: str,
-        *,
-        status: ExperimentTransitionStatusEnum,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> UpdateExperimentStatusResponseContent:
-        """
-        Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-
-        Parameters
-        ----------
-        id : str
-            The ID of the experiment to transition.
-
-        status : ExperimentTransitionStatusEnum
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        UpdateExperimentStatusResponseContent
-            Experiment status successfully updated.
-
-        Examples
-        --------
-        from auth0 import Auth0
-
-        client = Auth0(
-            token="YOUR_TOKEN",
-        )
-        client.experimentation.experiments.update_status(
-            id="id",
-            status="active",
-        )
-        """
-        _response = self._raw_client.update_status(id, status=status, request_options=request_options)
         return _response.data
 
     def validate(
@@ -686,6 +649,7 @@ class AsyncExperimentsClient:
         allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
         default_config: typing.Optional[DefaultConfigEnum] = OMIT,
         levels: typing.Optional[typing.Sequence[int]] = OMIT,
+        status: typing.Optional[ExperimentTransitionStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateExperimentResponseContent:
         """
@@ -713,6 +677,8 @@ class AsyncExperimentsClient:
 
         levels : typing.Optional[typing.Sequence[int]]
             Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100]. Can only be modified on draft experiments.
+
+        status : typing.Optional[ExperimentTransitionStatusEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -749,6 +715,7 @@ class AsyncExperimentsClient:
             allocations=allocations,
             default_config=default_config,
             levels=levels,
+            status=status,
             request_options=request_options,
         )
         return _response.data
@@ -796,54 +763,6 @@ class AsyncExperimentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.advance_ramp(id, target_level=target_level, request_options=request_options)
-        return _response.data
-
-    async def update_status(
-        self,
-        id: str,
-        *,
-        status: ExperimentTransitionStatusEnum,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> UpdateExperimentStatusResponseContent:
-        """
-        Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-
-        Parameters
-        ----------
-        id : str
-            The ID of the experiment to transition.
-
-        status : ExperimentTransitionStatusEnum
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        UpdateExperimentStatusResponseContent
-            Experiment status successfully updated.
-
-        Examples
-        --------
-        import asyncio
-
-        from auth0 import AsyncAuth0
-
-        client = AsyncAuth0(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.experimentation.experiments.update_status(
-                id="id",
-                status="active",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_status(id, status=status, request_options=request_options)
         return _response.data
 
     async def validate(

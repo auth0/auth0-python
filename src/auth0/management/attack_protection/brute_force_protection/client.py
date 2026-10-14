@@ -4,6 +4,7 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
+from ...types.brute_force_protection_form_submission_mode_enum import BruteForceProtectionFormSubmissionModeEnum
 from ...types.brute_force_protection_mode_enum import BruteForceProtectionModeEnum
 from ...types.brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
 from ...types.get_brute_force_settings_response_content import GetBruteForceSettingsResponseContent
@@ -63,6 +64,7 @@ class BruteForceProtectionClient:
         allowlist: typing.Optional[typing.Sequence[str]] = OMIT,
         mode: typing.Optional[BruteForceProtectionModeEnum] = OMIT,
         max_attempts: typing.Optional[int] = OMIT,
+        form_submission_mode: typing.Optional[BruteForceProtectionFormSubmissionModeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBruteForceSettingsResponseContent:
         """
@@ -84,6 +86,8 @@ class BruteForceProtectionClient:
 
         max_attempts : typing.Optional[int]
             Maximum number of unsuccessful attempts.
+
+        form_submission_mode : typing.Optional[BruteForceProtectionFormSubmissionModeEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -108,6 +112,7 @@ class BruteForceProtectionClient:
             allowlist=allowlist,
             mode=mode,
             max_attempts=max_attempts,
+            form_submission_mode=form_submission_mode,
             request_options=request_options,
         )
         return _response.data
@@ -172,6 +177,7 @@ class AsyncBruteForceProtectionClient:
         allowlist: typing.Optional[typing.Sequence[str]] = OMIT,
         mode: typing.Optional[BruteForceProtectionModeEnum] = OMIT,
         max_attempts: typing.Optional[int] = OMIT,
+        form_submission_mode: typing.Optional[BruteForceProtectionFormSubmissionModeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBruteForceSettingsResponseContent:
         """
@@ -193,6 +199,8 @@ class AsyncBruteForceProtectionClient:
 
         max_attempts : typing.Optional[int]
             Maximum number of unsuccessful attempts.
+
+        form_submission_mode : typing.Optional[BruteForceProtectionFormSubmissionModeEnum]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -225,6 +233,7 @@ class AsyncBruteForceProtectionClient:
             allowlist=allowlist,
             mode=mode,
             max_attempts=max_attempts,
+            form_submission_mode=form_submission_mode,
             request_options=request_options,
         )
         return _response.data

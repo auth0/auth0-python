@@ -10,6 +10,9 @@ from ..core.request_options import RequestOptions
 from ..types.b_2_b_integration_configuration import B2BIntegrationConfiguration
 from ..types.client import Client
 from ..types.client_addons import ClientAddons
+from ..types.client_anonymous_session_transfer_network_binding_enum import (
+    ClientAnonymousSessionTransferNetworkBindingEnum,
+)
 from ..types.client_app_type_enum import ClientAppTypeEnum
 from ..types.client_async_approval_notifications_channels_api_patch_configuration import (
     ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration,
@@ -28,6 +31,7 @@ from ..types.client_mobile import ClientMobile
 from ..types.client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
 from ..types.client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
 from ..types.client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
+from ..types.client_oidc_support_patch import ClientOidcSupportPatch
 from ..types.client_oidc_support_post import ClientOidcSupportPost
 from ..types.client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
 from ..types.client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
@@ -36,9 +40,11 @@ from ..types.client_organization_usage_enum import ClientOrganizationUsageEnum
 from ..types.client_organization_usage_patch_enum import ClientOrganizationUsagePatchEnum
 from ..types.client_redirection_policy_enum import ClientRedirectionPolicyEnum
 from ..types.client_refresh_token_configuration import ClientRefreshTokenConfiguration
+from ..types.client_search_response import ClientSearchResponse
 from ..types.client_session_transfer_configuration import ClientSessionTransferConfiguration
 from ..types.client_signed_request_object_with_credential_id import ClientSignedRequestObjectWithCredentialId
 from ..types.client_signed_request_object_with_public_key import ClientSignedRequestObjectWithPublicKey
+from ..types.client_sort_field_enum import ClientSortFieldEnum
 from ..types.client_third_party_security_mode_enum import ClientThirdPartySecurityModeEnum
 from ..types.client_token_endpoint_auth_method_enum import ClientTokenEndpointAuthMethodEnum
 from ..types.client_token_endpoint_auth_method_or_null_enum import ClientTokenEndpointAuthMethodOrNullEnum
@@ -63,6 +69,8 @@ from ..types.native_social_login_patch import NativeSocialLoginPatch
 from ..types.preview_cimd_metadata_response_content import PreviewCimdMetadataResponseContent
 from ..types.register_cimd_client_response_content import RegisterCimdClientResponseContent
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
+from ..types.search_clients_response_content import SearchClientsResponseContent
+from ..types.search_parser_enum import SearchParserEnum
 from ..types.update_anonymous_sessions import UpdateAnonymousSessions
 from ..types.update_client_response_content import UpdateClientResponseContent
 from ..types.update_identity_assertion_authorization_grant import UpdateIdentityAssertionAuthorizationGrant
@@ -270,6 +278,9 @@ class ClientsClient:
         resource_server_identifier: typing.Optional[str] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
         anonymous_sessions: typing.Optional[CreateAnonymousSessions] = OMIT,
+        enforce_anon_session_transfer_network_binding: typing.Optional[
+            ClientAnonymousSessionTransferNetworkBindingEnum
+        ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
@@ -434,6 +445,8 @@ class ClientsClient:
 
         anonymous_sessions : typing.Optional[CreateAnonymousSessions]
 
+        enforce_anon_session_transfer_network_binding : typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
@@ -520,6 +533,7 @@ class ClientsClient:
             resource_server_identifier=resource_server_identifier,
             identity_assertion_authorization_grant=identity_assertion_authorization_grant,
             anonymous_sessions=anonymous_sessions,
+            enforce_anon_session_transfer_network_binding=enforce_anon_session_transfer_network_binding,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
             express_configuration=express_configuration,
@@ -614,6 +628,96 @@ class ClientsClient:
             external_client_id=external_client_id, request_options=request_options
         )
         return _response.data
+
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ClientSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ClientSearchResponse, SearchClientsResponseContent]:
+        """
+        Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+        Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene").
+        This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+        for complex queries. Results may not reflect recent updates immediately.
+
+        - This endpoint only supports `read:clients` and `read:client_summary` scopes. The `read:client_keys` and `read:client_credentials` scopes are not supported.
+        - The following fields are never returned by this endpoint:
+          - `client_secret`
+          - `encryption_key`
+          - `signing_keys`
+          - `owners`
+          - `addons`
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "Auth0"`, `name sw "auth" and app_type eq "spa"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<br /><ul><li><i>client_id</i> - Auth0 client ID (case-sensitive, exact match)</li><li><i>external_client_id</i> - URL of the Client ID Metadata Document (CIMD); case-sensitive, exact match</li><li><i>name</i> - Client name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>app_type</i> - Application type (e.g. "spa", "native", "non_interactive")</li><li><i>is_first_party</i> - Whether the client is first-party (boolean)</li><li><i>updated_at</i> - Last update timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by client metadata key-value pairs (max 2-level key depth, values indexed up to 64 characters)</li><li><i>client_grant.organization_id</i> - Filter by associated organization ID</li><li><i>client_grant.allow_any_organization</i> - Filter by allow any organization setting</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode. Maximum 50 fields.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ClientSortFieldEnum]
+            Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ClientSearchResponse, SearchClientsResponseContent]
+            Clients successfully retrieved.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        response = client.clients.search(
+            q="q",
+            parser="scim",
+            fields="fields",
+            include_fields=True,
+            take=1,
+            from_="from",
+            sort="name",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.search(
+            q=q,
+            parser=parser,
+            fields=fields,
+            include_fields=include_fields,
+            take=take,
+            from_=from_,
+            sort=sort,
+            request_options=request_options,
+        )
 
     def get(
         self,
@@ -751,6 +855,9 @@ class ClientsClient:
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
         anonymous_sessions: typing.Optional[UpdateAnonymousSessions] = OMIT,
+        enforce_anon_session_transfer_network_binding: typing.Optional[
+            ClientAnonymousSessionTransferNetworkBindingEnum
+        ] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
@@ -780,6 +887,7 @@ class ClientsClient:
         ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
+        oidc_support: typing.Optional[ClientOidcSupportPatch] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientResponseContent:
         """
@@ -883,6 +991,8 @@ class ClientsClient:
 
         anonymous_sessions : typing.Optional[UpdateAnonymousSessions]
 
+        enforce_anon_session_transfer_network_binding : typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -947,6 +1057,8 @@ class ClientsClient:
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
+        oidc_support : typing.Optional[ClientOidcSupportPatch]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -999,6 +1111,7 @@ class ClientsClient:
             token_quota=token_quota,
             identity_assertion_authorization_grant=identity_assertion_authorization_grant,
             anonymous_sessions=anonymous_sessions,
+            enforce_anon_session_transfer_network_binding=enforce_anon_session_transfer_network_binding,
             form_template=form_template,
             addons=addons,
             client_metadata=client_metadata,
@@ -1026,6 +1139,7 @@ class ClientsClient:
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
+            oidc_support=oidc_support,
             request_options=request_options,
         )
         return _response.data
@@ -1287,6 +1401,9 @@ class AsyncClientsClient:
         resource_server_identifier: typing.Optional[str] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
         anonymous_sessions: typing.Optional[CreateAnonymousSessions] = OMIT,
+        enforce_anon_session_transfer_network_binding: typing.Optional[
+            ClientAnonymousSessionTransferNetworkBindingEnum
+        ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
@@ -1451,6 +1568,8 @@ class AsyncClientsClient:
 
         anonymous_sessions : typing.Optional[CreateAnonymousSessions]
 
+        enforce_anon_session_transfer_network_binding : typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
@@ -1545,6 +1664,7 @@ class AsyncClientsClient:
             resource_server_identifier=resource_server_identifier,
             identity_assertion_authorization_grant=identity_assertion_authorization_grant,
             anonymous_sessions=anonymous_sessions,
+            enforce_anon_session_transfer_network_binding=enforce_anon_session_transfer_network_binding,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
             express_configuration=express_configuration,
@@ -1655,6 +1775,105 @@ class AsyncClientsClient:
             external_client_id=external_client_id, request_options=request_options
         )
         return _response.data
+
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ClientSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ClientSearchResponse, SearchClientsResponseContent]:
+        """
+        Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+        Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene").
+        This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+        for complex queries. Results may not reflect recent updates immediately.
+
+        - This endpoint only supports `read:clients` and `read:client_summary` scopes. The `read:client_keys` and `read:client_credentials` scopes are not supported.
+        - The following fields are never returned by this endpoint:
+          - `client_secret`
+          - `encryption_key`
+          - `signing_keys`
+          - `owners`
+          - `addons`
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "Auth0"`, `name sw "auth" and app_type eq "spa"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<br /><ul><li><i>client_id</i> - Auth0 client ID (case-sensitive, exact match)</li><li><i>external_client_id</i> - URL of the Client ID Metadata Document (CIMD); case-sensitive, exact match</li><li><i>name</i> - Client name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>app_type</i> - Application type (e.g. "spa", "native", "non_interactive")</li><li><i>is_first_party</i> - Whether the client is first-party (boolean)</li><li><i>updated_at</i> - Last update timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by client metadata key-value pairs (max 2-level key depth, values indexed up to 64 characters)</li><li><i>client_grant.organization_id</i> - Filter by associated organization ID</li><li><i>client_grant.allow_any_organization</i> - Filter by allow any organization setting</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode. Maximum 50 fields.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ClientSortFieldEnum]
+            Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ClientSearchResponse, SearchClientsResponseContent]
+            Clients successfully retrieved.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.clients.search(
+                q="q",
+                parser="scim",
+                fields="fields",
+                include_fields=True,
+                take=1,
+                from_="from",
+                sort="name",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.search(
+            q=q,
+            parser=parser,
+            fields=fields,
+            include_fields=include_fields,
+            take=take,
+            from_=from_,
+            sort=sort,
+            request_options=request_options,
+        )
 
     async def get(
         self,
@@ -1808,6 +2027,9 @@ class AsyncClientsClient:
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
         anonymous_sessions: typing.Optional[UpdateAnonymousSessions] = OMIT,
+        enforce_anon_session_transfer_network_binding: typing.Optional[
+            ClientAnonymousSessionTransferNetworkBindingEnum
+        ] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
@@ -1837,6 +2059,7 @@ class AsyncClientsClient:
         ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
+        oidc_support: typing.Optional[ClientOidcSupportPatch] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientResponseContent:
         """
@@ -1940,6 +2163,8 @@ class AsyncClientsClient:
 
         anonymous_sessions : typing.Optional[UpdateAnonymousSessions]
 
+        enforce_anon_session_transfer_network_binding : typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -2004,6 +2229,8 @@ class AsyncClientsClient:
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
+        oidc_support : typing.Optional[ClientOidcSupportPatch]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2064,6 +2291,7 @@ class AsyncClientsClient:
             token_quota=token_quota,
             identity_assertion_authorization_grant=identity_assertion_authorization_grant,
             anonymous_sessions=anonymous_sessions,
+            enforce_anon_session_transfer_network_binding=enforce_anon_session_transfer_network_binding,
             form_template=form_template,
             addons=addons,
             client_metadata=client_metadata,
@@ -2091,6 +2319,7 @@ class AsyncClientsClient:
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
+            oidc_support=oidc_support,
             request_options=request_options,
         )
         return _response.data

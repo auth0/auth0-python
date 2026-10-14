@@ -10,6 +10,7 @@ from ...types.get_segment_response_content import GetSegmentResponseContent
 from ...types.list_segments_response_content import ListSegmentsResponseContent
 from ...types.segment import Segment
 from ...types.segment_rule import SegmentRule
+from ...types.segment_status_enum import SegmentStatusEnum
 from ...types.segment_type_filter_enum import SegmentTypeFilterEnum
 from ...types.update_segment_response_content import UpdateSegmentResponseContent
 from .raw_client import AsyncRawSegmentsClient, RawSegmentsClient
@@ -198,6 +199,7 @@ class SegmentsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         rules: typing.Optional[typing.Sequence[SegmentRule]] = OMIT,
+        status: typing.Optional[SegmentStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateSegmentResponseContent:
         """
@@ -216,6 +218,9 @@ class SegmentsClient:
 
         rules : typing.Optional[typing.Sequence[SegmentRule]]
             Replaces the entire rules array. Each rule is limited to 4KB and the whole segment to 10KB (serialized).
+
+        status : typing.Optional[SegmentStatusEnum]
+            Target lifecycle status. Archiving removes the segment from the active pool and is terminal (an archived segment cannot return to active). When combined with field edits, the edits apply first and the transition follows.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -237,7 +242,7 @@ class SegmentsClient:
         )
         """
         _response = self._raw_client.update(
-            id, name=name, description=description, rules=rules, request_options=request_options
+            id, name=name, description=description, rules=rules, status=status, request_options=request_options
         )
         return _response.data
 
@@ -457,6 +462,7 @@ class AsyncSegmentsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         rules: typing.Optional[typing.Sequence[SegmentRule]] = OMIT,
+        status: typing.Optional[SegmentStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateSegmentResponseContent:
         """
@@ -475,6 +481,9 @@ class AsyncSegmentsClient:
 
         rules : typing.Optional[typing.Sequence[SegmentRule]]
             Replaces the entire rules array. Each rule is limited to 4KB and the whole segment to 10KB (serialized).
+
+        status : typing.Optional[SegmentStatusEnum]
+            Target lifecycle status. Archiving removes the segment from the active pool and is terminal (an archived segment cannot return to active). When combined with field edits, the edits apply first and the transition follows.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -504,6 +513,6 @@ class AsyncSegmentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id, name=name, description=description, rules=rules, request_options=request_options
+            id, name=name, description=description, rules=rules, status=status, request_options=request_options
         )
         return _response.data

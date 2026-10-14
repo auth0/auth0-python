@@ -15,6 +15,7 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
+from ..errors.gateway_timeout_error import GatewayTimeoutError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
@@ -22,6 +23,9 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.b_2_b_integration_configuration import B2BIntegrationConfiguration
 from ..types.client import Client
 from ..types.client_addons import ClientAddons
+from ..types.client_anonymous_session_transfer_network_binding_enum import (
+    ClientAnonymousSessionTransferNetworkBindingEnum,
+)
 from ..types.client_app_type_enum import ClientAppTypeEnum
 from ..types.client_async_approval_notifications_channels_api_patch_configuration import (
     ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration,
@@ -40,6 +44,7 @@ from ..types.client_mobile import ClientMobile
 from ..types.client_my_organization_patch_configuration import ClientMyOrganizationPatchConfiguration
 from ..types.client_my_organization_post_configuration import ClientMyOrganizationPostConfiguration
 from ..types.client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
+from ..types.client_oidc_support_patch import ClientOidcSupportPatch
 from ..types.client_oidc_support_post import ClientOidcSupportPost
 from ..types.client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
 from ..types.client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
@@ -48,9 +53,11 @@ from ..types.client_organization_usage_enum import ClientOrganizationUsageEnum
 from ..types.client_organization_usage_patch_enum import ClientOrganizationUsagePatchEnum
 from ..types.client_redirection_policy_enum import ClientRedirectionPolicyEnum
 from ..types.client_refresh_token_configuration import ClientRefreshTokenConfiguration
+from ..types.client_search_response import ClientSearchResponse
 from ..types.client_session_transfer_configuration import ClientSessionTransferConfiguration
 from ..types.client_signed_request_object_with_credential_id import ClientSignedRequestObjectWithCredentialId
 from ..types.client_signed_request_object_with_public_key import ClientSignedRequestObjectWithPublicKey
+from ..types.client_sort_field_enum import ClientSortFieldEnum
 from ..types.client_third_party_security_mode_enum import ClientThirdPartySecurityModeEnum
 from ..types.client_token_endpoint_auth_method_enum import ClientTokenEndpointAuthMethodEnum
 from ..types.client_token_endpoint_auth_method_or_null_enum import ClientTokenEndpointAuthMethodOrNullEnum
@@ -75,6 +82,8 @@ from ..types.native_social_login_patch import NativeSocialLoginPatch
 from ..types.preview_cimd_metadata_response_content import PreviewCimdMetadataResponseContent
 from ..types.register_cimd_client_response_content import RegisterCimdClientResponseContent
 from ..types.rotate_client_secret_response_content import RotateClientSecretResponseContent
+from ..types.search_clients_response_content import SearchClientsResponseContent
+from ..types.search_parser_enum import SearchParserEnum
 from ..types.update_anonymous_sessions import UpdateAnonymousSessions
 from ..types.update_client_response_content import UpdateClientResponseContent
 from ..types.update_identity_assertion_authorization_grant import UpdateIdentityAssertionAuthorizationGrant
@@ -323,6 +332,9 @@ class RawClientsClient:
         resource_server_identifier: typing.Optional[str] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
         anonymous_sessions: typing.Optional[CreateAnonymousSessions] = OMIT,
+        enforce_anon_session_transfer_network_binding: typing.Optional[
+            ClientAnonymousSessionTransferNetworkBindingEnum
+        ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
@@ -487,6 +499,8 @@ class RawClientsClient:
 
         anonymous_sessions : typing.Optional[CreateAnonymousSessions]
 
+        enforce_anon_session_transfer_network_binding : typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
@@ -613,6 +627,7 @@ class RawClientsClient:
                 "anonymous_sessions": convert_and_respect_annotation_metadata(
                     object_=anonymous_sessions, annotation=CreateAnonymousSessions, direction="write"
                 ),
+                "enforce_anon_session_transfer_network_binding": enforce_anon_session_transfer_network_binding,
                 "third_party_security_mode": third_party_security_mode,
                 "redirection_policy": redirection_policy,
                 "express_configuration": convert_and_respect_annotation_metadata(
@@ -915,6 +930,17 @@ class RawClientsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -928,6 +954,186 @@ class RawClientsClient:
                 )
             if _response.status_code == 500:
                 raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ClientSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ClientSearchResponse, SearchClientsResponseContent]:
+        """
+        Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+        Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene").
+        This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+        for complex queries. Results may not reflect recent updates immediately.
+
+        - This endpoint only supports `read:clients` and `read:client_summary` scopes. The `read:client_keys` and `read:client_credentials` scopes are not supported.
+        - The following fields are never returned by this endpoint:
+          - `client_secret`
+          - `encryption_key`
+          - `signing_keys`
+          - `owners`
+          - `addons`
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "Auth0"`, `name sw "auth" and app_type eq "spa"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<br /><ul><li><i>client_id</i> - Auth0 client ID (case-sensitive, exact match)</li><li><i>external_client_id</i> - URL of the Client ID Metadata Document (CIMD); case-sensitive, exact match</li><li><i>name</i> - Client name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>app_type</i> - Application type (e.g. "spa", "native", "non_interactive")</li><li><i>is_first_party</i> - Whether the client is first-party (boolean)</li><li><i>updated_at</i> - Last update timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by client metadata key-value pairs (max 2-level key depth, values indexed up to 64 characters)</li><li><i>client_grant.organization_id</i> - Filter by associated organization ID</li><li><i>client_grant.allow_any_organization</i> - Filter by allow any organization setting</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode. Maximum 50 fields.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ClientSortFieldEnum]
+            Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ClientSearchResponse, SearchClientsResponseContent]
+            Clients successfully retrieved.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "clients/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "fields": fields,
+                "include_fields": include_fields,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchClientsResponseContent,
+                    parse_obj_as(
+                        type_=SearchClientsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.clients
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.search(
+                    q=q,
+                    parser=parser,
+                    fields=fields,
+                    include_fields=include_fields,
+                    take=take,
+                    from_=_parsed_next,
+                    sort=sort,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1194,6 +1400,9 @@ class RawClientsClient:
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
         anonymous_sessions: typing.Optional[UpdateAnonymousSessions] = OMIT,
+        enforce_anon_session_transfer_network_binding: typing.Optional[
+            ClientAnonymousSessionTransferNetworkBindingEnum
+        ] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
@@ -1223,6 +1432,7 @@ class RawClientsClient:
         ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
+        oidc_support: typing.Optional[ClientOidcSupportPatch] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateClientResponseContent]:
         """
@@ -1326,6 +1536,8 @@ class RawClientsClient:
 
         anonymous_sessions : typing.Optional[UpdateAnonymousSessions]
 
+        enforce_anon_session_transfer_network_binding : typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -1390,6 +1602,8 @@ class RawClientsClient:
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
+        oidc_support : typing.Optional[ClientOidcSupportPatch]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1453,6 +1667,7 @@ class RawClientsClient:
                 "anonymous_sessions": convert_and_respect_annotation_metadata(
                     object_=anonymous_sessions, annotation=typing.Optional[UpdateAnonymousSessions], direction="write"
                 ),
+                "enforce_anon_session_transfer_network_binding": enforce_anon_session_transfer_network_binding,
                 "form_template": form_template,
                 "addons": convert_and_respect_annotation_metadata(
                     object_=addons, annotation=ClientAddons, direction="write"
@@ -1522,6 +1737,9 @@ class RawClientsClient:
                 "async_approval_notification_channels": async_approval_notification_channels,
                 "third_party_security_mode": third_party_security_mode,
                 "redirection_policy": redirection_policy,
+                "oidc_support": convert_and_respect_annotation_metadata(
+                    object_=oidc_support, annotation=typing.Optional[ClientOidcSupportPatch], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -1947,6 +2165,9 @@ class AsyncRawClientsClient:
         resource_server_identifier: typing.Optional[str] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[CreateIdentityAssertionAuthorizationGrant] = OMIT,
         anonymous_sessions: typing.Optional[CreateAnonymousSessions] = OMIT,
+        enforce_anon_session_transfer_network_binding: typing.Optional[
+            ClientAnonymousSessionTransferNetworkBindingEnum
+        ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
@@ -2111,6 +2332,8 @@ class AsyncRawClientsClient:
 
         anonymous_sessions : typing.Optional[CreateAnonymousSessions]
 
+        enforce_anon_session_transfer_network_binding : typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]
+
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
@@ -2237,6 +2460,7 @@ class AsyncRawClientsClient:
                 "anonymous_sessions": convert_and_respect_annotation_metadata(
                     object_=anonymous_sessions, annotation=CreateAnonymousSessions, direction="write"
                 ),
+                "enforce_anon_session_transfer_network_binding": enforce_anon_session_transfer_network_binding,
                 "third_party_security_mode": third_party_security_mode,
                 "redirection_policy": redirection_policy,
                 "express_configuration": convert_and_respect_annotation_metadata(
@@ -2539,6 +2763,17 @@ class AsyncRawClientsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 429:
                 raise TooManyRequestsError(
                     headers=dict(_response.headers),
@@ -2552,6 +2787,189 @@ class AsyncRawClientsClient:
                 )
             if _response.status_code == 500:
                 raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def search(
+        self,
+        *,
+        q: typing.Optional[str] = None,
+        parser: typing.Optional[SearchParserEnum] = None,
+        fields: typing.Optional[str] = None,
+        include_fields: typing.Optional[bool] = None,
+        take: typing.Optional[int] = 50,
+        from_: typing.Optional[str] = None,
+        sort: typing.Optional[ClientSortFieldEnum] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ClientSearchResponse, SearchClientsResponseContent]:
+        """
+        Search clients using SCIM or Lucene filter syntax with low-latency, eventually consistent results.
+        Use the parser parameter to specify "scim" or "lucene" syntax (default: "lucene").
+        This endpoint provides an alternative to the standard GET /clients endpoint with better performance
+        for complex queries. Results may not reflect recent updates immediately.
+
+        - This endpoint only supports `read:clients` and `read:client_summary` scopes. The `read:client_keys` and `read:client_credentials` scopes are not supported.
+        - The following fields are never returned by this endpoint:
+          - `client_secret`
+          - `encryption_key`
+          - `signing_keys`
+          - `owners`
+          - `addons`
+
+        Parameters
+        ----------
+        q : typing.Optional[str]
+            Filter expression in SCIM or Lucene syntax (depending on parser parameter). SCIM examples: `name eq "Auth0"`, `name sw "auth" and app_type eq "spa"`. SCIM operators: eq, ne, sw, ew, co, pr, gt, ge, lt, le, and, or. <br /><br /><b>Supported Fields</b>:<br /><ul><li><i>client_id</i> - Auth0 client ID (case-sensitive, exact match)</li><li><i>external_client_id</i> - URL of the Client ID Metadata Document (CIMD); case-sensitive, exact match</li><li><i>name</i> - Client name (supports contains, starts-with, ends-with operators; sortable)</li><li><i>app_type</i> - Application type (e.g. "spa", "native", "non_interactive")</li><li><i>is_first_party</i> - Whether the client is first-party (boolean)</li><li><i>updated_at</i> - Last update timestamp (supports date range operators; sortable)</li><li><i>metadata.{key}</i> - Filter by client metadata key-value pairs (max 2-level key depth, values indexed up to 64 characters)</li><li><i>client_grant.organization_id</i> - Filter by associated organization ID</li><li><i>client_grant.allow_any_organization</i> - Filter by allow any organization setting</li></ul>Maximum 5 filter operations per query. Results are eventually consistent and may not reflect recent updates.
+
+        parser : typing.Optional[SearchParserEnum]
+            Query parser to use for the filter expression. Use "scim" for SCIM filter syntax or "lucene" for Lucene query syntax (default).
+
+        fields : typing.Optional[str]
+            Comma-separated list of fields to include or exclude in the response. Works with the include_fields parameter to control projection mode. Maximum 50 fields.
+
+        include_fields : typing.Optional[bool]
+            Controls field projection mode. Set to true to include only fields specified in the fields parameter. Set to false to exclude fields specified in the fields parameter. Defaults to true if not specified.
+
+        take : typing.Optional[int]
+            Maximum number of results to return per page (1-100). Defaults to 50.
+
+        from_ : typing.Optional[str]
+            Cursor for the next page of results. Use the value from the next field in the previous response.
+
+        sort : typing.Optional[ClientSortFieldEnum]
+            Field name to sort results by in ascending order. Defaults to insertion order (oldest first) if not provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ClientSearchResponse, SearchClientsResponseContent]
+            Clients successfully retrieved.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "clients/search",
+            method="GET",
+            params={
+                "q": q,
+                "parser": parser,
+                "fields": fields,
+                "include_fields": include_fields,
+                "take": take,
+                "from": from_,
+                "sort": sort,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchClientsResponseContent,
+                    parse_obj_as(
+                        type_=SearchClientsResponseContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.clients
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.search(
+                        q=q,
+                        parser=parser,
+                        fields=fields,
+                        include_fields=include_fields,
+                        take=take,
+                        from_=_parsed_next,
+                        sort=sort,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 504:
+                raise GatewayTimeoutError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -2820,6 +3238,9 @@ class AsyncRawClientsClient:
         token_quota: typing.Optional[UpdateTokenQuota] = OMIT,
         identity_assertion_authorization_grant: typing.Optional[UpdateIdentityAssertionAuthorizationGrant] = OMIT,
         anonymous_sessions: typing.Optional[UpdateAnonymousSessions] = OMIT,
+        enforce_anon_session_transfer_network_binding: typing.Optional[
+            ClientAnonymousSessionTransferNetworkBindingEnum
+        ] = OMIT,
         form_template: typing.Optional[str] = OMIT,
         addons: typing.Optional[ClientAddons] = OMIT,
         client_metadata: typing.Optional[ClientMetadata] = OMIT,
@@ -2849,6 +3270,7 @@ class AsyncRawClientsClient:
         ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
+        oidc_support: typing.Optional[ClientOidcSupportPatch] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateClientResponseContent]:
         """
@@ -2952,6 +3374,8 @@ class AsyncRawClientsClient:
 
         anonymous_sessions : typing.Optional[UpdateAnonymousSessions]
 
+        enforce_anon_session_transfer_network_binding : typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum]
+
         form_template : typing.Optional[str]
             Form template for WS-Federation protocol
 
@@ -3016,6 +3440,8 @@ class AsyncRawClientsClient:
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
+        oidc_support : typing.Optional[ClientOidcSupportPatch]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -3079,6 +3505,7 @@ class AsyncRawClientsClient:
                 "anonymous_sessions": convert_and_respect_annotation_metadata(
                     object_=anonymous_sessions, annotation=typing.Optional[UpdateAnonymousSessions], direction="write"
                 ),
+                "enforce_anon_session_transfer_network_binding": enforce_anon_session_transfer_network_binding,
                 "form_template": form_template,
                 "addons": convert_and_respect_annotation_metadata(
                     object_=addons, annotation=ClientAddons, direction="write"
@@ -3148,6 +3575,9 @@ class AsyncRawClientsClient:
                 "async_approval_notification_channels": async_approval_notification_channels,
                 "third_party_security_mode": third_party_security_mode,
                 "redirection_policy": redirection_policy,
+                "oidc_support": convert_and_respect_annotation_metadata(
+                    object_=oidc_support, annotation=typing.Optional[ClientOidcSupportPatch], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",

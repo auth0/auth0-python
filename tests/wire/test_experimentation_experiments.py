@@ -80,17 +80,6 @@ def test_experimentation_experiments_advance_ramp() -> None:
     verify_request_count(test_id, "POST", "/experimentation/experiments/id/advance-ramp", None, 1)
 
 
-def test_experimentation_experiments_update_status() -> None:
-    """Test updateStatus endpoint with WireMock"""
-    test_id = "experimentation.experiments.update_status.0"
-    client = get_client(test_id)
-    client.experimentation.experiments.update_status(
-        id="id",
-        status="active",
-    )
-    verify_request_count(test_id, "POST", "/experimentation/experiments/id/status", None, 1)
-
-
 def test_experimentation_experiments_validate() -> None:
     """Test validate endpoint with WireMock"""
     test_id = "experimentation.experiments.validate.0"

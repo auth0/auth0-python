@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .role_owner_id import RoleOwnerId
 from .role_type_enum import RoleTypeEnum
 from .user_effective_permission_role_source_enum import UserEffectivePermissionRoleSourceEnum
 
@@ -25,11 +26,7 @@ class UserEffectivePermissionRoleSourceResponseContent(UniversalBaseModel):
     """
 
     type: typing.Optional[RoleTypeEnum] = None
-    owner_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The id of the entity that owns this role, such as an organization id.
-    """
-
+    owner_id: typing.Optional[RoleOwnerId] = None
     sources: typing.Optional[typing.List[UserEffectivePermissionRoleSourceEnum]] = pydantic.Field(default=None)
     """
     List of sources where this role is coming from.

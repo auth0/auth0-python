@@ -67,6 +67,36 @@ def test_clients_register_cimd_client() -> None:
     verify_request_count(test_id, "POST", "/clients/cimd/register", None, 1)
 
 
+def test_clients_search() -> None:
+    """Test search endpoint with WireMock"""
+    test_id = "clients.search.0"
+    client = get_client(test_id)
+    client.clients.search(
+        q="q",
+        parser="scim",
+        fields="fields",
+        include_fields=True,
+        take=1,
+        from_="from",
+        sort="name",
+    )
+    verify_request_count(
+        test_id,
+        "GET",
+        "/clients/search",
+        {
+            "q": "q",
+            "parser": "scim",
+            "fields": "fields",
+            "include_fields": "true",
+            "take": "1",
+            "from": "from",
+            "sort": "name",
+        },
+        1,
+    )
+
+
 def test_clients_get() -> None:
     """Test get endpoint with WireMock"""
     test_id = "clients.get.0"

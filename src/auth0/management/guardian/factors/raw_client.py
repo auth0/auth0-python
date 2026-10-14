@@ -108,7 +108,7 @@ class RawFactorsClient:
         Parameters
         ----------
         name : GuardianFactorNameEnum
-            Factor name. Can be `sms`, `push-notification`, `email`, `duo` `otp` `webauthn-roaming`, `webauthn-platform`, or `recovery-code`.
+            Factor name. Can be `sms`, `push-notification`, `email`, `duo`, `otp`, `webauthn-roaming`, `webauthn-platform`, `recovery-code`, or `passkey`.
 
         enabled : bool
             Whether this factor is enabled (true) or disabled (false).
@@ -272,7 +272,7 @@ class AsyncRawFactorsClient:
         Parameters
         ----------
         name : GuardianFactorNameEnum
-            Factor name. Can be `sms`, `push-notification`, `email`, `duo` `otp` `webauthn-roaming`, `webauthn-platform`, or `recovery-code`.
+            Factor name. Can be `sms`, `push-notification`, `email`, `duo`, `otp`, `webauthn-roaming`, `webauthn-platform`, `recovery-code`, or `passkey`.
 
         enabled : bool
             Whether this factor is enabled (true) or disabled (false).

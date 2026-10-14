@@ -80,6 +80,10 @@ if typing.TYPE_CHECKING:
         AttackProtectionCaptchaFriendlyCaptchaResponseContent,
     )
     from .attack_protection_captcha_hcaptcha_response_content import AttackProtectionCaptchaHcaptchaResponseContent
+    from .attack_protection_captcha_policy import AttackProtectionCaptchaPolicy
+    from .attack_protection_captcha_policy_action import AttackProtectionCaptchaPolicyAction
+    from .attack_protection_captcha_policy_action_input import AttackProtectionCaptchaPolicyActionInput
+    from .attack_protection_captcha_policy_match import AttackProtectionCaptchaPolicyMatch
     from .attack_protection_captcha_provider_id import AttackProtectionCaptchaProviderId
     from .attack_protection_captcha_recaptcha_enterprise_response_content import (
         AttackProtectionCaptchaRecaptchaEnterpriseResponseContent,
@@ -160,13 +164,28 @@ if typing.TYPE_CHECKING:
     )
     from .breached_password_detection_shields_enum import BreachedPasswordDetectionShieldsEnum
     from .breached_password_detection_stage import BreachedPasswordDetectionStage
+    from .brute_force_protection_form_submission_mode_enum import BruteForceProtectionFormSubmissionModeEnum
     from .brute_force_protection_mode_enum import BruteForceProtectionModeEnum
     from .brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
     from .bulk_update_acul_response_content import BulkUpdateAculResponseContent
+    from .captcha_active_provider_enum import CaptchaActiveProviderEnum
+    from .captcha_policy_action_arkose import CaptchaPolicyActionArkose
+    from .captcha_policy_action_arkose_input import CaptchaPolicyActionArkoseInput
+    from .captcha_policy_action_auth_challenge import CaptchaPolicyActionAuthChallenge
+    from .captcha_policy_action_friendly_captcha import CaptchaPolicyActionFriendlyCaptcha
+    from .captcha_policy_action_friendly_captcha_input import CaptchaPolicyActionFriendlyCaptchaInput
+    from .captcha_policy_action_hcaptcha import CaptchaPolicyActionHcaptcha
+    from .captcha_policy_action_hcaptcha_input import CaptchaPolicyActionHcaptchaInput
+    from .captcha_policy_action_recaptcha_enterprise import CaptchaPolicyActionRecaptchaEnterprise
+    from .captcha_policy_action_recaptcha_enterprise_input import CaptchaPolicyActionRecaptchaEnterpriseInput
+    from .captcha_policy_action_recaptcha_v_2 import CaptchaPolicyActionRecaptchaV2
+    from .captcha_policy_action_recaptcha_v_2_input import CaptchaPolicyActionRecaptchaV2Input
+    from .captcha_policy_action_simple_captcha import CaptchaPolicyActionSimpleCaptcha
     from .certificate_subject_dn_credential import CertificateSubjectDnCredential
     from .certificate_subject_dn_credential_type_enum import CertificateSubjectDnCredentialTypeEnum
     from .change_password_ticket_identity import ChangePasswordTicketIdentity
     from .change_password_ticket_response_content import ChangePasswordTicketResponseContent
+    from .cimd_external_metadata_created_by_enum import CimdExternalMetadataCreatedByEnum
     from .cimd_mapped_client_authentication_methods import CimdMappedClientAuthenticationMethods
     from .cimd_mapped_client_authentication_methods_private_key_jwt import (
         CimdMappedClientAuthenticationMethodsPrivateKeyJwt,
@@ -208,6 +227,7 @@ if typing.TYPE_CHECKING:
     from .client_addon_zendesk import ClientAddonZendesk
     from .client_addon_zoom import ClientAddonZoom
     from .client_addons import ClientAddons
+    from .client_anonymous_session_transfer_network_binding_enum import ClientAnonymousSessionTransferNetworkBindingEnum
     from .client_app_type_enum import ClientAppTypeEnum
     from .client_async_approval_notifications_channels_api_patch_configuration import (
         ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration,
@@ -247,12 +267,14 @@ if typing.TYPE_CHECKING:
     from .client_default_organization_flows_enum import ClientDefaultOrganizationFlowsEnum
     from .client_encryption_key import ClientEncryptionKey
     from .client_external_metadata_created_by_enum import ClientExternalMetadataCreatedByEnum
+    from .client_external_metadata_status_enum import ClientExternalMetadataStatusEnum
     from .client_external_metadata_type_enum import ClientExternalMetadataTypeEnum
     from .client_grant_allow_any_organization_enum import ClientGrantAllowAnyOrganizationEnum
     from .client_grant_default_for_enum import ClientGrantDefaultForEnum
     from .client_grant_organization_nullable_usage_enum import ClientGrantOrganizationNullableUsageEnum
     from .client_grant_organization_usage_enum import ClientGrantOrganizationUsageEnum
     from .client_grant_response_content import ClientGrantResponseContent
+    from .client_grant_sort_field_enum import ClientGrantSortFieldEnum
     from .client_grant_subject_type_enum import ClientGrantSubjectTypeEnum
     from .client_jwt_configuration import ClientJwtConfiguration
     from .client_jwt_configuration_scopes import ClientJwtConfigurationScopes
@@ -282,15 +304,54 @@ if typing.TYPE_CHECKING:
     from .client_oidc_backchannel_logout_session_metadata import ClientOidcBackchannelLogoutSessionMetadata
     from .client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
     from .client_oidc_support_allowed_scopes_enum import ClientOidcSupportAllowedScopesEnum
+    from .client_oidc_support_patch import ClientOidcSupportPatch
     from .client_oidc_support_post import ClientOidcSupportPost
     from .client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
     from .client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
     from .client_organization_require_behavior_patch_enum import ClientOrganizationRequireBehaviorPatchEnum
     from .client_organization_usage_enum import ClientOrganizationUsageEnum
     from .client_organization_usage_patch_enum import ClientOrganizationUsagePatchEnum
+    from .client_profile import ClientProfile
+    from .client_profile_apply_policy import ClientProfileApplyPolicy
+    from .client_profile_apply_policy_external_metadata_created_by_enum import (
+        ClientProfileApplyPolicyExternalMetadataCreatedByEnum,
+    )
+    from .client_profile_apply_policy_external_metadata_type_enum import (
+        ClientProfileApplyPolicyExternalMetadataTypeEnum,
+    )
+    from .client_profile_client_configuration import ClientProfileClientConfiguration
+    from .client_profile_client_configuration_organization_discovery_method_enum import (
+        ClientProfileClientConfigurationOrganizationDiscoveryMethodEnum,
+    )
+    from .client_profile_client_configuration_organization_discovery_methods import (
+        ClientProfileClientConfigurationOrganizationDiscoveryMethods,
+    )
+    from .client_profile_client_configuration_organization_require_behavior import (
+        ClientProfileClientConfigurationOrganizationRequireBehavior,
+    )
+    from .client_profile_client_configuration_organization_require_behavior_enum import (
+        ClientProfileClientConfigurationOrganizationRequireBehaviorEnum,
+    )
+    from .client_profile_client_configuration_organization_usage import (
+        ClientProfileClientConfigurationOrganizationUsage,
+    )
+    from .client_profile_client_configuration_organization_usage_enum import (
+        ClientProfileClientConfigurationOrganizationUsageEnum,
+    )
+    from .client_profile_client_configuration_refresh_token import ClientProfileClientConfigurationRefreshToken
+    from .client_profile_client_configuration_require_proof_of_possession import (
+        ClientProfileClientConfigurationRequireProofOfPossession,
+    )
+    from .client_profile_description import ClientProfileDescription
+    from .client_profile_id import ClientProfileId
+    from .client_profile_name import ClientProfileName
+    from .client_profile_refresh_token_idle_token_lifetime import ClientProfileRefreshTokenIdleTokenLifetime
+    from .client_profile_refresh_token_leeway import ClientProfileRefreshTokenLeeway
+    from .client_profile_refresh_token_token_lifetime import ClientProfileRefreshTokenTokenLifetime
     from .client_redirection_policy_enum import ClientRedirectionPolicyEnum
     from .client_refresh_token_configuration import ClientRefreshTokenConfiguration
     from .client_refresh_token_policy import ClientRefreshTokenPolicy
+    from .client_search_response import ClientSearchResponse
     from .client_session_transfer_allowed_authentication_methods_enum import (
         ClientSessionTransferAllowedAuthenticationMethodsEnum,
     )
@@ -302,6 +363,7 @@ if typing.TYPE_CHECKING:
     from .client_signed_request_object_with_public_key import ClientSignedRequestObjectWithPublicKey
     from .client_signing_key import ClientSigningKey
     from .client_signing_keys import ClientSigningKeys
+    from .client_sort_field_enum import ClientSortFieldEnum
     from .client_third_party_security_mode_enum import ClientThirdPartySecurityModeEnum
     from .client_token_endpoint_auth_method_enum import ClientTokenEndpointAuthMethodEnum
     from .client_token_endpoint_auth_method_or_null_enum import ClientTokenEndpointAuthMethodOrNullEnum
@@ -623,6 +685,10 @@ if typing.TYPE_CHECKING:
     )
     from .connection_profile_organization_show_as_button_enum import ConnectionProfileOrganizationShowAsButtonEnum
     from .connection_profile_provisioning import ConnectionProfileProvisioning
+    from .connection_profile_provisioning_google_workspace import ConnectionProfileProvisioningGoogleWorkspace
+    from .connection_profile_provisioning_google_workspace_sync_users import (
+        ConnectionProfileProvisioningGoogleWorkspaceSyncUsers,
+    )
     from .connection_profile_provisioning_scim import ConnectionProfileProvisioningScim
     from .connection_profile_provisioning_scim_token_default_expiry import (
         ConnectionProfileProvisioningScimTokenDefaultExpiry,
@@ -3844,6 +3910,21 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_connection_added_object_organization_access_level_3_enum import (
         EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel3Enum,
     )
+    from .event_stream_cloud_event_org_connection_added_object_organization_member_access_level import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel,
+    )
+    from .event_stream_cloud_event_org_connection_added_object_organization_member_access_level_0_enum import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel0Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_object_organization_member_access_level_1_enum import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel1Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_object_organization_member_access_level_2_enum import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel2Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_object_organization_member_access_level_3_enum import (
+        EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel3Enum,
+    )
     from .event_stream_cloud_event_org_connection_added_previous_object import (
         EventStreamCloudEventOrgConnectionAddedPreviousObject,
     )
@@ -3867,6 +3948,21 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_3_enum import (
         EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel3Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level_0_enum import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel0Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level_1_enum import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel1Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level_2_enum import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel2Enum,
+    )
+    from .event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level_3_enum import (
+        EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel3Enum,
     )
     from .event_stream_cloud_event_org_connection_added_type_enum import EventStreamCloudEventOrgConnectionAddedTypeEnum
     from .event_stream_cloud_event_org_connection_removed import EventStreamCloudEventOrgConnectionRemoved
@@ -3926,6 +4022,21 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_org_connection_updated_object_organization_access_level_3_enum import (
         EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel3Enum,
     )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_member_access_level import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel,
+    )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_member_access_level_0_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel0Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_member_access_level_1_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel1Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_member_access_level_2_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel2Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_object_organization_member_access_level_3_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel3Enum,
+    )
     from .event_stream_cloud_event_org_connection_updated_previous_object import (
         EventStreamCloudEventOrgConnectionUpdatedPreviousObject,
     )
@@ -3949,6 +4060,21 @@ if typing.TYPE_CHECKING:
     )
     from .event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_3_enum import (
         EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel3Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level_0_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel0Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level_1_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel1Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level_2_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel2Enum,
+    )
+    from .event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level_3_enum import (
+        EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel3Enum,
     )
     from .event_stream_cloud_event_org_connection_updated_type_enum import (
         EventStreamCloudEventOrgConnectionUpdatedTypeEnum,
@@ -5616,12 +5742,16 @@ if typing.TYPE_CHECKING:
     from .list_aculs_offset_paginated_response_content import ListAculsOffsetPaginatedResponseContent
     from .list_aculs_response_content_item import ListAculsResponseContentItem
     from .list_agents_response_content import ListAgentsResponseContent
+    from .list_attack_protection_captcha_policies_response_content import (
+        ListAttackProtectionCaptchaPoliciesResponseContent,
+    )
     from .list_branding_phone_providers_response_content import ListBrandingPhoneProvidersResponseContent
     from .list_client_connections_response_content import ListClientConnectionsResponseContent
     from .list_client_grant_organizations_paginated_response_content import (
         ListClientGrantOrganizationsPaginatedResponseContent,
     )
     from .list_client_grant_paginated_response_content import ListClientGrantPaginatedResponseContent
+    from .list_client_profiles_paginated_response_content import ListClientProfilesPaginatedResponseContent
     from .list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
     from .list_connection_profile_template_response_content import ListConnectionProfileTemplateResponseContent
     from .list_connection_profiles_paginated_response_content import ListConnectionProfilesPaginatedResponseContent
@@ -5960,6 +6090,8 @@ if typing.TYPE_CHECKING:
     from .role import Role
     from .role_group import RoleGroup
     from .role_member import RoleMember
+    from .role_owner_id import RoleOwnerId
+    from .role_owner_id_filter import RoleOwnerIdFilter
     from .role_type_enum import RoleTypeEnum
     from .role_user import RoleUser
     from .rollback_action_module_response_content import RollbackActionModuleResponseContent
@@ -5974,6 +6106,8 @@ if typing.TYPE_CHECKING:
     from .scim_mapping_item import ScimMappingItem
     from .scim_token_item import ScimTokenItem
     from .screen_group_name_enum import ScreenGroupNameEnum
+    from .search_client_grants_response_content import SearchClientGrantsResponseContent
+    from .search_clients_response_content import SearchClientsResponseContent
     from .search_engine_versions_enum import SearchEngineVersionsEnum
     from .search_organization import SearchOrganization
     from .search_organizations_paginated_response_content import SearchOrganizationsPaginatedResponseContent
@@ -5988,6 +6122,7 @@ if typing.TYPE_CHECKING:
     from .segment_not_match_conditions import SegmentNotMatchConditions
     from .segment_rule import SegmentRule
     from .segment_starts_with_expression import SegmentStartsWithExpression
+    from .segment_status_enum import SegmentStatusEnum
     from .segment_type_enum import SegmentTypeEnum
     from .segment_type_filter_enum import SegmentTypeFilterEnum
     from .self_service_profile import SelfServiceProfile
@@ -6099,6 +6234,7 @@ if typing.TYPE_CHECKING:
     from .synchronize_groups_enum import SynchronizeGroupsEnum
     from .synchronized_group_payload import SynchronizedGroupPayload
     from .synchronized_group_selection_id import SynchronizedGroupSelectionId
+    from .system_role_owner_id import SystemRoleOwnerId
     from .tenant_oidc_logout_settings import TenantOidcLogoutSettings
     from .tenant_settings_country_codes import TenantSettingsCountryCodes
     from .tenant_settings_country_codes_mode import TenantSettingsCountryCodesMode
@@ -6234,10 +6370,8 @@ if typing.TYPE_CHECKING:
     from .update_enabled_client_connections_request_content_item import UpdateEnabledClientConnectionsRequestContentItem
     from .update_event_stream_response_content import UpdateEventStreamResponseContent
     from .update_experiment_response_content import UpdateExperimentResponseContent
-    from .update_experiment_status_response_content import UpdateExperimentStatusResponseContent
     from .update_feature_flag_parameters import UpdateFeatureFlagParameters
     from .update_feature_flag_response_content import UpdateFeatureFlagResponseContent
-    from .update_feature_flag_status_response_content import UpdateFeatureFlagStatusResponseContent
     from .update_flow_response_content import UpdateFlowResponseContent
     from .update_flows_vault_connection_response_content import UpdateFlowsVaultConnectionResponseContent
     from .update_flows_vault_connection_setup import UpdateFlowsVaultConnectionSetup
@@ -6434,6 +6568,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AttackProtectionCaptchaAuthChallengeResponseContent": ".attack_protection_captcha_auth_challenge_response_content",
     "AttackProtectionCaptchaFriendlyCaptchaResponseContent": ".attack_protection_captcha_friendly_captcha_response_content",
     "AttackProtectionCaptchaHcaptchaResponseContent": ".attack_protection_captcha_hcaptcha_response_content",
+    "AttackProtectionCaptchaPolicy": ".attack_protection_captcha_policy",
+    "AttackProtectionCaptchaPolicyAction": ".attack_protection_captcha_policy_action",
+    "AttackProtectionCaptchaPolicyActionInput": ".attack_protection_captcha_policy_action_input",
+    "AttackProtectionCaptchaPolicyMatch": ".attack_protection_captcha_policy_match",
     "AttackProtectionCaptchaProviderId": ".attack_protection_captcha_provider_id",
     "AttackProtectionCaptchaRecaptchaEnterpriseResponseContent": ".attack_protection_captcha_recaptcha_enterprise_response_content",
     "AttackProtectionCaptchaRecaptchaV2ResponseContent": ".attack_protection_captcha_recaptcha_v_2_response_content",
@@ -6496,13 +6634,28 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BreachedPasswordDetectionPreUserRegistrationStage": ".breached_password_detection_pre_user_registration_stage",
     "BreachedPasswordDetectionShieldsEnum": ".breached_password_detection_shields_enum",
     "BreachedPasswordDetectionStage": ".breached_password_detection_stage",
+    "BruteForceProtectionFormSubmissionModeEnum": ".brute_force_protection_form_submission_mode_enum",
     "BruteForceProtectionModeEnum": ".brute_force_protection_mode_enum",
     "BruteForceProtectionShieldsEnum": ".brute_force_protection_shields_enum",
     "BulkUpdateAculResponseContent": ".bulk_update_acul_response_content",
+    "CaptchaActiveProviderEnum": ".captcha_active_provider_enum",
+    "CaptchaPolicyActionArkose": ".captcha_policy_action_arkose",
+    "CaptchaPolicyActionArkoseInput": ".captcha_policy_action_arkose_input",
+    "CaptchaPolicyActionAuthChallenge": ".captcha_policy_action_auth_challenge",
+    "CaptchaPolicyActionFriendlyCaptcha": ".captcha_policy_action_friendly_captcha",
+    "CaptchaPolicyActionFriendlyCaptchaInput": ".captcha_policy_action_friendly_captcha_input",
+    "CaptchaPolicyActionHcaptcha": ".captcha_policy_action_hcaptcha",
+    "CaptchaPolicyActionHcaptchaInput": ".captcha_policy_action_hcaptcha_input",
+    "CaptchaPolicyActionRecaptchaEnterprise": ".captcha_policy_action_recaptcha_enterprise",
+    "CaptchaPolicyActionRecaptchaEnterpriseInput": ".captcha_policy_action_recaptcha_enterprise_input",
+    "CaptchaPolicyActionRecaptchaV2": ".captcha_policy_action_recaptcha_v_2",
+    "CaptchaPolicyActionRecaptchaV2Input": ".captcha_policy_action_recaptcha_v_2_input",
+    "CaptchaPolicyActionSimpleCaptcha": ".captcha_policy_action_simple_captcha",
     "CertificateSubjectDnCredential": ".certificate_subject_dn_credential",
     "CertificateSubjectDnCredentialTypeEnum": ".certificate_subject_dn_credential_type_enum",
     "ChangePasswordTicketIdentity": ".change_password_ticket_identity",
     "ChangePasswordTicketResponseContent": ".change_password_ticket_response_content",
+    "CimdExternalMetadataCreatedByEnum": ".cimd_external_metadata_created_by_enum",
     "CimdMappedClientAuthenticationMethods": ".cimd_mapped_client_authentication_methods",
     "CimdMappedClientAuthenticationMethodsPrivateKeyJwt": ".cimd_mapped_client_authentication_methods_private_key_jwt",
     "CimdMappedClientFields": ".cimd_mapped_client_fields",
@@ -6542,6 +6695,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientAddonZendesk": ".client_addon_zendesk",
     "ClientAddonZoom": ".client_addon_zoom",
     "ClientAddons": ".client_addons",
+    "ClientAnonymousSessionTransferNetworkBindingEnum": ".client_anonymous_session_transfer_network_binding_enum",
     "ClientAppTypeEnum": ".client_app_type_enum",
     "ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration": ".client_async_approval_notifications_channels_api_patch_configuration",
     "ClientAsyncApprovalNotificationsChannelsApiPostConfiguration": ".client_async_approval_notifications_channels_api_post_configuration",
@@ -6565,12 +6719,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientDefaultOrganizationFlowsEnum": ".client_default_organization_flows_enum",
     "ClientEncryptionKey": ".client_encryption_key",
     "ClientExternalMetadataCreatedByEnum": ".client_external_metadata_created_by_enum",
+    "ClientExternalMetadataStatusEnum": ".client_external_metadata_status_enum",
     "ClientExternalMetadataTypeEnum": ".client_external_metadata_type_enum",
     "ClientGrantAllowAnyOrganizationEnum": ".client_grant_allow_any_organization_enum",
     "ClientGrantDefaultForEnum": ".client_grant_default_for_enum",
     "ClientGrantOrganizationNullableUsageEnum": ".client_grant_organization_nullable_usage_enum",
     "ClientGrantOrganizationUsageEnum": ".client_grant_organization_usage_enum",
     "ClientGrantResponseContent": ".client_grant_response_content",
+    "ClientGrantSortFieldEnum": ".client_grant_sort_field_enum",
     "ClientGrantSubjectTypeEnum": ".client_grant_subject_type_enum",
     "ClientJwtConfiguration": ".client_jwt_configuration",
     "ClientJwtConfigurationScopes": ".client_jwt_configuration_scopes",
@@ -6592,15 +6748,36 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientOidcBackchannelLogoutSessionMetadata": ".client_oidc_backchannel_logout_session_metadata",
     "ClientOidcBackchannelLogoutSettings": ".client_oidc_backchannel_logout_settings",
     "ClientOidcSupportAllowedScopesEnum": ".client_oidc_support_allowed_scopes_enum",
+    "ClientOidcSupportPatch": ".client_oidc_support_patch",
     "ClientOidcSupportPost": ".client_oidc_support_post",
     "ClientOrganizationDiscoveryEnum": ".client_organization_discovery_enum",
     "ClientOrganizationRequireBehaviorEnum": ".client_organization_require_behavior_enum",
     "ClientOrganizationRequireBehaviorPatchEnum": ".client_organization_require_behavior_patch_enum",
     "ClientOrganizationUsageEnum": ".client_organization_usage_enum",
     "ClientOrganizationUsagePatchEnum": ".client_organization_usage_patch_enum",
+    "ClientProfile": ".client_profile",
+    "ClientProfileApplyPolicy": ".client_profile_apply_policy",
+    "ClientProfileApplyPolicyExternalMetadataCreatedByEnum": ".client_profile_apply_policy_external_metadata_created_by_enum",
+    "ClientProfileApplyPolicyExternalMetadataTypeEnum": ".client_profile_apply_policy_external_metadata_type_enum",
+    "ClientProfileClientConfiguration": ".client_profile_client_configuration",
+    "ClientProfileClientConfigurationOrganizationDiscoveryMethodEnum": ".client_profile_client_configuration_organization_discovery_method_enum",
+    "ClientProfileClientConfigurationOrganizationDiscoveryMethods": ".client_profile_client_configuration_organization_discovery_methods",
+    "ClientProfileClientConfigurationOrganizationRequireBehavior": ".client_profile_client_configuration_organization_require_behavior",
+    "ClientProfileClientConfigurationOrganizationRequireBehaviorEnum": ".client_profile_client_configuration_organization_require_behavior_enum",
+    "ClientProfileClientConfigurationOrganizationUsage": ".client_profile_client_configuration_organization_usage",
+    "ClientProfileClientConfigurationOrganizationUsageEnum": ".client_profile_client_configuration_organization_usage_enum",
+    "ClientProfileClientConfigurationRefreshToken": ".client_profile_client_configuration_refresh_token",
+    "ClientProfileClientConfigurationRequireProofOfPossession": ".client_profile_client_configuration_require_proof_of_possession",
+    "ClientProfileDescription": ".client_profile_description",
+    "ClientProfileId": ".client_profile_id",
+    "ClientProfileName": ".client_profile_name",
+    "ClientProfileRefreshTokenIdleTokenLifetime": ".client_profile_refresh_token_idle_token_lifetime",
+    "ClientProfileRefreshTokenLeeway": ".client_profile_refresh_token_leeway",
+    "ClientProfileRefreshTokenTokenLifetime": ".client_profile_refresh_token_token_lifetime",
     "ClientRedirectionPolicyEnum": ".client_redirection_policy_enum",
     "ClientRefreshTokenConfiguration": ".client_refresh_token_configuration",
     "ClientRefreshTokenPolicy": ".client_refresh_token_policy",
+    "ClientSearchResponse": ".client_search_response",
     "ClientSessionTransferAllowedAuthenticationMethodsEnum": ".client_session_transfer_allowed_authentication_methods_enum",
     "ClientSessionTransferConfiguration": ".client_session_transfer_configuration",
     "ClientSessionTransferDelegationConfiguration": ".client_session_transfer_delegation_configuration",
@@ -6610,6 +6787,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientSignedRequestObjectWithPublicKey": ".client_signed_request_object_with_public_key",
     "ClientSigningKey": ".client_signing_key",
     "ClientSigningKeys": ".client_signing_keys",
+    "ClientSortFieldEnum": ".client_sort_field_enum",
     "ClientThirdPartySecurityModeEnum": ".client_third_party_security_mode_enum",
     "ClientTokenEndpointAuthMethodEnum": ".client_token_endpoint_auth_method_enum",
     "ClientTokenEndpointAuthMethodOrNullEnum": ".client_token_endpoint_auth_method_or_null_enum",
@@ -6915,6 +7093,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionProfileOrganizationAssignMembershipOnLoginEnum": ".connection_profile_organization_assign_membership_on_login_enum",
     "ConnectionProfileOrganizationShowAsButtonEnum": ".connection_profile_organization_show_as_button_enum",
     "ConnectionProfileProvisioning": ".connection_profile_provisioning",
+    "ConnectionProfileProvisioningGoogleWorkspace": ".connection_profile_provisioning_google_workspace",
+    "ConnectionProfileProvisioningGoogleWorkspaceSyncUsers": ".connection_profile_provisioning_google_workspace_sync_users",
     "ConnectionProfileProvisioningScim": ".connection_profile_provisioning_scim",
     "ConnectionProfileProvisioningScimTokenDefaultExpiry": ".connection_profile_provisioning_scim_token_default_expiry",
     "ConnectionProfileProvisioningScimTokenMaxAllowedExpiry": ".connection_profile_provisioning_scim_token_max_allowed_expiry",
@@ -8434,6 +8614,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel1Enum": ".event_stream_cloud_event_org_connection_added_object_organization_access_level_1_enum",
     "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel2Enum": ".event_stream_cloud_event_org_connection_added_object_organization_access_level_2_enum",
     "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel3Enum": ".event_stream_cloud_event_org_connection_added_object_organization_access_level_3_enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel": ".event_stream_cloud_event_org_connection_added_object_organization_member_access_level",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel0Enum": ".event_stream_cloud_event_org_connection_added_object_organization_member_access_level_0_enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel1Enum": ".event_stream_cloud_event_org_connection_added_object_organization_member_access_level_1_enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel2Enum": ".event_stream_cloud_event_org_connection_added_object_organization_member_access_level_2_enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel3Enum": ".event_stream_cloud_event_org_connection_added_object_organization_member_access_level_3_enum",
     "EventStreamCloudEventOrgConnectionAddedPreviousObject": ".event_stream_cloud_event_org_connection_added_previous_object",
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectConnection": ".event_stream_cloud_event_org_connection_added_previous_object_connection",
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganization": ".event_stream_cloud_event_org_connection_added_previous_object_organization",
@@ -8442,6 +8627,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel1Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_1_enum",
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel2Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_2_enum",
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel3Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_access_level_3_enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel": ".event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel0Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level_0_enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel1Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level_1_enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel2Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level_2_enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel3Enum": ".event_stream_cloud_event_org_connection_added_previous_object_organization_member_access_level_3_enum",
     "EventStreamCloudEventOrgConnectionAddedTypeEnum": ".event_stream_cloud_event_org_connection_added_type_enum",
     "EventStreamCloudEventOrgConnectionRemoved": ".event_stream_cloud_event_org_connection_removed",
     "EventStreamCloudEventOrgConnectionRemovedCloudEvent": ".event_stream_cloud_event_org_connection_removed_cloud_event",
@@ -8466,6 +8656,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel1Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_access_level_1_enum",
     "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel2Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_access_level_2_enum",
     "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel3Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_access_level_3_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel": ".event_stream_cloud_event_org_connection_updated_object_organization_member_access_level",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel0Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_member_access_level_0_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel1Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_member_access_level_1_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel2Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_member_access_level_2_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel3Enum": ".event_stream_cloud_event_org_connection_updated_object_organization_member_access_level_3_enum",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObject": ".event_stream_cloud_event_org_connection_updated_previous_object",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectConnection": ".event_stream_cloud_event_org_connection_updated_previous_object_connection",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganization": ".event_stream_cloud_event_org_connection_updated_previous_object_organization",
@@ -8474,6 +8669,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel1Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_1_enum",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel2Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_2_enum",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel3Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_access_level_3_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel0Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level_0_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel1Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level_1_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel2Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level_2_enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel3Enum": ".event_stream_cloud_event_org_connection_updated_previous_object_organization_member_access_level_3_enum",
     "EventStreamCloudEventOrgConnectionUpdatedTypeEnum": ".event_stream_cloud_event_org_connection_updated_type_enum",
     "EventStreamCloudEventOrgCreated": ".event_stream_cloud_event_org_created",
     "EventStreamCloudEventOrgCreatedCloudEvent": ".event_stream_cloud_event_org_created_cloud_event",
@@ -9582,10 +9782,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAculsOffsetPaginatedResponseContent": ".list_aculs_offset_paginated_response_content",
     "ListAculsResponseContentItem": ".list_aculs_response_content_item",
     "ListAgentsResponseContent": ".list_agents_response_content",
+    "ListAttackProtectionCaptchaPoliciesResponseContent": ".list_attack_protection_captcha_policies_response_content",
     "ListBrandingPhoneProvidersResponseContent": ".list_branding_phone_providers_response_content",
     "ListClientConnectionsResponseContent": ".list_client_connections_response_content",
     "ListClientGrantOrganizationsPaginatedResponseContent": ".list_client_grant_organizations_paginated_response_content",
     "ListClientGrantPaginatedResponseContent": ".list_client_grant_paginated_response_content",
+    "ListClientProfilesPaginatedResponseContent": ".list_client_profiles_paginated_response_content",
     "ListClientsOffsetPaginatedResponseContent": ".list_clients_offset_paginated_response_content",
     "ListConnectionProfileTemplateResponseContent": ".list_connection_profile_template_response_content",
     "ListConnectionProfilesPaginatedResponseContent": ".list_connection_profiles_paginated_response_content",
@@ -9868,6 +10070,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Role": ".role",
     "RoleGroup": ".role_group",
     "RoleMember": ".role_member",
+    "RoleOwnerId": ".role_owner_id",
+    "RoleOwnerIdFilter": ".role_owner_id_filter",
     "RoleTypeEnum": ".role_type_enum",
     "RoleUser": ".role_user",
     "RollbackActionModuleResponseContent": ".rollback_action_module_response_content",
@@ -9882,6 +10086,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ScimMappingItem": ".scim_mapping_item",
     "ScimTokenItem": ".scim_token_item",
     "ScreenGroupNameEnum": ".screen_group_name_enum",
+    "SearchClientGrantsResponseContent": ".search_client_grants_response_content",
+    "SearchClientsResponseContent": ".search_clients_response_content",
     "SearchEngineVersionsEnum": ".search_engine_versions_enum",
     "SearchOrganization": ".search_organization",
     "SearchOrganizationsPaginatedResponseContent": ".search_organizations_paginated_response_content",
@@ -9896,6 +10102,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SegmentNotMatchConditions": ".segment_not_match_conditions",
     "SegmentRule": ".segment_rule",
     "SegmentStartsWithExpression": ".segment_starts_with_expression",
+    "SegmentStatusEnum": ".segment_status_enum",
     "SegmentTypeEnum": ".segment_type_enum",
     "SegmentTypeFilterEnum": ".segment_type_filter_enum",
     "SelfServiceProfile": ".self_service_profile",
@@ -9981,6 +10188,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SynchronizeGroupsEnum": ".synchronize_groups_enum",
     "SynchronizedGroupPayload": ".synchronized_group_payload",
     "SynchronizedGroupSelectionId": ".synchronized_group_selection_id",
+    "SystemRoleOwnerId": ".system_role_owner_id",
     "TenantOidcLogoutSettings": ".tenant_oidc_logout_settings",
     "TenantSettingsCountryCodes": ".tenant_settings_country_codes",
     "TenantSettingsCountryCodesMode": ".tenant_settings_country_codes_mode",
@@ -10110,10 +10318,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateEnabledClientConnectionsRequestContentItem": ".update_enabled_client_connections_request_content_item",
     "UpdateEventStreamResponseContent": ".update_event_stream_response_content",
     "UpdateExperimentResponseContent": ".update_experiment_response_content",
-    "UpdateExperimentStatusResponseContent": ".update_experiment_status_response_content",
     "UpdateFeatureFlagParameters": ".update_feature_flag_parameters",
     "UpdateFeatureFlagResponseContent": ".update_feature_flag_response_content",
-    "UpdateFeatureFlagStatusResponseContent": ".update_feature_flag_status_response_content",
     "UpdateFlowResponseContent": ".update_flow_response_content",
     "UpdateFlowsVaultConnectionResponseContent": ".update_flows_vault_connection_response_content",
     "UpdateFlowsVaultConnectionSetup": ".update_flows_vault_connection_setup",
@@ -10312,6 +10518,10 @@ __all__ = [
     "AttackProtectionCaptchaAuthChallengeResponseContent",
     "AttackProtectionCaptchaFriendlyCaptchaResponseContent",
     "AttackProtectionCaptchaHcaptchaResponseContent",
+    "AttackProtectionCaptchaPolicy",
+    "AttackProtectionCaptchaPolicyAction",
+    "AttackProtectionCaptchaPolicyActionInput",
+    "AttackProtectionCaptchaPolicyMatch",
     "AttackProtectionCaptchaProviderId",
     "AttackProtectionCaptchaRecaptchaEnterpriseResponseContent",
     "AttackProtectionCaptchaRecaptchaV2ResponseContent",
@@ -10374,13 +10584,28 @@ __all__ = [
     "BreachedPasswordDetectionPreUserRegistrationStage",
     "BreachedPasswordDetectionShieldsEnum",
     "BreachedPasswordDetectionStage",
+    "BruteForceProtectionFormSubmissionModeEnum",
     "BruteForceProtectionModeEnum",
     "BruteForceProtectionShieldsEnum",
     "BulkUpdateAculResponseContent",
+    "CaptchaActiveProviderEnum",
+    "CaptchaPolicyActionArkose",
+    "CaptchaPolicyActionArkoseInput",
+    "CaptchaPolicyActionAuthChallenge",
+    "CaptchaPolicyActionFriendlyCaptcha",
+    "CaptchaPolicyActionFriendlyCaptchaInput",
+    "CaptchaPolicyActionHcaptcha",
+    "CaptchaPolicyActionHcaptchaInput",
+    "CaptchaPolicyActionRecaptchaEnterprise",
+    "CaptchaPolicyActionRecaptchaEnterpriseInput",
+    "CaptchaPolicyActionRecaptchaV2",
+    "CaptchaPolicyActionRecaptchaV2Input",
+    "CaptchaPolicyActionSimpleCaptcha",
     "CertificateSubjectDnCredential",
     "CertificateSubjectDnCredentialTypeEnum",
     "ChangePasswordTicketIdentity",
     "ChangePasswordTicketResponseContent",
+    "CimdExternalMetadataCreatedByEnum",
     "CimdMappedClientAuthenticationMethods",
     "CimdMappedClientAuthenticationMethodsPrivateKeyJwt",
     "CimdMappedClientFields",
@@ -10420,6 +10645,7 @@ __all__ = [
     "ClientAddonZendesk",
     "ClientAddonZoom",
     "ClientAddons",
+    "ClientAnonymousSessionTransferNetworkBindingEnum",
     "ClientAppTypeEnum",
     "ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration",
     "ClientAsyncApprovalNotificationsChannelsApiPostConfiguration",
@@ -10443,12 +10669,14 @@ __all__ = [
     "ClientDefaultOrganizationFlowsEnum",
     "ClientEncryptionKey",
     "ClientExternalMetadataCreatedByEnum",
+    "ClientExternalMetadataStatusEnum",
     "ClientExternalMetadataTypeEnum",
     "ClientGrantAllowAnyOrganizationEnum",
     "ClientGrantDefaultForEnum",
     "ClientGrantOrganizationNullableUsageEnum",
     "ClientGrantOrganizationUsageEnum",
     "ClientGrantResponseContent",
+    "ClientGrantSortFieldEnum",
     "ClientGrantSubjectTypeEnum",
     "ClientJwtConfiguration",
     "ClientJwtConfigurationScopes",
@@ -10470,15 +10698,36 @@ __all__ = [
     "ClientOidcBackchannelLogoutSessionMetadata",
     "ClientOidcBackchannelLogoutSettings",
     "ClientOidcSupportAllowedScopesEnum",
+    "ClientOidcSupportPatch",
     "ClientOidcSupportPost",
     "ClientOrganizationDiscoveryEnum",
     "ClientOrganizationRequireBehaviorEnum",
     "ClientOrganizationRequireBehaviorPatchEnum",
     "ClientOrganizationUsageEnum",
     "ClientOrganizationUsagePatchEnum",
+    "ClientProfile",
+    "ClientProfileApplyPolicy",
+    "ClientProfileApplyPolicyExternalMetadataCreatedByEnum",
+    "ClientProfileApplyPolicyExternalMetadataTypeEnum",
+    "ClientProfileClientConfiguration",
+    "ClientProfileClientConfigurationOrganizationDiscoveryMethodEnum",
+    "ClientProfileClientConfigurationOrganizationDiscoveryMethods",
+    "ClientProfileClientConfigurationOrganizationRequireBehavior",
+    "ClientProfileClientConfigurationOrganizationRequireBehaviorEnum",
+    "ClientProfileClientConfigurationOrganizationUsage",
+    "ClientProfileClientConfigurationOrganizationUsageEnum",
+    "ClientProfileClientConfigurationRefreshToken",
+    "ClientProfileClientConfigurationRequireProofOfPossession",
+    "ClientProfileDescription",
+    "ClientProfileId",
+    "ClientProfileName",
+    "ClientProfileRefreshTokenIdleTokenLifetime",
+    "ClientProfileRefreshTokenLeeway",
+    "ClientProfileRefreshTokenTokenLifetime",
     "ClientRedirectionPolicyEnum",
     "ClientRefreshTokenConfiguration",
     "ClientRefreshTokenPolicy",
+    "ClientSearchResponse",
     "ClientSessionTransferAllowedAuthenticationMethodsEnum",
     "ClientSessionTransferConfiguration",
     "ClientSessionTransferDelegationConfiguration",
@@ -10488,6 +10737,7 @@ __all__ = [
     "ClientSignedRequestObjectWithPublicKey",
     "ClientSigningKey",
     "ClientSigningKeys",
+    "ClientSortFieldEnum",
     "ClientThirdPartySecurityModeEnum",
     "ClientTokenEndpointAuthMethodEnum",
     "ClientTokenEndpointAuthMethodOrNullEnum",
@@ -10793,6 +11043,8 @@ __all__ = [
     "ConnectionProfileOrganizationAssignMembershipOnLoginEnum",
     "ConnectionProfileOrganizationShowAsButtonEnum",
     "ConnectionProfileProvisioning",
+    "ConnectionProfileProvisioningGoogleWorkspace",
+    "ConnectionProfileProvisioningGoogleWorkspaceSyncUsers",
     "ConnectionProfileProvisioningScim",
     "ConnectionProfileProvisioningScimTokenDefaultExpiry",
     "ConnectionProfileProvisioningScimTokenMaxAllowedExpiry",
@@ -12312,6 +12564,11 @@ __all__ = [
     "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel1Enum",
     "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel2Enum",
     "EventStreamCloudEventOrgConnectionAddedObjectOrganizationAccessLevel3Enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel0Enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel1Enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel2Enum",
+    "EventStreamCloudEventOrgConnectionAddedObjectOrganizationMemberAccessLevel3Enum",
     "EventStreamCloudEventOrgConnectionAddedPreviousObject",
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectConnection",
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganization",
@@ -12320,6 +12577,11 @@ __all__ = [
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel1Enum",
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel2Enum",
     "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationAccessLevel3Enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel0Enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel1Enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel2Enum",
+    "EventStreamCloudEventOrgConnectionAddedPreviousObjectOrganizationMemberAccessLevel3Enum",
     "EventStreamCloudEventOrgConnectionAddedTypeEnum",
     "EventStreamCloudEventOrgConnectionRemoved",
     "EventStreamCloudEventOrgConnectionRemovedCloudEvent",
@@ -12344,6 +12606,11 @@ __all__ = [
     "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel1Enum",
     "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel2Enum",
     "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationAccessLevel3Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel0Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel1Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel2Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedObjectOrganizationMemberAccessLevel3Enum",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObject",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectConnection",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganization",
@@ -12352,6 +12619,11 @@ __all__ = [
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel1Enum",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel2Enum",
     "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationAccessLevel3Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel0Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel1Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel2Enum",
+    "EventStreamCloudEventOrgConnectionUpdatedPreviousObjectOrganizationMemberAccessLevel3Enum",
     "EventStreamCloudEventOrgConnectionUpdatedTypeEnum",
     "EventStreamCloudEventOrgCreated",
     "EventStreamCloudEventOrgCreatedCloudEvent",
@@ -13460,10 +13732,12 @@ __all__ = [
     "ListAculsOffsetPaginatedResponseContent",
     "ListAculsResponseContentItem",
     "ListAgentsResponseContent",
+    "ListAttackProtectionCaptchaPoliciesResponseContent",
     "ListBrandingPhoneProvidersResponseContent",
     "ListClientConnectionsResponseContent",
     "ListClientGrantOrganizationsPaginatedResponseContent",
     "ListClientGrantPaginatedResponseContent",
+    "ListClientProfilesPaginatedResponseContent",
     "ListClientsOffsetPaginatedResponseContent",
     "ListConnectionProfileTemplateResponseContent",
     "ListConnectionProfilesPaginatedResponseContent",
@@ -13746,6 +14020,8 @@ __all__ = [
     "Role",
     "RoleGroup",
     "RoleMember",
+    "RoleOwnerId",
+    "RoleOwnerIdFilter",
     "RoleTypeEnum",
     "RoleUser",
     "RollbackActionModuleResponseContent",
@@ -13760,6 +14036,8 @@ __all__ = [
     "ScimMappingItem",
     "ScimTokenItem",
     "ScreenGroupNameEnum",
+    "SearchClientGrantsResponseContent",
+    "SearchClientsResponseContent",
     "SearchEngineVersionsEnum",
     "SearchOrganization",
     "SearchOrganizationsPaginatedResponseContent",
@@ -13774,6 +14052,7 @@ __all__ = [
     "SegmentNotMatchConditions",
     "SegmentRule",
     "SegmentStartsWithExpression",
+    "SegmentStatusEnum",
     "SegmentTypeEnum",
     "SegmentTypeFilterEnum",
     "SelfServiceProfile",
@@ -13859,6 +14138,7 @@ __all__ = [
     "SynchronizeGroupsEnum",
     "SynchronizedGroupPayload",
     "SynchronizedGroupSelectionId",
+    "SystemRoleOwnerId",
     "TenantOidcLogoutSettings",
     "TenantSettingsCountryCodes",
     "TenantSettingsCountryCodesMode",
@@ -13988,10 +14268,8 @@ __all__ = [
     "UpdateEnabledClientConnectionsRequestContentItem",
     "UpdateEventStreamResponseContent",
     "UpdateExperimentResponseContent",
-    "UpdateExperimentStatusResponseContent",
     "UpdateFeatureFlagParameters",
     "UpdateFeatureFlagResponseContent",
-    "UpdateFeatureFlagStatusResponseContent",
     "UpdateFlowResponseContent",
     "UpdateFlowsVaultConnectionResponseContent",
     "UpdateFlowsVaultConnectionSetup",

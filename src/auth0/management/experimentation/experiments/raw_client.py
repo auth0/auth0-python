@@ -31,7 +31,6 @@ from ...types.experiment_transition_status_enum import ExperimentTransitionStatu
 from ...types.get_experiment_response_content import GetExperimentResponseContent
 from ...types.list_experiments_response_content import ListExperimentsResponseContent
 from ...types.update_experiment_response_content import UpdateExperimentResponseContent
-from ...types.update_experiment_status_response_content import UpdateExperimentStatusResponseContent
 from ...types.validate_experiment_response_content import ValidateExperimentResponseContent
 from pydantic import ValidationError
 
@@ -496,6 +495,7 @@ class RawExperimentsClient:
         allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
         default_config: typing.Optional[DefaultConfigEnum] = OMIT,
         levels: typing.Optional[typing.Sequence[int]] = OMIT,
+        status: typing.Optional[ExperimentTransitionStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateExperimentResponseContent]:
         """
@@ -524,6 +524,8 @@ class RawExperimentsClient:
         levels : typing.Optional[typing.Sequence[int]]
             Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100]. Can only be modified on draft experiments.
 
+        status : typing.Optional[ExperimentTransitionStatusEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -544,6 +546,7 @@ class RawExperimentsClient:
                 ),
                 "default_config": default_config,
                 "levels": levels,
+                "status": status,
             },
             headers={
                 "content-type": "application/json",
@@ -737,139 +740,6 @@ class RawExperimentsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def update_status(
-        self,
-        id: str,
-        *,
-        status: ExperimentTransitionStatusEnum,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[UpdateExperimentStatusResponseContent]:
-        """
-        Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-
-        Parameters
-        ----------
-        id : str
-            The ID of the experiment to transition.
-
-        status : ExperimentTransitionStatusEnum
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[UpdateExperimentStatusResponseContent]
-            Experiment status successfully updated.
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"experimentation/experiments/{quote_path_param(id)}/status",
-            method="POST",
-            json={
-                "status": status,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    UpdateExperimentStatusResponseContent,
-                    parse_obj_as(
-                        type_=UpdateExperimentStatusResponseContent,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1449,6 +1319,7 @@ class AsyncRawExperimentsClient:
         allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
         default_config: typing.Optional[DefaultConfigEnum] = OMIT,
         levels: typing.Optional[typing.Sequence[int]] = OMIT,
+        status: typing.Optional[ExperimentTransitionStatusEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateExperimentResponseContent]:
         """
@@ -1477,6 +1348,8 @@ class AsyncRawExperimentsClient:
         levels : typing.Optional[typing.Sequence[int]]
             Ramp experiment levels configuration. A strictly-increasing sequence of exposure percentages, each an integer in [0, 100]. Can only be modified on draft experiments.
 
+        status : typing.Optional[ExperimentTransitionStatusEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1497,6 +1370,7 @@ class AsyncRawExperimentsClient:
                 ),
                 "default_config": default_config,
                 "levels": levels,
+                "status": status,
             },
             headers={
                 "content-type": "application/json",
@@ -1690,139 +1564,6 @@ class AsyncRawExperimentsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def update_status(
-        self,
-        id: str,
-        *,
-        status: ExperimentTransitionStatusEnum,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[UpdateExperimentStatusResponseContent]:
-        """
-        Transitions an experiment through its lifecycle: draft → active, active → paused, paused → active, active/paused → completed. Activation runs full readiness validation.
-
-        Parameters
-        ----------
-        id : str
-            The ID of the experiment to transition.
-
-        status : ExperimentTransitionStatusEnum
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[UpdateExperimentStatusResponseContent]
-            Experiment status successfully updated.
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"experimentation/experiments/{quote_path_param(id)}/status",
-            method="POST",
-            json={
-                "status": status,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    UpdateExperimentStatusResponseContent,
-                    parse_obj_as(
-                        type_=UpdateExperimentStatusResponseContent,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
