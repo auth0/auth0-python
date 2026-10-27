@@ -20,7 +20,11 @@ class CreateExperimentResponseContent(UniversalBaseModel):
     authentication_flow: str
     allocation_strategy: AllocationStrategyEnum
     status: ExperimentStatusEnum
-    is_valid: bool
+    is_valid: bool = pydantic.Field()
+    """
+    Whether the experiment is valid and ready to activate, as of its last update. It can lag changes made later to related entities. Call POST /experiments/{id}/validate for the current result.
+    """
+
     default_config: typing.Optional[DefaultConfigEnum] = None
     feature_flag_snapshot: typing.Optional[typing.Dict[str, typing.Any]] = None
     allocations: typing.List[AllocationItem]

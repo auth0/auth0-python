@@ -6,24 +6,19 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CaptchaPolicyActionRecaptchaEnterpriseInput(UniversalBaseModel):
+class ConnectionOtpChannelSettings(UniversalBaseModel):
     """
-    reCAPTCHA Enterprise provider configuration.
-    """
-
-    site_key: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The reCAPTCHA Enterprise site key.
+    OTP settings for a delivery channel.
     """
 
-    project_id: typing.Optional[str] = pydantic.Field(default=None)
+    otp_length: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The Google Cloud project ID.
+    Number of digits in the generated one-time password.
     """
 
-    api_key: typing.Optional[str] = pydantic.Field(default=None)
+    otp_expiry: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The reCAPTCHA Enterprise API key. Encrypted at rest.
+    Number of seconds before the one-time password expires.
     """
 
     if IS_PYDANTIC_V2:

@@ -36,6 +36,7 @@ from ..types.resource_server_sort_field_enum import ResourceServerSortFieldEnum
 from ..types.resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
 from ..types.resource_server_token_dialect_schema_enum import ResourceServerTokenDialectSchemaEnum
 from ..types.resource_server_token_encryption import ResourceServerTokenEncryption
+from ..types.resource_server_type_enum import ResourceServerTypeEnum
 from ..types.search_parser_enum import SearchParserEnum
 from ..types.search_resource_servers_response_content import SearchResourceServersResponseContent
 from ..types.signing_algorithm_enum import SigningAlgorithmEnum
@@ -199,6 +200,7 @@ class RawResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateResourceServerResponseContent]:
         """
@@ -260,6 +262,8 @@ class RawResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -313,6 +317,7 @@ class RawResourceServersClient:
                     annotation=typing.Optional[ResourceServerAuthorizationPolicy],
                     direction="write",
                 ),
+                "type": type,
             },
             headers={
                 "content-type": "application/json",
@@ -775,6 +780,7 @@ class RawResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateResourceServerResponseContent]:
         """
@@ -836,6 +842,8 @@ class RawResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -888,6 +896,7 @@ class RawResourceServersClient:
                     annotation=typing.Optional[ResourceServerAuthorizationPolicy],
                     direction="write",
                 ),
+                "type": type,
             },
             headers={
                 "content-type": "application/json",
@@ -1126,6 +1135,7 @@ class AsyncRawResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateResourceServerResponseContent]:
         """
@@ -1187,6 +1197,8 @@ class AsyncRawResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1240,6 +1252,7 @@ class AsyncRawResourceServersClient:
                     annotation=typing.Optional[ResourceServerAuthorizationPolicy],
                     direction="write",
                 ),
+                "type": type,
             },
             headers={
                 "content-type": "application/json",
@@ -1707,6 +1720,7 @@ class AsyncRawResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateResourceServerResponseContent]:
         """
@@ -1768,6 +1782,8 @@ class AsyncRawResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1820,6 +1836,7 @@ class AsyncRawResourceServersClient:
                     annotation=typing.Optional[ResourceServerAuthorizationPolicy],
                     direction="write",
                 ),
+                "type": type,
             },
             headers={
                 "content-type": "application/json",

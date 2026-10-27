@@ -11,8 +11,15 @@ def test_experimentation_segments_list_() -> None:
         from_="from",
         take=1,
         type="auth0",
+        status="active",
     )
-    verify_request_count(test_id, "GET", "/experimentation/segments", {"from": "from", "take": "1", "type": "auth0"}, 1)
+    verify_request_count(
+        test_id,
+        "GET",
+        "/experimentation/segments",
+        {"from": "from", "take": "1", "type": "auth0", "status": "active"},
+        1,
+    )
 
 
 def test_experimentation_segments_create() -> None:

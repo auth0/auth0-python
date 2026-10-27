@@ -6,6 +6,8 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
+from .connection_client_id_samlxaa_requesting_app import ConnectionClientIdSamlxaaRequestingApp
+from .connection_client_secret_samlxaa_requesting_app import ConnectionClientSecretSamlxaaRequestingApp
 from .connection_debug_saml import ConnectionDebugSaml
 from .connection_destination_url_saml import ConnectionDestinationUrlSaml
 from .connection_discovery_url import ConnectionDiscoveryUrl
@@ -31,6 +33,8 @@ class ConnectionOptionsSaml(ConnectionOptionsCommonSaml, ConnectionOptionsCommon
     Options for the 'samlp' connection
     """
 
+    client_id: typing.Optional[ConnectionClientIdSamlxaaRequestingApp] = None
+    client_secret: typing.Optional[ConnectionClientSecretSamlxaaRequestingApp] = None
     debug: typing.Optional[ConnectionDebugSaml] = None
     deflate: typing.Optional[ConnectionOptionsDeflateSaml] = None
     destination_url: typing_extensions.Annotated[

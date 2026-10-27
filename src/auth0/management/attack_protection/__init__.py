@@ -11,7 +11,6 @@ if typing.TYPE_CHECKING:
         breached_password_detection,
         brute_force_protection,
         captcha,
-        captcha_policies,
         phone_provider_protection,
         suspicious_ip_throttling,
     )
@@ -20,7 +19,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "breached_password_detection": ".breached_password_detection",
     "brute_force_protection": ".brute_force_protection",
     "captcha": ".captcha",
-    "captcha_policies": ".captcha_policies",
     "phone_provider_protection": ".phone_provider_protection",
     "suspicious_ip_throttling": ".suspicious_ip_throttling",
 }
@@ -52,7 +50,6 @@ __all__ = [
     "breached_password_detection",
     "brute_force_protection",
     "captcha",
-    "captcha_policies",
     "phone_provider_protection",
     "suspicious_ip_throttling",
 ]

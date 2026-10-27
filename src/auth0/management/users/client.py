@@ -8,8 +8,10 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.app_metadata import AppMetadata
+from ..types.consent_signing_key import ConsentSigningKey
 from ..types.create_user_response_content import CreateUserResponseContent
 from ..types.get_user_response_content import GetUserResponseContent
+from ..types.list_user_consent_signing_keys_response_content import ListUserConsentSigningKeysResponseContent
 from ..types.list_users_offset_paginated_response_content import ListUsersOffsetPaginatedResponseContent
 from ..types.regenerate_users_recovery_code_response_content import RegenerateUsersRecoveryCodeResponseContent
 from ..types.search_engine_versions_enum import SearchEngineVersionsEnum
@@ -649,6 +651,112 @@ class UsersClient:
             username=username,
             request_options=request_options,
         )
+        return _response.data
+
+    def list_consent_signing_keys(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ListUserConsentSigningKeysResponseContent:
+        """
+        Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListUserConsentSigningKeysResponseContent
+            The user's consent signing keys were returned.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.users.list_consent_signing_keys(
+            id="id",
+        )
+        """
+        _response = self._raw_client.list_consent_signing_keys(id, request_options=request_options)
+        return _response.data
+
+    def get_consent_signing_key(
+        self, id: str, kid: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ConsentSigningKey:
+        """
+        Retrieve a single consent signing key for a user by its key identifier (kid). Returns 404 if the key does not exist.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user.
+
+        kid : str
+            The key identifier of the consent signing key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ConsentSigningKey
+            The consent signing key was returned.
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.users.get_consent_signing_key(
+            id="id",
+            kid="kid",
+        )
+        """
+        _response = self._raw_client.get_consent_signing_key(id, kid, request_options=request_options)
+        return _response.data
+
+    def delete_consent_signing_key(
+        self, id: str, kid: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Remove a single consent signing key for a user by its key identifier (kid). The operation is idempotent and returns 204 whether or not the key existed.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user.
+
+        kid : str
+            The key identifier of the consent signing key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from auth0 import Auth0
+
+        client = Auth0(
+            token="YOUR_TOKEN",
+        )
+        client.users.delete_consent_signing_key(
+            id="id",
+            kid="kid",
+        )
+        """
+        _response = self._raw_client.delete_consent_signing_key(id, kid, request_options=request_options)
         return _response.data
 
     def regenerate_recovery_code(
@@ -1517,6 +1625,136 @@ class AsyncUsersClient:
             username=username,
             request_options=request_options,
         )
+        return _response.data
+
+    async def list_consent_signing_keys(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ListUserConsentSigningKeysResponseContent:
+        """
+        Retrieve all consent signing keys registered for a user. Returns an empty array when the user has no keys registered.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListUserConsentSigningKeysResponseContent
+            The user's consent signing keys were returned.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.users.list_consent_signing_keys(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_consent_signing_keys(id, request_options=request_options)
+        return _response.data
+
+    async def get_consent_signing_key(
+        self, id: str, kid: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ConsentSigningKey:
+        """
+        Retrieve a single consent signing key for a user by its key identifier (kid). Returns 404 if the key does not exist.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user.
+
+        kid : str
+            The key identifier of the consent signing key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ConsentSigningKey
+            The consent signing key was returned.
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.users.get_consent_signing_key(
+                id="id",
+                kid="kid",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_consent_signing_key(id, kid, request_options=request_options)
+        return _response.data
+
+    async def delete_consent_signing_key(
+        self, id: str, kid: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Remove a single consent signing key for a user by its key identifier (kid). The operation is idempotent and returns 204 whether or not the key existed.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user.
+
+        kid : str
+            The key identifier of the consent signing key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from auth0 import AsyncAuth0
+
+        client = AsyncAuth0(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.users.delete_consent_signing_key(
+                id="id",
+                kid="kid",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_consent_signing_key(id, kid, request_options=request_options)
         return _response.data
 
     async def regenerate_recovery_code(

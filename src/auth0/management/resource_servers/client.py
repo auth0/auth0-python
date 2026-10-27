@@ -21,6 +21,7 @@ from ..types.resource_server_sort_field_enum import ResourceServerSortFieldEnum
 from ..types.resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
 from ..types.resource_server_token_dialect_schema_enum import ResourceServerTokenDialectSchemaEnum
 from ..types.resource_server_token_encryption import ResourceServerTokenEncryption
+from ..types.resource_server_type_enum import ResourceServerTypeEnum
 from ..types.search_parser_enum import SearchParserEnum
 from ..types.search_resource_servers_response_content import SearchResourceServersResponseContent
 from ..types.signing_algorithm_enum import SigningAlgorithmEnum
@@ -137,6 +138,7 @@ class ResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateResourceServerResponseContent:
         """
@@ -198,6 +200,8 @@ class ResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -239,6 +243,7 @@ class ResourceServersClient:
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
             authorization_policy=authorization_policy,
+            type=type,
             request_options=request_options,
         )
         return _response.data
@@ -420,6 +425,7 @@ class ResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateResourceServerResponseContent:
         """
@@ -481,6 +487,8 @@ class ResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -522,6 +530,7 @@ class ResourceServersClient:
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
             authorization_policy=authorization_policy,
+            type=type,
             request_options=request_options,
         )
         return _response.data
@@ -642,6 +651,7 @@ class AsyncResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateResourceServerResponseContent:
         """
@@ -703,6 +713,8 @@ class AsyncResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -752,6 +764,7 @@ class AsyncResourceServersClient:
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
             authorization_policy=authorization_policy,
+            type=type,
             request_options=request_options,
         )
         return _response.data
@@ -958,6 +971,7 @@ class AsyncResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateResourceServerResponseContent:
         """
@@ -1019,6 +1033,8 @@ class AsyncResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1068,6 +1084,7 @@ class AsyncResourceServersClient:
             proof_of_possession=proof_of_possession,
             subject_type_authorization=subject_type_authorization,
             authorization_policy=authorization_policy,
+            type=type,
             request_options=request_options,
         )
         return _response.data
