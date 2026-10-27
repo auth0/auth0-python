@@ -12,6 +12,7 @@ from .resource_server_scope import ResourceServerScope
 from .resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
 from .resource_server_token_dialect_response_enum import ResourceServerTokenDialectResponseEnum
 from .resource_server_token_encryption import ResourceServerTokenEncryption
+from .resource_server_type_enum import ResourceServerTypeEnum
 from .signing_algorithm_enum import SigningAlgorithmEnum
 
 
@@ -99,6 +100,8 @@ class ResourceServerSearchResponse(UniversalBaseModel):
     """
     The client ID of the client that this resource server is linked to
     """
+
+    type: typing.Optional[ResourceServerTypeEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

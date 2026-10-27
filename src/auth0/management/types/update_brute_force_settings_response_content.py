@@ -27,12 +27,11 @@ class UpdateBruteForceSettingsResponseContent(UniversalBaseModel):
     """
 
     mode: typing.Optional[BruteForceProtectionModeEnum] = None
+    form_submission_mode: typing.Optional[BruteForceProtectionFormSubmissionModeEnum] = None
     max_attempts: typing.Optional[int] = pydantic.Field(default=None)
     """
     Maximum number of unsuccessful attempts.
     """
-
-    form_submission_mode: typing.Optional[BruteForceProtectionFormSubmissionModeEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

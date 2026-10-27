@@ -35,6 +35,7 @@ def test_experimentation_experiments_create() -> None:
         name="name",
         feature_flag_id="feature_flag_id",
         authentication_flow="authentication",
+        allocation_strategy="percentage",
     )
     verify_request_count(test_id, "POST", "/experimentation/experiments", None, 1)
 

@@ -80,10 +80,6 @@ if typing.TYPE_CHECKING:
         AttackProtectionCaptchaFriendlyCaptchaResponseContent,
     )
     from .attack_protection_captcha_hcaptcha_response_content import AttackProtectionCaptchaHcaptchaResponseContent
-    from .attack_protection_captcha_policy import AttackProtectionCaptchaPolicy
-    from .attack_protection_captcha_policy_action import AttackProtectionCaptchaPolicyAction
-    from .attack_protection_captcha_policy_action_input import AttackProtectionCaptchaPolicyActionInput
-    from .attack_protection_captcha_policy_match import AttackProtectionCaptchaPolicyMatch
     from .attack_protection_captcha_provider_id import AttackProtectionCaptchaProviderId
     from .attack_protection_captcha_recaptcha_enterprise_response_content import (
         AttackProtectionCaptchaRecaptchaEnterpriseResponseContent,
@@ -168,19 +164,6 @@ if typing.TYPE_CHECKING:
     from .brute_force_protection_mode_enum import BruteForceProtectionModeEnum
     from .brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
     from .bulk_update_acul_response_content import BulkUpdateAculResponseContent
-    from .captcha_active_provider_enum import CaptchaActiveProviderEnum
-    from .captcha_policy_action_arkose import CaptchaPolicyActionArkose
-    from .captcha_policy_action_arkose_input import CaptchaPolicyActionArkoseInput
-    from .captcha_policy_action_auth_challenge import CaptchaPolicyActionAuthChallenge
-    from .captcha_policy_action_friendly_captcha import CaptchaPolicyActionFriendlyCaptcha
-    from .captcha_policy_action_friendly_captcha_input import CaptchaPolicyActionFriendlyCaptchaInput
-    from .captcha_policy_action_hcaptcha import CaptchaPolicyActionHcaptcha
-    from .captcha_policy_action_hcaptcha_input import CaptchaPolicyActionHcaptchaInput
-    from .captcha_policy_action_recaptcha_enterprise import CaptchaPolicyActionRecaptchaEnterprise
-    from .captcha_policy_action_recaptcha_enterprise_input import CaptchaPolicyActionRecaptchaEnterpriseInput
-    from .captcha_policy_action_recaptcha_v_2 import CaptchaPolicyActionRecaptchaV2
-    from .captcha_policy_action_recaptcha_v_2_input import CaptchaPolicyActionRecaptchaV2Input
-    from .captcha_policy_action_simple_captcha import CaptchaPolicyActionSimpleCaptcha
     from .certificate_subject_dn_credential import CertificateSubjectDnCredential
     from .certificate_subject_dn_credential_type_enum import CertificateSubjectDnCredentialTypeEnum
     from .change_password_ticket_identity import ChangePasswordTicketIdentity
@@ -303,6 +286,7 @@ if typing.TYPE_CHECKING:
     from .client_oidc_backchannel_logout_initiators_mode_enum import ClientOidcBackchannelLogoutInitiatorsModeEnum
     from .client_oidc_backchannel_logout_session_metadata import ClientOidcBackchannelLogoutSessionMetadata
     from .client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
+    from .client_oidc_support import ClientOidcSupport
     from .client_oidc_support_allowed_scopes_enum import ClientOidcSupportAllowedScopesEnum
     from .client_oidc_support_patch import ClientOidcSupportPatch
     from .client_oidc_support_post import ClientOidcSupportPost
@@ -432,6 +416,7 @@ if typing.TYPE_CHECKING:
     from .connection_client_id_oidc import ConnectionClientIdOidc
     from .connection_client_id_paypal import ConnectionClientIdPaypal
     from .connection_client_id_salesforce import ConnectionClientIdSalesforce
+    from .connection_client_id_samlxaa_requesting_app import ConnectionClientIdSamlxaaRequestingApp
     from .connection_client_id_windows_live import ConnectionClientIdWindowsLive
     from .connection_client_protocol_saml import ConnectionClientProtocolSaml
     from .connection_client_secret import ConnectionClientSecret
@@ -449,6 +434,7 @@ if typing.TYPE_CHECKING:
     from .connection_client_secret_oidc import ConnectionClientSecretOidc
     from .connection_client_secret_paypal import ConnectionClientSecretPaypal
     from .connection_client_secret_salesforce import ConnectionClientSecretSalesforce
+    from .connection_client_secret_samlxaa_requesting_app import ConnectionClientSecretSamlxaaRequestingApp
     from .connection_client_secret_windows_live import ConnectionClientSecretWindowsLive
     from .connection_common import ConnectionCommon
     from .connection_community_base_url_salesforce import ConnectionCommunityBaseUrlSalesforce
@@ -643,6 +629,8 @@ if typing.TYPE_CHECKING:
     from .connection_options_wordpress import ConnectionOptionsWordpress
     from .connection_options_yahoo import ConnectionOptionsYahoo
     from .connection_options_yandex import ConnectionOptionsYandex
+    from .connection_otp_channel_settings import ConnectionOtpChannelSettings
+    from .connection_otp_settings import ConnectionOtpSettings
     from .connection_passkey_authentication_method import ConnectionPasskeyAuthenticationMethod
     from .connection_passkey_challenge_ui_enum import ConnectionPasskeyChallengeUiEnum
     from .connection_passkey_options import ConnectionPasskeyOptions
@@ -955,6 +943,7 @@ if typing.TYPE_CHECKING:
     from .connections_discovery_url import ConnectionsDiscoveryUrl
     from .connections_metadata import ConnectionsMetadata
     from .connections_oidc_metadata import ConnectionsOidcMetadata
+    from .consent_signing_key import ConsentSigningKey
     from .content_security_policy_config import ContentSecurityPolicyConfig
     from .create_action_module_response_content import CreateActionModuleResponseContent
     from .create_action_module_version_response_content import CreateActionModuleVersionResponseContent
@@ -3470,6 +3459,16 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_context_request import EventStreamCloudEventContextRequest
     from .event_stream_cloud_event_context_request_geo import EventStreamCloudEventContextRequestGeo
     from .event_stream_cloud_event_context_tenant import EventStreamCloudEventContextTenant
+    from .event_stream_cloud_event_context_transaction import EventStreamCloudEventContextTransaction
+    from .event_stream_cloud_event_context_transaction_protocol_enum import (
+        EventStreamCloudEventContextTransactionProtocolEnum,
+    )
+    from .event_stream_cloud_event_context_transaction_response_mode_enum import (
+        EventStreamCloudEventContextTransactionResponseModeEnum,
+    )
+    from .event_stream_cloud_event_context_transaction_response_type_item_enum import (
+        EventStreamCloudEventContextTransactionResponseTypeItemEnum,
+    )
     from .event_stream_cloud_event_data import EventStreamCloudEventData
     from .event_stream_cloud_event_error_code_enum import EventStreamCloudEventErrorCodeEnum
     from .event_stream_cloud_event_error_detail import EventStreamCloudEventErrorDetail
@@ -5742,9 +5741,6 @@ if typing.TYPE_CHECKING:
     from .list_aculs_offset_paginated_response_content import ListAculsOffsetPaginatedResponseContent
     from .list_aculs_response_content_item import ListAculsResponseContentItem
     from .list_agents_response_content import ListAgentsResponseContent
-    from .list_attack_protection_captcha_policies_response_content import (
-        ListAttackProtectionCaptchaPoliciesResponseContent,
-    )
     from .list_branding_phone_providers_response_content import ListBrandingPhoneProvidersResponseContent
     from .list_client_connections_response_content import ListClientConnectionsResponseContent
     from .list_client_grant_organizations_paginated_response_content import (
@@ -5837,6 +5833,7 @@ if typing.TYPE_CHECKING:
     from .list_user_blocks_by_identifier_response_content import ListUserBlocksByIdentifierResponseContent
     from .list_user_blocks_response_content import ListUserBlocksResponseContent
     from .list_user_connected_accounts_response_content import ListUserConnectedAccountsResponseContent
+    from .list_user_consent_signing_keys_response_content import ListUserConsentSigningKeysResponseContent
     from .list_user_effective_permission_role_sources_response_content import (
         ListUserEffectivePermissionRoleSourcesResponseContent,
     )
@@ -6085,6 +6082,7 @@ if typing.TYPE_CHECKING:
     from .resource_server_token_encryption_algorithm_enum import ResourceServerTokenEncryptionAlgorithmEnum
     from .resource_server_token_encryption_format_enum import ResourceServerTokenEncryptionFormatEnum
     from .resource_server_token_encryption_key import ResourceServerTokenEncryptionKey
+    from .resource_server_type_enum import ResourceServerTypeEnum
     from .resource_server_verification_key_pem_certificate import ResourceServerVerificationKeyPemCertificate
     from .revoked_signing_keys_response_content import RevokedSigningKeysResponseContent
     from .role import Role
@@ -6568,10 +6566,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AttackProtectionCaptchaAuthChallengeResponseContent": ".attack_protection_captcha_auth_challenge_response_content",
     "AttackProtectionCaptchaFriendlyCaptchaResponseContent": ".attack_protection_captcha_friendly_captcha_response_content",
     "AttackProtectionCaptchaHcaptchaResponseContent": ".attack_protection_captcha_hcaptcha_response_content",
-    "AttackProtectionCaptchaPolicy": ".attack_protection_captcha_policy",
-    "AttackProtectionCaptchaPolicyAction": ".attack_protection_captcha_policy_action",
-    "AttackProtectionCaptchaPolicyActionInput": ".attack_protection_captcha_policy_action_input",
-    "AttackProtectionCaptchaPolicyMatch": ".attack_protection_captcha_policy_match",
     "AttackProtectionCaptchaProviderId": ".attack_protection_captcha_provider_id",
     "AttackProtectionCaptchaRecaptchaEnterpriseResponseContent": ".attack_protection_captcha_recaptcha_enterprise_response_content",
     "AttackProtectionCaptchaRecaptchaV2ResponseContent": ".attack_protection_captcha_recaptcha_v_2_response_content",
@@ -6638,19 +6632,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BruteForceProtectionModeEnum": ".brute_force_protection_mode_enum",
     "BruteForceProtectionShieldsEnum": ".brute_force_protection_shields_enum",
     "BulkUpdateAculResponseContent": ".bulk_update_acul_response_content",
-    "CaptchaActiveProviderEnum": ".captcha_active_provider_enum",
-    "CaptchaPolicyActionArkose": ".captcha_policy_action_arkose",
-    "CaptchaPolicyActionArkoseInput": ".captcha_policy_action_arkose_input",
-    "CaptchaPolicyActionAuthChallenge": ".captcha_policy_action_auth_challenge",
-    "CaptchaPolicyActionFriendlyCaptcha": ".captcha_policy_action_friendly_captcha",
-    "CaptchaPolicyActionFriendlyCaptchaInput": ".captcha_policy_action_friendly_captcha_input",
-    "CaptchaPolicyActionHcaptcha": ".captcha_policy_action_hcaptcha",
-    "CaptchaPolicyActionHcaptchaInput": ".captcha_policy_action_hcaptcha_input",
-    "CaptchaPolicyActionRecaptchaEnterprise": ".captcha_policy_action_recaptcha_enterprise",
-    "CaptchaPolicyActionRecaptchaEnterpriseInput": ".captcha_policy_action_recaptcha_enterprise_input",
-    "CaptchaPolicyActionRecaptchaV2": ".captcha_policy_action_recaptcha_v_2",
-    "CaptchaPolicyActionRecaptchaV2Input": ".captcha_policy_action_recaptcha_v_2_input",
-    "CaptchaPolicyActionSimpleCaptcha": ".captcha_policy_action_simple_captcha",
     "CertificateSubjectDnCredential": ".certificate_subject_dn_credential",
     "CertificateSubjectDnCredentialTypeEnum": ".certificate_subject_dn_credential_type_enum",
     "ChangePasswordTicketIdentity": ".change_password_ticket_identity",
@@ -6747,6 +6728,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".client_oidc_backchannel_logout_initiators_mode_enum",
     "ClientOidcBackchannelLogoutSessionMetadata": ".client_oidc_backchannel_logout_session_metadata",
     "ClientOidcBackchannelLogoutSettings": ".client_oidc_backchannel_logout_settings",
+    "ClientOidcSupport": ".client_oidc_support",
     "ClientOidcSupportAllowedScopesEnum": ".client_oidc_support_allowed_scopes_enum",
     "ClientOidcSupportPatch": ".client_oidc_support_patch",
     "ClientOidcSupportPost": ".client_oidc_support_post",
@@ -6852,6 +6834,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientIdOidc": ".connection_client_id_oidc",
     "ConnectionClientIdPaypal": ".connection_client_id_paypal",
     "ConnectionClientIdSalesforce": ".connection_client_id_salesforce",
+    "ConnectionClientIdSamlxaaRequestingApp": ".connection_client_id_samlxaa_requesting_app",
     "ConnectionClientIdWindowsLive": ".connection_client_id_windows_live",
     "ConnectionClientProtocolSaml": ".connection_client_protocol_saml",
     "ConnectionClientSecret": ".connection_client_secret",
@@ -6869,6 +6852,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientSecretOidc": ".connection_client_secret_oidc",
     "ConnectionClientSecretPaypal": ".connection_client_secret_paypal",
     "ConnectionClientSecretSalesforce": ".connection_client_secret_salesforce",
+    "ConnectionClientSecretSamlxaaRequestingApp": ".connection_client_secret_samlxaa_requesting_app",
     "ConnectionClientSecretWindowsLive": ".connection_client_secret_windows_live",
     "ConnectionCommon": ".connection_common",
     "ConnectionCommunityBaseUrlSalesforce": ".connection_community_base_url_salesforce",
@@ -7061,6 +7045,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsWordpress": ".connection_options_wordpress",
     "ConnectionOptionsYahoo": ".connection_options_yahoo",
     "ConnectionOptionsYandex": ".connection_options_yandex",
+    "ConnectionOtpChannelSettings": ".connection_otp_channel_settings",
+    "ConnectionOtpSettings": ".connection_otp_settings",
     "ConnectionPasskeyAuthenticationMethod": ".connection_passkey_authentication_method",
     "ConnectionPasskeyChallengeUiEnum": ".connection_passkey_challenge_ui_enum",
     "ConnectionPasskeyOptions": ".connection_passkey_options",
@@ -7341,6 +7327,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionsDiscoveryUrl": ".connections_discovery_url",
     "ConnectionsMetadata": ".connections_metadata",
     "ConnectionsOidcMetadata": ".connections_oidc_metadata",
+    "ConsentSigningKey": ".consent_signing_key",
     "ContentSecurityPolicyConfig": ".content_security_policy_config",
     "CreateActionModuleResponseContent": ".create_action_module_response_content",
     "CreateActionModuleVersionResponseContent": ".create_action_module_version_response_content",
@@ -8430,6 +8417,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventContextRequest": ".event_stream_cloud_event_context_request",
     "EventStreamCloudEventContextRequestGeo": ".event_stream_cloud_event_context_request_geo",
     "EventStreamCloudEventContextTenant": ".event_stream_cloud_event_context_tenant",
+    "EventStreamCloudEventContextTransaction": ".event_stream_cloud_event_context_transaction",
+    "EventStreamCloudEventContextTransactionProtocolEnum": ".event_stream_cloud_event_context_transaction_protocol_enum",
+    "EventStreamCloudEventContextTransactionResponseModeEnum": ".event_stream_cloud_event_context_transaction_response_mode_enum",
+    "EventStreamCloudEventContextTransactionResponseTypeItemEnum": ".event_stream_cloud_event_context_transaction_response_type_item_enum",
     "EventStreamCloudEventData": ".event_stream_cloud_event_data",
     "EventStreamCloudEventErrorCodeEnum": ".event_stream_cloud_event_error_code_enum",
     "EventStreamCloudEventErrorDetail": ".event_stream_cloud_event_error_detail",
@@ -9782,7 +9773,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAculsOffsetPaginatedResponseContent": ".list_aculs_offset_paginated_response_content",
     "ListAculsResponseContentItem": ".list_aculs_response_content_item",
     "ListAgentsResponseContent": ".list_agents_response_content",
-    "ListAttackProtectionCaptchaPoliciesResponseContent": ".list_attack_protection_captcha_policies_response_content",
     "ListBrandingPhoneProvidersResponseContent": ".list_branding_phone_providers_response_content",
     "ListClientConnectionsResponseContent": ".list_client_connections_response_content",
     "ListClientGrantOrganizationsPaginatedResponseContent": ".list_client_grant_organizations_paginated_response_content",
@@ -9847,6 +9837,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListUserBlocksByIdentifierResponseContent": ".list_user_blocks_by_identifier_response_content",
     "ListUserBlocksResponseContent": ".list_user_blocks_response_content",
     "ListUserConnectedAccountsResponseContent": ".list_user_connected_accounts_response_content",
+    "ListUserConsentSigningKeysResponseContent": ".list_user_consent_signing_keys_response_content",
     "ListUserEffectivePermissionRoleSourcesResponseContent": ".list_user_effective_permission_role_sources_response_content",
     "ListUserEffectivePermissionsResponseContent": ".list_user_effective_permissions_response_content",
     "ListUserEffectiveRolesResponseContent": ".list_user_effective_roles_response_content",
@@ -10065,6 +10056,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResourceServerTokenEncryptionAlgorithmEnum": ".resource_server_token_encryption_algorithm_enum",
     "ResourceServerTokenEncryptionFormatEnum": ".resource_server_token_encryption_format_enum",
     "ResourceServerTokenEncryptionKey": ".resource_server_token_encryption_key",
+    "ResourceServerTypeEnum": ".resource_server_type_enum",
     "ResourceServerVerificationKeyPemCertificate": ".resource_server_verification_key_pem_certificate",
     "RevokedSigningKeysResponseContent": ".revoked_signing_keys_response_content",
     "Role": ".role",
@@ -10518,10 +10510,6 @@ __all__ = [
     "AttackProtectionCaptchaAuthChallengeResponseContent",
     "AttackProtectionCaptchaFriendlyCaptchaResponseContent",
     "AttackProtectionCaptchaHcaptchaResponseContent",
-    "AttackProtectionCaptchaPolicy",
-    "AttackProtectionCaptchaPolicyAction",
-    "AttackProtectionCaptchaPolicyActionInput",
-    "AttackProtectionCaptchaPolicyMatch",
     "AttackProtectionCaptchaProviderId",
     "AttackProtectionCaptchaRecaptchaEnterpriseResponseContent",
     "AttackProtectionCaptchaRecaptchaV2ResponseContent",
@@ -10588,19 +10576,6 @@ __all__ = [
     "BruteForceProtectionModeEnum",
     "BruteForceProtectionShieldsEnum",
     "BulkUpdateAculResponseContent",
-    "CaptchaActiveProviderEnum",
-    "CaptchaPolicyActionArkose",
-    "CaptchaPolicyActionArkoseInput",
-    "CaptchaPolicyActionAuthChallenge",
-    "CaptchaPolicyActionFriendlyCaptcha",
-    "CaptchaPolicyActionFriendlyCaptchaInput",
-    "CaptchaPolicyActionHcaptcha",
-    "CaptchaPolicyActionHcaptchaInput",
-    "CaptchaPolicyActionRecaptchaEnterprise",
-    "CaptchaPolicyActionRecaptchaEnterpriseInput",
-    "CaptchaPolicyActionRecaptchaV2",
-    "CaptchaPolicyActionRecaptchaV2Input",
-    "CaptchaPolicyActionSimpleCaptcha",
     "CertificateSubjectDnCredential",
     "CertificateSubjectDnCredentialTypeEnum",
     "ChangePasswordTicketIdentity",
@@ -10697,6 +10672,7 @@ __all__ = [
     "ClientOidcBackchannelLogoutInitiatorsModeEnum",
     "ClientOidcBackchannelLogoutSessionMetadata",
     "ClientOidcBackchannelLogoutSettings",
+    "ClientOidcSupport",
     "ClientOidcSupportAllowedScopesEnum",
     "ClientOidcSupportPatch",
     "ClientOidcSupportPost",
@@ -10802,6 +10778,7 @@ __all__ = [
     "ConnectionClientIdOidc",
     "ConnectionClientIdPaypal",
     "ConnectionClientIdSalesforce",
+    "ConnectionClientIdSamlxaaRequestingApp",
     "ConnectionClientIdWindowsLive",
     "ConnectionClientProtocolSaml",
     "ConnectionClientSecret",
@@ -10819,6 +10796,7 @@ __all__ = [
     "ConnectionClientSecretOidc",
     "ConnectionClientSecretPaypal",
     "ConnectionClientSecretSalesforce",
+    "ConnectionClientSecretSamlxaaRequestingApp",
     "ConnectionClientSecretWindowsLive",
     "ConnectionCommon",
     "ConnectionCommunityBaseUrlSalesforce",
@@ -11011,6 +10989,8 @@ __all__ = [
     "ConnectionOptionsWordpress",
     "ConnectionOptionsYahoo",
     "ConnectionOptionsYandex",
+    "ConnectionOtpChannelSettings",
+    "ConnectionOtpSettings",
     "ConnectionPasskeyAuthenticationMethod",
     "ConnectionPasskeyChallengeUiEnum",
     "ConnectionPasskeyOptions",
@@ -11291,6 +11271,7 @@ __all__ = [
     "ConnectionsDiscoveryUrl",
     "ConnectionsMetadata",
     "ConnectionsOidcMetadata",
+    "ConsentSigningKey",
     "ContentSecurityPolicyConfig",
     "CreateActionModuleResponseContent",
     "CreateActionModuleVersionResponseContent",
@@ -12380,6 +12361,10 @@ __all__ = [
     "EventStreamCloudEventContextRequest",
     "EventStreamCloudEventContextRequestGeo",
     "EventStreamCloudEventContextTenant",
+    "EventStreamCloudEventContextTransaction",
+    "EventStreamCloudEventContextTransactionProtocolEnum",
+    "EventStreamCloudEventContextTransactionResponseModeEnum",
+    "EventStreamCloudEventContextTransactionResponseTypeItemEnum",
     "EventStreamCloudEventData",
     "EventStreamCloudEventErrorCodeEnum",
     "EventStreamCloudEventErrorDetail",
@@ -13732,7 +13717,6 @@ __all__ = [
     "ListAculsOffsetPaginatedResponseContent",
     "ListAculsResponseContentItem",
     "ListAgentsResponseContent",
-    "ListAttackProtectionCaptchaPoliciesResponseContent",
     "ListBrandingPhoneProvidersResponseContent",
     "ListClientConnectionsResponseContent",
     "ListClientGrantOrganizationsPaginatedResponseContent",
@@ -13797,6 +13781,7 @@ __all__ = [
     "ListUserBlocksByIdentifierResponseContent",
     "ListUserBlocksResponseContent",
     "ListUserConnectedAccountsResponseContent",
+    "ListUserConsentSigningKeysResponseContent",
     "ListUserEffectivePermissionRoleSourcesResponseContent",
     "ListUserEffectivePermissionsResponseContent",
     "ListUserEffectiveRolesResponseContent",
@@ -14015,6 +14000,7 @@ __all__ = [
     "ResourceServerTokenEncryptionAlgorithmEnum",
     "ResourceServerTokenEncryptionFormatEnum",
     "ResourceServerTokenEncryptionKey",
+    "ResourceServerTypeEnum",
     "ResourceServerVerificationKeyPemCertificate",
     "RevokedSigningKeysResponseContent",
     "Role",

@@ -27,6 +27,7 @@ from .client_metadata import ClientMetadata
 from .client_mobile import ClientMobile
 from .client_my_organization_response_configuration import ClientMyOrganizationResponseConfiguration
 from .client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
+from .client_oidc_support import ClientOidcSupport
 from .client_organization_discovery_enum import ClientOrganizationDiscoveryEnum
 from .client_organization_require_behavior_enum import ClientOrganizationRequireBehaviorEnum
 from .client_organization_usage_enum import ClientOrganizationUsageEnum
@@ -258,6 +259,7 @@ class CreateClientResponseContent(UniversalBaseModel):
         None
     )
     third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = None
+    oidc_support: typing.Optional[ClientOidcSupport] = None
     redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = None
     resource_server_identifier: typing.Optional[str] = pydantic.Field(default=None)
     """

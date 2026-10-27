@@ -40,6 +40,7 @@ class SegmentsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         type: typing.Optional[SegmentTypeFilterEnum] = None,
+        status: typing.Optional[SegmentStatusEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Segment, ListSegmentsResponseContent]:
         """
@@ -55,6 +56,9 @@ class SegmentsClient:
 
         type : typing.Optional[SegmentTypeFilterEnum]
             Filter by type. Exact match.
+
+        status : typing.Optional[SegmentStatusEnum]
+            Filter by status. Exact match.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -75,6 +79,7 @@ class SegmentsClient:
             from_="from",
             take=1,
             type="auth0",
+            status="active",
         )
         for item in response:
             yield item
@@ -82,7 +87,7 @@ class SegmentsClient:
         for page in response.iter_pages():
             yield page
         """
-        return self._raw_client.list(from_=from_, take=take, type=type, request_options=request_options)
+        return self._raw_client.list(from_=from_, take=take, type=type, status=status, request_options=request_options)
 
     def create(
         self,
@@ -268,6 +273,7 @@ class AsyncSegmentsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         type: typing.Optional[SegmentTypeFilterEnum] = None,
+        status: typing.Optional[SegmentStatusEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Segment, ListSegmentsResponseContent]:
         """
@@ -283,6 +289,9 @@ class AsyncSegmentsClient:
 
         type : typing.Optional[SegmentTypeFilterEnum]
             Filter by type. Exact match.
+
+        status : typing.Optional[SegmentStatusEnum]
+            Filter by status. Exact match.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -308,6 +317,7 @@ class AsyncSegmentsClient:
                 from_="from",
                 take=1,
                 type="auth0",
+                status="active",
             )
             async for item in response:
                 yield item
@@ -319,7 +329,9 @@ class AsyncSegmentsClient:
 
         asyncio.run(main())
         """
-        return await self._raw_client.list(from_=from_, take=take, type=type, request_options=request_options)
+        return await self._raw_client.list(
+            from_=from_, take=take, type=type, status=status, request_options=request_options
+        )
 
     async def create(
         self,

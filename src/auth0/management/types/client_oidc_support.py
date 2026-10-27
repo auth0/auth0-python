@@ -4,22 +4,17 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .client_oidc_support_allowed_scopes_enum import ClientOidcSupportAllowedScopesEnum
 
 
-class CaptchaPolicyActionRecaptchaEnterprise(UniversalBaseModel):
+class ClientOidcSupport(UniversalBaseModel):
     """
-    reCAPTCHA Enterprise provider configuration.
-    """
-
-    site_key: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The reCAPTCHA Enterprise site key.
+    OIDC support configuration for this client.
     """
 
-    project_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The Google Cloud project ID.
-    """
+    is_allowed: typing.Optional[bool] = None
+    allow_all_scopes: typing.Optional[bool] = None
+    allowed_scopes: typing.Optional[typing.List[ClientOidcSupportAllowedScopesEnum]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

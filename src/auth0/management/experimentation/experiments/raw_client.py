@@ -172,9 +172,9 @@ class RawExperimentsClient:
         name: str,
         feature_flag_id: str,
         authentication_flow: AuthenticationFlowEnum,
+        allocation_strategy: AllocationStrategyEnum,
         description: typing.Optional[str] = OMIT,
         default_config: typing.Optional[DefaultConfigEnum] = OMIT,
-        allocation_strategy: typing.Optional[AllocationStrategyEnum] = OMIT,
         allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
         levels: typing.Optional[typing.Sequence[int]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -192,14 +192,14 @@ class RawExperimentsClient:
 
         authentication_flow : AuthenticationFlowEnum
 
+        allocation_strategy : AllocationStrategyEnum
+            The traffic allocation strategy for this experiment
+
         description : typing.Optional[str]
             A description of the experiment
 
         default_config : typing.Optional[DefaultConfigEnum]
             Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config so the experiment overlays only its changes, 'flag' uses the flag's frozen defaults for a complete config. Optional; defaults to 'tenant' when omitted. Rejected for customer-defined flags.
-
-        allocation_strategy : typing.Optional[AllocationStrategyEnum]
-            The traffic allocation strategy for this experiment
 
         allocations : typing.Optional[typing.Sequence[AllocationRequestItem]]
             Traffic allocations mapping variations to weights or segments
@@ -994,9 +994,9 @@ class AsyncRawExperimentsClient:
         name: str,
         feature_flag_id: str,
         authentication_flow: AuthenticationFlowEnum,
+        allocation_strategy: AllocationStrategyEnum,
         description: typing.Optional[str] = OMIT,
         default_config: typing.Optional[DefaultConfigEnum] = OMIT,
-        allocation_strategy: typing.Optional[AllocationStrategyEnum] = OMIT,
         allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
         levels: typing.Optional[typing.Sequence[int]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1014,14 +1014,14 @@ class AsyncRawExperimentsClient:
 
         authentication_flow : AuthenticationFlowEnum
 
+        allocation_strategy : AllocationStrategyEnum
+            The traffic allocation strategy for this experiment
+
         description : typing.Optional[str]
             A description of the experiment
 
         default_config : typing.Optional[DefaultConfigEnum]
             Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config so the experiment overlays only its changes, 'flag' uses the flag's frozen defaults for a complete config. Optional; defaults to 'tenant' when omitted. Rejected for customer-defined flags.
-
-        allocation_strategy : typing.Optional[AllocationStrategyEnum]
-            The traffic allocation strategy for this experiment
 
         allocations : typing.Optional[typing.Sequence[AllocationRequestItem]]
             Traffic allocations mapping variations to weights or segments

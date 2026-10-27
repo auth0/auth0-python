@@ -4,17 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_otp_channel_settings import ConnectionOtpChannelSettings
 
 
-class CaptchaPolicyActionHcaptcha(UniversalBaseModel):
+class ConnectionOtpSettings(UniversalBaseModel):
     """
-    hCaptcha provider configuration.
+    One-time password settings, configurable per delivery channel.
     """
 
-    site_key: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The hCaptcha site key.
-    """
+    email: typing.Optional[ConnectionOtpChannelSettings] = None
+    phone: typing.Optional[ConnectionOtpChannelSettings] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

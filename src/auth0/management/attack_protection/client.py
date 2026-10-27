@@ -15,7 +15,6 @@ if typing.TYPE_CHECKING:
     )
     from .brute_force_protection.client import AsyncBruteForceProtectionClient, BruteForceProtectionClient
     from .captcha.client import AsyncCaptchaClient, CaptchaClient
-    from .captcha_policies.client import AsyncCaptchaPoliciesClient, CaptchaPoliciesClient
     from .phone_provider_protection.client import AsyncPhoneProviderProtectionClient, PhoneProviderProtectionClient
     from .suspicious_ip_throttling.client import AsyncSuspiciousIpThrottlingClient, SuspiciousIpThrottlingClient
 
@@ -28,7 +27,6 @@ class AttackProtectionClient:
         self._breached_password_detection: typing.Optional[BreachedPasswordDetectionClient] = None
         self._brute_force_protection: typing.Optional[BruteForceProtectionClient] = None
         self._captcha: typing.Optional[CaptchaClient] = None
-        self._captcha_policies: typing.Optional[CaptchaPoliciesClient] = None
         self._phone_provider_protection: typing.Optional[PhoneProviderProtectionClient] = None
         self._suspicious_ip_throttling: typing.Optional[SuspiciousIpThrottlingClient] = None
 
@@ -76,14 +74,6 @@ class AttackProtectionClient:
         return self._captcha
 
     @property
-    def captcha_policies(self):
-        if self._captcha_policies is None:
-            from .captcha_policies.client import CaptchaPoliciesClient  # noqa: E402
-
-            self._captcha_policies = CaptchaPoliciesClient(client_wrapper=self._client_wrapper)
-        return self._captcha_policies
-
-    @property
     def phone_provider_protection(self):
         if self._phone_provider_protection is None:
             from .phone_provider_protection.client import PhoneProviderProtectionClient  # noqa: E402
@@ -108,7 +98,6 @@ class AsyncAttackProtectionClient:
         self._breached_password_detection: typing.Optional[AsyncBreachedPasswordDetectionClient] = None
         self._brute_force_protection: typing.Optional[AsyncBruteForceProtectionClient] = None
         self._captcha: typing.Optional[AsyncCaptchaClient] = None
-        self._captcha_policies: typing.Optional[AsyncCaptchaPoliciesClient] = None
         self._phone_provider_protection: typing.Optional[AsyncPhoneProviderProtectionClient] = None
         self._suspicious_ip_throttling: typing.Optional[AsyncSuspiciousIpThrottlingClient] = None
 
@@ -156,14 +145,6 @@ class AsyncAttackProtectionClient:
 
             self._captcha = AsyncCaptchaClient(client_wrapper=self._client_wrapper)
         return self._captcha
-
-    @property
-    def captcha_policies(self):
-        if self._captcha_policies is None:
-            from .captcha_policies.client import AsyncCaptchaPoliciesClient  # noqa: E402
-
-            self._captcha_policies = AsyncCaptchaPoliciesClient(client_wrapper=self._client_wrapper)
-        return self._captcha_policies
 
     @property
     def phone_provider_protection(self):

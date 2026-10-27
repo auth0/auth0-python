@@ -131,7 +131,7 @@ class TenantSettingsFlags(UniversalBaseModel):
 
     dashboard_insights_view: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Enables new insights activity page view
+    Deprecated. This flag has no effect and is retained only for backward compatibility
     """
 
     disable_fields_map_fix: typing.Optional[bool] = pydantic.Field(default=None)

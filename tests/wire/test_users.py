@@ -93,6 +93,38 @@ def test_users_update() -> None:
     verify_request_count(test_id, "PATCH", "/users/id", None, 1)
 
 
+def test_users_list_consent_signing_keys() -> None:
+    """Test listConsentSigningKeys endpoint with WireMock"""
+    test_id = "users.list_consent_signing_keys.0"
+    client = get_client(test_id)
+    client.users.list_consent_signing_keys(
+        id="id",
+    )
+    verify_request_count(test_id, "GET", "/users/id/consent-signing-keys", None, 1)
+
+
+def test_users_get_consent_signing_key() -> None:
+    """Test getConsentSigningKey endpoint with WireMock"""
+    test_id = "users.get_consent_signing_key.0"
+    client = get_client(test_id)
+    client.users.get_consent_signing_key(
+        id="id",
+        kid="kid",
+    )
+    verify_request_count(test_id, "GET", "/users/id/consent-signing-keys/kid", None, 1)
+
+
+def test_users_delete_consent_signing_key() -> None:
+    """Test deleteConsentSigningKey endpoint with WireMock"""
+    test_id = "users.delete_consent_signing_key.0"
+    client = get_client(test_id)
+    client.users.delete_consent_signing_key(
+        id="id",
+        kid="kid",
+    )
+    verify_request_count(test_id, "DELETE", "/users/id/consent-signing-keys/kid", None, 1)
+
+
 def test_users_regenerate_recovery_code() -> None:
     """Test regenerateRecoveryCode endpoint with WireMock"""
     test_id = "users.regenerate_recovery_code.0"
