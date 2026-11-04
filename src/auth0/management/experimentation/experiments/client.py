@@ -112,9 +112,9 @@ class ExperimentsClient:
         name: str,
         feature_flag_id: str,
         authentication_flow: AuthenticationFlowEnum,
+        allocation_strategy: AllocationStrategyEnum,
         description: typing.Optional[str] = OMIT,
         default_config: typing.Optional[DefaultConfigEnum] = OMIT,
-        allocation_strategy: typing.Optional[AllocationStrategyEnum] = OMIT,
         allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
         levels: typing.Optional[typing.Sequence[int]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -132,14 +132,14 @@ class ExperimentsClient:
 
         authentication_flow : AuthenticationFlowEnum
 
+        allocation_strategy : AllocationStrategyEnum
+            The traffic allocation strategy for this experiment
+
         description : typing.Optional[str]
             A description of the experiment
 
         default_config : typing.Optional[DefaultConfigEnum]
             Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config so the experiment overlays only its changes, 'flag' uses the flag's frozen defaults for a complete config. Optional; defaults to 'tenant' when omitted. Rejected for customer-defined flags.
-
-        allocation_strategy : typing.Optional[AllocationStrategyEnum]
-            The traffic allocation strategy for this experiment
 
         allocations : typing.Optional[typing.Sequence[AllocationRequestItem]]
             Traffic allocations mapping variations to weights or segments
@@ -166,15 +166,16 @@ class ExperimentsClient:
             name="name",
             feature_flag_id="feature_flag_id",
             authentication_flow="authentication",
+            allocation_strategy="percentage",
         )
         """
         _response = self._raw_client.create(
             name=name,
             feature_flag_id=feature_flag_id,
             authentication_flow=authentication_flow,
+            allocation_strategy=allocation_strategy,
             description=description,
             default_config=default_config,
-            allocation_strategy=allocation_strategy,
             allocations=allocations,
             levels=levels,
             request_options=request_options,
@@ -483,9 +484,9 @@ class AsyncExperimentsClient:
         name: str,
         feature_flag_id: str,
         authentication_flow: AuthenticationFlowEnum,
+        allocation_strategy: AllocationStrategyEnum,
         description: typing.Optional[str] = OMIT,
         default_config: typing.Optional[DefaultConfigEnum] = OMIT,
-        allocation_strategy: typing.Optional[AllocationStrategyEnum] = OMIT,
         allocations: typing.Optional[typing.Sequence[AllocationRequestItem]] = OMIT,
         levels: typing.Optional[typing.Sequence[int]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -503,14 +504,14 @@ class AsyncExperimentsClient:
 
         authentication_flow : AuthenticationFlowEnum
 
+        allocation_strategy : AllocationStrategyEnum
+            The traffic allocation strategy for this experiment
+
         description : typing.Optional[str]
             A description of the experiment
 
         default_config : typing.Optional[DefaultConfigEnum]
             Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config so the experiment overlays only its changes, 'flag' uses the flag's frozen defaults for a complete config. Optional; defaults to 'tenant' when omitted. Rejected for customer-defined flags.
-
-        allocation_strategy : typing.Optional[AllocationStrategyEnum]
-            The traffic allocation strategy for this experiment
 
         allocations : typing.Optional[typing.Sequence[AllocationRequestItem]]
             Traffic allocations mapping variations to weights or segments
@@ -542,6 +543,7 @@ class AsyncExperimentsClient:
                 name="name",
                 feature_flag_id="feature_flag_id",
                 authentication_flow="authentication",
+                allocation_strategy="percentage",
             )
 
 
@@ -551,9 +553,9 @@ class AsyncExperimentsClient:
             name=name,
             feature_flag_id=feature_flag_id,
             authentication_flow=authentication_flow,
+            allocation_strategy=allocation_strategy,
             description=description,
             default_config=default_config,
-            allocation_strategy=allocation_strategy,
             allocations=allocations,
             levels=levels,
             request_options=request_options,

@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .resource_server_access_token import ResourceServerAccessToken
+from .resource_server_agent_subject_claims_response_enum import ResourceServerAgentSubjectClaimsResponseEnum
 from .resource_server_authorization_policy import ResourceServerAuthorizationPolicy
 from .resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
 from .resource_server_proof_of_possession import ResourceServerProofOfPossession
@@ -12,6 +13,7 @@ from .resource_server_scope import ResourceServerScope
 from .resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
 from .resource_server_token_dialect_response_enum import ResourceServerTokenDialectResponseEnum
 from .resource_server_token_encryption import ResourceServerTokenEncryption
+from .resource_server_type_enum import ResourceServerTypeEnum
 from .signing_algorithm_enum import SigningAlgorithmEnum
 
 
@@ -104,6 +106,9 @@ class UpdateResourceServerResponseContent(UniversalBaseModel):
     """
     The client ID of the client that this resource server is linked to
     """
+
+    agent_subject_claims: typing.Optional[ResourceServerAgentSubjectClaimsResponseEnum] = None
+    type: typing.Optional[ResourceServerTypeEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

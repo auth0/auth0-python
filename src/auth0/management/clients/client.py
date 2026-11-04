@@ -114,6 +114,7 @@ class ClientsClient:
         is_first_party: typing.Optional[bool] = None,
         app_type: typing.Optional[str] = None,
         external_client_id: typing.Optional[str] = None,
+        agent_id: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Client, ListClientsOffsetPaginatedResponseContent]:
@@ -173,6 +174,9 @@ class ClientsClient:
         external_client_id : typing.Optional[str]
             Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
 
+        agent_id : typing.Optional[str]
+            Optional filter by the agent associated with the client.<br /><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Only <i>fields</i>, <i>include_fields</i>, <i>page</i>, <i>per_page</i>, and <i>include_totals</i> are supported alongside it</li><li>Checkpoint pagination (<i>from</i>, <i>take</i>) is not supported</li></ul>
+
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
 
@@ -201,6 +205,7 @@ class ClientsClient:
             is_first_party=True,
             app_type="app_type",
             external_client_id="external_client_id",
+            agent_id="agent_id",
             q="q",
         )
         for item in response:
@@ -219,6 +224,7 @@ class ClientsClient:
             is_first_party=is_first_party,
             app_type=app_type,
             external_client_id=external_client_id,
+            agent_id=agent_id,
             q=q,
             request_options=request_options,
         )
@@ -289,6 +295,7 @@ class ClientsClient:
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
+        agent_id: typing.Optional[str] = OMIT,
         oidc_support: typing.Optional[ClientOidcSupportPost] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientResponseContent:
@@ -459,6 +466,9 @@ class ClientsClient:
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
+        agent_id : typing.Optional[str]
+            ID of the agent to associate with this client.
+
         oidc_support : typing.Optional[ClientOidcSupportPost]
 
         request_options : typing.Optional[RequestOptions]
@@ -540,6 +550,7 @@ class ClientsClient:
             b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
+            agent_id=agent_id,
             oidc_support=oidc_support,
             request_options=request_options,
         )
@@ -887,6 +898,7 @@ class ClientsClient:
         ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
+        agent_id: typing.Optional[str] = OMIT,
         oidc_support: typing.Optional[ClientOidcSupportPatch] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientResponseContent:
@@ -1057,6 +1069,9 @@ class ClientsClient:
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
+        agent_id : typing.Optional[str]
+            ID of the agent to associate with this client, or null to remove the association.
+
         oidc_support : typing.Optional[ClientOidcSupportPatch]
 
         request_options : typing.Optional[RequestOptions]
@@ -1139,6 +1154,7 @@ class ClientsClient:
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
+            agent_id=agent_id,
             oidc_support=oidc_support,
             request_options=request_options,
         )
@@ -1228,6 +1244,7 @@ class AsyncClientsClient:
         is_first_party: typing.Optional[bool] = None,
         app_type: typing.Optional[str] = None,
         external_client_id: typing.Optional[str] = None,
+        agent_id: typing.Optional[str] = None,
         q: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Client, ListClientsOffsetPaginatedResponseContent]:
@@ -1287,6 +1304,9 @@ class AsyncClientsClient:
         external_client_id : typing.Optional[str]
             Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
 
+        agent_id : typing.Optional[str]
+            Optional filter by the agent associated with the client.<br /><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Only <i>fields</i>, <i>include_fields</i>, <i>page</i>, <i>per_page</i>, and <i>include_totals</i> are supported alongside it</li><li>Checkpoint pagination (<i>from</i>, <i>take</i>) is not supported</li></ul>
+
         q : typing.Optional[str]
             Advanced Query in <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene</a> syntax.<br /><b>Permitted Queries</b>:<br /><ul><li><i>client_grant.organization_id:{organization_id}</i></li><li><i>client_grant.allow_any_organization:true</i></li></ul><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Requires use of the <i>from</i> and <i>take</i> paging parameters (checkpoint paginatinon)</li><li>Reduced rate limits apply. See <a href="https://auth0.com/docs/troubleshoot/customer-support/operational-policies/rate-limit-policy/rate-limit-configurations/enterprise-public">Rate Limit Configurations</a></li></ul><i><b>Note</b>: Recent updates may not be immediately reflected in query results</i>
 
@@ -1320,6 +1340,7 @@ class AsyncClientsClient:
                 is_first_party=True,
                 app_type="app_type",
                 external_client_id="external_client_id",
+                agent_id="agent_id",
                 q="q",
             )
             async for item in response:
@@ -1342,6 +1363,7 @@ class AsyncClientsClient:
             is_first_party=is_first_party,
             app_type=app_type,
             external_client_id=external_client_id,
+            agent_id=agent_id,
             q=q,
             request_options=request_options,
         )
@@ -1412,6 +1434,7 @@ class AsyncClientsClient:
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
+        agent_id: typing.Optional[str] = OMIT,
         oidc_support: typing.Optional[ClientOidcSupportPost] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateClientResponseContent:
@@ -1582,6 +1605,9 @@ class AsyncClientsClient:
 
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
+        agent_id : typing.Optional[str]
+            ID of the agent to associate with this client.
+
         oidc_support : typing.Optional[ClientOidcSupportPost]
 
         request_options : typing.Optional[RequestOptions]
@@ -1671,6 +1697,7 @@ class AsyncClientsClient:
             b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
             async_approval_notification_channels=async_approval_notification_channels,
+            agent_id=agent_id,
             oidc_support=oidc_support,
             request_options=request_options,
         )
@@ -2059,6 +2086,7 @@ class AsyncClientsClient:
         ] = OMIT,
         third_party_security_mode: typing.Optional[ClientThirdPartySecurityModeEnum] = OMIT,
         redirection_policy: typing.Optional[ClientRedirectionPolicyEnum] = OMIT,
+        agent_id: typing.Optional[str] = OMIT,
         oidc_support: typing.Optional[ClientOidcSupportPatch] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateClientResponseContent:
@@ -2229,6 +2257,9 @@ class AsyncClientsClient:
 
         redirection_policy : typing.Optional[ClientRedirectionPolicyEnum]
 
+        agent_id : typing.Optional[str]
+            ID of the agent to associate with this client, or null to remove the association.
+
         oidc_support : typing.Optional[ClientOidcSupportPatch]
 
         request_options : typing.Optional[RequestOptions]
@@ -2319,6 +2350,7 @@ class AsyncClientsClient:
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
+            agent_id=agent_id,
             oidc_support=oidc_support,
             request_options=request_options,
         )

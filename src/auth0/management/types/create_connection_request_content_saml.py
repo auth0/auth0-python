@@ -9,6 +9,7 @@ from .connection_options_saml import ConnectionOptionsSaml
 from .connection_show_as_button import ConnectionShowAsButton
 from .create_connection_common import CreateConnectionCommon
 from .create_connection_request_content_saml_strategy import CreateConnectionRequestContentSamlStrategy
+from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
 
 
 class CreateConnectionRequestContentSaml(CreateConnectionCommon):
@@ -17,6 +18,7 @@ class CreateConnectionRequestContentSaml(CreateConnectionCommon):
     """
 
     strategy: CreateConnectionRequestContentSamlStrategy
+    cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = None
     cross_app_access_resource_app: typing.Optional[ConnectionCrossAppAccessResourceApp] = None
     options: typing.Optional[ConnectionOptionsSaml] = None
     show_as_button: typing.Optional[ConnectionShowAsButton] = None

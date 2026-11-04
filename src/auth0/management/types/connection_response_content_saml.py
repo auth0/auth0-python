@@ -11,6 +11,7 @@ from .connection_purposes import ConnectionPurposes
 from .connection_response_common import ConnectionResponseCommon
 from .connection_response_content_saml_strategy import ConnectionResponseContentSamlStrategy
 from .connection_show_as_button import ConnectionShowAsButton
+from .cross_app_access_requesting_app import CrossAppAccessRequestingApp
 
 
 class ConnectionResponseContentSaml(ConnectionPurposes, ConnectionResponseCommon):
@@ -19,6 +20,7 @@ class ConnectionResponseContentSaml(ConnectionPurposes, ConnectionResponseCommon
     """
 
     strategy: ConnectionResponseContentSamlStrategy
+    cross_app_access_requesting_app: typing.Optional[CrossAppAccessRequestingApp] = None
     cross_app_access_resource_app: typing.Optional[ConnectionCrossAppAccessResourceApp] = None
     options: typing.Optional[ConnectionOptionsSaml] = None
     provisioning_ticket_url: typing.Optional[ConnectionProvisioningTicketUrl] = None

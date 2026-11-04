@@ -36,7 +36,7 @@ class RawKeysClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.List[ConnectionKey]]:
         """
-        Gets the connection keys for the Okta or OIDC connection strategy.
+        Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
 
         Parameters
         ----------
@@ -138,7 +138,7 @@ class RawKeysClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PostConnectionsKeysResponseContent]:
         """
-        Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+        Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
 
         Parameters
         ----------
@@ -257,7 +257,7 @@ class RawKeysClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RotateConnectionsKeysResponseContent]:
         """
-        Rotates the connection keys for the Okta or OIDC connection strategies.
+        Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
 
         Parameters
         ----------
@@ -366,7 +366,7 @@ class AsyncRawKeysClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.List[ConnectionKey]]:
         """
-        Gets the connection keys for the Okta or OIDC connection strategy.
+        Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
 
         Parameters
         ----------
@@ -468,7 +468,7 @@ class AsyncRawKeysClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PostConnectionsKeysResponseContent]:
         """
-        Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+        Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
 
         Parameters
         ----------
@@ -587,7 +587,7 @@ class AsyncRawKeysClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RotateConnectionsKeysResponseContent]:
         """
-        Rotates the connection keys for the Okta or OIDC connection strategies.
+        Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
 
         Parameters
         ----------

@@ -9,10 +9,9 @@ import re
 from json import dumps
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Union
 
-from .core.request_options import RequestOptions
-
 import httpx
 from .client import AsyncAuth0, Auth0
+from .core.request_options import RequestOptions
 from .token_provider import TokenProvider
 
 CUSTOM_DOMAIN_HEADER = "Auth0-Custom-Domain"
@@ -65,7 +64,7 @@ def CustomDomainHeader(domain: str) -> RequestOptions:
 
 if TYPE_CHECKING:
     from .actions.client import ActionsClient, AsyncActionsClient
-    from .agents.client import AsyncAgentsClient, AgentsClient
+    from .agents.client import AgentsClient, AsyncAgentsClient
     from .anomaly.client import AnomalyClient, AsyncAnomalyClient
     from .attack_protection.client import AsyncAttackProtectionClient, AttackProtectionClient
     from .branding.client import AsyncBrandingClient, BrandingClient
@@ -92,6 +91,7 @@ if TYPE_CHECKING:
     from .logs.client import AsyncLogsClient, LogsClient
     from .network_acls.client import AsyncNetworkAclsClient, NetworkAclsClient
     from .organizations.client import AsyncOrganizationsClient, OrganizationsClient
+    from .portals.client import AsyncPortalsClient, PortalsClient
     from .prompts.client import AsyncPromptsClient, PromptsClient
     from .rate_limit_policies.client import AsyncRateLimitPoliciesClient, RateLimitPoliciesClient
     from .refresh_tokens.client import AsyncRefreshTokensClient, RefreshTokensClient
@@ -341,6 +341,10 @@ class ManagementClient:
     @property
     def organizations(self) -> "OrganizationsClient":
         return self._api.organizations
+
+    @property
+    def portals(self) -> "PortalsClient":
+        return self._api.portals
 
     @property
     def prompts(self) -> "PromptsClient":
@@ -653,6 +657,10 @@ class AsyncManagementClient:
     @property
     def organizations(self) -> "AsyncOrganizationsClient":
         return self._api.organizations
+
+    @property
+    def portals(self) -> "AsyncPortalsClient":
+        return self._api.portals
 
     @property
     def prompts(self) -> "AsyncPromptsClient":

@@ -19,6 +19,7 @@ from .connection_identifier_precedence import ConnectionIdentifierPrecedence
 from .connection_import_mode import ConnectionImportMode
 from .connection_mfa import ConnectionMfa
 from .connection_options_common import ConnectionOptionsCommon
+from .connection_otp_settings import ConnectionOtpSettings
 from .connection_passkey_options import ConnectionPasskeyOptions
 from .connection_password_complexity_options import ConnectionPasswordComplexityOptions
 from .connection_password_dictionary_options import ConnectionPasswordDictionaryOptions
@@ -55,6 +56,7 @@ class ConnectionOptionsAuth0(ConnectionOptionsCommon):
     ] = None
     import_mode: typing.Optional[ConnectionImportMode] = None
     mfa: typing.Optional[ConnectionMfa] = None
+    otp_settings: typing.Optional[ConnectionOtpSettings] = None
     passkey_options: typing.Optional[ConnectionPasskeyOptions] = None
     password_policy: typing_extensions.Annotated[
         typing.Optional[ConnectionPasswordPolicyEnum],

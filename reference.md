@@ -2435,6 +2435,7 @@ client.clients.list(
     is_first_party=True,
     app_type="app_type",
     external_client_id="external_client_id",
+    agent_id="agent_id",
     q="q",
 )
 
@@ -2517,6 +2518,14 @@ client.clients.list(
 <dd>
 
 **external_client_id:** `typing.Optional[str]` — Optional filter by the <a href="https://drafts.oauth.net/draft-ietf-oauth-client-id-metadata-document/draft-ietf-oauth-client-id-metadata-document.html">Client ID Metadata Document</a> URI for CIMD-registered clients.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `typing.Optional[str]` — Optional filter by the agent associated with the client.<br /><b>Additional Restrictions</b>:<br /><ul><li>Cannot be used in combination with other filters</li><li>Only <i>fields</i>, <i>include_fields</i>, <i>page</i>, <i>per_page</i>, and <i>include_totals</i> are supported alongside it</li><li>Checkpoint pagination (<i>from</i>, <i>take</i>) is not supported</li></ul>
     
 </dd>
 </dl>
@@ -3079,6 +3088,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **async_approval_notification_channels:** `typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `typing.Optional[str]` — ID of the agent to associate with this client.
     
 </dd>
 </dl>
@@ -4129,6 +4146,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **redirection_policy:** `typing.Optional[ClientRedirectionPolicyEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `typing.Optional[str]` — ID of the agent to associate with this client, or null to remove the association.
     
 </dd>
 </dl>
@@ -12259,6 +12284,386 @@ client.organizations.update(
 </dl>
 </details>
 
+## Portals
+<details><summary><code>client.portals.<a href="src/auth0.management/portals/client.py">list</a>() -> ListPortalsResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.portals.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.portals.<a href="src/auth0.management/portals/client.py">create</a>(...) -> Portal</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0, PortalClientSecretPostRequest
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.portals.create(
+    slug="slug",
+    name="name",
+    client=PortalClientSecretPostRequest(
+        token_endpoint_auth_method="client_secret_post",
+        client_id="client_id",
+        client_secret="client_secret",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**slug:** `PortalSlug` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `PortalName` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client:** `PortalClientSecretPostRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**navigation:** `typing.Optional[PortalNavigation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pages:** `typing.Optional[PortalPagesByType]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_code:** `typing.Optional[PortalCustomCode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.portals.<a href="src/auth0.management/portals/client.py">get</a>(...) -> Portal</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.portals.get(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `PortalId` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.portals.<a href="src/auth0.management/portals/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.portals.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `PortalId` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.portals.<a href="src/auth0.management/portals/client.py">update</a>(...) -> Portal</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.portals.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `PortalId` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**slug:** `typing.Optional[PortalSlug]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[PortalName]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client:** `typing.Optional[PortalClientSecretPostRequest]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**navigation:** `typing.Optional[PortalNavigationNullable]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pages:** `typing.Optional[PortalPagesByTypeNullable]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_code:** `typing.Optional[PortalCustomCodeNullable]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Prompts
 <details><summary><code>client.prompts.<a href="src/auth0.management/prompts/client.py">get_settings</a>() -> GetSettingsResponseContent</code></summary>
 <dl>
@@ -13556,6 +13961,22 @@ client.resource_servers.create(
 <dl>
 <dd>
 
+**agent_subject_claims:** `typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[ResourceServerTypeEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -14067,6 +14488,22 @@ client.resource_servers.update(
 <dd>
 
 **authorization_policy:** `typing.Optional[ResourceServerAuthorizationPolicy]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_subject_claims:** `typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[ResourceServerTypeEnum]` 
     
 </dd>
 </dl>
@@ -18831,6 +19268,243 @@ client.users.update(
 </dl>
 </details>
 
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">list_consent_signing_keys</a>(...) -> ListUserConsentSigningKeysResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all consent signing keys registered for a user. Returns an empty `keys` array when the user has no keys registered.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.users.list_consent_signing_keys(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">get_consent_signing_key</a>(...) -> ConsentSigningKey</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a single consent signing key for a user by its key identifier (kid). Returns 404 if the key does not exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.users.get_consent_signing_key(
+    id="id",
+    kid="kid",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**kid:** `str` — The key identifier of the consent signing key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="src/auth0.management/users/client.py">delete_consent_signing_key</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a single consent signing key for a user by its key identifier (kid). The operation is idempotent and returns 204 whether or not the key existed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from auth0.management import Auth0
+from auth0.management.environment import Auth0Environment
+
+client = Auth0(
+    token="<token>",
+    environment=Auth0Environment.DEFAULT,
+)
+
+client.users.delete_consent_signing_key(
+    id="id",
+    kid="kid",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**kid:** `str` — The key identifier of the consent signing key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.users.<a href="src/auth0.management/users/client.py">regenerate_recovery_code</a>(...) -> RegenerateUsersRecoveryCodeResponseContent</code></summary>
 <dl>
 <dd>
@@ -21074,7 +21748,7 @@ Action to take when a brute force protection threshold is violated.
 <dl>
 <dd>
 
-**max_attempts:** `typing.Optional[int]` — Maximum number of unsuccessful attempts.
+**form_submission_mode:** `typing.Optional[BruteForceProtectionFormSubmissionModeEnum]` 
     
 </dd>
 </dl>
@@ -21082,7 +21756,7 @@ Action to take when a brute force protection threshold is violated.
 <dl>
 <dd>
 
-**form_submission_mode:** `typing.Optional[BruteForceProtectionFormSubmissionModeEnum]` 
+**max_attempts:** `typing.Optional[int]` — Maximum number of unsuccessful attempts.
     
 </dd>
 </dl>
@@ -21274,437 +21948,6 @@ client.attack_protection.captcha.update()
 <dd>
 
 **simple_captcha:** `typing.Optional[AttackProtectionCaptchaSimpleCaptchaResponseContent]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## AttackProtection CaptchaPolicies
-<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">list</a>() -> ListAttackProtectionCaptchaPoliciesResponseContent</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve all CAPTCHA attack protection policies for the tenant, sorted by priority ascending.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.attack_protection.captcha_policies.list()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">create</a>(...) -> AttackProtectionCaptchaPolicy</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a new CAPTCHA attack protection policy for the tenant. The maximum number of policies per tenant is determined by the tenant's subscription.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0, AttackProtectionCaptchaPolicyMatch, AttackProtectionCaptchaPolicyActionInput
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.attack_protection.captcha_policies.create(
-    name="name",
-    priority=1,
-    match=AttackProtectionCaptchaPolicyMatch(),
-    action=AttackProtectionCaptchaPolicyActionInput(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` — Human-readable policy name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**priority:** `int` — Conflict resolution order. Lower number takes higher precedence. Must be unique per tenant.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**match:** `AttackProtectionCaptchaPolicyMatch` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**action:** `AttackProtectionCaptchaPolicyActionInput` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**description:** `typing.Optional[str]` — Description of the attack protection policy.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">get</a>(...) -> AttackProtectionCaptchaPolicy</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve a single CAPTCHA attack protection policy for the tenant by ID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.attack_protection.captcha_policies.get(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — ID of the CAPTCHA attack protection policy.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">delete</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a CAPTCHA attack protection policy for the tenant.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.attack_protection.captcha_policies.delete(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — ID of the CAPTCHA attack protection policy.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.attack_protection.captcha_policies.<a href="src/auth0.management/attack_protection/captcha_policies/client.py">update</a>(...) -> AttackProtectionCaptchaPolicy</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Partially update a CAPTCHA attack protection policy. Only the provided fields are modified. A provided match or action replaces the stored value in full rather than merging with it; within action, a provider secret or API key that is omitted from a provided provider block keeps its stored value.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from auth0.management import Auth0
-from auth0.management.environment import Auth0Environment
-
-client = Auth0(
-    token="<token>",
-    environment=Auth0Environment.DEFAULT,
-)
-
-client.attack_protection.captcha_policies.update(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — ID of the CAPTCHA attack protection policy.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — Human-readable policy name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**description:** `typing.Optional[str]` — Description of the policy's purpose.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**priority:** `typing.Optional[int]` — Conflict resolution order. Lower number takes higher precedence. Must be unique per tenant.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**match:** `typing.Optional[AttackProtectionCaptchaPolicyMatch]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**action:** `typing.Optional[AttackProtectionCaptchaPolicyActionInput]` 
     
 </dd>
 </dl>
@@ -26008,7 +26251,7 @@ client.connections.clients.update(
 <dl>
 <dd>
 
-Gets the connection keys for the Okta or OIDC connection strategy.
+Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
 </dd>
 </dl>
 </dd>
@@ -26081,7 +26324,7 @@ client.connections.keys.get(
 <dl>
 <dd>
 
-Provision initial connection keys for Okta or OIDC connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
 </dd>
 </dl>
 </dd>
@@ -26163,7 +26406,7 @@ client.connections.keys.create(
 <dl>
 <dd>
 
-Rotates the connection keys for the Okta or OIDC connection strategies.
+Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
 </dd>
 </dl>
 </dd>
@@ -27532,6 +27775,7 @@ client.experimentation.experiments.create(
     name="name",
     feature_flag_id="feature_flag_id",
     authentication_flow="authentication",
+    allocation_strategy="percentage",
 )
 
 ```
@@ -27572,6 +27816,14 @@ client.experimentation.experiments.create(
 <dl>
 <dd>
 
+**allocation_strategy:** `AllocationStrategyEnum` — The traffic allocation strategy for this experiment
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **description:** `typing.Optional[str]` — A description of the experiment
     
 </dd>
@@ -27581,14 +27833,6 @@ client.experimentation.experiments.create(
 <dd>
 
 **default_config:** `typing.Optional[DefaultConfigEnum]` — Applies only to Auth0-managed flags. Controls where non-overridden config keys resolve from: 'tenant' inherits the tenant's live config so the experiment overlays only its changes, 'flag' uses the flag's frozen defaults for a complete config. Optional; defaults to 'tenant' when omitted. Rejected for customer-defined flags.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**allocation_strategy:** `typing.Optional[AllocationStrategyEnum]` — The traffic allocation strategy for this experiment
     
 </dd>
 </dl>
@@ -28536,6 +28780,7 @@ client.experimentation.segments.list(
     from_="from",
     take=1,
     type="auth0",
+    status="active",
 )
 
 ```
@@ -28569,6 +28814,14 @@ client.experimentation.segments.list(
 <dd>
 
 **type:** `typing.Optional[SegmentTypeFilterEnum]` — Filter by type. Exact match.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[SegmentStatusEnum]` — Filter by status. Exact match.
     
 </dd>
 </dl>

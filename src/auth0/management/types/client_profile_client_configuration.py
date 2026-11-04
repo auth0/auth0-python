@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .client_profile_client_configuration_oidc_support import ClientProfileClientConfigurationOidcSupport
 from .client_profile_client_configuration_organization_discovery_methods import (
     ClientProfileClientConfigurationOrganizationDiscoveryMethods,
 )
@@ -27,6 +28,7 @@ class ClientProfileClientConfiguration(UniversalBaseModel):
     organization_require_behavior: typing.Optional[ClientProfileClientConfigurationOrganizationRequireBehavior] = None
     organization_discovery_methods: typing.Optional[ClientProfileClientConfigurationOrganizationDiscoveryMethods] = None
     require_proof_of_possession: typing.Optional[ClientProfileClientConfigurationRequireProofOfPossession] = None
+    oidc_support: typing.Optional[ClientProfileClientConfigurationOidcSupport] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -80,10 +80,6 @@ if typing.TYPE_CHECKING:
         AttackProtectionCaptchaFriendlyCaptchaResponseContent,
     )
     from .attack_protection_captcha_hcaptcha_response_content import AttackProtectionCaptchaHcaptchaResponseContent
-    from .attack_protection_captcha_policy import AttackProtectionCaptchaPolicy
-    from .attack_protection_captcha_policy_action import AttackProtectionCaptchaPolicyAction
-    from .attack_protection_captcha_policy_action_input import AttackProtectionCaptchaPolicyActionInput
-    from .attack_protection_captcha_policy_match import AttackProtectionCaptchaPolicyMatch
     from .attack_protection_captcha_provider_id import AttackProtectionCaptchaProviderId
     from .attack_protection_captcha_recaptcha_enterprise_response_content import (
         AttackProtectionCaptchaRecaptchaEnterpriseResponseContent,
@@ -168,19 +164,6 @@ if typing.TYPE_CHECKING:
     from .brute_force_protection_mode_enum import BruteForceProtectionModeEnum
     from .brute_force_protection_shields_enum import BruteForceProtectionShieldsEnum
     from .bulk_update_acul_response_content import BulkUpdateAculResponseContent
-    from .captcha_active_provider_enum import CaptchaActiveProviderEnum
-    from .captcha_policy_action_arkose import CaptchaPolicyActionArkose
-    from .captcha_policy_action_arkose_input import CaptchaPolicyActionArkoseInput
-    from .captcha_policy_action_auth_challenge import CaptchaPolicyActionAuthChallenge
-    from .captcha_policy_action_friendly_captcha import CaptchaPolicyActionFriendlyCaptcha
-    from .captcha_policy_action_friendly_captcha_input import CaptchaPolicyActionFriendlyCaptchaInput
-    from .captcha_policy_action_hcaptcha import CaptchaPolicyActionHcaptcha
-    from .captcha_policy_action_hcaptcha_input import CaptchaPolicyActionHcaptchaInput
-    from .captcha_policy_action_recaptcha_enterprise import CaptchaPolicyActionRecaptchaEnterprise
-    from .captcha_policy_action_recaptcha_enterprise_input import CaptchaPolicyActionRecaptchaEnterpriseInput
-    from .captcha_policy_action_recaptcha_v_2 import CaptchaPolicyActionRecaptchaV2
-    from .captcha_policy_action_recaptcha_v_2_input import CaptchaPolicyActionRecaptchaV2Input
-    from .captcha_policy_action_simple_captcha import CaptchaPolicyActionSimpleCaptcha
     from .certificate_subject_dn_credential import CertificateSubjectDnCredential
     from .certificate_subject_dn_credential_type_enum import CertificateSubjectDnCredentialTypeEnum
     from .change_password_ticket_identity import ChangePasswordTicketIdentity
@@ -303,6 +286,7 @@ if typing.TYPE_CHECKING:
     from .client_oidc_backchannel_logout_initiators_mode_enum import ClientOidcBackchannelLogoutInitiatorsModeEnum
     from .client_oidc_backchannel_logout_session_metadata import ClientOidcBackchannelLogoutSessionMetadata
     from .client_oidc_backchannel_logout_settings import ClientOidcBackchannelLogoutSettings
+    from .client_oidc_support import ClientOidcSupport
     from .client_oidc_support_allowed_scopes_enum import ClientOidcSupportAllowedScopesEnum
     from .client_oidc_support_patch import ClientOidcSupportPatch
     from .client_oidc_support_post import ClientOidcSupportPost
@@ -320,6 +304,13 @@ if typing.TYPE_CHECKING:
         ClientProfileApplyPolicyExternalMetadataTypeEnum,
     )
     from .client_profile_client_configuration import ClientProfileClientConfiguration
+    from .client_profile_client_configuration_oidc_support import ClientProfileClientConfigurationOidcSupport
+    from .client_profile_client_configuration_oidc_support_allowed_scopes_enum import (
+        ClientProfileClientConfigurationOidcSupportAllowedScopesEnum,
+    )
+    from .client_profile_client_configuration_oidc_support_default_value import (
+        ClientProfileClientConfigurationOidcSupportDefaultValue,
+    )
     from .client_profile_client_configuration_organization_discovery_method_enum import (
         ClientProfileClientConfigurationOrganizationDiscoveryMethodEnum,
     )
@@ -432,6 +423,7 @@ if typing.TYPE_CHECKING:
     from .connection_client_id_oidc import ConnectionClientIdOidc
     from .connection_client_id_paypal import ConnectionClientIdPaypal
     from .connection_client_id_salesforce import ConnectionClientIdSalesforce
+    from .connection_client_id_samlxaa_requesting_app import ConnectionClientIdSamlxaaRequestingApp
     from .connection_client_id_windows_live import ConnectionClientIdWindowsLive
     from .connection_client_protocol_saml import ConnectionClientProtocolSaml
     from .connection_client_secret import ConnectionClientSecret
@@ -449,6 +441,7 @@ if typing.TYPE_CHECKING:
     from .connection_client_secret_oidc import ConnectionClientSecretOidc
     from .connection_client_secret_paypal import ConnectionClientSecretPaypal
     from .connection_client_secret_salesforce import ConnectionClientSecretSalesforce
+    from .connection_client_secret_samlxaa_requesting_app import ConnectionClientSecretSamlxaaRequestingApp
     from .connection_client_secret_windows_live import ConnectionClientSecretWindowsLive
     from .connection_common import ConnectionCommon
     from .connection_community_base_url_salesforce import ConnectionCommunityBaseUrlSalesforce
@@ -643,6 +636,8 @@ if typing.TYPE_CHECKING:
     from .connection_options_wordpress import ConnectionOptionsWordpress
     from .connection_options_yahoo import ConnectionOptionsYahoo
     from .connection_options_yandex import ConnectionOptionsYandex
+    from .connection_otp_channel_settings import ConnectionOtpChannelSettings
+    from .connection_otp_settings import ConnectionOtpSettings
     from .connection_passkey_authentication_method import ConnectionPasskeyAuthenticationMethod
     from .connection_passkey_challenge_ui_enum import ConnectionPasskeyChallengeUiEnum
     from .connection_passkey_options import ConnectionPasskeyOptions
@@ -955,6 +950,7 @@ if typing.TYPE_CHECKING:
     from .connections_discovery_url import ConnectionsDiscoveryUrl
     from .connections_metadata import ConnectionsMetadata
     from .connections_oidc_metadata import ConnectionsOidcMetadata
+    from .consent_signing_key import ConsentSigningKey
     from .content_security_policy_config import ContentSecurityPolicyConfig
     from .create_action_module_response_content import CreateActionModuleResponseContent
     from .create_action_module_version_response_content import CreateActionModuleVersionResponseContent
@@ -3470,6 +3466,16 @@ if typing.TYPE_CHECKING:
     from .event_stream_cloud_event_context_request import EventStreamCloudEventContextRequest
     from .event_stream_cloud_event_context_request_geo import EventStreamCloudEventContextRequestGeo
     from .event_stream_cloud_event_context_tenant import EventStreamCloudEventContextTenant
+    from .event_stream_cloud_event_context_transaction import EventStreamCloudEventContextTransaction
+    from .event_stream_cloud_event_context_transaction_protocol_enum import (
+        EventStreamCloudEventContextTransactionProtocolEnum,
+    )
+    from .event_stream_cloud_event_context_transaction_response_mode_enum import (
+        EventStreamCloudEventContextTransactionResponseModeEnum,
+    )
+    from .event_stream_cloud_event_context_transaction_response_type_item_enum import (
+        EventStreamCloudEventContextTransactionResponseTypeItemEnum,
+    )
     from .event_stream_cloud_event_data import EventStreamCloudEventData
     from .event_stream_cloud_event_error_code_enum import EventStreamCloudEventErrorCodeEnum
     from .event_stream_cloud_event_error_detail import EventStreamCloudEventErrorDetail
@@ -5733,6 +5739,8 @@ if typing.TYPE_CHECKING:
     from .integration_required_param_option import IntegrationRequiredParamOption
     from .integration_required_param_type_enum import IntegrationRequiredParamTypeEnum
     from .integration_sem_ver import IntegrationSemVer
+    from .internal_server_error_body import InternalServerErrorBody
+    from .internal_server_error_body_error import InternalServerErrorBodyError
     from .job_file_format_enum import JobFileFormatEnum
     from .linked_client_configuration import LinkedClientConfiguration
     from .list_action_bindings_paginated_response_content import ListActionBindingsPaginatedResponseContent
@@ -5742,9 +5750,6 @@ if typing.TYPE_CHECKING:
     from .list_aculs_offset_paginated_response_content import ListAculsOffsetPaginatedResponseContent
     from .list_aculs_response_content_item import ListAculsResponseContentItem
     from .list_agents_response_content import ListAgentsResponseContent
-    from .list_attack_protection_captcha_policies_response_content import (
-        ListAttackProtectionCaptchaPoliciesResponseContent,
-    )
     from .list_branding_phone_providers_response_content import ListBrandingPhoneProvidersResponseContent
     from .list_client_connections_response_content import ListClientConnectionsResponseContent
     from .list_client_grant_organizations_paginated_response_content import (
@@ -5811,6 +5816,7 @@ if typing.TYPE_CHECKING:
     from .list_organization_role_members_response_content import ListOrganizationRoleMembersResponseContent
     from .list_organizations_paginated_response_content import ListOrganizationsPaginatedResponseContent
     from .list_phone_templates_response_content import ListPhoneTemplatesResponseContent
+    from .list_portals_response_content import ListPortalsResponseContent
     from .list_rate_limit_policies_paginated_response_content import ListRateLimitPoliciesPaginatedResponseContent
     from .list_refresh_tokens_paginated_response_content import ListRefreshTokensPaginatedResponseContent
     from .list_resource_server_offset_paginated_response_content import ListResourceServerOffsetPaginatedResponseContent
@@ -5837,6 +5843,7 @@ if typing.TYPE_CHECKING:
     from .list_user_blocks_by_identifier_response_content import ListUserBlocksByIdentifierResponseContent
     from .list_user_blocks_response_content import ListUserBlocksResponseContent
     from .list_user_connected_accounts_response_content import ListUserConnectedAccountsResponseContent
+    from .list_user_consent_signing_keys_response_content import ListUserConsentSigningKeysResponseContent
     from .list_user_effective_permission_role_sources_response_content import (
         ListUserEffectivePermissionRoleSourcesResponseContent,
     )
@@ -5969,6 +5976,68 @@ if typing.TYPE_CHECKING:
     from .organization_sort_field_enum import OrganizationSortFieldEnum
     from .organization_third_party_client_access_enum import OrganizationThirdPartyClientAccessEnum
     from .organization_usage_enum import OrganizationUsageEnum
+    from .page_component import (
+        PageComponent,
+        PageComponent_PageComponentAuth0Form,
+        PageComponent_PageComponentAuth0MediaImage,
+        PageComponent_PageComponentAuth0MyAccountMfaManagement,
+        PageComponent_PageComponentAuth0MyAccountPasskeyManagement,
+        PageComponent_PageComponentAuth0MyOrganizationDetailsEdit,
+        PageComponent_PageComponentAuth0MyOrganizationDomainTable,
+        PageComponent_PageComponentAuth0MyOrganizationMemberManagement,
+        PageComponent_PageComponentAuth0StructureSection,
+        PageComponent_PageComponentAuth0StructureSeparator,
+        PageComponent_PageComponentAuth0TypographyHeading,
+        PageComponent_PageComponentAuth0TypographyRichText,
+    )
+    from .page_component_auth_0_form import PageComponentAuth0Form
+    from .page_component_auth_0_form_config import PageComponentAuth0FormConfig
+    from .page_component_auth_0_media_image import PageComponentAuth0MediaImage
+    from .page_component_auth_0_media_image_config import PageComponentAuth0MediaImageConfig
+    from .page_component_auth_0_my_account_mfa_management import PageComponentAuth0MyAccountMfaManagement
+    from .page_component_auth_0_my_account_mfa_management_config import PageComponentAuth0MyAccountMfaManagementConfig
+    from .page_component_auth_0_my_account_passkey_management import PageComponentAuth0MyAccountPasskeyManagement
+    from .page_component_auth_0_my_account_passkey_management_config import (
+        PageComponentAuth0MyAccountPasskeyManagementConfig,
+    )
+    from .page_component_auth_0_my_organization_details_edit import PageComponentAuth0MyOrganizationDetailsEdit
+    from .page_component_auth_0_my_organization_details_edit_config import (
+        PageComponentAuth0MyOrganizationDetailsEditConfig,
+    )
+    from .page_component_auth_0_my_organization_domain_table import PageComponentAuth0MyOrganizationDomainTable
+    from .page_component_auth_0_my_organization_domain_table_config import (
+        PageComponentAuth0MyOrganizationDomainTableConfig,
+    )
+    from .page_component_auth_0_my_organization_member_management import (
+        PageComponentAuth0MyOrganizationMemberManagement,
+    )
+    from .page_component_auth_0_my_organization_member_management_config import (
+        PageComponentAuth0MyOrganizationMemberManagementConfig,
+    )
+    from .page_component_auth_0_structure_section import PageComponentAuth0StructureSection
+    from .page_component_auth_0_structure_section_config import PageComponentAuth0StructureSectionConfig
+    from .page_component_auth_0_structure_section_variant_enum import PageComponentAuth0StructureSectionVariantEnum
+    from .page_component_auth_0_structure_separator import PageComponentAuth0StructureSeparator
+    from .page_component_auth_0_structure_separator_config import PageComponentAuth0StructureSeparatorConfig
+    from .page_component_auth_0_structure_separator_variant_enum import PageComponentAuth0StructureSeparatorVariantEnum
+    from .page_component_auth_0_typography_heading import PageComponentAuth0TypographyHeading
+    from .page_component_auth_0_typography_heading_config import PageComponentAuth0TypographyHeadingConfig
+    from .page_component_auth_0_typography_rich_text import PageComponentAuth0TypographyRichText
+    from .page_component_auth_0_typography_rich_text_config import PageComponentAuth0TypographyRichTextConfig
+    from .page_component_no_children import (
+        PageComponentNoChildren,
+        PageComponentNoChildren_PageComponentAuth0Form,
+        PageComponentNoChildren_PageComponentAuth0MediaImage,
+        PageComponentNoChildren_PageComponentAuth0MyAccountMfaManagement,
+        PageComponentNoChildren_PageComponentAuth0MyAccountPasskeyManagement,
+        PageComponentNoChildren_PageComponentAuth0MyOrganizationDetailsEdit,
+        PageComponentNoChildren_PageComponentAuth0MyOrganizationDomainTable,
+        PageComponentNoChildren_PageComponentAuth0MyOrganizationMemberManagement,
+        PageComponentNoChildren_PageComponentAuth0StructureSeparator,
+        PageComponentNoChildren_PageComponentAuth0TypographyHeading,
+        PageComponentNoChildren_PageComponentAuth0TypographyRichText,
+    )
+    from .page_slug import PageSlug
     from .partial_groups_enum import PartialGroupsEnum
     from .partial_phone_template_content import PartialPhoneTemplateContent
     from .password_character_type_enum import PasswordCharacterTypeEnum
@@ -6014,6 +6083,26 @@ if typing.TYPE_CHECKING:
     from .phone_template_body import PhoneTemplateBody
     from .phone_template_content import PhoneTemplateContent
     from .phone_template_notification_type_enum import PhoneTemplateNotificationTypeEnum
+    from .portal import Portal
+    from .portal_client_secret_post import PortalClientSecretPost
+    from .portal_client_secret_post_request import PortalClientSecretPostRequest
+    from .portal_client_secret_post_request_token_endpoint_auth_method import (
+        PortalClientSecretPostRequestTokenEndpointAuthMethod,
+    )
+    from .portal_client_secret_post_token_endpoint_auth_method import PortalClientSecretPostTokenEndpointAuthMethod
+    from .portal_custom_code import PortalCustomCode
+    from .portal_custom_code_nullable import PortalCustomCodeNullable
+    from .portal_date_time import PortalDateTime
+    from .portal_id import PortalId
+    from .portal_name import PortalName
+    from .portal_navigation import PortalNavigation
+    from .portal_navigation_nullable import PortalNavigationNullable
+    from .portal_page import PortalPage
+    from .portal_pages_by_type import PortalPagesByType
+    from .portal_pages_by_type_nullable import PortalPagesByTypeNullable
+    from .portal_slug import PortalSlug
+    from .portal_summary import PortalSummary
+    from .position import Position
     from .post_client_credential_response_content import PostClientCredentialResponseContent
     from .post_connection_keys_alg_enum import PostConnectionKeysAlgEnum
     from .post_connection_keys_request_content import PostConnectionKeysRequestContent
@@ -6056,6 +6145,8 @@ if typing.TYPE_CHECKING:
     from .resource_server_access_token_custom_claims_mapping_rule import (
         ResourceServerAccessTokenCustomClaimsMappingRule,
     )
+    from .resource_server_agent_subject_claims_response_enum import ResourceServerAgentSubjectClaimsResponseEnum
+    from .resource_server_agent_subject_claims_schema_enum import ResourceServerAgentSubjectClaimsSchemaEnum
     from .resource_server_authorization_policy import ResourceServerAuthorizationPolicy
     from .resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
     from .resource_server_proof_of_possession import ResourceServerProofOfPossession
@@ -6085,6 +6176,7 @@ if typing.TYPE_CHECKING:
     from .resource_server_token_encryption_algorithm_enum import ResourceServerTokenEncryptionAlgorithmEnum
     from .resource_server_token_encryption_format_enum import ResourceServerTokenEncryptionFormatEnum
     from .resource_server_token_encryption_key import ResourceServerTokenEncryptionKey
+    from .resource_server_type_enum import ResourceServerTypeEnum
     from .resource_server_verification_key_pem_certificate import ResourceServerVerificationKeyPemCertificate
     from .revoked_signing_keys_response_content import RevokedSigningKeysResponseContent
     from .role import Role
@@ -6214,6 +6306,22 @@ if typing.TYPE_CHECKING:
     from .set_user_authentication_methods import SetUserAuthenticationMethods
     from .set_user_authentication_methods_request_content import SetUserAuthenticationMethodsRequestContent
     from .sets_custom_texts_by_language_request_content import SetsCustomTextsByLanguageRequestContent
+    from .sidebar import Sidebar
+    from .sidebar_component import (
+        SidebarComponent,
+        SidebarComponent_SidebarComponentAuth0ExternalLink,
+        SidebarComponent_SidebarComponentAuth0ExternalLinkV2,
+        SidebarComponent_SidebarComponentAuth0InternalLink,
+        SidebarComponent_SidebarComponentAuth0InternalLinkV2,
+    )
+    from .sidebar_component_auth_0_external_link import SidebarComponentAuth0ExternalLink
+    from .sidebar_component_auth_0_external_link_config import SidebarComponentAuth0ExternalLinkConfig
+    from .sidebar_component_auth_0_external_link_v_2 import SidebarComponentAuth0ExternalLinkV2
+    from .sidebar_component_auth_0_external_link_v_2_config import SidebarComponentAuth0ExternalLinkV2Config
+    from .sidebar_component_auth_0_internal_link import SidebarComponentAuth0InternalLink
+    from .sidebar_component_auth_0_internal_link_config import SidebarComponentAuth0InternalLinkConfig
+    from .sidebar_component_auth_0_internal_link_v_2 import SidebarComponentAuth0InternalLinkV2
+    from .sidebar_component_auth_0_internal_link_v_2_config import SidebarComponentAuth0InternalLinkV2Config
     from .signing_algorithm_enum import SigningAlgorithmEnum
     from .signing_keys import SigningKeys
     from .signing_keys_date import SigningKeysDate
@@ -6568,10 +6676,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AttackProtectionCaptchaAuthChallengeResponseContent": ".attack_protection_captcha_auth_challenge_response_content",
     "AttackProtectionCaptchaFriendlyCaptchaResponseContent": ".attack_protection_captcha_friendly_captcha_response_content",
     "AttackProtectionCaptchaHcaptchaResponseContent": ".attack_protection_captcha_hcaptcha_response_content",
-    "AttackProtectionCaptchaPolicy": ".attack_protection_captcha_policy",
-    "AttackProtectionCaptchaPolicyAction": ".attack_protection_captcha_policy_action",
-    "AttackProtectionCaptchaPolicyActionInput": ".attack_protection_captcha_policy_action_input",
-    "AttackProtectionCaptchaPolicyMatch": ".attack_protection_captcha_policy_match",
     "AttackProtectionCaptchaProviderId": ".attack_protection_captcha_provider_id",
     "AttackProtectionCaptchaRecaptchaEnterpriseResponseContent": ".attack_protection_captcha_recaptcha_enterprise_response_content",
     "AttackProtectionCaptchaRecaptchaV2ResponseContent": ".attack_protection_captcha_recaptcha_v_2_response_content",
@@ -6638,19 +6742,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BruteForceProtectionModeEnum": ".brute_force_protection_mode_enum",
     "BruteForceProtectionShieldsEnum": ".brute_force_protection_shields_enum",
     "BulkUpdateAculResponseContent": ".bulk_update_acul_response_content",
-    "CaptchaActiveProviderEnum": ".captcha_active_provider_enum",
-    "CaptchaPolicyActionArkose": ".captcha_policy_action_arkose",
-    "CaptchaPolicyActionArkoseInput": ".captcha_policy_action_arkose_input",
-    "CaptchaPolicyActionAuthChallenge": ".captcha_policy_action_auth_challenge",
-    "CaptchaPolicyActionFriendlyCaptcha": ".captcha_policy_action_friendly_captcha",
-    "CaptchaPolicyActionFriendlyCaptchaInput": ".captcha_policy_action_friendly_captcha_input",
-    "CaptchaPolicyActionHcaptcha": ".captcha_policy_action_hcaptcha",
-    "CaptchaPolicyActionHcaptchaInput": ".captcha_policy_action_hcaptcha_input",
-    "CaptchaPolicyActionRecaptchaEnterprise": ".captcha_policy_action_recaptcha_enterprise",
-    "CaptchaPolicyActionRecaptchaEnterpriseInput": ".captcha_policy_action_recaptcha_enterprise_input",
-    "CaptchaPolicyActionRecaptchaV2": ".captcha_policy_action_recaptcha_v_2",
-    "CaptchaPolicyActionRecaptchaV2Input": ".captcha_policy_action_recaptcha_v_2_input",
-    "CaptchaPolicyActionSimpleCaptcha": ".captcha_policy_action_simple_captcha",
     "CertificateSubjectDnCredential": ".certificate_subject_dn_credential",
     "CertificateSubjectDnCredentialTypeEnum": ".certificate_subject_dn_credential_type_enum",
     "ChangePasswordTicketIdentity": ".change_password_ticket_identity",
@@ -6747,6 +6838,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientOidcBackchannelLogoutInitiatorsModeEnum": ".client_oidc_backchannel_logout_initiators_mode_enum",
     "ClientOidcBackchannelLogoutSessionMetadata": ".client_oidc_backchannel_logout_session_metadata",
     "ClientOidcBackchannelLogoutSettings": ".client_oidc_backchannel_logout_settings",
+    "ClientOidcSupport": ".client_oidc_support",
     "ClientOidcSupportAllowedScopesEnum": ".client_oidc_support_allowed_scopes_enum",
     "ClientOidcSupportPatch": ".client_oidc_support_patch",
     "ClientOidcSupportPost": ".client_oidc_support_post",
@@ -6760,6 +6852,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientProfileApplyPolicyExternalMetadataCreatedByEnum": ".client_profile_apply_policy_external_metadata_created_by_enum",
     "ClientProfileApplyPolicyExternalMetadataTypeEnum": ".client_profile_apply_policy_external_metadata_type_enum",
     "ClientProfileClientConfiguration": ".client_profile_client_configuration",
+    "ClientProfileClientConfigurationOidcSupport": ".client_profile_client_configuration_oidc_support",
+    "ClientProfileClientConfigurationOidcSupportAllowedScopesEnum": ".client_profile_client_configuration_oidc_support_allowed_scopes_enum",
+    "ClientProfileClientConfigurationOidcSupportDefaultValue": ".client_profile_client_configuration_oidc_support_default_value",
     "ClientProfileClientConfigurationOrganizationDiscoveryMethodEnum": ".client_profile_client_configuration_organization_discovery_method_enum",
     "ClientProfileClientConfigurationOrganizationDiscoveryMethods": ".client_profile_client_configuration_organization_discovery_methods",
     "ClientProfileClientConfigurationOrganizationRequireBehavior": ".client_profile_client_configuration_organization_require_behavior",
@@ -6852,6 +6947,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientIdOidc": ".connection_client_id_oidc",
     "ConnectionClientIdPaypal": ".connection_client_id_paypal",
     "ConnectionClientIdSalesforce": ".connection_client_id_salesforce",
+    "ConnectionClientIdSamlxaaRequestingApp": ".connection_client_id_samlxaa_requesting_app",
     "ConnectionClientIdWindowsLive": ".connection_client_id_windows_live",
     "ConnectionClientProtocolSaml": ".connection_client_protocol_saml",
     "ConnectionClientSecret": ".connection_client_secret",
@@ -6869,6 +6965,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionClientSecretOidc": ".connection_client_secret_oidc",
     "ConnectionClientSecretPaypal": ".connection_client_secret_paypal",
     "ConnectionClientSecretSalesforce": ".connection_client_secret_salesforce",
+    "ConnectionClientSecretSamlxaaRequestingApp": ".connection_client_secret_samlxaa_requesting_app",
     "ConnectionClientSecretWindowsLive": ".connection_client_secret_windows_live",
     "ConnectionCommon": ".connection_common",
     "ConnectionCommunityBaseUrlSalesforce": ".connection_community_base_url_salesforce",
@@ -7061,6 +7158,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionOptionsWordpress": ".connection_options_wordpress",
     "ConnectionOptionsYahoo": ".connection_options_yahoo",
     "ConnectionOptionsYandex": ".connection_options_yandex",
+    "ConnectionOtpChannelSettings": ".connection_otp_channel_settings",
+    "ConnectionOtpSettings": ".connection_otp_settings",
     "ConnectionPasskeyAuthenticationMethod": ".connection_passkey_authentication_method",
     "ConnectionPasskeyChallengeUiEnum": ".connection_passkey_challenge_ui_enum",
     "ConnectionPasskeyOptions": ".connection_passkey_options",
@@ -7341,6 +7440,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectionsDiscoveryUrl": ".connections_discovery_url",
     "ConnectionsMetadata": ".connections_metadata",
     "ConnectionsOidcMetadata": ".connections_oidc_metadata",
+    "ConsentSigningKey": ".consent_signing_key",
     "ContentSecurityPolicyConfig": ".content_security_policy_config",
     "CreateActionModuleResponseContent": ".create_action_module_response_content",
     "CreateActionModuleVersionResponseContent": ".create_action_module_version_response_content",
@@ -8430,6 +8530,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EventStreamCloudEventContextRequest": ".event_stream_cloud_event_context_request",
     "EventStreamCloudEventContextRequestGeo": ".event_stream_cloud_event_context_request_geo",
     "EventStreamCloudEventContextTenant": ".event_stream_cloud_event_context_tenant",
+    "EventStreamCloudEventContextTransaction": ".event_stream_cloud_event_context_transaction",
+    "EventStreamCloudEventContextTransactionProtocolEnum": ".event_stream_cloud_event_context_transaction_protocol_enum",
+    "EventStreamCloudEventContextTransactionResponseModeEnum": ".event_stream_cloud_event_context_transaction_response_mode_enum",
+    "EventStreamCloudEventContextTransactionResponseTypeItemEnum": ".event_stream_cloud_event_context_transaction_response_type_item_enum",
     "EventStreamCloudEventData": ".event_stream_cloud_event_data",
     "EventStreamCloudEventErrorCodeEnum": ".event_stream_cloud_event_error_code_enum",
     "EventStreamCloudEventErrorDetail": ".event_stream_cloud_event_error_detail",
@@ -9773,6 +9877,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "IntegrationRequiredParamOption": ".integration_required_param_option",
     "IntegrationRequiredParamTypeEnum": ".integration_required_param_type_enum",
     "IntegrationSemVer": ".integration_sem_ver",
+    "InternalServerErrorBody": ".internal_server_error_body",
+    "InternalServerErrorBodyError": ".internal_server_error_body_error",
     "JobFileFormatEnum": ".job_file_format_enum",
     "LinkedClientConfiguration": ".linked_client_configuration",
     "ListActionBindingsPaginatedResponseContent": ".list_action_bindings_paginated_response_content",
@@ -9782,7 +9888,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAculsOffsetPaginatedResponseContent": ".list_aculs_offset_paginated_response_content",
     "ListAculsResponseContentItem": ".list_aculs_response_content_item",
     "ListAgentsResponseContent": ".list_agents_response_content",
-    "ListAttackProtectionCaptchaPoliciesResponseContent": ".list_attack_protection_captcha_policies_response_content",
     "ListBrandingPhoneProvidersResponseContent": ".list_branding_phone_providers_response_content",
     "ListClientConnectionsResponseContent": ".list_client_connections_response_content",
     "ListClientGrantOrganizationsPaginatedResponseContent": ".list_client_grant_organizations_paginated_response_content",
@@ -9827,6 +9932,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListOrganizationRoleMembersResponseContent": ".list_organization_role_members_response_content",
     "ListOrganizationsPaginatedResponseContent": ".list_organizations_paginated_response_content",
     "ListPhoneTemplatesResponseContent": ".list_phone_templates_response_content",
+    "ListPortalsResponseContent": ".list_portals_response_content",
     "ListRateLimitPoliciesPaginatedResponseContent": ".list_rate_limit_policies_paginated_response_content",
     "ListRefreshTokensPaginatedResponseContent": ".list_refresh_tokens_paginated_response_content",
     "ListResourceServerOffsetPaginatedResponseContent": ".list_resource_server_offset_paginated_response_content",
@@ -9847,6 +9953,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListUserBlocksByIdentifierResponseContent": ".list_user_blocks_by_identifier_response_content",
     "ListUserBlocksResponseContent": ".list_user_blocks_response_content",
     "ListUserConnectedAccountsResponseContent": ".list_user_connected_accounts_response_content",
+    "ListUserConsentSigningKeysResponseContent": ".list_user_consent_signing_keys_response_content",
     "ListUserEffectivePermissionRoleSourcesResponseContent": ".list_user_effective_permission_role_sources_response_content",
     "ListUserEffectivePermissionsResponseContent": ".list_user_effective_permissions_response_content",
     "ListUserEffectiveRolesResponseContent": ".list_user_effective_roles_response_content",
@@ -9971,6 +10078,54 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationSortFieldEnum": ".organization_sort_field_enum",
     "OrganizationThirdPartyClientAccessEnum": ".organization_third_party_client_access_enum",
     "OrganizationUsageEnum": ".organization_usage_enum",
+    "PageComponent": ".page_component",
+    "PageComponentAuth0Form": ".page_component_auth_0_form",
+    "PageComponentAuth0FormConfig": ".page_component_auth_0_form_config",
+    "PageComponentAuth0MediaImage": ".page_component_auth_0_media_image",
+    "PageComponentAuth0MediaImageConfig": ".page_component_auth_0_media_image_config",
+    "PageComponentAuth0MyAccountMfaManagement": ".page_component_auth_0_my_account_mfa_management",
+    "PageComponentAuth0MyAccountMfaManagementConfig": ".page_component_auth_0_my_account_mfa_management_config",
+    "PageComponentAuth0MyAccountPasskeyManagement": ".page_component_auth_0_my_account_passkey_management",
+    "PageComponentAuth0MyAccountPasskeyManagementConfig": ".page_component_auth_0_my_account_passkey_management_config",
+    "PageComponentAuth0MyOrganizationDetailsEdit": ".page_component_auth_0_my_organization_details_edit",
+    "PageComponentAuth0MyOrganizationDetailsEditConfig": ".page_component_auth_0_my_organization_details_edit_config",
+    "PageComponentAuth0MyOrganizationDomainTable": ".page_component_auth_0_my_organization_domain_table",
+    "PageComponentAuth0MyOrganizationDomainTableConfig": ".page_component_auth_0_my_organization_domain_table_config",
+    "PageComponentAuth0MyOrganizationMemberManagement": ".page_component_auth_0_my_organization_member_management",
+    "PageComponentAuth0MyOrganizationMemberManagementConfig": ".page_component_auth_0_my_organization_member_management_config",
+    "PageComponentAuth0StructureSection": ".page_component_auth_0_structure_section",
+    "PageComponentAuth0StructureSectionConfig": ".page_component_auth_0_structure_section_config",
+    "PageComponentAuth0StructureSectionVariantEnum": ".page_component_auth_0_structure_section_variant_enum",
+    "PageComponentAuth0StructureSeparator": ".page_component_auth_0_structure_separator",
+    "PageComponentAuth0StructureSeparatorConfig": ".page_component_auth_0_structure_separator_config",
+    "PageComponentAuth0StructureSeparatorVariantEnum": ".page_component_auth_0_structure_separator_variant_enum",
+    "PageComponentAuth0TypographyHeading": ".page_component_auth_0_typography_heading",
+    "PageComponentAuth0TypographyHeadingConfig": ".page_component_auth_0_typography_heading_config",
+    "PageComponentAuth0TypographyRichText": ".page_component_auth_0_typography_rich_text",
+    "PageComponentAuth0TypographyRichTextConfig": ".page_component_auth_0_typography_rich_text_config",
+    "PageComponentNoChildren": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0Form": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0MediaImage": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0MyAccountMfaManagement": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0MyAccountPasskeyManagement": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0MyOrganizationDetailsEdit": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0MyOrganizationDomainTable": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0MyOrganizationMemberManagement": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0StructureSeparator": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0TypographyHeading": ".page_component_no_children",
+    "PageComponentNoChildren_PageComponentAuth0TypographyRichText": ".page_component_no_children",
+    "PageComponent_PageComponentAuth0Form": ".page_component",
+    "PageComponent_PageComponentAuth0MediaImage": ".page_component",
+    "PageComponent_PageComponentAuth0MyAccountMfaManagement": ".page_component",
+    "PageComponent_PageComponentAuth0MyAccountPasskeyManagement": ".page_component",
+    "PageComponent_PageComponentAuth0MyOrganizationDetailsEdit": ".page_component",
+    "PageComponent_PageComponentAuth0MyOrganizationDomainTable": ".page_component",
+    "PageComponent_PageComponentAuth0MyOrganizationMemberManagement": ".page_component",
+    "PageComponent_PageComponentAuth0StructureSection": ".page_component",
+    "PageComponent_PageComponentAuth0StructureSeparator": ".page_component",
+    "PageComponent_PageComponentAuth0TypographyHeading": ".page_component",
+    "PageComponent_PageComponentAuth0TypographyRichText": ".page_component",
+    "PageSlug": ".page_slug",
     "PartialGroupsEnum": ".partial_groups_enum",
     "PartialPhoneTemplateContent": ".partial_phone_template_content",
     "PasswordCharacterTypeEnum": ".password_character_type_enum",
@@ -10004,6 +10159,24 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PhoneTemplateBody": ".phone_template_body",
     "PhoneTemplateContent": ".phone_template_content",
     "PhoneTemplateNotificationTypeEnum": ".phone_template_notification_type_enum",
+    "Portal": ".portal",
+    "PortalClientSecretPost": ".portal_client_secret_post",
+    "PortalClientSecretPostRequest": ".portal_client_secret_post_request",
+    "PortalClientSecretPostRequestTokenEndpointAuthMethod": ".portal_client_secret_post_request_token_endpoint_auth_method",
+    "PortalClientSecretPostTokenEndpointAuthMethod": ".portal_client_secret_post_token_endpoint_auth_method",
+    "PortalCustomCode": ".portal_custom_code",
+    "PortalCustomCodeNullable": ".portal_custom_code_nullable",
+    "PortalDateTime": ".portal_date_time",
+    "PortalId": ".portal_id",
+    "PortalName": ".portal_name",
+    "PortalNavigation": ".portal_navigation",
+    "PortalNavigationNullable": ".portal_navigation_nullable",
+    "PortalPage": ".portal_page",
+    "PortalPagesByType": ".portal_pages_by_type",
+    "PortalPagesByTypeNullable": ".portal_pages_by_type_nullable",
+    "PortalSlug": ".portal_slug",
+    "PortalSummary": ".portal_summary",
+    "Position": ".position",
     "PostClientCredentialResponseContent": ".post_client_credential_response_content",
     "PostConnectionKeysAlgEnum": ".post_connection_keys_alg_enum",
     "PostConnectionKeysRequestContent": ".post_connection_keys_request_content",
@@ -10044,6 +10217,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResourceServerAccessTokenClaimsMapping": ".resource_server_access_token_claims_mapping",
     "ResourceServerAccessTokenCustomClaimsMapping": ".resource_server_access_token_custom_claims_mapping",
     "ResourceServerAccessTokenCustomClaimsMappingRule": ".resource_server_access_token_custom_claims_mapping_rule",
+    "ResourceServerAgentSubjectClaimsResponseEnum": ".resource_server_agent_subject_claims_response_enum",
+    "ResourceServerAgentSubjectClaimsSchemaEnum": ".resource_server_agent_subject_claims_schema_enum",
     "ResourceServerAuthorizationPolicy": ".resource_server_authorization_policy",
     "ResourceServerConsentPolicyEnum": ".resource_server_consent_policy_enum",
     "ResourceServerProofOfPossession": ".resource_server_proof_of_possession",
@@ -10065,6 +10240,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResourceServerTokenEncryptionAlgorithmEnum": ".resource_server_token_encryption_algorithm_enum",
     "ResourceServerTokenEncryptionFormatEnum": ".resource_server_token_encryption_format_enum",
     "ResourceServerTokenEncryptionKey": ".resource_server_token_encryption_key",
+    "ResourceServerTypeEnum": ".resource_server_type_enum",
     "ResourceServerVerificationKeyPemCertificate": ".resource_server_verification_key_pem_certificate",
     "RevokedSigningKeysResponseContent": ".revoked_signing_keys_response_content",
     "Role": ".role",
@@ -10170,6 +10346,20 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SetUserAuthenticationMethods": ".set_user_authentication_methods",
     "SetUserAuthenticationMethodsRequestContent": ".set_user_authentication_methods_request_content",
     "SetsCustomTextsByLanguageRequestContent": ".sets_custom_texts_by_language_request_content",
+    "Sidebar": ".sidebar",
+    "SidebarComponent": ".sidebar_component",
+    "SidebarComponentAuth0ExternalLink": ".sidebar_component_auth_0_external_link",
+    "SidebarComponentAuth0ExternalLinkConfig": ".sidebar_component_auth_0_external_link_config",
+    "SidebarComponentAuth0ExternalLinkV2": ".sidebar_component_auth_0_external_link_v_2",
+    "SidebarComponentAuth0ExternalLinkV2Config": ".sidebar_component_auth_0_external_link_v_2_config",
+    "SidebarComponentAuth0InternalLink": ".sidebar_component_auth_0_internal_link",
+    "SidebarComponentAuth0InternalLinkConfig": ".sidebar_component_auth_0_internal_link_config",
+    "SidebarComponentAuth0InternalLinkV2": ".sidebar_component_auth_0_internal_link_v_2",
+    "SidebarComponentAuth0InternalLinkV2Config": ".sidebar_component_auth_0_internal_link_v_2_config",
+    "SidebarComponent_SidebarComponentAuth0ExternalLink": ".sidebar_component",
+    "SidebarComponent_SidebarComponentAuth0ExternalLinkV2": ".sidebar_component",
+    "SidebarComponent_SidebarComponentAuth0InternalLink": ".sidebar_component",
+    "SidebarComponent_SidebarComponentAuth0InternalLinkV2": ".sidebar_component",
     "SigningAlgorithmEnum": ".signing_algorithm_enum",
     "SigningKeys": ".signing_keys",
     "SigningKeysDate": ".signing_keys_date",
@@ -10518,10 +10708,6 @@ __all__ = [
     "AttackProtectionCaptchaAuthChallengeResponseContent",
     "AttackProtectionCaptchaFriendlyCaptchaResponseContent",
     "AttackProtectionCaptchaHcaptchaResponseContent",
-    "AttackProtectionCaptchaPolicy",
-    "AttackProtectionCaptchaPolicyAction",
-    "AttackProtectionCaptchaPolicyActionInput",
-    "AttackProtectionCaptchaPolicyMatch",
     "AttackProtectionCaptchaProviderId",
     "AttackProtectionCaptchaRecaptchaEnterpriseResponseContent",
     "AttackProtectionCaptchaRecaptchaV2ResponseContent",
@@ -10588,19 +10774,6 @@ __all__ = [
     "BruteForceProtectionModeEnum",
     "BruteForceProtectionShieldsEnum",
     "BulkUpdateAculResponseContent",
-    "CaptchaActiveProviderEnum",
-    "CaptchaPolicyActionArkose",
-    "CaptchaPolicyActionArkoseInput",
-    "CaptchaPolicyActionAuthChallenge",
-    "CaptchaPolicyActionFriendlyCaptcha",
-    "CaptchaPolicyActionFriendlyCaptchaInput",
-    "CaptchaPolicyActionHcaptcha",
-    "CaptchaPolicyActionHcaptchaInput",
-    "CaptchaPolicyActionRecaptchaEnterprise",
-    "CaptchaPolicyActionRecaptchaEnterpriseInput",
-    "CaptchaPolicyActionRecaptchaV2",
-    "CaptchaPolicyActionRecaptchaV2Input",
-    "CaptchaPolicyActionSimpleCaptcha",
     "CertificateSubjectDnCredential",
     "CertificateSubjectDnCredentialTypeEnum",
     "ChangePasswordTicketIdentity",
@@ -10697,6 +10870,7 @@ __all__ = [
     "ClientOidcBackchannelLogoutInitiatorsModeEnum",
     "ClientOidcBackchannelLogoutSessionMetadata",
     "ClientOidcBackchannelLogoutSettings",
+    "ClientOidcSupport",
     "ClientOidcSupportAllowedScopesEnum",
     "ClientOidcSupportPatch",
     "ClientOidcSupportPost",
@@ -10710,6 +10884,9 @@ __all__ = [
     "ClientProfileApplyPolicyExternalMetadataCreatedByEnum",
     "ClientProfileApplyPolicyExternalMetadataTypeEnum",
     "ClientProfileClientConfiguration",
+    "ClientProfileClientConfigurationOidcSupport",
+    "ClientProfileClientConfigurationOidcSupportAllowedScopesEnum",
+    "ClientProfileClientConfigurationOidcSupportDefaultValue",
     "ClientProfileClientConfigurationOrganizationDiscoveryMethodEnum",
     "ClientProfileClientConfigurationOrganizationDiscoveryMethods",
     "ClientProfileClientConfigurationOrganizationRequireBehavior",
@@ -10802,6 +10979,7 @@ __all__ = [
     "ConnectionClientIdOidc",
     "ConnectionClientIdPaypal",
     "ConnectionClientIdSalesforce",
+    "ConnectionClientIdSamlxaaRequestingApp",
     "ConnectionClientIdWindowsLive",
     "ConnectionClientProtocolSaml",
     "ConnectionClientSecret",
@@ -10819,6 +10997,7 @@ __all__ = [
     "ConnectionClientSecretOidc",
     "ConnectionClientSecretPaypal",
     "ConnectionClientSecretSalesforce",
+    "ConnectionClientSecretSamlxaaRequestingApp",
     "ConnectionClientSecretWindowsLive",
     "ConnectionCommon",
     "ConnectionCommunityBaseUrlSalesforce",
@@ -11011,6 +11190,8 @@ __all__ = [
     "ConnectionOptionsWordpress",
     "ConnectionOptionsYahoo",
     "ConnectionOptionsYandex",
+    "ConnectionOtpChannelSettings",
+    "ConnectionOtpSettings",
     "ConnectionPasskeyAuthenticationMethod",
     "ConnectionPasskeyChallengeUiEnum",
     "ConnectionPasskeyOptions",
@@ -11291,6 +11472,7 @@ __all__ = [
     "ConnectionsDiscoveryUrl",
     "ConnectionsMetadata",
     "ConnectionsOidcMetadata",
+    "ConsentSigningKey",
     "ContentSecurityPolicyConfig",
     "CreateActionModuleResponseContent",
     "CreateActionModuleVersionResponseContent",
@@ -12380,6 +12562,10 @@ __all__ = [
     "EventStreamCloudEventContextRequest",
     "EventStreamCloudEventContextRequestGeo",
     "EventStreamCloudEventContextTenant",
+    "EventStreamCloudEventContextTransaction",
+    "EventStreamCloudEventContextTransactionProtocolEnum",
+    "EventStreamCloudEventContextTransactionResponseModeEnum",
+    "EventStreamCloudEventContextTransactionResponseTypeItemEnum",
     "EventStreamCloudEventData",
     "EventStreamCloudEventErrorCodeEnum",
     "EventStreamCloudEventErrorDetail",
@@ -13723,6 +13909,8 @@ __all__ = [
     "IntegrationRequiredParamOption",
     "IntegrationRequiredParamTypeEnum",
     "IntegrationSemVer",
+    "InternalServerErrorBody",
+    "InternalServerErrorBodyError",
     "JobFileFormatEnum",
     "LinkedClientConfiguration",
     "ListActionBindingsPaginatedResponseContent",
@@ -13732,7 +13920,6 @@ __all__ = [
     "ListAculsOffsetPaginatedResponseContent",
     "ListAculsResponseContentItem",
     "ListAgentsResponseContent",
-    "ListAttackProtectionCaptchaPoliciesResponseContent",
     "ListBrandingPhoneProvidersResponseContent",
     "ListClientConnectionsResponseContent",
     "ListClientGrantOrganizationsPaginatedResponseContent",
@@ -13777,6 +13964,7 @@ __all__ = [
     "ListOrganizationRoleMembersResponseContent",
     "ListOrganizationsPaginatedResponseContent",
     "ListPhoneTemplatesResponseContent",
+    "ListPortalsResponseContent",
     "ListRateLimitPoliciesPaginatedResponseContent",
     "ListRefreshTokensPaginatedResponseContent",
     "ListResourceServerOffsetPaginatedResponseContent",
@@ -13797,6 +13985,7 @@ __all__ = [
     "ListUserBlocksByIdentifierResponseContent",
     "ListUserBlocksResponseContent",
     "ListUserConnectedAccountsResponseContent",
+    "ListUserConsentSigningKeysResponseContent",
     "ListUserEffectivePermissionRoleSourcesResponseContent",
     "ListUserEffectivePermissionsResponseContent",
     "ListUserEffectiveRolesResponseContent",
@@ -13921,6 +14110,54 @@ __all__ = [
     "OrganizationSortFieldEnum",
     "OrganizationThirdPartyClientAccessEnum",
     "OrganizationUsageEnum",
+    "PageComponent",
+    "PageComponentAuth0Form",
+    "PageComponentAuth0FormConfig",
+    "PageComponentAuth0MediaImage",
+    "PageComponentAuth0MediaImageConfig",
+    "PageComponentAuth0MyAccountMfaManagement",
+    "PageComponentAuth0MyAccountMfaManagementConfig",
+    "PageComponentAuth0MyAccountPasskeyManagement",
+    "PageComponentAuth0MyAccountPasskeyManagementConfig",
+    "PageComponentAuth0MyOrganizationDetailsEdit",
+    "PageComponentAuth0MyOrganizationDetailsEditConfig",
+    "PageComponentAuth0MyOrganizationDomainTable",
+    "PageComponentAuth0MyOrganizationDomainTableConfig",
+    "PageComponentAuth0MyOrganizationMemberManagement",
+    "PageComponentAuth0MyOrganizationMemberManagementConfig",
+    "PageComponentAuth0StructureSection",
+    "PageComponentAuth0StructureSectionConfig",
+    "PageComponentAuth0StructureSectionVariantEnum",
+    "PageComponentAuth0StructureSeparator",
+    "PageComponentAuth0StructureSeparatorConfig",
+    "PageComponentAuth0StructureSeparatorVariantEnum",
+    "PageComponentAuth0TypographyHeading",
+    "PageComponentAuth0TypographyHeadingConfig",
+    "PageComponentAuth0TypographyRichText",
+    "PageComponentAuth0TypographyRichTextConfig",
+    "PageComponentNoChildren",
+    "PageComponentNoChildren_PageComponentAuth0Form",
+    "PageComponentNoChildren_PageComponentAuth0MediaImage",
+    "PageComponentNoChildren_PageComponentAuth0MyAccountMfaManagement",
+    "PageComponentNoChildren_PageComponentAuth0MyAccountPasskeyManagement",
+    "PageComponentNoChildren_PageComponentAuth0MyOrganizationDetailsEdit",
+    "PageComponentNoChildren_PageComponentAuth0MyOrganizationDomainTable",
+    "PageComponentNoChildren_PageComponentAuth0MyOrganizationMemberManagement",
+    "PageComponentNoChildren_PageComponentAuth0StructureSeparator",
+    "PageComponentNoChildren_PageComponentAuth0TypographyHeading",
+    "PageComponentNoChildren_PageComponentAuth0TypographyRichText",
+    "PageComponent_PageComponentAuth0Form",
+    "PageComponent_PageComponentAuth0MediaImage",
+    "PageComponent_PageComponentAuth0MyAccountMfaManagement",
+    "PageComponent_PageComponentAuth0MyAccountPasskeyManagement",
+    "PageComponent_PageComponentAuth0MyOrganizationDetailsEdit",
+    "PageComponent_PageComponentAuth0MyOrganizationDomainTable",
+    "PageComponent_PageComponentAuth0MyOrganizationMemberManagement",
+    "PageComponent_PageComponentAuth0StructureSection",
+    "PageComponent_PageComponentAuth0StructureSeparator",
+    "PageComponent_PageComponentAuth0TypographyHeading",
+    "PageComponent_PageComponentAuth0TypographyRichText",
+    "PageSlug",
     "PartialGroupsEnum",
     "PartialPhoneTemplateContent",
     "PasswordCharacterTypeEnum",
@@ -13954,6 +14191,24 @@ __all__ = [
     "PhoneTemplateBody",
     "PhoneTemplateContent",
     "PhoneTemplateNotificationTypeEnum",
+    "Portal",
+    "PortalClientSecretPost",
+    "PortalClientSecretPostRequest",
+    "PortalClientSecretPostRequestTokenEndpointAuthMethod",
+    "PortalClientSecretPostTokenEndpointAuthMethod",
+    "PortalCustomCode",
+    "PortalCustomCodeNullable",
+    "PortalDateTime",
+    "PortalId",
+    "PortalName",
+    "PortalNavigation",
+    "PortalNavigationNullable",
+    "PortalPage",
+    "PortalPagesByType",
+    "PortalPagesByTypeNullable",
+    "PortalSlug",
+    "PortalSummary",
+    "Position",
     "PostClientCredentialResponseContent",
     "PostConnectionKeysAlgEnum",
     "PostConnectionKeysRequestContent",
@@ -13994,6 +14249,8 @@ __all__ = [
     "ResourceServerAccessTokenClaimsMapping",
     "ResourceServerAccessTokenCustomClaimsMapping",
     "ResourceServerAccessTokenCustomClaimsMappingRule",
+    "ResourceServerAgentSubjectClaimsResponseEnum",
+    "ResourceServerAgentSubjectClaimsSchemaEnum",
     "ResourceServerAuthorizationPolicy",
     "ResourceServerConsentPolicyEnum",
     "ResourceServerProofOfPossession",
@@ -14015,6 +14272,7 @@ __all__ = [
     "ResourceServerTokenEncryptionAlgorithmEnum",
     "ResourceServerTokenEncryptionFormatEnum",
     "ResourceServerTokenEncryptionKey",
+    "ResourceServerTypeEnum",
     "ResourceServerVerificationKeyPemCertificate",
     "RevokedSigningKeysResponseContent",
     "Role",
@@ -14120,6 +14378,20 @@ __all__ = [
     "SetUserAuthenticationMethods",
     "SetUserAuthenticationMethodsRequestContent",
     "SetsCustomTextsByLanguageRequestContent",
+    "Sidebar",
+    "SidebarComponent",
+    "SidebarComponentAuth0ExternalLink",
+    "SidebarComponentAuth0ExternalLinkConfig",
+    "SidebarComponentAuth0ExternalLinkV2",
+    "SidebarComponentAuth0ExternalLinkV2Config",
+    "SidebarComponentAuth0InternalLink",
+    "SidebarComponentAuth0InternalLinkConfig",
+    "SidebarComponentAuth0InternalLinkV2",
+    "SidebarComponentAuth0InternalLinkV2Config",
+    "SidebarComponent_SidebarComponentAuth0ExternalLink",
+    "SidebarComponent_SidebarComponentAuth0ExternalLinkV2",
+    "SidebarComponent_SidebarComponentAuth0InternalLink",
+    "SidebarComponent_SidebarComponentAuth0InternalLinkV2",
     "SigningAlgorithmEnum",
     "SigningKeys",
     "SigningKeysDate",
