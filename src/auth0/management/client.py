@@ -38,6 +38,7 @@ if typing.TYPE_CHECKING:
     from .logs.client import AsyncLogsClient, LogsClient
     from .network_acls.client import AsyncNetworkAclsClient, NetworkAclsClient
     from .organizations.client import AsyncOrganizationsClient, OrganizationsClient
+    from .portals.client import AsyncPortalsClient, PortalsClient
     from .prompts.client import AsyncPromptsClient, PromptsClient
     from .rate_limit_policies.client import AsyncRateLimitPoliciesClient, RateLimitPoliciesClient
     from .refresh_tokens.client import AsyncRefreshTokensClient, RefreshTokensClient
@@ -180,6 +181,7 @@ class Auth0:
         self._logs: typing.Optional[LogsClient] = None
         self._network_acls: typing.Optional[NetworkAclsClient] = None
         self._organizations: typing.Optional[OrganizationsClient] = None
+        self._portals: typing.Optional[PortalsClient] = None
         self._prompts: typing.Optional[PromptsClient] = None
         self._rate_limit_policies: typing.Optional[RateLimitPoliciesClient] = None
         self._refresh_tokens: typing.Optional[RefreshTokensClient] = None
@@ -396,6 +398,14 @@ class Auth0:
 
             self._organizations = OrganizationsClient(client_wrapper=self._client_wrapper)
         return self._organizations
+
+    @property
+    def portals(self):
+        if self._portals is None:
+            from .portals.client import PortalsClient  # noqa: E402
+
+            self._portals = PortalsClient(client_wrapper=self._client_wrapper)
+        return self._portals
 
     @property
     def prompts(self):
@@ -731,6 +741,7 @@ class AsyncAuth0:
         self._logs: typing.Optional[AsyncLogsClient] = None
         self._network_acls: typing.Optional[AsyncNetworkAclsClient] = None
         self._organizations: typing.Optional[AsyncOrganizationsClient] = None
+        self._portals: typing.Optional[AsyncPortalsClient] = None
         self._prompts: typing.Optional[AsyncPromptsClient] = None
         self._rate_limit_policies: typing.Optional[AsyncRateLimitPoliciesClient] = None
         self._refresh_tokens: typing.Optional[AsyncRefreshTokensClient] = None
@@ -947,6 +958,14 @@ class AsyncAuth0:
 
             self._organizations = AsyncOrganizationsClient(client_wrapper=self._client_wrapper)
         return self._organizations
+
+    @property
+    def portals(self):
+        if self._portals is None:
+            from .portals.client import AsyncPortalsClient  # noqa: E402
+
+            self._portals = AsyncPortalsClient(client_wrapper=self._client_wrapper)
+        return self._portals
 
     @property
     def prompts(self):

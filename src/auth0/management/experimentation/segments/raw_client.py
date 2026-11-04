@@ -43,6 +43,7 @@ class RawSegmentsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         type: typing.Optional[SegmentTypeFilterEnum] = None,
+        status: typing.Optional[SegmentStatusEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Segment, ListSegmentsResponseContent]:
         """
@@ -59,6 +60,9 @@ class RawSegmentsClient:
         type : typing.Optional[SegmentTypeFilterEnum]
             Filter by type. Exact match.
 
+        status : typing.Optional[SegmentStatusEnum]
+            Filter by status. Exact match.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -74,6 +78,7 @@ class RawSegmentsClient:
                 "from": from_,
                 "take": take,
                 "type": type,
+                "status": status,
             },
             request_options=request_options,
         )
@@ -93,6 +98,7 @@ class RawSegmentsClient:
                     from_=_parsed_next,
                     take=take,
                     type=type,
+                    status=status,
                     request_options=request_options,
                 )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -595,6 +601,7 @@ class AsyncRawSegmentsClient:
         from_: typing.Optional[str] = None,
         take: typing.Optional[int] = 50,
         type: typing.Optional[SegmentTypeFilterEnum] = None,
+        status: typing.Optional[SegmentStatusEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Segment, ListSegmentsResponseContent]:
         """
@@ -611,6 +618,9 @@ class AsyncRawSegmentsClient:
         type : typing.Optional[SegmentTypeFilterEnum]
             Filter by type. Exact match.
 
+        status : typing.Optional[SegmentStatusEnum]
+            Filter by status. Exact match.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -626,6 +636,7 @@ class AsyncRawSegmentsClient:
                 "from": from_,
                 "take": take,
                 "type": type,
+                "status": status,
             },
             request_options=request_options,
         )
@@ -647,6 +658,7 @@ class AsyncRawSegmentsClient:
                         from_=_parsed_next,
                         take=take,
                         type=type,
+                        status=status,
                         request_options=request_options,
                     )
 

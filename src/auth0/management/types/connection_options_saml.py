@@ -6,6 +6,8 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
+from .connection_client_id_samlxaa_requesting_app import ConnectionClientIdSamlxaaRequestingApp
+from .connection_client_secret_samlxaa_requesting_app import ConnectionClientSecretSamlxaaRequestingApp
 from .connection_debug_saml import ConnectionDebugSaml
 from .connection_destination_url_saml import ConnectionDestinationUrlSaml
 from .connection_discovery_url import ConnectionDiscoveryUrl
@@ -23,6 +25,9 @@ from .connection_request_template_saml import ConnectionRequestTemplateSaml
 from .connection_sign_out_endpoint_saml import ConnectionSignOutEndpointSaml
 from .connection_signing_cert_saml import ConnectionSigningCertSaml
 from .connection_signing_key_saml import ConnectionSigningKeySaml
+from .connection_token_endpoint_auth_method_enum import ConnectionTokenEndpointAuthMethodEnum
+from .connection_token_endpoint_auth_signing_alg_enum import ConnectionTokenEndpointAuthSigningAlgEnum
+from .connection_token_endpoint_jwtca_aud_format_enum_oidc import ConnectionTokenEndpointJwtcaAudFormatEnumOidc
 from .connection_user_id_attribute_saml import ConnectionUserIdAttributeSaml
 
 
@@ -31,6 +36,8 @@ class ConnectionOptionsSaml(ConnectionOptionsCommonSaml, ConnectionOptionsCommon
     Options for the 'samlp' connection
     """
 
+    client_id: typing.Optional[ConnectionClientIdSamlxaaRequestingApp] = None
+    client_secret: typing.Optional[ConnectionClientSecretSamlxaaRequestingApp] = None
     debug: typing.Optional[ConnectionDebugSaml] = None
     deflate: typing.Optional[ConnectionOptionsDeflateSaml] = None
     destination_url: typing_extensions.Annotated[
@@ -88,6 +95,9 @@ class ConnectionOptionsSaml(ConnectionOptionsCommonSaml, ConnectionOptionsCommon
         FieldMetadata(alias="signOutEndpoint"),
         pydantic.Field(alias="signOutEndpoint"),
     ] = None
+    token_endpoint_auth_method: typing.Optional[ConnectionTokenEndpointAuthMethodEnum] = None
+    token_endpoint_auth_signing_alg: typing.Optional[ConnectionTokenEndpointAuthSigningAlgEnum] = None
+    token_endpoint_jwtca_aud_format: typing.Optional[ConnectionTokenEndpointJwtcaAudFormatEnumOidc] = None
     user_id_attribute: typing.Optional[ConnectionUserIdAttributeSaml] = None
 
     if IS_PYDANTIC_V2:

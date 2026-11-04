@@ -8,6 +8,7 @@ from .event_stream_cloud_event_context_client import EventStreamCloudEventContex
 from .event_stream_cloud_event_context_connection import EventStreamCloudEventContextConnection
 from .event_stream_cloud_event_context_request import EventStreamCloudEventContextRequest
 from .event_stream_cloud_event_context_tenant import EventStreamCloudEventContextTenant
+from .event_stream_cloud_event_context_transaction import EventStreamCloudEventContextTransaction
 
 
 class EventStreamCloudEventContext(UniversalBaseModel):
@@ -23,6 +24,7 @@ class EventStreamCloudEventContext(UniversalBaseModel):
     connection: typing.Optional[EventStreamCloudEventContextConnection] = None
     request: typing.Optional[EventStreamCloudEventContextRequest] = None
     tenant: EventStreamCloudEventContextTenant
+    transaction: typing.Optional[EventStreamCloudEventContextTransaction] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

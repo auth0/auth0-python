@@ -16,6 +16,7 @@ from .connection_gateway_authentication import ConnectionGatewayAuthentication
 from .connection_id_token_session_expiry_supported import ConnectionIdTokenSessionExpirySupported
 from .connection_id_token_signed_response_algs import ConnectionIdTokenSignedResponseAlgs
 from .connection_identifier_precedence_enum import ConnectionIdentifierPrecedenceEnum
+from .connection_otp_settings import ConnectionOtpSettings
 from .connection_passkey_options import ConnectionPasskeyOptions
 from .connection_password_complexity_options import ConnectionPasswordComplexityOptions
 from .connection_password_dictionary_options import ConnectionPasswordDictionaryOptions
@@ -83,6 +84,7 @@ class ConnectionPropertiesOptions(UniversalBaseModel):
         FieldMetadata(alias="customScripts"),
         pydantic.Field(alias="customScripts"),
     ] = None
+    otp_settings: typing.Optional[ConnectionOtpSettings] = None
     authentication_methods: typing.Optional[ConnectionAuthenticationMethods] = None
     passkey_options: typing.Optional[ConnectionPasskeyOptions] = None
     password_policy: typing_extensions.Annotated[

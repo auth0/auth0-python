@@ -27,6 +27,7 @@ from ..types.list_resource_server_offset_paginated_response_content import (
 )
 from ..types.resource_server import ResourceServer
 from ..types.resource_server_access_token import ResourceServerAccessToken
+from ..types.resource_server_agent_subject_claims_schema_enum import ResourceServerAgentSubjectClaimsSchemaEnum
 from ..types.resource_server_authorization_policy import ResourceServerAuthorizationPolicy
 from ..types.resource_server_consent_policy_enum import ResourceServerConsentPolicyEnum
 from ..types.resource_server_proof_of_possession import ResourceServerProofOfPossession
@@ -36,6 +37,7 @@ from ..types.resource_server_sort_field_enum import ResourceServerSortFieldEnum
 from ..types.resource_server_subject_type_authorization import ResourceServerSubjectTypeAuthorization
 from ..types.resource_server_token_dialect_schema_enum import ResourceServerTokenDialectSchemaEnum
 from ..types.resource_server_token_encryption import ResourceServerTokenEncryption
+from ..types.resource_server_type_enum import ResourceServerTypeEnum
 from ..types.search_parser_enum import SearchParserEnum
 from ..types.search_resource_servers_response_content import SearchResourceServersResponseContent
 from ..types.signing_algorithm_enum import SigningAlgorithmEnum
@@ -199,6 +201,8 @@ class RawResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        agent_subject_claims: typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateResourceServerResponseContent]:
         """
@@ -260,6 +264,10 @@ class RawResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        agent_subject_claims : typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum]
+
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -313,6 +321,8 @@ class RawResourceServersClient:
                     annotation=typing.Optional[ResourceServerAuthorizationPolicy],
                     direction="write",
                 ),
+                "agent_subject_claims": agent_subject_claims,
+                "type": type,
             },
             headers={
                 "content-type": "application/json",
@@ -775,6 +785,8 @@ class RawResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        agent_subject_claims: typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateResourceServerResponseContent]:
         """
@@ -836,6 +848,10 @@ class RawResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        agent_subject_claims : typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum]
+
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -888,6 +904,8 @@ class RawResourceServersClient:
                     annotation=typing.Optional[ResourceServerAuthorizationPolicy],
                     direction="write",
                 ),
+                "agent_subject_claims": agent_subject_claims,
+                "type": type,
             },
             headers={
                 "content-type": "application/json",
@@ -1126,6 +1144,8 @@ class AsyncRawResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        agent_subject_claims: typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateResourceServerResponseContent]:
         """
@@ -1187,6 +1207,10 @@ class AsyncRawResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        agent_subject_claims : typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum]
+
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1240,6 +1264,8 @@ class AsyncRawResourceServersClient:
                     annotation=typing.Optional[ResourceServerAuthorizationPolicy],
                     direction="write",
                 ),
+                "agent_subject_claims": agent_subject_claims,
+                "type": type,
             },
             headers={
                 "content-type": "application/json",
@@ -1707,6 +1733,8 @@ class AsyncRawResourceServersClient:
         proof_of_possession: typing.Optional[ResourceServerProofOfPossession] = OMIT,
         subject_type_authorization: typing.Optional[ResourceServerSubjectTypeAuthorization] = OMIT,
         authorization_policy: typing.Optional[ResourceServerAuthorizationPolicy] = OMIT,
+        agent_subject_claims: typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum] = OMIT,
+        type: typing.Optional[ResourceServerTypeEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateResourceServerResponseContent]:
         """
@@ -1768,6 +1796,10 @@ class AsyncRawResourceServersClient:
 
         authorization_policy : typing.Optional[ResourceServerAuthorizationPolicy]
 
+        agent_subject_claims : typing.Optional[ResourceServerAgentSubjectClaimsSchemaEnum]
+
+        type : typing.Optional[ResourceServerTypeEnum]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1820,6 +1852,8 @@ class AsyncRawResourceServersClient:
                     annotation=typing.Optional[ResourceServerAuthorizationPolicy],
                     direction="write",
                 ),
+                "agent_subject_claims": agent_subject_claims,
+                "type": type,
             },
             headers={
                 "content-type": "application/json",

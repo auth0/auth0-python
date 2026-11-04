@@ -15,6 +15,7 @@ def test_clients_list_() -> None:
         is_first_party=True,
         app_type="app_type",
         external_client_id="external_client_id",
+        agent_id="agent_id",
         q="q",
     )
     verify_request_count(
@@ -31,6 +32,7 @@ def test_clients_list_() -> None:
             "is_first_party": "true",
             "app_type": "app_type",
             "external_client_id": "external_client_id",
+            "agent_id": "agent_id",
             "q": "q",
         },
         1,

@@ -2,7 +2,7 @@
 
 import typing
 
-UpdateVariationOverridesMap = typing.Dict[str, typing.Any]
+UpdateVariationOverridesMap = typing.Optional[typing.Dict[str, typing.Any]]
 """
-Configuration overrides for this variation; keys must exist in the parent flag parameters. Empty {} is the baseline (control) variation that overrides nothing.
+Top-level keys merge into the stored overrides. Set a key to `null` to remove it. Set `overrides` to `null` or `{}` to clear all. Keys must exist in the parent flag parameters.
 """
