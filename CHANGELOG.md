@@ -9,6 +9,9 @@
 **Added**
 - Portals client (`management.portals.list()`, `create()`, `get()`, `update()`, `delete()`), user consent signing key management (`management.users.list_consent_signing_keys()`, `get_consent_signing_key()`, `delete_consent_signing_key()`), resource server `type` on `create()` and `update()` and in responses, `agent_subject_claims` on resource servers, `oidc_support` on client responses and client profiles, database connection `options.otp_settings` for email and phone OTP length and expiry, SAML connection cross-app access requesting app with client credentials and token endpoint settings, a `status` filter on `management.experimentation.segments.list()`, a `transaction` context on event stream cloud events, and `agent_id` on client search results [\#905](https://github.com/auth0/auth0-python/pull/905) ([fern-api[bot]](https://github.com/apps/fern-api))
 
+**Changed**
+- `UpdateVariationOverridesMap` now accepts `None`. Top-level keys merge into the stored overrides, a `null` value removes a key, and `None` or `{}` clears all overrides. The tenant settings flag `dashboard_insights_view` is documented as deprecated with no effect. `is_valid` on experiment responses is documented as the state at the last update, which can lag later changes [\#905](https://github.com/auth0/auth0-python/pull/905) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.8.0](https://github.com/auth0/auth0-python/tree/6.8.0) (2026-10-14)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.7.0...6.8.0)
 
