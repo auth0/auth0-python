@@ -569,6 +569,46 @@ class TestCustomDomainHeader:
         """Should not match non-whitelisted paths."""
         assert _is_path_whitelisted(path) is False
 
+    def test_sync_request_enforces_whitelist(self):
+        """Should send the header only on whitelisted paths for sync requests."""
+        sent = []
+
+        def handler(request):
+            sent.append(request)
+            return httpx.Response(200, json={})
+
+        client = ManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+            custom_domain="login.mycompany.com",
+            httpx_client=httpx.Client(transport=httpx.MockTransport(handler)),
+        )
+        client.users.get("auth0|abc123")
+        client.clients.get("abc123")
+
+        assert sent[0].headers[_CUSTOM_DOMAIN_HEADER] == "login.mycompany.com"
+        assert _CUSTOM_DOMAIN_HEADER not in sent[1].headers
+
+    async def test_async_request_enforces_whitelist(self):
+        """Should send the header only on whitelisted paths for async requests."""
+        sent = []
+
+        def handler(request):
+            sent.append(request)
+            return httpx.Response(200, json={})
+
+        client = AsyncManagementClient(
+            domain="test.auth0.com",
+            token="my-token",
+            custom_domain="login.mycompany.com",
+            httpx_client=httpx.AsyncClient(transport=httpx.MockTransport(handler)),
+        )
+        await client.users.get("auth0|abc123")
+        await client.clients.get("abc123")
+
+        assert sent[0].headers[_CUSTOM_DOMAIN_HEADER] == "login.mycompany.com"
+        assert _CUSTOM_DOMAIN_HEADER not in sent[1].headers
+
 
 class TestImports:
     """Tests for module imports."""
