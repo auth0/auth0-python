@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.9.0](https://github.com/auth0/auth0-python/tree/6.9.0) (2026-11-04)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.8.0...6.9.0)
+
+⚠️ **Breaking Changes**
+- `management.attack_protection.captcha_policies` removed along with its policy, match, and action models and the per-provider action settings for Arkose, hCaptcha, Friendly CAPTCHA, reCAPTCHA Enterprise, reCAPTCHA v2, Simple CAPTCHA, and auth challenge. Code that accesses it now raises `AttributeError`, and there is no replacement in this release. `management.experimentation.experiments.create()` now requires `allocation_strategy`, so calls that omit it raise `TypeError`. Pass it explicitly, for example `allocation_strategy="percentage"` [\#905](https://github.com/auth0/auth0-python/pull/905) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Added**
+- Portals client (`management.portals.list()`, `create()`, `get()`, `update()`, `delete()`), user consent signing key management (`management.users.list_consent_signing_keys()`, `get_consent_signing_key()`, `delete_consent_signing_key()`), resource server `type` on `create()` and `update()` and in responses, `agent_subject_claims` on resource servers, `oidc_support` on client responses and client profiles, database connection `options.otp_settings` for email and phone OTP length and expiry, SAML connection cross-app access requesting app with client credentials and token endpoint settings, a `status` filter on `management.experimentation.segments.list()`, a `transaction` context on event stream cloud events, and `agent_id` on client search results [\#905](https://github.com/auth0/auth0-python/pull/905) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.8.0](https://github.com/auth0/auth0-python/tree/6.8.0) (2026-10-14)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.7.0...6.8.0)
 
