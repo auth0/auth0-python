@@ -18,7 +18,7 @@ class CspPolicyReporting(UniversalBaseModel):
 
     report_to_group: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Report-To group name for modern reporting.
+    Report-To group name for modern reporting. Letters, digits, underscores and hyphens only; enforced on write by the request validator.
     """
 
     if IS_PYDANTIC_V2:

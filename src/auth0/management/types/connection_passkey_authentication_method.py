@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_signup_behavior_enum import ConnectionSignupBehaviorEnum
 
 
 class ConnectionPasskeyAuthenticationMethod(UniversalBaseModel):
@@ -14,6 +15,11 @@ class ConnectionPasskeyAuthenticationMethod(UniversalBaseModel):
     enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Determines whether passkeys are enabled
+    """
+
+    signup_behavior: typing.Optional[ConnectionSignupBehaviorEnum] = pydantic.Field(default=None)
+    """
+    Specifies the signup behavior for passkey authentication
     """
 
     if IS_PYDANTIC_V2:
