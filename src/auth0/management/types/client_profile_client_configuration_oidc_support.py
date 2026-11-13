@@ -11,7 +11,7 @@ from .client_profile_client_configuration_oidc_support_default_value import (
 
 class ClientProfileClientConfigurationOidcSupport(UniversalBaseModel):
     """
-    Default OIDC support applied to matched clients.
+    Default OIDC support configuration applied to matched clients.
     """
 
     default_value: ClientProfileClientConfigurationOidcSupportDefaultValue
