@@ -91,7 +91,7 @@ class AsyncJwksFetcher(JwksFetcher):
             try:
                 jwks = await self._async_client.get(self._jwks_url)
                 self._cache_jwks(jwks)
-            except:  # noqa: E722
+            except Exception:
                 return self._cache_value
             return self._cache_value
 
