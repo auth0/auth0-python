@@ -1,3 +1,4 @@
+import json
 from typing import Any
 
 from .base import AuthenticationBase
@@ -22,6 +23,11 @@ class PushedAuthorizationRequests(AuthenticationBase):
 
         See: https://www.rfc-editor.org/rfc/rfc9126.html
         """
+        if isinstance(kwargs.get("authorization_details"), list):
+            kwargs["authorization_details"] = json.dumps(
+                kwargs["authorization_details"]
+            )
+
         return self.authenticated_post(
             f"{self.protocol}://{self.domain}/oauth/par",
             data={

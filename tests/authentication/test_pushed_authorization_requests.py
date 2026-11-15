@@ -1,6 +1,7 @@
 import unittest
 import json
 from unittest import mock
+from urllib.parse import parse_qs
 
 from auth0.authentication.pushed_authorization_requests import PushedAuthorizationRequests
 
@@ -63,7 +64,7 @@ class TestRevokeToken(unittest.TestCase):
             "client_secret": "sh!",
             "response_type": "code",
             "redirect_uri": "https://example.com/callback",
-            "authorization_details": [{"type": "money_transfer", "instructedAmount": {"amount": 2500, "currency": "USD"}}],
+            "authorization_details": json.dumps([{"type": "money_transfer", "instructedAmount": {"amount": 2500, "currency": "USD"}}]),
         }
 
         actual_data = kwargs["data"]
@@ -74,6 +75,26 @@ class TestRevokeToken(unittest.TestCase):
             json.dumps(actual_data, sort_keys=True), 
             json.dumps(expected_data, sort_keys=True)
         )
+
+    @mock.patch("requests.request")
+    def test_authorization_details_sent_as_json(self, mock_requests_request):
+        response = mock.MagicMock()
+        response.status_code = 201
+        response.text = '{"request_uri": "urn:example", "expires_in": 30}'
+        mock_requests_request.return_value = response
+
+        authorization_details = [{"type": "money_transfer", "instructedAmount": {"amount": 2500, "currency": "USD"}}]
+        a = PushedAuthorizationRequests("my.domain.com", "cid", client_secret="sh!")
+        a.pushed_authorization_request(
+            response_type="code",
+            redirect_uri="https://example.com/callback",
+            authorization_details=authorization_details,
+        )
+
+        args, kwargs = mock_requests_request.call_args
+        sent = parse_qs(kwargs["data"])
+
+        self.assertEqual(json.loads(sent["authorization_details"][0]), authorization_details)
 
     @mock.patch("auth0.authentication.rest.RestClient.post")
     def test_jar(self, mock_post):
