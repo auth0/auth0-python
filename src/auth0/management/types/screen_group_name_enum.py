@@ -34,6 +34,7 @@ ScreenGroupNameEnum = typing.Union[
         "custom-form",
         "consent",
         "consent-tenant-scopes",
+        "pending-consent",
         "customized-consent",
         "logout",
         "logout-complete",

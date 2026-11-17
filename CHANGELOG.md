@@ -1,5 +1,14 @@
 # Change Log
 
+## [6.10.0](https://github.com/auth0/auth0-python/tree/6.10.0) (2026-11-13)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.9.0...6.10.0)
+
+**Added**
+- Typed `signup_behavior` field (`allow` or `block`) on the passkey authentication method of a connection, matching the password authentication method. The field sits under `authentication_methods.passkey` in the connection `options` accepted by `client.connections.create()` and `update()`. `pending-consent` added to the known screen group names used by prompt rendering and ACUL screen settings [\#911](https://github.com/auth0/auth0-python/pull/911) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Changed**
+- Updated the `oidc_support` descriptions on clients and client profiles, and the `report_to_group` description for CSP reporting, for improved clarity. Description changes only, with no change in behavior [\#911](https://github.com/auth0/auth0-python/pull/911) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.9.0](https://github.com/auth0/auth0-python/tree/6.9.0) (2026-11-04)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.8.0...6.9.0)
 

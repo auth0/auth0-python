@@ -18,14 +18,20 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.26.0
-current_generation: a3eace9354ccf8d76cc4439d44363b0a08e6f1d7
+  - commit_sha: 136d7afa3b6f920dc2ddec157a94171495ba7e14
+    tree_hash: 386fa3b83eed7b806984204dfa02adc0edc7be11
+    timestamp: 2026-11-10T05:42:38.308Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.26.0
+current_generation: 136d7afa3b6f920dc2ddec157a94171495ba7e14
 patches:
   - id: patch-3bac717a
     content_hash: sha256:f4ad3ba43b0430fa3dfb54bfcf588cb697efe8185eb30350f9955849f831083f
     original_commit: 3bac717acae703868197afb75fc26d296957a4fd
     original_message: Restore Auth0 telemetry headers and keep UPGRADING.md (#900)
     original_author: Kunal Dawar <35455566+developerkunal@users.noreply.github.com>
-    base_generation: a3eace9354ccf8d76cc4439d44363b0a08e6f1d7
+    base_generation: 136d7afa3b6f920dc2ddec157a94171495ba7e14
     files:
       - src/auth0/management/core/client_wrapper.py
     patch_content: |
@@ -221,3 +227,4 @@ patches:
                     token = await self._async_token()
                     headers["Authorization"] = f"Bearer {token}"
                 return headers
+    user_owned: true

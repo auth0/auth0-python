@@ -11,24 +11,24 @@ from .client_profile_client_configuration_oidc_support_allowed_scopes_enum impor
 
 class ClientProfileClientConfigurationOidcSupportDefaultValue(UniversalBaseModel):
     """
-    OIDC support settings applied to matched clients.
+    Controls whether matched clients can receive ID tokens and use the UserInfo endpoint, and which user profile information they can request through OIDC scopes.
     """
 
     is_allowed: bool = pydantic.Field()
     """
-    Whether matched clients may use OIDC.
+    Allows matched clients to use OIDC, including receiving ID tokens and calling the UserInfo endpoint.
     """
 
     allow_all_scopes: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Whether matched clients may request all optional OIDC scopes. Cannot be combined with allowed_scopes.
+    Allows matched clients to request all supported OIDC scopes. Mutually exclusive with allowed_scopes.
     """
 
     allowed_scopes: typing.Optional[typing.List[ClientProfileClientConfigurationOidcSupportAllowedScopesEnum]] = (
         pydantic.Field(default=None)
     )
     """
-    Optional OIDC scopes that matched clients may request.
+    OIDC scopes matched clients may request (`profile`, `email`, `address`, and `phone`), which determine the user profile information they can access. Mutually exclusive with allow_all_scopes.
     """
 
     if IS_PYDANTIC_V2:
