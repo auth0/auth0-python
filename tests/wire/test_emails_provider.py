@@ -1,7 +1,5 @@
 from .conftest import get_client, verify_request_count
 
-from auth0.management import EmailProviderCredentialsSchemaZero
-
 
 def test_emails_provider_get() -> None:
     """Test get endpoint with WireMock"""
@@ -20,9 +18,6 @@ def test_emails_provider_create() -> None:
     client = get_client(test_id)
     client.emails.provider.create(
         name="mailgun",
-        credentials=EmailProviderCredentialsSchemaZero(
-            api_key="api_key",
-        ),
     )
     verify_request_count(test_id, "POST", "/emails/provider", None, 1)
 

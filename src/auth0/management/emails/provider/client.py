@@ -78,9 +78,9 @@ class ProviderClient:
         self,
         *,
         name: EmailProviderNameEnum,
-        credentials: EmailProviderCredentialsSchema,
         enabled: typing.Optional[bool] = OMIT,
         default_from_address: typing.Optional[str] = OMIT,
+        credentials: typing.Optional[EmailProviderCredentialsSchema] = OMIT,
         settings: typing.Optional[EmailSpecificProviderSettingsWithAdditionalProperties] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateEmailProviderResponseContent:
@@ -115,13 +115,13 @@ class ProviderClient:
         ----------
         name : EmailProviderNameEnum
 
-        credentials : EmailProviderCredentialsSchema
-
         enabled : typing.Optional[bool]
             Whether the provider is enabled (true) or disabled (false).
 
         default_from_address : typing.Optional[str]
             Email address to use as "from" when no other address specified.
+
+        credentials : typing.Optional[EmailProviderCredentialsSchema]
 
         settings : typing.Optional[EmailSpecificProviderSettingsWithAdditionalProperties]
 
@@ -135,23 +135,20 @@ class ProviderClient:
 
         Examples
         --------
-        from auth0 import Auth0, EmailProviderCredentialsSchemaZero
+        from auth0 import Auth0
 
         client = Auth0(
             token="YOUR_TOKEN",
         )
         client.emails.provider.create(
             name="mailgun",
-            credentials=EmailProviderCredentialsSchemaZero(
-                api_key="api_key",
-            ),
         )
         """
         _response = self._raw_client.create(
             name=name,
-            credentials=credentials,
             enabled=enabled,
             default_from_address=default_from_address,
+            credentials=credentials,
             settings=settings,
             request_options=request_options,
         )
@@ -332,9 +329,9 @@ class AsyncProviderClient:
         self,
         *,
         name: EmailProviderNameEnum,
-        credentials: EmailProviderCredentialsSchema,
         enabled: typing.Optional[bool] = OMIT,
         default_from_address: typing.Optional[str] = OMIT,
+        credentials: typing.Optional[EmailProviderCredentialsSchema] = OMIT,
         settings: typing.Optional[EmailSpecificProviderSettingsWithAdditionalProperties] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateEmailProviderResponseContent:
@@ -369,13 +366,13 @@ class AsyncProviderClient:
         ----------
         name : EmailProviderNameEnum
 
-        credentials : EmailProviderCredentialsSchema
-
         enabled : typing.Optional[bool]
             Whether the provider is enabled (true) or disabled (false).
 
         default_from_address : typing.Optional[str]
             Email address to use as "from" when no other address specified.
+
+        credentials : typing.Optional[EmailProviderCredentialsSchema]
 
         settings : typing.Optional[EmailSpecificProviderSettingsWithAdditionalProperties]
 
@@ -391,7 +388,7 @@ class AsyncProviderClient:
         --------
         import asyncio
 
-        from auth0 import AsyncAuth0, EmailProviderCredentialsSchemaZero
+        from auth0 import AsyncAuth0
 
         client = AsyncAuth0(
             token="YOUR_TOKEN",
@@ -401,9 +398,6 @@ class AsyncProviderClient:
         async def main() -> None:
             await client.emails.provider.create(
                 name="mailgun",
-                credentials=EmailProviderCredentialsSchemaZero(
-                    api_key="api_key",
-                ),
             )
 
 
@@ -411,9 +405,9 @@ class AsyncProviderClient:
         """
         _response = await self._raw_client.create(
             name=name,
-            credentials=credentials,
             enabled=enabled,
             default_from_address=default_from_address,
+            credentials=credentials,
             settings=settings,
             request_options=request_options,
         )

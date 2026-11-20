@@ -14,6 +14,9 @@ from ...types.self_service_profile_sso_ticket_domain_aliases_config import (
 from ...types.self_service_profile_sso_ticket_enabled_features import SelfServiceProfileSsoTicketEnabledFeatures
 from ...types.self_service_profile_sso_ticket_enabled_organization import SelfServiceProfileSsoTicketEnabledOrganization
 from ...types.self_service_profile_sso_ticket_provisioning_config import SelfServiceProfileSsoTicketProvisioningConfig
+from ...types.self_service_profile_sso_ticket_universal_logout_config import (
+    SelfServiceProfileSsoTicketUniversalLogoutConfig,
+)
 from ...types.third_party_client_access_config import ThirdPartyClientAccessConfig
 from .raw_client import AsyncRawSsoTicketClient, RawSsoTicketClient
 
@@ -49,6 +52,7 @@ class SsoTicketClient:
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
         third_party_client_access_config: typing.Optional[ThirdPartyClientAccessConfig] = OMIT,
+        universal_logout_config: typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig] = OMIT,
         enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateSelfServiceProfileSsoTicketResponseContent:
@@ -83,6 +87,8 @@ class SsoTicketClient:
 
         third_party_client_access_config : typing.Optional[ThirdPartyClientAccessConfig]
 
+        universal_logout_config : typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig]
+
         enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
 
         request_options : typing.Optional[RequestOptions]
@@ -115,6 +121,7 @@ class SsoTicketClient:
             provisioning_config=provisioning_config,
             use_for_organization_discovery=use_for_organization_discovery,
             third_party_client_access_config=third_party_client_access_config,
+            universal_logout_config=universal_logout_config,
             enabled_features=enabled_features,
             request_options=request_options,
         )
@@ -184,6 +191,7 @@ class AsyncSsoTicketClient:
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
         third_party_client_access_config: typing.Optional[ThirdPartyClientAccessConfig] = OMIT,
+        universal_logout_config: typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig] = OMIT,
         enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateSelfServiceProfileSsoTicketResponseContent:
@@ -217,6 +225,8 @@ class AsyncSsoTicketClient:
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
         third_party_client_access_config : typing.Optional[ThirdPartyClientAccessConfig]
+
+        universal_logout_config : typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig]
 
         enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
 
@@ -258,6 +268,7 @@ class AsyncSsoTicketClient:
             provisioning_config=provisioning_config,
             use_for_organization_discovery=use_for_organization_discovery,
             third_party_client_access_config=third_party_client_access_config,
+            universal_logout_config=universal_logout_config,
             enabled_features=enabled_features,
             request_options=request_options,
         )

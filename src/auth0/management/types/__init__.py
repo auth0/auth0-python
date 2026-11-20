@@ -5708,6 +5708,9 @@ if typing.TYPE_CHECKING:
     from .get_user_response_content import GetUserResponseContent
     from .get_variation_response_content import GetVariationResponseContent
     from .get_verifiable_credential_template_response_content import GetVerifiableCredentialTemplateResponseContent
+    from .google_account_linking_configuration import GoogleAccountLinkingConfiguration
+    from .google_account_linking_configuration_create import GoogleAccountLinkingConfigurationCreate
+    from .google_account_linking_configuration_or_null import GoogleAccountLinkingConfigurationOrNull
     from .group import Group
     from .group_member import GroupMember
     from .group_member_type_enum import GroupMemberTypeEnum
@@ -5732,6 +5735,7 @@ if typing.TYPE_CHECKING:
     from .identity_provider_enum import IdentityProviderEnum
     from .identity_provider_only_auth_0_enum import IdentityProviderOnlyAuth0Enum
     from .import_encryption_key_response_content import ImportEncryptionKeyResponseContent
+    from .include_user_profile_size_header_enum import IncludeUserProfileSizeHeaderEnum
     from .integration import Integration
     from .integration_feature_type_enum import IntegrationFeatureTypeEnum
     from .integration_release import IntegrationRelease
@@ -6043,6 +6047,7 @@ if typing.TYPE_CHECKING:
     from .password_character_type_enum import PasswordCharacterTypeEnum
     from .password_character_type_rule_policy_enum import PasswordCharacterTypeRulePolicyEnum
     from .password_default_dictionaries_enum import PasswordDefaultDictionariesEnum
+    from .password_dictionary_match_type_enum import PasswordDictionaryMatchTypeEnum
     from .password_identical_characters_policy_enum import PasswordIdenticalCharactersPolicyEnum
     from .password_max_length_exceeded_policy_enum import PasswordMaxLengthExceededPolicyEnum
     from .password_sequential_characters_policy_enum import PasswordSequentialCharactersPolicyEnum
@@ -6243,6 +6248,9 @@ if typing.TYPE_CHECKING:
     from .self_service_profile_sso_ticket_provisioning_config import SelfServiceProfileSsoTicketProvisioningConfig
     from .self_service_profile_sso_ticket_provisioning_scope_enum import (
         SelfServiceProfileSsoTicketProvisioningScopeEnum,
+    )
+    from .self_service_profile_sso_ticket_universal_logout_config import (
+        SelfServiceProfileSsoTicketUniversalLogoutConfig,
     )
     from .self_service_profile_user_attribute import SelfServiceProfileUserAttribute
     from .self_service_profile_user_attributes import SelfServiceProfileUserAttributes
@@ -9848,6 +9856,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetUserResponseContent": ".get_user_response_content",
     "GetVariationResponseContent": ".get_variation_response_content",
     "GetVerifiableCredentialTemplateResponseContent": ".get_verifiable_credential_template_response_content",
+    "GoogleAccountLinkingConfiguration": ".google_account_linking_configuration",
+    "GoogleAccountLinkingConfigurationCreate": ".google_account_linking_configuration_create",
+    "GoogleAccountLinkingConfigurationOrNull": ".google_account_linking_configuration_or_null",
     "Group": ".group",
     "GroupMember": ".group_member",
     "GroupMemberTypeEnum": ".group_member_type_enum",
@@ -9870,6 +9881,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "IdentityProviderEnum": ".identity_provider_enum",
     "IdentityProviderOnlyAuth0Enum": ".identity_provider_only_auth_0_enum",
     "ImportEncryptionKeyResponseContent": ".import_encryption_key_response_content",
+    "IncludeUserProfileSizeHeaderEnum": ".include_user_profile_size_header_enum",
     "Integration": ".integration",
     "IntegrationFeatureTypeEnum": ".integration_feature_type_enum",
     "IntegrationRelease": ".integration_release",
@@ -10131,6 +10143,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PasswordCharacterTypeEnum": ".password_character_type_enum",
     "PasswordCharacterTypeRulePolicyEnum": ".password_character_type_rule_policy_enum",
     "PasswordDefaultDictionariesEnum": ".password_default_dictionaries_enum",
+    "PasswordDictionaryMatchTypeEnum": ".password_dictionary_match_type_enum",
     "PasswordIdenticalCharactersPolicyEnum": ".password_identical_characters_policy_enum",
     "PasswordMaxLengthExceededPolicyEnum": ".password_max_length_exceeded_policy_enum",
     "PasswordSequentialCharactersPolicyEnum": ".password_sequential_characters_policy_enum",
@@ -10300,6 +10313,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SelfServiceProfileSsoTicketIdpInitiatedOptions": ".self_service_profile_sso_ticket_idp_initiated_options",
     "SelfServiceProfileSsoTicketProvisioningConfig": ".self_service_profile_sso_ticket_provisioning_config",
     "SelfServiceProfileSsoTicketProvisioningScopeEnum": ".self_service_profile_sso_ticket_provisioning_scope_enum",
+    "SelfServiceProfileSsoTicketUniversalLogoutConfig": ".self_service_profile_sso_ticket_universal_logout_config",
     "SelfServiceProfileUserAttribute": ".self_service_profile_user_attribute",
     "SelfServiceProfileUserAttributes": ".self_service_profile_user_attributes",
     "SessionActorClaimValue": ".session_actor_claim_value",
@@ -13880,6 +13894,9 @@ __all__ = [
     "GetUserResponseContent",
     "GetVariationResponseContent",
     "GetVerifiableCredentialTemplateResponseContent",
+    "GoogleAccountLinkingConfiguration",
+    "GoogleAccountLinkingConfigurationCreate",
+    "GoogleAccountLinkingConfigurationOrNull",
     "Group",
     "GroupMember",
     "GroupMemberTypeEnum",
@@ -13902,6 +13919,7 @@ __all__ = [
     "IdentityProviderEnum",
     "IdentityProviderOnlyAuth0Enum",
     "ImportEncryptionKeyResponseContent",
+    "IncludeUserProfileSizeHeaderEnum",
     "Integration",
     "IntegrationFeatureTypeEnum",
     "IntegrationRelease",
@@ -14163,6 +14181,7 @@ __all__ = [
     "PasswordCharacterTypeEnum",
     "PasswordCharacterTypeRulePolicyEnum",
     "PasswordDefaultDictionariesEnum",
+    "PasswordDictionaryMatchTypeEnum",
     "PasswordIdenticalCharactersPolicyEnum",
     "PasswordMaxLengthExceededPolicyEnum",
     "PasswordSequentialCharactersPolicyEnum",
@@ -14332,6 +14351,7 @@ __all__ = [
     "SelfServiceProfileSsoTicketIdpInitiatedOptions",
     "SelfServiceProfileSsoTicketProvisioningConfig",
     "SelfServiceProfileSsoTicketProvisioningScopeEnum",
+    "SelfServiceProfileSsoTicketUniversalLogoutConfig",
     "SelfServiceProfileUserAttribute",
     "SelfServiceProfileUserAttributes",
     "SessionActorClaimValue",

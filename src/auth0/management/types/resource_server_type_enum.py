@@ -2,4 +2,6 @@
 
 import typing
 
-ResourceServerTypeEnum = typing.Union[typing.Literal["universal_commerce_protocol_server"], typing.Any]
+ResourceServerTypeEnum = typing.Union[
+    typing.Literal["universal_commerce_protocol_server", "model_context_protocol_server"], typing.Any
+]

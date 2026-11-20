@@ -124,6 +124,16 @@ class ConnectionPropertiesOptions(UniversalBaseModel):
         FieldMetadata(alias="useOauthSpecScope"),
         pydantic.Field(alias="useOauthSpecScope"),
     ] = None
+    client_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The client ID registered with the identity provider
+    """
+
+    allowed_audiences: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Additional Google client IDs accepted as the `aud` (audience) of Google ID tokens, used by Google native login and Google Streamlined Linking.
+    """
+
     discovery_url: typing.Optional[ConnectionsDiscoveryUrl] = None
     oidc_metadata: typing.Optional[ConnectionsOidcMetadata] = None
     thumbprints: typing.Optional[ConnectionThumbprints] = None
