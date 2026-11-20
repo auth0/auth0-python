@@ -4,10 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_key_use_enum import ConnectionKeyUseEnum
 from .rotate_connection_keys_signing_alg_enum import RotateConnectionKeysSigningAlgEnum
 
 
 class RotateConnectionKeysRequestContent(UniversalBaseModel):
+    key_use: typing.Optional[ConnectionKeyUseEnum] = pydantic.Field(default=None)
+    """
+    Whether to rotate the signing key (default) or the encryption key for the connection.
+    """
+
     signing_alg: typing.Optional[RotateConnectionKeysSigningAlgEnum] = None
 
     if IS_PYDANTIC_V2:

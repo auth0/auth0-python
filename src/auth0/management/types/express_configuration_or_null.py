@@ -57,6 +57,11 @@ class ExpressConfigurationOrNull(UniversalBaseModel):
     The identifier of the published application in the OKTA OIN.
     """
 
+    okta_oin_listing_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    URL of the application's listing in the Okta Integration Network (OIN) catalog, used to redirect customers into OIN Express Configuration. Must be an https URL on an okta.com domain with no query string or fragment.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

@@ -26,6 +26,9 @@ from ...types.self_service_profile_sso_ticket_domain_aliases_config import (
 from ...types.self_service_profile_sso_ticket_enabled_features import SelfServiceProfileSsoTicketEnabledFeatures
 from ...types.self_service_profile_sso_ticket_enabled_organization import SelfServiceProfileSsoTicketEnabledOrganization
 from ...types.self_service_profile_sso_ticket_provisioning_config import SelfServiceProfileSsoTicketProvisioningConfig
+from ...types.self_service_profile_sso_ticket_universal_logout_config import (
+    SelfServiceProfileSsoTicketUniversalLogoutConfig,
+)
 from ...types.third_party_client_access_config import ThirdPartyClientAccessConfig
 from pydantic import ValidationError
 
@@ -50,6 +53,7 @@ class RawSsoTicketClient:
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
         third_party_client_access_config: typing.Optional[ThirdPartyClientAccessConfig] = OMIT,
+        universal_logout_config: typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig] = OMIT,
         enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
@@ -83,6 +87,8 @@ class RawSsoTicketClient:
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
         third_party_client_access_config : typing.Optional[ThirdPartyClientAccessConfig]
+
+        universal_logout_config : typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig]
 
         enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
 
@@ -122,6 +128,11 @@ class RawSsoTicketClient:
                 "use_for_organization_discovery": use_for_organization_discovery,
                 "third_party_client_access_config": convert_and_respect_annotation_metadata(
                     object_=third_party_client_access_config, annotation=ThirdPartyClientAccessConfig, direction="write"
+                ),
+                "universal_logout_config": convert_and_respect_annotation_metadata(
+                    object_=universal_logout_config,
+                    annotation=SelfServiceProfileSsoTicketUniversalLogoutConfig,
+                    direction="write",
                 ),
                 "enabled_features": convert_and_respect_annotation_metadata(
                     object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"
@@ -297,6 +308,7 @@ class AsyncRawSsoTicketClient:
         provisioning_config: typing.Optional[SelfServiceProfileSsoTicketProvisioningConfig] = OMIT,
         use_for_organization_discovery: typing.Optional[bool] = OMIT,
         third_party_client_access_config: typing.Optional[ThirdPartyClientAccessConfig] = OMIT,
+        universal_logout_config: typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig] = OMIT,
         enabled_features: typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateSelfServiceProfileSsoTicketResponseContent]:
@@ -330,6 +342,8 @@ class AsyncRawSsoTicketClient:
             Indicates whether a verified domain should be used for organization discovery during authentication.
 
         third_party_client_access_config : typing.Optional[ThirdPartyClientAccessConfig]
+
+        universal_logout_config : typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig]
 
         enabled_features : typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]
 
@@ -369,6 +383,11 @@ class AsyncRawSsoTicketClient:
                 "use_for_organization_discovery": use_for_organization_discovery,
                 "third_party_client_access_config": convert_and_respect_annotation_metadata(
                     object_=third_party_client_access_config, annotation=ThirdPartyClientAccessConfig, direction="write"
+                ),
+                "universal_logout_config": convert_and_respect_annotation_metadata(
+                    object_=universal_logout_config,
+                    annotation=SelfServiceProfileSsoTicketUniversalLogoutConfig,
+                    direction="write",
                 ),
                 "enabled_features": convert_and_respect_annotation_metadata(
                     object_=enabled_features, annotation=SelfServiceProfileSsoTicketEnabledFeatures, direction="write"

@@ -32,7 +32,7 @@ class KeysClient:
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[ConnectionKey]:
         """
-        Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
+        Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy. The response includes both signing keys and encryption keys, told apart by `key_use`. Encryption keys apply only to OIDC and Okta connections.
 
         Parameters
         ----------
@@ -69,7 +69,9 @@ class KeysClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostConnectionsKeysResponseContent:
         """
-        Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+        Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication or encrypted ID tokens, enabling zero-downtime transitions.
+
+        Set `key_use` to `signing` (default) to provision signing keys, optionally choosing `signing_alg`, or to `encryption` to provision encryption keys, optionally choosing `encryption_alg`. `signing_alg` and `encryption_alg` each apply only to their own key use. Encryption keys and encrypted ID tokens apply only to OIDC and Okta connections. The response lists all of the connection's keys.
 
         Parameters
         ----------
@@ -110,6 +112,8 @@ class KeysClient:
     ) -> RotateConnectionsKeysResponseContent:
         """
         Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
+
+        Set `key_use` to `signing` (default) to rotate the signing key, optionally choosing `signing_alg`, or to `encryption` to rotate the encryption key, optionally choosing `encryption_alg`. Rotating signing keys requires the connection to be configured to use JWT Client Authentication. Rotating encryption keys requires the connection to be configured to use encrypted ID tokens (`id_token_encrypted_response_alg` set), which applies only to OIDC and Okta connections. When `encryption_alg` is omitted, the new encryption key uses `id_token_encrypted_response_alg`.
 
         Parameters
         ----------
@@ -161,7 +165,7 @@ class AsyncKeysClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[ConnectionKey]:
         """
-        Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
+        Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy. The response includes both signing keys and encryption keys, told apart by `key_use`. Encryption keys apply only to OIDC and Okta connections.
 
         Parameters
         ----------
@@ -206,7 +210,9 @@ class AsyncKeysClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostConnectionsKeysResponseContent:
         """
-        Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+        Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication or encrypted ID tokens, enabling zero-downtime transitions.
+
+        Set `key_use` to `signing` (default) to provision signing keys, optionally choosing `signing_alg`, or to `encryption` to provision encryption keys, optionally choosing `encryption_alg`. `signing_alg` and `encryption_alg` each apply only to their own key use. Encryption keys and encrypted ID tokens apply only to OIDC and Okta connections. The response lists all of the connection's keys.
 
         Parameters
         ----------
@@ -255,6 +261,8 @@ class AsyncKeysClient:
     ) -> RotateConnectionsKeysResponseContent:
         """
         Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
+
+        Set `key_use` to `signing` (default) to rotate the signing key, optionally choosing `signing_alg`, or to `encryption` to rotate the encryption key, optionally choosing `encryption_alg`. Rotating signing keys requires the connection to be configured to use JWT Client Authentication. Rotating encryption keys requires the connection to be configured to use encrypted ID tokens (`id_token_encrypted_response_alg` set), which applies only to OIDC and Okta connections. When `encryption_alg` is omitted, the new encryption key uses `id_token_encrypted_response_alg`.
 
         Parameters
         ----------

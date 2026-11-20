@@ -3087,6 +3087,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dl>
 <dd>
 
+**google_account_linking:** `typing.Optional[GoogleAccountLinkingConfigurationCreate]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **async_approval_notification_channels:** `typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]` 
     
 </dd>
@@ -4122,6 +4130,14 @@ See https://auth0.com/docs/secure/security-guidance/measures-against-app-imperso
 <dd>
 
 **my_organization_configuration:** `typing.Optional[ClientMyOrganizationPatchConfiguration]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**google_account_linking:** `typing.Optional[GoogleAccountLinkingConfigurationOrNull]` 
     
 </dd>
 </dl>
@@ -26251,7 +26267,7 @@ client.connections.clients.update(
 <dl>
 <dd>
 
-Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy.
+Gets the connection keys for the Okta, OIDC, or SAML (samlp) connection strategy. The response includes both signing keys and encryption keys, told apart by `key_use`. Encryption keys apply only to OIDC and Okta connections.
 </dd>
 </dl>
 </dd>
@@ -26324,7 +26340,9 @@ client.connections.keys.get(
 <dl>
 <dd>
 
-Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication, enabling zero-downtime transitions.
+Provision initial connection keys for Okta, OIDC, or SAML (samlp) connection strategies. This endpoint allows you to create keys before configuring the connection to use Private Key JWT authentication or encrypted ID tokens, enabling zero-downtime transitions.
+
+Set `key_use` to `signing` (default) to provision signing keys, optionally choosing `signing_alg`, or to `encryption` to provision encryption keys, optionally choosing `encryption_alg`. `signing_alg` and `encryption_alg` each apply only to their own key use. Encryption keys and encrypted ID tokens apply only to OIDC and Okta connections. The response lists all of the connection's keys.
 </dd>
 </dl>
 </dd>
@@ -26407,6 +26425,8 @@ client.connections.keys.create(
 <dd>
 
 Rotates the connection keys for the Okta, OIDC, or SAML (samlp) connection strategies.
+
+Set `key_use` to `signing` (default) to rotate the signing key, optionally choosing `signing_alg`, or to `encryption` to rotate the encryption key, optionally choosing `encryption_alg`. Rotating signing keys requires the connection to be configured to use JWT Client Authentication. Rotating encryption keys requires the connection to be configured to use encrypted ID tokens (`id_token_encrypted_response_alg` set), which applies only to OIDC and Okta connections. When `encryption_alg` is omitted, the new encryption key uses `id_token_encrypted_response_alg`.
 </dd>
 </dl>
 </dd>
@@ -27012,7 +27032,7 @@ options, which will be used when sending an email:
 <dd>
 
 ```python
-from auth0.management import Auth0, EmailProviderCredentialsSchemaZero
+from auth0.management import Auth0
 from auth0.management.environment import Auth0Environment
 
 client = Auth0(
@@ -27022,9 +27042,6 @@ client = Auth0(
 
 client.emails.provider.create(
     name="mailgun",
-    credentials=EmailProviderCredentialsSchemaZero(
-        api_key="api_key",
-    ),
 )
 
 ```
@@ -27049,14 +27066,6 @@ client.emails.provider.create(
 <dl>
 <dd>
 
-**credentials:** `EmailProviderCredentialsSchema` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **enabled:** `typing.Optional[bool]` — Whether the provider is enabled (true) or disabled (false).
     
 </dd>
@@ -27066,6 +27075,14 @@ client.emails.provider.create(
 <dd>
 
 **default_from_address:** `typing.Optional[str]` — Email address to use as "from" when no other address specified.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**credentials:** `typing.Optional[EmailProviderCredentialsSchema]` 
     
 </dd>
 </dl>
@@ -41734,6 +41751,14 @@ client.self_service_profiles.sso_ticket.create(
 <dl>
 <dd>
 
+**universal_logout_config:** `typing.Optional[SelfServiceProfileSsoTicketUniversalLogoutConfig]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **enabled_features:** `typing.Optional[SelfServiceProfileSsoTicketEnabledFeatures]` 
     
 </dd>
@@ -43583,7 +43608,7 @@ client.users.groups.get(
 <dl>
 <dd>
 
-**include_totals:** `typing.Optional[bool]` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default).
+**include_totals:** `typing.Optional[bool]` — Return results inside an object that contains the total result count (true) or as a direct array of results (false, default). The returned total reflects at most 1,000 results.
     
 </dd>
 </dl>

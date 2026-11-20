@@ -4,10 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .connection_key_use_enum import ConnectionKeyUseEnum
 from .post_connection_keys_alg_enum import PostConnectionKeysAlgEnum
 
 
 class PostConnectionKeysRequestContent(UniversalBaseModel):
+    key_use: typing.Optional[ConnectionKeyUseEnum] = pydantic.Field(default=None)
+    """
+    Whether to provision a signing key (default) or an encryption key for the connection.
+    """
+
     signing_alg: typing.Optional[PostConnectionKeysAlgEnum] = None
 
     if IS_PYDANTIC_V2:

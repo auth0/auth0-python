@@ -76,6 +76,8 @@ from ..types.express_configuration_or_null import ExpressConfigurationOrNull
 from ..types.fed_cm_login import FedCmLogin
 from ..types.fed_cm_login_patch import FedCmLoginPatch
 from ..types.get_client_response_content import GetClientResponseContent
+from ..types.google_account_linking_configuration_create import GoogleAccountLinkingConfigurationCreate
+from ..types.google_account_linking_configuration_or_null import GoogleAccountLinkingConfigurationOrNull
 from ..types.list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
 from ..types.native_social_login import NativeSocialLogin
 from ..types.native_social_login_patch import NativeSocialLoginPatch
@@ -346,6 +348,7 @@ class RawClientsClient:
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
         b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
+        google_account_linking: typing.Optional[GoogleAccountLinkingConfigurationCreate] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
@@ -518,6 +521,8 @@ class RawClientsClient:
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
+        google_account_linking : typing.Optional[GoogleAccountLinkingConfigurationCreate]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
         agent_id : typing.Optional[str]
@@ -649,6 +654,11 @@ class RawClientsClient:
                 "my_organization_configuration": convert_and_respect_annotation_metadata(
                     object_=my_organization_configuration,
                     annotation=ClientMyOrganizationPostConfiguration,
+                    direction="write",
+                ),
+                "google_account_linking": convert_and_respect_annotation_metadata(
+                    object_=google_account_linking,
+                    annotation=GoogleAccountLinkingConfigurationCreate,
                     direction="write",
                 ),
                 "async_approval_notification_channels": async_approval_notification_channels,
@@ -1438,6 +1448,7 @@ class RawClientsClient:
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
         b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
+        google_account_linking: typing.Optional[GoogleAccountLinkingConfigurationOrNull] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
         ] = OMIT,
@@ -1608,6 +1619,8 @@ class RawClientsClient:
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
+        google_account_linking : typing.Optional[GoogleAccountLinkingConfigurationOrNull]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
 
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
@@ -1747,6 +1760,11 @@ class RawClientsClient:
                 "my_organization_configuration": convert_and_respect_annotation_metadata(
                     object_=my_organization_configuration,
                     annotation=typing.Optional[ClientMyOrganizationPatchConfiguration],
+                    direction="write",
+                ),
+                "google_account_linking": convert_and_respect_annotation_metadata(
+                    object_=google_account_linking,
+                    annotation=typing.Optional[GoogleAccountLinkingConfigurationOrNull],
                     direction="write",
                 ),
                 "async_approval_notification_channels": async_approval_notification_channels,
@@ -2195,6 +2213,7 @@ class AsyncRawClientsClient:
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
         b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
+        google_account_linking: typing.Optional[GoogleAccountLinkingConfigurationCreate] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
@@ -2367,6 +2386,8 @@ class AsyncRawClientsClient:
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
+        google_account_linking : typing.Optional[GoogleAccountLinkingConfigurationCreate]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
         agent_id : typing.Optional[str]
@@ -2498,6 +2519,11 @@ class AsyncRawClientsClient:
                 "my_organization_configuration": convert_and_respect_annotation_metadata(
                     object_=my_organization_configuration,
                     annotation=ClientMyOrganizationPostConfiguration,
+                    direction="write",
+                ),
+                "google_account_linking": convert_and_respect_annotation_metadata(
+                    object_=google_account_linking,
+                    annotation=GoogleAccountLinkingConfigurationCreate,
                     direction="write",
                 ),
                 "async_approval_notification_channels": async_approval_notification_channels,
@@ -3292,6 +3318,7 @@ class AsyncRawClientsClient:
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
         b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
+        google_account_linking: typing.Optional[GoogleAccountLinkingConfigurationOrNull] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
         ] = OMIT,
@@ -3462,6 +3489,8 @@ class AsyncRawClientsClient:
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
+        google_account_linking : typing.Optional[GoogleAccountLinkingConfigurationOrNull]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
 
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
@@ -3601,6 +3630,11 @@ class AsyncRawClientsClient:
                 "my_organization_configuration": convert_and_respect_annotation_metadata(
                     object_=my_organization_configuration,
                     annotation=typing.Optional[ClientMyOrganizationPatchConfiguration],
+                    direction="write",
+                ),
+                "google_account_linking": convert_and_respect_annotation_metadata(
+                    object_=google_account_linking,
+                    annotation=typing.Optional[GoogleAccountLinkingConfigurationOrNull],
                     direction="write",
                 ),
                 "async_approval_notification_channels": async_approval_notification_channels,

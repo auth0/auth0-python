@@ -10,17 +10,17 @@ from .connection_key_use_enum import ConnectionKeyUseEnum
 class RotateConnectionsKeysResponseContent(UniversalBaseModel):
     kid: str = pydantic.Field()
     """
-    The key id of the signing key
+    The key id of the signing or encryption key
     """
 
     cert: str = pydantic.Field()
     """
-    The public certificate of the signing key
+    The public certificate of the signing or encryption key
     """
 
     pkcs: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The public certificate of the signing key in pkcs7 format
+    The public certificate of the signing or encryption key in pkcs7 format
     """
 
     next: typing.Optional[bool] = pydantic.Field(default=None)
@@ -40,7 +40,7 @@ class RotateConnectionsKeysResponseContent(UniversalBaseModel):
 
     algorithm: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Signing key algorithm
+    Key algorithm: a signing algorithm for signing keys, or a key-management algorithm for encryption keys
     """
 
     key_use: typing.Optional[ConnectionKeyUseEnum] = None

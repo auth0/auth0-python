@@ -42,6 +42,7 @@ from .client_token_exchange_configuration import ClientTokenExchangeConfiguratio
 from .client_token_vault_privileged_access_with_credential_id import ClientTokenVaultPrivilegedAccessWithCredentialId
 from .express_configuration import ExpressConfiguration
 from .fed_cm_login import FedCmLogin
+from .google_account_linking_configuration import GoogleAccountLinkingConfiguration
 from .identity_assertion_authorization_grant import IdentityAssertionAuthorizationGrant
 from .native_social_login import NativeSocialLogin
 from .token_quota import TokenQuota
@@ -253,6 +254,7 @@ class RotateClientSecretResponseContent(UniversalBaseModel):
         pydantic.Field(alias="b2b_integration_configuration"),
     ] = None
     my_organization_configuration: typing.Optional[ClientMyOrganizationResponseConfiguration] = None
+    google_account_linking: typing.Optional[GoogleAccountLinkingConfiguration] = None
     identity_assertion_authorization_grant: typing.Optional[IdentityAssertionAuthorizationGrant] = None
     anonymous_sessions: typing.Optional[AnonymousSessions] = None
     enforce_anon_session_transfer_network_binding: typing.Optional[ClientAnonymousSessionTransferNetworkBindingEnum] = (
