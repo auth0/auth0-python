@@ -147,9 +147,9 @@ class RawProviderClient:
         self,
         *,
         name: EmailProviderNameEnum,
-        credentials: EmailProviderCredentialsSchema,
         enabled: typing.Optional[bool] = OMIT,
         default_from_address: typing.Optional[str] = OMIT,
+        credentials: typing.Optional[EmailProviderCredentialsSchema] = OMIT,
         settings: typing.Optional[EmailSpecificProviderSettingsWithAdditionalProperties] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateEmailProviderResponseContent]:
@@ -184,13 +184,13 @@ class RawProviderClient:
         ----------
         name : EmailProviderNameEnum
 
-        credentials : EmailProviderCredentialsSchema
-
         enabled : typing.Optional[bool]
             Whether the provider is enabled (true) or disabled (false).
 
         default_from_address : typing.Optional[str]
             Email address to use as "from" when no other address specified.
+
+        credentials : typing.Optional[EmailProviderCredentialsSchema]
 
         settings : typing.Optional[EmailSpecificProviderSettingsWithAdditionalProperties]
 
@@ -660,9 +660,9 @@ class AsyncRawProviderClient:
         self,
         *,
         name: EmailProviderNameEnum,
-        credentials: EmailProviderCredentialsSchema,
         enabled: typing.Optional[bool] = OMIT,
         default_from_address: typing.Optional[str] = OMIT,
+        credentials: typing.Optional[EmailProviderCredentialsSchema] = OMIT,
         settings: typing.Optional[EmailSpecificProviderSettingsWithAdditionalProperties] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateEmailProviderResponseContent]:
@@ -697,13 +697,13 @@ class AsyncRawProviderClient:
         ----------
         name : EmailProviderNameEnum
 
-        credentials : EmailProviderCredentialsSchema
-
         enabled : typing.Optional[bool]
             Whether the provider is enabled (true) or disabled (false).
 
         default_from_address : typing.Optional[str]
             Email address to use as "from" when no other address specified.
+
+        credentials : typing.Optional[EmailProviderCredentialsSchema]
 
         settings : typing.Optional[EmailSpecificProviderSettingsWithAdditionalProperties]
 

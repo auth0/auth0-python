@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .password_default_dictionaries_enum import PasswordDefaultDictionariesEnum
+from .password_dictionary_match_type_enum import PasswordDictionaryMatchTypeEnum
 
 
 class ConnectionPasswordOptionsDictionary(UniversalBaseModel):
@@ -19,9 +20,10 @@ class ConnectionPasswordOptionsDictionary(UniversalBaseModel):
 
     custom: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Array of custom words to block in passwords. Maximum 200 items, each up to 50 characters
+    Array of custom words to block in passwords
     """
 
+    match_type: typing.Optional[PasswordDictionaryMatchTypeEnum] = None
     default: typing.Optional[PasswordDefaultDictionariesEnum] = None
 
     if IS_PYDANTIC_V2:

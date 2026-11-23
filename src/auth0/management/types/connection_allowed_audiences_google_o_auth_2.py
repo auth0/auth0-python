@@ -4,5 +4,5 @@ import typing
 
 ConnectionAllowedAudiencesGoogleOAuth2 = typing.List[str]
 """
-List of allowed audiences in the ID token for Google Native Social Login
+Additional Google client IDs accepted as the `aud` (audience) of Google ID tokens, used by Google native login and Google Streamlined Linking.
 """

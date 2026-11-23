@@ -2,4 +2,4 @@
 
 import typing
 
-ClientCredentialAlgorithmEnum = typing.Union[typing.Literal["RS256", "RS384", "PS256"], typing.Any]
+ClientCredentialAlgorithmEnum = typing.Union[typing.Literal["RS256", "RS384", "PS256", "ES256", "PS384"], typing.Any]

@@ -63,6 +63,8 @@ from ..types.express_configuration_or_null import ExpressConfigurationOrNull
 from ..types.fed_cm_login import FedCmLogin
 from ..types.fed_cm_login_patch import FedCmLoginPatch
 from ..types.get_client_response_content import GetClientResponseContent
+from ..types.google_account_linking_configuration_create import GoogleAccountLinkingConfigurationCreate
+from ..types.google_account_linking_configuration_or_null import GoogleAccountLinkingConfigurationOrNull
 from ..types.list_clients_offset_paginated_response_content import ListClientsOffsetPaginatedResponseContent
 from ..types.native_social_login import NativeSocialLogin
 from ..types.native_social_login_patch import NativeSocialLoginPatch
@@ -292,6 +294,7 @@ class ClientsClient:
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
         b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
+        google_account_linking: typing.Optional[GoogleAccountLinkingConfigurationCreate] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
@@ -464,6 +467,8 @@ class ClientsClient:
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
+        google_account_linking : typing.Optional[GoogleAccountLinkingConfigurationCreate]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
         agent_id : typing.Optional[str]
@@ -549,6 +554,7 @@ class ClientsClient:
             express_configuration=express_configuration,
             b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
+            google_account_linking=google_account_linking,
             async_approval_notification_channels=async_approval_notification_channels,
             agent_id=agent_id,
             oidc_support=oidc_support,
@@ -893,6 +899,7 @@ class ClientsClient:
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
         b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
+        google_account_linking: typing.Optional[GoogleAccountLinkingConfigurationOrNull] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
         ] = OMIT,
@@ -1063,6 +1070,8 @@ class ClientsClient:
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
+        google_account_linking : typing.Optional[GoogleAccountLinkingConfigurationOrNull]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
 
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
@@ -1151,6 +1160,7 @@ class ClientsClient:
             express_configuration=express_configuration,
             b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
+            google_account_linking=google_account_linking,
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,
@@ -1431,6 +1441,7 @@ class AsyncClientsClient:
         express_configuration: typing.Optional[ExpressConfiguration] = OMIT,
         b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPostConfiguration] = OMIT,
+        google_account_linking: typing.Optional[GoogleAccountLinkingConfigurationCreate] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPostConfiguration
         ] = OMIT,
@@ -1603,6 +1614,8 @@ class AsyncClientsClient:
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPostConfiguration]
 
+        google_account_linking : typing.Optional[GoogleAccountLinkingConfigurationCreate]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPostConfiguration]
 
         agent_id : typing.Optional[str]
@@ -1696,6 +1709,7 @@ class AsyncClientsClient:
             express_configuration=express_configuration,
             b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
+            google_account_linking=google_account_linking,
             async_approval_notification_channels=async_approval_notification_channels,
             agent_id=agent_id,
             oidc_support=oidc_support,
@@ -2081,6 +2095,7 @@ class AsyncClientsClient:
         express_configuration: typing.Optional[ExpressConfigurationOrNull] = OMIT,
         b_2_b_integration_configuration: typing.Optional[B2BIntegrationConfiguration] = OMIT,
         my_organization_configuration: typing.Optional[ClientMyOrganizationPatchConfiguration] = OMIT,
+        google_account_linking: typing.Optional[GoogleAccountLinkingConfigurationOrNull] = OMIT,
         async_approval_notification_channels: typing.Optional[
             ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration
         ] = OMIT,
@@ -2251,6 +2266,8 @@ class AsyncClientsClient:
 
         my_organization_configuration : typing.Optional[ClientMyOrganizationPatchConfiguration]
 
+        google_account_linking : typing.Optional[GoogleAccountLinkingConfigurationOrNull]
+
         async_approval_notification_channels : typing.Optional[ClientAsyncApprovalNotificationsChannelsApiPatchConfiguration]
 
         third_party_security_mode : typing.Optional[ClientThirdPartySecurityModeEnum]
@@ -2347,6 +2364,7 @@ class AsyncClientsClient:
             express_configuration=express_configuration,
             b_2_b_integration_configuration=b_2_b_integration_configuration,
             my_organization_configuration=my_organization_configuration,
+            google_account_linking=google_account_linking,
             async_approval_notification_channels=async_approval_notification_channels,
             third_party_security_mode=third_party_security_mode,
             redirection_policy=redirection_policy,

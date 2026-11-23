@@ -154,11 +154,6 @@ class TenantSettingsFlags(UniversalBaseModel):
     Improves bot detection during signup in classic universal login
     """
 
-    genai_trial: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    This tenant signed up for the Auth4GenAI trail
-    """
-
     local_resource_discovery: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the Local Resource Discovery endpoint is enabled (true) or disabled (false).
