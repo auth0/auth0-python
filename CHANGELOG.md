@@ -1,5 +1,17 @@
 # Change Log
 
+## [6.11.0](https://github.com/auth0/auth0-python/tree/6.11.0) (2026-11-23)
+[Full Changelog](https://github.com/auth0/auth0-python/compare/6.10.0...6.11.0)
+
+**Added**
+- `okta_oin_listing_url` on client `express_configuration` in `client.clients.create()` and `update()` and in client responses. `universal_logout_config` on `client.self_service_profiles.sso_ticket.create()`, whose required `allow_configuration` boolean lets the end user set up Universal Logout during the self-service enterprise configuration flow. `google_account_linking` with `allow_streamlined_linking` on `client.clients.create()` and `update()` and in client responses. `key_use` on `client.connections.keys.create()` and `rotate()`, set to `encryption` to provision or rotate an encryption key on OIDC and Okta connections, with signing as the default. Password dictionary `match_type` (`exact` or `substring`), `client_id` and `allowed_audiences` on connection options, the `ES256` and `PS384` client credential algorithms, the `model_context_protocol_server` resource server type, the `agent_gateway.authentication.fail`, `agent_gateway.operation.fail`, and `agent_gateway.operation.success` log stream filter groups, and the exported `IncludeUserProfileSizeHeaderEnum` type [\#913](https://github.com/auth0/auth0-python/pull/913) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Changed**
+- `credentials` is now optional on `client.emails.provider.create()`, and calls that pass it keep working. Connection key methods and models now describe both signing and encryption keys, and `include_totals` on `client.users.groups.get()` notes that the returned total reflects at most 1,000 results. These description updates do not change behavior [\#913](https://github.com/auth0/auth0-python/pull/913) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Removed**
+- `genai_trial` removed from the tenant settings flags. Reading `flags.genai_trial` raises `AttributeError` when the response does not include it. Use `getattr(flags, "genai_trial", None)` if you still read it [\#913](https://github.com/auth0/auth0-python/pull/913) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [6.10.0](https://github.com/auth0/auth0-python/tree/6.10.0) (2026-11-13)
 [Full Changelog](https://github.com/auth0/auth0-python/compare/6.9.0...6.10.0)
 
