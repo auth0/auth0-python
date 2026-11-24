@@ -14174,7 +14174,7 @@
       },
       "response": {
         "status": 201,
-        "body": "{\n  \"id\": \"id\",\n  \"client_id\": \"client_id\",\n  \"audience\": \"audience\",\n  \"scope\": [\n    \"scope\"\n  ],\n  \"organization_usage\": \"deny\",\n  \"allow_any_organization\": true\n}",
+        "body": "{\n  \"grant_id\": \"grant_id\",\n  \"client_id\": \"client_id\",\n  \"audience\": \"audience\",\n  \"scope\": [\n    \"scope\"\n  ],\n  \"organization_usage\": \"deny\",\n  \"allow_any_organization\": true\n}",
         "headers": {
           "Content-Type": "application/json"
         }

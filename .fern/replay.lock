@@ -30,14 +30,20 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.26.0
-current_generation: 89e85b537368a6c746f34041680bd4f7fa3cfb5a
+  - commit_sha: 409145489efe540747e53517ece13087ed7a1fb8
+    tree_hash: e822049a6625f20ef7c1cfcc775f7ced9b541947
+    timestamp: 2026-11-24T05:40:27.276Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.26.0
+current_generation: 409145489efe540747e53517ece13087ed7a1fb8
 patches:
   - id: patch-3bac717a
     content_hash: sha256:f4ad3ba43b0430fa3dfb54bfcf588cb697efe8185eb30350f9955849f831083f
     original_commit: 3bac717acae703868197afb75fc26d296957a4fd
     original_message: Restore Auth0 telemetry headers and keep UPGRADING.md (#900)
     original_author: Kunal Dawar <35455566+developerkunal@users.noreply.github.com>
-    base_generation: 89e85b537368a6c746f34041680bd4f7fa3cfb5a
+    base_generation: 409145489efe540747e53517ece13087ed7a1fb8
     files:
       - src/auth0/management/core/client_wrapper.py
     patch_content: |

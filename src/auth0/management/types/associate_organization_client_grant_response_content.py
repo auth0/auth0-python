@@ -8,7 +8,7 @@ from .organization_usage_enum import OrganizationUsageEnum
 
 
 class AssociateOrganizationClientGrantResponseContent(UniversalBaseModel):
-    id: typing.Optional[str] = pydantic.Field(default=None)
+    grant_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the client grant.
     """

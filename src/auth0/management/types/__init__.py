@@ -5708,6 +5708,7 @@ if typing.TYPE_CHECKING:
     from .get_user_response_content import GetUserResponseContent
     from .get_variation_response_content import GetVariationResponseContent
     from .get_verifiable_credential_template_response_content import GetVerifiableCredentialTemplateResponseContent
+    from .get_webtask_response_content import GetWebtaskResponseContent
     from .google_account_linking_configuration import GoogleAccountLinkingConfiguration
     from .google_account_linking_configuration_create import GoogleAccountLinkingConfigurationCreate
     from .google_account_linking_configuration_or_null import GoogleAccountLinkingConfigurationOrNull
@@ -6609,6 +6610,13 @@ if typing.TYPE_CHECKING:
     from .verification_method_enum import VerificationMethodEnum
     from .verify_custom_domain_response_content import VerifyCustomDomainResponseContent
     from .verify_email_ticket_response_content import VerifyEmailTicketResponseContent
+    from .webtask import Webtask
+    from .webtask_container import WebtaskContainer
+    from .webtask_name import WebtaskName
+    from .webtask_response_meta import WebtaskResponseMeta
+    from .webtask_response_secrets import WebtaskResponseSecrets
+    from .webtask_token import WebtaskToken
+    from .webtask_url import WebtaskUrl
     from .x_509_certificate_credential import X509CertificateCredential
     from .x_509_certificate_credential_type_enum import X509CertificateCredentialTypeEnum
     from .xss_protection_config import XssProtectionConfig
@@ -9856,6 +9864,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetUserResponseContent": ".get_user_response_content",
     "GetVariationResponseContent": ".get_variation_response_content",
     "GetVerifiableCredentialTemplateResponseContent": ".get_verifiable_credential_template_response_content",
+    "GetWebtaskResponseContent": ".get_webtask_response_content",
     "GoogleAccountLinkingConfiguration": ".google_account_linking_configuration",
     "GoogleAccountLinkingConfigurationCreate": ".google_account_linking_configuration_create",
     "GoogleAccountLinkingConfigurationOrNull": ".google_account_linking_configuration_or_null",
@@ -10623,6 +10632,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VerificationMethodEnum": ".verification_method_enum",
     "VerifyCustomDomainResponseContent": ".verify_custom_domain_response_content",
     "VerifyEmailTicketResponseContent": ".verify_email_ticket_response_content",
+    "Webtask": ".webtask",
+    "WebtaskContainer": ".webtask_container",
+    "WebtaskName": ".webtask_name",
+    "WebtaskResponseMeta": ".webtask_response_meta",
+    "WebtaskResponseSecrets": ".webtask_response_secrets",
+    "WebtaskToken": ".webtask_token",
+    "WebtaskUrl": ".webtask_url",
     "X509CertificateCredential": ".x_509_certificate_credential",
     "X509CertificateCredentialTypeEnum": ".x_509_certificate_credential_type_enum",
     "XssProtectionConfig": ".xss_protection_config",
@@ -13894,6 +13910,7 @@ __all__ = [
     "GetUserResponseContent",
     "GetVariationResponseContent",
     "GetVerifiableCredentialTemplateResponseContent",
+    "GetWebtaskResponseContent",
     "GoogleAccountLinkingConfiguration",
     "GoogleAccountLinkingConfigurationCreate",
     "GoogleAccountLinkingConfigurationOrNull",
@@ -14661,6 +14678,13 @@ __all__ = [
     "VerificationMethodEnum",
     "VerifyCustomDomainResponseContent",
     "VerifyEmailTicketResponseContent",
+    "Webtask",
+    "WebtaskContainer",
+    "WebtaskName",
+    "WebtaskResponseMeta",
+    "WebtaskResponseSecrets",
+    "WebtaskToken",
+    "WebtaskUrl",
     "X509CertificateCredential",
     "X509CertificateCredentialTypeEnum",
     "XssProtectionConfig",

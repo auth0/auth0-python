@@ -54,7 +54,7 @@ class TenantSettingsFlags(UniversalBaseModel):
 
     allow_legacy_delegation_grant_types: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    If enabled, clients are able to add legacy delegation grants.
+    DEPRECATED property. If enabled, first-party applications can add the legacy delegation grant types. It does not enable the /delegation endpoint.
     """
 
     allow_legacy_ro_grant_types: typing.Optional[bool] = pydantic.Field(default=None)
