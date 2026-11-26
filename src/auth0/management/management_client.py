@@ -41,6 +41,11 @@ def _enforce_custom_domain_whitelist(request: httpx.Request) -> None:
         del request.headers[CUSTOM_DOMAIN_HEADER]
 
 
+async def _enforce_custom_domain_whitelist_async(request: httpx.Request) -> None:
+    """httpx event hook for httpx.AsyncClient, which awaits its request hooks."""
+    _enforce_custom_domain_whitelist(request)
+
+
 def CustomDomainHeader(domain: str) -> RequestOptions:
     """Create request options that set the Auth0-Custom-Domain header for a single request.
 
@@ -526,7 +531,7 @@ class AsyncManagementClient:
             if httpx_client is None:
                 httpx_client = httpx.AsyncClient(timeout=timeout or 60, follow_redirects=True)
             httpx_client.event_hooks.setdefault("request", []).append(
-                _enforce_custom_domain_whitelist
+                _enforce_custom_domain_whitelist_async
             )
 
         # Encode client_info into Auth0-Client header to override default telemetry
